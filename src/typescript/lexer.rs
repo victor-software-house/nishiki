@@ -4,13 +4,14 @@
 use std::cell::Cell;
 
 use super::Dialect;
-use super::bytes::Bytes;
+use super::bytes::{ASCII_NAME_CHAR, ASCII_NAME_START, Bytes};
 use super::kind::Kind;
 use super::scope::S;
 use crate::arena::{Arena, Frame};
+use crate::classes::is_ascii_space;
 use crate::language::Context;
 use crate::limits::{Limit, Limits, LineReport};
-use crate::{Stack, Token, classes};
+use crate::{Stack, Token, classes, space};
 
 /// Lexes one line. `pos` is the end of the last token emitted; the bytes
 /// between it and a rule's match are plain text of the current context.
@@ -69,23 +70,6 @@ pub(crate) struct Lexer<'a, const D: u8> {
     next_bracket: Cell<(usize, Option<usize>)>,
 }
 
-/// For each ASCII byte: bit 0 is `[$_[:alnum:]]`, bit 1 is `[$_[:alpha:]]`.
-const CLASS: [u8; 128] = {
-    let mut table = [0; 128];
-    let mut b = 0;
-    while b < 128 {
-        // `$`, `_`, `A`-`Z` and `a`-`z` are letters; `0`-`9` are digits.
-        let letter = b == 36 || b == 95 || (b >= 65 && b <= 90) || (b >= 97 && b <= 122);
-        if letter {
-            table[b] = 3;
-        } else if b >= 48 && b <= 57 {
-            table[b] = 1;
-        }
-        b += 1;
-    }
-    table
-};
-
 /// A context opened on the current line, which `TextMate` remembers to
 /// catch a grammar that loops.
 ///
@@ -101,10 +85,6 @@ pub(crate) struct Opened {
     enter: usize,
     /// The `\G` anchor in force before it began.
     anchor: usize,
-}
-
-pub(crate) fn is_ws(b: u8) -> bool {
-    matches!(b, b' ' | b'\t' | b'\n' | b'\r' | 0x0b | 0x0c)
 }
 
 /// `[$_[:alnum:]]`.
@@ -310,8 +290,8 @@ impl<'a, const D: u8> Lexer<'a, D> {
         }
         let next = if p >= self.len || p == 0 {
             return step;
-        } else if is_ws(self.b(p)) {
-            if !is_ws(self.b(p - 1)) {
+        } else if is_ascii_space(self.b(p)) {
+            if !is_ascii_space(self.b(p - 1)) {
                 return step;
             }
             self.ws(p)
@@ -438,7 +418,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
 
     /// The regex `\s` at `i`, the newline that ends the line included.
     pub(crate) fn space_at(&self, i: usize) -> bool {
-        is_ws(self.b(i)) || self.char_at(i).is_some_and(classes::is_space)
+        is_ascii_space(self.b(i)) || space::len(self.s.get(i..).unwrap_or_default()) > 0
     }
 
     /// The character before `i`; the newline that ends the line is the one
@@ -472,16 +452,13 @@ impl<'a, const D: u8> Lexer<'a, D> {
         }
         let mut j = i;
         loop {
-            let b = self.b(j);
-            if is_ws(b) {
+            if is_ascii_space(self.b(j)) {
                 j += 1;
-            } else if b >= 0xc2
-                && let Some(c) = self.src.get(j..).and_then(|rest| rest.chars().next())
-                && c.is_whitespace()
-            {
-                j += c.len_utf8();
-            } else {
-                break;
+                continue;
+            }
+            match space::len(self.s.get(j..).unwrap_or_default()) {
+                0 => break,
+                n => j += n,
             }
         }
         self.spend(j - i + 1);
@@ -498,7 +475,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// `[$_[:alpha:]]` at `i`.
     pub(crate) fn id_start(&self, i: usize) -> bool {
         match self.s.get(i) {
-            Some(&b) if b < 0x80 => CLASS[usize::from(b)] & 2 != 0,
+            Some(&b) if b < 0x80 => ASCII_NAME_START.has(b),
             Some(_) => self.char_at(i).is_some_and(is_alpha_char),
             None => false,
         }
@@ -507,7 +484,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// `[$_[:alnum:]]` at `i`.
     pub(crate) fn alnum_at(&self, i: usize) -> bool {
         match self.s.get(i) {
-            Some(&b) if b < 0x80 => CLASS[usize::from(b)] & 1 != 0,
+            Some(&b) if b < 0x80 => ASCII_NAME_CHAR.has(b),
             Some(_) => self.char_at(i).is_some_and(is_alnum_char),
             None => false,
         }
@@ -523,7 +500,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
         let mut i = from;
         while let Some(&b) = self.s.get(i) {
             if b < 0x80 {
-                if CLASS[usize::from(b)] & 1 == 0 {
+                if !ASCII_NAME_CHAR.has(b) {
                     break;
                 }
                 i += 1;

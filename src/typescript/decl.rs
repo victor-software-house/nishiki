@@ -1,6 +1,7 @@
 //! Statements and declarations.
 
 use super::bytes::{ANY, BLANK, Bytes, COMMENT_START, LOWER, NAME_START, STRING_START};
+use super::calls::Before;
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
@@ -130,26 +131,13 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn object_literal_before(&self, p: usize) -> bool {
-        let Some(head) = self.s.get(..p) else {
-            return false;
+        const OBJECT_LITERAL: Before = Before {
+            bytes: Bytes::of(b"!(+,:=>?[*"),
+            operators: &["&&", "||"],
+            words: &["await", "return", "yield", "throw", "in", "of", "typeof"],
+            never: &["++", "--"],
         };
-        if head.ends_with(b"++") || head.ends_with(b"--") {
-            return false;
-        }
-        if head.last().is_some_and(|b| {
-            matches!(
-                b,
-                b'!' | b'(' | b'+' | b',' | b':' | b'=' | b'>' | b'?' | b'[' | b'*'
-            )
-        }) {
-            return true;
-        }
-        if head.ends_with(b"&&") || head.ends_with(b"||") {
-            return true;
-        }
-        ["await", "return", "yield", "throw", "in", "of", "typeof"]
-            .iter()
-            .any(|w| self.word_before_text(p, w))
+        self.operator_before(p, &OBJECT_LITERAL)
     }
 
     pub(crate) fn label(&mut self, p: usize) -> Option<usize> {

@@ -74,6 +74,12 @@ pub(crate) const BLANK: Bytes = Bytes::of(b" \t\n\r\x0b\x0c\xc2\xe1\xe2\xe3");
 /// Where a name can start: a letter, `$`, `_` or a non-ASCII character.
 pub(crate) const NAME_START: Bytes = LOWER.or(UPPER).or(HIGH).or(Bytes::of(b"$_"));
 
+/// `[$_[:alpha:]]` among ASCII bytes: a letter, `$` or `_`.
+pub(crate) const ASCII_NAME_START: Bytes = LOWER.or(UPPER).or(Bytes::of(b"$_"));
+
+/// `[$_[:alnum:]]` among ASCII bytes: a name's start or a digit.
+pub(crate) const ASCII_NAME_CHAR: Bytes = ASCII_NAME_START.or(DIGIT);
+
 /// Every byte.
 pub(crate) const ANY: Bytes = Bytes::range(0, 255);
 

@@ -293,6 +293,32 @@ impl<const D: u8> Lexer<'_, D> {
         self.word_before_text(p, "return")
     }
 
+    /// Whether the text before `p` ends in what `before` accepts: one of its
+    /// bytes or operators, or one of its words as a whole word, and none of
+    /// what it refuses. The grammar spells this lookbehind, with its own sets,
+    /// before an object literal, a cast, a JSX tag and a regular expression.
+    pub(crate) fn operator_before(&self, p: usize, before: &Before) -> bool {
+        let Some(head) = self.s.get(..p) else {
+            return false;
+        };
+        if before
+            .never
+            .iter()
+            .any(|text| head.ends_with(text.as_bytes()))
+        {
+            return false;
+        }
+        head.last().is_some_and(|&b| before.bytes.has(b))
+            || before
+                .operators
+                .iter()
+                .any(|text| head.ends_with(text.as_bytes()))
+            || before
+                .words
+                .iter()
+                .any(|word| self.word_before_text(p, word))
+    }
+
     pub(crate) fn word_before_text(&self, p: usize, word: &str) -> bool {
         let Some(head) = self.s.get(..p) else {
             return false;
@@ -384,28 +410,18 @@ impl<const D: u8> Lexer<'_, D> {
     /// The lookbehind of a cast: an operator, or a keyword that takes an
     /// operand, not a `++` or `--` suffix.
     fn cast_before(&self, p: usize) -> bool {
-        let Some(head) = self.s.get(..p) else {
-            return false;
+        const CAST: Before = Before {
+            bytes: Bytes::of(b"&(*,:=>?^|"),
+            operators: &[],
+            words: &["return", "throw", "yield", "await", "default"],
+            never: &["++", "--"],
         };
-        if head.ends_with(b"++") || head.ends_with(b"--") {
-            return false;
-        }
-        if head.last().is_some_and(|b| {
-            matches!(
-                b,
-                b'&' | b'(' | b'*' | b',' | b':' | b'=' | b'>' | b'?' | b'^' | b'|'
-            )
-        }) {
-            return true;
-        }
         // `[^+]\+` and `[^-]-`: a lone plus or minus, with a character before
         // it.
-        if p >= 2 && matches!(head.last(), Some(b'+' | b'-')) {
-            return true;
-        }
-        ["return", "throw", "yield", "await", "default"]
-            .iter()
-            .any(|word| self.word_before_text(p, word))
+        let lone_sign = p >= 2
+            && matches!(self.s.get(p - 1), Some(b'+' | b'-'))
+            && self.s.get(p - 2) != self.s.get(p - 1);
+        self.operator_before(p, &CAST) || lone_sign
     }
 
     // Other expression forms.
@@ -434,4 +450,17 @@ impl<const D: u8> Lexer<'_, D> {
             &[S::KeywordOperatorExpressionInstanceof],
         )
     }
+}
+
+/// What an operator lookbehind accepts before a position; see
+/// [`Lexer::operator_before`].
+pub(crate) struct Before {
+    /// Bytes that may end the text before it.
+    pub(crate) bytes: Bytes,
+    /// Longer operators that may end it, such as `&&`.
+    pub(crate) operators: &'static [&'static str],
+    /// Words that may end it, neither inside a longer name nor after a dot.
+    pub(crate) words: &'static [&'static str],
+    /// What may not end it, though a byte or operator above would match.
+    pub(crate) never: &'static [&'static str],
 }

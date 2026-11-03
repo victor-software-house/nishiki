@@ -591,13 +591,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.b(p) != b'/' || p >= self.len {
             return None;
         }
-        let mut e = p + 1;
-        while matches!(
-            self.b(e),
-            b'd' | b'g' | b'i' | b'm' | b's' | b'u' | b'v' | b'y'
-        ) {
-            e += 1;
-        }
+        let e = self.regex_flags_end(p + 1);
         let kind = self.top();
         self.flush(p);
         self.pop();

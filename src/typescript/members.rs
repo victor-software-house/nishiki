@@ -765,7 +765,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         // The value is a function.
-        let v = self.ws_comments_after_colon(after + 1);
+        let v = self.ws_comments(after + 1);
         if self.fn_value_ahead(v) {
             self.flush(p);
             self.cap(
@@ -780,19 +780,6 @@ impl<const D: u8> Lexer<'_, D> {
         self.flush(p);
         self.cap(Kind::ObjMember, p, j, &[S::MetaObjectLiteralKey]);
         Some(j)
-    }
-
-    /// `(\s*/\*…\*/)*\s*` after a colon.
-    fn ws_comments_after_colon(&self, i: usize) -> usize {
-        let mut j = i;
-        loop {
-            let k = self.ws(j);
-            if let Some(e) = self.block_comment(k) {
-                j = e;
-            } else {
-                return k;
-            }
-        }
     }
 
     /// `B(as)\s+(const)(?=\s*([,}]|$))` and `as`/`satisfies` types.

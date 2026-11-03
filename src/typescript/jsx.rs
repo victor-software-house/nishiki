@@ -5,6 +5,8 @@
 //! grammar's contexts: an expression that holds tags, a tag with or without
 //! attributes, its attributes, its children and the `{…}` code inside them.
 
+use super::bytes::Bytes;
+use super::calls::Before;
 use super::kind::Kind;
 use super::lexer::{Lexer, is_alnum_char};
 use super::scope::S;
@@ -85,31 +87,13 @@ impl<const D: u8> Lexer<'_, D> {
     /// `(?<!\+\+|--)(?<=[(*,:=>?\[{]|&&|\|\||\?|\*/|^await|…|^)` at `p`: where
     /// a tag may start after what precedes it.
     fn jsx_before(&self, p: usize) -> bool {
-        if p == 0 {
-            return true;
-        }
-        let head = &self.s[..p.min(self.len)];
-        if head.ends_with(b"++") || head.ends_with(b"--") {
-            return false;
-        }
-        if matches!(
-            head.last(),
-            Some(b'(' | b'*' | b',' | b':' | b'=' | b'>' | b'?' | b'[' | b'{')
-        ) {
-            return true;
-        }
-        if head.ends_with(b"&&") || head.ends_with(b"||") || head.ends_with(b"*/") {
-            return true;
-        }
-        ["await", "return", "default", "yield"].iter().any(|word| {
-            head.ends_with(word.as_bytes()) && {
-                let start = head.len() - word.len();
-                start == 0
-                    || self
-                        .prev_char(start)
-                        .is_some_and(|c| !(matches!(c, '$' | '.' | '_') || is_alnum_char(c)))
-            }
-        })
+        const TAG: Before = Before {
+            bytes: Bytes::of(b"(*,:=>?[{"),
+            operators: &["&&", "||", "*/"],
+            words: &["await", "return", "default", "yield"],
+            never: &["++", "--"],
+        };
+        p == 0 || self.operator_before(p.min(self.len), &TAG)
     }
 
     /// `(<)\s*(?:(ns)(:))?(tag)?\s*(>)` at `i`: a tag without attributes.

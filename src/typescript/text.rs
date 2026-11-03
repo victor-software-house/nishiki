@@ -1,5 +1,7 @@
 //! Strings, template literals, regular expressions and comments.
 
+use super::bytes::Bytes;
+use super::calls::Before;
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
@@ -236,24 +238,13 @@ impl<const D: u8> Lexer<'_, D> {
     /// `(?<!\+\+|--|})(?<=[!(+,:=?\[]|^return|…return|^case|…case|=>|&&|\|\||\*
     /// /)`.
     fn regex_before_strict(&self, p: usize) -> bool {
-        let Some(head) = self.s.get(..p) else {
-            return false;
+        const STRICT: Before = Before {
+            bytes: Bytes::of(b"!(+,:=?["),
+            operators: &["=>", "&&", "||", "*/"],
+            words: &["return", "case"],
+            never: &["++", "--", "}"],
         };
-        if head.ends_with(b"++") || head.ends_with(b"--") || head.ends_with(b"}") {
-            return false;
-        }
-        if head
-            .last()
-            .is_some_and(|b| matches!(b, b'!' | b'(' | b'+' | b',' | b':' | b'=' | b'?' | b'['))
-        {
-            return true;
-        }
-        self.word_before_text(p, "return")
-            || self.word_before_text(p, "case")
-            || head.ends_with(b"=>")
-            || head.ends_with(b"&&")
-            || head.ends_with(b"||")
-            || head.ends_with(b"*/")
+        self.operator_before(p, &STRICT)
     }
 
     /// `(?<![]$)_[:alnum:]]|\+\+|--|}|\*/)`: not after a name, a closing
@@ -347,13 +338,7 @@ impl<const D: u8> Lexer<'_, D> {
             return false;
         }
         let f = j + 1;
-        let mut g = f;
-        while matches!(
-            self.b(g),
-            b'd' | b'g' | b'i' | b'm' | b's' | b'u' | b'v' | b'y'
-        ) {
-            g += 1;
-        }
+        let g = self.regex_flags_end(f);
         let name_follows = |i: usize| {
             let k = self.ws(i);
             let c = self.b(k);
@@ -362,6 +347,18 @@ impl<const D: u8> Lexer<'_, D> {
         (g > f && !name_follows(g))
             || (!matches!(self.b(f), b'*' | b'/') && !name_follows(f))
             || (self.starts(f, "/*") && !name_follows(f))
+    }
+
+    /// `[dgimsuvy]*` from `i`: the end of a regular expression's flags.
+    pub(crate) fn regex_flags_end(&self, i: usize) -> usize {
+        let mut e = i;
+        while matches!(
+            self.b(e),
+            b'd' | b'g' | b'i' | b'm' | b's' | b'u' | b'v' | b'y'
+        ) {
+            e += 1;
+        }
+        e
     }
 
     /// Inside a regular expression.
