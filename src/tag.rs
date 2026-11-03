@@ -108,6 +108,9 @@ tags! {
     /// Kotlin.
     #[cfg(feature = "lang-kotlin")]
     KOTLIN = 0x2a00,
+    /// Swift.
+    #[cfg(feature = "lang-swift")]
+    SWIFT = 0x2b00,
     /// C#.
     #[cfg(feature = "lang-csharp")]
     CSHARP = 0x2c00,

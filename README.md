@@ -135,6 +135,7 @@ assert_eq!(highlighter.limits().depth, None);
 | Ruby | `Language::Ruby` | `lang-ruby` | `ruby`, `rb` |
 | C# | `Language::CSharp` | `lang-csharp` | `csharp`, `c#`, `cs` |
 | XML | `Language::Xml` | `lang-xml` | `xml` |
+| Swift | `Language::Swift` | `lang-swift` | `swift` |
 
 ### Features
 
@@ -155,7 +156,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   | `all` (the default) | Every language |
   | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
   | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL |
-  | `systems` | Rust, C, Shell, Java, Kotlin, Go |
+  | `systems` | Rust, C, Shell, Java, Kotlin, Go, Swift |
   | `docs` | Markdown and `config` |
 
 - `json` reads theme files with `Theme::from_json`. It is not the JSON language, which is `lang-json`.
@@ -299,6 +300,18 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 - A line that follows a backslash at its end belongs to the escape for the rest of the rule, as in Shiki.
   The grammar's end pattern `^(?<!\G)` never matches again.
 - A Markdown fence names the languages `css` and `css.erb`.
+
+### Swift
+
+- An operator in an expression is a custom operator, the known ones included:
+  `=`, `==`, `??` and `+` get `keyword.operator.custom.infix`.
+  The grammar's patterns for the known operators start with `\G`, and `\G` does not hold at the start of a capture group's own patterns in Shiki's engine.
+  A pattern that matches the operator directly names it, as with the `=` of a default argument in a parameter clause.
+- `\p{L}`, `\p{N}` and `\p{M}` for non-ASCII characters come from tables measured on Shiki's engine (`oracle/classes.ts`).
+- A Markdown fence names the language `swift`.
+  In a fence, `\G` holds at the start of every line, as Shiki's fence rule leaves it:
+  - the lines of a `"""` string after its opening line are `invalid.illegal.content-after-opening-delimiter`;
+  - a `}` that starts a line does not end an enum's case list, so the enum stays open after it.
 
 ### Dockerfile
 

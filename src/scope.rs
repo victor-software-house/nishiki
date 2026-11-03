@@ -116,6 +116,8 @@ tables! {
     CSHARP = csharp;
     #[cfg(feature = "lang-xml")]
     XML = xml;
+    #[cfg(feature = "lang-swift")]
+    SWIFT = swift;
 }
 
 // No table is longer than its slot.

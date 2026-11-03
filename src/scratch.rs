@@ -53,4 +53,7 @@ pub(crate) struct Scratch {
     /// The XML lexer's, for XML documents and Markdown XML fences.
     #[cfg(feature = "lang-xml")]
     pub(crate) xml: crate::xml::Scratch,
+    /// The Swift lexer's, for Swift documents and Markdown Swift fences.
+    #[cfg(feature = "lang-swift")]
+    pub(crate) swift: crate::swift::Scratch,
 }

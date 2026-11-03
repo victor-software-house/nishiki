@@ -1,0 +1,1159 @@
+L # Common Tasks - Cache
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 22 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L Common tasks related to the ``ImageCache`` in Kingfisher.
+T 28 text.html.markdown meta.paragraph.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 57 text.html.markdown meta.paragraph.markdown
+L 
+L ## Overview
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 11 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Kingfisher employs a hybrid ``ImageCache`` for managing cached images, comprising both memory and disk storage. It 
+T 28 text.html.markdown meta.paragraph.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 115 text.html.markdown meta.paragraph.markdown
+L offers high-level APIs for cache management. Unless otherwise specified, the ``ImageCache/default`` instance is 
+T 77 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 97 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 99 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 112 text.html.markdown meta.paragraph.markdown
+L used throughout Kingfisher.
+T 27 text.html.markdown meta.paragraph.markdown
+L 
+L ### Using another cache key
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 27 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L By default, the URL is converted into a string to generate the cache key. For network URLs, `absoluteString` is 
+T 92 text.html.markdown meta.paragraph.markdown
+T 93 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 107 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 108 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 112 text.html.markdown meta.paragraph.markdown
+L utilized. You can customize the key by creating an ``ImageResource`` object with a specified key.
+T 51 text.html.markdown meta.paragraph.markdown
+T 53 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 68 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 97 text.html.markdown meta.paragraph.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L let resource = ImageResource(
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.other.declaration-specifier.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+L     downloadURL: url, 
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+L     cacheKey: "my_cache_key"
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+L )
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L imageView.kf.setImage(with: resource)
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Kingfisher uses the `cacheKey` to locate images in the cache. Ensure you use a distinct key for each different image.
+T 20 text.html.markdown meta.paragraph.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 117 text.html.markdown meta.paragraph.markdown
+L 
+L #### Checking whether an image in the cache
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 43 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L let cache = ImageCache.default
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.other.declaration-specifier.swift
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+L let cached = cache.isCached(forKey: cacheKey)
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.other.declaration-specifier.swift
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L 
+L // To know where the cached image is:
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L let cacheType = cache.imageCachedType(forKey: cacheKey)
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.other.declaration-specifier.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L // `.memory`, `.disk` or `.none`.
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L > Note: ``ImageCache/imageCachedType(forKey:processorIdentifier:forcedExtension:)`` may touch the disk cache
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 8 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+T 10 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 81 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 83 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 108 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L > synchronously when checking `.disk`. If you want to avoid blocking the calling thread (for example, in a scrolling
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 30 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+T 31 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 36 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 37 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 116 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L > UI on the main thread), use the opt-in async API instead:
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 59 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L >
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+L > ```swift
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 5 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 10 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L > cache.imageCachedTypeAsync(forKey: cacheKey) { cacheType in
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 8 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 28 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 29 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 35 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 36 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 45 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 46 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 47 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 48 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.begin.swift
+T 59 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 61 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.loop.swift
+L >     // `.memory`, `.disk` or `.none`.
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 6 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 8 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 39 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L > }
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 3 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.end.swift
+L >
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+L > // Or with async/await:
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 4 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 25 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L > let cacheType = await cache.imageCachedTypeAsync(forKey: cacheKey)
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 5 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.other.declaration-specifier.swift
+T 16 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 17 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 18 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 23 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.await.swift
+T 30 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 50 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 51 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 57 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 58 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 67 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 68 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L > ```
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 5 text.html.markdown markup.quote.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L If a processor is applied when retrieving an image, the processed image will be cached. In this scenario, remember to 
+T 118 text.html.markdown meta.paragraph.markdown
+L also include the processor identifier when manipulating the cache:
+T 66 text.html.markdown meta.paragraph.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L let processor = RoundCornerImageProcessor(cornerRadius: 20)
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.other.declaration-specifier.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift constant.numeric.integer.decimal.swift
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L imageView.kf.setImage(with: url, options: [.processor(processor)])
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift meta.function-call.swift support.function.any-method.swift
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift meta.function-call.swift
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L 
+L // Later
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L cache.isCached(forKey: cacheKey, processorIdentifier: processor.identifier)
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift variable.other.swift
+T 75 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Getting an image from the cache
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 36 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L cache.retrieveImage(forKey: "cacheKey") { result in
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.begin.swift
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.loop.swift
+L     switch result {
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.branch.swift
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.begin.swift
+L     case .success(let value):
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.branch.swift
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift keyword.other.declaration-specifier.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.ternary.swift
+L         print(value.cacheType)
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift support.function.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift variable.other.swift
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L 
+L         // If the `cacheType is `.none`, `image` will be `nil`.
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.whitespace.comment.leading.swift
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L         print(value.image)
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift support.function.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.variable.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L 
+L     case .failure(let error):
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.branch.swift
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift keyword.other.declaration-specifier.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.ternary.swift
+L         print(error)
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift support.function.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L     }
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.end.swift
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Set limit for the cache
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 28 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L For memory storage, you can set its ``MemoryStorage/Config/totalCostLimit`` and ``MemoryStorage/Config/countLimit``:
+T 36 text.html.markdown meta.paragraph.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 73 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 75 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 80 text.html.markdown meta.paragraph.markdown
+T 82 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 113 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 115 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 116 text.html.markdown meta.paragraph.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L // Limit memory cache size to 300 MB.
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L cache.memoryStorage.config.totalCostLimit = 300 * 1024 * 1024
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift constant.numeric.integer.decimal.swift
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift constant.numeric.integer.decimal.swift
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift constant.numeric.integer.decimal.swift
+L 
+L // Limit memory cache to hold 150 images at most. 
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L cache.memoryStorage.config.countLimit = 150
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift constant.numeric.integer.decimal.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L The default ``MemoryStorage/Config/totalCostLimit`` for the memory cache is set to 25% of the device's total memory, 
+T 12 text.html.markdown meta.paragraph.markdown
+T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 49 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 117 text.html.markdown meta.paragraph.markdown
+L with no limit on the ``MemoryStorage/Config/countLimit``.
+T 21 text.html.markdown meta.paragraph.markdown
+T 23 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 54 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 57 text.html.markdown meta.paragraph.markdown
+L 
+L For disk storage, you have the option to set a ``DiskStorage/Config/sizeLimit`` to manage the space used on the file 
+T 47 text.html.markdown meta.paragraph.markdown
+T 49 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 77 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 79 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 117 text.html.markdown meta.paragraph.markdown
+L system.
+T 7 text.html.markdown meta.paragraph.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L // Limit disk cache size to 1 GB.
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L cache.diskStorage.config.sizeLimit = 1000 * 1024 * 1024
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift constant.numeric.integer.decimal.swift
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift constant.numeric.integer.decimal.swift
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift constant.numeric.integer.decimal.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Set the default expiration for cache
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 41 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L Both memory and disk storage in Kingfisher have default expiration settings. Images in memory storage expire 5 minutes 
+T 119 text.html.markdown meta.paragraph.markdown
+L after the last access, whereas images in disk storage expire after one week. These values can be modified as follows:
+T 117 text.html.markdown meta.paragraph.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L // Set memory image expires after 10 minutes.
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L cache.memoryStorage.config.expiration = .seconds(600)
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift constant.numeric.integer.decimal.swift
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L 
+L // Set disk image never expires.
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L cache.diskStorage.config.expiration = .never
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L To override this default expiration for a specific image when caching it, include an option as follows during image 
+T 116 text.html.markdown meta.paragraph.markdown
+L setting:
+T 8 text.html.markdown meta.paragraph.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L // This image will never expire in memory cache.
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L imageView.kf.setImage(with: url, options: [.memoryCacheExpiration(.never)])
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift meta.function-call.swift support.function.any-method.swift
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift meta.function-call.swift
+T 72 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift meta.function-call.swift variable.other.swift
+T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 75 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L The expired memory cache is purged every 2 minutes by default. To adjust this frequency:
+T 88 text.html.markdown meta.paragraph.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L // Check memory clean up every 30 seconds.
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L cache.memoryStorage.config.cleanInterval = 30
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift constant.numeric.integer.decimal.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Store images to cache manually
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 35 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L By default, view extension methods and ``KingfisherManager`` automatically store retrieved images in the cache. 
+T 39 text.html.markdown meta.paragraph.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 58 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 112 text.html.markdown meta.paragraph.markdown
+L However, you can also manually store an image to the cache:
+T 59 text.html.markdown meta.paragraph.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L let image: UIImage = //...
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.other.declaration-specifier.swift
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L cache.store(image, forKey: cacheKey)
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L If you possess the original data of the image, pass it along to ``ImageCache``. This assists Kingfisher in determining 
+T 64 text.html.markdown meta.paragraph.markdown
+T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 76 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 78 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 119 text.html.markdown meta.paragraph.markdown
+L the appropriate format for storing the image:
+T 45 text.html.markdown meta.paragraph.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L let data: Data = //...
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.other.declaration-specifier.swift
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L let image: UIImage = //...
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.other.declaration-specifier.swift
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L cache.store(image, original: data, forKey: cacheKey)
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Remove images from cache manually
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 38 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L Kingfisher manages its cache automatically. But you still can manually remove a certain image from cache:
+T 105 text.html.markdown meta.paragraph.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L cache.removeImage(forKey: cacheKey)
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Or, with more control:
+T 22 text.html.markdown meta.paragraph.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L cache.removeImage(
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+L     forKey: cacheKey,
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+L     processorIdentifier: processor.identifier,
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift variable.other.swift
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+L     fromMemory: false,
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift constant.language.boolean.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+L     fromDisk: true)
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift constant.language.boolean.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.begin.swift
+L     print("Removed!")
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift support.function.swift
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Clear the cache
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 20 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L // Remove all.
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L cache.clearMemoryCache()
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L cache.clearDiskCache { print("Done") }
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.trailing-closure-only.swift support.function.any-method.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.begin.swift
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift support.function.swift
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.end.swift
+L 
+L // Remove only expired.
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L cache.cleanExpiredMemoryCache()
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L cache.cleanExpiredDiskCache { print("Done") }
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.trailing-closure-only.swift support.function.any-method.swift
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.begin.swift
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift support.function.swift
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Report the disk storage size
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 33 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L ImageCache.default.calculateDiskStorageSize { result in
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.trailing-closure-only.swift support.function.any-method.swift
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.begin.swift
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.loop.swift
+L     switch result {
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.branch.swift
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.begin.swift
+L     case .success(let size):
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.branch.swift
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift keyword.other.declaration-specifier.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.ternary.swift
+L         print("Disk cache size: \(Double(size) / 1024 / 1024) MB")
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift support.function.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift punctuation.section.embedded.begin.swift
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift support.type.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift meta.function-call.swift
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift keyword.operator.custom.infix.swift
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift constant.numeric.integer.decimal.swift
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift keyword.operator.custom.infix.swift
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift constant.numeric.integer.decimal.swift
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift punctuation.section.embedded.end.swift
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L     case .failure(let error):
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.branch.swift
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift keyword.other.declaration-specifier.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.ternary.swift
+L         print(error)
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift support.function.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L     }
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.end.swift
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Create your own cache and use it
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 37 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L // The `name` parameter is used to identify the disk cache bound to the `ImageCache`.
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 85 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L let cache = ImageCache(name: "my-own-cache")
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.other.declaration-specifier.swift
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.custom.infix.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L imageView.kf.setImage(with: url, options: [.targetCache(cache)])
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift meta.function-call.swift support.function.any-method.swift
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift meta.function-call.swift
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Skipping cache searching, force downloading image again 
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 60 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+T 61 text.html.markdown markup.heading.markdown heading.4.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L imageView.kf.setImage(with: url, options: [.forceRefresh])
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift variable.other.swift
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Only search cache for the image, do not download if not existing
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 69 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L This makes your app to an "offline" mode.
+T 41 text.html.markdown meta.paragraph.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L imageView.kf.setImage(with: url, options: [.onlyFromCache])
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift variable.other.swift
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L If the image does not exist in the cache, an ``KingfisherError/CacheErrorReason/imageNotExisting(key:)`` error will be
+T 45 text.html.markdown meta.paragraph.markdown
+T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 102 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 104 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 118 text.html.markdown meta.paragraph.markdown
+L triggered.
+T 10 text.html.markdown meta.paragraph.markdown
+L 
+L #### Waiting for cache to finish
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 32 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L Storing images in the disk cache is asynchronous and doesn't need to be completed before setting the image view and 
+T 116 text.html.markdown meta.paragraph.markdown
+L invoking the completion handler in view extension methods. This means that the disk cache might not be fully updated at
+T 119 text.html.markdown meta.paragraph.markdown
+L the time the completion handler is executed, as shown below:
+T 60 text.html.markdown meta.paragraph.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L imageView.kf.setImage(with: url) { _ in
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.begin.swift
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift support.variable.discard-value.swift
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.loop.swift
+L     ImageCache.default.retrieveImageInDiskCache(forKey: url.cacheKey) { result in
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift variable.other.swift
+T 69 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.begin.swift
+T 79 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 81 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.loop.swift
+L         switch result {
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.branch.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.begin.swift
+L         case .success(let image):
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.branch.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift keyword.other.declaration-specifier.swift
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.ternary.swift
+L             // `image` might be `nil` here.
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.whitespace.comment.leading.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L         case .failure: break
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.branch.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.ternary.swift
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.transfer.swift
+L         }
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.end.swift
+L     }
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.end.swift
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L For most scenarios, this asynchronous behavior isn't an issue. However, if your logic relies on the existence of the 
+T 117 text.html.markdown meta.paragraph.markdown
+L disk cache, use the `.waitForCache` option. With this option, Kingfisher will delay the execution of the handler until 
+T 20 text.html.markdown meta.paragraph.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 119 text.html.markdown meta.paragraph.markdown
+L the disk cache operation is complete:
+T 37 text.html.markdown meta.paragraph.markdown
+L 
+L ```swift
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L imageView.kf.setImage(with: url, options: [.waitForCache]) { _ in
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift variable.other.swift
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.begin.swift
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift support.variable.discard-value.swift
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.loop.swift
+L     ImageCache.default.retrieveImageInDiskCache(forKey: url.cacheKey) { result in
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift variable.other.swift
+T 69 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.begin.swift
+T 79 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 81 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.loop.swift
+L         switch result {
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.branch.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.begin.swift
+L         case .success(let image):
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.branch.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift support.function.any-method.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift keyword.other.declaration-specifier.swift
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.ternary.swift
+L             // `image` exists.
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.whitespace.comment.leading.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift comment.line.double-slash.swift
+L         case .failure: break
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.branch.swift
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift variable.other.swift
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.operator.ternary.swift
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift keyword.control.transfer.swift
+L         }
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.end.swift
+L     }
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.end.swift
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.swift punctuation.section.scope.end.swift
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L This consideration applies specifically to disk image caching, which involves asynchronous I/O operations. In contrast,
+T 119 text.html.markdown meta.paragraph.markdown
+L memory cache operations are synchronous, ensuring that the image is always available in the memory cache.
+T 105 text.html.markdown meta.paragraph.markdown
+L 

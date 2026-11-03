@@ -1,0 +1,116 @@
+L class Residence {
+T 5 source.swift meta.definition.type.class.swift storage.type.class.swift
+T 6 source.swift meta.definition.type.class.swift
+T 15 source.swift meta.definition.type.class.swift entity.name.type.class.swift
+T 16 source.swift meta.definition.type.class.swift
+T 17 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L     var rooms: [Room] = []
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift keyword.other.declaration-specifier.swift
+T 14 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 15 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 16 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.section.collection-type.begin.swift
+T 20 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 21 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.section.collection-type.end.swift
+T 22 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 23 source.swift meta.definition.type.class.swift meta.definition.type.body.swift keyword.operator.custom.infix.swift
+T 26 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+L     var numberOfRooms: Int {
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift keyword.other.declaration-specifier.swift
+T 22 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 23 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 26 source.swift meta.definition.type.class.swift meta.definition.type.body.swift support.type.swift
+T 27 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 28 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.section.scope.begin.swift
+L         return rooms.count
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 14 source.swift meta.definition.type.class.swift meta.definition.type.body.swift keyword.control.transfer.swift
+T 21 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 26 source.swift meta.definition.type.class.swift meta.definition.type.body.swift support.variable.swift
+L     }
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 5 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.section.scope.end.swift
+L     subscript(i: Int) -> Room {
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift storage.type.function.swift
+T 14 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 15 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 17 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.parameter-clause.swift
+T 20 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.parameter-clause.swift support.type.swift
+T 21 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 22 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift
+T 24 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.function-result.swift keyword.operator.function-result.swift
+T 25 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.function-result.swift
+T 30 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.function-result.swift
+T 31 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+L         get {
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift
+T 11 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift storage.type.function.swift
+T 12 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift
+T 13 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L             return rooms[i]
+T 12 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift
+T 18 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift keyword.control.transfer.swift
+T 24 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift
+T 25 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift meta.subscript-expression.swift punctuation.definition.arguments.begin.swift
+T 26 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift meta.subscript-expression.swift
+T 27 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift meta.subscript-expression.swift punctuation.definition.arguments.end.swift
+L         }
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L         set {
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift
+T 11 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift storage.type.function.swift
+T 12 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift
+T 13 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L             rooms[i] = newValue
+T 17 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift
+T 18 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift meta.subscript-expression.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift meta.subscript-expression.swift
+T 20 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift meta.subscript-expression.swift punctuation.definition.arguments.end.swift
+T 21 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift
+T 22 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 31 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift
+L         }
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L     }
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.subscript.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L     func printNumberOfRooms() {
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 9 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 27 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 28 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 29 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 30 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 31 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+L         print("The number of rooms is \(numberOfRooms)")
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 13 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift support.function.swift
+T 14 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 15 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 38 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift string.quoted.double.single-line.swift
+T 40 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift punctuation.section.embedded.begin.swift
+T 53 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift
+T 54 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift string.quoted.double.single-line.swift meta.embedded.line.swift punctuation.section.embedded.end.swift
+T 55 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+T 56 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L     }
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L     var address: Address?
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift keyword.other.declaration-specifier.swift
+T 16 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 24 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 25 source.swift meta.definition.type.class.swift meta.definition.type.body.swift keyword.operator.type.optional.swift
+L }
+T 1 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L // From https://docs.swift.org/swift-book/documentation/the-swift-programming-language/optionalchaining#Defining-Model-Classes-for-Optional-Chaining
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 148 source.swift comment.line.double-slash.swift
+L 

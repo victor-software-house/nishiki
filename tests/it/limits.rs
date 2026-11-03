@@ -19,6 +19,7 @@ mod ruby;
 mod rust;
 mod shell;
 mod sql;
+mod swift;
 mod toml;
 mod typescript;
 mod xml;

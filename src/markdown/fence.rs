@@ -229,6 +229,12 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Xml,
     },
+    #[cfg(feature = "lang-swift")]
+    Name {
+        words: &["swift"],
+        brace: None,
+        lang: Language::Swift,
+    },
 ];
 
 /// A language found in an info string.

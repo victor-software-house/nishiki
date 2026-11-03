@@ -632,6 +632,66 @@ fn a_java_fence_line_after_a_line_comment_starts_a_definition() {
 }
 
 #[test]
+fn swift_fences_embed_the_swift_lexer_without_its_root() {
+    let text = indoc! {"
+        ```swift
+        let x = 1
+        ```
+    "};
+    assert_eq!(
+        stack_of(text, "let"),
+        [
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "meta.embedded.block.swift",
+            "keyword.other.declaration-specifier.swift",
+        ]
+    );
+}
+
+/// The fence's `while` rule matches the line's start, so `\G` is there: the
+/// line after an opening `"""` is content after the delimiter, and a `}` that
+/// starts a line leaves an enum's case list open until a name.
+#[test]
+fn a_swift_fence_line_is_anchored_at_its_start() {
+    let rows = lex(indoc! {r#"
+        ```swift
+        print("""
+            a
+            """)
+        enum A {
+            case b, c
+        }
+        struct Example {
+        ```
+    "#});
+    let leaf = |row: usize, text: &str| {
+        rows[row]
+            .iter()
+            .find(|(t, _)| t.trim() == text)
+            .and_then(|(_, scopes)| scopes.last().cloned())
+            .unwrap_or_default()
+    };
+    assert_eq!(
+        leaf(2, "a"),
+        "invalid.illegal.content-after-opening-delimiter.swift"
+    );
+    assert_eq!(leaf(6, "}"), "meta.enum-case.more-cases");
+    assert_eq!(leaf(7, "struct"), "variable.other.enummember.swift");
+    let example = rows[7]
+        .iter()
+        .find(|(t, _)| t == "Example")
+        .map(|(_, scopes)| scopes.as_slice())
+        .unwrap_or_default();
+    assert!(
+        example
+            .iter()
+            .any(|s| s == "meta.definition.type.enum.swift")
+    );
+    assert!(!example.iter().any(|s| s == "meta.enum-case.more-cases"));
+}
+
+#[test]
 fn java_state_continues_across_the_lines_of_a_fence() {
     let text = indoc! {"
         ```java

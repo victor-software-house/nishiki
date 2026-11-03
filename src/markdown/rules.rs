@@ -424,6 +424,8 @@ const EMBEDDED: &[(Language, S)] = &[
     (Language::CSharp, S::EmbeddedCsharp),
     #[cfg(feature = "lang-xml")]
     (Language::Xml, S::EmbeddedXml),
+    #[cfg(feature = "lang-swift")]
+    (Language::Swift, S::EmbeddedSwift),
 ];
 
 /// The scope a container adds to the text between its opening and closing.

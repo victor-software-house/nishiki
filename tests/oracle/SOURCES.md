@@ -181,6 +181,21 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `ruby/rake-task` | [`lib/rake/task.rb`][rake-task] in ruby/rake | [MIT][rake-licence] |
 | `markdown/rack-readme` | [`README.md`][rack-readme] in rack/rack | [MIT][rack-licence] |
 | `markdown/devise-readme` | [`README.md`][devise-readme] in heartcombo/devise | [MIT][devise-licence] |
+| `swift/sample` | [`samples/swift.sample`][swift-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `swift/argument-parser-argument` | [`Argument.swift`][argument-parser-argument] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
+| `swift/algorithms-chunked` | [`Chunked.swift`][algorithms-chunked] in apple/swift-algorithms | [Apache-2.0][algorithms-licence] |
+| `swift/alamofire-af-error` | [`AFError.swift`][alamofire-af-error] in Alamofire/Alamofire | [MIT][alamofire-licence] |
+| `swift/composable-store` | [`Store.swift`][composable-store] in pointfreeco/swift-composable-architecture | [MIT][composable-licence] |
+| `swift/string-processing-algorithms-tests` | [`AlgorithmsTests.swift`][string-processing-algorithms-tests] in swiftlang/swift-experimental-string-processing | [Apache-2.0][string-processing-licence] |
+| `swift/argument-parser-command-parser` | [`CommandParser.swift`][argument-parser-command-parser] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
+| `swift/nio-codec` | [`Codec.swift`][nio-codec] in apple/swift-nio | [Apache-2.0][nio-licence] |
+| `swift/string-processing-custom-tests` | [`CustomTests.swift`][string-processing-custom-tests] in swiftlang/swift-experimental-string-processing | [Apache-2.0][string-processing-licence] |
+| `swift/testing-runner-tests` | [`RunnerTests.swift`][testing-runner-tests] in swiftlang/swift-testing | [Apache-2.0][swift-testing-licence] |
+| `swift/kingfisher-image-processor` | [`ImageProcessor.swift`][kingfisher-image-processor] in onevcat/Kingfisher | [MIT][kingfisher-licence] |
+| `swift/snapshot-assert-snapshot` | [`AssertSnapshot.swift`][snapshot-assert-snapshot] in pointfreeco/swift-snapshot-testing | [MIT][snapshot-testing-licence] |
+| `markdown/argument-parser-declaring-arguments` | [`DeclaringArguments.md`][argument-parser-declaring-arguments] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
+| `markdown/kingfisher-common-tasks-cache` | [`CommonTasks_Cache.md`][kingfisher-common-tasks-cache] in onevcat/Kingfisher | [MIT][kingfisher-licence] |
+| `markdown/argument-parser-getting-started` | [`GettingStarted.md`][argument-parser-getting-started] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -291,6 +306,13 @@ The lexer matched every input on its first run, held-out ones included.
 `kotlin/coroutines-produce`, `kotlin/okhttp-request`, `kotlin/moshi-util`, `kotlin/turbine-flow-test`, `kotlin/ktor-logging` and `kotlin/okhttp-build` (a Gradle script, which Shiki lexes as Kotlin) are held out.
 Shiki's Markdown grammar has no rule that embeds Kotlin, so no Markdown input has a Kotlin fence.
 The lexer matched every input on its first run, held-out ones included.
+`swift/sample`, `swift/argument-parser-argument`, `swift/algorithms-chunked`, `swift/alamofire-af-error`, `swift/composable-store` and `swift/string-processing-algorithms-tests` are the development inputs for Swift.
+The last one is full of regex literals.
+`swift/argument-parser-command-parser`, `swift/nio-codec`, `swift/string-processing-custom-tests`, `swift/testing-runner-tests`, `swift/kingfisher-image-processor` and `swift/snapshot-assert-snapshot` are held out.
+Their first score, before any fix, was 2 of 27,734 non-whitespace bytes different for `kingfisher-image-processor` and none for the other five: a name that two capture groups of the operator declaration cover got its scope twice.
+`markdown/argument-parser-declaring-arguments` is the development input for `swift` fences, and `markdown/kingfisher-common-tasks-cache` and `markdown/argument-parser-getting-started` are held out.
+Their first scores, before any fix, were 538 of 17,090 non-whitespace bytes different for `argument-parser-declaring-arguments` and 276 of 8,936 for `argument-parser-getting-started`; the score of `kingfisher-common-tasks-cache` was not recorded.
+Two causes made them differ: `\G` holds at the start of every line in a fence, which the lexer did not apply to Swift, and the first-byte table of the enum case list's end left out letters, so a case list that a fence's `\G` kept open did not close.
 
 `go/sample`, `go/go-sort`, `go/cobra-command`, `go/gin-context` and `go/testify-assertions` are the development inputs for Go.
 `go/go-slices`, `go/go-json-decode`, `go/kubernetes-sets`, `go/zap-logger`, `go/viper-viper` and `go/prometheus-storage` are held out.
@@ -635,3 +657,27 @@ The lexer matched every input on its first run, held-out ones included.
 [foundation-licence]: https://github.com/apple/swift-corelibs-foundation/blob/cbfe1c7376ffe869d08b1b5f643d747ef0a16069/LICENSE
 [bootstrap-logo]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/site/static/docs/%5Bversion%5D/assets/brand/bootstrap-logo.svg
 [bootstrap-licence]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/LICENSE
+[swift-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/swift.sample
+[argument-parser-argument]: https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/Sources/ArgumentParser/Parsable%20Properties/Argument.swift
+[argument-parser-command-parser]: https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/Sources/ArgumentParser/Parsing/CommandParser.swift
+[argument-parser-licence]: https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/LICENSE.txt
+[algorithms-chunked]: https://github.com/apple/swift-algorithms/blob/5b7143f8e291dee0e14c118fd0212487f0b37af5/Sources/Algorithms/Chunked.swift
+[algorithms-licence]: https://github.com/apple/swift-algorithms/blob/5b7143f8e291dee0e14c118fd0212487f0b37af5/LICENSE.txt
+[alamofire-af-error]: https://github.com/Alamofire/Alamofire/blob/6c2892ea5adb5a03fa81c510933dd782c5ddd9cb/Source/Core/AFError.swift
+[alamofire-licence]: https://github.com/Alamofire/Alamofire/blob/6c2892ea5adb5a03fa81c510933dd782c5ddd9cb/LICENSE
+[composable-store]: https://github.com/pointfreeco/swift-composable-architecture/blob/bb175b544d019c7f23a2e41ae29d8c70592aeb58/Sources/ComposableArchitecture/Store.swift
+[composable-licence]: https://github.com/pointfreeco/swift-composable-architecture/blob/bb175b544d019c7f23a2e41ae29d8c70592aeb58/LICENSE
+[string-processing-algorithms-tests]: https://github.com/swiftlang/swift-experimental-string-processing/blob/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee/Tests/RegexTests/AlgorithmsTests.swift
+[string-processing-custom-tests]: https://github.com/swiftlang/swift-experimental-string-processing/blob/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee/Tests/RegexBuilderTests/CustomTests.swift
+[string-processing-licence]: https://github.com/swiftlang/swift-experimental-string-processing/blob/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee/LICENSE.txt
+[nio-codec]: https://github.com/apple/swift-nio/blob/2f58d8ef84438d6517fc78bcea2f8527e3c72936/Sources/NIOCore/Codec.swift
+[nio-licence]: https://github.com/apple/swift-nio/blob/2f58d8ef84438d6517fc78bcea2f8527e3c72936/LICENSE.txt
+[testing-runner-tests]: https://github.com/swiftlang/swift-testing/blob/87ec972e0b5725ee02b31a6e9ed690d85abb460a/Tests/TestingTests/RunnerTests.swift
+[swift-testing-licence]: https://github.com/swiftlang/swift-testing/blob/87ec972e0b5725ee02b31a6e9ed690d85abb460a/LICENSE.txt
+[kingfisher-image-processor]: https://github.com/onevcat/Kingfisher/blob/770465258c652c73fdef447c10004765c440e993/Sources/Image/ImageProcessor.swift
+[argument-parser-declaring-arguments]: https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/Sources/ArgumentParser/Documentation.docc/Articles/DeclaringArguments.md
+[argument-parser-getting-started]: https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/Sources/ArgumentParser/Documentation.docc/Articles/GettingStarted.md
+[kingfisher-common-tasks-cache]: https://github.com/onevcat/Kingfisher/blob/770465258c652c73fdef447c10004765c440e993/Sources/Documentation.docc/CommonTasks/CommonTasks_Cache.md
+[kingfisher-licence]: https://github.com/onevcat/Kingfisher/blob/770465258c652c73fdef447c10004765c440e993/LICENSE
+[snapshot-assert-snapshot]: https://github.com/pointfreeco/swift-snapshot-testing/blob/0c6380dd46cd45e00f2bf87cf6002f3478e84452/Sources/SnapshotTesting/AssertSnapshot.swift
+[snapshot-testing-licence]: https://github.com/pointfreeco/swift-snapshot-testing/blob/0c6380dd46cd45e00f2bf87cf6002f3478e84452/LICENSE

@@ -55,6 +55,7 @@ all = [
   "lang-ruby",
   "lang-csharp",
   "lang-xml",
+  "lang-swift",
 ]
 
 # Tiers, which overlap.
@@ -84,6 +85,7 @@ systems = [
   "lang-java",
   "lang-kotlin",
   "lang-go",
+  "lang-swift",
 ]
 docs = ["lang-markdown", "config"]
 
@@ -126,6 +128,7 @@ lang-go = ["_scope-table", "_rule-tables", "_classes"]
 lang-ruby = ["_scope-table", "_rule-tables", "_classes"]
 lang-csharp = ["_scope-table", "_rule-tables", "_classes"]
 lang-xml = ["_scope-table", "lang-java", "_classes", "_utf8"]
+lang-swift = ["_scope-table", "_rule-tables", "_classes"]
 
 # Shared code that only some languages use; not for callers.
 # The classes read characters through the UTF-8 helpers.

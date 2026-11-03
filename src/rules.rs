@@ -1,7 +1,8 @@
 //! The rule engine that the languages written from a `TextMate` grammar share:
-//! Python, Java, CSS, Make, Kotlin, Go and Ruby run on it, and each language
-//! supplies a [`Grammar`], the generated tables of its rules and patterns, and
-//! the hand-written matchers that decide where each pattern matches.
+//! Python, Java, CSS, Make, Kotlin, Go, Ruby and Swift run on it, and each
+//! language supplies a [`Grammar`], the generated tables of its rules and
+//! patterns, and the hand-written matchers that decide where each pattern
+//! matches.
 //!
 //! The engine runs the grammar's rules the way a `TextMate` engine does, with
 //! those matchers instead of regular expressions: the per-line loop, `\G`,

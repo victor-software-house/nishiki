@@ -101,6 +101,8 @@ mod shell;
 mod space;
 #[cfg(feature = "lang-sql")]
 mod sql;
+#[cfg(feature = "lang-swift")]
+mod swift;
 mod tag;
 #[cfg(feature = "_textmate")]
 mod textmate;

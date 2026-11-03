@@ -262,6 +262,24 @@ const roslyn =
   "https://raw.githubusercontent.com/dotnet/roslyn/868edfafce0460b50e1abe82f1bb0872979dbf0a";
 const aspnetcore =
   "https://raw.githubusercontent.com/dotnet/aspnetcore/cd236906b73c6540703e51fa583d55de091ae047";
+const argumentParser =
+  "https://raw.githubusercontent.com/apple/swift-argument-parser/38ca4eceb349155836701b88da3e0986eb9d1e1c";
+const swiftAlgorithms =
+  "https://raw.githubusercontent.com/apple/swift-algorithms/5b7143f8e291dee0e14c118fd0212487f0b37af5";
+const alamofire =
+  "https://raw.githubusercontent.com/Alamofire/Alamofire/6c2892ea5adb5a03fa81c510933dd782c5ddd9cb";
+const composable =
+  "https://raw.githubusercontent.com/pointfreeco/swift-composable-architecture/bb175b544d019c7f23a2e41ae29d8c70592aeb58";
+const nio =
+  "https://raw.githubusercontent.com/apple/swift-nio/2f58d8ef84438d6517fc78bcea2f8527e3c72936";
+const swiftTesting =
+  "https://raw.githubusercontent.com/swiftlang/swift-testing/87ec972e0b5725ee02b31a6e9ed690d85abb460a";
+const kingfisher =
+  "https://raw.githubusercontent.com/onevcat/Kingfisher/770465258c652c73fdef447c10004765c440e993";
+const snapshotTesting =
+  "https://raw.githubusercontent.com/pointfreeco/swift-snapshot-testing/0c6380dd46cd45e00f2bf87cf6002f3478e84452";
+const stringProcessing =
+  "https://raw.githubusercontent.com/swiftlang/swift-experimental-string-processing/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee";
 
 const rack =
   "https://raw.githubusercontent.com/rack/rack/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f";
@@ -656,6 +674,32 @@ export const inputs: Input[] = [
     name: "okhttp-build",
     url: `${okhttp}/okhttp/build.gradle.kts`,
   },
+  { lang: "swift", name: "sample", url: `${samples}/swift.sample` },
+  {
+    lang: "swift",
+    name: "argument-parser-argument",
+    url: `${argumentParser}/Sources/ArgumentParser/Parsable%20Properties/Argument.swift`,
+  },
+  {
+    lang: "swift",
+    name: "algorithms-chunked",
+    url: `${swiftAlgorithms}/Sources/Algorithms/Chunked.swift`,
+  },
+  {
+    lang: "swift",
+    name: "alamofire-af-error",
+    url: `${alamofire}/Source/Core/AFError.swift`,
+  },
+  {
+    lang: "swift",
+    name: "composable-store",
+    url: `${composable}/Sources/ComposableArchitecture/Store.swift`,
+  },
+  {
+    lang: "swift",
+    name: "string-processing-algorithms-tests",
+    url: `${stringProcessing}/Tests/RegexTests/AlgorithmsTests.swift`,
+  },
   { lang: "go", name: "sample", url: `${samples}/go.sample` },
   { lang: "go", name: "go-sort", url: `${golang}/src/sort/sort.go` },
   { lang: "go", name: "cobra-command", url: `${cobra}/command.go` },
@@ -706,4 +750,49 @@ export const inputs: Input[] = [
   { lang: "xml", name: "rome-yahoo-top-songs", url: `${rome}/rome-modules/src/test/resources/data/YahooTopSongs.xml` },
   { lang: "xml", name: "ant-junit-noframes", url: `${ant}/src/etc/junit-noframes.xsl` },
   { lang: "xml", name: "views-activity-entrance", url: `${viewsWidgets}/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/activity_entrance.xml` },
+  {
+    lang: "swift",
+    name: "argument-parser-command-parser",
+    url: `${argumentParser}/Sources/ArgumentParser/Parsing/CommandParser.swift`,
+  },
+  {
+    lang: "swift",
+    name: "nio-codec",
+    url: `${nio}/Sources/NIOCore/Codec.swift`,
+  },
+  {
+    lang: "swift",
+    name: "string-processing-custom-tests",
+    url: `${stringProcessing}/Tests/RegexBuilderTests/CustomTests.swift`,
+  },
+  {
+    lang: "swift",
+    name: "testing-runner-tests",
+    url: `${swiftTesting}/Tests/TestingTests/RunnerTests.swift`,
+  },
+  {
+    lang: "swift",
+    name: "kingfisher-image-processor",
+    url: `${kingfisher}/Sources/Image/ImageProcessor.swift`,
+  },
+  {
+    lang: "swift",
+    name: "snapshot-assert-snapshot",
+    url: `${snapshotTesting}/Sources/SnapshotTesting/AssertSnapshot.swift`,
+  },
+  {
+    lang: "markdown",
+    name: "argument-parser-declaring-arguments",
+    url: `${argumentParser}/Sources/ArgumentParser/Documentation.docc/Articles/DeclaringArguments.md`,
+  },
+  {
+    lang: "markdown",
+    name: "kingfisher-common-tasks-cache",
+    url: `${kingfisher}/Sources/Documentation.docc/CommonTasks/CommonTasks_Cache.md`,
+  },
+  {
+    lang: "markdown",
+    name: "argument-parser-getting-started",
+    url: `${argumentParser}/Sources/ArgumentParser/Documentation.docc/Articles/GettingStarted.md`,
+  },
 ];

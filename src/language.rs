@@ -200,6 +200,8 @@ languages! {
     CSharp { feature: "lang-csharp", names: ["csharp", "c#", "cs"], module: csharp }
     /// XML, with the scopes of Shiki's `xml` grammar.
     Xml { feature: "lang-xml", names: ["xml"], module: xml }
+    /// Swift, with the scopes of Shiki's `swift` grammar.
+    Swift { feature: "lang-swift", names: ["swift"], module: swift }
 }
 
 impl Language {

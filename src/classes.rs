@@ -1,5 +1,5 @@
-//! The regex classes `\d`, `\w`, `\s`, `[[:alpha:]]` and `\p{upper}` for a
-//! character, as Shiki's regex engine reads them.
+//! The regex classes `\d`, `\w`, `\s`, `[[:alpha:]]`, `\p{upper}`, `\p{L}`,
+//! `\p{N}` and `\p{M}` for a character, as Shiki's regex engine reads them.
 //!
 //! Every grammar Shiki runs shares one engine, so every lexer shares these.
 //! ASCII is decided here; the rest comes from tables measured on Shiki.
@@ -79,6 +79,30 @@ const WORD_BYTES: [bool; 256] = {
     }
     table
 };
+
+/// The regex `\p{L}` for a character: a letter.
+pub(crate) fn is_letter(c: char) -> bool {
+    if c.is_ascii() {
+        c.is_ascii_alphabetic()
+    } else {
+        table::is_letter(c)
+    }
+}
+
+/// The regex `\p{N}` for a character: a number.
+pub(crate) fn is_number(c: char) -> bool {
+    if c.is_ascii() {
+        c.is_ascii_digit()
+    } else {
+        table::is_number(c)
+    }
+}
+
+/// The regex `\p{M}` for a character: a combining mark, which no ASCII
+/// character is.
+pub(crate) fn is_mark(c: char) -> bool {
+    !c.is_ascii() && table::is_mark(c)
+}
 
 /// The regex `\s` for an ASCII byte.
 ///
