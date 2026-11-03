@@ -7069,9 +7069,7 @@ impl Pat {
             | Pat::Nested4At0At0
             | Pat::Nested4At0At1
             | Pat::FunctionsEnd
-            | Pat::SupportFunctions
             | Pat::AfterControlVariables
-            | Pat::OtherStructInterfaceExpressionsAt1
             | Pat::SingleTypeAt1End => Start {
                 bytes: [
                     0xffff_ffff_ffff_ffff,
@@ -7739,6 +7737,7 @@ impl Pat {
             | Pat::GenericParamTypesAt5
             | Pat::FunctionParamTypesAt3
             | Pat::FunctionParamTypesAt5
+            | Pat::SupportFunctions
             | Pat::VariableAssignmentAt0
             | Pat::StructVariableTypesFieldsMultiAt0
             | Pat::StructVariableTypesFieldsMultiAt1
@@ -7763,7 +7762,9 @@ impl Pat {
                 bol: false,
                 wb: true,
             },
-            Pat::GenericParamTypesAt8 | Pat::PropertyVariables => Start {
+            Pat::GenericParamTypesAt8
+            | Pat::OtherStructInterfaceExpressionsAt1
+            | Pat::PropertyVariables => Start {
                 bytes: [
                     0x03ff_4000_0000_0000,
                     0x07ff_fffe_87ff_fffe,
@@ -7988,3 +7989,8 @@ impl Pat {
         }
     }
 }
+
+const _: () = assert!(
+    54 <= <super::engine::Go as crate::rules::Grammar>::GROUPS,
+    "a pattern's table names a capture group past the grammar's GROUPS"
+);
