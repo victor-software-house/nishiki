@@ -3,6 +3,8 @@
 //! Each test runs only when its language is off, so `cargo test --lib
 //! --no-default-features --features lang-markdown` exercises it.
 
+use indoc::indoc;
+
 use crate::{Highlighter, Language, State};
 
 /// Every scope name of every token of `text`, line by line.
@@ -27,14 +29,21 @@ fn scopes_of(text: &str) -> Vec<String> {
 #[cfg(not(feature = "lang-rust"))]
 #[test]
 fn a_rust_fence_is_a_plain_fence_when_rust_is_off() {
-    let names = scopes_of("```rust\nfn main() {}\n```");
+    let names = scopes_of(indoc! {"
+        ```rust
+        fn main() {}
+        ```"});
     assert!(names.iter().all(|name| !name.contains("rust")), "{names:?}");
 }
 
 #[cfg(not(feature = "lang-yaml"))]
 #[test]
 fn front_matter_is_plain_text_when_yaml_is_off() {
-    let names = scopes_of("---\na: 1\n---\ntext");
+    let names = scopes_of(indoc! {"
+        ---
+        a: 1
+        ---
+        text"});
     assert!(names.iter().any(|name| name.contains("frontmatter")));
     assert!(names.iter().all(|name| !name.contains("yaml")), "{names:?}");
 }

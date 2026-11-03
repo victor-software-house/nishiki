@@ -96,7 +96,10 @@ fn numbers_are_lexed_again_by_their_kind() {
 
 #[test]
 fn a_string_runs_across_lines_and_marks_its_escapes() {
-    let rows = lex("char *s = \"a\\n\\q\nb\";\nint y;");
+    let rows = lex(indoc! {"
+        char *s = \"a\\n\\q
+        b\";
+        int y;"});
     let scopes = |row: usize, text: &str| {
         rows[row]
             .iter()
@@ -163,7 +166,10 @@ fn a_dead_branch_is_a_comment_and_the_other_is_code() {
 
 #[test]
 fn a_line_comment_continues_over_a_backslash() {
-    let rows = lex("// c \\\nstill\nint x;");
+    let rows = lex(indoc! {"
+        // c \x5c
+        still
+        int x;"});
     assert_eq!(
         rows[1][0].1,
         ["source.c", "comment.line.double-slash.c"],
@@ -306,7 +312,12 @@ fn a_directive_is_one_only_at_the_start_of_the_line() {
 fn a_fence_in_a_list_item_does_not_start_its_directives() {
     let rows = lex_as(
         Language::Markdown,
-        "- item\n  ```c\n  #include <x.h>\n  int y;\n  ```",
+        indoc! {"
+            - item
+              ```c
+              #include <x.h>
+              int y;
+              ```"},
     );
     let include = &rows[2][1];
     assert_eq!(include.0, "#include ");
@@ -326,7 +337,12 @@ fn a_fence_in_a_list_item_does_not_start_its_directives() {
 fn a_fence_line_of_containers_alone_still_ends_a_macro() {
     let rows = lex_as(
         Language::Markdown,
-        "> ```c\n> #define X \\\n> \n> int y;\n> ```",
+        indoc! {"
+            > ```c
+            > #define X \\
+            >\x20
+            > int y;
+            > ```"},
     );
     assert_eq!(
         rows[3][2].1.last().map(String::as_str),

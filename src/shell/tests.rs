@@ -92,7 +92,11 @@ fn a_here_document_spans_lines_and_names_its_delimiter() {
 
 #[test]
 fn a_quoted_indented_here_document_ends_at_a_tabbed_delimiter() {
-    let text = "cat <<-'END'\n\traw $x\n\tEND\necho a";
+    let text = indoc! {"
+        cat <<-'END'
+        \traw $x
+        \tEND
+        echo a"};
     let (rows, states) = lex_with_states(text);
     assert_eq!(rows[1][0].0, "\traw $x");
     assert_eq!(
@@ -108,7 +112,10 @@ fn a_quoted_indented_here_document_ends_at_a_tabbed_delimiter() {
 
 #[test]
 fn leading_dots_of_a_captured_name_are_dropped() {
-    let rows = lex("cat <<.x\nbody\n.x");
+    let rows = lex(indoc! {"
+        cat <<.x
+        body
+        .x"});
     assert_eq!(
         rows[1][0].1.last().map(String::as_str),
         Some("string.unquoted.heredoc.no-indent.x")
@@ -130,7 +137,10 @@ fn an_unterminated_string_keeps_later_lines() {
 fn an_empty_line_leaves_the_state_alone() {
     // A statement left open at the end of a line stays open over blank lines,
     // as it does in Shiki, so `*a*` is a command name and not a glob.
-    let (rows, _) = lex_with_states("x;\n\n*a*)");
+    let (rows, _) = lex_with_states(indoc! {"
+        x;
+
+        *a*)"});
     assert_eq!(rows[1], Vec::new());
     assert_eq!(
         rows[2][0].1.last().map(String::as_str),

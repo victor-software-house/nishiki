@@ -1,3 +1,5 @@
+use indoc::indoc;
+
 use crate::{Highlighter, Language, Limit, Limits, State, Work};
 
 /// One lexed line: each token's text and its scope names, outermost first,
@@ -179,7 +181,10 @@ fn a_special_target_is_scoped_without_its_dot_in_the_name() {
 
 #[test]
 fn a_target_ends_with_its_line_unless_a_backslash_continues_it() {
-    let rows = lex("all: a \\\n b\nx = 1");
+    let rows = lex(indoc! {"
+        all: a \x5c
+         b
+        x = 1"});
     assert_eq!(
         rows[1][0].1,
         names(&[
@@ -192,7 +197,11 @@ fn a_target_ends_with_its_line_unless_a_backslash_continues_it() {
 
 #[test]
 fn a_define_runs_to_its_endef_and_endef_has_the_scope_of_override() {
-    let rows = lex("define X\n$(a)\nendef\ny = 1");
+    let rows = lex(indoc! {"
+        define X
+        $(a)
+        endef
+        y = 1"});
     assert_eq!(
         rows[1][0].1,
         names(&[
@@ -216,7 +225,13 @@ fn a_define_runs_to_its_endef_and_endef_has_the_scope_of_override() {
 
 #[test]
 fn a_conditional_runs_to_its_endif_with_its_branches() {
-    let rows = lex("ifeq ($(A),b)\nx = 1\nelse\nx = 2\nendif\nz = 3");
+    let rows = lex(indoc! {"
+        ifeq ($(A),b)
+        x = 1
+        else
+        x = 2
+        endif
+        z = 3"});
     assert_eq!(
         rows[0][0],
         (
@@ -249,7 +264,10 @@ fn a_conditional_runs_to_its_endif_with_its_branches() {
 
 #[test]
 fn a_comment_may_continue_over_lines_and_an_escaped_hash_starts_none() {
-    let rows = lex("x = 1 # a \\\nb\ny = 2");
+    let rows = lex(indoc! {"
+        x = 1 # a \x5c
+        b
+        y = 2"});
     assert_eq!(
         rows[1][0].1,
         names(&["comment.line.number-sign.makefile"]),
@@ -279,7 +297,13 @@ fn an_unclosed_reference_takes_the_line_feed_and_leaves_the_assignment_open() {
 #[cfg(feature = "lang-markdown")]
 fn a_fence_embeds_a_makefile_with_its_start_of_line_anchor() {
     let mut highlighter = Highlighter::new(Language::Markdown);
-    let rows = lex_with(&mut highlighter, "```makefile\n\tFOO = bar\n```");
+    let rows = lex_with(
+        &mut highlighter,
+        indoc! {"
+        ```makefile
+        \tFOO = bar
+        ```"},
+    );
     assert_eq!(
         rows[1][1],
         (

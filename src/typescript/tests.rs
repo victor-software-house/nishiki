@@ -155,12 +155,24 @@ fn an_empty_line_leaves_the_state_alone() {
 #[test]
 fn blank_line_ends_a_type_alias_only_when_not_empty() {
     assert_eq!(
-        stack_of("type A = B\n  \n/** doc */", " doc ")[1],
+        stack_of(
+            indoc! {"
+            type A = B
+            \x20\x20
+            /** doc */"},
+            " doc "
+        )[1],
         "comment.block.documentation.ts",
         "a line of blanks ends the alias"
     );
     assert_eq!(
-        stack_of("type A = B\n\n/** doc */", " doc ")[1],
+        stack_of(
+            indoc! {"
+            type A = B
+
+            /** doc */"},
+            " doc "
+        )[1],
         "meta.type.declaration.ts",
         "an empty line is skipped, so the alias is still open"
     );
@@ -504,7 +516,14 @@ fn scope_in(language: Language, text: &str, token: &str) -> String {
 
 #[test]
 fn jsx_state_continues_across_lines() {
-    let text = "x = (\n  <div\n    a=\"1\"\n  >\n    text\n  </div>\n);";
+    let text = indoc! {"
+        x = (
+          <div
+            a=\"1\"
+          >
+            text
+          </div>
+        );"};
     let mut h = Highlighter::new(Language::Jsx);
     let (rows, states) = lex_with(&mut h, text);
     assert!(depth(&h, states[1]) > 0, "the tag is open");

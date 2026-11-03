@@ -154,7 +154,10 @@ fn a_docstring_is_a_statement_that_starts_a_line() {
 
 #[test]
 fn a_triple_quoted_string_continues_across_lines() {
-    let text = "x = '''a\nb'''\ny = 1";
+    let text = indoc! {"
+        x = '''a
+        b'''
+        y = 1"};
     let rows = lex(text);
     assert_eq!(
         rows[1][0].1.last().map(String::as_str),
@@ -176,7 +179,10 @@ fn brackets_continue_across_lines() {
 
 #[test]
 fn an_empty_line_leaves_the_state_as_it_is() {
-    let rows = lex("x = '''a\n\nb'''");
+    let rows = lex(indoc! {"
+        x = '''a
+
+        b'''"});
     assert_eq!(rows[1].len(), 0);
     assert_eq!(
         rows[2][0].1.last().map(String::as_str),

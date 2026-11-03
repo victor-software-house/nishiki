@@ -1,4 +1,4 @@
-use indoc::indoc;
+use indoc::{formatdoc, indoc};
 
 use crate::{Highlighter, Language, Limit, Limits, State};
 
@@ -166,7 +166,11 @@ fn rust_state_continues_across_the_lines_of_a_fence() {
 #[test]
 fn typescript_fence_embeds_the_typescript_lexer_without_its_root() {
     for info in ["ts", "typescript", "TS"] {
-        let text = format!("```{info}\nconst x = 1;\n```\n");
+        let text = formatdoc! {"
+            ```{info}
+            const x = 1;
+            ```
+        "};
         assert_eq!(
             stack_of(&text, "const"),
             [
@@ -185,7 +189,11 @@ fn typescript_fence_embeds_the_typescript_lexer_without_its_root() {
 fn javascript_fences_embed_the_javascript_grammar() {
     // The Markdown grammar sends `jsx` to the JavaScript grammar too.
     for info in ["js", "javascript", "jsx", "mjs", "cjs", "es6", "JS"] {
-        let text = format!("```{info}\nconst x = 1;\n```\n");
+        let text = formatdoc! {"
+            ```{info}
+            const x = 1;
+            ```
+        "};
         assert_eq!(
             stack_of(&text, "const"),
             [
@@ -202,7 +210,11 @@ fn javascript_fences_embed_the_javascript_grammar() {
 
 #[test]
 fn a_tsx_fence_embeds_the_tsx_grammar() {
-    let text = "```tsx\nconst x = <a b=\"1\" />;\n```\n";
+    let text = indoc! {"
+        ```tsx
+        const x = <a b=\"1\" />;
+        ```
+    "};
     let stack = stack_of(text, "a");
     assert_eq!(
         stack[..3],
@@ -240,7 +252,11 @@ fn a_shell_fence_embeds_the_shell_lexer_without_its_root() {
         "bash_profile",
         "{.bash .x}",
     ] {
-        let text = format!("```{info}\nls -l\n```\n");
+        let text = formatdoc! {"
+            ```{info}
+            ls -l
+            ```
+        "};
         assert_eq!(
             stack_of(&text, "ls"),
             [
@@ -284,7 +300,16 @@ fn a_shell_function_body_survives_a_line_of_only_container_indent() {
     // The line holding only the list item's indent is read whole by the
     // containers; Shiki's shell rules still see its line feed there, and
     // the function's `{ ... }` stays open across it.
-    let text = "- a\n\n  ```sh\n  f() {\n  \n  echo hi\n  }\n  ```\n";
+    let text = indoc! {"
+        - a
+
+          ```sh
+          f() {
+        \x20\x20
+          echo hi
+          }
+          ```
+    "};
     // Shiki leaves the body's text unsplit, as one token under the body.
     let stack = stack_of(text, "echo hi");
     assert_eq!(
@@ -334,7 +359,11 @@ fn json_fences_embed_the_json_lexer_in_their_own_spelling() {
         ("jsonl", "meta.embedded.block.jsonl", ".json.lines"),
         ("jsonlines", "meta.embedded.block.jsonl", ".json.lines"),
     ] {
-        let text = format!("```{info}\n[null]\n```\n");
+        let text = formatdoc! {"
+            ```{info}
+            [null]
+            ```
+        "};
         assert_eq!(
             stack_of(&text, "null"),
             [
@@ -352,7 +381,11 @@ fn json_fences_embed_the_json_lexer_in_their_own_spelling() {
 #[test]
 fn python_fences_embed_the_python_lexer_without_its_root() {
     for info in ["python", "py", "PY3", "SConstruct", "gypi", "{.python .x}"] {
-        let text = format!("```{info}\ndef f(): pass\n```\n");
+        let text = formatdoc! {"
+            ```{info}
+            def f(): pass
+            ```
+        "};
         assert_eq!(
             stack_of(&text, "def"),
             [
@@ -411,7 +444,11 @@ fn python_state_continues_across_the_lines_of_a_fence() {
 #[test]
 fn java_fences_embed_the_java_lexer_without_its_root() {
     for info in ["java", "JAVA", "java title=x"] {
-        let text = format!("```{info}\nint x;\n```\n");
+        let text = formatdoc! {"
+            ```{info}
+            int x;
+            ```
+        "};
         assert_eq!(
             stack_of(&text, "int"),
             [
@@ -429,7 +466,11 @@ fn java_fences_embed_the_java_lexer_without_its_root() {
 #[test]
 fn css_fences_embed_the_css_lexer_without_its_root() {
     for info in ["css", "CSS", "css.erb", "css title=x"] {
-        let text = format!("```{info}\na {{ color: red }}\n```\n");
+        let text = formatdoc! {"
+            ```{info}
+            a {{ color: red }}
+            ```
+        "};
         assert_eq!(
             stack_of(&text, "color"),
             [
@@ -711,7 +752,10 @@ fn the_state_resumes_from_any_line() {
 #[test]
 fn a_yaml_fence_embeds_the_yaml_lexer_without_its_root() {
     for info in ["yaml", "yml", "YAML"] {
-        let text = format!("```{info}\nkey: value\n```");
+        let text = formatdoc! {"
+            ```{info}
+            key: value
+            ```"};
         assert_eq!(
             stack_of(&text, "key")[1..],
             [
@@ -727,7 +771,11 @@ fn a_yaml_fence_embeds_the_yaml_lexer_without_its_root() {
 
 #[test]
 fn front_matter_is_yaml_between_dashes_on_the_first_line() {
-    let text = "---\ntitle: x\n---\n# H";
+    let text = indoc! {"
+        ---
+        title: x
+        ---
+        # H"};
     let lines = lex(text);
     assert_eq!(
         lines[0][0].1[1..],
@@ -751,7 +799,11 @@ fn front_matter_is_yaml_between_dashes_on_the_first_line() {
 #[test]
 fn front_matter_ends_at_three_dots_or_more_dashes() {
     for closer in ["...", "----", "  ---", "--- "] {
-        let lines = lex(&format!("---\na: 1\n{closer}\nplain"));
+        let lines = lex(&formatdoc! {"
+            ---
+            a: 1
+            {closer}
+            plain"});
         assert_eq!(
             lines[2][0].1.last().map(String::as_str),
             Some("punctuation.definition.end.frontmatter"),
@@ -767,7 +819,10 @@ fn front_matter_ends_at_three_dots_or_more_dashes() {
 
 #[test]
 fn front_matter_opens_on_the_first_line_only() {
-    let lines = lex("# Title\n---\ntext");
+    let lines = lex(indoc! {"
+        # Title
+        ---
+        text"});
     assert_eq!(
         lines[1][0].1.last().map(String::as_str),
         Some("meta.separator.markdown")
@@ -782,7 +837,11 @@ fn front_matter_opens_on_the_first_line_only() {
 
 #[test]
 fn an_empty_first_line_leaves_the_first_line_for_the_next() {
-    let lines = lex("\n---\na: 1\n---");
+    let lines = lex(indoc! {"
+
+        ---
+        a: 1
+        ---"});
     assert_eq!(
         lines[1][0].1.last().map(String::as_str),
         Some("punctuation.definition.begin.frontmatter")
@@ -846,11 +905,17 @@ fn a_fence_name_matches_with_oracles_case_folding() {
         "di\u{fb00}",
         "{.ru\u{17f}t .x}",
     ] {
-        let text = format!("```{name}\nlet x = 1; + 1\n```");
+        let text = formatdoc! {"
+            ```{name}
+            let x = 1; + 1
+            ```"};
         assert!(second_line_is_embedded(&text), "{name:?}");
     }
     // Other letters do not fold.
-    assert!(!second_line_is_embedded("```ru\u{df}t\nlet x = 1;\n```"));
+    assert!(!second_line_is_embedded(indoc! {"
+        ```ru\u{df}t
+        let x = 1;
+        ```"}));
 }
 
 #[test]
@@ -858,13 +923,22 @@ fn a_caret_does_not_match_where_a_list_took_the_start_of_the_line() {
     // The list consumed the indentation, so `^` matches nowhere in the fence:
     // a type annotation, which ends at `^` or `$`, goes on to the next line,
     // and a triple-slash directive, which starts with `^`, is a plain comment.
-    let text = "- a:\n  ```ts\n  const c: A\n  export default c\n  ```";
+    let text = indoc! {"
+        - a:
+          ```ts
+          const c: A
+          export default c
+          ```"};
     assert!(
         stack_of(text, "export")
             .iter()
             .any(|scope| scope == "meta.type.annotation.ts")
     );
-    let text = "- a:\n  ```ts\n  /// <reference types=\"x\" />\n  ```";
+    let text = indoc! {"
+        - a:
+          ```ts
+          /// <reference types=\"x\" />
+          ```"};
     assert!(
         stack_of(text, "//")
             .iter()

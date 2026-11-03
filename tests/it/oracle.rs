@@ -144,9 +144,11 @@ fn report(path: &Path, checked: usize, misses: &[Miss]) -> String {
         shown += 1;
         let _ = write!(
             message,
-            "\n  line {} column {}: {:?}\n    shiki:   {}\n    nishiki: {}",
-            miss.line, miss.column, miss.text, miss.expected, miss.actual
+            "\n  line {} column {}: {:?}",
+            miss.line, miss.column, miss.text
         );
+        let _ = write!(message, "\n    shiki:   {}", miss.expected);
+        let _ = write!(message, "\n    nishiki: {}", miss.actual);
     }
     message
 }

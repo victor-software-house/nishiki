@@ -162,7 +162,13 @@ fn strings_and_escapes() {
 #[test]
 fn unterminated_string_runs_to_the_end() {
     let mut h = highlighter();
-    let (rows, states) = lex_with(&mut h, "let s = \"open\nstill string\nlet t");
+    let (rows, states) = lex_with(
+        &mut h,
+        indoc! {"
+        let s = \"open
+        still string
+        let t"},
+    );
     assert_eq!(top(&h, states[0]), Kind::Str);
     assert_eq!(rows[1][0].1, "string.quoted.double.rust");
     assert_eq!(rows[2][0].1, "string.quoted.double.rust", "never recovers");

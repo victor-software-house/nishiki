@@ -160,6 +160,8 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 - Doc comments say why, on the item.
 - Inline prose inside a body is removed in review.
 - Multiline text in code and tests uses `indoc!` or `formatdoc!`.
+  `check:local` fails on a string literal in `src/` or `tests/` that holds two or more escaped line feeds, outside comments and generated files.
+  A literal of line feeds alone, such as a `"\n\n"` separator, passes.
 
 ### 3.5 Dependencies
 
