@@ -252,8 +252,12 @@ impl Regex {
 }
 
 /// Tries a match that starts at `at`, leaving the groups in the scratch.
+///
+/// The scratch is clear without a reset: the search reset it before its
+/// first attempt, and a failed attempt undoes every change it made on the
+/// way out of [`Machine::run`].
 fn try_at(machine: &mut Machine<'_>, at: usize) -> bool {
-    machine.scratch.clear_attempt();
+    debug_assert!(machine.scratch.is_clear(), "a failed attempt left state");
     let Some(end) = machine.run(0, at, None) else {
         return false;
     };

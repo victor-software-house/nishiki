@@ -378,3 +378,17 @@ fn a_group_repeated_no_times_can_still_be_called() {
         "a call sets the group it calls"
     );
 }
+
+/// A failed attempt leaves no group set for the attempt that matches: each
+/// search clears the groups once, and a failure undoes what it captured.
+#[test]
+fn a_failed_attempt_leaves_no_group_behind() {
+    assert_eq!(
+        search("(a)(b)?c", "abxac", 0, None),
+        Some(vec![Some((3, 5)), Some((3, 4)), None])
+    );
+    assert_eq!(
+        search("(?=(a)b)ab|(x)c", "axxc", 0, None),
+        Some(vec![Some((2, 4)), None, Some((2, 3))])
+    );
+}

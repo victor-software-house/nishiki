@@ -76,11 +76,13 @@ impl Scratch {
         self.calls.clear();
     }
 
-    /// Forgets what the last attempt at one position left.
-    pub(super) fn clear_attempt(&mut self) {
-        self.slots.iter_mut().for_each(|slot| *slot = UNSET);
-        self.stack.clear();
-        self.calls.clear();
+    /// Whether the buffers are as [`Scratch::reset`] leaves them: what an
+    /// attempt at one position needs, and what a failed one restores.
+    pub(super) fn is_clear(&self) -> bool {
+        self.slots.iter().all(|&slot| slot == UNSET)
+            && self.regs.iter().all(|&reg| reg == UNSET)
+            && self.stack.is_empty()
+            && self.calls.is_empty()
     }
 }
 
