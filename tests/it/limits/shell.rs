@@ -14,6 +14,7 @@ fn hostile_shell_lines_finish_within_the_default_limits() {
         "case ".repeat(100_000),
         "alias -a ".repeat(50_000),
         format!("{}x=1", "alias -a ".repeat(50_000)),
+        format!("select {}\\", "x".repeat(100_000)),
         " ".repeat(300_000),
     ] {
         let (rows, _) = lex(&mut highlighter, &[&line]);

@@ -1,0 +1,183 @@
+L #!/bin/sh
+T 2 source.shell comment.line.number-sign.shell meta.shebang.shell punctuation.definition.comment.shebang.shell
+T 9 source.shell comment.line.number-sign.shell meta.shebang.shell
+L # Names whose letters carry a combining mark (U+0301 or U+0308).
+T 1 source.shell comment.line.number-sign.shell punctuation.definition.comment.shell
+T 64 source.shell comment.line.number-sign.shell
+L café=1
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell string.unquoted.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell string.unquoted.shell
+L echo "$café ${café} ${café:-x}"
+T 4 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell variable.other.normal.shell
+T 13 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell variable.other.normal.shell
+T 14 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 15 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 16 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 24 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 25 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 26 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 34 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 35 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 36 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 37 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L echo $näive and $HOMÉ
+T 4 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell punctuation.definition.variable.shell variable.other.normal.shell
+T 13 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell variable.other.normal.shell
+T 14 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell punctuation.definition.variable.shell variable.other.normal.shell
+T 25 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell variable.other.normal.shell
+L for é in a b; do echo "$é"; done
+T 3 source.shell meta.for.shell keyword.control.for.shell
+T 14 source.shell meta.for.shell
+T 15 source.shell punctuation.terminator.statement.semicolon.shell
+T 16 source.shell
+T 18 source.shell keyword.control.do.shell
+T 19 source.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 24 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 25 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 26 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell variable.other.normal.shell
+T 29 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell variable.other.normal.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 31 source.shell punctuation.terminator.statement.semicolon.shell
+T 32 source.shell
+T 36 source.shell keyword.control.done.shell
+L doné foŕ if́ theń whilé
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 13 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 24 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 25 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L resumé() { echo ok; }
+T 8 source.shell meta.function.shell entity.name.function.shell
+T 9 source.shell meta.function.shell punctuation.definition.arguments.shell
+T 10 source.shell meta.function.shell punctuation.definition.arguments.shell
+T 11 source.shell meta.function.shell
+T 12 source.shell meta.function.shell meta.function.body.shell punctuation.definition.group.shell punctuation.section.function.definition.shell
+T 13 source.shell meta.function.shell meta.function.body.shell meta.statement.shell
+T 17 source.shell meta.function.shell meta.function.body.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 18 source.shell meta.function.shell meta.function.body.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 20 source.shell meta.function.shell meta.function.body.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 21 source.shell meta.function.shell meta.function.body.shell punctuation.terminator.statement.semicolon.shell
+T 22 source.shell meta.function.shell meta.function.body.shell meta.statement.shell
+T 23 source.shell meta.function.shell meta.function.body.shell punctuation.definition.group.shell punctuation.section.function.definition.shell
+L function résume { :; }
+T 8 source.shell meta.function.shell storage.type.function.shell
+T 9 source.shell meta.function.shell
+T 17 source.shell meta.function.shell entity.name.function.shell
+T 18 source.shell meta.function.shell
+T 19 source.shell meta.function.shell meta.function.body.shell punctuation.definition.group.shell punctuation.section.function.definition.shell
+T 20 source.shell meta.function.shell meta.function.body.shell meta.statement.shell
+T 21 source.shell meta.function.shell meta.function.body.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 22 source.shell meta.function.shell meta.function.body.shell punctuation.terminator.statement.semicolon.shell
+T 23 source.shell meta.function.shell meta.function.body.shell meta.statement.shell
+T 24 source.shell meta.function.shell meta.function.body.shell punctuation.definition.group.shell punctuation.section.function.definition.shell
+L case x́ in x́) echo 1 ;; esac
+T 4 source.shell meta.case.shell keyword.control.case.shell
+T 5 source.shell meta.case.shell
+T 8 source.shell meta.case.shell
+T 9 source.shell meta.case.shell
+T 11 source.shell meta.case.shell keyword.control.in.shell
+T 12 source.shell meta.case.shell meta.case.entry.pattern.shell
+T 13 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 15 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 16 source.shell meta.case.shell meta.case.entry.pattern.shell keyword.operator.pattern.case.shell
+T 17 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell
+T 21 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 22 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell
+T 23 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.integer.shell
+T 24 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell
+T 26 source.shell meta.case.shell meta.case.entry.body.shell punctuation.terminator.statement.case.shell
+T 27 source.shell meta.case.shell
+T 31 source.shell meta.case.shell keyword.control.esac.shell
+L local näme=1 export ét́é
+T 5 source.shell meta.statement.shell meta.expression.assignment.modified.shell storage.modifier.local.shell
+T 13 source.shell meta.statement.shell meta.expression.assignment.modified.shell
+T 14 source.shell meta.statement.shell meta.expression.assignment.modified.shell variable.other.assignment.shell
+T 15 source.shell meta.statement.shell meta.expression.assignment.modified.shell
+T 21 source.shell meta.statement.shell meta.expression.assignment.modified.shell variable.other.assignment.shell
+T 31 source.shell meta.statement.shell meta.expression.assignment.modified.shell
+L test -n "$a" && echo café || echo -é x
+T 4 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 5 source.shell meta.statement.shell meta.statement.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell variable.other.normal.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell variable.other.normal.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 13 source.shell meta.statement.shell meta.statement.command.shell
+T 15 source.shell punctuation.separator.statement.and.shell
+T 16 source.shell meta.statement.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 27 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 28 source.shell meta.statement.shell meta.statement.command.shell
+T 29 source.shell keyword.operator.pipe.shell
+T 30 source.shell keyword.operator.pipe.shell
+T 31 source.shell meta.statement.shell
+T 35 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 36 source.shell meta.statement.shell meta.statement.command.shell
+T 37 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 40 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 41 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 42 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L echo ${#café} $((café + 1)) [[ $x́ -eq́ 1 ]]
+T 4 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell punctuation.definition.variable.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 14 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell meta.parameter-expansion
+T 15 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 16 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell meta.scope.subshell punctuation.definition.subshell.single.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell meta.scope.subshell meta.parenthese.group.shell punctuation.section.parenthese.shell
+T 25 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell meta.scope.subshell meta.parenthese.group.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 26 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell meta.scope.subshell meta.parenthese.group.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 27 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell meta.scope.subshell meta.parenthese.group.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 28 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell meta.scope.subshell meta.parenthese.group.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 29 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell meta.scope.subshell meta.parenthese.group.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.integer.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell meta.scope.subshell meta.parenthese.group.shell punctuation.section.parenthese.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell meta.scope.subshell punctuation.definition.subshell.single.shell
+T 34 source.shell meta.statement.shell meta.statement.command.shell
+T 35 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 36 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell punctuation.definition.variable.shell variable.other.normal.shell
+T 39 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell variable.other.normal.shell
+T 40 source.shell meta.statement.shell meta.statement.command.shell
+T 41 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 45 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 46 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 47 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.integer.shell
+T 48 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 50 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L select é in a b; do break; done
+T 6 source.shell meta.scope.select-block.shell keyword.control.shell
+T 7 source.shell meta.scope.select-block.shell
+T 10 source.shell meta.scope.select-block.shell variable.other.loop.shell
+T 17 source.shell meta.scope.select-block.shell
+T 18 source.shell meta.scope.select-block.shell punctuation.terminator.statement.semicolon.shell
+T 19 source.shell meta.scope.select-block.shell
+T 21 source.shell meta.scope.select-block.shell keyword.control.do.shell
+T 22 source.shell meta.scope.select-block.shell
+T 27 source.shell meta.scope.select-block.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell keyword.control.break.shell
+T 28 source.shell meta.scope.select-block.shell punctuation.terminator.statement.semicolon.shell
+T 29 source.shell meta.scope.select-block.shell
+T 33 source.shell meta.scope.select-block.shell keyword.control.shell
+L 

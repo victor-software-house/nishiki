@@ -52,6 +52,10 @@ fn hostile_c_lines_finish_within_the_default_limits() {
         "? : ".repeat(40_000),
         "int (".repeat(40_000),
         "foo(bar(".repeat(30_000),
+        format!("{{{}", ":".repeat(100_000)),
+        format!("{{{}", "a:".repeat(50_000)),
+        "a::".repeat(60_000),
+        "a::b(".repeat(40_000),
         "\u{a0}".repeat(100_000),
         "/*\u{a0}".repeat(60_000),
     ];

@@ -54,6 +54,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `shellscript/nvm` | [`nvm.sh`][nvm] in nvm-sh/nvm | [MIT][nvm-licence] |
 | `shellscript/ruby-build` | [`bin/ruby-build`][ruby-build] in rbenv/ruby-build | [MIT][ruby-build-licence] |
 | `shellscript/pyenv-init` | [`libexec/pyenv-init`][pyenv-init] in pyenv/pyenv | [MIT][pyenv-licence] |
+| `shellscript/unicode-words` | `oracle/inputs/shellscript-unicode-words.sh`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `json/sample` | [`samples/json.sample`][json-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `json/vue-package` | [`package.json`][vue-package] in vuejs/core | [MIT][vue-licence] |
 | `json/zod-package` | [`packages/zod/package.json`][zod-package] in colinhacks/zod | [MIT][zod-licence] |
@@ -194,6 +195,7 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 `markdown/ky-readme` and `markdown/zod-api` are held out for the TypeScript fences, and `markdown/zod-readme` is the development input for them.
 `zod-classic-schemas` and `ky-core` are held out for the TypeScript lexer the same way.
 `ruby-build` and `pyenv-init` are held out for shell, for the same reason.
+`shellscript/unicode-words` puts combining marks in names, where `\w` decides a token, because no other input has one.
 `python/sample`, `python/requests-models` and `python/black-strings` are the development inputs for Python.
 `python/flask-helpers`, `python/rich-console`, `python/fastapi-routing` and `python/pytest-python` are held out.
 `markdown/fastapi-readme` is the development input for Python fences and `markdown/rich-readme` is held out.

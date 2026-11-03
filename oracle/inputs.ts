@@ -350,6 +350,11 @@ export const inputs: Input[] = [
   { lang: "shellscript", name: "nvm", url: `${nvm}/nvm.sh` },
   { lang: "shellscript", name: "ruby-build", url: `${rubyBuild}/bin/ruby-build` },
   { lang: "shellscript", name: "pyenv-init", url: `${pyenv}/libexec/pyenv-init` },
+  {
+    lang: "shellscript",
+    name: "unicode-words",
+    url: new URL("inputs/shellscript-unicode-words.sh", import.meta.url).href,
+  },
   { lang: "json", name: "sample", url: `${samples}/json.sample` },
   { lang: "json", name: "vue-package", url: `${vue}/package.json` },
   { lang: "json", name: "zod-package", url: `${zod}/packages/zod/package.json` },

@@ -135,6 +135,13 @@ impl Lexer<'_> {
         }))
     }
 
+    /// The end of the run of colons from `i`.
+    pub(super) fn colons_end(&self, i: usize) -> usize {
+        self.run_end(i, 3, |j| {
+            usize::from(self.b(j) == b':' && j < self.len_all())
+        })
+    }
+
     /// The regex `\b` at `i`.
     pub(super) fn boundary(&self, i: usize) -> bool {
         self.word_before(i) != (self.word_at(i) > 0)

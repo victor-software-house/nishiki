@@ -191,18 +191,48 @@ impl Lexer<'_> {
     }
 
     /// `(?:[A-Za-z_][0-9A-Za-z_]*+|::)++` at `i`: where the run ends.
+    ///
+    /// The call patterns ask at every byte of a run, so a walk past a plain
+    /// name is cached. A run of colons takes its pairs from wherever it is
+    /// entered, so it passes when an even number of colons is left and stops
+    /// before the last one otherwise. Every position a step lands on after the
+    /// first starts a name or a run of colons, which the cached walk, if it
+    /// covers that position, also lands on: the search then ends where the
+    /// cached one did.
     fn scoped_name(&self, i: usize) -> Option<usize> {
         let mut j = i;
+        if let Some(end) = self.ascii_ident_end(i) {
+            if self.b(end) != b':' {
+                return Some(end);
+            }
+            j = end;
+        } else if self.b(i) != b':' {
+            return None;
+        }
+        let (from, to) = self.scoped.get();
         loop {
             if let Some(end) = self.ascii_ident_end(j) {
                 j = end;
-            } else if self.starts(j, b"::") {
-                j += 2;
+            } else if self.b(j) == b':' && j < self.len_all() {
+                let end = self.colons_end(j);
+                if (end - j) % 2 == 1 {
+                    j = end - 1;
+                    break;
+                }
+                j = end;
             } else {
                 break;
             }
+            if from <= j && j <= to {
+                j = to;
+                break;
+            }
         }
-        (j > i).then_some(j)
+        if j == i {
+            return None;
+        }
+        self.scoped.set((i, j));
+        Some(j)
     }
 
     /// Whether a name, or an operator name, and a `(` start at `p`: the

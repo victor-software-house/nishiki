@@ -16,8 +16,8 @@
 //!
 //! Limits: nesting is bounded by the highlighter's depth limit and the number
 //! of states and strings by its node limit, and the work of a line by its
-//! work limit. A non-ASCII character is a word character when it is
-//! alphanumeric (combining marks are not) and white space when Unicode says so.
+//! work limit. A non-ASCII character is a word character or white space as
+//! Shiki's regex engine reads `\w` and `\s` (`crate::classes`).
 
 mod engine;
 mod matchers;

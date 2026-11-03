@@ -86,7 +86,8 @@ impl Lexer<'_> {
         if w == p + 6 {
             return None;
         }
-        // The units of the run, so that the lookahead can take some back.
+        let mut ends = std::mem::take(&mut self.ends);
+        ends.clear();
         let mut e = w;
         while e < self.lim {
             self.spend(1);
@@ -101,26 +102,14 @@ impl Lexer<'_> {
             } else {
                 e = self.char_end(e);
             }
+            ends.push(e);
         }
-        while e > w && !self.before_separator(e) {
+        let found = ends.iter().rev().copied().find(|&end| {
             self.spend(1);
-            // Back up one unit.
-            let mut unit = w;
-            let mut last = w;
-            while unit < e {
-                self.spend(1);
-                last = unit;
-                unit = if self.s[unit] == b'\\' {
-                    self.char_end(unit + 1)
-                } else {
-                    self.char_end(unit)
-                };
-            }
-            e = last;
-        }
-        if e == w || !self.before_separator(e) {
-            return None;
-        }
+            self.before_separator(end)
+        });
+        self.ends = ends;
+        let e = found?;
         self.span(p, p + 6, &[S::KeywordControl]);
         self.span(w, e, &[S::VariableOtherLoop]);
         Some(e)

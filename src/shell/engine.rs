@@ -188,7 +188,8 @@ pub(crate) struct Lexer<'a> {
     /// The string number of the delimiter a here-document begin matched.
     payload: u32,
     chain: Vec<(u32, crate::arena::Frame)>,
-    /// Where each option of an `alias` statement ends, for backtracking.
+    /// Where each option of an `alias` statement, or each unit of a `select`
+    /// word, ends, for backtracking.
     pub(crate) ends: Vec<usize>,
     /// The text of a scope name made from source text.
     name: String,

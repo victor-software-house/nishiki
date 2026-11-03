@@ -132,10 +132,13 @@ pub(super) struct Lexer<'a> {
     stopped: bool,
     /// Scratch for the chains of member access.
     pub(super) ends: Vec<usize>,
-    /// The last run of white space, of word characters and of ASCII name
-    /// characters found: where it starts and ends. A search from inside a run
-    /// ends where the run does, so a run is scanned once.
-    pub(super) runs: [std::cell::Cell<(usize, usize)>; 3],
+    /// The last run of white space, of word characters, of ASCII name
+    /// characters and of colons found: where it starts and ends. A search from
+    /// inside a run ends where the run does, so a run is scanned once.
+    pub(super) runs: [std::cell::Cell<(usize, usize)>; 4],
+    /// The last scoped name found: where its search started and where it
+    /// ended. A later search that steps onto that walk ends where it did.
+    pub(super) scoped: std::cell::Cell<(usize, usize)>,
     /// The last word looked up: where it starts, where it ends, and the
     /// lists it is in; an empty set where no word starts.
     pub(super) mask: std::cell::Cell<(usize, usize, u32)>,
@@ -192,7 +195,8 @@ impl<'a> Lexer<'a> {
             tables: Tables::get(),
             stopped: false,
             ends: Vec::new(),
-            runs: [const { std::cell::Cell::new((usize::MAX, 0)) }; 3],
+            runs: [const { std::cell::Cell::new((usize::MAX, 0)) }; 4],
+            scoped: std::cell::Cell::new((usize::MAX, 0)),
             mask: std::cell::Cell::new((usize::MAX, 0, 0)),
             head: std::cell::Cell::new((0, 0, 0)),
         }
@@ -207,6 +211,7 @@ impl<'a> Lexer<'a> {
         for run in &self.runs {
             run.set((usize::MAX, 0));
         }
+        self.scoped.set((usize::MAX, 0));
         self.mask.set((usize::MAX, 0, 0));
     }
 

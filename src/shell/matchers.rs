@@ -11,6 +11,7 @@ mod statements;
 use super::engine::Lexer;
 use super::rules::Pat;
 use super::scope::S;
+use crate::classes;
 
 /// The regex class `\s`, for ASCII.
 pub(super) fn is_space(b: u8) -> bool {
@@ -19,18 +20,6 @@ pub(super) fn is_space(b: u8) -> bool {
 
 pub(super) fn is_blank(b: u8) -> bool {
     matches!(b, b' ' | b'\t')
-}
-
-/// The regex `\w` for a character: letters and digits, `_`, and the
-/// connector punctuation Unicode adds. Combining marks are not word
-/// characters here, though the regex counts them.
-pub(super) fn is_word_char(c: char) -> bool {
-    c.is_alphanumeric()
-        || matches!(
-            c,
-            '_' | '\u{203f}' | '\u{2040}' | '\u{2054}' | '\u{fe33}' | '\u{fe34}' | '\u{fe4d}'
-                ..='\u{fe4f}' | '\u{ff3f}'
-        )
 }
 
 /// The class `[-0-9A-Z_a-z]` the grammar spells out for names.
@@ -272,7 +261,7 @@ impl Lexer<'_> {
     pub(super) fn word_at(&self, i: usize) -> bool {
         match self.at(i) {
             b if b < 0x80 => self.avail(i) && (b.is_ascii_alphanumeric() || b == b'_'),
-            _ => self.char_at(i).is_some_and(is_word_char),
+            _ => self.char_at(i).is_some_and(classes::is_word),
         }
     }
 
@@ -281,7 +270,7 @@ impl Lexer<'_> {
         match p.checked_sub(1).map(|k| self.at(k)) {
             None => false,
             Some(b) if b < 0x80 => b.is_ascii_alphanumeric() || b == b'_',
-            Some(_) => self.char_before(p).is_some_and(is_word_char),
+            Some(_) => self.char_before(p).is_some_and(classes::is_word),
         }
     }
 
@@ -289,7 +278,7 @@ impl Lexer<'_> {
     pub(super) fn space_at(&self, i: usize) -> bool {
         match self.at(i) {
             b if b < 0x80 => self.avail(i) && is_space(b),
-            _ => self.char_at(i).is_some_and(char::is_whitespace),
+            _ => self.char_at(i).is_some_and(classes::is_space),
         }
     }
 
@@ -298,7 +287,7 @@ impl Lexer<'_> {
         match p.checked_sub(1).map(|k| self.at(k)) {
             None => false,
             Some(b) if b < 0x80 => is_space(b),
-            Some(_) => self.char_before(p).is_some_and(char::is_whitespace),
+            Some(_) => self.char_before(p).is_some_and(classes::is_space),
         }
     }
 
