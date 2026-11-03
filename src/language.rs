@@ -278,6 +278,9 @@ languages! {
         engine: crate::zig::grammar::GRAMMAR,
         reads_line_feed: true,
     }
+    /// ERB, with the scopes of Shiki's `erb` grammar: HTML whose `<% %>`
+    /// tags hold Ruby.
+    Erb { feature: "lang-erb", names: ["erb"], module: erb }
 }
 
 impl Language {

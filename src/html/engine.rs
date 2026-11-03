@@ -12,14 +12,16 @@
 //! tokenizes with patterns of its own is lexed on its text alone.
 //!
 //! The grammar's injection, which flags a bare `<`, joins the search: it
-//! wins only where it starts before every match of the current rule.
+//! wins only where it starts before every match of the current rule. In an
+//! ERB document ERB's injection takes its place, and opens Ruby code there.
 
 use std::cell::Cell;
 
 use memchr::memchr;
 
+use super::erb::{self, Erb};
 use super::scope::S;
-use super::state::{self, ROOT_EMBEDDED, Rule};
+use super::state::{self, ErbInjection, ROOT_EMBEDDED, Rule};
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Line};
 use crate::limits::{Limit, Limits, LineReport};
@@ -105,6 +107,24 @@ pub(super) enum Pat {
     UnquotedJs,
     /// JavaScript text in a quoted value of an event handler.
     JsText,
+    /// A pattern of ERB's injection, or of the rules that wrap a comment or
+    /// code that its line does not close.
+    Erb(Erb),
+    /// ERB: `(#).*?(?=-?%>)` in code, a comment up to the code's end.
+    ErbHash,
+}
+
+/// The grammar a document is lexed with.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(super) enum Document {
+    /// HTML.
+    Html,
+    /// ERB: HTML with ERB's injection in place of the HTML grammar's.
+    #[cfg_attr(
+        not(feature = "lang-erb"),
+        expect(dead_code, reason = "only the ERB language lexes ERB")
+    )]
+    Erb,
 }
 
 /// A match: the bytes `start..end`, and the positions and bits that the
@@ -158,6 +178,8 @@ pub(super) struct Frame {
     pub(super) payload: u32,
     /// Whether the injection stays out of the rule's text.
     pub(super) no_inject: bool,
+    /// Whether ERB's injection applies to the rule's text.
+    pub(super) erb: ErbInjection,
 }
 
 /// What a highlighter keeps from line to line, so that lexing a line
@@ -205,12 +227,22 @@ pub(super) struct Lexer<'a> {
     /// which holds only for the text it was found in: a region, which ends
     /// the text early, forgets it on the way in and out.
     next_lt: Cell<(usize, Option<usize>)>,
+    /// The grammar the document is lexed with.
+    document: Document,
+    /// The last place found where ERB's injection matches, kept like
+    /// `next_lt`.
+    next_erb: Cell<(usize, Option<usize>)>,
 }
 
 impl<'a> Lexer<'a> {
     /// A lexer for `line` from `state`, with the open rules of `state` as its
-    /// frames, from the root down.
-    pub(super) fn new(cx: &'a mut Context<'_>, line: Line<'a>, state: u32) -> Self {
+    /// frames, from the root down, in a `document` of that grammar.
+    pub(super) fn new(
+        cx: &'a mut Context<'_>,
+        line: Line<'a>,
+        state: u32,
+        document: Document,
+    ) -> Self {
         let s = line.text.as_bytes();
         let budget = cx.limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
         let mut frames = std::mem::take(&mut cx.scratch.html.frames);
@@ -232,6 +264,8 @@ impl<'a> Lexer<'a> {
             anchor: line.embedded.then_some(line.start),
             frames,
             next_lt: Cell::new((usize::MAX, None)),
+            document,
+            next_erb: Cell::new((usize::MAX, None)),
         };
         let mut chain = std::mem::take(&mut lexer.scratch.html.chain);
         chain.clear();
@@ -255,12 +289,15 @@ impl<'a> Lexer<'a> {
                     state: id,
                     payload: frame.payload,
                     no_inject: frame.payload == ROOT_EMBEDDED,
+                    erb: ErbInjection::Applies,
                 });
                 continue;
             }
             let rule = Rule::from_code(frame.kind);
-            let parent = lexer.top().content;
+            let top = *lexer.top();
+            let parent = lexer.inner_base(&top);
             let no_inject = lexer.top().no_inject || rule.shuts_out_injection();
+            let erb = rule.erb_injection(lexer.top().erb);
             let name = lexer.name_stack(parent, rule, frame.payload);
             lexer.frames.push(Frame {
                 rule,
@@ -271,6 +308,7 @@ impl<'a> Lexer<'a> {
                 state: id,
                 payload: frame.payload,
                 no_inject,
+                erb,
             });
         }
         lexer.scratch.html.chain = chain;
@@ -324,6 +362,36 @@ impl<'a> Lexer<'a> {
         self.spend(found.map_or(rest.len(), |at| at - from) / 16);
         self.next_lt.set((from, found));
         found
+    }
+
+    /// The first place at or after `from` where ERB's injection matches,
+    /// found once for the positions in a run.
+    fn find_erb(&self, from: usize) -> Option<usize> {
+        let (searched, found) = self.next_erb.get();
+        if searched <= from && found.is_none_or(|at| at >= from) && searched != usize::MAX {
+            return found;
+        }
+        let text = &self.s[..self.lim];
+        let mut found = (from == 0 && erb::at(text, 0).is_some()).then_some(0);
+        let mut at = from;
+        while found.is_none() {
+            let Some(lt) = memchr(b'<', text.get(at..).unwrap_or_default()) else {
+                break;
+            };
+            let lt = lt + at;
+            if erb::at(text, lt).is_some() {
+                found = Some(lt);
+            }
+            at = lt + 1;
+        }
+        self.spend(found.unwrap_or(self.lim).saturating_sub(from) / 16);
+        self.next_erb.set((from, found));
+        found
+    }
+
+    /// The match of ERB's injection at `at`, which [`Lexer::find_erb`] found.
+    fn erb_hit(&self, at: usize) -> Option<Hit> {
+        erb::at(&self.s[..self.lim], at).map(|(kind, end)| Hit::new(Pat::Erb(kind), at, end))
     }
 
     // Scopes and tokens.
@@ -440,6 +508,7 @@ impl<'a> Lexer<'a> {
             }
             let found = match self.top().rule {
                 Rule::BodyCss | Rule::BodyJs => self.embedded(),
+                Rule::ErbBlock | Rule::ErbLine => self.ruby(),
                 Rule::Root
                 | Rule::Comment
                 | Rule::Cdata
@@ -473,7 +542,10 @@ impl<'a> Lexer<'a> {
                 | Rule::StringJs
                 | Rule::JsLineComment
                 | Rule::JsBlockComment
-                | Rule::Region => self.search(),
+                | Rule::Region
+                | Rule::ErbCommentWrap
+                | Rule::ErbTagWrap
+                | Rule::ErbComment => self.search(),
             };
             let Some(hit) = found else {
                 if self.over_budget() {
@@ -509,10 +581,11 @@ impl<'a> Lexer<'a> {
     fn search(&mut self) -> Option<Hit> {
         let rule = self.top().rule;
         let end = self.end_pos();
-        let inject = if self.top().no_inject {
-            None
-        } else {
-            self.find_lt(self.pos)
+        let inject = match self.document {
+            Document::Erb if self.top().erb == ErbInjection::ShutOut => None,
+            Document::Erb => self.find_erb(self.pos),
+            Document::Html if self.top().no_inject => None,
+            Document::Html => self.find_lt(self.pos),
         };
         let cut = inject.map_or(self.lim, |at| at + 1);
         let mut p = self.pos;
@@ -527,7 +600,7 @@ impl<'a> Lexer<'a> {
             if let Some(at) = inject
                 && at < candidate
             {
-                return Some(Hit::new(Pat::Inject, at, at + 1));
+                return self.injection(at);
             }
             p = candidate;
             if p > end {
@@ -538,7 +611,16 @@ impl<'a> Lexer<'a> {
             }
             p += crate::utf8::char_len(self.at(p)).min(self.lim.saturating_sub(p).max(1));
         }
-        inject.map(|at| Hit::new(Pat::Inject, at, at + 1))
+        inject.and_then(|at| self.injection(at))
+    }
+
+    /// The injection's match at `at`: ERB's in an ERB document, the flagged
+    /// `<` otherwise.
+    fn injection(&self, at: usize) -> Option<Hit> {
+        match self.document {
+            Document::Erb => self.erb_hit(at),
+            Document::Html => Some(Hit::new(Pat::Inject, at, at + 1)),
+        }
     }
 
     /// The CSS or JavaScript of the innermost rule: the rest of the line up
@@ -572,38 +654,103 @@ impl<'a> Lexer<'a> {
             start: pos,
             embedded: false,
         };
-        let (next, halt) = if css {
-            crate::css::lex_until(&mut cx, line, inner, style_end)
-        } else {
-            crate::typescript::lex_until(
-                &mut cx,
-                crate::typescript::Dialect::JavaScript,
-                line,
-                inner,
-                script_end,
-                None,
-            )
+        let (next, halt) = match (css, self.document) {
+            (true, Document::Html) => crate::css::lex_until(&mut cx, line, inner, style_end),
+            (true, Document::Erb) => crate::css::lex_until(&mut cx, line, inner, style_end_or_erb),
+            (false, document) => {
+                let after: Option<crate::language::Halt> = match document {
+                    Document::Html => None,
+                    Document::Erb => Some(erb::begins),
+                };
+                crate::typescript::lex_until(
+                    &mut cx,
+                    crate::typescript::Dialect::JavaScript,
+                    line,
+                    inner,
+                    script_end,
+                    after,
+                )
+            }
         };
+        self.advance_to(pos, halt);
+        let Some(at) = halt else {
+            self.keep_inner(next);
+            return None;
+        };
+        let end_tag = if css { style_end } else { script_end };
+        if end_tag(self.s, at) {
+            return Some(Hit::new(Pat::End, at, at));
+        }
+        self.keep_inner(next);
+        self.erb_hit(at)
+    }
+
+    /// Moves past the text that an embedded lexer took from `pos`: up to its
+    /// halt, or the end of the text.
+    fn advance_to(&mut self, pos: usize, halt: Option<usize>) {
         let to = halt.unwrap_or(self.lim);
         self.spend(to.saturating_sub(pos) + 1);
         if to > pos {
             self.last = to;
             self.pos = to;
         }
+    }
+
+    /// Keeps `inner`, the state of the language the innermost rule embeds,
+    /// as that rule's payload, for the rest of the line or the next one.
+    fn keep_inner(&mut self, inner: u32) {
+        let top = *self.top();
+        let parent = self.frames[self.frames.len() - 2].state;
+        let state = self
+            .arena
+            .push(parent, top.rule.code(), inner, top.content)
+            .unwrap_or_else(|| {
+                self.report.record(Limit::Nodes);
+                top.state
+            });
+        let last = self.frames.len() - 1;
+        self.frames[last].state = state;
+    }
+
+    /// The Ruby of ERB code: the rest of the line up to the code's end, or up
+    /// to the comment pattern that the code tries before Ruby's patterns,
+    /// both of which halt the Ruby lexer.
+    fn ruby(&mut self) -> Option<Hit> {
+        let top = *self.top();
+        let pos = self.pos;
+        self.tok(top.content, pos);
+        let mut inner = self.arena.frame(top.state).payload;
+        if inner == 0 {
+            inner = erb::ruby_start(self.arena, top.content);
+        }
+        if pos >= self.lim {
+            return None;
+        }
+        let mut cx = Context {
+            scratch: &mut *self.scratch,
+            arena: &mut *self.arena,
+            limits: self.limits,
+            out: &mut *self.out,
+            report: &mut *self.report,
+        };
+        let line = Line {
+            text: self.text.get(..self.lim).unwrap_or(self.text),
+            start: pos,
+            embedded: false,
+        };
+        let (next, halt) = erb::lex_ruby(&mut cx, line, inner, erb::ruby_halt);
+        self.advance_to(pos, halt);
+        let text = &self.s[..self.lim];
         let Some(at) = halt else {
-            let parent = self.frames[self.frames.len() - 2].state;
-            let state = self
-                .arena
-                .push(parent, top.rule.code(), next, top.content)
-                .unwrap_or_else(|| {
-                    self.report.record(Limit::Nodes);
-                    top.state
-                });
-            let last = self.frames.len() - 1;
-            self.frames[last].state = state;
+            self.keep_inner(next);
             return None;
         };
-        Some(Hit::new(Pat::End, at, at))
+        if let Some(end) = erb::code_end(text, at) {
+            return Some(Hit::new(Pat::End, at, end).with([end - 1, 0, 0, 0, 0], 0));
+        }
+        self.keep_inner(next);
+        let to = erb::hash_comment_end(text, at)?;
+        Some(Hit::new(Pat::ErbHash, at, to))
     }
 
     // Applying matches.
@@ -626,7 +773,8 @@ impl<'a> Lexer<'a> {
             | Pat::Unquoted
             | Pat::UnquotedCss
             | Pat::UnquotedJs
-            | Pat::JsText => self.match_rule(&hit),
+            | Pat::JsText
+            | Pat::ErbHash => self.match_rule(&hit),
             Pat::Zero(_)
             | Pat::Processing
             | Pat::Comment
@@ -644,7 +792,8 @@ impl<'a> Lexer<'a> {
             | Pat::Quote
             | Pat::DoctypeQuote
             | Pat::JsLine
-            | Pat::JsBlock => self.open(&hit),
+            | Pat::JsBlock
+            | Pat::Erb(_) => self.open(&hit),
         }
     }
 
@@ -727,7 +876,8 @@ impl<'a> Lexer<'a> {
     /// Pushes `rule` on the stack, with the scopes of its name and content.
     fn push_frame(&mut self, rule: Rule, payload: u32) {
         let top = *self.top();
-        let name = self.name_stack(top.content, rule, payload);
+        let base = self.inner_base(&top);
+        let name = self.name_stack(base, rule, payload);
         let content = self.content_stack(name, rule);
         let state = self
             .arena
@@ -745,7 +895,19 @@ impl<'a> Lexer<'a> {
             state,
             payload,
             no_inject: top.no_inject || rule.shuts_out_injection(),
+            erb: rule.erb_injection(top.erb),
         });
+    }
+
+    /// The stack a rule opened inside `top` sits on: its content, and inside
+    /// a `<script>` element's code also the `source.js` that the JavaScript
+    /// lexer adds to its own stack, which ERB opened there keeps.
+    fn inner_base(&mut self, top: &Frame) -> u32 {
+        if top.rule == Rule::BodyJs {
+            self.path(top.content, &[S::SourceJs])
+        } else {
+            top.content
+        }
     }
 
     /// Whether `rule`, just opened above frame `before`, repeats a rule that
@@ -808,6 +970,7 @@ impl<'a> Lexer<'a> {
             state: top.state,
             payload,
             no_inject: top.no_inject,
+            erb: top.erb,
         });
         self.tok(top.content, from);
         self.lim = to;
@@ -815,6 +978,7 @@ impl<'a> Lexer<'a> {
         self.pos = from;
         self.anchor = None;
         self.next_lt.set((usize::MAX, None));
+        self.next_erb.set((usize::MAX, None));
         self.tokenize();
         self.tok(self.top().content, to);
         self.frames.truncate(depth);
@@ -823,6 +987,7 @@ impl<'a> Lexer<'a> {
         self.pos = pos;
         self.anchor = anchor;
         self.next_lt.set((usize::MAX, None));
+        self.next_erb.set((usize::MAX, None));
         self.last = self.last.max(to);
     }
 
@@ -859,6 +1024,12 @@ impl<'a> Lexer<'a> {
 fn style_end(s: &[u8], p: usize) -> bool {
     s.get(p..p + 7)
         .is_some_and(|text| text.eq_ignore_ascii_case(b"</style"))
+}
+
+/// The end of a `<style>` element's CSS in an ERB document, or a place where
+/// ERB's injection opens.
+fn style_end_or_erb(s: &[u8], p: usize) -> bool {
+    style_end(s, p) || erb::begins(s, p)
 }
 
 /// The end of a `<script>` element's JavaScript: `</script`, in any case.

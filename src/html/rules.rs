@@ -2,6 +2,7 @@
 //! grammar's begin, end and match rules, apart from where they match.
 
 use super::engine::{Hit, Lexer, Part, Pat, packed};
+use super::erb::Erb;
 use super::scope::S;
 use super::state::{
     AttributeKind, Category, ElementInfo, Flavor, Namespace, Rule, TagInfo, TagKind, info, name,
@@ -29,7 +30,12 @@ impl Lexer<'_> {
             | Rule::ValueCss
             | Rule::ValueJs
             | Rule::BodyJs
-            | Rule::Region => base,
+            | Rule::Region
+            | Rule::ErbCommentWrap
+            | Rule::ErbTagWrap => base,
+            Rule::ErbComment => self.path(base, &[S::ErbComment]),
+            Rule::ErbBlock => self.path(base, &[S::ErbBlock]),
+            Rule::ErbLine => self.path(base, &[S::ErbLine]),
             Rule::Comment => self.path(base, &[S::CommentBlock]),
             Rule::Cdata => self.path(base, &[S::TagCdata]),
             Rule::Doctype => self.path(base, &[S::TagDoctype]),
@@ -154,6 +160,7 @@ impl Lexer<'_> {
             Rule::Cdata => self.path(name, &[S::InlineData]),
             Rule::StringCss => self.path(name, &[S::SourceCss]),
             Rule::StringJs => self.path(name, &[S::SourceJs]),
+            Rule::ErbBlock | Rule::ErbLine => self.path(name, &[S::SourceRuby]),
             Rule::Root
             | Rule::Comment
             | Rule::Doctype
@@ -186,7 +193,10 @@ impl Lexer<'_> {
             | Rule::StringPlain
             | Rule::JsLineComment
             | Rule::JsBlockComment
-            | Rule::Region => name,
+            | Rule::Region
+            | Rule::ErbCommentWrap
+            | Rule::ErbTagWrap
+            | Rule::ErbComment => name,
         }
     }
 
@@ -217,6 +227,7 @@ impl Lexer<'_> {
             Pat::DoctypeQuote => (Rule::DoctypeString, 0),
             Pat::JsLine => (Rule::JsLineComment, top.payload),
             Pat::JsBlock => (Rule::JsBlockComment, top.payload),
+            Pat::Erb(kind) => (erb_rule(kind), 0),
             Pat::End
             | Pat::Inject
             | Pat::ElementVoid
@@ -232,7 +243,8 @@ impl Lexer<'_> {
             | Pat::Unquoted
             | Pat::UnquotedCss
             | Pat::UnquotedJs
-            | Pat::JsText => return None,
+            | Pat::JsText
+            | Pat::ErbHash => return None,
         })
     }
 
@@ -311,6 +323,15 @@ impl Lexer<'_> {
             Pat::Quote => self.cap(base, start, end, &[S::StringBegin]),
             Pat::JsLine => self.cap(base, start, end, &[S::CommentPunctuationJs]),
             Pat::JsBlock => self.cap(base, start, end, &[S::CommentBeginJs]),
+            Pat::Erb(kind) => {
+                let scope = match kind {
+                    Erb::CommentWrap => S::ErbCommentLeading,
+                    Erb::TagWrap => S::ErbEmbeddedLeading,
+                    Erb::Comment => S::ErbCommentBegin,
+                    Erb::Block | Erb::Line => S::ErbBegin,
+                };
+                self.cap(base, start, end, &[scope]);
+            }
             Pat::End
             | Pat::Inject
             | Pat::Zero(_)
@@ -328,7 +349,8 @@ impl Lexer<'_> {
             | Pat::Unquoted
             | Pat::UnquotedCss
             | Pat::UnquotedJs
-            | Pat::JsText => {}
+            | Pat::JsText
+            | Pat::ErbHash => {}
         }
     }
 
@@ -389,6 +411,12 @@ impl Lexer<'_> {
                 self.javascript(start, end, stack);
             }
             Pat::JsText => self.javascript(start, end, base),
+            Pat::ErbHash => {
+                let stack = self.path(base, &[S::ErbHashComment]);
+                let punctuation = self.path(stack, &[S::ErbHashPunctuation]);
+                self.cap_stack(base, start, start + 1, punctuation);
+                self.cap_stack(base, start + 1, end, stack);
+            }
             Pat::End
             | Pat::Inject
             | Pat::Zero(_)
@@ -409,7 +437,8 @@ impl Lexer<'_> {
             | Pat::Quote
             | Pat::DoctypeQuote
             | Pat::JsLine
-            | Pat::JsBlock => {}
+            | Pat::JsBlock
+            | Pat::Erb(_) => {}
         }
     }
 
@@ -475,6 +504,14 @@ impl Lexer<'_> {
             Rule::StringJs => self.cap(base, start, end, &[S::StringEnd, S::SourceJs]),
             Rule::JsBlockComment if end > start => {
                 self.cap(base, start, end, &[S::CommentEndJs]);
+            }
+            Rule::ErbCommentWrap => self.cap(base, start, end, &[S::ErbCommentTrailing]),
+            Rule::ErbTagWrap => self.cap(base, start, end, &[S::ErbEmbeddedTrailing]),
+            Rule::ErbComment => self.cap(base, start, end, &[S::ErbCommentEnd]),
+            Rule::ErbBlock | Rule::ErbLine => {
+                let gt = hit.at[0];
+                self.cap(base, start, gt, &[S::ErbEnd, S::SourceRuby]);
+                self.cap(base, gt, end, &[S::ErbEnd]);
             }
             Rule::JsBlockComment
             | Rule::Root
@@ -675,6 +712,22 @@ fn string_rule(rule: Rule) -> Rule {
         | Rule::StringJs
         | Rule::JsLineComment
         | Rule::JsBlockComment
-        | Rule::Region => Rule::StringPlain,
+        | Rule::Region
+        | Rule::ErbCommentWrap
+        | Rule::ErbTagWrap
+        | Rule::ErbComment
+        | Rule::ErbBlock
+        | Rule::ErbLine => Rule::StringPlain,
+    }
+}
+
+/// The rule that a pattern of ERB's injection opens.
+fn erb_rule(kind: Erb) -> Rule {
+    match kind {
+        Erb::CommentWrap => Rule::ErbCommentWrap,
+        Erb::TagWrap => Rule::ErbTagWrap,
+        Erb::Comment => Rule::ErbComment,
+        Erb::Block => Rule::ErbBlock,
+        Erb::Line => Rule::ErbLine,
     }
 }

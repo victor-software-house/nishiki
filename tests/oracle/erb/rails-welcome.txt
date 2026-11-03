@@ -1,0 +1,897 @@
+L <!DOCTYPE html>
+T 2 text.html.erb meta.tag.metadata.doctype.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.tag.metadata.doctype.html entity.name.tag.html
+T 10 text.html.erb meta.tag.metadata.doctype.html
+T 14 text.html.erb meta.tag.metadata.doctype.html entity.other.attribute-name.html
+T 15 text.html.erb meta.tag.metadata.doctype.html punctuation.definition.tag.end.html
+L <html lang="en">
+T 1 text.html.erb meta.tag.structure.html.start.html punctuation.definition.tag.begin.html
+T 5 text.html.erb meta.tag.structure.html.start.html entity.name.tag.html
+T 6 text.html.erb meta.tag.structure.html.start.html
+T 10 text.html.erb meta.tag.structure.html.start.html meta.attribute.lang.html entity.other.attribute-name.html
+T 11 text.html.erb meta.tag.structure.html.start.html meta.attribute.lang.html punctuation.separator.key-value.html
+T 12 text.html.erb meta.tag.structure.html.start.html meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 14 text.html.erb meta.tag.structure.html.start.html meta.attribute.lang.html string.quoted.double.html
+T 15 text.html.erb meta.tag.structure.html.start.html meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 16 text.html.erb meta.tag.structure.html.start.html punctuation.definition.tag.end.html
+L <head>
+T 1 text.html.erb meta.tag.structure.head.start.html punctuation.definition.tag.begin.html
+T 5 text.html.erb meta.tag.structure.head.start.html entity.name.tag.html
+T 6 text.html.erb meta.tag.structure.head.start.html punctuation.definition.tag.end.html
+L   <title>Ruby on Rails <%= Rails.version %></title>
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.metadata.title.start.html punctuation.definition.tag.begin.html
+T 8 text.html.erb meta.tag.metadata.title.start.html entity.name.tag.html
+T 9 text.html.erb meta.tag.metadata.title.start.html punctuation.definition.tag.end.html
+T 23 text.html.erb
+T 26 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 27 text.html.erb meta.embedded.line.erb source.ruby
+T 32 text.html.erb meta.embedded.line.erb source.ruby support.class.ruby
+T 33 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 40 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 41 text.html.erb meta.embedded.line.erb source.ruby
+T 42 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 43 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 45 text.html.erb meta.tag.metadata.title.end.html punctuation.definition.tag.begin.html
+T 50 text.html.erb meta.tag.metadata.title.end.html entity.name.tag.html
+T 51 text.html.erb meta.tag.metadata.title.end.html punctuation.definition.tag.end.html
+L   <meta charset="utf-8">
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.metadata.meta.void.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.metadata.meta.void.html entity.name.tag.html
+T 8 text.html.erb meta.tag.metadata.meta.void.html
+T 15 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.charset.html entity.other.attribute-name.html
+T 16 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.charset.html punctuation.separator.key-value.html
+T 17 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.charset.html string.quoted.double.html punctuation.definition.string.begin.html
+T 22 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.charset.html string.quoted.double.html
+T 23 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.charset.html string.quoted.double.html punctuation.definition.string.end.html
+T 24 text.html.erb meta.tag.metadata.meta.void.html punctuation.definition.tag.end.html
+L   <meta name="viewport" content="width=device-width">
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.metadata.meta.void.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.metadata.meta.void.html entity.name.tag.html
+T 8 text.html.erb meta.tag.metadata.meta.void.html
+T 12 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html entity.other.attribute-name.html
+T 13 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html punctuation.separator.key-value.html
+T 14 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.begin.html
+T 22 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html
+T 23 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.end.html
+T 24 text.html.erb meta.tag.metadata.meta.void.html
+T 31 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html entity.other.attribute-name.html
+T 32 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html punctuation.separator.key-value.html
+T 33 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.begin.html
+T 51 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html
+T 52 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.end.html
+T 53 text.html.erb meta.tag.metadata.meta.void.html punctuation.definition.tag.end.html
+L 
+L   <link rel="icon" href="/icon.png" type="image/png">
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.metadata.link.void.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.metadata.link.void.html entity.name.tag.html
+T 8 text.html.erb meta.tag.metadata.link.void.html
+T 11 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html entity.other.attribute-name.html
+T 12 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 13 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 17 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html
+T 18 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 19 text.html.erb meta.tag.metadata.link.void.html
+T 23 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html entity.other.attribute-name.html
+T 24 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html punctuation.separator.key-value.html
+T 25 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 34 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html
+T 35 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 36 text.html.erb meta.tag.metadata.link.void.html
+T 40 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html entity.other.attribute-name.html
+T 41 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html punctuation.separator.key-value.html
+T 42 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 51 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html string.quoted.double.html
+T 52 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 53 text.html.erb meta.tag.metadata.link.void.html punctuation.definition.tag.end.html
+L   <link rel="apple-touch-icon" href="/icon.png" sizes="512x512">
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.metadata.link.void.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.metadata.link.void.html entity.name.tag.html
+T 8 text.html.erb meta.tag.metadata.link.void.html
+T 11 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html entity.other.attribute-name.html
+T 12 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 13 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 29 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html
+T 30 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 31 text.html.erb meta.tag.metadata.link.void.html
+T 35 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html entity.other.attribute-name.html
+T 36 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html punctuation.separator.key-value.html
+T 37 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 46 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html
+T 47 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 48 text.html.erb meta.tag.metadata.link.void.html
+T 53 text.html.erb meta.tag.metadata.link.void.html meta.attribute.sizes.html entity.other.attribute-name.html
+T 54 text.html.erb meta.tag.metadata.link.void.html meta.attribute.sizes.html punctuation.separator.key-value.html
+T 55 text.html.erb meta.tag.metadata.link.void.html meta.attribute.sizes.html string.quoted.double.html punctuation.definition.string.begin.html
+T 62 text.html.erb meta.tag.metadata.link.void.html meta.attribute.sizes.html string.quoted.double.html
+T 63 text.html.erb meta.tag.metadata.link.void.html meta.attribute.sizes.html string.quoted.double.html punctuation.definition.string.end.html
+T 64 text.html.erb meta.tag.metadata.link.void.html punctuation.definition.tag.end.html
+L 
+L   <style type="text/css">
+T 2 text.html.erb punctuation.whitespace.embedded.leading.html
+T 3 text.html.erb meta.embedded.block.html meta.tag.metadata.style.start.html punctuation.definition.tag.begin.html
+T 8 text.html.erb meta.embedded.block.html meta.tag.metadata.style.start.html entity.name.tag.html
+T 9 text.html.erb meta.embedded.block.html meta.tag.metadata.style.start.html
+T 13 text.html.erb meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.type.html entity.other.attribute-name.html
+T 14 text.html.erb meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.type.html punctuation.separator.key-value.html
+T 15 text.html.erb meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 23 text.html.erb meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.type.html string.quoted.double.html
+T 24 text.html.erb meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 25 text.html.erb meta.embedded.block.html meta.tag.metadata.style.start.html punctuation.definition.tag.end.html
+L     * {
+T 4 text.html.erb meta.embedded.block.html source.css
+T 5 text.html.erb meta.embedded.block.html source.css meta.selector.css entity.name.tag.wildcard.css
+T 6 text.html.erb meta.embedded.block.html source.css
+T 7 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L       box-sizing: border-box;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 28 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 29 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       margin: 0;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       padding: 0;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L     }
+T 4 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 5 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L     body {
+T 4 text.html.erb meta.embedded.block.html source.css
+T 8 text.html.erb meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 9 text.html.erb meta.embedded.block.html source.css
+T 10 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L       align-items: center;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 26 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       background-color: #F0E7E9;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 24 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 31 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 32 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       background-image: url(data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjEwMjQiIHZpZXdCb3g9IjAgMCAxNDQwIDEwMjQiIHdpZHRoPSIxNDQwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Im0xNDQwIDUxMC4wMDA2NDh2LTUxMC4wMDA2NDhoLTE0NDB2Mzg0LjAwMDY0OGM0MTcuMzExOTM5IDEzMS4xNDIxNzkgODkxIDE3MS41MTMgMTQ0MCAxMjZ6IiBmaWxsPSIjZmZmIi8+PC9zdmc+);
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 24 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 27 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 28 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 334 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.url.css variable.parameter.url.css
+T 335 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 336 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       background-position: center center;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 26 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 27 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 33 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 34 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 40 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 41 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       background-repeat: no-repeat;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 24 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 34 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 35 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       background-size: cover;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 28 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 29 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       color: #261B23;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 11 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 20 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       display: flex;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 20 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       flex-direction: column;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 20 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 28 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 29 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       font-family: Sans-Serif;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 29 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.font-name.css
+T 30 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       font-size: calc(0.9em + 0.5vw);
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.calc.css support.function.calc.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.calc.css punctuation.section.function.begin.bracket.round.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.calc.css constant.numeric.css
+T 27 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.calc.css constant.numeric.css keyword.other.unit.em.css
+T 28 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.calc.css
+T 29 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.calc.css keyword.operator.arithmetic.css
+T 30 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.calc.css
+T 33 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.calc.css constant.numeric.css
+T 35 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.calc.css constant.numeric.css keyword.other.unit.vw.css
+T 36 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.calc.css punctuation.section.function.end.bracket.round.css
+T 37 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       font-style: normal;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 24 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       font-weight: 400;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       justify-content: center;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 29 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 30 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       line-height: 1.25;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 24 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       min-height: 100vh;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.vh.css
+T 24 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       text-align: center;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 24 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L     }
+T 4 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 5 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L     @media (prefers-color-scheme: dark) {
+T 4 text.html.erb meta.embedded.block.html source.css
+T 5 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 10 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 11 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 32 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css
+T 33 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 38 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css
+T 39 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 40 text.html.erb meta.embedded.block.html source.css
+T 41 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L       body {
+T 6 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css
+T 10 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 11 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L         background-color: #1a1a1a;
+T 8 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css
+T 24 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 26 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css
+T 27 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 33 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 34 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L         background-image: url(data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjEwMjQiIHZpZXdCb3g9IjAgMCAxNDQwIDEwMjQiIHdpZHRoPSIxNDQwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Im0xNDQwIDUxMC4wMDA2NDh2LTUxMC4wMDA2NDhoLTE0NDB2Mzg0LjAwMDY0OGM0MTcuMzExOTM5IDEzMS4xNDIxNzkgODkxIDE3MS41MTMgMTQ0MCAxMjZ6IiBmaWxsPSIjMzMzIi8+PC9zdmc+);
+T 8 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css
+T 24 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 26 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css
+T 29 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 30 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 336 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css variable.parameter.url.css
+T 337 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 338 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L         color: #e0e0e0;
+T 8 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L       }
+T 6 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css
+T 7 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L     }
+T 4 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css
+T 5 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L 
+L     nav {
+T 4 text.html.erb meta.embedded.block.html source.css
+T 7 text.html.erb meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 8 text.html.erb meta.embedded.block.html source.css
+T 9 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L       font-size: 0;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       height: 20vw;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.vw.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       line-height: 0;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 20 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       max-height: 280px;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 24 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       max-width: 280px;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 20 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       min-height: 86px;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 20 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       min-width: 86px;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       width: 20vw;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 11 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.vw.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L     }
+T 4 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 5 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L     nav a {
+T 4 text.html.erb meta.embedded.block.html source.css
+T 7 text.html.erb meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 8 text.html.erb meta.embedded.block.html source.css meta.selector.css
+T 9 text.html.erb meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 10 text.html.erb meta.embedded.block.html source.css
+T 11 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L       background: #D30001;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 26 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       border-radius: 50%;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 20 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 24 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       display: flex;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 20 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       transition: background 0.25s cubic-bezier(0.33, 1, 0.68, 1);
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 28 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css invalid.deprecated.color.system.css
+T 29 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 33 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 34 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.s.css
+T 35 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 47 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.timing-function.css support.function.timing-function.css
+T 48 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.timing-function.css punctuation.section.function.begin.bracket.round.css
+T 52 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.timing-function.css constant.numeric.css
+T 53 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.timing-function.css punctuation.separator.list.comma.css
+T 54 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.timing-function.css
+T 55 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.timing-function.css constant.numeric.css
+T 56 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.timing-function.css punctuation.separator.list.comma.css
+T 57 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.timing-function.css
+T 61 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.timing-function.css constant.numeric.css
+T 62 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.timing-function.css punctuation.separator.list.comma.css
+T 63 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.timing-function.css
+T 64 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.timing-function.css constant.numeric.css
+T 65 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.timing-function.css punctuation.section.function.end.bracket.round.css
+T 66 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css support.function.misc.css
+T 26 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css punctuation.section.function.begin.bracket.round.css
+T 27 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css
+T 28 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 30 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css
+T 32 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css keyword.other.unit.px.css
+T 33 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 35 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css
+T 37 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css keyword.other.unit.px.css
+T 38 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 41 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css support.function.misc.css
+T 42 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css punctuation.section.function.begin.bracket.round.css
+T 43 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 44 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css
+T 45 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 46 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css
+T 47 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 50 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css
+T 54 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 55 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css punctuation.section.function.end.bracket.round.css
+T 56 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css punctuation.section.function.end.bracket.round.css
+T 57 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 68 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css support.function.misc.css
+T 69 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css punctuation.section.function.begin.bracket.round.css
+T 70 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css
+T 71 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 72 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css
+T 74 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css keyword.other.unit.px.css
+T 75 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 76 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css
+T 78 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css keyword.other.unit.px.css
+T 79 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 82 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css support.function.misc.css
+T 83 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css punctuation.section.function.begin.bracket.round.css
+T 84 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 85 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css
+T 86 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 87 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css
+T 88 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 91 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css
+T 95 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 96 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css punctuation.section.function.end.bracket.round.css
+T 97 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.misc.css punctuation.section.function.end.bracket.round.css
+T 98 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L     }
+T 4 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 5 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L     nav a:hover {
+T 4 text.html.erb meta.embedded.block.html source.css
+T 7 text.html.erb meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 8 text.html.erb meta.embedded.block.html source.css meta.selector.css
+T 9 text.html.erb meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 10 text.html.erb meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 16 text.html.erb meta.embedded.block.html source.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L       background: #261B23;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 26 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L     }
+T 4 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 5 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L     @media (prefers-color-scheme: dark) {
+T 4 text.html.erb meta.embedded.block.html source.css
+T 5 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 10 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 11 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 32 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css
+T 33 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 38 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css
+T 39 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 40 text.html.erb meta.embedded.block.html source.css
+T 41 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L       nav a {
+T 6 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css
+T 9 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 10 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.selector.css
+T 11 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L         background: #D30001;
+T 8 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 20 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 27 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 28 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L         filter: drop-shadow(0 20px 13px rgb(255 255 255 / 0.03)) drop-shadow(0 8px 5px rgb(255 255 255 / 0.08));
+T 8 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css
+T 27 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css support.function.misc.css
+T 28 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css punctuation.section.function.begin.bracket.round.css
+T 29 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css
+T 30 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 32 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css
+T 34 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css keyword.other.unit.px.css
+T 35 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 37 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css
+T 39 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css keyword.other.unit.px.css
+T 40 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 43 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css support.function.misc.css
+T 44 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css punctuation.section.function.begin.bracket.round.css
+T 47 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 48 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css
+T 51 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 52 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css
+T 55 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 58 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css
+T 62 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 63 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css punctuation.section.function.end.bracket.round.css
+T 64 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css punctuation.section.function.end.bracket.round.css
+T 65 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css
+T 76 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css support.function.misc.css
+T 77 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css punctuation.section.function.begin.bracket.round.css
+T 78 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css
+T 79 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 80 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css
+T 82 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css keyword.other.unit.px.css
+T 83 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 84 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css
+T 86 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css keyword.other.unit.px.css
+T 87 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 90 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css support.function.misc.css
+T 91 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css punctuation.section.function.begin.bracket.round.css
+T 94 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 95 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css
+T 98 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 99 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css
+T 102 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 105 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css
+T 109 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css constant.numeric.css
+T 110 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css meta.function.color.css punctuation.section.function.end.bracket.round.css
+T 111 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.misc.css punctuation.section.function.end.bracket.round.css
+T 112 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L       }
+T 6 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css
+T 7 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L     }
+T 4 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css
+T 5 text.html.erb meta.embedded.block.html source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L 
+L     nav a img {
+T 4 text.html.erb meta.embedded.block.html source.css
+T 7 text.html.erb meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 8 text.html.erb meta.embedded.block.html source.css meta.selector.css
+T 9 text.html.erb meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 10 text.html.erb meta.embedded.block.html source.css meta.selector.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 14 text.html.erb meta.embedded.block.html source.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L       height: auto;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       max-width: 100%;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 20 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       width: 100%;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 11 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       cursor: pointer;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       border-radius: 50%;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 19 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 20 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 24 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L     }
+T 4 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 5 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L     ul {
+T 4 text.html.erb meta.embedded.block.html source.css
+T 6 text.html.erb meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 7 text.html.erb meta.embedded.block.html source.css
+T 8 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L       bottom: 0;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       left: 0;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 10 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       list-style: none;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 23 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       margin: 0 2rem 2rem 2rem;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 17 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 20 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.rem.css
+T 21 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 22 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.rem.css
+T 26 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 27 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 30 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.rem.css
+T 31 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       position: absolute;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 16 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 24 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 25 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L       right: 0;
+T 6 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 11 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 13 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 14 text.html.erb meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 15 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L     }
+T 4 text.html.erb meta.embedded.block.html source.css meta.property-list.css
+T 5 text.html.erb meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   </style>
+T 2 text.html.erb meta.embedded.block.html source.css
+T 3 text.html.erb meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.begin.html source.css-ignored-vscode
+T 4 text.html.erb meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.embedded.block.html meta.tag.metadata.style.end.html entity.name.tag.html
+T 10 text.html.erb meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.end.html
+L </head>
+T 2 text.html.erb meta.tag.structure.head.end.html punctuation.definition.tag.begin.html
+T 6 text.html.erb meta.tag.structure.head.end.html entity.name.tag.html
+T 7 text.html.erb meta.tag.structure.head.end.html punctuation.definition.tag.end.html
+L 
+L <body>
+T 1 text.html.erb meta.tag.structure.body.start.html punctuation.definition.tag.begin.html
+T 5 text.html.erb meta.tag.structure.body.start.html entity.name.tag.html
+T 6 text.html.erb meta.tag.structure.body.start.html punctuation.definition.tag.end.html
+L   <nav>
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.structure.nav.start.html punctuation.definition.tag.begin.html
+T 6 text.html.erb meta.tag.structure.nav.start.html entity.name.tag.html
+T 7 text.html.erb meta.tag.structure.nav.start.html punctuation.definition.tag.end.html
+L     <a href="https://rubyonrails.org" target="_blank">
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 6 text.html.erb meta.tag.inline.a.start.html entity.name.tag.html
+T 7 text.html.erb meta.tag.inline.a.start.html
+T 11 text.html.erb meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 12 text.html.erb meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 13 text.html.erb meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 36 text.html.erb meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 37 text.html.erb meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 38 text.html.erb meta.tag.inline.a.start.html
+T 44 text.html.erb meta.tag.inline.a.start.html meta.attribute.target.html entity.other.attribute-name.html
+T 45 text.html.erb meta.tag.inline.a.start.html meta.attribute.target.html punctuation.separator.key-value.html
+T 46 text.html.erb meta.tag.inline.a.start.html meta.attribute.target.html string.quoted.double.html punctuation.definition.string.begin.html
+T 52 text.html.erb meta.tag.inline.a.start.html meta.attribute.target.html string.quoted.double.html
+T 53 text.html.erb meta.tag.inline.a.start.html meta.attribute.target.html string.quoted.double.html punctuation.definition.string.end.html
+T 54 text.html.erb meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+L       <img alt="Ruby on Rails Logo" src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjExMiIgdmlld0JveD0iMCAwIDExMiAxMTIiIHdpZHRoPSIxMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0ibTEwMC4wODIzNTcgNDguOTk5NTQwM3Y0LjExMzUwMzRoLTcuMzAwMzM4OHYxLjg5ODU0aDMuNjg0MDcxN2MxLjk3MjUwOTEgMCA0LjA3MjUzNDEgMS40NjY0MzExIDQuMTk3OTk3MSAzLjk2NjUxMjRsLjAwNTkxMy4yMzczOTc3djEuNTgyMTE2N2MtLjA4NzgyNCAzLjAwNzk1OS0yLjU0MzEyMTEgNC4xMzkwMDE4LTQuMDcxNTM4OSA0LjIwMTE3NzNsLS4xMzIzNzEyLjAwMjczMjhoLTcuMzkwNzQ1MXYtNC4wOTA5MDE4bDcuNDgxMTUxOC0uMDIyNjAxNnYtMS45ODg5NDY3aC0zLjQ4MDY1NjdjLTEuNzc1MjU4MyAwLTQuMDgxODMyMS0xLjMzODkxNTMtNC4yMTk5OTQyLTMuOTU0OTIwMWwtLjAwNjUxNzYtLjI0ODk5di0xLjQyMzkwNWMwLTIuNjk4MjQwMiAyLjI3ODIxMjktNC4xODI4NTMgNC4wNjU0NjQtNC4yNjc4NDkxbC4xNjEwNDc4LS4wMDM4NjZ6bS0xOC42OTE1NzkgMHYxMS44NjU4NzUyaDYuMTcwMjU1MXY0LjEzNjEwNTFoLTEwLjczNTc5MTl2LTE2LjAwMTk4MDN6bS02LjQ0MTQ3NTEgMHYxNi4wMDE5ODAzaC00LjU4ODEzODV2LTE2LjAwMTk4MDN6bS0xNS4yMTA5MjIgMGg0LjQwNzMyNTFsLjE4NzcyNC4wMDY2ODEyYy4wMzM4NjA5LjAwMjI3MzUuMDY4OTQ1Ny4wMDUxNDk5LjEwNTE2MDEuMDA4NjY0M2wuMjMwMDg3NS4wMjkwMTc4YzEuMjkxMzgyOS4xOTg1NDc2IDMuNTQ2MzgxNiAxLjEyMTM4MTYgMy42NzUxNzA4IDMuOTA2ODU4N2wuMDA1NzY3Ny4yNTI2ODgxdjExLjc5ODA3MDJoLTQuMjcxNzE1MXYtMi44MjUyMDg0aC00LjEzNjEwNTF2Mi44MjUyMDg0aC00LjQwNzMyNTF2LTExLjc5ODA3MDJjMC0xLjMxODQzMDYgMS4wMDQwODI2LTQuMDQ2ODQ5NSAzLjk0Njg5OS00LjE5NzQxMXptLTE5LjczOTg1MTktLjAwMjc1ODEgOC41ODAxODU3LjAwMDU3NDkuMjM4OTIzNC4wMzY3NDYyLjE0Nzk0NTkuMDI5NDE3LjI3NDExNjEuMDY1MzU4Mi4yMTI1MTk4LjA1OTkwNjguMjMyMzIyNS4wNzQ3MTgyYy4wNDAxNzkzLjAxMzc3MDQuMDgxMDQwMi4wMjgyMjAxLjEyMjUxMS4wNDMzODA0bC4yNTU1NjkxLjA5OTczNzYuMjY2NzYxOC4xMTgyODUyYzEuMzU2MDUxNS42NDAyODY2IDMuMDAyNjg1NSAyLjAzMjE1ODMgMy4wMDI2ODU1IDUuMDE2Mjk0IDAgMy4xODMwNzgxLTEuNTQ2NTI0MSA0LjUwMTQ4OTktMi42OTg4MzYyIDUuMDQyMDQ3N2wtLjIxMDk2NTEuMDkyNTA0NS0uMTk4ODgyOC4wNzU4NjU1LS4xODM5NTc3LjA2MDgxODYtLjE2NjE4OTguMDQ3MzYzNi0uMjA5NzUwOC4wNDkzMDAxLS4yNTk2NDkzLjA0MTgzNjMgNS4wMDU2ODk1IDUuMDUwNTgzNmgtNi4zNzQ5NTg5bC0zLjcyNjIwODMtMy44NjA4OTA2djMuODYwODkwNmgtNC4zMDk4MzE0em0yMi4wMDcwNjAzLTMuMDg2OTE5My40NDQ5OTE3LjQyMjY4MDctLjI0Mjk2OC4xNzc5ODgxLS4zNDgyMzMxLjI2OTMzNjUtLjE5OTg1NzMuMTYyOTIwNGMtNS4yMzk4OTY3LTMuODc0NTcxNS05LjY0NzY0NTQtNS40MjIxNDA5LTEzLjE5NzExOS01LjgxNTM1MzdsLS41MjU5ODA3LS4wNTA0NzA4Yy0xLjAzOTA3NDItLjA4NDIxMjYtMi4wMDA3ODYxLS4wNjk4MTAxLTIuODg0NDMwMi4wMTE1NDYybC0uNDM1MzEzMi4wNDYxMTExYy0uMDcxNDY2OC4wMDg1NjYyLS4xNDIzOTA3LjAxNzU2MDgtLjIxMjc3MTIuMDI2OTY1M2wtLjQxNTc1OTUuMDYxMjAwNS0uNDAyNjk5MS4wNzAxNjA3LS4zODk2MTk0LjA3ODI0MTUtLjM3NjUxOTguMDg1NDQyN2MtLjA2MTY2MDYuMDE0NzkxNy0uMTIyNzc0Ni4wMjk4NDY4LS4xODMzNDE1LjA0NTE0N2wtLjM1NjgzMzkuMDk0NTk1Ny0uMzQzNjg1NC4wOTk1OTgyLS4zMzA1MTc0LjEwMzcyMTMtLjMxNzMyOTcuMTA2OTY0OS0uMzA0MTIyNS4xMDkzMjktLjI5MDg5NTYuMTEwODEzNy0uNDExNTAwMi4xNjcwODAzLS41MDIxOTAyLjIxOTc2MTUtLjY1MzM3MzYuMzA4ODk1Ni0uNjEwMTA1LjMwMDU2NzVjLTQuNjk4ODg2NiAyLjYyMTk3ODgtNi44NTM5Mjk0IDYuODQ2MDcxMS03Ljc2ODIwMDIgMTAuODg2NjQ2M2wtLjEyMjMxMDEuNTc1NzgzOGMtLjAzODA1MDQuMTkxMzgzMy0uMDczNDI3OC4zODIxNTc2LS4xMDYyNzMyLjU3MjEzMDFsLS4wOTEwODA0LjU2NzMxOTYtLjA3NjczMTguNTYxMzUyMS0uMDYzMjI3NS41NTQyMjc3Yy0uMDA5NDU5NC4wOTE3MTM0LS4wMTgzOTE0LjE4MzA4MTctLjAyNjgxMzQuMjc0MDgwOGwtLjA0NDU1NC41NDEzNzIyLS4wMzMxNjAxLjUzMTM1NTZjLS4wMDQ2MjQyLjA4NzY2MDMtLjAwODgwODcuMTc0ODU1MS0uMDEyNTcxMy4yNjE1NjAybC0uMDE3NjUyNS41MTQxNjE4LS4wMDgzNjkzLjUwMTI1MzEuMDAwMDY5Ni40ODcxODc2LjAxNDA4MDYuNzAxODc3OS4wMjgzMTk1LjY2MzcyMjkuMDM5NzA4OS42MjE2NjM3LjA0ODI0OTIuNTc1Njk5OS4wNTM5NDAyLjUyNTgzMTcuMDc1ODQ4MS42MTY3ODc5LjA3NDE0NjIuNTExOTM3LjA4MDAwMDIuNDc4Mzc1Ni4wNjg1OTk1LjM1NDA4NjNoLTE3Ljg1NTMxN2wuMDU4NDktLjQ0MTcyNTMuMDQ2MzM2OC0uMjk1MTQ0OC4wNjMwMjA2LS4zNjQ3MjQyLjExMzI4MTktLjU4OTIwNjkuMTA5Mzc4Ny0uNTE1MDkwNy4xODIwMjY1LS43Nzg1MDg4LjE2NjEzNzYtLjY0ODY3NzIuMTI1OTIzMy0uNDYxNTk0My4yMTMwNDc0LS43MzM4MjI1LjE1ODk2NTUtLjUxNTUwNDIuMTczMTcyOC0uNTM1NDY5OS4xODc5NDYzLS41NTQ1MjI2LjIwMzI4NTctLjU3MjY2Mi4yMTkxOTEzLS41ODk4ODgzLjIzNTY2MjgtLjYwNjIwMTQuMjUyNzAwNC0uNjIxNjAxMmMuMDQzNTY4LS4xMDQ4MzI4LjA4Nzg2OTQtLjIxMDI2OTEuMTMyOTE2Mi0uMzE2MjkwMWwuMjc5MzE4LS42NDI5ODg3LjI5Nzc3MDctLjY1NjEwNTYuMzE2Nzg5NC0uNjY4MzA5Mi4zMzYzNzQtLjY3OTU5OTcuMzU2NTI0OS0uNjg5OTc3Yy4zNjY3ODg5LS42OTQ4NjExLjc2NDY1MjktMS40MDM5MTg0IDEuMTk2MTM5My0yLjEyMzA2MjQgNC43NDYzNTAxLTcuOTEwNTgzNCAxMi44Mzc3NDY5LTEzLjkwMDAyNTIgMTkuNDE0ODMyLTE0LjQ4NzY2ODYgNS4wNDUzODA2LS41MDU0MDk0IDkuODkyNTQzNi45Mjc2ODIzIDEzLjk0NDM2MjggMi44Nzk2NDM1bC42NDk5ODU4LjMyMDg1ODIuNjM1NDc2OC4zMjg2MDkzLjYyMDQwMTkuMzM1MDE1Yy4xMDIxMTI2LjA1NjI5NDkuMjAzNTczNi4xMTI4MDA3LjMwNDM3MS4xNjk0ODkybC41OTY3Mjg2LjM0MjEwMTMuNTgwMjM5LjM0NTE0MzkuNTYzMTgzNi4zNDY4NDExLjU0NTU2MjQuMzQ3MTkzMi41MjczNzUzLjM0NjE5OTkuNTA4NjIyMy4zNDM4NjE0Yy4wODMxNzYyLjA1NzA0MDYuMTY1NTQ3NS4xMTM5Mjc3LjI0NzEwMi4xNzA2MzMzbC40Nzk0MzIuMzM3ODMxMi40NTkyNjQ0LjMzMjEyOTQuNDM4NTMxLjMyNTA4MjUuNDE3MjMxNy4zMTY2OTAyLjU4NDY3MzYuNDU2MzU2OS41MzM1Njc0LjQyOTkwNzEuNjI4NjIzNy41MjQyMTc5LjY0NjM0MzIuNTYxNDAxNXptLTMwLjcwMDEwNTYgMTQuNTcxMzI0MyAyLjQ0MDk4MDEuODgxNDY1Yy4xMTMwMDgzLjg4NTIzMTkuMjczMTAzNCAxLjcyMzM3NzEuNDQxMDQ2NCAyLjQ4ODI3NjFsLjEwMTM5MzYuNDQ5OTQwNi0yLjcxMjIwMDEtLjk3MTg3MTctLjAzMzgzNDctLjIxMjE2MTgtLjA2NjA0MjEtLjQ3NTU4NDMtLjA2MTE2MDEtLjU0MTIxOTVjLS4wNDgwMjg1LS40Nzc0NjAyLS4wODc1ODE0LTEuMDE5OTAwMy0uMTEwMTgzMS0xLjYxODg0NDR6bTMxLjUwNjcyMzktNy42NjE5NjUyaC0xLjUxNDMxMTdjLS45NDAwMjM4IDAtMS4yMzkxMjI0LjQwOTc3Mi0xLjMzNDI5MDEuNjcwNTM2bC0uMDI4MjI2Ni4wOTUwMzM5Yy0uMDAzMjM3LjAxNDA3My0uMDA1ODI2Ni4wMjcxNTI2LS4wMDc4OTgyLjAzOTA3MzJsLS4wMDgxNTczLjA3MTUyMzktLjAwMDEyOTUgMy45MTUzODY0aDQuMTM2MTA1MWwtLjAwMTg1MzMtMy45MzQ3Njk0LS4wMTAyNjEyLS4wNjY5OTEzLS4wMjU3MjA3LS4wOTg3MjQxYy0uMDgzNTM1Ny0uMjU5MTUwNy0uMzUwOTEzNS0uNjkxMDY4Ni0xLjIwNTI1NjUtLjY5MTA2ODZ6bS01MC40OTIxMjQyLjMzOTAyNSAyLjU5OTE5MTcuOTQ5MjctLjQwODY0MS45NTE1ODM5Yy0uMjEyNDg4Mi40OTk0NjQ0LS40Mjc3Nzk2IDEuMDE0ODE0Mi0uNjAzMzU3NSAxLjQ1Nzc0NWwtLjExODA4NDkuMzAyODcxMi0yLjU5OTE5MTctLjk0OTI3LjEzMjM2NjItLjM0NTMwMzMuMjU4Mzg4OS0uNjM5MjAzNC4zMDU3MTExLS43MjgxOTc0LjMyNTQ4NzUtLjc1MzYyNDRjLjAzNjI0MzgtLjA4Mjc5NDMuMDcyMzQzNy0uMTY0ODgyMy4xMDgxMjk3LS4yNDU4NzE2em0zNS40NDUxMjA5LS4xNDM0NDQ5aC0zLjQ1Njg0Mzl2My42NTg4NjczaDMuNDM0Mzk2OGwuMDU0NzEwNi0uMDI1MzkyLjA4NjU5ODQtLjA0ODg5ODMuMTE0NzUzNi0uMDc4NjgyMmMuMjkyNjQyOC0uMjIxMTQ0OC43MzE2MDcxLS43MTQ5Nzk3LjczMTYwNzEtMS42ODc2ODQ3cy0uNDI4OTg3OC0xLjQ1NjU2MzQtLjcxNDk3OTctMS42NzEwNTczbC0uMTEyMTQ1NS0uMDc2MDc0MS0uMDg0NjMwMy0uMDQ2OTMwMXptLTE1LjQ0MjY0NTYtLjc2MDYyMTggMS42MjczMjAxIDEuMjg4Mjk1MWMtLjE4MDgxMzQuNzA1MTcyLS4zMTgyMzE1IDEuNDEwMzQ0LS40MTIyNTQ1IDIuMTE1NTE2bC0uMDYyMzgwNi41Mjg4NzktMS44MzA3MzUtMS40NDY1MDY3Yy4xODA4MTM0LS44MTM2Ni4zODQyMjg0LTEuNjQ5OTIxNy42NzgwNS0yLjQ4NjE4MzR6bTQuMDAwNDk1MS02LjMwNTg2NTEgMS4wMTcwNzUgMS41MzY5MTM0Yy0uMzk3Nzg5My40MTU4NzA3LS43NjY2NDg1LjgzMTc0MTMtMS4wOTUwMDU1IDEuMjcwNzU2MWwtLjIzODQ5MjguMzMzOTYyMy0xLjA4NDg4MDEtMS42MjczMjAxYy40MDY4My0uNTE5ODM4My44ODE0NjUxLTEuMDM5Njc2NyAxLjQwMTMwMzQtMS41MTQzMTE3em0tMTYuMTgyNzkzNi0zLjM0NTA0NjcgMS42MDQ3MTgzIDEuNDAxMzAzNGMtLjQwNjgzLjQyMzc4MTItLjgwMDk0NjUuODcyOTg5NC0xLjE3MjgxNDYgMS4zMjg1NTQybC0uMzY0MDk4Ny40NTY5Nzc1LTEuNzQwMzI4NC0xLjQ5MTcxMDFjLjUxOTgzODMtLjU2NTA0MTYgMS4wODQ4OC0xLjEzMDA4MzMgMS42NzI1MjM0LTEuNjk1MTI1em0yMi4zOTgyNTIxLS4wOTA0MDY3LjQ5NzIzNjYgMS40OTE3MTAxYy0uNTI0MzU4Ni4xNjI3MzItMS4wNDg3MTczLjM2ODg1OTItMS41NzMwNzYuNjA2ODA5NWwtLjM5MzI2OS4xODQyNDg4LS41MTk4Mzg0LTEuNTU5NTE1Yy41NjUwNDE3LS4yNDg2MTg0IDEuMjIwNDkwMS0uNDk3MjM2NyAxLjk4ODk0NjgtLjcyMzI1MzR6bTUuMjg4NzktLjU0MjQ0Yy41Nzg2MDI3LjAzNjE2MjcgMS4xNzE2NzA1LjEwMTI1NTUgMS43NzkyMDMzLjIwNjg1MDVsLjQ1ODM2MTguMDg2OTcxMi0uMDkwNDA2NyAxLjQwMTMwMzRjLS41OTY2ODQtLjEyNjU2OTQtMS4xOTMzNjgtLjIwOTc0MzUtMS43OTAwNTItLjI0OTUyMjRsLS40NDc1MTMtLjAyMTY5NzZ6bS0xOC41NTU5Njg2LTYuMjM4MDYwMSAxLjAxNzA3NSAxLjU1OTUxNWMtLjQ0MDczMjUuMjIwMzY2My0uODY4NzUxNi40NjYxNTk0LTEuMzAzMTI3NC43Mjc4NDQzbC0uNDM3MjAxLjI2NjYyOTEtMS4wMzk2NzY3LTEuNTgyMTE2N2MuNjEwMjQ1LS4zNjE2MjY3IDEuMTk3ODg4NC0uNjc4MDUgMS43NjI5MzAxLS45NzE4NzE3em0xOC41MTA3NjUzLjYzMjg0NjcuMDkwNDA2Ny0xLjQ5MTcxLjQ0MzUwNzMuMTMwNTU2NC4zODM5ODAzLjEyMDMyNTIuMzI4NTQ1OC4xMDk5MDc5LjI3NzIwMzcuMDk5MzA0OC4zMjg0OTE1LjEyODY2OS4yOTY0ODguMTMyNzExMi4xMzQxNDUxLjA2OTU4MzgtLjA5MDQwNjcgMS41MTQzMTE3Yy0uNDgyMTY4OS0uMTk1ODgxMS0uOTY0MzM3OC0uMzgxNzE3LTEuNDUzMjAzNS0uNTU3NTA3OHptLTguNTQzNDMwMS0yLjgyNTIwODQuNDUyMDMzMyAxLjM3ODcwMTdoLS4yMjYwMTY3Yy0uNDkxNTg2MiAwLS45ODMxNzI1LjAxMjcxMzQtMS40NzQ3NTg4LjA0NzY3NTRsLS40OTE1ODYyLjA0MjczMTMtLjQyOTQzMTctMS4zMzM0OTg0Yy43NDU4NTUtLjA5MDQwNjcgMS40NjkxMDg0LS4xMzU2MSAyLjE2OTc2MDEtLjEzNTYxeiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==" />
+T 6 text.html.erb
+T 7 text.html.erb meta.tag.object.img.void.html punctuation.definition.tag.begin.html
+T 10 text.html.erb meta.tag.object.img.void.html entity.name.tag.html
+T 11 text.html.erb meta.tag.object.img.void.html
+T 14 text.html.erb meta.tag.object.img.void.html meta.attribute.alt.html entity.other.attribute-name.html
+T 15 text.html.erb meta.tag.object.img.void.html meta.attribute.alt.html punctuation.separator.key-value.html
+T 16 text.html.erb meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html punctuation.definition.string.begin.html
+T 34 text.html.erb meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
+T 35 text.html.erb meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html punctuation.definition.string.end.html
+T 36 text.html.erb meta.tag.object.img.void.html
+T 39 text.html.erb meta.tag.object.img.void.html meta.attribute.src.html entity.other.attribute-name.html
+T 40 text.html.erb meta.tag.object.img.void.html meta.attribute.src.html punctuation.separator.key-value.html
+T 41 text.html.erb meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 8147 text.html.erb meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html
+T 8148 text.html.erb meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 8149 text.html.erb meta.tag.object.img.void.html
+T 8151 text.html.erb meta.tag.object.img.void.html punctuation.definition.tag.end.html
+L     </a>
+T 4 text.html.erb
+T 6 text.html.erb meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.inline.a.end.html entity.name.tag.html
+T 8 text.html.erb meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+L   </nav>
+T 2 text.html.erb
+T 4 text.html.erb meta.tag.structure.nav.end.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.structure.nav.end.html entity.name.tag.html
+T 8 text.html.erb meta.tag.structure.nav.end.html punctuation.definition.tag.end.html
+L 
+L   <ul>
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.structure.ul.start.html punctuation.definition.tag.begin.html
+T 5 text.html.erb meta.tag.structure.ul.start.html entity.name.tag.html
+T 6 text.html.erb meta.tag.structure.ul.start.html punctuation.definition.tag.end.html
+L     <li><strong>Rails version:</strong> <%= Rails.version %></li>
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.structure.li.start.html entity.name.tag.html
+T 8 text.html.erb meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+T 9 text.html.erb meta.tag.inline.strong.start.html punctuation.definition.tag.begin.html
+T 15 text.html.erb meta.tag.inline.strong.start.html entity.name.tag.html
+T 16 text.html.erb meta.tag.inline.strong.start.html punctuation.definition.tag.end.html
+T 30 text.html.erb
+T 32 text.html.erb meta.tag.inline.strong.end.html punctuation.definition.tag.begin.html
+T 38 text.html.erb meta.tag.inline.strong.end.html entity.name.tag.html
+T 39 text.html.erb meta.tag.inline.strong.end.html punctuation.definition.tag.end.html
+T 40 text.html.erb
+T 43 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 44 text.html.erb meta.embedded.line.erb source.ruby
+T 49 text.html.erb meta.embedded.line.erb source.ruby support.class.ruby
+T 50 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 57 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 58 text.html.erb meta.embedded.line.erb source.ruby
+T 59 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 60 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 62 text.html.erb meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 64 text.html.erb meta.tag.structure.li.end.html entity.name.tag.html
+T 65 text.html.erb meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L     <li><strong>Rack version:</strong> <%= Rack.release %></li>
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.structure.li.start.html entity.name.tag.html
+T 8 text.html.erb meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+T 9 text.html.erb meta.tag.inline.strong.start.html punctuation.definition.tag.begin.html
+T 15 text.html.erb meta.tag.inline.strong.start.html entity.name.tag.html
+T 16 text.html.erb meta.tag.inline.strong.start.html punctuation.definition.tag.end.html
+T 29 text.html.erb
+T 31 text.html.erb meta.tag.inline.strong.end.html punctuation.definition.tag.begin.html
+T 37 text.html.erb meta.tag.inline.strong.end.html entity.name.tag.html
+T 38 text.html.erb meta.tag.inline.strong.end.html punctuation.definition.tag.end.html
+T 39 text.html.erb
+T 42 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 43 text.html.erb meta.embedded.line.erb source.ruby
+T 47 text.html.erb meta.embedded.line.erb source.ruby support.class.ruby
+T 48 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 55 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 56 text.html.erb meta.embedded.line.erb source.ruby
+T 57 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 58 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 60 text.html.erb meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 62 text.html.erb meta.tag.structure.li.end.html entity.name.tag.html
+T 63 text.html.erb meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L     <li><strong>Ruby version:</strong> <%= RUBY_DESCRIPTION %></li>
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.structure.li.start.html entity.name.tag.html
+T 8 text.html.erb meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+T 9 text.html.erb meta.tag.inline.strong.start.html punctuation.definition.tag.begin.html
+T 15 text.html.erb meta.tag.inline.strong.start.html entity.name.tag.html
+T 16 text.html.erb meta.tag.inline.strong.start.html punctuation.definition.tag.end.html
+T 29 text.html.erb
+T 31 text.html.erb meta.tag.inline.strong.end.html punctuation.definition.tag.begin.html
+T 37 text.html.erb meta.tag.inline.strong.end.html entity.name.tag.html
+T 38 text.html.erb meta.tag.inline.strong.end.html punctuation.definition.tag.end.html
+T 39 text.html.erb
+T 42 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 43 text.html.erb meta.embedded.line.erb source.ruby
+T 59 text.html.erb meta.embedded.line.erb source.ruby variable.other.constant.ruby
+T 60 text.html.erb meta.embedded.line.erb source.ruby
+T 61 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 62 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 64 text.html.erb meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 66 text.html.erb meta.tag.structure.li.end.html entity.name.tag.html
+T 67 text.html.erb meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L   </ul>
+T 2 text.html.erb
+T 4 text.html.erb meta.tag.structure.ul.end.html punctuation.definition.tag.begin.html
+T 6 text.html.erb meta.tag.structure.ul.end.html entity.name.tag.html
+T 7 text.html.erb meta.tag.structure.ul.end.html punctuation.definition.tag.end.html
+L </body>
+T 2 text.html.erb meta.tag.structure.body.end.html punctuation.definition.tag.begin.html
+T 6 text.html.erb meta.tag.structure.body.end.html entity.name.tag.html
+T 7 text.html.erb meta.tag.structure.body.end.html punctuation.definition.tag.end.html
+L 
+L </html>
+T 2 text.html.erb meta.tag.structure.html.end.html punctuation.definition.tag.begin.html
+T 6 text.html.erb meta.tag.structure.html.end.html entity.name.tag.html
+T 7 text.html.erb meta.tag.structure.html.end.html punctuation.definition.tag.end.html
+L 

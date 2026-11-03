@@ -1,0 +1,292 @@
+L <%%= form_with(model: <%= model_resource_name %>) do |form| %>
+T 4 text.html.erb meta.embedded.block.erb punctuation.section.embedded.begin.erb
+T 5 text.html.erb meta.embedded.block.erb source.ruby
+T 14 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 15 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 20 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.hashkey.ruby
+T 21 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 22 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 23 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 25 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.assignment.augmented.ruby
+T 46 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 48 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 61 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 62 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+L   <%% if <%= singular_table_name %>.errors.any? %>
+T 2 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 3 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 5 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 10 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 11 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 12 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.assignment.ruby
+T 33 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 35 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 49 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 50 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+L     <div style="color: red">
+T 4 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 5 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 14 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 15 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.assignment.ruby
+T 16 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 26 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.double.interpolated.ruby
+T 27 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 28 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L       <h2><%%= pluralize(<%= singular_table_name %>.errors.count, "error") %> prohibited this <%= singular_table_name %> from being saved:</h2>
+T 6 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 10 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 11 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 13 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 26 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 27 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 28 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.assignment.ruby
+T 49 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 51 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 76 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 77 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 94 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 95 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 97 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.assignment.augmented.ruby
+T 118 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 120 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 142 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 143 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+L 
+L       <ul>
+T 6 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 9 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 10 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L         <%% <%= singular_table_name %>.errors.each do |error| %>
+T 8 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 9 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 11 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 13 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 14 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 15 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.assignment.ruby
+T 36 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 38 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 63 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 64 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+L           <li><%%= error.full_message %></li>
+T 10 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 11 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 14 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 15 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 17 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 38 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 39 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 40 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 41 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 42 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 44 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 45 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L         <%% end %>
+T 8 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 9 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 11 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 16 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 17 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 18 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L       </ul>
+T 6 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 8 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 10 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 11 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L     </div>
+T 4 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 5 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 6 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 9 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 10 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L   <%% end %>
+T 2 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 3 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 5 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 10 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 11 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 12 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L 
+L <% attributes.each do |attribute| -%>
+T 1 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 2 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 13 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 14 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 18 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 19 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 21 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.control.start-block.ruby
+T 22 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 23 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 32 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 33 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 34 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 35 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 37 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+L   <div>
+T 6 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+L <% if attribute.password_digest? -%>
+T 1 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 2 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 3 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 5 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.control.ruby
+T 15 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 16 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 32 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 33 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 34 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 36 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+L     <%%= form.label :password, style: "display: block" %>
+T 56 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 57 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+L     <%%= form.password_field :password %>
+T 4 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 5 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 39 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 40 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 41 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L   </div>
+T 2 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 3 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 4 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 8 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L 
+L   <div>
+T 2 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 3 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 6 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L     <%%= form.label :password_confirmation, style: "display: block" %>
+T 4 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 5 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 68 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 69 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 70 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L     <%%= form.password_field :password_confirmation %>
+T 4 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 5 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 52 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 53 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 54 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L <% elsif attribute.attachments? -%>
+T 1 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 2 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 3 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 8 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.control.ruby
+T 18 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 19 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 31 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 32 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 33 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 35 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+L     <%%= form.label :<%= attribute.column_name %>, style: "display: block" %>
+T 48 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 49 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 50 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 51 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 56 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.hashkey.ruby
+T 57 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 58 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 59 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 73 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.double.interpolated.ruby
+T 74 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 75 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 77 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+L     <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true %>
+T 40 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 41 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 42 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 43 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 44 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.ruby
+T 46 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.assignment.augmented.ruby
+T 56 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 57 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 68 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 69 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 71 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 89 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 90 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+L <% else -%>
+T 1 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 2 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 3 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.control.ruby
+T 8 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 9 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 11 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+L     <%%= form.label :<%= attribute.column_name %>, style: "display: block" %>
+T 48 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 49 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 50 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 51 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 56 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.hashkey.ruby
+T 57 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 58 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 59 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 73 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.double.interpolated.ruby
+T 74 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 75 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 77 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+L     <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %> %>
+T 40 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 41 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 42 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 43 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 44 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.ruby
+T 46 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.assignment.augmented.ruby
+T 56 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 57 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 68 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 69 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 71 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 73 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 74 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+L <% end -%>
+T 1 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 2 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 3 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 6 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.control.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 8 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 10 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+L   </div>
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 8 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+L 
+L <% end -%>
+T 1 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 2 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 3 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 6 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.control.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 8 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 10 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+L   <div>
+T 6 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+L     <%%= form.submit %>
+T 4 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 5 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 21 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 22 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 23 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L   </div>
+T 2 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 3 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 4 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.arithmetic.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 8 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L <%% end %>
+T 1 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+T 3 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 8 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby
+T 9 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 10 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby keyword.operator.comparison.ruby
+L 

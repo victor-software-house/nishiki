@@ -1091,4 +1091,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+Its ERB support emits the scope names of the ERB TextMate grammar in [textmate/ruby.tmbundle](https://github.com/textmate/ruby.tmbundle), `Syntaxes/HTML (Ruby - ERB).tmLanguage` at commit `ecf0f1df23984bcff9b51552e35d9696cb0d9539`, which Shiki bundles as `erb`, and tries that grammar's rules in its order.
+The bundle's `README.mdown` licenses its files as follows; the ERB grammar carries no licence of its own, and no `-license` file stands beside it:
+
+```text
+If not otherwise specified (see below), files in this repository fall under the following license:
+
+  Permission to copy, use, modify, sell and distribute this
+  software is granted. This software is provided "as is" without
+  express or implied warranty, and with no claim as to its
+  suitability for any purpose.
+
+An exception is made for files in readable text which contain their own license information, or files where an accompanying file exists (in the same directory) with a “-license” suffix added to the base-name name of the original file, and an extension of txt, html, or similar. For example “tidy” is accompanied by “tidy-license.txt”.
 ```

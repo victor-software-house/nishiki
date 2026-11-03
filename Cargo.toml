@@ -59,6 +59,7 @@ all = [
   "lang-xml",
   "lang-swift",
   "lang-html",
+  "lang-erb",
 ]
 
 # Tiers, which overlap.
@@ -81,6 +82,7 @@ web = [
   "lang-json",
   "lang-graphql",
   "lang-html",
+  "lang-erb",
 ]
 systems = [
   "lang-rust",
@@ -140,6 +142,7 @@ lang-powershell = ["_textmate"]
 lang-scala = ["_textmate"]
 lang-html = ["_scope-table", "lang-css", "lang-javascript", "_classes"]
 lang-zig = ["_textmate"]
+lang-erb = ["lang-html", "lang-ruby"]
 
 # Shared code that only some languages use; not for callers.
 # The classes read characters through the UTF-8 helpers.

@@ -7,6 +7,7 @@ mod csharp;
 mod css;
 mod diff;
 mod dockerfile;
+mod erb;
 mod go;
 mod graphql;
 mod html;

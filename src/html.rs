@@ -20,6 +20,7 @@
 //! empty lines.
 
 mod engine;
+mod erb;
 mod matchers;
 mod rules;
 mod scope;
@@ -64,7 +65,27 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
     if line.text.len() <= line.start {
         return state;
     }
-    engine::Lexer::new(cx, line, state).run()
+    engine::Lexer::new(cx, line, state, engine::Document::Html).run()
+}
+
+/// The state at the start of an ERB document whose scopes sit on the stack
+/// `base`: the HTML root rule with `text.html.erb` on top of it.
+#[cfg(feature = "lang-erb")]
+pub(crate) fn start_erb(arena: &mut Arena, base: u32) -> u32 {
+    let stack = arena.child(base, S::TextHtmlErb.scope()).unwrap_or(base);
+    arena
+        .push(ROOT, Rule::Root.code(), 0, stack)
+        .unwrap_or(ROOT)
+}
+
+/// Lexes a line of an ERB document like [`lex`], with ERB's injection in
+/// place of the grammar's.
+#[cfg(feature = "lang-erb")]
+pub(crate) fn lex_erb(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+    if line.text.len() <= line.start {
+        return state;
+    }
+    engine::Lexer::new(cx, line, state, engine::Document::Erb).run()
 }
 
 #[cfg(test)]

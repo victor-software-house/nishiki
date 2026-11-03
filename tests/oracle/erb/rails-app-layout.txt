@@ -1,0 +1,354 @@
+L <!DOCTYPE html>
+T 2 text.html.erb meta.tag.metadata.doctype.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.tag.metadata.doctype.html entity.name.tag.html
+T 10 text.html.erb meta.tag.metadata.doctype.html
+T 14 text.html.erb meta.tag.metadata.doctype.html entity.other.attribute-name.html
+T 15 text.html.erb meta.tag.metadata.doctype.html punctuation.definition.tag.end.html
+L <html>
+T 1 text.html.erb meta.tag.structure.html.start.html punctuation.definition.tag.begin.html
+T 5 text.html.erb meta.tag.structure.html.start.html entity.name.tag.html
+T 6 text.html.erb meta.tag.structure.html.start.html punctuation.definition.tag.end.html
+L   <head>
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.structure.head.start.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.structure.head.start.html entity.name.tag.html
+T 8 text.html.erb meta.tag.structure.head.start.html punctuation.definition.tag.end.html
+L     <title><%%= content_for(:title) || "<%= app_name.titleize %>" %></title>
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.metadata.title.start.html punctuation.definition.tag.begin.html
+T 10 text.html.erb meta.tag.metadata.title.start.html entity.name.tag.html
+T 11 text.html.erb meta.tag.metadata.title.start.html punctuation.definition.tag.end.html
+T 15 text.html.erb meta.embedded.block.erb punctuation.section.embedded.begin.erb
+T 16 text.html.erb meta.embedded.block.erb source.ruby
+T 27 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 28 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 29 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 34 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.ruby
+T 35 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 36 text.html.erb meta.embedded.block.erb source.ruby
+T 38 text.html.erb meta.embedded.block.erb source.ruby keyword.operator.logical.ruby
+T 39 text.html.erb meta.embedded.block.erb source.ruby
+T 40 text.html.erb meta.embedded.block.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 64 text.html.erb meta.embedded.block.erb source.ruby string.quoted.double.interpolated.ruby
+T 65 text.html.erb meta.embedded.block.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 66 text.html.erb meta.embedded.block.erb source.ruby
+T 67 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb source.ruby
+T 68 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb
+T 70 text.html.erb meta.tag.metadata.title.end.html punctuation.definition.tag.begin.html
+T 75 text.html.erb meta.tag.metadata.title.end.html entity.name.tag.html
+T 76 text.html.erb meta.tag.metadata.title.end.html punctuation.definition.tag.end.html
+L     <meta name="viewport" content="width=device-width,initial-scale=1">
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.metadata.meta.void.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.tag.metadata.meta.void.html entity.name.tag.html
+T 10 text.html.erb meta.tag.metadata.meta.void.html
+T 14 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html entity.other.attribute-name.html
+T 15 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html punctuation.separator.key-value.html
+T 16 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html
+T 25 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.end.html
+T 26 text.html.erb meta.tag.metadata.meta.void.html
+T 33 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html entity.other.attribute-name.html
+T 34 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html punctuation.separator.key-value.html
+T 35 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.begin.html
+T 69 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html
+T 70 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.end.html
+T 71 text.html.erb meta.tag.metadata.meta.void.html punctuation.definition.tag.end.html
+L     <meta name="apple-mobile-web-app-capable" content="yes">
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.metadata.meta.void.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.tag.metadata.meta.void.html entity.name.tag.html
+T 10 text.html.erb meta.tag.metadata.meta.void.html
+T 14 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html entity.other.attribute-name.html
+T 15 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html punctuation.separator.key-value.html
+T 16 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.begin.html
+T 44 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html
+T 45 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.end.html
+T 46 text.html.erb meta.tag.metadata.meta.void.html
+T 53 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html entity.other.attribute-name.html
+T 54 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html punctuation.separator.key-value.html
+T 55 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.begin.html
+T 58 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html
+T 59 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.end.html
+T 60 text.html.erb meta.tag.metadata.meta.void.html punctuation.definition.tag.end.html
+L     <meta name="application-name" content="<%= app_name.titleize %>">
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.metadata.meta.void.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.tag.metadata.meta.void.html entity.name.tag.html
+T 10 text.html.erb meta.tag.metadata.meta.void.html
+T 14 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html entity.other.attribute-name.html
+T 15 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html punctuation.separator.key-value.html
+T 16 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.begin.html
+T 32 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html
+T 33 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.end.html
+T 34 text.html.erb meta.tag.metadata.meta.void.html
+T 41 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html entity.other.attribute-name.html
+T 42 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html punctuation.separator.key-value.html
+T 43 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.begin.html
+T 46 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 55 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html meta.embedded.line.erb source.ruby
+T 56 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 64 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 65 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html meta.embedded.line.erb source.ruby
+T 66 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 67 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 68 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.end.html
+T 69 text.html.erb meta.tag.metadata.meta.void.html punctuation.definition.tag.end.html
+L     <meta name="mobile-web-app-capable" content="yes">
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.metadata.meta.void.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.tag.metadata.meta.void.html entity.name.tag.html
+T 10 text.html.erb meta.tag.metadata.meta.void.html
+T 14 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html entity.other.attribute-name.html
+T 15 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html punctuation.separator.key-value.html
+T 16 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.begin.html
+T 38 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html
+T 39 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.end.html
+T 40 text.html.erb meta.tag.metadata.meta.void.html
+T 47 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html entity.other.attribute-name.html
+T 48 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html punctuation.separator.key-value.html
+T 49 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.begin.html
+T 52 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html
+T 53 text.html.erb meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.end.html
+T 54 text.html.erb meta.tag.metadata.meta.void.html punctuation.definition.tag.end.html
+L     <%%= csrf_meta_tags %>
+T 4 text.html.erb punctuation.whitespace.embedded.leading.erb
+T 6 text.html.erb meta.embedded.block.erb punctuation.section.embedded.begin.erb
+T 8 text.html.erb meta.embedded.block.erb source.ruby keyword.operator.assignment.augmented.ruby
+T 24 text.html.erb meta.embedded.block.erb source.ruby
+T 25 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb source.ruby
+T 26 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb
+L     <%%= csp_meta_tag %>
+T 4 text.html.erb punctuation.whitespace.embedded.leading.erb
+T 6 text.html.erb meta.embedded.block.erb punctuation.section.embedded.begin.erb
+T 8 text.html.erb meta.embedded.block.erb source.ruby keyword.operator.assignment.augmented.ruby
+T 22 text.html.erb meta.embedded.block.erb source.ruby
+T 23 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb source.ruby
+T 24 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb
+L 
+L     <%%= yield :head %>
+T 4 text.html.erb punctuation.whitespace.embedded.leading.erb
+T 6 text.html.erb meta.embedded.block.erb punctuation.section.embedded.begin.erb
+T 8 text.html.erb meta.embedded.block.erb source.ruby keyword.operator.assignment.augmented.ruby
+T 9 text.html.erb meta.embedded.block.erb source.ruby
+T 14 text.html.erb meta.embedded.block.erb source.ruby keyword.control.pseudo-method.ruby
+T 15 text.html.erb meta.embedded.block.erb source.ruby
+T 16 text.html.erb meta.embedded.block.erb source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 20 text.html.erb meta.embedded.block.erb source.ruby constant.language.symbol.ruby
+T 21 text.html.erb meta.embedded.block.erb source.ruby
+T 22 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb source.ruby
+T 23 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb
+L 
+L     <%%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+T 4 text.html.erb punctuation.whitespace.embedded.leading.erb
+T 6 text.html.erb meta.embedded.block.erb punctuation.section.embedded.begin.erb
+T 8 text.html.erb meta.embedded.block.erb source.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 99 text.html.erb meta.embedded.block.erb source.ruby string.quoted.other.interpolated.ruby
+L     <%%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+T 7 text.html.erb meta.embedded.block.erb source.ruby string.quoted.other.interpolated.ruby
+T 8 text.html.erb meta.embedded.block.erb source.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 9 text.html.erb meta.embedded.block.erb source.ruby keyword.operator.assignment.ruby
+T 13 text.html.erb meta.embedded.block.erb source.ruby
+T 14 text.html.erb meta.embedded.block.erb source.ruby punctuation.separator.method.ruby
+T 18 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 19 text.html.erb meta.embedded.block.erb source.ruby
+T 22 text.html.erb meta.embedded.block.erb source.ruby constant.language.symbol.hashkey.ruby
+T 23 text.html.erb meta.embedded.block.erb source.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 24 text.html.erb meta.embedded.block.erb source.ruby
+T 25 text.html.erb meta.embedded.block.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 33 text.html.erb meta.embedded.block.erb source.ruby string.quoted.double.interpolated.ruby
+T 34 text.html.erb meta.embedded.block.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 35 text.html.erb meta.embedded.block.erb source.ruby punctuation.separator.object.ruby
+T 36 text.html.erb meta.embedded.block.erb source.ruby
+T 40 text.html.erb meta.embedded.block.erb source.ruby constant.language.symbol.hashkey.ruby
+T 41 text.html.erb meta.embedded.block.erb source.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 42 text.html.erb meta.embedded.block.erb source.ruby
+T 59 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 60 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 66 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.hashkey.ruby
+T 67 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 68 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby
+T 69 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 73 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby constant.language.symbol.ruby
+T 74 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 75 text.html.erb meta.embedded.block.erb source.ruby
+T 76 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb source.ruby
+T 77 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb
+L 
+L     <link rel="icon" href="/icon.png" type="image/png">
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.metadata.link.void.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.tag.metadata.link.void.html entity.name.tag.html
+T 10 text.html.erb meta.tag.metadata.link.void.html
+T 13 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html entity.other.attribute-name.html
+T 14 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 15 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 19 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html
+T 20 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 21 text.html.erb meta.tag.metadata.link.void.html
+T 25 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html entity.other.attribute-name.html
+T 26 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html punctuation.separator.key-value.html
+T 27 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 36 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html
+T 37 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 38 text.html.erb meta.tag.metadata.link.void.html
+T 42 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html entity.other.attribute-name.html
+T 43 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html punctuation.separator.key-value.html
+T 44 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 53 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html string.quoted.double.html
+T 54 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 55 text.html.erb meta.tag.metadata.link.void.html punctuation.definition.tag.end.html
+L     <link rel="icon" href="/icon.svg" type="image/svg+xml">
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.metadata.link.void.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.tag.metadata.link.void.html entity.name.tag.html
+T 10 text.html.erb meta.tag.metadata.link.void.html
+T 13 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html entity.other.attribute-name.html
+T 14 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 15 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 19 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html
+T 20 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 21 text.html.erb meta.tag.metadata.link.void.html
+T 25 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html entity.other.attribute-name.html
+T 26 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html punctuation.separator.key-value.html
+T 27 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 36 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html
+T 37 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 38 text.html.erb meta.tag.metadata.link.void.html
+T 42 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html entity.other.attribute-name.html
+T 43 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html punctuation.separator.key-value.html
+T 44 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 57 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html string.quoted.double.html
+T 58 text.html.erb meta.tag.metadata.link.void.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 59 text.html.erb meta.tag.metadata.link.void.html punctuation.definition.tag.end.html
+L     <link rel="apple-touch-icon" href="/icon.png">
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.metadata.link.void.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.tag.metadata.link.void.html entity.name.tag.html
+T 10 text.html.erb meta.tag.metadata.link.void.html
+T 13 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html entity.other.attribute-name.html
+T 14 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 15 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 31 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html
+T 32 text.html.erb meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 33 text.html.erb meta.tag.metadata.link.void.html
+T 37 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html entity.other.attribute-name.html
+T 38 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html punctuation.separator.key-value.html
+T 39 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 48 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html
+T 49 text.html.erb meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 50 text.html.erb meta.tag.metadata.link.void.html punctuation.definition.tag.end.html
+L 
+L     <%- style_link_target = using_css_bundling? ? "\"application\"" : ":app" -%>
+T 4 text.html.erb
+T 7 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 26 text.html.erb meta.embedded.line.erb source.ruby
+T 27 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.assignment.ruby
+T 48 text.html.erb meta.embedded.line.erb source.ruby
+T 49 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.comparison.ruby
+T 50 text.html.erb meta.embedded.line.erb source.ruby
+T 51 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 53 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby constant.character.escape.ruby
+T 64 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby
+T 66 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby constant.character.escape.ruby
+T 67 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 68 text.html.erb meta.embedded.line.erb source.ruby
+T 69 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.other.ruby
+T 70 text.html.erb meta.embedded.line.erb source.ruby
+T 71 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 75 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby
+T 76 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 77 text.html.erb meta.embedded.line.erb source.ruby
+T 79 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 80 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L     <%- if options[:skip_hotwire] || options[:skip_javascript] -%>
+T 4 text.html.erb
+T 7 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 8 text.html.erb meta.embedded.line.erb source.ruby
+T 10 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 18 text.html.erb meta.embedded.line.erb source.ruby
+T 19 text.html.erb meta.embedded.line.erb source.ruby punctuation.section.array.begin.ruby
+T 20 text.html.erb meta.embedded.line.erb source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 32 text.html.erb meta.embedded.line.erb source.ruby constant.language.symbol.ruby
+T 33 text.html.erb meta.embedded.line.erb source.ruby punctuation.section.array.end.ruby
+T 34 text.html.erb meta.embedded.line.erb source.ruby
+T 36 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.logical.ruby
+T 44 text.html.erb meta.embedded.line.erb source.ruby
+T 45 text.html.erb meta.embedded.line.erb source.ruby punctuation.section.array.begin.ruby
+T 46 text.html.erb meta.embedded.line.erb source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 61 text.html.erb meta.embedded.line.erb source.ruby constant.language.symbol.ruby
+T 62 text.html.erb meta.embedded.line.erb source.ruby punctuation.section.array.end.ruby
+T 63 text.html.erb meta.embedded.line.erb source.ruby
+T 65 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 66 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L     <%%# Includes all stylesheet files in app/assets/stylesheets %>
+T 4 text.html.erb punctuation.whitespace.embedded.leading.erb
+T 6 text.html.erb meta.embedded.block.erb punctuation.section.embedded.begin.erb
+T 8 text.html.erb meta.embedded.block.erb source.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 67 text.html.erb meta.embedded.block.erb source.ruby string.quoted.other.interpolated.ruby
+L     <%%= stylesheet_link_tag <%= style_link_target %> %>
+T 56 text.html.erb meta.embedded.block.erb source.ruby string.quoted.other.interpolated.ruby
+L     <%- else -%>
+T 16 text.html.erb meta.embedded.block.erb source.ruby string.quoted.other.interpolated.ruby
+L     <%%# Includes all stylesheet files in app/assets/stylesheets %>
+T 7 text.html.erb meta.embedded.block.erb source.ruby string.quoted.other.interpolated.ruby
+T 8 text.html.erb meta.embedded.block.erb source.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+T 9 text.html.erb meta.embedded.block.erb source.ruby
+T 17 text.html.erb meta.embedded.block.erb source.ruby variable.other.constant.ruby
+T 39 text.html.erb meta.embedded.block.erb source.ruby
+T 41 text.html.erb meta.embedded.block.erb source.ruby keyword.control.ruby
+T 45 text.html.erb meta.embedded.block.erb source.ruby
+T 46 text.html.erb meta.embedded.block.erb source.ruby keyword.operator.arithmetic.ruby
+T 52 text.html.erb meta.embedded.block.erb source.ruby
+T 53 text.html.erb meta.embedded.block.erb source.ruby keyword.operator.arithmetic.ruby
+T 65 text.html.erb meta.embedded.block.erb source.ruby
+T 66 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb source.ruby
+T 67 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb
+L     <%%= stylesheet_link_tag <%= style_link_target %>, "data-turbo-track": "reload" %>
+T 4 text.html.erb punctuation.whitespace.embedded.leading.erb
+T 8 text.html.erb meta.embedded.block.erb punctuation.section.embedded.begin.erb
+T 29 text.html.erb meta.embedded.block.erb source.ruby
+T 30 text.html.erb meta.embedded.block.erb source.ruby keyword.operator.comparison.ruby
+T 32 text.html.erb meta.embedded.block.erb source.ruby keyword.operator.assignment.augmented.ruby
+T 51 text.html.erb meta.embedded.block.erb source.ruby
+T 52 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb source.ruby
+T 53 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb
+T 86 text.html.erb
+L     <%- end -%>
+T 4 text.html.erb
+T 7 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 8 text.html.erb meta.embedded.line.erb source.ruby
+T 11 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 12 text.html.erb meta.embedded.line.erb source.ruby
+T 14 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 15 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L   </head>
+T 2 text.html.erb
+T 4 text.html.erb meta.tag.structure.head.end.html punctuation.definition.tag.begin.html
+T 8 text.html.erb meta.tag.structure.head.end.html entity.name.tag.html
+T 9 text.html.erb meta.tag.structure.head.end.html punctuation.definition.tag.end.html
+L 
+L   <body>
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.structure.body.start.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.structure.body.start.html entity.name.tag.html
+T 8 text.html.erb meta.tag.structure.body.start.html punctuation.definition.tag.end.html
+L     <%%= yield %>
+T 4 text.html.erb punctuation.whitespace.embedded.leading.erb
+T 6 text.html.erb meta.embedded.block.erb punctuation.section.embedded.begin.erb
+T 8 text.html.erb meta.embedded.block.erb source.ruby keyword.operator.assignment.augmented.ruby
+T 9 text.html.erb meta.embedded.block.erb source.ruby
+T 14 text.html.erb meta.embedded.block.erb source.ruby keyword.control.pseudo-method.ruby
+T 15 text.html.erb meta.embedded.block.erb source.ruby
+T 16 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb source.ruby
+T 17 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb
+L   </body>
+T 2 text.html.erb
+T 4 text.html.erb meta.tag.structure.body.end.html punctuation.definition.tag.begin.html
+T 8 text.html.erb meta.tag.structure.body.end.html entity.name.tag.html
+T 9 text.html.erb meta.tag.structure.body.end.html punctuation.definition.tag.end.html
+L </html>
+T 2 text.html.erb meta.tag.structure.html.end.html punctuation.definition.tag.begin.html
+T 6 text.html.erb meta.tag.structure.html.end.html entity.name.tag.html
+T 7 text.html.erb meta.tag.structure.html.end.html punctuation.definition.tag.end.html
+L 

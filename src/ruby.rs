@@ -38,5 +38,18 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
     rules::lex::<Ruby>(cx, line, state, |scratch| &mut scratch.ruby)
 }
 
+/// Lexes `line` like [`lex`], for Ruby that ERB embeds up to the end of its
+/// code (see [`rules::lex_until`]).
+#[cfg(feature = "lang-erb")]
+#[inline]
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: crate::language::Halt,
+) -> (u32, Option<usize>) {
+    rules::lex_until::<Ruby>(cx, line, state, |scratch| &mut scratch.ruby, end)
+}
+
 #[cfg(test)]
 mod tests;

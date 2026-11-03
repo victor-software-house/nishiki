@@ -1,0 +1,137 @@
+L <% if resource.errors.any? %>
+T 2 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 3 text.html.erb meta.embedded.line.erb source.ruby
+T 5 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 14 text.html.erb meta.embedded.line.erb source.ruby
+T 15 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 21 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 22 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 26 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 27 text.html.erb meta.embedded.line.erb source.ruby
+T 28 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 29 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L   <div id="error_explanation" data-turbo-temporary>
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 6 text.html.erb meta.tag.structure.div.start.html entity.name.tag.html
+T 7 text.html.erb meta.tag.structure.div.start.html
+T 9 text.html.erb meta.tag.structure.div.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 10 text.html.erb meta.tag.structure.div.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 11 text.html.erb meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 28 text.html.erb meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html
+T 29 text.html.erb meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 30 text.html.erb meta.tag.structure.div.start.html
+T 50 text.html.erb meta.tag.structure.div.start.html meta.attribute.data-x.data-turbo-temporary.html entity.other.attribute-name.html
+T 51 text.html.erb meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L     <h2>
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.structure.h2.start.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.structure.h2.start.html entity.name.tag.html
+T 8 text.html.erb meta.tag.structure.h2.start.html punctuation.definition.tag.end.html
+L       <%= I18n.t("errors.messages.not_saved",
+T 6 text.html.erb punctuation.whitespace.embedded.leading.erb
+T 9 text.html.erb meta.embedded.block.erb punctuation.section.embedded.begin.erb
+T 10 text.html.erb meta.embedded.block.erb source.ruby
+T 14 text.html.erb meta.embedded.block.erb source.ruby support.class.ruby
+T 15 text.html.erb meta.embedded.block.erb source.ruby punctuation.separator.method.ruby
+T 16 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 17 text.html.erb meta.embedded.block.erb source.ruby punctuation.section.function.ruby
+T 18 text.html.erb meta.embedded.block.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 43 text.html.erb meta.embedded.block.erb source.ruby string.quoted.double.interpolated.ruby
+T 44 text.html.erb meta.embedded.block.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 45 text.html.erb meta.embedded.block.erb source.ruby punctuation.separator.object.ruby
+L                  count: resource.errors.count,
+T 17 text.html.erb meta.embedded.block.erb source.ruby
+T 22 text.html.erb meta.embedded.block.erb source.ruby constant.language.symbol.hashkey.ruby
+T 23 text.html.erb meta.embedded.block.erb source.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 32 text.html.erb meta.embedded.block.erb source.ruby
+T 33 text.html.erb meta.embedded.block.erb source.ruby punctuation.separator.method.ruby
+T 39 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 40 text.html.erb meta.embedded.block.erb source.ruby punctuation.separator.method.ruby
+T 45 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 46 text.html.erb meta.embedded.block.erb source.ruby punctuation.separator.object.ruby
+L                  resource: resource.class.model_name.human.downcase)
+T 17 text.html.erb meta.embedded.block.erb source.ruby
+T 25 text.html.erb meta.embedded.block.erb source.ruby constant.language.symbol.hashkey.ruby
+T 26 text.html.erb meta.embedded.block.erb source.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 35 text.html.erb meta.embedded.block.erb source.ruby
+T 36 text.html.erb meta.embedded.block.erb source.ruby punctuation.separator.method.ruby
+T 41 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 42 text.html.erb meta.embedded.block.erb source.ruby punctuation.separator.method.ruby
+T 52 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 53 text.html.erb meta.embedded.block.erb source.ruby punctuation.separator.method.ruby
+T 58 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 59 text.html.erb meta.embedded.block.erb source.ruby punctuation.separator.method.ruby
+T 67 text.html.erb meta.embedded.block.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 68 text.html.erb meta.embedded.block.erb source.ruby punctuation.section.function.ruby
+L        %>
+T 7 text.html.erb meta.embedded.block.erb source.ruby
+T 8 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb source.ruby
+T 9 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb
+L     </h2>
+T 4 text.html.erb
+T 6 text.html.erb meta.tag.structure.h2.end.html punctuation.definition.tag.begin.html
+T 8 text.html.erb meta.tag.structure.h2.end.html entity.name.tag.html
+T 9 text.html.erb meta.tag.structure.h2.end.html punctuation.definition.tag.end.html
+L     <ul>
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.structure.ul.start.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.structure.ul.start.html entity.name.tag.html
+T 8 text.html.erb meta.tag.structure.ul.start.html punctuation.definition.tag.end.html
+L       <% resource.errors.full_messages.each do |message| %>
+T 6 text.html.erb
+T 8 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 17 text.html.erb meta.embedded.line.erb source.ruby
+T 18 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 24 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 25 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 38 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 39 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 43 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 44 text.html.erb meta.embedded.line.erb source.ruby
+T 46 text.html.erb meta.embedded.line.erb source.ruby keyword.control.start-block.ruby
+T 47 text.html.erb meta.embedded.line.erb source.ruby
+T 48 text.html.erb meta.embedded.line.erb source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 55 text.html.erb meta.embedded.line.erb source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 56 text.html.erb meta.embedded.line.erb source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 57 text.html.erb meta.embedded.line.erb source.ruby
+T 58 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 59 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L         <li><%= message %></li>
+T 8 text.html.erb
+T 9 text.html.erb meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 11 text.html.erb meta.tag.structure.li.start.html entity.name.tag.html
+T 12 text.html.erb meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+T 15 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 24 text.html.erb meta.embedded.line.erb source.ruby
+T 25 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 26 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 28 text.html.erb meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 30 text.html.erb meta.tag.structure.li.end.html entity.name.tag.html
+T 31 text.html.erb meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L       <% end %>
+T 6 text.html.erb
+T 8 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 9 text.html.erb meta.embedded.line.erb source.ruby
+T 12 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 13 text.html.erb meta.embedded.line.erb source.ruby
+T 14 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 15 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L     </ul>
+T 4 text.html.erb
+T 6 text.html.erb meta.tag.structure.ul.end.html punctuation.definition.tag.begin.html
+T 8 text.html.erb meta.tag.structure.ul.end.html entity.name.tag.html
+T 9 text.html.erb meta.tag.structure.ul.end.html punctuation.definition.tag.end.html
+L   </div>
+T 2 text.html.erb
+T 4 text.html.erb meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.structure.div.end.html entity.name.tag.html
+T 8 text.html.erb meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L <% end %>
+T 2 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 3 text.html.erb meta.embedded.line.erb source.ruby
+T 6 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 7 text.html.erb meta.embedded.line.erb source.ruby
+T 8 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 9 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L 

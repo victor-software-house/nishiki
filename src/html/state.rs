@@ -85,11 +85,24 @@ pub(crate) enum Rule {
     /// The text of a capture group that the grammar tokenizes with the
     /// attribute rules. It never outlives the line.
     Region,
+    /// ERB: the blanks at the start of a line before a comment that the line
+    /// does not close, up to the comment's end.
+    ErbCommentWrap,
+    /// ERB: the blanks at the start of a line before code that the line does
+    /// not close, up to the code's end.
+    ErbTagWrap,
+    /// ERB: `<%#` up to `%>`.
+    ErbComment,
+    /// ERB: code that its line does not close, up to `%>`. The payload is the
+    /// Ruby lexer's state.
+    ErbBlock,
+    /// ERB: code, up to `%>`. The payload is the Ruby lexer's state.
+    ErbLine,
 }
 
 impl Rule {
     /// The rules in code order, which [`Rule::code`] numbers.
-    const ALL: [Rule; 36] = [
+    const ALL: [Rule; 41] = [
         Rule::Root,
         Rule::Comment,
         Rule::Cdata,
@@ -126,6 +139,11 @@ impl Rule {
         Rule::JsLineComment,
         Rule::JsBlockComment,
         Rule::Region,
+        Rule::ErbCommentWrap,
+        Rule::ErbTagWrap,
+        Rule::ErbComment,
+        Rule::ErbBlock,
+        Rule::ErbLine,
     ];
 
     /// The rule as a frame stores it: the HTML tag in the high byte, the
@@ -158,6 +176,62 @@ impl Rule {
             Rule::Comment | Rule::StyleTag | Rule::ScriptTag | Rule::WrapCss | Rule::WrapJs
         )
     }
+
+    /// Whether ERB's injection applies inside the rule, opened where it
+    /// applies as `parent` says: not under a `comment` scope.
+    pub(crate) fn erb_injection(self, parent: ErbInjection) -> ErbInjection {
+        match self {
+            Rule::Comment | Rule::ErbComment | Rule::JsLineComment | Rule::JsBlockComment => {
+                ErbInjection::ShutOut
+            }
+            Rule::Root
+            | Rule::Cdata
+            | Rule::Doctype
+            | Rule::DoctypeString
+            | Rule::Processing
+            | Rule::Tag
+            | Rule::Element
+            | Rule::ElementStart
+            | Rule::StyleWrap
+            | Rule::StyleTag
+            | Rule::OpenStyle
+            | Rule::BodyCss
+            | Rule::ScriptWrap
+            | Rule::ScriptTag
+            | Rule::ScriptHead
+            | Rule::ScriptAttributes
+            | Rule::ScriptJsOuter
+            | Rule::BodyJs
+            | Rule::ScriptTemplateOuter
+            | Rule::OpenScript
+            | Rule::BodyTemplate
+            | Rule::ScriptOtherOuter
+            | Rule::BodyOther
+            | Rule::Attribute
+            | Rule::Value
+            | Rule::ValueCss
+            | Rule::ValueJs
+            | Rule::WrapCss
+            | Rule::WrapJs
+            | Rule::StringPlain
+            | Rule::StringCss
+            | Rule::StringJs
+            | Rule::Region
+            | Rule::ErbCommentWrap
+            | Rule::ErbTagWrap
+            | Rule::ErbBlock
+            | Rule::ErbLine => parent,
+        }
+    }
+}
+
+/// Whether ERB's injection applies to a rule's text.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum ErbInjection {
+    /// It applies.
+    Applies,
+    /// It does not: the text sits under a `comment` scope.
+    ShutOut,
 }
 
 /// The payload of the root frame of a Markdown fence, where the injection

@@ -1,0 +1,342 @@
+L <%- if controller_name != 'sessions' %>
+T 3 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 4 text.html.erb meta.embedded.line.erb source.ruby
+T 6 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 23 text.html.erb meta.embedded.line.erb source.ruby
+T 25 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.comparison.ruby
+T 26 text.html.erb meta.embedded.line.erb source.ruby
+T 27 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 35 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby
+T 36 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 37 text.html.erb meta.embedded.line.erb source.ruby
+T 38 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 39 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L   <p><%= link_to "Log in", new_session_path(resource_name) %></p>
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 4 text.html.erb meta.tag.structure.p.start.html entity.name.tag.html
+T 5 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 8 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 17 text.html.erb meta.embedded.line.erb source.ruby
+T 18 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 24 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby
+T 25 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 26 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.object.ruby
+T 27 text.html.erb meta.embedded.line.erb source.ruby
+T 43 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 44 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 57 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby
+T 58 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 59 text.html.erb meta.embedded.line.erb source.ruby
+T 60 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 61 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 63 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 64 text.html.erb meta.tag.structure.p.end.html entity.name.tag.html
+T 65 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L <% end %>
+T 2 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 3 text.html.erb meta.embedded.line.erb source.ruby
+T 6 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 7 text.html.erb meta.embedded.line.erb source.ruby
+T 8 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 9 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L 
+L <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+T 3 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 4 text.html.erb meta.embedded.line.erb source.ruby
+T 6 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 21 text.html.erb meta.embedded.line.erb source.ruby
+T 22 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 35 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 36 text.html.erb meta.embedded.line.erb source.ruby
+T 38 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.logical.ruby
+T 55 text.html.erb meta.embedded.line.erb source.ruby
+T 57 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.comparison.ruby
+T 58 text.html.erb meta.embedded.line.erb source.ruby
+T 59 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 72 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby
+T 73 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 74 text.html.erb meta.embedded.line.erb source.ruby
+T 75 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 76 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L   <p><%= link_to "Sign up", new_registration_path(resource_name) %></p>
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 4 text.html.erb meta.tag.structure.p.start.html entity.name.tag.html
+T 5 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 8 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 17 text.html.erb meta.embedded.line.erb source.ruby
+T 18 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 25 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby
+T 26 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 27 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.object.ruby
+T 28 text.html.erb meta.embedded.line.erb source.ruby
+T 49 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 50 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 63 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby
+T 64 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 65 text.html.erb meta.embedded.line.erb source.ruby
+T 66 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 67 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 69 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 70 text.html.erb meta.tag.structure.p.end.html entity.name.tag.html
+T 71 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L <% end %>
+T 2 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 3 text.html.erb meta.embedded.line.erb source.ruby
+T 6 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 7 text.html.erb meta.embedded.line.erb source.ruby
+T 8 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 9 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L 
+L <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+T 3 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 4 text.html.erb meta.embedded.line.erb source.ruby
+T 6 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 21 text.html.erb meta.embedded.line.erb source.ruby
+T 22 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 34 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 35 text.html.erb meta.embedded.line.erb source.ruby
+T 37 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.logical.ruby
+T 54 text.html.erb meta.embedded.line.erb source.ruby
+T 56 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.comparison.ruby
+T 57 text.html.erb meta.embedded.line.erb source.ruby
+T 58 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 67 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby
+T 68 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 69 text.html.erb meta.embedded.line.erb source.ruby
+T 71 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.logical.ruby
+T 88 text.html.erb meta.embedded.line.erb source.ruby
+T 90 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.comparison.ruby
+T 91 text.html.erb meta.embedded.line.erb source.ruby
+T 92 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 105 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby
+T 106 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 107 text.html.erb meta.embedded.line.erb source.ruby
+T 108 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 109 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L   <p><%= link_to "Forgot your password?", new_password_path(resource_name) %></p>
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 4 text.html.erb meta.tag.structure.p.start.html entity.name.tag.html
+T 5 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 8 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 17 text.html.erb meta.embedded.line.erb source.ruby
+T 18 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 39 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby
+T 40 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 41 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.object.ruby
+T 42 text.html.erb meta.embedded.line.erb source.ruby
+T 59 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 60 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 73 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby
+T 74 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 75 text.html.erb meta.embedded.line.erb source.ruby
+T 76 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 77 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 79 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 80 text.html.erb meta.tag.structure.p.end.html entity.name.tag.html
+T 81 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L <% end %>
+T 2 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 3 text.html.erb meta.embedded.line.erb source.ruby
+T 6 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 7 text.html.erb meta.embedded.line.erb source.ruby
+T 8 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 9 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L 
+L <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+T 3 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 4 text.html.erb meta.embedded.line.erb source.ruby
+T 6 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 21 text.html.erb meta.embedded.line.erb source.ruby
+T 22 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 34 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 35 text.html.erb meta.embedded.line.erb source.ruby
+T 37 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.logical.ruby
+T 54 text.html.erb meta.embedded.line.erb source.ruby
+T 56 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.comparison.ruby
+T 57 text.html.erb meta.embedded.line.erb source.ruby
+T 58 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 71 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby
+T 72 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 73 text.html.erb meta.embedded.line.erb source.ruby
+T 74 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 75 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L   <p><%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %></p>
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 4 text.html.erb meta.tag.structure.p.start.html entity.name.tag.html
+T 5 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 8 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 17 text.html.erb meta.embedded.line.erb source.ruby
+T 18 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 59 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby
+T 60 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 61 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.object.ruby
+T 62 text.html.erb meta.embedded.line.erb source.ruby
+T 83 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 84 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 97 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby
+T 98 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 99 text.html.erb meta.embedded.line.erb source.ruby
+T 100 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 101 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 103 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 104 text.html.erb meta.tag.structure.p.end.html entity.name.tag.html
+T 105 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L <% end %>
+T 2 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 3 text.html.erb meta.embedded.line.erb source.ruby
+T 6 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 7 text.html.erb meta.embedded.line.erb source.ruby
+T 8 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 9 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L 
+L <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+T 3 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 4 text.html.erb meta.embedded.line.erb source.ruby
+T 6 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 21 text.html.erb meta.embedded.line.erb source.ruby
+T 22 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 31 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 32 text.html.erb meta.embedded.line.erb source.ruby
+T 34 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.logical.ruby
+T 49 text.html.erb meta.embedded.line.erb source.ruby
+T 50 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 74 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 75 text.html.erb meta.embedded.line.erb source.ruby punctuation.section.function.ruby
+T 76 text.html.erb meta.embedded.line.erb source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 81 text.html.erb meta.embedded.line.erb source.ruby constant.language.symbol.ruby
+T 82 text.html.erb meta.embedded.line.erb source.ruby punctuation.section.function.ruby
+T 83 text.html.erb meta.embedded.line.erb source.ruby
+T 85 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.logical.ruby
+T 102 text.html.erb meta.embedded.line.erb source.ruby
+T 104 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.comparison.ruby
+T 105 text.html.erb meta.embedded.line.erb source.ruby
+T 106 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 113 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby
+T 114 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 115 text.html.erb meta.embedded.line.erb source.ruby
+T 116 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 117 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L   <p><%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %></p>
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 4 text.html.erb meta.tag.structure.p.start.html entity.name.tag.html
+T 5 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 8 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 17 text.html.erb meta.embedded.line.erb source.ruby
+T 18 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 53 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby
+T 54 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 55 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.object.ruby
+T 56 text.html.erb meta.embedded.line.erb source.ruby
+T 71 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 72 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 85 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby
+T 86 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 87 text.html.erb meta.embedded.line.erb source.ruby
+T 88 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 89 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 91 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 92 text.html.erb meta.tag.structure.p.end.html entity.name.tag.html
+T 93 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L <% end %>
+T 2 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 3 text.html.erb meta.embedded.line.erb source.ruby
+T 6 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 7 text.html.erb meta.embedded.line.erb source.ruby
+T 8 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 9 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L 
+L <%- if devise_mapping.omniauthable? %>
+T 3 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 4 text.html.erb meta.embedded.line.erb source.ruby
+T 6 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 21 text.html.erb meta.embedded.line.erb source.ruby
+T 22 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 35 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 36 text.html.erb meta.embedded.line.erb source.ruby
+T 37 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 38 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L   <%- resource_class.omniauth_providers.each do |provider| %>
+T 2 text.html.erb
+T 5 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 20 text.html.erb meta.embedded.line.erb source.ruby
+T 21 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 39 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 40 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 44 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 45 text.html.erb meta.embedded.line.erb source.ruby
+T 47 text.html.erb meta.embedded.line.erb source.ruby keyword.control.start-block.ruby
+T 48 text.html.erb meta.embedded.line.erb source.ruby
+T 49 text.html.erb meta.embedded.line.erb source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 57 text.html.erb meta.embedded.line.erb source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 58 text.html.erb meta.embedded.line.erb source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 59 text.html.erb meta.embedded.line.erb source.ruby
+T 60 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 61 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L     <p><%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %></p>
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 6 text.html.erb meta.tag.structure.p.start.html entity.name.tag.html
+T 7 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 10 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 21 text.html.erb meta.embedded.line.erb source.ruby
+T 22 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 35 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby
+T 37 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 45 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby support.class.ruby
+T 47 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby punctuation.separator.namespace.ruby
+T 52 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby support.class.ruby
+T 53 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby punctuation.separator.method.ruby
+T 61 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby meta.function-call.ruby entity.name.function.ruby
+T 62 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby punctuation.section.function.ruby
+T 70 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 71 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby punctuation.section.function.ruby
+T 72 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 73 text.html.erb meta.embedded.line.erb source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 74 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.object.ruby
+T 75 text.html.erb meta.embedded.line.erb source.ruby
+T 98 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 99 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 112 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby
+T 113 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 122 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby
+T 123 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 124 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.object.ruby
+T 125 text.html.erb meta.embedded.line.erb source.ruby
+T 129 text.html.erb meta.embedded.line.erb source.ruby constant.language.symbol.hashkey.ruby
+T 130 text.html.erb meta.embedded.line.erb source.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 131 text.html.erb meta.embedded.line.erb source.ruby
+T 132 text.html.erb meta.embedded.line.erb source.ruby punctuation.section.scope.begin.ruby
+T 133 text.html.erb meta.embedded.line.erb source.ruby meta.syntax.ruby.start-block
+T 138 text.html.erb meta.embedded.line.erb source.ruby constant.language.symbol.hashkey.ruby
+T 139 text.html.erb meta.embedded.line.erb source.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 140 text.html.erb meta.embedded.line.erb source.ruby
+T 145 text.html.erb meta.embedded.line.erb source.ruby constant.language.boolean.ruby
+T 146 text.html.erb meta.embedded.line.erb source.ruby
+T 147 text.html.erb meta.embedded.line.erb source.ruby punctuation.section.scope.end.ruby
+T 148 text.html.erb meta.embedded.line.erb source.ruby
+T 149 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 150 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 152 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 153 text.html.erb meta.tag.structure.p.end.html entity.name.tag.html
+T 154 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L   <% end %>
+T 2 text.html.erb
+T 4 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 5 text.html.erb meta.embedded.line.erb source.ruby
+T 8 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 9 text.html.erb meta.embedded.line.erb source.ruby
+T 10 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 11 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L <% end %>
+T 2 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 3 text.html.erb meta.embedded.line.erb source.ruby
+T 6 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 7 text.html.erb meta.embedded.line.erb source.ruby
+T 8 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 9 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L 

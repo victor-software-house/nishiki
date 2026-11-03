@@ -1,0 +1,56 @@
+L <p>Welcome <%= @email %>!</p>
+T 1 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.erb meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 11 text.html.erb
+T 14 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 15 text.html.erb meta.embedded.line.erb source.ruby
+T 16 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 21 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby
+T 22 text.html.erb meta.embedded.line.erb source.ruby
+T 23 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 24 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 25 text.html.erb
+T 27 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 28 text.html.erb meta.tag.structure.p.end.html entity.name.tag.html
+T 29 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 
+L <p>You can confirm your account email through the link below:</p>
+T 1 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.erb meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 61 text.html.erb
+T 63 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 64 text.html.erb meta.tag.structure.p.end.html entity.name.tag.html
+T 65 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 
+L <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+T 1 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.erb meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 6 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 15 text.html.erb meta.embedded.line.erb source.ruby
+T 16 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 34 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby
+T 35 text.html.erb meta.embedded.line.erb source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 36 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.object.ruby
+T 37 text.html.erb meta.embedded.line.erb source.ruby
+T 53 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 54 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 55 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 63 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby variable.other.readwrite.instance.ruby
+T 64 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 65 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby
+T 83 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby constant.language.symbol.hashkey.ruby
+T 84 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 85 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby
+T 86 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 91 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby variable.other.readwrite.instance.ruby
+T 92 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 93 text.html.erb meta.embedded.line.erb source.ruby
+T 94 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 95 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 97 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 98 text.html.erb meta.tag.structure.p.end.html entity.name.tag.html
+T 99 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 

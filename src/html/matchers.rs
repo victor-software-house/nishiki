@@ -234,6 +234,9 @@ impl Lexer<'_> {
                 }
             }
             Rule::JsBlockComment => find(memchr2(quote, b'*', rest)),
+            Rule::ErbCommentWrap | Rule::ErbTagWrap => (p <= self.end_pos()).then_some(p),
+            Rule::ErbComment => find(memchr(b'%', rest)),
+            Rule::ErbBlock | Rule::ErbLine => None,
         }
     }
 
@@ -257,7 +260,12 @@ impl Lexer<'_> {
         let b = self.at(p);
         let one = |len: usize| Hit::new(Pat::End, p, p + len);
         match rule {
-            Rule::Root | Rule::BodyCss | Rule::BodyJs | Rule::Region => None,
+            Rule::Root
+            | Rule::BodyCss
+            | Rule::BodyJs
+            | Rule::Region
+            | Rule::ErbBlock
+            | Rule::ErbLine => None,
             Rule::Comment => self.starts(p, b"-->").then(|| one(3)),
             Rule::Cdata => self.starts(p, b"]]>").then(|| one(3)),
             Rule::Doctype | Rule::OpenStyle | Rule::OpenScript => (b == b'>').then(|| one(1)),
@@ -357,6 +365,22 @@ impl Lexer<'_> {
                     self.starts(p, b"*/").then(|| one(2))
                 }
             }
+            Rule::ErbCommentWrap | Rule::ErbTagWrap => self.erb_wrap_end(p),
+            Rule::ErbComment => self.starts(p, b"%>").then(|| one(2)),
+        }
+    }
+
+    /// `(?!\G)(\s*$\n)?`: the end of the rule that wraps an ERB comment or
+    /// code, with the blanks and line feed that end its line.
+    fn erb_wrap_end(&self, p: usize) -> Option<Hit> {
+        if self.g(p) {
+            return None;
+        }
+        let end = self.end_pos();
+        if self.lf && self.skip_ws(p) == end {
+            Some(Hit::new(Pat::End, p, end))
+        } else {
+            Some(Self::zero(p))
         }
     }
 
@@ -558,7 +582,14 @@ impl Lexer<'_> {
             | Rule::JsBlockComment
             | Rule::BodyOther
             | Rule::BodyCss
-            | Rule::BodyJs => None,
+            | Rule::BodyJs
+            | Rule::ErbComment
+            | Rule::ErbBlock
+            | Rule::ErbLine => None,
+            Rule::ErbCommentWrap => super::erb::comment_begin(&self.s[..self.lim], p)
+                .map(|end| Hit::new(Pat::Erb(super::erb::Erb::Comment), p, end)),
+            Rule::ErbTagWrap => super::erb::code_begin(&self.s[..self.lim], p)
+                .map(|(kind, end)| Hit::new(Pat::Erb(kind), p, end)),
         }
     }
 

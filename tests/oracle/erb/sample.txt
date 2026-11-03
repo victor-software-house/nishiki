@@ -1,0 +1,280 @@
+L require "erb"
+T 13 text.html.erb
+L 
+L # Build template data class.
+T 28 text.html.erb
+L class Product
+T 13 text.html.erb
+L   def initialize( code, name, desc, cost )
+T 42 text.html.erb
+L     @code = code
+T 16 text.html.erb
+L     @name = name
+T 16 text.html.erb
+L     @desc = desc
+T 16 text.html.erb
+L     @cost = cost
+T 16 text.html.erb
+L 
+L     @features = [ ]
+T 19 text.html.erb
+L   end
+T 5 text.html.erb
+L 
+L   def add_feature( feature )
+T 28 text.html.erb
+L     @features << feature
+T 24 text.html.erb
+L   end
+T 5 text.html.erb
+L 
+L   # Support templating of member data.
+T 38 text.html.erb
+L   def get_binding
+T 17 text.html.erb
+L     binding
+T 11 text.html.erb
+L   end
+T 5 text.html.erb
+L 
+L   # ...
+T 7 text.html.erb
+L end
+T 3 text.html.erb
+L 
+L # Create template.
+T 18 text.html.erb
+L template = %{
+T 13 text.html.erb
+L   <html>
+T 2 text.html.erb
+T 3 text.html.erb meta.tag.structure.html.start.html punctuation.definition.tag.begin.html
+T 7 text.html.erb meta.tag.structure.html.start.html entity.name.tag.html
+T 8 text.html.erb meta.tag.structure.html.start.html punctuation.definition.tag.end.html
+L     <head><title>Ruby Toys -- <%= @name %></title></head>
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.structure.head.start.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.tag.structure.head.start.html entity.name.tag.html
+T 10 text.html.erb meta.tag.structure.head.start.html punctuation.definition.tag.end.html
+T 11 text.html.erb meta.tag.metadata.title.start.html punctuation.definition.tag.begin.html
+T 16 text.html.erb meta.tag.metadata.title.start.html entity.name.tag.html
+T 17 text.html.erb meta.tag.metadata.title.start.html punctuation.definition.tag.end.html
+T 30 text.html.erb
+T 33 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 34 text.html.erb meta.embedded.line.erb source.ruby
+T 35 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 39 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby
+T 40 text.html.erb meta.embedded.line.erb source.ruby
+T 41 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 42 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 44 text.html.erb meta.tag.metadata.title.end.html punctuation.definition.tag.begin.html
+T 49 text.html.erb meta.tag.metadata.title.end.html entity.name.tag.html
+T 50 text.html.erb meta.tag.metadata.title.end.html punctuation.definition.tag.end.html
+T 52 text.html.erb meta.tag.structure.head.end.html punctuation.definition.tag.begin.html
+T 56 text.html.erb meta.tag.structure.head.end.html entity.name.tag.html
+T 57 text.html.erb meta.tag.structure.head.end.html punctuation.definition.tag.end.html
+L     <body>
+T 4 text.html.erb
+T 5 text.html.erb meta.tag.structure.body.start.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.tag.structure.body.start.html entity.name.tag.html
+T 10 text.html.erb meta.tag.structure.body.start.html punctuation.definition.tag.end.html
+L 
+L       <h1><%= @name %> (<%= @code %>)</h1>
+T 6 text.html.erb
+T 7 text.html.erb meta.tag.structure.h1.start.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.tag.structure.h1.start.html entity.name.tag.html
+T 10 text.html.erb meta.tag.structure.h1.start.html punctuation.definition.tag.end.html
+T 13 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 14 text.html.erb meta.embedded.line.erb source.ruby
+T 15 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 19 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby
+T 20 text.html.erb meta.embedded.line.erb source.ruby
+T 21 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 22 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 24 text.html.erb
+T 27 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 28 text.html.erb meta.embedded.line.erb source.ruby
+T 29 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 33 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby
+T 34 text.html.erb meta.embedded.line.erb source.ruby
+T 35 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 36 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 37 text.html.erb
+T 39 text.html.erb meta.tag.structure.h1.end.html punctuation.definition.tag.begin.html
+T 41 text.html.erb meta.tag.structure.h1.end.html entity.name.tag.html
+T 42 text.html.erb meta.tag.structure.h1.end.html punctuation.definition.tag.end.html
+L       <p><%= @desc %></p>
+T 6 text.html.erb
+T 7 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 8 text.html.erb meta.tag.structure.p.start.html entity.name.tag.html
+T 9 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 12 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 13 text.html.erb meta.embedded.line.erb source.ruby
+T 14 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 18 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby
+T 19 text.html.erb meta.embedded.line.erb source.ruby
+T 20 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 21 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 23 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 24 text.html.erb meta.tag.structure.p.end.html entity.name.tag.html
+T 25 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 
+L       <ul>
+T 6 text.html.erb
+T 7 text.html.erb meta.tag.structure.ul.start.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.tag.structure.ul.start.html entity.name.tag.html
+T 10 text.html.erb meta.tag.structure.ul.start.html punctuation.definition.tag.end.html
+L         <% @features.each do |f| %>
+T 8 text.html.erb
+T 10 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 11 text.html.erb meta.embedded.line.erb source.ruby
+T 12 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 20 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby
+T 21 text.html.erb meta.embedded.line.erb source.ruby punctuation.separator.method.ruby
+T 25 text.html.erb meta.embedded.line.erb source.ruby meta.function-call.ruby entity.name.function.ruby
+T 26 text.html.erb meta.embedded.line.erb source.ruby
+T 28 text.html.erb meta.embedded.line.erb source.ruby keyword.control.start-block.ruby
+T 29 text.html.erb meta.embedded.line.erb source.ruby
+T 30 text.html.erb meta.embedded.line.erb source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 31 text.html.erb meta.embedded.line.erb source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 32 text.html.erb meta.embedded.line.erb source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 33 text.html.erb meta.embedded.line.erb source.ruby
+T 34 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 35 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L           <li><b><%= f %></b></li>
+T 10 text.html.erb
+T 11 text.html.erb meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 13 text.html.erb meta.tag.structure.li.start.html entity.name.tag.html
+T 14 text.html.erb meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+T 15 text.html.erb meta.tag.inline.b.start.html punctuation.definition.tag.begin.html
+T 16 text.html.erb meta.tag.inline.b.start.html entity.name.tag.html
+T 17 text.html.erb meta.tag.inline.b.start.html punctuation.definition.tag.end.html
+T 20 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 23 text.html.erb meta.embedded.line.erb source.ruby
+T 24 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 25 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 27 text.html.erb meta.tag.inline.b.end.html punctuation.definition.tag.begin.html
+T 28 text.html.erb meta.tag.inline.b.end.html entity.name.tag.html
+T 29 text.html.erb meta.tag.inline.b.end.html punctuation.definition.tag.end.html
+T 31 text.html.erb meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 33 text.html.erb meta.tag.structure.li.end.html entity.name.tag.html
+T 34 text.html.erb meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L         <% end %>
+T 8 text.html.erb
+T 10 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 11 text.html.erb meta.embedded.line.erb source.ruby
+T 14 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 15 text.html.erb meta.embedded.line.erb source.ruby
+T 16 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 17 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L       </ul>
+T 6 text.html.erb
+T 8 text.html.erb meta.tag.structure.ul.end.html punctuation.definition.tag.begin.html
+T 10 text.html.erb meta.tag.structure.ul.end.html entity.name.tag.html
+T 11 text.html.erb meta.tag.structure.ul.end.html punctuation.definition.tag.end.html
+L 
+L       <p>
+T 6 text.html.erb
+T 7 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 8 text.html.erb meta.tag.structure.p.start.html entity.name.tag.html
+T 9 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+L         <% if @cost < 10 %>
+T 8 text.html.erb
+T 10 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 11 text.html.erb meta.embedded.line.erb source.ruby
+T 13 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 14 text.html.erb meta.embedded.line.erb source.ruby
+T 15 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 19 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby
+T 20 text.html.erb meta.embedded.line.erb source.ruby
+T 21 text.html.erb meta.embedded.line.erb source.ruby keyword.operator.comparison.ruby
+T 22 text.html.erb meta.embedded.line.erb source.ruby
+T 24 text.html.erb meta.embedded.line.erb source.ruby constant.numeric.ruby
+T 25 text.html.erb meta.embedded.line.erb source.ruby
+T 26 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 27 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L           <b>Only <%= @cost %>!!!</b>
+T 10 text.html.erb
+T 11 text.html.erb meta.tag.inline.b.start.html punctuation.definition.tag.begin.html
+T 12 text.html.erb meta.tag.inline.b.start.html entity.name.tag.html
+T 13 text.html.erb meta.tag.inline.b.start.html punctuation.definition.tag.end.html
+T 18 text.html.erb
+T 21 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 22 text.html.erb meta.embedded.line.erb source.ruby
+T 23 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 27 text.html.erb meta.embedded.line.erb source.ruby variable.other.readwrite.instance.ruby
+T 28 text.html.erb meta.embedded.line.erb source.ruby
+T 29 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 30 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 33 text.html.erb
+T 35 text.html.erb meta.tag.inline.b.end.html punctuation.definition.tag.begin.html
+T 36 text.html.erb meta.tag.inline.b.end.html entity.name.tag.html
+T 37 text.html.erb meta.tag.inline.b.end.html punctuation.definition.tag.end.html
+L         <% else %>
+T 8 text.html.erb
+T 10 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 11 text.html.erb meta.embedded.line.erb source.ruby
+T 15 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 16 text.html.erb meta.embedded.line.erb source.ruby
+T 17 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 18 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L            Call for a price, today!
+T 35 text.html.erb
+L         <% end %>
+T 8 text.html.erb
+T 10 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 11 text.html.erb meta.embedded.line.erb source.ruby
+T 14 text.html.erb meta.embedded.line.erb source.ruby keyword.control.ruby
+T 15 text.html.erb meta.embedded.line.erb source.ruby
+T 16 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 17 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+L       </p>
+T 6 text.html.erb
+T 8 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 9 text.html.erb meta.tag.structure.p.end.html entity.name.tag.html
+T 10 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 
+L     </body>
+T 4 text.html.erb
+T 6 text.html.erb meta.tag.structure.body.end.html punctuation.definition.tag.begin.html
+T 10 text.html.erb meta.tag.structure.body.end.html entity.name.tag.html
+T 11 text.html.erb meta.tag.structure.body.end.html punctuation.definition.tag.end.html
+L   </html>
+T 2 text.html.erb
+T 4 text.html.erb meta.tag.structure.html.end.html punctuation.definition.tag.begin.html
+T 8 text.html.erb meta.tag.structure.html.end.html entity.name.tag.html
+T 9 text.html.erb meta.tag.structure.html.end.html punctuation.definition.tag.end.html
+L }.gsub(/^  /, '')
+T 17 text.html.erb
+L 
+L rhtml = ERB.new(template)
+T 25 text.html.erb
+L 
+L # Set up template data.
+T 23 text.html.erb
+L toy = Product.new( "TZ-1002",
+T 29 text.html.erb
+L                    "Rubysapien",
+T 32 text.html.erb
+L                    "Geek's Best Friend!  Responds to Ruby commands...",
+T 71 text.html.erb
+L                    999.95 )
+T 27 text.html.erb
+L toy.add_feature("Listens for verbal commands in the Ruby language!")
+T 68 text.html.erb
+L toy.add_feature("Ignores Perl, Java, and all C variants.")
+T 58 text.html.erb
+L toy.add_feature("Karate-Chop Action!!!")
+T 40 text.html.erb
+L toy.add_feature("Matz signature on left leg.")
+T 46 text.html.erb
+L toy.add_feature("Gem studded eyes... Rubies, of course!")
+T 57 text.html.erb
+L 
+L # Produce result.
+T 17 text.html.erb
+L rhtml.run(toy.get_binding)
+T 26 text.html.erb
+L 
+L # From https://docs.ruby-lang.org/en/2.3.0/ERB.html#class-ERB-label-Examples
+T 76 text.html.erb

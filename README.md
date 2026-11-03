@@ -149,6 +149,7 @@ assert_eq!(highlighter.limits().depth, None);
 | Scala | `Language::Scala` | `lang-scala` | `scala` |
 | HTML | `Language::Html` | `lang-html` | `html` |
 | Zig | `Language::Zig` | `lang-zig` | `zig` |
+| ERB | `Language::Erb` | `lang-erb` | `erb` |
 
 ### Features
 
@@ -168,7 +169,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   |:--|:--|
   | `all` (the default) | Every language |
   | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
-  | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML |
+  | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB |
   | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
   | `docs` | Markdown and `config` |
   | `textmate` | PowerShell, Scala, Zig |
@@ -457,6 +458,19 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   At one byte a run of such steps opens and closes each rule of the grammar at most once, because a rule that repeats stops the line, so no line comes near it.
   The bound is a constant in `src/html/engine.rs` until the next minor release moves it into `Limits`.
 - A Markdown fence names the languages `html`, `htm`, `shtml`, `xhtml`, `inc`, `tmpl` and `tpl`.
+
+### ERB
+
+- The HTML lexer runs ERB, with ERB's injection in place of the HTML grammar's, so a bare `<` is text.
+- A `<%` opens ERB where no HTML rule matches at it, outside comments: in text and in a quoted attribute value, but not inside a start tag, where an attribute rule takes the `<`.
+- `<%#` is a comment up to `%>`, and `<%%` is no escape but code whose Ruby starts with `%`.
+- The code is Ruby, lexed by the Ruby lexer, up to `-%>` or `%>`.
+  The end counts only where Ruby has no context open, so a `%>` inside a Ruby string belongs to Ruby.
+  A `#` before the end on its line starts ERB's comment, and Ruby's own comment otherwise.
+- Code that its line does not close is `meta.embedded.block.erb`, and the blanks before it at the start of a line and after its end get scopes of their own.
+- In a `<style>` element ERB opens between CSS rules, and in a `<script>` element where no JavaScript rule matches, so JavaScript's `<` operator takes `<%=` in code.
+- A heredoc of another language inside the Ruby, such as `<<~SQL`, stays Ruby text.
+- ERB that Shiki opens inside a CSS rule or string, or inside a JavaScript string, template or JSX element, as in `'a-<%= x %>'` in a script, stays that language's text, because the CSS and JavaScript lexers halt for ERB only at their top level.
 
 ## Licence
 

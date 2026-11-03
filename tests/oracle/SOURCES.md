@@ -296,6 +296,21 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `html/jquery-delegatetest` | [`test/delegatetest.html`][jquery-delegatetest] in jquery/jquery | [MIT][jquery-licence] |
 | `html/todomvc-knockoutjs` | [`examples/knockoutjs/index.html`][todomvc-knockoutjs] in tastejs/todomvc | [MIT][todomvc-licence] |
 | `html/todomvc-jquery` | [`examples/jquery/index.html`][todomvc-jquery] in tastejs/todomvc | [MIT][todomvc-licence] |
+| `erb/sample` | [`samples/erb.sample`][erb-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `erb/rails-welcome` | [`railties/lib/rails/templates/rails/welcome/index.html.erb`][rails-welcome] in rails/rails | [MIT][railties-licence] |
+| `erb/rails-routes-table` | [`actionpack/lib/action_dispatch/middleware/templates/routes/_table.html.erb`][rails-routes-table] in rails/rails | [MIT][actionpack-licence] |
+| `erb/rails-rescues-source` | [`actionpack/lib/action_dispatch/middleware/templates/rescues/_source.html.erb`][rails-rescues-source] in rails/rails | [MIT][actionpack-licence] |
+| `erb/devise-registrations-edit` | [`app/views/devise/registrations/edit.html.erb`][devise-registrations-edit] in heartcombo/devise | [MIT][devise-licence] |
+| `erb/rails-scaffold-form` | [`railties/lib/rails/generators/erb/scaffold/templates/_form.html.erb.tt`][rails-scaffold-form] in rails/rails | [MIT][railties-licence] |
+| `erb/rails-mailer-email` | [`railties/lib/rails/templates/rails/mailers/email.html.erb`][rails-mailer-email] in rails/rails | [MIT][railties-licence] |
+| `erb/rails-rescues-diagnostics` | [`actionpack/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb`][rails-rescues-diagnostics] in rails/rails | [MIT][actionpack-licence] |
+| `erb/rails-info-notes` | [`railties/lib/rails/templates/rails/info/notes.html.erb`][rails-info-notes] in rails/rails | [MIT][railties-licence] |
+| `erb/rails-app-layout` | [`railties/lib/rails/generators/rails/app/templates/app/views/layouts/application.html.erb.tt`][rails-app-layout] in rails/rails | [MIT][railties-licence] |
+| `erb/rails-pwa-offline` | [`railties/lib/rails/generators/rails/app/templates/app/views/pwa/offline.html.erb`][rails-pwa-offline] in rails/rails | [MIT][railties-licence] |
+| `erb/devise-shared-links` | [`app/views/devise/shared/_links.html.erb`][devise-shared-links] in heartcombo/devise | [MIT][devise-licence] |
+| `erb/devise-confirmation-instructions` | [`app/views/devise/mailer/confirmation_instructions.html.erb`][devise-confirmation-instructions] in heartcombo/devise | [MIT][devise-licence] |
+| `erb/devise-sessions-new` | [`app/views/devise/sessions/new.html.erb`][devise-sessions-new] in heartcombo/devise | [MIT][devise-licence] |
+| `erb/devise-error-messages` | [`app/views/devise/shared/_error_messages.html.erb`][devise-error-messages] in heartcombo/devise | [MIT][devise-licence] |
 
 `ripgrep-searcher` and `serde-de` are held out: they were not among the inputs the Rust lexer was written against.
 `markdown/book-ownership`, `markdown/book-strings` and `markdown/clap-readme` are held out in the same way: they were added after the other Markdown inputs passed.
@@ -379,6 +394,11 @@ Shiki's Markdown grammar has no Zig fence, so no Markdown input embeds Zig.
 `html/todomvc-polymer`, `html/h5bp-404`, `html/todomvc-lit`, `html/three-geometry-colors`, `html/mathjax-tex-mml`, `html/three-loader-gltf`, `html/bootstrap3-visual-modal`, `html/jquery-delegatetest`, `html/todomvc-knockoutjs` and `html/todomvc-jquery` are held out.
 The held-out ones cover `<style>` CSS, classic and module `<script>` JavaScript, a Polymer `<template>`, and character entities; the MathML of `html/mathjax-mml-chtml` is a development input.
 TodoMVC's `license.md` puts the repository under MIT unless a file says otherwise, and its Polymer example carries its own BSD-3-Clause `LICENSE`.
+
+`erb/sample`, `erb/rails-welcome`, `erb/rails-routes-table`, `erb/rails-rescues-source`, `erb/devise-registrations-edit` and `erb/rails-scaffold-form` are the development inputs for ERB.
+`erb/rails-mailer-email`, `erb/rails-rescues-diagnostics`, `erb/rails-info-notes`, `erb/rails-app-layout`, `erb/rails-pwa-offline`, `erb/devise-shared-links`, `erb/devise-confirmation-instructions`, `erb/devise-sessions-new` and `erb/devise-error-messages` are held out.
+They cover code inside quoted values and `<style>` and `<script>` blocks, `-%>`, and the `<%%` of the generators' Thor templates; none has an ERB comment, which the unit tests and the mutation differential cover.
+Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railties/` and `actionpack/` here.
 
 [rust-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/rust.sample
 [shiki-samples-licence]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/LICENSE
@@ -807,3 +827,20 @@ TodoMVC's `license.md` puts the repository under MIT unless a file says otherwis
 [zls-offsets]: https://github.com/zigtools/zls/blob/b3e65123f1bf455cea491ba7069bebd5f93e6839/src/offsets.zig
 [zls-build]: https://github.com/zigtools/zls/blob/b3e65123f1bf455cea491ba7069bebd5f93e6839/build.zig
 [zls-licence]: https://github.com/zigtools/zls/blob/b3e65123f1bf455cea491ba7069bebd5f93e6839/LICENSE
+[erb-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/erb.sample
+[rails-welcome]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/railties/lib/rails/templates/rails/welcome/index.html.erb
+[rails-routes-table]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/actionpack/lib/action_dispatch/middleware/templates/routes/_table.html.erb
+[rails-rescues-source]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/actionpack/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+[devise-registrations-edit]: https://github.com/heartcombo/devise/blob/05811fb8366edd08874111d0f6fb44543e1c91ef/app/views/devise/registrations/edit.html.erb
+[rails-scaffold-form]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/railties/lib/rails/generators/erb/scaffold/templates/_form.html.erb.tt
+[rails-mailer-email]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/railties/lib/rails/templates/rails/mailers/email.html.erb
+[rails-rescues-diagnostics]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/actionpack/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb
+[rails-info-notes]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/railties/lib/rails/templates/rails/info/notes.html.erb
+[rails-app-layout]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/railties/lib/rails/generators/rails/app/templates/app/views/layouts/application.html.erb.tt
+[rails-pwa-offline]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/railties/lib/rails/generators/rails/app/templates/app/views/pwa/offline.html.erb
+[devise-shared-links]: https://github.com/heartcombo/devise/blob/05811fb8366edd08874111d0f6fb44543e1c91ef/app/views/devise/shared/_links.html.erb
+[devise-confirmation-instructions]: https://github.com/heartcombo/devise/blob/05811fb8366edd08874111d0f6fb44543e1c91ef/app/views/devise/mailer/confirmation_instructions.html.erb
+[devise-sessions-new]: https://github.com/heartcombo/devise/blob/05811fb8366edd08874111d0f6fb44543e1c91ef/app/views/devise/sessions/new.html.erb
+[devise-error-messages]: https://github.com/heartcombo/devise/blob/05811fb8366edd08874111d0f6fb44543e1c91ef/app/views/devise/shared/_error_messages.html.erb
+[railties-licence]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/railties/MIT-LICENSE
+[actionpack-licence]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/actionpack/MIT-LICENSE
