@@ -11,9 +11,9 @@ const TAG: u16 = crate::tag::TOML;
 pub(crate) enum Kind {
     /// Outside every context: a table of key/value pairs.
     Top,
-    /// `[` up to `]`; the payload says whether a value has just ended.
+    /// `[` up to `]`; the payload is an [`ArrayNext`].
     Array,
-    /// `{` up to `}`.
+    /// `{` up to `}`; the payload is an [`InlineComments`].
     Inline,
     /// `"` up to `"`.
     Basic,
@@ -64,6 +64,57 @@ impl Kind {
             Kind::Literal => Some(S::StrSingle),
             Kind::BasicMulti => Some(S::StrTripleDouble),
             Kind::LiteralMulti => Some(S::StrTripleSingle),
+        }
+    }
+}
+
+/// What the array being read expects next, kept in its frame's payload.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum ArrayNext {
+    /// A value: the array has just opened or read a comma.
+    Value,
+    /// The comma after the value that has just ended.
+    Comma,
+}
+
+impl ArrayNext {
+    pub(crate) fn payload(self) -> u32 {
+        match self {
+            ArrayNext::Value => 0,
+            ArrayNext::Comma => 1,
+        }
+    }
+
+    pub(crate) fn from_payload(payload: u32) -> ArrayNext {
+        if payload == 0 {
+            ArrayNext::Value
+        } else {
+            ArrayNext::Comma
+        }
+    }
+}
+
+/// Whether a comment may start a line of the inline table being read, kept
+/// in its frame's payload: one may after `{` and `,` only.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum InlineComments {
+    Allowed,
+    Barred,
+}
+
+impl InlineComments {
+    pub(crate) fn payload(self) -> u32 {
+        match self {
+            InlineComments::Barred => 0,
+            InlineComments::Allowed => 1,
+        }
+    }
+
+    pub(crate) fn from_payload(payload: u32) -> InlineComments {
+        if payload == 0 {
+            InlineComments::Barred
+        } else {
+            InlineComments::Allowed
         }
     }
 }

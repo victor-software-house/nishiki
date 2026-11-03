@@ -7,7 +7,7 @@
 
 use memchr::memchr2;
 
-use super::engine::{Hit, Lexer};
+use super::engine::{Closer, Hit, Lexer};
 use super::rules::Pat;
 use super::scope::S;
 use super::state::Rule;
@@ -454,7 +454,7 @@ impl Lexer<'_> {
         if !self.s.get(p..self.lim)?.starts_with(b"#{") {
             return None;
         }
-        let close = self.find_byte(1, b'}', p + 2)?;
+        let close = self.find_closer(Closer::Brace, p + 2)?;
         Some(
             Hit::new(p, close + 1)
                 .cap(0, p, p + 2, S::PunctStrBegin)
@@ -477,7 +477,7 @@ impl Lexer<'_> {
             }
             _ => return None,
         };
-        let close = self.find_byte(0, b'\'', quote + 1)?;
+        let close = self.find_closer(Closer::Quote, quote + 1)?;
         Some(
             Hit::new(p, close + 1)
                 .cap(0, quote, quote + 1, S::PunctStrBegin)

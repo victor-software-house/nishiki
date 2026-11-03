@@ -22,6 +22,7 @@ pub(crate) use scope::NAMES;
 use scope::S;
 
 use crate::arena::{Arena, Frame, ROOT};
+use crate::language::{Context, Line};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::utf8::char_len;
 use crate::{Stack, Token};
@@ -81,38 +82,28 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, base).unwrap_or(ROOT)
 }
 
-/// A line and where lexing it starts: byte `start`, where a Markdown fence's
-/// text begins after the indentation of the containers around it. The bytes
-/// before it stay in the line, because `^` matches only at 0.
-#[derive(Clone, Copy, Debug)]
-pub(crate) struct Text<'a> {
-    pub(crate) bytes: &'a [u8],
-    pub(crate) start: usize,
-}
-
-/// Lexes one line from `state`, appending its tokens with ends measured from
-/// the line's first byte, and returns the state after it.
-pub(crate) fn line(
-    arena: &mut Arena,
-    limits: &Limits,
-    line: Text<'_>,
-    state: u32,
-    out: &mut Vec<Token>,
-    report: &mut LineReport,
-) -> u32 {
-    let Text { bytes, start } = line;
+/// Lexes `line` from `state` under the crate's one lexer contract
+/// ([`Language::lex`](crate::Language)), appending tokens whose ends count
+/// from the start of the whole line, and returns the state after it.
+///
+/// Lexing starts at `line.start`, where a Markdown fence's text begins after
+/// the indentation of the containers around it; the bytes before it stay in
+/// the line, because `^` matches only at 0.
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+    let (bytes, start) = (line.text.as_bytes(), line.start);
     if bytes.len() <= start {
         return state;
     }
-    let budget = limits
+    let budget = cx
+        .limits
         .work
         .map_or(u64::MAX, |work| work.steps(bytes.len() - start));
-    let frame = arena.frame(state);
+    let frame = cx.arena.frame(state);
     let mut lexer = Lexer {
-        arena,
-        limits,
-        out,
-        report,
+        arena: cx.arena,
+        limits: cx.limits,
+        out: cx.out,
+        report: cx.report,
         bytes,
         state,
         frame,
@@ -265,19 +256,3 @@ impl Lexer<'_> {
 
 #[cfg(test)]
 mod tests;
-
-/// Lexes `line` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
-#[inline]
-pub(crate) fn lex(
-    cx: &mut crate::language::Context<'_>,
-    line: crate::language::Line<'_>,
-    state: u32,
-) -> u32 {
-    let text = Text {
-        bytes: line.text.as_bytes(),
-        start: line.start,
-    };
-    self::line(cx.arena, cx.limits, text, state, cx.out, cx.report)
-}

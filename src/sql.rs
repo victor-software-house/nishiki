@@ -26,9 +26,8 @@ pub(crate) use scope::NAMES;
 use scope::S;
 use state::Rule;
 
-use crate::Token;
 use crate::arena::{Arena, ROOT};
-use crate::limits::{Limits, LineReport};
+use crate::language::{Context, Line};
 
 /// The state at the start of a SQL document whose scopes sit on the stack
 /// `base`: one rule with `source.sql` on top of it.
@@ -46,58 +45,27 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Rule::Root.code(), 0, base).unwrap_or(ROOT)
 }
 
-/// A line and where lexing it starts: byte `start`, where a Markdown fence's
-/// text begins after the indentation of the containers around it. The bytes
-/// before it stay in the line, because the grammar looks at them: `^` matches
-/// only at 0.
+/// Lexes `line` from `state` under the crate's one lexer contract
+/// ([`Language::lex`](crate::Language)), with token ends counted from the
+/// start of the whole line, and returns the state after it.
 ///
-/// `anchored` is set for a Markdown fence line: the fence's `while` rule has
-/// matched the container prefix just before `start`, which is where `\G`
-/// stays for the line, as it does in Shiki. A SQL document has no such rule,
-/// so `\G` matches nowhere at the start of its lines.
-#[derive(Clone, Copy, Debug)]
-pub(crate) struct Text<'a> {
-    pub(crate) bytes: &'a [u8],
-    pub(crate) start: usize,
-    pub(crate) anchored: bool,
-}
-
-/// Lexes one line from `state`, appending its tokens, and returns the state
-/// after it.
+/// Lexing starts at `line.start`, where a Markdown fence's text begins after
+/// the indentation of the containers around it. The bytes before it stay in
+/// the line, because the grammar looks at them: `^` matches only at 0. For an
+/// embedded line the fence's `while` rule has matched the container prefix
+/// just before `start`, which is where `\G` stays for the line, as it does in
+/// Shiki; a SQL document has no such rule, so `\G` matches nowhere at the
+/// start of its lines.
 ///
 /// An empty line leaves the state as it is: Shiki does not tokenize empty
 /// lines, and the grammar would otherwise close a rule it left open at the end
 /// of the line before.
-pub(crate) fn line(
-    arena: &mut Arena,
-    limits: &Limits,
-    line: Text<'_>,
-    state: u32,
-    out: &mut Vec<Token>,
-    report: &mut LineReport,
-) -> u32 {
-    if line.bytes.is_empty() {
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+    if line.text.is_empty() {
         return state;
     }
-    engine::Lexer::new(arena, limits, line, out, state, report).run()
+    engine::Lexer::new(cx, line, state).run()
 }
 
 #[cfg(test)]
 mod tests;
-
-/// Lexes `line` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
-#[inline]
-pub(crate) fn lex(
-    cx: &mut crate::language::Context<'_>,
-    line: crate::language::Line<'_>,
-    state: u32,
-) -> u32 {
-    let text = Text {
-        bytes: line.text.as_bytes(),
-        start: line.start,
-        anchored: line.embedded,
-    };
-    self::line(cx.arena, cx.limits, text, state, cx.out, cx.report)
-}

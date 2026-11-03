@@ -9,6 +9,7 @@ use super::scope::S;
 use super::state::Kind;
 use crate::arena::{Arena, Frame};
 use crate::classes::{self, is_ascii_space, is_word};
+use crate::language::Context;
 use crate::limits::{Limit, Limits, LineReport};
 use crate::utf8::char_len;
 use crate::{Stack, Token};
@@ -33,23 +34,15 @@ pub(crate) struct Lexer<'a> {
 }
 
 impl<'a> Lexer<'a> {
-    pub(crate) fn new(
-        arena: &'a mut Arena,
-        limits: &'a Limits,
-        dialect: Dialect,
-        s: &'a [u8],
-        out: &'a mut Vec<Token>,
-        state: u32,
-        report: &'a mut LineReport,
-    ) -> Self {
-        let frame = arena.frame(state);
-        let budget = limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+    pub(crate) fn new(cx: &'a mut Context<'_>, dialect: Dialect, s: &'a [u8], state: u32) -> Self {
+        let frame = cx.arena.frame(state);
+        let budget = cx.limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
         Lexer {
             s,
-            out,
-            arena,
-            limits,
-            report,
+            out: &mut *cx.out,
+            arena: &mut *cx.arena,
+            limits: cx.limits,
+            report: &mut *cx.report,
             dialect,
             pos: 0,
             state,

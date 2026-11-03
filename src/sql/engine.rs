@@ -15,6 +15,7 @@ use super::rules::{Pat, patterns};
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
+use crate::language::{Context, Line};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::utf8::char_len;
 use crate::{Stack, Token};
@@ -69,6 +70,16 @@ struct Frame {
     state: u32,
 }
 
+/// A byte that closes a match, which the engine searches for once per line
+/// however many openers there are.
+#[derive(Clone, Copy, Debug)]
+pub(super) enum Closer {
+    /// The `'` that closes a single-quoted string.
+    Quote,
+    /// The `}` that closes an interpolation.
+    Brace,
+}
+
 /// What the search found.
 enum Found {
     End(Hit),
@@ -98,10 +109,11 @@ pub(super) struct Lexer<'a> {
     anchor: Option<usize>,
     /// Whether `\G` matches at `pos`.
     pub(super) g: bool,
-    /// The last search of each kind for a byte that closes a match: where it
-    /// started and where it found the byte, so a line of openers that never
-    /// close does not scan to its end for each.
-    finds: [Cell<(usize, Option<usize>)>; 2],
+    /// The last search for each [`Closer`]: where it started and where it
+    /// found the byte, so a line of openers that never close does not scan
+    /// to its end for each.
+    quote_find: Cell<(usize, Option<usize>)>,
+    brace_find: Cell<(usize, Option<usize>)>,
     /// The last run of word characters measured: where it starts and ends.
     /// The rules of a word ask about the same one in turn.
     pub(super) run: Cell<(usize, usize)>,
@@ -110,31 +122,25 @@ pub(super) struct Lexer<'a> {
 }
 
 impl<'a> Lexer<'a> {
-    pub(super) fn new(
-        arena: &'a mut Arena,
-        limits: &'a Limits,
-        text: super::Text<'a>,
-        out: &'a mut Vec<Token>,
-        state: u32,
-        report: &'a mut LineReport,
-    ) -> Self {
-        let (s, start) = (text.bytes, text.start);
-        let budget = limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+    pub(super) fn new(cx: &'a mut Context<'_>, line: Line<'a>, state: u32) -> Self {
+        let (s, start) = (line.text.as_bytes(), line.start);
+        let budget = cx.limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
         let mut lexer = Lexer {
             s,
             lim: s.len(),
             nl: true,
-            out,
-            arena,
-            limits,
-            report,
+            out: &mut *cx.out,
+            arena: &mut *cx.arena,
+            limits: cx.limits,
+            report: &mut *cx.report,
             steps: Cell::new(0),
             budget,
             last: start,
             pos: start,
-            anchor: text.anchored.then_some(start),
+            anchor: line.embedded.then_some(start),
             g: false,
-            finds: [const { Cell::new((usize::MAX, None)) }; 2],
+            quote_find: Cell::new((usize::MAX, None)),
+            brace_find: Cell::new((usize::MAX, None)),
             run: Cell::new((usize::MAX, 0)),
             frames: Vec::new(),
         };
@@ -201,11 +207,13 @@ impl<'a> Lexer<'a> {
         if i == 0 { None } else { Some(self.at(i - 1)) }
     }
 
-    /// The first `byte` at or after `from` in the text, for the search of
-    /// kind `kind`, answered from the last search of that kind when it
-    /// covers `from`.
-    pub(super) fn find_byte(&self, kind: usize, byte: u8, from: usize) -> Option<usize> {
-        let cell = &self.finds[kind];
+    /// The first `closer` at or after `from` in the text, answered from the
+    /// last search for it when that covers `from`.
+    pub(super) fn find_closer(&self, closer: Closer, from: usize) -> Option<usize> {
+        let (cell, byte) = match closer {
+            Closer::Quote => (&self.quote_find, b'\''),
+            Closer::Brace => (&self.brace_find, b'}'),
+        };
         let (start, found) = cell.get();
         if start <= from && found.is_none_or(|at| at >= from) {
             return found;

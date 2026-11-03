@@ -6,8 +6,9 @@ use std::cell::{Cell, OnceCell};
 use memchr::{memchr2, memrchr};
 
 use super::scope::S;
-use super::state::Kind;
+use super::state::{ArrayNext, InlineComments, Kind};
 use crate::arena::{Arena, Frame};
+use crate::language::Context;
 use crate::limits::{Limit, Limits, LineReport};
 use crate::utf8::char_len;
 use crate::{Stack, Token, classes};
@@ -50,22 +51,15 @@ pub(crate) struct Lexer<'a> {
 }
 
 impl<'a> Lexer<'a> {
-    pub(crate) fn new(
-        arena: &'a mut Arena,
-        limits: &'a Limits,
-        s: &'a [u8],
-        out: &'a mut Vec<Token>,
-        state: u32,
-        report: &'a mut LineReport,
-    ) -> Self {
-        let frame = arena.frame(state);
-        let budget = limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+    pub(crate) fn new(cx: &'a mut Context<'_>, s: &'a [u8], state: u32) -> Self {
+        let frame = cx.arena.frame(state);
+        let budget = cx.limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
         let mut lexer = Lexer {
             s,
-            out,
-            arena,
-            limits,
-            report,
+            out: &mut *cx.out,
+            arena: &mut *cx.arena,
+            limits: cx.limits,
+            report: &mut *cx.report,
             pos: 0,
             state,
             frame,
@@ -214,8 +208,11 @@ impl<'a> Lexer<'a> {
             Some(scope) => self.arena.child(self.frame.stack, scope.scope()),
             None => Some(self.frame.stack),
         };
-        // An inline table starts where a comment may follow on a later line.
-        let payload = u32::from(kind == Kind::Inline);
+        let payload = if kind == Kind::Inline {
+            InlineComments::Allowed.payload()
+        } else {
+            ArrayNext::Value.payload()
+        };
         let Some(state) =
             stack.and_then(|stack| self.arena.push(self.state, kind.code(), payload, stack))
         else {
@@ -235,16 +232,18 @@ impl<'a> Lexer<'a> {
         self.frame = self.arena.frame(state);
     }
 
-    /// The flag of the array or inline table being read: for an array,
-    /// whether a value has just ended; for an inline table, whether a
-    /// comment may start a line, which it may after `{` and `,` only.
-    fn flag(&self) -> bool {
-        self.frame.payload != 0
+    /// What the array being read expects next.
+    fn array_next(&self) -> ArrayNext {
+        ArrayNext::from_payload(self.frame.payload)
     }
 
-    /// Sets the flag of the array or inline table being read.
-    fn set_flag(&mut self, on: bool) {
-        let payload = u32::from(on);
+    /// Whether a comment may start a line of the inline table being read.
+    fn inline_comments(&self) -> InlineComments {
+        InlineComments::from_payload(self.frame.payload)
+    }
+
+    /// Sets the payload of the array or inline table being read.
+    fn set_payload(&mut self, payload: u32) {
         if self.frame.payload == payload {
             return;
         }
@@ -262,8 +261,8 @@ impl<'a> Lexer<'a> {
     /// array or inline table around it.
     pub(super) fn value_starts(&mut self) {
         match self.top() {
-            Kind::Array => self.set_flag(true),
-            Kind::Inline => self.set_flag(false),
+            Kind::Array => self.set_payload(ArrayNext::Comma.payload()),
+            Kind::Inline => self.set_payload(InlineComments::Barred.payload()),
             Kind::Top | Kind::Basic | Kind::Literal | Kind::BasicMulti | Kind::LiteralMulti => {}
         }
     }
@@ -429,12 +428,12 @@ impl<'a> Lexer<'a> {
         match self.s[p] {
             b']' => return self.finish(p, p + 1, S::PunctArrayEnd),
             b'#' => return self.comment(p),
-            b',' if self.flag() => {
+            b',' if self.array_next() == ArrayNext::Comma => {
                 self.tok_at(p, p + 1, &[S::PunctArraySep]);
-                self.set_flag(false);
+                self.set_payload(ArrayNext::Value.payload());
                 return p + 1;
             }
-            _ if !self.flag() => {
+            _ if self.array_next() == ArrayNext::Value => {
                 if let Some(end) = self.value(p) {
                     return end;
                 }
@@ -449,7 +448,8 @@ impl<'a> Lexer<'a> {
     /// an inline table has no comments.
     fn leading_space(&mut self, p: usize) -> usize {
         let end = self.skip_space(p);
-        let comments = self.top() == Kind::Array || self.flag();
+        let comments =
+            self.top() == Kind::Array || self.inline_comments() == InlineComments::Allowed;
         if p == 0 && end == self.first && self.at(end) == b'#' && comments && self.blanks(end) {
             self.tok(end, &[S::CommentLeading]);
         }
@@ -465,10 +465,14 @@ impl<'a> Lexer<'a> {
             b'}' => return self.finish(p, p + 1, S::PunctInlineEnd),
             b',' => {
                 self.tok_at(p, p + 1, &[S::PunctInlineSep]);
-                self.set_flag(true);
+                self.set_payload(InlineComments::Allowed.payload());
                 return p + 1;
             }
-            b'#' if p > 0 && p == self.first && self.flag() && self.blanks(p) => {
+            b'#' if p > 0
+                && p == self.first
+                && self.inline_comments() == InlineComments::Allowed
+                && self.blanks(p) =>
+            {
                 return self.comment(p);
             }
             _ => {}

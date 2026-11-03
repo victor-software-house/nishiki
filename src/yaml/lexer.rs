@@ -8,6 +8,7 @@ use super::scalar;
 use super::scope::S;
 use super::state::Kind;
 use crate::arena::{Arena, Frame};
+use crate::language::Context;
 use crate::limits::{Limit, Limits, LineReport};
 use crate::utf8::char_len;
 use crate::{Stack, Token};
@@ -33,9 +34,19 @@ pub(crate) struct Lexer<'a> {
     lead_blanks: usize,
     /// Where the last tab is, which decides whether a comment is taken.
     last_tab: Option<usize>,
-    /// Whether `^` matches at the start of `s`. It does not when a Markdown
-    /// fence inside a container hands over the rest of its line.
-    line_start: bool,
+    /// Whether `^` matches at the start of `s`.
+    text_start: TextStart,
+}
+
+/// Where the text a YAML lexer reads starts in its line, which decides
+/// whether `^` matches at its first byte.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum TextStart {
+    /// At the start of the line, where `^` matches.
+    Line,
+    /// After a Markdown container's prefix, which hands over the rest of its
+    /// line to a fence's YAML, where `^` does not match.
+    MidLine,
 }
 
 fn is_blank(b: u8) -> bool {
@@ -100,24 +111,21 @@ fn tag_valid(tag: &[u8]) -> bool {
 
 impl<'a> Lexer<'a> {
     pub(crate) fn new(
-        arena: &'a mut Arena,
-        limits: &'a Limits,
+        cx: &'a mut Context<'_>,
         s: &'a [u8],
-        line_start: bool,
-        out: &'a mut Vec<Token>,
+        text_start: TextStart,
         state: u32,
-        report: &'a mut LineReport,
     ) -> Self {
-        let frame = arena.frame(state);
-        let budget = limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+        let frame = cx.arena.frame(state);
+        let budget = cx.limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
         let lead_spaces = s.iter().take_while(|&&b| b == b' ').count();
         let lead_blanks = s.iter().take_while(|&&b| is_blank(b)).count();
         Lexer {
             s,
-            out,
-            arena,
-            limits,
-            report,
+            out: &mut *cx.out,
+            arena: &mut *cx.arena,
+            limits: cx.limits,
+            report: &mut *cx.report,
             pos: 0,
             state,
             frame,
@@ -126,7 +134,7 @@ impl<'a> Lexer<'a> {
             lead_spaces,
             lead_blanks,
             last_tab: memchr::memrchr(b'\t', s),
-            line_start,
+            text_start,
         }
     }
 
@@ -297,7 +305,7 @@ impl<'a> Lexer<'a> {
     /// Returns where lexing resumes: the end of the line, or 0 when the line
     /// is not content and the scalar ends.
     fn block_line(&mut self) -> usize {
-        if !self.line_start {
+        if self.text_start == TextStart::MidLine {
             // The rules that continue a block scalar start with `^`, so the
             // scalar ends here, and the grammar leaves the first character
             // of the line with no scope.
@@ -373,7 +381,7 @@ impl<'a> Lexer<'a> {
     /// indented by a scope of its own.
     fn comment(&mut self, p: usize) -> usize {
         let len = self.s.len();
-        if self.line_start && p > 0 && self.pos == 0 && p <= self.lead_blanks {
+        if self.text_start == TextStart::Line && p > 0 && self.pos == 0 && p <= self.lead_blanks {
             self.tok(p, &[S::CommentLeading]);
         }
         self.gap(p);
@@ -387,7 +395,7 @@ impl<'a> Lexer<'a> {
     fn comment_at(&self, p: usize) -> bool {
         self.s[p] == b'#'
             && if p == 0 {
-                self.line_start
+                self.text_start == TextStart::Line
             } else {
                 is_blank(self.s[p - 1])
             }
@@ -652,7 +660,7 @@ impl<'a> Lexer<'a> {
         if self.blank_at(p) > 0 {
             return self.skip_blanks(p);
         }
-        if p == 0 && self.line_start && self.top() == Kind::Top {
+        if p == 0 && self.text_start == TextStart::Line && self.top() == Kind::Top {
             if let Some(end) = self.document_marker() {
                 return end;
             }
@@ -667,7 +675,7 @@ impl<'a> Lexer<'a> {
             b':' if self.top() == Kind::Complex => {
                 // A `:` after the key's text is a mistake; one that starts
                 // the line is the value indicator.
-                let leaf = if self.line_start && p <= self.lead_spaces {
+                let leaf = if self.text_start == TextStart::Line && p <= self.lead_spaces {
                     S::PunctKeyValue
                 } else {
                     S::InvalidNewline

@@ -21,9 +21,8 @@ pub(crate) use scope::NAMES;
 use scope::S;
 use state::Kind;
 
-use crate::Token;
 use crate::arena::{Arena, ROOT};
-use crate::limits::{Limits, LineReport};
+use crate::language::{Context, Line};
 
 /// Which of the grammars' scope-name spellings to use.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -61,49 +60,21 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, base).unwrap_or(ROOT)
 }
 
-/// Lexes one line from `state`, appending its tokens, and returns the state
-/// after it.
+/// Lexes `line` in `dialect` from `state` under the crate's one lexer contract
+/// ([`Language::lex`](crate::Language)), with token ends counted from the
+/// start of the whole line, and returns the state after it.
 ///
 /// An empty line appends nothing and leaves the state as it is.
-pub(crate) fn line(
-    arena: &mut Arena,
-    limits: &Limits,
-    dialect: Dialect,
-    line: &[u8],
-    state: u32,
-    out: &mut Vec<Token>,
-    report: &mut LineReport,
-) -> u32 {
-    if line.is_empty() {
-        return state;
-    }
-    let mut lexer = lexer::Lexer::new(arena, limits, dialect, line, out, state, report);
-    lexer.run();
-    lexer.into_state()
+pub(crate) fn lex(cx: &mut Context<'_>, dialect: Dialect, line: Line<'_>, state: u32) -> u32 {
+    cx.lex_from_start(line, |cx, rest| {
+        if rest.is_empty() {
+            return state;
+        }
+        let mut lexer = lexer::Lexer::new(cx, dialect, rest.as_bytes(), state);
+        lexer.run();
+        lexer.into_state()
+    })
 }
 
 #[cfg(test)]
 mod tests;
-
-/// Lexes `line` in `dialect` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
-#[inline]
-pub(crate) fn lex(
-    cx: &mut crate::language::Context<'_>,
-    dialect: Dialect,
-    line: crate::language::Line<'_>,
-    state: u32,
-) -> u32 {
-    cx.lex_from_start(line, |cx, rest| {
-        self::line(
-            cx.arena,
-            cx.limits,
-            dialect,
-            rest.as_bytes(),
-            state,
-            cx.out,
-            cx.report,
-        )
-    })
-}

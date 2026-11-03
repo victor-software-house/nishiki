@@ -20,11 +20,12 @@ mod rules;
 mod scope;
 
 use memchr::{memchr, memchr2};
-use rules::Hit;
+use rules::{CommentMark, Hit, Quote};
 pub(crate) use scope::NAMES;
 use scope::S;
 
 use crate::arena::{Arena, Frame, ROOT};
+use crate::language::{Context, Line};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::utf8::char_len;
 use crate::{Stack, Token};
@@ -75,38 +76,28 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, base).unwrap_or(ROOT)
 }
 
-/// A line and where lexing it starts: byte `start`, where a Markdown fence's
-/// text begins after the indentation of the containers around it. The bytes
-/// before it stay in the line, because `^` matches only at 0.
-#[derive(Clone, Copy, Debug)]
-pub(crate) struct Text<'a> {
-    pub(crate) bytes: &'a [u8],
-    pub(crate) start: usize,
-}
-
-/// Lexes one line from `state`, appending its tokens with ends measured from
-/// the line's first byte, and returns the state after it.
-pub(crate) fn line(
-    arena: &mut Arena,
-    limits: &Limits,
-    line: Text<'_>,
-    state: u32,
-    out: &mut Vec<Token>,
-    report: &mut LineReport,
-) -> u32 {
-    let Text { bytes, start } = line;
+/// Lexes `line` from `state` under the crate's one lexer contract
+/// ([`Language::lex`](crate::Language)), appending tokens whose ends count
+/// from the start of the whole line, and returns the state after it.
+///
+/// Lexing starts at `line.start`, where a Markdown fence's text begins after
+/// the indentation of the containers around it; the bytes before it stay in
+/// the line, because `^` matches only at 0.
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+    let (bytes, start) = (line.text.as_bytes(), line.start);
     if bytes.len() <= start {
         return state;
     }
-    let budget = limits
+    let budget = cx
+        .limits
         .work
         .map_or(u64::MAX, |work| work.steps(bytes.len() - start));
-    let frame = arena.frame(state);
+    let frame = cx.arena.frame(state);
     let mut lexer = Lexer {
-        arena,
-        limits,
-        out,
-        report,
+        arena: cx.arena,
+        limits: cx.limits,
+        out: cx.out,
+        report: cx.report,
         bytes,
         state,
         frame,
@@ -114,6 +105,28 @@ pub(crate) fn line(
     };
     lexer.run(start, budget);
     lexer.state
+}
+
+/// Each top-level rule's next match, in the grammar's order.
+#[derive(Clone, Copy)]
+struct Slots {
+    hash: Slot,
+    semicolon: Slot,
+    key: Slot,
+    section: Slot,
+    single: Slot,
+    double: Slot,
+}
+
+impl Slots {
+    const UNKNOWN: Slots = Slots {
+        hash: Slot::Unknown,
+        semicolon: Slot::Unknown,
+        key: Slot::Unknown,
+        section: Slot::Unknown,
+        single: Slot::Unknown,
+        double: Slot::Unknown,
+    };
 }
 
 /// A rule's next match, once it has been looked for.
@@ -156,7 +169,7 @@ impl Lexer<'_> {
     fn run(&mut self, start: usize, budget: u64) {
         let len = self.bytes.len();
         let mut text = rules::Line::new(self.bytes);
-        let mut slots = [Slot::Unknown; 6];
+        let mut slots = Slots::UNKNOWN;
         let mut pos = start;
         let mut steps = 0_u64;
         while pos < len {
@@ -168,8 +181,8 @@ impl Lexer<'_> {
             let from = pos;
             pos = match Kind::from_code(self.frame.kind) {
                 Kind::Top => self.top(&mut text, &mut slots, pos),
-                Kind::Single => self.string(pos, b'\'', true),
-                Kind::Double => self.string(pos, b'"', false),
+                Kind::Single => self.string(pos, Quote::Single),
+                Kind::Double => self.string(pos, Quote::Double),
             };
             debug_assert!(pos > from, "the INI lexer made no progress at byte {from}");
         }
@@ -178,31 +191,29 @@ impl Lexer<'_> {
 
     /// Finds the next token outside a string at or after `pos` and returns
     /// where scanning goes on.
-    fn top(&mut self, text: &mut rules::Line<'_>, slots: &mut [Slot; 6], pos: usize) -> usize {
-        let [hash, semicolon, key, section, single, double] = slots;
+    ///
+    /// The match that starts first wins, and of matches that start at one
+    /// byte the rule the grammar lists first, which is the first in `found`:
+    /// `min_by_key` keeps the first of equal keys.
+    fn top(&mut self, text: &mut rules::Line<'_>, slots: &mut Slots, pos: usize) -> usize {
         let found = [
-            hash.at(pos, || text.comment(pos, b'#')),
-            semicolon.at(pos, || text.comment(pos, b';')),
-            key.at(pos, || text.key(pos)),
-            section.at(pos, || if pos == 0 { text.section() } else { None }),
-            single.at(pos, || text.quote(pos, b'\'')),
-            double.at(pos, || text.quote(pos, b'"')),
+            slots.hash.at(pos, || text.comment(pos, CommentMark::Hash)),
+            slots
+                .semicolon
+                .at(pos, || text.comment(pos, CommentMark::Semicolon)),
+            slots.key.at(pos, || text.key(pos)),
+            slots
+                .section
+                .at(pos, || if pos == 0 { text.section() } else { None }),
+            slots.single.at(pos, || text.quote(pos, Quote::Single)),
+            slots.double.at(pos, || text.quote(pos, Quote::Double)),
         ];
-        let Some((index, hit)) = found
-            .into_iter()
-            .enumerate()
-            .filter_map(|(index, hit)| Some((index, hit?)))
-            .min_by_key(|&(index, hit)| (hit.start(), index))
-        else {
+        let Some(hit) = found.into_iter().flatten().min_by_key(|hit| hit.start()) else {
             return self.bytes.len();
         };
         match hit {
-            Hit::Comment { start, mark } => {
-                let scope = if index == 0 {
-                    S::CommentHash
-                } else {
-                    S::CommentSemicolon
-                };
+            Hit::Comment { start, mark, kind } => {
+                let scope = kind.scope();
                 self.tok(start, &[]);
                 self.tok(mark, &[S::LeadingSpace]);
                 self.tok(mark + 1, &[scope, S::PunctComment]);
@@ -222,24 +233,24 @@ impl Lexer<'_> {
                 self.tok(close + 1, &[S::Section, S::PunctEntity]);
                 close + 1
             }
-            Hit::Quote { at } => self.open(at, index == 4),
+            Hit::Quote { at, quote } => self.open(at, quote),
         }
     }
 
     /// Scans a string's text from `pos` for its closing quote, and for an
     /// escape when the string has them.
-    fn string(&mut self, pos: usize, quote: u8, escapes: bool) -> usize {
+    fn string(&mut self, pos: usize, quote: Quote) -> usize {
         let rest = &self.bytes[pos..];
-        let found = if escapes {
-            memchr2(quote, b'\\', rest)
+        let found = if quote.escapes() {
+            memchr2(quote.byte(), b'\\', rest)
         } else {
-            memchr(quote, rest)
+            memchr(quote.byte(), rest)
         };
         let Some(found) = found else {
             return self.bytes.len();
         };
         let at = pos + found;
-        if self.bytes[at] == quote {
+        if self.bytes[at] == quote.byte() {
             self.tok(at, &[]);
             self.tok(at + 1, &[S::PunctEnd]);
             self.state = self.frame.parent;
@@ -257,17 +268,13 @@ impl Lexer<'_> {
 
     /// Opens the string whose quote is at `at`, unless a limit keeps it
     /// closed, and returns where scanning goes on.
-    fn open(&mut self, at: usize, single: bool) -> usize {
+    fn open(&mut self, at: usize, quote: Quote) -> usize {
         let depth = usize::try_from(self.frame.depth).unwrap_or(usize::MAX);
         if self.limits.depth.is_some_and(|max| depth >= max) {
             self.report.record(Limit::Depth);
             return at + 1;
         }
-        let (kind, scope) = if single {
-            (Kind::Single, S::Single)
-        } else {
-            (Kind::Double, S::Double)
-        };
+        let (kind, scope) = quote.kind();
         let stack = self.arena.child(self.frame.stack, scope.scope());
         let Some(state) =
             stack.and_then(|stack| self.arena.push(self.state, kind.code(), 0, stack))
@@ -306,19 +313,3 @@ impl Lexer<'_> {
 
 #[cfg(test)]
 mod tests;
-
-/// Lexes `line` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
-#[inline]
-pub(crate) fn lex(
-    cx: &mut crate::language::Context<'_>,
-    line: crate::language::Line<'_>,
-    state: u32,
-) -> u32 {
-    let text = Text {
-        bytes: line.text.as_bytes(),
-        start: line.start,
-    };
-    self::line(cx.arena, cx.limits, text, state, cx.out, cx.report)
-}

@@ -9,6 +9,8 @@
 
 use memchr::memchr;
 
+use super::Kind;
+use super::scope::S;
 use crate::classes;
 use crate::classes::is_ascii_space;
 use crate::utf8::char_len;
@@ -19,7 +21,11 @@ pub(super) enum Hit {
     /// A comment that starts with `#` or `;`: where the match starts, which
     /// is byte 0 when blanks lead the line and the comment mark's position
     /// otherwise, and where the mark is.
-    Comment { start: usize, mark: usize },
+    Comment {
+        start: usize,
+        mark: usize,
+        kind: CommentMark,
+    },
     /// A key: its bounds, and the `=` that follows it after any blanks.
     Key {
         start: usize,
@@ -29,7 +35,66 @@ pub(super) enum Hit {
     /// A section header `[...]`: the `]` that closes it.
     Section { close: usize },
     /// A quote that opens a string.
-    Quote { at: usize },
+    Quote { at: usize, quote: Quote },
+}
+
+/// The two comment marks, each with its own scope.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(super) enum CommentMark {
+    /// `#`.
+    Hash,
+    /// `;`.
+    Semicolon,
+}
+
+impl CommentMark {
+    fn byte(self) -> u8 {
+        match self {
+            CommentMark::Hash => b'#',
+            CommentMark::Semicolon => b';',
+        }
+    }
+
+    pub(super) fn scope(self) -> S {
+        match self {
+            CommentMark::Hash => S::CommentHash,
+            CommentMark::Semicolon => S::CommentSemicolon,
+        }
+    }
+}
+
+/// The two quotes that open a string.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(super) enum Quote {
+    /// `'`, whose strings have backslash escapes.
+    Single,
+    /// `"`, whose strings have none.
+    Double,
+}
+
+impl Quote {
+    pub(super) fn byte(self) -> u8 {
+        match self {
+            Quote::Single => b'\'',
+            Quote::Double => b'"',
+        }
+    }
+
+    /// Whether a backslash in the string starts an escape.
+    pub(super) fn escapes(self) -> bool {
+        match self {
+            Quote::Single => true,
+            Quote::Double => false,
+        }
+    }
+
+    /// The frame kind and the scope of the string it opens.
+    pub(super) fn kind(self) -> (Kind, S) {
+        match self {
+            Quote::Single => (Kind::Single, S::Single),
+            Quote::Double => (Kind::Double, S::Double),
+        }
+    }
 }
 
 impl Hit {
@@ -38,7 +103,7 @@ impl Hit {
         match self {
             Hit::Comment { start, .. } | Hit::Key { start, .. } => start,
             Hit::Section { .. } => 0,
-            Hit::Quote { at } => at,
+            Hit::Quote { at, .. } => at,
         }
     }
 }
@@ -131,15 +196,16 @@ impl<'a> Line<'a> {
     /// `(^[\t ]+)?(?=#)` and its twin for `;`, whose first match from `from`
     /// is at the first `mark` byte, or at the line's start when only tabs
     /// and spaces lie before it and the search starts there.
-    pub(super) fn comment(&mut self, from: usize, mark: u8) -> Option<Hit> {
+    pub(super) fn comment(&mut self, from: usize, kind: CommentMark) -> Option<Hit> {
         let rest = self.s.get(from..)?;
-        let at = from + memchr(mark, rest)?;
+        let at = from + memchr(kind.byte(), rest)?;
         self.spend(at - from);
         let leading =
             from == 0 && at > 0 && self.s[..at].iter().all(|&b| matches!(b, b'\t' | b' '));
         Some(Hit::Comment {
             start: if leading { 0 } else { at },
             mark: at,
+            kind,
         })
     }
 
@@ -195,10 +261,10 @@ impl<'a> Line<'a> {
     }
 
     /// The first `quote` at or after `from`.
-    pub(super) fn quote(&mut self, from: usize, quote: u8) -> Option<Hit> {
+    pub(super) fn quote(&mut self, from: usize, quote: Quote) -> Option<Hit> {
         let rest = self.s.get(from..)?;
-        let at = from + memchr(quote, rest)?;
+        let at = from + memchr(quote.byte(), rest)?;
         self.spend(at - from);
-        Some(Hit::Quote { at })
+        Some(Hit::Quote { at, quote })
     }
 }

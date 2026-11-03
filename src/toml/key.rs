@@ -22,6 +22,13 @@ struct Key {
     block: bool,
 }
 
+/// Whether a key's names are all bare or one of them opens with a quote.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum NameKind {
+    Bare,
+    Quoted,
+}
+
 /// Whether `b` is a character of a bare name, `[A-Za-z0-9_-]`.
 fn is_bare(b: u8) -> bool {
     b.is_ascii_alphanumeric() || b == b'_' || b == b'-'
@@ -63,8 +70,7 @@ impl Lexer<'_> {
             self.skip_failed_name(p);
             return None;
         }
-        let mut quoted = false;
-        let mut end = self.name(p, &mut quoted);
+        let (mut kind, mut end) = self.name(p);
         let mut names = usize::from(end.is_some());
         let mut key_end = end?;
         let mut second = usize::MAX;
@@ -74,7 +80,11 @@ impl Lexer<'_> {
                 break;
             }
             let next = self.skip_space(dot + 1);
-            end = self.name(next, &mut quoted);
+            let (next_kind, next_end) = self.name(next);
+            if next_kind == NameKind::Quoted {
+                kind = NameKind::Quoted;
+            }
+            end = next_end;
             match end {
                 Some(name_end) => {
                     names += 1;
@@ -98,10 +108,10 @@ impl Lexer<'_> {
                 block: false,
             });
         }
-        if !quoted {
-            self.no_key_before = key_end;
-        } else if second != usize::MAX {
-            self.failed_chain.set((second, key_end));
+        match kind {
+            NameKind::Bare => self.no_key_before = key_end,
+            NameKind::Quoted if second != usize::MAX => self.failed_chain.set((second, key_end)),
+            NameKind::Quoted => {}
         }
         None
     }
@@ -111,11 +121,11 @@ impl Lexer<'_> {
     fn skip_failed_name(&self, p: usize) {
         let end = self.failed_chain.get().1;
         let mut next = usize::MAX;
-        if let Some(name_end) = self.name(p, &mut false) {
+        if let Some(name_end) = self.name_end(p) {
             let dot = self.skip_space(name_end);
             if self.at(dot) == b'.' {
                 let after = self.skip_space(dot + 1);
-                if after < end && self.name(after, &mut false).is_some() {
+                if after < end && self.name_end(after).is_some() {
                     next = after;
                 }
             }
@@ -123,12 +133,22 @@ impl Lexer<'_> {
         self.failed_chain.set((next, end));
     }
 
-    /// The end of the bare or quoted name at `i`, if one starts there;
-    /// `quoted` is set when it is a quoted one.
-    fn name(&self, i: usize, quoted: &mut bool) -> Option<usize> {
+    /// Whether the name at `i` opens with a quote, and its end if it is a
+    /// whole name. A quote that never closes still makes the name quoted,
+    /// which decides what a failed key remembers.
+    fn name(&self, i: usize) -> (NameKind, Option<usize>) {
+        let kind = if matches!(self.at(i), b'"' | b'\'') {
+            NameKind::Quoted
+        } else {
+            NameKind::Bare
+        };
+        (kind, self.name_end(i))
+    }
+
+    /// The end of the bare or quoted name at `i`, if one starts there.
+    fn name_end(&self, i: usize) -> Option<usize> {
         match self.at(i) {
             b'"' => {
-                *quoted = true;
                 let mut j = i + 1;
                 loop {
                     let rest = self.s.get(j..)?;
@@ -145,7 +165,6 @@ impl Lexer<'_> {
                 }
             }
             b'\'' => {
-                *quoted = true;
                 let rest = self.s.get(i + 1..)?;
                 let offset = memchr(b'\'', rest)?;
                 self.spend(offset);
@@ -254,7 +273,7 @@ impl Lexer<'_> {
 
     /// Emits the quoted name that starts at `i`, and returns where it ends.
     fn quoted_name(&mut self, i: usize, quote: u8) -> usize {
-        let Some(close) = self.name(i, &mut false).map(|end| end - 1) else {
+        let Some(close) = self.name_end(i).map(|end| end - 1) else {
             return i + 1;
         };
         self.tok_at(i, i + 1, &[S::Key, S::PunctKeyBegin]);

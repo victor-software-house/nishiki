@@ -126,26 +126,18 @@ pub(super) struct Lexer<'a> {
 }
 
 impl<'a> Lexer<'a> {
-    pub(super) fn new(
-        scratch: &'a mut Scratch,
-        arena: &'a mut Arena,
-        limits: &'a Limits,
-        text: super::Text<'a>,
-        out: &'a mut Vec<Token>,
-        state: u32,
-        report: &'a mut LineReport,
-    ) -> Self {
-        let (s, start) = (text.bytes, text.start);
-        let budget = limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+    pub(super) fn new(cx: &'a mut Context<'_>, line: Line<'a>, state: u32) -> Self {
+        let (s, start) = (line.text.as_bytes(), line.start);
+        let budget = cx.limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
         let mut lexer = Lexer {
             s,
-            text: text.whole,
-            scratch,
+            text: line.text,
+            scratch: &mut *cx.scratch,
             lim: s.len(),
-            out,
-            arena,
-            limits,
-            report,
+            out: &mut *cx.out,
+            arena: &mut *cx.arena,
+            limits: cx.limits,
+            report: &mut *cx.report,
             steps: Cell::new(0),
             budget,
             last: start,
