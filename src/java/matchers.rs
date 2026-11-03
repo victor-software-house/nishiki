@@ -185,7 +185,7 @@ impl Lexer<'_> {
             Pat::KeywordsAt1 => self.one_of(p, b":?"),
 
             // Constants and numbers.
-            Pat::ConstantsAndSpecialVarsAt0 => self.keyword_of(p, &[b"true", b"false", b"null"]),
+            Pat::ConstantsAndSpecialVarsAt0 => self.word_in(p, &[b"true", b"false", b"null"]),
             Pat::ConstantsAndSpecialVarsAt1 => self.keyword(p, b"this"),
             Pat::NumbersAt0 => self.hex_number(p),
             Pat::NumbersAt1 => self.radix_number(p, true),
@@ -216,7 +216,7 @@ impl Lexer<'_> {
             Pat::KeywordsAt10 => self.one_of(p, b"-%*+/"),
             Pat::KeywordsAt11 => self.logical(p),
             Pat::KeywordsAt12 => self.one_of(p, b"&|"),
-            Pat::KeywordsAt13 => self.keyword_of(p, &[b"const", b"goto"]),
+            Pat::KeywordsAt13 => self.word_in(p, &[b"const", b"goto"]),
 
             // Variables and names.
             Pat::Variables => self.variable_ahead(p),
@@ -257,7 +257,7 @@ impl Lexer<'_> {
 
             // Modules.
             Pat::Module => self.module_begin(p),
-            Pat::ModuleAt0At2 => self.keyword_of(
+            Pat::ModuleAt0At2 => self.word_in(
                 p,
                 &[
                     b"requires",

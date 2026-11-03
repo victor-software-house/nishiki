@@ -73,7 +73,7 @@ impl Lexer<'_> {
 
     /// The lookahead `\s|/\*|$` at `p`, with `extra` more characters.
     fn ahead_blank_or_comment(&self, p: usize, extra: &[u8]) -> bool {
-        self.space_width(p) > 0
+        self.space_at(p) > 0
             || self.starts(p, b"/*")
             || self.at_end(p)
             || self.s.get(p).is_some_and(|b| extra.contains(b))
@@ -276,7 +276,7 @@ impl Lexer<'_> {
             return None;
         }
         let (group, end) = self.media_feature(p)?;
-        let ahead = self.space_width(end) > 0
+        let ahead = self.space_at(end) > 0
             || self.at_end(end)
             || matches!(self.s.get(end), Some(b')' | b':' | b'<' | b'=' | b'>'))
             || self.starts(end, b"/*");
@@ -292,9 +292,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.wordish_run(p);
-        let ahead = self.at(end) == b')' && end < self.lim()
-            || self.space_width(end) > 0
-            || self.at_end(end);
+        let ahead =
+            self.at(end) == b')' && end < self.lim() || self.space_at(end) > 0 || self.at_end(end);
         (end > p && self.in_list(p, end, FEATURE_KEYWORDS) && ahead).then_some(end)
     }
 
@@ -312,7 +311,7 @@ impl Lexer<'_> {
 
     /// `(\d+)\s*(/)\s*(\d+)`
     pub(in crate::css) fn media_query_at8_at4(&mut self, p: usize) -> Option<usize> {
-        let first = self.digits(p);
+        let first = self.digit_end(p);
         if first == p {
             return None;
         }
@@ -321,7 +320,7 @@ impl Lexer<'_> {
             return None;
         }
         let second = self.spaces(slash + 1);
-        let end = self.digits(second);
+        let end = self.digit_end(second);
         (end > second).then(|| {
             self.cap(1, p, first);
             self.cap(2, slash, slash + 1);

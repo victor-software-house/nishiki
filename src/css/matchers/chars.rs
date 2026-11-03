@@ -4,6 +4,7 @@
 use super::super::ahead::{Ahead, Find};
 use super::super::engine::Lexer;
 use crate::classes;
+use crate::rules::Chars;
 
 /// The longest word of the generated lists, in bytes.
 const LONGEST: usize = 48;
@@ -30,19 +31,6 @@ impl Lexer<'_> {
             .next(what, from)
     }
 
-    /// The width of the `\s` character at `p`, 0 when there is none. The line
-    /// feed after the line is one.
-    pub(in crate::css) fn space_width(&self, p: usize) -> usize {
-        match self.at(p) {
-            0 => 0,
-            b if b < 0x80 => usize::from(matches!(b, b' ' | b'\t' | b'\n' | 0x0b | 0x0c | b'\r')),
-            _ => match self.char_at(p) {
-                Some((c, end)) if classes::is_space(c) => end - p,
-                _ => 0,
-            },
-        }
-    }
-
     /// The end of the white space from `p`: `\s*`.
     ///
     /// It stays out of line: inlined into the matcher's dispatch, its loop
@@ -56,7 +44,7 @@ impl Lexer<'_> {
         }
         let mut i = p;
         loop {
-            let width = self.space_width(i);
+            let width = self.space_at(i);
             if width == 0 {
                 break;
             }
@@ -81,18 +69,9 @@ impl Lexer<'_> {
         }
     }
 
-    /// Whether the character at `p` is a `\w`.
-    pub(in crate::css) fn word_at(&self, p: usize) -> bool {
-        match self.at(p) {
-            0 => false,
-            b if b < 0x80 => b.is_ascii_alphanumeric() || b == b'_',
-            _ => self.char_at(p).is_some_and(|(c, _)| classes::is_word(c)),
-        }
-    }
-
     /// Whether the character at `p` is in `[-\w]`.
     pub(in crate::css) fn wordish_at(&self, p: usize) -> bool {
-        self.at(p) == b'-' && p < self.lim() || self.word_at(p)
+        self.at(p) == b'-' && p < self.lim() || self.word_at(p).is_some()
     }
 
     /// Whether the character before `p` is in `[-\w]`.
@@ -103,20 +82,6 @@ impl Lexer<'_> {
             Some(c) => classes::is_word(c),
             None => false,
         }
-    }
-
-    /// Whether the character before `p` is a `\w`.
-    pub(in crate::css) fn word_before(&self, p: usize) -> bool {
-        match self.char_before(p) {
-            Some(c) if c.is_ascii() => c.is_ascii_alphanumeric() || c == '_',
-            Some(c) => classes::is_word(c),
-            None => false,
-        }
-    }
-
-    /// The regex `\b` at `p`.
-    pub(in crate::css) fn boundary(&self, p: usize) -> bool {
-        self.word_before(p) != self.word_at(p)
     }
 
     /// The end of the run of `[-\w]` characters from `p`.
@@ -138,7 +103,7 @@ impl Lexer<'_> {
     /// The end of the run of `\w` characters from `p`.
     pub(in crate::css) fn word_run(&self, p: usize) -> usize {
         let mut i = p;
-        while i < self.lim() && self.word_at(i) {
+        while i < self.lim() && self.word_at(i).is_some() {
             i = self.char_end(i);
         }
         self.spend(i - p + 1);
@@ -276,7 +241,7 @@ impl Lexer<'_> {
     }
 
     /// `\d` at `p`: the end of the digit.
-    pub(in crate::css) fn digit_end(&self, p: usize) -> Option<usize> {
+    pub(in crate::css) fn digit_at(&self, p: usize) -> Option<usize> {
         match self.at(p) {
             0 => None,
             b if b < 0x80 => b.is_ascii_digit().then_some(p + 1),
@@ -284,14 +249,6 @@ impl Lexer<'_> {
                 .char_at(p)
                 .and_then(|(c, end)| classes::is_digit(c).then_some(end)),
         }
-    }
-
-    /// The end of the run of `\d` characters from `p`.
-    pub(in crate::css) fn digits(&self, mut p: usize) -> usize {
-        while let Some(end) = self.digit_end(p) {
-            p = end;
-        }
-        p
     }
 
     /// Whether `$` matches at `p`: before the line feed or at the end.

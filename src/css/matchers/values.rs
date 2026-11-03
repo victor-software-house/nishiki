@@ -48,7 +48,7 @@ impl Lexer<'_> {
             b'*' | b'/' => Some(p + 1),
             b'-' | b'+' => {
                 let behind = p == 0 || self.space_before(p);
-                let ahead = self.space_width(p + 1) > 0 || self.at_end(p + 1);
+                let ahead = self.space_at(p + 1) > 0 || self.at_end(p + 1);
                 (behind && ahead).then_some(p + 1)
             }
             _ => None,
@@ -96,13 +96,13 @@ impl Lexer<'_> {
         if !behind {
             return None;
         }
-        let digits = self.digits(p);
+        let digits = self.digit_end(p);
         if digits == p {
             return None;
         }
         let end = self.lit_ci(digits, "x")?;
         let ahead = matches!(self.s.get(end), Some(b'"' | b'\'' | b')' | b','))
-            || self.space_width(end) > 0
+            || self.space_at(end) > 0
             || self.starts(end, b"/*")
             || self.at_end(end);
         ahead.then_some(end)
@@ -118,7 +118,7 @@ impl Lexer<'_> {
     /// are not white space; `class` sees every byte of a character.
     fn skip_chars(&self, p: usize, class: impl Fn(u8) -> bool) -> usize {
         let mut i = p;
-        while i < self.lim() && class(self.s[i]) && self.space_width(i) == 0 {
+        while i < self.lim() && class(self.s[i]) && self.space_at(i) == 0 {
             i = self.char_end(i);
         }
         self.spend(i - p + 1);
@@ -138,7 +138,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.lit_ci(p, "at").or_else(|| self.lit_ci(p, "round"))?;
-        let ahead = self.space_width(end) > 0 || self.starts(end, b"/*") || self.at_end(end);
+        let ahead = self.space_at(end) > 0 || self.starts(end, b"/*") || self.at_end(end);
         ahead.then(|| {
             self.cap(1, p, end);
             end
@@ -326,7 +326,7 @@ impl Lexer<'_> {
         }
         let end = self.skip(p + 1, |b| b.is_ascii_hexdigit());
         let digits = end - (p + 1);
-        (matches!(digits, 3 | 4 | 6 | 8) && !self.word_at(end)).then(|| {
+        (matches!(digits, 3 | 4 | 6 | 8) && self.word_at(end).is_none()).then(|| {
             self.cap(1, p, p + 1);
             end
         })
@@ -497,7 +497,7 @@ impl Lexer<'_> {
             return false;
         }
         if !pseudo {
-            return self.space_width(end + 1) > 0;
+            return self.space_at(end + 1) > 0;
         }
         !self.after_colon_is_pseudo(end + 1)
     }
@@ -554,7 +554,7 @@ impl Lexer<'_> {
 
     /// `(?i)(?=\s|/\*|[,{]|$)`
     pub(in crate::css) fn shared_names_at0_end(&mut self, p: usize) -> Option<usize> {
-        let ahead = self.space_width(p) > 0
+        let ahead = self.space_at(p) > 0
             || self.starts(p, b"/*")
             || matches!(self.s.get(p), Some(b',' | b'{'))
             || self.at_end(p);

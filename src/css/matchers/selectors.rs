@@ -19,7 +19,7 @@ impl Lexer<'_> {
     fn selector_stop_ahead(&self, p: usize) -> bool {
         self.at_end(p)
             || self.s.get(p).is_some_and(|&b| selector_stop(b))
-            || self.space_width(p) > 0
+            || self.space_at(p) > 0
             || self.starts(p, b"/*")
     }
 
@@ -96,7 +96,7 @@ impl Lexer<'_> {
         // `[-\w]*:+\s`
         let word_end = self.wordish_run(p);
         let colons = self.skip(word_end, |b| b == b':');
-        if colons > word_end && self.space_width(colons) > 0 {
+        if colons > word_end && self.space_at(colons) > 0 {
             return false;
         }
         // `[^{]*;` and `[^{]*}`: a `;` or `}` before any `{`.
@@ -362,7 +362,7 @@ impl Lexer<'_> {
                     break;
                 }
                 end = self.char_end(end + 1);
-            } else if matches!(b, b']' | b'"' | b'\'') || self.space_width(end) > 0 {
+            } else if matches!(b, b']' | b'"' | b'\'') || self.space_at(end) > 0 {
                 break;
             } else {
                 end = self.char_end(end);
@@ -394,7 +394,7 @@ impl Lexer<'_> {
     pub(in crate::css) fn selector_innards_at11_at7(&mut self, p: usize) -> Option<usize> {
         let end = if self.at(p) == b'*' && p < self.lim() {
             p + 1
-        } else if self.digit_end(p).is_none() {
+        } else if self.digit_at(p).is_none() {
             let end = self.ident_run(p);
             if end == p {
                 return None;
@@ -408,7 +408,7 @@ impl Lexer<'_> {
         let ok = bar
             && after < self.lim()
             && !matches!(self.s[after], b'=' | b']')
-            && self.space_width(after) == 0;
+            && self.space_at(after) == 0;
         ok.then(|| {
             self.cap(1, p, end);
             end
@@ -418,7 +418,7 @@ impl Lexer<'_> {
     /// The attribute's name
     /// `(-?(?!\d)(?>[-\w[^\x00-\x7F]]|\\(?:\h{1,6}|.))+)\s*(?=[]$*=^|~]|/\*)`.
     pub(in crate::css) fn selector_innards_at11_at8(&mut self, p: usize) -> Option<usize> {
-        if self.digit_end(p).is_some() {
+        if self.digit_at(p).is_some() {
             return None;
         }
         let name = self.ident_run(p);
@@ -592,7 +592,7 @@ impl Lexer<'_> {
                 break;
             }
         }
-        let ahead = matches!(self.s.get(end), Some(b')' | b',')) || self.space_width(end) > 0;
+        let ahead = matches!(self.s.get(end), Some(b')' | b',')) || self.space_at(end) > 0;
         ahead.then_some(end)
     }
 
@@ -618,7 +618,7 @@ impl Lexer<'_> {
         while self.at(end) == b'-' && end < self.lim() {
             end = self.skip(end + 1, |b| b == b'*' || b.is_ascii_alphanumeric());
         }
-        let ahead = self.s.get(end) == Some(&quote) || self.space_width(end) > 0;
+        let ahead = self.s.get(end) == Some(&quote) || self.space_at(end) > 0;
         ahead.then_some(end)
     }
 
@@ -667,7 +667,7 @@ impl Lexer<'_> {
     /// `(?i)[-+]?(\d+n?|n)(\s*[-+]\s*\d+)?`
     pub(in crate::css) fn functional_pseudo_classes_at3_at0(&mut self, p: usize) -> Option<usize> {
         let sign = usize::from(matches!(self.at(p), b'+' | b'-') && p < self.lim());
-        let digits = self.digits(p + sign);
+        let digits = self.digit_end(p + sign);
         let mut end = if digits > p + sign {
             self.lit_ci(digits, "n").unwrap_or(digits)
         } else {
@@ -676,7 +676,7 @@ impl Lexer<'_> {
         let blank = self.spaces(end);
         if matches!(self.at(blank), b'+' | b'-') && blank < self.lim() {
             let number = self.spaces(blank + 1);
-            let after = self.digits(number);
+            let after = self.digit_end(number);
             if after > number {
                 end = after;
             }

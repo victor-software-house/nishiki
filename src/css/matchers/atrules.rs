@@ -8,7 +8,7 @@ impl Lexer<'_> {
     /// The lookahead `(["';{\s]|/\*|$)` and its kin at `p`: white space, a
     /// comment, the end, or one of `set`.
     fn at_follows(&self, p: usize, set: &[u8]) -> bool {
-        self.space_width(p) > 0
+        self.space_at(p) > 0
             || self.starts(p, b"/*")
             || self.at_end(p)
             || (p < self.lim() && set.contains(&self.s[p]))
@@ -104,7 +104,7 @@ impl Lexer<'_> {
             }
         }
         // `(@charset\S[^;]*)`
-        if self.starts(p, b"@charset") && p + 8 < lim && self.space_width(p + 8) == 0 {
+        if self.starts(p, b"@charset") && p + 8 < lim && self.space_at(p + 8) == 0 {
             let end = self.skip_to(p + 9, b';');
             self.cap(3, p, end);
             return Some(end);
@@ -167,7 +167,7 @@ impl Lexer<'_> {
     /// `((@)charset)(?=\s)`
     pub(in crate::css) fn at_rules_at0_at1(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"@charset")?;
-        (self.space_width(end) > 0).then(|| {
+        (self.space_at(end) > 0).then(|| {
             self.cap(1, p, end);
             self.cap(2, p, p + 1);
             end
@@ -188,7 +188,7 @@ impl Lexer<'_> {
     /// `(?i)((@)import)(?:\s+|$|(?=["']|/\*))`
     pub(in crate::css) fn at_rules_at1(&mut self, p: usize) -> Option<usize> {
         let word = self.at_word(p, "import")?;
-        let end = if self.space_width(word) > 0 {
+        let end = if self.space_at(word) > 0 {
             self.spaces(word)
         } else if matches!(self.s.get(word), Some(b'"' | b'\'')) || self.starts(word, b"/*") {
             word
@@ -389,15 +389,15 @@ impl Lexer<'_> {
             return Some(end);
         }
         let sign = usize::from(matches!(self.at(p), b'+' | b'-') && p < self.lim());
-        let whole = self.digits(p + sign);
+        let whole = self.digit_end(p + sign);
         let mut end = p + sign;
         if whole > end {
             end = whole;
-            if self.at(end) == b'.' && self.digit_end(end + 1).is_some() {
-                end = self.digits(end + 1);
+            if self.at(end) == b'.' && self.digit_at(end + 1).is_some() {
+                end = self.digit_end(end + 1);
             }
-        } else if self.at(end) == b'.' && self.digit_end(end + 1).is_some() {
-            end = self.digits(end + 1);
+        } else if self.at(end) == b'.' && self.digit_at(end + 1).is_some() {
+            end = self.digit_end(end + 1);
         } else {
             return None;
         }
