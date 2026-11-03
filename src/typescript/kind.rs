@@ -41,7 +41,7 @@ macro_rules! kinds {
 kinds! {
     Top [] [];
     Started [] [];
-    Interpolation [] [];
+    Script [] [];
     Block [S::MetaBlock] [];
     ObjLit [S::MetaObjectliteral] [];
     ArrLit [S::MetaArrayLiteral] [];
@@ -67,6 +67,8 @@ kinds! {
     CommentBlock [S::CommentBlock] [];
     CommentLine [] [S::CommentLineDoubleSlash];
     CommentLineNl [] [S::CommentLineDoubleSlash];
+    ScriptBlockComment [S::CommentBlock] [];
+    ScriptLineComment [S::CommentLineDoubleSlash] [];
     ForLoop [] [];
     ForParen [] [];
     Return [] [];

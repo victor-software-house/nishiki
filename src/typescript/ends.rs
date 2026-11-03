@@ -34,8 +34,7 @@ impl<const D: u8> Lexer<'_, D> {
     )]
     pub(crate) fn end(&mut self, kind: Kind, p: usize) -> Option<usize> {
         match kind {
-            Kind::Top | Kind::Started | Kind::ObjMember => None,
-            Kind::Interpolation => self.halt_at_brace(p),
+            Kind::Top | Kind::Started | Kind::Script | Kind::ObjMember => None,
             Kind::JsxExprNoAttrs => self.end_zero(self.jsx_expr_no_attrs_ends(p), p),
             Kind::JsxNoAttrs => self.jsx_no_attrs_end(p),
             Kind::JsxExprTag => self.end_zero(self.jsx_expr_tag_ends(p), p),
@@ -124,6 +123,18 @@ impl<const D: u8> Lexer<'_, D> {
                     return Some(self.close(p, p + 2, &[S::PunctuationDefinitionComment]));
                 }
                 None
+            }
+            Kind::ScriptBlockComment => {
+                if self.starts(p, "*/") {
+                    return Some(self.close(p, p + 2, &[S::PunctuationDefinitionComment]));
+                }
+                self.end_zero(self.starts(p, "</script"), p)
+            }
+            Kind::ScriptLineComment => {
+                if p == self.len {
+                    return Some(self.close(p, p + 1, &[]));
+                }
+                self.end_zero(self.starts(p, "</script"), p)
             }
             Kind::CommentLine | Kind::Directive => self.end_zero(self.eol(p), p),
             Kind::CommentLineNl => self.end_zero(self.bol(p), p),

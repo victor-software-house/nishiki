@@ -41,6 +41,50 @@ impl<const D: u8> Lexer<'_, D> {
         }
     }
 
+    /// The two comment rules that HTML's grammar puts before the JavaScript
+    /// of a script, at `p`: `(^[\t ]+)?(?=//)` then `//`, a line comment that
+    /// ends with the line or before `</script`, and `/\*`, a block comment
+    /// that ends at `*/` or before `</script`.
+    ///
+    /// The rule around the line comment has no scope and ends as soon as the
+    /// comment does, so the comment is the one context.
+    pub(crate) fn script_comment(&mut self, p: usize) -> Option<usize> {
+        if self.full() {
+            return None;
+        }
+        let mut slashes = p;
+        if self.bol(p) {
+            while matches!(self.byte(slashes), b' ' | b'\t') {
+                slashes += 1;
+            }
+            self.spend(slashes - p);
+        }
+        if self.starts(slashes, "//") {
+            self.flush(p);
+            self.capture(
+                Kind::Script,
+                p,
+                slashes,
+                &[S::PunctuationWhitespaceCommentLeading],
+            );
+            return self.open_token(
+                Kind::ScriptLineComment,
+                slashes,
+                slashes + "//".len(),
+                &[S::PunctuationDefinitionComment],
+            );
+        }
+        if self.starts(p, "/*") {
+            return self.open_token(
+                Kind::ScriptBlockComment,
+                p,
+                p + "/*".len(),
+                &[S::PunctuationDefinitionComment],
+            );
+        }
+        None
+    }
+
     /// `(/\*)(?:\s*((@)internal)(?=\s|(\*/)))?`.
     fn block_comment_begin(&mut self, p: usize) -> Option<usize> {
         if self.full() {

@@ -344,7 +344,7 @@ impl<'a> Lexer<'a> {
         let top = self.top();
         let mut js = self.arena.frame(top.state).payload;
         if js == 0 {
-            js = typescript::start_interpolation(self.arena, top.content);
+            js = typescript::start_embedded(self.arena, top.content);
         }
         self.spend(self.lim.saturating_sub(self.pos) + 1);
         let mut cx = Context {
@@ -359,7 +359,14 @@ impl<'a> Lexer<'a> {
             start: self.pos,
             embedded: false,
         };
-        let (next, close) = typescript::lex_interpolation(&mut cx, line, js);
+        let (next, close) = typescript::lex_until(
+            &mut cx,
+            typescript::Dialect::JavaScript,
+            line,
+            js,
+            closing_brace,
+            None,
+        );
         let to = close.unwrap_or(self.lim);
         if to > self.pos {
             self.last = to;
@@ -491,4 +498,10 @@ impl<'a> Lexer<'a> {
             self.tok(stack, cap.to);
         }
     }
+}
+
+/// The end of an interpolation: a `}`, which the JavaScript lexer tests only
+/// while none of its own contexts waits for one.
+fn closing_brace(bytes: &[u8], p: usize) -> bool {
+    bytes.get(p) == Some(&b'}')
 }

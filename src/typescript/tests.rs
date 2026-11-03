@@ -1,5 +1,7 @@
 use indoc::indoc;
 
+use crate::arena::{Arena, ROOT};
+use crate::language::Halt;
 use crate::{Highlighter, Language, Limits, State};
 
 /// The tokens of one line: each one's text and its full scope stack.
@@ -615,20 +617,36 @@ fn unicode_spaces_are_blanks_as_in_the_grammars_whitespace_class() {
     );
 }
 
-/// Lexes `lines` as the inside of an interpolation and returns, per line,
-/// where the `}` that ends it is and where the last token ends.
-fn interpolation(lines: &[&str]) -> Vec<(Option<usize>, usize)> {
-    use crate::arena::{Arena, ROOT};
-    use crate::language::Context;
+/// Lexes `lines` as JavaScript from the state `start` makes over the scopes
+/// `base`, under [`super::lex_until`] with `end` and `after`, and returns,
+/// per line, where it halted and each token's text and full scope stack. The
+/// lines after a halt are not lexed.
+fn until(
+    base: &[&str],
+    start: fn(&mut Arena, u32) -> u32,
+    lines: &[&str],
+    end: Halt,
+    after: Option<Halt>,
+) -> Vec<(Option<usize>, Row)> {
+    use crate::language::{Context, Line};
     use crate::scratch::Scratch;
     use crate::{LineReport, Token};
 
     let mut arena = Arena::new(None);
+    let mut stack = ROOT;
+    for name in base {
+        let scope = arena
+            .named_scope(name)
+            .unwrap_or_else(|| panic!("no room for {name:?}"));
+        stack = arena
+            .child(stack, scope)
+            .unwrap_or_else(|| panic!("no room for {name:?}"));
+    }
     let mut scratch = Scratch::default();
-    let mut state = super::start_interpolation(&mut arena, ROOT);
+    let mut state = start(&mut arena, stack);
     let limits = Limits::default();
     let mut rows = Vec::new();
-    for line in lines {
+    for text in lines {
         let mut out: Vec<Token> = Vec::new();
         let mut report = LineReport::default();
         let mut cx = Context {
@@ -638,12 +656,47 @@ fn interpolation(lines: &[&str]) -> Vec<(Option<usize>, usize)> {
             out: &mut out,
             report: &mut report,
         };
-        let (next, close) =
-            super::interpolation_line(&mut cx, line, super::lexer::TextStart::Line, state);
+        let line = Line {
+            text,
+            start: 0,
+            embedded: false,
+        };
+        let (next, halt) =
+            super::lex_until(&mut cx, super::Dialect::JavaScript, line, state, end, after);
         state = next;
-        rows.push((close, out.last().map_or(0, |token| token.end())));
+        let mut from = 0;
+        let mut row = Row::new();
+        for token in &out {
+            let mut scopes: Vec<String> =
+                arena.scopes(token.stack().0).map(str::to_owned).collect();
+            scopes.reverse();
+            row.push((text[from..token.end()].to_owned(), scopes));
+            from = token.end();
+        }
+        assert_eq!(
+            from,
+            halt.unwrap_or(text.len()),
+            "the tokens stop at the halt: {text:?}"
+        );
+        rows.push((halt, row));
+        if halt.is_some() {
+            break;
+        }
     }
     rows
+}
+
+/// The end of an interpolation, as GraphQL passes it.
+fn closing_brace(bytes: &[u8], p: usize) -> bool {
+    bytes.get(p) == Some(&b'}')
+}
+
+/// Where each line of an interpolation halts.
+fn interpolation(lines: &[&str]) -> Vec<Option<usize>> {
+    until(&[], super::start_embedded, lines, closing_brace, None)
+        .into_iter()
+        .map(|(halt, _)| halt)
+        .collect()
 }
 
 #[test]
@@ -659,22 +712,139 @@ fn an_interpolation_ends_at_the_brace_that_no_context_is_waiting_for() {
         ("a /* } */ } c", 10),
         ("a // } ", usize::MAX),
     ] {
-        let rows = interpolation(&[line]);
         let expected = (close != usize::MAX).then_some(close);
-        assert_eq!(rows[0].0, expected, "{line:?}");
-        // The tokens stop before the brace.
-        if let Some(at) = expected {
-            assert_eq!(rows[0].1, at, "{line:?}");
-        }
+        assert_eq!(interpolation(&[line])[0], expected, "{line:?}");
     }
 }
 
 #[test]
 fn an_interpolation_carries_its_state_to_the_next_line() {
     let rows = interpolation(&["f(1,", "  {a: 2}) + `x", "y${z}` } w"]);
-    assert_eq!(rows[0].0, None);
+    assert_eq!(rows, [None, None, Some(7)]);
+}
+
+/// The end of a script, as HTML passes it: `</script` in any case.
+fn script_close(bytes: &[u8], p: usize) -> bool {
+    bytes
+        .get(p..p + "</script".len())
+        .is_some_and(|text| text.eq_ignore_ascii_case(b"</script"))
+}
+
+/// Lexes `lines` as the inside of an HTML `<script>` element (see [`until`]).
+fn script(lines: &[&str]) -> Vec<(Option<usize>, Row)> {
+    until(
+        &["text.html.basic", "meta.embedded.block.html"],
+        super::start_script,
+        lines,
+        script_close,
+        None,
+    )
+}
+
+/// The scopes of `token` in a row of [`script`], below the HTML and
+/// `source.js` scopes that every token of a script has.
+fn script_scopes<'a>(row: &'a Row, token: &str) -> &'a [String] {
+    let (_, scopes) = row
+        .iter()
+        .find(|(text, _)| text == token)
+        .unwrap_or_else(|| panic!("no token {token:?} in {row:?}"));
+    assert_eq!(
+        scopes[..3],
+        ["text.html.basic", "meta.embedded.block.html", "source.js"]
+    );
+    &scopes[3..]
+}
+
+#[test]
+fn a_script_ends_before_a_close_tag_in_any_case_that_no_context_waits_for() {
+    for (line, close) in [
+        ("let a = 1; </script>", Some(11)),
+        ("x</SCRIPT >", Some(1)),
+        ("</Script", Some(0)),
+        ("f({a: \"</script>\"}) </script>", Some(20)),
+        ("if (a) { b(); </script>", None),
+    ] {
+        let rows = script(&[line]);
+        assert_eq!(rows[0].0, close, "{line:?}");
+    }
+    let rows = script(&["let a = 1; </script>"]);
+    assert_eq!(
+        script_scopes(&rows[0].1, "let"),
+        ["meta.var.expr.js", "storage.type.js"]
+    );
+}
+
+#[test]
+fn a_script_takes_its_comments_from_html_before_javascript() {
+    let rows = script(&["  // a </script>"]);
+    assert_eq!(rows[0].0, Some(7));
+    assert_eq!(
+        script_scopes(&rows[0].1, "  "),
+        ["punctuation.whitespace.comment.leading.js"]
+    );
+    assert_eq!(
+        script_scopes(&rows[0].1, "//"),
+        [
+            "comment.line.double-slash.js",
+            "punctuation.definition.comment.js"
+        ]
+    );
+    assert_eq!(
+        script_scopes(&rows[0].1, " a "),
+        ["comment.line.double-slash.js"]
+    );
+    // Only a lower-case close tag ends a comment.
+    assert_eq!(script(&["// a </SCRIPT> b"])[0].0, None);
+    let rows = script(&["/** a */ x", "/* b", " c </script> */"]);
+    assert_eq!(
+        script_scopes(&rows[0].1, "* a "),
+        ["comment.block.js"],
+        "not a doc comment"
+    );
     assert_eq!(rows[1].0, None);
-    assert_eq!(rows[2].0, Some(7));
+    assert_eq!(rows[2].0, Some(3));
+    assert_eq!(script_scopes(&rows[2].1, " c "), ["comment.block.js"]);
+}
+
+#[test]
+fn a_script_carries_its_state_to_the_next_line() {
+    let rows = script(&["f(1,", "  2); </script>"]);
+    assert_eq!(rows[0].0, None);
+    assert_eq!(rows[1].0, Some(6));
+    // The `if` statement around a block ends at `;`, `}` or the line's end,
+    // not at the block's `}`, so it holds the rest of that line.
+    let rows = script(&["if (a) {", "  // b </script>", "}</script>", "</script>"]);
+    assert_eq!(rows[0].0, None);
+    assert_eq!(rows[1].0, None, "a comment of the block is JavaScript's");
+    assert_eq!(rows[2].0, None);
+    assert_eq!(rows[3].0, Some(0));
+}
+
+#[test]
+fn an_embedding_end_halts_where_a_rule_of_the_root_would_start() {
+    fn at_c(bytes: &[u8], p: usize) -> bool {
+        bytes.get(p) == Some(&b'c')
+    }
+    // The name `abc` is one match, which covers its `c`; the `c` in the
+    // call's parentheses is inside a context.
+    let rows = until(&[], super::start_embedded, &["abc + f(c) c"], at_c, None);
+    assert_eq!(rows[0].0, Some(11));
+}
+
+#[test]
+fn an_embedding_after_halts_only_where_no_rule_matches() {
+    fn digit_or_backslash(bytes: &[u8], p: usize) -> bool {
+        matches!(bytes.get(p), Some(b'1' | b'\\'))
+    }
+    // The number rule matches at the `1`, so only the backslash halts.
+    let rows = until(
+        &[],
+        super::start_embedded,
+        &["1 + \\ 2"],
+        |_, _| false,
+        Some(digit_or_backslash),
+    );
+    assert_eq!(rows[0].0, Some(4));
 }
 
 #[test]

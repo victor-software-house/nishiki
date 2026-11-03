@@ -10,6 +10,9 @@ impl<const D: u8> Lexer<'_, D> {
     /// then its other rules. `None` means nothing matched and the byte is
     /// plain text.
     pub(crate) fn step(&mut self, p: usize) -> Option<usize> {
+        if self.halt_if(p, self.halts.map(|halts| halts.end)) {
+            return Some(p);
+        }
         let kind = self.top();
         if let Some(next) = self.end(kind, p) {
             return Some(next);
@@ -23,7 +26,8 @@ impl<const D: u8> Lexer<'_, D> {
     )]
     fn rules(&mut self, kind: Kind, p: usize) -> Option<usize> {
         match kind {
-            Kind::Top | Kind::Started | Kind::Interpolation => self.top_rules(p),
+            Kind::Top | Kind::Started => self.top_rules(p),
+            Kind::Script => self.script_comment(p).or_else(|| self.top_rules(p)),
             Kind::JsxExprNoAttrs => self.jsx_tag_without_attributes(p),
             Kind::JsxNoAttrs | Kind::JsxTagBody => self.jsx_children(p),
             Kind::JsxExprTag => self.jsx_tag(p),
@@ -97,6 +101,8 @@ impl<const D: u8> Lexer<'_, D> {
             Kind::CommentBlock
             | Kind::CommentLine
             | Kind::CommentLineNl
+            | Kind::ScriptBlockComment
+            | Kind::ScriptLineComment
             | Kind::ObjMember
             | Kind::JsCaption
             | Kind::JsDefaultQuote

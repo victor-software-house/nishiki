@@ -10,7 +10,7 @@ use super::kind::Kind;
 use super::scope::S;
 use crate::arena::{Arena, Frame};
 use crate::classes::is_ascii_space;
-use crate::language::Context;
+use crate::language::{Context, Halt};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::{Stack, Token, classes};
 
@@ -50,7 +50,10 @@ pub(crate) struct Lexer<'a, const D: u8> {
     /// line advancing. `TextMate` then gives the rest of the line to the
     /// context that is open.
     stuck: bool,
-    /// Where a `}` ended the interpolation that the line began inside.
+    /// Where the language that embeds this one takes the line back, if it
+    /// does.
+    pub(crate) halts: Option<Halts<'a>>,
+    /// Where `halts` stopped the line.
     halt: Option<usize>,
     /// Whether the text starts the line, which decides where `^` matches.
     start: TextStart,
@@ -68,6 +71,18 @@ pub(crate) struct Lexer<'a, const D: u8> {
     arrow_at_end: Option<usize>,
     /// The last search for a `]`: where it started and the `]` it found.
     next_bracket: Cell<(usize, Option<usize>)>,
+}
+
+/// The tests of the language that embeds this one, on the whole line: `end`
+/// before this grammar's rules and `after` where none matches (see
+/// [`lex_until`](super::lex_until)). The lexer's place `p` is `offset + p` on
+/// `line`.
+#[derive(Clone, Copy)]
+pub(crate) struct Halts<'a> {
+    pub(crate) line: &'a [u8],
+    pub(crate) offset: usize,
+    pub(crate) end: Halt,
+    pub(crate) after: Option<Halt>,
 }
 
 /// Whether the text a lexer reads starts its line, which decides where `^`
@@ -114,11 +129,17 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// the type, so the TypeScript lexer compiles with no JSX branches.
     pub(crate) const DIALECT: Dialect = Dialect::of(D);
 
-    /// The lexer of the line `src` from `state`.
+    /// The lexer of the line `src` from `state`, which `halts` may stop.
     ///
     /// Everything on the first line opens above a `Started` marker, so the
     /// document start is never reached again and `\A` matches once.
-    pub(crate) fn new(cx: &'a mut Context<'_>, src: &'a str, start: TextStart, state: u32) -> Self {
+    pub(crate) fn new(
+        cx: &'a mut Context<'_>,
+        src: &'a str,
+        start: TextStart,
+        state: u32,
+        halts: Option<Halts<'a>>,
+    ) -> Self {
         let frame = cx.arena.frame(state);
         let limits = cx.limits;
         let budget = limits.work.map_or(u64::MAX, |work| work.steps(src.len()));
@@ -142,6 +163,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
             anchor: usize::MAX,
             first_line: frame.kind == Kind::Top.code() && frame.depth == 1,
             stuck: false,
+            halts,
             halt: None,
             start,
             depth_hit: Cell::new(false),
@@ -234,7 +256,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
             if let Some(next) = self.step(p) {
                 self.line_pos = next;
                 p = next;
-            } else {
+            } else if !self.halt_if(p, self.halts.and_then(|halts| halts.after)) {
                 p = self.skip_unmatched(p);
             }
             debug_assert!(
@@ -262,18 +284,24 @@ impl<'a, const D: u8> Lexer<'a, D> {
         self.flush(self.halt.unwrap_or(self.len));
     }
 
-    /// The end of an interpolation, which the lexer that embeds this one
-    /// consumes: a `}` that no context of the line is waiting for stops the
-    /// line before it.
-    pub(crate) fn halt_at_brace(&mut self, p: usize) -> Option<usize> {
-        if p < self.len && self.byte(p) == b'}' {
-            self.halt = Some(p);
-            return Some(p);
+    /// Stops the line at `p` when `test`, one of the embedding language's,
+    /// holds there while no context of the code is open beyond the one the
+    /// embedding started.
+    pub(crate) fn halt_if(&mut self, p: usize, test: Option<Halt>) -> bool {
+        let (Some(test), Some(halts)) = (test, self.halts) else {
+            return false;
+        };
+        if p > self.len
+            || !matches!(self.top(), Kind::Top | Kind::Started | Kind::Script)
+            || !test(halts.line, halts.offset + p)
+        {
+            return false;
         }
-        None
+        self.halt = Some(p);
+        true
     }
 
-    /// Where an unbalanced `}` ended an interpolation, if the line has one.
+    /// Where the embedding language took the line back, if it did.
     pub(crate) fn halted_at(&self) -> Option<usize> {
         self.halt
     }
@@ -301,7 +329,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
             self.check_skipped(step, target);
             return target;
         }
-        let next = if p >= self.len || p == 0 {
+        let next = if p >= self.len || p == 0 || self.halts.is_some() {
             return step;
         } else if is_ascii_space(self.byte(p)) {
             if !is_ascii_space(self.byte(p - 1)) {
@@ -325,7 +353,8 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// next position a rule of that context can match at, after `step`.
     ///
     /// A line comment has no rule before the line's end. A block comment
-    /// ends at `*/`, and a doc comment also reads `@`, `[` and `{`. A string
+    /// ends at `*/`, and a doc comment also reads `@`, `[` and `{`. The
+    /// comments of a script also end before `</script`. A string
     /// ends at its quote or the line's last character, and reads `\`; a
     /// template ends at its backtick and reads `\` and `${`.
     fn body_end(&self, step: usize) -> Option<usize> {
@@ -336,6 +365,10 @@ impl<'a, const D: u8> Lexer<'a, D> {
             end
         } else if kind == Kind::CommentBlock {
             memchr::memchr(b'*', rest).unwrap_or(end)
+        } else if kind == Kind::ScriptLineComment {
+            memchr::memchr(b'<', rest).unwrap_or(end)
+        } else if kind == Kind::ScriptBlockComment {
+            memchr::memchr2(b'*', b'<', rest).unwrap_or(end)
         } else if kind == Kind::CommentDoc {
             let first = memchr::memchr3(b'*', b'@', b'[', rest).unwrap_or(end);
             memchr::memchr(b'{', &rest[..first]).unwrap_or(first)

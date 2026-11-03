@@ -56,11 +56,12 @@ mod type_aliases;
 
 use kind::Kind;
 pub(crate) use lexer::Opened;
-use lexer::TextStart;
+use lexer::{Halts, TextStart};
 pub(crate) use scope::NAMES;
 use scope::S;
 
 use crate::arena::{Arena, ROOT};
+use crate::language::Halt;
 
 /// Which of the grammars to follow: TypeScript, or one of the three that
 /// share a structure with it and add JSX.
@@ -152,12 +153,24 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
         .unwrap_or(ROOT)
 }
 
-/// The state at the start of the JavaScript inside an interpolation such as
-/// `${...}`, whose text sits on `base`: like [`start_embedded`], with an end at
-/// the first `}` that no context the code opened is waiting for.
-pub(crate) fn start_interpolation(arena: &mut Arena, base: u32) -> u32 {
+/// The state at the start of the JavaScript of an HTML `<script>` element,
+/// whose text sits on `base`: one context with `source.js` on top of it, as
+/// HTML's grammar names it, and the two comment rules HTML puts before
+/// JavaScript's. HTML lexes it with [`lex_until`] and an end at `</script`.
+#[cfg(feature = "lang-javascript")]
+#[cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "the HTML lexer, which embeds scripts, lands after it"
+    )
+)]
+pub(crate) fn start_script(arena: &mut Arena, base: u32) -> u32 {
+    let stack = arena
+        .child(base, S::Source.scope(Dialect::JavaScript))
+        .unwrap_or(base);
     arena
-        .push(ROOT, Kind::Interpolation.code(), 0, base)
+        .push(ROOT, Kind::Script.code(), 0, stack)
         .unwrap_or(ROOT)
 }
 
@@ -173,32 +186,36 @@ pub(crate) fn line(
     line: &str,
     start: TextStart,
     state: u32,
-) -> u32 {
+    halts: Option<Halts<'_>>,
+) -> (u32, Option<usize>) {
     if line.is_empty() {
-        return state;
+        return (state, None);
     }
     match dialect {
         #[cfg(feature = "lang-typescript")]
-        Dialect::TypeScript => run::<{ Dialect::TYPESCRIPT }>(cx, line, start, state),
+        Dialect::TypeScript => run::<{ Dialect::TYPESCRIPT }>(cx, line, start, state, halts),
         #[cfg(feature = "lang-javascript")]
-        Dialect::JavaScript => run::<{ Dialect::JAVASCRIPT }>(cx, line, start, state),
+        Dialect::JavaScript => run::<{ Dialect::JAVASCRIPT }>(cx, line, start, state, halts),
         #[cfg(feature = "lang-jsx")]
-        Dialect::Jsx => run::<{ Dialect::JSX }>(cx, line, start, state),
+        Dialect::Jsx => run::<{ Dialect::JSX }>(cx, line, start, state, halts),
         #[cfg(feature = "lang-tsx")]
-        Dialect::Tsx => run::<{ Dialect::TSX }>(cx, line, start, state),
+        Dialect::Tsx => run::<{ Dialect::TSX }>(cx, line, start, state, halts),
     }
 }
 
-/// Lexes the non-empty `line` as the dialect `D` numbers.
+/// Lexes the non-empty `line` as the dialect `D` numbers, and returns the
+/// state after it and where `halts` stopped it.
 fn run<const D: u8>(
     cx: &mut crate::language::Context<'_>,
     line: &str,
     start: TextStart,
     state: u32,
-) -> u32 {
-    let mut lexer = lexer::Lexer::<D>::new(cx, line, start, state);
+    halts: Option<Halts<'_>>,
+) -> (u32, Option<usize>) {
+    let mut lexer = lexer::Lexer::<D>::new(cx, line, start, state, halts);
     lexer.run();
-    lexer.into_state()
+    let halt = lexer.halted_at();
+    (lexer.into_state(), halt)
 }
 
 #[cfg(all(
@@ -221,43 +238,46 @@ pub(crate) fn lex(
     state: u32,
 ) -> u32 {
     cx.lex_from_start(line, |cx, rest| {
-        self::line(cx, dialect, rest, TextStart::at(line.start), state)
+        self::line(cx, dialect, rest, TextStart::at(line.start), state, None).0
     })
 }
 
-/// Lexes the JavaScript of an interpolation from `state`, which
-/// [`start_interpolation`] made on an earlier line or this one, under the
-/// crate's lexer contract with token ends counted from the start of the whole
-/// line. The tokens stop before the `}` that ends it, and the returned offset
-/// is where that `}` is: the embedding lexer reads it, and the state returned
-/// is of no use after it. Without one, the state resumes on the next line.
-pub(crate) fn lex_interpolation(
+/// Lexes `line` in `dialect` from `state` like [`lex`], and halts where the
+/// language that embeds this one takes the line back, which it returns.
+///
+/// Both tests apply only while no context of the code is open beyond the
+/// one the embedding started: `end`, the embedding rule's patterns listed
+/// before this grammar's, is tried at each place before this grammar's
+/// rules, and `after`, those listed after it, where none of them matches. A
+/// match that starts before a place and covers it wins. The tokens stop at
+/// the halt; the embedding lexer resumes there, or on the next line with the
+/// returned state when the line ran to its end.
+pub(crate) fn lex_until(
     cx: &mut crate::language::Context<'_>,
+    dialect: Dialect,
     line: crate::language::Line<'_>,
     state: u32,
+    end: Halt,
+    after: Option<Halt>,
 ) -> (u32, Option<usize>) {
-    let mut close = None;
+    let halts = Halts {
+        line: line.text.as_bytes(),
+        offset: line.start,
+        end,
+        after,
+    };
+    let mut halt = None;
     let next = cx.lex_from_start(line, |cx, rest| {
-        let (next, at) = interpolation_line(cx, rest, TextStart::at(line.start), state);
-        close = at;
+        let (next, at) = self::line(
+            cx,
+            dialect,
+            rest,
+            TextStart::at(line.start),
+            state,
+            Some(halts),
+        );
+        halt = at;
         next
     });
-    (next, close.map(|at| at + line.start))
-}
-
-/// Lexes the non-empty `line` as JavaScript up to the `}` that ends the
-/// interpolation, and returns the state after it and where that `}` is.
-fn interpolation_line(
-    cx: &mut crate::language::Context<'_>,
-    line: &str,
-    start: TextStart,
-    state: u32,
-) -> (u32, Option<usize>) {
-    if line.is_empty() {
-        return (state, None);
-    }
-    let mut lexer = lexer::Lexer::<{ Dialect::JAVASCRIPT }>::new(cx, line, start, state);
-    lexer.run();
-    let close = lexer.halted_at();
-    (lexer.into_state(), close)
+    (next, halt.map(|at| at + line.start))
 }
