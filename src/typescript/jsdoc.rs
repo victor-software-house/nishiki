@@ -681,7 +681,7 @@ impl<const D: u8> Lexer<'_, D> {
             e
         };
         let word = self.text(p + 1, word_end);
-        if !KNOWN_TAGS.contains(&word) {
+        if !KNOWN_TAGS.contains(&word) || !self.boundary(word_end) {
             return None;
         }
         self.token(p, p + 1, &[TAG, AT]);

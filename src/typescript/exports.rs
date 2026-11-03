@@ -15,7 +15,7 @@ impl<const D: u8> Lexer<'_, D> {
         reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
     )]
     pub(crate) fn export_declaration(&mut self, p: usize) -> Option<usize> {
-        if !self.starts(p, "export") || !self.kw_before(p) || !self.boundary(p) {
+        if !self.starts(p, "export") || !self.kw_before(p) {
             return None;
         }
         let e = p + "export".len();

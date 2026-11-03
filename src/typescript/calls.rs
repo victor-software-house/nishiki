@@ -357,7 +357,7 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(j + 1);
         }
         if self.bol(p) {
-            let e = self.ident(self.ws(j + 1));
+            let e = self.ident(j + 1);
             if e.is_some_and(|e| self.byte(self.ws(e)) == b'>') {
                 self.flush(p);
                 self.capture(Kind::Cast, j, j + 1, &[S::MetaBraceAngle]);

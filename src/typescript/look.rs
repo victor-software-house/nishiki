@@ -357,11 +357,11 @@ impl<const D: u8> Lexer<'_, D> {
             && !matches!(self.byte(after + "extends".len()), b'=' | b'>')
     }
 
-    /// An arrow function's return type followed by `=>`: the text after the
-    /// colon.
+    /// An arrow function's return type, of at least one item, followed by
+    /// `=>`: the text after the colon.
     pub(crate) fn arrow_return_ahead(&self, i: usize) -> bool {
         self.arrow_return_items(i)
-            .is_some_and(|end| self.byte(end) == b'>' && end > i && self.byte(end - 1) == b'=')
+            .is_some_and(|end| self.byte(end) == b'>' && end > i + 1 && self.byte(end - 1) == b'=')
     }
 
     /// The first form only: `(<…>)?\(` then `)` or a name, then `:`.

@@ -21,7 +21,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let c = self.byte(j);
-        let ok = matches!(c, b'"' | b'$' | b'\'' | b'_' | b'`' | b'[') || self.id_start(j);
+        let ok = matches!(c, b'"' | b'\'' | b'`') || self.id_start(j);
         if !ok {
             return None;
         }

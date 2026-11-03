@@ -738,3 +738,44 @@ fn a_unicode_blank_is_a_blank_wherever_the_grammar_reads_s() {
         "{stack:?}"
     );
 }
+
+#[test]
+fn a_keyword_rule_tests_word_boundaries_as_its_grammar_spells_them() {
+    // `\b(interface)` does not hold after a mark, which `\w` reads.
+    assert_ne!(
+        scope_of("\u{300}interface I {}", "interface"),
+        "storage.type.interface.ts"
+    );
+    // `(export)` has no `\b` before it.
+    assert_eq!(
+        scope_of("\u{300}export default 1;", "export"),
+        "keyword.control.export.ts"
+    );
+    // `@internal\b` does not hold before a mark.
+    let (lines, _) = lex("/** @internal\u{363} x */");
+    assert!(
+        !lines[0]
+            .iter()
+            .any(|(_, stack)| stack.iter().any(|s| s.starts_with("storage.type"))),
+        "{lines:?}"
+    );
+}
+
+#[test]
+fn lookaheads_match_the_grammars_sets() {
+    // `\s+(?=["$'_`[:alpha:]])`: the `[` opens the class `[:alpha:]`.
+    assert_eq!(
+        scope_of("namespace [a] = b;", "namespace"),
+        "variable.other.readwrite.ts"
+    );
+    // `(?<=^)\s*(<)(?=NAME\s*>)`: no blank after `<`.
+    assert_eq!(scope_of("< a>", "<"), "keyword.operator.relational.ts");
+    // `\s*(:)(?=\s*TYPE+\s*=>)`: a type of at least one item.
+    let (lines, _) = lex(":=> x");
+    assert!(
+        !lines[0]
+            .iter()
+            .any(|(_, stack)| stack.iter().any(|s| s == "meta.return.type.arrow.ts")),
+        "{lines:?}"
+    );
+}

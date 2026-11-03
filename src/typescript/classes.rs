@@ -15,7 +15,11 @@ impl<const D: u8> Lexer<'_, D> {
             abstract_cap = Some((k, e));
             k = j;
         }
-        if !self.starts(k, "class") || !self.boundary(k + "class".len()) || self.full() {
+        if !self.starts(k, "class")
+            || !self.boundary(k)
+            || !self.boundary(k + "class".len())
+            || self.full()
+        {
             return None;
         }
         let e = k + "class".len();
@@ -91,7 +95,11 @@ impl<const D: u8> Lexer<'_, D> {
             abstract_cap = Some((k, e));
             k = self.ws(e);
         }
-        if !self.starts(k, "interface") || !self.boundary(k + "interface".len()) || self.full() {
+        if !self.starts(k, "interface")
+            || !self.boundary(k)
+            || !self.boundary(k + "interface".len())
+            || self.full()
+        {
             return None;
         }
         let e = k + "interface".len();
