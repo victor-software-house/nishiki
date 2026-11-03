@@ -2,6 +2,8 @@
 //! Each language's hostile lines are in `limits/<language>.rs`.
 
 mod c;
+#[cfg(feature = "lang-cmake")]
+mod cmake;
 mod cpp;
 mod csharp;
 mod css;

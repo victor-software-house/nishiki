@@ -1,0 +1,74 @@
+L # Almost all CMake files should start with this
+T 47 source.cmake comment.source.cmake
+L # You should always specify a range with the newest
+T 51 source.cmake comment.source.cmake
+L # and oldest tested versions of CMake. This will ensure
+T 55 source.cmake comment.source.cmake
+L # you pick up the best policies.
+T 32 source.cmake comment.source.cmake
+L cmake_minimum_required(VERSION 3.1...3.23)
+T 22 source.cmake keyword.cmake
+T 23 source.cmake
+T 30 source.cmake entity.source.cmake
+T 42 source.cmake
+L 
+L # This is your project statement. You should always list languages;
+T 67 source.cmake comment.source.cmake
+L # Listing the version is nice here since it sets lots of useful variables
+T 73 source.cmake comment.source.cmake
+L project(
+T 7 source.cmake keyword.cmake
+T 8 source.cmake
+L   ModernCMakeExample
+T 20 source.cmake
+L   VERSION 1.0
+T 2 source.cmake
+T 9 source.cmake entity.source.cmake
+T 13 source.cmake
+L   LANGUAGES CXX)
+T 16 source.cmake
+L 
+L # If you set any CMAKE_ variables, that can go here.
+T 52 source.cmake comment.source.cmake
+L # (But usually don't do this, except maybe for C++ standard)
+T 60 source.cmake comment.source.cmake
+L 
+L # Find packages go here.
+T 24 source.cmake comment.source.cmake
+L 
+L # You should usually split this into folders, but this is a simple example
+T 74 source.cmake comment.source.cmake
+L 
+L # This is a "default" library, and will match the *** variable setting.
+T 71 source.cmake comment.source.cmake
+L # Other common choices are STATIC, SHARED, and MODULE
+T 53 source.cmake comment.source.cmake
+L # Including header files here helps IDEs but is not required.
+T 61 source.cmake comment.source.cmake
+L # Output libname matches target name, with the usual extensions on your system
+T 78 source.cmake comment.source.cmake
+L add_library(MyLibExample simple_lib.cpp simple_lib.hpp)
+T 11 source.cmake keyword.cmake
+T 55 source.cmake
+L 
+L # Link each target with other targets or add options, etc.
+T 58 source.cmake comment.source.cmake
+L 
+L # Adding something we can run - Output name matches target name
+T 63 source.cmake comment.source.cmake
+L add_executable(MyExample simple_example.cpp)
+T 14 source.cmake keyword.cmake
+T 44 source.cmake
+L 
+L # Make sure you link your targets with this command. It can also link libraries and
+T 83 source.cmake comment.source.cmake
+L # even flags, so linking a target that does not exist will not give a configure-time error.
+T 91 source.cmake comment.source.cmake
+L target_link_libraries(MyExample PRIVATE MyLibExample)
+T 21 source.cmake keyword.cmake
+T 32 source.cmake
+T 39 source.cmake entity.source.cmake
+T 53 source.cmake
+L 
+L # From https://cliutils.gitlab.io/modern-cmake/chapters/basics/example.html
+T 75 source.cmake comment.source.cmake

@@ -56,6 +56,8 @@ mod arena;
 mod c;
 #[cfg(feature = "_classes")]
 mod classes;
+#[cfg(feature = "lang-cmake")]
+mod cmake;
 #[cfg(feature = "lang-cpp")]
 mod cpp;
 #[cfg(feature = "lang-csharp")]

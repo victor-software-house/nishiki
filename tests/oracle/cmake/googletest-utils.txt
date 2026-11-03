@@ -1,0 +1,1508 @@
+L # Defines functions and macros useful for building Google Test and
+T 66 source.cmake comment.source.cmake
+L # Google Mock.
+T 14 source.cmake comment.source.cmake
+L #
+T 1 source.cmake comment.source.cmake
+L # Note:
+T 7 source.cmake comment.source.cmake
+L #
+T 1 source.cmake comment.source.cmake
+L # - This file will be run twice when building Google Mock (once via
+T 67 source.cmake comment.source.cmake
+L #   Google Test's CMakeLists.txt, and once via Google Mock's).
+T 62 source.cmake comment.source.cmake
+L #   Therefore it shouldn't have any side effects other than defining
+T 68 source.cmake comment.source.cmake
+L #   the functions and macros.
+T 29 source.cmake comment.source.cmake
+L #
+T 1 source.cmake comment.source.cmake
+L # - The functions/macros defined in this file may depend on Google
+T 66 source.cmake comment.source.cmake
+L #   Test and Google Mock's option() definitions, and thus must be
+T 65 source.cmake comment.source.cmake
+L #   called *after* the options have been defined.
+T 49 source.cmake comment.source.cmake
+L 
+L # Tweaks CMake's default compiler/linker settings to suit Google Test's needs.
+T 78 source.cmake comment.source.cmake
+L #
+T 1 source.cmake comment.source.cmake
+L # This must be a macro(), as inside a function string() can only
+T 64 source.cmake comment.source.cmake
+L # update variables in the function scope.
+T 41 source.cmake comment.source.cmake
+L macro(fix_default_compiler_settings_)
+T 5 source.cmake keyword.cmake
+T 37 source.cmake
+L   if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC|Clang")
+T 4 source.cmake keyword.cmake
+T 28 source.cmake
+T 35 source.cmake keyword.cmake
+T 36 source.cmake
+T 37 source.cmake string.source.cmake
+T 47 source.cmake string.source.cmake
+T 48 source.cmake string.source.cmake
+T 49 source.cmake
+L     # For MSVC and Clang, CMake sets certain flags to defaults we want to
+T 4 source.cmake
+T 73 source.cmake comment.source.cmake
+L     # override.
+T 4 source.cmake
+T 15 source.cmake comment.source.cmake
+L     # This replacement code is taken from sample in the CMake Wiki at
+T 4 source.cmake
+T 69 source.cmake comment.source.cmake
+L     # https://gitlab.kitware.com/cmake/community/wikis/FAQ#dynamic-replace.
+T 4 source.cmake
+T 75 source.cmake comment.source.cmake
+L     foreach (flag_var
+T 11 source.cmake keyword.cmake
+T 21 source.cmake
+L              CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE
+T 68 source.cmake
+L              CMAKE_C_FLAGS_MINSIZEREL CMAKE_C_FLAGS_RELWITHDEBINFO
+T 66 source.cmake
+L              CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
+T 13 source.cmake
+T 28 source.cmake variable.source.cmake
+T 29 source.cmake
+T 50 source.cmake variable.source.cmake
+T 51 source.cmake
+T 74 source.cmake variable.source.cmake
+L              CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
+T 13 source.cmake
+T 39 source.cmake variable.source.cmake
+T 40 source.cmake
+T 70 source.cmake variable.source.cmake
+T 71 source.cmake
+L       if (NOT BUILD_SHARED_LIBS AND NOT gtest_force_shared_crt)
+T 8 source.cmake keyword.cmake
+T 10 source.cmake
+T 13 source.cmake keyword.cmake
+T 14 source.cmake
+T 31 source.cmake variable.source.cmake
+T 32 source.cmake
+T 35 source.cmake keyword.cmake
+T 36 source.cmake
+T 39 source.cmake keyword.cmake
+T 63 source.cmake
+L         # When using Ninja with Clang, static builds pass -D_DLL on Windows.
+T 8 source.cmake
+T 76 source.cmake comment.source.cmake
+L         # This is incorrect and should not happen, so we fix that here.
+T 8 source.cmake
+T 71 source.cmake comment.source.cmake
+L         string(REGEX REPLACE "([/-])D_DLL" "" ${flag_var} "${${flag_var}}")
+T 14 source.cmake keyword.cmake
+T 29 source.cmake
+T 30 source.cmake string.source.cmake
+T 41 source.cmake string.source.cmake
+T 42 source.cmake string.source.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 45 source.cmake string.source.cmake
+T 46 source.cmake
+T 57 source.cmake storage.source.cmake
+T 58 source.cmake
+T 59 source.cmake string.source.cmake
+T 73 source.cmake string.source.cmake
+T 74 source.cmake string.source.cmake
+T 75 source.cmake
+L       endif()
+T 11 source.cmake keyword.cmake
+T 13 source.cmake
+L 
+L       # We prefer more strict warning checking for building Google Test.
+T 6 source.cmake
+T 72 source.cmake comment.source.cmake
+L       # Replaces /W3 with /W4 in defaults.
+T 6 source.cmake
+T 42 source.cmake comment.source.cmake
+L       string(REGEX REPLACE "([/-])W3" "\\1W4" ${flag_var} "${${flag_var}}")
+T 12 source.cmake keyword.cmake
+T 27 source.cmake
+T 28 source.cmake string.source.cmake
+T 36 source.cmake string.source.cmake
+T 37 source.cmake string.source.cmake
+T 38 source.cmake
+T 39 source.cmake string.source.cmake
+T 41 source.cmake string.source.cmake constant.character.escape
+T 44 source.cmake string.source.cmake
+T 45 source.cmake string.source.cmake
+T 46 source.cmake
+T 57 source.cmake storage.source.cmake
+T 58 source.cmake
+T 59 source.cmake string.source.cmake
+T 73 source.cmake string.source.cmake
+T 74 source.cmake string.source.cmake
+T 75 source.cmake
+L 
+L       # Prevent D9025 warning for targets that have exception handling
+T 6 source.cmake
+T 70 source.cmake comment.source.cmake
+L       # turned off (/EHs-c- flag). Where required, exceptions are explicitly
+T 6 source.cmake
+T 76 source.cmake comment.source.cmake
+L       # re-enabled using the cxx_exception_flags variable.
+T 6 source.cmake
+T 58 source.cmake comment.source.cmake
+L       string(REGEX REPLACE "([/-])EHsc" "" ${flag_var} "${${flag_var}}")
+T 12 source.cmake keyword.cmake
+T 27 source.cmake
+T 28 source.cmake string.source.cmake
+T 38 source.cmake string.source.cmake
+T 39 source.cmake string.source.cmake
+T 40 source.cmake
+T 41 source.cmake string.source.cmake
+T 42 source.cmake string.source.cmake
+T 43 source.cmake
+T 54 source.cmake storage.source.cmake
+T 55 source.cmake
+T 56 source.cmake string.source.cmake
+T 70 source.cmake string.source.cmake
+T 71 source.cmake string.source.cmake
+T 72 source.cmake
+L     endforeach()
+T 14 source.cmake keyword.cmake
+T 16 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L endmacro()
+T 8 source.cmake keyword.cmake
+T 10 source.cmake
+L 
+L # Defines the compiler/linker flags used to build Google Test and
+T 65 source.cmake comment.source.cmake
+L # Google Mock. You can tweak these definitions to suit your need. A
+T 67 source.cmake comment.source.cmake
+L # variable's value is empty before it's explicitly assigned to.
+T 63 source.cmake comment.source.cmake
+L macro(config_compiler_and_linker)
+T 5 source.cmake keyword.cmake
+T 33 source.cmake
+L   # Note: pthreads on MinGW is not supported, even if available
+T 2 source.cmake
+T 63 source.cmake comment.source.cmake
+L   # instead, we use windows threading primitives.
+T 2 source.cmake
+T 49 source.cmake comment.source.cmake
+L   unset(GTEST_HAS_PTHREAD)
+T 7 source.cmake keyword.cmake
+T 26 source.cmake
+L   if (NOT gtest_disable_pthreads AND NOT MINGW)
+T 4 source.cmake keyword.cmake
+T 6 source.cmake
+T 9 source.cmake keyword.cmake
+T 33 source.cmake
+T 36 source.cmake keyword.cmake
+T 37 source.cmake
+T 40 source.cmake keyword.cmake
+T 47 source.cmake
+L     # Defines CMAKE_USE_PTHREADS_INIT and CMAKE_THREAD_LIBS_INIT.
+T 4 source.cmake
+T 65 source.cmake comment.source.cmake
+L     set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+T 7 source.cmake keyword.cmake
+T 36 source.cmake
+T 40 source.cmake keyword.cmake
+T 41 source.cmake
+L     find_package(Threads)
+T 16 source.cmake keyword.cmake
+T 25 source.cmake
+L     if (CMAKE_USE_PTHREADS_INIT)
+T 6 source.cmake keyword.cmake
+T 32 source.cmake
+L       set(GTEST_HAS_PTHREAD ON)
+T 9 source.cmake keyword.cmake
+T 28 source.cmake
+T 30 source.cmake keyword.cmake
+T 31 source.cmake
+L     endif()
+T 9 source.cmake keyword.cmake
+T 11 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L 
+L   fix_default_compiler_settings_()
+T 34 source.cmake
+L   set(cxx_strict_flags "")
+T 5 source.cmake keyword.cmake
+T 23 source.cmake
+T 24 source.cmake string.source.cmake
+T 25 source.cmake string.source.cmake
+T 26 source.cmake
+L   if (MSVC)
+T 4 source.cmake keyword.cmake
+T 6 source.cmake
+T 10 source.cmake constant.source.cmake
+T 11 source.cmake
+L     # When Google Test is built as a shared library, it should also use shared
+T 4 source.cmake
+T 78 source.cmake comment.source.cmake
+L     # runtime libraries. Otherwise, it may end up with multiple copies of
+T 4 source.cmake
+T 73 source.cmake comment.source.cmake
+L     # runtime library data in different modules, resulting in hard-to-find
+T 4 source.cmake
+T 74 source.cmake comment.source.cmake
+L     # crashes. When it is built as a static library, it is preferable to use CRT
+T 4 source.cmake
+T 80 source.cmake comment.source.cmake
+L     # as static libraries, as we don't have to rely on CRT DLLs being available.
+T 4 source.cmake
+T 80 source.cmake comment.source.cmake
+L     # CMake always defaults to using shared CRT libraries, so we override that
+T 4 source.cmake
+T 78 source.cmake comment.source.cmake
+L     # default here.
+T 4 source.cmake
+T 19 source.cmake comment.source.cmake
+L     if (NOT BUILD_SHARED_LIBS AND NOT gtest_force_shared_crt AND NOT DEFINED CMAKE_MSVC_RUNTIME_LIBRARY
+T 6 source.cmake keyword.cmake
+T 8 source.cmake
+T 11 source.cmake keyword.cmake
+T 12 source.cmake
+T 29 source.cmake variable.source.cmake
+T 30 source.cmake
+T 33 source.cmake keyword.cmake
+T 34 source.cmake
+T 37 source.cmake keyword.cmake
+T 61 source.cmake
+T 64 source.cmake keyword.cmake
+T 65 source.cmake
+T 68 source.cmake keyword.cmake
+T 69 source.cmake
+T 76 source.cmake keyword.cmake
+T 103 source.cmake
+L         AND CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+T 8 source.cmake
+T 11 source.cmake keyword.cmake
+T 12 source.cmake
+T 28 source.cmake variable.source.cmake
+T 29 source.cmake
+T 37 source.cmake keyword.cmake
+T 38 source.cmake
+T 62 source.cmake variable.source.cmake
+T 63 source.cmake
+L       set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+T 9 source.cmake keyword.cmake
+T 37 source.cmake
+T 38 source.cmake string.source.cmake
+T 75 source.cmake string.source.cmake
+T 76 source.cmake string.source.cmake
+T 77 source.cmake
+L     endif()
+T 9 source.cmake keyword.cmake
+T 11 source.cmake
+L 
+L     # Newlines inside flags variables break CMake's NMake generator.
+T 4 source.cmake
+T 68 source.cmake comment.source.cmake
+L     # TODO(vladl@google.com): Add -RTCs and -RTCu to debug builds.
+T 4 source.cmake
+T 66 source.cmake comment.source.cmake
+L     set(cxx_base_flags "-GS -W4 -wd4251 -wd4275 -nologo -J")
+T 7 source.cmake keyword.cmake
+T 23 source.cmake
+T 24 source.cmake string.source.cmake
+T 58 source.cmake string.source.cmake
+T 59 source.cmake string.source.cmake
+T 60 source.cmake
+L     set(cxx_base_flags "${cxx_base_flags} -D_UNICODE -DUNICODE -DWIN32 -D_WIN32")
+T 7 source.cmake keyword.cmake
+T 23 source.cmake
+T 24 source.cmake string.source.cmake
+T 79 source.cmake string.source.cmake
+T 80 source.cmake string.source.cmake
+T 81 source.cmake
+L     set(cxx_base_flags "${cxx_base_flags} -DSTRICT -DWIN32_LEAN_AND_MEAN")
+T 7 source.cmake keyword.cmake
+T 23 source.cmake
+T 24 source.cmake string.source.cmake
+T 72 source.cmake string.source.cmake
+T 73 source.cmake string.source.cmake
+T 74 source.cmake
+L     set(cxx_exception_flags "-EHsc -D_HAS_EXCEPTIONS=1")
+T 7 source.cmake keyword.cmake
+T 28 source.cmake
+T 29 source.cmake string.source.cmake
+T 54 source.cmake string.source.cmake
+T 55 source.cmake string.source.cmake
+T 56 source.cmake
+L     set(cxx_no_exception_flags "-EHs-c- -D_HAS_EXCEPTIONS=0")
+T 7 source.cmake keyword.cmake
+T 31 source.cmake
+T 32 source.cmake string.source.cmake
+T 59 source.cmake string.source.cmake
+T 60 source.cmake string.source.cmake
+T 61 source.cmake
+L     set(cxx_no_rtti_flags "-GR-")
+T 7 source.cmake keyword.cmake
+T 26 source.cmake
+T 27 source.cmake string.source.cmake
+T 31 source.cmake string.source.cmake
+T 32 source.cmake string.source.cmake
+T 33 source.cmake
+L     # Suppress "unreachable code" warning,
+T 4 source.cmake
+T 42 source.cmake comment.source.cmake
+L     # https://stackoverflow.com/questions/3232669 explains the issue.
+T 4 source.cmake
+T 69 source.cmake comment.source.cmake
+L     set(cxx_base_flags "${cxx_base_flags} -wd4702")
+T 7 source.cmake keyword.cmake
+T 23 source.cmake
+T 24 source.cmake string.source.cmake
+T 49 source.cmake string.source.cmake
+T 50 source.cmake string.source.cmake
+T 51 source.cmake
+L     # Ensure MSVC treats source files as UTF-8 encoded.
+T 4 source.cmake
+T 55 source.cmake comment.source.cmake
+L     if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+T 6 source.cmake keyword.cmake
+T 29 source.cmake
+T 37 source.cmake keyword.cmake
+T 38 source.cmake
+T 39 source.cmake string.source.cmake
+T 43 source.cmake string.source.cmake
+T 44 source.cmake string.source.cmake
+T 45 source.cmake
+L       set(cxx_base_flags "${cxx_base_flags} -utf-8")
+T 9 source.cmake keyword.cmake
+T 25 source.cmake
+T 26 source.cmake string.source.cmake
+T 50 source.cmake string.source.cmake
+T 51 source.cmake string.source.cmake
+T 52 source.cmake
+L     endif()
+T 9 source.cmake keyword.cmake
+T 11 source.cmake
+L     if (CMAKE_CXX_COMPILER_ID STREQUAL "IntelLLVM")
+T 6 source.cmake keyword.cmake
+T 30 source.cmake
+T 38 source.cmake keyword.cmake
+T 39 source.cmake
+T 40 source.cmake string.source.cmake
+T 49 source.cmake string.source.cmake
+T 50 source.cmake string.source.cmake
+T 51 source.cmake
+L       set(cxx_base_flags "${cxx_base_flags} /fp:precise -Wno-inconsistent-missing-override -Wno-microsoft-exception-spec -Wno-unused-function -Wno-unused-but-set-variable")
+T 9 source.cmake keyword.cmake
+T 25 source.cmake
+T 26 source.cmake string.source.cmake
+T 170 source.cmake string.source.cmake
+T 171 source.cmake string.source.cmake
+T 172 source.cmake
+L     endif()
+T 9 source.cmake keyword.cmake
+T 11 source.cmake
+L   elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR
+T 8 source.cmake keyword.cmake
+T 32 source.cmake
+T 40 source.cmake keyword.cmake
+T 41 source.cmake
+T 42 source.cmake string.source.cmake
+T 47 source.cmake string.source.cmake
+T 48 source.cmake string.source.cmake
+T 49 source.cmake
+T 51 source.cmake keyword.cmake
+L       CMAKE_CXX_COMPILER_ID STREQUAL "IntelLLVM")
+T 28 source.cmake
+T 36 source.cmake keyword.cmake
+T 37 source.cmake
+T 38 source.cmake string.source.cmake
+T 47 source.cmake string.source.cmake
+T 48 source.cmake string.source.cmake
+T 49 source.cmake
+L     set(cxx_base_flags "-Wall -Wshadow -Wconversion -Wundef")
+T 7 source.cmake keyword.cmake
+T 23 source.cmake
+T 24 source.cmake string.source.cmake
+T 59 source.cmake string.source.cmake
+T 60 source.cmake string.source.cmake
+T 61 source.cmake
+L     set(cxx_exception_flags "-fexceptions")
+T 7 source.cmake keyword.cmake
+T 28 source.cmake
+T 29 source.cmake string.source.cmake
+T 41 source.cmake string.source.cmake
+T 42 source.cmake string.source.cmake
+T 43 source.cmake
+L     set(cxx_no_exception_flags "-fno-exceptions")
+T 7 source.cmake keyword.cmake
+T 31 source.cmake
+T 32 source.cmake string.source.cmake
+T 47 source.cmake string.source.cmake
+T 48 source.cmake string.source.cmake
+T 49 source.cmake
+L     set(cxx_strict_flags "-W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Winline -Wredundant-decls")
+T 7 source.cmake keyword.cmake
+T 25 source.cmake
+T 26 source.cmake string.source.cmake
+T 154 source.cmake string.source.cmake
+T 155 source.cmake string.source.cmake
+T 156 source.cmake
+L     set(cxx_no_rtti_flags "-fno-rtti")
+T 7 source.cmake keyword.cmake
+T 26 source.cmake
+T 27 source.cmake string.source.cmake
+T 36 source.cmake string.source.cmake
+T 37 source.cmake string.source.cmake
+T 38 source.cmake
+L     if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+T 6 source.cmake keyword.cmake
+T 30 source.cmake
+T 38 source.cmake keyword.cmake
+T 39 source.cmake
+T 40 source.cmake string.source.cmake
+T 45 source.cmake string.source.cmake
+T 46 source.cmake string.source.cmake
+T 47 source.cmake
+L       set(cxx_strict_flags "${cxx_strict_flags} -Wchar-subscripts")
+T 9 source.cmake keyword.cmake
+T 27 source.cmake
+T 28 source.cmake string.source.cmake
+T 65 source.cmake string.source.cmake
+T 66 source.cmake string.source.cmake
+T 67 source.cmake
+L     endif()
+T 9 source.cmake keyword.cmake
+T 11 source.cmake
+L     if (CMAKE_CXX_COMPILER_ID STREQUAL "IntelLLVM")
+T 6 source.cmake keyword.cmake
+T 30 source.cmake
+T 38 source.cmake keyword.cmake
+T 39 source.cmake
+T 40 source.cmake string.source.cmake
+T 49 source.cmake string.source.cmake
+T 50 source.cmake string.source.cmake
+T 51 source.cmake
+L       set(cxx_base_flags "${cxx_base_flags} -ffp-model=precise")
+T 9 source.cmake keyword.cmake
+T 25 source.cmake
+T 26 source.cmake string.source.cmake
+T 62 source.cmake string.source.cmake
+T 63 source.cmake string.source.cmake
+T 64 source.cmake
+L       if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 2025.2.0)
+T 8 source.cmake keyword.cmake
+T 36 source.cmake
+T 48 source.cmake keyword.cmake
+T 58 source.cmake
+L         set(cxx_base_flags "${cxx_base_flags} -Wno-implicit-float-size-conversion")
+T 11 source.cmake keyword.cmake
+T 27 source.cmake
+T 28 source.cmake string.source.cmake
+T 81 source.cmake string.source.cmake
+T 82 source.cmake string.source.cmake
+T 83 source.cmake
+L       else()
+T 10 source.cmake keyword.cmake
+T 12 source.cmake
+L         set(cxx_base_flags "${cxx_base_flags} -Wno-sycl-implicit-float-size-conversion")
+T 11 source.cmake keyword.cmake
+T 27 source.cmake
+T 28 source.cmake string.source.cmake
+T 86 source.cmake string.source.cmake
+T 87 source.cmake string.source.cmake
+T 88 source.cmake
+L       endif()
+T 11 source.cmake keyword.cmake
+T 13 source.cmake
+L     endif()
+T 9 source.cmake keyword.cmake
+T 11 source.cmake
+L   elseif (CMAKE_COMPILER_IS_GNUCXX)
+T 8 source.cmake keyword.cmake
+T 35 source.cmake
+L     set(cxx_base_flags "-Wall -Wshadow -Wundef -Wno-error=dangling-else")
+T 7 source.cmake keyword.cmake
+T 23 source.cmake
+T 24 source.cmake string.source.cmake
+T 71 source.cmake string.source.cmake
+T 72 source.cmake string.source.cmake
+T 73 source.cmake
+L     set(cxx_exception_flags "-fexceptions")
+T 7 source.cmake keyword.cmake
+T 28 source.cmake
+T 29 source.cmake string.source.cmake
+T 41 source.cmake string.source.cmake
+T 42 source.cmake string.source.cmake
+T 43 source.cmake
+L     set(cxx_no_exception_flags "-fno-exceptions")
+T 7 source.cmake keyword.cmake
+T 31 source.cmake
+T 32 source.cmake string.source.cmake
+T 47 source.cmake string.source.cmake
+T 48 source.cmake string.source.cmake
+T 49 source.cmake
+L     set(cxx_no_rtti_flags "-fno-rtti")
+T 7 source.cmake keyword.cmake
+T 26 source.cmake
+T 27 source.cmake string.source.cmake
+T 36 source.cmake string.source.cmake
+T 37 source.cmake string.source.cmake
+T 38 source.cmake
+L     set(cxx_strict_flags
+T 7 source.cmake keyword.cmake
+T 24 source.cmake
+L       "-Wextra -Wno-unused-parameter -Wno-missing-field-initializers")
+T 6 source.cmake
+T 7 source.cmake string.source.cmake
+T 68 source.cmake string.source.cmake
+T 69 source.cmake string.source.cmake
+T 70 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L 
+L   # The pthreads library is available and allowed?
+T 2 source.cmake
+T 50 source.cmake comment.source.cmake
+L   if (DEFINED GTEST_HAS_PTHREAD)
+T 4 source.cmake keyword.cmake
+T 6 source.cmake
+T 13 source.cmake keyword.cmake
+T 32 source.cmake
+L     set(GTEST_HAS_PTHREAD_MACRO "-DGTEST_HAS_PTHREAD=1")
+T 7 source.cmake keyword.cmake
+T 32 source.cmake
+T 33 source.cmake string.source.cmake
+T 54 source.cmake string.source.cmake
+T 55 source.cmake string.source.cmake
+T 56 source.cmake
+L   else()
+T 6 source.cmake keyword.cmake
+T 8 source.cmake
+L     set(GTEST_HAS_PTHREAD_MACRO "-DGTEST_HAS_PTHREAD=0")
+T 7 source.cmake keyword.cmake
+T 32 source.cmake
+T 33 source.cmake string.source.cmake
+T 54 source.cmake string.source.cmake
+T 55 source.cmake string.source.cmake
+T 56 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L   set(cxx_base_flags "${cxx_base_flags} ${GTEST_HAS_PTHREAD_MACRO}")
+T 5 source.cmake keyword.cmake
+T 21 source.cmake
+T 22 source.cmake string.source.cmake
+T 66 source.cmake string.source.cmake
+T 67 source.cmake string.source.cmake
+T 68 source.cmake
+L 
+L   # For building gtest's own tests and samples.
+T 2 source.cmake
+T 47 source.cmake comment.source.cmake
+L   set(cxx_exception "${cxx_base_flags} ${cxx_exception_flags}")
+T 5 source.cmake keyword.cmake
+T 20 source.cmake
+T 21 source.cmake string.source.cmake
+T 61 source.cmake string.source.cmake
+T 62 source.cmake string.source.cmake
+T 63 source.cmake
+L   set(cxx_no_exception
+T 5 source.cmake keyword.cmake
+T 22 source.cmake
+L     "${CMAKE_CXX_FLAGS} ${cxx_base_flags} ${cxx_no_exception_flags}")
+T 4 source.cmake
+T 5 source.cmake string.source.cmake
+T 67 source.cmake string.source.cmake
+T 68 source.cmake string.source.cmake
+T 69 source.cmake
+L   set(cxx_default "${cxx_exception}")
+T 5 source.cmake keyword.cmake
+T 18 source.cmake
+T 19 source.cmake string.source.cmake
+T 35 source.cmake string.source.cmake
+T 36 source.cmake string.source.cmake
+T 37 source.cmake
+L   set(cxx_no_rtti "${cxx_default} ${cxx_no_rtti_flags}")
+T 5 source.cmake keyword.cmake
+T 18 source.cmake
+T 19 source.cmake string.source.cmake
+T 54 source.cmake string.source.cmake
+T 55 source.cmake string.source.cmake
+T 56 source.cmake
+L 
+L   # For building the gtest libraries.
+T 2 source.cmake
+T 37 source.cmake comment.source.cmake
+L   set(cxx_strict "${cxx_default} ${cxx_strict_flags}")
+T 5 source.cmake keyword.cmake
+T 17 source.cmake
+T 18 source.cmake string.source.cmake
+T 52 source.cmake string.source.cmake
+T 53 source.cmake string.source.cmake
+T 54 source.cmake
+L endmacro()
+T 8 source.cmake keyword.cmake
+T 10 source.cmake
+L 
+L # Defines the gtest & gtest_main libraries. User tests should link
+T 66 source.cmake comment.source.cmake
+L # with one of them.
+T 19 source.cmake comment.source.cmake
+L function(cxx_library_with_type name type cxx_flags)
+T 8 source.cmake keyword.cmake
+T 31 source.cmake
+T 35 source.cmake keyword.cmake
+T 36 source.cmake
+T 40 source.cmake entity.source.cmake
+T 41 source.cmake
+T 50 source.cmake variable.source.cmake
+T 51 source.cmake
+L   # type can be either STATIC or SHARED to denote a static or shared library.
+T 2 source.cmake
+T 77 source.cmake comment.source.cmake
+L   # ARGN refers to additional arguments after 'cxx_flags'.
+T 2 source.cmake
+T 58 source.cmake comment.source.cmake
+L   add_library(${name} ${type} ${ARGN})
+T 13 source.cmake keyword.cmake
+T 14 source.cmake
+T 21 source.cmake storage.source.cmake
+T 22 source.cmake
+T 29 source.cmake storage.source.cmake
+T 30 source.cmake
+T 37 source.cmake storage.source.cmake
+T 38 source.cmake
+L   add_library(${cmake_package_name}::${name} ALIAS ${name})
+T 13 source.cmake keyword.cmake
+T 14 source.cmake
+T 35 source.cmake storage.source.cmake
+T 37 source.cmake
+T 44 source.cmake storage.source.cmake
+T 51 source.cmake
+T 58 source.cmake storage.source.cmake
+T 59 source.cmake
+L   set_target_properties(${name}
+T 23 source.cmake keyword.cmake
+T 24 source.cmake
+T 31 source.cmake storage.source.cmake
+L     PROPERTIES
+T 14 source.cmake
+L     COMPILE_FLAGS "${cxx_flags}")
+T 4 source.cmake
+T 17 source.cmake entity.source.cmake
+T 18 source.cmake
+T 19 source.cmake string.source.cmake
+T 31 source.cmake string.source.cmake
+T 32 source.cmake string.source.cmake
+T 33 source.cmake
+L   # Set the output directory for build artifacts.
+T 2 source.cmake
+T 49 source.cmake comment.source.cmake
+L   set_target_properties(${name}
+T 23 source.cmake keyword.cmake
+T 24 source.cmake
+T 31 source.cmake storage.source.cmake
+L     PROPERTIES
+T 14 source.cmake
+L     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+T 4 source.cmake
+T 28 source.cmake variable.source.cmake
+T 29 source.cmake
+T 30 source.cmake string.source.cmake
+T 53 source.cmake string.source.cmake
+T 54 source.cmake string.source.cmake
+L     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+T 4 source.cmake
+T 28 source.cmake variable.source.cmake
+T 29 source.cmake
+T 30 source.cmake string.source.cmake
+T 53 source.cmake string.source.cmake
+T 54 source.cmake string.source.cmake
+L     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+T 4 source.cmake
+T 28 source.cmake variable.source.cmake
+T 29 source.cmake
+T 30 source.cmake string.source.cmake
+T 53 source.cmake string.source.cmake
+T 54 source.cmake string.source.cmake
+L     PDB_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+T 4 source.cmake
+T 24 source.cmake variable.source.cmake
+T 25 source.cmake
+T 26 source.cmake string.source.cmake
+T 49 source.cmake string.source.cmake
+T 50 source.cmake string.source.cmake
+L     COMPILE_PDB_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+T 33 source.cmake
+T 34 source.cmake string.source.cmake
+T 57 source.cmake string.source.cmake
+T 58 source.cmake string.source.cmake
+T 59 source.cmake
+L   # Make PDBs match library name.
+T 2 source.cmake
+T 33 source.cmake comment.source.cmake
+L   get_target_property(pdb_debug_postfix ${name} DEBUG_POSTFIX)
+T 21 source.cmake keyword.cmake
+T 22 source.cmake
+T 39 source.cmake variable.source.cmake
+T 40 source.cmake
+T 47 source.cmake storage.source.cmake
+T 48 source.cmake
+T 61 source.cmake variable.source.cmake
+T 62 source.cmake
+L   set_target_properties(${name}
+T 23 source.cmake keyword.cmake
+T 24 source.cmake
+T 31 source.cmake storage.source.cmake
+L     PROPERTIES
+T 14 source.cmake
+L     PDB_NAME "${name}"
+T 4 source.cmake
+T 12 source.cmake entity.source.cmake
+T 13 source.cmake
+T 14 source.cmake string.source.cmake
+T 21 source.cmake string.source.cmake
+T 22 source.cmake string.source.cmake
+L     PDB_NAME_DEBUG "${name}${pdb_debug_postfix}"
+T 4 source.cmake
+T 18 source.cmake entity.source.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 47 source.cmake string.source.cmake
+T 48 source.cmake string.source.cmake
+L     COMPILE_PDB_NAME "${name}"
+T 21 source.cmake
+T 22 source.cmake string.source.cmake
+T 29 source.cmake string.source.cmake
+T 30 source.cmake string.source.cmake
+L     COMPILE_PDB_NAME_DEBUG "${name}${pdb_debug_postfix}")
+T 27 source.cmake
+T 28 source.cmake string.source.cmake
+T 55 source.cmake string.source.cmake
+T 56 source.cmake string.source.cmake
+T 57 source.cmake
+L 
+L   if (BUILD_SHARED_LIBS OR type STREQUAL "SHARED")
+T 4 source.cmake keyword.cmake
+T 6 source.cmake
+T 23 source.cmake variable.source.cmake
+T 24 source.cmake
+T 26 source.cmake keyword.cmake
+T 27 source.cmake
+T 31 source.cmake entity.source.cmake
+T 32 source.cmake
+T 40 source.cmake keyword.cmake
+T 41 source.cmake
+T 42 source.cmake string.source.cmake
+T 48 source.cmake string.source.cmake
+T 49 source.cmake string.source.cmake
+T 50 source.cmake
+L     target_compile_definitions(${name} PRIVATE
+T 30 source.cmake keyword.cmake
+T 31 source.cmake
+T 38 source.cmake storage.source.cmake
+T 39 source.cmake
+T 46 source.cmake entity.source.cmake
+L       "GTEST_CREATE_SHARED_LIBRARY=1")
+T 6 source.cmake
+T 7 source.cmake string.source.cmake
+T 36 source.cmake string.source.cmake
+T 37 source.cmake string.source.cmake
+T 38 source.cmake
+L     target_compile_definitions(${name} INTERFACE
+T 30 source.cmake keyword.cmake
+T 31 source.cmake
+T 38 source.cmake storage.source.cmake
+T 39 source.cmake
+T 48 source.cmake entity.source.cmake
+L       $<BUILD_INTERFACE:GTEST_LINKED_AS_SHARED_LIBRARY=1>
+T 57 source.cmake
+L       $<INSTALL_INTERFACE:GTEST_LINKED_AS_SHARED_LIBRARY=1>
+T 59 source.cmake
+L     )
+T 5 source.cmake
+L     if(APPLE)
+T 6 source.cmake keyword.cmake
+T 7 source.cmake
+T 12 source.cmake constant.source.cmake
+T 13 source.cmake
+L       set_target_properties(${name} PROPERTIES
+T 27 source.cmake keyword.cmake
+T 28 source.cmake
+T 35 source.cmake storage.source.cmake
+T 46 source.cmake
+L         INSTALL_RPATH "@loader_path")
+T 8 source.cmake
+T 21 source.cmake variable.source.cmake
+T 22 source.cmake
+T 23 source.cmake string.source.cmake
+T 35 source.cmake string.source.cmake
+T 36 source.cmake string.source.cmake
+T 37 source.cmake
+L     elseif(UNIX)
+T 10 source.cmake keyword.cmake
+T 11 source.cmake
+T 15 source.cmake constant.source.cmake
+T 16 source.cmake
+L       set_target_properties(${name} PROPERTIES
+T 27 source.cmake keyword.cmake
+T 28 source.cmake
+T 35 source.cmake storage.source.cmake
+T 46 source.cmake
+L         INSTALL_RPATH "$ORIGIN")
+T 8 source.cmake
+T 21 source.cmake variable.source.cmake
+T 22 source.cmake
+T 23 source.cmake string.source.cmake
+T 30 source.cmake string.source.cmake
+T 31 source.cmake string.source.cmake
+T 32 source.cmake
+L     endif()
+T 9 source.cmake keyword.cmake
+T 11 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L   if (DEFINED GTEST_HAS_PTHREAD)
+T 4 source.cmake keyword.cmake
+T 6 source.cmake
+T 13 source.cmake keyword.cmake
+T 32 source.cmake
+L     target_link_libraries(${name} PUBLIC Threads::Threads)
+T 25 source.cmake keyword.cmake
+T 26 source.cmake
+T 33 source.cmake storage.source.cmake
+T 34 source.cmake
+T 40 source.cmake entity.source.cmake
+T 58 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L 
+L   target_compile_features(${name} PUBLIC cxx_std_17)
+T 25 source.cmake keyword.cmake
+T 26 source.cmake
+T 33 source.cmake storage.source.cmake
+T 34 source.cmake
+T 40 source.cmake entity.source.cmake
+T 52 source.cmake
+L endfunction()
+T 11 source.cmake keyword.cmake
+T 13 source.cmake
+L 
+L ########################################################################
+T 72 source.cmake comment.source.cmake
+L #
+T 1 source.cmake comment.source.cmake
+L # Helper functions for creating build targets.
+T 46 source.cmake comment.source.cmake
+L 
+L function(cxx_shared_library name cxx_flags)
+T 8 source.cmake keyword.cmake
+T 28 source.cmake
+T 32 source.cmake keyword.cmake
+T 33 source.cmake
+T 42 source.cmake variable.source.cmake
+T 43 source.cmake
+L   cxx_library_with_type(${name} SHARED "${cxx_flags}" ${ARGN})
+T 24 source.cmake
+T 31 source.cmake storage.source.cmake
+T 39 source.cmake
+T 40 source.cmake string.source.cmake
+T 52 source.cmake string.source.cmake
+T 53 source.cmake string.source.cmake
+T 54 source.cmake
+T 61 source.cmake storage.source.cmake
+T 62 source.cmake
+L endfunction()
+T 11 source.cmake keyword.cmake
+T 13 source.cmake
+L 
+L function(cxx_library name cxx_flags)
+T 8 source.cmake keyword.cmake
+T 21 source.cmake
+T 25 source.cmake keyword.cmake
+T 26 source.cmake
+T 35 source.cmake variable.source.cmake
+T 36 source.cmake
+L   cxx_library_with_type(${name} "" "${cxx_flags}" ${ARGN})
+T 24 source.cmake
+T 31 source.cmake storage.source.cmake
+T 32 source.cmake
+T 33 source.cmake string.source.cmake
+T 34 source.cmake string.source.cmake
+T 35 source.cmake
+T 36 source.cmake string.source.cmake
+T 48 source.cmake string.source.cmake
+T 49 source.cmake string.source.cmake
+T 50 source.cmake
+T 57 source.cmake storage.source.cmake
+T 58 source.cmake
+L endfunction()
+T 11 source.cmake keyword.cmake
+T 13 source.cmake
+L 
+L # cxx_executable_with_flags(name cxx_flags libs srcs...)
+T 56 source.cmake comment.source.cmake
+L #
+T 1 source.cmake comment.source.cmake
+L # Creates a named C++ executable that depends on the given libraries and
+T 72 source.cmake comment.source.cmake
+L # is built from the given source files with the given compiler flags.
+T 69 source.cmake comment.source.cmake
+L function(cxx_executable_with_flags name cxx_flags libs)
+T 8 source.cmake keyword.cmake
+T 35 source.cmake
+T 39 source.cmake keyword.cmake
+T 40 source.cmake
+T 49 source.cmake variable.source.cmake
+T 55 source.cmake
+L   add_executable(${name} ${ARGN})
+T 16 source.cmake keyword.cmake
+T 17 source.cmake
+T 24 source.cmake storage.source.cmake
+T 25 source.cmake
+T 32 source.cmake storage.source.cmake
+T 33 source.cmake
+L   if (MSVC)
+T 4 source.cmake keyword.cmake
+T 6 source.cmake
+T 10 source.cmake constant.source.cmake
+T 11 source.cmake
+L     # BigObj required for tests.
+T 4 source.cmake
+T 32 source.cmake comment.source.cmake
+L     set(cxx_flags "${cxx_flags} -bigobj")
+T 7 source.cmake keyword.cmake
+T 8 source.cmake
+T 17 source.cmake variable.source.cmake
+T 18 source.cmake
+T 19 source.cmake string.source.cmake
+T 39 source.cmake string.source.cmake
+T 40 source.cmake string.source.cmake
+T 41 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L   if (cxx_flags)
+T 4 source.cmake keyword.cmake
+T 6 source.cmake
+T 15 source.cmake variable.source.cmake
+T 16 source.cmake
+L     set_target_properties(${name}
+T 25 source.cmake keyword.cmake
+T 26 source.cmake
+T 33 source.cmake storage.source.cmake
+L       PROPERTIES
+T 16 source.cmake
+L       COMPILE_FLAGS "${cxx_flags}")
+T 6 source.cmake
+T 19 source.cmake entity.source.cmake
+T 20 source.cmake
+T 21 source.cmake string.source.cmake
+T 33 source.cmake string.source.cmake
+T 34 source.cmake string.source.cmake
+T 35 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L   if (BUILD_SHARED_LIBS)
+T 4 source.cmake keyword.cmake
+T 6 source.cmake
+T 23 source.cmake variable.source.cmake
+T 24 source.cmake
+L     target_compile_definitions(${name} PRIVATE
+T 30 source.cmake keyword.cmake
+T 31 source.cmake
+T 38 source.cmake storage.source.cmake
+T 39 source.cmake
+T 46 source.cmake entity.source.cmake
+L       "GTEST_LINKED_AS_SHARED_LIBRARY=1")
+T 6 source.cmake
+T 7 source.cmake string.source.cmake
+T 39 source.cmake string.source.cmake
+T 40 source.cmake string.source.cmake
+T 41 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L   # To support mixing linking in static and dynamic libraries, link each
+T 2 source.cmake
+T 72 source.cmake comment.source.cmake
+L   # library in with an extra call to target_link_libraries.
+T 2 source.cmake
+T 59 source.cmake comment.source.cmake
+L   foreach (lib "${libs}")
+T 9 source.cmake keyword.cmake
+T 15 source.cmake
+T 16 source.cmake string.source.cmake
+T 23 source.cmake string.source.cmake
+T 24 source.cmake string.source.cmake
+T 25 source.cmake
+L     target_link_libraries(${name} ${lib})
+T 25 source.cmake keyword.cmake
+T 26 source.cmake
+T 33 source.cmake storage.source.cmake
+T 34 source.cmake
+T 40 source.cmake storage.source.cmake
+T 41 source.cmake
+L   endforeach()
+T 12 source.cmake keyword.cmake
+T 14 source.cmake
+L endfunction()
+T 11 source.cmake keyword.cmake
+T 13 source.cmake
+L 
+L # cxx_executable(name dir lib srcs...)
+T 38 source.cmake comment.source.cmake
+L #
+T 1 source.cmake comment.source.cmake
+L # Creates a named target that depends on the given libs and is built
+T 68 source.cmake comment.source.cmake
+L # from the given source files. dir/name.cc is implicitly included in
+T 68 source.cmake comment.source.cmake
+L # the source file list.
+T 23 source.cmake comment.source.cmake
+L function(cxx_executable name dir libs)
+T 8 source.cmake keyword.cmake
+T 24 source.cmake
+T 28 source.cmake keyword.cmake
+T 38 source.cmake
+L   cxx_executable_with_flags(
+T 28 source.cmake
+L     ${name} "${cxx_default}" "${libs}" "${dir}/${name}.cc" ${ARGN})
+T 4 source.cmake
+T 11 source.cmake storage.source.cmake
+T 12 source.cmake
+T 13 source.cmake string.source.cmake
+T 27 source.cmake string.source.cmake
+T 28 source.cmake string.source.cmake
+T 29 source.cmake
+T 30 source.cmake string.source.cmake
+T 37 source.cmake string.source.cmake
+T 38 source.cmake string.source.cmake
+T 39 source.cmake
+T 40 source.cmake string.source.cmake
+T 57 source.cmake string.source.cmake
+T 58 source.cmake string.source.cmake
+T 59 source.cmake
+T 66 source.cmake storage.source.cmake
+T 67 source.cmake
+L endfunction()
+T 11 source.cmake keyword.cmake
+T 13 source.cmake
+L 
+L if(gtest_build_tests)
+T 2 source.cmake keyword.cmake
+T 21 source.cmake
+L   # Only the interpreter is needed for Python tests. Specifying the component
+T 2 source.cmake
+T 77 source.cmake comment.source.cmake
+L   # explicitly avoids a crash in CMake <= 3.23's FindPython3 module when no
+T 2 source.cmake
+T 75 source.cmake comment.source.cmake
+L   # Python installation is present (the module calls list(GET) on an empty
+T 2 source.cmake
+T 74 source.cmake comment.source.cmake
+L   # list).  QUIET lets the build continue without Python tests instead of
+T 2 source.cmake
+T 73 source.cmake comment.source.cmake
+L   # failing outright.
+T 2 source.cmake
+T 21 source.cmake comment.source.cmake
+L   find_package(Python3 COMPONENTS Interpreter QUIET)
+T 14 source.cmake keyword.cmake
+T 52 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L # cxx_test_with_flags(name cxx_flags libs srcs...)
+T 50 source.cmake comment.source.cmake
+L #
+T 1 source.cmake comment.source.cmake
+L # Creates a named C++ test that depends on the given libs and is built
+T 70 source.cmake comment.source.cmake
+L # from the given source files with the given compiler flags.
+T 60 source.cmake comment.source.cmake
+L function(cxx_test_with_flags name cxx_flags libs)
+T 8 source.cmake keyword.cmake
+T 29 source.cmake
+T 33 source.cmake keyword.cmake
+T 34 source.cmake
+T 43 source.cmake variable.source.cmake
+T 49 source.cmake
+L   cxx_executable_with_flags(${name} "${cxx_flags}" "${libs}" ${ARGN})
+T 28 source.cmake
+T 35 source.cmake storage.source.cmake
+T 36 source.cmake
+T 37 source.cmake string.source.cmake
+T 49 source.cmake string.source.cmake
+T 50 source.cmake string.source.cmake
+T 51 source.cmake
+T 52 source.cmake string.source.cmake
+T 59 source.cmake string.source.cmake
+T 60 source.cmake string.source.cmake
+T 61 source.cmake
+T 68 source.cmake storage.source.cmake
+T 69 source.cmake
+L     add_test(NAME ${name} COMMAND "$<TARGET_FILE:${name}>")
+T 12 source.cmake keyword.cmake
+T 13 source.cmake
+T 17 source.cmake keyword.cmake
+T 18 source.cmake
+T 25 source.cmake storage.source.cmake
+T 26 source.cmake
+T 33 source.cmake keyword.cmake
+T 34 source.cmake
+T 35 source.cmake string.source.cmake
+T 57 source.cmake string.source.cmake
+T 58 source.cmake string.source.cmake
+T 59 source.cmake
+L endfunction()
+T 11 source.cmake keyword.cmake
+T 13 source.cmake
+L 
+L # cxx_test(name libs srcs...)
+T 29 source.cmake comment.source.cmake
+L #
+T 1 source.cmake comment.source.cmake
+L # Creates a named test target that depends on the given libs and is
+T 67 source.cmake comment.source.cmake
+L # built from the given source files. Unlike cxx_test_with_flags,
+T 64 source.cmake comment.source.cmake
+L # test/name.cc is already implicitly included in the source file list.
+T 70 source.cmake comment.source.cmake
+L function(cxx_test name libs)
+T 8 source.cmake keyword.cmake
+T 18 source.cmake
+T 22 source.cmake keyword.cmake
+T 28 source.cmake
+L   cxx_test_with_flags("${name}" "${cxx_default}" "${libs}"
+T 22 source.cmake
+T 23 source.cmake string.source.cmake
+T 30 source.cmake string.source.cmake
+T 31 source.cmake string.source.cmake
+T 32 source.cmake
+T 33 source.cmake string.source.cmake
+T 47 source.cmake string.source.cmake
+T 48 source.cmake string.source.cmake
+T 49 source.cmake
+T 50 source.cmake string.source.cmake
+T 57 source.cmake string.source.cmake
+T 58 source.cmake string.source.cmake
+L     "test/${name}.cc" ${ARGN})
+T 4 source.cmake
+T 5 source.cmake string.source.cmake
+T 20 source.cmake string.source.cmake
+T 21 source.cmake string.source.cmake
+T 22 source.cmake
+T 29 source.cmake storage.source.cmake
+T 30 source.cmake
+L endfunction()
+T 11 source.cmake keyword.cmake
+T 13 source.cmake
+L 
+L # py_test(name)
+T 15 source.cmake comment.source.cmake
+L #
+T 1 source.cmake comment.source.cmake
+L # Creates a Python test with the given name whose main module is in
+T 67 source.cmake comment.source.cmake
+L # test/name.py. It does nothing if Python is not installed.
+T 59 source.cmake comment.source.cmake
+L function(py_test name)
+T 8 source.cmake keyword.cmake
+T 17 source.cmake
+T 21 source.cmake keyword.cmake
+T 22 source.cmake
+L   if (NOT Python3_Interpreter_FOUND)
+T 4 source.cmake keyword.cmake
+T 6 source.cmake
+T 9 source.cmake keyword.cmake
+T 36 source.cmake
+L     return()
+T 10 source.cmake keyword.cmake
+T 12 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L 
+L   get_cmake_property(is_multi "GENERATOR_IS_MULTI_CONFIG")
+T 20 source.cmake keyword.cmake
+T 30 source.cmake
+T 31 source.cmake string.source.cmake
+T 56 source.cmake string.source.cmake
+T 57 source.cmake string.source.cmake
+T 58 source.cmake
+L   set(build_dir "${CMAKE_CURRENT_BINARY_DIR}")
+T 5 source.cmake keyword.cmake
+T 16 source.cmake
+T 17 source.cmake string.source.cmake
+T 44 source.cmake string.source.cmake
+T 45 source.cmake string.source.cmake
+T 46 source.cmake
+L   if (is_multi)
+T 4 source.cmake keyword.cmake
+T 15 source.cmake
+L     set(build_dir "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>")
+T 7 source.cmake keyword.cmake
+T 18 source.cmake
+T 19 source.cmake string.source.cmake
+T 56 source.cmake string.source.cmake
+T 57 source.cmake string.source.cmake
+T 58 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L 
+L   add_test(NAME ${name}
+T 10 source.cmake keyword.cmake
+T 11 source.cmake
+T 15 source.cmake keyword.cmake
+T 16 source.cmake
+T 23 source.cmake storage.source.cmake
+L       COMMAND Python3::Interpreter ${CMAKE_CURRENT_SOURCE_DIR}/test/${name}.py
+T 6 source.cmake
+T 13 source.cmake keyword.cmake
+T 35 source.cmake
+T 62 source.cmake storage.source.cmake
+T 63 source.cmake
+T 67 source.cmake keyword.cmake
+T 68 source.cmake
+T 75 source.cmake storage.source.cmake
+T 78 source.cmake
+L           --build_dir=${build_dir} ${ARGN})
+T 22 source.cmake
+T 34 source.cmake storage.source.cmake
+T 35 source.cmake
+T 42 source.cmake storage.source.cmake
+T 43 source.cmake
+L 
+L   # Make the Python import path consistent between Bazel and CMake.
+T 2 source.cmake
+T 67 source.cmake comment.source.cmake
+L   set_tests_properties(${name} PROPERTIES ENVIRONMENT PYTHONPATH=${CMAKE_SOURCE_DIR})
+T 22 source.cmake keyword.cmake
+T 23 source.cmake
+T 30 source.cmake storage.source.cmake
+T 42 source.cmake
+T 53 source.cmake entity.source.cmake
+T 65 source.cmake
+T 84 source.cmake storage.source.cmake
+T 85 source.cmake
+L endfunction()
+T 11 source.cmake keyword.cmake
+T 13 source.cmake
+L 
+L # install_project(targets...)
+T 29 source.cmake comment.source.cmake
+L #
+T 1 source.cmake comment.source.cmake
+L # Installs the specified targets and configures the associated pkgconfig files.
+T 79 source.cmake comment.source.cmake
+L function(install_project)
+T 8 source.cmake keyword.cmake
+T 25 source.cmake
+L   if(INSTALL_GTEST)
+T 4 source.cmake keyword.cmake
+T 19 source.cmake
+L     install(DIRECTORY "${PROJECT_SOURCE_DIR}/include/"
+T 11 source.cmake keyword.cmake
+T 22 source.cmake
+T 23 source.cmake string.source.cmake
+T 53 source.cmake string.source.cmake
+T 54 source.cmake string.source.cmake
+L       COMPONENT "${PROJECT_NAME}"
+T 16 source.cmake
+T 17 source.cmake string.source.cmake
+T 32 source.cmake string.source.cmake
+T 33 source.cmake string.source.cmake
+L       DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+T 18 source.cmake
+T 19 source.cmake string.source.cmake
+T 46 source.cmake string.source.cmake
+T 47 source.cmake string.source.cmake
+T 48 source.cmake
+L     # Install the project targets.
+T 4 source.cmake
+T 34 source.cmake comment.source.cmake
+L     install(TARGETS ${ARGN}
+T 11 source.cmake keyword.cmake
+T 20 source.cmake
+T 27 source.cmake storage.source.cmake
+L       EXPORT ${targets_export_name}
+T 12 source.cmake keyword.cmake
+T 13 source.cmake
+T 35 source.cmake storage.source.cmake
+L       COMPONENT "${PROJECT_NAME}"
+T 16 source.cmake
+T 17 source.cmake string.source.cmake
+T 32 source.cmake string.source.cmake
+T 33 source.cmake string.source.cmake
+L       RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+T 26 source.cmake
+T 27 source.cmake string.source.cmake
+T 50 source.cmake string.source.cmake
+T 51 source.cmake string.source.cmake
+L       ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+T 26 source.cmake
+T 27 source.cmake string.source.cmake
+T 50 source.cmake string.source.cmake
+T 51 source.cmake string.source.cmake
+L       LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+T 26 source.cmake
+T 27 source.cmake string.source.cmake
+T 50 source.cmake string.source.cmake
+T 51 source.cmake string.source.cmake
+T 52 source.cmake
+L     if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+T 6 source.cmake keyword.cmake
+T 29 source.cmake
+T 36 source.cmake keyword.cmake
+T 37 source.cmake
+T 38 source.cmake string.source.cmake
+T 42 source.cmake string.source.cmake
+T 43 source.cmake string.source.cmake
+T 44 source.cmake
+L       # Install PDBs.
+T 6 source.cmake
+T 21 source.cmake comment.source.cmake
+L       foreach(t ${ARGN})
+T 13 source.cmake keyword.cmake
+T 16 source.cmake
+T 23 source.cmake storage.source.cmake
+T 24 source.cmake
+L         get_target_property(t_pdb_name ${t} COMPILE_PDB_NAME)
+T 27 source.cmake keyword.cmake
+T 39 source.cmake
+T 43 source.cmake storage.source.cmake
+T 61 source.cmake
+L         get_target_property(t_pdb_name_debug ${t} COMPILE_PDB_NAME_DEBUG)
+T 27 source.cmake keyword.cmake
+T 45 source.cmake
+T 49 source.cmake storage.source.cmake
+T 73 source.cmake
+L         get_target_property(t_pdb_output_directory ${t} COMPILE_PDB_OUTPUT_DIRECTORY)
+T 27 source.cmake keyword.cmake
+T 51 source.cmake
+T 55 source.cmake storage.source.cmake
+T 85 source.cmake
+L         get_target_property(t_shared_pdb_name ${t} PDB_NAME)
+T 27 source.cmake keyword.cmake
+T 46 source.cmake
+T 50 source.cmake storage.source.cmake
+T 51 source.cmake
+T 59 source.cmake entity.source.cmake
+T 60 source.cmake
+L         get_target_property(t_shared_pdb_name_debug ${t} PDB_NAME_DEBUG)
+T 27 source.cmake keyword.cmake
+T 52 source.cmake
+T 56 source.cmake storage.source.cmake
+T 57 source.cmake
+T 71 source.cmake entity.source.cmake
+T 72 source.cmake
+L         get_target_property(t_shared_pdb_output_directory ${t} PDB_OUTPUT_DIRECTORY)
+T 27 source.cmake keyword.cmake
+T 58 source.cmake
+T 62 source.cmake storage.source.cmake
+T 63 source.cmake
+T 83 source.cmake variable.source.cmake
+T 84 source.cmake
+L         install(FILES
+T 15 source.cmake keyword.cmake
+T 21 source.cmake
+L           "$<$<STREQUAL:$<TARGET_PROPERTY:${t},TYPE>,STATIC_LIBRARY>:${t_pdb_output_directory}/\${CMAKE_INSTALL_CONFIG_NAME}/$<IF:$<CONFIG:Debug>,${t_pdb_name_debug},${t_pdb_name}>.pdb>"
+T 10 source.cmake
+T 11 source.cmake string.source.cmake
+T 95 source.cmake string.source.cmake
+T 97 source.cmake string.source.cmake constant.character.escape
+T 185 source.cmake string.source.cmake
+T 186 source.cmake string.source.cmake
+L           "$<$<STREQUAL:$<TARGET_PROPERTY:${t},TYPE>,SHARED_LIBRARY>:${t_shared_pdb_output_directory}/\${CMAKE_INSTALL_CONFIG_NAME}/$<IF:$<CONFIG:Debug>,${t_shared_pdb_name_debug},${t_shared_pdb_name}>.pdb>"
+T 10 source.cmake
+T 11 source.cmake string.source.cmake
+T 102 source.cmake string.source.cmake
+T 104 source.cmake string.source.cmake constant.character.escape
+T 206 source.cmake string.source.cmake
+T 207 source.cmake string.source.cmake
+L           COMPONENT "${PROJECT_NAME}"
+T 20 source.cmake
+T 21 source.cmake string.source.cmake
+T 36 source.cmake string.source.cmake
+T 37 source.cmake string.source.cmake
+L           DESTINATION $<IF:$<STREQUAL:$<TARGET_PROPERTY:${t},TYPE>,STATIC_LIBRARY>,${CMAKE_INSTALL_LIBDIR},${CMAKE_INSTALL_BINDIR}>
+T 29 source.cmake
+T 37 source.cmake keyword.cmake
+T 56 source.cmake
+T 60 source.cmake storage.source.cmake
+T 61 source.cmake
+T 65 source.cmake entity.source.cmake
+T 83 source.cmake
+T 106 source.cmake storage.source.cmake
+T 107 source.cmake
+T 130 source.cmake storage.source.cmake
+T 131 source.cmake
+L           OPTIONAL)
+T 19 source.cmake
+L       endforeach()
+T 16 source.cmake keyword.cmake
+T 18 source.cmake
+L     endif()
+T 9 source.cmake keyword.cmake
+T 11 source.cmake
+L     # Configure and install pkgconfig files.
+T 4 source.cmake
+T 44 source.cmake comment.source.cmake
+L     foreach(t ${ARGN})
+T 11 source.cmake keyword.cmake
+T 14 source.cmake
+T 21 source.cmake storage.source.cmake
+T 22 source.cmake
+L       set(configured_pc "${generated_dir}/${t}.pc")
+T 9 source.cmake keyword.cmake
+T 24 source.cmake
+T 25 source.cmake string.source.cmake
+T 49 source.cmake string.source.cmake
+T 50 source.cmake string.source.cmake
+T 51 source.cmake
+L       configure_file("${PROJECT_SOURCE_DIR}/cmake/${t}.pc.in"
+T 20 source.cmake keyword.cmake
+T 21 source.cmake
+T 22 source.cmake string.source.cmake
+T 60 source.cmake string.source.cmake
+T 61 source.cmake string.source.cmake
+L         "${configured_pc}" @ONLY)
+T 8 source.cmake
+T 9 source.cmake string.source.cmake
+T 25 source.cmake string.source.cmake
+T 26 source.cmake string.source.cmake
+T 33 source.cmake
+L       install(FILES "${configured_pc}"
+T 13 source.cmake keyword.cmake
+T 20 source.cmake
+T 21 source.cmake string.source.cmake
+T 37 source.cmake string.source.cmake
+T 38 source.cmake string.source.cmake
+L         COMPONENT "${PROJECT_NAME}"
+T 18 source.cmake
+T 19 source.cmake string.source.cmake
+T 34 source.cmake string.source.cmake
+T 35 source.cmake string.source.cmake
+L         DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
+T 20 source.cmake
+T 21 source.cmake string.source.cmake
+T 54 source.cmake string.source.cmake
+T 55 source.cmake string.source.cmake
+T 56 source.cmake
+L     endforeach()
+T 14 source.cmake keyword.cmake
+T 16 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L endfunction()
+T 11 source.cmake keyword.cmake
+T 13 source.cmake
+L 

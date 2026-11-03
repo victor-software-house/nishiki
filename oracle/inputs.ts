@@ -352,6 +352,11 @@ const zig =
 const zls =
   "https://raw.githubusercontent.com/zigtools/zls/b3e65123f1bf455cea491ba7069bebd5f93e6839";
 
+const nlohmannJson =
+  "https://raw.githubusercontent.com/nlohmann/json/e32051125faf95dc64d49a129959b6742b9ffee9";
+const googletest =
+  "https://raw.githubusercontent.com/google/googletest/a8380b01a25ebdb130097b607b3afed2a58d04ba";
+
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   {
@@ -921,4 +926,10 @@ export const inputs: Input[] = [
   { lang: "lua", name: "luals-string", url: `${luaLanguageServer}/meta/template/string.lua` },
   { lang: "lua", name: "luals-table", url: `${luaLanguageServer}/meta/template/table.lua` },
   { lang: "lua", name: "lua-literals", url: `${lua}/testes/literals.lua` },
+  // CMake runs on the TextMate engine. Shiki's Markdown grammar has no CMake
+  // fence, so no Markdown input embeds it.
+  { lang: "cmake", name: "sample", url: `${samples}/cmake.sample` },
+  { lang: "cmake", name: "json-lists", url: `${nlohmannJson}/CMakeLists.txt` },
+  { lang: "cmake", name: "googletest-utils", url: `${googletest}/googletest/cmake/internal_utils.cmake` },
+  { lang: "cmake", name: "catch2-lists", url: `${catch2}/CMakeLists.txt` },
 ];

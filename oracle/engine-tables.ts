@@ -433,10 +433,13 @@ for (const id of ids) {
     console.log(`${id}: ${builder.rules.length} rules, ${builder.patterns.length} patterns`);
     continue;
   }
+  // A grammar with no capture names no \`Cap\`, and an unused import fails the build.
+  const capturing = builder.rules.some((r) => r.captures.length > 0 || r.endCaptures.length > 0);
+  const imports = [...(capturing ? ["Cap"] : []), "Grammar", "Injection", "List", "PatternSlot", "Rule", "RuleKind"];
   const source = `//! The tables of Shiki 4.6.0's \`${id}\` grammar, made by \`oracle/engine-tables.ts\`.
 //! Do not edit: regenerate with \`bun oracle/engine-tables.ts\`.
 
-use crate::textmate::grammar::{Cap, Grammar, Injection, List, PatternSlot, Rule, RuleKind};
+use crate::textmate::grammar::{${imports.join(", ")}};
 
 static NAMES: &[&str] = &[
 ${names}

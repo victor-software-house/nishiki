@@ -1,0 +1,1184 @@
+L cmake_minimum_required(VERSION 3.5...4.0)
+T 22 source.cmake keyword.cmake
+T 23 source.cmake
+T 30 source.cmake entity.source.cmake
+T 41 source.cmake
+L 
+L ##
+T 2 source.cmake comment.source.cmake
+L ## PROJECT
+T 10 source.cmake comment.source.cmake
+L ## name and version
+T 19 source.cmake comment.source.cmake
+L ##
+T 2 source.cmake comment.source.cmake
+L project(nlohmann_json VERSION 3.12.0 LANGUAGES CXX)
+T 7 source.cmake keyword.cmake
+T 22 source.cmake
+T 29 source.cmake entity.source.cmake
+T 51 source.cmake
+L 
+L ##
+T 2 source.cmake comment.source.cmake
+L ## MAIN_PROJECT CHECK
+T 21 source.cmake comment.source.cmake
+L ## determine if nlohmann_json is built as a subproject (using add_subdirectory) or if it is the main project
+T 108 source.cmake comment.source.cmake
+L ##
+T 2 source.cmake comment.source.cmake
+L set(MAIN_PROJECT OFF)
+T 3 source.cmake keyword.cmake
+T 17 source.cmake
+T 20 source.cmake keyword.cmake
+T 21 source.cmake
+L if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+T 2 source.cmake keyword.cmake
+T 4 source.cmake
+T 28 source.cmake variable.source.cmake
+T 29 source.cmake
+T 37 source.cmake keyword.cmake
+T 38 source.cmake
+T 54 source.cmake variable.source.cmake
+T 55 source.cmake
+L     set(MAIN_PROJECT ON)
+T 7 source.cmake keyword.cmake
+T 21 source.cmake
+T 23 source.cmake keyword.cmake
+T 24 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L ##
+T 2 source.cmake comment.source.cmake
+L ## INCLUDE
+T 10 source.cmake comment.source.cmake
+L ##
+T 2 source.cmake comment.source.cmake
+L ##
+T 2 source.cmake comment.source.cmake
+L set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+T 3 source.cmake keyword.cmake
+T 4 source.cmake
+T 21 source.cmake variable.source.cmake
+T 22 source.cmake
+T 49 source.cmake storage.source.cmake
+T 56 source.cmake
+T 76 source.cmake storage.source.cmake
+T 77 source.cmake
+L 
+L if (POLICY CMP0077)
+T 2 source.cmake keyword.cmake
+T 4 source.cmake
+T 10 source.cmake keyword.cmake
+T 19 source.cmake
+L     # Allow CMake 3.13+ to override options when using FetchContent / add_subdirectory.
+T 4 source.cmake
+T 87 source.cmake comment.source.cmake
+L     cmake_policy(SET CMP0077 NEW)
+T 16 source.cmake keyword.cmake
+T 33 source.cmake
+L endif ()
+T 5 source.cmake keyword.cmake
+T 8 source.cmake
+L 
+L # ---- C++ Modules Support (optional) ----
+T 42 source.cmake comment.source.cmake
+L option(NLOHMANN_JSON_BUILD_MODULES "Build C++ modules support" OFF)
+T 6 source.cmake keyword.cmake
+T 35 source.cmake
+T 36 source.cmake string.source.cmake
+T 61 source.cmake string.source.cmake
+T 62 source.cmake string.source.cmake
+T 63 source.cmake
+T 66 source.cmake keyword.cmake
+T 67 source.cmake
+L 
+L if(NLOHMANN_JSON_BUILD_MODULES)
+T 2 source.cmake keyword.cmake
+T 31 source.cmake
+L     if(NOT CMAKE_VERSION VERSION_LESS 3.28)
+T 6 source.cmake keyword.cmake
+T 7 source.cmake
+T 10 source.cmake keyword.cmake
+T 11 source.cmake
+T 24 source.cmake variable.source.cmake
+T 25 source.cmake
+T 37 source.cmake keyword.cmake
+T 43 source.cmake
+L         message(STATUS "Building nlohmann.json C++ module")
+T 15 source.cmake keyword.cmake
+T 23 source.cmake
+T 24 source.cmake string.source.cmake
+T 57 source.cmake string.source.cmake
+T 58 source.cmake string.source.cmake
+T 59 source.cmake
+L         add_subdirectory(src/modules)
+T 24 source.cmake keyword.cmake
+T 37 source.cmake
+L     else()
+T 8 source.cmake keyword.cmake
+T 10 source.cmake
+L         message(WARNING "Skipping nlohmann.json C++ module (requires CMake 3.28+, found ${CMAKE_VERSION})")
+T 15 source.cmake keyword.cmake
+T 24 source.cmake
+T 25 source.cmake string.source.cmake
+T 105 source.cmake string.source.cmake
+T 106 source.cmake string.source.cmake
+T 107 source.cmake
+L     endif()
+T 9 source.cmake keyword.cmake
+T 11 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L ##
+T 2 source.cmake comment.source.cmake
+L ## OPTIONS
+T 10 source.cmake comment.source.cmake
+L ##
+T 2 source.cmake comment.source.cmake
+L 
+L # Build the tests by default only for the main project and only if the tests
+T 76 source.cmake comment.source.cmake
+L # directory exists (the release archive json.tar.xz does not contain it).
+T 73 source.cmake comment.source.cmake
+L # VERSION_GREATER_EQUAL is not available in older CMake (< 3.7)
+T 63 source.cmake comment.source.cmake
+L if(${MAIN_PROJECT} AND (${CMAKE_VERSION} VERSION_EQUAL 3.13 OR ${CMAKE_VERSION} VERSION_GREATER 3.13)
+T 2 source.cmake keyword.cmake
+T 3 source.cmake
+T 18 source.cmake storage.source.cmake
+T 19 source.cmake
+T 22 source.cmake keyword.cmake
+T 24 source.cmake
+T 40 source.cmake storage.source.cmake
+T 41 source.cmake
+T 54 source.cmake keyword.cmake
+T 60 source.cmake
+T 62 source.cmake keyword.cmake
+T 63 source.cmake
+T 79 source.cmake storage.source.cmake
+T 80 source.cmake
+T 95 source.cmake keyword.cmake
+T 101 source.cmake
+L    AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/CMakeLists.txt")
+T 3 source.cmake
+T 6 source.cmake keyword.cmake
+T 7 source.cmake
+T 13 source.cmake keyword.cmake
+T 14 source.cmake
+T 15 source.cmake string.source.cmake
+T 63 source.cmake string.source.cmake
+T 64 source.cmake string.source.cmake
+T 65 source.cmake
+L     set(JSON_BuildTests_INIT ON)
+T 7 source.cmake keyword.cmake
+T 29 source.cmake
+T 31 source.cmake keyword.cmake
+T 32 source.cmake
+L else()
+T 4 source.cmake keyword.cmake
+T 6 source.cmake
+L     set(JSON_BuildTests_INIT OFF)
+T 7 source.cmake keyword.cmake
+T 29 source.cmake
+T 32 source.cmake keyword.cmake
+T 33 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L option(JSON_BuildTests                     "Build the unit tests when BUILD_TESTING is enabled." ${JSON_BuildTests_INIT})
+T 6 source.cmake keyword.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 95 source.cmake string.source.cmake
+T 96 source.cmake string.source.cmake
+T 97 source.cmake
+T 120 source.cmake storage.source.cmake
+T 121 source.cmake
+L option(JSON_CI                             "Enable CI build targets." OFF)
+T 6 source.cmake keyword.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 68 source.cmake string.source.cmake
+T 69 source.cmake string.source.cmake
+T 70 source.cmake
+T 73 source.cmake keyword.cmake
+T 74 source.cmake
+L option(JSON_Diagnostics                    "Use extended diagnostic messages." OFF)
+T 6 source.cmake keyword.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 77 source.cmake string.source.cmake
+T 78 source.cmake string.source.cmake
+T 79 source.cmake
+T 82 source.cmake keyword.cmake
+T 83 source.cmake
+L option(JSON_Diagnostic_Positions           "Enable diagnostic positions." OFF)
+T 6 source.cmake keyword.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 72 source.cmake string.source.cmake
+T 73 source.cmake string.source.cmake
+T 74 source.cmake
+T 77 source.cmake keyword.cmake
+T 78 source.cmake
+L option(JSON_GlobalUDLs                     "Place user-defined string literals in the global namespace." ON)
+T 6 source.cmake keyword.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 103 source.cmake string.source.cmake
+T 104 source.cmake string.source.cmake
+T 105 source.cmake
+T 107 source.cmake keyword.cmake
+T 108 source.cmake
+L option(JSON_ImplicitConversions            "Enable implicit conversions." ON)
+T 6 source.cmake keyword.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 72 source.cmake string.source.cmake
+T 73 source.cmake string.source.cmake
+T 74 source.cmake
+T 76 source.cmake keyword.cmake
+T 77 source.cmake
+L option(JSON_DisableEnumSerialization       "Disable default integer enum serialization." OFF)
+T 6 source.cmake keyword.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 87 source.cmake string.source.cmake
+T 88 source.cmake string.source.cmake
+T 89 source.cmake
+T 92 source.cmake keyword.cmake
+T 93 source.cmake
+L option(JSON_DisableTupleReferenceConversion "Disable conversion from a one-element tuple of a JSON reference." OFF)
+T 6 source.cmake keyword.cmake
+T 44 source.cmake
+T 45 source.cmake string.source.cmake
+T 109 source.cmake string.source.cmake
+T 110 source.cmake string.source.cmake
+T 111 source.cmake
+T 114 source.cmake keyword.cmake
+T 115 source.cmake
+L option(JSON_LegacyDiscardedValueComparison "Enable legacy discarded value comparison." OFF)
+T 6 source.cmake keyword.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 85 source.cmake string.source.cmake
+T 86 source.cmake string.source.cmake
+T 87 source.cmake
+T 90 source.cmake keyword.cmake
+T 91 source.cmake
+L option(JSON_Install                        "Install CMake targets during install step." ${MAIN_PROJECT})
+T 6 source.cmake keyword.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 86 source.cmake string.source.cmake
+T 87 source.cmake string.source.cmake
+T 88 source.cmake
+T 103 source.cmake storage.source.cmake
+T 104 source.cmake
+L option(JSON_MultipleHeaders                "Use non-amalgamated version of the library." ON)
+T 6 source.cmake keyword.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 87 source.cmake string.source.cmake
+T 88 source.cmake string.source.cmake
+T 89 source.cmake
+T 91 source.cmake keyword.cmake
+T 92 source.cmake
+L option(JSON_SystemInclude                  "Include as system headers (skip for clang-tidy)." OFF)
+T 6 source.cmake keyword.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 92 source.cmake string.source.cmake
+T 93 source.cmake string.source.cmake
+T 94 source.cmake
+T 97 source.cmake keyword.cmake
+T 98 source.cmake
+L option(JSON_StrictNulHandling              "Build with strict NUL-byte handling enabled." OFF)
+T 6 source.cmake keyword.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 88 source.cmake string.source.cmake
+T 89 source.cmake string.source.cmake
+T 90 source.cmake
+T 93 source.cmake keyword.cmake
+T 94 source.cmake
+L option(JSON_StrictBinaryUTF8               "Build with UTF-8 checks in the CBOR, UBJSON, BJData, and BSON writers enabled." OFF)
+T 6 source.cmake keyword.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 122 source.cmake string.source.cmake
+T 123 source.cmake string.source.cmake
+T 124 source.cmake
+T 127 source.cmake keyword.cmake
+T 128 source.cmake
+L option(JSON_DeleteDeprecatedFunctions      "Delete the deprecated functions instead of only deprecating them." OFF)
+T 6 source.cmake keyword.cmake
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 109 source.cmake string.source.cmake
+T 110 source.cmake string.source.cmake
+T 111 source.cmake
+T 114 source.cmake keyword.cmake
+T 115 source.cmake
+L 
+L if (JSON_CI)
+T 2 source.cmake keyword.cmake
+T 12 source.cmake
+L     include(ci)
+T 11 source.cmake keyword.cmake
+T 15 source.cmake
+L endif ()
+T 5 source.cmake keyword.cmake
+T 8 source.cmake
+L 
+L ##
+T 2 source.cmake comment.source.cmake
+L ## CONFIGURATION
+T 16 source.cmake comment.source.cmake
+L ##
+T 2 source.cmake comment.source.cmake
+L include(GNUInstallDirs)
+T 7 source.cmake keyword.cmake
+T 23 source.cmake
+L 
+L if (NOT DEFINED NLOHMANN_JSON_TARGET_NAME)
+T 2 source.cmake keyword.cmake
+T 4 source.cmake
+T 7 source.cmake keyword.cmake
+T 8 source.cmake
+T 15 source.cmake keyword.cmake
+T 42 source.cmake
+L     # Allow overriding the target name when using FetchContent / add_subdirectory.
+T 4 source.cmake
+T 82 source.cmake comment.source.cmake
+L     set(NLOHMANN_JSON_TARGET_NAME ${PROJECT_NAME})
+T 7 source.cmake keyword.cmake
+T 34 source.cmake
+T 49 source.cmake storage.source.cmake
+T 50 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L set(NLOHMANN_JSON_CONFIG_INSTALL_DIR        "${CMAKE_INSTALL_DATADIR}/cmake/${PROJECT_NAME}" CACHE INTERNAL "")
+T 3 source.cmake keyword.cmake
+T 44 source.cmake
+T 45 source.cmake string.source.cmake
+T 91 source.cmake string.source.cmake
+T 92 source.cmake string.source.cmake
+T 93 source.cmake
+T 98 source.cmake keyword.cmake
+T 99 source.cmake
+T 107 source.cmake keyword.cmake
+T 108 source.cmake
+T 109 source.cmake string.source.cmake
+T 110 source.cmake string.source.cmake
+T 111 source.cmake
+L set(NLOHMANN_JSON_INCLUDE_INSTALL_DIR       "${CMAKE_INSTALL_INCLUDEDIR}")
+T 3 source.cmake keyword.cmake
+T 44 source.cmake
+T 45 source.cmake string.source.cmake
+T 72 source.cmake string.source.cmake
+T 73 source.cmake string.source.cmake
+T 74 source.cmake
+L set(NLOHMANN_JSON_TARGETS_EXPORT_NAME       "${PROJECT_NAME}Targets")
+T 3 source.cmake keyword.cmake
+T 44 source.cmake
+T 45 source.cmake string.source.cmake
+T 67 source.cmake string.source.cmake
+T 68 source.cmake string.source.cmake
+T 69 source.cmake
+L set(NLOHMANN_JSON_CMAKE_CONFIG_TEMPLATE     "cmake/config.cmake.in")
+T 3 source.cmake keyword.cmake
+T 44 source.cmake
+T 45 source.cmake string.source.cmake
+T 66 source.cmake string.source.cmake
+T 67 source.cmake string.source.cmake
+T 68 source.cmake
+L set(NLOHMANN_JSON_CMAKE_CONFIG_DIR          "${CMAKE_CURRENT_BINARY_DIR}")
+T 3 source.cmake keyword.cmake
+T 44 source.cmake
+T 45 source.cmake string.source.cmake
+T 72 source.cmake string.source.cmake
+T 73 source.cmake string.source.cmake
+T 74 source.cmake
+L set(NLOHMANN_JSON_CMAKE_VERSION_CONFIG_FILE "${NLOHMANN_JSON_CMAKE_CONFIG_DIR}/${PROJECT_NAME}ConfigVersion.cmake")
+T 3 source.cmake keyword.cmake
+T 44 source.cmake
+T 45 source.cmake string.source.cmake
+T 113 source.cmake string.source.cmake
+T 114 source.cmake string.source.cmake
+T 115 source.cmake
+L set(NLOHMANN_JSON_CMAKE_PROJECT_CONFIG_FILE "${NLOHMANN_JSON_CMAKE_CONFIG_DIR}/${PROJECT_NAME}Config.cmake")
+T 3 source.cmake keyword.cmake
+T 44 source.cmake
+T 45 source.cmake string.source.cmake
+T 106 source.cmake string.source.cmake
+T 107 source.cmake string.source.cmake
+T 108 source.cmake
+L set(NLOHMANN_JSON_CMAKE_PROJECT_TARGETS_FILE "${NLOHMANN_JSON_CMAKE_CONFIG_DIR}/${PROJECT_NAME}Targets.cmake")
+T 3 source.cmake keyword.cmake
+T 45 source.cmake
+T 46 source.cmake string.source.cmake
+T 108 source.cmake string.source.cmake
+T 109 source.cmake string.source.cmake
+T 110 source.cmake
+L set(NLOHMANN_JSON_PKGCONFIG_INSTALL_DIR     "${CMAKE_INSTALL_DATADIR}/pkgconfig")
+T 3 source.cmake keyword.cmake
+T 44 source.cmake
+T 45 source.cmake string.source.cmake
+T 79 source.cmake string.source.cmake
+T 80 source.cmake string.source.cmake
+T 81 source.cmake
+L 
+L if (JSON_MultipleHeaders)
+T 2 source.cmake keyword.cmake
+T 25 source.cmake
+L     set(NLOHMANN_JSON_INCLUDE_BUILD_DIR "${PROJECT_SOURCE_DIR}/include/")
+T 7 source.cmake keyword.cmake
+T 40 source.cmake
+T 41 source.cmake string.source.cmake
+T 71 source.cmake string.source.cmake
+T 72 source.cmake string.source.cmake
+T 73 source.cmake
+L     message(STATUS "Using the multi-header code from ${NLOHMANN_JSON_INCLUDE_BUILD_DIR}")
+T 11 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 87 source.cmake string.source.cmake
+T 88 source.cmake string.source.cmake
+T 89 source.cmake
+L else()
+T 4 source.cmake keyword.cmake
+T 6 source.cmake
+L     set(NLOHMANN_JSON_INCLUDE_BUILD_DIR "${PROJECT_SOURCE_DIR}/single_include/")
+T 7 source.cmake keyword.cmake
+T 40 source.cmake
+T 41 source.cmake string.source.cmake
+T 78 source.cmake string.source.cmake
+T 79 source.cmake string.source.cmake
+T 80 source.cmake
+L     message(STATUS "Using the single-header code from ${NLOHMANN_JSON_INCLUDE_BUILD_DIR}")
+T 11 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 88 source.cmake string.source.cmake
+T 89 source.cmake string.source.cmake
+T 90 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if (NOT JSON_ImplicitConversions)
+T 2 source.cmake keyword.cmake
+T 4 source.cmake
+T 7 source.cmake keyword.cmake
+T 33 source.cmake
+L     message(STATUS "Implicit conversions are disabled (JSON_USE_IMPLICIT_CONVERSIONS=0)")
+T 11 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 87 source.cmake string.source.cmake
+T 88 source.cmake string.source.cmake
+T 89 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if (JSON_DisableEnumSerialization)
+T 2 source.cmake keyword.cmake
+T 34 source.cmake
+L     message(STATUS "Enum integer serialization is disabled (JSON_DISABLE_ENUM_SERIALIZATION=1)")
+T 11 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 94 source.cmake string.source.cmake
+T 95 source.cmake string.source.cmake
+T 96 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if (JSON_DisableTupleReferenceConversion)
+T 2 source.cmake keyword.cmake
+T 41 source.cmake
+L     message(STATUS "Tuple reference conversion is disabled (JSON_DISABLE_TUPLE_REFERENCE_CONVERSION=1)")
+T 11 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 102 source.cmake string.source.cmake
+T 103 source.cmake string.source.cmake
+T 104 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if (JSON_LegacyDiscardedValueComparison)
+T 2 source.cmake keyword.cmake
+T 40 source.cmake
+L     message(STATUS "Legacy discarded value comparison enabled (JSON_USE_LEGACY_DISCARDED_VALUE_COMPARISON=1)")
+T 11 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 108 source.cmake string.source.cmake
+T 109 source.cmake string.source.cmake
+T 110 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if (JSON_Diagnostics)
+T 2 source.cmake keyword.cmake
+T 21 source.cmake
+L     message(STATUS "Diagnostics enabled (JSON_DIAGNOSTICS=1)")
+T 11 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 60 source.cmake string.source.cmake
+T 61 source.cmake string.source.cmake
+T 62 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if (JSON_StrictNulHandling)
+T 2 source.cmake keyword.cmake
+T 27 source.cmake
+L     message(STATUS "Strict NUL-byte handling enabled (JSON_STRICT_NUL_HANDLING=1)")
+T 11 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 81 source.cmake string.source.cmake
+T 82 source.cmake string.source.cmake
+T 83 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if (JSON_StrictBinaryUTF8)
+T 2 source.cmake keyword.cmake
+T 26 source.cmake
+L     message(STATUS "Strict UTF-8 checks in binary writers enabled (JSON_STRICT_BINARY_UTF8=1)")
+T 11 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 93 source.cmake string.source.cmake
+T 94 source.cmake string.source.cmake
+T 95 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if (JSON_DeleteDeprecatedFunctions)
+T 2 source.cmake keyword.cmake
+T 35 source.cmake
+L     message(STATUS "Deprecated functions are deleted (JSON_DELETE_DEPRECATED_FUNCTIONS=1)")
+T 11 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 89 source.cmake string.source.cmake
+T 90 source.cmake string.source.cmake
+T 91 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if (JSON_Diagnostic_Positions)
+T 2 source.cmake keyword.cmake
+T 30 source.cmake
+L     message(STATUS "Diagnostic positions enabled (JSON_DIAGNOSTIC_POSITIONS=1)")
+T 11 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 78 source.cmake string.source.cmake
+T 79 source.cmake string.source.cmake
+T 80 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if (NOT JSON_GlobalUDLs)
+T 2 source.cmake keyword.cmake
+T 4 source.cmake
+T 7 source.cmake keyword.cmake
+T 24 source.cmake
+L     message(STATUS "User-defined string literals are not put in the global namespace (JSON_USE_GLOBAL_UDLS=0)")
+T 11 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 109 source.cmake string.source.cmake
+T 110 source.cmake string.source.cmake
+T 111 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if (JSON_SystemInclude)
+T 2 source.cmake keyword.cmake
+T 23 source.cmake
+L     set(NLOHMANN_JSON_SYSTEM_INCLUDE "SYSTEM")
+T 7 source.cmake keyword.cmake
+T 37 source.cmake
+T 38 source.cmake string.source.cmake
+T 44 source.cmake string.source.cmake
+T 45 source.cmake string.source.cmake
+T 46 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L ##
+T 2 source.cmake comment.source.cmake
+L ## TARGET
+T 9 source.cmake comment.source.cmake
+L ## create target and add include path
+T 37 source.cmake comment.source.cmake
+L ##
+T 2 source.cmake comment.source.cmake
+L add_library(${NLOHMANN_JSON_TARGET_NAME} INTERFACE)
+T 11 source.cmake keyword.cmake
+T 12 source.cmake
+T 40 source.cmake storage.source.cmake
+T 41 source.cmake
+T 50 source.cmake entity.source.cmake
+T 51 source.cmake
+L add_library(${PROJECT_NAME}::${NLOHMANN_JSON_TARGET_NAME} ALIAS ${NLOHMANN_JSON_TARGET_NAME})
+T 11 source.cmake keyword.cmake
+T 12 source.cmake
+T 27 source.cmake storage.source.cmake
+T 29 source.cmake
+T 57 source.cmake storage.source.cmake
+T 64 source.cmake
+T 92 source.cmake storage.source.cmake
+T 93 source.cmake
+L if (${CMAKE_VERSION} VERSION_LESS "3.8.0")
+T 2 source.cmake keyword.cmake
+T 4 source.cmake
+T 20 source.cmake storage.source.cmake
+T 21 source.cmake
+T 33 source.cmake keyword.cmake
+T 34 source.cmake
+T 35 source.cmake string.source.cmake
+T 40 source.cmake string.source.cmake
+T 41 source.cmake string.source.cmake
+T 42 source.cmake
+L     target_compile_features(${NLOHMANN_JSON_TARGET_NAME} INTERFACE cxx_range_for)
+T 27 source.cmake keyword.cmake
+T 28 source.cmake
+T 56 source.cmake storage.source.cmake
+T 57 source.cmake
+T 66 source.cmake entity.source.cmake
+T 81 source.cmake
+L else()
+T 4 source.cmake keyword.cmake
+T 6 source.cmake
+L     target_compile_features(${NLOHMANN_JSON_TARGET_NAME} INTERFACE cxx_std_11)
+T 27 source.cmake keyword.cmake
+T 28 source.cmake
+T 56 source.cmake storage.source.cmake
+T 57 source.cmake
+T 66 source.cmake entity.source.cmake
+T 78 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L target_compile_definitions(
+T 26 source.cmake keyword.cmake
+T 27 source.cmake
+L     ${NLOHMANN_JSON_TARGET_NAME}
+T 4 source.cmake
+T 32 source.cmake storage.source.cmake
+L     INTERFACE
+T 4 source.cmake
+T 13 source.cmake entity.source.cmake
+L     $<$<NOT:$<BOOL:${JSON_GlobalUDLs}>>:JSON_USE_GLOBAL_UDLS=0>
+T 8 source.cmake
+T 11 source.cmake keyword.cmake
+T 14 source.cmake
+T 18 source.cmake keyword.cmake
+T 19 source.cmake
+T 37 source.cmake storage.source.cmake
+T 63 source.cmake
+L     $<$<NOT:$<BOOL:${JSON_ImplicitConversions}>>:JSON_USE_IMPLICIT_CONVERSIONS=0>
+T 8 source.cmake
+T 11 source.cmake keyword.cmake
+T 14 source.cmake
+T 18 source.cmake keyword.cmake
+T 19 source.cmake
+T 46 source.cmake storage.source.cmake
+T 81 source.cmake
+L     $<$<BOOL:${JSON_DisableEnumSerialization}>:JSON_DISABLE_ENUM_SERIALIZATION=1>
+T 8 source.cmake
+T 12 source.cmake keyword.cmake
+T 13 source.cmake
+T 45 source.cmake storage.source.cmake
+T 81 source.cmake
+L     $<$<BOOL:${JSON_DisableTupleReferenceConversion}>:JSON_DISABLE_TUPLE_REFERENCE_CONVERSION=1>
+T 8 source.cmake
+T 12 source.cmake keyword.cmake
+T 13 source.cmake
+T 52 source.cmake storage.source.cmake
+T 96 source.cmake
+L     $<$<BOOL:${JSON_Diagnostics}>:JSON_DIAGNOSTICS=1>
+T 8 source.cmake
+T 12 source.cmake keyword.cmake
+T 13 source.cmake
+T 32 source.cmake storage.source.cmake
+T 53 source.cmake
+L     $<$<BOOL:${JSON_Diagnostic_Positions}>:JSON_DIAGNOSTIC_POSITIONS=1>
+T 8 source.cmake
+T 12 source.cmake keyword.cmake
+T 13 source.cmake
+T 41 source.cmake storage.source.cmake
+T 71 source.cmake
+L     $<$<BOOL:${JSON_LegacyDiscardedValueComparison}>:JSON_USE_LEGACY_DISCARDED_VALUE_COMPARISON=1>
+T 8 source.cmake
+T 12 source.cmake keyword.cmake
+T 13 source.cmake
+T 51 source.cmake storage.source.cmake
+T 98 source.cmake
+L     $<$<BOOL:${JSON_StrictNulHandling}>:JSON_STRICT_NUL_HANDLING=1>
+T 8 source.cmake
+T 12 source.cmake keyword.cmake
+T 13 source.cmake
+T 38 source.cmake storage.source.cmake
+T 67 source.cmake
+L     $<$<BOOL:${JSON_StrictBinaryUTF8}>:JSON_STRICT_BINARY_UTF8=1>
+T 8 source.cmake
+T 12 source.cmake keyword.cmake
+T 13 source.cmake
+T 37 source.cmake storage.source.cmake
+T 65 source.cmake
+L     $<$<BOOL:${JSON_DeleteDeprecatedFunctions}>:JSON_DELETE_DEPRECATED_FUNCTIONS=1>
+T 8 source.cmake
+T 12 source.cmake keyword.cmake
+T 13 source.cmake
+T 46 source.cmake storage.source.cmake
+T 83 source.cmake
+L )
+T 1 source.cmake
+L 
+L target_include_directories(
+T 26 source.cmake keyword.cmake
+T 27 source.cmake
+L     ${NLOHMANN_JSON_TARGET_NAME}
+T 4 source.cmake
+T 32 source.cmake storage.source.cmake
+L     ${NLOHMANN_JSON_SYSTEM_INCLUDE} INTERFACE
+T 4 source.cmake
+T 35 source.cmake storage.source.cmake
+T 36 source.cmake
+T 45 source.cmake entity.source.cmake
+L     $<BUILD_INTERFACE:${NLOHMANN_JSON_INCLUDE_BUILD_DIR}>
+T 22 source.cmake
+T 56 source.cmake storage.source.cmake
+T 57 source.cmake
+L     $<INSTALL_INTERFACE:${NLOHMANN_JSON_INCLUDE_INSTALL_DIR}>
+T 24 source.cmake
+T 60 source.cmake storage.source.cmake
+T 61 source.cmake
+L )
+T 1 source.cmake
+L 
+L ## add debug view definition file for msvc (natvis)
+T 51 source.cmake comment.source.cmake
+L if (MSVC)
+T 2 source.cmake keyword.cmake
+T 4 source.cmake
+T 8 source.cmake constant.source.cmake
+T 9 source.cmake
+L     set(NLOHMANN_ADD_NATVIS TRUE)
+T 7 source.cmake keyword.cmake
+T 28 source.cmake
+T 32 source.cmake keyword.cmake
+T 33 source.cmake
+L     set(NLOHMANN_NATVIS_FILE "nlohmann_json.natvis")
+T 7 source.cmake keyword.cmake
+T 29 source.cmake
+T 30 source.cmake string.source.cmake
+T 50 source.cmake string.source.cmake
+T 51 source.cmake string.source.cmake
+T 52 source.cmake
+L     target_sources(
+T 18 source.cmake keyword.cmake
+T 19 source.cmake
+L         ${NLOHMANN_JSON_TARGET_NAME}
+T 8 source.cmake
+T 36 source.cmake storage.source.cmake
+L         INTERFACE
+T 8 source.cmake
+T 17 source.cmake entity.source.cmake
+L             $<INSTALL_INTERFACE:${NLOHMANN_NATVIS_FILE}>
+T 32 source.cmake
+T 55 source.cmake storage.source.cmake
+T 56 source.cmake
+L             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${NLOHMANN_NATVIS_FILE}>
+T 30 source.cmake
+T 57 source.cmake storage.source.cmake
+T 58 source.cmake
+T 81 source.cmake storage.source.cmake
+T 82 source.cmake
+L     )
+T 5 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L # Install a pkg-config file, so other tools can find this. It carries the same
+T 78 source.cmake comment.source.cmake
+L # compile definitions as the target above.
+T 42 source.cmake comment.source.cmake
+L set(NLOHMANN_JSON_PKGCONFIG_CFLAGS "")
+T 3 source.cmake keyword.cmake
+T 35 source.cmake
+T 36 source.cmake string.source.cmake
+T 37 source.cmake string.source.cmake
+T 38 source.cmake
+L if (NOT JSON_GlobalUDLs)
+T 2 source.cmake keyword.cmake
+T 4 source.cmake
+T 7 source.cmake keyword.cmake
+T 24 source.cmake
+L     string(APPEND NLOHMANN_JSON_PKGCONFIG_CFLAGS " -DJSON_USE_GLOBAL_UDLS=0")
+T 10 source.cmake keyword.cmake
+T 49 source.cmake
+T 50 source.cmake string.source.cmake
+T 75 source.cmake string.source.cmake
+T 76 source.cmake string.source.cmake
+T 77 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L if (NOT JSON_ImplicitConversions)
+T 2 source.cmake keyword.cmake
+T 4 source.cmake
+T 7 source.cmake keyword.cmake
+T 33 source.cmake
+L     string(APPEND NLOHMANN_JSON_PKGCONFIG_CFLAGS " -DJSON_USE_IMPLICIT_CONVERSIONS=0")
+T 10 source.cmake keyword.cmake
+T 49 source.cmake
+T 50 source.cmake string.source.cmake
+T 84 source.cmake string.source.cmake
+T 85 source.cmake string.source.cmake
+T 86 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L if (JSON_DisableEnumSerialization)
+T 2 source.cmake keyword.cmake
+T 34 source.cmake
+L     string(APPEND NLOHMANN_JSON_PKGCONFIG_CFLAGS " -DJSON_DISABLE_ENUM_SERIALIZATION=1")
+T 10 source.cmake keyword.cmake
+T 49 source.cmake
+T 50 source.cmake string.source.cmake
+T 86 source.cmake string.source.cmake
+T 87 source.cmake string.source.cmake
+T 88 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L if (JSON_DisableTupleReferenceConversion)
+T 2 source.cmake keyword.cmake
+T 41 source.cmake
+L     string(APPEND NLOHMANN_JSON_PKGCONFIG_CFLAGS " -DJSON_DISABLE_TUPLE_REFERENCE_CONVERSION=1")
+T 10 source.cmake keyword.cmake
+T 49 source.cmake
+T 50 source.cmake string.source.cmake
+T 94 source.cmake string.source.cmake
+T 95 source.cmake string.source.cmake
+T 96 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L if (JSON_Diagnostics)
+T 2 source.cmake keyword.cmake
+T 21 source.cmake
+L     string(APPEND NLOHMANN_JSON_PKGCONFIG_CFLAGS " -DJSON_DIAGNOSTICS=1")
+T 10 source.cmake keyword.cmake
+T 49 source.cmake
+T 50 source.cmake string.source.cmake
+T 71 source.cmake string.source.cmake
+T 72 source.cmake string.source.cmake
+T 73 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L if (JSON_Diagnostic_Positions)
+T 2 source.cmake keyword.cmake
+T 30 source.cmake
+L     string(APPEND NLOHMANN_JSON_PKGCONFIG_CFLAGS " -DJSON_DIAGNOSTIC_POSITIONS=1")
+T 10 source.cmake keyword.cmake
+T 49 source.cmake
+T 50 source.cmake string.source.cmake
+T 80 source.cmake string.source.cmake
+T 81 source.cmake string.source.cmake
+T 82 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L if (JSON_LegacyDiscardedValueComparison)
+T 2 source.cmake keyword.cmake
+T 40 source.cmake
+L     string(APPEND NLOHMANN_JSON_PKGCONFIG_CFLAGS " -DJSON_USE_LEGACY_DISCARDED_VALUE_COMPARISON=1")
+T 10 source.cmake keyword.cmake
+T 49 source.cmake
+T 50 source.cmake string.source.cmake
+T 97 source.cmake string.source.cmake
+T 98 source.cmake string.source.cmake
+T 99 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L if (JSON_StrictNulHandling)
+T 2 source.cmake keyword.cmake
+T 27 source.cmake
+L     string(APPEND NLOHMANN_JSON_PKGCONFIG_CFLAGS " -DJSON_STRICT_NUL_HANDLING=1")
+T 10 source.cmake keyword.cmake
+T 49 source.cmake
+T 50 source.cmake string.source.cmake
+T 79 source.cmake string.source.cmake
+T 80 source.cmake string.source.cmake
+T 81 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L if (JSON_StrictBinaryUTF8)
+T 2 source.cmake keyword.cmake
+T 26 source.cmake
+L     string(APPEND NLOHMANN_JSON_PKGCONFIG_CFLAGS " -DJSON_STRICT_BINARY_UTF8=1")
+T 10 source.cmake keyword.cmake
+T 49 source.cmake
+T 50 source.cmake string.source.cmake
+T 78 source.cmake string.source.cmake
+T 79 source.cmake string.source.cmake
+T 80 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L if (JSON_DeleteDeprecatedFunctions)
+T 2 source.cmake keyword.cmake
+T 35 source.cmake
+L     string(APPEND NLOHMANN_JSON_PKGCONFIG_CFLAGS " -DJSON_DELETE_DEPRECATED_FUNCTIONS=1")
+T 10 source.cmake keyword.cmake
+T 49 source.cmake
+T 50 source.cmake string.source.cmake
+T 87 source.cmake string.source.cmake
+T 88 source.cmake string.source.cmake
+T 89 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L configure_file(
+T 14 source.cmake keyword.cmake
+T 15 source.cmake
+L     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/pkg-config.pc.in"
+T 4 source.cmake
+T 5 source.cmake string.source.cmake
+T 55 source.cmake string.source.cmake
+T 56 source.cmake string.source.cmake
+L     "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.pc"
+T 4 source.cmake
+T 5 source.cmake string.source.cmake
+T 51 source.cmake string.source.cmake
+T 52 source.cmake string.source.cmake
+L     @ONLY
+T 9 source.cmake
+L )
+T 1 source.cmake
+L 
+L ##
+T 2 source.cmake comment.source.cmake
+L ## TESTS
+T 8 source.cmake comment.source.cmake
+L ## create and configure the unit test target
+T 44 source.cmake comment.source.cmake
+L ##
+T 2 source.cmake comment.source.cmake
+L # Only build tests when JSON_BuildTests is set and testing has not been
+T 71 source.cmake comment.source.cmake
+L # disabled by a parent project via BUILD_TESTING (see the CTest module, which
+T 77 source.cmake comment.source.cmake
+L # also calls enable_testing()).
+T 31 source.cmake comment.source.cmake
+L if (JSON_BuildTests AND (NOT DEFINED BUILD_TESTING OR BUILD_TESTING))
+T 2 source.cmake keyword.cmake
+T 20 source.cmake
+T 23 source.cmake keyword.cmake
+T 25 source.cmake
+T 28 source.cmake keyword.cmake
+T 29 source.cmake
+T 36 source.cmake keyword.cmake
+T 51 source.cmake
+T 53 source.cmake keyword.cmake
+T 69 source.cmake
+L     include(CTest)
+T 11 source.cmake keyword.cmake
+T 18 source.cmake
+L     add_subdirectory(tests)
+T 20 source.cmake keyword.cmake
+T 27 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L ##
+T 2 source.cmake comment.source.cmake
+L ## INSTALL
+T 10 source.cmake comment.source.cmake
+L ## install header files, generate and install cmake config files for find_package()
+T 83 source.cmake comment.source.cmake
+L ##
+T 2 source.cmake comment.source.cmake
+L include(CMakePackageConfigHelpers)
+T 7 source.cmake keyword.cmake
+T 34 source.cmake
+L # use a custom package version config file instead of
+T 53 source.cmake comment.source.cmake
+L # write_basic_package_version_file to ensure that it's architecture-independent
+T 79 source.cmake comment.source.cmake
+L # https://github.com/nlohmann/json/issues/1697
+T 46 source.cmake comment.source.cmake
+L configure_file(
+T 14 source.cmake keyword.cmake
+T 15 source.cmake
+L     "cmake/nlohmann_jsonConfigVersion.cmake.in"
+T 4 source.cmake
+T 5 source.cmake string.source.cmake
+T 46 source.cmake string.source.cmake
+T 47 source.cmake string.source.cmake
+L     ${NLOHMANN_JSON_CMAKE_VERSION_CONFIG_FILE}
+T 4 source.cmake
+T 46 source.cmake storage.source.cmake
+L     @ONLY
+T 9 source.cmake
+L )
+T 1 source.cmake
+L configure_file(
+T 14 source.cmake keyword.cmake
+T 15 source.cmake
+L     ${NLOHMANN_JSON_CMAKE_CONFIG_TEMPLATE}
+T 4 source.cmake
+T 42 source.cmake storage.source.cmake
+L     ${NLOHMANN_JSON_CMAKE_PROJECT_CONFIG_FILE}
+T 4 source.cmake
+T 46 source.cmake storage.source.cmake
+L     @ONLY
+T 9 source.cmake
+L )
+T 1 source.cmake
+L 
+L if(JSON_Install)
+T 2 source.cmake keyword.cmake
+T 16 source.cmake
+L     install(
+T 11 source.cmake keyword.cmake
+T 12 source.cmake
+L         DIRECTORY ${NLOHMANN_JSON_INCLUDE_BUILD_DIR}
+T 18 source.cmake
+T 52 source.cmake storage.source.cmake
+L         DESTINATION ${NLOHMANN_JSON_INCLUDE_INSTALL_DIR}
+T 20 source.cmake
+T 56 source.cmake storage.source.cmake
+L     )
+T 5 source.cmake
+L     install(
+T 11 source.cmake keyword.cmake
+T 12 source.cmake
+L         FILES ${NLOHMANN_JSON_CMAKE_PROJECT_CONFIG_FILE} ${NLOHMANN_JSON_CMAKE_VERSION_CONFIG_FILE}
+T 14 source.cmake
+T 56 source.cmake storage.source.cmake
+T 57 source.cmake
+T 99 source.cmake storage.source.cmake
+L         DESTINATION ${NLOHMANN_JSON_CONFIG_INSTALL_DIR}
+T 20 source.cmake
+T 55 source.cmake storage.source.cmake
+L     )
+T 5 source.cmake
+L     if (NLOHMANN_ADD_NATVIS)
+T 6 source.cmake keyword.cmake
+T 28 source.cmake
+L         install(
+T 15 source.cmake keyword.cmake
+T 16 source.cmake
+L             FILES ${NLOHMANN_NATVIS_FILE}
+T 18 source.cmake
+T 41 source.cmake storage.source.cmake
+L             DESTINATION .
+T 25 source.cmake
+L         )
+T 9 source.cmake
+L     endif()
+T 9 source.cmake keyword.cmake
+T 11 source.cmake
+L     export(
+T 10 source.cmake keyword.cmake
+T 11 source.cmake
+L         TARGETS ${NLOHMANN_JSON_TARGET_NAME}
+T 16 source.cmake
+T 44 source.cmake storage.source.cmake
+L         NAMESPACE ${PROJECT_NAME}::
+T 18 source.cmake
+T 33 source.cmake storage.source.cmake
+T 35 source.cmake
+L         FILE ${NLOHMANN_JSON_CMAKE_PROJECT_TARGETS_FILE}
+T 12 source.cmake keyword.cmake
+T 13 source.cmake
+T 56 source.cmake storage.source.cmake
+L     )
+T 5 source.cmake
+L     install(
+T 11 source.cmake keyword.cmake
+T 12 source.cmake
+L         TARGETS ${NLOHMANN_JSON_TARGET_NAME}
+T 16 source.cmake
+T 44 source.cmake storage.source.cmake
+L         EXPORT ${NLOHMANN_JSON_TARGETS_EXPORT_NAME}
+T 14 source.cmake keyword.cmake
+T 15 source.cmake
+T 51 source.cmake storage.source.cmake
+L         INCLUDES DESTINATION ${NLOHMANN_JSON_INCLUDE_INSTALL_DIR}
+T 29 source.cmake
+T 65 source.cmake storage.source.cmake
+L     )
+T 5 source.cmake
+L     install(
+T 11 source.cmake keyword.cmake
+T 12 source.cmake
+L         EXPORT ${NLOHMANN_JSON_TARGETS_EXPORT_NAME}
+T 14 source.cmake keyword.cmake
+T 15 source.cmake
+T 51 source.cmake storage.source.cmake
+L         NAMESPACE ${PROJECT_NAME}::
+T 18 source.cmake
+T 33 source.cmake storage.source.cmake
+T 35 source.cmake
+L         DESTINATION ${NLOHMANN_JSON_CONFIG_INSTALL_DIR}
+T 20 source.cmake
+T 55 source.cmake storage.source.cmake
+L     )
+T 5 source.cmake
+L     install(
+T 11 source.cmake keyword.cmake
+T 12 source.cmake
+L         FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.pc"
+T 14 source.cmake
+T 15 source.cmake string.source.cmake
+T 61 source.cmake string.source.cmake
+T 62 source.cmake string.source.cmake
+L         DESTINATION ${NLOHMANN_JSON_PKGCONFIG_INSTALL_DIR}
+T 20 source.cmake
+T 58 source.cmake storage.source.cmake
+L     )
+T 5 source.cmake
+L     include(CPack)
+T 11 source.cmake keyword.cmake
+T 18 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 

@@ -1,0 +1,895 @@
+L cmake_minimum_required(VERSION 3.16)
+T 22 source.cmake keyword.cmake
+T 23 source.cmake
+T 30 source.cmake entity.source.cmake
+T 36 source.cmake
+L 
+L # detect if Catch is being bundled,
+T 35 source.cmake comment.source.cmake
+L # disable testsuite in that case
+T 32 source.cmake comment.source.cmake
+L if(NOT DEFINED PROJECT_NAME)
+T 2 source.cmake keyword.cmake
+T 3 source.cmake
+T 6 source.cmake keyword.cmake
+T 7 source.cmake
+T 14 source.cmake keyword.cmake
+T 15 source.cmake
+T 27 source.cmake variable.source.cmake
+T 28 source.cmake
+L   set(NOT_SUBPROJECT ON)
+T 5 source.cmake keyword.cmake
+T 21 source.cmake
+T 23 source.cmake keyword.cmake
+T 24 source.cmake
+L else()
+T 4 source.cmake keyword.cmake
+T 6 source.cmake
+L   set(NOT_SUBPROJECT OFF)
+T 5 source.cmake keyword.cmake
+T 21 source.cmake
+T 24 source.cmake keyword.cmake
+T 25 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+T 12 source.cmake keyword.cmake
+T 29 source.cmake
+T 40 source.cmake entity.source.cmake
+T 41 source.cmake
+T 43 source.cmake keyword.cmake
+T 44 source.cmake
+L 
+L option(CATCH_INSTALL_DOCS "Install documentation alongside library" ON)
+T 6 source.cmake keyword.cmake
+T 26 source.cmake
+T 27 source.cmake string.source.cmake
+T 66 source.cmake string.source.cmake
+T 67 source.cmake string.source.cmake
+T 68 source.cmake
+T 70 source.cmake keyword.cmake
+T 71 source.cmake
+L option(CATCH_INSTALL_EXTRAS "Install extras (CMake scripts, debugger helpers) alongside library" ON)
+T 6 source.cmake keyword.cmake
+T 28 source.cmake
+T 29 source.cmake string.source.cmake
+T 95 source.cmake string.source.cmake
+T 96 source.cmake string.source.cmake
+T 97 source.cmake
+T 99 source.cmake keyword.cmake
+T 100 source.cmake
+L option(CATCH_DEVELOPMENT_BUILD "Build tests, enable warnings, enable Werror, etc" OFF)
+T 6 source.cmake keyword.cmake
+T 31 source.cmake
+T 32 source.cmake string.source.cmake
+T 80 source.cmake string.source.cmake
+T 81 source.cmake string.source.cmake
+T 82 source.cmake
+T 85 source.cmake keyword.cmake
+T 86 source.cmake
+L option(CATCH_ENABLE_REPRODUCIBLE_BUILD "Add compiler flags for improving build reproducibility" ON)
+T 6 source.cmake keyword.cmake
+T 39 source.cmake
+T 40 source.cmake string.source.cmake
+T 94 source.cmake string.source.cmake
+T 95 source.cmake string.source.cmake
+T 96 source.cmake
+T 98 source.cmake keyword.cmake
+T 99 source.cmake
+L 
+L include(CMakeDependentOption)
+T 7 source.cmake keyword.cmake
+T 29 source.cmake
+L cmake_dependent_option(CATCH_BUILD_TESTING "Build the SelfTest project" ON "CATCH_DEVELOPMENT_BUILD" OFF)
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 70 source.cmake string.source.cmake
+T 71 source.cmake string.source.cmake
+T 72 source.cmake
+T 74 source.cmake keyword.cmake
+T 75 source.cmake
+T 76 source.cmake string.source.cmake
+T 99 source.cmake string.source.cmake
+T 100 source.cmake string.source.cmake
+T 101 source.cmake
+T 104 source.cmake keyword.cmake
+T 105 source.cmake
+L cmake_dependent_option(CATCH_BUILD_EXAMPLES "Build code examples" OFF "CATCH_DEVELOPMENT_BUILD" OFF)
+T 44 source.cmake
+T 45 source.cmake string.source.cmake
+T 64 source.cmake string.source.cmake
+T 65 source.cmake string.source.cmake
+T 66 source.cmake
+T 69 source.cmake keyword.cmake
+T 70 source.cmake
+T 71 source.cmake string.source.cmake
+T 94 source.cmake string.source.cmake
+T 95 source.cmake string.source.cmake
+T 96 source.cmake
+T 99 source.cmake keyword.cmake
+T 100 source.cmake
+L cmake_dependent_option(CATCH_BUILD_EXTRA_TESTS "Build extra tests" OFF "CATCH_DEVELOPMENT_BUILD" OFF)
+T 47 source.cmake
+T 48 source.cmake string.source.cmake
+T 65 source.cmake string.source.cmake
+T 66 source.cmake string.source.cmake
+T 67 source.cmake
+T 70 source.cmake keyword.cmake
+T 71 source.cmake
+T 72 source.cmake string.source.cmake
+T 95 source.cmake string.source.cmake
+T 96 source.cmake string.source.cmake
+T 97 source.cmake
+T 100 source.cmake keyword.cmake
+T 101 source.cmake
+L cmake_dependent_option(CATCH_BUILD_FUZZERS "Build fuzzers" OFF "CATCH_DEVELOPMENT_BUILD" OFF)
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 57 source.cmake string.source.cmake
+T 58 source.cmake string.source.cmake
+T 59 source.cmake
+T 62 source.cmake keyword.cmake
+T 63 source.cmake
+T 64 source.cmake string.source.cmake
+T 87 source.cmake string.source.cmake
+T 88 source.cmake string.source.cmake
+T 89 source.cmake
+T 92 source.cmake keyword.cmake
+T 93 source.cmake
+L cmake_dependent_option(CATCH_BUILD_BENCHMARKS "Build the benchmarks" OFF "CATCH_DEVELOPMENT_BUILD" OFF)
+T 46 source.cmake
+T 47 source.cmake string.source.cmake
+T 67 source.cmake string.source.cmake
+T 68 source.cmake string.source.cmake
+T 69 source.cmake
+T 72 source.cmake keyword.cmake
+T 73 source.cmake
+T 74 source.cmake string.source.cmake
+T 97 source.cmake string.source.cmake
+T 98 source.cmake string.source.cmake
+T 99 source.cmake
+T 102 source.cmake keyword.cmake
+T 103 source.cmake
+L cmake_dependent_option(CATCH_ENABLE_COVERAGE "Generate coverage for codecov.io" OFF "CATCH_DEVELOPMENT_BUILD" OFF)
+T 45 source.cmake
+T 46 source.cmake string.source.cmake
+T 78 source.cmake string.source.cmake
+T 79 source.cmake string.source.cmake
+T 80 source.cmake
+T 83 source.cmake keyword.cmake
+T 84 source.cmake
+T 85 source.cmake string.source.cmake
+T 108 source.cmake string.source.cmake
+T 109 source.cmake string.source.cmake
+T 110 source.cmake
+T 113 source.cmake keyword.cmake
+T 114 source.cmake
+L cmake_dependent_option(CATCH_ENABLE_WERROR "Enables Werror during build" ON "CATCH_DEVELOPMENT_BUILD" OFF)
+T 43 source.cmake
+T 44 source.cmake string.source.cmake
+T 71 source.cmake string.source.cmake
+T 72 source.cmake string.source.cmake
+T 73 source.cmake
+T 75 source.cmake keyword.cmake
+T 76 source.cmake
+T 77 source.cmake string.source.cmake
+T 100 source.cmake string.source.cmake
+T 101 source.cmake string.source.cmake
+T 102 source.cmake
+T 105 source.cmake keyword.cmake
+T 106 source.cmake
+L cmake_dependent_option(CATCH_BUILD_SURROGATES "Enable generating and building surrogate TUs for the main headers" OFF "CATCH_DEVELOPMENT_BUILD" OFF)
+T 46 source.cmake
+T 47 source.cmake string.source.cmake
+T 112 source.cmake string.source.cmake
+T 113 source.cmake string.source.cmake
+T 114 source.cmake
+T 117 source.cmake keyword.cmake
+T 118 source.cmake
+T 119 source.cmake string.source.cmake
+T 142 source.cmake string.source.cmake
+T 143 source.cmake string.source.cmake
+T 144 source.cmake
+T 147 source.cmake keyword.cmake
+T 148 source.cmake
+L cmake_dependent_option(CATCH_ENABLE_CONFIGURE_TESTS "Enable CMake configuration tests. WARNING: VERY EXPENSIVE" OFF "CATCH_DEVELOPMENT_BUILD" OFF)
+T 52 source.cmake
+T 53 source.cmake string.source.cmake
+T 110 source.cmake string.source.cmake
+T 111 source.cmake string.source.cmake
+T 112 source.cmake
+T 115 source.cmake keyword.cmake
+T 116 source.cmake
+T 117 source.cmake string.source.cmake
+T 140 source.cmake string.source.cmake
+T 141 source.cmake string.source.cmake
+T 142 source.cmake
+T 145 source.cmake keyword.cmake
+T 146 source.cmake
+L cmake_dependent_option(CATCH_ENABLE_CMAKE_HELPER_TESTS "Enable CMake helper tests. WARNING: VERY EXPENSIVE" OFF "CATCH_DEVELOPMENT_BUILD" OFF)
+T 55 source.cmake
+T 56 source.cmake string.source.cmake
+T 106 source.cmake string.source.cmake
+T 107 source.cmake string.source.cmake
+T 108 source.cmake
+T 111 source.cmake keyword.cmake
+T 112 source.cmake
+T 113 source.cmake string.source.cmake
+T 136 source.cmake string.source.cmake
+T 137 source.cmake string.source.cmake
+T 138 source.cmake
+T 141 source.cmake keyword.cmake
+T 142 source.cmake
+L 
+L # Catch2's build breaks if done in-tree. You probably should not build
+T 70 source.cmake comment.source.cmake
+L # things in tree anyway, but we can allow projects that include Catch2
+T 70 source.cmake comment.source.cmake
+L # as a subproject to build in-tree as long as it is not in our tree.
+T 68 source.cmake comment.source.cmake
+L if(CMAKE_BINARY_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+T 2 source.cmake keyword.cmake
+T 3 source.cmake
+T 19 source.cmake variable.source.cmake
+T 20 source.cmake
+T 28 source.cmake keyword.cmake
+T 29 source.cmake
+T 53 source.cmake variable.source.cmake
+T 54 source.cmake
+L   message(FATAL_ERROR "Building in-source is not supported! Create a build dir and remove ${CMAKE_SOURCE_DIR}/CMakeCache.txt")
+T 9 source.cmake keyword.cmake
+T 22 source.cmake
+T 23 source.cmake string.source.cmake
+T 124 source.cmake string.source.cmake
+T 125 source.cmake string.source.cmake
+T 126 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L project(Catch2
+T 7 source.cmake keyword.cmake
+T 14 source.cmake
+L   VERSION 3.16.1 # CML version placeholder, don't delete
+T 2 source.cmake
+T 9 source.cmake entity.source.cmake
+T 17 source.cmake
+T 56 source.cmake comment.source.cmake
+L   LANGUAGES CXX
+T 15 source.cmake
+L   HOMEPAGE_URL "https://github.com/catchorg/Catch2"
+T 15 source.cmake
+T 16 source.cmake string.source.cmake
+T 50 source.cmake string.source.cmake
+T 51 source.cmake string.source.cmake
+L   DESCRIPTION "A modern, C++-native, unit test framework."
+T 14 source.cmake
+T 15 source.cmake string.source.cmake
+T 57 source.cmake string.source.cmake
+T 58 source.cmake string.source.cmake
+L )
+T 1 source.cmake
+L 
+L # Provide path for scripts. We first add path to the scripts we don't use,
+T 74 source.cmake comment.source.cmake
+L # but projects including us might, and set the path up to parent scope.
+T 71 source.cmake comment.source.cmake
+L # Then we also add path that we use to configure the project, but is of
+T 71 source.cmake comment.source.cmake
+L # no use to top level projects.
+T 31 source.cmake comment.source.cmake
+L list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/extras")
+T 4 source.cmake keyword.cmake
+T 12 source.cmake
+T 29 source.cmake variable.source.cmake
+T 30 source.cmake
+T 31 source.cmake string.source.cmake
+T 63 source.cmake string.source.cmake
+T 64 source.cmake string.source.cmake
+T 65 source.cmake
+L if(NOT NOT_SUBPROJECT)
+T 2 source.cmake keyword.cmake
+T 3 source.cmake
+T 6 source.cmake keyword.cmake
+T 22 source.cmake
+L   set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" PARENT_SCOPE)
+T 5 source.cmake keyword.cmake
+T 6 source.cmake
+T 23 source.cmake variable.source.cmake
+T 24 source.cmake
+T 25 source.cmake string.source.cmake
+T 45 source.cmake string.source.cmake
+T 46 source.cmake string.source.cmake
+T 60 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/CMake")
+T 4 source.cmake keyword.cmake
+T 12 source.cmake
+T 29 source.cmake variable.source.cmake
+T 30 source.cmake
+T 31 source.cmake string.source.cmake
+T 62 source.cmake string.source.cmake
+T 63 source.cmake string.source.cmake
+T 64 source.cmake
+L 
+L include(GNUInstallDirs)
+T 7 source.cmake keyword.cmake
+T 23 source.cmake
+L include(CMakePackageConfigHelpers)
+T 7 source.cmake keyword.cmake
+T 34 source.cmake
+L include(CatchConfigOptions)
+T 7 source.cmake keyword.cmake
+T 27 source.cmake
+L if(CATCH_DEVELOPMENT_BUILD)
+T 2 source.cmake keyword.cmake
+T 27 source.cmake
+L   include(CTest)
+T 9 source.cmake keyword.cmake
+T 16 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L # This variable is used in some subdirectories, so we need it here, rather
+T 74 source.cmake comment.source.cmake
+L # than later in the install block
+T 33 source.cmake comment.source.cmake
+L set(CATCH_CMAKE_CONFIG_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/Catch2")
+T 3 source.cmake keyword.cmake
+T 35 source.cmake
+T 36 source.cmake string.source.cmake
+T 72 source.cmake string.source.cmake
+T 73 source.cmake string.source.cmake
+T 74 source.cmake
+L 
+L # We have some Windows builds that test `wmain` entry point,
+T 60 source.cmake comment.source.cmake
+L # and we need this change to be present in all binaries that
+T 60 source.cmake comment.source.cmake
+L # are built during these tests, so this is required here, before
+T 64 source.cmake comment.source.cmake
+L # the subdirectories are added.
+T 31 source.cmake comment.source.cmake
+L if(CATCH_TEST_USE_WMAIN)
+T 2 source.cmake keyword.cmake
+T 24 source.cmake
+L   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /ENTRY:wmainCRTStartup")
+T 5 source.cmake keyword.cmake
+T 6 source.cmake
+T 28 source.cmake variable.source.cmake
+T 29 source.cmake
+T 30 source.cmake string.source.cmake
+T 78 source.cmake string.source.cmake
+T 79 source.cmake string.source.cmake
+T 80 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L # Basic paths
+T 13 source.cmake comment.source.cmake
+L set(CATCH_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+T 3 source.cmake keyword.cmake
+T 14 source.cmake
+T 41 source.cmake storage.source.cmake
+T 42 source.cmake
+L set(SOURCES_DIR ${CATCH_DIR}/src/catch2)
+T 3 source.cmake keyword.cmake
+T 16 source.cmake
+T 28 source.cmake storage.source.cmake
+T 40 source.cmake
+L set(SELF_TEST_DIR ${CATCH_DIR}/tests/SelfTest)
+T 3 source.cmake keyword.cmake
+T 18 source.cmake
+T 30 source.cmake storage.source.cmake
+T 46 source.cmake
+L 
+L # We need to bring-in the variables defined there to this scope
+T 63 source.cmake comment.source.cmake
+L add_subdirectory(src)
+T 16 source.cmake keyword.cmake
+T 21 source.cmake
+L 
+L if (CATCH_BUILD_BENCHMARKS)
+T 2 source.cmake keyword.cmake
+T 27 source.cmake
+L   set(CMAKE_FOLDER "benchmarks")
+T 5 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 30 source.cmake string.source.cmake
+T 31 source.cmake string.source.cmake
+T 32 source.cmake
+L   add_subdirectory(benchmarks)
+T 18 source.cmake keyword.cmake
+T 30 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L # Build tests only if requested
+T 31 source.cmake comment.source.cmake
+L if(BUILD_TESTING AND CATCH_BUILD_TESTING AND NOT_SUBPROJECT)
+T 2 source.cmake keyword.cmake
+T 17 source.cmake
+T 20 source.cmake keyword.cmake
+T 41 source.cmake
+T 44 source.cmake keyword.cmake
+T 60 source.cmake
+L   find_package(Python3 REQUIRED COMPONENTS Interpreter)
+T 14 source.cmake keyword.cmake
+T 55 source.cmake
+L   if(NOT TARGET Python3::Interpreter)
+T 4 source.cmake keyword.cmake
+T 5 source.cmake
+T 8 source.cmake keyword.cmake
+T 9 source.cmake
+T 15 source.cmake keyword.cmake
+T 37 source.cmake
+L     message(FATAL_ERROR "Python not found, but required for tests")
+T 11 source.cmake keyword.cmake
+T 24 source.cmake
+T 25 source.cmake string.source.cmake
+T 65 source.cmake string.source.cmake
+T 66 source.cmake string.source.cmake
+T 67 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L   set(CMAKE_FOLDER "tests")
+T 5 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 25 source.cmake string.source.cmake
+T 26 source.cmake string.source.cmake
+T 27 source.cmake
+L   add_subdirectory(tests)
+T 18 source.cmake keyword.cmake
+T 25 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if(CATCH_BUILD_EXAMPLES)
+T 2 source.cmake keyword.cmake
+T 24 source.cmake
+L   set(CMAKE_FOLDER "Examples")
+T 5 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 28 source.cmake string.source.cmake
+T 29 source.cmake string.source.cmake
+T 30 source.cmake
+L   add_subdirectory(examples)
+T 18 source.cmake keyword.cmake
+T 28 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if(CATCH_BUILD_EXTRA_TESTS)
+T 2 source.cmake keyword.cmake
+T 27 source.cmake
+L   set(CMAKE_FOLDER "tests/ExtraTests")
+T 5 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 36 source.cmake string.source.cmake
+T 37 source.cmake string.source.cmake
+T 38 source.cmake
+L   add_subdirectory(tests/ExtraTests)
+T 18 source.cmake keyword.cmake
+T 36 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if(CATCH_BUILD_FUZZERS)
+T 2 source.cmake keyword.cmake
+T 23 source.cmake
+L   set(CMAKE_FOLDER "fuzzing")
+T 5 source.cmake keyword.cmake
+T 19 source.cmake
+T 20 source.cmake string.source.cmake
+T 27 source.cmake string.source.cmake
+T 28 source.cmake string.source.cmake
+T 29 source.cmake
+L   add_subdirectory(fuzzing)
+T 18 source.cmake keyword.cmake
+T 27 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L if(CATCH_DEVELOPMENT_BUILD)
+T 2 source.cmake keyword.cmake
+T 27 source.cmake
+L   set(CATCH_ALL_TARGETS ${CATCH_IMPL_TARGETS} ${CATCH_TEST_TARGETS})
+T 5 source.cmake keyword.cmake
+T 24 source.cmake
+T 45 source.cmake storage.source.cmake
+T 46 source.cmake
+T 67 source.cmake storage.source.cmake
+T 68 source.cmake
+L   add_warnings_to_targets("${CATCH_ALL_TARGETS}")
+T 26 source.cmake
+T 27 source.cmake string.source.cmake
+T 47 source.cmake string.source.cmake
+T 48 source.cmake string.source.cmake
+T 49 source.cmake
+L   # After we added the noreturn hint to FAIL and SKIP, Clang became
+T 2 source.cmake
+T 67 source.cmake comment.source.cmake
+L   # extremely good at diagnosing tests that test these macros as being
+T 2 source.cmake
+T 70 source.cmake comment.source.cmake
+L   # noreturn, but not marked as such. This made the warning useless for
+T 2 source.cmake
+T 71 source.cmake comment.source.cmake
+L   # our test files.
+T 2 source.cmake
+T 19 source.cmake comment.source.cmake
+L   add_cxx_flag_if_supported_to_targets("-Wno-missing-noreturn" "${CATCH_TEST_TARGETS}")
+T 39 source.cmake
+T 40 source.cmake string.source.cmake
+T 61 source.cmake string.source.cmake
+T 62 source.cmake string.source.cmake
+T 63 source.cmake
+T 64 source.cmake string.source.cmake
+T 85 source.cmake string.source.cmake
+T 86 source.cmake string.source.cmake
+T 87 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 
+L # Only perform the installation steps when Catch is not being used as
+T 69 source.cmake comment.source.cmake
+L # a subproject via `add_subdirectory`, or the destinations will break,
+T 70 source.cmake comment.source.cmake
+L # see https://github.com/catchorg/Catch2/issues/1373
+T 52 source.cmake comment.source.cmake
+L if(NOT_SUBPROJECT)
+T 2 source.cmake keyword.cmake
+T 18 source.cmake
+L   configure_package_config_file(
+T 32 source.cmake
+L     ${CMAKE_CURRENT_LIST_DIR}/CMake/Catch2Config.cmake.in
+T 4 source.cmake
+T 29 source.cmake storage.source.cmake
+T 57 source.cmake
+L     ${CMAKE_CURRENT_BINARY_DIR}/Catch2Config.cmake
+T 4 source.cmake
+T 31 source.cmake storage.source.cmake
+T 50 source.cmake
+L     INSTALL_DESTINATION
+T 23 source.cmake
+L       ${CATCH_CMAKE_CONFIG_DESTINATION}
+T 6 source.cmake
+T 39 source.cmake storage.source.cmake
+L   )
+T 3 source.cmake
+L 
+L   write_basic_package_version_file(
+T 35 source.cmake
+L     "${CMAKE_CURRENT_BINARY_DIR}/Catch2ConfigVersion.cmake"
+T 4 source.cmake
+T 5 source.cmake string.source.cmake
+T 58 source.cmake string.source.cmake
+T 59 source.cmake string.source.cmake
+L     COMPATIBILITY
+T 17 source.cmake
+L       SameMajorVersion
+T 22 source.cmake
+L   )
+T 3 source.cmake
+L 
+L   install(
+T 9 source.cmake keyword.cmake
+T 10 source.cmake
+L     FILES
+T 9 source.cmake
+L       "${CMAKE_CURRENT_BINARY_DIR}/Catch2Config.cmake"
+T 6 source.cmake
+T 7 source.cmake string.source.cmake
+T 53 source.cmake string.source.cmake
+T 54 source.cmake string.source.cmake
+L       "${CMAKE_CURRENT_BINARY_DIR}/Catch2ConfigVersion.cmake"
+T 6 source.cmake
+T 7 source.cmake string.source.cmake
+T 60 source.cmake string.source.cmake
+T 61 source.cmake string.source.cmake
+L     DESTINATION
+T 15 source.cmake
+L       ${CATCH_CMAKE_CONFIG_DESTINATION}
+T 6 source.cmake
+T 39 source.cmake storage.source.cmake
+L   )
+T 3 source.cmake
+L 
+L   # Install documentation
+T 2 source.cmake
+T 25 source.cmake comment.source.cmake
+L   if(CATCH_INSTALL_DOCS)
+T 4 source.cmake keyword.cmake
+T 24 source.cmake
+L     install(
+T 11 source.cmake keyword.cmake
+T 12 source.cmake
+L       DIRECTORY
+T 15 source.cmake
+L         docs/
+T 13 source.cmake
+L       DESTINATION
+T 17 source.cmake
+L         "${CMAKE_INSTALL_DOCDIR}"
+T 8 source.cmake
+T 9 source.cmake string.source.cmake
+T 32 source.cmake string.source.cmake
+T 33 source.cmake string.source.cmake
+L       PATTERN "doxygen" EXCLUDE
+T 14 source.cmake
+T 15 source.cmake string.source.cmake
+T 22 source.cmake string.source.cmake
+T 23 source.cmake string.source.cmake
+T 31 source.cmake
+L     )
+T 5 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L 
+L   if(CATCH_INSTALL_EXTRAS)
+T 4 source.cmake keyword.cmake
+T 26 source.cmake
+L     # Install CMake scripts
+T 4 source.cmake
+T 27 source.cmake comment.source.cmake
+L     install(
+T 11 source.cmake keyword.cmake
+T 12 source.cmake
+L       FILES
+T 11 source.cmake
+L         "extras/ParseAndAddCatchTests.cmake"
+T 8 source.cmake
+T 9 source.cmake string.source.cmake
+T 43 source.cmake string.source.cmake
+T 44 source.cmake string.source.cmake
+L         "extras/Catch.cmake"
+T 8 source.cmake
+T 9 source.cmake string.source.cmake
+T 27 source.cmake string.source.cmake
+T 28 source.cmake string.source.cmake
+L         "extras/CatchAddTests.cmake"
+T 8 source.cmake
+T 9 source.cmake string.source.cmake
+T 35 source.cmake string.source.cmake
+T 36 source.cmake string.source.cmake
+L         "extras/CatchShardTests.cmake"
+T 8 source.cmake
+T 9 source.cmake string.source.cmake
+T 37 source.cmake string.source.cmake
+T 38 source.cmake string.source.cmake
+L         "extras/CatchShardTestsImpl.cmake"
+T 8 source.cmake
+T 9 source.cmake string.source.cmake
+T 41 source.cmake string.source.cmake
+T 42 source.cmake string.source.cmake
+L       DESTINATION
+T 17 source.cmake
+L         ${CATCH_CMAKE_CONFIG_DESTINATION}
+T 8 source.cmake
+T 41 source.cmake storage.source.cmake
+L     )
+T 5 source.cmake
+L 
+L     # Install debugger helpers
+T 4 source.cmake
+T 30 source.cmake comment.source.cmake
+L     install(
+T 11 source.cmake keyword.cmake
+T 12 source.cmake
+L       FILES
+T 11 source.cmake
+L         "extras/gdbinit"
+T 8 source.cmake
+T 9 source.cmake string.source.cmake
+T 23 source.cmake string.source.cmake
+T 24 source.cmake string.source.cmake
+L         "extras/lldbinit"
+T 8 source.cmake
+T 9 source.cmake string.source.cmake
+T 24 source.cmake string.source.cmake
+T 25 source.cmake string.source.cmake
+L       DESTINATION
+T 17 source.cmake
+L         ${CMAKE_INSTALL_DATAROOTDIR}/Catch2
+T 8 source.cmake
+T 36 source.cmake storage.source.cmake
+T 43 source.cmake
+L     )
+T 5 source.cmake
+L   endif()
+T 7 source.cmake keyword.cmake
+T 9 source.cmake
+L 
+L   ## Provide some pkg-config integration
+T 2 source.cmake
+T 40 source.cmake comment.source.cmake
+L   set(PKGCONFIG_INSTALL_DIR
+T 5 source.cmake keyword.cmake
+T 27 source.cmake
+L     "${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig"
+T 4 source.cmake
+T 5 source.cmake string.source.cmake
+T 43 source.cmake string.source.cmake
+T 44 source.cmake string.source.cmake
+L     CACHE PATH "Path where catch2.pc is installed"
+T 4 source.cmake
+T 9 source.cmake keyword.cmake
+T 10 source.cmake
+T 14 source.cmake keyword.cmake
+T 15 source.cmake
+T 16 source.cmake string.source.cmake
+T 49 source.cmake string.source.cmake
+T 50 source.cmake string.source.cmake
+L   )
+T 3 source.cmake
+L 
+L   # Generate the pkg-config files
+T 2 source.cmake
+T 33 source.cmake comment.source.cmake
+L   # To understand the script below, you have to understand that it works in two steps.
+T 2 source.cmake
+T 86 source.cmake comment.source.cmake
+L   # 1) A CMake script is generated at configuration time
+T 2 source.cmake
+T 56 source.cmake comment.source.cmake
+L   # 2) It is executed at install time.
+T 2 source.cmake
+T 38 source.cmake comment.source.cmake
+L   # And both of these have access to different parts of the information we need.
+T 2 source.cmake
+T 80 source.cmake comment.source.cmake
+L   #
+T 2 source.cmake
+T 3 source.cmake comment.source.cmake
+L   # Further, the variables before "[[" are expanded at configuration time,
+T 2 source.cmake
+T 74 source.cmake comment.source.cmake
+L   # while the ones inside the [[]] block are expanded at script execution (install) time.
+T 2 source.cmake
+T 89 source.cmake comment.source.cmake
+L   string(
+T 8 source.cmake keyword.cmake
+T 9 source.cmake
+L     JOIN "\n"
+T 9 source.cmake
+T 10 source.cmake string.source.cmake
+T 12 source.cmake string.source.cmake constant.character.escape
+T 13 source.cmake string.source.cmake
+L       install_script
+T 20 source.cmake
+L        "set(install_pkgconfdir \"${PKGCONFIG_INSTALL_DIR}\")"
+T 7 source.cmake
+T 8 source.cmake string.source.cmake
+T 31 source.cmake string.source.cmake
+T 33 source.cmake string.source.cmake constant.character.escape
+T 57 source.cmake string.source.cmake
+T 59 source.cmake string.source.cmake constant.character.escape
+T 60 source.cmake string.source.cmake
+T 61 source.cmake string.source.cmake
+L        "set(impl_pc_file \"${CMAKE_CURRENT_SOURCE_DIR}/CMake/catch2.pc.in\")"
+T 7 source.cmake
+T 8 source.cmake string.source.cmake
+T 25 source.cmake string.source.cmake
+T 27 source.cmake string.source.cmake constant.character.escape
+T 73 source.cmake string.source.cmake
+T 75 source.cmake string.source.cmake constant.character.escape
+T 76 source.cmake string.source.cmake
+T 77 source.cmake string.source.cmake
+L        "set(main_pc_file \"${CMAKE_CURRENT_SOURCE_DIR}/CMake/catch2-with-main.pc.in\")"
+T 7 source.cmake
+T 8 source.cmake string.source.cmake
+T 25 source.cmake string.source.cmake
+T 27 source.cmake string.source.cmake constant.character.escape
+T 83 source.cmake string.source.cmake
+T 85 source.cmake string.source.cmake constant.character.escape
+T 86 source.cmake string.source.cmake
+T 87 source.cmake string.source.cmake
+L        "set(Catch2_VERSION ${Catch2_VERSION})"
+T 7 source.cmake
+T 8 source.cmake string.source.cmake
+T 45 source.cmake string.source.cmake
+T 46 source.cmake string.source.cmake
+L        "set(include_dir \"${CMAKE_INSTALL_INCLUDEDIR}\")"
+T 7 source.cmake
+T 8 source.cmake string.source.cmake
+T 24 source.cmake string.source.cmake
+T 26 source.cmake string.source.cmake constant.character.escape
+T 53 source.cmake string.source.cmake
+T 55 source.cmake string.source.cmake constant.character.escape
+T 56 source.cmake string.source.cmake
+T 57 source.cmake string.source.cmake
+L        "set(lib_dir \"${CMAKE_INSTALL_LIBDIR}\")"
+T 7 source.cmake
+T 8 source.cmake string.source.cmake
+T 20 source.cmake string.source.cmake
+T 22 source.cmake string.source.cmake constant.character.escape
+T 45 source.cmake string.source.cmake
+T 47 source.cmake string.source.cmake constant.character.escape
+T 48 source.cmake string.source.cmake
+T 49 source.cmake string.source.cmake
+L        [[
+T 7 source.cmake
+T 9 source.cmake argument.source.cmake
+L          message(STATUS "DESTDIR: $ENV{DESTDIR}")
+T 49 source.cmake argument.source.cmake
+L          set(DESTDIR_PREFIX "")
+T 31 source.cmake argument.source.cmake
+L          if (DEFINED ENV{DESTDIR})
+T 34 source.cmake argument.source.cmake
+L            set(DESTDIR_PREFIX "$ENV{DESTDIR}")
+T 46 source.cmake argument.source.cmake
+L          endif ()
+T 17 source.cmake argument.source.cmake
+L          message(STATUS "PREFIX: ${DESTDIR_PREFIX}")
+T 52 source.cmake argument.source.cmake
+L          set(lib_name "$<TARGET_FILE_BASE_NAME:Catch2>")
+T 56 source.cmake argument.source.cmake
+L          configure_file(
+T 24 source.cmake argument.source.cmake
+L            "${impl_pc_file}"
+T 28 source.cmake argument.source.cmake
+L            "${DESTDIR_PREFIX}${CMAKE_INSTALL_PREFIX}/${install_pkgconfdir}/catch2.pc"
+T 85 source.cmake argument.source.cmake
+L            @ONLY
+T 16 source.cmake argument.source.cmake
+L          )
+T 10 source.cmake argument.source.cmake
+L 
+L          set(lib_name "$<TARGET_FILE_BASE_NAME:Catch2WithMain>")
+T 64 source.cmake argument.source.cmake
+L          configure_file(
+T 24 source.cmake argument.source.cmake
+L            "${main_pc_file}"
+T 28 source.cmake argument.source.cmake
+L            "${DESTDIR_PREFIX}${CMAKE_INSTALL_PREFIX}/${install_pkgconfdir}/catch2-with-main.pc"
+T 95 source.cmake argument.source.cmake
+L            @ONLY
+T 16 source.cmake argument.source.cmake
+L          )
+T 10 source.cmake argument.source.cmake
+L        ]]
+T 7 source.cmake argument.source.cmake
+T 9 source.cmake argument.source.cmake
+L   )
+T 3 source.cmake
+L   install(CODE "${install_script}")
+T 9 source.cmake keyword.cmake
+T 15 source.cmake
+T 16 source.cmake string.source.cmake
+T 33 source.cmake string.source.cmake
+T 34 source.cmake string.source.cmake
+T 35 source.cmake
+L 
+L   set(CPACK_PACKAGE_CONTACT "https://github.com/catchorg/Catch2/")
+T 5 source.cmake keyword.cmake
+T 28 source.cmake
+T 29 source.cmake string.source.cmake
+T 64 source.cmake string.source.cmake
+T 65 source.cmake string.source.cmake
+T 66 source.cmake
+L 
+L   include(CPack)
+T 9 source.cmake keyword.cmake
+T 16 source.cmake
+L endif()
+T 5 source.cmake keyword.cmake
+T 7 source.cmake
+L 

@@ -20,6 +20,12 @@ type Allowed = {
 };
 
 export const allowed: Record<string, Allowed> = {
+  cmake: {
+    bundled: "twxs/vs.language.cmake@19b1b8fe2d68d72cf294d0c3c22f0a3fc54f8f6f",
+    origin: "twxs/vs.language.cmake",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   javascript: {
     bundled: "microsoft/vscode@210541906e5a96ab39f9c753f921b1bd35f4138b",
     origin: "microsoft/TypeScript-TmLanguage",

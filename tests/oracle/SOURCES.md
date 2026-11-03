@@ -232,6 +232,10 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `lua/luals-string` | [`meta/template/string.lua`][luals-string] in LuaLS/lua-language-server | [MIT][luals-licence] |
 | `lua/luals-table` | [`meta/template/table.lua`][luals-table] in LuaLS/lua-language-server | [MIT][luals-licence] |
 | `lua/lua-literals` | [`testes/literals.lua`][lua-literals] in lua/lua | [MIT][lua-licence] |
+| `cmake/sample` | [`samples/cmake.sample`][cmake-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `cmake/json-lists` | [`CMakeLists.txt`][json-cmake-lists] in nlohmann/json | [MIT][nlohmann-json-licence] |
+| `cmake/googletest-utils` | [`googletest/cmake/internal_utils.cmake`][googletest-utils] in google/googletest | [BSD-3-Clause][googletest-licence] |
+| `cmake/catch2-lists` | [`CMakeLists.txt`][catch2-cmake-lists] in catchorg/Catch2 | [BSL-1.0][catch2-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -398,6 +402,9 @@ Scala runs on nishiki's TextMate engine as well.
 Zig runs on nishiki's TextMate engine as well.
 `zig/sample` and `zig/std-allocator` are its development inputs, and `zig/std-fmt`, `zig/zls-offsets` and `zig/zls-build` are held out.
 Shiki's Markdown grammar has no Zig fence, so no Markdown input embeds Zig.
+CMake runs on nishiki's TextMate engine as well.
+`cmake/sample` and `cmake/json-lists` are its development inputs, and `cmake/googletest-utils` and `cmake/catch2-lists` are held out.
+Shiki's Markdown grammar has no CMake fence, so no Markdown input embeds CMake.
 
 `html/sample`, `html/h5bp-index`, `html/todomvc-backbone`, `html/three-animation-keyframes`, `html/mathjax-mml-chtml`, `html/three-css3d-periodictable` and `html/jquery-qunit-fixture` are the development inputs for HTML.
 `html/todomvc-polymer`, `html/h5bp-404`, `html/todomvc-lit`, `html/three-geometry-colors`, `html/mathjax-tex-mml`, `html/three-loader-gltf`, `html/bootstrap3-visual-modal`, `html/jquery-delegatetest`, `html/todomvc-knockoutjs` and `html/todomvc-jquery` are held out.
@@ -871,3 +878,9 @@ Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railtie
 [luals-string]: https://github.com/LuaLS/lua-language-server/blob/a58fc7b01e1746c46275c71b0e61bfed40a6296d/meta/template/string.lua
 [luals-table]: https://github.com/LuaLS/lua-language-server/blob/a58fc7b01e1746c46275c71b0e61bfed40a6296d/meta/template/table.lua
 [luals-licence]: https://github.com/LuaLS/lua-language-server/blob/a58fc7b01e1746c46275c71b0e61bfed40a6296d/LICENSE
+[cmake-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/cmake.sample
+[json-cmake-lists]: https://github.com/nlohmann/json/blob/e32051125faf95dc64d49a129959b6742b9ffee9/CMakeLists.txt
+[nlohmann-json-licence]: https://github.com/nlohmann/json/blob/e32051125faf95dc64d49a129959b6742b9ffee9/LICENSE.MIT
+[googletest-utils]: https://github.com/google/googletest/blob/a8380b01a25ebdb130097b607b3afed2a58d04ba/googletest/cmake/internal_utils.cmake
+[googletest-licence]: https://github.com/google/googletest/blob/a8380b01a25ebdb130097b607b3afed2a58d04ba/LICENSE
+[catch2-cmake-lists]: https://github.com/catchorg/Catch2/blob/a1a991fee5f217b40035cb2f8ebc83864d66408d/CMakeLists.txt
