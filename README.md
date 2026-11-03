@@ -265,8 +265,6 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 - `01` is the number `0` and then an invalid `1`.
 - A table header is read only at the start of a line.
 - A key that begins with a `"` ends at the first later `"` that an `=` follows.
-- The grammar has no licence,
-  so the lexer is written from the TOML specification and from Shiki's output alone.
 - `\s` for non-ASCII characters is JSON's table.
   A pass over every character confirmed it for this grammar too.
 

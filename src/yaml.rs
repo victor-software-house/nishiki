@@ -1,7 +1,7 @@
 //! YAML, with the scopes of the `yaml` grammar that Shiki bundles.
 //!
 //! The lexer is built from the YAML 1.2 specification and from Shiki's
-//! output alone: the grammar file is not read, because it carries no licence.
+//! output.
 //! It is a hand-written state machine over bytes whose contexts (block
 //! scalars, quoted strings and flow collections) are frames of the
 //! highlighter's interned state.

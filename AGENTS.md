@@ -31,7 +31,8 @@ The decisions that created nishiki live in a private planning repository:
    - A third-party grammar is bundled or followed only after its licence is found at its source and permits it.
    - Every grammar is read as the reference for its language, whatever its licence (operator, 2026-11-03).
      A language whose grammar has no licence found at its source, such as GLSL's, gets a hand-written lexer, and that grammar is never bundled.
-   - A licence can sit in a README rather than a `LICENSE` file, as the TextMate bundle licence does in YAML's and TOML's bundles, so read both before calling a grammar unlicensed.
+   - A licence can sit outside a `LICENSE` file: TOML's bundle carries the TextMate bundle licence in its README, and YAML's grammar carries its own MIT licence in a file beside it.
+     Read the README and the files beside the grammar before calling one unlicensed.
    - A grammar's licence text goes in `THIRD-PARTY-NOTICES.md`, which the crate ships, and nowhere else.
    - The README gets a section for open-source sources only once there are several of them.
 3. **Shiki is the fidelity target.**

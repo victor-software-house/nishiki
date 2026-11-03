@@ -1,9 +1,8 @@
 //! TOML, with the scopes of the `toml` grammar that Shiki bundles.
 //!
-//! The grammar has no licence, so this lexer reads neither it nor any file
-//! derived from it. It is written from the TOML 1.0 specification and from
-//! Shiki's output on probe lines and on the oracle's inputs, which fix what
-//! the grammar does where the specification is silent.
+//! It is written from the TOML 1.0 specification and from Shiki's output on
+//! probe lines and on the oracle's inputs, which fix what the grammar does
+//! where the specification is silent.
 //!
 //! It is a hand-written state machine over bytes whose contexts (arrays,
 //! inline tables and strings) are frames of the highlighter's interned state.
