@@ -179,7 +179,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `yaml/prometheus-config` | [`documentation/examples/prometheus.yml`][prometheus-config] in prometheus/prometheus | [Apache-2.0][prometheus-licence] |
 | `yaml/ripgrep-ci` | [`.github/workflows/ci.yml`][ripgrep-ci] in BurntSushi/ripgrep | [Unlicense or MIT][ripgrep-licence] |
 | `yaml/sample` | [`samples/yaml.sample`][yaml-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-`ruby/sample`, `ruby/rack-request`, `ruby/rubocop-cop-base`, `ruby/rails-callbacks`, `ruby/rails-inflector` and `ruby/heredocs` are the development inputs for Ruby, and `markdown/rack-readme` is the development input for Ruby fences.
+`ruby/sample`, `ruby/rack-request`, `ruby/rubocop-cop-base`, `ruby/rails-callbacks`, `ruby/rails-inflector`, `ruby/heredocs` and `ruby/js-heredocs` are the development inputs for Ruby, and `markdown/rack-readme` is the development input for Ruby fences.
 `ruby/jekyll-site`, `ruby/devise`, `ruby/puma-server`, `ruby/rspec-example`, `ruby/thor`, `ruby/rake-task` and `markdown/devise-readme` are held out.
 | `kotlin/okhttp-request` | [`Request.kt`][okhttp-request] in square/okhttp | [Apache-2.0][okhttp-licence] |
 | `kotlin/moshi-util` | [`Util.kt`][moshi-util] in square/moshi | [Apache-2.0][moshi-licence] |
@@ -211,6 +211,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `ruby/thor` | [`lib/thor.rb`][thor] in rails/thor | [MIT][thor-licence] |
 | `ruby/rake-task` | [`lib/rake/task.rb`][rake-task] in ruby/rake | [MIT][rake-licence] |
 | `ruby/heredocs` | `oracle/inputs/ruby-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `ruby/js-heredocs` | `oracle/inputs/ruby-js-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `markdown/rack-readme` | [`README.md`][rack-readme] in rack/rack | [MIT][rack-licence] |
 | `markdown/devise-readme` | [`README.md`][devise-readme] in heartcombo/devise | [MIT][devise-licence] |
 | `swift/sample` | [`samples/swift.sample`][swift-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |

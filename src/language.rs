@@ -203,6 +203,7 @@ languages! {
         names: ["javascript", "js", "cjs", "mjs"],
         module: typescript,
         dialect: crate::typescript::Dialect::JavaScript,
+        halts: true,
     }
     /// `JSX`, with the scopes of Shiki's `jsx` grammar.
     Jsx {

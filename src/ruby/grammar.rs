@@ -4372,7 +4372,6 @@ impl Rule {
             | Rule::RootAt95At0
             | Rule::RootAt96
             | Rule::RootAt97
-            | Rule::RootAt97At0
             | Rule::RootAt98
             | Rule::RootAt98At0
             | Rule::RootAt99
@@ -4417,6 +4416,8 @@ impl Rule {
             Rule::RootAt96At0 => {
                 embedded!(C, "lang-c").map_or(rules::Payload::None, rules::Payload::Embed)
             }
+            Rule::RootAt97At0 => embedded!(JavaScript, "lang-javascript")
+                .map_or(rules::Payload::None, rules::Payload::Embed),
             Rule::RootAt99At0 => {
                 embedded!(Shell, "lang-shell").map_or(rules::Payload::None, rules::Payload::Embed)
             }

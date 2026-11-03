@@ -796,6 +796,11 @@ export const inputs: Input[] = [
     url: new URL("inputs/ruby-heredocs.rb", import.meta.url).href,
   },
   { lang: "ruby", name: "jekyll-site", url: `${jekyll}/lib/jekyll/site.rb` },
+  {
+    lang: "ruby",
+    name: "js-heredocs",
+    url: new URL("inputs/ruby-js-heredocs.rb", import.meta.url).href,
+  },
   { lang: "ruby", name: "puma-server", url: `${puma}/lib/puma/server.rb` },
   { lang: "ruby", name: "rack-request", url: `${rack}/lib/rack/request.rb` },
   { lang: "ruby", name: "rails-callbacks", url: `${rails}/activesupport/lib/active_support/callbacks.rb` },

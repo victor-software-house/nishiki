@@ -1,0 +1,255 @@
+L # Here documents named for JavaScript, which nishiki lexes as JavaScript,
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 73 source.ruby comment.line.number-sign.ruby
+L # with interpolation and escapes where the JavaScript has nothing open.
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 71 source.ruby comment.line.number-sign.ruby
+L script = <<~JS
+T 6 source.ruby variable.ruby
+T 7 source.ruby
+T 8 source.ruby keyword.operator.assignment.ruby
+T 9 source.ruby
+T 14 source.ruby meta.embedded.block.js string.definition.begin.ruby
+L   const user = { id: #{user.id}, name: "#{name}" };
+T 2 source.ruby meta.embedded.block.js source.js
+T 7 source.ruby meta.embedded.block.js source.js meta.var.expr.js storage.type.js
+T 8 source.ruby meta.embedded.block.js source.js meta.var.expr.js
+T 12 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 13 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 14 source.ruby meta.embedded.block.js source.js meta.var.expr.js keyword.operator.assignment.js
+T 15 source.ruby meta.embedded.block.js source.js meta.var.expr.js
+T 16 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+T 17 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js
+T 19 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 20 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 22 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 23 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 28 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 30 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 31 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 32 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js punctuation.separator.comma.js
+T 33 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js
+T 37 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 38 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 39 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 40 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js string.quoted.double.js punctuation.definition.string.begin.js
+T 47 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js string.quoted.double.js
+T 48 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js string.quoted.double.js punctuation.definition.string.end.js
+T 49 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 50 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+T 51 source.ruby meta.embedded.block.js source.js punctuation.terminator.statement.js
+L   document.querySelector(`#${id}`).addEventListener("click", () => {
+T 2 source.ruby meta.embedded.block.js source.js
+T 10 source.ruby meta.embedded.block.js source.js meta.function-call.js variable.other.object.js
+T 11 source.ruby meta.embedded.block.js source.js meta.function-call.js punctuation.accessor.js
+T 24 source.ruby meta.embedded.block.js source.js meta.function-call.js entity.name.function.js
+T 25 source.ruby meta.embedded.block.js source.js meta.brace.round.js
+T 26 source.ruby meta.embedded.block.js source.js string.template.js punctuation.definition.string.template.begin.js
+T 27 source.ruby meta.embedded.block.js source.js string.template.js
+T 29 source.ruby meta.embedded.block.js source.js string.template.js meta.template.expression.js punctuation.definition.template-expression.begin.js
+T 31 source.ruby meta.embedded.block.js source.js string.template.js meta.template.expression.js meta.embedded.line.js variable.other.readwrite.js
+T 32 source.ruby meta.embedded.block.js source.js string.template.js meta.template.expression.js punctuation.definition.template-expression.end.js
+T 33 source.ruby meta.embedded.block.js source.js string.template.js punctuation.definition.string.template.end.js
+T 34 source.ruby meta.embedded.block.js source.js meta.brace.round.js
+T 35 source.ruby meta.embedded.block.js source.js meta.function-call.js punctuation.accessor.js
+T 51 source.ruby meta.embedded.block.js source.js meta.function-call.js entity.name.function.js
+T 52 source.ruby meta.embedded.block.js source.js meta.brace.round.js
+T 53 source.ruby meta.embedded.block.js source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 58 source.ruby meta.embedded.block.js source.js string.quoted.double.js
+T 59 source.ruby meta.embedded.block.js source.js string.quoted.double.js punctuation.definition.string.end.js
+T 60 source.ruby meta.embedded.block.js source.js punctuation.separator.comma.js
+T 61 source.ruby meta.embedded.block.js source.js meta.arrow.js
+T 62 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 63 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 64 source.ruby meta.embedded.block.js source.js meta.arrow.js
+T 66 source.ruby meta.embedded.block.js source.js meta.arrow.js storage.type.function.arrow.js
+T 67 source.ruby meta.embedded.block.js source.js meta.arrow.js
+T 68 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L     console.log('clicked', /#{pattern}/g.test(user.name)); // #{note}
+T 4 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js
+T 11 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 12 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 15 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 17 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 24 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js string.quoted.single.js
+T 25 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 26 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 27 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js string.regexp.js
+T 28 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js string.regexp.js punctuation.definition.string.begin.js
+T 38 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js string.regexp.js
+T 39 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js string.regexp.js punctuation.definition.string.end.js
+T 40 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js string.regexp.js keyword.other.js
+T 41 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 45 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 46 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 50 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js variable.other.object.js
+T 51 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 55 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js variable.other.property.js
+T 56 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 57 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 58 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+T 59 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js
+T 61 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js comment.line.double-slash.js punctuation.definition.comment.js
+T 69 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js comment.line.double-slash.js
+L   });
+T 2 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js
+T 3 source.ruby meta.embedded.block.js source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 4 source.ruby meta.embedded.block.js source.js meta.brace.round.js
+T 5 source.ruby meta.embedded.block.js source.js punctuation.terminator.statement.js
+L   /* a comment
+T 2 source.ruby meta.embedded.block.js source.js
+T 4 source.ruby meta.embedded.block.js source.js comment.block.js punctuation.definition.comment.js
+T 14 source.ruby meta.embedded.block.js source.js comment.block.js
+L      across lines #{x} */
+T 23 source.ruby meta.embedded.block.js source.js comment.block.js
+T 25 source.ruby meta.embedded.block.js source.js comment.block.js punctuation.definition.comment.js
+L   const html = `
+T 2 source.ruby meta.embedded.block.js source.js
+T 7 source.ruby meta.embedded.block.js source.js meta.var.expr.js storage.type.js
+T 8 source.ruby meta.embedded.block.js source.js meta.var.expr.js
+T 12 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 13 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 14 source.ruby meta.embedded.block.js source.js meta.var.expr.js keyword.operator.assignment.js
+T 15 source.ruby meta.embedded.block.js source.js meta.var.expr.js
+T 16 source.ruby meta.embedded.block.js source.js meta.var.expr.js string.template.js punctuation.definition.string.template.begin.js
+L     <p>#{body}</p>
+T 18 source.ruby meta.embedded.block.js source.js meta.var.expr.js string.template.js
+L   `;
+T 2 source.ruby meta.embedded.block.js source.js meta.var.expr.js string.template.js
+T 3 source.ruby meta.embedded.block.js source.js meta.var.expr.js string.template.js punctuation.definition.string.template.end.js
+T 4 source.ruby meta.embedded.block.js source.js punctuation.terminator.statement.js
+L   #{statements} \n #@ivar
+T 2 source.ruby meta.embedded.block.js source.js
+T 4 source.ruby meta.embedded.block.js source.js meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 14 source.ruby meta.embedded.block.js source.js meta.embedded.line.ruby source.ruby
+T 15 source.ruby meta.embedded.block.js source.js meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 16 source.ruby meta.embedded.block.js source.js
+T 18 source.ruby meta.embedded.block.js source.js constant.character.escape.ruby
+T 19 source.ruby meta.embedded.block.js source.js
+T 21 source.ruby meta.embedded.block.js source.js variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 25 source.ruby meta.embedded.block.js source.js variable.other.readwrite.instance.ruby
+L JS
+T 2 source.ruby meta.embedded.block.js string.definition.end.ruby
+L 
+L module_js = <<-JAVASCRIPT
+T 9 source.ruby variable.ruby
+T 10 source.ruby
+T 11 source.ruby keyword.operator.assignment.ruby
+T 12 source.ruby
+T 25 source.ruby meta.embedded.block.js string.definition.begin.ruby
+L   export default function greet(who) { return `Hello, ${who}!`; }
+T 2 source.ruby meta.embedded.block.js source.js
+T 8 source.ruby meta.embedded.block.js source.js meta.export.default.js keyword.control.export.js
+T 9 source.ruby meta.embedded.block.js source.js meta.export.default.js
+T 16 source.ruby meta.embedded.block.js source.js meta.export.default.js keyword.control.default.js
+T 17 source.ruby meta.embedded.block.js source.js meta.export.default.js
+T 25 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js storage.type.function.js
+T 26 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js
+T 31 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.definition.function.js entity.name.function.js
+T 32 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 35 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.parameters.js variable.parameter.js
+T 36 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.end.js
+T 37 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js
+T 38 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+T 39 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.block.js
+T 45 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.block.js keyword.control.flow.js
+T 46 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.block.js
+T 47 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.block.js string.template.js punctuation.definition.string.template.begin.js
+T 54 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.block.js string.template.js
+T 56 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.block.js string.template.js meta.template.expression.js punctuation.definition.template-expression.begin.js
+T 59 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.block.js string.template.js meta.template.expression.js meta.embedded.line.js variable.other.readwrite.js
+T 60 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.block.js string.template.js meta.template.expression.js punctuation.definition.template-expression.end.js
+T 61 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.block.js string.template.js
+T 62 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.block.js string.template.js punctuation.definition.string.template.end.js
+T 63 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.block.js punctuation.terminator.statement.js
+T 64 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.block.js
+T 65 source.ruby meta.embedded.block.js source.js meta.export.default.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+L JAVASCRIPT
+T 10 source.ruby meta.embedded.block.js string.definition.end.ruby
+L 
+L widget = <<~WIDGET_JS
+T 6 source.ruby variable.ruby
+T 7 source.ruby
+T 8 source.ruby keyword.operator.assignment.ruby
+T 9 source.ruby
+T 21 source.ruby meta.embedded.block.js string.definition.begin.ruby
+L   let total = 0; for (const n of [#{numbers}]) total += n;
+T 2 source.ruby meta.embedded.block.js source.js
+T 5 source.ruby meta.embedded.block.js source.js meta.var.expr.js storage.type.js
+T 6 source.ruby meta.embedded.block.js source.js meta.var.expr.js
+T 11 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 12 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 13 source.ruby meta.embedded.block.js source.js meta.var.expr.js keyword.operator.assignment.js
+T 14 source.ruby meta.embedded.block.js source.js meta.var.expr.js
+T 15 source.ruby meta.embedded.block.js source.js meta.var.expr.js constant.numeric.decimal.js
+T 16 source.ruby meta.embedded.block.js source.js punctuation.terminator.statement.js
+T 17 source.ruby meta.embedded.block.js source.js
+T 20 source.ruby meta.embedded.block.js source.js keyword.control.loop.js
+T 21 source.ruby meta.embedded.block.js source.js
+T 22 source.ruby meta.embedded.block.js source.js meta.brace.round.js
+T 27 source.ruby meta.embedded.block.js source.js meta.var.expr.js storage.type.js
+T 28 source.ruby meta.embedded.block.js source.js meta.var.expr.js
+T 29 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 30 source.ruby meta.embedded.block.js source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 32 source.ruby meta.embedded.block.js source.js keyword.operator.expression.of.js
+T 33 source.ruby meta.embedded.block.js source.js meta.array.literal.js
+T 34 source.ruby meta.embedded.block.js source.js meta.array.literal.js meta.brace.square.js
+T 35 source.ruby meta.embedded.block.js source.js meta.array.literal.js
+T 36 source.ruby meta.embedded.block.js source.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 43 source.ruby meta.embedded.block.js source.js meta.array.literal.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 44 source.ruby meta.embedded.block.js source.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 45 source.ruby meta.embedded.block.js source.js meta.array.literal.js meta.brace.square.js
+T 46 source.ruby meta.embedded.block.js source.js meta.brace.round.js
+T 47 source.ruby meta.embedded.block.js source.js
+T 52 source.ruby meta.embedded.block.js source.js variable.other.readwrite.js
+T 53 source.ruby meta.embedded.block.js source.js
+T 55 source.ruby meta.embedded.block.js source.js keyword.operator.assignment.compound.js
+T 56 source.ruby meta.embedded.block.js source.js
+T 57 source.ruby meta.embedded.block.js source.js variable.other.readwrite.js
+T 58 source.ruby meta.embedded.block.js source.js punctuation.terminator.statement.js
+L WIDGET_JS
+T 9 source.ruby meta.embedded.block.js string.definition.end.ruby
+L 
+L inline = [<<~JS, <<~SQL]
+T 6 source.ruby variable.ruby
+T 7 source.ruby
+T 8 source.ruby keyword.operator.assignment.ruby
+T 9 source.ruby
+T 10 source.ruby punctuation.section.array.begin.ruby
+T 15 source.ruby meta.embedded.block.js string.definition.begin.ruby
+T 16 source.ruby meta.embedded.block.js source.js punctuation.separator.comma.js
+T 17 source.ruby meta.embedded.block.js source.js
+T 19 source.ruby meta.embedded.block.js source.js keyword.operator.bitwise.shift.js
+T 20 source.ruby meta.embedded.block.js source.js keyword.operator.bitwise.js
+T 23 source.ruby meta.embedded.block.js source.js variable.other.constant.js
+T 24 source.ruby meta.embedded.block.js source.js
+L   if (a < b) { #{branch} }
+T 2 source.ruby meta.embedded.block.js source.js
+T 4 source.ruby meta.embedded.block.js source.js keyword.control.conditional.js
+T 5 source.ruby meta.embedded.block.js source.js
+T 6 source.ruby meta.embedded.block.js source.js meta.brace.round.js
+T 7 source.ruby meta.embedded.block.js source.js variable.other.readwrite.js
+T 8 source.ruby meta.embedded.block.js source.js
+T 9 source.ruby meta.embedded.block.js source.js keyword.operator.relational.js
+T 10 source.ruby meta.embedded.block.js source.js
+T 11 source.ruby meta.embedded.block.js source.js variable.other.readwrite.js
+T 12 source.ruby meta.embedded.block.js source.js meta.brace.round.js
+T 13 source.ruby meta.embedded.block.js source.js
+T 14 source.ruby meta.embedded.block.js source.js meta.block.js punctuation.definition.block.js
+T 16 source.ruby meta.embedded.block.js source.js meta.block.js
+T 17 source.ruby meta.embedded.block.js source.js meta.block.js meta.block.js punctuation.definition.block.js
+T 23 source.ruby meta.embedded.block.js source.js meta.block.js meta.block.js variable.other.readwrite.js
+T 24 source.ruby meta.embedded.block.js source.js meta.block.js meta.block.js punctuation.definition.block.js
+T 25 source.ruby meta.embedded.block.js source.js meta.block.js
+T 26 source.ruby meta.embedded.block.js source.js meta.block.js punctuation.definition.block.js
+L JS
+T 2 source.ruby meta.embedded.block.js string.definition.end.ruby
+L   SELECT 1
+T 2 source.ruby
+T 8 source.ruby variable.other.constant.ruby
+T 9 source.ruby
+T 10 source.ruby constant.numeric.ruby
+L SQL
+T 3 source.ruby variable.other.constant.ruby
+L 
