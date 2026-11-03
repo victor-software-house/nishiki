@@ -79,7 +79,8 @@ The decisions that created nishiki live in a private planning repository:
    valgrind comes from the bench mise profile, `mise.bench.toml` with `mise.bench.lock`, which only this workflow loads (`MISE_ENV=ci,bench`); a local run on Linux uses `MISE_ENV=dev,bench mise run callgrind`.
 2. Nobody runs the full suite before a push; CI does.
    - Work CI cannot do runs locally: a lexer's build-and-probe loop, its oracle fixtures, the Shiki differential and the bench.
-   - Before a push, run only the cheap checks: `typos`, `mise run lint:md`, `mise run format` (rustfmt) and `mise run format:toml` (taplo).
+   - The pre-commit hook runs the cheapest checks: `mise run format` (rustfmt) and `mise run check:literals` when a commit touches a Rust file, and `mise run lint:md` when it touches Markdown.
+   - Before a push, run the other cheap checks: `typos` and `mise run format:toml` (taplo).
    - When CI fails, fix forward.
 3. Formatting uses rustfmt on the nightly pinned in `mise.toml`.
 
@@ -88,7 +89,7 @@ The decisions that created nishiki live in a private planning repository:
    | `mise run format` | Checks formatting, as the pre-commit hook does. |
    | `mise x -- cargo $RUSTFMT_TOOLCHAIN fmt --all` | Applies it. |
 
-4. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file.
+4. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file, and runs `check:literals` (`mise-tasks/check/literals.sh`).
 
 ### Documentation
 

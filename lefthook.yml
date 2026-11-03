@@ -14,6 +14,16 @@ pre-commit:
       glob: "*.rs"
       env: &hookenv { MISE_ENV: "dev,hooks" }
       run: mise run format
+    # Seconds-cheap checks that CI's verify also runs, so they fail here
+    # before a push instead of in a pull request.
+    literals:
+      glob: "*.rs"
+      env: *hookenv
+      run: mise run check:literals
+    markdown:
+      glob: "*.md"
+      env: *hookenv
+      run: mise run lint:md
     staged-secrets:
       env: *hookenv
       run: mise run hooks:secrets:staged
