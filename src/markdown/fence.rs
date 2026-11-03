@@ -247,6 +247,12 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::PowerShell,
     },
+    #[cfg(feature = "lang-scala")]
+    Name {
+        words: &["scala", "sbt"],
+        brace: None,
+        lang: Language::Scala,
+    },
 ];
 
 /// A language found in an info string.

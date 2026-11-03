@@ -1,0 +1,665 @@
+L ---
+T 3 text.html.markdown punctuation.definition.begin.frontmatter
+L layout: doc-page
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 8 text.html.markdown meta.embedded.block.frontmatter
+T 9 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 16 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+L title: "Given Instances"
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 7 text.html.markdown meta.embedded.block.frontmatter
+T 8 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 23 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml
+T 24 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml punctuation.definition.string.end.yaml
+L nightlyOf: https://docs.scala-lang.org/scala3/reference/contextual/givens.html
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 11 text.html.markdown meta.embedded.block.frontmatter
+T 12 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 78 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+L ---
+T 3 text.html.markdown punctuation.definition.end.frontmatter
+L 
+L Given instances (or, simply, "givens") define "canonical" values of certain types
+T 81 text.html.markdown meta.paragraph.markdown
+L that serve for synthesizing arguments to [context parameters](./using-clauses.md). Example:
+T 41 text.html.markdown meta.paragraph.markdown
+T 42 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 60 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 61 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 62 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 80 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 81 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 91 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L trait Ord[T]:
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class.declaration
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   def compare(x: T, y: T): Int
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+L   extension (x: T)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L     def < (y: T) = compare(x, y) < 0
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+L     def > (y: T) = compare(x, y) > 0
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+L 
+L given intOrd: Ord[Int]:
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.given.declaration
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   def compare(x: Int, y: Int) =
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+L     if x < y then -1 else if x > y then +1 else 0
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.arithmetic.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.arithmetic.scala
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+L 
+L given listOrd: [T: Ord] => Ord[List[T]]:
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.given.declaration
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L 
+L   def compare(xs: List[T], ys: List[T]): Int = (xs, ys) match
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+L     case (Nil, Nil) => 0
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+L     case (Nil, _) => -1
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.arithmetic.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+L     case (_, Nil) => +1
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.arithmetic.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+L     case (x :: xs1, y :: ys1) =>
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L       val fst = summon[Ord[T]].compare(x, y)
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.stable.declaration.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L       if fst != 0 then fst else compare(xs1, ys1)
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L 
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L This code defines a trait `Ord` with two given instances. `intOrd` defines
+T 26 text.html.markdown meta.paragraph.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 58 text.html.markdown meta.paragraph.markdown
+T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 65 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 74 text.html.markdown meta.paragraph.markdown
+L a given for the type `Ord[Int]` whereas `listOrd[T]` defines givens
+T 21 text.html.markdown meta.paragraph.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 40 text.html.markdown meta.paragraph.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 67 text.html.markdown meta.paragraph.markdown
+L for `Ord[List[T]]` for all types `T` that come with a given instance for `Ord[T]`. The clause `[T: Ord]` is a [context bound](./context-bounds.md) which defines a condition: There must be a given of type `Ord[T]` for a given of type `Ord[List[T]]` to exist. Such conditions are expanded by the compiler to [context parameters](./using-clauses.md).
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 33 text.html.markdown meta.paragraph.markdown
+T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 73 text.html.markdown meta.paragraph.markdown
+T 74 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 80 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 81 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 94 text.html.markdown meta.paragraph.markdown
+T 95 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 103 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 104 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 110 text.html.markdown meta.paragraph.markdown
+T 111 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 124 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 125 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 126 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 145 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 146 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 204 text.html.markdown meta.paragraph.markdown
+T 205 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 211 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 212 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 233 text.html.markdown meta.paragraph.markdown
+T 234 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 246 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 247 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 306 text.html.markdown meta.paragraph.markdown
+T 307 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 325 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 326 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 327 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 345 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 346 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 347 text.html.markdown meta.paragraph.markdown
+L 
+L ## Anonymous Givens
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 19 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L The name of a given can be left out. So the definitions
+T 55 text.html.markdown meta.paragraph.markdown
+L of the last section can also be expressed like this:
+T 52 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L given Ord[Int]:
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   ...
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+L given [T: Ord] => Ord[List[T]]:
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   ...
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L If the name of a given is missing, the compiler will synthesize a name from
+T 75 text.html.markdown meta.paragraph.markdown
+L the implemented type(s).
+T 24 text.html.markdown meta.paragraph.markdown
+L 
+L **Note:** The name synthesized by the compiler is chosen to be readable and reasonably concise. For instance, the two instances above would get the names:
+T 2 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 7 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 9 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 154 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L given_Ord_Int
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+L given_Ord_List
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L The precise rules for synthesizing names are found [here](./relationship-implicits.html#anonymous-given-instances). These rules do not guarantee absence of name conflicts between
+T 51 text.html.markdown meta.paragraph.markdown
+T 52 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 56 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 57 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 58 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 113 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 114 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 178 text.html.markdown meta.paragraph.markdown
+L given instances of types that are "too similar". To avoid conflicts one can use named instances.
+T 96 text.html.markdown meta.paragraph.markdown
+L 
+L **Note:** To ensure robust binary compatibility, publicly available libraries should prefer named instances.
+T 2 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 7 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 9 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 108 text.html.markdown meta.paragraph.markdown
+L 
+L ## Alias Givens
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 15 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L An alias can be used to define a given instance that is equal to some expression. Example:
+T 90 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L given global: ExecutionContext = ForkJoinPool()
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.given.declaration
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.parentheses.scala meta.bracket.scala
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L This creates a given `global` of type `ExecutionContext` that resolves to the right
+T 21 text.html.markdown meta.paragraph.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 38 text.html.markdown meta.paragraph.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 55 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 83 text.html.markdown meta.paragraph.markdown
+L hand side `ForkJoinPool()`.
+T 10 text.html.markdown meta.paragraph.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 27 text.html.markdown meta.paragraph.markdown
+L The first time `global` is accessed, a new `ForkJoinPool` is created, which is then
+T 15 text.html.markdown meta.paragraph.markdown
+T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 23 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 43 text.html.markdown meta.paragraph.markdown
+T 44 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 83 text.html.markdown meta.paragraph.markdown
+L returned for this and all subsequent accesses to `global`. This operation is thread-safe.
+T 49 text.html.markdown meta.paragraph.markdown
+T 50 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 89 text.html.markdown meta.paragraph.markdown
+L 
+L Alias givens can be anonymous as well, e.g.
+T 43 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L given Position = enclosingTree.position
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## Given Instance Initialization
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 32 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L An unconditional given instance without parameters is initialized on-demand, the first
+T 86 text.html.markdown meta.paragraph.markdown
+L time it is accessed. If the given is a mere alias to some immutable value, the given is implemented as a simple forwarder, without incurring the cost of a field to hold a cached value. If a given is conditional, a fresh instance is created for each reference.
+T 259 text.html.markdown meta.paragraph.markdown
+L 
+L ## Syntax
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 9 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Here is the full syntax for given instances. Some of these forms of givens are explained in a separate page: [Other Forms of Givens](./more-givens.md).
+T 109 text.html.markdown meta.paragraph.markdown
+T 110 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 131 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 132 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 133 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 149 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 150 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 151 text.html.markdown meta.paragraph.markdown
+L 
+L ```ebnf
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L TmplDef           ::=  ... | 'given' GivenDef
+T 45 text.html.markdown markup.fenced_code.block.markdown
+L GivenDef          ::=  [id ':'] GivenSig
+T 40 text.html.markdown markup.fenced_code.block.markdown
+L GivenSig          ::=  GivenImpl
+T 32 text.html.markdown markup.fenced_code.block.markdown
+L                     |  '(' ')' '=>' GivenImpl
+T 45 text.html.markdown markup.fenced_code.block.markdown
+L                     |  GivenConditional '=>' GivenSig
+T 53 text.html.markdown markup.fenced_code.block.markdown
+L GivenImpl         ::=  GivenType ([‘=’ Expr] | TemplateBody)
+T 64 text.html.markdown markup.fenced_code.block.markdown
+L                     |  ConstrApps TemplateBody
+T 46 text.html.markdown markup.fenced_code.block.markdown
+L GivenConditional  ::=  DefTypeParamClause
+T 41 text.html.markdown markup.fenced_code.block.markdown
+L                     |  DefTermParamClause
+T 41 text.html.markdown markup.fenced_code.block.markdown
+L                     |  '(' FunArgTypes ')'
+T 42 text.html.markdown markup.fenced_code.block.markdown
+L                     |  GivenType
+T 32 text.html.markdown markup.fenced_code.block.markdown
+L GivenType         ::=  AnnotType1 {id [nl] AnnotType1}
+T 54 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L A given instance starts with the reserved keyword `given`, which is followed by
+T 50 text.html.markdown meta.paragraph.markdown
+T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 79 text.html.markdown meta.paragraph.markdown
+L 
+L  - An optional name and a colon
+T 1 text.html.markdown markup.list.unnumbered.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown
+T 31 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L  - An optional list of conditions.
+T 1 text.html.markdown markup.list.unnumbered.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown
+T 34 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L  - The implemented type(s) and their implementation, in two forms: alias givens and structural givens.
+T 1 text.html.markdown markup.list.unnumbered.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown
+T 102 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L     - An _alias given_ implements a single type with a right hand side following `=`.
+T 4 text.html.markdown markup.list.unnumbered.markdown
+T 5 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 6 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown
+T 9 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 10 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 21 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown
+T 22 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 81 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 82 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 83 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 84 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 85 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L     - A _structural given_ implements one or more class constructors with a
+T 4 text.html.markdown markup.list.unnumbered.markdown
+T 5 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 6 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown
+T 8 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 9 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 25 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown
+T 26 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 75 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L       list of member definitions in a template body.
+T 4 text.html.markdown markup.list.unnumbered.markdown
+T 6 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown
+T 52 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 
+L **Note** Parts of the given syntax have changed in Scala 3.6. The original syntax from Scala 3.0 on is described in a separate page [Previous Given Syntax](./previous-givens.md). The original syntax is still supported for now but will be deprecated and phased out over time.
+T 2 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 6 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 8 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 132 text.html.markdown meta.paragraph.markdown
+T 133 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 154 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 155 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 156 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 176 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 177 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 274 text.html.markdown meta.paragraph.markdown
+L 

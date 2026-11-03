@@ -1,0 +1,127 @@
+L class Date(y: Int, m: Int, d: Int) extends Ord:
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 10 source.scala entity.name.class.declaration
+T 11 source.scala meta.bracket.scala
+T 12 source.scala variable.parameter.scala
+T 13 source.scala meta.colon.scala
+T 14 source.scala
+T 17 source.scala entity.name.class
+T 19 source.scala
+T 20 source.scala variable.parameter.scala
+T 21 source.scala meta.colon.scala
+T 22 source.scala
+T 25 source.scala entity.name.class
+T 27 source.scala
+T 28 source.scala variable.parameter.scala
+T 29 source.scala meta.colon.scala
+T 30 source.scala
+T 33 source.scala entity.name.class
+T 34 source.scala meta.bracket.scala
+T 35 source.scala
+T 42 source.scala keyword.declaration.scala
+T 43 source.scala
+T 46 source.scala entity.name.class
+T 47 source.scala keyword.operator.scala
+L   // previous decls here
+T 2 source.scala punctuation.whitespace.comment.leading.scala
+T 4 source.scala comment.line.double-slash.scala punctuation.definition.comment.scala
+T 24 source.scala comment.line.double-slash.scala
+L 
+L   def <(that: Any): Boolean = that match
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 7 source.scala entity.name.function.declaration
+T 8 source.scala meta.bracket.scala
+T 12 source.scala variable.parameter.scala
+T 13 source.scala meta.colon.scala
+T 14 source.scala
+T 17 source.scala entity.name.class
+T 18 source.scala meta.bracket.scala
+T 19 source.scala keyword.operator.scala
+T 20 source.scala
+T 27 source.scala entity.name.class
+T 28 source.scala
+T 29 source.scala keyword.operator.comparison.scala
+T 35 source.scala
+T 40 source.scala keyword.control.flow.scala
+L     case d: Date =>
+T 4 source.scala
+T 8 source.scala keyword.control.flow.scala
+T 9 source.scala
+T 10 source.scala variable.parameter.scala
+T 11 source.scala meta.colon.scala
+T 12 source.scala
+T 16 source.scala entity.name.class
+T 17 source.scala
+T 19 source.scala keyword.operator.scala
+L       (year < d.year) ||
+T 6 source.scala
+T 7 source.scala meta.bracket.scala
+T 12 source.scala
+T 13 source.scala keyword.operator.comparison.scala
+T 20 source.scala
+T 21 source.scala meta.bracket.scala
+T 22 source.scala
+T 24 source.scala keyword.operator.logical.scala
+L       (year == d.year && (month < d.month ||
+T 6 source.scala
+T 7 source.scala meta.bracket.scala
+T 12 source.scala
+T 14 source.scala keyword.operator.comparison.scala
+T 22 source.scala
+T 24 source.scala keyword.operator.logical.scala
+T 25 source.scala
+T 26 source.scala meta.bracket.scala
+T 32 source.scala
+T 33 source.scala keyword.operator.comparison.scala
+T 42 source.scala
+T 44 source.scala keyword.operator.logical.scala
+L                          (month == d.month && day < d.day)))
+T 25 source.scala
+T 26 source.scala meta.bracket.scala
+T 32 source.scala
+T 34 source.scala keyword.operator.comparison.scala
+T 43 source.scala
+T 45 source.scala keyword.operator.logical.scala
+T 50 source.scala
+T 51 source.scala keyword.operator.comparison.scala
+T 57 source.scala
+T 58 source.scala meta.bracket.scala
+T 59 source.scala meta.bracket.scala
+T 60 source.scala meta.bracket.scala
+L 
+L     case _ => sys.error("cannot compare " + that + " and a Date")
+T 4 source.scala
+T 8 source.scala keyword.control.flow.scala
+T 11 source.scala
+T 13 source.scala keyword.operator.scala
+T 23 source.scala
+T 24 source.scala meta.bracket.scala
+T 25 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 40 source.scala string.quoted.double.scala
+T 41 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 42 source.scala
+T 43 source.scala keyword.operator.arithmetic.scala
+T 49 source.scala
+T 50 source.scala keyword.operator.arithmetic.scala
+T 51 source.scala
+T 52 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 63 source.scala string.quoted.double.scala
+T 64 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 65 source.scala meta.bracket.scala
+L   end <
+T 2 source.scala
+T 5 source.scala keyword.declaration.end.scala
+T 6 source.scala
+T 7 source.scala entity.name.declaration
+L end Date
+T 3 source.scala keyword.declaration.end.scala
+T 4 source.scala
+T 8 source.scala entity.name.type.declaration
+L 
+L // From https://docs.scala-lang.org/tutorials/scala-for-java-programmers.html
+T 2 source.scala comment.line.double-slash.scala punctuation.definition.comment.scala
+T 77 source.scala comment.line.double-slash.scala
+L 

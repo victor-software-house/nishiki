@@ -1,0 +1,3826 @@
+L import sbtcrossproject.{ CrossProject, CrossType }
+T 6 source.scala meta.import.scala keyword.other.import.scala
+T 7 source.scala meta.import.scala
+T 22 source.scala meta.import.scala entity.name.import.scala
+T 23 source.scala meta.import.scala punctuation.definition.import
+T 24 source.scala meta.import.scala meta.import.selector.scala meta.bracket.scala
+T 25 source.scala meta.import.scala meta.import.selector.scala
+T 37 source.scala meta.import.scala meta.import.selector.scala entity.name.class.import.scala
+T 39 source.scala meta.import.scala meta.import.selector.scala
+T 48 source.scala meta.import.scala meta.import.selector.scala entity.name.class.import.scala
+T 49 source.scala meta.import.scala meta.import.selector.scala
+T 50 source.scala meta.import.scala meta.import.selector.scala meta.bracket.scala
+L import com.typesafe.tools.mima.core._
+T 6 source.scala meta.import.scala keyword.other.import.scala
+T 7 source.scala meta.import.scala
+T 10 source.scala meta.import.scala entity.name.import.scala
+T 11 source.scala meta.import.scala punctuation.definition.import
+T 19 source.scala meta.import.scala entity.name.import.scala
+T 20 source.scala meta.import.scala punctuation.definition.import
+T 25 source.scala meta.import.scala entity.name.import.scala
+T 26 source.scala meta.import.scala punctuation.definition.import
+T 30 source.scala meta.import.scala entity.name.import.scala
+T 31 source.scala meta.import.scala punctuation.definition.import
+T 35 source.scala meta.import.scala entity.name.import.scala
+T 36 source.scala meta.import.scala punctuation.definition.import
+T 37 source.scala meta.import.scala entity.name.import.scala
+L 
+L val Scala212V: String = "2.12.21"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 13 source.scala variable.stable.declaration.scala
+T 14 source.scala keyword.operator.scala
+T 15 source.scala
+T 21 source.scala entity.name.class
+T 22 source.scala
+T 23 source.scala keyword.operator.comparison.scala
+T 24 source.scala
+T 25 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 32 source.scala string.quoted.double.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L val Scala213V: String = "2.13.18"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 13 source.scala variable.stable.declaration.scala
+T 14 source.scala keyword.operator.scala
+T 15 source.scala
+T 21 source.scala entity.name.class
+T 22 source.scala
+T 23 source.scala keyword.operator.comparison.scala
+T 24 source.scala
+T 25 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 32 source.scala string.quoted.double.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L val Scala3V: String = "3.3.9"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 11 source.scala variable.stable.declaration.scala
+T 12 source.scala keyword.operator.scala
+T 13 source.scala
+T 19 source.scala entity.name.class
+T 20 source.scala
+T 21 source.scala keyword.operator.comparison.scala
+T 22 source.scala
+T 23 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 28 source.scala string.quoted.double.scala
+T 29 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L 
+L ThisBuild / startYear := Some(2024)
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 22 source.scala
+T 24 source.scala keyword.operator.scala
+T 25 source.scala
+T 29 source.scala entity.name.class
+T 30 source.scala meta.bracket.scala
+T 34 source.scala constant.numeric.scala
+T 35 source.scala meta.bracket.scala
+L ThisBuild / tlBaseVersion := "0.14"
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 26 source.scala
+T 28 source.scala keyword.operator.scala
+T 29 source.scala
+T 30 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 34 source.scala string.quoted.double.scala
+T 35 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L ThisBuild / tlCiReleaseBranches := Seq() // set to `series/0.14.x` once we get the automated publishing process up and running
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 32 source.scala
+T 34 source.scala keyword.operator.scala
+T 35 source.scala
+T 38 source.scala entity.name.class
+T 40 source.scala meta.parentheses.scala meta.bracket.scala
+T 41 source.scala
+T 43 source.scala comment.line.double-slash.scala punctuation.definition.comment.scala
+T 126 source.scala comment.line.double-slash.scala
+L ThisBuild / tlCiReleaseTags := true
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 28 source.scala
+T 30 source.scala keyword.operator.scala
+T 31 source.scala
+T 35 source.scala constant.language.scala
+L ThisBuild / tlFatalWarnings := false // we currently have a lot of warnings that will need to be fixed
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 28 source.scala
+T 30 source.scala keyword.operator.scala
+T 31 source.scala
+T 36 source.scala constant.language.scala
+T 37 source.scala
+T 39 source.scala comment.line.double-slash.scala punctuation.definition.comment.scala
+T 102 source.scala comment.line.double-slash.scala
+L 
+L ThisBuild / organization := "io.circe"
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 25 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 29 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 37 source.scala string.quoted.double.scala
+T 38 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L ThisBuild / crossScalaVersions := List(Scala3V, Scala212V, Scala213V)
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 31 source.scala
+T 33 source.scala keyword.operator.scala
+T 34 source.scala
+T 38 source.scala entity.name.class
+T 39 source.scala meta.bracket.scala
+T 46 source.scala entity.name.class
+T 48 source.scala
+T 57 source.scala entity.name.class
+T 59 source.scala
+T 68 source.scala entity.name.class
+T 69 source.scala meta.bracket.scala
+L ThisBuild / scalaVersion := Scala213V
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 25 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 37 source.scala entity.name.class
+L 
+L ThisBuild / githubWorkflowJavaVersions := Seq("8", "11", "17").map(JavaSpec.temurin)
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 39 source.scala
+T 41 source.scala keyword.operator.scala
+T 42 source.scala
+T 45 source.scala entity.name.class
+T 46 source.scala meta.bracket.scala
+T 47 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 48 source.scala string.quoted.double.scala
+T 49 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 51 source.scala
+T 52 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 54 source.scala string.quoted.double.scala
+T 55 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 57 source.scala
+T 58 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 60 source.scala string.quoted.double.scala
+T 61 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 62 source.scala meta.bracket.scala
+T 66 source.scala
+T 67 source.scala meta.bracket.scala
+T 75 source.scala entity.name.class
+T 83 source.scala
+T 84 source.scala meta.bracket.scala
+L 
+L ThisBuild / tlCiScalafixCheck := false // TODO: Address these in a follow up PR
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 30 source.scala
+T 32 source.scala keyword.operator.scala
+T 33 source.scala
+T 38 source.scala constant.language.scala
+T 39 source.scala
+T 41 source.scala comment.line.double-slash.scala punctuation.definition.comment.scala
+T 79 source.scala comment.line.double-slash.scala
+L ThisBuild / scalafixAll / skip := tlIsScala3.value
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 24 source.scala
+T 25 source.scala keyword.operator.arithmetic.scala
+T 31 source.scala
+T 33 source.scala keyword.operator.scala
+T 50 source.scala
+L ThisBuild / ScalafixConfig / skip := tlIsScala3.value
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 12 source.scala
+T 26 source.scala entity.name.class
+T 27 source.scala
+T 28 source.scala keyword.operator.arithmetic.scala
+T 34 source.scala
+T 36 source.scala keyword.operator.scala
+T 53 source.scala
+L ThisBuild / circeRootOfCodeCoverage := Some("rootJVM")
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 36 source.scala
+T 38 source.scala keyword.operator.scala
+T 39 source.scala
+T 43 source.scala entity.name.class
+T 44 source.scala meta.bracket.scala
+T 45 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 52 source.scala string.quoted.double.scala
+T 53 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 54 source.scala meta.bracket.scala
+L 
+L //This is really bad, but we need to add the _native0.5 for this: https://github.com/sbt/sbt/issues/7140
+T 2 source.scala comment.line.double-slash.scala punctuation.definition.comment.scala
+T 104 source.scala comment.line.double-slash.scala
+L ThisBuild / libraryDependencySchemes +=
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 37 source.scala
+T 39 source.scala keyword.operator.scala
+L   "org.scala-native" %% "test-interface_native0.5" % VersionScheme.Always
+T 2 source.scala
+T 3 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 19 source.scala string.quoted.double.scala
+T 20 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 21 source.scala
+T 23 source.scala keyword.operator.scala
+T 24 source.scala
+T 25 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 49 source.scala string.quoted.double.scala
+T 50 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 51 source.scala
+T 52 source.scala keyword.operator.arithmetic.scala
+T 53 source.scala
+T 66 source.scala entity.name.class
+T 67 source.scala
+T 73 source.scala entity.name.class
+L 
+L val opticsVersion = "0.15.0"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 17 source.scala variable.stable.declaration.scala
+T 18 source.scala
+T 19 source.scala keyword.operator.comparison.scala
+T 20 source.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 27 source.scala string.quoted.double.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L 
+L val catsVersion = "2.13.0"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 15 source.scala variable.stable.declaration.scala
+T 16 source.scala
+T 17 source.scala keyword.operator.comparison.scala
+T 18 source.scala
+T 19 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 25 source.scala string.quoted.double.scala
+T 26 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L val jawnVersion = "1.8.0"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 15 source.scala variable.stable.declaration.scala
+T 16 source.scala
+T 17 source.scala keyword.operator.comparison.scala
+T 18 source.scala
+T 19 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 24 source.scala string.quoted.double.scala
+T 25 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L val shapelessVersion = "2.3.13"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 20 source.scala variable.stable.declaration.scala
+T 21 source.scala
+T 22 source.scala keyword.operator.comparison.scala
+T 23 source.scala
+T 24 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 30 source.scala string.quoted.double.scala
+T 31 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L 
+L val paradiseVersion = "2.1.1"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 19 source.scala variable.stable.declaration.scala
+T 20 source.scala
+T 21 source.scala keyword.operator.comparison.scala
+T 22 source.scala
+T 23 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 28 source.scala string.quoted.double.scala
+T 29 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L 
+L val scalaCheckVersion = "1.20.0"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 21 source.scala variable.stable.declaration.scala
+T 22 source.scala
+T 23 source.scala keyword.operator.comparison.scala
+T 24 source.scala
+T 25 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 31 source.scala string.quoted.double.scala
+T 32 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L val munitVersion = "1.3.6"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 16 source.scala variable.stable.declaration.scala
+T 17 source.scala
+T 18 source.scala keyword.operator.comparison.scala
+T 19 source.scala
+T 20 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 25 source.scala string.quoted.double.scala
+T 26 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L val munitScalaCheckVersion = "1.3.1"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 26 source.scala variable.stable.declaration.scala
+T 27 source.scala
+T 28 source.scala keyword.operator.comparison.scala
+T 29 source.scala
+T 30 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 35 source.scala string.quoted.double.scala
+T 36 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L val disciplineVersion = "1.7.0"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 21 source.scala variable.stable.declaration.scala
+T 22 source.scala
+T 23 source.scala keyword.operator.comparison.scala
+T 24 source.scala
+T 25 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 30 source.scala string.quoted.double.scala
+T 31 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L val disciplineScalaTestVersion = "2.3.0"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 30 source.scala variable.stable.declaration.scala
+T 31 source.scala
+T 32 source.scala keyword.operator.comparison.scala
+T 33 source.scala
+T 34 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 39 source.scala string.quoted.double.scala
+T 40 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L val disciplineMunitVersion = "2.0.0"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 26 source.scala variable.stable.declaration.scala
+T 27 source.scala
+T 28 source.scala keyword.operator.comparison.scala
+T 29 source.scala
+T 30 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 35 source.scala string.quoted.double.scala
+T 36 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L val scalaJavaTimeVersion = "2.7.0"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 24 source.scala variable.stable.declaration.scala
+T 25 source.scala
+T 26 source.scala keyword.operator.comparison.scala
+T 27 source.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 33 source.scala string.quoted.double.scala
+T 34 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L 
+L /**
+T 3 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L  * Some terrible hacks to work around Cats's decision to have builds for
+T 72 source.scala comment.block.documentation.scala
+L  * different Scala versions depend on different versions of Discipline, etc.
+T 76 source.scala comment.block.documentation.scala
+L  */
+T 1 source.scala comment.block.documentation.scala
+T 3 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L def priorTo2_13(scalaVersion: String): Boolean =
+T 3 source.scala keyword.declaration.scala
+T 4 source.scala
+T 15 source.scala entity.name.function.declaration
+T 16 source.scala meta.bracket.scala
+T 28 source.scala variable.parameter.scala
+T 29 source.scala meta.colon.scala
+T 30 source.scala
+T 36 source.scala entity.name.class
+T 37 source.scala meta.bracket.scala
+T 38 source.scala keyword.operator.scala
+T 39 source.scala
+T 46 source.scala entity.name.class
+T 47 source.scala
+T 48 source.scala keyword.operator.comparison.scala
+L   CrossVersion.partialVersion(scalaVersion) match {
+T 2 source.scala
+T 14 source.scala entity.name.class
+T 29 source.scala
+T 30 source.scala meta.bracket.scala
+T 42 source.scala
+T 43 source.scala meta.bracket.scala
+T 44 source.scala
+T 49 source.scala keyword.control.flow.scala
+T 50 source.scala
+T 51 source.scala punctuation.section.block.begin.scala
+L     case Some((2, minor)) if minor < 13 => true
+T 4 source.scala
+T 8 source.scala keyword.control.flow.scala
+T 9 source.scala
+T 13 source.scala entity.name.class
+T 14 source.scala meta.bracket.scala
+T 15 source.scala meta.bracket.scala
+T 16 source.scala constant.numeric.scala
+T 23 source.scala
+T 24 source.scala meta.bracket.scala
+T 25 source.scala meta.bracket.scala
+T 26 source.scala
+T 28 source.scala keyword.control.flow.scala
+T 35 source.scala
+T 36 source.scala keyword.operator.comparison.scala
+T 37 source.scala
+T 39 source.scala constant.numeric.scala
+T 40 source.scala
+T 42 source.scala keyword.operator.scala
+T 43 source.scala
+T 47 source.scala constant.language.scala
+L     case _                              => false
+T 4 source.scala
+T 8 source.scala keyword.control.flow.scala
+T 40 source.scala
+T 42 source.scala keyword.operator.scala
+T 43 source.scala
+T 48 source.scala constant.language.scala
+L   }
+T 2 source.scala
+T 3 source.scala punctuation.section.block.end.scala
+L 
+L val scalaFiddleCirceVersion = "0.9.1"
+T 3 source.scala keyword.declaration.stable.scala
+T 4 source.scala
+T 27 source.scala variable.stable.declaration.scala
+T 28 source.scala
+T 29 source.scala keyword.operator.comparison.scala
+T 30 source.scala
+T 31 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 36 source.scala string.quoted.double.scala
+T 37 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L 
+L lazy val allSettings = Seq()
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 20 source.scala variable.stable.declaration.scala
+T 21 source.scala
+T 22 source.scala keyword.operator.comparison.scala
+T 23 source.scala
+T 26 source.scala entity.name.class
+T 28 source.scala meta.parentheses.scala meta.bracket.scala
+L 
+L /**
+T 3 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L  * Replace '/' with '-' in a path which represents a module name.
+T 65 source.scala comment.block.documentation.scala
+L  *
+T 2 source.scala comment.block.documentation.scala
+L  * The circe module's path is used in most cases to derive the module
+T 69 source.scala comment.block.documentation.scala
+L  * name. For some modules, this path includes sub-directories, e.g. scalafix
+T 76 source.scala comment.block.documentation.scala
+L  * internal rules. When this is the case, since the path is represented as a
+T 76 source.scala comment.block.documentation.scala
+L  * simple String, the '/' character can cause problems as the module name is
+T 76 source.scala comment.block.documentation.scala
+L  * used inside SBT and Coursier for Maven style artifact operations and '/'
+T 75 source.scala comment.block.documentation.scala
+L  * is not a valid character in a module name.
+T 45 source.scala comment.block.documentation.scala
+L  */
+T 1 source.scala comment.block.documentation.scala
+T 3 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L def normalizeModuleNameFromPath(path: String): String =
+T 3 source.scala keyword.declaration.scala
+T 4 source.scala
+T 31 source.scala entity.name.function.declaration
+T 32 source.scala meta.bracket.scala
+T 36 source.scala variable.parameter.scala
+T 37 source.scala meta.colon.scala
+T 38 source.scala
+T 44 source.scala entity.name.class
+T 45 source.scala meta.bracket.scala
+T 46 source.scala keyword.operator.scala
+T 47 source.scala
+T 53 source.scala entity.name.class
+T 54 source.scala
+T 55 source.scala keyword.operator.comparison.scala
+L   path.replaceAll("/", "-")
+T 17 source.scala
+T 18 source.scala meta.bracket.scala
+T 19 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 23 source.scala
+T 24 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 25 source.scala string.quoted.double.scala
+T 26 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 27 source.scala meta.bracket.scala
+L 
+L def circeProject(path: String)(project: Project) = {
+T 3 source.scala keyword.declaration.scala
+T 4 source.scala
+T 16 source.scala entity.name.function.declaration
+T 17 source.scala meta.bracket.scala
+T 21 source.scala variable.parameter.scala
+T 22 source.scala meta.colon.scala
+T 23 source.scala
+T 29 source.scala entity.name.class
+T 30 source.scala meta.bracket.scala
+T 31 source.scala meta.bracket.scala
+T 38 source.scala variable.parameter.scala
+T 39 source.scala meta.colon.scala
+T 40 source.scala
+T 47 source.scala entity.name.class
+T 48 source.scala meta.bracket.scala
+T 49 source.scala
+T 50 source.scala keyword.operator.comparison.scala
+T 51 source.scala
+T 52 source.scala punctuation.section.block.begin.scala
+L   val docName = path.split("[-/]").mkString(" ")
+T 2 source.scala
+T 5 source.scala keyword.declaration.stable.scala
+T 6 source.scala
+T 13 source.scala variable.stable.declaration.scala
+T 14 source.scala
+T 15 source.scala keyword.operator.comparison.scala
+T 26 source.scala
+T 27 source.scala meta.bracket.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 32 source.scala string.quoted.double.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 34 source.scala meta.bracket.scala
+T 43 source.scala
+T 44 source.scala meta.bracket.scala
+T 45 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 46 source.scala string.quoted.double.scala
+T 47 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 48 source.scala meta.bracket.scala
+L   project.settings(
+T 18 source.scala
+T 19 source.scala meta.bracket.scala
+L     description := s"circe $docName",
+T 16 source.scala
+T 18 source.scala keyword.operator.scala
+T 19 source.scala
+T 20 source.scala keyword.interpolation.scala
+T 21 source.scala string.quoted.double.interpolated.scala punctuation.definition.string.begin.scala
+T 22 source.scala string.quoted.double.interpolated.scala
+T 23 source.scala string.quoted.double.interpolated.scala
+T 24 source.scala string.quoted.double.interpolated.scala
+T 25 source.scala string.quoted.double.interpolated.scala
+T 26 source.scala string.quoted.double.interpolated.scala
+T 27 source.scala string.quoted.double.interpolated.scala
+T 28 source.scala meta.template.expression.scala punctuation.definition.template-expression.begin.scala
+T 35 source.scala meta.template.expression.scala
+T 36 source.scala string.quoted.double.interpolated.scala punctuation.definition.string.end.scala
+T 37 source.scala
+L     moduleName := s"circe-${normalizeModuleNameFromPath(path)}",
+T 15 source.scala
+T 17 source.scala keyword.operator.scala
+T 18 source.scala
+T 19 source.scala keyword.interpolation.scala
+T 20 source.scala string.quoted.double.interpolated.scala punctuation.definition.string.begin.scala
+T 21 source.scala string.quoted.double.interpolated.scala
+T 22 source.scala string.quoted.double.interpolated.scala
+T 23 source.scala string.quoted.double.interpolated.scala
+T 24 source.scala string.quoted.double.interpolated.scala
+T 25 source.scala string.quoted.double.interpolated.scala
+T 26 source.scala string.quoted.double.interpolated.scala
+T 28 source.scala meta.template.expression.scala punctuation.definition.template-expression.begin.scala
+T 55 source.scala meta.template.expression.scala meta.embedded.line.scala
+T 56 source.scala meta.template.expression.scala meta.embedded.line.scala meta.bracket.scala
+T 60 source.scala meta.template.expression.scala meta.embedded.line.scala
+T 61 source.scala meta.template.expression.scala meta.embedded.line.scala meta.bracket.scala
+T 62 source.scala meta.template.expression.scala punctuation.definition.template-expression.end.scala
+T 63 source.scala string.quoted.double.interpolated.scala punctuation.definition.string.end.scala
+T 64 source.scala
+L     name := s"Circe $docName",
+T 9 source.scala
+T 11 source.scala keyword.operator.scala
+T 12 source.scala
+T 13 source.scala keyword.interpolation.scala
+T 14 source.scala string.quoted.double.interpolated.scala punctuation.definition.string.begin.scala
+T 15 source.scala string.quoted.double.interpolated.scala
+T 16 source.scala string.quoted.double.interpolated.scala
+T 17 source.scala string.quoted.double.interpolated.scala
+T 18 source.scala string.quoted.double.interpolated.scala
+T 19 source.scala string.quoted.double.interpolated.scala
+T 20 source.scala string.quoted.double.interpolated.scala
+T 21 source.scala meta.template.expression.scala punctuation.definition.template-expression.begin.scala
+T 28 source.scala meta.template.expression.scala
+T 29 source.scala string.quoted.double.interpolated.scala punctuation.definition.string.end.scala
+T 30 source.scala
+L     allSettings
+T 15 source.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L }
+T 1 source.scala punctuation.section.block.end.scala
+L 
+L /**
+T 3 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L  * This is here so we can use this with our internal Scalafix rules, without
+T 76 source.scala comment.block.documentation.scala
+L  * creating a cyclic dependency. So the scalafix modules will use this and
+T 74 source.scala comment.block.documentation.scala
+L  * the other modules will use either `circeModule` or `circeCrossModule`.
+T 73 source.scala comment.block.documentation.scala
+L  */
+T 1 source.scala comment.block.documentation.scala
+T 3 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L def baseModule(path: String, additionalDeps: List[ClasspathDep[ProjectReference]] = Nil): Project = {
+T 3 source.scala keyword.declaration.scala
+T 4 source.scala
+T 14 source.scala entity.name.function.declaration
+T 15 source.scala meta.bracket.scala
+T 19 source.scala variable.parameter.scala
+T 20 source.scala meta.colon.scala
+T 21 source.scala
+T 27 source.scala entity.name.class
+T 29 source.scala
+T 43 source.scala variable.parameter.scala
+T 44 source.scala meta.colon.scala
+T 45 source.scala
+T 49 source.scala entity.name.class
+T 50 source.scala meta.bracket.scala
+T 62 source.scala entity.name.class
+T 63 source.scala meta.bracket.scala
+T 79 source.scala entity.name.class
+T 80 source.scala meta.bracket.scala
+T 81 source.scala meta.bracket.scala
+T 82 source.scala
+T 83 source.scala keyword.operator.comparison.scala
+T 84 source.scala
+T 87 source.scala entity.name.class
+T 88 source.scala meta.bracket.scala
+T 89 source.scala keyword.operator.scala
+T 90 source.scala
+T 97 source.scala entity.name.class
+T 98 source.scala
+T 99 source.scala keyword.operator.comparison.scala
+T 100 source.scala
+T 101 source.scala punctuation.section.block.begin.scala
+L   val id = path.split("[-/]").reduce(_ + _.capitalize)
+T 2 source.scala
+T 5 source.scala keyword.declaration.stable.scala
+T 6 source.scala
+T 8 source.scala variable.stable.declaration.scala
+T 9 source.scala
+T 10 source.scala keyword.operator.comparison.scala
+T 21 source.scala
+T 22 source.scala meta.bracket.scala
+T 23 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 27 source.scala string.quoted.double.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 29 source.scala meta.bracket.scala
+T 36 source.scala
+T 37 source.scala meta.bracket.scala
+T 39 source.scala
+T 40 source.scala keyword.operator.arithmetic.scala
+T 53 source.scala
+T 54 source.scala meta.bracket.scala
+L   Project(id, file(s"modules/$path")).configure(circeProject(path)).configure(_.dependsOn(additionalDeps: _*))
+T 2 source.scala
+T 9 source.scala entity.name.class
+T 10 source.scala meta.bracket.scala
+T 18 source.scala
+T 19 source.scala meta.bracket.scala
+T 20 source.scala keyword.interpolation.scala
+T 21 source.scala string.quoted.double.interpolated.scala punctuation.definition.string.begin.scala
+T 22 source.scala string.quoted.double.interpolated.scala
+T 23 source.scala string.quoted.double.interpolated.scala
+T 24 source.scala string.quoted.double.interpolated.scala
+T 25 source.scala string.quoted.double.interpolated.scala
+T 26 source.scala string.quoted.double.interpolated.scala
+T 27 source.scala string.quoted.double.interpolated.scala
+T 28 source.scala string.quoted.double.interpolated.scala
+T 29 source.scala string.quoted.double.interpolated.scala
+T 30 source.scala meta.template.expression.scala punctuation.definition.template-expression.begin.scala
+T 34 source.scala meta.template.expression.scala
+T 35 source.scala string.quoted.double.interpolated.scala punctuation.definition.string.end.scala
+T 36 source.scala meta.bracket.scala
+T 37 source.scala meta.bracket.scala
+T 47 source.scala
+T 48 source.scala meta.bracket.scala
+T 60 source.scala
+T 61 source.scala meta.bracket.scala
+T 65 source.scala
+T 66 source.scala meta.bracket.scala
+T 67 source.scala meta.bracket.scala
+T 77 source.scala
+T 78 source.scala meta.bracket.scala
+T 89 source.scala
+T 90 source.scala meta.bracket.scala
+T 104 source.scala variable.parameter.scala
+T 105 source.scala meta.colon.scala
+T 106 source.scala
+T 108 source.scala keyword.operator.scala
+T 109 source.scala meta.bracket.scala
+T 110 source.scala meta.bracket.scala
+L }
+T 1 source.scala punctuation.section.block.end.scala
+L 
+L def circeModule(path: String): Project = baseModule(path, List(scalafixInternalRules % ScalafixConfig))
+T 3 source.scala keyword.declaration.scala
+T 4 source.scala
+T 15 source.scala entity.name.function.declaration
+T 16 source.scala meta.bracket.scala
+T 20 source.scala variable.parameter.scala
+T 21 source.scala meta.colon.scala
+T 22 source.scala
+T 28 source.scala entity.name.class
+T 29 source.scala meta.bracket.scala
+T 30 source.scala keyword.operator.scala
+T 31 source.scala
+T 38 source.scala entity.name.class
+T 39 source.scala
+T 40 source.scala keyword.operator.comparison.scala
+T 51 source.scala
+T 52 source.scala meta.bracket.scala
+T 58 source.scala
+T 62 source.scala entity.name.class
+T 63 source.scala meta.bracket.scala
+T 85 source.scala
+T 86 source.scala keyword.operator.arithmetic.scala
+T 87 source.scala
+T 101 source.scala entity.name.class
+T 102 source.scala meta.bracket.scala
+T 103 source.scala meta.bracket.scala
+L 
+L def circeCrossModule(path: String, crossType: CrossType = CrossType.Full) = {
+T 3 source.scala keyword.declaration.scala
+T 4 source.scala
+T 20 source.scala entity.name.function.declaration
+T 21 source.scala meta.bracket.scala
+T 25 source.scala variable.parameter.scala
+T 26 source.scala meta.colon.scala
+T 27 source.scala
+T 33 source.scala entity.name.class
+T 35 source.scala
+T 44 source.scala variable.parameter.scala
+T 45 source.scala meta.colon.scala
+T 46 source.scala
+T 55 source.scala entity.name.class
+T 56 source.scala
+T 57 source.scala keyword.operator.comparison.scala
+T 58 source.scala
+T 67 source.scala entity.name.class
+T 68 source.scala
+T 72 source.scala entity.name.class
+T 73 source.scala meta.bracket.scala
+T 74 source.scala
+T 75 source.scala keyword.operator.comparison.scala
+T 76 source.scala
+T 77 source.scala punctuation.section.block.begin.scala
+L   val id = path.split("[-/]").reduce(_ + _.capitalize)
+T 2 source.scala
+T 5 source.scala keyword.declaration.stable.scala
+T 6 source.scala
+T 8 source.scala variable.stable.declaration.scala
+T 9 source.scala
+T 10 source.scala keyword.operator.comparison.scala
+T 21 source.scala
+T 22 source.scala meta.bracket.scala
+T 23 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 27 source.scala string.quoted.double.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 29 source.scala meta.bracket.scala
+T 36 source.scala
+T 37 source.scala meta.bracket.scala
+T 39 source.scala
+T 40 source.scala keyword.operator.arithmetic.scala
+T 53 source.scala
+T 54 source.scala meta.bracket.scala
+L   CrossProject(id, file(s"modules/$path"))(JVMPlatform, JSPlatform, NativePlatform)
+T 2 source.scala
+T 14 source.scala entity.name.class
+T 15 source.scala meta.bracket.scala
+T 23 source.scala
+T 24 source.scala meta.bracket.scala
+T 25 source.scala keyword.interpolation.scala
+T 26 source.scala string.quoted.double.interpolated.scala punctuation.definition.string.begin.scala
+T 27 source.scala string.quoted.double.interpolated.scala
+T 28 source.scala string.quoted.double.interpolated.scala
+T 29 source.scala string.quoted.double.interpolated.scala
+T 30 source.scala string.quoted.double.interpolated.scala
+T 31 source.scala string.quoted.double.interpolated.scala
+T 32 source.scala string.quoted.double.interpolated.scala
+T 33 source.scala string.quoted.double.interpolated.scala
+T 34 source.scala string.quoted.double.interpolated.scala
+T 35 source.scala meta.template.expression.scala punctuation.definition.template-expression.begin.scala
+T 39 source.scala meta.template.expression.scala
+T 40 source.scala string.quoted.double.interpolated.scala punctuation.definition.string.end.scala
+T 41 source.scala meta.bracket.scala
+T 42 source.scala meta.bracket.scala
+T 43 source.scala meta.bracket.scala
+T 54 source.scala entity.name.class
+T 56 source.scala
+T 66 source.scala entity.name.class
+T 68 source.scala
+T 82 source.scala entity.name.class
+T 83 source.scala meta.bracket.scala
+L     .crossType(crossType)
+T 14 source.scala
+T 15 source.scala meta.bracket.scala
+T 24 source.scala
+T 25 source.scala meta.bracket.scala
+L     .settings(allSettings)
+T 13 source.scala
+T 14 source.scala meta.bracket.scala
+T 25 source.scala
+T 26 source.scala meta.bracket.scala
+L     .configure(circeProject(path))
+T 14 source.scala
+T 15 source.scala meta.bracket.scala
+T 27 source.scala
+T 28 source.scala meta.bracket.scala
+T 32 source.scala
+T 33 source.scala meta.bracket.scala
+T 34 source.scala meta.bracket.scala
+L     .jsSettings(
+T 15 source.scala
+T 16 source.scala meta.bracket.scala
+L       coverageEnabled := false
+T 22 source.scala
+T 24 source.scala keyword.operator.scala
+T 25 source.scala
+T 30 source.scala constant.language.scala
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L     .configure(_.dependsOn(scalafixInternalRules % ScalafixConfig))
+T 14 source.scala
+T 15 source.scala meta.bracket.scala
+T 26 source.scala
+T 27 source.scala meta.bracket.scala
+T 49 source.scala
+T 50 source.scala keyword.operator.arithmetic.scala
+T 51 source.scala
+T 65 source.scala entity.name.class
+T 66 source.scala meta.bracket.scala
+T 67 source.scala meta.bracket.scala
+L     .nativeSettings(
+T 19 source.scala
+T 20 source.scala meta.bracket.scala
+L       coverageEnabled := false,
+T 22 source.scala
+T 24 source.scala keyword.operator.scala
+T 25 source.scala
+T 30 source.scala constant.language.scala
+T 31 source.scala
+L       tlVersionIntroduced := List("2.12", "2.13", "3").map(_ -> "0.14.9").toMap
+T 26 source.scala
+T 28 source.scala keyword.operator.scala
+T 29 source.scala
+T 33 source.scala entity.name.class
+T 34 source.scala meta.bracket.scala
+T 35 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 39 source.scala string.quoted.double.scala
+T 40 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 42 source.scala
+T 43 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 47 source.scala string.quoted.double.scala
+T 48 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 50 source.scala
+T 51 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 52 source.scala string.quoted.double.scala
+T 53 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 54 source.scala meta.bracket.scala
+T 58 source.scala
+T 59 source.scala meta.bracket.scala
+T 61 source.scala
+T 63 source.scala keyword.operator.scala
+T 64 source.scala
+T 65 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 71 source.scala string.quoted.double.scala
+T 72 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 73 source.scala meta.bracket.scala
+T 79 source.scala
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L }
+T 1 source.scala punctuation.section.block.end.scala
+L 
+L lazy val docs = project
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 13 source.scala variable.stable.declaration.scala
+T 14 source.scala
+T 15 source.scala keyword.operator.comparison.scala
+T 23 source.scala
+L   .in(file("site"))
+T 5 source.scala
+T 6 source.scala meta.bracket.scala
+T 10 source.scala
+T 11 source.scala meta.bracket.scala
+T 12 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 16 source.scala string.quoted.double.scala
+T 17 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 18 source.scala meta.bracket.scala
+T 19 source.scala meta.bracket.scala
+L   .dependsOn(core.jvm, parser.jvm, shapes.jvm, testing.jvm)
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 58 source.scala
+T 59 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     moduleName := "circe-docs",
+T 15 source.scala
+T 17 source.scala keyword.operator.scala
+T 18 source.scala
+T 19 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 29 source.scala string.quoted.double.scala
+T 30 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 31 source.scala
+L     name := "Circe docs",
+T 9 source.scala
+T 11 source.scala keyword.operator.scala
+T 12 source.scala
+T 13 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 23 source.scala string.quoted.double.scala
+T 24 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 25 source.scala
+L     libraryDependencies ++= Seq(
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L       "io.circe" %% "circe-generic-extras" % "0.14.3",
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 15 source.scala string.quoted.double.scala
+T 16 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 17 source.scala
+T 19 source.scala keyword.operator.scala
+T 20 source.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 41 source.scala string.quoted.double.scala
+T 42 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 43 source.scala
+T 44 source.scala keyword.operator.arithmetic.scala
+T 45 source.scala
+T 46 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 52 source.scala string.quoted.double.scala
+T 53 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 54 source.scala
+L       "io.circe" %% "circe-optics" % opticsVersion
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 15 source.scala string.quoted.double.scala
+T 16 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 17 source.scala
+T 19 source.scala keyword.operator.scala
+T 20 source.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 33 source.scala string.quoted.double.scala
+T 34 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 35 source.scala
+T 36 source.scala keyword.operator.arithmetic.scala
+T 50 source.scala
+L     ),
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+T 6 source.scala
+L     tlSitePublishBranch := Some("series/0.14.x"),
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 46 source.scala string.quoted.double.scala
+T 47 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 48 source.scala meta.bracket.scala
+T 49 source.scala
+L     mdocVariables ++= Map(
+T 18 source.scala
+T 21 source.scala keyword.operator.scala
+T 22 source.scala
+T 25 source.scala entity.name.class
+T 26 source.scala meta.bracket.scala
+L       "CIRCE_OPTICS_VERSION" -> opticsVersion
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 27 source.scala string.quoted.double.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 29 source.scala
+T 31 source.scala keyword.operator.scala
+T 45 source.scala
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .enablePlugins(CirceOrgSitePlugin)
+T 16 source.scala
+T 17 source.scala meta.bracket.scala
+T 35 source.scala entity.name.class
+T 36 source.scala meta.bracket.scala
+L   .settings(macroSettings)
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+T 25 source.scala
+T 26 source.scala meta.bracket.scala
+L 
+L lazy val macroSettings: Seq[Setting[?]] = Seq(
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 22 source.scala variable.stable.declaration.scala
+T 23 source.scala keyword.operator.scala
+T 24 source.scala
+T 27 source.scala entity.name.class
+T 28 source.scala meta.bracket.scala
+T 35 source.scala entity.name.class
+T 36 source.scala meta.bracket.scala
+T 37 source.scala keyword.operator.scala
+T 38 source.scala meta.bracket.scala
+T 39 source.scala meta.bracket.scala
+T 40 source.scala
+T 41 source.scala keyword.operator.comparison.scala
+T 42 source.scala
+T 45 source.scala entity.name.class
+T 46 source.scala meta.bracket.scala
+L   libraryDependencies ++= (if (tlIsScala3.value) Nil
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala meta.bracket.scala
+T 29 source.scala keyword.control.flow.scala
+T 30 source.scala
+T 31 source.scala meta.bracket.scala
+T 47 source.scala
+T 48 source.scala meta.bracket.scala
+T 49 source.scala
+T 52 source.scala entity.name.class
+L                            else
+T 27 source.scala
+T 31 source.scala keyword.control.flow.scala
+L                              Seq(
+T 29 source.scala
+T 32 source.scala entity.name.class
+T 33 source.scala meta.bracket.scala
+L                                scalaOrganization.value % "scala-compiler" % scalaVersion.value % Provided,
+T 55 source.scala
+T 56 source.scala keyword.operator.arithmetic.scala
+T 57 source.scala
+T 58 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 72 source.scala string.quoted.double.scala
+T 73 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 74 source.scala
+T 75 source.scala keyword.operator.arithmetic.scala
+T 95 source.scala
+T 96 source.scala keyword.operator.arithmetic.scala
+T 97 source.scala
+T 105 source.scala entity.name.class
+T 106 source.scala
+L                                scalaOrganization.value % "scala-reflect" % scalaVersion.value % Provided
+T 55 source.scala
+T 56 source.scala keyword.operator.arithmetic.scala
+T 57 source.scala
+T 58 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 71 source.scala string.quoted.double.scala
+T 72 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 73 source.scala
+T 74 source.scala keyword.operator.arithmetic.scala
+T 94 source.scala
+T 95 source.scala keyword.operator.arithmetic.scala
+T 96 source.scala
+T 104 source.scala entity.name.class
+L                              ) ++ (
+T 29 source.scala
+T 30 source.scala meta.bracket.scala
+T 31 source.scala
+T 33 source.scala keyword.operator.scala
+T 34 source.scala
+T 35 source.scala meta.bracket.scala
+L                                if (scalaBinaryVersion.value == "2.12") {
+T 31 source.scala
+T 33 source.scala keyword.control.flow.scala
+T 34 source.scala
+T 35 source.scala meta.bracket.scala
+T 60 source.scala
+T 62 source.scala keyword.operator.comparison.scala
+T 63 source.scala
+T 64 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 68 source.scala string.quoted.double.scala
+T 69 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 70 source.scala meta.bracket.scala
+T 71 source.scala
+T 72 source.scala punctuation.section.block.begin.scala
+L                                  Seq(
+T 33 source.scala
+T 36 source.scala entity.name.class
+T 37 source.scala meta.bracket.scala
+L                                    compilerPlugin(
+T 49 source.scala
+T 50 source.scala meta.bracket.scala
+L                                      ("org.scalamacros" % "paradise" % paradiseVersion).cross(CrossVersion.patch)
+T 37 source.scala
+T 38 source.scala meta.bracket.scala
+T 39 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 54 source.scala string.quoted.double.scala
+T 55 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 56 source.scala
+T 57 source.scala keyword.operator.arithmetic.scala
+T 58 source.scala
+T 59 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 67 source.scala string.quoted.double.scala
+T 68 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 69 source.scala
+T 70 source.scala keyword.operator.arithmetic.scala
+T 86 source.scala
+T 87 source.scala meta.bracket.scala
+T 93 source.scala
+T 94 source.scala meta.bracket.scala
+T 106 source.scala entity.name.class
+T 112 source.scala
+T 113 source.scala meta.bracket.scala
+L                                    )
+T 35 source.scala
+T 36 source.scala meta.bracket.scala
+L                                  )
+T 33 source.scala
+T 34 source.scala meta.bracket.scala
+L                                } else Nil
+T 31 source.scala
+T 32 source.scala punctuation.section.block.end.scala
+T 33 source.scala
+T 37 source.scala keyword.control.flow.scala
+T 38 source.scala
+T 41 source.scala entity.name.class
+L                              )),
+T 29 source.scala
+T 30 source.scala meta.bracket.scala
+T 31 source.scala meta.bracket.scala
+T 32 source.scala
+L   scalacOptions ++= (
+T 16 source.scala
+T 19 source.scala keyword.operator.scala
+T 20 source.scala
+T 21 source.scala meta.bracket.scala
+L     if (Set("2.12", "3").contains(scalaBinaryVersion.value)) Nil else Seq("-Ymacro-annotations")
+T 4 source.scala
+T 6 source.scala keyword.control.flow.scala
+T 7 source.scala
+T 8 source.scala meta.bracket.scala
+T 11 source.scala entity.name.class
+T 12 source.scala meta.bracket.scala
+T 13 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 17 source.scala string.quoted.double.scala
+T 18 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 20 source.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 22 source.scala string.quoted.double.scala
+T 23 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 24 source.scala meta.bracket.scala
+T 33 source.scala
+T 34 source.scala meta.bracket.scala
+T 58 source.scala
+T 59 source.scala meta.bracket.scala
+T 60 source.scala meta.bracket.scala
+T 61 source.scala
+T 64 source.scala entity.name.class
+T 65 source.scala
+T 69 source.scala keyword.control.flow.scala
+T 70 source.scala
+T 73 source.scala entity.name.class
+T 74 source.scala meta.bracket.scala
+T 75 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 94 source.scala string.quoted.double.scala
+T 95 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 96 source.scala meta.bracket.scala
+L   ),
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+T 4 source.scala
+L   scalacOptions -= "-source:3.0-migration"
+T 16 source.scala
+T 18 source.scala keyword.operator.scala
+T 19 source.scala
+T 20 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 41 source.scala string.quoted.double.scala
+T 42 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L )
+T 1 source.scala meta.bracket.scala
+L 
+L lazy val root = tlCrossRootProject
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 13 source.scala variable.stable.declaration.scala
+T 14 source.scala
+T 15 source.scala keyword.operator.comparison.scala
+T 34 source.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     console / initialCommands :=
+T 12 source.scala
+T 13 source.scala keyword.operator.arithmetic.scala
+T 30 source.scala
+T 32 source.scala keyword.operator.scala
+L       """
+T 6 source.scala
+T 9 source.scala string.quoted.triple.scala punctuation.definition.string.begin.scala
+L         |import io.circe._
+T 26 source.scala string.quoted.triple.scala
+L         |import io.circe.generic.auto._
+T 39 source.scala string.quoted.triple.scala
+L         |import io.circe.literal._
+T 34 source.scala string.quoted.triple.scala
+L         |import io.circe.parser._
+T 33 source.scala string.quoted.triple.scala
+L         |import io.circe.syntax._
+T 33 source.scala string.quoted.triple.scala
+L       """.stripMargin
+T 6 source.scala string.quoted.triple.scala
+T 9 source.scala string.quoted.triple.scala punctuation.definition.string.end.scala
+T 21 source.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .aggregate(
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+L     benchmark,
+T 14 source.scala
+L     core,
+T 9 source.scala
+L     extras,
+T 11 source.scala
+L     generic,
+T 12 source.scala
+L     hygiene,
+T 12 source.scala
+L     jawn,
+T 9 source.scala
+L     literal,
+T 12 source.scala
+L     numbers,
+T 12 source.scala
+L     numbersTesting,
+T 19 source.scala
+L     parser,
+T 11 source.scala
+L     pointer,
+T 12 source.scala
+L     pointerLiteral,
+T 19 source.scala
+L     scalafixInternalInput,
+T 26 source.scala
+L     scalafixInternalOutput,
+T 27 source.scala
+L     scalafixInternalRules,
+T 26 source.scala
+L     scalafixInternalTests,
+T 26 source.scala
+L     scalajs,
+T 12 source.scala
+L     scalajsJavaTimeTest,
+T 24 source.scala
+L     scodec,
+T 11 source.scala
+L     shapes,
+T 11 source.scala
+L     testing,
+T 12 source.scala
+L     tests
+T 9 source.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .disablePlugins(ScalafixPlugin)
+T 17 source.scala
+T 18 source.scala meta.bracket.scala
+T 32 source.scala entity.name.class
+T 33 source.scala meta.bracket.scala
+L 
+L lazy val scalafixInternalRules =
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 30 source.scala variable.stable.declaration.scala
+T 31 source.scala
+T 32 source.scala keyword.operator.comparison.scala
+L   baseModule("scalafix/internal/rules")
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 14 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 37 source.scala string.quoted.double.scala
+T 38 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 39 source.scala meta.bracket.scala
+L     .settings(
+T 13 source.scala
+T 14 source.scala meta.bracket.scala
+L       skip := tlIsScala3.value,
+T 11 source.scala
+T 13 source.scala keyword.operator.scala
+T 31 source.scala
+L       update / skip := false,
+T 13 source.scala
+T 14 source.scala keyword.operator.arithmetic.scala
+T 20 source.scala
+T 22 source.scala keyword.operator.scala
+T 23 source.scala
+T 28 source.scala constant.language.scala
+T 29 source.scala
+L       libraryDependencies ++= List(
+T 26 source.scala
+T 29 source.scala keyword.operator.scala
+T 30 source.scala
+T 34 source.scala entity.name.class
+T 35 source.scala meta.bracket.scala
+L         "ch.epfl.scala" %% "scalafix-core" % _root_.scalafix.sbt.BuildInfo.scalafixVersion
+T 8 source.scala
+T 9 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 22 source.scala string.quoted.double.scala
+T 23 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 41 source.scala string.quoted.double.scala
+T 42 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 43 source.scala
+T 44 source.scala keyword.operator.arithmetic.scala
+T 65 source.scala
+T 74 source.scala entity.name.class
+T 90 source.scala
+L       ).filterNot(_ => tlIsScala3.value)
+T 6 source.scala
+T 7 source.scala meta.bracket.scala
+T 17 source.scala
+T 18 source.scala meta.bracket.scala
+T 20 source.scala
+T 22 source.scala keyword.operator.scala
+T 39 source.scala
+T 40 source.scala meta.bracket.scala
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L     .enablePlugins(NoPublishPlugin)
+T 18 source.scala
+T 19 source.scala meta.bracket.scala
+T 34 source.scala entity.name.class
+T 35 source.scala meta.bracket.scala
+L     .disablePlugins(ScalafixPlugin)
+T 19 source.scala
+T 20 source.scala meta.bracket.scala
+T 34 source.scala entity.name.class
+T 35 source.scala meta.bracket.scala
+L 
+L lazy val scalafixInternalInput =
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 30 source.scala variable.stable.declaration.scala
+T 31 source.scala
+T 32 source.scala keyword.operator.comparison.scala
+L   baseModule("scalafix/internal/input")
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 14 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 37 source.scala string.quoted.double.scala
+T 38 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 39 source.scala meta.bracket.scala
+L     .settings(
+T 13 source.scala
+T 14 source.scala meta.bracket.scala
+L       skip := tlIsScala3.value,
+T 11 source.scala
+T 13 source.scala keyword.operator.scala
+T 31 source.scala
+L       update / skip := false
+T 13 source.scala
+T 14 source.scala keyword.operator.arithmetic.scala
+T 20 source.scala
+T 22 source.scala keyword.operator.scala
+T 23 source.scala
+T 28 source.scala constant.language.scala
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L     .disablePlugins(ScalafixPlugin)
+T 19 source.scala
+T 20 source.scala meta.bracket.scala
+T 34 source.scala entity.name.class
+T 35 source.scala meta.bracket.scala
+L     .enablePlugins(NoPublishPlugin)
+T 18 source.scala
+T 19 source.scala meta.bracket.scala
+T 34 source.scala entity.name.class
+T 35 source.scala meta.bracket.scala
+L 
+L lazy val scalafixInternalOutput =
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 31 source.scala variable.stable.declaration.scala
+T 32 source.scala
+T 33 source.scala keyword.operator.comparison.scala
+L   baseModule("scalafix/internal/output")
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 14 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 38 source.scala string.quoted.double.scala
+T 39 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 40 source.scala meta.bracket.scala
+L     .settings(
+T 13 source.scala
+T 14 source.scala meta.bracket.scala
+L       skip := tlIsScala3.value,
+T 11 source.scala
+T 13 source.scala keyword.operator.scala
+T 31 source.scala
+L       update / skip := false
+T 13 source.scala
+T 14 source.scala keyword.operator.arithmetic.scala
+T 20 source.scala
+T 22 source.scala keyword.operator.scala
+T 23 source.scala
+T 28 source.scala constant.language.scala
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L     .disablePlugins(ScalafixPlugin)
+T 19 source.scala
+T 20 source.scala meta.bracket.scala
+T 34 source.scala entity.name.class
+T 35 source.scala meta.bracket.scala
+L     .enablePlugins(NoPublishPlugin)
+T 18 source.scala
+T 19 source.scala meta.bracket.scala
+T 34 source.scala entity.name.class
+T 35 source.scala meta.bracket.scala
+L 
+L lazy val scalafixInternalTests =
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 30 source.scala variable.stable.declaration.scala
+T 31 source.scala
+T 32 source.scala keyword.operator.comparison.scala
+L   baseModule("scalafix/internal/tests")
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 14 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 37 source.scala string.quoted.double.scala
+T 38 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 39 source.scala meta.bracket.scala
+L     .enablePlugins(NoPublishPlugin, ScalafixTestkitPlugin)
+T 18 source.scala
+T 19 source.scala meta.bracket.scala
+T 34 source.scala entity.name.class
+T 36 source.scala
+T 57 source.scala entity.name.class
+T 58 source.scala meta.bracket.scala
+L     .settings(
+T 13 source.scala
+T 14 source.scala meta.bracket.scala
+L       libraryDependencies := {
+T 26 source.scala
+T 28 source.scala keyword.operator.scala
+T 29 source.scala
+T 30 source.scala punctuation.section.block.begin.scala
+L         if (tlIsScala3.value)
+T 8 source.scala
+T 10 source.scala keyword.control.flow.scala
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+T 28 source.scala
+T 29 source.scala meta.bracket.scala
+L           libraryDependencies.value.filterNot(_.name == "scalafix-testkit")
+T 45 source.scala
+T 46 source.scala meta.bracket.scala
+T 53 source.scala
+T 55 source.scala keyword.operator.comparison.scala
+T 56 source.scala
+T 57 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 73 source.scala string.quoted.double.scala
+T 74 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 75 source.scala meta.bracket.scala
+L         else
+T 8 source.scala
+T 12 source.scala keyword.control.flow.scala
+L           libraryDependencies.value
+T 35 source.scala
+L       },
+T 6 source.scala
+T 7 source.scala punctuation.section.block.end.scala
+T 8 source.scala
+L       scalafixTestkitOutputSourceDirectories :=
+T 45 source.scala
+T 47 source.scala keyword.operator.scala
+L         (scalafixInternalOutput / Compile / sourceDirectories).value,
+T 8 source.scala
+T 9 source.scala meta.bracket.scala
+T 32 source.scala
+T 33 source.scala keyword.operator.arithmetic.scala
+T 34 source.scala
+T 41 source.scala entity.name.class
+T 42 source.scala
+T 43 source.scala keyword.operator.arithmetic.scala
+T 61 source.scala
+T 62 source.scala meta.bracket.scala
+T 69 source.scala
+L       scalafixTestkitInputSourceDirectories :=
+T 44 source.scala
+T 46 source.scala keyword.operator.scala
+L         (scalafixInternalInput / Compile / sourceDirectories).value,
+T 8 source.scala
+T 9 source.scala meta.bracket.scala
+T 31 source.scala
+T 32 source.scala keyword.operator.arithmetic.scala
+T 33 source.scala
+T 40 source.scala entity.name.class
+T 41 source.scala
+T 42 source.scala keyword.operator.arithmetic.scala
+T 60 source.scala
+T 61 source.scala meta.bracket.scala
+T 68 source.scala
+L       scalafixTestkitInputClasspath :=
+T 36 source.scala
+T 38 source.scala keyword.operator.scala
+L         (scalafixInternalInput / Compile / fullClasspath).value,
+T 8 source.scala
+T 9 source.scala meta.bracket.scala
+T 31 source.scala
+T 32 source.scala keyword.operator.arithmetic.scala
+T 33 source.scala
+T 40 source.scala entity.name.class
+T 41 source.scala
+T 42 source.scala keyword.operator.arithmetic.scala
+T 56 source.scala
+T 57 source.scala meta.bracket.scala
+T 64 source.scala
+L       scalafixTestkitInputScalacOptions :=
+T 40 source.scala
+T 42 source.scala keyword.operator.scala
+L         (scalafixInternalInput / Compile / scalacOptions).value,
+T 8 source.scala
+T 9 source.scala meta.bracket.scala
+T 31 source.scala
+T 32 source.scala keyword.operator.arithmetic.scala
+T 33 source.scala
+T 40 source.scala entity.name.class
+T 41 source.scala
+T 42 source.scala keyword.operator.arithmetic.scala
+T 56 source.scala
+T 57 source.scala meta.bracket.scala
+T 64 source.scala
+L       scalafixTestkitInputScalaVersion :=
+T 39 source.scala
+T 41 source.scala keyword.operator.scala
+L         (scalafixInternalInput / Compile / scalaVersion).value,
+T 8 source.scala
+T 9 source.scala meta.bracket.scala
+T 31 source.scala
+T 32 source.scala keyword.operator.arithmetic.scala
+T 33 source.scala
+T 40 source.scala entity.name.class
+T 41 source.scala
+T 42 source.scala keyword.operator.arithmetic.scala
+T 55 source.scala
+T 56 source.scala meta.bracket.scala
+T 63 source.scala
+L       libraryDependencies ++= Seq(
+T 26 source.scala
+T 29 source.scala keyword.operator.scala
+T 30 source.scala
+T 33 source.scala entity.name.class
+T 34 source.scala meta.bracket.scala
+L         ("ch.epfl.scala" %% "scalafix-testkit" % _root_.scalafix.sbt.BuildInfo.scalafixVersion % Test)
+T 8 source.scala
+T 9 source.scala meta.bracket.scala
+T 10 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 23 source.scala string.quoted.double.scala
+T 24 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 25 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 29 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 45 source.scala string.quoted.double.scala
+T 46 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 47 source.scala
+T 48 source.scala keyword.operator.arithmetic.scala
+T 69 source.scala
+T 78 source.scala entity.name.class
+T 95 source.scala
+T 96 source.scala keyword.operator.arithmetic.scala
+T 97 source.scala
+T 101 source.scala entity.name.class
+T 102 source.scala meta.bracket.scala
+L           .cross(CrossVersion.full)
+T 16 source.scala
+T 17 source.scala meta.bracket.scala
+T 29 source.scala entity.name.class
+T 34 source.scala
+T 35 source.scala meta.bracket.scala
+L       ).filter(_ => !tlIsScala3.value),
+T 6 source.scala
+T 7 source.scala meta.bracket.scala
+T 14 source.scala
+T 15 source.scala meta.bracket.scala
+T 17 source.scala
+T 19 source.scala keyword.operator.scala
+T 20 source.scala
+T 21 source.scala keyword.operator.logical.scala
+T 37 source.scala
+T 38 source.scala meta.bracket.scala
+T 39 source.scala
+L       Compile / compile :=
+T 6 source.scala
+T 13 source.scala entity.name.class
+T 14 source.scala
+T 15 source.scala keyword.operator.arithmetic.scala
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+L         (Compile / compile).dependsOn(scalafixInternalInput / Compile / compile).value
+T 8 source.scala
+T 9 source.scala meta.bracket.scala
+T 16 source.scala entity.name.class
+T 17 source.scala
+T 18 source.scala keyword.operator.arithmetic.scala
+T 26 source.scala
+T 27 source.scala meta.bracket.scala
+T 37 source.scala
+T 38 source.scala meta.bracket.scala
+T 60 source.scala
+T 61 source.scala keyword.operator.arithmetic.scala
+T 62 source.scala
+T 69 source.scala entity.name.class
+T 70 source.scala
+T 71 source.scala keyword.operator.arithmetic.scala
+T 79 source.scala
+T 80 source.scala meta.bracket.scala
+T 86 source.scala
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L     .disablePlugins(ScalafixPlugin)
+T 19 source.scala
+T 20 source.scala meta.bracket.scala
+T 34 source.scala entity.name.class
+T 35 source.scala meta.bracket.scala
+L     .dependsOn(scalafixInternalInput, scalafixInternalOutput, scalafixInternalRules)
+T 14 source.scala
+T 15 source.scala meta.bracket.scala
+T 83 source.scala
+T 84 source.scala meta.bracket.scala
+L 
+L lazy val numbersTesting =
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 23 source.scala variable.stable.declaration.scala
+T 24 source.scala
+T 25 source.scala keyword.operator.comparison.scala
+L   circeCrossModule("numbers-testing", CrossType.Pure).settings(
+T 18 source.scala
+T 19 source.scala meta.bracket.scala
+T 20 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 35 source.scala string.quoted.double.scala
+T 36 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 38 source.scala
+T 47 source.scala entity.name.class
+T 48 source.scala
+T 52 source.scala entity.name.class
+T 53 source.scala meta.bracket.scala
+T 62 source.scala
+T 63 source.scala meta.bracket.scala
+L     libraryDependencies += "org.scalacheck" %%% "scalacheck" % scalaCheckVersion,
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 42 source.scala string.quoted.double.scala
+T 43 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 44 source.scala
+T 47 source.scala keyword.operator.scala
+T 48 source.scala
+T 49 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 59 source.scala string.quoted.double.scala
+T 60 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 61 source.scala
+T 62 source.scala keyword.operator.arithmetic.scala
+T 81 source.scala
+L     coverageExcludedPackages := "io\\.circe\\.numbers\\.testing\\..*"
+T 29 source.scala
+T 31 source.scala keyword.operator.scala
+T 32 source.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 35 source.scala string.quoted.double.scala
+T 37 source.scala string.quoted.double.scala constant.character.escape.scala
+T 43 source.scala string.quoted.double.scala
+T 45 source.scala string.quoted.double.scala constant.character.escape.scala
+T 53 source.scala string.quoted.double.scala
+T 55 source.scala string.quoted.double.scala constant.character.escape.scala
+T 63 source.scala string.quoted.double.scala
+T 65 source.scala string.quoted.double.scala constant.character.escape.scala
+T 68 source.scala string.quoted.double.scala
+T 69 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L 
+L lazy val numbers = circeCrossModule("numbers")
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 16 source.scala variable.stable.declaration.scala
+T 17 source.scala
+T 18 source.scala keyword.operator.comparison.scala
+T 35 source.scala
+T 36 source.scala meta.bracket.scala
+T 37 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 44 source.scala string.quoted.double.scala
+T 45 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 46 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     libraryDependencies ++= Seq(
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L       "org.scalameta" %%% "munit" % munitVersion % Test,
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 32 source.scala string.quoted.double.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 34 source.scala
+T 35 source.scala keyword.operator.arithmetic.scala
+T 49 source.scala
+T 50 source.scala keyword.operator.arithmetic.scala
+T 51 source.scala
+T 55 source.scala entity.name.class
+T 56 source.scala
+L       "org.typelevel" %%% "discipline-munit" % disciplineMunitVersion % Test
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 43 source.scala string.quoted.double.scala
+T 44 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 45 source.scala
+T 46 source.scala keyword.operator.arithmetic.scala
+T 70 source.scala
+T 71 source.scala keyword.operator.arithmetic.scala
+T 72 source.scala
+T 76 source.scala entity.name.class
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .dependsOn(numbersTesting % Test)
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 28 source.scala
+T 29 source.scala keyword.operator.arithmetic.scala
+T 30 source.scala
+T 34 source.scala entity.name.class
+T 35 source.scala meta.bracket.scala
+L 
+L lazy val core = circeCrossModule("core")
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 13 source.scala variable.stable.declaration.scala
+T 14 source.scala
+T 15 source.scala keyword.operator.comparison.scala
+T 32 source.scala
+T 33 source.scala meta.bracket.scala
+T 34 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 38 source.scala string.quoted.double.scala
+T 39 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 40 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     libraryDependencies += "org.typelevel" %%% "cats-core" % catsVersion,
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 41 source.scala string.quoted.double.scala
+T 42 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 43 source.scala
+T 46 source.scala keyword.operator.scala
+T 47 source.scala
+T 48 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 57 source.scala string.quoted.double.scala
+T 58 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 59 source.scala
+T 60 source.scala keyword.operator.arithmetic.scala
+T 73 source.scala
+L     Compile / sourceGenerators += Def.task {
+T 4 source.scala
+T 11 source.scala entity.name.class
+T 12 source.scala
+T 13 source.scala keyword.operator.arithmetic.scala
+T 31 source.scala
+T 33 source.scala keyword.operator.scala
+T 34 source.scala
+T 37 source.scala entity.name.class
+T 43 source.scala
+T 44 source.scala punctuation.section.block.begin.scala
+L       val managedSource = (Compile / sourceManaged).value
+T 6 source.scala
+T 9 source.scala keyword.declaration.stable.scala
+T 10 source.scala
+T 23 source.scala variable.stable.declaration.scala
+T 24 source.scala
+T 25 source.scala keyword.operator.comparison.scala
+T 26 source.scala
+T 27 source.scala meta.bracket.scala
+T 34 source.scala entity.name.class
+T 35 source.scala
+T 36 source.scala keyword.operator.arithmetic.scala
+T 50 source.scala
+T 51 source.scala meta.bracket.scala
+T 57 source.scala
+L       val currentScalaVersion = (Compile / scalaBinaryVersion).value
+T 6 source.scala
+T 9 source.scala keyword.declaration.stable.scala
+T 10 source.scala
+T 29 source.scala variable.stable.declaration.scala
+T 30 source.scala
+T 31 source.scala keyword.operator.comparison.scala
+T 32 source.scala
+T 33 source.scala meta.bracket.scala
+T 40 source.scala entity.name.class
+T 41 source.scala
+T 42 source.scala keyword.operator.arithmetic.scala
+T 61 source.scala
+T 62 source.scala meta.bracket.scala
+T 68 source.scala
+L       Boilerplate.gen(managedSource, currentScalaVersion)
+T 6 source.scala
+T 17 source.scala entity.name.class
+T 21 source.scala
+T 22 source.scala meta.bracket.scala
+T 56 source.scala
+T 57 source.scala meta.bracket.scala
+L     },
+T 4 source.scala
+T 5 source.scala punctuation.section.block.end.scala
+T 6 source.scala
+L     scalacOptions ~= (_.filterNot(Set("-source:3.0-migration"))),
+T 18 source.scala
+T 20 source.scala keyword.operator.scala
+T 21 source.scala
+T 22 source.scala meta.bracket.scala
+T 33 source.scala
+T 34 source.scala meta.bracket.scala
+T 37 source.scala entity.name.class
+T 38 source.scala meta.bracket.scala
+T 39 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 60 source.scala string.quoted.double.scala
+T 61 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 62 source.scala meta.bracket.scala
+T 63 source.scala meta.bracket.scala
+T 64 source.scala meta.bracket.scala
+T 65 source.scala
+L     mimaBinaryIssueFilters ++= Seq(
+T 27 source.scala
+T 30 source.scala keyword.operator.scala
+T 31 source.scala
+T 34 source.scala entity.name.class
+T 35 source.scala meta.bracket.scala
+L       ProblemFilters.exclude[ReversedMissingMethodProblem]("io.circe.Json.traverseBoolean"),
+T 6 source.scala
+T 20 source.scala entity.name.class
+T 28 source.scala
+T 29 source.scala meta.bracket.scala
+T 57 source.scala entity.name.class
+T 58 source.scala meta.bracket.scala
+T 59 source.scala meta.bracket.scala
+T 60 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 89 source.scala string.quoted.double.scala
+T 90 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 91 source.scala meta.bracket.scala
+T 92 source.scala
+L       ProblemFilters.exclude[ReversedMissingMethodProblem]("io.circe.Json.traverseNumber"),
+T 6 source.scala
+T 20 source.scala entity.name.class
+T 28 source.scala
+T 29 source.scala meta.bracket.scala
+T 57 source.scala entity.name.class
+T 58 source.scala meta.bracket.scala
+T 59 source.scala meta.bracket.scala
+T 60 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 88 source.scala string.quoted.double.scala
+T 89 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 90 source.scala meta.bracket.scala
+T 91 source.scala
+L       ProblemFilters.exclude[ReversedMissingMethodProblem]("io.circe.Json.traverseString"),
+T 6 source.scala
+T 20 source.scala entity.name.class
+T 28 source.scala
+T 29 source.scala meta.bracket.scala
+T 57 source.scala entity.name.class
+T 58 source.scala meta.bracket.scala
+T 59 source.scala meta.bracket.scala
+T 60 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 88 source.scala string.quoted.double.scala
+T 89 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 90 source.scala meta.bracket.scala
+T 91 source.scala
+L       ProblemFilters.exclude[ReversedMissingMethodProblem]("io.circe.Json.traverseArray"),
+T 6 source.scala
+T 20 source.scala entity.name.class
+T 28 source.scala
+T 29 source.scala meta.bracket.scala
+T 57 source.scala entity.name.class
+T 58 source.scala meta.bracket.scala
+T 59 source.scala meta.bracket.scala
+T 60 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 87 source.scala string.quoted.double.scala
+T 88 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 89 source.scala meta.bracket.scala
+T 90 source.scala
+L       ProblemFilters.exclude[ReversedMissingMethodProblem]("io.circe.Json.traverseObject")
+T 6 source.scala
+T 20 source.scala entity.name.class
+T 28 source.scala
+T 29 source.scala meta.bracket.scala
+T 57 source.scala entity.name.class
+T 58 source.scala meta.bracket.scala
+T 59 source.scala meta.bracket.scala
+T 60 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 88 source.scala string.quoted.double.scala
+T 89 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 90 source.scala meta.bracket.scala
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .dependsOn(numbers)
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 20 source.scala
+T 21 source.scala meta.bracket.scala
+L 
+L lazy val generic = circeCrossModule("generic")
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 16 source.scala variable.stable.declaration.scala
+T 17 source.scala
+T 18 source.scala keyword.operator.comparison.scala
+T 35 source.scala
+T 36 source.scala meta.bracket.scala
+T 37 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 44 source.scala string.quoted.double.scala
+T 45 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 46 source.scala meta.bracket.scala
+L   .settings(macroSettings)
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+T 25 source.scala
+T 26 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     libraryDependencies ++= (if (tlIsScala3.value) Nil
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 29 source.scala meta.bracket.scala
+T 31 source.scala keyword.control.flow.scala
+T 32 source.scala
+T 33 source.scala meta.bracket.scala
+T 49 source.scala
+T 50 source.scala meta.bracket.scala
+T 51 source.scala
+T 54 source.scala entity.name.class
+L                              else Seq("com.chuusai" %%% "shapeless" % shapelessVersion))
+T 29 source.scala
+T 33 source.scala keyword.control.flow.scala
+T 34 source.scala
+T 37 source.scala entity.name.class
+T 38 source.scala meta.bracket.scala
+T 39 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 50 source.scala string.quoted.double.scala
+T 51 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 52 source.scala
+T 55 source.scala keyword.operator.scala
+T 56 source.scala
+T 57 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 66 source.scala string.quoted.double.scala
+T 67 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 68 source.scala
+T 69 source.scala keyword.operator.arithmetic.scala
+T 86 source.scala
+T 87 source.scala meta.bracket.scala
+T 88 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .jsSettings(
+T 13 source.scala
+T 14 source.scala meta.bracket.scala
+L     libraryDependencies ++= Seq(
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L       "org.typelevel" %% "jawn-parser" % jawnVersion % Test,
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 24 source.scala keyword.operator.scala
+T 25 source.scala
+T 26 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 37 source.scala string.quoted.double.scala
+T 38 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 39 source.scala
+T 40 source.scala keyword.operator.arithmetic.scala
+T 53 source.scala
+T 54 source.scala keyword.operator.arithmetic.scala
+T 55 source.scala
+T 59 source.scala entity.name.class
+T 60 source.scala
+L       "io.github.cquiroz" %%% "scala-java-time" % scalaJavaTimeVersion % Test
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 24 source.scala string.quoted.double.scala
+T 25 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 26 source.scala
+T 29 source.scala keyword.operator.scala
+T 30 source.scala
+T 31 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 46 source.scala string.quoted.double.scala
+T 47 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 48 source.scala
+T 49 source.scala keyword.operator.arithmetic.scala
+T 71 source.scala
+T 72 source.scala keyword.operator.arithmetic.scala
+T 73 source.scala
+T 77 source.scala entity.name.class
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .dependsOn(core, tests % Test)
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 25 source.scala
+T 26 source.scala keyword.operator.arithmetic.scala
+T 27 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L 
+L lazy val genericSimple = circeCrossModule("generic-simple", CrossType.Pure)
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 22 source.scala variable.stable.declaration.scala
+T 23 source.scala
+T 24 source.scala keyword.operator.comparison.scala
+T 41 source.scala
+T 42 source.scala meta.bracket.scala
+T 43 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 57 source.scala string.quoted.double.scala
+T 58 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 60 source.scala
+T 69 source.scala entity.name.class
+T 70 source.scala
+T 74 source.scala entity.name.class
+T 75 source.scala meta.bracket.scala
+L   .settings(macroSettings)
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+T 25 source.scala
+T 26 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     crossScalaVersions := (ThisBuild / crossScalaVersions).value.filter(_.startsWith("2.13")),
+T 23 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala meta.bracket.scala
+T 36 source.scala entity.name.class
+T 37 source.scala
+T 38 source.scala keyword.operator.arithmetic.scala
+T 57 source.scala
+T 58 source.scala meta.bracket.scala
+T 71 source.scala
+T 72 source.scala meta.bracket.scala
+T 84 source.scala
+T 85 source.scala meta.bracket.scala
+T 86 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 90 source.scala string.quoted.double.scala
+T 91 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 92 source.scala meta.bracket.scala
+T 93 source.scala meta.bracket.scala
+T 94 source.scala
+L     libraryDependencies += "com.chuusai" %%% "shapeless" % shapelessVersion,
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 39 source.scala string.quoted.double.scala
+T 40 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 41 source.scala
+T 44 source.scala keyword.operator.scala
+T 45 source.scala
+T 46 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 55 source.scala string.quoted.double.scala
+T 56 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 57 source.scala
+T 58 source.scala keyword.operator.arithmetic.scala
+T 76 source.scala
+L     Test / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.AllLibraryJars
+T 4 source.scala
+T 8 source.scala entity.name.class
+T 9 source.scala
+T 10 source.scala keyword.operator.arithmetic.scala
+T 39 source.scala
+T 41 source.scala keyword.operator.scala
+T 42 source.scala
+T 69 source.scala entity.name.class
+T 70 source.scala
+T 84 source.scala entity.name.class
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .platformsSettings(JSPlatform, NativePlatform)(
+T 20 source.scala
+T 21 source.scala meta.bracket.scala
+T 31 source.scala entity.name.class
+T 33 source.scala
+T 47 source.scala entity.name.class
+T 48 source.scala meta.bracket.scala
+T 49 source.scala meta.bracket.scala
+L     libraryDependencies ++= Seq(
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L       "org.typelevel" %% "jawn-parser" % jawnVersion % Test,
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 24 source.scala keyword.operator.scala
+T 25 source.scala
+T 26 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 37 source.scala string.quoted.double.scala
+T 38 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 39 source.scala
+T 40 source.scala keyword.operator.arithmetic.scala
+T 53 source.scala
+T 54 source.scala keyword.operator.arithmetic.scala
+T 55 source.scala
+T 59 source.scala entity.name.class
+T 60 source.scala
+L       "io.github.cquiroz" %%% "scala-java-time" % scalaJavaTimeVersion % Test
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 24 source.scala string.quoted.double.scala
+T 25 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 26 source.scala
+T 29 source.scala keyword.operator.scala
+T 30 source.scala
+T 31 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 46 source.scala string.quoted.double.scala
+T 47 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 48 source.scala
+T 49 source.scala keyword.operator.arithmetic.scala
+T 71 source.scala
+T 72 source.scala keyword.operator.arithmetic.scala
+T 73 source.scala
+T 77 source.scala entity.name.class
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .dependsOn(core, tests % Test, literal % Test)
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 25 source.scala
+T 26 source.scala keyword.operator.arithmetic.scala
+T 27 source.scala
+T 31 source.scala entity.name.class
+T 41 source.scala
+T 42 source.scala keyword.operator.arithmetic.scala
+T 43 source.scala
+T 47 source.scala entity.name.class
+T 48 source.scala meta.bracket.scala
+L 
+L lazy val shapes = circeCrossModule("shapes", CrossType.Pure)
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 15 source.scala variable.stable.declaration.scala
+T 16 source.scala
+T 17 source.scala keyword.operator.comparison.scala
+T 34 source.scala
+T 35 source.scala meta.bracket.scala
+T 36 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 42 source.scala string.quoted.double.scala
+T 43 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 45 source.scala
+T 54 source.scala entity.name.class
+T 55 source.scala
+T 59 source.scala entity.name.class
+T 60 source.scala meta.bracket.scala
+L   .settings(macroSettings)
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+T 25 source.scala
+T 26 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     publish / skip := tlIsScala3.value,
+T 12 source.scala
+T 13 source.scala keyword.operator.arithmetic.scala
+T 19 source.scala
+T 21 source.scala keyword.operator.scala
+T 39 source.scala
+L     publishArtifact := !tlIsScala3.value,
+T 20 source.scala
+T 22 source.scala keyword.operator.scala
+T 23 source.scala
+T 24 source.scala keyword.operator.logical.scala
+T 41 source.scala
+L     libraryDependencies += ("com.chuusai" %%% "shapeless" % shapelessVersion).cross(CrossVersion.for3Use2_13)
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 28 source.scala meta.bracket.scala
+T 29 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 40 source.scala string.quoted.double.scala
+T 41 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 42 source.scala
+T 45 source.scala keyword.operator.scala
+T 46 source.scala
+T 47 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 56 source.scala string.quoted.double.scala
+T 57 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 58 source.scala
+T 59 source.scala keyword.operator.arithmetic.scala
+T 76 source.scala
+T 77 source.scala meta.bracket.scala
+T 83 source.scala
+T 84 source.scala meta.bracket.scala
+T 96 source.scala entity.name.class
+T 108 source.scala
+T 109 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .platformsSettings(JSPlatform, NativePlatform)(
+T 20 source.scala
+T 21 source.scala meta.bracket.scala
+T 31 source.scala entity.name.class
+T 33 source.scala
+T 47 source.scala entity.name.class
+T 48 source.scala meta.bracket.scala
+T 49 source.scala meta.bracket.scala
+L     libraryDependencies ++= Seq(
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L       "org.typelevel" %% "jawn-parser" % jawnVersion % Test,
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 24 source.scala keyword.operator.scala
+T 25 source.scala
+T 26 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 37 source.scala string.quoted.double.scala
+T 38 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 39 source.scala
+T 40 source.scala keyword.operator.arithmetic.scala
+T 53 source.scala
+T 54 source.scala keyword.operator.arithmetic.scala
+T 55 source.scala
+T 59 source.scala entity.name.class
+T 60 source.scala
+L       "io.github.cquiroz" %%% "scala-java-time" % scalaJavaTimeVersion % Test
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 24 source.scala string.quoted.double.scala
+T 25 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 26 source.scala
+T 29 source.scala keyword.operator.scala
+T 30 source.scala
+T 31 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 46 source.scala string.quoted.double.scala
+T 47 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 48 source.scala
+T 49 source.scala keyword.operator.arithmetic.scala
+T 71 source.scala
+T 72 source.scala keyword.operator.arithmetic.scala
+T 73 source.scala
+T 77 source.scala entity.name.class
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .dependsOn(core, tests % Test, literal % Test)
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 25 source.scala
+T 26 source.scala keyword.operator.arithmetic.scala
+T 27 source.scala
+T 31 source.scala entity.name.class
+T 41 source.scala
+T 42 source.scala keyword.operator.arithmetic.scala
+T 43 source.scala
+T 47 source.scala entity.name.class
+T 48 source.scala meta.bracket.scala
+L 
+L lazy val literal = circeCrossModule("literal", CrossType.Pure)
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 16 source.scala variable.stable.declaration.scala
+T 17 source.scala
+T 18 source.scala keyword.operator.comparison.scala
+T 35 source.scala
+T 36 source.scala meta.bracket.scala
+T 37 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 44 source.scala string.quoted.double.scala
+T 45 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 47 source.scala
+T 56 source.scala entity.name.class
+T 57 source.scala
+T 61 source.scala entity.name.class
+T 62 source.scala meta.bracket.scala
+L   .settings(macroSettings)
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+T 25 source.scala
+T 26 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     tlVersionIntroduced += "3" -> "0.14.2",
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 29 source.scala string.quoted.double.scala
+T 30 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 31 source.scala
+T 33 source.scala keyword.operator.scala
+T 34 source.scala
+T 35 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 41 source.scala string.quoted.double.scala
+T 42 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 43 source.scala
+L     libraryDependencies ++= Seq(
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L       "org.scalacheck" %%% "scalacheck" % scalaCheckVersion % Test,
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 21 source.scala string.quoted.double.scala
+T 22 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 23 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 38 source.scala string.quoted.double.scala
+T 39 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 40 source.scala
+T 41 source.scala keyword.operator.arithmetic.scala
+T 60 source.scala
+T 61 source.scala keyword.operator.arithmetic.scala
+T 62 source.scala
+T 66 source.scala entity.name.class
+T 67 source.scala
+L       "org.scalameta" %%% "munit" % munitVersion % Test,
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 32 source.scala string.quoted.double.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 34 source.scala
+T 35 source.scala keyword.operator.arithmetic.scala
+T 49 source.scala
+T 50 source.scala keyword.operator.arithmetic.scala
+T 51 source.scala
+T 55 source.scala entity.name.class
+T 56 source.scala
+L       "org.scalameta" %%% "munit-scalacheck" % munitScalaCheckVersion % Test
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 43 source.scala string.quoted.double.scala
+T 44 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 45 source.scala
+T 46 source.scala keyword.operator.arithmetic.scala
+T 70 source.scala
+T 71 source.scala keyword.operator.arithmetic.scala
+T 72 source.scala
+T 76 source.scala entity.name.class
+L     ) ++ (if (tlIsScala3.value) Seq("org.typelevel" %%% "jawn-parser" % jawnVersion % Provided)
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+T 6 source.scala
+T 8 source.scala keyword.operator.scala
+T 9 source.scala
+T 10 source.scala meta.bracket.scala
+T 12 source.scala keyword.control.flow.scala
+T 13 source.scala
+T 14 source.scala meta.bracket.scala
+T 30 source.scala
+T 31 source.scala meta.bracket.scala
+T 32 source.scala
+T 35 source.scala entity.name.class
+T 36 source.scala meta.bracket.scala
+T 37 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 50 source.scala string.quoted.double.scala
+T 51 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 52 source.scala
+T 55 source.scala keyword.operator.scala
+T 56 source.scala
+T 57 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 68 source.scala string.quoted.double.scala
+T 69 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 70 source.scala
+T 71 source.scala keyword.operator.arithmetic.scala
+T 84 source.scala
+T 85 source.scala keyword.operator.arithmetic.scala
+T 86 source.scala
+T 94 source.scala entity.name.class
+T 95 source.scala meta.bracket.scala
+L           else Seq("com.chuusai" %%% "shapeless" % shapelessVersion))
+T 10 source.scala
+T 14 source.scala keyword.control.flow.scala
+T 15 source.scala
+T 18 source.scala entity.name.class
+T 19 source.scala meta.bracket.scala
+T 20 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 31 source.scala string.quoted.double.scala
+T 32 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 33 source.scala
+T 36 source.scala keyword.operator.scala
+T 37 source.scala
+T 38 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 47 source.scala string.quoted.double.scala
+T 48 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 49 source.scala
+T 50 source.scala keyword.operator.arithmetic.scala
+T 67 source.scala
+T 68 source.scala meta.bracket.scala
+T 69 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .platformsSettings(JSPlatform, NativePlatform)(
+T 20 source.scala
+T 21 source.scala meta.bracket.scala
+T 31 source.scala entity.name.class
+T 33 source.scala
+T 47 source.scala entity.name.class
+T 48 source.scala meta.bracket.scala
+T 49 source.scala meta.bracket.scala
+L     libraryDependencies ++= Seq(
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L       "io.github.cquiroz" %%% "scala-java-time" % scalaJavaTimeVersion % Test,
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 24 source.scala string.quoted.double.scala
+T 25 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 26 source.scala
+T 29 source.scala keyword.operator.scala
+T 30 source.scala
+T 31 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 46 source.scala string.quoted.double.scala
+T 47 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 48 source.scala
+T 49 source.scala keyword.operator.arithmetic.scala
+T 71 source.scala
+T 72 source.scala keyword.operator.arithmetic.scala
+T 73 source.scala
+T 77 source.scala entity.name.class
+T 78 source.scala
+L       "org.typelevel" %%% "jawn-parser" % jawnVersion % Provided
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 38 source.scala string.quoted.double.scala
+T 39 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 40 source.scala
+T 41 source.scala keyword.operator.arithmetic.scala
+T 54 source.scala
+T 55 source.scala keyword.operator.arithmetic.scala
+T 56 source.scala
+T 64 source.scala entity.name.class
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .nativeSettings(
+T 17 source.scala
+T 18 source.scala meta.bracket.scala
+L     tlVersionIntroduced := List("2.12", "2.13", "3").map(_ -> "0.14.9").toMap
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 37 source.scala string.quoted.double.scala
+T 38 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 40 source.scala
+T 41 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 45 source.scala string.quoted.double.scala
+T 46 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 48 source.scala
+T 49 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 50 source.scala string.quoted.double.scala
+T 51 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 52 source.scala meta.bracket.scala
+T 56 source.scala
+T 57 source.scala meta.bracket.scala
+T 59 source.scala
+T 61 source.scala keyword.operator.scala
+T 62 source.scala
+T 63 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 69 source.scala string.quoted.double.scala
+T 70 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 71 source.scala meta.bracket.scala
+T 77 source.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .dependsOn(core, jawn, testing % Test)
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 33 source.scala
+T 34 source.scala keyword.operator.arithmetic.scala
+T 35 source.scala
+T 39 source.scala entity.name.class
+T 40 source.scala meta.bracket.scala
+L 
+L lazy val parser =
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 15 source.scala variable.stable.declaration.scala
+T 16 source.scala
+T 17 source.scala keyword.operator.comparison.scala
+L   circeCrossModule("parser")
+T 18 source.scala
+T 19 source.scala meta.bracket.scala
+T 20 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 26 source.scala string.quoted.double.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 28 source.scala meta.bracket.scala
+L     .jvmConfigure(_.dependsOn(jawn.jvm))
+T 17 source.scala
+T 18 source.scala meta.bracket.scala
+T 29 source.scala
+T 30 source.scala meta.bracket.scala
+T 38 source.scala
+T 39 source.scala meta.bracket.scala
+T 40 source.scala meta.bracket.scala
+L     .jsConfigure(_.dependsOn(scalajs))
+T 16 source.scala
+T 17 source.scala meta.bracket.scala
+T 28 source.scala
+T 29 source.scala meta.bracket.scala
+T 36 source.scala
+T 37 source.scala meta.bracket.scala
+T 38 source.scala meta.bracket.scala
+L     .nativeConfigure(_.dependsOn(jawn.native))
+T 20 source.scala
+T 21 source.scala meta.bracket.scala
+T 32 source.scala
+T 33 source.scala meta.bracket.scala
+T 44 source.scala
+T 45 source.scala meta.bracket.scala
+T 46 source.scala meta.bracket.scala
+L     .dependsOn(core)
+T 14 source.scala
+T 15 source.scala meta.bracket.scala
+T 19 source.scala
+T 20 source.scala meta.bracket.scala
+L 
+L lazy val scalajs =
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 16 source.scala variable.stable.declaration.scala
+T 17 source.scala
+T 18 source.scala keyword.operator.comparison.scala
+L   circeModule("scalajs").enablePlugins(ScalaJSPlugin).dependsOn(core.js)
+T 13 source.scala
+T 14 source.scala meta.bracket.scala
+T 15 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 22 source.scala string.quoted.double.scala
+T 23 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 24 source.scala meta.bracket.scala
+T 38 source.scala
+T 39 source.scala meta.bracket.scala
+T 52 source.scala entity.name.class
+T 53 source.scala meta.bracket.scala
+T 63 source.scala
+T 64 source.scala meta.bracket.scala
+T 71 source.scala
+T 72 source.scala meta.bracket.scala
+L lazy val scalajsJavaTimeTest = circeModule("scalajs-java-time-test")
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 28 source.scala variable.stable.declaration.scala
+T 29 source.scala
+T 30 source.scala keyword.operator.comparison.scala
+T 42 source.scala
+T 43 source.scala meta.bracket.scala
+T 44 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 66 source.scala string.quoted.double.scala
+T 67 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 68 source.scala meta.bracket.scala
+L   .enablePlugins(ScalaJSPlugin)
+T 16 source.scala
+T 17 source.scala meta.bracket.scala
+T 30 source.scala entity.name.class
+T 31 source.scala meta.bracket.scala
+L   .enablePlugins(NoPublishPlugin)
+T 16 source.scala
+T 17 source.scala meta.bracket.scala
+T 32 source.scala entity.name.class
+T 33 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     libraryDependencies ++= Seq(
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L       "org.scalameta" %%% "munit" % munitVersion % Test
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 32 source.scala string.quoted.double.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 34 source.scala
+T 35 source.scala keyword.operator.arithmetic.scala
+T 49 source.scala
+T 50 source.scala keyword.operator.arithmetic.scala
+T 51 source.scala
+T 55 source.scala entity.name.class
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .dependsOn(core.js)
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 20 source.scala
+T 21 source.scala meta.bracket.scala
+L 
+L lazy val scodec = circeCrossModule("scodec")
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 15 source.scala variable.stable.declaration.scala
+T 16 source.scala
+T 17 source.scala keyword.operator.comparison.scala
+T 34 source.scala
+T 35 source.scala meta.bracket.scala
+T 36 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 42 source.scala string.quoted.double.scala
+T 43 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 44 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     libraryDependencies += "org.scodec" %%% "scodec-bits" % "1.2.5"
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 38 source.scala string.quoted.double.scala
+T 39 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 40 source.scala
+T 43 source.scala keyword.operator.scala
+T 44 source.scala
+T 45 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 56 source.scala string.quoted.double.scala
+T 57 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 58 source.scala
+T 59 source.scala keyword.operator.arithmetic.scala
+T 60 source.scala
+T 61 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 66 source.scala string.quoted.double.scala
+T 67 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .platformsSettings(JSPlatform, NativePlatform)(
+T 20 source.scala
+T 21 source.scala meta.bracket.scala
+T 31 source.scala entity.name.class
+T 33 source.scala
+T 47 source.scala entity.name.class
+T 48 source.scala meta.bracket.scala
+T 49 source.scala meta.bracket.scala
+L     libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % scalaJavaTimeVersion % Test
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 45 source.scala string.quoted.double.scala
+T 46 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 47 source.scala
+T 50 source.scala keyword.operator.scala
+T 51 source.scala
+T 52 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 67 source.scala string.quoted.double.scala
+T 68 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 69 source.scala
+T 70 source.scala keyword.operator.arithmetic.scala
+T 92 source.scala
+T 93 source.scala keyword.operator.arithmetic.scala
+T 94 source.scala
+T 98 source.scala entity.name.class
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .dependsOn(core, tests % Test)
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 25 source.scala
+T 26 source.scala keyword.operator.arithmetic.scala
+T 27 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L 
+L lazy val testing = circeCrossModule("testing")
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 16 source.scala variable.stable.declaration.scala
+T 17 source.scala
+T 18 source.scala keyword.operator.comparison.scala
+T 35 source.scala
+T 36 source.scala meta.bracket.scala
+T 37 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 44 source.scala string.quoted.double.scala
+T 45 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 46 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     scalacOptions ~= {
+T 18 source.scala
+T 20 source.scala keyword.operator.scala
+T 21 source.scala
+T 22 source.scala punctuation.section.block.begin.scala
+L       _.filterNot(Set("-Yno-predef"))
+T 17 source.scala
+T 18 source.scala meta.bracket.scala
+T 21 source.scala entity.name.class
+T 22 source.scala meta.bracket.scala
+T 23 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 34 source.scala string.quoted.double.scala
+T 35 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 36 source.scala meta.bracket.scala
+T 37 source.scala meta.bracket.scala
+L     },
+T 4 source.scala
+T 5 source.scala punctuation.section.block.end.scala
+T 6 source.scala
+L     libraryDependencies ++= Seq(
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L       "org.scalacheck" %%% "scalacheck" % scalaCheckVersion,
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 21 source.scala string.quoted.double.scala
+T 22 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 23 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 38 source.scala string.quoted.double.scala
+T 39 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 40 source.scala
+T 41 source.scala keyword.operator.arithmetic.scala
+T 60 source.scala
+L       "org.typelevel" %%% "cats-laws" % catsVersion,
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 36 source.scala string.quoted.double.scala
+T 37 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 38 source.scala
+T 39 source.scala keyword.operator.arithmetic.scala
+T 52 source.scala
+L       "org.typelevel" %%% "discipline-core" % disciplineVersion
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 42 source.scala string.quoted.double.scala
+T 43 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 44 source.scala
+T 45 source.scala keyword.operator.arithmetic.scala
+T 63 source.scala
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     coverageExcludedPackages := "io\\.circe\\.testing\\..*"
+T 29 source.scala
+T 31 source.scala keyword.operator.scala
+T 32 source.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 35 source.scala string.quoted.double.scala
+T 37 source.scala string.quoted.double.scala constant.character.escape.scala
+T 43 source.scala string.quoted.double.scala
+T 45 source.scala string.quoted.double.scala constant.character.escape.scala
+T 53 source.scala string.quoted.double.scala
+T 55 source.scala string.quoted.double.scala constant.character.escape.scala
+T 58 source.scala string.quoted.double.scala
+T 59 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .dependsOn(core, numbersTesting)
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 33 source.scala
+T 34 source.scala meta.bracket.scala
+L 
+L lazy val tests = circeCrossModule("tests")
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 14 source.scala variable.stable.declaration.scala
+T 15 source.scala
+T 16 source.scala keyword.operator.comparison.scala
+T 33 source.scala
+T 34 source.scala meta.bracket.scala
+T 35 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 40 source.scala string.quoted.double.scala
+T 41 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 42 source.scala meta.bracket.scala
+L   .enablePlugins(NoPublishPlugin)
+T 16 source.scala
+T 17 source.scala meta.bracket.scala
+T 32 source.scala entity.name.class
+T 33 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     scalacOptions ~= {
+T 18 source.scala
+T 20 source.scala keyword.operator.scala
+T 21 source.scala
+T 22 source.scala punctuation.section.block.begin.scala
+L       _.filterNot(Set("-Yno-predef", "-source:3.0-migration"))
+T 17 source.scala
+T 18 source.scala meta.bracket.scala
+T 21 source.scala entity.name.class
+T 22 source.scala meta.bracket.scala
+T 23 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 34 source.scala string.quoted.double.scala
+T 35 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 37 source.scala
+T 38 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 59 source.scala string.quoted.double.scala
+T 60 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 61 source.scala meta.bracket.scala
+T 62 source.scala meta.bracket.scala
+L     },
+T 4 source.scala
+T 5 source.scala punctuation.section.block.end.scala
+T 6 source.scala
+L     Test / scalacOptions += "-language:implicitConversions",
+T 4 source.scala
+T 8 source.scala entity.name.class
+T 9 source.scala
+T 10 source.scala keyword.operator.arithmetic.scala
+T 25 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 29 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 58 source.scala string.quoted.double.scala
+T 59 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 60 source.scala
+L     libraryDependencies ++= Seq(
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L       ("com.chuusai" %%% "shapeless" % shapelessVersion).cross(CrossVersion.for3Use2_13),
+T 6 source.scala
+T 7 source.scala meta.bracket.scala
+T 8 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 19 source.scala string.quoted.double.scala
+T 20 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 21 source.scala
+T 24 source.scala keyword.operator.scala
+T 25 source.scala
+T 26 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 35 source.scala string.quoted.double.scala
+T 36 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 37 source.scala
+T 38 source.scala keyword.operator.arithmetic.scala
+T 55 source.scala
+T 56 source.scala meta.bracket.scala
+T 62 source.scala
+T 63 source.scala meta.bracket.scala
+T 75 source.scala entity.name.class
+T 87 source.scala
+T 88 source.scala meta.bracket.scala
+T 89 source.scala
+L       "org.scalameta" %%% "munit" % munitVersion,
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 32 source.scala string.quoted.double.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 34 source.scala
+T 35 source.scala keyword.operator.arithmetic.scala
+T 49 source.scala
+L       "org.typelevel" %%% "discipline-scalatest" % disciplineScalaTestVersion,
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 47 source.scala string.quoted.double.scala
+T 48 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 49 source.scala
+T 50 source.scala keyword.operator.arithmetic.scala
+T 78 source.scala
+L       "org.typelevel" %%% "discipline-munit" % disciplineMunitVersion
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 43 source.scala string.quoted.double.scala
+T 44 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 45 source.scala
+T 46 source.scala keyword.operator.arithmetic.scala
+T 69 source.scala
+L     ),
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+T 6 source.scala
+L     Test / sourceGenerators += (Test / sourceManaged).map(Boilerplate.genTests).taskValue
+T 4 source.scala
+T 8 source.scala entity.name.class
+T 9 source.scala
+T 10 source.scala keyword.operator.arithmetic.scala
+T 28 source.scala
+T 30 source.scala keyword.operator.scala
+T 31 source.scala
+T 32 source.scala meta.bracket.scala
+T 36 source.scala entity.name.class
+T 37 source.scala
+T 38 source.scala keyword.operator.arithmetic.scala
+T 52 source.scala
+T 53 source.scala meta.bracket.scala
+T 57 source.scala
+T 58 source.scala meta.bracket.scala
+T 69 source.scala entity.name.class
+T 78 source.scala
+T 79 source.scala meta.bracket.scala
+T 89 source.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     coverageExcludedPackages := "io\\.circe\\.tests\\..*"
+T 29 source.scala
+T 31 source.scala keyword.operator.scala
+T 32 source.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 35 source.scala string.quoted.double.scala
+T 37 source.scala string.quoted.double.scala constant.character.escape.scala
+T 43 source.scala string.quoted.double.scala
+T 45 source.scala string.quoted.double.scala constant.character.escape.scala
+T 51 source.scala string.quoted.double.scala
+T 53 source.scala string.quoted.double.scala constant.character.escape.scala
+T 56 source.scala string.quoted.double.scala
+T 57 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .jvmSettings(
+T 14 source.scala
+T 15 source.scala meta.bracket.scala
+L     fork := true
+T 9 source.scala
+T 11 source.scala keyword.operator.scala
+T 12 source.scala
+T 16 source.scala constant.language.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .platformsSettings(JSPlatform, NativePlatform)(
+T 20 source.scala
+T 21 source.scala meta.bracket.scala
+T 31 source.scala entity.name.class
+T 33 source.scala
+T 47 source.scala entity.name.class
+T 48 source.scala meta.bracket.scala
+T 49 source.scala meta.bracket.scala
+L     libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % scalaJavaTimeVersion % Test
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 45 source.scala string.quoted.double.scala
+T 46 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 47 source.scala
+T 50 source.scala keyword.operator.scala
+T 51 source.scala
+T 52 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 67 source.scala string.quoted.double.scala
+T 68 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 69 source.scala
+T 70 source.scala keyword.operator.arithmetic.scala
+T 92 source.scala
+T 93 source.scala keyword.operator.arithmetic.scala
+T 94 source.scala
+T 98 source.scala entity.name.class
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .nativeSettings(
+T 17 source.scala
+T 18 source.scala meta.bracket.scala
+L     nativeConfig ~= { _.withEmbedResources(true) }
+T 17 source.scala
+T 19 source.scala keyword.operator.scala
+T 20 source.scala
+T 21 source.scala punctuation.section.block.begin.scala
+T 42 source.scala
+T 43 source.scala meta.bracket.scala
+T 47 source.scala constant.language.scala
+T 48 source.scala meta.bracket.scala
+T 49 source.scala
+T 50 source.scala punctuation.section.block.end.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .dependsOn(core, parser, testing, jawn)
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 40 source.scala
+T 41 source.scala meta.bracket.scala
+L 
+L lazy val hygiene = circeCrossModule("hygiene")
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 16 source.scala variable.stable.declaration.scala
+T 17 source.scala
+T 18 source.scala keyword.operator.comparison.scala
+T 35 source.scala
+T 36 source.scala meta.bracket.scala
+T 37 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 44 source.scala string.quoted.double.scala
+T 45 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 46 source.scala meta.bracket.scala
+L   .enablePlugins(NoPublishPlugin)
+T 16 source.scala
+T 17 source.scala meta.bracket.scala
+T 32 source.scala entity.name.class
+T 33 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     scalacOptions ++= Seq("-Yno-imports", "-Yno-predef")
+T 18 source.scala
+T 21 source.scala keyword.operator.scala
+T 22 source.scala
+T 25 source.scala entity.name.class
+T 26 source.scala meta.bracket.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 39 source.scala string.quoted.double.scala
+T 40 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 42 source.scala
+T 43 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 54 source.scala string.quoted.double.scala
+T 55 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 56 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .dependsOn(core, generic, literal, jawn)
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 41 source.scala
+T 42 source.scala meta.bracket.scala
+L 
+L lazy val jawn = circeCrossModule("jawn", CrossType.Full)
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 13 source.scala variable.stable.declaration.scala
+T 14 source.scala
+T 15 source.scala keyword.operator.comparison.scala
+T 32 source.scala
+T 33 source.scala meta.bracket.scala
+T 34 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 38 source.scala string.quoted.double.scala
+T 39 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 41 source.scala
+T 50 source.scala entity.name.class
+T 51 source.scala
+T 55 source.scala entity.name.class
+T 56 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     libraryDependencies ++= Seq(
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L       "org.typelevel" %%% "jawn-parser" % jawnVersion,
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 38 source.scala string.quoted.double.scala
+T 39 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 40 source.scala
+T 41 source.scala keyword.operator.arithmetic.scala
+T 54 source.scala
+L       "org.scalameta" %%% "munit" % munitVersion % Test,
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 32 source.scala string.quoted.double.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 34 source.scala
+T 35 source.scala keyword.operator.arithmetic.scala
+T 49 source.scala
+T 50 source.scala keyword.operator.arithmetic.scala
+T 51 source.scala
+T 55 source.scala entity.name.class
+T 56 source.scala
+L       "org.typelevel" %%% "discipline-munit" % disciplineMunitVersion % Test
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 43 source.scala string.quoted.double.scala
+T 44 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 45 source.scala
+T 46 source.scala keyword.operator.arithmetic.scala
+T 70 source.scala
+T 71 source.scala keyword.operator.arithmetic.scala
+T 72 source.scala
+T 76 source.scala entity.name.class
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .jsSettings(
+T 13 source.scala
+T 14 source.scala meta.bracket.scala
+L     tlVersionIntroduced := List("2.12", "2.13", "3").map(_ -> "0.14.2").toMap
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 37 source.scala string.quoted.double.scala
+T 38 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 40 source.scala
+T 41 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 45 source.scala string.quoted.double.scala
+T 46 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 48 source.scala
+T 49 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 50 source.scala string.quoted.double.scala
+T 51 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 52 source.scala meta.bracket.scala
+T 56 source.scala
+T 57 source.scala meta.bracket.scala
+T 59 source.scala
+T 61 source.scala keyword.operator.scala
+T 62 source.scala
+T 63 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 69 source.scala string.quoted.double.scala
+T 70 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 71 source.scala meta.bracket.scala
+T 77 source.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .dependsOn(core)
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 17 source.scala
+T 18 source.scala meta.bracket.scala
+L 
+L lazy val pointer =
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 16 source.scala variable.stable.declaration.scala
+T 17 source.scala
+T 18 source.scala keyword.operator.comparison.scala
+L   circeCrossModule("pointer", CrossType.Pure)
+T 18 source.scala
+T 19 source.scala meta.bracket.scala
+T 20 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 27 source.scala string.quoted.double.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 30 source.scala
+T 39 source.scala entity.name.class
+T 40 source.scala
+T 44 source.scala entity.name.class
+T 45 source.scala meta.bracket.scala
+L     .settings(
+T 13 source.scala
+T 14 source.scala meta.bracket.scala
+L       libraryDependencies ++= Seq(
+T 26 source.scala
+T 29 source.scala keyword.operator.scala
+T 30 source.scala
+T 33 source.scala entity.name.class
+T 34 source.scala meta.bracket.scala
+L         "org.scalameta" %%% "munit" % munitVersion % Test,
+T 8 source.scala
+T 9 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 22 source.scala string.quoted.double.scala
+T 23 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 29 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 34 source.scala string.quoted.double.scala
+T 35 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 36 source.scala
+T 37 source.scala keyword.operator.arithmetic.scala
+T 51 source.scala
+T 52 source.scala keyword.operator.arithmetic.scala
+T 53 source.scala
+T 57 source.scala entity.name.class
+T 58 source.scala
+L         "org.typelevel" %%% "discipline-munit" % disciplineMunitVersion % Test
+T 8 source.scala
+T 9 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 22 source.scala string.quoted.double.scala
+T 23 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 29 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 45 source.scala string.quoted.double.scala
+T 46 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 47 source.scala
+T 48 source.scala keyword.operator.arithmetic.scala
+T 72 source.scala
+T 73 source.scala keyword.operator.arithmetic.scala
+T 74 source.scala
+T 78 source.scala entity.name.class
+L       )
+T 6 source.scala
+T 7 source.scala meta.bracket.scala
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L     .dependsOn(core, parser % Test)
+T 14 source.scala
+T 15 source.scala meta.bracket.scala
+T 28 source.scala
+T 29 source.scala keyword.operator.arithmetic.scala
+T 30 source.scala
+T 34 source.scala entity.name.class
+T 35 source.scala meta.bracket.scala
+L 
+L lazy val pointerLiteral = circeCrossModule("pointer-literal", CrossType.Pure)
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 23 source.scala variable.stable.declaration.scala
+T 24 source.scala
+T 25 source.scala keyword.operator.comparison.scala
+T 42 source.scala
+T 43 source.scala meta.bracket.scala
+T 44 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 59 source.scala string.quoted.double.scala
+T 60 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 62 source.scala
+T 71 source.scala entity.name.class
+T 72 source.scala
+T 76 source.scala entity.name.class
+T 77 source.scala meta.bracket.scala
+L   .settings(macroSettings)
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+T 25 source.scala
+T 26 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     tlVersionIntroduced += "3" -> "0.14.2",
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 29 source.scala string.quoted.double.scala
+T 30 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 31 source.scala
+T 33 source.scala keyword.operator.scala
+T 34 source.scala
+T 35 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 41 source.scala string.quoted.double.scala
+T 42 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 43 source.scala
+L     libraryDependencies ++= Seq(
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L       "org.scalameta" %%% "munit" % munitVersion % Test,
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 32 source.scala string.quoted.double.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 34 source.scala
+T 35 source.scala keyword.operator.arithmetic.scala
+T 49 source.scala
+T 50 source.scala keyword.operator.arithmetic.scala
+T 51 source.scala
+T 55 source.scala entity.name.class
+T 56 source.scala
+L       "org.scalameta" %%% "munit-scalacheck" % munitScalaCheckVersion % Test
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 27 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 43 source.scala string.quoted.double.scala
+T 44 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 45 source.scala
+T 46 source.scala keyword.operator.arithmetic.scala
+T 70 source.scala
+T 71 source.scala keyword.operator.arithmetic.scala
+T 72 source.scala
+T 76 source.scala entity.name.class
+L     )
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .nativeSettings(
+T 17 source.scala
+T 18 source.scala meta.bracket.scala
+L     tlVersionIntroduced := List("2.12", "2.13", "3").map(_ -> "0.14.9").toMap
+T 24 source.scala
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+T 33 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 37 source.scala string.quoted.double.scala
+T 38 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 40 source.scala
+T 41 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 45 source.scala string.quoted.double.scala
+T 46 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 48 source.scala
+T 49 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 50 source.scala string.quoted.double.scala
+T 51 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 52 source.scala meta.bracket.scala
+T 56 source.scala
+T 57 source.scala meta.bracket.scala
+T 59 source.scala
+T 61 source.scala keyword.operator.scala
+T 62 source.scala
+T 63 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 69 source.scala string.quoted.double.scala
+T 70 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 71 source.scala meta.bracket.scala
+T 77 source.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .dependsOn(core, pointer % "compile;test->test")
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 27 source.scala
+T 28 source.scala keyword.operator.arithmetic.scala
+T 29 source.scala
+T 30 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 48 source.scala string.quoted.double.scala
+T 49 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 50 source.scala meta.bracket.scala
+L 
+L lazy val extras = circeCrossModule("extras").enablePlugins(NoPublishPlugin).dependsOn(core, tests % Test)
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 15 source.scala variable.stable.declaration.scala
+T 16 source.scala
+T 17 source.scala keyword.operator.comparison.scala
+T 34 source.scala
+T 35 source.scala meta.bracket.scala
+T 36 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 42 source.scala string.quoted.double.scala
+T 43 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 44 source.scala meta.bracket.scala
+T 58 source.scala
+T 59 source.scala meta.bracket.scala
+T 74 source.scala entity.name.class
+T 75 source.scala meta.bracket.scala
+T 85 source.scala
+T 86 source.scala meta.bracket.scala
+T 98 source.scala
+T 99 source.scala keyword.operator.arithmetic.scala
+T 100 source.scala
+T 104 source.scala entity.name.class
+T 105 source.scala meta.bracket.scala
+L 
+L lazy val benchmark = circeModule("benchmark")
+T 4 source.scala storage.modifier.other
+T 5 source.scala
+T 8 source.scala keyword.declaration.stable.scala
+T 9 source.scala
+T 18 source.scala variable.stable.declaration.scala
+T 19 source.scala
+T 20 source.scala keyword.operator.comparison.scala
+T 32 source.scala
+T 33 source.scala meta.bracket.scala
+T 34 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 43 source.scala string.quoted.double.scala
+T 44 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 45 source.scala meta.bracket.scala
+L   .settings(
+T 11 source.scala
+T 12 source.scala meta.bracket.scala
+L     libraryDependencies ++= Seq(
+T 24 source.scala
+T 27 source.scala keyword.operator.scala
+T 28 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+L       "org.scalameta" %% "munit" % munitVersion % Test
+T 6 source.scala
+T 7 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 20 source.scala string.quoted.double.scala
+T 21 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 24 source.scala keyword.operator.scala
+T 25 source.scala
+T 26 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 31 source.scala string.quoted.double.scala
+T 32 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 33 source.scala
+T 34 source.scala keyword.operator.arithmetic.scala
+T 48 source.scala
+T 49 source.scala keyword.operator.arithmetic.scala
+T 50 source.scala
+T 54 source.scala entity.name.class
+L     ) ++ { if (tlIsScala3.value) Nil else List("io.circe" %% "circe-optics" % "0.14.1") }
+T 4 source.scala
+T 5 source.scala meta.bracket.scala
+T 6 source.scala
+T 8 source.scala keyword.operator.scala
+T 9 source.scala
+T 10 source.scala punctuation.section.block.begin.scala
+T 11 source.scala
+T 13 source.scala keyword.control.flow.scala
+T 14 source.scala
+T 15 source.scala meta.bracket.scala
+T 31 source.scala
+T 32 source.scala meta.bracket.scala
+T 33 source.scala
+T 36 source.scala entity.name.class
+T 37 source.scala
+T 41 source.scala keyword.control.flow.scala
+T 42 source.scala
+T 46 source.scala entity.name.class
+T 47 source.scala meta.bracket.scala
+T 48 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 56 source.scala string.quoted.double.scala
+T 57 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 58 source.scala
+T 60 source.scala keyword.operator.scala
+T 61 source.scala
+T 62 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 74 source.scala string.quoted.double.scala
+T 75 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 76 source.scala
+T 77 source.scala keyword.operator.arithmetic.scala
+T 78 source.scala
+T 79 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 85 source.scala string.quoted.double.scala
+T 86 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 87 source.scala meta.bracket.scala
+T 88 source.scala
+T 89 source.scala punctuation.section.block.end.scala
+L   )
+T 2 source.scala
+T 3 source.scala meta.bracket.scala
+L   .enablePlugins(JmhPlugin, NoPublishPlugin)
+T 16 source.scala
+T 17 source.scala meta.bracket.scala
+T 26 source.scala entity.name.class
+T 28 source.scala
+T 43 source.scala entity.name.class
+T 44 source.scala meta.bracket.scala
+L   .dependsOn(core.jvm, generic.jvm, jawn.jvm, pointer.jvm)
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 57 source.scala
+T 58 source.scala meta.bracket.scala
+L 
+L ThisBuild / homepage := Some(url("https://github.com/circe/circe"))
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 21 source.scala
+T 23 source.scala keyword.operator.scala
+T 24 source.scala
+T 28 source.scala entity.name.class
+T 29 source.scala meta.bracket.scala
+T 32 source.scala
+T 33 source.scala meta.bracket.scala
+T 34 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 64 source.scala string.quoted.double.scala
+T 65 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 66 source.scala meta.bracket.scala
+T 67 source.scala meta.bracket.scala
+L ThisBuild / licenses := Seq(License.Apache2)
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 21 source.scala
+T 23 source.scala keyword.operator.scala
+T 24 source.scala
+T 27 source.scala entity.name.class
+T 28 source.scala meta.bracket.scala
+T 35 source.scala entity.name.class
+T 36 source.scala
+T 43 source.scala entity.name.class
+T 44 source.scala meta.bracket.scala
+L ThisBuild / developers := List(
+T 9 source.scala entity.name.class
+T 10 source.scala
+T 11 source.scala keyword.operator.arithmetic.scala
+T 23 source.scala
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 30 source.scala entity.name.class
+T 31 source.scala meta.bracket.scala
+L   Developer("travisbrown", "Travis Brown", "travisrobertbrown@gmail.com", url("https://twitter.com/travisbrown")),
+T 2 source.scala
+T 11 source.scala entity.name.class
+T 12 source.scala meta.bracket.scala
+T 13 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 24 source.scala string.quoted.double.scala
+T 25 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 27 source.scala
+T 28 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 40 source.scala string.quoted.double.scala
+T 41 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 43 source.scala
+T 44 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 71 source.scala string.quoted.double.scala
+T 72 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 77 source.scala
+T 78 source.scala meta.bracket.scala
+T 79 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 110 source.scala string.quoted.double.scala
+T 111 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 112 source.scala meta.bracket.scala
+T 113 source.scala meta.bracket.scala
+T 114 source.scala
+L   Developer("zmccoy", "Zach McCoy", "zachabbott@gmail.com", url("https://twitter.com/zachamccoy")),
+T 2 source.scala
+T 11 source.scala entity.name.class
+T 12 source.scala meta.bracket.scala
+T 13 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 19 source.scala string.quoted.double.scala
+T 20 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 23 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 33 source.scala string.quoted.double.scala
+T 34 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 36 source.scala
+T 37 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 57 source.scala string.quoted.double.scala
+T 58 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 63 source.scala
+T 64 source.scala meta.bracket.scala
+T 65 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 95 source.scala string.quoted.double.scala
+T 96 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 97 source.scala meta.bracket.scala
+T 98 source.scala meta.bracket.scala
+T 99 source.scala
+L   Developer("zarthross", "Darren Gibson", "zarthross@gmail.com", url("https://twitter.com/zarthross")),
+T 2 source.scala
+T 11 source.scala entity.name.class
+T 12 source.scala meta.bracket.scala
+T 13 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 22 source.scala string.quoted.double.scala
+T 23 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 25 source.scala
+T 26 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 39 source.scala string.quoted.double.scala
+T 40 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 42 source.scala
+T 43 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 62 source.scala string.quoted.double.scala
+T 63 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 68 source.scala
+T 69 source.scala meta.bracket.scala
+T 70 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 99 source.scala string.quoted.double.scala
+T 100 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 101 source.scala meta.bracket.scala
+T 102 source.scala meta.bracket.scala
+T 103 source.scala
+L   Developer("hamnis", "Erlend Hamnaberg", "erlend@hamnaberg.net", url("https://github.com/hamnis"))
+T 2 source.scala
+T 11 source.scala entity.name.class
+T 12 source.scala meta.bracket.scala
+T 13 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 19 source.scala string.quoted.double.scala
+T 20 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 22 source.scala
+T 23 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 39 source.scala string.quoted.double.scala
+T 40 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 42 source.scala
+T 43 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 63 source.scala string.quoted.double.scala
+T 64 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 69 source.scala
+T 70 source.scala meta.bracket.scala
+T 71 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 96 source.scala string.quoted.double.scala
+T 97 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 98 source.scala meta.bracket.scala
+T 99 source.scala meta.bracket.scala
+L )
+T 1 source.scala meta.bracket.scala
+L 

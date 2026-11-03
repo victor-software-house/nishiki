@@ -12,22 +12,45 @@ use crate::scratch::Scratch;
 /// [`Language::from_name`] reads, and the three lexer entry points.
 ///
 /// A row is one language: its variant, its Shiki names (the first is its id),
-/// the module that lexes it, and optionally the dialect the module is told,
-/// and whether its rules end at the line feed of a line that the containers
-/// around a Markdown fence took whole.
-/// A new language is one row here, its scope table in `src/scope.rs`, its
-/// frame tag in `src/tag.rs`, its fence names in `src/markdown/fence.rs`, its
-/// field in `src/scratch.rs` when it keeps buffers, and its `lang-*` feature
-/// in `Cargo.toml`, with a `cfg` on each of these.
+/// what lexes it, and whether its rules end at the line feed of a line that
+/// the containers around a Markdown fence took whole. A hand-written lexer is
+/// a `module`, optionally with the dialect the module is told; a language that
+/// nishiki's `TextMate` engine runs names its grammar table as `engine`, and
+/// the three entry points call the engine with it.
+/// A new hand-written language is one row here, its scope table in
+/// `src/scope.rs`, its frame tag in `src/tag.rs`, its fence names in
+/// `src/markdown/fence.rs`, its field in `src/scratch.rs` when it keeps
+/// buffers, and its `lang-*` feature in `Cargo.toml`, with a `cfg` on each of
+/// these. A new engine language needs no scope table, frame tag or field: its
+/// module holds only the generated `grammar.rs`.
 macro_rules! languages {
     (@flag) => { false };
     (@flag $flag:literal) => { $flag };
+    (@start [$module:ident] [] [$($dialect:expr)?] $arena:ident $base:ident) => {
+        crate::$module::start($arena, $base $(, $dialect)?)
+    };
+    (@start [] [$grammar:path] [] $arena:ident $base:ident) => {
+        crate::textmate::start($arena, &$grammar, $base)
+    };
+    (@start_embedded [$module:ident] [] $arena:ident $base:ident) => {
+        crate::$module::start_embedded($arena, $base)
+    };
+    (@start_embedded [] [$grammar:path] $arena:ident $base:ident) => {
+        crate::textmate::start_embedded($arena, &$grammar, $base)
+    };
+    (@lex [$module:ident] [] [$($dialect:expr)?] $cx:ident $line:ident $state:ident) => {
+        crate::$module::lex($cx, $($dialect,)? $line, $state)
+    };
+    (@lex [] [$grammar:path] [] $cx:ident $line:ident $state:ident) => {
+        crate::textmate::lex($cx, &$grammar, $line, $state)
+    };
     ($(
         $(#[$meta:meta])*
         $variant:ident {
             feature: $feature:literal,
             names: [$id:literal $(, $alias:literal)*],
-            module: $module:ident
+            $(module: $module:ident)?
+            $(engine: $grammar:path)?
             $(, dialect: $dialect:expr)?
             $(, reads_line_feed: $line_feed:literal)?
             $(,)?
@@ -90,7 +113,7 @@ macro_rules! languages {
             /// `base`.
             pub(crate) fn start(self, arena: &mut Arena, base: u32) -> u32 {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => crate::$module::start(arena, base $(, $dialect)?),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@start [$($module)?] [$($grammar)?] [$($dialect)?] arena base),)*
                 }
             }
 
@@ -99,7 +122,7 @@ macro_rules! languages {
             /// Shiki's embedding.
             pub(crate) fn start_embedded(self, arena: &mut Arena, base: u32) -> u32 {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => crate::$module::start_embedded(arena, base),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@start_embedded [$($module)?] [$($grammar)?] arena base),)*
                 }
             }
 
@@ -109,7 +132,7 @@ macro_rules! languages {
             #[inline]
             pub(crate) fn lex(self, cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => crate::$module::lex(cx, $($dialect,)? line, state),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@lex [$($module)?] [$($grammar)?] [$($dialect)?] cx line state),)*
                 }
             }
         }
@@ -234,7 +257,15 @@ languages! {
     PowerShell {
         feature: "lang-powershell",
         names: ["powershell", "ps", "ps1", "pwsh"],
-        module: powershell,
+        engine: crate::powershell::grammar::GRAMMAR,
+        reads_line_feed: true,
+    }
+    /// Scala, with the scopes of Shiki's `scala` grammar, which nishiki's
+    /// `TextMate` engine runs.
+    Scala {
+        feature: "lang-scala",
+        names: ["scala"],
+        engine: crate::scala::grammar::GRAMMAR,
         reads_line_feed: true,
     }
 }

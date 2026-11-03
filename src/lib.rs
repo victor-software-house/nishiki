@@ -99,6 +99,8 @@ mod ruby;
 mod rules;
 #[cfg(feature = "lang-rust")]
 mod rust;
+#[cfg(feature = "lang-scala")]
+mod scala;
 mod scope;
 mod scratch;
 #[cfg(feature = "lang-shell")]

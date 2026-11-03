@@ -317,6 +317,11 @@ const powershell =
 const dotnetInstall =
   "https://raw.githubusercontent.com/dotnet/install-scripts/e5cf1dd2d1540ed05ac84f8eb8c5cdec2807621e";
 
+const scala3 =
+  "https://raw.githubusercontent.com/scala/scala3/d71919d08172571e6a5c9392f186b2a6a4413097";
+const circe =
+  "https://raw.githubusercontent.com/circe/circe/b38c17d9a9dd9b761a68319cff038d75bbf0cf8d";
+
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   {
@@ -830,4 +835,12 @@ export const inputs: Input[] = [
   { lang: "powershell", name: "set-release-tag", url: `${powershell}/tools/releaseBuild/setReleaseTag.ps1` },
   { lang: "markdown", name: "powershell-windows-build", url: `${powershell}/docs/building/windows-core.md` },
   { lang: "markdown", name: "powershell-releasing", url: `${powershell}/docs/maintainers/releasing.md` },
+  // Scala runs on the TextMate engine.
+  { lang: "scala", name: "sample", url: `${samples}/scala.sample` },
+  { lang: "scala", name: "scala3-boundary", url: `${scala3}/library/src/scala/util/boundary.scala` },
+  { lang: "scala", name: "scala3-source-position", url: `${scala3}/compiler/src/dotty/tools/dotc/util/SourcePosition.scala` },
+  { lang: "scala", name: "circe-json", url: `${circe}/modules/core/shared/src/main/scala/io/circe/Json.scala` },
+  { lang: "scala", name: "circe-build", url: `${circe}/build.sbt` },
+  { lang: "markdown", name: "scala3-givens", url: `${scala3}/docs/_docs/reference/contextual/givens.md` },
+  { lang: "markdown", name: "scala3-enums", url: `${scala3}/docs/_docs/reference/enums/enums.md` },
 ];
