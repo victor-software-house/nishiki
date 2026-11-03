@@ -102,6 +102,9 @@ tags! {
     /// CSS.
     #[cfg(feature = "lang-css")]
     CSS = 0x2600,
+    /// Ruby.
+    #[cfg(feature = "lang-ruby")]
+    RUBY = 0x2700,
     /// Kotlin.
     #[cfg(feature = "lang-kotlin")]
     KOTLIN = 0x2a00,

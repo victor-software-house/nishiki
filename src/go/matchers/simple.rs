@@ -2,7 +2,7 @@
 //! the names the nested rules of captures use.
 
 use super::super::engine::Lexer;
-use crate::rules::Chars;
+use crate::rules::{CachedRuns, Chars};
 
 /// The words of the grammar's `keywords` that stand for themselves.
 const CONTROL: &[&[u8]] = &[

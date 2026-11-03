@@ -52,6 +52,7 @@ all = [
   "lang-css",
   "lang-kotlin",
   "lang-go",
+  "lang-ruby",
 ]
 
 # Tiers, which overlap.
@@ -107,6 +108,7 @@ lang-graphql = ["_scope-table", "lang-javascript", "_classes", "_utf8"]
 lang-css = ["_scope-table", "_rule-tables", "_classes"]
 lang-kotlin = ["_scope-table", "_rule-tables", "_classes"]
 lang-go = ["_scope-table", "_rule-tables", "_classes"]
+lang-ruby = ["_scope-table", "_rule-tables", "_classes"]
 
 # Shared code that only some languages use; not for callers.
 _classes = []

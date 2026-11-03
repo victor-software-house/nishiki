@@ -243,6 +243,23 @@ const viper =
 const prometheusGo =
   "https://raw.githubusercontent.com/prometheus/prometheus/b0c3a30ab2a09b88e64d876017a0134aa2f38f40";
 
+const rack =
+  "https://raw.githubusercontent.com/rack/rack/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f";
+const rubocop =
+  "https://raw.githubusercontent.com/rubocop/rubocop/09c38e2526622e5c08a73ebff58fd2f4bed35ffe";
+const rails =
+  "https://raw.githubusercontent.com/rails/rails/f21e7f42b510327f6bc57dcb7fcc9825d4670a91";
+const devise =
+  "https://raw.githubusercontent.com/heartcombo/devise/05811fb8366edd08874111d0f6fb44543e1c91ef";
+const puma =
+  "https://raw.githubusercontent.com/puma/puma/c0df0c19dde943c3f5c25cd67caa984dfa84e3da";
+const rspecCore =
+  "https://raw.githubusercontent.com/rspec/rspec-core/aec5f49485d97908183dbe790a7fefb8baaa8091";
+const thor =
+  "https://raw.githubusercontent.com/rails/thor/cb11e8e87b3cfe6bc9f6d4b092897f0dfda2476d";
+const rake =
+  "https://raw.githubusercontent.com/ruby/rake/3f29d39daa688eb51cd975c06b1501320f10b911";
+
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   {
@@ -632,4 +649,20 @@ export const inputs: Input[] = [
   { lang: "go", name: "prometheus-storage", url: `${prometheusGo}/storage/interface.go` },
   { lang: "markdown", name: "gin-readme", url: `${gin}/README.md` },
   { lang: "markdown", name: "cobra-user-guide", url: `${cobra}/site/content/user_guide.md` },
+  { lang: "ruby", name: "sample", url: `${samples}/ruby.sample` },
+  { lang: "ruby", name: "rack-request", url: `${rack}/lib/rack/request.rb` },
+  { lang: "ruby", name: "rubocop-cop-base", url: `${rubocop}/lib/rubocop/cop/base.rb` },
+  {
+    lang: "ruby",
+    name: "rails-inflector",
+    url: `${rails}/activesupport/lib/active_support/inflector/methods.rb`,
+  },
+  { lang: "ruby", name: "jekyll-site", url: `${jekyll}/lib/jekyll/site.rb` },
+  { lang: "ruby", name: "devise", url: `${devise}/lib/devise.rb` },
+  { lang: "ruby", name: "puma-server", url: `${puma}/lib/puma/server.rb` },
+  { lang: "ruby", name: "rspec-example", url: `${rspecCore}/lib/rspec/core/example.rb` },
+  { lang: "ruby", name: "thor", url: `${thor}/lib/thor.rb` },
+  { lang: "ruby", name: "rake-task", url: `${rake}/lib/rake/task.rb` },
+  { lang: "markdown", name: "rack-readme", url: `${rack}/README.md` },
+  { lang: "markdown", name: "devise-readme", url: `${devise}/README.md` },
 ];

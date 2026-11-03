@@ -1,0 +1,143 @@
+L class LotteryTicket
+T 5 source.ruby meta.class.ruby keyword.control.class.ruby
+T 6 source.ruby meta.class.ruby
+T 19 source.ruby meta.class.ruby entity.name.type.class.ruby
+L 
+L   NUMERIC_RANGE = 1..25
+T 2 source.ruby
+T 15 source.ruby variable.other.constant.ruby
+T 16 source.ruby
+T 17 source.ruby keyword.operator.assignment.ruby
+T 18 source.ruby
+T 19 source.ruby constant.numeric.ruby
+T 20 source.ruby punctuation.separator.method.ruby
+T 21 source.ruby punctuation.separator.method.ruby
+T 23 source.ruby constant.numeric.ruby
+L 
+L   attr_reader :picks, :purchased
+T 2 source.ruby
+T 13 source.ruby keyword.other.special-method.ruby
+T 14 source.ruby
+T 15 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 20 source.ruby constant.language.symbol.ruby
+T 21 source.ruby punctuation.separator.object.ruby
+T 22 source.ruby
+T 23 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 32 source.ruby constant.language.symbol.ruby
+L 
+L   def initialize( *picks )
+T 2 source.ruby
+T 5 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.with-arguments.ruby
+T 16 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 17 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 18 source.ruby meta.function.method.with-arguments.ruby
+T 19 source.ruby meta.function.method.with-arguments.ruby storage.type.variable.ruby
+T 24 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 25 source.ruby meta.function.method.with-arguments.ruby
+T 26 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L     if picks.length != 3
+T 4 source.ruby
+T 6 source.ruby keyword.control.ruby
+T 12 source.ruby
+T 13 source.ruby punctuation.separator.method.ruby
+T 19 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 20 source.ruby
+T 22 source.ruby keyword.operator.comparison.ruby
+T 23 source.ruby
+T 24 source.ruby constant.numeric.ruby
+L       raise ArgumentError, "three numbers must be picked"
+T 6 source.ruby
+T 11 source.ruby keyword.other.special-method.ruby
+T 12 source.ruby
+T 25 source.ruby variable.other.constant.ruby
+T 26 source.ruby punctuation.separator.object.ruby
+T 27 source.ruby
+T 28 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 56 source.ruby string.quoted.double.interpolated.ruby
+T 57 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L     elsif picks.uniq.length != 0x3
+T 4 source.ruby
+T 9 source.ruby keyword.control.ruby
+T 15 source.ruby
+T 16 source.ruby punctuation.separator.method.ruby
+T 20 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 21 source.ruby punctuation.separator.method.ruby
+T 27 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 28 source.ruby
+T 30 source.ruby keyword.operator.comparison.ruby
+T 31 source.ruby
+T 34 source.ruby constant.numeric.ruby
+L       raise ArgumentError, "the three picks must be different numbers"
+T 6 source.ruby
+T 11 source.ruby keyword.other.special-method.ruby
+T 12 source.ruby
+T 25 source.ruby variable.other.constant.ruby
+T 26 source.ruby punctuation.separator.object.ruby
+T 27 source.ruby
+T 28 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 69 source.ruby string.quoted.double.interpolated.ruby
+T 70 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L     elsif picks.detect { |p| not NUMERIC_RANGE === p }
+T 4 source.ruby
+T 9 source.ruby keyword.control.ruby
+T 15 source.ruby
+T 16 source.ruby punctuation.separator.method.ruby
+T 22 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 23 source.ruby
+T 24 source.ruby punctuation.section.scope.begin.ruby
+T 25 source.ruby meta.syntax.ruby.start-block
+T 26 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 27 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 28 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 29 source.ruby
+T 32 source.ruby keyword.operator.logical.ruby
+T 33 source.ruby
+T 46 source.ruby variable.other.constant.ruby
+T 47 source.ruby
+T 50 source.ruby keyword.operator.comparison.ruby
+T 51 source.ruby
+T 52 source.ruby support.function.kernel.ruby
+T 53 source.ruby
+T 54 source.ruby punctuation.section.scope.end.ruby
+L       raise ArgumentError, "the three picks must be numbers between 1 and 25"
+T 6 source.ruby
+T 11 source.ruby keyword.other.special-method.ruby
+T 12 source.ruby
+T 25 source.ruby variable.other.constant.ruby
+T 26 source.ruby punctuation.separator.object.ruby
+T 27 source.ruby
+T 28 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 76 source.ruby string.quoted.double.interpolated.ruby
+T 77 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L     @picks = picks
+T 4 source.ruby
+T 5 source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 10 source.ruby variable.other.readwrite.instance.ruby
+T 11 source.ruby
+T 12 source.ruby keyword.operator.assignment.ruby
+T 18 source.ruby
+L     @purchased = Time.now
+T 4 source.ruby
+T 5 source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 14 source.ruby variable.other.readwrite.instance.ruby
+T 15 source.ruby
+T 16 source.ruby keyword.operator.assignment.ruby
+T 17 source.ruby
+T 21 source.ruby support.class.ruby
+T 22 source.ruby punctuation.separator.method.ruby
+T 25 source.ruby meta.function-call.ruby entity.name.function.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L end
+T 3 source.ruby keyword.control.ruby
+L 
+L # From https://poignant.guide/book/chapter-5.html
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 49 source.ruby comment.line.number-sign.ruby
+L 

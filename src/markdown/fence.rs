@@ -181,6 +181,39 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Go,
     },
+    // The grammar's `Berksfile.lock` has an unescaped dot, which matches any
+    // character; it is matched here as a literal dot.
+    #[cfg(feature = "lang-ruby")]
+    Name {
+        words: &[
+            "ruby",
+            "rb",
+            "rbx",
+            "rjs",
+            "Rakefile",
+            "rake",
+            "cgi",
+            "fcgi",
+            "gemspec",
+            "irbrc",
+            "Capfile",
+            "ru",
+            "prawn",
+            "Cheffile",
+            "Gemfile",
+            "Guardfile",
+            "Hobofile",
+            "Vagrantfile",
+            "Appraisals",
+            "Rantfile",
+            "Berksfile",
+            "Berksfile.lock",
+            "Thorfile",
+            "Puppetfile",
+        ],
+        brace: None,
+        lang: Language::Ruby,
+    },
 ];
 
 /// A language found in an info string.

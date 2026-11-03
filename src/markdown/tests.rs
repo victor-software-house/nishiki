@@ -586,11 +586,11 @@ fn a_shebang_is_not_special_inside_a_fence() {
 #[test]
 fn another_language_is_plain_text_with_its_info_string() {
     let text = indoc! {"
-        ```ruby
+        ```haskell
         # not a heading
         ```
     "};
-    assert_eq!(scope_of(text, "ruby"), "fenced_code.block.language");
+    assert_eq!(scope_of(text, "haskell"), "fenced_code.block.language");
     assert_eq!(
         stack_of(text, "# not a heading"),
         ["text.html.markdown", "markup.fenced_code.block.markdown"]

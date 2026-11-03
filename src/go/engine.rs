@@ -7,7 +7,9 @@ use std::sync::OnceLock;
 
 use super::grammar::{Pat, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, Start, Tabled, Tables, table_scan};
+use crate::rules::{
+    self, Act, Captures, Grammar, HasRuns, Payload, Runs, Start, Tabled, Tables, table_scan,
+};
 
 /// The Go lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Go>;
@@ -25,10 +27,10 @@ pub(crate) struct Extra {
     /// lexing a capture group's text again moves it, and a run found up to
     /// another end is not the run up to this one.
     pub(crate) runs_end: Cell<usize>,
-    /// The last run of `\w` characters found: where it starts and ends. A
-    /// search from inside it ends where it does.
-    pub(crate) word_run: Cell<(usize, usize)>,
-    /// The last run of white space found, kept the same way.
+    /// The run of `\w` characters found last.
+    pub(crate) word: Runs,
+    /// The last run of white space found: where it starts and ends. A search
+    /// from inside it ends where it does.
     pub(crate) space_run: Cell<(usize, usize)>,
     /// The last run found of each class the hot matchers scan, kept the same
     /// way: `\w` and `[*.\w]` items, the comma lists of both, and `[.\w]`.
@@ -39,10 +41,16 @@ impl Default for Extra {
     fn default() -> Self {
         Extra {
             runs_end: Cell::new(usize::MAX),
-            word_run: Cell::new((usize::MAX, 0)),
+            word: Runs::default(),
             space_run: Cell::new((usize::MAX, 0)),
             runs: [const { Cell::new((usize::MAX, 0)) }; 5],
         }
+    }
+}
+
+impl HasRuns for Extra {
+    fn runs(&self) -> &Runs {
+        &self.word
     }
 }
 

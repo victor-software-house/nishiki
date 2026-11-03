@@ -3,7 +3,7 @@
 //! position of a line.
 
 use super::super::engine::Lexer;
-use crate::rules::Chars;
+use crate::rules::{CachedRuns, Chars};
 
 /// The characters of `[-\]!%*+./:<=>\[_[:alnum:]]`.
 fn control_char(c: char) -> bool {

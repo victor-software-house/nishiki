@@ -375,7 +375,7 @@ impl Lexer<'_> {
             !lx.not_marked_word(after, &[b"interface", b"struct"])
         };
         let mut start = blank;
-        while start > name_end && (!self.char_stands(start) || declares(self, start)) {
+        while start > name_end && (!self.avail(start) || declares(self, start)) {
             start = self.char_start_before(start);
         }
         if start == name_end {

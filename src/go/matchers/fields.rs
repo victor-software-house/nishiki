@@ -281,7 +281,7 @@ impl Lexer<'_> {
         if blank == p {
             return None;
         }
-        if self.char_stands(blank) {
+        if self.avail(blank) {
             return Some(blank);
         }
         let last = self.char_start_before(blank);

@@ -3,7 +3,7 @@
 
 use super::super::engine::Lexer;
 use super::types::Lead;
-use crate::rules::Chars;
+use crate::rules::{CachedRuns, Chars};
 
 /// The built-in functions that `built_in_functions_at0` names.
 const BUILT_INS: &[&[u8]] = &[

@@ -1,0 +1,2494 @@
+L # frozen_string_literal: true
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 29 source.ruby comment.line.number-sign.ruby
+L 
+L require "active_support/inflections"
+T 7 source.ruby meta.require.ruby keyword.other.special-method.ruby
+T 8 source.ruby meta.require.ruby
+T 9 source.ruby meta.require.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 35 source.ruby meta.require.ruby string.quoted.double.interpolated.ruby
+T 36 source.ruby meta.require.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L 
+L module ActiveSupport
+T 6 source.ruby meta.module.ruby keyword.control.module.ruby
+T 7 source.ruby meta.module.ruby
+T 20 source.ruby meta.module.ruby entity.name.type.module.ruby
+L   # Active Support \Inflector
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 29 source.ruby comment.line.number-sign.ruby
+L   # =========================
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 29 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   # The Inflector transforms words from singular to plural, class names to table
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 80 source.ruby comment.line.number-sign.ruby
+L   # names, modularized class names to ones without, and class names to foreign
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 78 source.ruby comment.line.number-sign.ruby
+L   # keys. The default inflections for pluralization, singularization, and
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 73 source.ruby comment.line.number-sign.ruby
+L   # uncountable words are kept in inflections.rb.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 49 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   # The \Rails core team has stated patches for the inflections library will not
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 80 source.ruby comment.line.number-sign.ruby
+L   # be accepted in order to avoid breaking legacy applications which may be
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 75 source.ruby comment.line.number-sign.ruby
+L   # relying on errant inflections. If you discover an incorrect inflection and
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 78 source.ruby comment.line.number-sign.ruby
+L   # require it for your application or wish to define rules for languages other
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 79 source.ruby comment.line.number-sign.ruby
+L   # than English, please correct or add them yourself (explained below).
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 72 source.ruby comment.line.number-sign.ruby
+L   module Inflector
+T 2 source.ruby
+T 8 source.ruby meta.module.ruby keyword.control.module.ruby
+T 9 source.ruby meta.module.ruby
+T 18 source.ruby meta.module.ruby entity.name.type.module.ruby
+L     extend self
+T 4 source.ruby
+T 10 source.ruby keyword.other.special-method.ruby
+T 11 source.ruby
+T 15 source.ruby variable.language.self.ruby
+L 
+L     # Returns the plural form of the word in the string.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 56 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # If passed an optional `locale` parameter, the word will be
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L     # pluralized using rules defined for that language. By default,
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 67 source.ruby comment.line.number-sign.ruby
+L     # this parameter is set to `:en`.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 37 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # pluralize('post')             # => "posts"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 48 source.ruby comment.line.number-sign.ruby
+L     # pluralize('octopus')          # => "octopi"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 49 source.ruby comment.line.number-sign.ruby
+L     # pluralize('sheep')            # => "sheep"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 48 source.ruby comment.line.number-sign.ruby
+L     # pluralize('words')            # => "words"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 48 source.ruby comment.line.number-sign.ruby
+L     # pluralize('CamelOctopus')     # => "CamelOctopi"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 54 source.ruby comment.line.number-sign.ruby
+L     # pluralize('ley', :es)         # => "leyes"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 48 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     def pluralize(word, locale = :en)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 17 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 18 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 22 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 23 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 24 source.ruby meta.function.method.with-arguments.ruby
+T 30 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 31 source.ruby meta.function.method.with-arguments.ruby
+T 32 source.ruby meta.function.method.with-arguments.ruby keyword.operator.assignment.ruby
+T 33 source.ruby meta.function.method.with-arguments.ruby
+T 34 source.ruby meta.function.method.with-arguments.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 36 source.ruby meta.function.method.with-arguments.ruby constant.language.symbol.ruby
+T 37 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       apply_inflections(word, inflections(locale).plurals, locale)
+T 6 source.ruby
+T 23 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 24 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 28 source.ruby meta.function-call.ruby
+T 29 source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 30 source.ruby meta.function-call.ruby
+T 41 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 42 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 48 source.ruby meta.function-call.ruby meta.function-call.ruby
+T 49 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 50 source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 57 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 58 source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 65 source.ruby meta.function-call.ruby
+T 66 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # The reverse of #pluralize, returns the singular form of a word in a
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 73 source.ruby comment.line.number-sign.ruby
+L     # string.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 13 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # If passed an optional `locale` parameter, the word will be
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L     # singularized using rules defined for that language. By default,
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 69 source.ruby comment.line.number-sign.ruby
+L     # this parameter is set to `:en`.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 37 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # singularize('posts')            # => "post"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 49 source.ruby comment.line.number-sign.ruby
+L     # singularize('octopi')           # => "octopus"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 52 source.ruby comment.line.number-sign.ruby
+L     # singularize('sheep')            # => "sheep"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 50 source.ruby comment.line.number-sign.ruby
+L     # singularize('word')             # => "word"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 49 source.ruby comment.line.number-sign.ruby
+L     # singularize('CamelOctopi')      # => "CamelOctopus"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 57 source.ruby comment.line.number-sign.ruby
+L     # singularize('leyes', :es)       # => "ley"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 48 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     def singularize(word, locale = :en)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 19 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 20 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 24 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 25 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 26 source.ruby meta.function.method.with-arguments.ruby
+T 32 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 33 source.ruby meta.function.method.with-arguments.ruby
+T 34 source.ruby meta.function.method.with-arguments.ruby keyword.operator.assignment.ruby
+T 35 source.ruby meta.function.method.with-arguments.ruby
+T 36 source.ruby meta.function.method.with-arguments.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 38 source.ruby meta.function.method.with-arguments.ruby constant.language.symbol.ruby
+T 39 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       apply_inflections(word, inflections(locale).singulars, locale)
+T 6 source.ruby
+T 23 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 24 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 28 source.ruby meta.function-call.ruby
+T 29 source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 30 source.ruby meta.function-call.ruby
+T 41 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 42 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 48 source.ruby meta.function-call.ruby meta.function-call.ruby
+T 49 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 50 source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 59 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 60 source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 67 source.ruby meta.function-call.ruby
+T 68 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Converts strings to UpperCamelCase.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 41 source.ruby comment.line.number-sign.ruby
+L     # If the `uppercase_first_letter` parameter is set to false, then produces
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 78 source.ruby comment.line.number-sign.ruby
+L     # lowerCamelCase.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 21 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # Also converts '/' to '::' which is useful for converting
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 62 source.ruby comment.line.number-sign.ruby
+L     # paths to namespaces.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 26 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # camelize('active_model')                # => "ActiveModel"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L     # camelize('active_model', false)         # => "activeModel"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L     # camelize('active_model/errors')         # => "ActiveModel::Errors"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 72 source.ruby comment.line.number-sign.ruby
+L     # camelize('active_model/errors', false)  # => "activeModel::Errors"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 72 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # As a rule of thumb you can think of `camelize` as the inverse of
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 70 source.ruby comment.line.number-sign.ruby
+L     # #underscore, though there are cases where that does not hold:
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 67 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # camelize(underscore('SSLError'))        # => "SslError"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 61 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     def camelize(term, uppercase_first_letter = true)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 16 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 17 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 21 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 22 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 23 source.ruby meta.function.method.with-arguments.ruby
+T 45 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 46 source.ruby meta.function.method.with-arguments.ruby
+T 47 source.ruby meta.function.method.with-arguments.ruby keyword.operator.assignment.ruby
+T 48 source.ruby meta.function.method.with-arguments.ruby
+T 52 source.ruby meta.function.method.with-arguments.ruby constant.language.boolean.ruby
+T 53 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       string = term.to_s
+T 6 source.ruby
+T 12 source.ruby variable.ruby
+T 13 source.ruby
+T 14 source.ruby keyword.operator.assignment.ruby
+T 19 source.ruby
+T 20 source.ruby punctuation.separator.method.ruby
+T 24 source.ruby meta.function-call.ruby entity.name.function.ruby
+L       # String#camelize takes a symbol (:upper or :lower), so here we also support :lower to keep the methods consistent.
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 121 source.ruby comment.line.number-sign.ruby
+L       if !uppercase_first_letter || uppercase_first_letter == :lower
+T 6 source.ruby
+T 8 source.ruby keyword.control.ruby
+T 9 source.ruby
+T 10 source.ruby keyword.operator.logical.ruby
+T 33 source.ruby
+T 35 source.ruby keyword.operator.logical.ruby
+T 59 source.ruby
+T 61 source.ruby keyword.operator.comparison.ruby
+T 62 source.ruby
+T 63 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 68 source.ruby constant.language.symbol.ruby
+L         string = string.sub(inflections.acronyms_camelize_regex) { |match| match.downcase! || match }
+T 8 source.ruby
+T 14 source.ruby variable.ruby
+T 15 source.ruby
+T 16 source.ruby keyword.operator.assignment.ruby
+T 23 source.ruby
+T 24 source.ruby punctuation.separator.method.ruby
+T 27 source.ruby support.function.kernel.ruby
+T 28 source.ruby punctuation.section.function.ruby
+T 39 source.ruby
+T 40 source.ruby punctuation.separator.method.ruby
+T 63 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 64 source.ruby punctuation.section.function.ruby
+T 65 source.ruby
+T 66 source.ruby punctuation.section.scope.begin.ruby
+T 67 source.ruby meta.syntax.ruby.start-block
+T 68 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 73 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 74 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 80 source.ruby
+T 81 source.ruby punctuation.separator.method.ruby
+T 90 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 91 source.ruby
+T 93 source.ruby keyword.operator.logical.ruby
+T 100 source.ruby
+T 101 source.ruby punctuation.section.scope.end.ruby
+L       elsif string.match?(/\A[a-z\d]*\z/)
+T 6 source.ruby
+T 11 source.ruby keyword.control.ruby
+T 18 source.ruby
+T 19 source.ruby punctuation.separator.method.ruby
+T 25 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 26 source.ruby punctuation.section.function.ruby
+T 27 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 29 source.ruby string.regexp.interpolated.ruby constant.character.escape.ruby
+T 30 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 33 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby
+T 35 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby constant.character.escape.ruby
+T 36 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 37 source.ruby string.regexp.interpolated.ruby
+T 39 source.ruby string.regexp.interpolated.ruby constant.character.escape.ruby
+T 40 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 41 source.ruby punctuation.section.function.ruby
+L         return inflections.acronyms[string]&.dup || string.capitalize
+T 8 source.ruby
+T 14 source.ruby keyword.control.pseudo-method.ruby
+T 26 source.ruby
+T 27 source.ruby punctuation.separator.method.ruby
+T 35 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 36 source.ruby punctuation.section.array.begin.ruby
+T 42 source.ruby
+T 43 source.ruby punctuation.section.array.end.ruby
+T 45 source.ruby keyword.operator.logical.ruby
+T 48 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 49 source.ruby
+T 51 source.ruby keyword.operator.logical.ruby
+T 58 source.ruby
+T 59 source.ruby punctuation.separator.method.ruby
+T 69 source.ruby meta.function-call.ruby entity.name.function.ruby
+L       else
+T 6 source.ruby
+T 10 source.ruby keyword.control.ruby
+L         string = string.sub(/^[a-z\d]*/) { |match| inflections.acronyms[match] || match.capitalize! || match }
+T 8 source.ruby
+T 14 source.ruby variable.ruby
+T 15 source.ruby
+T 16 source.ruby keyword.operator.assignment.ruby
+T 23 source.ruby
+T 24 source.ruby punctuation.separator.method.ruby
+T 27 source.ruby support.function.kernel.ruby
+T 28 source.ruby punctuation.section.function.ruby
+T 29 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 30 source.ruby string.regexp.interpolated.ruby
+T 31 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 34 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby
+T 36 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby constant.character.escape.ruby
+T 37 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 38 source.ruby string.regexp.interpolated.ruby
+T 39 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 40 source.ruby punctuation.section.function.ruby
+T 41 source.ruby
+T 42 source.ruby punctuation.section.scope.begin.ruby
+T 43 source.ruby meta.syntax.ruby.start-block
+T 44 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 49 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 50 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 62 source.ruby
+T 63 source.ruby punctuation.separator.method.ruby
+T 71 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 72 source.ruby punctuation.section.array.begin.ruby
+T 77 source.ruby
+T 78 source.ruby punctuation.section.array.end.ruby
+T 79 source.ruby
+T 81 source.ruby keyword.operator.logical.ruby
+T 87 source.ruby
+T 88 source.ruby punctuation.separator.method.ruby
+T 99 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 100 source.ruby
+T 102 source.ruby keyword.operator.logical.ruby
+T 109 source.ruby
+T 110 source.ruby punctuation.section.scope.end.ruby
+L       end
+T 6 source.ruby
+T 9 source.ruby keyword.control.ruby
+L       string.gsub!(/(?:_|(\/))([a-z\d]*)/i) do
+T 12 source.ruby
+T 13 source.ruby punctuation.separator.method.ruby
+T 18 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 19 source.ruby punctuation.section.function.ruby
+T 20 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 21 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 25 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby
+T 26 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 28 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.group.ruby constant.character.escape.ruby
+T 29 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 30 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 31 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 32 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 35 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby
+T 37 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby constant.character.escape.ruby
+T 38 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 39 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby
+T 40 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 42 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 43 source.ruby punctuation.section.function.ruby
+T 44 source.ruby
+T 46 source.ruby keyword.control.start-block.ruby
+L         word = $2
+T 8 source.ruby
+T 12 source.ruby variable.ruby
+T 13 source.ruby
+T 14 source.ruby keyword.operator.assignment.ruby
+T 15 source.ruby
+T 16 source.ruby variable.other.readwrite.global.pre-defined.ruby punctuation.definition.variable.ruby
+T 17 source.ruby variable.other.readwrite.global.pre-defined.ruby
+L         substituted = inflections.acronyms[word] || word.capitalize! || word
+T 8 source.ruby
+T 19 source.ruby variable.ruby
+T 20 source.ruby
+T 21 source.ruby keyword.operator.assignment.ruby
+T 33 source.ruby
+T 34 source.ruby punctuation.separator.method.ruby
+T 42 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 43 source.ruby punctuation.section.array.begin.ruby
+T 47 source.ruby
+T 48 source.ruby punctuation.section.array.end.ruby
+T 49 source.ruby
+T 51 source.ruby keyword.operator.logical.ruby
+T 56 source.ruby
+T 57 source.ruby punctuation.separator.method.ruby
+T 68 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 69 source.ruby
+T 71 source.ruby keyword.operator.logical.ruby
+T 76 source.ruby
+L         $1 ? "::#{substituted}" : substituted
+T 8 source.ruby
+T 9 source.ruby variable.other.readwrite.global.pre-defined.ruby punctuation.definition.variable.ruby
+T 10 source.ruby variable.other.readwrite.global.pre-defined.ruby
+T 11 source.ruby
+T 12 source.ruby keyword.operator.comparison.ruby
+T 13 source.ruby
+T 14 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 16 source.ruby string.quoted.double.interpolated.ruby
+T 18 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 29 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 30 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 31 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 32 source.ruby
+T 33 source.ruby punctuation.separator.other.ruby
+T 45 source.ruby
+L       end
+T 6 source.ruby
+T 9 source.ruby keyword.control.ruby
+L       string
+T 12 source.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Makes an underscored, lowercase form from the expression in the string.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 77 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # Changes '::' to '/' to convert namespaces to paths.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 57 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # underscore('ActiveModel')         # => "active_model"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 59 source.ruby comment.line.number-sign.ruby
+L     # underscore('ActiveModel::Errors') # => "active_model/errors"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 66 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # As a rule of thumb you can think of `underscore` as the inverse of
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 72 source.ruby comment.line.number-sign.ruby
+L     # #camelize, though there are cases where that does not hold:
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 65 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # camelize(underscore('SSLError'))  # => "SslError"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 55 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     def underscore(camel_cased_word)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 18 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 19 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 35 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 36 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       return camel_cased_word.to_s.dup unless /[A-Z-]|::/.match?(camel_cased_word)
+T 6 source.ruby
+T 12 source.ruby keyword.control.pseudo-method.ruby
+T 29 source.ruby
+T 30 source.ruby punctuation.separator.method.ruby
+T 34 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 35 source.ruby punctuation.separator.method.ruby
+T 38 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 39 source.ruby
+T 45 source.ruby keyword.control.ruby
+T 46 source.ruby
+T 47 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 48 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 52 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby
+T 53 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 56 source.ruby string.regexp.interpolated.ruby
+T 57 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 58 source.ruby punctuation.separator.method.ruby
+T 64 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 65 source.ruby punctuation.section.function.ruby
+T 81 source.ruby
+T 82 source.ruby punctuation.section.function.ruby
+L       word = camel_cased_word.to_s.gsub("::", "/")
+T 6 source.ruby
+T 10 source.ruby variable.ruby
+T 11 source.ruby
+T 12 source.ruby keyword.operator.assignment.ruby
+T 29 source.ruby
+T 30 source.ruby punctuation.separator.method.ruby
+T 34 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 35 source.ruby punctuation.separator.method.ruby
+T 39 source.ruby support.function.kernel.ruby
+T 40 source.ruby punctuation.section.function.ruby
+T 41 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 43 source.ruby string.quoted.double.interpolated.ruby
+T 44 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 45 source.ruby punctuation.separator.object.ruby
+T 46 source.ruby
+T 47 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 48 source.ruby string.quoted.double.interpolated.ruby
+T 49 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 50 source.ruby punctuation.section.function.ruby
+L       word.gsub!(inflections.acronyms_underscore_regex) { "#{$1 && '_' }#{$2.downcase}" }
+T 10 source.ruby
+T 11 source.ruby punctuation.separator.method.ruby
+T 16 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 17 source.ruby punctuation.section.function.ruby
+T 28 source.ruby
+T 29 source.ruby punctuation.separator.method.ruby
+T 54 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 55 source.ruby punctuation.section.function.ruby
+T 56 source.ruby
+T 57 source.ruby punctuation.section.scope.begin.ruby
+T 58 source.ruby meta.syntax.ruby.start-block
+T 59 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 61 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 62 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby variable.other.readwrite.global.pre-defined.ruby punctuation.definition.variable.ruby
+T 63 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby variable.other.readwrite.global.pre-defined.ruby
+T 64 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 66 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby keyword.operator.logical.ruby
+T 67 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 68 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 69 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby string.quoted.single.ruby
+T 70 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 71 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 72 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 74 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 75 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby variable.other.readwrite.global.pre-defined.ruby punctuation.definition.variable.ruby
+T 76 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby variable.other.readwrite.global.pre-defined.ruby
+T 77 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby punctuation.separator.method.ruby
+T 85 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby meta.function-call.ruby entity.name.function.ruby
+T 86 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 87 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 88 source.ruby
+T 89 source.ruby punctuation.section.scope.end.ruby
+L       word.gsub!(/(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-z\d])(?=[A-Z])/, "_")
+T 10 source.ruby
+T 11 source.ruby punctuation.separator.method.ruby
+T 16 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 17 source.ruby punctuation.section.function.ruby
+T 18 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 19 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 22 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby
+T 23 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 26 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby
+T 27 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 28 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 29 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 31 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby
+T 32 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 35 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby
+T 36 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 37 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 40 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby
+T 41 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 42 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 43 source.ruby string.regexp.interpolated.ruby
+T 44 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 47 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby
+T 48 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 51 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby
+T 53 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby constant.character.escape.ruby
+T 54 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 55 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 56 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 58 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby
+T 59 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 62 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby
+T 63 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 64 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 65 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 66 source.ruby punctuation.separator.object.ruby
+T 67 source.ruby
+T 68 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 69 source.ruby string.quoted.double.interpolated.ruby
+T 70 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 71 source.ruby punctuation.section.function.ruby
+L       word.tr!("-", "_")
+T 10 source.ruby
+T 11 source.ruby punctuation.separator.method.ruby
+T 14 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 15 source.ruby punctuation.section.function.ruby
+T 16 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 17 source.ruby string.quoted.double.interpolated.ruby
+T 18 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 19 source.ruby punctuation.separator.object.ruby
+T 20 source.ruby
+T 21 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 22 source.ruby string.quoted.double.interpolated.ruby
+T 23 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 24 source.ruby punctuation.section.function.ruby
+L       word.downcase!
+T 10 source.ruby
+T 11 source.ruby punctuation.separator.method.ruby
+T 20 source.ruby meta.function-call.ruby entity.name.function.ruby
+L       word
+T 10 source.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Tweaks an attribute name for display to end users.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 56 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # Specifically, performs these transformations:
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 51 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # * Applies human inflection rules to the argument.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 55 source.ruby comment.line.number-sign.ruby
+L     # * Deletes leading underscores, if any.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 44 source.ruby comment.line.number-sign.ruby
+L     # * Removes an "_id" suffix if present.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 43 source.ruby comment.line.number-sign.ruby
+L     # * Replaces underscores with spaces, if any.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 49 source.ruby comment.line.number-sign.ruby
+L     # * Downcases all words except acronyms.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 44 source.ruby comment.line.number-sign.ruby
+L     # * Capitalizes the first word.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 35 source.ruby comment.line.number-sign.ruby
+L     # The capitalization of the first word can be turned off by setting the
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 75 source.ruby comment.line.number-sign.ruby
+L     # `:capitalize` option to false (default is true).
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 54 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # The trailing '_id' can be kept by setting the
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 51 source.ruby comment.line.number-sign.ruby
+L     # optional parameter `keep_id_suffix` to true (default is false).
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 69 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # humanize('employee_salary')                  # => "Employee salary"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 73 source.ruby comment.line.number-sign.ruby
+L     # humanize('author_id')                        # => "Author"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L     # humanize('author_id', capitalize: false)     # => "author"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L     # humanize('_id')                              # => "Id"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 60 source.ruby comment.line.number-sign.ruby
+L     # humanize('author_id', keep_id_suffix: true)  # => "Author id"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 67 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # If "SSL" was defined to be an acronym:
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 44 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # humanize('ssl_error') # => "SSL error"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 44 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     def humanize(lower_case_and_underscored_word, capitalize: true, keep_id_suffix: false)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 16 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 17 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 48 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 49 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 50 source.ruby meta.function.method.with-arguments.ruby
+T 60 source.ruby meta.function.method.with-arguments.ruby constant.other.symbol.hashkey.parameter.function.ruby
+T 61 source.ruby meta.function.method.with-arguments.ruby constant.other.symbol.hashkey.parameter.function.ruby punctuation.definition.constant.ruby
+T 62 source.ruby meta.function.method.with-arguments.ruby
+T 66 source.ruby meta.function.method.with-arguments.ruby constant.language.boolean.ruby
+T 67 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 68 source.ruby meta.function.method.with-arguments.ruby
+T 82 source.ruby meta.function.method.with-arguments.ruby constant.other.symbol.hashkey.parameter.function.ruby
+T 83 source.ruby meta.function.method.with-arguments.ruby constant.other.symbol.hashkey.parameter.function.ruby punctuation.definition.constant.ruby
+T 84 source.ruby meta.function.method.with-arguments.ruby
+T 89 source.ruby meta.function.method.with-arguments.ruby constant.language.boolean.ruby
+T 90 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       result = lower_case_and_underscored_word.to_s.dup
+T 6 source.ruby
+T 12 source.ruby variable.ruby
+T 13 source.ruby
+T 14 source.ruby keyword.operator.assignment.ruby
+T 46 source.ruby
+T 47 source.ruby punctuation.separator.method.ruby
+T 51 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 52 source.ruby punctuation.separator.method.ruby
+T 55 source.ruby meta.function-call.ruby entity.name.function.ruby
+L 
+L       inflections.humans.each { |(rule, replacement)| break if result.sub!(rule, replacement) }
+T 17 source.ruby
+T 18 source.ruby punctuation.separator.method.ruby
+T 24 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 25 source.ruby punctuation.separator.method.ruby
+T 29 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 30 source.ruby
+T 31 source.ruby punctuation.section.scope.begin.ruby
+T 32 source.ruby meta.syntax.ruby.start-block
+T 33 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 34 source.ruby meta.block.parameters.ruby
+T 38 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 39 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 40 source.ruby meta.block.parameters.ruby
+T 51 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 52 source.ruby meta.block.parameters.ruby
+T 53 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 54 source.ruby
+T 59 source.ruby keyword.control.pseudo-method.ruby
+T 60 source.ruby
+T 62 source.ruby keyword.control.ruby
+T 69 source.ruby
+T 70 source.ruby punctuation.separator.method.ruby
+T 74 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 75 source.ruby punctuation.section.function.ruby
+T 79 source.ruby
+T 80 source.ruby punctuation.separator.object.ruby
+T 92 source.ruby
+T 93 source.ruby punctuation.section.function.ruby
+T 94 source.ruby
+T 95 source.ruby punctuation.section.scope.end.ruby
+L 
+L       result.tr!("_", " ")
+T 12 source.ruby
+T 13 source.ruby punctuation.separator.method.ruby
+T 16 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 17 source.ruby punctuation.section.function.ruby
+T 18 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 19 source.ruby string.quoted.double.interpolated.ruby
+T 20 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 21 source.ruby punctuation.separator.object.ruby
+T 22 source.ruby
+T 23 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 24 source.ruby string.quoted.double.interpolated.ruby
+T 25 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 26 source.ruby punctuation.section.function.ruby
+L       result.lstrip!
+T 12 source.ruby
+T 13 source.ruby punctuation.separator.method.ruby
+T 20 source.ruby meta.function-call.ruby entity.name.function.ruby
+L       if !keep_id_suffix && lower_case_and_underscored_word&.end_with?("_id")
+T 6 source.ruby
+T 8 source.ruby keyword.control.ruby
+T 9 source.ruby
+T 10 source.ruby keyword.operator.logical.ruby
+T 25 source.ruby
+T 27 source.ruby keyword.operator.logical.ruby
+T 59 source.ruby
+T 61 source.ruby keyword.operator.logical.ruby
+T 70 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 71 source.ruby punctuation.section.function.ruby
+T 72 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 75 source.ruby string.quoted.double.interpolated.ruby
+T 76 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 77 source.ruby punctuation.section.function.ruby
+L         result.delete_suffix!(" id")
+T 14 source.ruby
+T 15 source.ruby punctuation.separator.method.ruby
+T 29 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 30 source.ruby punctuation.section.function.ruby
+T 31 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 34 source.ruby string.quoted.double.interpolated.ruby
+T 35 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 36 source.ruby punctuation.section.function.ruby
+L       end
+T 6 source.ruby
+T 9 source.ruby keyword.control.ruby
+L 
+L       result.gsub!(/([[[:alpha:]]\d]+)/i) do |match|
+T 12 source.ruby
+T 13 source.ruby punctuation.separator.method.ruby
+T 18 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 19 source.ruby punctuation.section.function.ruby
+T 20 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 21 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 22 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 31 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby
+T 32 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 33 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby
+T 35 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby constant.character.escape.ruby
+T 37 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby
+T 38 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 40 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 41 source.ruby punctuation.section.function.ruby
+T 42 source.ruby
+T 44 source.ruby keyword.control.start-block.ruby
+T 45 source.ruby
+T 46 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 51 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 52 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+L         match.downcase!
+T 13 source.ruby
+T 14 source.ruby punctuation.separator.method.ruby
+T 23 source.ruby meta.function-call.ruby entity.name.function.ruby
+L         inflections.acronyms[match] || match
+T 19 source.ruby
+T 20 source.ruby punctuation.separator.method.ruby
+T 28 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 29 source.ruby punctuation.section.array.begin.ruby
+T 34 source.ruby
+T 35 source.ruby punctuation.section.array.end.ruby
+T 36 source.ruby
+T 38 source.ruby keyword.operator.logical.ruby
+T 44 source.ruby
+L       end
+T 6 source.ruby
+T 9 source.ruby keyword.control.ruby
+L 
+L       if capitalize
+T 6 source.ruby
+T 8 source.ruby keyword.control.ruby
+T 19 source.ruby
+L         result.sub!(/\A[[:alpha:]]/) do |match|
+T 14 source.ruby
+T 15 source.ruby punctuation.separator.method.ruby
+T 19 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 20 source.ruby punctuation.section.function.ruby
+T 21 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 23 source.ruby string.regexp.interpolated.ruby constant.character.escape.ruby
+T 24 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 32 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby
+T 33 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 34 source.ruby string.regexp.interpolated.ruby
+T 35 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 36 source.ruby punctuation.section.function.ruby
+T 37 source.ruby
+T 39 source.ruby keyword.control.start-block.ruby
+T 40 source.ruby
+T 41 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 46 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 47 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+L           match.upcase!
+T 15 source.ruby
+T 16 source.ruby punctuation.separator.method.ruby
+T 23 source.ruby meta.function-call.ruby entity.name.function.ruby
+L           match
+T 15 source.ruby
+L         end
+T 8 source.ruby
+T 11 source.ruby keyword.control.ruby
+L       end
+T 6 source.ruby
+T 9 source.ruby keyword.control.ruby
+L 
+L       result
+T 12 source.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Converts the first character in the string to uppercase.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 62 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # upcase_first('what a Lovely Day') # => "What a Lovely Day"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L     # upcase_first('w')                 # => "W"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 48 source.ruby comment.line.number-sign.ruby
+L     # upcase_first('')                  # => ""
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 47 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     def upcase_first(string)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 20 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 21 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 27 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 28 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       string.length > 0 ? string[0].upcase.concat(string[1..-1]) : +""
+T 12 source.ruby
+T 13 source.ruby punctuation.separator.method.ruby
+T 19 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 20 source.ruby
+T 21 source.ruby keyword.operator.comparison.ruby
+T 22 source.ruby
+T 23 source.ruby constant.numeric.ruby
+T 24 source.ruby
+T 25 source.ruby keyword.operator.comparison.ruby
+T 32 source.ruby
+T 33 source.ruby punctuation.section.array.begin.ruby
+T 34 source.ruby constant.numeric.ruby
+T 35 source.ruby punctuation.section.array.end.ruby
+T 36 source.ruby punctuation.separator.method.ruby
+T 42 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 43 source.ruby punctuation.separator.method.ruby
+T 49 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 50 source.ruby punctuation.section.function.ruby
+T 56 source.ruby
+T 57 source.ruby punctuation.section.array.begin.ruby
+T 58 source.ruby constant.numeric.ruby
+T 59 source.ruby punctuation.separator.method.ruby
+T 60 source.ruby punctuation.separator.method.ruby
+T 61 source.ruby keyword.operator.arithmetic.ruby
+T 62 source.ruby constant.numeric.ruby
+T 63 source.ruby punctuation.section.array.end.ruby
+T 64 source.ruby punctuation.section.function.ruby
+T 65 source.ruby
+T 66 source.ruby punctuation.separator.other.ruby
+T 67 source.ruby
+T 68 source.ruby keyword.operator.arithmetic.ruby
+T 69 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 70 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Converts the first character in the string to lowercase.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 62 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # downcase_first('If they enjoyed The Matrix') # => "if they enjoyed The Matrix"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 84 source.ruby comment.line.number-sign.ruby
+L     # downcase_first('I')                          # => "i"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 59 source.ruby comment.line.number-sign.ruby
+L     # downcase_first('')                           # => ""
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 58 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     def downcase_first(string)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 22 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 23 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 29 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 30 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       string.length > 0 ? string[0].downcase.concat(string[1..-1]) : +""
+T 12 source.ruby
+T 13 source.ruby punctuation.separator.method.ruby
+T 19 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 20 source.ruby
+T 21 source.ruby keyword.operator.comparison.ruby
+T 22 source.ruby
+T 23 source.ruby constant.numeric.ruby
+T 24 source.ruby
+T 25 source.ruby keyword.operator.comparison.ruby
+T 32 source.ruby
+T 33 source.ruby punctuation.section.array.begin.ruby
+T 34 source.ruby constant.numeric.ruby
+T 35 source.ruby punctuation.section.array.end.ruby
+T 36 source.ruby punctuation.separator.method.ruby
+T 44 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 45 source.ruby punctuation.separator.method.ruby
+T 51 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 52 source.ruby punctuation.section.function.ruby
+T 58 source.ruby
+T 59 source.ruby punctuation.section.array.begin.ruby
+T 60 source.ruby constant.numeric.ruby
+T 61 source.ruby punctuation.separator.method.ruby
+T 62 source.ruby punctuation.separator.method.ruby
+T 63 source.ruby keyword.operator.arithmetic.ruby
+T 64 source.ruby constant.numeric.ruby
+T 65 source.ruby punctuation.section.array.end.ruby
+T 66 source.ruby punctuation.section.function.ruby
+T 67 source.ruby
+T 68 source.ruby punctuation.separator.other.ruby
+T 69 source.ruby
+T 70 source.ruby keyword.operator.arithmetic.ruby
+T 71 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 72 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Capitalizes all the words and replaces some characters in the string to
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 77 source.ruby comment.line.number-sign.ruby
+L     # create a nicer looking title. `titleize` is meant for creating pretty
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 75 source.ruby comment.line.number-sign.ruby
+L     # output. It is not used in the \Rails internals.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 53 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # The trailing '_id','Id'.. can be kept and capitalized by setting the
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 74 source.ruby comment.line.number-sign.ruby
+L     # optional parameter `keep_id_suffix` to true.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 50 source.ruby comment.line.number-sign.ruby
+L     # By default, this parameter is false.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 42 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # titleize('man from the boondocks')                       # => "Man From The Boondocks"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 92 source.ruby comment.line.number-sign.ruby
+L     # titleize('x-men: the last stand')                        # => "X Men: The Last Stand"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 91 source.ruby comment.line.number-sign.ruby
+L     # titleize('TheManWithoutAPast')                           # => "The Man Without A Past"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 92 source.ruby comment.line.number-sign.ruby
+L     # titleize('raiders_of_the_lost_ark')                      # => "Raiders Of The Lost Ark"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 93 source.ruby comment.line.number-sign.ruby
+L     # titleize('string_ending_with_id', keep_id_suffix: true)  # => "String Ending With Id"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 91 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     def titleize(word, keep_id_suffix: false)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 16 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 17 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 21 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 22 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 23 source.ruby meta.function.method.with-arguments.ruby
+T 37 source.ruby meta.function.method.with-arguments.ruby constant.other.symbol.hashkey.parameter.function.ruby
+T 38 source.ruby meta.function.method.with-arguments.ruby constant.other.symbol.hashkey.parameter.function.ruby punctuation.definition.constant.ruby
+T 39 source.ruby meta.function.method.with-arguments.ruby
+T 44 source.ruby meta.function.method.with-arguments.ruby constant.language.boolean.ruby
+T 45 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       humanize(underscore(word), keep_id_suffix: keep_id_suffix).gsub(/\b(?<!\w['’`()])\p{Lower}/) do |match|
+T 6 source.ruby
+T 14 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 15 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 25 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 26 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 30 source.ruby meta.function-call.ruby meta.function-call.ruby
+T 31 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 32 source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 33 source.ruby meta.function-call.ruby
+T 47 source.ruby meta.function-call.ruby constant.language.symbol.hashkey.ruby
+T 48 source.ruby meta.function-call.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 63 source.ruby meta.function-call.ruby
+T 64 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 65 source.ruby punctuation.separator.method.ruby
+T 69 source.ruby support.function.kernel.ruby
+T 70 source.ruby punctuation.section.function.ruby
+T 71 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 73 source.ruby string.regexp.interpolated.ruby constant.character.escape.ruby
+T 74 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 77 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby
+T 79 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby constant.character.escape.ruby
+T 80 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 87 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby
+T 88 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 89 source.ruby string.regexp.interpolated.ruby string.regexp.group.ruby punctuation.definition.group.ruby
+T 91 source.ruby string.regexp.interpolated.ruby constant.character.escape.ruby
+T 98 source.ruby string.regexp.interpolated.ruby
+T 99 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 100 source.ruby punctuation.section.function.ruby
+T 101 source.ruby
+T 103 source.ruby keyword.control.start-block.ruby
+T 104 source.ruby
+T 105 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 110 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 111 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+L         match.capitalize
+T 13 source.ruby
+T 14 source.ruby punctuation.separator.method.ruby
+T 24 source.ruby meta.function-call.ruby entity.name.function.ruby
+L       end
+T 6 source.ruby
+T 9 source.ruby keyword.control.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Creates the name of a table like \Rails does for models to table names.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 77 source.ruby comment.line.number-sign.ruby
+L     # This method uses the #pluralize method on the last word in the string.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 76 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # tableize('RawScaledScorer') # => "raw_scaled_scorers"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 59 source.ruby comment.line.number-sign.ruby
+L     # tableize('ham_and_egg')     # => "ham_and_eggs"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 53 source.ruby comment.line.number-sign.ruby
+L     # tableize('fancyCategory')   # => "fancy_categories"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 57 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     def tableize(class_name)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 16 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 17 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 27 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 28 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       pluralize(underscore(class_name))
+T 6 source.ruby
+T 15 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 16 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 26 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 27 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 37 source.ruby meta.function-call.ruby meta.function-call.ruby
+T 38 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 39 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Creates a class name from a plural table name like \Rails does for table
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 78 source.ruby comment.line.number-sign.ruby
+L     # names to models. Note that this returns a string and not a Class. (To
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 75 source.ruby comment.line.number-sign.ruby
+L     # convert to an actual class follow `classify` with #constantize.)
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 70 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # classify('ham_and_eggs') # => "HamAndEgg"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 47 source.ruby comment.line.number-sign.ruby
+L     # classify('posts')        # => "Post"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 42 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # Singular names are not handled correctly:
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 47 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # classify('calculus')     # => "Calculu"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 45 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     def classify(table_name)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 16 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 17 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 27 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 28 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       # strip out any leading schema name
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 41 source.ruby comment.line.number-sign.ruby
+L       camelize(singularize(table_name.to_s.sub(/.*\./, "")))
+T 6 source.ruby
+T 14 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 15 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 26 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 27 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 37 source.ruby meta.function-call.ruby meta.function-call.ruby
+T 38 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 42 source.ruby meta.function-call.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 43 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 46 source.ruby meta.function-call.ruby meta.function-call.ruby support.function.kernel.ruby
+T 47 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 48 source.ruby meta.function-call.ruby meta.function-call.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 50 source.ruby meta.function-call.ruby meta.function-call.ruby string.regexp.interpolated.ruby
+T 52 source.ruby meta.function-call.ruby meta.function-call.ruby string.regexp.interpolated.ruby constant.character.escape.ruby
+T 53 source.ruby meta.function-call.ruby meta.function-call.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 54 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 55 source.ruby meta.function-call.ruby meta.function-call.ruby
+T 56 source.ruby meta.function-call.ruby meta.function-call.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 57 source.ruby meta.function-call.ruby meta.function-call.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 58 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 59 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 60 source.ruby punctuation.section.function.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Replaces underscores with dashes in the string.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 53 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # dasherize('puni_puni') # => "puni-puni"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 45 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     def dasherize(underscored_word)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 17 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 18 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 34 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 35 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       underscored_word.tr("_", "-")
+T 22 source.ruby
+T 23 source.ruby punctuation.separator.method.ruby
+T 25 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 26 source.ruby punctuation.section.function.ruby
+T 27 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 28 source.ruby string.quoted.double.interpolated.ruby
+T 29 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 30 source.ruby punctuation.separator.object.ruby
+T 31 source.ruby
+T 32 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 33 source.ruby string.quoted.double.interpolated.ruby
+T 34 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 35 source.ruby punctuation.section.function.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Removes the module part from the expression in the string.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # demodulize('ActiveSupport::Inflector::Inflections') # => "Inflections"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 76 source.ruby comment.line.number-sign.ruby
+L     # demodulize('Inflections')                           # => "Inflections"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 76 source.ruby comment.line.number-sign.ruby
+L     # demodulize('::Inflections')                         # => "Inflections"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 76 source.ruby comment.line.number-sign.ruby
+L     # demodulize('')                                      # => ""
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 65 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # See also #deconstantize.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 30 source.ruby comment.line.number-sign.ruby
+L     def demodulize(path)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 18 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 19 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 23 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 24 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       path = path.to_s
+T 6 source.ruby
+T 10 source.ruby variable.ruby
+T 11 source.ruby
+T 12 source.ruby keyword.operator.assignment.ruby
+T 17 source.ruby
+T 18 source.ruby punctuation.separator.method.ruby
+T 22 source.ruby meta.function-call.ruby entity.name.function.ruby
+L       if i = path.rindex("::")
+T 6 source.ruby
+T 8 source.ruby keyword.control.ruby
+T 9 source.ruby
+T 10 source.ruby variable.ruby
+T 13 source.ruby
+T 17 source.ruby
+T 18 source.ruby punctuation.separator.method.ruby
+T 24 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 25 source.ruby punctuation.section.function.ruby
+T 26 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 28 source.ruby string.quoted.double.interpolated.ruby
+T 29 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 30 source.ruby punctuation.section.function.ruby
+L         path[(i + 2), path.length]
+T 12 source.ruby
+T 13 source.ruby punctuation.section.array.begin.ruby
+T 14 source.ruby punctuation.section.function.ruby
+T 16 source.ruby
+T 17 source.ruby keyword.operator.arithmetic.ruby
+T 18 source.ruby
+T 19 source.ruby constant.numeric.ruby
+T 20 source.ruby punctuation.section.function.ruby
+T 21 source.ruby punctuation.separator.object.ruby
+T 26 source.ruby
+T 27 source.ruby punctuation.separator.method.ruby
+T 33 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 34 source.ruby punctuation.section.array.end.ruby
+L       else
+T 6 source.ruby
+T 10 source.ruby keyword.control.ruby
+L         path
+T 12 source.ruby
+L       end
+T 6 source.ruby
+T 9 source.ruby keyword.control.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Removes the rightmost segment from the constant expression in the string.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 79 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # deconstantize('Net::HTTP')   # => "Net"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 45 source.ruby comment.line.number-sign.ruby
+L     # deconstantize('::Net::HTTP') # => "::Net"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 47 source.ruby comment.line.number-sign.ruby
+L     # deconstantize('String')      # => ""
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 42 source.ruby comment.line.number-sign.ruby
+L     # deconstantize('::String')    # => ""
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 42 source.ruby comment.line.number-sign.ruby
+L     # deconstantize('')            # => ""
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 42 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # See also #demodulize.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 27 source.ruby comment.line.number-sign.ruby
+L     def deconstantize(path)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 21 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 22 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 26 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 27 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       path.to_s[0, path.rindex("::") || 0] # implementation based on the one in facets' Module#spacename
+T 10 source.ruby
+T 11 source.ruby punctuation.separator.method.ruby
+T 15 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 16 source.ruby punctuation.section.array.begin.ruby
+T 17 source.ruby constant.numeric.ruby
+T 18 source.ruby punctuation.separator.object.ruby
+T 23 source.ruby
+T 24 source.ruby punctuation.separator.method.ruby
+T 30 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 31 source.ruby punctuation.section.function.ruby
+T 32 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 34 source.ruby string.quoted.double.interpolated.ruby
+T 35 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 36 source.ruby punctuation.section.function.ruby
+T 37 source.ruby
+T 39 source.ruby keyword.operator.logical.ruby
+T 40 source.ruby
+T 41 source.ruby constant.numeric.ruby
+T 42 source.ruby punctuation.section.array.end.ruby
+T 43 source.ruby
+T 44 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 104 source.ruby comment.line.number-sign.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Creates a foreign key name from a class name.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 51 source.ruby comment.line.number-sign.ruby
+L     # `separate_class_name_and_id_with_underscore` sets whether
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 63 source.ruby comment.line.number-sign.ruby
+L     # the method should put '_' between the name and 'id'.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 58 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # foreign_key('Message')        # => "message_id"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 53 source.ruby comment.line.number-sign.ruby
+L     # foreign_key('Message', false) # => "messageid"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 52 source.ruby comment.line.number-sign.ruby
+L     # foreign_key('Admin::Post')    # => "post_id"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 50 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     def foreign_key(class_name, separate_class_name_and_id_with_underscore = true)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 19 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 20 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 30 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 31 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 32 source.ruby meta.function.method.with-arguments.ruby
+T 74 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 75 source.ruby meta.function.method.with-arguments.ruby
+T 76 source.ruby meta.function.method.with-arguments.ruby keyword.operator.assignment.ruby
+T 77 source.ruby meta.function.method.with-arguments.ruby
+T 81 source.ruby meta.function.method.with-arguments.ruby constant.language.boolean.ruby
+T 82 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       underscore(demodulize(class_name)) + (separate_class_name_and_id_with_underscore ? "_id" : "id")
+T 6 source.ruby
+T 16 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 17 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 27 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 28 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 38 source.ruby meta.function-call.ruby meta.function-call.ruby
+T 39 source.ruby meta.function-call.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 40 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 41 source.ruby
+T 42 source.ruby keyword.operator.arithmetic.ruby
+T 43 source.ruby
+T 44 source.ruby punctuation.section.function.ruby
+T 87 source.ruby
+T 88 source.ruby keyword.operator.comparison.ruby
+T 89 source.ruby
+T 90 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 93 source.ruby string.quoted.double.interpolated.ruby
+T 94 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 95 source.ruby
+T 96 source.ruby punctuation.separator.other.ruby
+T 97 source.ruby
+T 98 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 100 source.ruby string.quoted.double.interpolated.ruby
+T 101 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 102 source.ruby punctuation.section.function.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Tries to find a constant with the name specified in the argument string.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 78 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # constantize('Module')   # => Module
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 41 source.ruby comment.line.number-sign.ruby
+L     # constantize('Foo::Bar') # => Foo::Bar
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 43 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # The name is assumed to be the one of a top-level constant, no matter
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 74 source.ruby comment.line.number-sign.ruby
+L     # whether it starts with "::" or not. No lexical context is taken into
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 74 source.ruby comment.line.number-sign.ruby
+L     # account:
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 14 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # C = 'outside'
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 19 source.ruby comment.line.number-sign.ruby
+L     # module M
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 14 source.ruby comment.line.number-sign.ruby
+L     #   C = 'inside'
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 20 source.ruby comment.line.number-sign.ruby
+L     #   C                # => 'inside'
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 38 source.ruby comment.line.number-sign.ruby
+L     #   constantize('C') # => 'outside', same as ::C
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 52 source.ruby comment.line.number-sign.ruby
+L     # end
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # NameError is raised when the name is not in CamelCase or the constant is
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 78 source.ruby comment.line.number-sign.ruby
+L     # unknown.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 14 source.ruby comment.line.number-sign.ruby
+L     def constantize(camel_cased_word)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 19 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 20 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 36 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 37 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       Object.const_get(camel_cased_word)
+T 6 source.ruby
+T 12 source.ruby support.class.ruby
+T 13 source.ruby punctuation.separator.method.ruby
+T 22 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 23 source.ruby punctuation.section.function.ruby
+T 39 source.ruby
+T 40 source.ruby punctuation.section.function.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Tries to find a constant with the name specified in the argument string.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 78 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # safe_constantize('Module')   # => Module
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 46 source.ruby comment.line.number-sign.ruby
+L     # safe_constantize('Foo::Bar') # => Foo::Bar
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 48 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # The name is assumed to be the one of a top-level constant, no matter
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 74 source.ruby comment.line.number-sign.ruby
+L     # whether it starts with "::" or not. No lexical context is taken into
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 74 source.ruby comment.line.number-sign.ruby
+L     # account:
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 14 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # C = 'outside'
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 19 source.ruby comment.line.number-sign.ruby
+L     # module M
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 14 source.ruby comment.line.number-sign.ruby
+L     #   C = 'inside'
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 20 source.ruby comment.line.number-sign.ruby
+L     #   C                     # => 'inside'
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 43 source.ruby comment.line.number-sign.ruby
+L     #   safe_constantize('C') # => 'outside', same as ::C
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 57 source.ruby comment.line.number-sign.ruby
+L     # end
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # `nil` is returned when the name is not in CamelCase or the constant (or
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 77 source.ruby comment.line.number-sign.ruby
+L     # part of it) is unknown.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 29 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # safe_constantize('blargle')                  # => nil
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 59 source.ruby comment.line.number-sign.ruby
+L     # safe_constantize('UnknownModule')            # => nil
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 59 source.ruby comment.line.number-sign.ruby
+L     # safe_constantize('UnknownModule::Foo::Bar')  # => nil
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 59 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     def safe_constantize(camel_cased_word)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 24 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 25 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 41 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 42 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       constantize(camel_cased_word)
+T 6 source.ruby
+T 17 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 18 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 34 source.ruby meta.function-call.ruby
+T 35 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+L     rescue NameError => e
+T 4 source.ruby
+T 10 source.ruby keyword.control.ruby
+T 11 source.ruby
+T 20 source.ruby variable.other.constant.ruby
+T 21 source.ruby
+T 23 source.ruby punctuation.separator.key-value
+T 25 source.ruby
+L       raise if e.name && !(camel_cased_word.to_s.split("::").include?(e.name.to_s) ||
+T 6 source.ruby
+T 11 source.ruby keyword.other.special-method.ruby
+T 12 source.ruby
+T 14 source.ruby keyword.control.ruby
+T 16 source.ruby
+T 17 source.ruby punctuation.separator.method.ruby
+T 21 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 22 source.ruby
+T 24 source.ruby keyword.operator.logical.ruby
+T 25 source.ruby
+T 26 source.ruby keyword.operator.logical.ruby
+T 27 source.ruby punctuation.section.function.ruby
+T 43 source.ruby
+T 44 source.ruby punctuation.separator.method.ruby
+T 48 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 49 source.ruby punctuation.separator.method.ruby
+T 54 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 55 source.ruby punctuation.section.function.ruby
+T 56 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 58 source.ruby string.quoted.double.interpolated.ruby
+T 59 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 60 source.ruby punctuation.section.function.ruby
+T 61 source.ruby punctuation.separator.method.ruby
+T 69 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 70 source.ruby punctuation.section.function.ruby
+T 71 source.ruby
+T 72 source.ruby punctuation.separator.method.ruby
+T 76 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 77 source.ruby punctuation.separator.method.ruby
+T 81 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 82 source.ruby punctuation.section.function.ruby
+T 83 source.ruby
+T 85 source.ruby keyword.operator.logical.ruby
+L         e.name.to_s == camel_cased_word.to_s)
+T 9 source.ruby
+T 10 source.ruby punctuation.separator.method.ruby
+T 14 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 15 source.ruby punctuation.separator.method.ruby
+T 19 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 20 source.ruby
+T 22 source.ruby keyword.operator.comparison.ruby
+T 39 source.ruby
+T 40 source.ruby punctuation.separator.method.ruby
+T 44 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 45 source.ruby punctuation.section.function.ruby
+L     rescue LoadError => e
+T 4 source.ruby
+T 10 source.ruby keyword.control.ruby
+T 11 source.ruby
+T 20 source.ruby variable.other.constant.ruby
+T 21 source.ruby
+T 23 source.ruby punctuation.separator.key-value
+T 25 source.ruby
+L       message = e.respond_to?(:original_message) ? e.original_message : e.message
+T 6 source.ruby
+T 13 source.ruby variable.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 17 source.ruby
+T 18 source.ruby punctuation.separator.method.ruby
+T 29 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 30 source.ruby punctuation.section.function.ruby
+T 31 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 47 source.ruby constant.language.symbol.ruby
+T 48 source.ruby punctuation.section.function.ruby
+T 49 source.ruby
+T 50 source.ruby keyword.operator.comparison.ruby
+T 52 source.ruby
+T 53 source.ruby punctuation.separator.method.ruby
+T 69 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 70 source.ruby
+T 71 source.ruby punctuation.separator.other.ruby
+T 73 source.ruby
+T 74 source.ruby punctuation.separator.method.ruby
+T 81 source.ruby meta.function-call.ruby entity.name.function.ruby
+L       raise unless /Unable to autoload constant #{const_regexp(camel_cased_word)}/.match?(message)
+T 6 source.ruby
+T 11 source.ruby keyword.other.special-method.ruby
+T 12 source.ruby
+T 18 source.ruby keyword.control.ruby
+T 19 source.ruby
+T 20 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 48 source.ruby string.regexp.interpolated.ruby
+T 50 source.ruby string.regexp.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 62 source.ruby string.regexp.interpolated.ruby meta.embedded.line.ruby source.ruby meta.function-call.ruby entity.name.function.ruby
+T 63 source.ruby string.regexp.interpolated.ruby meta.embedded.line.ruby source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 79 source.ruby string.regexp.interpolated.ruby meta.embedded.line.ruby source.ruby meta.function-call.ruby
+T 80 source.ruby string.regexp.interpolated.ruby meta.embedded.line.ruby source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 81 source.ruby string.regexp.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 82 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 83 source.ruby punctuation.separator.method.ruby
+T 89 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 90 source.ruby punctuation.section.function.ruby
+T 97 source.ruby
+T 98 source.ruby punctuation.section.function.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Returns the suffix that should be added to a number to denote the position
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 80 source.ruby comment.line.number-sign.ruby
+L     # in an ordered sequence such as 1st, 2nd, 3rd, 4th.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 56 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # ordinal(1)     # => "st"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 30 source.ruby comment.line.number-sign.ruby
+L     # ordinal(2)     # => "nd"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 30 source.ruby comment.line.number-sign.ruby
+L     # ordinal(1002)  # => "nd"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 30 source.ruby comment.line.number-sign.ruby
+L     # ordinal(1003)  # => "rd"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 30 source.ruby comment.line.number-sign.ruby
+L     # ordinal(-11)   # => "th"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 30 source.ruby comment.line.number-sign.ruby
+L     # ordinal(-1021) # => "st"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 30 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     def ordinal(number)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 15 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 16 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 22 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 23 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       I18n.translate("number.nth.ordinals", number: number)
+T 6 source.ruby
+T 10 source.ruby support.class.ruby
+T 11 source.ruby punctuation.separator.method.ruby
+T 20 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 21 source.ruby punctuation.section.function.ruby
+T 22 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 41 source.ruby string.quoted.double.interpolated.ruby
+T 42 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 43 source.ruby punctuation.separator.object.ruby
+T 44 source.ruby
+T 50 source.ruby constant.language.symbol.hashkey.ruby
+T 51 source.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 58 source.ruby
+T 59 source.ruby punctuation.section.function.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     # Turns a number into an ordinal string used to denote the position in an
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 77 source.ruby comment.line.number-sign.ruby
+L     # ordered sequence such as 1st, 2nd, 3rd, 4th.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 50 source.ruby comment.line.number-sign.ruby
+L     #
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     # ordinalize(1)     # => "1st"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 34 source.ruby comment.line.number-sign.ruby
+L     # ordinalize(2)     # => "2nd"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 34 source.ruby comment.line.number-sign.ruby
+L     # ordinalize(1002)  # => "1002nd"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 37 source.ruby comment.line.number-sign.ruby
+L     # ordinalize(1003)  # => "1003rd"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 37 source.ruby comment.line.number-sign.ruby
+L     # ordinalize(-11)   # => "-11th"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 36 source.ruby comment.line.number-sign.ruby
+L     # ordinalize(-1021) # => "-1021st"
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 38 source.ruby comment.line.number-sign.ruby
+L     # ```
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L     def ordinalize(number)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 18 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 19 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 25 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 26 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       I18n.translate("number.nth.ordinalized", number: number)
+T 6 source.ruby
+T 10 source.ruby support.class.ruby
+T 11 source.ruby punctuation.separator.method.ruby
+T 20 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 21 source.ruby punctuation.section.function.ruby
+T 22 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 44 source.ruby string.quoted.double.interpolated.ruby
+T 45 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 46 source.ruby punctuation.separator.object.ruby
+T 47 source.ruby
+T 53 source.ruby constant.language.symbol.hashkey.ruby
+T 54 source.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 61 source.ruby
+T 62 source.ruby punctuation.section.function.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     private
+T 4 source.ruby
+T 11 source.ruby keyword.other.special-method.ruby
+L       # Mounts a regular expression, returned as a string to ease interpolation,
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 80 source.ruby comment.line.number-sign.ruby
+L       # that will match part by part the given constant.
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 56 source.ruby comment.line.number-sign.ruby
+L       #
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L       # ```
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 11 source.ruby comment.line.number-sign.ruby
+L       # const_regexp("Foo::Bar::Baz") # => "Foo(::Bar(::Baz)?)?"
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L       # const_regexp("::")            # => "::"
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 47 source.ruby comment.line.number-sign.ruby
+L       # ```
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 11 source.ruby comment.line.number-sign.ruby
+L       def const_regexp(camel_cased_word)
+T 6 source.ruby
+T 9 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 10 source.ruby meta.function.method.with-arguments.ruby
+T 22 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 23 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 39 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 40 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L         parts = camel_cased_word.split("::")
+T 8 source.ruby
+T 13 source.ruby variable.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 32 source.ruby
+T 33 source.ruby punctuation.separator.method.ruby
+T 38 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 39 source.ruby punctuation.section.function.ruby
+T 40 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 42 source.ruby string.quoted.double.interpolated.ruby
+T 43 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 44 source.ruby punctuation.section.function.ruby
+L 
+L         return Regexp.escape(camel_cased_word) if parts.empty?
+T 8 source.ruby
+T 14 source.ruby keyword.control.pseudo-method.ruby
+T 15 source.ruby
+T 21 source.ruby support.class.ruby
+T 22 source.ruby punctuation.separator.method.ruby
+T 28 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 29 source.ruby punctuation.section.function.ruby
+T 45 source.ruby
+T 46 source.ruby punctuation.section.function.ruby
+T 47 source.ruby
+T 49 source.ruby keyword.control.ruby
+T 55 source.ruby
+T 56 source.ruby punctuation.separator.method.ruby
+T 62 source.ruby meta.function-call.ruby entity.name.function.ruby
+L 
+L         last = parts.pop
+T 8 source.ruby
+T 12 source.ruby variable.ruby
+T 13 source.ruby
+T 14 source.ruby keyword.operator.assignment.ruby
+T 20 source.ruby
+T 21 source.ruby punctuation.separator.method.ruby
+T 24 source.ruby meta.function-call.ruby entity.name.function.ruby
+L 
+L         parts.reverse!.inject(last) do |acc, part|
+T 13 source.ruby
+T 14 source.ruby punctuation.separator.method.ruby
+T 22 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 23 source.ruby punctuation.separator.method.ruby
+T 29 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 30 source.ruby punctuation.section.function.ruby
+T 34 source.ruby
+T 35 source.ruby punctuation.section.function.ruby
+T 36 source.ruby
+T 38 source.ruby keyword.control.start-block.ruby
+T 39 source.ruby
+T 40 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 43 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 44 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 45 source.ruby meta.block.parameters.ruby
+T 49 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 50 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+L           part.empty? ? acc : "#{part}(::#{acc})?"
+T 14 source.ruby
+T 15 source.ruby punctuation.separator.method.ruby
+T 21 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 22 source.ruby
+T 23 source.ruby keyword.operator.comparison.ruby
+T 28 source.ruby
+T 29 source.ruby punctuation.separator.other.ruby
+T 30 source.ruby
+T 31 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 33 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 37 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 38 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 41 source.ruby string.quoted.double.interpolated.ruby
+T 43 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 46 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 47 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 49 source.ruby string.quoted.double.interpolated.ruby
+T 50 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L         end
+T 8 source.ruby
+T 11 source.ruby keyword.control.ruby
+L       end
+T 6 source.ruby
+T 9 source.ruby keyword.control.ruby
+L 
+L       # Applies inflection rules for `singularize` and `pluralize`.
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 67 source.ruby comment.line.number-sign.ruby
+L       #
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L       # If passed an optional `locale` parameter, the uncountables will be
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 74 source.ruby comment.line.number-sign.ruby
+L       # found for that locale.
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 30 source.ruby comment.line.number-sign.ruby
+L       #
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L       # ```
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 11 source.ruby comment.line.number-sign.ruby
+L       # apply_inflections('post', inflections.plurals, :en)    # => "posts"
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 75 source.ruby comment.line.number-sign.ruby
+L       # apply_inflections('posts', inflections.singulars, :en) # => "post"
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 74 source.ruby comment.line.number-sign.ruby
+L       # ```
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 11 source.ruby comment.line.number-sign.ruby
+L       def apply_inflections(word, rules, locale = :en)
+T 6 source.ruby
+T 9 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 10 source.ruby meta.function.method.with-arguments.ruby
+T 27 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 28 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 32 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 33 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 34 source.ruby meta.function.method.with-arguments.ruby
+T 39 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 40 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 41 source.ruby meta.function.method.with-arguments.ruby
+T 47 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 48 source.ruby meta.function.method.with-arguments.ruby
+T 49 source.ruby meta.function.method.with-arguments.ruby keyword.operator.assignment.ruby
+T 50 source.ruby meta.function.method.with-arguments.ruby
+T 51 source.ruby meta.function.method.with-arguments.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 53 source.ruby meta.function.method.with-arguments.ruby constant.language.symbol.ruby
+T 54 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L         result = word.to_s.dup
+T 8 source.ruby
+T 14 source.ruby variable.ruby
+T 15 source.ruby
+T 16 source.ruby keyword.operator.assignment.ruby
+T 21 source.ruby
+T 22 source.ruby punctuation.separator.method.ruby
+T 26 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 27 source.ruby punctuation.separator.method.ruby
+T 30 source.ruby meta.function-call.ruby entity.name.function.ruby
+L 
+L         if word.empty? || inflections(locale).uncountables.uncountable?(result)
+T 8 source.ruby
+T 10 source.ruby keyword.control.ruby
+T 15 source.ruby
+T 16 source.ruby punctuation.separator.method.ruby
+T 22 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 23 source.ruby
+T 25 source.ruby keyword.operator.logical.ruby
+T 26 source.ruby
+T 37 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 38 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 44 source.ruby meta.function-call.ruby
+T 45 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 46 source.ruby punctuation.separator.method.ruby
+T 58 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 59 source.ruby punctuation.separator.method.ruby
+T 71 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 72 source.ruby punctuation.section.function.ruby
+T 78 source.ruby
+T 79 source.ruby punctuation.section.function.ruby
+L           result
+T 16 source.ruby
+L         else
+T 8 source.ruby
+T 12 source.ruby keyword.control.ruby
+L           rules.each { |(rule, replacement)| break if result.sub!(rule, replacement) }
+T 15 source.ruby
+T 16 source.ruby punctuation.separator.method.ruby
+T 20 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 21 source.ruby
+T 22 source.ruby punctuation.section.scope.begin.ruby
+T 23 source.ruby meta.syntax.ruby.start-block
+T 24 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 25 source.ruby meta.block.parameters.ruby
+T 29 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 30 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 31 source.ruby meta.block.parameters.ruby
+T 42 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 43 source.ruby meta.block.parameters.ruby
+T 44 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 45 source.ruby
+T 50 source.ruby keyword.control.pseudo-method.ruby
+T 51 source.ruby
+T 53 source.ruby keyword.control.ruby
+T 60 source.ruby
+T 61 source.ruby punctuation.separator.method.ruby
+T 65 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 66 source.ruby punctuation.section.function.ruby
+T 70 source.ruby
+T 71 source.ruby punctuation.separator.object.ruby
+T 83 source.ruby
+T 84 source.ruby punctuation.section.function.ruby
+T 85 source.ruby
+T 86 source.ruby punctuation.section.scope.end.ruby
+L           result
+T 16 source.ruby
+L         end
+T 8 source.ruby
+T 11 source.ruby keyword.control.ruby
+L       end
+T 6 source.ruby
+T 9 source.ruby keyword.control.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L end
+T 3 source.ruby keyword.control.ruby
+L 

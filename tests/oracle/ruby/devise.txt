@@ -1,0 +1,2966 @@
+L # frozen_string_literal: true
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 29 source.ruby comment.line.number-sign.ruby
+L 
+L require 'rails'
+T 7 source.ruby meta.require.ruby keyword.other.special-method.ruby
+T 8 source.ruby meta.require.ruby
+T 9 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 14 source.ruby meta.require.ruby string.quoted.single.ruby
+T 15 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L require 'active_support/core_ext/numeric/time'
+T 7 source.ruby meta.require.ruby keyword.other.special-method.ruby
+T 8 source.ruby meta.require.ruby
+T 9 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 45 source.ruby meta.require.ruby string.quoted.single.ruby
+T 46 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L require 'active_support/dependencies'
+T 7 source.ruby meta.require.ruby keyword.other.special-method.ruby
+T 8 source.ruby meta.require.ruby
+T 9 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 36 source.ruby meta.require.ruby string.quoted.single.ruby
+T 37 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L require 'orm_adapter'
+T 7 source.ruby meta.require.ruby keyword.other.special-method.ruby
+T 8 source.ruby meta.require.ruby
+T 9 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 20 source.ruby meta.require.ruby string.quoted.single.ruby
+T 21 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L require 'set'
+T 7 source.ruby meta.require.ruby keyword.other.special-method.ruby
+T 8 source.ruby meta.require.ruby
+T 9 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 12 source.ruby meta.require.ruby string.quoted.single.ruby
+T 13 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L require 'securerandom'
+T 7 source.ruby meta.require.ruby keyword.other.special-method.ruby
+T 8 source.ruby meta.require.ruby
+T 9 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 21 source.ruby meta.require.ruby string.quoted.single.ruby
+T 22 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L require 'responders'
+T 7 source.ruby meta.require.ruby keyword.other.special-method.ruby
+T 8 source.ruby meta.require.ruby
+T 9 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 19 source.ruby meta.require.ruby string.quoted.single.ruby
+T 20 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L 
+L module Devise
+T 6 source.ruby meta.module.ruby keyword.control.module.ruby
+T 7 source.ruby meta.module.ruby
+T 13 source.ruby meta.module.ruby entity.name.type.module.ruby
+L   autoload :Delegator,          'devise/delegator'
+T 2 source.ruby
+T 10 source.ruby support.function.kernel.ruby
+T 11 source.ruby
+T 12 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 21 source.ruby constant.language.symbol.ruby
+T 22 source.ruby punctuation.separator.object.ruby
+T 32 source.ruby
+T 33 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 49 source.ruby string.quoted.single.ruby
+T 50 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L   autoload :Encryptor,          'devise/encryptor'
+T 2 source.ruby
+T 10 source.ruby support.function.kernel.ruby
+T 11 source.ruby
+T 12 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 21 source.ruby constant.language.symbol.ruby
+T 22 source.ruby punctuation.separator.object.ruby
+T 32 source.ruby
+T 33 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 49 source.ruby string.quoted.single.ruby
+T 50 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L   autoload :FailureApp,         'devise/failure_app'
+T 2 source.ruby
+T 10 source.ruby support.function.kernel.ruby
+T 11 source.ruby
+T 12 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 22 source.ruby constant.language.symbol.ruby
+T 23 source.ruby punctuation.separator.object.ruby
+T 32 source.ruby
+T 33 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 51 source.ruby string.quoted.single.ruby
+T 52 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L   autoload :OmniAuth,           'devise/omniauth'
+T 2 source.ruby
+T 10 source.ruby support.function.kernel.ruby
+T 11 source.ruby
+T 12 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 20 source.ruby constant.language.symbol.ruby
+T 21 source.ruby punctuation.separator.object.ruby
+T 32 source.ruby
+T 33 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 48 source.ruby string.quoted.single.ruby
+T 49 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L   autoload :Orm,                'devise/orm'
+T 2 source.ruby
+T 10 source.ruby support.function.kernel.ruby
+T 11 source.ruby
+T 12 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 15 source.ruby constant.language.symbol.ruby
+T 16 source.ruby punctuation.separator.object.ruby
+T 32 source.ruby
+T 33 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 43 source.ruby string.quoted.single.ruby
+T 44 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L   autoload :ParameterFilter,    'devise/parameter_filter'
+T 2 source.ruby
+T 10 source.ruby support.function.kernel.ruby
+T 11 source.ruby
+T 12 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 27 source.ruby constant.language.symbol.ruby
+T 28 source.ruby punctuation.separator.object.ruby
+T 32 source.ruby
+T 33 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 56 source.ruby string.quoted.single.ruby
+T 57 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L   autoload :ParameterSanitizer, 'devise/parameter_sanitizer'
+T 2 source.ruby
+T 10 source.ruby support.function.kernel.ruby
+T 11 source.ruby
+T 12 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 30 source.ruby constant.language.symbol.ruby
+T 31 source.ruby punctuation.separator.object.ruby
+T 32 source.ruby
+T 33 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 59 source.ruby string.quoted.single.ruby
+T 60 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L   autoload :TimeInflector,      'devise/time_inflector'
+T 2 source.ruby
+T 10 source.ruby support.function.kernel.ruby
+T 11 source.ruby
+T 12 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 25 source.ruby constant.language.symbol.ruby
+T 26 source.ruby punctuation.separator.object.ruby
+T 32 source.ruby
+T 33 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 54 source.ruby string.quoted.single.ruby
+T 55 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L   autoload :TokenGenerator,     'devise/token_generator'
+T 2 source.ruby
+T 10 source.ruby support.function.kernel.ruby
+T 11 source.ruby
+T 12 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 26 source.ruby constant.language.symbol.ruby
+T 27 source.ruby punctuation.separator.object.ruby
+T 32 source.ruby
+T 33 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 55 source.ruby string.quoted.single.ruby
+T 56 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L 
+L   module Controllers
+T 2 source.ruby
+T 8 source.ruby meta.module.ruby keyword.control.module.ruby
+T 9 source.ruby meta.module.ruby
+T 20 source.ruby meta.module.ruby entity.name.type.module.ruby
+L     autoload :Helpers,        'devise/controllers/helpers'
+T 4 source.ruby
+T 12 source.ruby support.function.kernel.ruby
+T 13 source.ruby
+T 14 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 21 source.ruby constant.language.symbol.ruby
+T 22 source.ruby punctuation.separator.object.ruby
+T 30 source.ruby
+T 31 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 57 source.ruby string.quoted.single.ruby
+T 58 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L     autoload :Rememberable,   'devise/controllers/rememberable'
+T 4 source.ruby
+T 12 source.ruby support.function.kernel.ruby
+T 13 source.ruby
+T 14 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 26 source.ruby constant.language.symbol.ruby
+T 27 source.ruby punctuation.separator.object.ruby
+T 30 source.ruby
+T 31 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 62 source.ruby string.quoted.single.ruby
+T 63 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L     autoload :Responder,      'devise/controllers/responder'
+T 4 source.ruby
+T 12 source.ruby support.function.kernel.ruby
+T 13 source.ruby
+T 14 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 23 source.ruby constant.language.symbol.ruby
+T 24 source.ruby punctuation.separator.object.ruby
+T 30 source.ruby
+T 31 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 59 source.ruby string.quoted.single.ruby
+T 60 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L     autoload :ScopedViews,    'devise/controllers/scoped_views'
+T 4 source.ruby
+T 12 source.ruby support.function.kernel.ruby
+T 13 source.ruby
+T 14 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 25 source.ruby constant.language.symbol.ruby
+T 26 source.ruby punctuation.separator.object.ruby
+T 30 source.ruby
+T 31 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 62 source.ruby string.quoted.single.ruby
+T 63 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L     autoload :SignInOut,      'devise/controllers/sign_in_out'
+T 4 source.ruby
+T 12 source.ruby support.function.kernel.ruby
+T 13 source.ruby
+T 14 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 23 source.ruby constant.language.symbol.ruby
+T 24 source.ruby punctuation.separator.object.ruby
+T 30 source.ruby
+T 31 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 61 source.ruby string.quoted.single.ruby
+T 62 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L     autoload :StoreLocation,  'devise/controllers/store_location'
+T 4 source.ruby
+T 12 source.ruby support.function.kernel.ruby
+T 13 source.ruby
+T 14 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 27 source.ruby constant.language.symbol.ruby
+T 28 source.ruby punctuation.separator.object.ruby
+T 30 source.ruby
+T 31 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 64 source.ruby string.quoted.single.ruby
+T 65 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L     autoload :UrlHelpers,     'devise/controllers/url_helpers'
+T 4 source.ruby
+T 12 source.ruby support.function.kernel.ruby
+T 13 source.ruby
+T 14 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 24 source.ruby constant.language.symbol.ruby
+T 25 source.ruby punctuation.separator.object.ruby
+T 30 source.ruby
+T 31 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 61 source.ruby string.quoted.single.ruby
+T 62 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   module Hooks
+T 2 source.ruby
+T 8 source.ruby meta.module.ruby keyword.control.module.ruby
+T 9 source.ruby meta.module.ruby
+T 14 source.ruby meta.module.ruby entity.name.type.module.ruby
+L     autoload :Proxy, 'devise/hooks/proxy'
+T 4 source.ruby
+T 12 source.ruby support.function.kernel.ruby
+T 13 source.ruby
+T 14 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 19 source.ruby constant.language.symbol.ruby
+T 20 source.ruby punctuation.separator.object.ruby
+T 21 source.ruby
+T 22 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 40 source.ruby string.quoted.single.ruby
+T 41 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   module Mailers
+T 2 source.ruby
+T 8 source.ruby meta.module.ruby keyword.control.module.ruby
+T 9 source.ruby meta.module.ruby
+T 16 source.ruby meta.module.ruby entity.name.type.module.ruby
+L     autoload :Helpers, 'devise/mailers/helpers'
+T 4 source.ruby
+T 12 source.ruby support.function.kernel.ruby
+T 13 source.ruby
+T 14 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 21 source.ruby constant.language.symbol.ruby
+T 22 source.ruby punctuation.separator.object.ruby
+T 23 source.ruby
+T 24 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 46 source.ruby string.quoted.single.ruby
+T 47 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   module Strategies
+T 2 source.ruby
+T 8 source.ruby meta.module.ruby keyword.control.module.ruby
+T 9 source.ruby meta.module.ruby
+T 19 source.ruby meta.module.ruby entity.name.type.module.ruby
+L     autoload :Base,            'devise/strategies/base'
+T 4 source.ruby
+T 12 source.ruby support.function.kernel.ruby
+T 13 source.ruby
+T 14 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 18 source.ruby constant.language.symbol.ruby
+T 19 source.ruby punctuation.separator.object.ruby
+T 31 source.ruby
+T 32 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 54 source.ruby string.quoted.single.ruby
+T 55 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L     autoload :Authenticatable, 'devise/strategies/authenticatable'
+T 4 source.ruby
+T 12 source.ruby support.function.kernel.ruby
+T 13 source.ruby
+T 14 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 29 source.ruby constant.language.symbol.ruby
+T 30 source.ruby punctuation.separator.object.ruby
+T 31 source.ruby
+T 32 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 65 source.ruby string.quoted.single.ruby
+T 66 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   module Test
+T 2 source.ruby
+T 8 source.ruby meta.module.ruby keyword.control.module.ruby
+T 9 source.ruby meta.module.ruby
+T 13 source.ruby meta.module.ruby entity.name.type.module.ruby
+L     autoload :ControllerHelpers,  'devise/test/controller_helpers'
+T 4 source.ruby
+T 12 source.ruby support.function.kernel.ruby
+T 13 source.ruby
+T 14 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 31 source.ruby constant.language.symbol.ruby
+T 32 source.ruby punctuation.separator.object.ruby
+T 34 source.ruby
+T 35 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 65 source.ruby string.quoted.single.ruby
+T 66 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L     autoload :IntegrationHelpers, 'devise/test/integration_helpers'
+T 4 source.ruby
+T 12 source.ruby support.function.kernel.ruby
+T 13 source.ruby
+T 14 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 32 source.ruby constant.language.symbol.ruby
+T 33 source.ruby punctuation.separator.object.ruby
+T 34 source.ruby
+T 35 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 66 source.ruby string.quoted.single.ruby
+T 67 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   # Constants which holds devise configuration for extensions. Those should
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 75 source.ruby comment.line.number-sign.ruby
+L   # not be modified by the "end user" (this is why they are constants).
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 71 source.ruby comment.line.number-sign.ruby
+L   ALL         = []
+T 2 source.ruby
+T 5 source.ruby variable.other.constant.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 17 source.ruby punctuation.section.array.begin.ruby
+T 18 source.ruby punctuation.section.array.end.ruby
+L   CONTROLLERS = {}
+T 2 source.ruby
+T 13 source.ruby variable.other.constant.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 17 source.ruby punctuation.section.scope.begin.ruby
+T 18 source.ruby punctuation.section.scope.end.ruby
+L   ROUTES      = {}
+T 2 source.ruby
+T 8 source.ruby variable.other.constant.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 17 source.ruby punctuation.section.scope.begin.ruby
+T 18 source.ruby punctuation.section.scope.end.ruby
+L   STRATEGIES  = {}
+T 2 source.ruby
+T 12 source.ruby variable.other.constant.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 17 source.ruby punctuation.section.scope.begin.ruby
+T 18 source.ruby punctuation.section.scope.end.ruby
+L   URL_HELPERS = {}
+T 2 source.ruby
+T 13 source.ruby variable.other.constant.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 17 source.ruby punctuation.section.scope.begin.ruby
+T 18 source.ruby punctuation.section.scope.end.ruby
+L 
+L   # Strategies that do not require user input.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 46 source.ruby comment.line.number-sign.ruby
+L   NO_INPUT = []
+T 2 source.ruby
+T 10 source.ruby variable.other.constant.ruby
+T 11 source.ruby
+T 12 source.ruby keyword.operator.assignment.ruby
+T 13 source.ruby
+T 14 source.ruby punctuation.section.array.begin.ruby
+T 15 source.ruby punctuation.section.array.end.ruby
+L 
+L   # True values used to check params
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 36 source.ruby comment.line.number-sign.ruby
+L   TRUE_VALUES = [true, 1, '1', 'on', 'ON', 't', 'T', 'true', 'TRUE']
+T 2 source.ruby
+T 13 source.ruby variable.other.constant.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 17 source.ruby punctuation.section.array.begin.ruby
+T 21 source.ruby constant.language.boolean.ruby
+T 22 source.ruby punctuation.separator.object.ruby
+T 23 source.ruby
+T 24 source.ruby constant.numeric.ruby
+T 25 source.ruby punctuation.separator.object.ruby
+T 26 source.ruby
+T 27 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 28 source.ruby string.quoted.single.ruby
+T 29 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 30 source.ruby punctuation.separator.object.ruby
+T 31 source.ruby
+T 32 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 34 source.ruby string.quoted.single.ruby
+T 35 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 36 source.ruby punctuation.separator.object.ruby
+T 37 source.ruby
+T 38 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 40 source.ruby string.quoted.single.ruby
+T 41 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 42 source.ruby punctuation.separator.object.ruby
+T 43 source.ruby
+T 44 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 45 source.ruby string.quoted.single.ruby
+T 46 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 47 source.ruby punctuation.separator.object.ruby
+T 48 source.ruby
+T 49 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 50 source.ruby string.quoted.single.ruby
+T 51 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 52 source.ruby punctuation.separator.object.ruby
+T 53 source.ruby
+T 54 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 58 source.ruby string.quoted.single.ruby
+T 59 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 60 source.ruby punctuation.separator.object.ruby
+T 61 source.ruby
+T 62 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 66 source.ruby string.quoted.single.ruby
+T 67 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 68 source.ruby punctuation.section.array.end.ruby
+L 
+L   # Secret key used by the key generator
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 40 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :secret_key
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 28 source.ruby constant.language.symbol.ruby
+L   @@secret_key = nil
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 14 source.ruby variable.other.readwrite.class.ruby
+T 15 source.ruby
+T 16 source.ruby keyword.operator.assignment.ruby
+T 17 source.ruby
+T 20 source.ruby constant.language.nil.ruby
+L 
+L   # Custom domain or key for cookies. Not set by default
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 56 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :rememberable_options
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 38 source.ruby constant.language.symbol.ruby
+L   @@rememberable_options = {}
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 24 source.ruby variable.other.readwrite.class.ruby
+T 25 source.ruby
+T 26 source.ruby keyword.operator.assignment.ruby
+T 27 source.ruby
+T 28 source.ruby punctuation.section.scope.begin.ruby
+T 29 source.ruby punctuation.section.scope.end.ruby
+L 
+L   # The number of times to hash the password.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 45 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :stretches
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 27 source.ruby constant.language.symbol.ruby
+L   @@stretches = 12
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 13 source.ruby variable.other.readwrite.class.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 18 source.ruby constant.numeric.ruby
+L 
+L   # The default key used when authenticating over http auth.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 60 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :http_authentication_key
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 41 source.ruby constant.language.symbol.ruby
+L   @@http_authentication_key = nil
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 27 source.ruby variable.other.readwrite.class.ruby
+T 28 source.ruby
+T 29 source.ruby keyword.operator.assignment.ruby
+T 30 source.ruby
+T 33 source.ruby constant.language.nil.ruby
+L 
+L   # Keys used when authenticating a user.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 41 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :authentication_keys
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 37 source.ruby constant.language.symbol.ruby
+L   @@authentication_keys = [:email]
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 23 source.ruby variable.other.readwrite.class.ruby
+T 24 source.ruby
+T 25 source.ruby keyword.operator.assignment.ruby
+T 26 source.ruby
+T 27 source.ruby punctuation.section.array.begin.ruby
+T 28 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 33 source.ruby constant.language.symbol.ruby
+T 34 source.ruby punctuation.section.array.end.ruby
+L 
+L   # Request keys used when authenticating a user.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 49 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :request_keys
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 30 source.ruby constant.language.symbol.ruby
+L   @@request_keys = []
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 16 source.ruby variable.other.readwrite.class.ruby
+T 17 source.ruby
+T 18 source.ruby keyword.operator.assignment.ruby
+T 19 source.ruby
+T 20 source.ruby punctuation.section.array.begin.ruby
+T 21 source.ruby punctuation.section.array.end.ruby
+L 
+L   # Keys that should be case-insensitive.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 41 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :case_insensitive_keys
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 39 source.ruby constant.language.symbol.ruby
+L   @@case_insensitive_keys = [:email]
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 25 source.ruby variable.other.readwrite.class.ruby
+T 26 source.ruby
+T 27 source.ruby keyword.operator.assignment.ruby
+T 28 source.ruby
+T 29 source.ruby punctuation.section.array.begin.ruby
+T 30 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 35 source.ruby constant.language.symbol.ruby
+T 36 source.ruby punctuation.section.array.end.ruby
+L 
+L   # Keys that should have whitespace stripped.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 46 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :strip_whitespace_keys
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 39 source.ruby constant.language.symbol.ruby
+L   @@strip_whitespace_keys = [:email]
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 25 source.ruby variable.other.readwrite.class.ruby
+T 26 source.ruby
+T 27 source.ruby keyword.operator.assignment.ruby
+T 28 source.ruby
+T 29 source.ruby punctuation.section.array.begin.ruby
+T 30 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 35 source.ruby constant.language.symbol.ruby
+T 36 source.ruby punctuation.section.array.end.ruby
+L 
+L   # If http authentication is enabled by default.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 49 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :http_authenticatable
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 38 source.ruby constant.language.symbol.ruby
+L   @@http_authenticatable = false
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 24 source.ruby variable.other.readwrite.class.ruby
+T 25 source.ruby
+T 26 source.ruby keyword.operator.assignment.ruby
+T 27 source.ruby
+T 32 source.ruby constant.language.boolean.ruby
+L 
+L   # If http headers should be returned for ajax requests. True by default.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 74 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :http_authenticatable_on_xhr
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 45 source.ruby constant.language.symbol.ruby
+L   @@http_authenticatable_on_xhr = true
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 31 source.ruby variable.other.readwrite.class.ruby
+T 32 source.ruby
+T 33 source.ruby keyword.operator.assignment.ruby
+T 34 source.ruby
+T 38 source.ruby constant.language.boolean.ruby
+L 
+L   # If params authenticatable is enabled by default.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 52 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :params_authenticatable
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 40 source.ruby constant.language.symbol.ruby
+L   @@params_authenticatable = true
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 26 source.ruby variable.other.readwrite.class.ruby
+T 27 source.ruby
+T 28 source.ruby keyword.operator.assignment.ruby
+T 29 source.ruby
+T 33 source.ruby constant.language.boolean.ruby
+L 
+L   # The realm used in Http Basic Authentication.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 48 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :http_authentication_realm
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 43 source.ruby constant.language.symbol.ruby
+L   @@http_authentication_realm = "Application"
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 29 source.ruby variable.other.readwrite.class.ruby
+T 30 source.ruby
+T 31 source.ruby keyword.operator.assignment.ruby
+T 32 source.ruby
+T 33 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 44 source.ruby string.quoted.double.interpolated.ruby
+T 45 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L 
+L   # Email regex used to validate email formats. It asserts that there are no
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 76 source.ruby comment.line.number-sign.ruby
+L   # @ symbols or whitespaces in either the localpart or the domain, and that
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 76 source.ruby comment.line.number-sign.ruby
+L   # there is a single @ symbol separating the localpart and the domain.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 71 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :email_regexp
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 30 source.ruby constant.language.symbol.ruby
+L   @@email_regexp = /\A[^@\s]+@[^@\s]+\z/
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 16 source.ruby variable.other.readwrite.class.ruby
+T 17 source.ruby
+T 18 source.ruby keyword.operator.assignment.ruby
+T 19 source.ruby
+T 20 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 22 source.ruby string.regexp.interpolated.ruby constant.character.escape.ruby
+T 23 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 25 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby
+T 27 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby constant.character.escape.ruby
+T 28 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 30 source.ruby string.regexp.interpolated.ruby
+T 31 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 33 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby
+T 35 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby constant.character.escape.ruby
+T 36 source.ruby string.regexp.interpolated.ruby string.regexp.character-class.ruby punctuation.definition.character-class.ruby
+T 37 source.ruby string.regexp.interpolated.ruby
+T 39 source.ruby string.regexp.interpolated.ruby constant.character.escape.ruby
+T 40 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+L 
+L   # Range validation for password length
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 40 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :password_length
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 33 source.ruby constant.language.symbol.ruby
+L   @@password_length = 6..128
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 19 source.ruby variable.other.readwrite.class.ruby
+T 20 source.ruby
+T 21 source.ruby keyword.operator.assignment.ruby
+T 22 source.ruby
+T 23 source.ruby constant.numeric.ruby
+T 24 source.ruby punctuation.separator.method.ruby
+T 25 source.ruby punctuation.separator.method.ruby
+T 28 source.ruby constant.numeric.ruby
+L 
+L   # The time the user will be remembered without asking for credentials again.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 78 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :remember_for
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 30 source.ruby constant.language.symbol.ruby
+L   @@remember_for = 2.weeks
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 16 source.ruby variable.other.readwrite.class.ruby
+T 17 source.ruby
+T 18 source.ruby keyword.operator.assignment.ruby
+T 19 source.ruby
+T 20 source.ruby constant.numeric.ruby
+T 21 source.ruby punctuation.separator.method.ruby
+T 26 source.ruby meta.function-call.ruby entity.name.function.ruby
+L 
+L   # If true, extends the user's remember period when remembered via cookie.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 75 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :extend_remember_period
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 40 source.ruby constant.language.symbol.ruby
+L   @@extend_remember_period = false
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 26 source.ruby variable.other.readwrite.class.ruby
+T 27 source.ruby
+T 28 source.ruby keyword.operator.assignment.ruby
+T 29 source.ruby
+T 34 source.ruby constant.language.boolean.ruby
+L 
+L   # If true, all the remember me tokens are going to be invalidated when the user signs out.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 92 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :expire_all_remember_me_on_sign_out
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 52 source.ruby constant.language.symbol.ruby
+L   @@expire_all_remember_me_on_sign_out = true
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 38 source.ruby variable.other.readwrite.class.ruby
+T 39 source.ruby
+T 40 source.ruby keyword.operator.assignment.ruby
+T 41 source.ruby
+T 45 source.ruby constant.language.boolean.ruby
+L 
+L   # Time interval you can access your account before confirming your account.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 77 source.ruby comment.line.number-sign.ruby
+L   # nil - allows unconfirmed access for unlimited time
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 54 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :allow_unconfirmed_access_for
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 46 source.ruby constant.language.symbol.ruby
+L   @@allow_unconfirmed_access_for = 0.days
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 32 source.ruby variable.other.readwrite.class.ruby
+T 33 source.ruby
+T 34 source.ruby keyword.operator.assignment.ruby
+T 35 source.ruby
+T 36 source.ruby constant.numeric.ruby
+T 37 source.ruby punctuation.separator.method.ruby
+T 41 source.ruby meta.function-call.ruby entity.name.function.ruby
+L 
+L   # Time interval the confirmation token is valid. nil = unlimited
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 66 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :confirm_within
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 32 source.ruby constant.language.symbol.ruby
+L   @@confirm_within = nil
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 18 source.ruby variable.other.readwrite.class.ruby
+T 19 source.ruby
+T 20 source.ruby keyword.operator.assignment.ruby
+T 21 source.ruby
+T 24 source.ruby constant.language.nil.ruby
+L 
+L   # Defines which key will be used when confirming an account.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 62 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :confirmation_keys
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 35 source.ruby constant.language.symbol.ruby
+L   @@confirmation_keys = [:email]
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 21 source.ruby variable.other.readwrite.class.ruby
+T 22 source.ruby
+T 23 source.ruby keyword.operator.assignment.ruby
+T 24 source.ruby
+T 25 source.ruby punctuation.section.array.begin.ruby
+T 26 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 31 source.ruby constant.language.symbol.ruby
+T 32 source.ruby punctuation.section.array.end.ruby
+L 
+L   # Defines if email should be reconfirmable.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 45 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :reconfirmable
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 31 source.ruby constant.language.symbol.ruby
+L   @@reconfirmable = true
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 17 source.ruby variable.other.readwrite.class.ruby
+T 18 source.ruby
+T 19 source.ruby keyword.operator.assignment.ruby
+T 20 source.ruby
+T 24 source.ruby constant.language.boolean.ruby
+L 
+L   # Time interval to timeout the user session without activity.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 63 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :timeout_in
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 28 source.ruby constant.language.symbol.ruby
+L   @@timeout_in = 30.minutes
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 14 source.ruby variable.other.readwrite.class.ruby
+T 15 source.ruby
+T 16 source.ruby keyword.operator.assignment.ruby
+T 17 source.ruby
+T 19 source.ruby constant.numeric.ruby
+T 20 source.ruby punctuation.separator.method.ruby
+T 27 source.ruby meta.function-call.ruby entity.name.function.ruby
+L 
+L   # Used to hash the password. Please generate one with rails secret.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 69 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :pepper
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 24 source.ruby constant.language.symbol.ruby
+L   @@pepper = nil
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 10 source.ruby variable.other.readwrite.class.ruby
+T 11 source.ruby
+T 12 source.ruby keyword.operator.assignment.ruby
+T 13 source.ruby
+T 16 source.ruby constant.language.nil.ruby
+L 
+L   # Used to send notification to the original user email when their email is changed.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 85 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :send_email_changed_notification
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 49 source.ruby constant.language.symbol.ruby
+L   @@send_email_changed_notification = false
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 35 source.ruby variable.other.readwrite.class.ruby
+T 36 source.ruby
+T 37 source.ruby keyword.operator.assignment.ruby
+T 38 source.ruby
+T 43 source.ruby constant.language.boolean.ruby
+L 
+L   # Used to enable sending notification to user when their password is changed.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 79 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :send_password_change_notification
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 51 source.ruby constant.language.symbol.ruby
+L   @@send_password_change_notification = false
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 37 source.ruby variable.other.readwrite.class.ruby
+T 38 source.ruby
+T 39 source.ruby keyword.operator.assignment.ruby
+T 40 source.ruby
+T 45 source.ruby constant.language.boolean.ruby
+L 
+L   # Scoped views. Since it relies on fallbacks to render default views, it's
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 76 source.ruby comment.line.number-sign.ruby
+L   # turned off by default.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 26 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :scoped_views
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 30 source.ruby constant.language.symbol.ruby
+L   @@scoped_views = false
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 16 source.ruby variable.other.readwrite.class.ruby
+T 17 source.ruby
+T 18 source.ruby keyword.operator.assignment.ruby
+T 19 source.ruby
+T 24 source.ruby constant.language.boolean.ruby
+L 
+L   # Defines which strategy can be used to lock an account.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 58 source.ruby comment.line.number-sign.ruby
+L   # Values: :failed_attempts, :none
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 35 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :lock_strategy
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 31 source.ruby constant.language.symbol.ruby
+L   @@lock_strategy = :failed_attempts
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 17 source.ruby variable.other.readwrite.class.ruby
+T 18 source.ruby
+T 19 source.ruby keyword.operator.assignment.ruby
+T 20 source.ruby
+T 21 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 36 source.ruby constant.language.symbol.ruby
+L 
+L   # Defines which key will be used when locking and unlocking an account
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 72 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :unlock_keys
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 29 source.ruby constant.language.symbol.ruby
+L   @@unlock_keys = [:email]
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 15 source.ruby variable.other.readwrite.class.ruby
+T 16 source.ruby
+T 17 source.ruby keyword.operator.assignment.ruby
+T 18 source.ruby
+T 19 source.ruby punctuation.section.array.begin.ruby
+T 20 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 25 source.ruby constant.language.symbol.ruby
+T 26 source.ruby punctuation.section.array.end.ruby
+L 
+L   # Defines which strategy can be used to unlock an account.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 60 source.ruby comment.line.number-sign.ruby
+L   # Values: :email, :time, :both
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 32 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :unlock_strategy
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 33 source.ruby constant.language.symbol.ruby
+L   @@unlock_strategy = :both
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 19 source.ruby variable.other.readwrite.class.ruby
+T 20 source.ruby
+T 21 source.ruby keyword.operator.assignment.ruby
+T 22 source.ruby
+T 23 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 27 source.ruby constant.language.symbol.ruby
+L 
+L   # Number of authentication tries before locking an account
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 60 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :maximum_attempts
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 34 source.ruby constant.language.symbol.ruby
+L   @@maximum_attempts = 20
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 20 source.ruby variable.other.readwrite.class.ruby
+T 21 source.ruby
+T 22 source.ruby keyword.operator.assignment.ruby
+T 23 source.ruby
+T 25 source.ruby constant.numeric.ruby
+L 
+L   # Time interval to unlock the account if :time is defined as unlock_strategy.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 79 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :unlock_in
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 27 source.ruby constant.language.symbol.ruby
+L   @@unlock_in = 1.hour
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 13 source.ruby variable.other.readwrite.class.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 17 source.ruby constant.numeric.ruby
+T 18 source.ruby punctuation.separator.method.ruby
+T 22 source.ruby meta.function-call.ruby entity.name.function.ruby
+L 
+L   # Defines which key will be used when recovering the password for an account
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 78 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :reset_password_keys
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 37 source.ruby constant.language.symbol.ruby
+L   @@reset_password_keys = [:email]
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 23 source.ruby variable.other.readwrite.class.ruby
+T 24 source.ruby
+T 25 source.ruby keyword.operator.assignment.ruby
+T 26 source.ruby
+T 27 source.ruby punctuation.section.array.begin.ruby
+T 28 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 33 source.ruby constant.language.symbol.ruby
+T 34 source.ruby punctuation.section.array.end.ruby
+L 
+L   # Time interval you can reset your password with a reset password key
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 71 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :reset_password_within
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 39 source.ruby constant.language.symbol.ruby
+L   @@reset_password_within = 6.hours
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 25 source.ruby variable.other.readwrite.class.ruby
+T 26 source.ruby
+T 27 source.ruby keyword.operator.assignment.ruby
+T 28 source.ruby
+T 29 source.ruby constant.numeric.ruby
+T 30 source.ruby punctuation.separator.method.ruby
+T 35 source.ruby meta.function-call.ruby entity.name.function.ruby
+L 
+L   # When set to false, resetting a password does not automatically sign in a user
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 81 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :sign_in_after_reset_password
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 46 source.ruby constant.language.symbol.ruby
+L   @@sign_in_after_reset_password = true
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 32 source.ruby variable.other.readwrite.class.ruby
+T 33 source.ruby
+T 34 source.ruby keyword.operator.assignment.ruby
+T 35 source.ruby
+T 39 source.ruby constant.language.boolean.ruby
+L 
+L   # The default scope which is used by warden.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 46 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :default_scope
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 31 source.ruby constant.language.symbol.ruby
+L   @@default_scope = nil
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 17 source.ruby variable.other.readwrite.class.ruby
+T 18 source.ruby
+T 19 source.ruby keyword.operator.assignment.ruby
+T 20 source.ruby
+T 23 source.ruby constant.language.nil.ruby
+L 
+L   # Address which sends Devise e-mails.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 39 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :mailer_sender
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 31 source.ruby constant.language.symbol.ruby
+L   @@mailer_sender = nil
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 17 source.ruby variable.other.readwrite.class.ruby
+T 18 source.ruby
+T 19 source.ruby keyword.operator.assignment.ruby
+T 20 source.ruby
+T 23 source.ruby constant.language.nil.ruby
+L 
+L   # Skip session storage for the following strategies
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 53 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :skip_session_storage
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 38 source.ruby constant.language.symbol.ruby
+L   @@skip_session_storage = [:http_auth]
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 24 source.ruby variable.other.readwrite.class.ruby
+T 25 source.ruby
+T 26 source.ruby keyword.operator.assignment.ruby
+T 27 source.ruby
+T 28 source.ruby punctuation.section.array.begin.ruby
+T 29 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 38 source.ruby constant.language.symbol.ruby
+T 39 source.ruby punctuation.section.array.end.ruby
+L 
+L   # Which formats should be treated as navigational.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 52 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :navigational_formats
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 38 source.ruby constant.language.symbol.ruby
+L   @@navigational_formats = ["*/*", :html, :turbo_stream]
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 24 source.ruby variable.other.readwrite.class.ruby
+T 25 source.ruby
+T 26 source.ruby keyword.operator.assignment.ruby
+T 27 source.ruby
+T 28 source.ruby punctuation.section.array.begin.ruby
+T 29 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 32 source.ruby string.quoted.double.interpolated.ruby
+T 33 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 34 source.ruby punctuation.separator.object.ruby
+T 35 source.ruby
+T 36 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 40 source.ruby constant.language.symbol.ruby
+T 41 source.ruby punctuation.separator.object.ruby
+T 42 source.ruby
+T 43 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 55 source.ruby constant.language.symbol.ruby
+T 56 source.ruby punctuation.section.array.end.ruby
+L 
+L   # The default responder used by Devise, used to customize status codes with:
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 78 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   #   `config.responder.error_status`
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 37 source.ruby comment.line.number-sign.ruby
+L   #   `config.responder.redirect_status`
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 40 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   # Can be replaced by a custom application responder.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 54 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :responder
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 27 source.ruby constant.language.symbol.ruby
+L   @@responder = Devise::Controllers::Responder
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 13 source.ruby variable.other.readwrite.class.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 22 source.ruby support.class.ruby
+T 24 source.ruby punctuation.separator.namespace.ruby
+T 35 source.ruby support.class.ruby
+T 37 source.ruby punctuation.separator.namespace.ruby
+T 46 source.ruby variable.other.constant.ruby
+L 
+L   # When set to true, signing out a user signs out all other scopes.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 68 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :sign_out_all_scopes
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 37 source.ruby constant.language.symbol.ruby
+L   @@sign_out_all_scopes = true
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 23 source.ruby variable.other.readwrite.class.ruby
+T 24 source.ruby
+T 25 source.ruby keyword.operator.assignment.ruby
+T 26 source.ruby
+T 30 source.ruby constant.language.boolean.ruby
+L 
+L   # The default method used while signing out
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 45 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :sign_out_via
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 30 source.ruby constant.language.symbol.ruby
+L   @@sign_out_via = :delete
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 16 source.ruby variable.other.readwrite.class.ruby
+T 17 source.ruby
+T 18 source.ruby keyword.operator.assignment.ruby
+T 19 source.ruby
+T 20 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 26 source.ruby constant.language.symbol.ruby
+L 
+L   # The parent controller all Devise controllers inherits from.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 63 source.ruby comment.line.number-sign.ruby
+L   # Defaults to ApplicationController. This should be set early
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 63 source.ruby comment.line.number-sign.ruby
+L   # in the initialization process and should be set to a string.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :parent_controller
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 35 source.ruby constant.language.symbol.ruby
+L   @@parent_controller = "ApplicationController"
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 21 source.ruby variable.other.readwrite.class.ruby
+T 22 source.ruby
+T 23 source.ruby keyword.operator.assignment.ruby
+T 24 source.ruby
+T 25 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 46 source.ruby string.quoted.double.interpolated.ruby
+T 47 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L 
+L   # The parent mailer all Devise mailers inherit from.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 54 source.ruby comment.line.number-sign.ruby
+L   # Defaults to ActionMailer::Base. This should be set early
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 60 source.ruby comment.line.number-sign.ruby
+L   # in the initialization process and should be set to a string.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :parent_mailer
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 31 source.ruby constant.language.symbol.ruby
+L   @@parent_mailer = "ActionMailer::Base"
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 17 source.ruby variable.other.readwrite.class.ruby
+T 18 source.ruby
+T 19 source.ruby keyword.operator.assignment.ruby
+T 20 source.ruby
+T 21 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 39 source.ruby string.quoted.double.interpolated.ruby
+T 40 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L 
+L   # The router Devise should use to generate routes. Defaults
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 61 source.ruby comment.line.number-sign.ruby
+L   # to :main_app. Should be overridden by engines in order
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 58 source.ruby comment.line.number-sign.ruby
+L   # to provide custom routes.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 29 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :router_name
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 29 source.ruby constant.language.symbol.ruby
+L   @@router_name = nil
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 15 source.ruby variable.other.readwrite.class.ruby
+T 16 source.ruby
+T 17 source.ruby keyword.operator.assignment.ruby
+T 18 source.ruby
+T 21 source.ruby constant.language.nil.ruby
+L 
+L   # Set the OmniAuth path prefix so it can be overridden when
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 61 source.ruby comment.line.number-sign.ruby
+L   # Devise is used in a mountable engine
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 40 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :omniauth_path_prefix
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 38 source.ruby constant.language.symbol.ruby
+L   @@omniauth_path_prefix = nil
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 24 source.ruby variable.other.readwrite.class.ruby
+T 25 source.ruby
+T 26 source.ruby keyword.operator.assignment.ruby
+T 27 source.ruby
+T 30 source.ruby constant.language.nil.ruby
+L 
+L   # Set if we should clean up the CSRF Token on authentication
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 62 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :clean_up_csrf_token_on_authentication
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 55 source.ruby constant.language.symbol.ruby
+L   @@clean_up_csrf_token_on_authentication = true
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 41 source.ruby variable.other.readwrite.class.ruby
+T 42 source.ruby
+T 43 source.ruby keyword.operator.assignment.ruby
+T 44 source.ruby
+T 48 source.ruby constant.language.boolean.ruby
+L 
+L   # When false, Devise will not attempt to reload routes on eager load.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 71 source.ruby comment.line.number-sign.ruby
+L   # This can reduce the time taken to boot the app but if your application
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 74 source.ruby comment.line.number-sign.ruby
+L   # requires the Devise mappings to be loaded during boot time the application
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 78 source.ruby comment.line.number-sign.ruby
+L   # won't boot properly.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 24 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :reload_routes
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 31 source.ruby constant.language.symbol.ruby
+L   @@reload_routes = true
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 17 source.ruby variable.other.readwrite.class.ruby
+T 18 source.ruby
+T 19 source.ruby keyword.operator.assignment.ruby
+T 20 source.ruby
+T 24 source.ruby constant.language.boolean.ruby
+L 
+L   # PRIVATE CONFIGURATION
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 25 source.ruby comment.line.number-sign.ruby
+L 
+L   # Store scopes mappings.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 26 source.ruby comment.line.number-sign.ruby
+L   @@mappings = {}
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 12 source.ruby variable.other.readwrite.class.ruby
+T 13 source.ruby
+T 14 source.ruby keyword.operator.assignment.ruby
+T 15 source.ruby
+T 16 source.ruby punctuation.section.scope.begin.ruby
+T 17 source.ruby punctuation.section.scope.end.ruby
+L   def self.mappings
+T 2 source.ruby
+T 5 source.ruby meta.function.method.without-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.without-arguments.ruby
+T 19 source.ruby meta.function.method.without-arguments.ruby entity.name.function.ruby
+L     # Starting from Rails 8.0, routes are lazy-loaded by default in test and development environments.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 102 source.ruby comment.line.number-sign.ruby
+L     # However, Devise's mappings are built during the routes loading phase.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 75 source.ruby comment.line.number-sign.ruby
+L     # To ensure it works correctly, we need to load the routes first before accessing @@mappings.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 97 source.ruby comment.line.number-sign.ruby
+L     Rails.application.try(:reload_routes_unless_loaded)
+T 4 source.ruby
+T 9 source.ruby support.class.ruby
+T 10 source.ruby punctuation.separator.method.ruby
+T 21 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 22 source.ruby punctuation.separator.method.ruby
+T 25 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 26 source.ruby punctuation.section.function.ruby
+T 27 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 54 source.ruby constant.language.symbol.ruby
+T 55 source.ruby punctuation.section.function.ruby
+L     @@mappings
+T 4 source.ruby
+T 6 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 14 source.ruby variable.other.readwrite.class.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   # OmniAuth configurations.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 28 source.ruby comment.line.number-sign.ruby
+L   mattr_reader :omniauth_configs
+T 15 source.ruby
+T 16 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 32 source.ruby constant.language.symbol.ruby
+L   @@omniauth_configs = {}
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 20 source.ruby variable.other.readwrite.class.ruby
+T 21 source.ruby
+T 22 source.ruby keyword.operator.assignment.ruby
+T 23 source.ruby
+T 24 source.ruby punctuation.section.scope.begin.ruby
+T 25 source.ruby punctuation.section.scope.end.ruby
+L 
+L   # Define a set of modules that are called when a mapping is added.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 68 source.ruby comment.line.number-sign.ruby
+L   mattr_reader :helpers
+T 15 source.ruby
+T 16 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 23 source.ruby constant.language.symbol.ruby
+L   @@helpers = Set.new
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 11 source.ruby variable.other.readwrite.class.ruby
+T 12 source.ruby
+T 13 source.ruby keyword.operator.assignment.ruby
+T 14 source.ruby
+T 17 source.ruby support.class.ruby
+T 18 source.ruby punctuation.separator.method.ruby
+T 21 source.ruby keyword.other.special-method.ruby
+L   @@helpers << Devise::Controllers::Helpers
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 11 source.ruby variable.other.readwrite.class.ruby
+T 12 source.ruby
+T 14 source.ruby keyword.operator.assignment.augmented.ruby
+T 15 source.ruby
+T 21 source.ruby support.class.ruby
+T 23 source.ruby punctuation.separator.namespace.ruby
+T 34 source.ruby support.class.ruby
+T 36 source.ruby punctuation.separator.namespace.ruby
+T 43 source.ruby variable.other.constant.ruby
+L 
+L   # Private methods to interface with Warden.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 45 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :warden_config
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 31 source.ruby constant.language.symbol.ruby
+L   @@warden_config = nil
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 17 source.ruby variable.other.readwrite.class.ruby
+T 18 source.ruby
+T 19 source.ruby keyword.operator.assignment.ruby
+T 20 source.ruby
+T 23 source.ruby constant.language.nil.ruby
+L   @@warden_config_blocks = []
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 24 source.ruby variable.other.readwrite.class.ruby
+T 25 source.ruby
+T 26 source.ruby keyword.operator.assignment.ruby
+T 27 source.ruby
+T 28 source.ruby punctuation.section.array.begin.ruby
+T 29 source.ruby punctuation.section.array.end.ruby
+L 
+L   # When true, enter in paranoid mode to avoid user enumeration.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :paranoid
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 26 source.ruby constant.language.symbol.ruby
+L   @@paranoid = false
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 12 source.ruby variable.other.readwrite.class.ruby
+T 13 source.ruby
+T 14 source.ruby keyword.operator.assignment.ruby
+T 15 source.ruby
+T 20 source.ruby constant.language.boolean.ruby
+L 
+L   # When true, warn user if they just used next-to-last attempt of authentication
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 81 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :last_attempt_warning
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 38 source.ruby constant.language.symbol.ruby
+L   @@last_attempt_warning = true
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 24 source.ruby variable.other.readwrite.class.ruby
+T 25 source.ruby
+T 26 source.ruby keyword.operator.assignment.ruby
+T 27 source.ruby
+T 31 source.ruby constant.language.boolean.ruby
+L 
+L   # Stores the token generator
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 30 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :token_generator
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 33 source.ruby constant.language.symbol.ruby
+L   @@token_generator = nil
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 19 source.ruby variable.other.readwrite.class.ruby
+T 20 source.ruby
+T 21 source.ruby keyword.operator.assignment.ruby
+T 22 source.ruby
+T 25 source.ruby constant.language.nil.ruby
+L 
+L   # When set to false, changing a password does not automatically sign in a user
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 80 source.ruby comment.line.number-sign.ruby
+L   mattr_accessor :sign_in_after_change_password
+T 17 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 47 source.ruby constant.language.symbol.ruby
+L   @@sign_in_after_change_password = true
+T 2 source.ruby
+T 4 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 33 source.ruby variable.other.readwrite.class.ruby
+T 34 source.ruby
+T 35 source.ruby keyword.operator.assignment.ruby
+T 36 source.ruby
+T 40 source.ruby constant.language.boolean.ruby
+L 
+L   # Default way to set up Devise. Run rails generate devise_install to create
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 77 source.ruby comment.line.number-sign.ruby
+L   # a fresh initializer with all configuration values.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 54 source.ruby comment.line.number-sign.ruby
+L   def self.setup
+T 2 source.ruby
+T 5 source.ruby meta.function.method.without-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.without-arguments.ruby
+T 16 source.ruby meta.function.method.without-arguments.ruby entity.name.function.ruby
+L     yield self
+T 4 source.ruby
+T 9 source.ruby keyword.control.pseudo-method.ruby
+T 10 source.ruby
+T 14 source.ruby variable.language.self.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   class Getter
+T 2 source.ruby
+T 7 source.ruby meta.class.ruby keyword.control.class.ruby
+T 8 source.ruby meta.class.ruby
+T 14 source.ruby meta.class.ruby entity.name.type.class.ruby
+L     def initialize(name)
+T 4 source.ruby
+T 7 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.with-arguments.ruby
+T 18 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 19 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 23 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 24 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L       @name = name
+T 6 source.ruby
+T 7 source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 11 source.ruby variable.other.readwrite.instance.ruby
+T 12 source.ruby
+T 13 source.ruby keyword.operator.assignment.ruby
+T 18 source.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     def get
+T 4 source.ruby
+T 7 source.ruby meta.function.method.without-arguments.ruby keyword.control.def.ruby
+T 8 source.ruby meta.function.method.without-arguments.ruby
+T 11 source.ruby meta.function.method.without-arguments.ruby entity.name.function.ruby
+L       # TODO: Remove AS::Dependencies usage when dropping support to Rails < 7.
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 79 source.ruby comment.line.number-sign.ruby
+L       if ActiveSupport::Dependencies.respond_to?(:constantize)
+T 6 source.ruby
+T 8 source.ruby keyword.control.ruby
+T 9 source.ruby
+T 22 source.ruby support.class.ruby
+T 24 source.ruby punctuation.separator.namespace.ruby
+T 36 source.ruby support.class.ruby
+T 37 source.ruby punctuation.separator.method.ruby
+T 48 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 49 source.ruby punctuation.section.function.ruby
+T 50 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 61 source.ruby constant.language.symbol.ruby
+T 62 source.ruby punctuation.section.function.ruby
+L         ActiveSupport::Dependencies.constantize(@name)
+T 8 source.ruby
+T 21 source.ruby support.class.ruby
+T 23 source.ruby punctuation.separator.namespace.ruby
+T 35 source.ruby support.class.ruby
+T 36 source.ruby punctuation.separator.method.ruby
+T 47 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 48 source.ruby punctuation.section.function.ruby
+T 49 source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 53 source.ruby variable.other.readwrite.instance.ruby
+T 54 source.ruby punctuation.section.function.ruby
+L       else
+T 6 source.ruby
+T 10 source.ruby keyword.control.ruby
+L         @name.constantize
+T 8 source.ruby
+T 9 source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 13 source.ruby variable.other.readwrite.instance.ruby
+T 14 source.ruby punctuation.separator.method.ruby
+T 25 source.ruby meta.function-call.ruby entity.name.function.ruby
+L       end
+T 6 source.ruby
+T 9 source.ruby keyword.control.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   def self.ref(arg)
+T 2 source.ruby
+T 5 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.with-arguments.ruby
+T 14 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 15 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 18 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 19 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L     # TODO: Remove AS::Dependencies usage when dropping support to Rails < 7.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 77 source.ruby comment.line.number-sign.ruby
+L     if ActiveSupport::Dependencies.respond_to?(:reference)
+T 4 source.ruby
+T 6 source.ruby keyword.control.ruby
+T 7 source.ruby
+T 20 source.ruby support.class.ruby
+T 22 source.ruby punctuation.separator.namespace.ruby
+T 34 source.ruby support.class.ruby
+T 35 source.ruby punctuation.separator.method.ruby
+T 46 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 47 source.ruby punctuation.section.function.ruby
+T 48 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 57 source.ruby constant.language.symbol.ruby
+T 58 source.ruby punctuation.section.function.ruby
+L       ActiveSupport::Dependencies.reference(arg)
+T 6 source.ruby
+T 19 source.ruby support.class.ruby
+T 21 source.ruby punctuation.separator.namespace.ruby
+T 33 source.ruby support.class.ruby
+T 34 source.ruby punctuation.separator.method.ruby
+T 43 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 44 source.ruby punctuation.section.function.ruby
+T 47 source.ruby
+T 48 source.ruby punctuation.section.function.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L     Getter.new(arg)
+T 4 source.ruby
+T 10 source.ruby support.class.ruby
+T 11 source.ruby punctuation.separator.method.ruby
+T 14 source.ruby keyword.other.special-method.ruby
+T 15 source.ruby punctuation.section.function.ruby
+T 18 source.ruby
+T 19 source.ruby punctuation.section.function.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   def self.available_router_name
+T 2 source.ruby
+T 5 source.ruby meta.function.method.without-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.without-arguments.ruby
+T 32 source.ruby meta.function.method.without-arguments.ruby entity.name.function.ruby
+L     router_name || :main_app
+T 16 source.ruby
+T 18 source.ruby keyword.operator.logical.ruby
+T 19 source.ruby
+T 20 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 28 source.ruby constant.language.symbol.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   def self.omniauth_providers
+T 2 source.ruby
+T 5 source.ruby meta.function.method.without-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.without-arguments.ruby
+T 29 source.ruby meta.function.method.without-arguments.ruby entity.name.function.ruby
+L     omniauth_configs.keys
+T 20 source.ruby
+T 21 source.ruby punctuation.separator.method.ruby
+T 25 source.ruby meta.function-call.ruby entity.name.function.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   # Get the mailer class from the mailer reference object.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 58 source.ruby comment.line.number-sign.ruby
+L   def self.mailer
+T 2 source.ruby
+T 5 source.ruby meta.function.method.without-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.without-arguments.ruby
+T 17 source.ruby meta.function.method.without-arguments.ruby entity.name.function.ruby
+L     @@mailer_ref.get
+T 4 source.ruby
+T 6 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 16 source.ruby variable.other.readwrite.class.ruby
+T 17 source.ruby punctuation.separator.method.ruby
+T 20 source.ruby meta.function-call.ruby entity.name.function.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   # Set the mailer reference object to access the mailer.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 57 source.ruby comment.line.number-sign.ruby
+L   def self.mailer=(class_name)
+T 2 source.ruby
+T 5 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.with-arguments.ruby
+T 18 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 19 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 29 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 30 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L     @@mailer_ref = ref(class_name)
+T 4 source.ruby
+T 6 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 16 source.ruby variable.other.readwrite.class.ruby
+T 17 source.ruby
+T 18 source.ruby keyword.operator.assignment.ruby
+T 19 source.ruby
+T 22 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 23 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 33 source.ruby meta.function-call.ruby
+T 34 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L   self.mailer = "Devise::Mailer"
+T 2 source.ruby
+T 6 source.ruby variable.language.self.ruby
+T 7 source.ruby punctuation.separator.method.ruby
+T 13 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 17 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 31 source.ruby string.quoted.double.interpolated.ruby
+T 32 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L 
+L   # Small method that adds a mapping to Devise.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 47 source.ruby comment.line.number-sign.ruby
+L   def self.add_mapping(resource, options)
+T 2 source.ruby
+T 5 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.with-arguments.ruby
+T 22 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 23 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 31 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 32 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 33 source.ruby meta.function.method.with-arguments.ruby
+T 40 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 41 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L     mapping = Devise::Mapping.new(resource, options)
+T 4 source.ruby
+T 11 source.ruby variable.ruby
+T 12 source.ruby
+T 13 source.ruby keyword.operator.assignment.ruby
+T 14 source.ruby
+T 20 source.ruby support.class.ruby
+T 22 source.ruby punctuation.separator.namespace.ruby
+T 29 source.ruby support.class.ruby
+T 30 source.ruby punctuation.separator.method.ruby
+T 33 source.ruby keyword.other.special-method.ruby
+T 34 source.ruby punctuation.section.function.ruby
+T 42 source.ruby
+T 43 source.ruby punctuation.separator.object.ruby
+T 51 source.ruby
+T 52 source.ruby punctuation.section.function.ruby
+L     @@mappings[mapping.name] = mapping
+T 4 source.ruby
+T 6 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 14 source.ruby variable.other.readwrite.class.ruby
+T 15 source.ruby punctuation.section.array.begin.ruby
+T 22 source.ruby
+T 23 source.ruby punctuation.separator.method.ruby
+T 27 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 28 source.ruby punctuation.section.array.end.ruby
+T 29 source.ruby
+T 30 source.ruby keyword.operator.assignment.ruby
+T 38 source.ruby
+L     @@default_scope ||= mapping.name
+T 4 source.ruby
+T 6 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 19 source.ruby variable.other.readwrite.class.ruby
+T 20 source.ruby
+T 23 source.ruby keyword.operator.assignment.augmented.ruby
+T 31 source.ruby
+T 32 source.ruby punctuation.separator.method.ruby
+T 36 source.ruby meta.function-call.ruby entity.name.function.ruby
+L     @@helpers.each { |h| h.define_helpers(mapping) }
+T 4 source.ruby
+T 6 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 13 source.ruby variable.other.readwrite.class.ruby
+T 14 source.ruby punctuation.separator.method.ruby
+T 18 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 19 source.ruby
+T 20 source.ruby punctuation.section.scope.begin.ruby
+T 21 source.ruby meta.syntax.ruby.start-block
+T 22 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 23 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 24 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 26 source.ruby
+T 27 source.ruby punctuation.separator.method.ruby
+T 41 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 42 source.ruby punctuation.section.function.ruby
+T 49 source.ruby
+T 50 source.ruby punctuation.section.function.ruby
+T 51 source.ruby
+T 52 source.ruby punctuation.section.scope.end.ruby
+L     mapping
+T 11 source.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   # Register available devise modules. For the standard modules that Devise provides, this method is
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 100 source.ruby comment.line.number-sign.ruby
+L   # called from lib/devise/modules.rb. Third-party modules need to be added explicitly using this method.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 105 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   # Note that adding a module using this method does not cause it to be used in the authentication
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 98 source.ruby comment.line.number-sign.ruby
+L   # process. That requires that the module be listed in the arguments passed to the 'devise' method
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 99 source.ruby comment.line.number-sign.ruby
+L   # in the model class definition.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 34 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   # == Options:
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 15 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   #   +model+      - String representing the load path to a custom *model* for this module (to autoload.)
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 105 source.ruby comment.line.number-sign.ruby
+L   #   +controller+ - Symbol representing the name of an existing or custom *controller* for this module.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 104 source.ruby comment.line.number-sign.ruby
+L   #   +route+      - Symbol representing the named *route* helper for this module.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 82 source.ruby comment.line.number-sign.ruby
+L   #   +strategy+   - Symbol representing if this module got a custom *strategy*.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 80 source.ruby comment.line.number-sign.ruby
+L   #   +insert_at+  - Integer representing the order in which this module's model will be included
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 97 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   # All values, except :model, accept also a boolean and will have the same name as the given module
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 100 source.ruby comment.line.number-sign.ruby
+L   # name.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 9 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   # == Examples:
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 16 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   #   Devise.add_module(:party_module)
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 38 source.ruby comment.line.number-sign.ruby
+L   #   Devise.add_module(:party_module, strategy: true, controller: :sessions)
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 77 source.ruby comment.line.number-sign.ruby
+L   #   Devise.add_module(:party_module, model: 'party_module/model')
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 67 source.ruby comment.line.number-sign.ruby
+L   #   Devise.add_module(:party_module, insert_at: 0)
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 52 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   def self.add_module(module_name, options = {})
+T 2 source.ruby
+T 5 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.with-arguments.ruby
+T 21 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 22 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 33 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 34 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 35 source.ruby meta.function.method.with-arguments.ruby
+T 42 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 43 source.ruby meta.function.method.with-arguments.ruby
+T 44 source.ruby meta.function.method.with-arguments.ruby keyword.operator.assignment.ruby
+T 45 source.ruby meta.function.method.with-arguments.ruby
+T 46 source.ruby meta.function.method.with-arguments.ruby punctuation.section.scope.begin.ruby
+T 47 source.ruby meta.function.method.with-arguments.ruby punctuation.section.scope.end.ruby
+T 48 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L     options.assert_valid_keys(:strategy, :model, :controller, :route, :no_input, :insert_at)
+T 11 source.ruby
+T 12 source.ruby punctuation.separator.method.ruby
+T 29 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 30 source.ruby punctuation.section.function.ruby
+T 31 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 39 source.ruby constant.language.symbol.ruby
+T 40 source.ruby punctuation.separator.object.ruby
+T 41 source.ruby
+T 42 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 47 source.ruby constant.language.symbol.ruby
+T 48 source.ruby punctuation.separator.object.ruby
+T 49 source.ruby
+T 50 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 60 source.ruby constant.language.symbol.ruby
+T 61 source.ruby punctuation.separator.object.ruby
+T 62 source.ruby
+T 63 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 68 source.ruby constant.language.symbol.ruby
+T 69 source.ruby punctuation.separator.object.ruby
+T 70 source.ruby
+T 71 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 79 source.ruby constant.language.symbol.ruby
+T 80 source.ruby punctuation.separator.object.ruby
+T 81 source.ruby
+T 82 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 91 source.ruby constant.language.symbol.ruby
+T 92 source.ruby punctuation.section.function.ruby
+L 
+L     ALL.insert (options[:insert_at] || -1), module_name
+T 4 source.ruby
+T 7 source.ruby support.class.ruby
+T 8 source.ruby punctuation.separator.method.ruby
+T 14 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 15 source.ruby
+T 16 source.ruby punctuation.section.function.ruby
+T 23 source.ruby
+T 24 source.ruby punctuation.section.array.begin.ruby
+T 25 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 34 source.ruby constant.language.symbol.ruby
+T 35 source.ruby punctuation.section.array.end.ruby
+T 36 source.ruby
+T 38 source.ruby keyword.operator.logical.ruby
+T 39 source.ruby
+T 40 source.ruby keyword.operator.arithmetic.ruby
+T 41 source.ruby constant.numeric.ruby
+T 42 source.ruby punctuation.section.function.ruby
+T 43 source.ruby punctuation.separator.object.ruby
+T 55 source.ruby
+L 
+L     if strategy = options[:strategy]
+T 4 source.ruby
+T 6 source.ruby keyword.control.ruby
+T 7 source.ruby
+T 15 source.ruby variable.ruby
+T 18 source.ruby
+T 25 source.ruby
+T 26 source.ruby punctuation.section.array.begin.ruby
+T 27 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 35 source.ruby constant.language.symbol.ruby
+T 36 source.ruby punctuation.section.array.end.ruby
+L       strategy = (strategy == true ? module_name : strategy)
+T 6 source.ruby
+T 14 source.ruby variable.ruby
+T 15 source.ruby
+T 16 source.ruby keyword.operator.assignment.ruby
+T 17 source.ruby
+T 18 source.ruby punctuation.section.function.ruby
+T 27 source.ruby
+T 29 source.ruby keyword.operator.comparison.ruby
+T 30 source.ruby
+T 34 source.ruby constant.language.boolean.ruby
+T 35 source.ruby
+T 36 source.ruby keyword.operator.comparison.ruby
+T 49 source.ruby
+T 50 source.ruby punctuation.separator.other.ruby
+T 59 source.ruby
+T 60 source.ruby punctuation.section.function.ruby
+L       STRATEGIES[module_name] = strategy
+T 6 source.ruby
+T 16 source.ruby support.class.ruby
+T 17 source.ruby punctuation.section.array.begin.ruby
+T 28 source.ruby
+T 29 source.ruby punctuation.section.array.end.ruby
+T 30 source.ruby
+T 31 source.ruby keyword.operator.assignment.ruby
+T 40 source.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     if controller = options[:controller]
+T 4 source.ruby
+T 6 source.ruby keyword.control.ruby
+T 7 source.ruby
+T 17 source.ruby variable.ruby
+T 20 source.ruby
+T 27 source.ruby
+T 28 source.ruby punctuation.section.array.begin.ruby
+T 29 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 39 source.ruby constant.language.symbol.ruby
+T 40 source.ruby punctuation.section.array.end.ruby
+L       controller = (controller == true ? module_name : controller)
+T 6 source.ruby
+T 16 source.ruby variable.ruby
+T 17 source.ruby
+T 18 source.ruby keyword.operator.assignment.ruby
+T 19 source.ruby
+T 20 source.ruby punctuation.section.function.ruby
+T 31 source.ruby
+T 33 source.ruby keyword.operator.comparison.ruby
+T 34 source.ruby
+T 38 source.ruby constant.language.boolean.ruby
+T 39 source.ruby
+T 40 source.ruby keyword.operator.comparison.ruby
+T 53 source.ruby
+T 54 source.ruby punctuation.separator.other.ruby
+T 65 source.ruby
+T 66 source.ruby punctuation.section.function.ruby
+L       CONTROLLERS[module_name] = controller
+T 6 source.ruby
+T 17 source.ruby support.class.ruby
+T 18 source.ruby punctuation.section.array.begin.ruby
+T 29 source.ruby
+T 30 source.ruby punctuation.section.array.end.ruby
+T 31 source.ruby
+T 32 source.ruby keyword.operator.assignment.ruby
+T 43 source.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     NO_INPUT << strategy if options[:no_input]
+T 4 source.ruby
+T 12 source.ruby variable.other.constant.ruby
+T 13 source.ruby
+T 15 source.ruby keyword.operator.assignment.augmented.ruby
+T 25 source.ruby
+T 27 source.ruby keyword.control.ruby
+T 35 source.ruby
+T 36 source.ruby punctuation.section.array.begin.ruby
+T 37 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 45 source.ruby constant.language.symbol.ruby
+T 46 source.ruby punctuation.section.array.end.ruby
+L 
+L     if route = options[:route]
+T 4 source.ruby
+T 6 source.ruby keyword.control.ruby
+T 7 source.ruby
+T 12 source.ruby variable.ruby
+T 15 source.ruby
+T 22 source.ruby
+T 23 source.ruby punctuation.section.array.begin.ruby
+T 24 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 29 source.ruby constant.language.symbol.ruby
+T 30 source.ruby punctuation.section.array.end.ruby
+L       case route
+T 6 source.ruby
+T 10 source.ruby keyword.control.ruby
+T 16 source.ruby
+L       when TrueClass
+T 6 source.ruby
+T 10 source.ruby keyword.control.ruby
+T 11 source.ruby
+T 20 source.ruby variable.other.constant.ruby
+L         key, value = module_name, []
+T 11 source.ruby
+T 12 source.ruby punctuation.separator.object.ruby
+T 19 source.ruby
+T 20 source.ruby keyword.operator.assignment.ruby
+T 32 source.ruby
+T 33 source.ruby punctuation.separator.object.ruby
+T 34 source.ruby
+T 35 source.ruby punctuation.section.array.begin.ruby
+T 36 source.ruby punctuation.section.array.end.ruby
+L       when Symbol
+T 6 source.ruby
+T 10 source.ruby keyword.control.ruby
+T 11 source.ruby
+T 17 source.ruby variable.other.constant.ruby
+L         key, value = route, []
+T 11 source.ruby
+T 12 source.ruby punctuation.separator.object.ruby
+T 19 source.ruby
+T 20 source.ruby keyword.operator.assignment.ruby
+T 26 source.ruby
+T 27 source.ruby punctuation.separator.object.ruby
+T 28 source.ruby
+T 29 source.ruby punctuation.section.array.begin.ruby
+T 30 source.ruby punctuation.section.array.end.ruby
+L       when Hash
+T 6 source.ruby
+T 10 source.ruby keyword.control.ruby
+T 11 source.ruby
+T 15 source.ruby variable.other.constant.ruby
+L         key, value = route.keys.first, route.values.flatten
+T 11 source.ruby
+T 12 source.ruby punctuation.separator.object.ruby
+T 19 source.ruby
+T 20 source.ruby keyword.operator.assignment.ruby
+T 26 source.ruby
+T 27 source.ruby punctuation.separator.method.ruby
+T 31 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 32 source.ruby punctuation.separator.method.ruby
+T 37 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 38 source.ruby punctuation.separator.object.ruby
+T 44 source.ruby
+T 45 source.ruby punctuation.separator.method.ruby
+T 51 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 52 source.ruby punctuation.separator.method.ruby
+T 59 source.ruby meta.function-call.ruby entity.name.function.ruby
+L       else
+T 6 source.ruby
+T 10 source.ruby keyword.control.ruby
+L         raise ArgumentError, ":route should be true, a Symbol or a Hash"
+T 8 source.ruby
+T 13 source.ruby keyword.other.special-method.ruby
+T 14 source.ruby
+T 27 source.ruby variable.other.constant.ruby
+T 28 source.ruby punctuation.separator.object.ruby
+T 29 source.ruby
+T 30 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 71 source.ruby string.quoted.double.interpolated.ruby
+T 72 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L       end
+T 6 source.ruby
+T 9 source.ruby keyword.control.ruby
+L 
+L       URL_HELPERS[key] ||= []
+T 6 source.ruby
+T 17 source.ruby support.class.ruby
+T 18 source.ruby punctuation.section.array.begin.ruby
+T 21 source.ruby
+T 22 source.ruby punctuation.section.array.end.ruby
+T 23 source.ruby
+T 26 source.ruby keyword.operator.assignment.augmented.ruby
+T 27 source.ruby
+T 28 source.ruby punctuation.section.array.begin.ruby
+T 29 source.ruby punctuation.section.array.end.ruby
+L       URL_HELPERS[key].concat(value)
+T 6 source.ruby
+T 17 source.ruby support.class.ruby
+T 18 source.ruby punctuation.section.array.begin.ruby
+T 21 source.ruby
+T 22 source.ruby punctuation.section.array.end.ruby
+T 23 source.ruby punctuation.separator.method.ruby
+T 29 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 30 source.ruby punctuation.section.function.ruby
+T 35 source.ruby
+T 36 source.ruby punctuation.section.function.ruby
+L       URL_HELPERS[key].uniq!
+T 6 source.ruby
+T 17 source.ruby support.class.ruby
+T 18 source.ruby punctuation.section.array.begin.ruby
+T 21 source.ruby
+T 22 source.ruby punctuation.section.array.end.ruby
+T 23 source.ruby punctuation.separator.method.ruby
+T 28 source.ruby meta.function-call.ruby entity.name.function.ruby
+L 
+L       ROUTES[module_name] = key
+T 6 source.ruby
+T 12 source.ruby support.class.ruby
+T 13 source.ruby punctuation.section.array.begin.ruby
+T 24 source.ruby
+T 25 source.ruby punctuation.section.array.end.ruby
+T 26 source.ruby
+T 27 source.ruby keyword.operator.assignment.ruby
+T 31 source.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     if options[:model]
+T 4 source.ruby
+T 6 source.ruby keyword.control.ruby
+T 14 source.ruby
+T 15 source.ruby punctuation.section.array.begin.ruby
+T 16 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 21 source.ruby constant.language.symbol.ruby
+T 22 source.ruby punctuation.section.array.end.ruby
+L       path = (options[:model] == true ? "devise/models/#{module_name}" : options[:model])
+T 6 source.ruby
+T 10 source.ruby variable.ruby
+T 11 source.ruby
+T 12 source.ruby keyword.operator.assignment.ruby
+T 13 source.ruby
+T 14 source.ruby punctuation.section.function.ruby
+T 21 source.ruby
+T 22 source.ruby punctuation.section.array.begin.ruby
+T 23 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 28 source.ruby constant.language.symbol.ruby
+T 29 source.ruby punctuation.section.array.end.ruby
+T 30 source.ruby
+T 32 source.ruby keyword.operator.comparison.ruby
+T 33 source.ruby
+T 37 source.ruby constant.language.boolean.ruby
+T 38 source.ruby
+T 39 source.ruby keyword.operator.comparison.ruby
+T 40 source.ruby
+T 41 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 55 source.ruby string.quoted.double.interpolated.ruby
+T 57 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 68 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 69 source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 70 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 71 source.ruby
+T 72 source.ruby punctuation.separator.other.ruby
+T 80 source.ruby
+T 81 source.ruby punctuation.section.array.begin.ruby
+T 82 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 87 source.ruby constant.language.symbol.ruby
+T 88 source.ruby punctuation.section.array.end.ruby
+T 89 source.ruby punctuation.section.function.ruby
+L       camelized = ActiveSupport::Inflector.camelize(module_name.to_s)
+T 6 source.ruby
+T 15 source.ruby variable.ruby
+T 16 source.ruby
+T 17 source.ruby keyword.operator.assignment.ruby
+T 18 source.ruby
+T 31 source.ruby support.class.ruby
+T 33 source.ruby punctuation.separator.namespace.ruby
+T 42 source.ruby support.class.ruby
+T 43 source.ruby punctuation.separator.method.ruby
+T 51 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 52 source.ruby punctuation.section.function.ruby
+T 63 source.ruby
+T 64 source.ruby punctuation.separator.method.ruby
+T 68 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 69 source.ruby punctuation.section.function.ruby
+L       Devise::Models.send(:autoload, camelized.to_sym, path)
+T 6 source.ruby
+T 12 source.ruby support.class.ruby
+T 14 source.ruby punctuation.separator.namespace.ruby
+T 20 source.ruby support.class.ruby
+T 21 source.ruby punctuation.separator.method.ruby
+T 25 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 26 source.ruby punctuation.section.function.ruby
+T 27 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 35 source.ruby constant.language.symbol.ruby
+T 36 source.ruby punctuation.separator.object.ruby
+T 46 source.ruby
+T 47 source.ruby punctuation.separator.method.ruby
+T 53 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 54 source.ruby punctuation.separator.object.ruby
+T 59 source.ruby
+T 60 source.ruby punctuation.section.function.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     Devise::Mapping.add_module module_name
+T 4 source.ruby
+T 10 source.ruby support.class.ruby
+T 12 source.ruby punctuation.separator.namespace.ruby
+T 19 source.ruby support.class.ruby
+T 20 source.ruby punctuation.separator.method.ruby
+T 30 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 42 source.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   # Sets warden configuration using a block that will be invoked on warden
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 74 source.ruby comment.line.number-sign.ruby
+L   # initialization.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 19 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   #  Devise.setup do |config|
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 29 source.ruby comment.line.number-sign.ruby
+L   #    config.allow_unconfirmed_access_for = 2.days
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 51 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   #    config.warden do |warden_config|
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 39 source.ruby comment.line.number-sign.ruby
+L   #      # Configure warden to use other strategies, like oauth.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L   #      warden_config.oauth(:twitter)
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 38 source.ruby comment.line.number-sign.ruby
+L   #    end
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 10 source.ruby comment.line.number-sign.ruby
+L   #  end
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 8 source.ruby comment.line.number-sign.ruby
+L   def self.warden(&block)
+T 2 source.ruby
+T 5 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.with-arguments.ruby
+T 17 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 18 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 19 source.ruby meta.function.method.with-arguments.ruby storage.type.variable.ruby
+T 24 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 25 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L     @@warden_config_blocks << block
+T 4 source.ruby
+T 6 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 26 source.ruby variable.other.readwrite.class.ruby
+T 27 source.ruby
+T 29 source.ruby keyword.operator.assignment.augmented.ruby
+T 35 source.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   # Specify an OmniAuth provider.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 33 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   #   config.omniauth :github, APP_ID, APP_SECRET
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 49 source.ruby comment.line.number-sign.ruby
+L   #
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L   def self.omniauth(provider, *args)
+T 2 source.ruby
+T 5 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.with-arguments.ruby
+T 19 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 20 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 28 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 29 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 30 source.ruby meta.function.method.with-arguments.ruby
+T 31 source.ruby meta.function.method.with-arguments.ruby storage.type.variable.ruby
+T 35 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 36 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L     config = Devise::OmniAuth::Config.new(provider, args)
+T 4 source.ruby
+T 10 source.ruby variable.ruby
+T 11 source.ruby
+T 12 source.ruby keyword.operator.assignment.ruby
+T 13 source.ruby
+T 19 source.ruby support.class.ruby
+T 21 source.ruby punctuation.separator.namespace.ruby
+T 29 source.ruby support.class.ruby
+T 31 source.ruby punctuation.separator.namespace.ruby
+T 37 source.ruby support.class.ruby
+T 38 source.ruby punctuation.separator.method.ruby
+T 41 source.ruby keyword.other.special-method.ruby
+T 42 source.ruby punctuation.section.function.ruby
+T 50 source.ruby
+T 51 source.ruby punctuation.separator.object.ruby
+T 56 source.ruby
+T 57 source.ruby punctuation.section.function.ruby
+L     @@omniauth_configs[config.strategy_name.to_sym] = config
+T 4 source.ruby
+T 6 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 22 source.ruby variable.other.readwrite.class.ruby
+T 23 source.ruby punctuation.section.array.begin.ruby
+T 29 source.ruby
+T 30 source.ruby punctuation.separator.method.ruby
+T 43 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 44 source.ruby punctuation.separator.method.ruby
+T 50 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 51 source.ruby punctuation.section.array.end.ruby
+T 52 source.ruby
+T 53 source.ruby keyword.operator.assignment.ruby
+T 60 source.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   # Include helpers in the given scope to AC and AV.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 52 source.ruby comment.line.number-sign.ruby
+L   def self.include_helpers(scope)
+T 2 source.ruby
+T 5 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.with-arguments.ruby
+T 26 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 27 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 32 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 33 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L     ActiveSupport.on_load(:action_controller) do
+T 4 source.ruby
+T 17 source.ruby support.class.ruby
+T 18 source.ruby punctuation.separator.method.ruby
+T 25 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 26 source.ruby punctuation.section.function.ruby
+T 27 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 44 source.ruby constant.language.symbol.ruby
+T 45 source.ruby punctuation.section.function.ruby
+T 46 source.ruby
+T 48 source.ruby keyword.control.start-block.ruby
+L       include scope::Helpers if defined?(scope::Helpers)
+T 6 source.ruby
+T 13 source.ruby keyword.other.special-method.ruby
+T 19 source.ruby
+T 21 source.ruby punctuation.separator.namespace.ruby
+T 28 source.ruby variable.other.constant.ruby
+T 29 source.ruby
+T 31 source.ruby keyword.control.ruby
+T 32 source.ruby
+T 40 source.ruby keyword.control.pseudo-method.ruby
+T 41 source.ruby punctuation.section.function.ruby
+T 46 source.ruby
+T 48 source.ruby punctuation.separator.namespace.ruby
+T 55 source.ruby variable.other.constant.ruby
+T 56 source.ruby punctuation.section.function.ruby
+L       include scope::UrlHelpers
+T 6 source.ruby
+T 13 source.ruby keyword.other.special-method.ruby
+T 19 source.ruby
+T 21 source.ruby punctuation.separator.namespace.ruby
+T 31 source.ruby variable.other.constant.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L 
+L     ActiveSupport.on_load(:action_view) do
+T 4 source.ruby
+T 17 source.ruby support.class.ruby
+T 18 source.ruby punctuation.separator.method.ruby
+T 25 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 26 source.ruby punctuation.section.function.ruby
+T 27 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 38 source.ruby constant.language.symbol.ruby
+T 39 source.ruby punctuation.section.function.ruby
+T 40 source.ruby
+T 42 source.ruby keyword.control.start-block.ruby
+L       include scope::UrlHelpers
+T 6 source.ruby
+T 13 source.ruby keyword.other.special-method.ruby
+T 19 source.ruby
+T 21 source.ruby punctuation.separator.namespace.ruby
+T 31 source.ruby variable.other.constant.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   # Regenerates url helpers considering Devise.mapping
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 54 source.ruby comment.line.number-sign.ruby
+L   def self.regenerate_helpers!
+T 2 source.ruby
+T 5 source.ruby meta.function.method.without-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.without-arguments.ruby
+T 30 source.ruby meta.function.method.without-arguments.ruby entity.name.function.ruby
+L     Devise::Controllers::UrlHelpers.remove_helpers!
+T 4 source.ruby
+T 10 source.ruby support.class.ruby
+T 12 source.ruby punctuation.separator.namespace.ruby
+T 23 source.ruby support.class.ruby
+T 25 source.ruby punctuation.separator.namespace.ruby
+T 35 source.ruby support.class.ruby
+T 36 source.ruby punctuation.separator.method.ruby
+T 51 source.ruby meta.function-call.ruby entity.name.function.ruby
+L     Devise::Controllers::UrlHelpers.generate_helpers!
+T 4 source.ruby
+T 10 source.ruby support.class.ruby
+T 12 source.ruby punctuation.separator.namespace.ruby
+T 23 source.ruby support.class.ruby
+T 25 source.ruby punctuation.separator.namespace.ruby
+T 35 source.ruby support.class.ruby
+T 36 source.ruby punctuation.separator.method.ruby
+T 53 source.ruby meta.function-call.ruby entity.name.function.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   # A method used internally to complete the setup of warden manager after routes are loaded.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 93 source.ruby comment.line.number-sign.ruby
+L   # See lib/devise/rails/routes.rb - ActionDispatch::Routing::RouteSet#finalize_with_devise!
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 92 source.ruby comment.line.number-sign.ruby
+L   def self.configure_warden! #:nodoc:
+T 2 source.ruby
+T 5 source.ruby meta.function.method.without-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.without-arguments.ruby
+T 28 source.ruby meta.function.method.without-arguments.ruby entity.name.function.ruby
+T 29 source.ruby
+T 30 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 37 source.ruby comment.line.number-sign.ruby
+L     @@warden_configured ||= begin
+T 4 source.ruby
+T 6 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 23 source.ruby variable.other.readwrite.class.ruby
+T 24 source.ruby
+T 27 source.ruby keyword.operator.assignment.augmented.ruby
+T 28 source.ruby
+T 33 source.ruby keyword.control.ruby
+L       warden_config.failure_app   = Devise::Delegator.new
+T 19 source.ruby
+T 20 source.ruby punctuation.separator.method.ruby
+T 31 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 34 source.ruby
+T 35 source.ruby keyword.operator.assignment.ruby
+T 36 source.ruby
+T 42 source.ruby support.class.ruby
+T 44 source.ruby punctuation.separator.namespace.ruby
+T 53 source.ruby support.class.ruby
+T 54 source.ruby punctuation.separator.method.ruby
+T 57 source.ruby keyword.other.special-method.ruby
+L       warden_config.default_scope = Devise.default_scope
+T 19 source.ruby
+T 20 source.ruby punctuation.separator.method.ruby
+T 33 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 34 source.ruby
+T 35 source.ruby keyword.operator.assignment.ruby
+T 36 source.ruby
+T 42 source.ruby support.class.ruby
+T 43 source.ruby punctuation.separator.method.ruby
+T 56 source.ruby meta.function-call.ruby entity.name.function.ruby
+L       warden_config.intercept_401 = false
+T 19 source.ruby
+T 20 source.ruby punctuation.separator.method.ruby
+T 33 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 34 source.ruby
+T 35 source.ruby keyword.operator.assignment.ruby
+T 36 source.ruby
+T 41 source.ruby constant.language.boolean.ruby
+L 
+L       Devise.mappings.each_value do |mapping|
+T 6 source.ruby
+T 12 source.ruby support.class.ruby
+T 13 source.ruby punctuation.separator.method.ruby
+T 21 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 22 source.ruby punctuation.separator.method.ruby
+T 32 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 33 source.ruby
+T 35 source.ruby keyword.control.start-block.ruby
+T 36 source.ruby
+T 37 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 44 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 45 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+L         warden_config.scope_defaults mapping.name, strategies: mapping.strategies
+T 21 source.ruby
+T 22 source.ruby punctuation.separator.method.ruby
+T 36 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 44 source.ruby
+T 45 source.ruby punctuation.separator.method.ruby
+T 49 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 50 source.ruby punctuation.separator.object.ruby
+T 51 source.ruby
+T 61 source.ruby constant.language.symbol.hashkey.ruby
+T 62 source.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 70 source.ruby
+T 71 source.ruby punctuation.separator.method.ruby
+T 81 source.ruby meta.function-call.ruby entity.name.function.ruby
+L 
+L         warden_config.serialize_into_session(mapping.name) do |record|
+T 21 source.ruby
+T 22 source.ruby punctuation.separator.method.ruby
+T 44 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 45 source.ruby punctuation.section.function.ruby
+T 52 source.ruby
+T 53 source.ruby punctuation.separator.method.ruby
+T 57 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 58 source.ruby punctuation.section.function.ruby
+T 59 source.ruby
+T 61 source.ruby keyword.control.start-block.ruby
+T 62 source.ruby
+T 63 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 69 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 70 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+L           mapping.to.serialize_into_session(record)
+T 17 source.ruby
+T 18 source.ruby punctuation.separator.method.ruby
+T 20 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 21 source.ruby punctuation.separator.method.ruby
+T 43 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 44 source.ruby punctuation.section.function.ruby
+T 50 source.ruby
+T 51 source.ruby punctuation.section.function.ruby
+L         end
+T 8 source.ruby
+T 11 source.ruby keyword.control.ruby
+L 
+L         warden_config.serialize_from_session(mapping.name) do |args|
+T 21 source.ruby
+T 22 source.ruby punctuation.separator.method.ruby
+T 44 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 45 source.ruby punctuation.section.function.ruby
+T 52 source.ruby
+T 53 source.ruby punctuation.separator.method.ruby
+T 57 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 58 source.ruby punctuation.section.function.ruby
+T 59 source.ruby
+T 61 source.ruby keyword.control.start-block.ruby
+T 62 source.ruby
+T 63 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 67 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 68 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+L           mapping.to.serialize_from_session(*args)
+T 17 source.ruby
+T 18 source.ruby punctuation.separator.method.ruby
+T 20 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 21 source.ruby punctuation.separator.method.ruby
+T 43 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 44 source.ruby punctuation.section.function.ruby
+T 45 source.ruby keyword.operator.arithmetic.ruby
+T 49 source.ruby
+T 50 source.ruby punctuation.section.function.ruby
+L         end
+T 8 source.ruby
+T 11 source.ruby keyword.control.ruby
+L       end
+T 6 source.ruby
+T 9 source.ruby keyword.control.ruby
+L 
+L       @@warden_config_blocks.map { |block| block.call Devise.warden_config }
+T 6 source.ruby
+T 8 source.ruby variable.other.readwrite.class.ruby punctuation.definition.variable.ruby
+T 28 source.ruby variable.other.readwrite.class.ruby
+T 29 source.ruby punctuation.separator.method.ruby
+T 32 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 33 source.ruby
+T 34 source.ruby punctuation.section.scope.begin.ruby
+T 35 source.ruby meta.syntax.ruby.start-block
+T 36 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 41 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 42 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 48 source.ruby
+T 49 source.ruby punctuation.separator.method.ruby
+T 53 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 54 source.ruby
+T 60 source.ruby support.class.ruby
+T 61 source.ruby punctuation.separator.method.ruby
+T 74 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 75 source.ruby
+T 76 source.ruby punctuation.section.scope.end.ruby
+L       true
+T 6 source.ruby
+T 10 source.ruby constant.language.boolean.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   # Generate a friendly string randomly to be used as token.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 60 source.ruby comment.line.number-sign.ruby
+L   # By default, length is 20 characters.
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 40 source.ruby comment.line.number-sign.ruby
+L   def self.friendly_token(length = 20)
+T 2 source.ruby
+T 5 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.with-arguments.ruby
+T 25 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 26 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 32 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 33 source.ruby meta.function.method.with-arguments.ruby
+T 34 source.ruby meta.function.method.with-arguments.ruby keyword.operator.assignment.ruby
+T 35 source.ruby meta.function.method.with-arguments.ruby
+T 37 source.ruby meta.function.method.with-arguments.ruby constant.numeric.ruby
+T 38 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L     # To calculate real characters, we must perform this operation.
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 67 source.ruby comment.line.number-sign.ruby
+L     # See SecureRandom.urlsafe_base64
+T 4 source.ruby punctuation.whitespace.comment.leading.ruby
+T 5 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 37 source.ruby comment.line.number-sign.ruby
+L     rlength = (length * 3) / 4
+T 4 source.ruby
+T 11 source.ruby variable.ruby
+T 12 source.ruby
+T 13 source.ruby keyword.operator.assignment.ruby
+T 14 source.ruby
+T 15 source.ruby punctuation.section.function.ruby
+T 22 source.ruby
+T 23 source.ruby keyword.operator.arithmetic.ruby
+T 24 source.ruby
+T 25 source.ruby constant.numeric.ruby
+T 26 source.ruby punctuation.section.function.ruby
+T 27 source.ruby
+T 28 source.ruby keyword.operator.arithmetic.ruby
+T 29 source.ruby
+T 30 source.ruby constant.numeric.ruby
+L     SecureRandom.urlsafe_base64(rlength).tr('lIO0', 'sxyz')
+T 4 source.ruby
+T 16 source.ruby support.class.ruby
+T 17 source.ruby punctuation.separator.method.ruby
+T 31 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 32 source.ruby punctuation.section.function.ruby
+T 39 source.ruby
+T 40 source.ruby punctuation.section.function.ruby
+T 41 source.ruby punctuation.separator.method.ruby
+T 43 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 44 source.ruby punctuation.section.function.ruby
+T 45 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 49 source.ruby string.quoted.single.ruby
+T 50 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 51 source.ruby punctuation.separator.object.ruby
+T 52 source.ruby
+T 53 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 57 source.ruby string.quoted.single.ruby
+T 58 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 59 source.ruby punctuation.section.function.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   # constant-time comparison algorithm to prevent timing attacks
+T 2 source.ruby punctuation.whitespace.comment.leading.ruby
+T 3 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L   def self.secure_compare(a, b)
+T 2 source.ruby
+T 5 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.with-arguments.ruby
+T 25 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 26 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 27 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 28 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 29 source.ruby meta.function.method.with-arguments.ruby
+T 30 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 31 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L     return false if a.nil? || b.nil?
+T 4 source.ruby
+T 10 source.ruby keyword.control.pseudo-method.ruby
+T 11 source.ruby
+T 16 source.ruby constant.language.boolean.ruby
+T 17 source.ruby
+T 19 source.ruby keyword.control.ruby
+T 21 source.ruby
+T 22 source.ruby punctuation.separator.method.ruby
+T 26 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 27 source.ruby
+T 29 source.ruby keyword.operator.logical.ruby
+T 31 source.ruby
+T 32 source.ruby punctuation.separator.method.ruby
+T 36 source.ruby meta.function-call.ruby entity.name.function.ruby
+L     ActiveSupport::SecurityUtils.secure_compare(a, b)
+T 4 source.ruby
+T 17 source.ruby support.class.ruby
+T 19 source.ruby punctuation.separator.namespace.ruby
+T 32 source.ruby support.class.ruby
+T 33 source.ruby punctuation.separator.method.ruby
+T 47 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 48 source.ruby punctuation.section.function.ruby
+T 49 source.ruby
+T 50 source.ruby punctuation.separator.object.ruby
+T 52 source.ruby
+T 53 source.ruby punctuation.section.function.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L 
+L   def self.deprecator
+T 2 source.ruby
+T 5 source.ruby meta.function.method.without-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.function.method.without-arguments.ruby
+T 21 source.ruby meta.function.method.without-arguments.ruby entity.name.function.ruby
+L     @deprecator ||= ActiveSupport::Deprecation.new("5.0", "Devise")
+T 4 source.ruby
+T 5 source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 15 source.ruby variable.other.readwrite.instance.ruby
+T 16 source.ruby
+T 19 source.ruby keyword.operator.assignment.augmented.ruby
+T 20 source.ruby
+T 33 source.ruby support.class.ruby
+T 35 source.ruby punctuation.separator.namespace.ruby
+T 46 source.ruby support.class.ruby
+T 47 source.ruby punctuation.separator.method.ruby
+T 50 source.ruby keyword.other.special-method.ruby
+T 51 source.ruby punctuation.section.function.ruby
+T 52 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 55 source.ruby string.quoted.double.interpolated.ruby
+T 56 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 57 source.ruby punctuation.separator.object.ruby
+T 58 source.ruby
+T 59 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 65 source.ruby string.quoted.double.interpolated.ruby
+T 66 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 67 source.ruby punctuation.section.function.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L end
+T 3 source.ruby keyword.control.ruby
+L 
+L require 'warden'
+T 7 source.ruby meta.require.ruby keyword.other.special-method.ruby
+T 8 source.ruby meta.require.ruby
+T 9 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 15 source.ruby meta.require.ruby string.quoted.single.ruby
+T 16 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L require 'devise/mapping'
+T 7 source.ruby meta.require.ruby keyword.other.special-method.ruby
+T 8 source.ruby meta.require.ruby
+T 9 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 23 source.ruby meta.require.ruby string.quoted.single.ruby
+T 24 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L require 'devise/models'
+T 7 source.ruby meta.require.ruby keyword.other.special-method.ruby
+T 8 source.ruby meta.require.ruby
+T 9 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 22 source.ruby meta.require.ruby string.quoted.single.ruby
+T 23 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L require 'devise/modules'
+T 7 source.ruby meta.require.ruby keyword.other.special-method.ruby
+T 8 source.ruby meta.require.ruby
+T 9 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 23 source.ruby meta.require.ruby string.quoted.single.ruby
+T 24 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L require 'devise/rails'
+T 7 source.ruby meta.require.ruby keyword.other.special-method.ruby
+T 8 source.ruby meta.require.ruby
+T 9 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 21 source.ruby meta.require.ruby string.quoted.single.ruby
+T 22 source.ruby meta.require.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L 

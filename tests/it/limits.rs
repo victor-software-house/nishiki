@@ -14,6 +14,7 @@ mod kotlin;
 mod make;
 mod markdown;
 mod python;
+mod ruby;
 mod rust;
 mod shell;
 mod sql;

@@ -41,6 +41,9 @@ pub(crate) struct Scratch {
     /// The Go lexer's, for Go documents.
     #[cfg(feature = "lang-go")]
     pub(crate) go: crate::go::Scratch,
+    /// The Ruby lexer's, for Ruby documents.
+    #[cfg(feature = "lang-ruby")]
+    pub(crate) ruby: crate::ruby::Scratch,
     /// The Makefile lexer's.
     #[cfg(feature = "lang-make")]
     pub(crate) make: crate::make::Scratch,

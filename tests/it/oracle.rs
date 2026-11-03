@@ -81,6 +81,11 @@ fn parse(path: &Path) -> Vec<Line> {
 /// calls, so each language plugs in without a shared trait.
 type Tokens = Vec<(usize, String)>;
 
+/// What a fixture expects for a byte it does not check: Shiki passes a theme
+/// colour that is not hex through, such as one-light's `inherit`, where
+/// nishiki sets no colour.
+const UNCHECKED: &str = "unchecked";
+
 fn compare(lines: &[Line], mut lex: impl FnMut(&str) -> Tokens) -> (usize, Vec<Miss>) {
     let mut checked = 0;
     let mut misses = Vec::new();
@@ -92,11 +97,11 @@ fn compare(lines: &[Line], mut lex: impl FnMut(&str) -> Tokens) -> (usize, Vec<M
             start = end;
         }
         for (column, byte) in line.text.bytes().enumerate() {
-            if byte.is_ascii_whitespace() {
+            let expected = line.stacks.get(column).map_or("", String::as_str);
+            if byte.is_ascii_whitespace() || expected == UNCHECKED {
                 continue;
             }
             checked += 1;
-            let expected = line.stacks.get(column).map_or("", String::as_str);
             let got = actual.get(column).map_or("", String::as_str);
             if expected != got {
                 misses.push(Miss {
@@ -200,15 +205,14 @@ fn parse_colours(colours: &Path, fixture: &Path) -> Vec<Line> {
                     .next()
                     .and_then(|end| end.parse().ok())
                     .expect("a byte end");
-                let colour = fields
-                    .next()
-                    .and_then(nishiki::Color::from_hex)
-                    .expect("a hex colour");
+                let colour = fields.next().expect("a colour");
                 let font: u8 = fields
                     .next()
                     .and_then(|font| font.parse().ok())
                     .expect("font bits");
-                stacks.extend((start..end).map(|_| format!("{colour}:{font}")));
+                let style = nishiki::Color::from_hex(colour)
+                    .map_or_else(|| UNCHECKED.to_owned(), |colour| format!("{colour}:{font}"));
+                stacks.extend((start..end).map(|_| style.clone()));
                 start = end;
             }
             Line {

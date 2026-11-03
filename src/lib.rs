@@ -83,6 +83,8 @@ mod make;
 mod markdown;
 #[cfg(feature = "lang-python")]
 mod python;
+#[cfg(feature = "lang-ruby")]
+mod ruby;
 #[cfg(feature = "_rule-engine")]
 mod rules;
 #[cfg(feature = "lang-rust")]

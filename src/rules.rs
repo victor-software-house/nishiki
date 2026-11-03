@@ -1,7 +1,7 @@
 //! The rule engine that the languages written from a `TextMate` grammar share:
-//! Python, Java, CSS, Make, Kotlin and Go run on it, and each language supplies
-//! a [`Grammar`], the generated tables of its rules and patterns, and the
-//! hand-written matchers that decide where each pattern matches.
+//! Python, Java, CSS, Make, Kotlin, Go and Ruby run on it, and each language
+//! supplies a [`Grammar`], the generated tables of its rules and patterns, and
+//! the hand-written matchers that decide where each pattern matches.
 //!
 //! The engine runs the grammar's rules the way a `TextMate` engine does, with
 //! those matchers instead of regular expressions: the per-line loop, `\G`,
@@ -10,6 +10,8 @@
 
 mod chars;
 mod lexer;
+#[cfg(any(feature = "lang-go", feature = "lang-ruby"))]
+mod runs;
 mod tables;
 
 use std::fmt::Debug;
@@ -19,6 +21,8 @@ pub(crate) use chars::Chars;
 #[cfg(feature = "lang-css")]
 pub(crate) use lexer::FIRST_LINE;
 pub(crate) use lexer::{Lexer, Scratch};
+#[cfg(any(feature = "lang-go", feature = "lang-ruby"))]
+pub(crate) use runs::{CachedRuns, HasRuns, Runs};
 pub(crate) use tables::Tables;
 #[cfg(feature = "_rule-tables")]
 pub(crate) use tables::table_scan;

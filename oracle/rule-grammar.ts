@@ -48,10 +48,18 @@ const WORD = () => union(union(union(range(48, 57), range(65, 90)), union(range(
 const SPACE = () => union(union(single(32), range(9, 13)), nonAscii());
 const DIGIT = () => union(range(48, 57), nonAscii());
 
+/** What a backreference repeats, for the bytes it can start with: a quote,
+ * as in the grammars whose backreferences close strings, or anything, as in
+ * Ruby's, which repeat a heredoc's name or a percent literal's delimiter. */
+export type Backref = "quote" | "any";
+
 class RegexParser {
   pos = 0;
   groups = 0;
-  constructor(readonly src: string) {}
+  constructor(
+    readonly src: string,
+    readonly backref: Backref,
+  ) {}
 
   parse(): Info {
     const result = this.alternation();
@@ -263,7 +271,7 @@ class RegexParser {
         return info(FULL());
       }
       default:
-        if (/[1-9]/.test(c)) return info(union(single(39), single(34))); // a quote, which every backreference repeats
+        if (/[1-9]/.test(c)) return info(this.backref === "quote" ? union(single(39), single(34)) : FULL());
         return info(single(c.charCodeAt(0)));
     }
   }
@@ -401,7 +409,10 @@ function propertySet(negated: boolean, name: string): Set {
 
 
 /** The bytes a match of `regex` can start at, and its anchors. */
-export function startOf(regex: string): { set: Set; bol: boolean; any: boolean; wb: boolean } {
+export function startOf(
+  regex: string,
+  backref: Backref = "quote",
+): { set: Set; bol: boolean; any: boolean; wb: boolean } {
   let result: Info;
   let ci = false;
   let source = regex;
@@ -410,7 +421,7 @@ export function startOf(regex: string): { set: Set; bol: boolean; any: boolean; 
     source = source.slice(4);
   }
   try {
-    result = new RegexParser(source).parse();
+    result = new RegexParser(source, backref).parse();
   } catch {
     // Syntax the analysis does not read: a match can start anywhere.
     return { set: FULL(), bol: false, any: true, wb: false };
@@ -454,7 +465,7 @@ const hex = (w: bigint) => {
 };
 
 /** `Pat::start`: the bytes each pattern can start at, and its anchors. */
-export function startTable(pats: { id: string; regex: string }[]): string {
+export function startTable(pats: { id: string; regex: string }[], backref: Backref = "quote"): string {
   let starts = `
 
 impl Pat {
@@ -463,7 +474,7 @@ ${tooLong}    pub(crate) fn start(self) -> Start {
 `;
   starts += arms(
     pats.map((p): [string, string] => {
-      const { set, bol, any, wb } = startOf(p.regex);
+      const { set, bol, any, wb } = startOf(p.regex, backref);
       const words = (any ? FULL() : set).map(hex).join(", ");
       return [p.id, `Start {\n                bytes: [${words}],\n                bol: ${bol},\n                wb: ${wb},\n            }`];
     }),

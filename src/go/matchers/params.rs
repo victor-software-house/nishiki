@@ -3,7 +3,7 @@
 
 use super::super::engine::Lexer;
 use super::types::Lead;
-use crate::rules::Chars;
+use crate::rules::{CachedRuns, Chars};
 
 /// Whether white space may stand before each comma of a list of names.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

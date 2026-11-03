@@ -132,6 +132,7 @@ assert_eq!(highlighter.limits().depth, None);
 | CSS | `Language::Css` | `lang-css` | `css` |
 | Kotlin | `Language::Kotlin` | `lang-kotlin` | `kotlin`, `kt`, `kts` |
 | Go | `Language::Go` | `lang-go` | `go`, `golang` |
+| Ruby | `Language::Ruby` | `lang-ruby` | `ruby`, `rb` |
 
 ### Features
 
@@ -363,6 +364,12 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   - on a long line of many words Shiki's engine stops an expression at its retry limit and leaves the rest of the line plain, where nishiki lexes it.
 - A Markdown fence names the language `go` or `golang`.
 - `\w`, `\s` and `\d` for non-ASCII characters come from the JSON table above.
+
+### Ruby
+
+- A here document named for another language, such as `<<~SQL` or `<<~RUBY`, is lexed as an ordinary here document.
+  Shiki lexes its lines in that language.
+- The text after `__END__` is plain, where Shiki lexes it as HTML when it starts like HTML.
 
 ## Licence
 

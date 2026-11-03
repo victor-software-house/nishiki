@@ -36,6 +36,10 @@ pub(crate) trait Chars {
     /// Whether the character before `i` is `byte`.
     fn prev_is(&self, i: usize, byte: u8) -> bool;
 
+    /// Where the character that ends at `i` starts; the line feed after the
+    /// text is one character.
+    fn char_start_before(&self, i: usize) -> usize;
+
     /// The end of `text` at `i` when the line has it there.
     fn lit(&self, i: usize, text: &[u8]) -> Option<usize>;
 
@@ -137,6 +141,20 @@ impl<G: Grammar> Chars for Lexer<'_, G> {
     #[inline]
     fn prev_is(&self, i: usize, byte: u8) -> bool {
         i > 0 && self.s.get(i - 1) == Some(&byte)
+    }
+
+    /// Where the character that ends at `i` starts; the line feed after the
+    /// text is one character.
+    #[inline]
+    fn char_start_before(&self, i: usize) -> usize {
+        if i > self.lim() {
+            return self.lim();
+        }
+        let mut start = i - 1;
+        while start > 0 && self.s[start] & 0xc0 == 0x80 {
+            start -= 1;
+        }
+        start
     }
 
     /// The end of `text` at `i` when the line has it there.

@@ -20,15 +20,6 @@ impl Lexer<'_> {
         i
     }
 
-    /// The start of the character that ends at `i`.
-    fn char_start_before(&self, i: usize) -> usize {
-        let mut start = i - 1;
-        while start > 0 && self.s[start] & 0xc0 == 0x80 {
-            start -= 1;
-        }
-        start
-    }
-
     /// The end of `[.\w]+\b` from `from`, where the run took its first
     /// character: the run gives back characters until `\b` holds, and `after`
     /// rejects the end it is not allowed to have.
