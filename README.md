@@ -137,6 +137,7 @@ assert_eq!(highlighter.limits().depth, None);
 | JSON with comments | `Language::Jsonc` | `lang-json` | `jsonc` |
 | JSON Lines | `Language::Jsonl` | `lang-json` | `jsonl` |
 | JSX | `Language::Jsx` | `lang-jsx` | `jsx` |
+| Julia | `Language::Julia` | `lang-julia` | `julia`, `jl` |
 | Kotlin | `Language::Kotlin` | `lang-kotlin` | `kotlin`, `kt`, `kts` |
 | Lua | `Language::Lua` | `lang-lua` | `lua` |
 | Makefile | `Language::Make` | `lang-make` | `make`, `makefile` |
@@ -179,7 +180,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative) |
   | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
   | `docs` | Markdown and `config` |
-  | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix, Dart |
+  | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix, Dart, Julia |
 
 - `textmate` holds the languages nishiki's own `TextMate` engine runs from Shiki's grammars, compiled in as tables.
   It is off by default and not in `all`, so the default build carries no grammar tables.
@@ -497,6 +498,13 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 - The body of `ffi.cdef[[...]]` is the plain content of its brackets, where Shiki lexes it as C.
 - A long string or comment closes only at a bracket with as many `=` signs as it opened with, across lines.
 - A Markdown fence names the language `lua`.
+
+### Julia
+
+- The C++ inside a `cxx"""` or `icxx"""` string macro and the R inside an `R"""` one are plain, where Shiki lexes them as C++ and R.
+  Julia's table leaves out the C++ and R grammars, which Julia embeds: R's may not be bundled, and C++'s brings GLSL's, which may not either.
+  The macro and its quotes keep Shiki's scopes, and so does `$` interpolation inside.
+- The Python, JavaScript and SQL inside `py"""`, `js"""` and `sql"""` string macros are lexed as Shiki lexes them, by engine copies of those grammars in Julia's table.
 
 ## Licence
 

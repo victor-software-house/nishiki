@@ -21,6 +21,8 @@ mod html_derivative;
 mod ini;
 mod java;
 mod json;
+#[cfg(feature = "lang-julia")]
+mod julia;
 mod kotlin;
 mod lua;
 mod make;

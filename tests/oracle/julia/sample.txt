@@ -1,0 +1,112 @@
+L function mandelbrot(a)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 19 source.julia entity.name.function.julia
+T 20 source.julia meta.bracket.julia
+T 21 source.julia
+T 22 source.julia meta.bracket.julia
+L     z = 0
+T 6 source.julia
+T 7 source.julia keyword.operator.update.julia
+T 8 source.julia
+T 9 source.julia constant.numeric.julia
+L     for i=1:50
+T 4 source.julia
+T 7 source.julia keyword.control.julia
+T 9 source.julia
+T 10 source.julia keyword.operator.update.julia
+T 11 source.julia constant.numeric.julia
+T 12 source.julia keyword.operator.range.julia
+T 14 source.julia constant.numeric.julia
+L         z = z^2 + a
+T 10 source.julia
+T 11 source.julia keyword.operator.update.julia
+T 13 source.julia
+T 14 source.julia keyword.operator.arithmetic.julia
+T 15 source.julia constant.numeric.julia
+T 16 source.julia
+T 17 source.julia keyword.operator.arithmetic.julia
+T 19 source.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     return z
+T 4 source.julia
+T 10 source.julia keyword.control.julia
+T 12 source.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L for y=1.0:-0.05:-1.0
+T 3 source.julia keyword.control.julia
+T 5 source.julia
+T 6 source.julia keyword.operator.update.julia
+T 9 source.julia constant.numeric.julia
+T 10 source.julia keyword.operator.range.julia
+T 11 source.julia keyword.operator.arithmetic.julia
+T 15 source.julia constant.numeric.julia
+T 16 source.julia keyword.operator.range.julia
+T 17 source.julia keyword.operator.arithmetic.julia
+T 20 source.julia constant.numeric.julia
+L     for x=-2.0:0.0315:0.5
+T 4 source.julia
+T 7 source.julia keyword.control.julia
+T 9 source.julia
+T 10 source.julia keyword.operator.update.julia
+T 11 source.julia keyword.operator.arithmetic.julia
+T 14 source.julia constant.numeric.julia
+T 15 source.julia keyword.operator.range.julia
+T 21 source.julia constant.numeric.julia
+T 22 source.julia keyword.operator.range.julia
+T 25 source.julia constant.numeric.julia
+L         abs(mandelbrot(complex(x, y))) < 2 ? print("*") : print(" ")
+T 8 source.julia
+T 11 source.julia support.function.julia
+T 12 source.julia meta.bracket.julia
+T 22 source.julia support.function.julia
+T 23 source.julia meta.bracket.julia
+T 30 source.julia support.function.julia
+T 31 source.julia meta.bracket.julia
+T 32 source.julia
+T 33 source.julia punctuation.separator.comma.julia
+T 35 source.julia
+T 36 source.julia meta.bracket.julia
+T 37 source.julia meta.bracket.julia
+T 38 source.julia meta.bracket.julia
+T 39 source.julia
+T 40 source.julia keyword.operator.relation.julia
+T 41 source.julia
+T 42 source.julia constant.numeric.julia
+T 43 source.julia
+T 44 source.julia keyword.operator.ternary.julia
+T 45 source.julia
+T 50 source.julia support.function.julia
+T 51 source.julia meta.bracket.julia
+T 52 source.julia string.quoted.double.julia punctuation.definition.string.begin.julia
+T 53 source.julia string.quoted.double.julia
+T 54 source.julia string.quoted.double.julia punctuation.definition.string.end.julia
+T 55 source.julia meta.bracket.julia
+T 56 source.julia
+T 57 source.julia keyword.operator.ternary.julia
+T 58 source.julia
+T 63 source.julia support.function.julia
+T 64 source.julia meta.bracket.julia
+T 65 source.julia string.quoted.double.julia punctuation.definition.string.begin.julia
+T 66 source.julia string.quoted.double.julia
+T 67 source.julia string.quoted.double.julia punctuation.definition.string.end.julia
+T 68 source.julia meta.bracket.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     println()
+T 4 source.julia
+T 11 source.julia support.function.julia
+T 12 source.julia meta.bracket.julia
+T 13 source.julia meta.bracket.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L # From: https://rosettacode.org/wiki/Mandelbrot_set#Julia
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 57 source.julia comment.line.number-sign.julia
+L 

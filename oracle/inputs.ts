@@ -138,6 +138,8 @@ const jquery =
   "https://raw.githubusercontent.com/jquery/jquery/feaa9fcdb68cdeadf013d97d8fd40848d4618578";
 const jsonLua =
   "https://raw.githubusercontent.com/rxi/json.lua/dbf4b2dd2eb7c23be2773c89eb059dadd6436f94";
+const julia =
+  "https://raw.githubusercontent.com/JuliaLang/julia/aca9097c30df5ff53ee088a90cce5ffcea478f70";
 const kafka =
   "https://raw.githubusercontent.com/apache/kafka/da5316228ee604724dbcede405ebbf7f18f1dbf3";
 const kingfisher =
@@ -532,6 +534,11 @@ export const inputs: Input[] = [
   { lang: "jsx", name: "preact-keys", url: `${preact}/test/browser/keys.test.jsx` },
   { lang: "jsx", name: "preact-render", url: `${preact}/compat/test/browser/render.test.jsx` },
   { lang: "jsx", name: "sample", url: `${samples}/jsx.sample` },
+  // Julia runs on the TextMate engine.
+  { lang: "julia", name: "base-abstractset", url: `${julia}/base/abstractset.jl` },
+  { lang: "julia", name: "base-sort", url: `${julia}/base/sort.jl` },
+  { lang: "julia", name: "sample", url: `${samples}/julia.sample` },
+  { lang: "julia", name: "strings-util", url: `${julia}/base/strings/util.jl` },
   {
     lang: "kotlin",
     name: "coroutines-produce",
@@ -655,6 +662,8 @@ export const inputs: Input[] = [
     name: "jekyll-front-matter",
     url: `${jekyll}/docs/_docs/front-matter.md`,
   },
+  { lang: "markdown", name: "julia-functions", url: `${julia}/doc/src/manual/functions.md` },
+  { lang: "markdown", name: "julia-strings", url: `${julia}/doc/src/manual/strings.md` },
   {
     lang: "markdown",
     name: "kingfisher-common-tasks-cache",

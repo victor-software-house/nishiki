@@ -4,7 +4,12 @@
 # entity and attribute names (`ofr`, `pluse`, `seeked`) are not English.
 # Each src/<language>/grammar.rs listed here is generated from that
 # language's grammar and keeps the grammar's own words.
-extend-exclude = ["*.lock", "src/bat/grammar.rs", "src/html/words.rs"]
+extend-exclude = [
+  "*.lock",
+  "src/bat/grammar.rs",
+  "src/html/words.rs",
+  "src/julia/grammar.rs",
+]
 
 # Unicode general-category codes, such as Nd, which are not words.
 [default.extend-words]

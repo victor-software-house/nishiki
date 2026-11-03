@@ -255,6 +255,12 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `dart/collection-algorithms` | [`pkgs/collection/lib/src/algorithms.dart`][dart-collection-algorithms] in dart-lang/core | [BSD-3-Clause][dart-core-licence] |
 | `markdown/dart-http-readme` | [`pkgs/http/README.md`][dart-http-readme] in dart-lang/http | [BSD-3-Clause][dart-http-licence] |
 | `markdown/dart-args-readme` | [`pkgs/args/README.md`][dart-args-readme] in dart-lang/core | [BSD-3-Clause][dart-core-licence] |
+| `julia/sample` | [`samples/julia.sample`][julia-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `julia/base-abstractset` | [`base/abstractset.jl`][julia-base-abstractset] in JuliaLang/julia | [MIT][julia-licence] |
+| `julia/base-sort` | [`base/sort.jl`][julia-base-sort] in JuliaLang/julia | [MIT][julia-licence] |
+| `julia/strings-util` | [`base/strings/util.jl`][julia-strings-util] in JuliaLang/julia | [MIT][julia-licence] |
+| `markdown/julia-functions` | [`doc/src/manual/functions.md`][julia-manual-functions] in JuliaLang/julia | [MIT][julia-licence] |
+| `markdown/julia-strings` | [`doc/src/manual/strings.md`][julia-manual-strings] in JuliaLang/julia | [MIT][julia-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -452,6 +458,10 @@ Dart runs on nishiki's TextMate engine as well.
 `html/todomvc-polymer`, `html/h5bp-404`, `html/todomvc-lit`, `html/three-geometry-colors`, `html/mathjax-tex-mml`, `html/three-loader-gltf`, `html/bootstrap3-visual-modal`, `html/jquery-delegatetest`, `html/todomvc-knockoutjs` and `html/todomvc-jquery` are held out.
 The held-out ones cover `<style>` CSS, classic and module `<script>` JavaScript, a Polymer `<template>`, and character entities; the MathML of `html/mathjax-mml-chtml` is a development input.
 TodoMVC's `license.md` puts the repository under MIT unless a file says otherwise, and its Polymer example carries its own BSD-3-Clause `LICENSE`.
+Julia runs on nishiki's TextMate engine as well.
+`julia/sample` and `julia/base-abstractset` are its development inputs, and `markdown/julia-functions` is the development input for Julia fences.
+`julia/base-sort`, `julia/strings-util` and `markdown/julia-strings` are held out.
+None of them has a `cxx`, `icxx` or `R` string macro, whose contents Shiki lexes as C++ and R and nishiki leaves plain.
 
 `erb/sample`, `erb/rails-welcome`, `erb/rails-routes-table`, `erb/rails-rescues-source`, `erb/devise-registrations-edit` and `erb/rails-scaffold-form` are the development inputs for ERB.
 `erb/rails-mailer-email`, `erb/rails-rescues-diagnostics`, `erb/rails-info-notes`, `erb/rails-app-layout`, `erb/rails-pwa-offline`, `erb/devise-shared-links`, `erb/devise-confirmation-instructions`, `erb/devise-sessions-new` and `erb/devise-error-messages` are held out.
@@ -678,6 +688,13 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [jsonc-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/jsonc.sample
 [jsonl-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/jsonl.sample
 [jsx-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/jsx.sample
+[julia-base-abstractset]: https://github.com/JuliaLang/julia/blob/aca9097c30df5ff53ee088a90cce5ffcea478f70/base/abstractset.jl
+[julia-base-sort]: https://github.com/JuliaLang/julia/blob/aca9097c30df5ff53ee088a90cce5ffcea478f70/base/sort.jl
+[julia-licence]: https://github.com/JuliaLang/julia/blob/aca9097c30df5ff53ee088a90cce5ffcea478f70/LICENSE.md
+[julia-manual-functions]: https://github.com/JuliaLang/julia/blob/aca9097c30df5ff53ee088a90cce5ffcea478f70/doc/src/manual/functions.md
+[julia-manual-strings]: https://github.com/JuliaLang/julia/blob/aca9097c30df5ff53ee088a90cce5ffcea478f70/doc/src/manual/strings.md
+[julia-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/julia.sample
+[julia-strings-util]: https://github.com/JuliaLang/julia/blob/aca9097c30df5ff53ee088a90cce5ffcea478f70/base/strings/util.jl
 [kafka-consumer]: https://github.com/apache/kafka/blob/da5316228ee604724dbcede405ebbf7f18f1dbf3/config/consumer.properties
 [kafka-licence]: https://github.com/apache/kafka/blob/da5316228ee604724dbcede405ebbf7f18f1dbf3/LICENSE
 [kafka-server]: https://github.com/apache/kafka/blob/da5316228ee604724dbcede405ebbf7f18f1dbf3/config/server.properties

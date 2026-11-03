@@ -18,6 +18,13 @@
 // stands for every language the oracle's inputs use, which is the set the
 // oracle's Shiki highlighter loads.
 //
+// `~` followed by a language id leaves that language out, even when the
+// registration of a language in the spec brings it along, as Julia's brings
+// C++ and R: `julia~cpp~r` loads Julia with Python, JavaScript and SQL only.
+// A rule that includes a language left out is dropped, as Shiki drops it for
+// a grammar it has not loaded. A grammar the crate must not bundle stays out
+// of a shipped table this way.
+//
 // The tables hold what the engine needs and nothing it can work out later: the
 // rules with their includes already followed, the patterns as text (compiled on
 // first use), and the scope names interned. A rule whose patterns all include a
@@ -67,16 +74,23 @@ if (!outDir || ids.length === 0) throw new Error("usage: engine-tables.ts <out d
 async function load(spec: string): Promise<{ docs: Map<string, Json>; scope: string }> {
   const docs = new Map<string, Json>();
   let scope = "";
-  const ids = spec.split("+").flatMap((id) => (id === "*" ? [...new Set(inputs.map((i) => i.lang))] : [id]));
+  const [included, ...excluded] = spec.split("~");
+  const left = new Set(excluded);
+  const ids = included.split("+").flatMap((id) => (id === "*" ? [...new Set(inputs.map((i) => i.lang))] : [id]));
   for (const id of ids) {
     const loader = bundledLanguages[id as keyof typeof bundledLanguages];
     if (!loader) throw new Error(`Shiki has no language ${id}`);
     const registrations = ((await loader()) as { default: Json[] }).default;
-    for (const grammar of registrations) docs.set(String(grammar.scopeName), grammar);
+    for (const grammar of registrations) {
+      if (!left.has(String(grammar.name))) docs.set(String(grammar.scopeName), grammar);
+    }
     if (scope === "") scope = String(registrations[registrations.length - 1].scopeName);
   }
   return { docs, scope };
 }
+
+/** The language a spec compiles: its first id. */
+const base = (spec: string) => spec.split(/[+~]/)[0];
 
 class Builder {
   rules: Rule[] = [];
@@ -432,7 +446,7 @@ for (const id of ids) {
         applyEndLast: r.applyEndLast,
       })),
     };
-    writeFileSync(`${outDir}/${id.split("+")[0]}.json`, JSON.stringify(data));
+    writeFileSync(`${outDir}/${base(id)}.json`, JSON.stringify(data));
     console.log(`${id}: ${builder.rules.length} rules, ${builder.patterns.length} patterns`);
     continue;
   }
@@ -475,6 +489,6 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     root: ${root},
 };
 `;
-  writeFileSync(`${outDir}/${shipped ? "grammar" : id.split("+")[0]}.rs`, source);
+  writeFileSync(`${outDir}/${shipped ? "grammar" : base(id)}.rs`, source);
   console.log(`${id}: ${builder.rules.length} rules, ${builder.patterns.length} patterns, ${builder.names.length} names`);
 }

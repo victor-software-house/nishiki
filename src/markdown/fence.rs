@@ -272,6 +272,12 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Dart,
     },
+    #[cfg(feature = "lang-julia")]
+    Name {
+        words: &["julia"],
+        brace: Some("julia"),
+        lang: Language::Julia,
+    },
 ];
 
 /// A language found in an info string.

@@ -102,6 +102,7 @@ textmate = [
   "lang-bat",
   "lang-cmake",
   "lang-dart",
+  "lang-julia",
   "lang-nix",
   "lang-powershell",
   "lang-proto",
@@ -137,6 +138,7 @@ lang-java = ["_scope-table", "_rule-tables", "_classes"]
 lang-javascript = ["_classes", "_space"]
 lang-json = ["_classes", "_utf8", "_frame-kinds"]
 lang-jsx = ["_classes", "_space"]
+lang-julia = ["_textmate"]
 lang-kotlin = ["_scope-table", "_rule-tables", "_classes"]
 lang-lua = ["_scope-table", "_rule-tables", "_classes"]
 lang-make = [

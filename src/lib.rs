@@ -93,6 +93,8 @@ mod ini;
 mod java;
 #[cfg(feature = "lang-json")]
 mod json;
+#[cfg(feature = "lang-julia")]
+mod julia;
 #[cfg(feature = "lang-kotlin")]
 mod kotlin;
 mod language;

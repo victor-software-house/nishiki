@@ -521,6 +521,8 @@ const EMBEDDED: &[(Language, S)] = &[
     (Language::Lua, S::EmbeddedLua),
     #[cfg(feature = "lang-dart")]
     (Language::Dart, S::EmbeddedDart),
+    #[cfg(feature = "lang-julia")]
+    (Language::Julia, S::EmbeddedJulia),
 ];
 
 /// The scope a container adds to the text between its opening and closing.

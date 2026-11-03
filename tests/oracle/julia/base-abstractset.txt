@@ -1,0 +1,3065 @@
+L # This file is a part of Julia. License is MIT: https://julialang.org/license
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 77 source.julia comment.line.number-sign.julia
+L 
+L eltype(::Type{<:AbstractSet{T}}) where {T} = @isdefined(T) ? T : Any
+T 6 source.julia entity.name.function.julia
+T 7 source.julia meta.bracket.julia
+T 9 source.julia keyword.operator.relation.types.julia
+T 31 source.julia support.type.julia
+T 32 source.julia meta.bracket.julia
+T 33 source.julia
+T 38 source.julia keyword.other.julia
+T 39 source.julia
+T 40 source.julia meta.bracket.julia
+T 41 source.julia
+T 42 source.julia meta.bracket.julia
+T 43 source.julia
+T 44 source.julia keyword.operator.update.julia
+T 45 source.julia
+T 55 source.julia support.function.macro.julia
+T 56 source.julia meta.bracket.julia
+T 57 source.julia
+T 58 source.julia meta.bracket.julia
+T 59 source.julia
+T 60 source.julia keyword.operator.ternary.julia
+T 63 source.julia
+T 64 source.julia keyword.operator.ternary.julia
+T 68 source.julia
+L sizehint!(s::AbstractSet, n) = s
+T 9 source.julia entity.name.function.julia
+T 10 source.julia meta.bracket.julia
+T 11 source.julia
+T 13 source.julia keyword.operator.relation.types.julia
+T 24 source.julia support.type.julia
+T 25 source.julia punctuation.separator.comma.julia
+T 27 source.julia
+T 28 source.julia meta.bracket.julia
+T 29 source.julia
+T 30 source.julia keyword.operator.update.julia
+T 32 source.julia
+L 
+L function copy!(dst::AbstractSet, src::AbstractSet)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 14 source.julia entity.name.function.julia
+T 15 source.julia meta.bracket.julia
+T 18 source.julia
+T 20 source.julia keyword.operator.relation.types.julia
+T 31 source.julia support.type.julia
+T 32 source.julia punctuation.separator.comma.julia
+T 36 source.julia
+T 38 source.julia keyword.operator.relation.types.julia
+T 49 source.julia support.type.julia
+T 50 source.julia meta.bracket.julia
+L     dst === src && return dst
+T 8 source.julia
+T 11 source.julia keyword.operator.relation.julia
+T 16 source.julia
+T 18 source.julia keyword.operator.boolean.julia
+T 19 source.julia
+T 25 source.julia keyword.control.julia
+T 29 source.julia
+L     union!(empty!(dst), src)
+T 4 source.julia
+T 10 source.julia support.function.julia
+T 11 source.julia meta.bracket.julia
+T 17 source.julia support.function.julia
+T 18 source.julia meta.bracket.julia
+T 21 source.julia
+T 22 source.julia meta.bracket.julia
+T 23 source.julia punctuation.separator.comma.julia
+T 27 source.julia
+T 28 source.julia meta.bracket.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L ## set operations (union, intersection, symmetric difference)
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 61 source.julia comment.line.number-sign.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     union(s, itrs...)
+T 21 source.julia string.docstring.julia
+L     ∪(s, itrs...)
+T 19 source.julia string.docstring.julia
+L 
+L Construct an object containing all distinct elements from all of the arguments.
+T 79 source.julia string.docstring.julia
+L 
+L The first argument controls what kind of container is returned.
+T 63 source.julia string.docstring.julia
+L If this is an array, it maintains the order in which elements first appear.
+T 75 source.julia string.docstring.julia
+L 
+L Unicode `∪` can be typed by writing `\\cup` then pressing tab in the Julia REPL, and in many editors.
+T 39 source.julia string.docstring.julia
+T 41 source.julia string.docstring.julia constant.character.escape.julia
+T 103 source.julia string.docstring.julia
+L This is an infix operator, allowing `s ∪ itr`.
+T 48 source.julia string.docstring.julia
+L 
+L See also [`unique`](@ref), [`intersect`](@ref), [`isdisjoint`](@ref), [`vcat`](@ref), [`Iterators.flatten`](@ref).
+T 114 source.julia string.docstring.julia
+L 
+L # Examples
+T 10 source.julia string.docstring.julia
+L ```jldoctest; filter = r"^\\s+\\d\$"m
+T 26 source.julia string.docstring.julia
+T 28 source.julia string.docstring.julia constant.character.escape.julia
+T 30 source.julia string.docstring.julia
+T 32 source.julia string.docstring.julia constant.character.escape.julia
+T 33 source.julia string.docstring.julia
+T 35 source.julia string.docstring.julia constant.character.escape.julia
+T 37 source.julia string.docstring.julia
+L julia> union([1, 2], [3])
+T 25 source.julia string.docstring.julia
+L 3-element Vector{Int64}:
+T 24 source.julia string.docstring.julia
+L  1
+T 2 source.julia string.docstring.julia
+L  2
+T 2 source.julia string.docstring.julia
+L  3
+T 2 source.julia string.docstring.julia
+L 
+L julia> union([4 2 3 4 4], 1:3, 3.0)
+T 35 source.julia string.docstring.julia
+L 4-element Vector{Float64}:
+T 26 source.julia string.docstring.julia
+L  4.0
+T 4 source.julia string.docstring.julia
+L  2.0
+T 4 source.julia string.docstring.julia
+L  3.0
+T 4 source.julia string.docstring.julia
+L  1.0
+T 4 source.julia string.docstring.julia
+L 
+L julia> (0, 0.0) ∪ (-0.0, NaN)
+T 31 source.julia string.docstring.julia
+L 3-element Vector{Real}:
+T 23 source.julia string.docstring.julia
+L    0
+T 4 source.julia string.docstring.julia
+L   -0.0
+T 6 source.julia string.docstring.julia
+L  NaN
+T 4 source.julia string.docstring.julia
+L 
+L julia> union(Set([1, 2]), 2:3)
+T 30 source.julia string.docstring.julia
+L Set{Int64} with 3 elements:
+T 27 source.julia string.docstring.julia
+L   2
+T 3 source.julia string.docstring.julia
+L   3
+T 3 source.julia string.docstring.julia
+L   1
+T 3 source.julia string.docstring.julia
+L ```
+T 3 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L function union end
+T 8 source.julia keyword.other.julia
+T 15 source.julia
+T 18 source.julia keyword.control.end.julia
+L 
+L union(s, sets...) = union!(emptymutable(s, setop_eltype(s, sets...)), s, sets...)
+T 5 source.julia entity.name.function.julia
+T 6 source.julia meta.bracket.julia
+T 7 source.julia
+T 8 source.julia punctuation.separator.comma.julia
+T 13 source.julia
+T 16 source.julia keyword.operator.dots.julia
+T 17 source.julia meta.bracket.julia
+T 18 source.julia
+T 19 source.julia keyword.operator.update.julia
+T 20 source.julia
+T 26 source.julia support.function.julia
+T 27 source.julia meta.bracket.julia
+T 39 source.julia support.function.julia
+T 40 source.julia meta.bracket.julia
+T 41 source.julia
+T 42 source.julia punctuation.separator.comma.julia
+T 43 source.julia
+T 55 source.julia support.function.julia
+T 56 source.julia meta.bracket.julia
+T 57 source.julia
+T 58 source.julia punctuation.separator.comma.julia
+T 63 source.julia
+T 66 source.julia keyword.operator.dots.julia
+T 67 source.julia meta.bracket.julia
+T 68 source.julia meta.bracket.julia
+T 69 source.julia punctuation.separator.comma.julia
+T 71 source.julia
+T 72 source.julia punctuation.separator.comma.julia
+T 77 source.julia
+T 80 source.julia keyword.operator.dots.julia
+T 81 source.julia meta.bracket.julia
+L union(s::AbstractSet) = copy(s)
+T 5 source.julia entity.name.function.julia
+T 6 source.julia meta.bracket.julia
+T 7 source.julia
+T 9 source.julia keyword.operator.relation.types.julia
+T 20 source.julia support.type.julia
+T 21 source.julia meta.bracket.julia
+T 22 source.julia
+T 23 source.julia keyword.operator.update.julia
+T 24 source.julia
+T 28 source.julia support.function.julia
+T 29 source.julia meta.bracket.julia
+T 30 source.julia
+T 31 source.julia meta.bracket.julia
+L 
+L # Element type of the result of a set operation. `IdSet` overrides this, since converting
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 89 source.julia comment.line.number-sign.julia
+L # an element would change its identity. See also #48448.
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 56 source.julia comment.line.number-sign.julia
+L setop_eltype(s, itrs...) = promote_eltype(s, itrs...)
+T 12 source.julia entity.name.function.julia
+T 13 source.julia meta.bracket.julia
+T 14 source.julia
+T 15 source.julia punctuation.separator.comma.julia
+T 20 source.julia
+T 23 source.julia keyword.operator.dots.julia
+T 24 source.julia meta.bracket.julia
+T 25 source.julia
+T 26 source.julia keyword.operator.update.julia
+T 27 source.julia
+T 41 source.julia support.function.julia
+T 42 source.julia meta.bracket.julia
+T 43 source.julia
+T 44 source.julia punctuation.separator.comma.julia
+T 49 source.julia
+T 52 source.julia keyword.operator.dots.julia
+T 53 source.julia meta.bracket.julia
+L 
+L const ∪ = union
+T 5 source.julia keyword.storage.modifier.julia
+T 6 source.julia
+T 9 source.julia keyword.operator.arithmetic.julia
+T 10 source.julia
+T 11 source.julia keyword.operator.update.julia
+T 17 source.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     union!(s::Union{AbstractSet,AbstractVector}, itrs...)
+T 57 source.julia string.docstring.julia
+L 
+L Construct the [`union`](@ref) of passed in sets and overwrite `s` with the result.
+T 82 source.julia string.docstring.julia
+L Maintain order with arrays.
+T 27 source.julia string.docstring.julia
+L 
+L $(_DOCS_ALIASING_WARNING)
+T 1 source.julia string.docstring.julia variable.interpolation.julia
+T 2 source.julia string.docstring.julia variable.interpolation.julia meta.bracket.julia
+T 24 source.julia string.docstring.julia variable.interpolation.julia
+T 25 source.julia string.docstring.julia variable.interpolation.julia meta.bracket.julia
+L 
+L # Examples
+T 10 source.julia string.docstring.julia
+L ```jldoctest; filter = r"^\\s+\\d\$"m
+T 26 source.julia string.docstring.julia
+T 28 source.julia string.docstring.julia constant.character.escape.julia
+T 30 source.julia string.docstring.julia
+T 32 source.julia string.docstring.julia constant.character.escape.julia
+T 33 source.julia string.docstring.julia
+T 35 source.julia string.docstring.julia constant.character.escape.julia
+T 37 source.julia string.docstring.julia
+L julia> a = Set([3, 4, 5]);
+T 26 source.julia string.docstring.julia
+L 
+L julia> union!(a, 1:2:7);
+T 24 source.julia string.docstring.julia
+L 
+L julia> a
+T 8 source.julia string.docstring.julia
+L Set{Int64} with 5 elements:
+T 27 source.julia string.docstring.julia
+L   5
+T 3 source.julia string.docstring.julia
+L   4
+T 3 source.julia string.docstring.julia
+L   7
+T 3 source.julia string.docstring.julia
+L   3
+T 3 source.julia string.docstring.julia
+L   1
+T 3 source.julia string.docstring.julia
+L ```
+T 3 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L function union!(s::AbstractSet, sets...)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 15 source.julia entity.name.function.julia
+T 16 source.julia meta.bracket.julia
+T 17 source.julia
+T 19 source.julia keyword.operator.relation.types.julia
+T 30 source.julia support.type.julia
+T 31 source.julia punctuation.separator.comma.julia
+T 36 source.julia
+T 39 source.julia keyword.operator.dots.julia
+T 40 source.julia meta.bracket.julia
+L     for x in sets
+T 4 source.julia
+T 7 source.julia keyword.control.julia
+T 10 source.julia
+T 12 source.julia keyword.operator.relation.in.julia
+T 17 source.julia
+L         union!(s, x)
+T 8 source.julia
+T 14 source.julia support.function.julia
+T 15 source.julia meta.bracket.julia
+T 16 source.julia
+T 17 source.julia punctuation.separator.comma.julia
+T 19 source.julia
+T 20 source.julia meta.bracket.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     return s
+T 4 source.julia
+T 10 source.julia keyword.control.julia
+T 12 source.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L max_values(::Type) = typemax(Int)
+T 10 source.julia entity.name.function.julia
+T 11 source.julia meta.bracket.julia
+T 13 source.julia keyword.operator.relation.types.julia
+T 17 source.julia support.type.julia
+T 18 source.julia meta.bracket.julia
+T 19 source.julia
+T 20 source.julia keyword.operator.update.julia
+T 21 source.julia
+T 28 source.julia support.function.julia
+T 29 source.julia meta.bracket.julia
+T 32 source.julia
+T 33 source.julia meta.bracket.julia
+L max_values(T::Union{map(X -> Type{X}, BitIntegerSmall_types)...}) = 1 << (8*sizeof(T))
+T 10 source.julia entity.name.function.julia
+T 11 source.julia meta.bracket.julia
+T 12 source.julia
+T 14 source.julia keyword.operator.relation.types.julia
+T 64 source.julia support.type.julia
+T 65 source.julia meta.bracket.julia
+T 66 source.julia
+T 67 source.julia keyword.operator.update.julia
+T 68 source.julia
+T 69 source.julia constant.numeric.julia
+T 70 source.julia
+T 72 source.julia keyword.operator.shift.julia
+T 73 source.julia
+T 74 source.julia meta.bracket.julia
+T 75 source.julia constant.numeric.julia
+T 76 source.julia keyword.operator.arithmetic.julia
+T 82 source.julia support.function.julia
+T 83 source.julia meta.bracket.julia
+T 84 source.julia
+T 85 source.julia meta.bracket.julia
+T 86 source.julia meta.bracket.julia
+L # saturated addition to prevent overflow with typemax(Int)
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 58 source.julia comment.line.number-sign.julia
+L function max_values(T::Union)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 19 source.julia entity.name.function.julia
+T 20 source.julia meta.bracket.julia
+T 21 source.julia
+T 23 source.julia keyword.operator.relation.types.julia
+T 28 source.julia support.type.julia
+T 29 source.julia meta.bracket.julia
+L     a = max_values(T.a)::Int
+T 6 source.julia
+T 7 source.julia keyword.operator.update.julia
+T 8 source.julia
+T 18 source.julia support.function.julia
+T 19 source.julia meta.bracket.julia
+T 20 source.julia
+T 21 source.julia keyword.operator.dots.julia
+T 22 source.julia
+T 23 source.julia meta.bracket.julia
+T 25 source.julia keyword.operator.relation.types.julia
+T 28 source.julia support.type.julia
+L     b = max_values(T.b)::Int
+T 6 source.julia
+T 7 source.julia keyword.operator.update.julia
+T 8 source.julia
+T 18 source.julia support.function.julia
+T 19 source.julia meta.bracket.julia
+T 20 source.julia
+T 21 source.julia keyword.operator.dots.julia
+T 22 source.julia
+T 23 source.julia meta.bracket.julia
+T 25 source.julia keyword.operator.relation.types.julia
+T 28 source.julia support.type.julia
+L     r, o = add_with_overflow(a, b)
+T 5 source.julia
+T 6 source.julia punctuation.separator.comma.julia
+T 9 source.julia
+T 10 source.julia keyword.operator.update.julia
+T 11 source.julia
+T 28 source.julia support.function.julia
+T 29 source.julia meta.bracket.julia
+T 30 source.julia
+T 31 source.julia punctuation.separator.comma.julia
+T 33 source.julia
+T 34 source.julia meta.bracket.julia
+L     o && return typemax(Int)
+T 6 source.julia
+T 8 source.julia keyword.operator.boolean.julia
+T 9 source.julia
+T 15 source.julia keyword.control.julia
+T 16 source.julia
+T 23 source.julia support.function.julia
+T 24 source.julia meta.bracket.julia
+T 27 source.julia
+T 28 source.julia meta.bracket.julia
+L     return r
+T 4 source.julia
+T 10 source.julia keyword.control.julia
+T 12 source.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L max_values(::Type{Bool}) = 2
+T 10 source.julia entity.name.function.julia
+T 11 source.julia meta.bracket.julia
+T 13 source.julia keyword.operator.relation.types.julia
+T 23 source.julia support.type.julia
+T 24 source.julia meta.bracket.julia
+T 25 source.julia
+T 26 source.julia keyword.operator.update.julia
+T 27 source.julia
+T 28 source.julia constant.numeric.julia
+L max_values(::Type{Nothing}) = 1
+T 10 source.julia entity.name.function.julia
+T 11 source.julia meta.bracket.julia
+T 13 source.julia keyword.operator.relation.types.julia
+T 26 source.julia support.type.julia
+T 27 source.julia meta.bracket.julia
+T 28 source.julia
+T 29 source.julia keyword.operator.update.julia
+T 30 source.julia
+T 31 source.julia constant.numeric.julia
+L 
+L function union!(s::AbstractSet{T}, itr) where T
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 15 source.julia entity.name.function.julia
+T 16 source.julia meta.bracket.julia
+T 17 source.julia
+T 19 source.julia keyword.operator.relation.types.julia
+T 33 source.julia support.type.julia
+T 34 source.julia punctuation.separator.comma.julia
+T 38 source.julia
+T 39 source.julia meta.bracket.julia
+T 40 source.julia
+T 45 source.julia keyword.other.julia
+T 47 source.julia
+L     haslength(itr) && sizehint!(s, length(s) + Int(length(itr))::Int; shrink = false)
+T 4 source.julia
+T 13 source.julia support.function.julia
+T 14 source.julia meta.bracket.julia
+T 17 source.julia
+T 18 source.julia meta.bracket.julia
+T 19 source.julia
+T 21 source.julia keyword.operator.boolean.julia
+T 22 source.julia
+T 31 source.julia support.function.julia
+T 32 source.julia meta.bracket.julia
+T 33 source.julia
+T 34 source.julia punctuation.separator.comma.julia
+T 35 source.julia
+T 41 source.julia support.function.julia
+T 42 source.julia meta.bracket.julia
+T 43 source.julia
+T 44 source.julia meta.bracket.julia
+T 45 source.julia
+T 46 source.julia keyword.operator.arithmetic.julia
+T 47 source.julia
+T 50 source.julia support.function.julia
+T 51 source.julia meta.bracket.julia
+T 57 source.julia support.function.julia
+T 58 source.julia meta.bracket.julia
+T 61 source.julia
+T 62 source.julia meta.bracket.julia
+T 63 source.julia meta.bracket.julia
+T 65 source.julia keyword.operator.relation.types.julia
+T 68 source.julia support.type.julia
+T 69 source.julia punctuation.separator.semicolon.julia
+T 77 source.julia
+T 78 source.julia keyword.operator.update.julia
+T 79 source.julia
+T 84 source.julia constant.language.julia
+T 85 source.julia meta.bracket.julia
+L     for x in itr
+T 4 source.julia
+T 7 source.julia keyword.control.julia
+T 10 source.julia
+T 12 source.julia keyword.operator.relation.in.julia
+T 16 source.julia
+L         push!(s, x)
+T 8 source.julia
+T 13 source.julia support.function.julia
+T 14 source.julia meta.bracket.julia
+T 15 source.julia
+T 16 source.julia punctuation.separator.comma.julia
+T 18 source.julia
+T 19 source.julia meta.bracket.julia
+L         eltype(itr) <: T && length(s) == max_values(T) && break
+T 8 source.julia
+T 14 source.julia support.function.julia
+T 15 source.julia meta.bracket.julia
+T 18 source.julia
+T 19 source.julia meta.bracket.julia
+T 20 source.julia
+T 22 source.julia keyword.operator.relation.types.julia
+T 23 source.julia
+T 24 source.julia support.type.julia
+T 25 source.julia
+T 27 source.julia keyword.operator.boolean.julia
+T 28 source.julia
+T 34 source.julia support.function.julia
+T 35 source.julia meta.bracket.julia
+T 36 source.julia
+T 37 source.julia meta.bracket.julia
+T 38 source.julia
+T 40 source.julia keyword.operator.relation.julia
+T 41 source.julia
+T 51 source.julia support.function.julia
+T 52 source.julia meta.bracket.julia
+T 53 source.julia
+T 54 source.julia meta.bracket.julia
+T 55 source.julia
+T 57 source.julia keyword.operator.boolean.julia
+T 58 source.julia
+T 63 source.julia keyword.control.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     return s
+T 4 source.julia
+T 10 source.julia keyword.control.julia
+T 12 source.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     intersect(s, itrs...)
+T 25 source.julia string.docstring.julia
+L     ∩(s, itrs...)
+T 19 source.julia string.docstring.julia
+L 
+L Construct the set containing those elements which appear in all of the arguments.
+T 81 source.julia string.docstring.julia
+L 
+L The first argument controls what kind of container is returned.
+T 63 source.julia string.docstring.julia
+L If this is an array, it maintains the order in which elements first appear.
+T 75 source.julia string.docstring.julia
+L 
+L Unicode `∩` can be typed by writing `\\cap` then pressing tab in the Julia REPL, and in many editors.
+T 39 source.julia string.docstring.julia
+T 41 source.julia string.docstring.julia constant.character.escape.julia
+T 103 source.julia string.docstring.julia
+L This is an infix operator, allowing `s ∩ itr`.
+T 48 source.julia string.docstring.julia
+L 
+L See also [`setdiff`](@ref), [`isdisjoint`](@ref), [`issubset`](@ref Base.issubset), [`issetequal`](@ref).
+T 105 source.julia string.docstring.julia
+L 
+L !!! compat "Julia 1.8"
+T 22 source.julia string.docstring.julia
+L     As of Julia 1.8 intersect returns a result with the eltype of the
+T 69 source.julia string.docstring.julia
+L     type-promoted eltypes of the two inputs
+T 43 source.julia string.docstring.julia
+L 
+L # Examples
+T 10 source.julia string.docstring.julia
+L ```jldoctest
+T 12 source.julia string.docstring.julia
+L julia> intersect([1, 2, 3], [3, 4, 5])
+T 38 source.julia string.docstring.julia
+L 1-element Vector{Int64}:
+T 24 source.julia string.docstring.julia
+L  3
+T 2 source.julia string.docstring.julia
+L 
+L julia> intersect([1, 4, 4, 5, 6], [6, 4, 6, 7, 8])
+T 50 source.julia string.docstring.julia
+L 2-element Vector{Int64}:
+T 24 source.julia string.docstring.julia
+L  4
+T 2 source.julia string.docstring.julia
+L  6
+T 2 source.julia string.docstring.julia
+L 
+L julia> intersect(1:16, 7:99)
+T 28 source.julia string.docstring.julia
+L 7:16
+T 4 source.julia string.docstring.julia
+L 
+L julia> (0, 0.0) ∩ (-0.0, 0)
+T 29 source.julia string.docstring.julia
+L 1-element Vector{Real}:
+T 23 source.julia string.docstring.julia
+L  0
+T 2 source.julia string.docstring.julia
+L 
+L julia> intersect(Set([1, 2]), BitSet([2, 3]), 1.0:10.0)
+T 55 source.julia string.docstring.julia
+L Set{Float64} with 1 element:
+T 28 source.julia string.docstring.julia
+L   2.0
+T 5 source.julia string.docstring.julia
+L ```
+T 3 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L function intersect(s::AbstractSet, itr, itrs...)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 18 source.julia entity.name.function.julia
+T 19 source.julia meta.bracket.julia
+T 20 source.julia
+T 22 source.julia keyword.operator.relation.types.julia
+T 33 source.julia support.type.julia
+T 34 source.julia punctuation.separator.comma.julia
+T 38 source.julia
+T 39 source.julia punctuation.separator.comma.julia
+T 44 source.julia
+T 47 source.julia keyword.operator.dots.julia
+T 48 source.julia meta.bracket.julia
+L     # heuristics to try to `intersect` with the shortest Set on the left
+T 4 source.julia
+T 5 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 72 source.julia comment.line.number-sign.julia
+L     if length(s)>50 && haslength(itr) && all(haslength, itrs)
+T 4 source.julia
+T 6 source.julia keyword.control.julia
+T 7 source.julia
+T 13 source.julia support.function.julia
+T 14 source.julia meta.bracket.julia
+T 15 source.julia
+T 16 source.julia meta.bracket.julia
+T 17 source.julia keyword.operator.relation.julia
+T 19 source.julia constant.numeric.julia
+T 20 source.julia
+T 22 source.julia keyword.operator.boolean.julia
+T 23 source.julia
+T 32 source.julia support.function.julia
+T 33 source.julia meta.bracket.julia
+T 36 source.julia
+T 37 source.julia meta.bracket.julia
+T 38 source.julia
+T 40 source.julia keyword.operator.boolean.julia
+T 41 source.julia
+T 44 source.julia support.function.julia
+T 45 source.julia meta.bracket.julia
+T 54 source.julia
+T 55 source.julia punctuation.separator.comma.julia
+T 60 source.julia
+T 61 source.julia meta.bracket.julia
+L         min_length, min_idx = findmin(length, itrs)
+T 18 source.julia
+T 19 source.julia punctuation.separator.comma.julia
+T 28 source.julia
+T 29 source.julia keyword.operator.update.julia
+T 30 source.julia
+T 37 source.julia support.function.julia
+T 38 source.julia meta.bracket.julia
+T 44 source.julia
+T 45 source.julia punctuation.separator.comma.julia
+T 50 source.julia
+T 51 source.julia meta.bracket.julia
+L         if length(itr) > min_length
+T 8 source.julia
+T 10 source.julia keyword.control.julia
+T 11 source.julia
+T 17 source.julia support.function.julia
+T 18 source.julia meta.bracket.julia
+T 21 source.julia
+T 22 source.julia meta.bracket.julia
+T 23 source.julia
+T 24 source.julia keyword.operator.relation.julia
+T 35 source.julia
+L             new_itrs = setindex(itrs, itr, min_idx)
+T 21 source.julia
+T 22 source.julia keyword.operator.update.julia
+T 23 source.julia
+T 31 source.julia support.function.julia
+T 32 source.julia meta.bracket.julia
+T 36 source.julia
+T 37 source.julia punctuation.separator.comma.julia
+T 41 source.julia
+T 42 source.julia punctuation.separator.comma.julia
+T 50 source.julia
+T 51 source.julia meta.bracket.julia
+L             return intersect(s, itrs[min_idx], new_itrs...)
+T 12 source.julia
+T 18 source.julia keyword.control.julia
+T 19 source.julia
+T 28 source.julia support.function.julia
+T 29 source.julia meta.bracket.julia
+T 30 source.julia
+T 31 source.julia punctuation.separator.comma.julia
+T 36 source.julia
+T 37 source.julia meta.array.julia meta.bracket.julia
+T 44 source.julia meta.array.julia
+T 45 source.julia meta.array.julia meta.bracket.julia
+T 46 source.julia punctuation.separator.comma.julia
+T 55 source.julia
+T 58 source.julia keyword.operator.dots.julia
+T 59 source.julia meta.bracket.julia
+L         end
+T 8 source.julia
+T 11 source.julia keyword.control.end.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     T = setop_eltype(s, itr, itrs...)
+T 6 source.julia
+T 7 source.julia keyword.operator.update.julia
+T 8 source.julia
+T 20 source.julia support.function.julia
+T 21 source.julia meta.bracket.julia
+T 22 source.julia
+T 23 source.julia punctuation.separator.comma.julia
+T 27 source.julia
+T 28 source.julia punctuation.separator.comma.julia
+T 33 source.julia
+T 36 source.julia keyword.operator.dots.julia
+T 37 source.julia meta.bracket.julia
+L     if T == setop_eltype(s, itr)
+T 4 source.julia
+T 6 source.julia keyword.control.julia
+T 9 source.julia
+T 11 source.julia keyword.operator.relation.julia
+T 12 source.julia
+T 24 source.julia support.function.julia
+T 25 source.julia meta.bracket.julia
+T 26 source.julia
+T 27 source.julia punctuation.separator.comma.julia
+T 31 source.julia
+T 32 source.julia meta.bracket.julia
+L         out = intersect(s, itr)
+T 12 source.julia
+T 13 source.julia keyword.operator.update.julia
+T 14 source.julia
+T 23 source.julia support.function.julia
+T 24 source.julia meta.bracket.julia
+T 25 source.julia
+T 26 source.julia punctuation.separator.comma.julia
+T 30 source.julia
+T 31 source.julia meta.bracket.julia
+L     else
+T 4 source.julia
+T 8 source.julia keyword.control.julia
+L         out = union!(emptymutable(s, T), s)
+T 12 source.julia
+T 13 source.julia keyword.operator.update.julia
+T 14 source.julia
+T 20 source.julia support.function.julia
+T 21 source.julia meta.bracket.julia
+T 33 source.julia support.function.julia
+T 34 source.julia meta.bracket.julia
+T 35 source.julia
+T 36 source.julia punctuation.separator.comma.julia
+T 38 source.julia
+T 39 source.julia meta.bracket.julia
+T 40 source.julia punctuation.separator.comma.julia
+T 42 source.julia
+T 43 source.julia meta.bracket.julia
+L         intersect!(out, itr)
+T 8 source.julia
+T 18 source.julia support.function.julia
+T 19 source.julia meta.bracket.julia
+T 22 source.julia
+T 23 source.julia punctuation.separator.comma.julia
+T 27 source.julia
+T 28 source.julia meta.bracket.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     return intersect!(out, itrs...)
+T 4 source.julia
+T 10 source.julia keyword.control.julia
+T 11 source.julia
+T 21 source.julia support.function.julia
+T 22 source.julia meta.bracket.julia
+T 25 source.julia
+T 26 source.julia punctuation.separator.comma.julia
+T 31 source.julia
+T 34 source.julia keyword.operator.dots.julia
+T 35 source.julia meta.bracket.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L intersect(s) = union(s)
+T 9 source.julia entity.name.function.julia
+T 10 source.julia meta.bracket.julia
+T 11 source.julia
+T 12 source.julia meta.bracket.julia
+T 13 source.julia
+T 14 source.julia keyword.operator.update.julia
+T 15 source.julia
+T 20 source.julia support.function.julia
+T 21 source.julia meta.bracket.julia
+T 22 source.julia
+T 23 source.julia meta.bracket.julia
+L function intersect(s::AbstractSet, itr)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 18 source.julia entity.name.function.julia
+T 19 source.julia meta.bracket.julia
+T 20 source.julia
+T 22 source.julia keyword.operator.relation.types.julia
+T 33 source.julia support.type.julia
+T 34 source.julia punctuation.separator.comma.julia
+T 38 source.julia
+T 39 source.julia meta.bracket.julia
+L     if haslength(itr) && hasfastin(itr) && length(s) < length(itr)
+T 4 source.julia
+T 6 source.julia keyword.control.julia
+T 7 source.julia
+T 16 source.julia support.function.julia
+T 17 source.julia meta.bracket.julia
+T 20 source.julia
+T 21 source.julia meta.bracket.julia
+T 22 source.julia
+T 24 source.julia keyword.operator.boolean.julia
+T 25 source.julia
+T 34 source.julia support.function.julia
+T 35 source.julia meta.bracket.julia
+T 38 source.julia
+T 39 source.julia meta.bracket.julia
+T 40 source.julia
+T 42 source.julia keyword.operator.boolean.julia
+T 43 source.julia
+T 49 source.julia support.function.julia
+T 50 source.julia meta.bracket.julia
+T 51 source.julia
+T 52 source.julia meta.bracket.julia
+T 53 source.julia
+T 54 source.julia keyword.operator.relation.julia
+T 55 source.julia
+T 61 source.julia support.function.julia
+T 62 source.julia meta.bracket.julia
+T 65 source.julia
+T 66 source.julia meta.bracket.julia
+L         return mapfilter(in(itr), push!, s, emptymutable(s, setop_eltype(s, itr)))
+T 8 source.julia
+T 14 source.julia keyword.control.julia
+T 15 source.julia
+T 24 source.julia support.function.julia
+T 25 source.julia meta.bracket.julia
+T 27 source.julia support.function.julia
+T 28 source.julia meta.bracket.julia
+T 31 source.julia
+T 32 source.julia meta.bracket.julia
+T 33 source.julia punctuation.separator.comma.julia
+T 39 source.julia
+T 40 source.julia punctuation.separator.comma.julia
+T 42 source.julia
+T 43 source.julia punctuation.separator.comma.julia
+T 44 source.julia
+T 56 source.julia support.function.julia
+T 57 source.julia meta.bracket.julia
+T 58 source.julia
+T 59 source.julia punctuation.separator.comma.julia
+T 60 source.julia
+T 72 source.julia support.function.julia
+T 73 source.julia meta.bracket.julia
+T 74 source.julia
+T 75 source.julia punctuation.separator.comma.julia
+T 79 source.julia
+T 80 source.julia meta.bracket.julia
+T 81 source.julia meta.bracket.julia
+T 82 source.julia meta.bracket.julia
+L     else
+T 4 source.julia
+T 8 source.julia keyword.control.julia
+L         return mapfilter(in(s), push!, itr, emptymutable(s, setop_eltype(s, itr)))
+T 8 source.julia
+T 14 source.julia keyword.control.julia
+T 15 source.julia
+T 24 source.julia support.function.julia
+T 25 source.julia meta.bracket.julia
+T 27 source.julia support.function.julia
+T 28 source.julia meta.bracket.julia
+T 29 source.julia
+T 30 source.julia meta.bracket.julia
+T 31 source.julia punctuation.separator.comma.julia
+T 37 source.julia
+T 38 source.julia punctuation.separator.comma.julia
+T 42 source.julia
+T 43 source.julia punctuation.separator.comma.julia
+T 44 source.julia
+T 56 source.julia support.function.julia
+T 57 source.julia meta.bracket.julia
+T 58 source.julia
+T 59 source.julia punctuation.separator.comma.julia
+T 60 source.julia
+T 72 source.julia support.function.julia
+T 73 source.julia meta.bracket.julia
+T 74 source.julia
+T 75 source.julia punctuation.separator.comma.julia
+T 79 source.julia
+T 80 source.julia meta.bracket.julia
+T 81 source.julia meta.bracket.julia
+T 82 source.julia meta.bracket.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L const ∩ = intersect
+T 5 source.julia keyword.storage.modifier.julia
+T 6 source.julia
+T 9 source.julia keyword.operator.arithmetic.julia
+T 10 source.julia
+T 11 source.julia keyword.operator.update.julia
+T 21 source.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     intersect!(s::Union{AbstractSet,AbstractVector}, itrs...)
+T 61 source.julia string.docstring.julia
+L 
+L Intersect all passed in sets and overwrite `s` with the result.
+T 63 source.julia string.docstring.julia
+L Maintain order with arrays.
+T 27 source.julia string.docstring.julia
+L 
+L $(_DOCS_ALIASING_WARNING)
+T 1 source.julia string.docstring.julia variable.interpolation.julia
+T 2 source.julia string.docstring.julia variable.interpolation.julia meta.bracket.julia
+T 24 source.julia string.docstring.julia variable.interpolation.julia
+T 25 source.julia string.docstring.julia variable.interpolation.julia meta.bracket.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L function intersect!(s::AbstractSet, itrs...)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 19 source.julia entity.name.function.julia
+T 20 source.julia meta.bracket.julia
+T 21 source.julia
+T 23 source.julia keyword.operator.relation.types.julia
+T 34 source.julia support.type.julia
+T 35 source.julia punctuation.separator.comma.julia
+T 40 source.julia
+T 43 source.julia keyword.operator.dots.julia
+T 44 source.julia meta.bracket.julia
+L     for x in itrs
+T 4 source.julia
+T 7 source.julia keyword.control.julia
+T 10 source.julia
+T 12 source.julia keyword.operator.relation.in.julia
+T 17 source.julia
+L         intersect!(s, x)
+T 8 source.julia
+T 18 source.julia support.function.julia
+T 19 source.julia meta.bracket.julia
+T 20 source.julia
+T 21 source.julia punctuation.separator.comma.julia
+T 23 source.julia
+T 24 source.julia meta.bracket.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     return s
+T 4 source.julia
+T 10 source.julia keyword.control.julia
+T 12 source.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L intersect!(s::AbstractSet, s2::AbstractSet) = filter!(in(s2), s)
+T 10 source.julia entity.name.function.julia
+T 11 source.julia meta.bracket.julia
+T 12 source.julia
+T 14 source.julia keyword.operator.relation.types.julia
+T 25 source.julia support.type.julia
+T 26 source.julia punctuation.separator.comma.julia
+T 29 source.julia
+T 31 source.julia keyword.operator.relation.types.julia
+T 42 source.julia support.type.julia
+T 43 source.julia meta.bracket.julia
+T 44 source.julia
+T 45 source.julia keyword.operator.update.julia
+T 46 source.julia
+T 53 source.julia support.function.julia
+T 54 source.julia meta.bracket.julia
+T 56 source.julia support.function.julia
+T 57 source.julia meta.bracket.julia
+T 59 source.julia
+T 60 source.julia meta.bracket.julia
+T 61 source.julia punctuation.separator.comma.julia
+T 63 source.julia
+T 64 source.julia meta.bracket.julia
+L intersect!(s::AbstractSet, itr) =
+T 10 source.julia entity.name.function.julia
+T 11 source.julia meta.bracket.julia
+T 12 source.julia
+T 14 source.julia keyword.operator.relation.types.julia
+T 25 source.julia support.type.julia
+T 26 source.julia punctuation.separator.comma.julia
+T 30 source.julia
+T 31 source.julia meta.bracket.julia
+T 32 source.julia
+T 33 source.julia keyword.operator.update.julia
+L     intersect!(s, union!(emptymutable(s, eltype(itr)), itr))
+T 4 source.julia
+T 14 source.julia support.function.julia
+T 15 source.julia meta.bracket.julia
+T 16 source.julia
+T 17 source.julia punctuation.separator.comma.julia
+T 18 source.julia
+T 24 source.julia support.function.julia
+T 25 source.julia meta.bracket.julia
+T 37 source.julia support.function.julia
+T 38 source.julia meta.bracket.julia
+T 39 source.julia
+T 40 source.julia punctuation.separator.comma.julia
+T 41 source.julia
+T 47 source.julia support.function.julia
+T 48 source.julia meta.bracket.julia
+T 51 source.julia
+T 52 source.julia meta.bracket.julia
+T 53 source.julia meta.bracket.julia
+T 54 source.julia punctuation.separator.comma.julia
+T 58 source.julia
+T 59 source.julia meta.bracket.julia
+T 60 source.julia meta.bracket.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     setdiff(s, itrs...)
+T 23 source.julia string.docstring.julia
+L 
+L Construct the set of distinct elements in `s` but not in any of the iterables in `itrs`.
+T 88 source.julia string.docstring.julia
+L If `s` is not an `AbstractSet` (e.g. an array), the result is a `Vector` without duplicates
+T 91 source.julia string.docstring.julia
+L that maintains the order in which elements first appear in `s`.
+T 63 source.julia string.docstring.julia
+L 
+L See also [`setdiff!`](@ref), [`union`](@ref), [`intersect`](@ref).
+T 66 source.julia string.docstring.julia
+L 
+L # Examples
+T 10 source.julia string.docstring.julia
+L ```jldoctest
+T 12 source.julia string.docstring.julia
+L julia> setdiff([1,2,3], [3,4,5])
+T 32 source.julia string.docstring.julia
+L 2-element Vector{Int64}:
+T 24 source.julia string.docstring.julia
+L  1
+T 2 source.julia string.docstring.julia
+L  2
+T 2 source.julia string.docstring.julia
+L 
+L julia> setdiff([1,2,3], [1.0, 2.0])
+T 35 source.julia string.docstring.julia
+L 1-element Vector{Int64}:
+T 24 source.julia string.docstring.julia
+L  3
+T 2 source.julia string.docstring.julia
+L 
+L julia> setdiff([3, 1, 1, 2, 3], [2])
+T 36 source.julia string.docstring.julia
+L 2-element Vector{Int64}:
+T 24 source.julia string.docstring.julia
+L  3
+T 2 source.julia string.docstring.julia
+L  1
+T 2 source.julia string.docstring.julia
+L ```
+T 3 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L setdiff(s::AbstractSet, itrs...) = setdiff!(copymutable(s), itrs...)
+T 7 source.julia entity.name.function.julia
+T 8 source.julia meta.bracket.julia
+T 9 source.julia
+T 11 source.julia keyword.operator.relation.types.julia
+T 22 source.julia support.type.julia
+T 23 source.julia punctuation.separator.comma.julia
+T 28 source.julia
+T 31 source.julia keyword.operator.dots.julia
+T 32 source.julia meta.bracket.julia
+T 33 source.julia
+T 34 source.julia keyword.operator.update.julia
+T 35 source.julia
+T 43 source.julia support.function.julia
+T 44 source.julia meta.bracket.julia
+T 55 source.julia support.function.julia
+T 56 source.julia meta.bracket.julia
+T 57 source.julia
+T 58 source.julia meta.bracket.julia
+T 59 source.julia punctuation.separator.comma.julia
+T 64 source.julia
+T 67 source.julia keyword.operator.dots.julia
+T 68 source.julia meta.bracket.julia
+L setdiff(s) = union(s)
+T 7 source.julia entity.name.function.julia
+T 8 source.julia meta.bracket.julia
+T 9 source.julia
+T 10 source.julia meta.bracket.julia
+T 11 source.julia
+T 12 source.julia keyword.operator.update.julia
+T 13 source.julia
+T 18 source.julia support.function.julia
+T 19 source.julia meta.bracket.julia
+T 20 source.julia
+T 21 source.julia meta.bracket.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     setdiff!(s, itrs...)
+T 24 source.julia string.docstring.julia
+L 
+L Remove from set `s` (in-place) each element of each iterable from `itrs`.
+T 73 source.julia string.docstring.julia
+L Maintain order with arrays.
+T 27 source.julia string.docstring.julia
+L 
+L $(_DOCS_ALIASING_WARNING)
+T 1 source.julia string.docstring.julia variable.interpolation.julia
+T 2 source.julia string.docstring.julia variable.interpolation.julia meta.bracket.julia
+T 24 source.julia string.docstring.julia variable.interpolation.julia
+T 25 source.julia string.docstring.julia variable.interpolation.julia meta.bracket.julia
+L 
+L # Examples
+T 10 source.julia string.docstring.julia
+L ```jldoctest
+T 12 source.julia string.docstring.julia
+L julia> a = Set([1, 3, 4, 5]);
+T 29 source.julia string.docstring.julia
+L 
+L julia> setdiff!(a, 1:2:6);
+T 26 source.julia string.docstring.julia
+L 
+L julia> a
+T 8 source.julia string.docstring.julia
+L Set{Int64} with 1 element:
+T 26 source.julia string.docstring.julia
+L   4
+T 3 source.julia string.docstring.julia
+L ```
+T 3 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L function setdiff!(s::AbstractSet, itrs...)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 17 source.julia entity.name.function.julia
+T 18 source.julia meta.bracket.julia
+T 19 source.julia
+T 21 source.julia keyword.operator.relation.types.julia
+T 32 source.julia support.type.julia
+T 33 source.julia punctuation.separator.comma.julia
+T 38 source.julia
+T 41 source.julia keyword.operator.dots.julia
+T 42 source.julia meta.bracket.julia
+L     for x in itrs
+T 4 source.julia
+T 7 source.julia keyword.control.julia
+T 10 source.julia
+T 12 source.julia keyword.operator.relation.in.julia
+T 17 source.julia
+L         setdiff!(s, x)
+T 8 source.julia
+T 16 source.julia support.function.julia
+T 17 source.julia meta.bracket.julia
+T 18 source.julia
+T 19 source.julia punctuation.separator.comma.julia
+T 21 source.julia
+T 22 source.julia meta.bracket.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     return s
+T 4 source.julia
+T 10 source.julia keyword.control.julia
+T 12 source.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L function setdiff!(s::AbstractSet, itr)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 17 source.julia entity.name.function.julia
+T 18 source.julia meta.bracket.julia
+T 19 source.julia
+T 21 source.julia keyword.operator.relation.types.julia
+T 32 source.julia support.type.julia
+T 33 source.julia punctuation.separator.comma.julia
+T 37 source.julia
+T 38 source.julia meta.bracket.julia
+L     for x in itr
+T 4 source.julia
+T 7 source.julia keyword.control.julia
+T 10 source.julia
+T 12 source.julia keyword.operator.relation.in.julia
+T 16 source.julia
+L         delete!(s, x)
+T 8 source.julia
+T 15 source.julia support.function.julia
+T 16 source.julia meta.bracket.julia
+T 17 source.julia
+T 18 source.julia punctuation.separator.comma.julia
+T 20 source.julia
+T 21 source.julia meta.bracket.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     return s
+T 4 source.julia
+T 10 source.julia keyword.control.julia
+T 12 source.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     symdiff(s, itrs...)
+T 23 source.julia string.docstring.julia
+L 
+L Construct the symmetric difference of elements in the passed in sets.
+T 69 source.julia string.docstring.julia
+L When `s` is not an `AbstractSet`, the order is maintained.
+T 58 source.julia string.docstring.julia
+L 
+L See also [`symdiff!`](@ref), [`setdiff`](@ref), [`union`](@ref), [`intersect`](@ref).
+T 85 source.julia string.docstring.julia
+L 
+L # Examples
+T 10 source.julia string.docstring.julia
+L ```jldoctest
+T 12 source.julia string.docstring.julia
+L julia> symdiff([1,2,3], [3,4,5], [4,5,6])
+T 41 source.julia string.docstring.julia
+L 3-element Vector{Int64}:
+T 24 source.julia string.docstring.julia
+L  1
+T 2 source.julia string.docstring.julia
+L  2
+T 2 source.julia string.docstring.julia
+L  6
+T 2 source.julia string.docstring.julia
+L 
+L julia> symdiff([1,2,1], [2, 1, 2])
+T 34 source.julia string.docstring.julia
+L Int64[]
+T 7 source.julia string.docstring.julia
+L ```
+T 3 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L symdiff(s, sets...) = symdiff!(emptymutable(s, setop_eltype(s, sets...)), s, sets...)
+T 7 source.julia entity.name.function.julia
+T 8 source.julia meta.bracket.julia
+T 9 source.julia
+T 10 source.julia punctuation.separator.comma.julia
+T 15 source.julia
+T 18 source.julia keyword.operator.dots.julia
+T 19 source.julia meta.bracket.julia
+T 20 source.julia
+T 21 source.julia keyword.operator.update.julia
+T 22 source.julia
+T 30 source.julia support.function.julia
+T 31 source.julia meta.bracket.julia
+T 43 source.julia support.function.julia
+T 44 source.julia meta.bracket.julia
+T 45 source.julia
+T 46 source.julia punctuation.separator.comma.julia
+T 47 source.julia
+T 59 source.julia support.function.julia
+T 60 source.julia meta.bracket.julia
+T 61 source.julia
+T 62 source.julia punctuation.separator.comma.julia
+T 67 source.julia
+T 70 source.julia keyword.operator.dots.julia
+T 71 source.julia meta.bracket.julia
+T 72 source.julia meta.bracket.julia
+T 73 source.julia punctuation.separator.comma.julia
+T 75 source.julia
+T 76 source.julia punctuation.separator.comma.julia
+T 81 source.julia
+T 84 source.julia keyword.operator.dots.julia
+T 85 source.julia meta.bracket.julia
+L symdiff(s) = symdiff!(copy(s))
+T 7 source.julia entity.name.function.julia
+T 8 source.julia meta.bracket.julia
+T 9 source.julia
+T 10 source.julia meta.bracket.julia
+T 11 source.julia
+T 12 source.julia keyword.operator.update.julia
+T 13 source.julia
+T 21 source.julia support.function.julia
+T 22 source.julia meta.bracket.julia
+T 26 source.julia support.function.julia
+T 27 source.julia meta.bracket.julia
+T 28 source.julia
+T 29 source.julia meta.bracket.julia
+T 30 source.julia meta.bracket.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     symdiff!(s::Union{AbstractSet,AbstractVector}, itrs...)
+T 59 source.julia string.docstring.julia
+L 
+L Construct the symmetric difference of the passed in sets, and overwrite `s` with the result.
+T 92 source.julia string.docstring.julia
+L When `s` is an array, the order is maintained.
+T 46 source.julia string.docstring.julia
+L Note that in this case the multiplicity of elements matters.
+T 60 source.julia string.docstring.julia
+L 
+L $(_DOCS_ALIASING_WARNING)
+T 1 source.julia string.docstring.julia variable.interpolation.julia
+T 2 source.julia string.docstring.julia variable.interpolation.julia meta.bracket.julia
+T 24 source.julia string.docstring.julia variable.interpolation.julia
+T 25 source.julia string.docstring.julia variable.interpolation.julia meta.bracket.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L function symdiff!(s::AbstractSet, itrs...)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 17 source.julia entity.name.function.julia
+T 18 source.julia meta.bracket.julia
+T 19 source.julia
+T 21 source.julia keyword.operator.relation.types.julia
+T 32 source.julia support.type.julia
+T 33 source.julia punctuation.separator.comma.julia
+T 38 source.julia
+T 41 source.julia keyword.operator.dots.julia
+T 42 source.julia meta.bracket.julia
+L     for x in itrs
+T 4 source.julia
+T 7 source.julia keyword.control.julia
+T 10 source.julia
+T 12 source.julia keyword.operator.relation.in.julia
+T 17 source.julia
+L         symdiff!(s, x)
+T 8 source.julia
+T 16 source.julia support.function.julia
+T 17 source.julia meta.bracket.julia
+T 18 source.julia
+T 19 source.julia punctuation.separator.comma.julia
+T 21 source.julia
+T 22 source.julia meta.bracket.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     return s
+T 4 source.julia
+T 10 source.julia keyword.control.julia
+T 12 source.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L symdiff!(s::AbstractSet, itr) = symdiff!(s::AbstractSet, Set(itr))
+T 8 source.julia entity.name.function.julia
+T 9 source.julia meta.bracket.julia
+T 10 source.julia
+T 12 source.julia keyword.operator.relation.types.julia
+T 23 source.julia support.type.julia
+T 24 source.julia punctuation.separator.comma.julia
+T 28 source.julia
+T 29 source.julia meta.bracket.julia
+T 30 source.julia
+T 31 source.julia keyword.operator.update.julia
+T 32 source.julia
+T 40 source.julia support.function.julia
+T 41 source.julia meta.bracket.julia
+T 42 source.julia
+T 44 source.julia keyword.operator.relation.types.julia
+T 55 source.julia support.type.julia
+T 56 source.julia punctuation.separator.comma.julia
+T 57 source.julia
+T 60 source.julia support.function.julia
+T 61 source.julia meta.bracket.julia
+T 64 source.julia
+T 65 source.julia meta.bracket.julia
+T 66 source.julia meta.bracket.julia
+L 
+L function symdiff!(s::AbstractSet, itr::AbstractSet)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 17 source.julia entity.name.function.julia
+T 18 source.julia meta.bracket.julia
+T 19 source.julia
+T 21 source.julia keyword.operator.relation.types.julia
+T 32 source.julia support.type.julia
+T 33 source.julia punctuation.separator.comma.julia
+T 37 source.julia
+T 39 source.julia keyword.operator.relation.types.julia
+T 50 source.julia support.type.julia
+T 51 source.julia meta.bracket.julia
+L     for x in itr
+T 4 source.julia
+T 7 source.julia keyword.control.julia
+T 10 source.julia
+T 12 source.julia keyword.operator.relation.in.julia
+T 16 source.julia
+L         x in s ? delete!(s, x) : push!(s, x)
+T 10 source.julia
+T 12 source.julia keyword.operator.relation.in.julia
+T 15 source.julia
+T 16 source.julia keyword.operator.ternary.julia
+T 17 source.julia
+T 24 source.julia support.function.julia
+T 25 source.julia meta.bracket.julia
+T 26 source.julia
+T 27 source.julia punctuation.separator.comma.julia
+T 29 source.julia
+T 30 source.julia meta.bracket.julia
+T 31 source.julia
+T 32 source.julia keyword.operator.ternary.julia
+T 33 source.julia
+T 38 source.julia support.function.julia
+T 39 source.julia meta.bracket.julia
+T 40 source.julia
+T 41 source.julia punctuation.separator.comma.julia
+T 43 source.julia
+T 44 source.julia meta.bracket.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     return s
+T 4 source.julia
+T 10 source.julia keyword.control.julia
+T 12 source.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L ## non-strict subset comparison
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 31 source.julia comment.line.number-sign.julia
+L 
+L const ⊆ = issubset
+T 5 source.julia keyword.storage.modifier.julia
+T 6 source.julia
+T 9 source.julia keyword.operator.relation.julia
+T 10 source.julia
+T 11 source.julia keyword.operator.update.julia
+T 20 source.julia
+L function ⊇ end
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 12 source.julia keyword.operator.relation.julia
+T 13 source.julia
+T 16 source.julia keyword.control.end.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     issubset(a, b)::Bool
+T 24 source.julia string.docstring.julia
+L     ⊆(a, b)::Bool
+T 19 source.julia string.docstring.julia
+L     ⊇(b, a)::Bool
+T 19 source.julia string.docstring.julia
+L 
+L Determine whether every element of `a` is also in `b`, using [`in`](@ref).
+T 74 source.julia string.docstring.julia
+L 
+L See also [`⊊`](@ref), [`⊈`](@ref), [`∩`](@ref intersect), [`∪`](@ref union), [`contains`](@ref).
+T 104 source.julia string.docstring.julia
+L 
+L # Examples
+T 10 source.julia string.docstring.julia
+L ```jldoctest
+T 12 source.julia string.docstring.julia
+L julia> issubset([1, 2], [1, 2, 3])
+T 34 source.julia string.docstring.julia
+L true
+T 4 source.julia string.docstring.julia
+L 
+L julia> [1, 2, 3] ⊆ [1, 2]
+T 27 source.julia string.docstring.julia
+L false
+T 5 source.julia string.docstring.julia
+L 
+L julia> [1, 2, 3] ⊇ [1, 2]
+T 27 source.julia string.docstring.julia
+L true
+T 4 source.julia string.docstring.julia
+L ```
+T 3 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L issubset, ⊆, ⊇
+T 8 source.julia
+T 9 source.julia punctuation.separator.comma.julia
+T 10 source.julia
+T 13 source.julia keyword.operator.relation.julia
+T 14 source.julia punctuation.separator.comma.julia
+T 15 source.julia
+T 18 source.julia keyword.operator.relation.julia
+L 
+L const FASTIN_SET_THRESHOLD = 70
+T 5 source.julia keyword.storage.modifier.julia
+T 27 source.julia
+T 28 source.julia keyword.operator.update.julia
+T 29 source.julia
+T 31 source.julia constant.numeric.julia
+L 
+L function issubset(a, b)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 17 source.julia entity.name.function.julia
+T 18 source.julia meta.bracket.julia
+T 19 source.julia
+T 20 source.julia punctuation.separator.comma.julia
+T 22 source.julia
+T 23 source.julia meta.bracket.julia
+L     if haslength(b) && (isa(a, AbstractSet) || !hasfastin(b))
+T 4 source.julia
+T 6 source.julia keyword.control.julia
+T 7 source.julia
+T 16 source.julia support.function.julia
+T 17 source.julia meta.bracket.julia
+T 18 source.julia
+T 19 source.julia meta.bracket.julia
+T 20 source.julia
+T 22 source.julia keyword.operator.boolean.julia
+T 23 source.julia
+T 24 source.julia meta.bracket.julia
+T 27 source.julia support.function.julia
+T 28 source.julia meta.bracket.julia
+T 29 source.julia
+T 30 source.julia punctuation.separator.comma.julia
+T 42 source.julia
+T 43 source.julia meta.bracket.julia
+T 44 source.julia
+T 46 source.julia keyword.operator.boolean.julia
+T 47 source.julia
+T 48 source.julia keyword.operator.boolean.julia
+T 57 source.julia support.function.julia
+T 58 source.julia meta.bracket.julia
+T 59 source.julia
+T 60 source.julia meta.bracket.julia
+T 61 source.julia meta.bracket.julia
+L         blen = length(b) # conditions above make this length computed only when needed
+T 13 source.julia
+T 14 source.julia keyword.operator.update.julia
+T 15 source.julia
+T 21 source.julia support.function.julia
+T 22 source.julia meta.bracket.julia
+T 23 source.julia
+T 24 source.julia meta.bracket.julia
+T 25 source.julia
+T 26 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 86 source.julia comment.line.number-sign.julia
+L         # check a for too many unique elements
+T 8 source.julia
+T 9 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 46 source.julia comment.line.number-sign.julia
+L         if isa(a, AbstractSet) && length(a) > blen
+T 8 source.julia
+T 10 source.julia keyword.control.julia
+T 11 source.julia
+T 14 source.julia support.function.julia
+T 15 source.julia meta.bracket.julia
+T 16 source.julia
+T 17 source.julia punctuation.separator.comma.julia
+T 29 source.julia
+T 30 source.julia meta.bracket.julia
+T 31 source.julia
+T 33 source.julia keyword.operator.boolean.julia
+T 34 source.julia
+T 40 source.julia support.function.julia
+T 41 source.julia meta.bracket.julia
+T 42 source.julia
+T 43 source.julia meta.bracket.julia
+T 44 source.julia
+T 45 source.julia keyword.operator.relation.julia
+T 50 source.julia
+L             return false
+T 12 source.julia
+T 18 source.julia keyword.control.julia
+T 19 source.julia
+T 24 source.julia constant.language.julia
+L         end
+T 8 source.julia
+T 11 source.julia keyword.control.end.julia
+L         # when `in` would be too slow and b is big enough, convert it to a Set
+T 8 source.julia
+T 9 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 78 source.julia comment.line.number-sign.julia
+L         # this threshold was empirically determined (cf. #26198)
+T 8 source.julia
+T 9 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 64 source.julia comment.line.number-sign.julia
+L         if !hasfastin(b) && blen > FASTIN_SET_THRESHOLD
+T 8 source.julia
+T 10 source.julia keyword.control.julia
+T 11 source.julia
+T 12 source.julia keyword.operator.boolean.julia
+T 21 source.julia support.function.julia
+T 22 source.julia meta.bracket.julia
+T 23 source.julia
+T 24 source.julia meta.bracket.julia
+T 25 source.julia
+T 27 source.julia keyword.operator.boolean.julia
+T 33 source.julia
+T 34 source.julia keyword.operator.relation.julia
+T 55 source.julia
+L             return issubset(a, Set(b))
+T 12 source.julia
+T 18 source.julia keyword.control.julia
+T 19 source.julia
+T 27 source.julia support.function.julia
+T 28 source.julia meta.bracket.julia
+T 29 source.julia
+T 30 source.julia punctuation.separator.comma.julia
+T 31 source.julia
+T 34 source.julia support.function.julia
+T 35 source.julia meta.bracket.julia
+T 36 source.julia
+T 37 source.julia meta.bracket.julia
+T 38 source.julia meta.bracket.julia
+L         end
+T 8 source.julia
+T 11 source.julia keyword.control.end.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     for elt in a
+T 4 source.julia
+T 7 source.julia keyword.control.julia
+T 12 source.julia
+T 14 source.julia keyword.operator.relation.in.julia
+T 16 source.julia
+L         elt in b || return false
+T 12 source.julia
+T 14 source.julia keyword.operator.relation.in.julia
+T 17 source.julia
+T 19 source.julia keyword.operator.boolean.julia
+T 20 source.julia
+T 26 source.julia keyword.control.julia
+T 27 source.julia
+T 32 source.julia constant.language.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     return true
+T 4 source.julia
+T 10 source.julia keyword.control.julia
+T 11 source.julia
+T 15 source.julia constant.language.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     Base.hasfastin(T)
+T 21 source.julia string.docstring.julia
+L 
+L Determine whether the computation `x ∈ collection` where `collection::T` can be considered
+T 92 source.julia string.docstring.julia
+L as a "fast" operation (typically constant or logarithmic complexity).
+T 69 source.julia string.docstring.julia
+L The definition `hasfastin(x) = hasfastin(typeof(x))` is provided for convenience so that instances
+T 98 source.julia string.docstring.julia
+L can be passed instead of types.
+T 31 source.julia string.docstring.julia
+L However the form that accepts a type argument should be defined for new types.
+T 78 source.julia string.docstring.julia
+L 
+L The default for `hasfastin(T)` is `true` for subtypes of
+T 56 source.julia string.docstring.julia
+L [`AbstractSet`](@ref), [`AbstractDict`](@ref) and [`AbstractRange`](@ref)
+T 73 source.julia string.docstring.julia
+L and `false` otherwise.
+T 22 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L hasfastin(::Type) = false
+T 9 source.julia entity.name.function.julia
+T 10 source.julia meta.bracket.julia
+T 12 source.julia keyword.operator.relation.types.julia
+T 16 source.julia support.type.julia
+T 17 source.julia meta.bracket.julia
+T 18 source.julia
+T 19 source.julia keyword.operator.update.julia
+T 20 source.julia
+T 25 source.julia constant.language.julia
+L hasfastin(::Union{Type{<:AbstractSet},Type{<:AbstractDict},Type{<:AbstractRange}}) = true
+T 9 source.julia entity.name.function.julia
+T 10 source.julia meta.bracket.julia
+T 12 source.julia keyword.operator.relation.types.julia
+T 81 source.julia support.type.julia
+T 82 source.julia meta.bracket.julia
+T 83 source.julia
+T 84 source.julia keyword.operator.update.julia
+T 85 source.julia
+T 89 source.julia constant.language.julia
+L hasfastin(x) = hasfastin(typeof(x))
+T 9 source.julia entity.name.function.julia
+T 10 source.julia meta.bracket.julia
+T 11 source.julia
+T 12 source.julia meta.bracket.julia
+T 13 source.julia
+T 14 source.julia keyword.operator.update.julia
+T 15 source.julia
+T 24 source.julia support.function.julia
+T 25 source.julia meta.bracket.julia
+T 31 source.julia support.function.julia
+T 32 source.julia meta.bracket.julia
+T 33 source.julia
+T 34 source.julia meta.bracket.julia
+T 35 source.julia meta.bracket.julia
+L 
+L ⊇(a, b) = b ⊆ a
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 6 source.julia punctuation.separator.comma.julia
+T 8 source.julia
+T 9 source.julia meta.bracket.julia
+T 10 source.julia
+T 11 source.julia keyword.operator.update.julia
+T 14 source.julia
+T 17 source.julia keyword.operator.relation.julia
+T 19 source.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     issubset(x)
+T 15 source.julia string.docstring.julia
+L 
+L Create a function that compares its argument to `x` using [`issubset`](@ref), i.e.
+T 82 source.julia string.docstring.julia
+L a function equivalent to `y -> issubset(y, x)`.
+T 47 source.julia string.docstring.julia
+L The returned function is of type `Base.Fix2{typeof(issubset)}`, which can be
+T 76 source.julia string.docstring.julia
+L used to implement specialized methods.
+T 38 source.julia string.docstring.julia
+L 
+L !!! compat "Julia 1.11"
+T 23 source.julia string.docstring.julia
+L     This functionality requires at least Julia 1.11.
+T 52 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L issubset(a) = Fix2(issubset, a)
+T 8 source.julia entity.name.function.julia
+T 9 source.julia meta.bracket.julia
+T 10 source.julia
+T 11 source.julia meta.bracket.julia
+T 12 source.julia
+T 13 source.julia keyword.operator.update.julia
+T 14 source.julia
+T 18 source.julia support.function.julia
+T 19 source.julia meta.bracket.julia
+T 27 source.julia
+T 28 source.julia punctuation.separator.comma.julia
+T 30 source.julia
+T 31 source.julia meta.bracket.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     ⊇(x)
+T 10 source.julia string.docstring.julia
+L 
+L Create a function that compares its argument to `x` using [`⊇`](@ref), i.e.
+T 77 source.julia string.docstring.julia
+L a function equivalent to `y -> y ⊇ x`.
+T 40 source.julia string.docstring.julia
+L The returned function is of type `Base.Fix2{typeof(⊇)}`, which can be
+T 71 source.julia string.docstring.julia
+L used to implement specialized methods.
+T 38 source.julia string.docstring.julia
+L 
+L !!! compat "Julia 1.11"
+T 23 source.julia string.docstring.julia
+L     This functionality requires at least Julia 1.11.
+T 52 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L ⊇(a) = Fix2(⊇, a)
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 6 source.julia meta.bracket.julia
+T 7 source.julia
+T 8 source.julia keyword.operator.update.julia
+T 9 source.julia
+T 13 source.julia support.function.julia
+T 14 source.julia meta.bracket.julia
+T 17 source.julia keyword.operator.relation.julia
+T 18 source.julia punctuation.separator.comma.julia
+T 20 source.julia
+T 21 source.julia meta.bracket.julia
+L ## strict subset comparison
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 27 source.julia comment.line.number-sign.julia
+L 
+L function ⊊ end
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 12 source.julia keyword.operator.relation.julia
+T 13 source.julia
+T 16 source.julia keyword.control.end.julia
+L function ⊋ end
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 12 source.julia keyword.operator.relation.julia
+T 13 source.julia
+T 16 source.julia keyword.control.end.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     ⊊(a, b)::Bool
+T 19 source.julia string.docstring.julia
+L     ⊋(b, a)::Bool
+T 19 source.julia string.docstring.julia
+L 
+L Determine if `a` is a subset of, but not equal to, `b`.
+T 55 source.julia string.docstring.julia
+L 
+L See also [`issubset`](@ref) (`⊆`), [`⊈`](@ref).
+T 51 source.julia string.docstring.julia
+L 
+L # Examples
+T 10 source.julia string.docstring.julia
+L ```jldoctest
+T 12 source.julia string.docstring.julia
+L julia> (1, 2) ⊊ (1, 2, 3)
+T 27 source.julia string.docstring.julia
+L true
+T 4 source.julia string.docstring.julia
+L 
+L julia> (1, 2) ⊊ (1, 2)
+T 24 source.julia string.docstring.julia
+L false
+T 5 source.julia string.docstring.julia
+L ```
+T 3 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L ⊊, ⊋
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia punctuation.separator.comma.julia
+T 5 source.julia
+T 8 source.julia keyword.operator.relation.julia
+L 
+L ⊊(a::AbstractSet, b::AbstractSet) = length(a) < length(b) && a ⊆ b
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 7 source.julia keyword.operator.relation.types.julia
+T 18 source.julia support.type.julia
+T 19 source.julia punctuation.separator.comma.julia
+T 21 source.julia
+T 23 source.julia keyword.operator.relation.types.julia
+T 34 source.julia support.type.julia
+T 35 source.julia meta.bracket.julia
+T 36 source.julia
+T 37 source.julia keyword.operator.update.julia
+T 38 source.julia
+T 44 source.julia support.function.julia
+T 45 source.julia meta.bracket.julia
+T 46 source.julia
+T 47 source.julia meta.bracket.julia
+T 48 source.julia
+T 49 source.julia keyword.operator.relation.julia
+T 50 source.julia
+T 56 source.julia support.function.julia
+T 57 source.julia meta.bracket.julia
+T 58 source.julia
+T 59 source.julia meta.bracket.julia
+T 60 source.julia
+T 62 source.julia keyword.operator.boolean.julia
+T 65 source.julia
+T 68 source.julia keyword.operator.relation.julia
+T 70 source.julia
+L ⊊(a::AbstractSet, b) = a ⊊ Set(b)
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 7 source.julia keyword.operator.relation.types.julia
+T 18 source.julia support.type.julia
+T 19 source.julia punctuation.separator.comma.julia
+T 21 source.julia
+T 22 source.julia meta.bracket.julia
+T 23 source.julia
+T 24 source.julia keyword.operator.update.julia
+T 27 source.julia
+T 30 source.julia keyword.operator.relation.julia
+T 31 source.julia
+T 34 source.julia support.function.julia
+T 35 source.julia meta.bracket.julia
+T 36 source.julia
+T 37 source.julia meta.bracket.julia
+L ⊊(a, b::AbstractSet) = Set(a) ⊊ b
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 6 source.julia punctuation.separator.comma.julia
+T 8 source.julia
+T 10 source.julia keyword.operator.relation.types.julia
+T 21 source.julia support.type.julia
+T 22 source.julia meta.bracket.julia
+T 23 source.julia
+T 24 source.julia keyword.operator.update.julia
+T 25 source.julia
+T 28 source.julia support.function.julia
+T 29 source.julia meta.bracket.julia
+T 30 source.julia
+T 31 source.julia meta.bracket.julia
+T 32 source.julia
+T 35 source.julia keyword.operator.relation.julia
+T 37 source.julia
+L ⊊(a, b) = Set(a) ⊊ Set(b)
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 6 source.julia punctuation.separator.comma.julia
+T 8 source.julia
+T 9 source.julia meta.bracket.julia
+T 10 source.julia
+T 11 source.julia keyword.operator.update.julia
+T 12 source.julia
+T 15 source.julia support.function.julia
+T 16 source.julia meta.bracket.julia
+T 17 source.julia
+T 18 source.julia meta.bracket.julia
+T 19 source.julia
+T 22 source.julia keyword.operator.relation.julia
+T 23 source.julia
+T 26 source.julia support.function.julia
+T 27 source.julia meta.bracket.julia
+T 28 source.julia
+T 29 source.julia meta.bracket.julia
+L ⊋(a, b) = b ⊊ a
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 6 source.julia punctuation.separator.comma.julia
+T 8 source.julia
+T 9 source.julia meta.bracket.julia
+T 10 source.julia
+T 11 source.julia keyword.operator.update.julia
+T 14 source.julia
+T 17 source.julia keyword.operator.relation.julia
+T 19 source.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     ⊋(x)
+T 10 source.julia string.docstring.julia
+L 
+L Create a function that compares its argument to `x` using [`⊋`](@ref), i.e.
+T 77 source.julia string.docstring.julia
+L a function equivalent to `y -> y ⊋ x`.
+T 40 source.julia string.docstring.julia
+L The returned function is of type `Base.Fix2{typeof(⊋)}`, which can be
+T 71 source.julia string.docstring.julia
+L used to implement specialized methods.
+T 38 source.julia string.docstring.julia
+L 
+L !!! compat "Julia 1.11"
+T 23 source.julia string.docstring.julia
+L     This functionality requires at least Julia 1.11.
+T 52 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L ⊋(a) = Fix2(⊋, a)
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 6 source.julia meta.bracket.julia
+T 7 source.julia
+T 8 source.julia keyword.operator.update.julia
+T 9 source.julia
+T 13 source.julia support.function.julia
+T 14 source.julia meta.bracket.julia
+T 17 source.julia keyword.operator.relation.julia
+T 18 source.julia punctuation.separator.comma.julia
+T 20 source.julia
+T 21 source.julia meta.bracket.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     ⊊(x)
+T 10 source.julia string.docstring.julia
+L 
+L Create a function that compares its argument to `x` using [`⊊`](@ref), i.e.
+T 77 source.julia string.docstring.julia
+L a function equivalent to `y -> y ⊊ x`.
+T 40 source.julia string.docstring.julia
+L The returned function is of type `Base.Fix2{typeof(⊊)}`, which can be
+T 71 source.julia string.docstring.julia
+L used to implement specialized methods.
+T 38 source.julia string.docstring.julia
+L 
+L !!! compat "Julia 1.11"
+T 23 source.julia string.docstring.julia
+L     This functionality requires at least Julia 1.11.
+T 52 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L ⊊(a) = Fix2(⊊, a)
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 6 source.julia meta.bracket.julia
+T 7 source.julia
+T 8 source.julia keyword.operator.update.julia
+T 9 source.julia
+T 13 source.julia support.function.julia
+T 14 source.julia meta.bracket.julia
+T 17 source.julia keyword.operator.relation.julia
+T 18 source.julia punctuation.separator.comma.julia
+T 20 source.julia
+T 21 source.julia meta.bracket.julia
+L 
+L function ⊈ end
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 12 source.julia keyword.operator.relation.julia
+T 13 source.julia
+T 16 source.julia keyword.control.end.julia
+L function ⊉ end
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 12 source.julia keyword.operator.relation.julia
+T 13 source.julia
+T 16 source.julia keyword.control.end.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     ⊈(a, b)::Bool
+T 19 source.julia string.docstring.julia
+L     ⊉(b, a)::Bool
+T 19 source.julia string.docstring.julia
+L 
+L Negation of `⊆` and `⊇`, i.e. checks that `a` is not a subset of `b`.
+T 73 source.julia string.docstring.julia
+L 
+L See also [`issubset`](@ref) (`⊆`), [`⊊`](@ref).
+T 51 source.julia string.docstring.julia
+L 
+L # Examples
+T 10 source.julia string.docstring.julia
+L ```jldoctest
+T 12 source.julia string.docstring.julia
+L julia> (1, 2) ⊈ (2, 3)
+T 24 source.julia string.docstring.julia
+L true
+T 4 source.julia string.docstring.julia
+L 
+L julia> (1, 2) ⊈ (1, 2, 3)
+T 27 source.julia string.docstring.julia
+L false
+T 5 source.julia string.docstring.julia
+L ```
+T 3 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L ⊈, ⊉
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia punctuation.separator.comma.julia
+T 5 source.julia
+T 8 source.julia keyword.operator.relation.julia
+L 
+L ⊈(a, b) = !⊆(a, b)
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 6 source.julia punctuation.separator.comma.julia
+T 8 source.julia
+T 9 source.julia meta.bracket.julia
+T 10 source.julia
+T 11 source.julia keyword.operator.update.julia
+T 12 source.julia
+T 13 source.julia keyword.operator.boolean.julia
+T 16 source.julia keyword.operator.relation.julia
+T 17 source.julia meta.bracket.julia
+T 18 source.julia
+T 19 source.julia punctuation.separator.comma.julia
+T 21 source.julia
+T 22 source.julia meta.bracket.julia
+L ⊉(a, b) = b ⊈ a
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 6 source.julia punctuation.separator.comma.julia
+T 8 source.julia
+T 9 source.julia meta.bracket.julia
+T 10 source.julia
+T 11 source.julia keyword.operator.update.julia
+T 14 source.julia
+T 17 source.julia keyword.operator.relation.julia
+T 19 source.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     ⊉(x)
+T 10 source.julia string.docstring.julia
+L 
+L Create a function that compares its argument to `x` using [`⊉`](@ref), i.e.
+T 77 source.julia string.docstring.julia
+L a function equivalent to `y -> y ⊉ x`.
+T 40 source.julia string.docstring.julia
+L The returned function is of type `Base.Fix2{typeof(⊉)}`, which can be
+T 71 source.julia string.docstring.julia
+L used to implement specialized methods.
+T 38 source.julia string.docstring.julia
+L 
+L !!! compat "Julia 1.11"
+T 23 source.julia string.docstring.julia
+L     This functionality requires at least Julia 1.11.
+T 52 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L ⊉(a) = Fix2(⊉, a)
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 6 source.julia meta.bracket.julia
+T 7 source.julia
+T 8 source.julia keyword.operator.update.julia
+T 9 source.julia
+T 13 source.julia support.function.julia
+T 14 source.julia meta.bracket.julia
+T 17 source.julia keyword.operator.relation.julia
+T 18 source.julia punctuation.separator.comma.julia
+T 20 source.julia
+T 21 source.julia meta.bracket.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     ⊈(x)
+T 10 source.julia string.docstring.julia
+L 
+L Create a function that compares its argument to `x` using [`⊈`](@ref), i.e.
+T 77 source.julia string.docstring.julia
+L a function equivalent to `y -> y ⊈ x`.
+T 40 source.julia string.docstring.julia
+L The returned function is of type `Base.Fix2{typeof(⊈)}`, which can be
+T 71 source.julia string.docstring.julia
+L used to implement specialized methods.
+T 38 source.julia string.docstring.julia
+L 
+L !!! compat "Julia 1.11"
+T 23 source.julia string.docstring.julia
+L     This functionality requires at least Julia 1.11.
+T 52 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L ⊈(a) = Fix2(⊈, a)
+T 3 source.julia keyword.operator.relation.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 6 source.julia meta.bracket.julia
+T 7 source.julia
+T 8 source.julia keyword.operator.update.julia
+T 9 source.julia
+T 13 source.julia support.function.julia
+T 14 source.julia meta.bracket.julia
+T 17 source.julia keyword.operator.relation.julia
+T 18 source.julia punctuation.separator.comma.julia
+T 20 source.julia
+T 21 source.julia meta.bracket.julia
+L 
+L ## set equality comparison
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 26 source.julia comment.line.number-sign.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     issetequal(a, b)::Bool
+T 26 source.julia string.docstring.julia
+L 
+L Determine whether `a` and `b` have the same elements. Equivalent
+T 64 source.julia string.docstring.julia
+L to `a ⊆ b && b ⊆ a` but more efficient when possible.
+T 57 source.julia string.docstring.julia
+L 
+L See also [`isdisjoint`](@ref), [`union`](@ref).
+T 47 source.julia string.docstring.julia
+L 
+L # Examples
+T 10 source.julia string.docstring.julia
+L ```jldoctest
+T 12 source.julia string.docstring.julia
+L julia> issetequal([1, 2], [1, 2, 3])
+T 36 source.julia string.docstring.julia
+L false
+T 5 source.julia string.docstring.julia
+L 
+L julia> issetequal([1, 2], [2, 1])
+T 33 source.julia string.docstring.julia
+L true
+T 4 source.julia string.docstring.julia
+L ```
+T 3 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L issetequal(a::AbstractSet, b::AbstractSet) = a == b
+T 10 source.julia entity.name.function.julia
+T 11 source.julia meta.bracket.julia
+T 12 source.julia
+T 14 source.julia keyword.operator.relation.types.julia
+T 25 source.julia support.type.julia
+T 26 source.julia punctuation.separator.comma.julia
+T 28 source.julia
+T 30 source.julia keyword.operator.relation.types.julia
+T 41 source.julia support.type.julia
+T 42 source.julia meta.bracket.julia
+T 43 source.julia
+T 44 source.julia keyword.operator.update.julia
+T 47 source.julia
+T 49 source.julia keyword.operator.relation.julia
+T 51 source.julia
+L issetequal(a::AbstractSet, b) = issetequal(a, Set(b))
+T 10 source.julia entity.name.function.julia
+T 11 source.julia meta.bracket.julia
+T 12 source.julia
+T 14 source.julia keyword.operator.relation.types.julia
+T 25 source.julia support.type.julia
+T 26 source.julia punctuation.separator.comma.julia
+T 28 source.julia
+T 29 source.julia meta.bracket.julia
+T 30 source.julia
+T 31 source.julia keyword.operator.update.julia
+T 32 source.julia
+T 42 source.julia support.function.julia
+T 43 source.julia meta.bracket.julia
+T 44 source.julia
+T 45 source.julia punctuation.separator.comma.julia
+T 46 source.julia
+T 49 source.julia support.function.julia
+T 50 source.julia meta.bracket.julia
+T 51 source.julia
+T 52 source.julia meta.bracket.julia
+T 53 source.julia meta.bracket.julia
+L 
+L function issetequal(a, b::AbstractSet)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 19 source.julia entity.name.function.julia
+T 20 source.julia meta.bracket.julia
+T 21 source.julia
+T 22 source.julia punctuation.separator.comma.julia
+T 24 source.julia
+T 26 source.julia keyword.operator.relation.types.julia
+T 37 source.julia support.type.julia
+T 38 source.julia meta.bracket.julia
+L     if haslength(a)
+T 4 source.julia
+T 6 source.julia keyword.control.julia
+T 7 source.julia
+T 16 source.julia support.function.julia
+T 17 source.julia meta.bracket.julia
+T 18 source.julia
+T 19 source.julia meta.bracket.julia
+L         # check b for too many unique elements
+T 8 source.julia
+T 9 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 46 source.julia comment.line.number-sign.julia
+L         length(a) < length(b) && return false
+T 8 source.julia
+T 14 source.julia support.function.julia
+T 15 source.julia meta.bracket.julia
+T 16 source.julia
+T 17 source.julia meta.bracket.julia
+T 18 source.julia
+T 19 source.julia keyword.operator.relation.julia
+T 20 source.julia
+T 26 source.julia support.function.julia
+T 27 source.julia meta.bracket.julia
+T 28 source.julia
+T 29 source.julia meta.bracket.julia
+T 30 source.julia
+T 32 source.julia keyword.operator.boolean.julia
+T 33 source.julia
+T 39 source.julia keyword.control.julia
+T 40 source.julia
+T 45 source.julia constant.language.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     return issetequal(Set(a), b)
+T 4 source.julia
+T 10 source.julia keyword.control.julia
+T 11 source.julia
+T 21 source.julia support.function.julia
+T 22 source.julia meta.bracket.julia
+T 25 source.julia support.function.julia
+T 26 source.julia meta.bracket.julia
+T 27 source.julia
+T 28 source.julia meta.bracket.julia
+T 29 source.julia punctuation.separator.comma.julia
+T 31 source.julia
+T 32 source.julia meta.bracket.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L function issetequal(a, b)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 19 source.julia entity.name.function.julia
+T 20 source.julia meta.bracket.julia
+T 21 source.julia
+T 22 source.julia punctuation.separator.comma.julia
+T 24 source.julia
+T 25 source.julia meta.bracket.julia
+L     haslength(a) && return issetequal(a, Set(b))
+T 4 source.julia
+T 13 source.julia support.function.julia
+T 14 source.julia meta.bracket.julia
+T 15 source.julia
+T 16 source.julia meta.bracket.julia
+T 17 source.julia
+T 19 source.julia keyword.operator.boolean.julia
+T 20 source.julia
+T 26 source.julia keyword.control.julia
+T 27 source.julia
+T 37 source.julia support.function.julia
+T 38 source.julia meta.bracket.julia
+T 39 source.julia
+T 40 source.julia punctuation.separator.comma.julia
+T 41 source.julia
+T 44 source.julia support.function.julia
+T 45 source.julia meta.bracket.julia
+T 46 source.julia
+T 47 source.julia meta.bracket.julia
+T 48 source.julia meta.bracket.julia
+L     haslength(b) && return issetequal(b, Set(a))
+T 4 source.julia
+T 13 source.julia support.function.julia
+T 14 source.julia meta.bracket.julia
+T 15 source.julia
+T 16 source.julia meta.bracket.julia
+T 17 source.julia
+T 19 source.julia keyword.operator.boolean.julia
+T 20 source.julia
+T 26 source.julia keyword.control.julia
+T 27 source.julia
+T 37 source.julia support.function.julia
+T 38 source.julia meta.bracket.julia
+T 39 source.julia
+T 40 source.julia punctuation.separator.comma.julia
+T 41 source.julia
+T 44 source.julia support.function.julia
+T 45 source.julia meta.bracket.julia
+T 46 source.julia
+T 47 source.julia meta.bracket.julia
+T 48 source.julia meta.bracket.julia
+L     return issetequal(Set(a), Set(b))
+T 4 source.julia
+T 10 source.julia keyword.control.julia
+T 11 source.julia
+T 21 source.julia support.function.julia
+T 22 source.julia meta.bracket.julia
+T 25 source.julia support.function.julia
+T 26 source.julia meta.bracket.julia
+T 27 source.julia
+T 28 source.julia meta.bracket.julia
+T 29 source.julia punctuation.separator.comma.julia
+T 30 source.julia
+T 33 source.julia support.function.julia
+T 34 source.julia meta.bracket.julia
+T 35 source.julia
+T 36 source.julia meta.bracket.julia
+T 37 source.julia meta.bracket.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     issetequal(x)
+T 17 source.julia string.docstring.julia
+L 
+L Create a function that compares its argument to `x` using [`issetequal`](@ref), i.e.
+T 84 source.julia string.docstring.julia
+L a function equivalent to `y -> issetequal(y, x)`.
+T 49 source.julia string.docstring.julia
+L The returned function is of type `Base.Fix2{typeof(issetequal)}`, which can be
+T 78 source.julia string.docstring.julia
+L used to implement specialized methods.
+T 38 source.julia string.docstring.julia
+L 
+L !!! compat "Julia 1.11"
+T 23 source.julia string.docstring.julia
+L     This functionality requires at least Julia 1.11.
+T 52 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L issetequal(a) = Fix2(issetequal, a)
+T 10 source.julia entity.name.function.julia
+T 11 source.julia meta.bracket.julia
+T 12 source.julia
+T 13 source.julia meta.bracket.julia
+T 14 source.julia
+T 15 source.julia keyword.operator.update.julia
+T 16 source.julia
+T 20 source.julia support.function.julia
+T 21 source.julia meta.bracket.julia
+T 31 source.julia
+T 32 source.julia punctuation.separator.comma.julia
+T 34 source.julia
+T 35 source.julia meta.bracket.julia
+L 
+L ## set disjoint comparison
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 26 source.julia comment.line.number-sign.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     isdisjoint(a, b)::Bool
+T 26 source.julia string.docstring.julia
+L 
+L Determine whether the collections `a` and `b` are disjoint.
+T 59 source.julia string.docstring.julia
+L Equivalent to `isempty(a ∩ b)` but more efficient when possible.
+T 66 source.julia string.docstring.julia
+L 
+L See also [`intersect`](@ref), [`isempty`](@ref), [`issetequal`](@ref).
+T 70 source.julia string.docstring.julia
+L 
+L !!! compat "Julia 1.5"
+T 22 source.julia string.docstring.julia
+L     This function requires at least Julia 1.5.
+T 46 source.julia string.docstring.julia
+L 
+L # Examples
+T 10 source.julia string.docstring.julia
+L ```jldoctest
+T 12 source.julia string.docstring.julia
+L julia> isdisjoint([1, 2], [2, 3, 4])
+T 36 source.julia string.docstring.julia
+L false
+T 5 source.julia string.docstring.julia
+L 
+L julia> isdisjoint([3, 1], [2, 4])
+T 33 source.julia string.docstring.julia
+L true
+T 4 source.julia string.docstring.julia
+L ```
+T 3 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L function isdisjoint(a, b)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 19 source.julia entity.name.function.julia
+T 20 source.julia meta.bracket.julia
+T 21 source.julia
+T 22 source.julia punctuation.separator.comma.julia
+T 24 source.julia
+T 25 source.julia meta.bracket.julia
+L     function _isdisjoint(a, b)
+T 4 source.julia
+T 12 source.julia keyword.other.julia
+T 13 source.julia
+T 24 source.julia entity.name.function.julia
+T 25 source.julia meta.bracket.julia
+T 26 source.julia
+T 27 source.julia punctuation.separator.comma.julia
+T 29 source.julia
+T 30 source.julia meta.bracket.julia
+L         hasfastin(b) && return !any(in(b), a)
+T 8 source.julia
+T 17 source.julia support.function.julia
+T 18 source.julia meta.bracket.julia
+T 19 source.julia
+T 20 source.julia meta.bracket.julia
+T 21 source.julia
+T 23 source.julia keyword.operator.boolean.julia
+T 24 source.julia
+T 30 source.julia keyword.control.julia
+T 31 source.julia
+T 32 source.julia keyword.operator.boolean.julia
+T 35 source.julia support.function.julia
+T 36 source.julia meta.bracket.julia
+T 38 source.julia support.function.julia
+T 39 source.julia meta.bracket.julia
+T 40 source.julia
+T 41 source.julia meta.bracket.julia
+T 42 source.julia punctuation.separator.comma.julia
+T 44 source.julia
+T 45 source.julia meta.bracket.julia
+L         hasfastin(a) && return !any(in(a), b)
+T 8 source.julia
+T 17 source.julia support.function.julia
+T 18 source.julia meta.bracket.julia
+T 19 source.julia
+T 20 source.julia meta.bracket.julia
+T 21 source.julia
+T 23 source.julia keyword.operator.boolean.julia
+T 24 source.julia
+T 30 source.julia keyword.control.julia
+T 31 source.julia
+T 32 source.julia keyword.operator.boolean.julia
+T 35 source.julia support.function.julia
+T 36 source.julia meta.bracket.julia
+T 38 source.julia support.function.julia
+T 39 source.julia meta.bracket.julia
+T 40 source.julia
+T 41 source.julia meta.bracket.julia
+T 42 source.julia punctuation.separator.comma.julia
+T 44 source.julia
+T 45 source.julia meta.bracket.julia
+L         haslength(b) && length(b) < FASTIN_SET_THRESHOLD &&
+T 8 source.julia
+T 17 source.julia support.function.julia
+T 18 source.julia meta.bracket.julia
+T 19 source.julia
+T 20 source.julia meta.bracket.julia
+T 21 source.julia
+T 23 source.julia keyword.operator.boolean.julia
+T 24 source.julia
+T 30 source.julia support.function.julia
+T 31 source.julia meta.bracket.julia
+T 32 source.julia
+T 33 source.julia meta.bracket.julia
+T 34 source.julia
+T 35 source.julia keyword.operator.relation.julia
+T 57 source.julia
+T 59 source.julia keyword.operator.boolean.julia
+L             return !any(in(b), a)
+T 12 source.julia
+T 18 source.julia keyword.control.julia
+T 19 source.julia
+T 20 source.julia keyword.operator.boolean.julia
+T 23 source.julia support.function.julia
+T 24 source.julia meta.bracket.julia
+T 26 source.julia support.function.julia
+T 27 source.julia meta.bracket.julia
+T 28 source.julia
+T 29 source.julia meta.bracket.julia
+T 30 source.julia punctuation.separator.comma.julia
+T 32 source.julia
+T 33 source.julia meta.bracket.julia
+L         return !any(in(Set(b)), a)
+T 8 source.julia
+T 14 source.julia keyword.control.julia
+T 15 source.julia
+T 16 source.julia keyword.operator.boolean.julia
+T 19 source.julia support.function.julia
+T 20 source.julia meta.bracket.julia
+T 22 source.julia support.function.julia
+T 23 source.julia meta.bracket.julia
+T 26 source.julia support.function.julia
+T 27 source.julia meta.bracket.julia
+T 28 source.julia
+T 29 source.julia meta.bracket.julia
+T 30 source.julia meta.bracket.julia
+T 31 source.julia punctuation.separator.comma.julia
+T 33 source.julia
+T 34 source.julia meta.bracket.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     if haslength(a) && haslength(b) && length(b) < length(a)
+T 4 source.julia
+T 6 source.julia keyword.control.julia
+T 7 source.julia
+T 16 source.julia support.function.julia
+T 17 source.julia meta.bracket.julia
+T 18 source.julia
+T 19 source.julia meta.bracket.julia
+T 20 source.julia
+T 22 source.julia keyword.operator.boolean.julia
+T 23 source.julia
+T 32 source.julia support.function.julia
+T 33 source.julia meta.bracket.julia
+T 34 source.julia
+T 35 source.julia meta.bracket.julia
+T 36 source.julia
+T 38 source.julia keyword.operator.boolean.julia
+T 39 source.julia
+T 45 source.julia support.function.julia
+T 46 source.julia meta.bracket.julia
+T 47 source.julia
+T 48 source.julia meta.bracket.julia
+T 49 source.julia
+T 50 source.julia keyword.operator.relation.julia
+T 51 source.julia
+T 57 source.julia support.function.julia
+T 58 source.julia meta.bracket.julia
+T 59 source.julia
+T 60 source.julia meta.bracket.julia
+L         return _isdisjoint(b, a)
+T 8 source.julia
+T 14 source.julia keyword.control.julia
+T 15 source.julia
+T 26 source.julia support.function.julia
+T 27 source.julia meta.bracket.julia
+T 28 source.julia
+T 29 source.julia punctuation.separator.comma.julia
+T 31 source.julia
+T 32 source.julia meta.bracket.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     _isdisjoint(a, b)
+T 4 source.julia
+T 15 source.julia support.function.julia
+T 16 source.julia meta.bracket.julia
+T 17 source.julia
+T 18 source.julia punctuation.separator.comma.julia
+T 20 source.julia
+T 21 source.julia meta.bracket.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L function isdisjoint(a::AbstractRange{T}, b::AbstractRange{T}) where T
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 19 source.julia entity.name.function.julia
+T 20 source.julia meta.bracket.julia
+T 21 source.julia
+T 23 source.julia keyword.operator.relation.types.julia
+T 39 source.julia support.type.julia
+T 40 source.julia punctuation.separator.comma.julia
+T 42 source.julia
+T 44 source.julia keyword.operator.relation.types.julia
+T 60 source.julia support.type.julia
+T 61 source.julia meta.bracket.julia
+T 62 source.julia
+T 67 source.julia keyword.other.julia
+T 69 source.julia
+L     (isempty(a) || isempty(b)) && return true
+T 4 source.julia
+T 5 source.julia meta.bracket.julia
+T 12 source.julia support.function.julia
+T 13 source.julia meta.bracket.julia
+T 14 source.julia
+T 15 source.julia meta.bracket.julia
+T 16 source.julia
+T 18 source.julia keyword.operator.boolean.julia
+T 19 source.julia
+T 26 source.julia support.function.julia
+T 27 source.julia meta.bracket.julia
+T 28 source.julia
+T 29 source.julia meta.bracket.julia
+T 30 source.julia meta.bracket.julia
+T 31 source.julia
+T 33 source.julia keyword.operator.boolean.julia
+T 34 source.julia
+T 40 source.julia keyword.control.julia
+T 41 source.julia
+T 45 source.julia constant.language.julia
+L     fa, la = extrema(a)
+T 6 source.julia
+T 7 source.julia punctuation.separator.comma.julia
+T 11 source.julia
+T 12 source.julia keyword.operator.update.julia
+T 13 source.julia
+T 20 source.julia support.function.julia
+T 21 source.julia meta.bracket.julia
+T 22 source.julia
+T 23 source.julia meta.bracket.julia
+L     fb, lb = extrema(b)
+T 6 source.julia
+T 7 source.julia punctuation.separator.comma.julia
+T 11 source.julia
+T 12 source.julia keyword.operator.update.julia
+T 13 source.julia
+T 20 source.julia support.function.julia
+T 21 source.julia meta.bracket.julia
+T 22 source.julia
+T 23 source.julia meta.bracket.julia
+L     if (la < fb) | (lb < fa)
+T 4 source.julia
+T 6 source.julia keyword.control.julia
+T 7 source.julia
+T 8 source.julia meta.bracket.julia
+T 11 source.julia
+T 12 source.julia keyword.operator.relation.julia
+T 15 source.julia
+T 16 source.julia meta.bracket.julia
+T 17 source.julia
+T 18 source.julia keyword.operator.bitwise.julia
+T 19 source.julia
+T 20 source.julia meta.bracket.julia
+T 23 source.julia
+T 24 source.julia keyword.operator.relation.julia
+T 27 source.julia
+T 28 source.julia meta.bracket.julia
+L         return true
+T 8 source.julia
+T 14 source.julia keyword.control.julia
+T 15 source.julia
+T 19 source.julia constant.language.julia
+L     else
+T 4 source.julia
+T 8 source.julia keyword.control.julia
+L         return _overlapping_range_isdisjoint(a, b)
+T 8 source.julia
+T 14 source.julia keyword.control.julia
+T 15 source.julia
+T 44 source.julia support.function.julia
+T 45 source.julia meta.bracket.julia
+T 46 source.julia
+T 47 source.julia punctuation.separator.comma.julia
+T 49 source.julia
+T 50 source.julia meta.bracket.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     isdisjoint(x)
+T 17 source.julia string.docstring.julia
+L 
+L Create a function that compares its argument to `x` using [`isdisjoint`](@ref), i.e.
+T 84 source.julia string.docstring.julia
+L a function equivalent to `y -> isdisjoint(y, x)`.
+T 49 source.julia string.docstring.julia
+L The returned function is of type `Base.Fix2{typeof(isdisjoint)}`, which can be
+T 78 source.julia string.docstring.julia
+L used to implement specialized methods.
+T 38 source.julia string.docstring.julia
+L 
+L !!! compat "Julia 1.11"
+T 23 source.julia string.docstring.julia
+L     This functionality requires at least Julia 1.11.
+T 52 source.julia string.docstring.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L isdisjoint(a) = Fix2(isdisjoint, a)
+T 10 source.julia entity.name.function.julia
+T 11 source.julia meta.bracket.julia
+T 12 source.julia
+T 13 source.julia meta.bracket.julia
+T 14 source.julia
+T 15 source.julia keyword.operator.update.julia
+T 16 source.julia
+T 20 source.julia support.function.julia
+T 21 source.julia meta.bracket.julia
+T 31 source.julia
+T 32 source.julia punctuation.separator.comma.julia
+T 34 source.julia
+T 35 source.julia meta.bracket.julia
+L 
+L _overlapping_range_isdisjoint(a::AbstractRange{T}, b::AbstractRange{T}) where T = invoke(isdisjoint, Tuple{Any,Any}, a, b)
+T 29 source.julia entity.name.function.julia
+T 30 source.julia meta.bracket.julia
+T 31 source.julia
+T 33 source.julia keyword.operator.relation.types.julia
+T 49 source.julia support.type.julia
+T 50 source.julia punctuation.separator.comma.julia
+T 52 source.julia
+T 54 source.julia keyword.operator.relation.types.julia
+T 70 source.julia support.type.julia
+T 71 source.julia meta.bracket.julia
+T 72 source.julia
+T 77 source.julia keyword.other.julia
+T 80 source.julia
+T 81 source.julia keyword.operator.update.julia
+T 82 source.julia
+T 88 source.julia support.function.julia
+T 89 source.julia meta.bracket.julia
+T 99 source.julia
+T 100 source.julia punctuation.separator.comma.julia
+T 106 source.julia
+T 107 source.julia meta.bracket.julia
+T 110 source.julia
+T 111 source.julia punctuation.separator.comma.julia
+T 114 source.julia
+T 115 source.julia meta.bracket.julia
+T 116 source.julia punctuation.separator.comma.julia
+T 118 source.julia
+T 119 source.julia punctuation.separator.comma.julia
+T 121 source.julia
+T 122 source.julia meta.bracket.julia
+L 
+L function _overlapping_range_isdisjoint(a::AbstractRange{T}, b::AbstractRange{T}) where T<:Integer
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 38 source.julia entity.name.function.julia
+T 39 source.julia meta.bracket.julia
+T 40 source.julia
+T 42 source.julia keyword.operator.relation.types.julia
+T 58 source.julia support.type.julia
+T 59 source.julia punctuation.separator.comma.julia
+T 61 source.julia
+T 63 source.julia keyword.operator.relation.types.julia
+T 79 source.julia support.type.julia
+T 80 source.julia meta.bracket.julia
+T 81 source.julia
+T 86 source.julia keyword.other.julia
+T 88 source.julia
+T 90 source.julia keyword.operator.relation.types.julia
+T 97 source.julia support.type.julia
+L     if abs(step(a)) == abs(step(b))
+T 4 source.julia
+T 6 source.julia keyword.control.julia
+T 7 source.julia
+T 10 source.julia support.function.julia
+T 11 source.julia meta.bracket.julia
+T 15 source.julia support.function.julia
+T 16 source.julia meta.bracket.julia
+T 17 source.julia
+T 18 source.julia meta.bracket.julia
+T 19 source.julia meta.bracket.julia
+T 20 source.julia
+T 22 source.julia keyword.operator.relation.julia
+T 23 source.julia
+T 26 source.julia support.function.julia
+T 27 source.julia meta.bracket.julia
+T 31 source.julia support.function.julia
+T 32 source.julia meta.bracket.julia
+T 33 source.julia
+T 34 source.julia meta.bracket.julia
+T 35 source.julia meta.bracket.julia
+L         return mod(minimum(a), step(a)) != mod(minimum(b), step(a))
+T 8 source.julia
+T 14 source.julia keyword.control.julia
+T 15 source.julia
+T 18 source.julia support.function.julia
+T 19 source.julia meta.bracket.julia
+T 26 source.julia support.function.julia
+T 27 source.julia meta.bracket.julia
+T 28 source.julia
+T 29 source.julia meta.bracket.julia
+T 30 source.julia punctuation.separator.comma.julia
+T 31 source.julia
+T 35 source.julia support.function.julia
+T 36 source.julia meta.bracket.julia
+T 37 source.julia
+T 38 source.julia meta.bracket.julia
+T 39 source.julia meta.bracket.julia
+T 40 source.julia
+T 42 source.julia keyword.operator.relation.julia
+T 43 source.julia
+T 46 source.julia support.function.julia
+T 47 source.julia meta.bracket.julia
+T 54 source.julia support.function.julia
+T 55 source.julia meta.bracket.julia
+T 56 source.julia
+T 57 source.julia meta.bracket.julia
+T 58 source.julia punctuation.separator.comma.julia
+T 59 source.julia
+T 63 source.julia support.function.julia
+T 64 source.julia meta.bracket.julia
+T 65 source.julia
+T 66 source.julia meta.bracket.julia
+T 67 source.julia meta.bracket.julia
+L     else
+T 4 source.julia
+T 8 source.julia keyword.control.julia
+L         return invoke(isdisjoint, Tuple{Any,Any}, a, b)
+T 8 source.julia
+T 14 source.julia keyword.control.julia
+T 15 source.julia
+T 21 source.julia support.function.julia
+T 22 source.julia meta.bracket.julia
+T 32 source.julia
+T 33 source.julia punctuation.separator.comma.julia
+T 39 source.julia
+T 40 source.julia meta.bracket.julia
+T 43 source.julia
+T 44 source.julia punctuation.separator.comma.julia
+T 47 source.julia
+T 48 source.julia meta.bracket.julia
+T 49 source.julia punctuation.separator.comma.julia
+T 51 source.julia
+T 52 source.julia punctuation.separator.comma.julia
+T 54 source.julia
+T 55 source.julia meta.bracket.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 
+L ## partial ordering of sets by containment
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 42 source.julia comment.line.number-sign.julia
+L 
+L ==(a::AbstractSet, b::AbstractSet) = length(a) == length(b) && a ⊆ b
+T 2 source.julia keyword.operator.relation.julia
+T 3 source.julia meta.bracket.julia
+T 4 source.julia
+T 6 source.julia keyword.operator.relation.types.julia
+T 17 source.julia support.type.julia
+T 18 source.julia punctuation.separator.comma.julia
+T 20 source.julia
+T 22 source.julia keyword.operator.relation.types.julia
+T 33 source.julia support.type.julia
+T 34 source.julia meta.bracket.julia
+T 35 source.julia
+T 36 source.julia keyword.operator.update.julia
+T 37 source.julia
+T 43 source.julia support.function.julia
+T 44 source.julia meta.bracket.julia
+T 45 source.julia
+T 46 source.julia meta.bracket.julia
+T 47 source.julia
+T 49 source.julia keyword.operator.relation.julia
+T 50 source.julia
+T 56 source.julia support.function.julia
+T 57 source.julia meta.bracket.julia
+T 58 source.julia
+T 59 source.julia meta.bracket.julia
+T 60 source.julia
+T 62 source.julia keyword.operator.boolean.julia
+T 65 source.julia
+T 68 source.julia keyword.operator.relation.julia
+T 70 source.julia
+L # convenience functions for AbstractSet
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 39 source.julia comment.line.number-sign.julia
+L # (if needed, only their synonyms ⊊ and ⊆ must be specialized)
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 66 source.julia comment.line.number-sign.julia
+L <( a::AbstractSet, b::AbstractSet) = a ⊊ b
+T 1 source.julia keyword.operator.relation.julia
+T 2 source.julia meta.bracket.julia
+T 4 source.julia
+T 6 source.julia keyword.operator.relation.types.julia
+T 17 source.julia support.type.julia
+T 18 source.julia punctuation.separator.comma.julia
+T 20 source.julia
+T 22 source.julia keyword.operator.relation.types.julia
+T 33 source.julia support.type.julia
+T 34 source.julia meta.bracket.julia
+T 35 source.julia
+T 36 source.julia keyword.operator.update.julia
+T 39 source.julia
+T 42 source.julia keyword.operator.relation.julia
+T 44 source.julia
+L <=(a::AbstractSet, b::AbstractSet) = a ⊆ b
+T 2 source.julia keyword.operator.relation.julia
+T 3 source.julia meta.bracket.julia
+T 4 source.julia
+T 6 source.julia keyword.operator.relation.types.julia
+T 17 source.julia support.type.julia
+T 18 source.julia punctuation.separator.comma.julia
+T 20 source.julia
+T 22 source.julia keyword.operator.relation.types.julia
+T 33 source.julia support.type.julia
+T 34 source.julia meta.bracket.julia
+T 35 source.julia
+T 36 source.julia keyword.operator.update.julia
+T 39 source.julia
+T 42 source.julia keyword.operator.relation.julia
+T 44 source.julia
+L 
+L ## filtering sets
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 17 source.julia comment.line.number-sign.julia
+L 
+L filter(pred, s::AbstractSet) = mapfilter(pred, push!, s, emptymutable(s))
+T 6 source.julia entity.name.function.julia
+T 7 source.julia meta.bracket.julia
+T 11 source.julia
+T 12 source.julia punctuation.separator.comma.julia
+T 14 source.julia
+T 16 source.julia keyword.operator.relation.types.julia
+T 27 source.julia support.type.julia
+T 28 source.julia meta.bracket.julia
+T 29 source.julia
+T 30 source.julia keyword.operator.update.julia
+T 31 source.julia
+T 40 source.julia support.function.julia
+T 41 source.julia meta.bracket.julia
+T 45 source.julia
+T 46 source.julia punctuation.separator.comma.julia
+T 52 source.julia
+T 53 source.julia punctuation.separator.comma.julia
+T 55 source.julia
+T 56 source.julia punctuation.separator.comma.julia
+T 57 source.julia
+T 69 source.julia support.function.julia
+T 70 source.julia meta.bracket.julia
+T 71 source.julia
+T 72 source.julia meta.bracket.julia
+T 73 source.julia meta.bracket.julia
+L 
+L # it must be safe to delete the current element while iterating over s:
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 71 source.julia comment.line.number-sign.julia
+L unsafe_filter!(pred, s::AbstractSet) = mapfilter(!pred, delete!, s, s)
+T 14 source.julia entity.name.function.julia
+T 15 source.julia meta.bracket.julia
+T 19 source.julia
+T 20 source.julia punctuation.separator.comma.julia
+T 22 source.julia
+T 24 source.julia keyword.operator.relation.types.julia
+T 35 source.julia support.type.julia
+T 36 source.julia meta.bracket.julia
+T 37 source.julia
+T 38 source.julia keyword.operator.update.julia
+T 39 source.julia
+T 48 source.julia support.function.julia
+T 49 source.julia meta.bracket.julia
+T 50 source.julia keyword.operator.boolean.julia
+T 54 source.julia
+T 55 source.julia punctuation.separator.comma.julia
+T 63 source.julia
+T 64 source.julia punctuation.separator.comma.julia
+T 66 source.julia
+T 67 source.julia punctuation.separator.comma.julia
+T 69 source.julia
+T 70 source.julia meta.bracket.julia
+L 
+L # TODO: delete mapfilter in favor of comprehensions/foldl/filter when competitive
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 2 source.julia comment.line.number-sign.julia
+T 6 source.julia comment.line.number-sign.julia keyword.other.comment-annotation.julia
+T 81 source.julia comment.line.number-sign.julia
+L function mapfilter(pred, f, itr, res)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 18 source.julia entity.name.function.julia
+T 19 source.julia meta.bracket.julia
+T 23 source.julia
+T 24 source.julia punctuation.separator.comma.julia
+T 26 source.julia
+T 27 source.julia punctuation.separator.comma.julia
+T 31 source.julia
+T 32 source.julia punctuation.separator.comma.julia
+T 36 source.julia
+T 37 source.julia meta.bracket.julia
+L     for x in itr
+T 4 source.julia
+T 7 source.julia keyword.control.julia
+T 10 source.julia
+T 12 source.julia keyword.operator.relation.in.julia
+T 16 source.julia
+L         pred(x) && f(res, x)
+T 8 source.julia
+T 12 source.julia support.function.julia
+T 13 source.julia meta.bracket.julia
+T 14 source.julia
+T 15 source.julia meta.bracket.julia
+T 16 source.julia
+T 18 source.julia keyword.operator.boolean.julia
+T 19 source.julia
+T 20 source.julia support.function.julia
+T 21 source.julia meta.bracket.julia
+T 24 source.julia
+T 25 source.julia punctuation.separator.comma.julia
+T 27 source.julia
+T 28 source.julia meta.bracket.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L     res
+T 7 source.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L 

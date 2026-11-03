@@ -80,6 +80,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  julia: {
+    bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
+    origin: "JuliaEditorSupport/atom-language-julia",
+    licence: "MIT",
+    file: "LICENSE.md",
+  },
   make: {
     bundled: "microsoft/vscode@91db8ea85fee30ebb3c7a5e7939aa2a8d79811c5",
     origin: "fadeevab/make.tmbundle",
@@ -134,6 +140,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  sql: {
+    bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
+    origin: "microsoft/vscode-mssql",
+    licence: "MIT",
+    file: "LICENSE.txt",
+  },
   toml: {
     bundled: "textmate/toml.tmbundle@e82b64c1e86396220786846201e9aa3f0a2d9ca2",
     origin: "textmate/toml.tmbundle",
@@ -169,5 +181,7 @@ export const allowed: Record<string, Allowed> = {
 /** Grammars that must never be bundled, with the reason. */
 export const refused: Record<string, string> = {
   glsl: "polym0rph/GLSL.tmbundle states no licence, in a file or its README",
+  groovy:
+    "textmate/groovy.tmbundle, which VS Code converted it from, states no licence in a file or its README; only VS Code's notices do",
   r: "posit-dev/positron, where Shiki takes it from, is under the Elastic License 2.0",
 };

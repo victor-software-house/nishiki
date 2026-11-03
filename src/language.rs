@@ -330,6 +330,14 @@ languages! {
         engine: crate::dart::grammar::GRAMMAR,
         reads_line_feed: true,
     }
+    /// Julia, with the scopes of Shiki's `julia` grammar, which nishiki's
+    /// `TextMate` engine runs.
+    Julia {
+        feature: "lang-julia",
+        names: ["julia", "jl"],
+        engine: crate::julia::grammar::GRAMMAR,
+        reads_line_feed: true,
+    }
 }
 
 impl Language {
