@@ -1,0 +1,23 @@
+// Lua for the Oniguruma harness (onig.ts): the texts it probes expressions
+// with, besides the lines of the Lua fixtures.
+
+/** For the Oniguruma harness. */
+export const probe = {
+  /** Texts inserted into fixture lines. */
+  snippets: [
+    "--[[", "--[==[", "]]", "]==]", "--]]", "[[", "[=[", "]=]", "[==[ x ]] ]==]", "--", "---", "----", "-- @param x number",
+    "--- @class Foo : Bar", "---@type string|nil", "---@alias A B", "---@param x? integer", "---@return boolean", "---@field a string",
+    "---@generic T : table", "---@overload fun(x: T): T", "---@operator add(Foo): Foo", "---@cast x string", "---@diagnostic disable: x",
+    "---| 'a' # b", "---@enum E", "---@module 'm'", "---@version >5.1", "---@see x", "---@async", "---@nodiscard", "-- @author me",
+    "#!/usr/bin/env lua", "local", "local function f(", "function a.b:c(", "function(", "...", "a, b, ...", ")", "end", "return",
+    "local x <const> = 1", "<close>", "::label::", "goto label", "self", "nil", "true", "false", "_G", "_ENV", "_VERSION",
+    "string.format(", "table.insert", "math.huge", "math.pi", "io.write", "os.time()", "coroutine.wrap", "x.string.format",
+    "a:b(", "a.b", "a..b", "a...b", "..", "~=", "==", "<=", ">=", "//", "<<", ">>", "~", "#t", "not", "and", "or",
+    "0x1F", "0x1p4", "0x.8P-2", "0xA.Bp+3", "1e10", "1E-3", "3.", ".5", "0.5e+2", "12", "0x", "1e", "0x1p",
+    "\"a\\n\"", "'\\''", "\"\\x41\"", "\"\\u{1F600}\"", "\"\\z  \"", "\"\\065\"", "\"\\q\"", "'unterminated",
+    "ffi.cdef[[", "ffi.cdef [[ int x; ]]", ".cdef[==[", "@@@", "--[[@@@", "--[==[@@@ x", "/*", "*/", "/* c */",
+    "---@vararg string", "---@meta", "---@private", "---@protected", "---@package", "--- @overload fun(): nil",
+    "---@operator call: Foo", "--- @operator unm", "global x", "global function f", "async", "local async", "x.async",
+    "a || b", "a && b", "!x", "||", "&&", "!", "\t", "  ", " ",
+  ] as string[],
+};

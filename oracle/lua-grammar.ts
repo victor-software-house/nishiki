@@ -243,7 +243,7 @@ const docs = (s: string) => {
 for (const p of patList) {
   g += `    /// The ${p.act.kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
-g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
+g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${patList.length}] = [\n${patList.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
@@ -268,11 +268,15 @@ await Bun.write(`${root_dir}src/lua/grammar.rs`, g);
 const s = scopeFile("lua-grammar.ts", "LUA", scopes);
 await Bun.write(`${root_dir}src/lua/scope.rs`, s);
 
-if (Bun.env["LUA_DUMP"]) {
+// With RX_DUMP set to a file, writes each pattern for oracle/onig.ts. An end
+// that repeats a group of its begin, as `]\1]` does, is left out: its text
+// comes from the line that opened the rule, which a probe case does not have.
+if (Bun.env["RX_DUMP"]) {
   await Bun.write(
-    Bun.env["LUA_DUMP"],
+    Bun.env["RX_DUMP"],
     patList
-      .map((p) => JSON.stringify({ id: p.id, kind: p.act.kind, regex: p.regex, groups: p.captures.map(([n]) => n) }))
+      .filter((p) => !(p.act.kind === "end" && /\\[1-9]/.test(p.regex)))
+      .map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) }))
       .join("\n") + "\n",
   );
 }

@@ -175,3 +175,67 @@ fn an_ffi_cdef_body_is_left_unlexed() {
     assert_eq!(leaf_in(&row, " int x; "), "meta.embedded.lua");
     assert_eq!(leaf_in(&row, "]]"), "punctuation.definition.string.end.lua");
 }
+
+#[cfg(feature = "json")]
+mod probe {
+    use serde_json::{Value, json};
+
+    use crate::arena::Arena;
+    use crate::limits::{Limits, LineReport};
+    use crate::lua::engine::{Lexer, Scratch};
+    use crate::lua::grammar::Pat;
+    use crate::rules::Text;
+
+    /// Runs the matchers on the cases in the file that `PROBE_IN` names, one
+    /// JSON object per line (`rx`, `text`, `p`, `g`, `nl`), and writes their
+    /// answers to the file `PROBE_OUT` names. `oracle/onig.ts` compares them
+    /// with Oniguruma's. The text of a case is the start of a document, so
+    /// `\A` holds at its first byte, as it does for Oniguruma.
+    #[test]
+    #[ignore = "a tool: it needs a cases file"]
+    fn matchers_answer_the_probe_cases() {
+        let input = std::env::var("PROBE_IN").expect("PROBE_IN");
+        let output = std::env::var("PROBE_OUT").expect("PROBE_OUT");
+        let cases = std::fs::read_to_string(input).expect("cases");
+        let mut out = String::new();
+        let mut arena = Arena::new(None);
+        let limits = Limits::default();
+        for line in cases.lines() {
+            let case: Value = serde_json::from_str(line).expect("a case");
+            let name = case["rx"].as_str().expect("rx");
+            let pat = Pat::ALL
+                .iter()
+                .copied()
+                .find(|pat| format!("{pat:?}") == name)
+                .expect("a known pattern");
+            let text = case["text"].as_str().expect("text");
+            let p = usize::try_from(case["p"].as_u64().expect("p")).expect("p");
+            let mut tokens = Vec::new();
+            let mut report = LineReport::default();
+            let mut scratch = Scratch::default();
+            let mut lexer = Lexer::new(
+                &mut arena,
+                &limits,
+                Text {
+                    bytes: text.as_bytes(),
+                    start: 0,
+                    anchored: false,
+                },
+                &mut tokens,
+                crate::arena::ROOT,
+                &mut report,
+                &mut scratch,
+            );
+            lexer.nl = case["nl"].as_bool().unwrap_or(true);
+            lexer.first_line = true;
+            let g = case["g"].as_bool().unwrap_or(false);
+            let answer = lexer.probe_matcher(p, g, |lexer, p| lexer.matcher(pat, p));
+            let value = answer.map_or(Value::Null, |(end, caps)| {
+                json!({ "end": end, "caps": caps.iter().map(|c| c.map(|(a, b)| [a, b])).collect::<Vec<_>>() })
+            });
+            out.push_str(&value.to_string());
+            out.push('\n');
+        }
+        std::fs::write(output, out).expect("write");
+    }
+}
