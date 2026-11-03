@@ -284,6 +284,12 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Scss,
     },
+    #[cfg(feature = "lang-less")]
+    Name {
+        words: &["less"],
+        brace: None,
+        lang: Language::Less,
+    },
 ];
 
 /// A language found in an info string.

@@ -2,7 +2,9 @@
 // matches, shared by the generators that turn a grammar's big alternations
 // into word lists.
 
-/** The strings a regular expression made of literals, classes, groups, `|` and `?` spells. */
+/** The strings a regular expression made of literals, classes, groups, `|` and `?` spells,
+ * in the order a backtracking matcher tries them: a greedy `?` tries its item first, a lazy
+ * `??` the empty string first. */
 export function expand(src: string): string[] {
   let pos = 0;
   function alternation(): string[] {
@@ -20,8 +22,19 @@ export function expand(src: string): string[] {
       for (;;) {
         if (src[pos] === "?") {
           pos++;
-          if (src[pos] === "?") pos++;
-          item = ["", ...item];
+          if (src[pos] === "?") {
+            pos++;
+            item = ["", ...item];
+          } else item = [...item, ""];
+        } else if (src[pos] === "{") {
+          // A greedy `{m,n}` tries the most repetitions first.
+          const close = src.indexOf("}", pos);
+          const [lo, hi] = src.slice(pos + 1, close).split(",").map(Number) as [number, number];
+          pos = close + 1;
+          const once = item;
+          const times = (n: number): string[] => (n === 0 ? [""] : times(n - 1).flatMap((a) => once.map((b) => a + b)));
+          item = [];
+          for (let n = hi; n >= lo; n--) item.push(...times(n));
         } else break;
       }
       out = out.flatMap((a) => item.map((b) => a + b));

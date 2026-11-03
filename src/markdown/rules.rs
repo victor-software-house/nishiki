@@ -525,6 +525,8 @@ const EMBEDDED: &[(Language, S)] = &[
     (Language::Julia, S::EmbeddedJulia),
     #[cfg(feature = "lang-scss")]
     (Language::Scss, S::EmbeddedScss),
+    #[cfg(feature = "lang-less")]
+    (Language::Less, S::EmbeddedLess),
 ];
 
 /// The scope a container adds to the text between its opening and closing.

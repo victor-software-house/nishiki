@@ -140,6 +140,7 @@ assert_eq!(highlighter.limits().depth, None);
 | JSX | `Language::Jsx` | `lang-jsx` | `jsx` |
 | Julia | `Language::Julia` | `lang-julia` | `julia`, `jl` |
 | Kotlin | `Language::Kotlin` | `lang-kotlin` | `kotlin`, `kt`, `kts` |
+| Less | `Language::Less` | `lang-less` | `less` |
 | Lua | `Language::Lua` | `lang-lua` | `lua` |
 | Makefile | `Language::Make` | `lang-make` | `make`, `makefile` |
 | Markdown | `Language::Markdown` | `lang-markdown` | `markdown`, `md` |
@@ -180,7 +181,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   |:--|:--|
   | `all` (the default) | Every language |
   | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
-  | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS |
+  | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less |
   | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
   | `docs` | Markdown and `config` |
   | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix, Dart, Julia, Mermaid, Haskell |
@@ -518,6 +519,13 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 - The whole suffix after a parent selector, as `-b` in `&-b`, is `punctuation.definition.entity.css`.
 - In an attribute selector such as `[x="y"]`, the quotes of the value are a string and the text between them, `y`, is not.
 - A Markdown fence names the language `scss`.
+
+### Less
+
+- A declaration whose property the grammar does not list reads as a selector, as `b: c` in `.a { b: c }`, where `b` is a tag.
+- `@viewport` reads as a variable: the grammar's at-rules include `#at-viewport`, which it never defines, and Shiki skips the include.
+- Outside a guard, `default()` is the guard function only when a word character follows its `)`; otherwise `default` is a value keyword.
+- A Markdown fence names the language `less`.
 
 ## Licence
 

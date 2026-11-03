@@ -84,6 +84,9 @@ tags! {
     /// Kotlin.
     #[cfg(feature = "lang-kotlin")]
     KOTLIN = 0x2a00,
+    /// Less.
+    #[cfg(feature = "lang-less")]
+    LESS = 0x2f00,
     /// Lua.
     #[cfg(feature = "lang-lua")]
     LUA = 0x2d00,

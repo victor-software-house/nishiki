@@ -64,6 +64,17 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `kotlin/okhttp-cookie` | [`Cookie.kt`][okhttp-cookie] in square/okhttp | [Apache-2.0][okhttp-licence] |
 | `kotlin/sample` | [`samples/kotlin.sample`][kotlin-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `kotlin/serialization-json` | [`Json.kt`][serialization-json] in Kotlin/kotlinx.serialization | [Apache-2.0][kotlinx-serialization-licence] |
+| `less/antd-button-mixin` | [`components/button/style/mixin.less`][less-antd-button-mixin] in ant-design/ant-design | [MIT][antd-licence] |
+| `less/antd-color-palette` | [`components/style/color/colorPalette.less`][less-antd-color-palette] in ant-design/ant-design | [MIT][antd-licence] |
+| `less/antd-compact-item` | [`components/style/mixins/compact-item.less`][less-antd-compact-item] in ant-design/ant-design | [MIT][antd-licence] |
+| `less/antd-customize` | [`components/style/mixins/customize.less`][less-antd-customize] in ant-design/ant-design | [MIT][antd-licence] |
+| `less/bootstrap3-forms` | [`less/forms.less`][less-bootstrap3-forms] in twbs/bootstrap | [MIT][bootstrap3-licence] |
+| `less/bootstrap3-mixins-buttons` | [`less/mixins/buttons.less`][less-bootstrap3-mixins-buttons] in twbs/bootstrap | [MIT][bootstrap3-licence] |
+| `less/bootstrap3-mixins-gradients` | [`less/mixins/gradients.less`][less-bootstrap3-mixins-gradients] in twbs/bootstrap | [MIT][bootstrap3-licence] |
+| `less/bootstrap3-mixins-grid-framework` | [`less/mixins/grid-framework.less`][less-bootstrap3-mixins-grid-framework] in twbs/bootstrap | [MIT][bootstrap3-licence] |
+| `less/bootstrap3-navbar` | [`less/navbar.less`][less-bootstrap3-navbar] in twbs/bootstrap | [MIT][bootstrap3-licence] |
+| `less/bootstrap3-variables` | [`less/variables.less`][less-bootstrap3-variables] in twbs/bootstrap | [MIT][bootstrap3-licence] |
+| `less/sample` | [`samples/less.sample`][less-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `make/cjson` | [`Makefile`][cjson-make] in DaveGamble/cJSON | [MIT][cjson-licence] |
 | `make/helm` | [`Makefile`][helm-make] in helm/helm | [Apache-2.0][helm-licence] |
 | `make/minikube` | [`Makefile`][minikube-make] in kubernetes/minikube | [Apache-2.0][minikube-licence] |
@@ -496,6 +507,8 @@ Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railtie
 
 `lua/sample`, `lua/inspect`, `lua/lume`, `lua/luals-string` and `lua/lua-literals` are the development inputs for Lua; `lua/lua-literals` holds long strings and a long comment at several levels, across lines.
 `lua/json`, `lua/penlight-stringx`, `lua/luarocks-util` and `lua/luals-table` are held out.
+`less/sample`, `less/bootstrap3-variables`, `less/bootstrap3-mixins-buttons`, `less/bootstrap3-mixins-grid-framework`, `less/antd-button-mixin` and `less/antd-customize` are the development inputs for Less.
+`less/bootstrap3-forms`, `less/bootstrap3-navbar`, `less/bootstrap3-mixins-gradients`, `less/antd-compact-item` and `less/antd-color-palette` are held out; `less/antd-color-palette` holds JavaScript in backticks.
 
 `scss/sample`, `scss/bootstrap-functions`, `scss/bootstrap-button`, `scss/bootstrap-mixins-grid` and `scss/bulma-mixins` are the development inputs for SCSS.
 `scss/bootstrap-utilities`, `scss/bootstrap-navbar`, `scss/bootstrap-root`, `scss/bulma-functions` and `scss/bulma-button` are held out.
@@ -522,6 +535,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [ant-junit-frames]: https://github.com/apache/ant/blob/dbb01a2d528568b1d7ba0c2d84e533577f7f0876/src/etc/junit-frames.xsl
 [ant-junit-noframes]: https://github.com/apache/ant/blob/dbb01a2d528568b1d7ba0c2d84e533577f7f0876/src/etc/junit-noframes.xsl
 [ant-licence]: https://github.com/apache/ant/blob/dbb01a2d528568b1d7ba0c2d84e533577f7f0876/LICENSE
+[antd-licence]: https://github.com/ant-design/ant-design/blob/7c060247516925f48175d7f29cd43b626632665e/LICENSE
 [argument-parser-argument]: https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/Sources/ArgumentParser/Parsable%20Properties/Argument.swift
 [argument-parser-command-parser]: https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/Sources/ArgumentParser/Parsing/CommandParser.swift
 [argument-parser-declaring-arguments]: https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/Sources/ArgumentParser/Documentation.docc/Articles/DeclaringArguments.md
@@ -749,6 +763,17 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [ky-readme]: https://github.com/sindresorhus/ky/blob/3541888878c4d303a8bc2ad61815f4e048f55a5d/readme.md
 [latexrun-licence]: https://github.com/aclements/latexrun/blob/38ff6ec2815654513c91f64bdf2a5760c85da26e/LICENSE
 [latexrun-readme]: https://github.com/aclements/latexrun/blob/38ff6ec2815654513c91f64bdf2a5760c85da26e/README.md
+[less-antd-button-mixin]: https://github.com/ant-design/ant-design/blob/7c060247516925f48175d7f29cd43b626632665e/components/button/style/mixin.less
+[less-antd-color-palette]: https://github.com/ant-design/ant-design/blob/7c060247516925f48175d7f29cd43b626632665e/components/style/color/colorPalette.less
+[less-antd-compact-item]: https://github.com/ant-design/ant-design/blob/7c060247516925f48175d7f29cd43b626632665e/components/style/mixins/compact-item.less
+[less-antd-customize]: https://github.com/ant-design/ant-design/blob/7c060247516925f48175d7f29cd43b626632665e/components/style/mixins/customize.less
+[less-bootstrap3-forms]: https://github.com/twbs/bootstrap/blob/68b0d231a13201eb14acd3dc84e51543d16e5f7e/less/forms.less
+[less-bootstrap3-mixins-buttons]: https://github.com/twbs/bootstrap/blob/68b0d231a13201eb14acd3dc84e51543d16e5f7e/less/mixins/buttons.less
+[less-bootstrap3-mixins-gradients]: https://github.com/twbs/bootstrap/blob/68b0d231a13201eb14acd3dc84e51543d16e5f7e/less/mixins/gradients.less
+[less-bootstrap3-mixins-grid-framework]: https://github.com/twbs/bootstrap/blob/68b0d231a13201eb14acd3dc84e51543d16e5f7e/less/mixins/grid-framework.less
+[less-bootstrap3-navbar]: https://github.com/twbs/bootstrap/blob/68b0d231a13201eb14acd3dc84e51543d16e5f7e/less/navbar.less
+[less-bootstrap3-variables]: https://github.com/twbs/bootstrap/blob/68b0d231a13201eb14acd3dc84e51543d16e5f7e/less/variables.less
+[less-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/less.sample
 [leveldb-licence]: https://github.com/google/leveldb/blob/bb74ef739973a70ca9f0d90788a1da89b788c0ad/LICENSE
 [leveldb-version-set]: https://github.com/google/leveldb/blob/bb74ef739973a70ca9f0d90788a1da89b788c0ad/db/version_set.cc
 [libuv-core]: https://github.com/libuv/libuv/blob/7228e05f3e407ed3fa59edba920b8cd825b5d83d/src/unix/core.c

@@ -20,6 +20,8 @@ const alamofire =
   "https://raw.githubusercontent.com/Alamofire/Alamofire/6c2892ea5adb5a03fa81c510933dd782c5ddd9cb";
 const ant =
   "https://raw.githubusercontent.com/apache/ant/dbb01a2d528568b1d7ba0c2d84e533577f7f0876";
+const antd =
+  "https://raw.githubusercontent.com/ant-design/ant-design/7c060247516925f48175d7f29cd43b626632665e";
 const argumentParser =
   "https://raw.githubusercontent.com/apple/swift-argument-parser/38ca4eceb349155836701b88da3e0986eb9d1e1c";
 const aspnetcore =
@@ -602,6 +604,17 @@ export const inputs: Input[] = [
     name: "turbine-flow-test",
     url: `${turbine}/src/commonTest/kotlin/app/cash/turbine/FlowTest.kt`,
   },
+  { lang: "less", name: "antd-button-mixin", url: `${antd}/components/button/style/mixin.less` },
+  { lang: "less", name: "antd-color-palette", url: `${antd}/components/style/color/colorPalette.less` },
+  { lang: "less", name: "antd-compact-item", url: `${antd}/components/style/mixins/compact-item.less` },
+  { lang: "less", name: "antd-customize", url: `${antd}/components/style/mixins/customize.less` },
+  { lang: "less", name: "bootstrap3-forms", url: `${bootstrap3}/less/forms.less` },
+  { lang: "less", name: "bootstrap3-mixins-buttons", url: `${bootstrap3}/less/mixins/buttons.less` },
+  { lang: "less", name: "bootstrap3-mixins-gradients", url: `${bootstrap3}/less/mixins/gradients.less` },
+  { lang: "less", name: "bootstrap3-mixins-grid-framework", url: `${bootstrap3}/less/mixins/grid-framework.less` },
+  { lang: "less", name: "bootstrap3-navbar", url: `${bootstrap3}/less/navbar.less` },
+  { lang: "less", name: "bootstrap3-variables", url: `${bootstrap3}/less/variables.less` },
+  { lang: "less", name: "sample", url: `${samples}/less.sample` },
   { lang: "lua", name: "inspect", url: `${inspectLua}/inspect.lua` },
   { lang: "lua", name: "json", url: `${jsonLua}/json.lua` },
   { lang: "lua", name: "lua-literals", url: `${lua}/testes/literals.lua` },

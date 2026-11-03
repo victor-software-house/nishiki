@@ -97,6 +97,8 @@ tables! {
     JSON = json;
     #[cfg(feature = "lang-kotlin")]
     KOTLIN = kotlin;
+    #[cfg(feature = "lang-less")]
+    LESS = less;
     #[cfg(feature = "lang-lua")]
     LUA = lua;
     #[cfg(feature = "lang-make")]

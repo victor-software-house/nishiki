@@ -48,6 +48,7 @@ all = [
   "lang-json",
   "lang-jsx",
   "lang-kotlin",
+  "lang-less",
   "lang-lua",
   "lang-make",
   "lang-markdown",
@@ -85,6 +86,7 @@ web = [
   "lang-javascript",
   "lang-json",
   "lang-jsx",
+  "lang-less",
   "lang-scss",
   "lang-tsx",
   "lang-typescript",
@@ -145,6 +147,7 @@ lang-json = ["_classes", "_utf8", "_frame-kinds"]
 lang-jsx = ["_classes", "_space"]
 lang-julia = ["_textmate"]
 lang-kotlin = ["_scope-table", "_rule-tables", "_classes"]
+lang-less = ["_scope-table", "_rule-tables", "_classes"]
 lang-lua = ["_scope-table", "_rule-tables", "_classes"]
 lang-make = [
   "_scope-table",

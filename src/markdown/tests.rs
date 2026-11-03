@@ -630,6 +630,30 @@ fn scss_fences_embed_the_scss_lexer_without_its_root() {
     }
 }
 
+#[cfg(feature = "lang-less")]
+#[test]
+fn less_fences_embed_the_less_lexer_without_its_root() {
+    for info in ["less", "LESS", "less title=x"] {
+        let text = formatdoc! {"
+            ```{info}
+            @a: 1;
+            ```
+        "};
+        assert_eq!(
+            stack_of(&text, "a"),
+            [
+                "text.html.markdown",
+                "markup.fenced_code.block.markdown",
+                "meta.embedded.block.less",
+                "meta.property-value.less",
+                "variable.other.readwrite.less",
+                "support.other.variable.less",
+            ],
+            "{info}"
+        );
+    }
+}
+
 #[test]
 fn go_state_continues_across_the_lines_of_a_fence() {
     let text = indoc! {"

@@ -389,6 +389,8 @@ languages! {
         engine: crate::haskell::grammar::GRAMMAR,
         reads_line_feed: true,
     }
+    /// Less, with the scopes of Shiki's `less` grammar.
+    Less { feature: "lang-less", names: ["less"], module: less }
 }
 
 impl Language {

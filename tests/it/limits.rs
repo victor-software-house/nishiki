@@ -26,6 +26,7 @@ mod json;
 #[cfg(feature = "lang-julia")]
 mod julia;
 mod kotlin;
+mod less;
 mod lua;
 mod make;
 mod markdown;

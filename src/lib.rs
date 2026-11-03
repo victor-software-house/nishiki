@@ -100,6 +100,8 @@ mod julia;
 #[cfg(feature = "lang-kotlin")]
 mod kotlin;
 mod language;
+#[cfg(feature = "lang-less")]
+mod less;
 mod limits;
 #[cfg(feature = "lang-lua")]
 mod lua;

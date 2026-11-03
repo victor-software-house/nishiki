@@ -35,6 +35,9 @@ pub(crate) struct Scratch {
     /// The Kotlin lexer's, for Kotlin documents.
     #[cfg(feature = "lang-kotlin")]
     pub(crate) kotlin: crate::kotlin::Scratch,
+    /// The Less lexer's, for Less documents and Markdown Less fences.
+    #[cfg(feature = "lang-less")]
+    pub(crate) less: crate::less::Scratch,
     /// The Lua lexer's, for Lua documents and Markdown Lua fences.
     #[cfg(feature = "lang-lua")]
     pub(crate) lua: crate::lua::Scratch,

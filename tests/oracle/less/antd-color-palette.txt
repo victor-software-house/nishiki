@@ -1,0 +1,429 @@
+L /* stylelint-disable no-duplicate-selectors */
+T 2 source.css.less comment.block.less punctuation.definition.comment.less
+T 44 source.css.less comment.block.less
+T 46 source.css.less comment.block.less punctuation.definition.comment.less
+L @import "bezierEasing";
+T 1 source.css.less meta.at-rule.import.less keyword.control.at-rule.import.less punctuation.definition.keyword.less
+T 7 source.css.less meta.at-rule.import.less keyword.control.at-rule.import.less
+T 8 source.css.less meta.at-rule.import.less
+T 9 source.css.less meta.at-rule.import.less string.quoted.double.less punctuation.definition.string.begin.less
+T 21 source.css.less meta.at-rule.import.less string.quoted.double.less
+T 22 source.css.less meta.at-rule.import.less string.quoted.double.less punctuation.definition.string.end.less
+T 23 source.css.less meta.at-rule.import.less punctuation.terminator.rule.less
+L @import "tinyColor";
+T 1 source.css.less meta.at-rule.import.less keyword.control.at-rule.import.less punctuation.definition.keyword.less
+T 7 source.css.less meta.at-rule.import.less keyword.control.at-rule.import.less
+T 8 source.css.less meta.at-rule.import.less
+T 9 source.css.less meta.at-rule.import.less string.quoted.double.less punctuation.definition.string.begin.less
+T 18 source.css.less meta.at-rule.import.less string.quoted.double.less
+T 19 source.css.less meta.at-rule.import.less string.quoted.double.less punctuation.definition.string.end.less
+T 20 source.css.less meta.at-rule.import.less punctuation.terminator.rule.less
+L 
+L // We create a very complex algorithm which take the place of original tint/shade color system
+T 2 source.css.less comment.line.double-slash.less punctuation.definition.comment.less
+T 94 source.css.less comment.line.double-slash.less
+L // to make sure no one can understand it 👻
+T 2 source.css.less comment.line.double-slash.less punctuation.definition.comment.less
+T 45 source.css.less comment.line.double-slash.less
+L // and create an entire color palette magicly by inputing just a single primary color.
+T 2 source.css.less comment.line.double-slash.less punctuation.definition.comment.less
+T 86 source.css.less comment.line.double-slash.less
+L // We are using bezier-curve easing function and some color manipulations like tint/shade/darken/spin
+T 2 source.css.less comment.line.double-slash.less punctuation.definition.comment.less
+T 101 source.css.less comment.line.double-slash.less
+L .colorPaletteMixin() {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 18 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 19 source.css.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 20 source.css.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 21 source.css.less meta.selector.less
+T 22 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L @functions: ~`(function() {
+T 1 source.css.less meta.property-list.less meta.property-value.less variable.other.readwrite.less punctuation.definition.variable.less
+T 10 source.css.less meta.property-list.less meta.property-value.less variable.other.readwrite.less support.other.variable.less
+T 11 source.css.less meta.property-list.less meta.property-value.less punctuation.separator.key-value.less
+T 12 source.css.less meta.property-list.less meta.property-value.less meta.property-value.less
+T 13 source.css.less meta.property-list.less meta.property-value.less string.unquoted.less
+T 14 source.css.less meta.property-list.less meta.property-value.less string.unquoted.less
+T 15 source.css.less meta.property-list.less meta.property-value.less meta.group.less punctuation.definition.group.begin.less
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 27 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L   var hueStep = 2;
+T 16 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 17 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 18 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L   var saturationStep = 0.16;
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 27 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 28 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L   var saturationStep2 = 0.05;
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 28 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 29 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L   var brightnessStep1 = 0.05;
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 28 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 29 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L   var brightnessStep2 = 0.15;
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 28 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 29 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L   var lightColorCount = 5;
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 26 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L   var darkColorCount = 4;
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L 
+L   var getHue = function(hsv, i, isLight) {
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 39 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 40 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 42 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     var hue;
+T 12 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     if (hsv.h >= 60 && hsv.h <= 240) {
+T 7 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 8 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 17 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 19 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less constant.numeric.less
+T 32 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 35 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less constant.numeric.less
+T 36 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 38 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L       hue = isLight ? hsv.h - hueStep * i : hsv.h + hueStep * i;
+T 28 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 29 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 38 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 39 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 50 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 51 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 60 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 61 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 64 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     } else {
+T 12 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L       hue = isLight ? hsv.h + hueStep * i : hsv.h - hueStep * i;
+T 28 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 29 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 38 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 39 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 50 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 51 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 60 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 61 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 64 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     }
+T 5 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     if (hue < 0) {
+T 7 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 8 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 14 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 15 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less constant.numeric.less
+T 16 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 18 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L       hue += 360;
+T 10 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 11 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 13 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 16 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 17 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     } else if (hue >= 360) {
+T 14 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 15 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 22 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less constant.numeric.less
+T 26 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 28 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L       hue -= 360;
+T 10 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 11 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 13 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 16 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 17 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     }
+T 5 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     return Math.round(hue);
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 22 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 26 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 27 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L   };
+T 4 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L   var getSaturation = function(hsv, i, isLight) {
+T 30 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 31 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 46 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 47 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 49 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     // grey color don't change saturation
+T 4 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 5 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 6 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 41 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     if (hsv.h === 0 && hsv.s === 0) {
+T 7 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 8 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 18 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 19 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less constant.numeric.less
+T 33 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 34 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less constant.numeric.less
+T 35 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 37 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L       return hsv.s;
+T 19 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     }
+T 5 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     var saturation;
+T 19 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     if (isLight) {
+T 7 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 8 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 15 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 16 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 18 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L       saturation = hsv.s - saturationStep * i;
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 26 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 42 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 43 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 46 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     } else if (i === darkColorCount) {
+T 14 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 15 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 35 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 36 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 38 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L       saturation = hsv.s + saturationStep;
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 26 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 42 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     } else {
+T 12 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L       saturation = hsv.s + saturationStep2 * i;
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 26 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 41 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 42 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 43 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 44 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 47 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     }
+T 5 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     if (saturation > 1) {
+T 7 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 8 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 22 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less constant.numeric.less
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L       saturation = 1;
+T 19 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     }
+T 5 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     if (isLight && i === lightColorCount && saturation > 0.1) {
+T 7 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 8 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 57 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 58 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less constant.numeric.less
+T 60 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less constant.numeric.less
+T 61 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 63 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L       saturation = 0.1;
+T 19 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 22 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     }
+T 5 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     if (saturation < 0.06) {
+T 7 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 8 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 22 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less constant.numeric.less
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less constant.numeric.less
+T 26 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 28 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L       saturation = 0.06;
+T 19 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     }
+T 5 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     return Number(saturation.toFixed(2));
+T 17 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 18 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 36 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 37 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 38 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less constant.numeric.less
+T 39 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 40 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 41 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L   };
+T 4 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L   var getValue = function(hsv, i, isLight) {
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 26 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 41 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 42 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 44 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     var value;
+T 14 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     if (isLight) {
+T 7 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 8 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 15 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 16 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 18 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L       value = hsv.v + brightnessStep1 * i;
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 36 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 37 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 38 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 39 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 42 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     }else{
+T 10 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L       value = hsv.v - brightnessStep2 * i
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 36 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 37 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 38 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 39 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 41 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     }
+T 5 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     if (value > 1) {
+T 7 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 8 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 16 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 17 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less constant.numeric.less
+T 18 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L       value = 1;
+T 14 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 15 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 16 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     }
+T 5 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     return Number(value.toFixed(2))
+T 17 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 18 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 31 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 32 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 33 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less constant.numeric.less
+T 34 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 35 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+L   };
+T 4 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L 
+L   this.colorPalette = function(color, index) {
+T 30 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 31 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 43 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 44 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 46 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     var isLight = index <= 6;
+T 27 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 28 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 29 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     var hsv = tinycolor(color).toHsv();
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 29 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 30 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 36 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 37 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 38 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 39 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     var i = isLight ? lightColorCount + 1 - index : index - lightColorCount - 1;
+T 38 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 39 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 40 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 41 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 42 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 43 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 58 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 59 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 76 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 77 source.css.less meta.property-list.less meta.property-value.less meta.group.less keyword.operator.arithmetic.less
+T 78 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 79 source.css.less meta.property-list.less meta.property-value.less meta.group.less constant.numeric.less
+T 80 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L     return tinycolor({
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 22 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+L       h: getHue(hsv, i, isLight),
+T 15 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 16 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 31 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less
+T 32 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 33 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+L       s: getSaturation(hsv, i, isLight),
+T 22 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 38 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less
+T 39 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 40 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+L       v: getValue(hsv, i, isLight),
+T 17 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 18 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 33 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less
+T 34 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 35 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+L     }).toHexString();
+T 5 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less
+T 6 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 18 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 19 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L   };
+T 4 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+L })()`;
+T 1 source.css.less meta.property-list.less meta.property-value.less meta.group.less
+T 2 source.css.less meta.property-list.less meta.property-value.less meta.group.less punctuation.definition.group.end.less
+T 3 source.css.less meta.property-list.less meta.property-value.less meta.group.less punctuation.definition.group.begin.less
+T 4 source.css.less meta.property-list.less meta.property-value.less meta.group.less punctuation.definition.group.end.less
+T 5 source.css.less meta.property-list.less meta.property-value.less string.unquoted.less
+T 6 source.css.less meta.property-list.less meta.property-value.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L // It is hacky way to make this function will be compiled preferentially by less
+T 2 source.css.less comment.line.double-slash.less punctuation.definition.comment.less
+T 80 source.css.less comment.line.double-slash.less
+L // resolve error: `ReferenceError: colorPalette is not defined`
+T 2 source.css.less comment.line.double-slash.less punctuation.definition.comment.less
+T 63 source.css.less comment.line.double-slash.less
+L // https://github.com/ant-design/ant-motion/issues/44
+T 2 source.css.less comment.line.double-slash.less punctuation.definition.comment.less
+T 53 source.css.less comment.line.double-slash.less
+L .colorPaletteMixin();
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 18 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 19 source.css.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 20 source.css.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 21 source.css.less punctuation.terminator.rule.less
+L 

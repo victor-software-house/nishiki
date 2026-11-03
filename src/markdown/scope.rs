@@ -90,6 +90,8 @@ crate::scope::scope_table! {
     EmbeddedJulia "meta.embedded.block.julia"
     #[cfg(feature = "lang-scss")]
     EmbeddedScss "meta.embedded.block.scss"
+    #[cfg(feature = "lang-less")]
+    EmbeddedLess "meta.embedded.block.less"
     EmbeddedFrontMatter "meta.embedded.block.frontmatter"
     FrontMatterBegin "punctuation.definition.begin.frontmatter"
     FrontMatterComment "comment.frontmatter"
