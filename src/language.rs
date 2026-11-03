@@ -16,8 +16,9 @@ use crate::scratch::Scratch;
 /// and whether its rules end at the line feed of a line that the containers
 /// around a Markdown fence took whole.
 /// A new language is one row here, its scope table in `src/scope.rs`, its
-/// frame tag in `src/tag.rs`, its fence names in `src/markdown/fence.rs`, and
-/// its field in `src/scratch.rs` when it keeps buffers.
+/// frame tag in `src/tag.rs`, its fence names in `src/markdown/fence.rs`, its
+/// field in `src/scratch.rs` when it keeps buffers, and its `lang-*` feature
+/// in `Cargo.toml`, with a `cfg` on each of these.
 macro_rules! languages {
     (@flag) => { false };
     (@flag $flag:literal) => { $flag };

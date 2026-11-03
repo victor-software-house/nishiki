@@ -7,7 +7,6 @@
 //! A lexer that needs more than the low byte for its own bits (a flag next to
 //! the kind) claims a wider range by giving its row a `mask` that covers
 //! fewer bits of the high byte, and the check below counts the whole range.
-//! Bytes `0x10` and up belong to the shared rule engine.
 
 /// A claimed range of the code space: the codes `c` with `c & mask == value`.
 struct Tag {

@@ -194,7 +194,9 @@ impl Lexer<'_> {
         match b {
             b'<' if self.at(p + 1) == b'[' => {
                 self.gap(p);
-                self.push(Kind::AngleSq).then_some(())?;
+                if !self.push(Kind::AngleSq) {
+                    return None;
+                }
                 self.tok(p + 1, &[S::Angle]);
                 self.tok(p + 2, &[S::Square]);
                 Some(p + 2)
@@ -302,7 +304,9 @@ impl Lexer<'_> {
             return None;
         }
         self.gap(p);
-        self.push(Kind::Import).then_some(())?;
+        if !self.push(Kind::Import) {
+            return None;
+        }
         self.tok(p + 6, &[S::StorageType]);
         self.tok(krate, &[]);
         self.tok(krate + 5, &[S::KwCrate]);
@@ -317,7 +321,9 @@ impl Lexer<'_> {
             return None;
         }
         self.gap(p);
-        self.push(Kind::Use).then_some(())?;
+        if !self.push(Kind::Use) {
+            return None;
+        }
         self.tok(p + 3, &[S::KwOther]);
         Some(p + 3)
     }
@@ -481,7 +487,9 @@ impl Lexer<'_> {
             return None;
         }
         self.gap(p);
-        self.push(Kind::Attr).then_some(())?;
+        if !self.push(Kind::Attr) {
+            return None;
+        }
         self.tok(p + 1, &[S::PunctDefAttr]);
         self.tok(p + 1 + bang, &[]);
         self.tok(p + 2 + bang, &[S::AttrBracket]);
@@ -566,7 +574,9 @@ impl Lexer<'_> {
             return None;
         }
         self.gap(p);
-        self.push(Kind::Call).then_some(())?;
+        if !self.push(Kind::Call) {
+            return None;
+        }
         self.tok(end, &[S::EntFunction]);
         if call {
             self.tok(end + 1, &[S::Round]);
@@ -599,7 +609,9 @@ impl Lexer<'_> {
             let end = self.skip(start, is_ascii_word);
             if self.at(end) == b'<' && self.boundary(end) {
                 self.gap(p);
-                self.push(Kind::Generic).then_some(())?;
+                if !self.push(Kind::Generic) {
+                    return None;
+                }
                 self.tok(end, &[S::EntType]);
                 self.tok(end + 1, &[S::Angle]);
                 return Some(end + 1);

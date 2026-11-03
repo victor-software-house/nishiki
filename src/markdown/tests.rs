@@ -915,3 +915,37 @@ fn word_characters_are_the_ones_shiki_measures() {
         assert!(!italic(&format!("_a_{mark} b")), "{mark:?} is \\w");
     }
 }
+
+/// Each line gets the same tokens from the frames kept after the line before
+/// it and from frames rebuilt from the arena, after another line moved the
+/// highlighter on.
+#[test]
+fn a_line_lexes_the_same_from_kept_and_rebuilt_frames() {
+    let lines = [
+        "---",
+        "a: 1",
+        "b: [",
+        "---",
+        "> ```rust",
+        "> /* c",
+        "> */",
+        "> ```",
+    ];
+    let mut highlighter = Highlighter::new(Language::Markdown);
+    let mut state = State::default();
+    let mut kept = Vec::new();
+    let mut states = Vec::new();
+    for line in lines {
+        states.push(state);
+        let mut tokens = Vec::new();
+        let _ = highlighter.line(line, &mut state, &mut tokens);
+        kept.push(tokens);
+    }
+    for (index, line) in lines.iter().enumerate().skip(1) {
+        let _ = highlighter.line("other", &mut State::default(), &mut Vec::new());
+        let mut from = states[index];
+        let mut rebuilt = Vec::new();
+        let _ = highlighter.line(line, &mut from, &mut rebuilt);
+        assert_eq!(rebuilt, kept[index], "{line:?}");
+    }
+}

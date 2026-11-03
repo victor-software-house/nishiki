@@ -5,14 +5,14 @@
 //! open at the end of a line (quotes, lists, fences, tables, paragraphs), are
 //! frames of the highlighter's interned state.
 //!
-//! A fenced code block in a language nishiki lexes (`rust`, and `markdown`
-//! itself) is handed to that lexer line by line. Its scopes sit inside the
-//! fence's `meta.embedded.block.rust` (or `.markdown`), without the language's
-//! own root scope, as in Shiki. Any other fence is plain text with
-//! `fenced_code.block.language` on its info string: Shiki drops the grammar's
-//! rule for a language whose grammar is not loaded, and that is what its
-//! output shows. Adding a language adds a variant to `state::Lang`, an entry
-//! to the table in `fence.rs` and its scope in `rules.rs`.
+//! A fenced code block in a language nishiki lexes is handed to that lexer
+//! line by line, and a `markdown` fence to Markdown's own rules. Its scopes
+//! sit inside the fence's embedded scope, such as `meta.embedded.block.rust`,
+//! without the language's own root scope, as in Shiki. Any other fence is
+//! plain text with `fenced_code.block.language` on its info string: Shiki
+//! drops the grammar's rule for a language whose grammar is not loaded, and
+//! that is what its output shows. Adding a fence language adds an entry to
+//! the table in `fence.rs` and its embedded scope in `rules::content_name`.
 //!
 //! ```
 //! use nishiki::{Highlighter, Language, State};

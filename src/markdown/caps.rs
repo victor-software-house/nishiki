@@ -4,6 +4,11 @@
 /// The most groups any rule has (the link rules have 21).
 const GROUPS: usize = 22;
 
+/// The deepest the scoped groups of one match nest inside each other. No
+/// rule of the grammar nests deeper, which debug builds assert; a deeper
+/// group would take no scope of its own.
+pub(crate) const NESTING: usize = 4;
+
 /// The byte range of each capture group that took part in a match, in group
 /// order.
 ///
@@ -27,8 +32,14 @@ impl Caps {
         self.len = 0;
     }
 
-    /// Records group `index` as the bytes from `start` to `end`.
+    /// Records group `index` as the bytes from `start` to `end`. A full
+    /// table keeps the groups it has: no rule sets more than [`GROUPS`],
+    /// which debug builds assert.
     pub(crate) fn set(&mut self, index: usize, start: usize, end: usize) {
+        debug_assert!(self.len < GROUPS, "group {index} past {GROUPS} groups");
+        if self.len == GROUPS {
+            return;
+        }
         let (group, start, end) = (
             u8::try_from(index).unwrap_or(u8::MAX),
             u32::try_from(start).unwrap_or(u32::MAX),

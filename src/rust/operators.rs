@@ -4,9 +4,10 @@ use super::lexer::Lexer;
 use super::scope::S;
 use crate::classes::is_ascii_word;
 
-/// The scopes of a word keyword, or none when the word is not one.
+/// The scopes of a word keyword, or none when the word is not one. Every
+/// keyword is two to eight lowercase letters, which rules most words out
+/// before the match.
 fn keyword(word: &[u8]) -> Option<&'static [S]> {
-    // Every keyword is two to eight lowercase letters.
     if !(2..=8).contains(&word.len()) || !word[0].is_ascii_lowercase() {
         return None;
     }
@@ -53,11 +54,13 @@ impl Lexer<'_> {
         Some(p + len)
     }
 
-    /// The length and scope of the operator at `p`, in the grammar's order.
+    /// The length and scope of the operator at `p`, in the grammar's order:
+    /// logical (`^`, `|`, `&&`, `<<`, `>>` and `!`, none followed by `=`) and
+    /// borrow, assignment, comparison, math, then the rest. A closing
+    /// bracket is the caller's, which emits several tokens for it.
     fn operator(&self, p: usize, b: u8) -> Option<(usize, S)> {
         let (c1, c2) = (self.at(p + 1), self.at(p + 2));
         let not_eq = |c: u8| c != b'=';
-        // Logical: `^`, `|`, `&&`, `<<`, `>>` and `!`, none followed by `=`.
         if matches!(b, b'^' | b'|' | b'!') && not_eq(c1) {
             return Some((1, S::OpLogical));
         }
@@ -67,7 +70,6 @@ impl Lexer<'_> {
         if b == b'&' && !matches!(c1, b'&' | b'=') {
             return Some((1, S::OpBorrowAnd));
         }
-        // Compound assignment.
         if matches!(b, b'-' | b'%' | b'&' | b'*' | b'+' | b'/' | b'^' | b'|') && c1 == b'=' {
             return Some((2, S::OpAssign));
         }
@@ -80,7 +82,6 @@ impl Lexer<'_> {
         {
             return Some((1, S::OpAssignEq));
         }
-        // Comparison.
         match (b, c1) {
             (b'=', b'=') if c2 != b'>' => return Some((2, S::OpCompare)),
             (b'=', _) if c1 != b'>' => return Some((1, S::OpCompare)),
@@ -88,7 +89,6 @@ impl Lexer<'_> {
             (b'>', b'=') if p == 0 || self.s[p - 1] != b'=' => return Some((2, S::OpCompare)),
             _ => {}
         }
-        // Math.
         let math = match b {
             b'%' | b'+' => not_eq(c1),
             b'*' => !self.word_at(p + 1) && not_eq(c1),
@@ -100,7 +100,6 @@ impl Lexer<'_> {
             return Some((1, S::OpMath));
         }
         if matches!(b, b')' | b']' | b'}') {
-            // Handled by the caller, which needs to emit several tokens.
             return None;
         }
         match (b, c1) {

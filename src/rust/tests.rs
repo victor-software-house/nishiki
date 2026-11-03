@@ -283,23 +283,57 @@ fn definitions_calls_and_generics() {
     assert_eq!(scope_of("a < b", "<"), "keyword.operator.comparison.rust");
 }
 
+/// A line lexed from a saved state, after other lines moved the highlighter
+/// on, gets the scopes a fresh highlighter gives it in one pass.
 #[test]
 fn a_saved_state_resumes_identically() {
-    let mut h = highlighter();
+    let lines = ["let s = \"open", "still\" + 1"];
+    let mut one_pass = highlighter();
     let mut state = State::default();
-    let mut out = Vec::new();
-    let _ = h.line("let s = \"open", &mut state, &mut out);
-    let saved = state;
-    let (mut a, mut b) = (Vec::new(), Vec::new());
-    let (mut sa, mut sb) = (saved, saved);
-    let _ = h.line("still\" + 1", &mut sa, &mut a);
-    let _ = h.line("still\" + 1", &mut sb, &mut b);
-    assert_eq!(a, b);
-    assert_eq!(sa, sb);
+    let mut expected = Vec::new();
+    for line in lines {
+        expected.clear();
+        let _ = one_pass.line(line, &mut state, &mut expected);
+    }
+    let mut h = highlighter();
+    let mut saved = State::default();
+    let _ = h.line(lines[0], &mut saved, &mut Vec::new());
+    let _ = h.line(
+        "fn other() { /* x */ }",
+        &mut State::default(),
+        &mut Vec::new(),
+    );
+    let mut resumed = Vec::new();
+    let _ = h.line(lines[1], &mut saved, &mut resumed);
+    let names = |h: &Highlighter, tokens: &[crate::Token]| -> Vec<(usize, Vec<String>)> {
+        tokens
+            .iter()
+            .map(|token| {
+                let scopes = h.scopes(token.stack()).map(ToString::to_string).collect();
+                (token.end(), scopes)
+            })
+            .collect()
+    };
+    assert_eq!(names(&h, &resumed), names(&one_pass, &expected));
     assert_eq!(
-        h.scopes(a[0].stack()).next(),
+        h.scopes(resumed[0].stack()).next(),
         Some("string.quoted.double.rust")
     );
+}
+
+#[test]
+fn comments_past_the_depth_limit_close_back_to_the_start_state() {
+    let limits = crate::Limits {
+        depth: Some(4),
+        ..crate::Limits::default()
+    };
+    let mut h = Highlighter::new_with_limits(Language::Rust, limits);
+    let mut state = State::default();
+    let report = h.line(&"/*".repeat(10), &mut state, &mut Vec::new());
+    assert!(report.reached(crate::Limit::Depth));
+    assert_eq!(depth(&h, state), 4);
+    let _ = h.line(&"*/".repeat(10), &mut state, &mut Vec::new());
+    assert_eq!(state, State::default());
 }
 
 #[test]
@@ -330,10 +364,10 @@ fn an_uppercase_word_before_non_ascii_text_advances() {
     }
 }
 
+/// `\s` reads the Unicode `White_Space` characters and `\w` does not, so a
+/// keyword before one is still a keyword.
 #[test]
 fn unicode_spaces_are_blanks_as_in_the_grammars_whitespace_class() {
-    // `\s` reads the Unicode White_Space characters, and `\w` does not read
-    // them, so a keyword before one is still a keyword.
     for space in [
         "\u{a0}", "\u{85}", "\u{1680}", "\u{2003}", "\u{202f}", "\u{3000}",
     ] {

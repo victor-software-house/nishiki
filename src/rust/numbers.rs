@@ -27,10 +27,8 @@ impl Lexer<'_> {
     fn suffix_at(&self, i: usize) -> Option<usize> {
         NUMERIC
             .iter()
+            .find(|suffix| self.starts_with(i, suffix) && self.boundary(i + suffix.len()))
             .map(|suffix| i + suffix.len())
-            .zip(NUMERIC)
-            .find(|&(end, suffix)| self.starts_with(i, suffix) && self.boundary(end))
-            .map(|(end, _)| end)
     }
 
     /// The exponent and suffix after the fraction ending at `f`, then the

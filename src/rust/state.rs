@@ -28,7 +28,7 @@ pub(crate) enum Kind {
     Import,
     /// `"` or `b"` up to `"`.
     Str,
-    /// `r#"` up to `"#`; the hash count is in [`State::hashes`].
+    /// `r#"` up to `"#`; the hash count is the frame's payload.
     Raw,
     /// `'` or `b'` up to `'`.
     Char,
@@ -91,6 +91,21 @@ impl Kind {
             Kind::Char => Some(S::StrChar),
             Kind::Block => Some(S::CommentBlock),
             Kind::Doc => Some(S::CommentBlockDoc),
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// `Kind::ALL` is a hand copy of the enum: each entry must sit at its own
+    /// discriminant, or a frame's code reads back as another kind.
+    #[test]
+    fn every_kind_round_trips_through_its_code() {
+        for (index, kind) in Kind::ALL.iter().enumerate() {
+            assert_eq!(usize::from(kind.code() & 0xff), index, "{kind:?}");
+            assert_eq!(Kind::from_code(kind.code()), *kind);
         }
     }
 }

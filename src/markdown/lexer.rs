@@ -12,7 +12,7 @@
 
 use std::cell::Cell;
 
-use super::caps::Caps;
+use super::caps::{Caps, NESTING};
 use super::rules::{self, Capture, End, List, P};
 use super::scope::S;
 use super::state::{Fence, Kind};
@@ -191,6 +191,8 @@ pub(crate) struct Lexer<'a> {
     /// What the highlighter keeps from line to line.
     scratch: &'a mut crate::scratch::Scratch,
     /// Whether this is the first line of the document, where `\A` matches.
+    /// The document's own state is its root with a payload of 1; after the
+    /// first line the root has none, so `\A` matches on one line only.
     first_line: bool,
 }
 
@@ -230,7 +232,7 @@ impl<'a> Lexer<'a> {
             while at != ROOT {
                 let frame = arena.frame(at);
                 let kind = Kind::from_code(frame.kind);
-                let name = if matches!(kind, Kind::Body(_)) {
+                let name = if rules::content_name(kind).is_some() {
                     arena.frame(frame.parent).stack
                 } else {
                     frame.stack
@@ -247,8 +249,6 @@ impl<'a> Lexer<'a> {
             }
             frames.reverse();
         }
-        // The document's own state is its root with a payload of 1; after the
-        // first line the root has none, so `\A` matches on one line only.
         let first_line = frames
             .first()
             .is_some_and(|root| matches!(root.rule, Rule::Open(Kind::Base)) && root.payload == 1);
@@ -274,6 +274,10 @@ impl<'a> Lexer<'a> {
     }
 
     /// The state after the line, with its containers kept for the next one.
+    ///
+    /// After the first line the containers rest on the document's start
+    /// state, so they move onto a root that is not the start, and the next
+    /// line rebuilds them.
     pub(crate) fn finish(self) -> u32 {
         let state = self
             .frames
@@ -283,8 +287,6 @@ impl<'a> Lexer<'a> {
             .unwrap_or(ROOT);
         self.scratch.markdown.frames = self.frames;
         if self.first_line {
-            // The containers rest on the document's start state; move them
-            // onto a root that is not the start.
             self.scratch.markdown.resume = None;
             return after_first_line(self.arena, state).unwrap_or(state);
         }
@@ -342,7 +344,8 @@ impl<'a> Lexer<'a> {
     // Containers that continue.
 
     /// Runs the `while` rule of each open container, outermost first. The
-    /// first that fails closes its container and everything inside it.
+    /// first that fails closes its container and everything inside it. Only
+    /// a quote's rule has capture groups.
     fn check_whiles(&mut self) {
         let mut index = 0;
         while index < self.frames.len() {
@@ -391,7 +394,6 @@ impl<'a> Lexer<'a> {
             let node = self.frames[index].content;
             let caps = self.caps;
             self.emit(pos, node);
-            // Only a quote's rule has capture groups.
             self.captures(node, end, &caps, |group| rules::capture(P::Quote, group));
             self.emit(end, node);
             self.pos = self.pos.max(end);
@@ -433,6 +435,9 @@ impl<'a> Lexer<'a> {
 
     /// The first match at or after the cursor: the closing rule first at each
     /// position, then the container's rules in order.
+    ///
+    /// In inline text it skips to the next byte that opens an inline rule;
+    /// the first byte of the line may also start a setext underline.
     fn find(&mut self) -> Option<Hit> {
         let (end, list, starts) = match self.frames.last() {
             None => (None, rules::patterns(Kind::Base), Starts::Block),
@@ -449,8 +454,6 @@ impl<'a> Lexer<'a> {
         let mut start = self.pos;
         while start <= self.limit {
             if starts == Starts::Inline {
-                // Skip to the next byte that opens an inline rule; the first
-                // byte of the line may also start a setext underline.
                 let stop = self.limit.min(line.len());
                 if start >= stop {
                     return None;
@@ -499,6 +502,10 @@ impl<'a> Lexer<'a> {
         None
     }
 
+    /// The match of the open container's closing rule at `start`.
+    ///
+    /// Front matter's closing rule applies last, so on the first line, which
+    /// it would close, the front matter begins instead.
     fn try_end(&mut self, end: End, kind: Kind, start: usize) -> Option<Hit> {
         self.caps.clear();
         let cx = cx!(self);
@@ -508,8 +515,6 @@ impl<'a> Lexer<'a> {
                 block::fence_close(&cx, start, Fence::from_payload(payload), &mut self.caps)
             }
             End::FrontMatter => {
-                // The end rule applies last, so the first line, which would
-                // close it, begins the front matter instead.
                 if self.first_line {
                     return None;
                 }
@@ -534,6 +539,10 @@ impl<'a> Lexer<'a> {
         })
     }
 
+    /// The match of `rule` at `start`.
+    ///
+    /// A link definition leads with `\s*`, so only the start of a run of
+    /// blanks can start one.
     fn try_rule(&mut self, rule: P, start: usize) -> Option<Hit> {
         self.caps.clear();
         let cx = cx!(self);
@@ -564,8 +573,6 @@ impl<'a> Lexer<'a> {
             }
             P::RawBlock => block::raw_block(&cx, start),
             P::LinkDef => {
-                // `\s*` leads the rule, so only the start of a run of blanks
-                // can start a match.
                 if start > self.pos && cx.space_before(start) > 0 {
                     return None;
                 }
@@ -614,9 +621,10 @@ impl<'a> Lexer<'a> {
 
     // Matches.
 
+    /// Applies a match: closes, opens or scopes. The capture groups are
+    /// copied out first, because the rules the groups hand text to overwrite
+    /// them.
     fn apply(&mut self, hit: &Hit) {
-        // The groups are those of the rule that just matched; the rules that
-        // the groups hand text to overwrite them, so they are copied out.
         let caps = self.caps;
         match hit.rule {
             None => self.close(hit, &caps),
@@ -703,6 +711,11 @@ impl<'a> Lexer<'a> {
         }
     }
 
+    /// Opens a container of `kind` for a match of `rule`.
+    ///
+    /// A container opened outside a capture group stays open between lines,
+    /// so it is a state. A paragraph opens on nearly every line in the same
+    /// state, so the last one opened is reused.
     fn open(&mut self, kind: Kind, rule: P, hit: &Hit, caps: &Caps) {
         let parent = self.content();
         self.emit(hit.start, parent);
@@ -712,8 +725,6 @@ impl<'a> Lexer<'a> {
             self.refuse(hit, parent);
             return;
         }
-        // A container opened outside a capture group stays open between
-        // lines, so it is a state.
         let in_capture = self
             .frames
             .iter()
@@ -723,7 +734,6 @@ impl<'a> Lexer<'a> {
         } else {
             self.frames.iter().rev().find_map(|frame| frame.state)
         };
-        // A paragraph opens on nearly every line, in the same state.
         let cached = match (kind, parent_state, self.scratch.markdown.paragraph) {
             (Kind::Paragraph, Some(from), Some((was, stack, state))) if from == was => {
                 Some((stack, state))
@@ -843,7 +853,7 @@ impl<'a> Lexer<'a> {
         caps: &Caps,
         capture: impl Fn(usize) -> Capture,
     ) {
-        let mut open: [(u32, usize); 4] = [(0, 0); 4];
+        let mut open = [(0_u32, 0_usize); NESTING];
         let mut depth = 0;
         for (group, (start, end)) in caps.iter() {
             let capture = capture(group);
@@ -865,12 +875,13 @@ impl<'a> Lexer<'a> {
                     None => base,
                 };
                 self.subrun(list, start, end, node);
-            } else if let Some(scope) = capture.scope
-                && depth < open.len()
-            {
-                let node = self.child(outer, scope);
-                open[depth] = (node, end);
-                depth += 1;
+            } else if let Some(scope) = capture.scope {
+                debug_assert!(depth < NESTING, "group {group} nests past {NESTING}");
+                if depth < NESTING {
+                    let node = self.child(outer, scope);
+                    open[depth] = (node, end);
+                    depth += 1;
+                }
             }
         }
         while depth > 0 {
@@ -910,7 +921,10 @@ impl<'a> Lexer<'a> {
 
     // Embedded languages.
 
-    /// Takes the rest of the line for the language of the open fence.
+    /// Takes the rest of the line for the language of the open fence, from
+    /// the cursor or, when the containers took the line feed too, from the
+    /// line's end. The next line resumes from this body with the embedded
+    /// lexer's new state.
     fn embedded(&mut self) {
         let start = self.pos;
         let Some(frame) = self.frames.last().copied() else {
@@ -922,7 +936,6 @@ impl<'a> Lexer<'a> {
         if start >= self.line.len() && !lang.reads_line_feed() {
             return;
         }
-        // The containers may have taken the line feed too.
         let start = start.min(self.line.len());
         self.emit(start, frame.content);
         let mut cx = Context {
@@ -943,8 +956,6 @@ impl<'a> Lexer<'a> {
         if state == frame.payload {
             return;
         }
-        // The state the next line resumes from: this body, with the embedded
-        // lexer's new state.
         let below = self
             .frames
             .iter()
