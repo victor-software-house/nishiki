@@ -15,6 +15,7 @@ impl Lexer<'_> {
         while let Some(width) = self.word_at(e) {
             e += width;
         }
+        self.spend(e - i);
         if e > i {
             self.x.word_run.set((i, e));
         }
@@ -37,6 +38,7 @@ impl Lexer<'_> {
                 break;
             }
         }
+        self.spend(e - i);
         if e > i {
             self.x.name_run.set((i, e));
         }

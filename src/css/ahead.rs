@@ -1,15 +1,22 @@
-//! Where the characters that lookaheads search for are in a line, found in
-//! one pass the first time a lookahead asks, so that `[^{]*;` and its kin
-//! cost a binary search at each position and not a scan to the line end.
+//! Where the characters that lookaheads search for are in a line, kept from
+//! one search to the next, so that `[^{]*;` and its kin, tried at each
+//! position of a run, scan the line once and allocate nothing.
 
-/// The positions of the bytes the CSS lookaheads search for.
-#[derive(Debug, Default)]
+use std::cell::Cell;
+
+/// The last search for each byte the CSS lookaheads look for: where it
+/// started and what it found.
+#[derive(Debug)]
 pub(crate) struct Ahead {
-    open: Vec<usize>,
-    close: Vec<usize>,
-    semicolon: Vec<usize>,
-    quote: Vec<usize>,
-    colon: Vec<usize>,
+    last: [Cell<(usize, Option<usize>)>; Find::COUNT],
+}
+
+impl Default for Ahead {
+    fn default() -> Self {
+        Ahead {
+            last: [const { Cell::new((usize::MAX, None)) }; Find::COUNT],
+        }
+    }
 }
 
 /// A byte a lookahead searches for.
@@ -27,33 +34,47 @@ pub(crate) enum Find {
     Colon,
 }
 
-impl Ahead {
-    /// Indexes the bytes of `s`.
-    pub(crate) fn new(s: &[u8]) -> Self {
-        let mut ahead = Ahead::default();
-        for (i, &b) in s.iter().enumerate() {
-            match b {
-                b'{' => ahead.open.push(i),
-                b'}' => ahead.close.push(i),
-                b';' => ahead.semicolon.push(i),
-                b'"' => ahead.quote.push(i),
-                b':' => ahead.colon.push(i),
-                _ => {}
-            }
+impl Find {
+    /// How many bytes there are to search for.
+    const COUNT: usize = 5;
+
+    /// Its slot in [`Ahead`].
+    fn slot(self) -> usize {
+        match self {
+            Find::Open => 0,
+            Find::Close => 1,
+            Find::Semicolon => 2,
+            Find::Quote => 3,
+            Find::Colon => 4,
         }
-        ahead
     }
 
-    /// The first `what` at or after `from`.
-    pub(crate) fn next(&self, what: Find, from: usize) -> Option<usize> {
-        let list = match what {
-            Find::Open => &self.open,
-            Find::Close => &self.close,
-            Find::Semicolon => &self.semicolon,
-            Find::Quote => &self.quote,
-            Find::Colon => &self.colon,
-        };
-        let at = list.partition_point(|&i| i < from);
-        list.get(at).copied()
+    /// The byte itself.
+    fn byte(self) -> u8 {
+        match self {
+            Find::Open => b'{',
+            Find::Close => b'}',
+            Find::Semicolon => b';',
+            Find::Quote => b'"',
+            Find::Colon => b':',
+        }
+    }
+}
+
+impl Ahead {
+    /// The first `what` in `s` at or after `from`, and how many bytes the
+    /// search read. A search that starts at or after the last one for the
+    /// same byte, and not past what it found, has its answer already and
+    /// reads nothing.
+    pub(crate) fn next(&self, s: &[u8], what: Find, from: usize) -> (Option<usize>, usize) {
+        let slot = &self.last[what.slot()];
+        let (start, found) = slot.get();
+        if start <= from && found.is_none_or(|at| from <= at) {
+            return (found, 0);
+        }
+        let rest = s.get(from..).unwrap_or(&[]);
+        let hit = memchr::memchr(what.byte(), rest);
+        slot.set((from, hit.map(|at| from + at)));
+        (hit.map(|at| from + at), hit.map_or(rest.len(), |at| at + 1))
     }
 }

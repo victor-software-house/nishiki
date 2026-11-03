@@ -397,6 +397,7 @@ impl Lexer<'_> {
             } else if self.at(k) == b'_' && self.at(k + 1).is_ascii_digit() && k + 1 < self.lim() {
                 k += 2;
             } else {
+                self.spend(k - i);
                 return Some(k);
             }
         }
@@ -521,6 +522,7 @@ impl Lexer<'_> {
             }
             any = true;
         }
+        self.spend(k - p);
         if !any || !self.boundary(k) {
             return None;
         }
@@ -578,6 +580,7 @@ impl Lexer<'_> {
         }
         let mut q = p + 6;
         loop {
+            self.spend(1);
             if self.at(q) == b'\n' && q == self.lim()
                 || self.at(q) == b',' && q < self.lim()
                 || self.at_eol(q)
@@ -837,6 +840,7 @@ impl Lexer<'_> {
         while let Some((c, after)) = self.char_at(i)
             && (c == '_' || classes::is_digit(c))
         {
+            self.spend(1);
             i = after;
         }
         let (c, next) = self.char_at(i)?;
@@ -847,6 +851,7 @@ impl Lexer<'_> {
         // Capitals and digits, then an underscore ends the match at the word's
         // end.
         while i < end {
+            self.spend(1);
             let (c, next) = self.char_at(i)?;
             if upper(c) || classes::is_digit(c) {
                 i = next;
@@ -1294,10 +1299,9 @@ impl Lexer<'_> {
         if matches!(c, '#' | '(' | '.' | '\\' | '_') || is_alpha(c) || classes::is_space(c) {
             return None;
         }
-        let mut k = next;
-        while k < self.lim() && self.at(k) != b'#' {
-            k = self.char_end(k);
-        }
+        let lim = self.lim();
+        let k = memchr::memchr(b'#', self.text(next, lim)).map_or(lim, |hash| next + hash);
+        self.spend(k - next);
         self.cap(1, q, k);
         Some(k)
     }

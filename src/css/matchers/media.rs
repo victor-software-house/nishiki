@@ -41,16 +41,16 @@ impl Lexer<'_> {
         self.lit(p, b"/*")?;
         let lim = self.lim();
         let mut i = p + 2;
-        loop {
+        let end = loop {
             if i > lim {
-                return None;
+                break None;
             }
             if i < lim && self.s[i] == b'*' {
                 if self.at(i + 1) == b'/' && i + 1 < lim {
-                    return Some(i + 2);
+                    break Some(i + 2);
                 }
                 if i + 1 > lim {
-                    return None;
+                    break None;
                 }
                 i = if i + 1 == lim {
                     lim + 1
@@ -60,7 +60,9 @@ impl Lexer<'_> {
             } else {
                 i = if i == lim { lim + 1 } else { self.char_end(i) };
             }
-        }
+        };
+        self.spend(end.unwrap_or(lim) - p);
+        end
     }
 
     /// The lookbehind `\s|^|\*/` at `p`, with `extra` more characters.

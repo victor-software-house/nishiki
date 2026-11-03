@@ -1,7 +1,7 @@
 //! The character classes the grammar's expressions are built from, and the
 //! runs of them that its lookaheads and lookbehinds look at.
 
-use super::super::ahead::{Ahead, Find};
+use super::super::ahead::Find;
 use super::super::engine::Lexer;
 use crate::classes;
 use crate::rules::Chars;
@@ -25,10 +25,9 @@ impl Lexer<'_> {
 
     /// The first `what` at or after `from`.
     pub(in crate::css) fn find(&self, what: Find, from: usize) -> Option<usize> {
-        self.x
-            .ahead
-            .get_or_init(|| Ahead::new(self.s))
-            .next(what, from)
+        let (found, read) = self.x.ahead.next(self.s, what, from);
+        self.spend(read);
+        found
     }
 
     /// The end of the white space from `p`: `\s*`.

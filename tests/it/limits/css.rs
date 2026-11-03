@@ -21,6 +21,8 @@ fn hostile_css_lines_finish_within_the_default_limits() {
         "@media a".repeat(40_000),
         "@import url(".repeat(25_000),
         format!("@charset {}", "\"a".repeat(100_000)),
+        format!("@namespace {}", "/* ".repeat(100_000)),
+        format!("@media {}", "(-webkit-a /* ".repeat(20_000)),
         format!("a{{b:{}", "1.5e+".repeat(60_000)),
         format!("a{{b:{}", "1".repeat(300_000)),
         format!("a{{b:{}", "u+".repeat(100_000)),

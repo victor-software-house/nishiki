@@ -2,7 +2,7 @@
 //! the answers its lookaheads keep for a line, so that scanning a run of the
 //! line stays linear.
 
-use std::cell::{Cell, OnceCell};
+use std::cell::Cell;
 use std::sync::OnceLock;
 
 use super::ahead::Ahead;
@@ -34,7 +34,7 @@ pub(crate) struct Extra {
     /// ends, so the patterns of its units ask once.
     pub(crate) number: Cell<(usize, Option<usize>)>,
     /// Where the bytes the lookaheads search for are.
-    pub(crate) ahead: OnceCell<Ahead>,
+    pub(crate) ahead: Ahead,
 }
 
 impl Default for Extra {
@@ -44,7 +44,7 @@ impl Default for Extra {
             ident_run: Cell::new((usize::MAX, 0)),
             space_run: Cell::new((usize::MAX, 0)),
             number: Cell::new((usize::MAX, None)),
-            ahead: OnceCell::new(),
+            ahead: Ahead::default(),
         }
     }
 }

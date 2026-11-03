@@ -110,13 +110,13 @@ impl Lexer<'_> {
             return answer;
         }
         let rest = self.s.get(from..).unwrap_or(&[]);
-        self.spend(rest.len().min(answer.saturating_sub(from).max(1)));
         let found = if with_open {
             rest.iter()
                 .position(|b| matches!(b, b'"' | b'\'' | b'{' | b'}'))
         } else {
-            rest.iter().position(|b| matches!(b, b'"' | b'\'' | b'}'))
+            memchr::memchr3(b'"', b'\'', b'}', rest)
         };
+        self.spend(found.map_or(rest.len(), |at| at + 1));
         let answer = found.map_or(self.s.len(), |at| from + at);
         slot.set((from, answer));
         answer
