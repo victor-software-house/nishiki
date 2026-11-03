@@ -8,7 +8,6 @@
 //! brackets, a statement continued by a backslash) are frames of the
 //! highlighter's interned state.
 
-mod classes;
 mod engine;
 mod grammar;
 mod matchers;

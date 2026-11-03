@@ -3,6 +3,7 @@
 //! The grammar writes each rule of the expression four times, once for each
 //! quote style, so the ends and the nested rules take a [`Flavour`].
 
+use crate::classes;
 use crate::python::engine::{Ahead, Lexer};
 use crate::python::grammar::{Flavour, Pat, Re};
 use crate::rules::Chars;
@@ -219,7 +220,7 @@ impl Lexer<'_> {
             let mut e = sp;
             while let Some((c, next)) = self.char_at(e)
                 && e < self.lim()
-                && super::chars::is_alnum(c)
+                && classes::is_alnum(c)
             {
                 e = next;
             }
@@ -324,7 +325,7 @@ impl Lexer<'_> {
         }
         // `\d?`: one more digit, of any script.
         let end = match self.char_at(p + 2) {
-            Some((c, next)) if p + 2 < self.lim() && super::chars::is_digit(c) => next,
+            Some((c, next)) if p + 2 < self.lim() && classes::is_digit(c) => next,
             _ => p + 2,
         };
         self.cap(1, p, end);

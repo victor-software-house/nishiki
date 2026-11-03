@@ -1,7 +1,8 @@
 //! The matchers of code outside strings: statements, names, operators,
 //! numbers, brackets and comments.
 
-use super::chars::{self, is_alpha};
+use super::chars;
+use crate::classes::{self, is_alpha};
 use crate::python::engine::{Ahead, Lexer};
 use crate::python::grammar::Pat;
 use crate::rules::Chars;
@@ -826,7 +827,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.word_end(p);
-        let upper = super::chars::is_upper;
+        let upper = classes::is_upper;
         let mut i = self.skip(p, |b| b == b'_');
         // The first capital, then underscores and digits, then a second one.
         let (c, next) = self.char_at(i)?;
@@ -835,7 +836,7 @@ impl Lexer<'_> {
         }
         i = next;
         while let Some((c, after)) = self.char_at(i)
-            && (c == '_' || super::chars::is_digit(c))
+            && (c == '_' || classes::is_digit(c))
         {
             i = after;
         }
@@ -848,7 +849,7 @@ impl Lexer<'_> {
         // end.
         while i < end {
             let (c, next) = self.char_at(i)?;
-            if upper(c) || super::chars::is_digit(c) {
+            if upper(c) || classes::is_digit(c) {
                 i = next;
             } else {
                 return (c == '_').then_some(end);
@@ -993,10 +994,7 @@ impl Lexer<'_> {
     /// The end `(?<=\S)(?=\W)|(^|(?<=\s))(?=[^\\\w\s])|$` of `member-access`,
     /// or `(?<=\S)(?=\W)|$` of `member-access-class` when `second` is false.
     fn member_access_end(&self, p: usize, second: bool) -> Option<usize> {
-        let prev_non_space = p > 0
-            && self
-                .char_before(p)
-                .is_some_and(|c| !super::chars::is_space(c));
+        let prev_non_space = p > 0 && self.char_before(p).is_some_and(|c| !classes::is_space(c));
         let word = self.word_at(p).is_some();
         // `(?=\W)`: any character that is not a word character, the line feed
         // included.
@@ -1004,7 +1002,7 @@ impl Lexer<'_> {
             return Some(p);
         }
         if second && p < self.lim() {
-            let prev_space = p == 0 || self.char_before(p).is_some_and(super::chars::is_space);
+            let prev_space = p == 0 || self.char_before(p).is_some_and(classes::is_space);
             if prev_space && !word && self.space_at(p) == 0 && self.at(p) != b'\\' {
                 return Some(p);
             }
@@ -1256,7 +1254,7 @@ impl Lexer<'_> {
             let back = |me: &Self, mut at: usize| {
                 while at > from
                     && let Some(c) = me.char_before(at)
-                    && super::chars::is_space(c)
+                    && classes::is_space(c)
                 {
                     at -= c.len_utf8();
                 }
@@ -1294,7 +1292,7 @@ impl Lexer<'_> {
             return None;
         }
         let (c, next) = self.char_at(q)?;
-        if matches!(c, '#' | '(' | '.' | '\\' | '_') || is_alpha(c) || super::chars::is_space(c) {
+        if matches!(c, '#' | '(' | '.' | '\\' | '_') || is_alpha(c) || classes::is_space(c) {
             return None;
         }
         let mut k = next;

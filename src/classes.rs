@@ -1,8 +1,8 @@
-//! The regex classes `\d`, `\w` and `\s` for a character, as Shiki's
-//! regex engine reads them.
+//! The regex classes `\d`, `\w`, `\s`, `[[:alpha:]]` and `\p{upper}` for a
+//! character, as Shiki's regex engine reads them.
 //!
 //! Every grammar Shiki runs shares one engine, so every lexer shares these.
-//! ASCII is decided here; the rest comes from a table measured on Shiki.
+//! ASCII is decided here; the rest comes from tables measured on Shiki.
 
 mod table;
 
@@ -40,6 +40,20 @@ pub(crate) fn is_digit(c: char) -> bool {
     } else {
         table::is_digit(c)
     }
+}
+
+/// The regex `\p{upper}` for a character, from the same measured tables.
+pub(crate) fn is_upper(c: char) -> bool {
+    if c.is_ascii() {
+        c.is_ascii_uppercase()
+    } else {
+        table::is_upper(c)
+    }
+}
+
+/// The regex `\p{alnum}` for a character: `[[:alpha:]]` or `\d`.
+pub(crate) fn is_alnum(c: char) -> bool {
+    is_alpha(c) || is_digit(c)
 }
 
 /// The regex `\w` for a byte: an ASCII letter, a digit or `_`, and false for

@@ -216,14 +216,14 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 
 - Every dialect's comments are read.
 - A stray character in an array or object gets the grammar's `invalid.illegal` scope.
-- `\d`, `\w` and `\s` for non-ASCII characters come from a table measured on Shiki 4.6.0 (`oracle/json-classes.ts`).
+- `\d`, `\w` and `\s` for non-ASCII characters come from a table measured on Shiki 4.6.0 (`oracle/classes.ts`).
   A later Unicode version in Shiki's engine would need the table regenerated.
 
 ### Python
 
 - `def` opens a function after the end of any word, as in `x def f(): pass`.
 - An empty line leaves the state as it is.
-- `\d`, `\w`, `\s`, `[[:alpha:]]` and `\p{upper}` for non-ASCII characters come from tables measured on Shiki 4.6.0 (`oracle/python-classes.ts`).
+- `\d`, `\w`, `\s`, `[[:alpha:]]` and `\p{upper}` for non-ASCII characters come from tables measured on Shiki 4.6.0 (`oracle/classes.ts`).
   A later Unicode version in Shiki's engine would need them regenerated.
 
 ### YAML
@@ -283,7 +283,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 - A declaration is found by a lookahead over the rest of the line, as in the grammar:
   - a method is a line that has a blank and then a `(`, with no `=` or `//` before it;
   - a variable is a type, a name and a `:`, `;` or `=`.
-- `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/json-classes.ts`).
+- `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
 
 ### CSS
 

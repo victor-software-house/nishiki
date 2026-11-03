@@ -3,50 +3,10 @@
 use std::collections::HashMap;
 use std::sync::OnceLock;
 
+use crate::classes::is_alpha;
 use crate::python::engine::Lexer;
-use crate::python::{classes, words};
+use crate::python::words;
 use crate::rules::Chars;
-
-/// The regex `[[:alpha:]]` for a character.
-pub(super) fn is_alpha(c: char) -> bool {
-    if c.is_ascii() {
-        c.is_ascii_alphabetic()
-    } else {
-        classes::is_alpha(c)
-    }
-}
-
-/// The regex `\s` for a character.
-pub(super) fn is_space(c: char) -> bool {
-    if c.is_ascii() {
-        matches!(c, ' ' | '\t' | '\n' | '\u{0b}' | '\u{0c}' | '\r')
-    } else {
-        classes::is_space(c)
-    }
-}
-
-/// The regex `\d` for a character.
-pub(super) fn is_digit(c: char) -> bool {
-    if c.is_ascii() {
-        c.is_ascii_digit()
-    } else {
-        classes::is_digit(c)
-    }
-}
-
-/// The regex `\p{upper}` for a character.
-pub(super) fn is_upper(c: char) -> bool {
-    if c.is_ascii() {
-        c.is_ascii_uppercase()
-    } else {
-        classes::is_upper(c)
-    }
-}
-
-/// The regex `\p{alnum}` for a character.
-pub(super) fn is_alnum(c: char) -> bool {
-    is_alpha(c) || is_digit(c)
-}
 
 impl Lexer<'_> {
     /// The end of the run of `\w` characters from `i`. Patterns ask about
