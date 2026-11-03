@@ -242,9 +242,23 @@ fn a_lookahead_is_bounded_by_the_work_limit() {
 
 #[test]
 fn long_blanks_are_linear() {
+    // Four steps a byte cover one pass over the blanks and the lexer's own
+    // count of the line; a scan that read them again at each blank would not
+    // fit.
+    let limits = Limits {
+        work: Some(crate::Work {
+            per_byte: 4,
+            base: 0,
+        }),
+        ..Limits::default()
+    };
+    let mut h = Highlighter::new_with_limits(Language::TypeScript, limits);
     let line = format!("{}x", " ".repeat(200_000));
-    let (rows, _) = lex(&line);
-    assert_eq!(rows[0].last().unwrap().0, "x");
+    let (rows, _) = lex_with(&mut h, &line);
+    assert_eq!(rows[0].last().map(|(text, _)| text.as_str()), Some("x"));
+    let mut state = State::default();
+    let report = h.line(&line, &mut state, &mut Vec::new());
+    assert!(!report.reached(crate::Limit::Work));
 }
 
 #[test]
@@ -418,8 +432,14 @@ fn gated_rules_match_only_inside_their_start_sets() {
         seed ^= seed << 17;
         seed
     };
-    for _ in 0..400 {
-        let mut h = highlighter();
+    let dialects = [
+        Language::TypeScript,
+        Language::JavaScript,
+        Language::Jsx,
+        Language::Tsx,
+    ];
+    for language in dialects.into_iter().cycle().take(400) {
+        let mut h = Highlighter::new(language);
         let mut state = State::default();
         let mut out = Vec::new();
         for _ in 0..40 {

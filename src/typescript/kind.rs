@@ -20,6 +20,11 @@ macro_rules! kinds {
             /// Every kind, indexed by discriminant.
             const ALL: &[Kind] = &[$(Kind::$id),*];
 
+            /// How many kinds there are, which bounds the lexer's steps
+            /// without advancing.
+            #[cfg(debug_assertions)]
+            pub(crate) const COUNT: usize = Self::ALL.len();
+
             /// The scopes of the begin and end tokens and of the content.
             pub(crate) const fn names(self) -> &'static [S] {
                 match self { $(Kind::$id => &[$($name),*]),* }

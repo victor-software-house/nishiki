@@ -186,8 +186,17 @@ impl<'a, const D: u8> Lexer<'a, D> {
         self.last_tick.is_some_and(|t| t >= p)
     }
 
+    /// Lexes the line.
+    ///
+    /// A step that matches without advancing either opens a context, which
+    /// cannot open twice at one position (see [`Lexer::push_with`]), or closes
+    /// one opened before that position (see [`Lexer::close_here`]). So a run of
+    /// steps at one position is at most the depth when the run began plus the
+    /// number of kinds; debug builds assert that bound.
     pub(crate) fn run(&mut self) {
         let mut p = 0;
+        #[cfg(debug_assertions)]
+        let (mut still, mut bound) = (0usize, 0usize);
         // `TextMate` keeps matching after a rule has consumed the newline, at
         // the end of the line, where a rule that tests for `$` can still end.
         while p <= self.len + 1 && !self.stuck {
@@ -207,6 +216,20 @@ impl<'a, const D: u8> Lexer<'a, D> {
                 p > from || self.state != before || self.stuck,
                 "the TypeScript lexer made no progress at byte {from}"
             );
+            #[cfg(debug_assertions)]
+            if p > from {
+                still = 0;
+            } else {
+                if still == 0 {
+                    let depth = usize::try_from(self.frame.depth).unwrap_or(usize::MAX);
+                    bound = depth.saturating_add(Kind::COUNT);
+                }
+                still += 1;
+                debug_assert!(
+                    still <= bound,
+                    "the TypeScript lexer took {still} steps at byte {from} without advancing"
+                );
+            }
         }
         if self.depth_hit.get() {
             self.report.record(Limit::Depth);
