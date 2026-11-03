@@ -8,7 +8,7 @@ use std::sync::OnceLock;
 use super::ahead::Ahead;
 use super::grammar::{Nested, Pat, Rule};
 use super::scope::S;
-use crate::rules::{self, Grammar, PatData, RuleData, Start, Tables};
+use crate::rules::{self, Act, Captures, Grammar, Payload, Start, Tabled, Tables, table_scan};
 
 /// The CSS lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Css>;
@@ -58,6 +58,8 @@ impl Grammar for Css {
 
     const NAME: &'static str = "CSS";
     const ROOT: Rule = Rule::Root;
+    const GROUPS: usize = 8;
+    const CAPTURED_EOL: bool = true;
 
     fn scope(scope: S) -> crate::scope::Scope {
         scope.scope()
@@ -71,14 +73,46 @@ impl Grammar for Css {
         Rule::from_code(code)
     }
 
-    fn rule_data(rule: Rule) -> RuleData<Self> {
-        rule.data()
+    fn rule_name(rule: Rule) -> &'static [S] {
+        rule.data().name
     }
 
-    fn pat_data(pat: Pat) -> PatData<Self> {
-        pat.data()
+    fn rule_content(rule: Rule) -> &'static [S] {
+        rule.data().content
     }
 
+    fn rule_payload(rule: Rule) -> Payload {
+        rule.data().backref.map_or(Payload::None, Payload::Backref)
+    }
+
+    fn pat_act(pat: Pat) -> Act<Self> {
+        pat.data().act
+    }
+
+    fn pat_captures(pat: Pat) -> Captures<Self> {
+        let data = pat.data();
+        (data.captures, data.nested)
+    }
+
+    fn pat_data(pat: Pat) -> (Act<Self>, Captures<Self>) {
+        let data = pat.data();
+        (data.act, (data.captures, data.nested))
+    }
+
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
+        table_scan(lexer)
+    }
+
+    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
+        lexer.matcher(pat, p)
+    }
+
+    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
+        lexer.tokenize_capture(kind, from, to, base);
+    }
+}
+
+impl Tabled for Css {
     fn pat_start(pat: Pat) -> Start {
         pat.start()
     }
@@ -92,13 +126,5 @@ impl Grammar for Css {
         )]
         let index = rule as usize;
         TABLES[index].get_or_init(|| Tables::build(rule.data()))
-    }
-
-    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        lexer.matcher(pat, p)
-    }
-
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
-        lexer.tokenize_capture(kind, from, to, base);
     }
 }

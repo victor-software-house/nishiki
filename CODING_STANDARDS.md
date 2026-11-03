@@ -191,7 +191,9 @@ The release rules in `AGENTS.md` decide its version.
   - The per-line loop, `\G`, capture groups, frames, budget checks and the candidate tables for each byte exist once there.
   - The language supplies a `Grammar` implementation: its generated tables, its scope type and its hand-written matchers.
   - It also supplies an `Extra`, for what its matchers remember about a line.
-  - `src/python/engine.rs`, `src/java/engine.rs` and `src/css/engine.rs` show both.
+  - It sets `Grammar::GROUPS` to one more than the highest capture group its patterns record, and its `lang-*` feature enables `_rule-tables` when it scans with `table_scan`.
+  - A match's groups come from the pattern's table, or from spans the matcher records (`span_one`, `span_dyn` for a scope named by text of the line); `Lexer::retokenise` lexes a span again with another rule and serves a grammar's `tokenize_nested` hook.
+  - `src/python/engine.rs`, `src/java/engine.rs`, `src/css/engine.rs`, `src/kotlin/engine.rs` and `src/make/engine.rs` show the shapes.
   - Such a language does not copy the loop.
 
 ### 3.8 Shared primitives

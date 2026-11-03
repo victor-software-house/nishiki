@@ -7,6 +7,9 @@ use super::state::Rule;
 /// [`Rule`].
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Pat {
+    /// The end pattern of the innermost rule, which `Lexer::matcher` answers
+    /// by rule.
+    End,
     // Matches.
     /// `\$[^(){}]`
     SimpleVar,
@@ -61,7 +64,8 @@ impl Pat {
     /// and is done.
     pub(crate) fn opens(self) -> Option<Rule> {
         match self {
-            Pat::SimpleVar
+            Pat::End
+            | Pat::SimpleVar
             | Pat::Comma
             | Pat::Percent
             | Pat::PercentStar
@@ -108,7 +112,8 @@ impl Pat {
             Pat::Percent | Pat::PercentStar => &[S::Placeholder],
             Pat::Continuation => &[S::Continuation],
             Pat::AnyWord => &[S::VarOther],
-            Pat::SpecialTarget
+            Pat::End
+            | Pat::SpecialTarget
             | Pat::Comment
             | Pat::CommentHash
             | Pat::VarParen

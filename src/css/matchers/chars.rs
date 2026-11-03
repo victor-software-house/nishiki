@@ -44,6 +44,10 @@ impl Lexer<'_> {
     }
 
     /// The end of the white space from `p`: `\s*`.
+    ///
+    /// It stays out of line: inlined into the matcher's dispatch, its loop
+    /// made every pattern try save and restore six registers.
+    #[inline(never)]
     pub(in crate::css) fn spaces(&self, p: usize) -> usize {
         let (from, to) = self.x.space_run.get();
         if from <= p && p < to {

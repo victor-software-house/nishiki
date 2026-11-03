@@ -61,7 +61,7 @@ pub(crate) fn line(
         return state;
     }
     let lexer = engine::Lexer::new(arena, limits, line, out, state, report, &mut scratch.css);
-    lexer.run(&mut scratch.css)
+    lexer.run()
 }
 
 #[cfg(test)]

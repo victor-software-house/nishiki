@@ -38,4 +38,7 @@ pub(crate) struct Scratch {
     /// The Kotlin lexer's, for Kotlin documents.
     #[cfg(feature = "lang-kotlin")]
     pub(crate) kotlin: crate::kotlin::Scratch,
+    /// The Makefile lexer's.
+    #[cfg(feature = "lang-make")]
+    pub(crate) make: crate::make::Scratch,
 }

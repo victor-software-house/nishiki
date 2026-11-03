@@ -20,6 +20,7 @@ mod rules;
 mod scope;
 mod state;
 
+pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 use scope::S;
 use state::Rule;
@@ -27,6 +28,7 @@ use state::Rule;
 use crate::Token;
 use crate::arena::{Arena, ROOT};
 use crate::limits::{Limits, LineReport};
+use crate::rules::Text;
 
 /// The state at the start of a Makefile whose scopes sit on the stack `base`:
 /// one rule with `source.makefile` on top of it.
@@ -44,22 +46,6 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Rule::Root.code(), 0, base).unwrap_or(ROOT)
 }
 
-/// A line and where lexing it starts: byte `start`, where a Markdown fence's
-/// text begins after the indentation of the containers around it. The bytes
-/// before it stay in the line, because the grammar looks at them: `^` matches
-/// only at 0.
-///
-/// `anchored` is set for a Markdown fence line: the fence's `while` rule has
-/// matched the container prefix just before `start`, which is where `\G`
-/// stays for the line, as it does in Shiki. A Makefile has no such rule, so
-/// `\G` matches nowhere at the start of its lines.
-#[derive(Clone, Copy, Debug)]
-pub(crate) struct Text<'a> {
-    pub(crate) bytes: &'a [u8],
-    pub(crate) start: usize,
-    pub(crate) anchored: bool,
-}
-
 /// Lexes one line from `state`, appending its tokens, and returns the state
 /// after it.
 ///
@@ -67,6 +53,7 @@ pub(crate) struct Text<'a> {
 /// lines, and the grammar would otherwise close a rule it left open at the end
 /// of the line before.
 pub(crate) fn line(
+    scratch: &mut crate::scratch::Scratch,
     arena: &mut Arena,
     limits: &Limits,
     line: Text<'_>,
@@ -77,7 +64,8 @@ pub(crate) fn line(
     if line.bytes.is_empty() {
         return state;
     }
-    engine::Lexer::new(arena, limits, line, out, state, report).run()
+    let lexer = engine::Lexer::new(arena, limits, line, out, state, report, &mut scratch.make);
+    lexer.run()
 }
 
 #[cfg(test)]
@@ -97,5 +85,7 @@ pub(crate) fn lex(
         start: line.start,
         anchored: line.embedded,
     };
-    self::line(cx.arena, cx.limits, text, state, cx.out, cx.report)
+    self::line(
+        cx.scratch, cx.arena, cx.limits, text, state, cx.out, cx.report,
+    )
 }

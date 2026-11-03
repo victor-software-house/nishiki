@@ -1,7 +1,7 @@
 //! For each rule, the patterns that can match at a byte, in the order the
 //! grammar tries them, so the engine tries only those where a byte stands.
 
-use super::{Grammar, RuleData};
+use super::{Act, Lexer, RuleData, Tabled};
 
 /// Where a position lies, for the patterns that need a word boundary or the
 /// start of the line.
@@ -26,7 +26,7 @@ impl Place {
 }
 
 /// The candidate patterns of one rule.
-pub(crate) struct Tables<G: Grammar> {
+pub(crate) struct Tables<G: Tabled> {
     /// All patterns, the end pattern first: for the text after the line feed.
     all: Box<[G::Pat]>,
     /// The candidates for each byte, away from the start of the line (the
@@ -34,7 +34,7 @@ pub(crate) struct Tables<G: Grammar> {
     by_byte: Box<[Box<[G::Pat]>]>,
 }
 
-impl<G: Grammar> Tables<G> {
+impl<G: Tabled> Tables<G> {
     /// The tables of the rule whose data is `data`.
     pub(crate) fn build(data: RuleData<G>) -> Self {
         let all: Vec<G::Pat> = data
@@ -73,4 +73,83 @@ impl<G: Grammar> Tables<G> {
     pub(crate) fn all(&self) -> &[G::Pat] {
         &self.all
     }
+}
+
+/// The first pattern of the innermost rule that matches at or after the
+/// cursor, trying at each position only the patterns whose start allows the
+/// byte there.
+///
+/// The text a pattern sees ends after the line feed, where `$` and
+/// lookaheads can still match. A begin pattern of a rule the depth limit
+/// keeps closed is tried only to record the limit, and its text stays plain.
+/// A pattern that fails at a blank fails at the blanks after it, since the
+/// blanks are consumed first, what follows decides, and no lookbehind or
+/// boundary holds between two of them; so the search skips a run of blanks
+/// at once.
+pub(crate) fn table_scan<G: Tabled>(lexer: &mut Lexer<'_, G>) -> Option<(usize, G::Pat, usize)> {
+    let tables = G::tables(lexer.top_rule());
+    let full = lexer.at_depth_limit();
+    let s = lexer.s;
+    let lim = s.len();
+    let nl = usize::from(lexer.nl);
+    let mut p = lexer.pos;
+    let mut visited = 0;
+    let found = loop {
+        if p > lim + nl {
+            break None;
+        }
+        visited += 1;
+        if visited % 64 == 0 && lexer.over_budget() {
+            break None;
+        }
+        let list = match s.get(p) {
+            Some(&byte) => {
+                let place = if p == 0 {
+                    Place::LineStart
+                } else if is_word_byte(byte) && is_word_byte(s[p - 1]) {
+                    Place::InWord
+                } else {
+                    Place::Away
+                };
+                tables.candidates(place, byte)
+            }
+            None if p == lim && nl == 1 => {
+                let place = if p == 0 {
+                    Place::LineStart
+                } else {
+                    Place::Away
+                };
+                tables.candidates(place, b'\n')
+            }
+            None => tables.all(),
+        };
+        let mut hit = None;
+        for &pat in list {
+            if full && matches!(G::pat_act(pat), Act::Begin(_)) {
+                if lexer.try_pat(pat, p).is_some() {
+                    lexer.record_depth();
+                }
+                continue;
+            }
+            if let Some(end) = lexer.try_pat(pat, p) {
+                hit = Some((p, pat, end));
+                break;
+            }
+        }
+        if hit.is_some() {
+            break hit;
+        }
+        p = match s.get(p) {
+            Some(b' ' | b'\t') => lexer.skip(p, |b| matches!(b, b' ' | b'\t')),
+            Some(_) => lexer.char_end(p),
+            None => p + 1,
+        };
+    };
+    lexer.spend(visited);
+    found
+}
+
+/// Whether `byte` is an ASCII word character.
+fn is_word_byte(byte: u8) -> bool {
+    byte.is_ascii_alphanumeric() || byte == b'_'
 }

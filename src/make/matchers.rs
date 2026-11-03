@@ -23,8 +23,8 @@ impl Lexer<'_> {
     // Characters.
 
     /// The character at `i` and its width, where one starts in the text.
-    fn char_at(&self, i: usize) -> Option<(char, usize)> {
-        if i >= self.lim {
+    fn char_width(&self, i: usize) -> Option<(char, usize)> {
+        if i >= self.lim() {
             return None;
         }
         let width = char_len(self.s[i]);
@@ -35,22 +35,22 @@ impl Lexer<'_> {
     /// The width of the white space character at `i`, 0 when there is none.
     /// The line feed at the end of a line is white space.
     fn space_w(&self, i: usize) -> usize {
-        if i < self.lim {
+        if i < self.lim() {
             let b = self.s[i];
             if b < 0x80 {
                 return usize::from(is_ascii_space(b));
             }
-            return match self.char_at(i) {
+            return match self.char_width(i) {
                 Some((c, width)) if classes::is_space(c) => width,
                 _ => 0,
             };
         }
-        usize::from(i == self.lim && self.nl)
+        usize::from(i == self.lim() && self.nl)
     }
 
     /// The width of the character at `i` that `\S` matches, 0 when none.
     fn nonspace_w(&self, i: usize) -> usize {
-        if i >= self.lim {
+        if i >= self.lim() {
             return 0;
         }
         match self.space_w(i) {
@@ -61,14 +61,14 @@ impl Lexer<'_> {
 
     /// Whether the character at `i` is a word character, as `\w` reads it.
     fn word_at(&self, i: usize) -> bool {
-        if i >= self.lim {
+        if i >= self.lim() {
             return false;
         }
         let b = self.s[i];
         if b < 0x80 {
             return b.is_ascii_alphanumeric() || b == b'_';
         }
-        self.char_at(i).is_some_and(|(c, _)| classes::is_word(c))
+        self.char_width(i).is_some_and(|(c, _)| classes::is_word(c))
     }
 
     /// The end of the white space from `i`, the regex `\s*`.
@@ -84,7 +84,7 @@ impl Lexer<'_> {
     /// The end of the run of `[ ]` from `i`.
     fn blanks(&self, mut i: usize) -> usize {
         let from = i;
-        while i < self.lim && self.s[i] == b' ' {
+        while i < self.lim() && self.s[i] == b' ' {
             i += 1;
         }
         self.spend(i - from);
@@ -101,12 +101,6 @@ impl Lexer<'_> {
         i
     }
 
-    fn starts(&self, i: usize, text: &[u8]) -> bool {
-        self.s
-            .get(i..self.lim)
-            .is_some_and(|rest| rest.starts_with(text))
-    }
-
     /// `\b` after a word that ends at `i`.
     fn boundary_after(&self, i: usize) -> bool {
         !self.word_at(i)
@@ -114,12 +108,17 @@ impl Lexer<'_> {
 
     /// `(?<!\\)\n`: the line feed at `i`, not after a backslash.
     fn plain_newline(&self, i: usize) -> bool {
-        i == self.lim && self.nl && self.prev(i) != Some(b'\\')
+        i == self.lim() && self.nl && self.prev(i) != Some(b'\\')
     }
 
     // Ends.
 
     /// The end pattern of `rule` at `p`.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured: the matchers are the hot loop"
+    )]
+    #[inline(always)]
     pub(super) fn end_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let zero = || Hit::new(p, p);
         match rule {
@@ -127,7 +126,7 @@ impl Lexer<'_> {
             // `(?!\G)`: it matches anywhere `\G` does not.
             Rule::Comment => (!self.g || p != self.pos).then(zero),
             // `(?=[^\\])$`
-            Rule::CommentHash | Rule::Prereq => (p == self.lim && self.nl).then(zero),
+            Rule::CommentHash | Rule::Prereq => (p == self.lim() && self.nl).then(zero),
             // `^`
             Rule::Include
             | Rule::Vpath
@@ -144,32 +143,36 @@ impl Lexer<'_> {
                 if !self.avail(p) || self.at(p) == b'\\' {
                     return None;
                 }
-                let width = if p < self.lim { char_len(self.s[p]) } else { 1 };
+                let width = if p < self.lim() {
+                    char_len(self.s[p])
+                } else {
+                    1
+                };
                 self.at_eol(p + width).then(|| Hit::new(p, p + width))
             }
             // `(?=\s|$)`
             Rule::TargetName => (self.space_w(p) > 0 || self.at_eol(p)).then(zero),
             // `\n`
-            Rule::Assign => (p == self.lim && self.nl).then(|| Hit::new(p, p + 1)),
+            Rule::Assign => (p == self.lim() && self.nl).then(|| Hit::new(p, p + 1)),
             // `\)|((?<!\\)\n)`
             Rule::VarParen | Rule::VarBrace => {
                 let close = if rule == Rule::VarParen { b')' } else { b'}' };
-                ((p < self.lim && self.s[p] == close) || self.plain_newline(p))
+                ((p < self.lim() && self.s[p] == close) || self.plain_newline(p))
                     .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, S::PunctVar))
             }
             // `(?=\)|((?<!\\)\n))`
             Rule::FuncParen | Rule::AnotherParen => {
-                ((p < self.lim && self.s[p] == b')') || self.plain_newline(p)).then(zero)
+                ((p < self.lim() && self.s[p] == b')') || self.plain_newline(p)).then(zero)
             }
             Rule::FuncBrace | Rule::AnotherBrace => {
-                ((p < self.lim && self.s[p] == b'}') || self.plain_newline(p)).then(zero)
+                ((p < self.lim() && self.s[p] == b'}') || self.plain_newline(p)).then(zero)
             }
             // `(?=\))`
-            Rule::FlavorParen => (p < self.lim && self.s[p] == b')').then(zero),
-            Rule::FlavorBrace => (p < self.lim && self.s[p] == b'}').then(zero),
+            Rule::FlavorParen => (p < self.lim() && self.s[p] == b')').then(zero),
+            Rule::FlavorBrace => (p < self.lim() && self.s[p] == b'}').then(zero),
             // `\)`
-            Rule::InterpParen => (p < self.lim && self.s[p] == b')').then(|| Hit::new(p, p + 1)),
-            Rule::InterpBrace => (p < self.lim && self.s[p] == b'}').then(|| Hit::new(p, p + 1)),
+            Rule::InterpParen => (p < self.lim() && self.s[p] == b')').then(|| Hit::new(p, p + 1)),
+            Rule::InterpBrace => (p < self.lim() && self.s[p] == b'}').then(|| Hit::new(p, p + 1)),
         }
     }
 
@@ -186,15 +189,22 @@ impl Lexer<'_> {
 
     // Patterns.
 
-    /// The match of `pat` at `p`.
+    /// The match of `pat` at `p`. The end pattern has none here: it depends
+    /// on the rule, and `Grammar::matcher` answers it.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured: the matchers are the hot loop"
+    )]
+    #[inline(always)]
     pub(super) fn pat_at(&self, pat: Pat, p: usize) -> Option<Hit> {
         match pat {
+            Pat::End => None,
             Pat::SimpleVar => self.simple_var(p),
             Pat::Comma => self.single(p, b','),
             Pat::Percent => self.single(p, b'%'),
             Pat::PercentStar => self.single(p, b'%').or_else(|| self.single(p, b'*')),
             Pat::Continuation => {
-                (p + 1 == self.lim && self.nl && self.s[p] == b'\\').then(|| Hit::new(p, p + 2))
+                (p + 1 == self.lim() && self.nl && self.s[p] == b'\\').then(|| Hit::new(p, p + 2))
             }
             Pat::AnyWord => {
                 let end = self.word_end(p);
@@ -204,7 +214,7 @@ impl Lexer<'_> {
             Pat::BuiltinBrace => self.builtin(p, b'{'),
             Pat::SpecialTarget => self.special_target(p),
             Pat::Comment => self.comment(p),
-            Pat::CommentHash => (p < self.lim && self.s[p] == b'#')
+            Pat::CommentHash => (p < self.lim() && self.s[p] == b'#')
                 .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, S::PunctComment)),
             Pat::VarParen => self.dollar(p, b'('),
             Pat::VarBrace => self.dollar(p, b'{'),
@@ -220,7 +230,7 @@ impl Lexer<'_> {
             Pat::Vpath => self.keyword_line(p, false),
             Pat::Define => self.define(p),
             Pat::DefineHead => {
-                (self.at_g(p) && !(p == self.lim && self.nl)).then(|| Hit::new(p, p))
+                (self.at_g(p) && !(p == self.lim() && self.nl)).then(|| Hit::new(p, p))
             }
             Pat::Export => self.leading_word(p, &[(b"export", S::KwExport)]),
             Pat::OverridePrivate => self.leading_word(
@@ -243,15 +253,15 @@ impl Lexer<'_> {
 
     /// A match of the one byte `b`.
     fn single(&self, p: usize, b: u8) -> Option<Hit> {
-        (p < self.lim && self.s[p] == b).then(|| Hit::new(p, p + 1))
+        (p < self.lim() && self.s[p] == b).then(|| Hit::new(p, p + 1))
     }
 
     /// `\$[^(){}]`
     fn simple_var(&self, p: usize) -> Option<Hit> {
-        if p >= self.lim || self.s[p] != b'$' || !self.avail(p + 1) {
+        if p >= self.lim() || self.s[p] != b'$' || !self.avail(p + 1) {
             return None;
         }
-        let width = if p + 1 < self.lim {
+        let width = if p + 1 < self.lim() {
             if matches!(self.s[p + 1], b'(' | b')' | b'{' | b'}') {
                 return None;
             }
@@ -265,7 +275,7 @@ impl Lexer<'_> {
     /// `\$\(` and `\${`: the rule's begin is a group that adds the scope of
     /// the variable's punctuation.
     fn dollar(&self, p: usize, open: u8) -> Option<Hit> {
-        (p + 1 < self.lim && self.s[p] == b'$' && self.s[p + 1] == open)
+        (p + 1 < self.lim() && self.s[p] == b'$' && self.s[p + 1] == open)
             .then(|| Hit::new(p, p + 2).cap(0, p, p + 2, S::PunctVar))
     }
 
@@ -286,7 +296,7 @@ impl Lexer<'_> {
         if self.prev(p) != Some(open) {
             return None;
         }
-        let run = self.s[p.min(self.lim)..self.lim]
+        let run = self.s[p.min(self.lim())..self.lim()]
             .iter()
             .take_while(|b| b.is_ascii_lowercase() || **b == b'-')
             .count();
@@ -318,7 +328,7 @@ impl Lexer<'_> {
         let close = closer(open);
         let mut i = end + blank;
         let from = i;
-        while i < self.lim && self.nonspace_w(i) > 0 && self.s[i] != close {
+        while i < self.lim() && self.nonspace_w(i) > 0 && self.s[i] != close {
             i += char_len(self.s[i]);
         }
         self.spend(i - from);
@@ -349,11 +359,11 @@ impl Lexer<'_> {
     /// `#` follows.
     fn even_backslashes(&self, from: usize) -> Option<usize> {
         let mut i = from;
-        while i < self.lim && self.s[i] == b'\\' {
+        while i < self.lim() && self.s[i] == b'\\' {
             i += 1;
         }
         self.spend(i - from);
-        ((i - from).is_multiple_of(2) && i < self.lim && self.s[i] == b'#').then_some(i)
+        ((i - from).is_multiple_of(2) && i < self.lim() && self.s[i] == b'#').then_some(i)
     }
 
     /// `^[ ]*([s\-]?include)\b` and `^[ ]*(vpath)\b`.
@@ -445,7 +455,7 @@ impl Lexer<'_> {
             if self.at(i) == b'=' && !matches!(self.prev(i), Some(b'?' | b':' | b'+' | b'!')) {
                 return 1;
             }
-            if i + 1 < self.lim
+            if i + 1 < self.lim()
                 && self.s[i + 1] == b'='
                 && matches!(self.s[i], b'?' | b':' | b'+' | b'!')
             {
@@ -456,7 +466,7 @@ impl Lexer<'_> {
         if self.at(i) == b'=' {
             return 1;
         }
-        if i + 1 < self.lim && self.s[i + 1] == b'=' && matches!(self.s[i], b'?' | b':' | b'+') {
+        if i + 1 < self.lim() && self.s[i + 1] == b'=' && matches!(self.s[i], b'?' | b':' | b'+') {
             return 2;
         }
         0
@@ -523,8 +533,8 @@ impl Lexer<'_> {
         if p != 0 || self.at(0) == b'\t' {
             return None;
         }
-        self.spend(self.lim);
-        let colon = memchr(b':', &self.s[..self.lim])?;
+        self.spend(self.lim());
+        let colon = memchr(b':', &self.s[..self.lim()])?;
         if self.at(colon + 1) == b'=' {
             return None;
         }
@@ -552,7 +562,7 @@ impl Lexer<'_> {
             return None;
         }
         let mut end = 1;
-        while end < self.lim && matches!(self.s[end], b'+' | b'-' | b'@') {
+        while end < self.lim() && matches!(self.s[end], b'+' | b'-' | b'@') {
             end += 1;
         }
         self.spend(end);
@@ -575,7 +585,7 @@ impl Lexer<'_> {
     /// The assignment whose name starts at `from`.
     fn assign_from(&self, p: usize, from: usize) -> Option<Hit> {
         let mut run = from;
-        while run < self.lim {
+        while run < self.lim() {
             let width = self.nonspace_w(run);
             if width == 0 || matches!(self.s[run], b':' | b'#' | b'=') {
                 break;
