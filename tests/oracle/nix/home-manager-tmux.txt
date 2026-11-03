@@ -1,0 +1,2410 @@
+L {
+T 1 source.nix punctuation.definition.attrset-or-function.nix
+L   config,
+T 2 source.nix
+T 8 source.nix variable.parameter.function.1.nix
+T 9 source.nix keyword.operator.nix
+L   lib,
+T 2 source.nix
+T 5 source.nix variable.parameter.function.1.nix
+T 6 source.nix keyword.operator.nix
+L   pkgs,
+T 2 source.nix
+T 6 source.nix variable.parameter.function.1.nix
+T 7 source.nix keyword.operator.nix
+L   ...
+T 2 source.nix
+T 5 source.nix keyword.operator.nix
+L }:
+T 1 source.nix punctuation.definition.entity.function.nix
+T 2 source.nix punctuation.definition.function.nix
+L let
+T 3 source.nix keyword.other.nix
+L   inherit (lib)
+T 2 source.nix
+T 9 source.nix keyword.other.inherit.nix
+T 10 source.nix
+T 11 source.nix punctuation.section.function.arguments.nix
+T 14 source.nix variable.parameter.name.nix
+T 15 source.nix punctuation.section.function.arguments.nix
+L     literalExpression
+T 4 source.nix
+T 21 source.nix entity.other.attribute-name.single.nix
+L     mkEnableOption
+T 4 source.nix
+T 18 source.nix entity.other.attribute-name.single.nix
+L     mkOption
+T 4 source.nix
+T 12 source.nix entity.other.attribute-name.single.nix
+L     optionalString
+T 4 source.nix
+T 18 source.nix entity.other.attribute-name.single.nix
+L     types
+T 4 source.nix
+T 9 source.nix entity.other.attribute-name.single.nix
+L     ;
+T 4 source.nix
+T 5 source.nix punctuation.terminator.inherit.nix
+L 
+L   cfg = config.programs.tmux;
+T 2 source.nix
+T 5 source.nix entity.other.attribute-name.multipart.nix
+T 6 source.nix
+T 7 source.nix keyword.operator.bind.nix
+T 8 source.nix
+T 14 source.nix variable.parameter.name.nix
+T 15 source.nix keyword.operator.nix
+T 23 source.nix variable.parameter.name.nix
+T 24 source.nix keyword.operator.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix punctuation.terminator.bind.nix
+L 
+L   pluginName = p: if types.package.check p then p.pname else p.plugin.pname;
+T 2 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 16 source.nix variable.parameter.function.4.nix
+T 17 source.nix punctuation.definition.function.nix
+T 18 source.nix
+T 20 source.nix keyword.other.nix
+T 21 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix keyword.operator.nix
+T 34 source.nix variable.parameter.name.nix
+T 35 source.nix keyword.operator.nix
+T 40 source.nix variable.parameter.name.nix
+T 41 source.nix
+T 42 source.nix variable.parameter.name.nix
+T 43 source.nix
+T 45 source.nix keyword.other.nix
+T 47 source.nix keyword.other.nix
+T 48 source.nix
+T 49 source.nix variable.parameter.name.nix
+T 50 source.nix keyword.operator.nix
+T 55 source.nix variable.parameter.name.nix
+T 56 source.nix
+T 58 source.nix keyword.other.nix
+T 60 source.nix keyword.other.nix
+T 61 source.nix
+T 62 source.nix variable.parameter.name.nix
+T 63 source.nix keyword.operator.nix
+T 69 source.nix variable.parameter.name.nix
+T 70 source.nix keyword.operator.nix
+T 75 source.nix variable.parameter.name.nix
+T 76 source.nix punctuation.terminator.bind.nix
+L 
+L   pluginModule = types.submodule {
+T 2 source.nix
+T 14 source.nix entity.other.attribute-name.multipart.nix
+T 15 source.nix
+T 16 source.nix keyword.operator.bind.nix
+T 17 source.nix
+T 22 source.nix variable.parameter.name.nix
+T 23 source.nix keyword.operator.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix
+T 34 source.nix punctuation.definition.attrset-or-function.nix
+L     options = {
+T 4 source.nix
+T 11 source.nix entity.other.attribute-name.multipart.nix
+T 12 source.nix
+T 13 source.nix keyword.operator.bind.nix
+T 14 source.nix
+T 15 source.nix punctuation.definition.attrset-or-function.nix
+L       plugin = lib.mkPackageOption pkgs.tmuxPlugins "plugin" {
+T 6 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 18 source.nix variable.parameter.name.nix
+T 19 source.nix keyword.operator.nix
+T 34 source.nix variable.parameter.name.nix
+T 35 source.nix
+T 39 source.nix variable.parameter.name.nix
+T 40 source.nix keyword.operator.nix
+T 51 source.nix variable.parameter.name.nix
+T 52 source.nix
+T 53 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 59 source.nix string.quoted.double.nix
+T 60 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 61 source.nix
+T 62 source.nix punctuation.definition.attrset-or-function.nix
+L         example = "pkgs.tmuxPlugins.sensible";
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 44 source.nix string.quoted.double.nix
+T 45 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 46 source.nix punctuation.terminator.bind.nix
+L         default = null;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 22 source.nix constant.language.nix
+T 23 source.nix punctuation.terminator.bind.nix
+L         pkgsText = "pkgs.tmuxPlugins";
+T 8 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 20 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 36 source.nix string.quoted.double.nix
+T 37 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 38 source.nix punctuation.terminator.bind.nix
+L         extraDescription = "Path of the configuration file to include.";
+T 8 source.nix
+T 24 source.nix entity.other.attribute-name.multipart.nix
+T 25 source.nix
+T 26 source.nix keyword.operator.bind.nix
+T 27 source.nix
+T 28 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 70 source.nix string.quoted.double.nix
+T 71 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 72 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       extraConfig = mkOption {
+T 6 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix
+T 30 source.nix punctuation.definition.attrset-or-function.nix
+L         type = types.lines;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix punctuation.terminator.bind.nix
+L         description = "Additional configuration for the associated plugin.";
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 23 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 74 source.nix string.quoted.double.nix
+T 75 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 76 source.nix punctuation.terminator.bind.nix
+L         default = "";
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 20 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 21 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L     };
+T 4 source.nix
+T 5 source.nix punctuation.definition.attrset.nix
+T 6 source.nix punctuation.terminator.bind.nix
+L   };
+T 2 source.nix
+T 3 source.nix punctuation.definition.attrset.nix
+T 4 source.nix punctuation.terminator.bind.nix
+L 
+L   defaultKeyMode = "emacs";
+T 2 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 20 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 25 source.nix string.quoted.double.nix
+T 26 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 27 source.nix punctuation.terminator.bind.nix
+L   defaultResize = 5;
+T 2 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix constant.numeric.nix
+T 20 source.nix punctuation.terminator.bind.nix
+L   defaultShortcut = "b";
+T 2 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 21 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 22 source.nix string.quoted.double.nix
+T 23 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L   defaultTerminal = "screen";
+T 2 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 21 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 27 source.nix string.quoted.double.nix
+T 28 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 29 source.nix punctuation.terminator.bind.nix
+L   defaultShell = null;
+T 2 source.nix
+T 14 source.nix entity.other.attribute-name.multipart.nix
+T 15 source.nix
+T 16 source.nix keyword.operator.bind.nix
+T 17 source.nix
+T 21 source.nix constant.language.nix
+T 22 source.nix punctuation.terminator.bind.nix
+L 
+L   boolToStr = value: if value then "on" else "off";
+T 2 source.nix
+T 11 source.nix entity.other.attribute-name.multipart.nix
+T 12 source.nix
+T 13 source.nix keyword.operator.bind.nix
+T 14 source.nix
+T 19 source.nix variable.parameter.function.4.nix
+T 20 source.nix punctuation.definition.function.nix
+T 21 source.nix
+T 23 source.nix keyword.other.nix
+T 24 source.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix
+T 32 source.nix keyword.other.nix
+T 34 source.nix keyword.other.nix
+T 35 source.nix
+T 36 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 38 source.nix string.quoted.double.nix
+T 39 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 40 source.nix
+T 42 source.nix keyword.other.nix
+T 44 source.nix keyword.other.nix
+T 45 source.nix
+T 46 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 49 source.nix string.quoted.double.nix
+T 50 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 51 source.nix punctuation.terminator.bind.nix
+L 
+L   tmuxConf = ''
+T 2 source.nix
+T 10 source.nix entity.other.attribute-name.multipart.nix
+T 11 source.nix
+T 12 source.nix keyword.operator.bind.nix
+T 13 source.nix
+T 15 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L     ${optionalString cfg.sensibleOnTop ''
+T 4 source.nix string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 20 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 21 source.nix string.quoted.other.nix meta.embedded
+T 24 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 25 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 38 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 39 source.nix string.quoted.other.nix meta.embedded
+T 41 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.start.nix
+L       # ============================================= #
+T 55 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L       # Start with defaults from the Sensible plugin  #
+T 55 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L       # --------------------------------------------- #
+T 55 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L       run-shell ${pkgs.tmuxPlugins.sensible.rtp}
+T 16 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 18 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 22 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 23 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 34 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 35 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 43 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 44 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 47 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 48 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L       # ============================================= #
+T 55 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L     ''}
+T 4 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 7 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L     set  -g default-terminal "${cfg.terminal}"
+T 30 source.nix string.quoted.other.nix
+T 32 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 35 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 36 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 44 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 45 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+T 46 source.nix string.quoted.other.nix
+L     set  -g base-index      ${toString cfg.baseIndex}
+T 28 source.nix string.quoted.other.nix
+T 30 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 38 source.nix string.quoted.other.nix meta.embedded support.function.nix
+T 39 source.nix string.quoted.other.nix meta.embedded
+T 42 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 43 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 52 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 53 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L     setw -g pane-base-index ${toString cfg.baseIndex}
+T 28 source.nix string.quoted.other.nix
+T 30 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 38 source.nix string.quoted.other.nix meta.embedded support.function.nix
+T 39 source.nix string.quoted.other.nix meta.embedded
+T 42 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 43 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 52 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 53 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L     ${optionalString (cfg.shell != null) ''
+T 4 source.nix string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 20 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 21 source.nix string.quoted.other.nix meta.embedded
+T 22 source.nix string.quoted.other.nix meta.embedded punctuation.definition.expression.nix
+T 25 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 26 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 31 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 32 source.nix string.quoted.other.nix meta.embedded
+T 34 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 35 source.nix string.quoted.other.nix meta.embedded
+T 39 source.nix string.quoted.other.nix meta.embedded constant.language.nix
+T 40 source.nix string.quoted.other.nix meta.embedded punctuation.definition.expression.nix
+T 41 source.nix string.quoted.other.nix meta.embedded
+T 43 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.start.nix
+L       # We need to set default-shell before calling new-session
+T 63 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L       set  -g default-shell "${cfg.shell}"
+T 29 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 31 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 34 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 35 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 40 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 41 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+T 42 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L     ''}
+T 4 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 7 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L     ${optionalString cfg.newSession ''
+T 4 source.nix string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 20 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 21 source.nix string.quoted.other.nix meta.embedded
+T 24 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 25 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 35 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 36 source.nix string.quoted.other.nix meta.embedded
+T 38 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.start.nix
+L       # Use -A to make new-session idempotent: attach if session "0" exists,
+T 76 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L       # otherwise create it. This prevents duplicate sessions when multiple
+T 75 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L       # configs (e.g., system and user) both enable newSession.
+T 63 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L       new-session -A -s 0''}
+T 25 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 27 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 28 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L 
+L     ${optionalString cfg.reverseSplit ''
+T 4 source.nix string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 20 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 21 source.nix string.quoted.other.nix meta.embedded
+T 24 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 25 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 37 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 38 source.nix string.quoted.other.nix meta.embedded
+T 40 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.start.nix
+L       bind -N "Split the pane into two, left and right" v split-window -h
+T 73 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L       bind -N "Split the pane into two, top and bottom" s split-window -v
+T 73 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L     ''}
+T 4 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 7 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L 
+L     set -g status-keys ${cfg.keyMode}
+T 23 source.nix string.quoted.other.nix
+T 25 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 28 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 29 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 36 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 37 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L     set -g mode-keys   ${cfg.keyMode}
+T 23 source.nix string.quoted.other.nix
+T 25 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 28 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 29 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 36 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 37 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L 
+L     ${optionalString (cfg.keyMode == "vi" && cfg.customPaneNavigationAndResize) ''
+T 4 source.nix string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 20 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 21 source.nix string.quoted.other.nix meta.embedded
+T 22 source.nix string.quoted.other.nix meta.embedded punctuation.definition.expression.nix
+T 25 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 26 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 33 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 34 source.nix string.quoted.other.nix meta.embedded
+T 36 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 37 source.nix string.quoted.other.nix meta.embedded
+T 38 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 40 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix
+T 41 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 42 source.nix string.quoted.other.nix meta.embedded
+T 44 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 45 source.nix string.quoted.other.nix meta.embedded
+T 48 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 49 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 78 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 79 source.nix string.quoted.other.nix meta.embedded punctuation.definition.expression.nix
+T 80 source.nix string.quoted.other.nix meta.embedded
+T 82 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.start.nix
+L       bind -N "Select pane to the left of the active pane" h select-pane -L
+T 75 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L       bind -N "Select pane below the active pane" j select-pane -D
+T 66 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L       bind -N "Select pane above the active pane" k select-pane -U
+T 66 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L       bind -N "Select pane to the right of the active pane" l select-pane -R
+T 76 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L 
+L       bind -r -N "Resize the pane left by ${toString cfg.resizeAmount}" \
+T 42 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 44 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 52 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded support.function.nix
+T 53 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 56 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 57 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 69 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 70 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+T 73 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L         H resize-pane -L ${toString cfg.resizeAmount}
+T 25 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 27 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 35 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded support.function.nix
+T 36 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 39 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 40 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 52 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 53 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L       bind -r -N "Resize the pane down by ${toString cfg.resizeAmount}" \
+T 42 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 44 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 52 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded support.function.nix
+T 53 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 56 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 57 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 69 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 70 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+T 73 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L         J resize-pane -D ${toString cfg.resizeAmount}
+T 25 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 27 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 35 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded support.function.nix
+T 36 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 39 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 40 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 52 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 53 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L       bind -r -N "Resize the pane up by ${toString cfg.resizeAmount}" \
+T 40 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 42 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 50 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded support.function.nix
+T 51 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 54 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 55 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 67 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 68 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+T 71 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L         K resize-pane -U ${toString cfg.resizeAmount}
+T 25 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 27 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 35 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded support.function.nix
+T 36 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 39 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 40 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 52 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 53 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L       bind -r -N "Resize the pane right by ${toString cfg.resizeAmount}" \
+T 43 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 45 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 53 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded support.function.nix
+T 54 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 57 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 58 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 70 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 71 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+T 74 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L         L resize-pane -R ${toString cfg.resizeAmount}
+T 25 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 27 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 35 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded support.function.nix
+T 36 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 39 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 40 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 52 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 53 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L     ''}
+T 4 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 7 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L 
+L     ${
+T 4 source.nix string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+L       let
+T 6 source.nix string.quoted.other.nix meta.embedded
+T 9 source.nix string.quoted.other.nix meta.embedded keyword.other.nix
+L         defaultPrefix = "C-${defaultShortcut}";
+T 8 source.nix string.quoted.other.nix meta.embedded
+T 21 source.nix string.quoted.other.nix meta.embedded entity.other.attribute-name.multipart.nix
+T 22 source.nix string.quoted.other.nix meta.embedded
+T 23 source.nix string.quoted.other.nix meta.embedded keyword.operator.bind.nix
+T 24 source.nix string.quoted.other.nix meta.embedded
+T 25 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 27 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix
+T 29 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix meta.embedded punctuation.section.embedded.begin.nix
+T 44 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 45 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix meta.embedded punctuation.section.embedded.end.nix
+T 46 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 47 source.nix string.quoted.other.nix meta.embedded punctuation.terminator.bind.nix
+L         prefix = if cfg.prefix != null then cfg.prefix else "C-${cfg.shortcut}";
+T 8 source.nix string.quoted.other.nix meta.embedded
+T 14 source.nix string.quoted.other.nix meta.embedded entity.other.attribute-name.multipart.nix
+T 15 source.nix string.quoted.other.nix meta.embedded
+T 16 source.nix string.quoted.other.nix meta.embedded keyword.operator.bind.nix
+T 17 source.nix string.quoted.other.nix meta.embedded
+T 19 source.nix string.quoted.other.nix meta.embedded keyword.other.nix
+T 20 source.nix string.quoted.other.nix meta.embedded
+T 23 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 24 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 30 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 31 source.nix string.quoted.other.nix meta.embedded
+T 33 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 34 source.nix string.quoted.other.nix meta.embedded
+T 38 source.nix string.quoted.other.nix meta.embedded constant.language.nix
+T 39 source.nix string.quoted.other.nix meta.embedded
+T 41 source.nix string.quoted.other.nix meta.embedded keyword.other.nix
+T 43 source.nix string.quoted.other.nix meta.embedded keyword.other.nix
+T 44 source.nix string.quoted.other.nix meta.embedded
+T 47 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 48 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 54 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 55 source.nix string.quoted.other.nix meta.embedded
+T 57 source.nix string.quoted.other.nix meta.embedded keyword.other.nix
+T 59 source.nix string.quoted.other.nix meta.embedded keyword.other.nix
+T 60 source.nix string.quoted.other.nix meta.embedded
+T 61 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 63 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix
+T 65 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix meta.embedded punctuation.section.embedded.begin.nix
+T 68 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 69 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix meta.embedded keyword.operator.nix
+T 77 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 78 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix meta.embedded punctuation.section.embedded.end.nix
+T 79 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 80 source.nix string.quoted.other.nix meta.embedded punctuation.terminator.bind.nix
+L       in
+T 6 source.nix string.quoted.other.nix meta.embedded
+T 8 source.nix string.quoted.other.nix meta.embedded keyword.other.nix
+L       optionalString (prefix != defaultPrefix) ''
+T 6 source.nix string.quoted.other.nix meta.embedded
+T 20 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 21 source.nix string.quoted.other.nix meta.embedded
+T 22 source.nix string.quoted.other.nix meta.embedded punctuation.definition.expression.nix
+T 28 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 29 source.nix string.quoted.other.nix meta.embedded
+T 31 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 32 source.nix string.quoted.other.nix meta.embedded
+T 45 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 46 source.nix string.quoted.other.nix meta.embedded punctuation.definition.expression.nix
+T 47 source.nix string.quoted.other.nix meta.embedded
+T 49 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.start.nix
+L         # rebind main key: ${prefix}
+T 27 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 29 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 35 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 36 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L         unbind ${defaultPrefix}
+T 15 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 17 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 30 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 31 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L         set -g prefix ${prefix}
+T 22 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 24 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 30 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 31 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L         bind -N "Send the prefix key through to the application" \
+T 66 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L           ${prefix} send-prefix
+T 10 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 12 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 18 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 19 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+T 31 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L       ''
+T 6 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 8 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.end.nix
+L     }
+T 4 source.nix string.quoted.other.nix meta.embedded
+T 5 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L 
+L     ${optionalString cfg.disableConfirmationPrompt ''
+T 4 source.nix string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 20 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 21 source.nix string.quoted.other.nix meta.embedded
+T 24 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 25 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 50 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 51 source.nix string.quoted.other.nix meta.embedded
+T 53 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.start.nix
+L       bind-key -N "Kill the current window" & kill-window
+T 57 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L       bind-key -N "Kill the current pane" x kill-pane
+T 53 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L     ''}
+T 4 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 7 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L 
+L     set  -g mouse             ${boolToStr cfg.mouse}
+T 30 source.nix string.quoted.other.nix
+T 32 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 41 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 42 source.nix string.quoted.other.nix meta.embedded
+T 45 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 46 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 51 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 52 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L     set  -g focus-events      ${boolToStr cfg.focusEvents}
+T 30 source.nix string.quoted.other.nix
+T 32 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 41 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 42 source.nix string.quoted.other.nix meta.embedded
+T 45 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 46 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 57 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 58 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L     setw -g aggressive-resize ${boolToStr cfg.aggressiveResize}
+T 30 source.nix string.quoted.other.nix
+T 32 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 41 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 42 source.nix string.quoted.other.nix meta.embedded
+T 45 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 46 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 62 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 63 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L     setw -g clock-mode-style  ${if cfg.clock24 then "24" else "12"}
+T 30 source.nix string.quoted.other.nix
+T 32 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 34 source.nix string.quoted.other.nix meta.embedded keyword.other.nix
+T 35 source.nix string.quoted.other.nix meta.embedded
+T 38 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 39 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 46 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 47 source.nix string.quoted.other.nix meta.embedded
+T 49 source.nix string.quoted.other.nix meta.embedded keyword.other.nix
+T 51 source.nix string.quoted.other.nix meta.embedded keyword.other.nix
+T 52 source.nix string.quoted.other.nix meta.embedded
+T 53 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 55 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix
+T 56 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 57 source.nix string.quoted.other.nix meta.embedded
+T 59 source.nix string.quoted.other.nix meta.embedded keyword.other.nix
+T 61 source.nix string.quoted.other.nix meta.embedded keyword.other.nix
+T 62 source.nix string.quoted.other.nix meta.embedded
+T 63 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 65 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix
+T 66 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 67 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L     set  -s escape-time       ${toString cfg.escapeTime}
+T 30 source.nix string.quoted.other.nix
+T 32 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 40 source.nix string.quoted.other.nix meta.embedded support.function.nix
+T 41 source.nix string.quoted.other.nix meta.embedded
+T 44 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 45 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 55 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 56 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L     set  -g history-limit     ${toString cfg.historyLimit}
+T 30 source.nix string.quoted.other.nix
+T 32 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 40 source.nix string.quoted.other.nix meta.embedded support.function.nix
+T 41 source.nix string.quoted.other.nix meta.embedded
+T 44 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 45 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 57 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 58 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L   '';
+T 2 source.nix string.quoted.other.nix
+T 4 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 5 source.nix punctuation.terminator.bind.nix
+L 
+L   configPlugins = {
+T 2 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix punctuation.definition.attrset-or-function.nix
+L     assertions = [
+T 4 source.nix
+T 14 source.nix entity.other.attribute-name.multipart.nix
+T 15 source.nix
+T 16 source.nix keyword.operator.bind.nix
+T 17 source.nix
+T 18 source.nix punctuation.definition.list.nix
+L       (
+T 6 source.nix
+T 7 source.nix punctuation.definition.expression.nix
+L         let
+T 8 source.nix
+T 11 source.nix keyword.other.nix
+L           hasBadPluginName = p: !(lib.hasPrefix "tmuxplugin" (pluginName p));
+T 10 source.nix
+T 26 source.nix entity.other.attribute-name.multipart.nix
+T 27 source.nix
+T 28 source.nix keyword.operator.bind.nix
+T 29 source.nix
+T 30 source.nix variable.parameter.function.4.nix
+T 31 source.nix punctuation.definition.function.nix
+T 32 source.nix
+T 33 source.nix keyword.operator.unary.nix
+T 34 source.nix punctuation.definition.expression.nix
+T 37 source.nix variable.parameter.name.nix
+T 38 source.nix keyword.operator.nix
+T 47 source.nix variable.parameter.name.nix
+T 48 source.nix
+T 49 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 59 source.nix string.quoted.double.nix
+T 60 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 61 source.nix
+T 62 source.nix punctuation.definition.expression.nix
+T 72 source.nix variable.parameter.name.nix
+T 73 source.nix
+T 74 source.nix variable.parameter.name.nix
+T 75 source.nix punctuation.definition.expression.nix
+T 76 source.nix punctuation.definition.expression.nix
+T 77 source.nix punctuation.terminator.bind.nix
+L           badPlugins = lib.filter hasBadPluginName cfg.plugins;
+T 10 source.nix
+T 20 source.nix entity.other.attribute-name.multipart.nix
+T 21 source.nix
+T 22 source.nix keyword.operator.bind.nix
+T 23 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix keyword.operator.nix
+T 33 source.nix variable.parameter.name.nix
+T 34 source.nix
+T 50 source.nix variable.parameter.name.nix
+T 51 source.nix
+T 54 source.nix variable.parameter.name.nix
+T 55 source.nix keyword.operator.nix
+T 62 source.nix variable.parameter.name.nix
+T 63 source.nix punctuation.terminator.bind.nix
+L         in
+T 8 source.nix
+T 10 source.nix keyword.other.nix
+L         {
+T 8 source.nix
+T 9 source.nix punctuation.definition.attrset-or-function.nix
+L           assertion = badPlugins == [ ];
+T 10 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix
+T 35 source.nix keyword.operator.nix
+T 36 source.nix
+T 37 source.nix punctuation.definition.list.nix
+T 38 source.nix
+T 39 source.nix punctuation.definition.list.nix
+T 40 source.nix punctuation.terminator.bind.nix
+L           message =
+T 10 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+L             ''Invalid tmux plugin (not prefixed with "tmuxplugins"): ''
+T 12 source.nix
+T 14 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+T 69 source.nix string.quoted.other.nix
+T 71 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+L             + lib.concatMapStringsSep ", " pluginName badPlugins;
+T 12 source.nix
+T 13 source.nix keyword.operator.nix
+T 14 source.nix
+T 17 source.nix variable.parameter.name.nix
+T 18 source.nix keyword.operator.nix
+T 37 source.nix variable.parameter.name.nix
+T 38 source.nix
+T 39 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 41 source.nix string.quoted.double.nix
+T 42 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 43 source.nix
+T 53 source.nix variable.parameter.name.nix
+T 54 source.nix
+T 64 source.nix variable.parameter.name.nix
+T 65 source.nix punctuation.terminator.bind.nix
+L         }
+T 8 source.nix
+T 9 source.nix punctuation.definition.attrset.nix
+L       )
+T 6 source.nix
+T 7 source.nix punctuation.definition.expression.nix
+L     ];
+T 4 source.nix
+T 5 source.nix punctuation.definition.list.nix
+T 6 source.nix punctuation.terminator.bind.nix
+L 
+L     xdg.configFile."tmux/tmux.conf".text = ''
+T 4 source.nix
+T 7 source.nix entity.other.attribute-name.multipart.nix
+T 8 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 34 source.nix string.quoted.double.nix
+T 35 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 36 source.nix
+T 40 source.nix entity.other.attribute-name.multipart.nix
+T 41 source.nix
+T 42 source.nix keyword.operator.bind.nix
+T 43 source.nix
+T 45 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L       # ============================================= #
+T 55 source.nix string.quoted.other.nix
+L       # Load plugins with Home Manager                #
+T 55 source.nix string.quoted.other.nix
+L       # --------------------------------------------- #
+T 55 source.nix string.quoted.other.nix
+L 
+L       ${
+T 6 source.nix string.quoted.other.nix
+T 8 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+L         (lib.concatMapStringsSep "\n\n" (p: ''
+T 8 source.nix string.quoted.other.nix meta.embedded
+T 9 source.nix string.quoted.other.nix meta.embedded punctuation.definition.expression.nix
+T 12 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 13 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 32 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 33 source.nix string.quoted.other.nix meta.embedded
+T 34 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 36 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix constant.character.escape.nix
+T 38 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix constant.character.escape.nix
+T 39 source.nix string.quoted.other.nix meta.embedded string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 40 source.nix string.quoted.other.nix meta.embedded
+T 41 source.nix string.quoted.other.nix meta.embedded punctuation.definition.expression.nix
+T 42 source.nix string.quoted.other.nix meta.embedded variable.parameter.function.4.nix
+T 43 source.nix string.quoted.other.nix meta.embedded punctuation.definition.function.nix
+T 44 source.nix string.quoted.other.nix meta.embedded
+T 46 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.start.nix
+L           # ${pluginName p}
+T 12 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 14 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 24 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 25 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 26 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 27 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L           # ---------------------
+T 33 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+L           ${p.extraConfig or ""}
+T 10 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 12 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 13 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 14 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 25 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 26 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 28 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 29 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 30 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 31 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 32 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L           run-shell ${if types.package.check p then p.rtp else p.plugin.rtp}
+T 20 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 22 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 24 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.other.nix
+T 25 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 30 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 31 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 38 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 39 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 44 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 45 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 46 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 47 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 49 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.other.nix
+T 51 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.other.nix
+T 52 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 53 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 54 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 57 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 58 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 60 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.other.nix
+T 62 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.other.nix
+T 63 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded
+T 64 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 65 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 71 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 72 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded keyword.operator.nix
+T 75 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 76 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L         '') cfg.plugins)
+T 8 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix
+T 10 source.nix string.quoted.other.nix meta.embedded string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 11 source.nix string.quoted.other.nix meta.embedded punctuation.definition.expression.nix
+T 12 source.nix string.quoted.other.nix meta.embedded
+T 15 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 16 source.nix string.quoted.other.nix meta.embedded keyword.operator.nix
+T 23 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 24 source.nix string.quoted.other.nix meta.embedded punctuation.definition.expression.nix
+L       }
+T 6 source.nix string.quoted.other.nix meta.embedded
+T 7 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+L       # ============================================= #
+T 55 source.nix string.quoted.other.nix
+L     '';
+T 4 source.nix string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 7 source.nix punctuation.terminator.bind.nix
+L   };
+T 2 source.nix
+T 3 source.nix punctuation.definition.attrset.nix
+T 4 source.nix punctuation.terminator.bind.nix
+L 
+L in
+T 2 source.nix keyword.other.nix
+L {
+T 1 source.nix punctuation.definition.attrset-or-function.nix
+L   meta.maintainers = [ lib.hm.maintainers.kallisti-dev ];
+T 2 source.nix
+T 6 source.nix entity.other.attribute-name.multipart.nix
+T 7 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix keyword.operator.bind.nix
+T 21 source.nix
+T 22 source.nix punctuation.definition.list.nix
+T 23 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix keyword.operator.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix keyword.operator.nix
+T 41 source.nix variable.parameter.name.nix
+T 42 source.nix keyword.operator.nix
+T 54 source.nix variable.parameter.name.nix
+T 55 source.nix
+T 56 source.nix punctuation.definition.list.nix
+T 57 source.nix punctuation.terminator.bind.nix
+L 
+L   options = {
+T 2 source.nix
+T 9 source.nix entity.other.attribute-name.multipart.nix
+T 10 source.nix
+T 11 source.nix keyword.operator.bind.nix
+T 12 source.nix
+T 13 source.nix punctuation.definition.attrset-or-function.nix
+L     programs.tmux = {
+T 4 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 21 source.nix punctuation.definition.attrset-or-function.nix
+L       aggressiveResize = mkOption {
+T 6 source.nix
+T 22 source.nix entity.other.attribute-name.multipart.nix
+T 23 source.nix
+T 24 source.nix keyword.operator.bind.nix
+T 25 source.nix
+T 33 source.nix variable.parameter.name.nix
+T 34 source.nix
+T 35 source.nix punctuation.definition.attrset-or-function.nix
+L         default = false;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 23 source.nix constant.language.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L         type = types.bool;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix punctuation.terminator.bind.nix
+L         description = ''
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 24 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L           Resize the window to the size of the smallest session for
+T 67 source.nix string.quoted.other.nix
+L           which it is the current window.
+T 41 source.nix string.quoted.other.nix
+L         '';
+T 8 source.nix string.quoted.other.nix
+T 10 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       baseIndex = mkOption {
+T 6 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix
+T 28 source.nix punctuation.definition.attrset-or-function.nix
+L         default = 0;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix constant.numeric.nix
+T 20 source.nix punctuation.terminator.bind.nix
+L         example = 1;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix constant.numeric.nix
+T 20 source.nix punctuation.terminator.bind.nix
+L         type = types.ints.unsigned;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix keyword.operator.nix
+T 34 source.nix variable.parameter.name.nix
+T 35 source.nix punctuation.terminator.bind.nix
+L         description = "Base index for windows and panes.";
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 23 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 56 source.nix string.quoted.double.nix
+T 57 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 58 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       clock24 = mkOption {
+T 6 source.nix
+T 13 source.nix entity.other.attribute-name.multipart.nix
+T 14 source.nix
+T 15 source.nix keyword.operator.bind.nix
+T 16 source.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix
+T 26 source.nix punctuation.definition.attrset-or-function.nix
+L         default = false;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 23 source.nix constant.language.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L         type = types.bool;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix punctuation.terminator.bind.nix
+L         description = "Use 24 hour clock.";
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 23 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 41 source.nix string.quoted.double.nix
+T 42 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 43 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       customPaneNavigationAndResize = mkOption {
+T 6 source.nix
+T 35 source.nix entity.other.attribute-name.multipart.nix
+T 36 source.nix
+T 37 source.nix keyword.operator.bind.nix
+T 38 source.nix
+T 46 source.nix variable.parameter.name.nix
+T 47 source.nix
+T 48 source.nix punctuation.definition.attrset-or-function.nix
+L         default = false;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 23 source.nix constant.language.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L         type = types.bool;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix punctuation.terminator.bind.nix
+L         description = ''
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 24 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L           Override the hjkl and HJKL bindings for pane navigation and
+T 69 source.nix string.quoted.other.nix
+L           resizing in VI mode.
+T 30 source.nix string.quoted.other.nix
+L         '';
+T 8 source.nix string.quoted.other.nix
+T 10 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       disableConfirmationPrompt = mkOption {
+T 6 source.nix
+T 31 source.nix entity.other.attribute-name.multipart.nix
+T 32 source.nix
+T 33 source.nix keyword.operator.bind.nix
+T 34 source.nix
+T 42 source.nix variable.parameter.name.nix
+T 43 source.nix
+T 44 source.nix punctuation.definition.attrset-or-function.nix
+L         default = false;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 23 source.nix constant.language.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L         type = types.bool;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix punctuation.terminator.bind.nix
+L         description = ''
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 24 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L           Disable confirmation prompt before killing a pane or window
+T 69 source.nix string.quoted.other.nix
+L         '';
+T 8 source.nix string.quoted.other.nix
+T 10 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       enable = mkEnableOption "tmux";
+T 6 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix
+T 31 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 35 source.nix string.quoted.double.nix
+T 36 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 37 source.nix punctuation.terminator.bind.nix
+L 
+L       escapeTime = mkOption {
+T 6 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 27 source.nix variable.parameter.name.nix
+T 28 source.nix
+T 29 source.nix punctuation.definition.attrset-or-function.nix
+L         default = 10;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 20 source.nix constant.numeric.nix
+T 21 source.nix punctuation.terminator.bind.nix
+L         example = 0;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix constant.numeric.nix
+T 20 source.nix punctuation.terminator.bind.nix
+L         type = types.ints.unsigned;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix keyword.operator.nix
+T 34 source.nix variable.parameter.name.nix
+T 35 source.nix punctuation.terminator.bind.nix
+L         description = ''
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 24 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L           Time in milliseconds for which tmux waits after an escape is
+T 70 source.nix string.quoted.other.nix
+L           input.
+T 16 source.nix string.quoted.other.nix
+L         '';
+T 8 source.nix string.quoted.other.nix
+T 10 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       extraConfig = mkOption {
+T 6 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix
+T 30 source.nix punctuation.definition.attrset-or-function.nix
+L         type = types.lines;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix punctuation.terminator.bind.nix
+L         default = "";
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 20 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 21 source.nix punctuation.terminator.bind.nix
+L         description = ''
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 24 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L           Additional configuration to add to
+T 44 source.nix string.quoted.other.nix
+L           {file}`tmux.conf`.
+T 28 source.nix string.quoted.other.nix
+L         '';
+T 8 source.nix string.quoted.other.nix
+T 10 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       focusEvents = mkOption {
+T 6 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix
+T 30 source.nix punctuation.definition.attrset-or-function.nix
+L         default = false;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 23 source.nix constant.language.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L         type = types.bool;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix punctuation.terminator.bind.nix
+L         description = ''
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 24 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L           On supported terminals, request focus events and pass them through to
+T 79 source.nix string.quoted.other.nix
+L           applications running in tmux.
+T 39 source.nix string.quoted.other.nix
+L         '';
+T 8 source.nix string.quoted.other.nix
+T 10 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       historyLimit = mkOption {
+T 6 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix keyword.operator.bind.nix
+T 21 source.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix
+T 31 source.nix punctuation.definition.attrset-or-function.nix
+L         default = 2000;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 22 source.nix constant.numeric.nix
+T 23 source.nix punctuation.terminator.bind.nix
+L         example = 5000;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 22 source.nix constant.numeric.nix
+T 23 source.nix punctuation.terminator.bind.nix
+L         type = types.ints.positive;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix keyword.operator.nix
+T 34 source.nix variable.parameter.name.nix
+T 35 source.nix punctuation.terminator.bind.nix
+L         description = "Maximum number of lines held in window history.";
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 23 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 70 source.nix string.quoted.double.nix
+T 71 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 72 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       keyMode = mkOption {
+T 6 source.nix
+T 13 source.nix entity.other.attribute-name.multipart.nix
+T 14 source.nix
+T 15 source.nix keyword.operator.bind.nix
+T 16 source.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix
+T 26 source.nix punctuation.definition.attrset-or-function.nix
+L         default = defaultKeyMode;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix punctuation.terminator.bind.nix
+L         example = "vi";
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 21 source.nix string.quoted.double.nix
+T 22 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 23 source.nix punctuation.terminator.bind.nix
+L         type = types.enum [
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix
+T 27 source.nix punctuation.definition.list.nix
+L           "emacs"
+T 10 source.nix
+T 11 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 16 source.nix string.quoted.double.nix
+T 17 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+L           "vi"
+T 10 source.nix
+T 11 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 13 source.nix string.quoted.double.nix
+T 14 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+L         ];
+T 8 source.nix
+T 9 source.nix punctuation.definition.list.nix
+T 10 source.nix punctuation.terminator.bind.nix
+L         description = "VI or Emacs style shortcuts.";
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 23 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 51 source.nix string.quoted.double.nix
+T 52 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 53 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       mouse = mkEnableOption "mouse support";
+T 6 source.nix
+T 11 source.nix entity.other.attribute-name.multipart.nix
+T 12 source.nix
+T 13 source.nix keyword.operator.bind.nix
+T 14 source.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix
+T 30 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 43 source.nix string.quoted.double.nix
+T 44 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 45 source.nix punctuation.terminator.bind.nix
+L 
+L       newSession = mkOption {
+T 6 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 27 source.nix variable.parameter.name.nix
+T 28 source.nix
+T 29 source.nix punctuation.definition.attrset-or-function.nix
+L         default = false;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 23 source.nix constant.language.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L         type = types.bool;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix punctuation.terminator.bind.nix
+L         description = ''
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 24 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L           Automatically spawn a session if trying to attach and none
+T 68 source.nix string.quoted.other.nix
+L           are running.
+T 22 source.nix string.quoted.other.nix
+L         '';
+T 8 source.nix string.quoted.other.nix
+T 10 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       package = lib.mkPackageOption pkgs "tmux" { nullable = true; };
+T 6 source.nix
+T 13 source.nix entity.other.attribute-name.multipart.nix
+T 14 source.nix
+T 15 source.nix keyword.operator.bind.nix
+T 16 source.nix
+T 19 source.nix variable.parameter.name.nix
+T 20 source.nix keyword.operator.nix
+T 35 source.nix variable.parameter.name.nix
+T 36 source.nix
+T 40 source.nix variable.parameter.name.nix
+T 41 source.nix
+T 42 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 46 source.nix string.quoted.double.nix
+T 47 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 48 source.nix
+T 49 source.nix punctuation.definition.attrset.nix
+T 50 source.nix
+T 58 source.nix entity.other.attribute-name.multipart.nix
+T 59 source.nix
+T 60 source.nix keyword.operator.bind.nix
+T 61 source.nix
+T 65 source.nix constant.language.nix
+T 66 source.nix punctuation.terminator.bind.nix
+T 67 source.nix
+T 68 source.nix punctuation.definition.attrset.nix
+T 69 source.nix punctuation.terminator.bind.nix
+L 
+L       reverseSplit = mkOption {
+T 6 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix keyword.operator.bind.nix
+T 21 source.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix
+T 31 source.nix punctuation.definition.attrset-or-function.nix
+L         default = false;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 23 source.nix constant.language.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L         type = types.bool;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix punctuation.terminator.bind.nix
+L         description = "Reverse the window split shortcuts.";
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 23 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 58 source.nix string.quoted.double.nix
+T 59 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 60 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       resizeAmount = mkOption {
+T 6 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix keyword.operator.bind.nix
+T 21 source.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix
+T 31 source.nix punctuation.definition.attrset-or-function.nix
+L         default = defaultResize;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 31 source.nix variable.parameter.name.nix
+T 32 source.nix punctuation.terminator.bind.nix
+L         example = 10;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 20 source.nix constant.numeric.nix
+T 21 source.nix punctuation.terminator.bind.nix
+L         type = types.ints.positive;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix keyword.operator.nix
+T 34 source.nix variable.parameter.name.nix
+T 35 source.nix punctuation.terminator.bind.nix
+L         description = "Number of lines/columns when resizing.";
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 23 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 61 source.nix string.quoted.double.nix
+T 62 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 63 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       sensibleOnTop = mkOption {
+T 6 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 30 source.nix variable.parameter.name.nix
+T 31 source.nix
+T 32 source.nix punctuation.definition.attrset-or-function.nix
+L         type = types.bool;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix punctuation.terminator.bind.nix
+L         default = false;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 23 source.nix constant.language.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L         description = ''
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 24 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L           Run the sensible plugin at the top of the configuration. It
+T 69 source.nix string.quoted.other.nix
+L           is possible to override the sensible settings using the
+T 65 source.nix string.quoted.other.nix
+L           {option}`programs.tmux.extraConfig` option.
+T 53 source.nix string.quoted.other.nix
+L         '';
+T 8 source.nix string.quoted.other.nix
+T 10 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       prefix = mkOption {
+T 6 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 23 source.nix variable.parameter.name.nix
+T 24 source.nix
+T 25 source.nix punctuation.definition.attrset-or-function.nix
+L         default = null;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 22 source.nix constant.language.nix
+T 23 source.nix punctuation.terminator.bind.nix
+L         example = "C-a";
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 22 source.nix string.quoted.double.nix
+T 23 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L         type = types.nullOr types.str;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 27 source.nix variable.parameter.name.nix
+T 28 source.nix
+T 33 source.nix variable.parameter.name.nix
+T 34 source.nix keyword.operator.nix
+T 37 source.nix variable.parameter.name.nix
+T 38 source.nix punctuation.terminator.bind.nix
+L         description = ''
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 24 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L           Set the prefix key. Overrules the "shortcut" option when set.
+T 71 source.nix string.quoted.other.nix
+L         '';
+T 8 source.nix string.quoted.other.nix
+T 10 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       shortcut = mkOption {
+T 6 source.nix
+T 14 source.nix entity.other.attribute-name.multipart.nix
+T 15 source.nix
+T 16 source.nix keyword.operator.bind.nix
+T 17 source.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix
+T 27 source.nix punctuation.definition.attrset-or-function.nix
+L         default = defaultShortcut;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 33 source.nix variable.parameter.name.nix
+T 34 source.nix punctuation.terminator.bind.nix
+L         example = "a";
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 20 source.nix string.quoted.double.nix
+T 21 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 22 source.nix punctuation.terminator.bind.nix
+L         type = types.str;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix punctuation.terminator.bind.nix
+L         description = ''
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 24 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L           CTRL following by this key is used as the main shortcut.
+T 66 source.nix string.quoted.other.nix
+L         '';
+T 8 source.nix string.quoted.other.nix
+T 10 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       terminal = mkOption {
+T 6 source.nix
+T 14 source.nix entity.other.attribute-name.multipart.nix
+T 15 source.nix
+T 16 source.nix keyword.operator.bind.nix
+T 17 source.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix
+T 27 source.nix punctuation.definition.attrset-or-function.nix
+L         default = defaultTerminal;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 33 source.nix variable.parameter.name.nix
+T 34 source.nix punctuation.terminator.bind.nix
+L         example = "screen-256color";
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 34 source.nix string.quoted.double.nix
+T 35 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 36 source.nix punctuation.terminator.bind.nix
+L         type = types.str;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix punctuation.terminator.bind.nix
+L         description = "Set the $TERM variable.";
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 23 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 46 source.nix string.quoted.double.nix
+T 47 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 48 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       shell = mkOption {
+T 6 source.nix
+T 11 source.nix entity.other.attribute-name.multipart.nix
+T 12 source.nix
+T 13 source.nix keyword.operator.bind.nix
+T 14 source.nix
+T 22 source.nix variable.parameter.name.nix
+T 23 source.nix
+T 24 source.nix punctuation.definition.attrset-or-function.nix
+L         default = defaultShell;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 30 source.nix variable.parameter.name.nix
+T 31 source.nix punctuation.terminator.bind.nix
+L         example = literalExpression "\${pkgs.zsh}/bin/zsh";
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 35 source.nix variable.parameter.name.nix
+T 36 source.nix
+T 37 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 39 source.nix string.quoted.double.nix constant.character.escape.nix
+T 57 source.nix string.quoted.double.nix
+T 58 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 59 source.nix punctuation.terminator.bind.nix
+L         type = with types; nullOr str;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 19 source.nix keyword.other.nix
+T 20 source.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix
+T 27 source.nix
+T 33 source.nix variable.parameter.name.nix
+T 34 source.nix
+T 37 source.nix variable.parameter.name.nix
+T 38 source.nix punctuation.terminator.bind.nix
+L         description = "Set the default-shell tmux variable.";
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 23 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 59 source.nix string.quoted.double.nix
+T 60 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 61 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       secureSocket = mkOption {
+T 6 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix keyword.operator.bind.nix
+T 21 source.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix
+T 31 source.nix punctuation.definition.attrset-or-function.nix
+L         default = pkgs.stdenv.hostPlatform.isLinux;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 22 source.nix variable.parameter.name.nix
+T 23 source.nix keyword.operator.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix keyword.operator.nix
+T 42 source.nix variable.parameter.name.nix
+T 43 source.nix keyword.operator.nix
+T 50 source.nix variable.parameter.name.nix
+T 51 source.nix punctuation.terminator.bind.nix
+L         type = types.bool;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix punctuation.terminator.bind.nix
+L         description = ''
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 24 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L           Store tmux socket under {file}`/run`, which is more
+T 61 source.nix string.quoted.other.nix
+L           secure than {file}`/tmp`, but as a downside it doesn't
+T 64 source.nix string.quoted.other.nix
+L           survive user logout.
+T 30 source.nix string.quoted.other.nix
+L         '';
+T 8 source.nix string.quoted.other.nix
+T 10 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       tmuxp.enable = mkEnableOption "tmuxp";
+T 6 source.nix
+T 11 source.nix entity.other.attribute-name.multipart.nix
+T 12 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix keyword.operator.bind.nix
+T 21 source.nix
+T 35 source.nix variable.parameter.name.nix
+T 36 source.nix
+T 37 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 42 source.nix string.quoted.double.nix
+T 43 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 44 source.nix punctuation.terminator.bind.nix
+L 
+L       plugins = mkOption {
+T 6 source.nix
+T 13 source.nix entity.other.attribute-name.multipart.nix
+T 14 source.nix
+T 15 source.nix keyword.operator.bind.nix
+T 16 source.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix
+T 26 source.nix punctuation.definition.attrset-or-function.nix
+L         type =
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+L           with types;
+T 10 source.nix
+T 14 source.nix keyword.other.nix
+T 15 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix
+L           listOf (either package pluginModule)
+T 10 source.nix
+T 16 source.nix variable.parameter.name.nix
+T 17 source.nix
+T 18 source.nix punctuation.definition.expression.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix
+T 45 source.nix variable.parameter.name.nix
+T 46 source.nix punctuation.definition.expression.nix
+L           // {
+T 10 source.nix
+T 12 source.nix keyword.operator.nix
+T 13 source.nix
+T 14 source.nix punctuation.definition.attrset-or-function.nix
+L             description = "list of plugin packages or submodules";
+T 12 source.nix
+T 23 source.nix entity.other.attribute-name.multipart.nix
+T 24 source.nix
+T 25 source.nix keyword.operator.bind.nix
+T 26 source.nix
+T 27 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 64 source.nix string.quoted.double.nix
+T 65 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 66 source.nix punctuation.terminator.bind.nix
+L           };
+T 10 source.nix
+T 11 source.nix punctuation.definition.attrset.nix
+T 12 source.nix punctuation.terminator.bind.nix
+L         description = ''
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 24 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L           List of tmux plugins to be included at the end of your tmux
+T 69 source.nix string.quoted.other.nix
+L           configuration. The sensible plugin, however, is defaulted to
+T 70 source.nix string.quoted.other.nix
+L           run at the top of your configuration.
+T 47 source.nix string.quoted.other.nix
+L         '';
+T 8 source.nix string.quoted.other.nix
+T 10 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L         default = [ ];
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix punctuation.definition.list.nix
+T 20 source.nix
+T 21 source.nix punctuation.definition.list.nix
+T 22 source.nix punctuation.terminator.bind.nix
+L         example = lib.literalExpression ''
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 21 source.nix variable.parameter.name.nix
+T 22 source.nix keyword.operator.nix
+T 39 source.nix variable.parameter.name.nix
+T 40 source.nix
+T 42 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L           with pkgs; [
+T 22 source.nix string.quoted.other.nix
+L             tmuxPlugins.cpu
+T 27 source.nix string.quoted.other.nix
+L             {
+T 13 source.nix string.quoted.other.nix
+L               plugin = tmuxPlugins.resurrect;
+T 45 source.nix string.quoted.other.nix
+L               extraConfig = "set -g @resurrect-strategy-nvim 'session'";
+T 72 source.nix string.quoted.other.nix
+L             }
+T 13 source.nix string.quoted.other.nix
+L             {
+T 13 source.nix string.quoted.other.nix
+L               plugin = tmuxPlugins.continuum;
+T 45 source.nix string.quoted.other.nix
+L               extraConfig = '''
+T 28 source.nix string.quoted.other.nix
+T 31 source.nix string.quoted.other.nix constant.character.escape.nix
+L                 set -g @continuum-restore 'on'
+T 46 source.nix string.quoted.other.nix
+L                 set -g @continuum-save-interval '60' # minutes
+T 62 source.nix string.quoted.other.nix
+L               ''';
+T 14 source.nix string.quoted.other.nix
+T 17 source.nix string.quoted.other.nix constant.character.escape.nix
+T 18 source.nix string.quoted.other.nix
+L             }
+T 13 source.nix string.quoted.other.nix
+L           ]
+T 11 source.nix string.quoted.other.nix
+L         '';
+T 8 source.nix string.quoted.other.nix
+T 10 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L     };
+T 4 source.nix
+T 5 source.nix punctuation.definition.attrset.nix
+T 6 source.nix punctuation.terminator.bind.nix
+L   };
+T 2 source.nix
+T 3 source.nix punctuation.definition.attrset.nix
+T 4 source.nix punctuation.terminator.bind.nix
+L 
+L   config = lib.mkIf cfg.enable (
+T 2 source.nix
+T 8 source.nix entity.other.attribute-name.multipart.nix
+T 9 source.nix
+T 10 source.nix keyword.operator.bind.nix
+T 11 source.nix
+T 14 source.nix variable.parameter.name.nix
+T 15 source.nix keyword.operator.nix
+T 19 source.nix variable.parameter.name.nix
+T 20 source.nix
+T 23 source.nix variable.parameter.name.nix
+T 24 source.nix keyword.operator.nix
+T 30 source.nix variable.parameter.name.nix
+T 31 source.nix
+T 32 source.nix punctuation.definition.expression.nix
+L     lib.mkMerge [
+T 4 source.nix
+T 7 source.nix variable.parameter.name.nix
+T 8 source.nix keyword.operator.nix
+T 15 source.nix variable.parameter.name.nix
+T 16 source.nix
+T 17 source.nix punctuation.definition.list.nix
+L       {
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset-or-function.nix
+L         home.packages =
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+L           lib.optional (cfg.package != null) cfg.package ++ lib.optional cfg.tmuxp.enable pkgs.tmuxp;
+T 10 source.nix
+T 13 source.nix variable.parameter.name.nix
+T 14 source.nix keyword.operator.nix
+T 22 source.nix variable.parameter.name.nix
+T 23 source.nix
+T 24 source.nix punctuation.definition.expression.nix
+T 27 source.nix variable.parameter.name.nix
+T 28 source.nix keyword.operator.nix
+T 35 source.nix variable.parameter.name.nix
+T 36 source.nix
+T 38 source.nix keyword.operator.nix
+T 39 source.nix
+T 43 source.nix constant.language.nix
+T 44 source.nix punctuation.definition.expression.nix
+T 45 source.nix
+T 48 source.nix variable.parameter.name.nix
+T 49 source.nix keyword.operator.nix
+T 56 source.nix variable.parameter.name.nix
+T 57 source.nix
+T 59 source.nix keyword.operator.nix
+T 60 source.nix
+T 63 source.nix variable.parameter.name.nix
+T 64 source.nix keyword.operator.nix
+T 72 source.nix variable.parameter.name.nix
+T 73 source.nix
+T 76 source.nix variable.parameter.name.nix
+T 77 source.nix keyword.operator.nix
+T 82 source.nix variable.parameter.name.nix
+T 83 source.nix keyword.operator.nix
+T 89 source.nix variable.parameter.name.nix
+T 90 source.nix
+T 94 source.nix variable.parameter.name.nix
+T 95 source.nix keyword.operator.nix
+T 100 source.nix variable.parameter.name.nix
+T 101 source.nix punctuation.terminator.bind.nix
+L       }
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+L 
+L       { xdg.configFile."tmux/tmux.conf".text = lib.mkBefore tmuxConf; }
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix
+T 11 source.nix entity.other.attribute-name.multipart.nix
+T 12 source.nix
+T 22 source.nix entity.other.attribute-name.multipart.nix
+T 23 source.nix
+T 24 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 38 source.nix string.quoted.double.nix
+T 39 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 40 source.nix
+T 44 source.nix entity.other.attribute-name.multipart.nix
+T 45 source.nix
+T 46 source.nix keyword.operator.bind.nix
+T 47 source.nix
+T 50 source.nix variable.parameter.name.nix
+T 51 source.nix keyword.operator.nix
+T 59 source.nix variable.parameter.name.nix
+T 60 source.nix
+T 68 source.nix variable.parameter.name.nix
+T 69 source.nix punctuation.terminator.bind.nix
+T 70 source.nix
+T 71 source.nix punctuation.definition.attrset.nix
+L       { xdg.configFile."tmux/tmux.conf".text = lib.mkAfter cfg.extraConfig; }
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix
+T 11 source.nix entity.other.attribute-name.multipart.nix
+T 12 source.nix
+T 22 source.nix entity.other.attribute-name.multipart.nix
+T 23 source.nix
+T 24 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 38 source.nix string.quoted.double.nix
+T 39 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 40 source.nix
+T 44 source.nix entity.other.attribute-name.multipart.nix
+T 45 source.nix
+T 46 source.nix keyword.operator.bind.nix
+T 47 source.nix
+T 50 source.nix variable.parameter.name.nix
+T 51 source.nix keyword.operator.nix
+T 58 source.nix variable.parameter.name.nix
+T 59 source.nix
+T 62 source.nix variable.parameter.name.nix
+T 63 source.nix keyword.operator.nix
+T 74 source.nix variable.parameter.name.nix
+T 75 source.nix punctuation.terminator.bind.nix
+T 76 source.nix
+T 77 source.nix punctuation.definition.attrset.nix
+L 
+L       (lib.mkIf cfg.secureSocket {
+T 6 source.nix
+T 7 source.nix punctuation.definition.expression.nix
+T 10 source.nix variable.parameter.name.nix
+T 11 source.nix keyword.operator.nix
+T 15 source.nix variable.parameter.name.nix
+T 16 source.nix
+T 19 source.nix variable.parameter.name.nix
+T 20 source.nix keyword.operator.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix
+T 34 source.nix punctuation.definition.attrset-or-function.nix
+L         home.sessionVariables = {
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 29 source.nix entity.other.attribute-name.multipart.nix
+T 30 source.nix
+T 31 source.nix keyword.operator.bind.nix
+T 32 source.nix
+T 33 source.nix punctuation.definition.attrset-or-function.nix
+L           TMUX_TMPDIR = ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
+T 10 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+T 24 source.nix
+T 26 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+T 29 source.nix string.quoted.other.nix constant.character.escape.nix
+T 68 source.nix string.quoted.other.nix
+T 70 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 71 source.nix punctuation.terminator.bind.nix
+L         };
+T 8 source.nix
+T 9 source.nix punctuation.definition.attrset.nix
+T 10 source.nix punctuation.terminator.bind.nix
+L       })
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.definition.expression.nix
+L 
+L       (lib.mkIf (cfg.plugins != [ ]) configPlugins)
+T 6 source.nix
+T 7 source.nix punctuation.definition.expression.nix
+T 10 source.nix variable.parameter.name.nix
+T 11 source.nix keyword.operator.nix
+T 15 source.nix variable.parameter.name.nix
+T 16 source.nix
+T 17 source.nix punctuation.definition.expression.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix
+T 31 source.nix keyword.operator.nix
+T 32 source.nix
+T 33 source.nix punctuation.definition.list.nix
+T 34 source.nix
+T 35 source.nix punctuation.definition.list.nix
+T 36 source.nix punctuation.definition.expression.nix
+T 37 source.nix
+T 50 source.nix variable.parameter.name.nix
+T 51 source.nix punctuation.definition.expression.nix
+L     ]
+T 4 source.nix
+T 5 source.nix punctuation.definition.list.nix
+L   );
+T 2 source.nix
+T 3 source.nix punctuation.definition.expression.nix
+T 4 source.nix punctuation.terminator.bind.nix
+L }
+T 1 source.nix punctuation.definition.attrset.nix
+L 

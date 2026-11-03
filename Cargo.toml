@@ -101,6 +101,7 @@ docs = ["config", "lang-markdown"]
 textmate = [
   "lang-bat",
   "lang-cmake",
+  "lang-nix",
   "lang-powershell",
   "lang-proto",
   "lang-scala",
@@ -144,6 +145,7 @@ lang-make = [
   "_frame-kinds",
 ]
 lang-markdown = ["_scope-table", "_classes", "_utf8"]
+lang-nix = ["_textmate"]
 lang-powershell = ["_textmate"]
 lang-proto = ["_textmate"]
 lang-python = ["_scope-table", "_rule-tables"]

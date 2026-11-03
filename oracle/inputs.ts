@@ -118,6 +118,8 @@ const helm =
   "https://raw.githubusercontent.com/helm/helm/bc232c5312e784e808ea95ae76f9e82d4fe142fc";
 const highlightjs =
   "https://raw.githubusercontent.com/highlightjs/highlight.js/60e092057673595fa542db0bc2b13a99df5d0551";
+const homeManager =
+  "https://raw.githubusercontent.com/nix-community/home-manager/095fef2f265c3c0da4fe315efba8f8a04495ab34";
 const httparser =
   "https://raw.githubusercontent.com/antlabs/httparser/622df4409cddf119cf437633f620947235d2d1eb";
 const inspectLua =
@@ -178,6 +180,8 @@ const nextjs =
   "https://raw.githubusercontent.com/vercel/next.js/5a5a4cdc5263ee3ca5a14378de78d2b97dbc4378";
 const nio =
   "https://raw.githubusercontent.com/apple/swift-nio/2f58d8ef84438d6517fc78bcea2f8527e3c72936";
+const nixpkgs =
+  "https://raw.githubusercontent.com/NixOS/nixpkgs/084f878659a86f432881f0267c50863df444e925";
 const nlohmannJson =
   "https://raw.githubusercontent.com/nlohmann/json/e32051125faf95dc64d49a129959b6742b9ffee9";
 const nodejs =
@@ -709,6 +713,13 @@ export const inputs: Input[] = [
     name: "zod-readme",
     url: `${zod}/packages/zod/README.md`,
   },
+  // Nix runs on the TextMate engine. Shiki's Markdown grammar has no Nix
+  // fence, so no Markdown input embeds it.
+  { lang: "nix", name: "home-manager-flake", url: `${homeManager}/flake.nix` },
+  { lang: "nix", name: "home-manager-tmux", url: `${homeManager}/modules/programs/tmux.nix` },
+  { lang: "nix", name: "nixpkgs-lists", url: `${nixpkgs}/lib/lists.nix` },
+  { lang: "nix", name: "nixpkgs-ripgrep", url: `${nixpkgs}/pkgs/by-name/ri/ripgrep/package.nix` },
+  { lang: "nix", name: "sample", url: `${samples}/nix.sample` },
   // PowerShell runs on the TextMate engine.
   { lang: "powershell", name: "dotnet-install", url: `${dotnetInstall}/src/dotnet-install.ps1` },
   { lang: "powershell", name: "install-powershell", url: `${powershell}/tools/install-powershell.ps1` },

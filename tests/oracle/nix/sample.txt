@@ -1,0 +1,265 @@
+L {
+T 1 source.nix punctuation.definition.attrset-or-function.nix
+L   # dependencies
+T 2 source.nix
+T 3 source.nix comment.line.number-sign.nix
+T 16 source.nix comment.line.number-sign.nix
+L   stdenv, fetchurl, nix-gitignore, buildGoModule,
+T 2 source.nix
+T 8 source.nix variable.parameter.function.1.nix
+T 9 source.nix keyword.operator.nix
+T 10 source.nix
+T 18 source.nix variable.parameter.function.1.nix
+T 19 source.nix keyword.operator.nix
+T 20 source.nix
+T 33 source.nix variable.parameter.function.1.nix
+T 34 source.nix keyword.operator.nix
+T 35 source.nix
+T 48 source.nix variable.parameter.function.1.nix
+T 49 source.nix keyword.operator.nix
+L 
+L   # args
+T 2 source.nix
+T 3 source.nix comment.line.number-sign.nix
+T 8 source.nix comment.line.number-sign.nix
+L   localFiles ? false
+T 2 source.nix
+T 12 source.nix variable.parameter.function.1.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.nix
+T 15 source.nix
+T 20 source.nix constant.language.nix
+L }:
+T 1 source.nix punctuation.definition.entity.function.nix
+T 2 source.nix punctuation.definition.function.nix
+L 
+L buildGoModule rec {
+T 13 source.nix variable.parameter.name.nix
+T 14 source.nix
+T 17 source.nix keyword.other.nix
+T 18 source.nix
+T 19 source.nix punctuation.definition.attrset.nix
+L 
+L   pname = "hello";
+T 2 source.nix
+T 7 source.nix entity.other.attribute-name.multipart.nix
+T 8 source.nix
+T 9 source.nix keyword.operator.bind.nix
+T 10 source.nix
+T 11 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 16 source.nix string.quoted.double.nix
+T 17 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 18 source.nix punctuation.terminator.bind.nix
+L   version = "1.0";
+T 2 source.nix
+T 9 source.nix entity.other.attribute-name.multipart.nix
+T 10 source.nix
+T 11 source.nix keyword.operator.bind.nix
+T 12 source.nix
+T 13 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 16 source.nix string.quoted.double.nix
+T 17 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 18 source.nix punctuation.terminator.bind.nix
+L 
+L   src = (
+T 2 source.nix
+T 5 source.nix entity.other.attribute-name.multipart.nix
+T 6 source.nix
+T 7 source.nix keyword.operator.bind.nix
+T 8 source.nix
+T 9 source.nix punctuation.definition.expression.nix
+L     if localFiles then
+T 4 source.nix
+T 6 source.nix keyword.other.nix
+T 7 source.nix
+T 17 source.nix variable.parameter.name.nix
+T 18 source.nix
+T 20 source.nix keyword.other.nix
+T 22 source.nix keyword.other.nix
+L       nix-gitignore.gitignoreSource [ "result" ] ./.
+T 6 source.nix
+T 19 source.nix variable.parameter.name.nix
+T 20 source.nix keyword.operator.nix
+T 35 source.nix variable.parameter.name.nix
+T 36 source.nix
+T 37 source.nix punctuation.definition.list.nix
+T 38 source.nix
+T 39 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 45 source.nix string.quoted.double.nix
+T 46 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 47 source.nix
+T 48 source.nix punctuation.definition.list.nix
+T 49 source.nix
+T 52 source.nix string.unquoted.path.nix
+L     else
+T 4 source.nix
+T 6 source.nix keyword.other.nix
+T 8 source.nix keyword.other.nix
+L       fetchurl {
+T 6 source.nix
+T 14 source.nix variable.parameter.name.nix
+T 15 source.nix
+T 16 source.nix punctuation.definition.attrset-or-function.nix
+L         url = "https://example.com";
+T 8 source.nix
+T 11 source.nix entity.other.attribute-name.multipart.nix
+T 12 source.nix
+T 13 source.nix keyword.operator.bind.nix
+T 14 source.nix
+T 15 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 34 source.nix string.quoted.double.nix
+T 35 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 36 source.nix punctuation.terminator.bind.nix
+L         sha256 = stdenv.lib.fakeSha256;
+T 8 source.nix
+T 14 source.nix entity.other.attribute-name.multipart.nix
+T 15 source.nix
+T 16 source.nix keyword.operator.bind.nix
+T 17 source.nix
+T 23 source.nix variable.parameter.name.nix
+T 24 source.nix keyword.operator.nix
+T 27 source.nix variable.parameter.name.nix
+T 28 source.nix keyword.operator.nix
+T 38 source.nix variable.parameter.name.nix
+T 39 source.nix punctuation.terminator.bind.nix
+L       }
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+L   );
+T 2 source.nix
+T 3 source.nix punctuation.definition.expression.nix
+T 4 source.nix punctuation.terminator.bind.nix
+L 
+L   modSha256 = "1ggp6xhhlixihjx37v5j9gd3sa1gymqrglf9c3j1pwfnym1k99y3";
+T 2 source.nix
+T 11 source.nix entity.other.attribute-name.multipart.nix
+T 12 source.nix
+T 13 source.nix keyword.operator.bind.nix
+T 14 source.nix
+T 15 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 67 source.nix string.quoted.double.nix
+T 68 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 69 source.nix punctuation.terminator.bind.nix
+L 
+L   subPackages = [ "." ];
+T 2 source.nix
+T 13 source.nix entity.other.attribute-name.multipart.nix
+T 14 source.nix
+T 15 source.nix keyword.operator.bind.nix
+T 16 source.nix
+T 17 source.nix punctuation.definition.list.nix
+T 18 source.nix
+T 19 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 20 source.nix string.quoted.double.nix
+T 21 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 22 source.nix
+T 23 source.nix punctuation.definition.list.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L 
+L   passthru = {
+T 2 source.nix
+T 10 source.nix entity.other.attribute-name.multipart.nix
+T 11 source.nix
+T 12 source.nix keyword.operator.bind.nix
+T 13 source.nix
+T 14 source.nix punctuation.definition.attrset-or-function.nix
+L     executable = "main";
+T 4 source.nix
+T 14 source.nix entity.other.attribute-name.multipart.nix
+T 15 source.nix
+T 16 source.nix keyword.operator.bind.nix
+T 17 source.nix
+T 18 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 22 source.nix string.quoted.double.nix
+T 23 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L   };
+T 2 source.nix
+T 3 source.nix punctuation.definition.attrset.nix
+T 4 source.nix punctuation.terminator.bind.nix
+L 
+L   meta = with stdenv.lib; {
+T 2 source.nix
+T 6 source.nix entity.other.attribute-name.multipart.nix
+T 7 source.nix
+T 8 source.nix keyword.operator.bind.nix
+T 9 source.nix
+T 13 source.nix keyword.other.nix
+T 14 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix
+T 26 source.nix
+T 27 source.nix punctuation.definition.attrset-or-function.nix
+L     description = "Hello world example in Go";
+T 4 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 44 source.nix string.quoted.double.nix
+T 45 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 46 source.nix punctuation.terminator.bind.nix
+L     longDescription = ''
+T 4 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 24 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L       Long description for Hello world example in Go.
+T 53 source.nix string.quoted.other.nix
+L     '';
+T 4 source.nix string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 7 source.nix punctuation.terminator.bind.nix
+L     homepage = https://blog.golang.org/using-go-modules;
+T 4 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 55 source.nix string.unquoted.url.nix
+T 56 source.nix punctuation.terminator.bind.nix
+L     license = licenses.asl20;
+T 4 source.nix
+T 11 source.nix entity.other.attribute-name.multipart.nix
+T 12 source.nix
+T 13 source.nix keyword.operator.bind.nix
+T 14 source.nix
+T 22 source.nix variable.parameter.name.nix
+T 23 source.nix keyword.operator.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix punctuation.terminator.bind.nix
+L     maintainers = [];
+T 4 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix punctuation.definition.list.nix
+T 20 source.nix punctuation.definition.list.nix
+T 21 source.nix punctuation.terminator.bind.nix
+L     platforms = platforms.all;
+T 4 source.nix
+T 13 source.nix entity.other.attribute-name.multipart.nix
+T 14 source.nix
+T 15 source.nix keyword.operator.bind.nix
+T 16 source.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix keyword.operator.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix punctuation.terminator.bind.nix
+L   };
+T 2 source.nix
+T 3 source.nix punctuation.definition.attrset.nix
+T 4 source.nix punctuation.terminator.bind.nix
+L }
+T 1 source.nix punctuation.definition.attrset.nix
+L 
+L # From https://github.com/vlktomas/nix-examples/tree/master/desktop/Go/hello
+T 1 source.nix comment.line.number-sign.nix
+T 76 source.nix comment.line.number-sign.nix
+L 

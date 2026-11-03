@@ -1,0 +1,505 @@
+L {
+T 1 source.nix punctuation.definition.attrset-or-function.nix
+L   lib,
+T 2 source.nix
+T 5 source.nix variable.parameter.function.1.nix
+T 6 source.nix keyword.operator.nix
+L   stdenv,
+T 2 source.nix
+T 8 source.nix variable.parameter.function.1.nix
+T 9 source.nix keyword.operator.nix
+L   buildPackages,
+T 2 source.nix
+T 15 source.nix variable.parameter.function.1.nix
+T 16 source.nix keyword.operator.nix
+L   fetchFromGitHub,
+T 2 source.nix
+T 17 source.nix variable.parameter.function.1.nix
+T 18 source.nix keyword.operator.nix
+L   rustPlatform,
+T 2 source.nix
+T 14 source.nix variable.parameter.function.1.nix
+T 15 source.nix keyword.operator.nix
+L   installShellFiles,
+T 2 source.nix
+T 19 source.nix variable.parameter.function.1.nix
+T 20 source.nix keyword.operator.nix
+L   pkg-config,
+T 2 source.nix
+T 12 source.nix variable.parameter.function.1.nix
+T 13 source.nix keyword.operator.nix
+L   withPCRE2 ? true,
+T 2 source.nix
+T 11 source.nix variable.parameter.function.1.nix
+T 12 source.nix
+T 13 source.nix keyword.operator.nix
+T 14 source.nix
+T 18 source.nix constant.language.nix
+T 19 source.nix keyword.operator.nix
+L   pcre2,
+T 2 source.nix
+T 7 source.nix variable.parameter.function.1.nix
+T 8 source.nix keyword.operator.nix
+L   writableTmpDirAsHomeHook,
+T 2 source.nix
+T 26 source.nix variable.parameter.function.1.nix
+T 27 source.nix keyword.operator.nix
+L }:
+T 1 source.nix punctuation.definition.entity.function.nix
+T 2 source.nix punctuation.definition.function.nix
+L 
+L let
+T 3 source.nix keyword.other.nix
+L   canRunRg = stdenv.hostPlatform.emulatorAvailable buildPackages;
+T 2 source.nix
+T 10 source.nix entity.other.attribute-name.multipart.nix
+T 11 source.nix
+T 12 source.nix keyword.operator.bind.nix
+T 13 source.nix
+T 19 source.nix variable.parameter.name.nix
+T 20 source.nix keyword.operator.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix keyword.operator.nix
+T 50 source.nix variable.parameter.name.nix
+T 51 source.nix
+T 64 source.nix variable.parameter.name.nix
+T 65 source.nix punctuation.terminator.bind.nix
+L   rg = "${stdenv.hostPlatform.emulator buildPackages} $out/bin/rg${stdenv.hostPlatform.extensions.executable}";
+T 2 source.nix
+T 4 source.nix entity.other.attribute-name.multipart.nix
+T 5 source.nix
+T 6 source.nix keyword.operator.bind.nix
+T 7 source.nix
+T 8 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 10 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.begin.nix
+T 16 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 17 source.nix string.quoted.double.nix meta.embedded keyword.operator.nix
+T 29 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 30 source.nix string.quoted.double.nix meta.embedded keyword.operator.nix
+T 38 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 39 source.nix string.quoted.double.nix meta.embedded
+T 52 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 53 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.end.nix
+T 65 source.nix string.quoted.double.nix
+T 67 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.begin.nix
+T 73 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 74 source.nix string.quoted.double.nix meta.embedded keyword.operator.nix
+T 86 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 87 source.nix string.quoted.double.nix meta.embedded keyword.operator.nix
+T 97 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 98 source.nix string.quoted.double.nix meta.embedded keyword.operator.nix
+T 108 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 109 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.end.nix
+T 110 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 111 source.nix punctuation.terminator.bind.nix
+L in
+T 2 source.nix keyword.other.nix
+L rustPlatform.buildRustPackage (finalAttrs: {
+T 12 source.nix variable.parameter.name.nix
+T 13 source.nix keyword.operator.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix
+T 31 source.nix punctuation.definition.expression.nix
+T 41 source.nix variable.parameter.function.4.nix
+T 42 source.nix punctuation.definition.function.nix
+T 43 source.nix
+T 44 source.nix punctuation.definition.attrset-or-function.nix
+L   pname = "ripgrep";
+T 2 source.nix
+T 7 source.nix entity.other.attribute-name.multipart.nix
+T 8 source.nix
+T 9 source.nix keyword.operator.bind.nix
+T 10 source.nix
+T 11 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 18 source.nix string.quoted.double.nix
+T 19 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 20 source.nix punctuation.terminator.bind.nix
+L   version = "15.2.0";
+T 2 source.nix
+T 9 source.nix entity.other.attribute-name.multipart.nix
+T 10 source.nix
+T 11 source.nix keyword.operator.bind.nix
+T 12 source.nix
+T 13 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 19 source.nix string.quoted.double.nix
+T 20 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 21 source.nix punctuation.terminator.bind.nix
+L 
+L   __structuredAttrs = true;
+T 2 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 26 source.nix constant.language.nix
+T 27 source.nix punctuation.terminator.bind.nix
+L 
+L   src = fetchFromGitHub {
+T 2 source.nix
+T 5 source.nix entity.other.attribute-name.multipart.nix
+T 6 source.nix
+T 7 source.nix keyword.operator.bind.nix
+T 8 source.nix
+T 23 source.nix variable.parameter.name.nix
+T 24 source.nix
+T 25 source.nix punctuation.definition.attrset-or-function.nix
+L     owner = "BurntSushi";
+T 4 source.nix
+T 9 source.nix entity.other.attribute-name.multipart.nix
+T 10 source.nix
+T 11 source.nix keyword.operator.bind.nix
+T 12 source.nix
+T 13 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 23 source.nix string.quoted.double.nix
+T 24 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 25 source.nix punctuation.terminator.bind.nix
+L     repo = "ripgrep";
+T 4 source.nix
+T 8 source.nix entity.other.attribute-name.multipart.nix
+T 9 source.nix
+T 10 source.nix keyword.operator.bind.nix
+T 11 source.nix
+T 12 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 19 source.nix string.quoted.double.nix
+T 20 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 21 source.nix punctuation.terminator.bind.nix
+L     tag = finalAttrs.version;
+T 4 source.nix
+T 7 source.nix entity.other.attribute-name.multipart.nix
+T 8 source.nix
+T 9 source.nix keyword.operator.bind.nix
+T 10 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix punctuation.terminator.bind.nix
+L     hash = "sha256-BsSIbZwB6s8i3dDTRYJ1EdVbJmiO0oxcLu6qiYlPkOI=";
+T 4 source.nix
+T 8 source.nix entity.other.attribute-name.multipart.nix
+T 9 source.nix
+T 10 source.nix keyword.operator.bind.nix
+T 11 source.nix
+T 12 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 63 source.nix string.quoted.double.nix
+T 64 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 65 source.nix punctuation.terminator.bind.nix
+L   };
+T 2 source.nix
+T 3 source.nix punctuation.definition.attrset.nix
+T 4 source.nix punctuation.terminator.bind.nix
+L 
+L   cargoHash = "sha256-AqizStE9ICd6mNDZWdeXg6dHuTiY+B0TNauQQYWUa84=";
+T 2 source.nix
+T 11 source.nix entity.other.attribute-name.multipart.nix
+T 12 source.nix
+T 13 source.nix keyword.operator.bind.nix
+T 14 source.nix
+T 15 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 66 source.nix string.quoted.double.nix
+T 67 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 68 source.nix punctuation.terminator.bind.nix
+L 
+L   nativeBuildInputs = [
+T 2 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 23 source.nix punctuation.definition.list.nix
+L     installShellFiles
+T 4 source.nix
+T 21 source.nix variable.parameter.name.nix
+L     writableTmpDirAsHomeHook # required for wine when cross-compiling to Windows
+T 4 source.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix
+T 30 source.nix comment.line.number-sign.nix
+T 80 source.nix comment.line.number-sign.nix
+L   ]
+T 2 source.nix
+T 3 source.nix punctuation.definition.list.nix
+L   ++ lib.optional withPCRE2 pkg-config;
+T 2 source.nix
+T 4 source.nix keyword.operator.nix
+T 5 source.nix
+T 8 source.nix variable.parameter.name.nix
+T 9 source.nix keyword.operator.nix
+T 17 source.nix variable.parameter.name.nix
+T 18 source.nix
+T 27 source.nix variable.parameter.name.nix
+T 28 source.nix
+T 38 source.nix variable.parameter.name.nix
+T 39 source.nix punctuation.terminator.bind.nix
+L   buildInputs = lib.optional withPCRE2 pcre2;
+T 2 source.nix
+T 13 source.nix entity.other.attribute-name.multipart.nix
+T 14 source.nix
+T 15 source.nix keyword.operator.bind.nix
+T 16 source.nix
+T 19 source.nix variable.parameter.name.nix
+T 20 source.nix keyword.operator.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix
+T 38 source.nix variable.parameter.name.nix
+T 39 source.nix
+T 44 source.nix variable.parameter.name.nix
+T 45 source.nix punctuation.terminator.bind.nix
+L 
+L   buildFeatures = lib.optional withPCRE2 "pcre2";
+T 2 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 21 source.nix variable.parameter.name.nix
+T 22 source.nix keyword.operator.nix
+T 30 source.nix variable.parameter.name.nix
+T 31 source.nix
+T 40 source.nix variable.parameter.name.nix
+T 41 source.nix
+T 42 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 47 source.nix string.quoted.double.nix
+T 48 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 49 source.nix punctuation.terminator.bind.nix
+L 
+L   postFixup = lib.optionalString canRunRg ''
+T 2 source.nix
+T 11 source.nix entity.other.attribute-name.multipart.nix
+T 12 source.nix
+T 13 source.nix keyword.operator.bind.nix
+T 14 source.nix
+T 17 source.nix variable.parameter.name.nix
+T 18 source.nix keyword.operator.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix
+T 41 source.nix variable.parameter.name.nix
+T 42 source.nix
+T 44 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L     ${rg} --generate man > rg.1
+T 4 source.nix string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 8 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 9 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+T 31 source.nix string.quoted.other.nix
+L     installManPage rg.1
+T 23 source.nix string.quoted.other.nix
+L 
+L     installShellCompletion --cmd rg \
+T 37 source.nix string.quoted.other.nix
+L       --bash <(${rg} --generate complete-bash) \
+T 15 source.nix string.quoted.other.nix
+T 17 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 19 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 20 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+T 48 source.nix string.quoted.other.nix
+L       --fish <(${rg} --generate complete-fish) \
+T 15 source.nix string.quoted.other.nix
+T 17 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 19 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 20 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+T 48 source.nix string.quoted.other.nix
+L       --zsh <(${rg} --generate complete-zsh)
+T 14 source.nix string.quoted.other.nix
+T 16 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 18 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 19 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+T 44 source.nix string.quoted.other.nix
+L   '';
+T 2 source.nix string.quoted.other.nix
+T 4 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 5 source.nix punctuation.terminator.bind.nix
+L 
+L   doInstallCheck = true;
+T 2 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 23 source.nix constant.language.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L   installCheckPhase = lib.optionalString canRunRg (
+T 2 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix keyword.operator.nix
+T 40 source.nix variable.parameter.name.nix
+T 41 source.nix
+T 49 source.nix variable.parameter.name.nix
+T 50 source.nix
+T 51 source.nix punctuation.definition.expression.nix
+L     ''
+T 4 source.nix
+T 6 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L       file="$(mktemp)"
+T 22 source.nix string.quoted.other.nix
+L       echo "abc\nbcd\ncde" > "$file"
+T 36 source.nix string.quoted.other.nix
+L       ${rg} -N 'bcd' "$file"
+T 6 source.nix string.quoted.other.nix
+T 8 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 10 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 11 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+T 28 source.nix string.quoted.other.nix
+L       ${rg} -N 'cd' "$file"
+T 6 source.nix string.quoted.other.nix
+T 8 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 10 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 11 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+T 27 source.nix string.quoted.other.nix
+L     ''
+T 4 source.nix string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+L     + lib.optionalString withPCRE2 ''
+T 4 source.nix
+T 5 source.nix keyword.operator.nix
+T 6 source.nix
+T 9 source.nix variable.parameter.name.nix
+T 10 source.nix keyword.operator.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix
+T 34 source.nix variable.parameter.name.nix
+T 35 source.nix
+T 37 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L       echo '(a(aa)aa)' | ${rg} -P '\((a*|(?R))*\)'
+T 25 source.nix string.quoted.other.nix
+T 27 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.begin.nix
+T 29 source.nix string.quoted.other.nix meta.embedded variable.parameter.name.nix
+T 30 source.nix string.quoted.other.nix meta.embedded punctuation.section.embedded.end.nix
+T 50 source.nix string.quoted.other.nix
+L     ''
+T 4 source.nix string.quoted.other.nix
+T 6 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+L   );
+T 2 source.nix
+T 3 source.nix punctuation.definition.expression.nix
+T 4 source.nix punctuation.terminator.bind.nix
+L 
+L   meta = {
+T 2 source.nix
+T 6 source.nix entity.other.attribute-name.multipart.nix
+T 7 source.nix
+T 8 source.nix keyword.operator.bind.nix
+T 9 source.nix
+T 10 source.nix punctuation.definition.attrset-or-function.nix
+L     description = "Utility that combines the usability of The Silver Searcher with the raw speed of grep";
+T 4 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 104 source.nix string.quoted.double.nix
+T 105 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 106 source.nix punctuation.terminator.bind.nix
+L     homepage = "https://github.com/BurntSushi/ripgrep";
+T 4 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 16 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 53 source.nix string.quoted.double.nix
+T 54 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 55 source.nix punctuation.terminator.bind.nix
+L     changelog = "https://github.com/BurntSushi/ripgrep/releases/tag/${finalAttrs.version}";
+T 4 source.nix
+T 13 source.nix entity.other.attribute-name.multipart.nix
+T 14 source.nix
+T 15 source.nix keyword.operator.bind.nix
+T 16 source.nix
+T 17 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 68 source.nix string.quoted.double.nix
+T 70 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.begin.nix
+T 80 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 81 source.nix string.quoted.double.nix meta.embedded keyword.operator.nix
+T 88 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 89 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.end.nix
+T 90 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 91 source.nix punctuation.terminator.bind.nix
+L     license = with lib.licenses; [
+T 4 source.nix
+T 11 source.nix entity.other.attribute-name.multipart.nix
+T 12 source.nix
+T 13 source.nix keyword.operator.bind.nix
+T 14 source.nix
+T 18 source.nix keyword.other.nix
+T 19 source.nix
+T 22 source.nix variable.parameter.name.nix
+T 23 source.nix keyword.operator.nix
+T 31 source.nix variable.parameter.name.nix
+T 32 source.nix
+T 33 source.nix
+T 34 source.nix punctuation.definition.list.nix
+L       unlicense # or
+T 6 source.nix
+T 15 source.nix variable.parameter.name.nix
+T 16 source.nix
+T 17 source.nix comment.line.number-sign.nix
+T 20 source.nix comment.line.number-sign.nix
+L       mit
+T 6 source.nix
+T 9 source.nix variable.parameter.name.nix
+L     ];
+T 4 source.nix
+T 5 source.nix punctuation.definition.list.nix
+T 6 source.nix punctuation.terminator.bind.nix
+L     maintainers = with lib.maintainers; [
+T 4 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 22 source.nix keyword.other.nix
+T 23 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix keyword.operator.nix
+T 38 source.nix variable.parameter.name.nix
+T 39 source.nix
+T 40 source.nix
+T 41 source.nix punctuation.definition.list.nix
+L       globin
+T 6 source.nix
+T 12 source.nix variable.parameter.name.nix
+L       ma27
+T 6 source.nix
+T 10 source.nix variable.parameter.name.nix
+L       zowoq
+T 6 source.nix
+T 11 source.nix variable.parameter.name.nix
+L     ];
+T 4 source.nix
+T 5 source.nix punctuation.definition.list.nix
+T 6 source.nix punctuation.terminator.bind.nix
+L     mainProgram = "rg";
+T 4 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 21 source.nix string.quoted.double.nix
+T 22 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 23 source.nix punctuation.terminator.bind.nix
+L     platforms = lib.platforms.all;
+T 4 source.nix
+T 13 source.nix entity.other.attribute-name.multipart.nix
+T 14 source.nix
+T 15 source.nix keyword.operator.bind.nix
+T 16 source.nix
+T 19 source.nix variable.parameter.name.nix
+T 20 source.nix keyword.operator.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix keyword.operator.nix
+T 33 source.nix variable.parameter.name.nix
+T 34 source.nix punctuation.terminator.bind.nix
+L   };
+T 2 source.nix
+T 3 source.nix punctuation.definition.attrset.nix
+T 4 source.nix punctuation.terminator.bind.nix
+L })
+T 1 source.nix punctuation.definition.attrset.nix
+T 2 source.nix punctuation.definition.expression.nix
+L 

@@ -314,6 +314,14 @@ languages! {
         engine: crate::bat::grammar::GRAMMAR,
         reads_line_feed: true,
     }
+    /// Nix, with the scopes of Shiki's `nix` grammar, which nishiki's
+    /// `TextMate` engine runs.
+    Nix {
+        feature: "lang-nix",
+        names: ["nix"],
+        engine: crate::nix::grammar::GRAMMAR,
+        reads_line_feed: true,
+    }
 }
 
 impl Language {

@@ -86,6 +86,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.txt",
   },
+  nix: {
+    bundled: "nix-community/vscode-nix-ide@effbf3494a43250a537834805b305793994b9ca8",
+    origin: "nix-community/vscode-nix-ide",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   powershell: {
     bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
     origin: "PowerShell/EditorSyntax",

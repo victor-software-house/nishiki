@@ -23,6 +23,8 @@ mod kotlin;
 mod lua;
 mod make;
 mod markdown;
+#[cfg(feature = "lang-nix")]
+mod nix;
 #[cfg(feature = "lang-powershell")]
 mod powershell;
 #[cfg(feature = "lang-proto")]

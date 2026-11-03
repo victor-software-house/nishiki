@@ -244,6 +244,11 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `bat/gradlew` | [`gradlew.bat`][gradlew-bat] in gradle/gradle | [Apache-2.0][gradle-licence] |
 | `bat/tomcat-catalina` | [`bin/catalina.bat`][tomcat-catalina-bat] in apache/tomcat | [Apache-2.0][tomcat-licence] |
 | `bat/tomcat-setclasspath` | [`bin/setclasspath.bat`][tomcat-setclasspath] in apache/tomcat | [Apache-2.0][tomcat-licence] |
+| `nix/sample` | [`samples/nix.sample`][nix-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `nix/nixpkgs-ripgrep` | [`pkgs/by-name/ri/ripgrep/package.nix`][nixpkgs-ripgrep] in NixOS/nixpkgs | [MIT][nixpkgs-licence] |
+| `nix/nixpkgs-lists` | [`lib/lists.nix`][nixpkgs-lists] in NixOS/nixpkgs | [MIT][nixpkgs-licence] |
+| `nix/home-manager-tmux` | [`modules/programs/tmux.nix`][home-manager-tmux] in nix-community/home-manager | [MIT][home-manager-licence] |
+| `nix/home-manager-flake` | [`flake.nix`][home-manager-flake] in nix-community/home-manager | [MIT][home-manager-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -430,6 +435,9 @@ Shiki's Markdown grammar has no Protobuf fence, so no Markdown input embeds Prot
 Batch runs on nishiki's TextMate engine as well.
 `bat/sample` and `bat/gradlew` are its development inputs, and `bat/tomcat-catalina` and `bat/tomcat-setclasspath` are held out.
 Shiki's Markdown grammar has no Batch fence, so no Markdown input embeds Batch.
+Nix runs on nishiki's TextMate engine as well.
+`nix/sample` and `nix/nixpkgs-ripgrep` are its development inputs, and `nix/nixpkgs-lists`, `nix/home-manager-tmux` and `nix/home-manager-flake` are held out.
+Shiki's Markdown grammar has no Nix fence, so no Markdown input embeds Nix.
 
 `html/sample`, `html/h5bp-index`, `html/todomvc-backbone`, `html/three-animation-keyframes`, `html/mathjax-mml-chtml`, `html/three-css3d-periodictable` and `html/jquery-qunit-fixture` are the development inputs for HTML.
 `html/todomvc-polymer`, `html/h5bp-404`, `html/todomvc-lit`, `html/three-geometry-colors`, `html/mathjax-tex-mml`, `html/three-loader-gltf`, `html/bootstrap3-visual-modal`, `html/jquery-delegatetest`, `html/todomvc-knockoutjs` and `html/todomvc-jquery` are held out.
@@ -624,6 +632,9 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [highlightjs-github]: https://github.com/highlightjs/highlight.js/blob/60e092057673595fa542db0bc2b13a99df5d0551/src/styles/github.css
 [highlightjs-licence]: https://github.com/highlightjs/highlight.js/blob/60e092057673595fa542db0bc2b13a99df5d0551/LICENSE
 [highlightjs-readme]: https://github.com/highlightjs/highlight.js/blob/60e092057673595fa542db0bc2b13a99df5d0551/README.md
+[home-manager-flake]: https://github.com/nix-community/home-manager/blob/095fef2f265c3c0da4fe315efba8f8a04495ab34/flake.nix
+[home-manager-licence]: https://github.com/nix-community/home-manager/blob/095fef2f265c3c0da4fe315efba8f8a04495ab34/LICENSE
+[home-manager-tmux]: https://github.com/nix-community/home-manager/blob/095fef2f265c3c0da4fe315efba8f8a04495ab34/modules/programs/tmux.nix
 [html-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/html.sample
 [httparser-licence]: https://github.com/antlabs/httparser/blob/622df4409cddf119cf437633f620947235d2d1eb/LICENSE
 [httparser-readme]: https://github.com/antlabs/httparser/blob/622df4409cddf119cf437633f620947235d2d1eb/README.md
@@ -710,6 +721,10 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [next-licence]: https://github.com/vercel/next.js/blob/5a5a4cdc5263ee3ca5a14378de78d2b97dbc4378/license.md
 [nio-codec]: https://github.com/apple/swift-nio/blob/2f58d8ef84438d6517fc78bcea2f8527e3c72936/Sources/NIOCore/Codec.swift
 [nio-licence]: https://github.com/apple/swift-nio/blob/2f58d8ef84438d6517fc78bcea2f8527e3c72936/LICENSE.txt
+[nix-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/nix.sample
+[nixpkgs-licence]: https://github.com/NixOS/nixpkgs/blob/084f878659a86f432881f0267c50863df444e925/COPYING
+[nixpkgs-lists]: https://github.com/NixOS/nixpkgs/blob/084f878659a86f432881f0267c50863df444e925/lib/lists.nix
+[nixpkgs-ripgrep]: https://github.com/NixOS/nixpkgs/blob/084f878659a86f432881f0267c50863df444e925/pkgs/by-name/ri/ripgrep/package.nix
 [nlohmann-json-licence]: https://github.com/nlohmann/json/blob/e32051125faf95dc64d49a129959b6742b9ffee9/LICENSE.MIT
 [node-licence]: https://github.com/nodejs/node/blob/3556d018a4863a42fba62a927e7e605c1e8cf128/LICENSE
 [node-make]: https://github.com/nodejs/node/blob/3556d018a4863a42fba62a927e7e605c1e8cf128/Makefile

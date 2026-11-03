@@ -1,0 +1,2068 @@
+L {
+T 1 source.nix punctuation.definition.attrset-or-function.nix
+L   description = "Home Manager for Nix";
+T 2 source.nix
+T 13 source.nix entity.other.attribute-name.multipart.nix
+T 14 source.nix
+T 15 source.nix keyword.operator.bind.nix
+T 16 source.nix
+T 17 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 37 source.nix string.quoted.double.nix
+T 38 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 39 source.nix punctuation.terminator.bind.nix
+L 
+L   inputs.nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
+T 2 source.nix
+T 8 source.nix entity.other.attribute-name.multipart.nix
+T 9 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 20 source.nix entity.other.attribute-name.multipart.nix
+T 21 source.nix
+T 22 source.nix keyword.operator.bind.nix
+T 23 source.nix
+T 24 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 84 source.nix string.quoted.double.nix
+T 85 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 86 source.nix punctuation.terminator.bind.nix
+L 
+L   outputs =
+T 2 source.nix
+T 9 source.nix entity.other.attribute-name.multipart.nix
+T 10 source.nix
+T 11 source.nix keyword.operator.bind.nix
+L     {
+T 4 source.nix
+T 5 source.nix punctuation.definition.attrset-or-function.nix
+L       self,
+T 6 source.nix
+T 10 source.nix variable.parameter.function.1.nix
+T 11 source.nix keyword.operator.nix
+L       nixpkgs,
+T 6 source.nix
+T 13 source.nix variable.parameter.function.1.nix
+T 14 source.nix keyword.operator.nix
+L       ...
+T 6 source.nix
+T 9 source.nix keyword.operator.nix
+L     }:
+T 4 source.nix keyword.operator.nix
+T 5 source.nix punctuation.definition.entity.function.nix
+T 6 source.nix punctuation.definition.function.nix
+L     {
+T 4 source.nix
+T 5 source.nix punctuation.definition.attrset-or-function.nix
+L       nixosModules = rec {
+T 6 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix keyword.operator.bind.nix
+T 21 source.nix
+T 24 source.nix keyword.other.nix
+T 25 source.nix
+T 26 source.nix punctuation.definition.attrset.nix
+L         home-manager = ./nixos;
+T 8 source.nix
+T 20 source.nix entity.other.attribute-name.multipart.nix
+T 21 source.nix
+T 22 source.nix keyword.operator.bind.nix
+T 23 source.nix
+T 30 source.nix string.unquoted.path.nix
+T 31 source.nix punctuation.terminator.bind.nix
+L         default = home-manager;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 30 source.nix variable.parameter.name.nix
+T 31 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       darwinModules = rec {
+T 6 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 25 source.nix keyword.other.nix
+T 26 source.nix
+T 27 source.nix punctuation.definition.attrset.nix
+L         home-manager = ./nix-darwin;
+T 8 source.nix
+T 20 source.nix entity.other.attribute-name.multipart.nix
+T 21 source.nix
+T 22 source.nix keyword.operator.bind.nix
+T 23 source.nix
+T 35 source.nix string.unquoted.path.nix
+T 36 source.nix punctuation.terminator.bind.nix
+L         default = home-manager;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 30 source.nix variable.parameter.name.nix
+T 31 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       flakeModules = rec {
+T 6 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix keyword.operator.bind.nix
+T 21 source.nix
+T 24 source.nix keyword.other.nix
+T 25 source.nix
+T 26 source.nix punctuation.definition.attrset.nix
+L         home-manager = ./flake-module.nix;
+T 8 source.nix
+T 20 source.nix entity.other.attribute-name.multipart.nix
+T 21 source.nix
+T 22 source.nix keyword.operator.bind.nix
+T 23 source.nix
+T 41 source.nix string.unquoted.path.nix
+T 42 source.nix punctuation.terminator.bind.nix
+L         default = home-manager;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 30 source.nix variable.parameter.name.nix
+T 31 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       templates = {
+T 6 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 19 source.nix punctuation.definition.attrset-or-function.nix
+L         default = self.templates.standalone;
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+T 18 source.nix
+T 22 source.nix variable.parameter.name.nix
+T 23 source.nix keyword.operator.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix keyword.operator.nix
+T 43 source.nix variable.parameter.name.nix
+T 44 source.nix punctuation.terminator.bind.nix
+L         nixos = {
+T 8 source.nix
+T 13 source.nix entity.other.attribute-name.multipart.nix
+T 14 source.nix
+T 15 source.nix keyword.operator.bind.nix
+T 16 source.nix
+T 17 source.nix punctuation.definition.attrset-or-function.nix
+L           path = ./templates/nixos;
+T 10 source.nix
+T 14 source.nix entity.other.attribute-name.multipart.nix
+T 15 source.nix
+T 16 source.nix keyword.operator.bind.nix
+T 17 source.nix
+T 34 source.nix string.unquoted.path.nix
+T 35 source.nix punctuation.terminator.bind.nix
+L           description = "Home Manager as a NixOS module,";
+T 10 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+T 24 source.nix
+T 25 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 56 source.nix string.quoted.double.nix
+T 57 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 58 source.nix punctuation.terminator.bind.nix
+L         };
+T 8 source.nix
+T 9 source.nix punctuation.definition.attrset.nix
+T 10 source.nix punctuation.terminator.bind.nix
+L         nix-darwin = {
+T 8 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix keyword.operator.bind.nix
+T 21 source.nix
+T 22 source.nix punctuation.definition.attrset-or-function.nix
+L           path = ./templates/nix-darwin;
+T 10 source.nix
+T 14 source.nix entity.other.attribute-name.multipart.nix
+T 15 source.nix
+T 16 source.nix keyword.operator.bind.nix
+T 17 source.nix
+T 39 source.nix string.unquoted.path.nix
+T 40 source.nix punctuation.terminator.bind.nix
+L           description = "Home Manager as a nix-darwin module,";
+T 10 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+T 24 source.nix
+T 25 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 61 source.nix string.quoted.double.nix
+T 62 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 63 source.nix punctuation.terminator.bind.nix
+L         };
+T 8 source.nix
+T 9 source.nix punctuation.definition.attrset.nix
+T 10 source.nix punctuation.terminator.bind.nix
+L         standalone = {
+T 8 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix keyword.operator.bind.nix
+T 21 source.nix
+T 22 source.nix punctuation.definition.attrset-or-function.nix
+L           path = ./templates/standalone;
+T 10 source.nix
+T 14 source.nix entity.other.attribute-name.multipart.nix
+T 15 source.nix
+T 16 source.nix keyword.operator.bind.nix
+T 17 source.nix
+T 39 source.nix string.unquoted.path.nix
+T 40 source.nix punctuation.terminator.bind.nix
+L           description = "Standalone setup";
+T 10 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+T 24 source.nix
+T 25 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 41 source.nix string.quoted.double.nix
+T 42 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 43 source.nix punctuation.terminator.bind.nix
+L         };
+T 8 source.nix
+T 9 source.nix punctuation.definition.attrset.nix
+T 10 source.nix punctuation.terminator.bind.nix
+L       };
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+T 8 source.nix punctuation.terminator.bind.nix
+L 
+L       lib = import ./lib { inherit (nixpkgs) lib; };
+T 6 source.nix
+T 9 source.nix entity.other.attribute-name.multipart.nix
+T 10 source.nix
+T 11 source.nix keyword.operator.bind.nix
+T 12 source.nix
+T 18 source.nix support.function.nix
+T 19 source.nix
+T 24 source.nix string.unquoted.path.nix
+T 25 source.nix
+T 26 source.nix punctuation.definition.attrset.nix
+T 27 source.nix
+T 34 source.nix keyword.other.inherit.nix
+T 35 source.nix
+T 36 source.nix punctuation.section.function.arguments.nix
+T 43 source.nix variable.parameter.name.nix
+T 44 source.nix punctuation.section.function.arguments.nix
+T 45 source.nix
+T 48 source.nix entity.other.attribute-name.single.nix
+T 49 source.nix punctuation.terminator.inherit.nix
+T 50 source.nix
+T 51 source.nix punctuation.definition.attrset.nix
+T 52 source.nix punctuation.terminator.bind.nix
+L     }
+T 4 source.nix
+T 5 source.nix punctuation.definition.attrset.nix
+L     // (
+T 4 source.nix
+T 6 source.nix keyword.operator.nix
+T 7 source.nix
+T 8 source.nix punctuation.definition.expression.nix
+L       let
+T 6 source.nix
+T 9 source.nix keyword.other.nix
+L         supportedSystems = [
+T 8 source.nix
+T 24 source.nix entity.other.attribute-name.multipart.nix
+T 25 source.nix
+T 26 source.nix keyword.operator.bind.nix
+T 27 source.nix
+T 28 source.nix punctuation.definition.list.nix
+L           "aarch64-darwin"
+T 10 source.nix
+T 11 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 25 source.nix string.quoted.double.nix
+T 26 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+L           "aarch64-linux"
+T 10 source.nix
+T 11 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 24 source.nix string.quoted.double.nix
+T 25 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+L           "i686-linux"
+T 10 source.nix
+T 11 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 21 source.nix string.quoted.double.nix
+T 22 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+L           "x86_64-linux"
+T 10 source.nix
+T 11 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 23 source.nix string.quoted.double.nix
+T 24 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+L         ];
+T 8 source.nix
+T 9 source.nix punctuation.definition.list.nix
+T 10 source.nix punctuation.terminator.bind.nix
+L 
+L         forSystems = systems: f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
+T 8 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix keyword.operator.bind.nix
+T 21 source.nix
+T 28 source.nix variable.parameter.function.4.nix
+T 29 source.nix punctuation.definition.function.nix
+T 30 source.nix
+T 31 source.nix variable.parameter.function.4.nix
+T 32 source.nix punctuation.definition.function.nix
+T 33 source.nix
+T 40 source.nix variable.parameter.name.nix
+T 41 source.nix keyword.operator.nix
+T 44 source.nix variable.parameter.name.nix
+T 45 source.nix keyword.operator.nix
+T 53 source.nix variable.parameter.name.nix
+T 54 source.nix
+T 61 source.nix variable.parameter.name.nix
+T 62 source.nix
+T 63 source.nix punctuation.definition.expression.nix
+T 69 source.nix variable.parameter.function.4.nix
+T 70 source.nix punctuation.definition.function.nix
+T 71 source.nix
+T 72 source.nix variable.parameter.name.nix
+T 73 source.nix
+T 80 source.nix variable.parameter.name.nix
+T 81 source.nix keyword.operator.nix
+T 95 source.nix variable.parameter.name.nix
+T 96 source.nix keyword.operator.nix
+T 98 source.nix meta.embedded punctuation.section.embedded.begin.nix
+T 104 source.nix meta.embedded variable.parameter.name.nix
+T 105 source.nix meta.embedded punctuation.section.embedded.end.nix
+T 106 source.nix punctuation.definition.expression.nix
+T 107 source.nix punctuation.terminator.bind.nix
+L 
+L         forAllPkgs = forSystems (nixpkgs.lib.remove "x86_64-darwin" nixpkgs.lib.systems.flakeExposed);
+T 8 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix keyword.operator.bind.nix
+T 21 source.nix
+T 31 source.nix variable.parameter.name.nix
+T 32 source.nix
+T 33 source.nix punctuation.definition.expression.nix
+T 40 source.nix variable.parameter.name.nix
+T 41 source.nix keyword.operator.nix
+T 44 source.nix variable.parameter.name.nix
+T 45 source.nix keyword.operator.nix
+T 51 source.nix variable.parameter.name.nix
+T 52 source.nix
+T 53 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 66 source.nix string.quoted.double.nix
+T 67 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 68 source.nix
+T 75 source.nix variable.parameter.name.nix
+T 76 source.nix keyword.operator.nix
+T 79 source.nix variable.parameter.name.nix
+T 80 source.nix keyword.operator.nix
+T 87 source.nix variable.parameter.name.nix
+T 88 source.nix keyword.operator.nix
+T 100 source.nix variable.parameter.name.nix
+T 101 source.nix punctuation.definition.expression.nix
+T 102 source.nix punctuation.terminator.bind.nix
+L 
+L         forSupportedPkgs = forSystems supportedSystems;
+T 8 source.nix
+T 24 source.nix entity.other.attribute-name.multipart.nix
+T 25 source.nix
+T 26 source.nix keyword.operator.bind.nix
+T 27 source.nix
+T 37 source.nix variable.parameter.name.nix
+T 38 source.nix
+T 54 source.nix variable.parameter.name.nix
+T 55 source.nix punctuation.terminator.bind.nix
+L 
+L         forCI = nixpkgs.lib.genAttrs [
+T 8 source.nix
+T 13 source.nix entity.other.attribute-name.multipart.nix
+T 14 source.nix
+T 15 source.nix keyword.operator.bind.nix
+T 16 source.nix
+T 23 source.nix variable.parameter.name.nix
+T 24 source.nix keyword.operator.nix
+T 27 source.nix variable.parameter.name.nix
+T 28 source.nix keyword.operator.nix
+T 36 source.nix variable.parameter.name.nix
+T 37 source.nix
+T 38 source.nix punctuation.definition.list.nix
+L           "aarch64-darwin"
+T 10 source.nix
+T 11 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 25 source.nix string.quoted.double.nix
+T 26 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+L           "x86_64-linux"
+T 10 source.nix
+T 11 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 23 source.nix string.quoted.double.nix
+T 24 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+L         ];
+T 8 source.nix
+T 9 source.nix punctuation.definition.list.nix
+T 10 source.nix punctuation.terminator.bind.nix
+L 
+L         warn = builtins.warn or nixpkgs.lib.warn;
+T 8 source.nix
+T 12 source.nix entity.other.attribute-name.multipart.nix
+T 13 source.nix
+T 14 source.nix keyword.operator.bind.nix
+T 15 source.nix
+T 23 source.nix constant.language.nix
+T 24 source.nix keyword.operator.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix
+T 31 source.nix keyword.operator.nix
+T 32 source.nix
+T 39 source.nix variable.parameter.name.nix
+T 40 source.nix keyword.operator.nix
+T 43 source.nix variable.parameter.name.nix
+T 44 source.nix keyword.operator.nix
+T 48 source.nix variable.parameter.name.nix
+T 49 source.nix punctuation.terminator.bind.nix
+L 
+L         releaseInfo = nixpkgs.lib.importJSON ./release.json;
+T 8 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix keyword.operator.nix
+T 33 source.nix variable.parameter.name.nix
+T 34 source.nix keyword.operator.nix
+T 44 source.nix variable.parameter.name.nix
+T 45 source.nix
+T 59 source.nix string.unquoted.path.nix
+T 60 source.nix punctuation.terminator.bind.nix
+L 
+L         docsFor =
+T 8 source.nix
+T 15 source.nix entity.other.attribute-name.multipart.nix
+T 16 source.nix
+T 17 source.nix keyword.operator.bind.nix
+L           pkgs:
+T 10 source.nix
+T 14 source.nix variable.parameter.function.4.nix
+T 15 source.nix punctuation.definition.function.nix
+L           import ./docs {
+T 10 source.nix
+T 16 source.nix support.function.nix
+T 17 source.nix
+T 23 source.nix string.unquoted.path.nix
+T 24 source.nix
+T 25 source.nix punctuation.definition.attrset-or-function.nix
+L             inherit pkgs;
+T 12 source.nix
+T 19 source.nix keyword.other.inherit.nix
+T 20 source.nix
+T 24 source.nix entity.other.attribute-name.single.nix
+T 25 source.nix punctuation.terminator.inherit.nix
+L             inherit (releaseInfo) release isReleaseBranch;
+T 12 source.nix
+T 19 source.nix keyword.other.inherit.nix
+T 20 source.nix
+T 21 source.nix punctuation.section.function.arguments.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix punctuation.section.function.arguments.nix
+T 34 source.nix
+T 41 source.nix entity.other.attribute-name.single.nix
+T 42 source.nix
+T 57 source.nix entity.other.attribute-name.single.nix
+T 58 source.nix punctuation.terminator.inherit.nix
+L           };
+T 10 source.nix
+T 11 source.nix punctuation.definition.attrset.nix
+T 12 source.nix punctuation.terminator.bind.nix
+L 
+L         testChunks =
+T 8 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix keyword.operator.bind.nix
+L           system:
+T 10 source.nix
+T 16 source.nix variable.parameter.function.4.nix
+T 17 source.nix punctuation.definition.function.nix
+L           let
+T 10 source.nix
+T 13 source.nix keyword.other.nix
+L             pkgs = nixpkgs.legacyPackages.${system};
+T 12 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix keyword.operator.nix
+T 41 source.nix variable.parameter.name.nix
+T 42 source.nix keyword.operator.nix
+T 44 source.nix meta.embedded punctuation.section.embedded.begin.nix
+T 50 source.nix meta.embedded variable.parameter.name.nix
+T 51 source.nix meta.embedded punctuation.section.embedded.end.nix
+T 52 source.nix punctuation.terminator.bind.nix
+L             inherit (pkgs) lib;
+T 12 source.nix
+T 19 source.nix keyword.other.inherit.nix
+T 20 source.nix
+T 21 source.nix punctuation.section.function.arguments.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix punctuation.section.function.arguments.nix
+T 27 source.nix
+T 30 source.nix entity.other.attribute-name.single.nix
+T 31 source.nix punctuation.terminator.inherit.nix
+L 
+L             # Create chunked test packages for better CI parallelization
+T 12 source.nix
+T 13 source.nix comment.line.number-sign.nix
+T 72 source.nix comment.line.number-sign.nix
+L             tests = import ./tests {
+T 12 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 26 source.nix support.function.nix
+T 27 source.nix
+T 34 source.nix string.unquoted.path.nix
+T 35 source.nix
+T 36 source.nix punctuation.definition.attrset-or-function.nix
+L               inherit pkgs;
+T 14 source.nix
+T 21 source.nix keyword.other.inherit.nix
+T 22 source.nix
+T 26 source.nix entity.other.attribute-name.single.nix
+T 27 source.nix punctuation.terminator.inherit.nix
+L               enableBig = true;
+T 14 source.nix
+T 23 source.nix entity.other.attribute-name.multipart.nix
+T 24 source.nix
+T 25 source.nix keyword.operator.bind.nix
+T 26 source.nix
+T 30 source.nix constant.language.nix
+T 31 source.nix punctuation.terminator.bind.nix
+L             };
+T 12 source.nix
+T 13 source.nix punctuation.definition.attrset.nix
+T 14 source.nix punctuation.terminator.bind.nix
+L             allTests = lib.attrNames tests.build;
+T 12 source.nix
+T 20 source.nix entity.other.attribute-name.multipart.nix
+T 21 source.nix
+T 22 source.nix keyword.operator.bind.nix
+T 23 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix keyword.operator.nix
+T 36 source.nix variable.parameter.name.nix
+T 37 source.nix
+T 42 source.nix variable.parameter.name.nix
+T 43 source.nix keyword.operator.nix
+T 48 source.nix variable.parameter.name.nix
+T 49 source.nix punctuation.terminator.bind.nix
+L             # Remove 'all' from the test list as it's a meta-package
+T 12 source.nix
+T 13 source.nix comment.line.number-sign.nix
+T 68 source.nix comment.line.number-sign.nix
+L             filteredTests = lib.filter (name: name != "all") allTests;
+T 12 source.nix
+T 25 source.nix entity.other.attribute-name.multipart.nix
+T 26 source.nix
+T 27 source.nix keyword.operator.bind.nix
+T 28 source.nix
+T 31 source.nix variable.parameter.name.nix
+T 32 source.nix keyword.operator.nix
+T 38 source.nix variable.parameter.name.nix
+T 39 source.nix
+T 40 source.nix punctuation.definition.expression.nix
+T 44 source.nix variable.parameter.function.4.nix
+T 45 source.nix punctuation.definition.function.nix
+T 46 source.nix
+T 50 source.nix variable.parameter.name.nix
+T 51 source.nix
+T 53 source.nix keyword.operator.nix
+T 54 source.nix
+T 55 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 58 source.nix string.quoted.double.nix
+T 59 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 60 source.nix punctuation.definition.expression.nix
+T 61 source.nix
+T 69 source.nix variable.parameter.name.nix
+T 70 source.nix punctuation.terminator.bind.nix
+L             # NOTE: Just a starting value, we can tweak this to find a good value.
+T 12 source.nix
+T 13 source.nix comment.line.number-sign.nix
+T 82 source.nix comment.line.number-sign.nix
+L             targetTestsPerChunk = 50;
+T 12 source.nix
+T 31 source.nix entity.other.attribute-name.multipart.nix
+T 32 source.nix
+T 33 source.nix keyword.operator.bind.nix
+T 34 source.nix
+T 36 source.nix constant.numeric.nix
+T 37 source.nix punctuation.terminator.bind.nix
+L             numChunks = lib.max 1 (
+T 12 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+T 24 source.nix
+T 27 source.nix variable.parameter.name.nix
+T 28 source.nix keyword.operator.nix
+T 31 source.nix variable.parameter.name.nix
+T 32 source.nix
+T 33 source.nix constant.numeric.nix
+T 34 source.nix
+T 35 source.nix punctuation.definition.expression.nix
+L               builtins.ceil ((builtins.length filteredTests) / (targetTestsPerChunk * 1.0))
+T 14 source.nix
+T 22 source.nix constant.language.nix
+T 23 source.nix keyword.operator.nix
+T 27 source.nix variable.parameter.name.nix
+T 28 source.nix
+T 29 source.nix punctuation.definition.expression.nix
+T 30 source.nix punctuation.definition.expression.nix
+T 38 source.nix constant.language.nix
+T 39 source.nix keyword.operator.nix
+T 45 source.nix variable.parameter.name.nix
+T 46 source.nix
+T 59 source.nix variable.parameter.name.nix
+T 60 source.nix punctuation.definition.expression.nix
+T 61 source.nix
+T 62 source.nix keyword.operator.nix
+T 63 source.nix
+T 64 source.nix punctuation.definition.expression.nix
+T 83 source.nix variable.parameter.name.nix
+T 84 source.nix
+T 85 source.nix keyword.operator.nix
+T 86 source.nix
+T 87 source.nix constant.numeric.nix
+T 88 source.nix keyword.operator.nix
+T 89 source.nix constant.numeric.nix
+T 90 source.nix punctuation.definition.expression.nix
+T 91 source.nix punctuation.definition.expression.nix
+L             );
+T 12 source.nix
+T 13 source.nix punctuation.definition.expression.nix
+T 14 source.nix punctuation.terminator.bind.nix
+L             chunkSize = builtins.ceil ((builtins.length filteredTests) / (numChunks * 1.0));
+T 12 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+T 24 source.nix
+T 32 source.nix constant.language.nix
+T 33 source.nix keyword.operator.nix
+T 37 source.nix variable.parameter.name.nix
+T 38 source.nix
+T 39 source.nix punctuation.definition.expression.nix
+T 40 source.nix punctuation.definition.expression.nix
+T 48 source.nix constant.language.nix
+T 49 source.nix keyword.operator.nix
+T 55 source.nix variable.parameter.name.nix
+T 56 source.nix
+T 69 source.nix variable.parameter.name.nix
+T 70 source.nix punctuation.definition.expression.nix
+T 71 source.nix
+T 72 source.nix keyword.operator.nix
+T 73 source.nix
+T 74 source.nix punctuation.definition.expression.nix
+T 83 source.nix variable.parameter.name.nix
+T 84 source.nix
+T 85 source.nix keyword.operator.nix
+T 86 source.nix
+T 87 source.nix constant.numeric.nix
+T 88 source.nix keyword.operator.nix
+T 89 source.nix constant.numeric.nix
+T 90 source.nix punctuation.definition.expression.nix
+T 91 source.nix punctuation.definition.expression.nix
+T 92 source.nix punctuation.terminator.bind.nix
+L 
+L             makeChunk =
+T 12 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+L               chunkNum: testList:
+T 14 source.nix
+T 22 source.nix variable.parameter.function.4.nix
+T 23 source.nix punctuation.definition.function.nix
+T 24 source.nix
+T 32 source.nix variable.parameter.function.4.nix
+T 33 source.nix punctuation.definition.function.nix
+L               let
+T 14 source.nix
+T 17 source.nix keyword.other.nix
+L                 start = (chunkNum - 1) * chunkSize;
+T 16 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+T 24 source.nix
+T 25 source.nix punctuation.definition.expression.nix
+T 33 source.nix variable.parameter.name.nix
+T 34 source.nix
+T 35 source.nix keyword.operator.nix
+T 36 source.nix
+T 37 source.nix constant.numeric.nix
+T 38 source.nix punctuation.definition.expression.nix
+T 39 source.nix
+T 40 source.nix keyword.operator.nix
+T 41 source.nix
+T 50 source.nix variable.parameter.name.nix
+T 51 source.nix punctuation.terminator.bind.nix
+L                 end = lib.min (start + chunkSize) (builtins.length testList);
+T 16 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix keyword.operator.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix
+T 31 source.nix punctuation.definition.expression.nix
+T 36 source.nix variable.parameter.name.nix
+T 37 source.nix
+T 38 source.nix keyword.operator.nix
+T 39 source.nix
+T 48 source.nix variable.parameter.name.nix
+T 49 source.nix punctuation.definition.expression.nix
+T 50 source.nix
+T 51 source.nix punctuation.definition.expression.nix
+T 59 source.nix constant.language.nix
+T 60 source.nix keyword.operator.nix
+T 66 source.nix variable.parameter.name.nix
+T 67 source.nix
+T 75 source.nix variable.parameter.name.nix
+T 76 source.nix punctuation.definition.expression.nix
+T 77 source.nix punctuation.terminator.bind.nix
+L                 chunkTests = lib.sublist start (end - start) testList;
+T 16 source.nix
+T 26 source.nix entity.other.attribute-name.multipart.nix
+T 27 source.nix
+T 28 source.nix keyword.operator.bind.nix
+T 29 source.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix keyword.operator.nix
+T 40 source.nix variable.parameter.name.nix
+T 41 source.nix
+T 46 source.nix variable.parameter.name.nix
+T 47 source.nix
+T 48 source.nix punctuation.definition.expression.nix
+T 51 source.nix variable.parameter.name.nix
+T 52 source.nix
+T 53 source.nix keyword.operator.nix
+T 54 source.nix
+T 59 source.nix variable.parameter.name.nix
+T 60 source.nix punctuation.definition.expression.nix
+T 61 source.nix
+T 69 source.nix variable.parameter.name.nix
+T 70 source.nix punctuation.terminator.bind.nix
+L                 chunkAttrs = lib.genAttrs chunkTests (name: tests.build.${name});
+T 16 source.nix
+T 26 source.nix entity.other.attribute-name.multipart.nix
+T 27 source.nix
+T 28 source.nix keyword.operator.bind.nix
+T 29 source.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix keyword.operator.nix
+T 41 source.nix variable.parameter.name.nix
+T 42 source.nix
+T 52 source.nix variable.parameter.name.nix
+T 53 source.nix
+T 54 source.nix punctuation.definition.expression.nix
+T 58 source.nix variable.parameter.function.4.nix
+T 59 source.nix punctuation.definition.function.nix
+T 60 source.nix
+T 65 source.nix variable.parameter.name.nix
+T 66 source.nix keyword.operator.nix
+T 71 source.nix variable.parameter.name.nix
+T 72 source.nix keyword.operator.nix
+T 74 source.nix meta.embedded punctuation.section.embedded.begin.nix
+T 78 source.nix meta.embedded variable.parameter.name.nix
+T 79 source.nix meta.embedded punctuation.section.embedded.end.nix
+T 80 source.nix punctuation.definition.expression.nix
+T 81 source.nix punctuation.terminator.bind.nix
+L               in
+T 14 source.nix
+T 16 source.nix keyword.other.nix
+L               pkgs.symlinkJoin {
+T 14 source.nix
+T 18 source.nix variable.parameter.name.nix
+T 19 source.nix keyword.operator.nix
+T 30 source.nix variable.parameter.name.nix
+T 31 source.nix
+T 32 source.nix punctuation.definition.attrset-or-function.nix
+L                 name = "test-chunk-${toString chunkNum}";
+T 16 source.nix
+T 20 source.nix entity.other.attribute-name.multipart.nix
+T 21 source.nix
+T 22 source.nix keyword.operator.bind.nix
+T 23 source.nix
+T 24 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 35 source.nix string.quoted.double.nix
+T 37 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.begin.nix
+T 45 source.nix string.quoted.double.nix meta.embedded support.function.nix
+T 46 source.nix string.quoted.double.nix meta.embedded
+T 54 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 55 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.end.nix
+T 56 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 57 source.nix punctuation.terminator.bind.nix
+L                 paths = lib.attrValues chunkAttrs;
+T 16 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+T 24 source.nix
+T 27 source.nix variable.parameter.name.nix
+T 28 source.nix keyword.operator.nix
+T 38 source.nix variable.parameter.name.nix
+T 39 source.nix
+T 49 source.nix variable.parameter.name.nix
+T 50 source.nix punctuation.terminator.bind.nix
+L                 passthru.tests = chunkTests;
+T 16 source.nix
+T 24 source.nix entity.other.attribute-name.multipart.nix
+T 25 source.nix
+T 30 source.nix entity.other.attribute-name.multipart.nix
+T 31 source.nix
+T 32 source.nix keyword.operator.bind.nix
+T 33 source.nix
+T 43 source.nix variable.parameter.name.nix
+T 44 source.nix punctuation.terminator.bind.nix
+L               };
+T 14 source.nix
+T 15 source.nix punctuation.definition.attrset.nix
+T 16 source.nix punctuation.terminator.bind.nix
+L           in
+T 10 source.nix
+T 12 source.nix keyword.other.nix
+L           lib.listToAttrs (
+T 10 source.nix
+T 13 source.nix variable.parameter.name.nix
+T 14 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix
+T 27 source.nix punctuation.definition.expression.nix
+L             lib.genList (
+T 12 source.nix
+T 15 source.nix variable.parameter.name.nix
+T 16 source.nix keyword.operator.nix
+T 23 source.nix variable.parameter.name.nix
+T 24 source.nix
+T 25 source.nix punctuation.definition.expression.nix
+L               i: lib.nameValuePair "test-chunk-${toString (i + 1)}" (makeChunk (i + 1) filteredTests)
+T 14 source.nix
+T 15 source.nix variable.parameter.function.4.nix
+T 16 source.nix punctuation.definition.function.nix
+T 17 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 34 source.nix variable.parameter.name.nix
+T 35 source.nix
+T 36 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 47 source.nix string.quoted.double.nix
+T 49 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.begin.nix
+T 57 source.nix string.quoted.double.nix meta.embedded support.function.nix
+T 58 source.nix string.quoted.double.nix meta.embedded
+T 59 source.nix string.quoted.double.nix meta.embedded punctuation.definition.expression.nix
+T 60 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 61 source.nix string.quoted.double.nix meta.embedded
+T 62 source.nix string.quoted.double.nix meta.embedded keyword.operator.nix
+T 63 source.nix string.quoted.double.nix meta.embedded
+T 64 source.nix string.quoted.double.nix meta.embedded constant.numeric.nix
+T 65 source.nix string.quoted.double.nix meta.embedded punctuation.definition.expression.nix
+T 66 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.end.nix
+T 67 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 68 source.nix
+T 69 source.nix punctuation.definition.expression.nix
+T 78 source.nix variable.parameter.name.nix
+T 79 source.nix
+T 80 source.nix punctuation.definition.expression.nix
+T 81 source.nix variable.parameter.name.nix
+T 82 source.nix
+T 83 source.nix keyword.operator.nix
+T 84 source.nix
+T 85 source.nix constant.numeric.nix
+T 86 source.nix punctuation.definition.expression.nix
+T 87 source.nix
+T 100 source.nix variable.parameter.name.nix
+T 101 source.nix punctuation.definition.expression.nix
+L             ) numChunks
+T 12 source.nix
+T 13 source.nix punctuation.definition.expression.nix
+T 14 source.nix
+T 23 source.nix variable.parameter.name.nix
+L           );
+T 10 source.nix
+T 11 source.nix punctuation.definition.expression.nix
+T 12 source.nix punctuation.terminator.bind.nix
+L 
+L         integrationTests =
+T 8 source.nix
+T 24 source.nix entity.other.attribute-name.multipart.nix
+T 25 source.nix
+T 26 source.nix keyword.operator.bind.nix
+L           system:
+T 10 source.nix
+T 16 source.nix variable.parameter.function.4.nix
+T 17 source.nix punctuation.definition.function.nix
+L           let
+T 10 source.nix
+T 13 source.nix keyword.other.nix
+L             pkgs = nixpkgs.legacyPackages.${system};
+T 12 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix keyword.operator.nix
+T 41 source.nix variable.parameter.name.nix
+T 42 source.nix keyword.operator.nix
+T 44 source.nix meta.embedded punctuation.section.embedded.begin.nix
+T 50 source.nix meta.embedded variable.parameter.name.nix
+T 51 source.nix meta.embedded punctuation.section.embedded.end.nix
+T 52 source.nix punctuation.terminator.bind.nix
+L             inherit (pkgs) lib;
+T 12 source.nix
+T 19 source.nix keyword.other.inherit.nix
+T 20 source.nix
+T 21 source.nix punctuation.section.function.arguments.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix punctuation.section.function.arguments.nix
+T 27 source.nix
+T 30 source.nix entity.other.attribute-name.single.nix
+T 31 source.nix punctuation.terminator.inherit.nix
+L           in
+T 10 source.nix
+T 12 source.nix keyword.other.nix
+L           lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux (
+T 10 source.nix
+T 13 source.nix variable.parameter.name.nix
+T 14 source.nix keyword.operator.nix
+T 27 source.nix variable.parameter.name.nix
+T 28 source.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix keyword.operator.nix
+T 39 source.nix variable.parameter.name.nix
+T 40 source.nix keyword.operator.nix
+T 52 source.nix variable.parameter.name.nix
+T 53 source.nix keyword.operator.nix
+T 60 source.nix variable.parameter.name.nix
+T 61 source.nix
+T 62 source.nix punctuation.definition.expression.nix
+L             let
+T 12 source.nix
+T 15 source.nix keyword.other.nix
+L               tests = import ./tests/integration { inherit pkgs lib; };
+T 14 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 28 source.nix support.function.nix
+T 29 source.nix
+T 48 source.nix string.unquoted.path.nix
+T 49 source.nix
+T 50 source.nix punctuation.definition.attrset.nix
+T 51 source.nix
+T 58 source.nix keyword.other.inherit.nix
+T 59 source.nix
+T 63 source.nix entity.other.attribute-name.single.nix
+T 64 source.nix
+T 67 source.nix entity.other.attribute-name.single.nix
+T 68 source.nix punctuation.terminator.inherit.nix
+T 69 source.nix
+T 70 source.nix punctuation.definition.attrset.nix
+T 71 source.nix punctuation.terminator.bind.nix
+L               renameTestPkg = n: v: lib.nameValuePair "integration-${n}" v;
+T 14 source.nix
+T 27 source.nix entity.other.attribute-name.multipart.nix
+T 28 source.nix
+T 29 source.nix keyword.operator.bind.nix
+T 30 source.nix
+T 31 source.nix variable.parameter.function.4.nix
+T 32 source.nix punctuation.definition.function.nix
+T 33 source.nix
+T 34 source.nix variable.parameter.function.4.nix
+T 35 source.nix punctuation.definition.function.nix
+T 36 source.nix
+T 39 source.nix variable.parameter.name.nix
+T 40 source.nix keyword.operator.nix
+T 53 source.nix variable.parameter.name.nix
+T 54 source.nix
+T 55 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 67 source.nix string.quoted.double.nix
+T 69 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.begin.nix
+T 70 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 71 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.end.nix
+T 72 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 73 source.nix
+T 74 source.nix variable.parameter.name.nix
+T 75 source.nix punctuation.terminator.bind.nix
+L             in
+T 12 source.nix
+T 14 source.nix keyword.other.nix
+L             lib.mapAttrs' renameTestPkg (lib.removeAttrs tests [ "all" ])
+T 12 source.nix
+T 15 source.nix variable.parameter.name.nix
+T 16 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix
+T 39 source.nix variable.parameter.name.nix
+T 40 source.nix
+T 41 source.nix punctuation.definition.expression.nix
+T 44 source.nix variable.parameter.name.nix
+T 45 source.nix keyword.operator.nix
+T 56 source.nix support.function.nix
+T 57 source.nix
+T 62 source.nix variable.parameter.name.nix
+T 63 source.nix
+T 64 source.nix punctuation.definition.list.nix
+T 65 source.nix
+T 66 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 69 source.nix string.quoted.double.nix
+T 70 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 71 source.nix
+T 72 source.nix punctuation.definition.list.nix
+T 73 source.nix punctuation.definition.expression.nix
+L           );
+T 10 source.nix
+T 11 source.nix punctuation.definition.expression.nix
+T 12 source.nix punctuation.terminator.bind.nix
+L 
+L         buildTests =
+T 8 source.nix
+T 18 source.nix entity.other.attribute-name.multipart.nix
+T 19 source.nix
+T 20 source.nix keyword.operator.bind.nix
+L           system:
+T 10 source.nix
+T 16 source.nix variable.parameter.function.4.nix
+T 17 source.nix punctuation.definition.function.nix
+L           let
+T 10 source.nix
+T 13 source.nix keyword.other.nix
+L             pkgs = nixpkgs.legacyPackages.${system};
+T 12 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix keyword.operator.nix
+T 41 source.nix variable.parameter.name.nix
+T 42 source.nix keyword.operator.nix
+T 44 source.nix meta.embedded punctuation.section.embedded.begin.nix
+T 50 source.nix meta.embedded variable.parameter.name.nix
+T 51 source.nix meta.embedded punctuation.section.embedded.end.nix
+T 52 source.nix punctuation.terminator.bind.nix
+L             tests = import ./tests { inherit pkgs; };
+T 12 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 26 source.nix support.function.nix
+T 27 source.nix
+T 34 source.nix string.unquoted.path.nix
+T 35 source.nix
+T 36 source.nix punctuation.definition.attrset.nix
+T 37 source.nix
+T 44 source.nix keyword.other.inherit.nix
+T 45 source.nix
+T 49 source.nix entity.other.attribute-name.single.nix
+T 50 source.nix punctuation.terminator.inherit.nix
+T 51 source.nix
+T 52 source.nix punctuation.definition.attrset.nix
+T 53 source.nix punctuation.terminator.bind.nix
+L             renameTestPkg = n: nixpkgs.lib.nameValuePair "test-${n}";
+T 12 source.nix
+T 25 source.nix entity.other.attribute-name.multipart.nix
+T 26 source.nix
+T 27 source.nix keyword.operator.bind.nix
+T 28 source.nix
+T 29 source.nix variable.parameter.function.4.nix
+T 30 source.nix punctuation.definition.function.nix
+T 31 source.nix
+T 38 source.nix variable.parameter.name.nix
+T 39 source.nix keyword.operator.nix
+T 42 source.nix variable.parameter.name.nix
+T 43 source.nix keyword.operator.nix
+T 56 source.nix variable.parameter.name.nix
+T 57 source.nix
+T 58 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 63 source.nix string.quoted.double.nix
+T 65 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.begin.nix
+T 66 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 67 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.end.nix
+T 68 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 69 source.nix punctuation.terminator.bind.nix
+L           in
+T 10 source.nix
+T 12 source.nix keyword.other.nix
+L           nixpkgs.lib.mapAttrs' renameTestPkg tests.build;
+T 10 source.nix
+T 17 source.nix variable.parameter.name.nix
+T 18 source.nix keyword.operator.nix
+T 21 source.nix variable.parameter.name.nix
+T 22 source.nix keyword.operator.nix
+T 31 source.nix variable.parameter.name.nix
+T 32 source.nix
+T 45 source.nix variable.parameter.name.nix
+T 46 source.nix
+T 51 source.nix variable.parameter.name.nix
+T 52 source.nix keyword.operator.nix
+T 57 source.nix variable.parameter.name.nix
+T 58 source.nix punctuation.terminator.bind.nix
+L 
+L         buildTestsNoBig =
+T 8 source.nix
+T 23 source.nix entity.other.attribute-name.multipart.nix
+T 24 source.nix
+T 25 source.nix keyword.operator.bind.nix
+L           system:
+T 10 source.nix
+T 16 source.nix variable.parameter.function.4.nix
+T 17 source.nix punctuation.definition.function.nix
+L           let
+T 10 source.nix
+T 13 source.nix keyword.other.nix
+L             pkgs = nixpkgs.legacyPackages.${system};
+T 12 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix keyword.operator.nix
+T 41 source.nix variable.parameter.name.nix
+T 42 source.nix keyword.operator.nix
+T 44 source.nix meta.embedded punctuation.section.embedded.begin.nix
+T 50 source.nix meta.embedded variable.parameter.name.nix
+T 51 source.nix meta.embedded punctuation.section.embedded.end.nix
+T 52 source.nix punctuation.terminator.bind.nix
+L             tests = import ./tests {
+T 12 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 26 source.nix support.function.nix
+T 27 source.nix
+T 34 source.nix string.unquoted.path.nix
+T 35 source.nix
+T 36 source.nix punctuation.definition.attrset-or-function.nix
+L               inherit pkgs;
+T 14 source.nix
+T 21 source.nix keyword.other.inherit.nix
+T 22 source.nix
+T 26 source.nix entity.other.attribute-name.single.nix
+T 27 source.nix punctuation.terminator.inherit.nix
+L               enableBig = false;
+T 14 source.nix
+T 23 source.nix entity.other.attribute-name.multipart.nix
+T 24 source.nix
+T 25 source.nix keyword.operator.bind.nix
+T 26 source.nix
+T 31 source.nix constant.language.nix
+T 32 source.nix punctuation.terminator.bind.nix
+L             };
+T 12 source.nix
+T 13 source.nix punctuation.definition.attrset.nix
+T 14 source.nix punctuation.terminator.bind.nix
+L           in
+T 10 source.nix
+T 12 source.nix keyword.other.nix
+L           {
+T 10 source.nix
+T 11 source.nix punctuation.definition.attrset-or-function.nix
+L             test-all-enableBig-false-enableLegacyIfd-false = tests.build.all;
+T 12 source.nix
+T 58 source.nix entity.other.attribute-name.multipart.nix
+T 59 source.nix
+T 60 source.nix keyword.operator.bind.nix
+T 61 source.nix
+T 66 source.nix variable.parameter.name.nix
+T 67 source.nix keyword.operator.nix
+T 72 source.nix variable.parameter.name.nix
+T 73 source.nix keyword.operator.nix
+T 76 source.nix variable.parameter.name.nix
+T 77 source.nix punctuation.terminator.bind.nix
+L           };
+T 10 source.nix
+T 11 source.nix punctuation.definition.attrset.nix
+T 12 source.nix punctuation.terminator.bind.nix
+L 
+L         buildTestsNoBigIfd =
+T 8 source.nix
+T 26 source.nix entity.other.attribute-name.multipart.nix
+T 27 source.nix
+T 28 source.nix keyword.operator.bind.nix
+L           system:
+T 10 source.nix
+T 16 source.nix variable.parameter.function.4.nix
+T 17 source.nix punctuation.definition.function.nix
+L           let
+T 10 source.nix
+T 13 source.nix keyword.other.nix
+L             pkgs = nixpkgs.legacyPackages.${system};
+T 12 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix keyword.operator.nix
+T 41 source.nix variable.parameter.name.nix
+T 42 source.nix keyword.operator.nix
+T 44 source.nix meta.embedded punctuation.section.embedded.begin.nix
+T 50 source.nix meta.embedded variable.parameter.name.nix
+T 51 source.nix meta.embedded punctuation.section.embedded.end.nix
+T 52 source.nix punctuation.terminator.bind.nix
+L             tests = import ./tests {
+T 12 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 26 source.nix support.function.nix
+T 27 source.nix
+T 34 source.nix string.unquoted.path.nix
+T 35 source.nix
+T 36 source.nix punctuation.definition.attrset-or-function.nix
+L               inherit pkgs;
+T 14 source.nix
+T 21 source.nix keyword.other.inherit.nix
+T 22 source.nix
+T 26 source.nix entity.other.attribute-name.single.nix
+T 27 source.nix punctuation.terminator.inherit.nix
+L               enableBig = false;
+T 14 source.nix
+T 23 source.nix entity.other.attribute-name.multipart.nix
+T 24 source.nix
+T 25 source.nix keyword.operator.bind.nix
+T 26 source.nix
+T 31 source.nix constant.language.nix
+T 32 source.nix punctuation.terminator.bind.nix
+L               enableLegacyIfd = true;
+T 14 source.nix
+T 29 source.nix entity.other.attribute-name.multipart.nix
+T 30 source.nix
+T 31 source.nix keyword.operator.bind.nix
+T 32 source.nix
+T 36 source.nix constant.language.nix
+T 37 source.nix punctuation.terminator.bind.nix
+L             };
+T 12 source.nix
+T 13 source.nix punctuation.definition.attrset.nix
+T 14 source.nix punctuation.terminator.bind.nix
+L           in
+T 10 source.nix
+T 12 source.nix keyword.other.nix
+L           {
+T 10 source.nix
+T 11 source.nix punctuation.definition.attrset-or-function.nix
+L             test-all-enableBig-false-enableLegacyIfd-true = tests.build.all;
+T 12 source.nix
+T 57 source.nix entity.other.attribute-name.multipart.nix
+T 58 source.nix
+T 59 source.nix keyword.operator.bind.nix
+T 60 source.nix
+T 65 source.nix variable.parameter.name.nix
+T 66 source.nix keyword.operator.nix
+T 71 source.nix variable.parameter.name.nix
+T 72 source.nix keyword.operator.nix
+T 75 source.nix variable.parameter.name.nix
+T 76 source.nix punctuation.terminator.bind.nix
+L           };
+T 10 source.nix
+T 11 source.nix punctuation.definition.attrset.nix
+T 12 source.nix punctuation.terminator.bind.nix
+L 
+L         integrationTestPackages =
+T 8 source.nix
+T 31 source.nix entity.other.attribute-name.multipart.nix
+T 32 source.nix
+T 33 source.nix keyword.operator.bind.nix
+L           system:
+T 10 source.nix
+T 16 source.nix variable.parameter.function.4.nix
+T 17 source.nix punctuation.definition.function.nix
+L           let
+T 10 source.nix
+T 13 source.nix keyword.other.nix
+L             pkgs = nixpkgs.legacyPackages.${system};
+T 12 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix keyword.operator.nix
+T 41 source.nix variable.parameter.name.nix
+T 42 source.nix keyword.operator.nix
+T 44 source.nix meta.embedded punctuation.section.embedded.begin.nix
+T 50 source.nix meta.embedded variable.parameter.name.nix
+T 51 source.nix meta.embedded punctuation.section.embedded.end.nix
+T 52 source.nix punctuation.terminator.bind.nix
+L             inherit (pkgs) lib;
+T 12 source.nix
+T 19 source.nix keyword.other.inherit.nix
+T 20 source.nix
+T 21 source.nix punctuation.section.function.arguments.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix punctuation.section.function.arguments.nix
+T 27 source.nix
+T 30 source.nix entity.other.attribute-name.single.nix
+T 31 source.nix punctuation.terminator.inherit.nix
+L             tests = import ./tests/integration { inherit pkgs lib; };
+T 12 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 26 source.nix support.function.nix
+T 27 source.nix
+T 46 source.nix string.unquoted.path.nix
+T 47 source.nix
+T 48 source.nix punctuation.definition.attrset.nix
+T 49 source.nix
+T 56 source.nix keyword.other.inherit.nix
+T 57 source.nix
+T 61 source.nix entity.other.attribute-name.single.nix
+T 62 source.nix
+T 65 source.nix entity.other.attribute-name.single.nix
+T 66 source.nix punctuation.terminator.inherit.nix
+T 67 source.nix
+T 68 source.nix punctuation.definition.attrset.nix
+T 69 source.nix punctuation.terminator.bind.nix
+L             renameTestPkg = n: lib.nameValuePair "integration-test-${n}";
+T 12 source.nix
+T 25 source.nix entity.other.attribute-name.multipart.nix
+T 26 source.nix
+T 27 source.nix keyword.operator.bind.nix
+T 28 source.nix
+T 29 source.nix variable.parameter.function.4.nix
+T 30 source.nix punctuation.definition.function.nix
+T 31 source.nix
+T 34 source.nix variable.parameter.name.nix
+T 35 source.nix keyword.operator.nix
+T 48 source.nix variable.parameter.name.nix
+T 49 source.nix
+T 50 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 67 source.nix string.quoted.double.nix
+T 69 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.begin.nix
+T 70 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 71 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.end.nix
+T 72 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 73 source.nix punctuation.terminator.bind.nix
+L           in
+T 10 source.nix
+T 12 source.nix keyword.other.nix
+L           lib.mapAttrs' renameTestPkg tests;
+T 10 source.nix
+T 13 source.nix variable.parameter.name.nix
+T 14 source.nix keyword.operator.nix
+T 23 source.nix variable.parameter.name.nix
+T 24 source.nix
+T 37 source.nix variable.parameter.name.nix
+T 38 source.nix
+T 43 source.nix variable.parameter.name.nix
+T 44 source.nix punctuation.terminator.bind.nix
+L       in
+T 6 source.nix
+T 8 source.nix keyword.other.nix
+L       {
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset-or-function.nix
+L         formatter = forSupportedPkgs (pkgs: pkgs.callPackage ./home-manager/formatter.nix { });
+T 8 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 36 source.nix variable.parameter.name.nix
+T 37 source.nix
+T 38 source.nix punctuation.definition.expression.nix
+T 42 source.nix variable.parameter.function.4.nix
+T 43 source.nix punctuation.definition.function.nix
+T 44 source.nix
+T 48 source.nix variable.parameter.name.nix
+T 49 source.nix keyword.operator.nix
+T 60 source.nix variable.parameter.name.nix
+T 61 source.nix
+T 89 source.nix string.unquoted.path.nix
+T 90 source.nix
+T 91 source.nix punctuation.definition.attrset.nix
+T 92 source.nix
+T 93 source.nix punctuation.definition.attrset.nix
+T 94 source.nix punctuation.definition.expression.nix
+T 95 source.nix punctuation.terminator.bind.nix
+L 
+L         # TODO: increase nixbot testing scope
+T 8 source.nix
+T 9 source.nix comment.line.number-sign.nix
+T 45 source.nix comment.line.number-sign.nix
+L         nixbot = forCI (
+T 8 source.nix
+T 14 source.nix entity.other.attribute-name.multipart.nix
+T 15 source.nix
+T 16 source.nix keyword.operator.bind.nix
+T 17 source.nix
+T 22 source.nix variable.parameter.name.nix
+T 23 source.nix
+T 24 source.nix punctuation.definition.expression.nix
+L           system:
+T 10 source.nix
+T 16 source.nix variable.parameter.function.4.nix
+T 17 source.nix punctuation.definition.function.nix
+L           let
+T 10 source.nix
+T 13 source.nix keyword.other.nix
+L             docs = docsFor nixpkgs.legacyPackages.${system};
+T 12 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix
+T 34 source.nix variable.parameter.name.nix
+T 35 source.nix keyword.operator.nix
+T 49 source.nix variable.parameter.name.nix
+T 50 source.nix keyword.operator.nix
+T 52 source.nix meta.embedded punctuation.section.embedded.begin.nix
+T 58 source.nix meta.embedded variable.parameter.name.nix
+T 59 source.nix meta.embedded punctuation.section.embedded.end.nix
+T 60 source.nix punctuation.terminator.bind.nix
+L             allIntegrationTests = integrationTests system;
+T 12 source.nix
+T 31 source.nix entity.other.attribute-name.multipart.nix
+T 32 source.nix
+T 33 source.nix keyword.operator.bind.nix
+T 34 source.nix
+T 50 source.nix variable.parameter.name.nix
+T 51 source.nix
+T 57 source.nix variable.parameter.name.nix
+T 58 source.nix punctuation.terminator.bind.nix
+L             workingIntegrationTests = nixpkgs.lib.filterAttrs (
+T 12 source.nix
+T 35 source.nix entity.other.attribute-name.multipart.nix
+T 36 source.nix
+T 37 source.nix keyword.operator.bind.nix
+T 38 source.nix
+T 45 source.nix variable.parameter.name.nix
+T 46 source.nix keyword.operator.nix
+T 49 source.nix variable.parameter.name.nix
+T 50 source.nix keyword.operator.nix
+T 61 source.nix variable.parameter.name.nix
+T 62 source.nix
+T 63 source.nix punctuation.definition.expression.nix
+L               name: _:
+T 14 source.nix
+T 18 source.nix variable.parameter.function.4.nix
+T 19 source.nix punctuation.definition.function.nix
+T 20 source.nix
+T 21 source.nix variable.parameter.function.4.nix
+T 22 source.nix punctuation.definition.function.nix
+L               nixpkgs.lib.elem name [
+T 14 source.nix
+T 21 source.nix variable.parameter.name.nix
+T 22 source.nix keyword.operator.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix keyword.operator.nix
+T 30 source.nix variable.parameter.name.nix
+T 31 source.nix
+T 35 source.nix variable.parameter.name.nix
+T 36 source.nix
+T 37 source.nix punctuation.definition.list.nix
+L                 "integration-nixos-basics"
+T 16 source.nix
+T 17 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 41 source.nix string.quoted.double.nix
+T 42 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+L                 "integration-nixos-legacy-profile-management"
+T 16 source.nix
+T 17 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 60 source.nix string.quoted.double.nix
+T 61 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+L               ]
+T 14 source.nix
+T 15 source.nix punctuation.definition.list.nix
+L             ) allIntegrationTests;
+T 12 source.nix
+T 13 source.nix punctuation.definition.expression.nix
+T 14 source.nix
+T 33 source.nix variable.parameter.name.nix
+T 34 source.nix punctuation.terminator.bind.nix
+L           in
+T 10 source.nix
+T 12 source.nix keyword.other.nix
+L           (testChunks system)
+T 10 source.nix
+T 11 source.nix punctuation.definition.expression.nix
+T 21 source.nix variable.parameter.name.nix
+T 22 source.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix punctuation.definition.expression.nix
+L           // workingIntegrationTests
+T 10 source.nix
+T 12 source.nix keyword.operator.nix
+T 13 source.nix
+T 36 source.nix variable.parameter.name.nix
+L           // {
+T 10 source.nix
+T 12 source.nix keyword.operator.nix
+T 13 source.nix
+T 14 source.nix punctuation.definition.attrset-or-function.nix
+L             docs-html = docs.manual.html;
+T 12 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+T 24 source.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix keyword.operator.nix
+T 35 source.nix variable.parameter.name.nix
+T 36 source.nix keyword.operator.nix
+T 40 source.nix variable.parameter.name.nix
+T 41 source.nix punctuation.terminator.bind.nix
+L             docs-json = docs.options.json;
+T 12 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+T 24 source.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix keyword.operator.nix
+T 36 source.nix variable.parameter.name.nix
+T 37 source.nix keyword.operator.nix
+T 41 source.nix variable.parameter.name.nix
+T 42 source.nix punctuation.terminator.bind.nix
+L             docs-jsonModuleMaintainers = docs.jsonModuleMaintainers;
+T 12 source.nix
+T 38 source.nix entity.other.attribute-name.multipart.nix
+T 39 source.nix
+T 40 source.nix keyword.operator.bind.nix
+T 41 source.nix
+T 45 source.nix variable.parameter.name.nix
+T 46 source.nix keyword.operator.nix
+T 67 source.nix variable.parameter.name.nix
+T 68 source.nix punctuation.terminator.bind.nix
+L             docs-manpages = docs.manPages;
+T 12 source.nix
+T 25 source.nix entity.other.attribute-name.multipart.nix
+T 26 source.nix
+T 27 source.nix keyword.operator.bind.nix
+T 28 source.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix keyword.operator.nix
+T 41 source.nix variable.parameter.name.nix
+T 42 source.nix punctuation.terminator.bind.nix
+L           }
+T 10 source.nix
+T 11 source.nix punctuation.definition.attrset.nix
+L         );
+T 8 source.nix
+T 9 source.nix punctuation.definition.expression.nix
+T 10 source.nix punctuation.terminator.bind.nix
+L 
+L         # Alias for nixbot, added 2026-07-30
+T 8 source.nix
+T 9 source.nix comment.line.number-sign.nix
+T 44 source.nix comment.line.number-sign.nix
+L         buildbot = forCI (
+T 8 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix
+T 26 source.nix punctuation.definition.expression.nix
+L           system:
+T 10 source.nix
+T 16 source.nix variable.parameter.function.4.nix
+T 17 source.nix punctuation.definition.function.nix
+L           warn "Home Manager: `buildbot.${system}` has been renamed to `nixbot.${system}`."
+T 10 source.nix
+T 14 source.nix variable.parameter.name.nix
+T 15 source.nix
+T 16 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 40 source.nix string.quoted.double.nix
+T 42 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.begin.nix
+T 48 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 49 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.end.nix
+T 79 source.nix string.quoted.double.nix
+T 81 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.begin.nix
+T 87 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 88 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.end.nix
+T 90 source.nix string.quoted.double.nix
+T 91 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+L             self.nixbot.${system}
+T 12 source.nix
+T 16 source.nix variable.parameter.name.nix
+T 17 source.nix keyword.operator.nix
+T 23 source.nix variable.parameter.name.nix
+T 24 source.nix keyword.operator.nix
+T 26 source.nix meta.embedded punctuation.section.embedded.begin.nix
+T 32 source.nix meta.embedded variable.parameter.name.nix
+T 33 source.nix meta.embedded punctuation.section.embedded.end.nix
+L         );
+T 8 source.nix
+T 9 source.nix punctuation.definition.expression.nix
+T 10 source.nix punctuation.terminator.bind.nix
+L 
+L         packages = forAllPkgs (
+T 8 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix
+T 31 source.nix punctuation.definition.expression.nix
+L           pkgs:
+T 10 source.nix
+T 14 source.nix variable.parameter.function.4.nix
+T 15 source.nix punctuation.definition.function.nix
+L           let
+T 10 source.nix
+T 13 source.nix keyword.other.nix
+L             docs = docsFor pkgs;
+T 12 source.nix
+T 16 source.nix entity.other.attribute-name.multipart.nix
+T 17 source.nix
+T 18 source.nix keyword.operator.bind.nix
+T 19 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix
+T 31 source.nix variable.parameter.name.nix
+T 32 source.nix punctuation.terminator.bind.nix
+L             hmPkg = pkgs.callPackage ./home-manager { path = "${self}"; };
+T 12 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix keyword.operator.nix
+T 36 source.nix variable.parameter.name.nix
+T 37 source.nix
+T 51 source.nix string.unquoted.path.nix
+T 52 source.nix
+T 53 source.nix punctuation.definition.attrset.nix
+T 54 source.nix
+T 58 source.nix entity.other.attribute-name.multipart.nix
+T 59 source.nix
+T 60 source.nix keyword.operator.bind.nix
+T 61 source.nix
+T 62 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 64 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.begin.nix
+T 68 source.nix string.quoted.double.nix meta.embedded variable.parameter.name.nix
+T 69 source.nix string.quoted.double.nix meta.embedded punctuation.section.embedded.end.nix
+T 70 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 71 source.nix punctuation.terminator.bind.nix
+T 72 source.nix
+T 73 source.nix punctuation.definition.attrset.nix
+T 74 source.nix punctuation.terminator.bind.nix
+L           in
+T 10 source.nix
+T 12 source.nix keyword.other.nix
+L           {
+T 10 source.nix
+T 11 source.nix punctuation.definition.attrset-or-function.nix
+L             default = hmPkg;
+T 12 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 27 source.nix variable.parameter.name.nix
+T 28 source.nix punctuation.terminator.bind.nix
+L             home-manager = hmPkg;
+T 12 source.nix
+T 24 source.nix entity.other.attribute-name.multipart.nix
+T 25 source.nix
+T 26 source.nix keyword.operator.bind.nix
+T 27 source.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix punctuation.terminator.bind.nix
+L           }
+T 10 source.nix
+T 11 source.nix punctuation.definition.attrset.nix
+L           // nixpkgs.lib.optionalAttrs (nixpkgs.lib.elem pkgs.stdenv.hostPlatform.system supportedSystems) {
+T 10 source.nix
+T 12 source.nix keyword.operator.nix
+T 13 source.nix
+T 20 source.nix variable.parameter.name.nix
+T 21 source.nix keyword.operator.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix keyword.operator.nix
+T 38 source.nix variable.parameter.name.nix
+T 39 source.nix
+T 40 source.nix punctuation.definition.expression.nix
+T 47 source.nix variable.parameter.name.nix
+T 48 source.nix keyword.operator.nix
+T 51 source.nix variable.parameter.name.nix
+T 52 source.nix keyword.operator.nix
+T 56 source.nix variable.parameter.name.nix
+T 57 source.nix
+T 61 source.nix variable.parameter.name.nix
+T 62 source.nix keyword.operator.nix
+T 68 source.nix variable.parameter.name.nix
+T 69 source.nix keyword.operator.nix
+T 81 source.nix variable.parameter.name.nix
+T 82 source.nix keyword.operator.nix
+T 88 source.nix variable.parameter.name.nix
+T 89 source.nix
+T 105 source.nix variable.parameter.name.nix
+T 106 source.nix punctuation.definition.expression.nix
+T 107 source.nix
+T 108 source.nix punctuation.definition.attrset-or-function.nix
+L 
+L             ci-parse = pkgs.callPackage ./ci/parse.nix { nix = pkgs.nixVersions.latest; };
+T 12 source.nix
+T 20 source.nix entity.other.attribute-name.multipart.nix
+T 21 source.nix
+T 22 source.nix keyword.operator.bind.nix
+T 23 source.nix
+T 27 source.nix variable.parameter.name.nix
+T 28 source.nix keyword.operator.nix
+T 39 source.nix variable.parameter.name.nix
+T 40 source.nix
+T 54 source.nix string.unquoted.path.nix
+T 55 source.nix
+T 56 source.nix punctuation.definition.attrset.nix
+T 57 source.nix
+T 60 source.nix entity.other.attribute-name.multipart.nix
+T 61 source.nix
+T 62 source.nix keyword.operator.bind.nix
+T 63 source.nix
+T 67 source.nix variable.parameter.name.nix
+T 68 source.nix keyword.operator.nix
+T 79 source.nix variable.parameter.name.nix
+T 80 source.nix keyword.operator.nix
+T 86 source.nix variable.parameter.name.nix
+T 87 source.nix punctuation.terminator.bind.nix
+T 88 source.nix
+T 89 source.nix punctuation.definition.attrset.nix
+T 90 source.nix punctuation.terminator.bind.nix
+L             ci-parse-lix = pkgs.callPackage ./ci/parse.nix {
+T 12 source.nix
+T 24 source.nix entity.other.attribute-name.multipart.nix
+T 25 source.nix
+T 26 source.nix keyword.operator.bind.nix
+T 27 source.nix
+T 31 source.nix variable.parameter.name.nix
+T 32 source.nix keyword.operator.nix
+T 43 source.nix variable.parameter.name.nix
+T 44 source.nix
+T 58 source.nix string.unquoted.path.nix
+T 59 source.nix
+T 60 source.nix punctuation.definition.attrset-or-function.nix
+L               nix = pkgs.lixPackageSets.latest.lix;
+T 14 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix keyword.operator.nix
+T 39 source.nix variable.parameter.name.nix
+T 40 source.nix keyword.operator.nix
+T 46 source.nix variable.parameter.name.nix
+T 47 source.nix keyword.operator.nix
+T 50 source.nix variable.parameter.name.nix
+T 51 source.nix punctuation.terminator.bind.nix
+L             };
+T 12 source.nix
+T 13 source.nix punctuation.definition.attrset.nix
+T 14 source.nix punctuation.terminator.bind.nix
+L 
+L             create-news-entry = pkgs.writeShellScriptBin "create-news-entry" ''
+T 12 source.nix
+T 29 source.nix entity.other.attribute-name.multipart.nix
+T 30 source.nix
+T 31 source.nix keyword.operator.bind.nix
+T 32 source.nix
+T 36 source.nix variable.parameter.name.nix
+T 37 source.nix keyword.operator.nix
+T 56 source.nix variable.parameter.name.nix
+T 57 source.nix
+T 58 source.nix string.quoted.double.nix punctuation.definition.string.double.start.nix
+T 75 source.nix string.quoted.double.nix
+T 76 source.nix string.quoted.double.nix punctuation.definition.string.double.end.nix
+T 77 source.nix
+T 79 source.nix string.quoted.other.nix punctuation.definition.string.other.start.nix
+L               ./modules/misc/news/create-news-entry.sh
+T 54 source.nix string.quoted.other.nix
+L             '';
+T 12 source.nix string.quoted.other.nix
+T 14 source.nix string.quoted.other.nix punctuation.definition.string.other.end.nix
+T 15 source.nix punctuation.terminator.bind.nix
+L 
+L             tests = pkgs.callPackage ./tests/package.nix {
+T 12 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix keyword.operator.nix
+T 36 source.nix variable.parameter.name.nix
+T 37 source.nix
+T 56 source.nix string.unquoted.path.nix
+T 57 source.nix
+T 58 source.nix punctuation.definition.attrset-or-function.nix
+L               flake = self;
+T 14 source.nix
+T 19 source.nix entity.other.attribute-name.multipart.nix
+T 20 source.nix
+T 21 source.nix keyword.operator.bind.nix
+T 22 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix punctuation.terminator.bind.nix
+L               inputOverrides = {
+T 14 source.nix
+T 28 source.nix entity.other.attribute-name.multipart.nix
+T 29 source.nix
+T 30 source.nix keyword.operator.bind.nix
+T 31 source.nix
+T 32 source.nix punctuation.definition.attrset-or-function.nix
+L                 inherit nixpkgs;
+T 16 source.nix
+T 23 source.nix keyword.other.inherit.nix
+T 24 source.nix
+T 31 source.nix entity.other.attribute-name.single.nix
+T 32 source.nix punctuation.terminator.inherit.nix
+L               };
+T 14 source.nix
+T 15 source.nix punctuation.definition.attrset.nix
+T 16 source.nix punctuation.terminator.bind.nix
+L             };
+T 12 source.nix
+T 13 source.nix punctuation.definition.attrset.nix
+T 14 source.nix punctuation.terminator.bind.nix
+L 
+L             docs-html = docs.manual.html;
+T 12 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+T 24 source.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix keyword.operator.nix
+T 35 source.nix variable.parameter.name.nix
+T 36 source.nix keyword.operator.nix
+T 40 source.nix variable.parameter.name.nix
+T 41 source.nix punctuation.terminator.bind.nix
+L             docs-htmlOpenTool = docs.manual.htmlOpenTool;
+T 12 source.nix
+T 29 source.nix entity.other.attribute-name.multipart.nix
+T 30 source.nix
+T 31 source.nix keyword.operator.bind.nix
+T 32 source.nix
+T 36 source.nix variable.parameter.name.nix
+T 37 source.nix keyword.operator.nix
+T 43 source.nix variable.parameter.name.nix
+T 44 source.nix keyword.operator.nix
+T 56 source.nix variable.parameter.name.nix
+T 57 source.nix punctuation.terminator.bind.nix
+L             docs-json = docs.options.json;
+T 12 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+T 24 source.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix keyword.operator.nix
+T 36 source.nix variable.parameter.name.nix
+T 37 source.nix keyword.operator.nix
+T 41 source.nix variable.parameter.name.nix
+T 42 source.nix punctuation.terminator.bind.nix
+L             docs-jsonModuleMaintainers = docs.jsonModuleMaintainers;
+T 12 source.nix
+T 38 source.nix entity.other.attribute-name.multipart.nix
+T 39 source.nix
+T 40 source.nix keyword.operator.bind.nix
+T 41 source.nix
+T 45 source.nix variable.parameter.name.nix
+T 46 source.nix keyword.operator.nix
+T 67 source.nix variable.parameter.name.nix
+T 68 source.nix punctuation.terminator.bind.nix
+L             docs-manpages = docs.manPages;
+T 12 source.nix
+T 25 source.nix entity.other.attribute-name.multipart.nix
+T 26 source.nix
+T 27 source.nix keyword.operator.bind.nix
+T 28 source.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix keyword.operator.nix
+T 41 source.nix variable.parameter.name.nix
+T 42 source.nix punctuation.terminator.bind.nix
+L           }
+T 10 source.nix
+T 11 source.nix punctuation.definition.attrset.nix
+L         );
+T 8 source.nix
+T 9 source.nix punctuation.definition.expression.nix
+T 10 source.nix punctuation.terminator.bind.nix
+L 
+L         devShells = forSupportedPkgs (pkgs: {
+T 8 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 36 source.nix variable.parameter.name.nix
+T 37 source.nix
+T 38 source.nix punctuation.definition.expression.nix
+T 42 source.nix variable.parameter.function.4.nix
+T 43 source.nix punctuation.definition.function.nix
+T 44 source.nix
+T 45 source.nix punctuation.definition.attrset-or-function.nix
+L           default = pkgs.callPackage ./home-manager/devShell.nix { };
+T 10 source.nix
+T 17 source.nix entity.other.attribute-name.multipart.nix
+T 18 source.nix
+T 19 source.nix keyword.operator.bind.nix
+T 20 source.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix keyword.operator.nix
+T 36 source.nix variable.parameter.name.nix
+T 37 source.nix
+T 64 source.nix string.unquoted.path.nix
+T 65 source.nix
+T 66 source.nix punctuation.definition.attrset.nix
+T 67 source.nix
+T 68 source.nix punctuation.definition.attrset.nix
+T 69 source.nix punctuation.terminator.bind.nix
+L         });
+T 8 source.nix
+T 9 source.nix punctuation.definition.attrset.nix
+T 10 source.nix punctuation.definition.expression.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L 
+L         legacyPackages = forSupportedPkgs (
+T 8 source.nix
+T 22 source.nix entity.other.attribute-name.multipart.nix
+T 23 source.nix
+T 24 source.nix keyword.operator.bind.nix
+T 25 source.nix
+T 41 source.nix variable.parameter.name.nix
+T 42 source.nix
+T 43 source.nix punctuation.definition.expression.nix
+L           pkgs:
+T 10 source.nix
+T 14 source.nix variable.parameter.function.4.nix
+T 15 source.nix punctuation.definition.function.nix
+L           let
+T 10 source.nix
+T 13 source.nix keyword.other.nix
+L             inherit (pkgs.stdenv.hostPlatform) system;
+T 12 source.nix
+T 19 source.nix keyword.other.inherit.nix
+T 20 source.nix
+T 21 source.nix punctuation.section.function.arguments.nix
+T 25 source.nix variable.parameter.name.nix
+T 26 source.nix keyword.operator.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix keyword.operator.nix
+T 45 source.nix variable.parameter.name.nix
+T 46 source.nix punctuation.section.function.arguments.nix
+T 47 source.nix
+T 53 source.nix entity.other.attribute-name.single.nix
+T 54 source.nix punctuation.terminator.inherit.nix
+L           in
+T 10 source.nix
+T 12 source.nix keyword.other.nix
+L           (buildTests system)
+T 10 source.nix
+T 11 source.nix punctuation.definition.expression.nix
+T 21 source.nix variable.parameter.name.nix
+T 22 source.nix
+T 28 source.nix variable.parameter.name.nix
+T 29 source.nix punctuation.definition.expression.nix
+L           // (integrationTestPackages system)
+T 10 source.nix
+T 12 source.nix keyword.operator.nix
+T 13 source.nix
+T 14 source.nix punctuation.definition.expression.nix
+T 37 source.nix variable.parameter.name.nix
+T 38 source.nix
+T 44 source.nix variable.parameter.name.nix
+T 45 source.nix punctuation.definition.expression.nix
+L           // (buildTestsNoBig system)
+T 10 source.nix
+T 12 source.nix keyword.operator.nix
+T 13 source.nix
+T 14 source.nix punctuation.definition.expression.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix
+T 36 source.nix variable.parameter.name.nix
+T 37 source.nix punctuation.definition.expression.nix
+L           // (buildTestsNoBigIfd system)
+T 10 source.nix
+T 12 source.nix keyword.operator.nix
+T 13 source.nix
+T 14 source.nix punctuation.definition.expression.nix
+T 32 source.nix variable.parameter.name.nix
+T 33 source.nix
+T 39 source.nix variable.parameter.name.nix
+T 40 source.nix punctuation.definition.expression.nix
+L           // (testChunks system)
+T 10 source.nix
+T 12 source.nix keyword.operator.nix
+T 13 source.nix
+T 14 source.nix punctuation.definition.expression.nix
+T 24 source.nix variable.parameter.name.nix
+T 25 source.nix
+T 31 source.nix variable.parameter.name.nix
+T 32 source.nix punctuation.definition.expression.nix
+L           // (integrationTests system)
+T 10 source.nix
+T 12 source.nix keyword.operator.nix
+T 13 source.nix
+T 14 source.nix punctuation.definition.expression.nix
+T 30 source.nix variable.parameter.name.nix
+T 31 source.nix
+T 37 source.nix variable.parameter.name.nix
+T 38 source.nix punctuation.definition.expression.nix
+L         );
+T 8 source.nix
+T 9 source.nix punctuation.definition.expression.nix
+T 10 source.nix punctuation.terminator.bind.nix
+L       }
+T 6 source.nix
+T 7 source.nix punctuation.definition.attrset.nix
+L     );
+T 4 source.nix
+T 5 source.nix punctuation.definition.expression.nix
+T 6 source.nix punctuation.terminator.bind.nix
+L }
+T 1 source.nix punctuation.definition.attrset.nix
+L 

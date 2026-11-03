@@ -101,6 +101,8 @@ mod lua;
 mod make;
 #[cfg(feature = "lang-markdown")]
 mod markdown;
+#[cfg(feature = "lang-nix")]
+mod nix;
 #[cfg(feature = "lang-powershell")]
 mod powershell;
 #[cfg(feature = "lang-proto")]
