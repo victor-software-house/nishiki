@@ -1,6 +1,7 @@
-//! The tables of Shiki 4.6.0's `markdown+*` grammar, made by
-//! `oracle/engine-tables.ts`. Do not edit: regenerate with `bun
-//! oracle/engine-tables.ts`.
+//! The tables of Shiki 4.6.0's
+//! `markdown+typescript+tsx+javascript+shellscript+python+rust+yaml+json+jsonc+jsonl+make`
+//! grammar, made by `oracle/engine-tables.ts`. Do not edit: regenerate with
+//! `bun oracle/engine-tables.ts`.
 
 use crate::textmate::grammar::{Cap, Grammar, Injection, List, PatternSlot, Rule, RuleKind};
 
