@@ -17,7 +17,7 @@ fn selector_stop(b: u8) -> bool {
 impl Lexer<'_> {
     /// The lookahead `(?=$|[#\&)+,.:>\[{|~\s]|/\*)` at `p`.
     fn selector_stop_ahead(&self, p: usize) -> bool {
-        self.at_end(p)
+        self.at_eol(p)
             || self.s.get(p).is_some_and(|&b| selector_stop(b))
             || self.space_at(p) > 0
             || self.starts(p, b"/*")
@@ -323,7 +323,7 @@ impl Lexer<'_> {
         }
         let after = self.spaces(flag + 1);
         let ahead = |at: usize| {
-            self.at(at) == b']' && at < self.lim() || self.starts(at, b"/*") || self.at_end(at)
+            self.at(at) == b']' && at < self.lim() || self.starts(at, b"/*") || self.at_eol(at)
         };
         let end = if ahead(after) {
             after

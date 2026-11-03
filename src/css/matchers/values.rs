@@ -48,7 +48,7 @@ impl Lexer<'_> {
             b'*' | b'/' => Some(p + 1),
             b'-' | b'+' => {
                 let behind = p == 0 || self.space_before(p);
-                let ahead = self.space_at(p + 1) > 0 || self.at_end(p + 1);
+                let ahead = self.space_at(p + 1) > 0 || self.at_eol(p + 1);
                 (behind && ahead).then_some(p + 1)
             }
             _ => None,
@@ -104,7 +104,7 @@ impl Lexer<'_> {
         let ahead = matches!(self.s.get(end), Some(b'"' | b'\'' | b')' | b','))
             || self.space_at(end) > 0
             || self.starts(end, b"/*")
-            || self.at_end(end);
+            || self.at_eol(end);
         ahead.then_some(end)
     }
 
@@ -138,7 +138,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.lit_ci(p, "at").or_else(|| self.lit_ci(p, "round"))?;
-        let ahead = self.space_at(end) > 0 || self.starts(end, b"/*") || self.at_end(end);
+        let ahead = self.space_at(end) > 0 || self.starts(end, b"/*") || self.at_eol(end);
         ahead.then(|| {
             self.cap(1, p, end);
             end
@@ -157,7 +157,7 @@ impl Lexer<'_> {
         }
         let end = self.lit_ci(p, "start").or_else(|| self.lit_ci(p, "end"))?;
         let after = self.spaces(end);
-        let ahead = (self.at(after) == b')' && after < self.lim()) || self.at_end(end);
+        let ahead = (self.at(after) == b')' && after < self.lim()) || self.at_eol(end);
         ahead.then(|| {
             self.cap(1, p, end);
             end
@@ -414,7 +414,7 @@ impl Lexer<'_> {
             .s
             .get(p)
             .is_some_and(|&b| b.is_ascii_alphabetic() || b == b'-');
-        (self.at_end(p) || !letter).then_some(p)
+        (self.at_eol(p) || !letter).then_some(p)
     }
 
     /// `(:)\s*`
@@ -557,7 +557,7 @@ impl Lexer<'_> {
         let ahead = self.space_at(p) > 0
             || self.starts(p, b"/*")
             || matches!(self.s.get(p), Some(b',' | b'{'))
-            || self.at_end(p);
+            || self.at_eol(p);
         ahead.then_some(p)
     }
 }

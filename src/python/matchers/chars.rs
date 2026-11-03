@@ -38,6 +38,7 @@ impl Lexer<'_> {
     /// The end of the word at `i` when `\b` holds before it and the word is
     /// one of `list`, a sorted list of words.
     pub(in crate::python) fn word_in(&self, i: usize, list: &[&[u8]]) -> Option<usize> {
+        debug_assert!(list.is_sorted(), "word list not sorted: {list:?}");
         if !self.boundary(i) {
             return None;
         }

@@ -118,7 +118,7 @@ impl Lexer<'_> {
             }
             Pat::Backticks => (self.at(p) == b'`').then_some(p + 1),
             Pat::BackticksEnd => self.backtick_end(p),
-            Pat::IllegalAnno => self.starts(p, b"->").then_some(p + 2),
+            Pat::IllegalAnno => self.lit(p, b"->"),
             Pat::LiteralAt0 => self.word_in(
                 p,
                 &[b"Ellipsis", b"False", b"None", b"NotImplemented", b"True"],
@@ -196,7 +196,7 @@ impl Lexer<'_> {
             }
             Pat::FunctionArgumentsAt7 => self.close_open(p),
             Pat::IllegalObjectName => self.word_in(p, &[b"False", b"None", b"True"]),
-            Pat::Ellipsis => self.starts(p, b"...").then_some(p + 3),
+            Pat::Ellipsis => self.lit(p, b"..."),
             Pat::LineContinuationAt0 => self.continuation_junk(p),
             Pat::LineContinuationAt1 => self.continuation_begin(p),
             Pat::LineContinuationAt1End => self.continuation_end(p),
@@ -332,11 +332,9 @@ impl Lexer<'_> {
 
     /// A keyword with `\b` on both sides, as `\bfor\b`.
     fn keyword_zero(&mut self, p: usize, word: &[u8]) -> Option<usize> {
-        if !self.boundary(p) || !self.starts(p, word) || !self.boundary(p + word.len()) {
-            return None;
-        }
-        self.cap(0, p, p + word.len());
-        Some(p + word.len())
+        let end = self.keyword(p, word)?;
+        self.cap(0, p, end);
+        Some(end)
     }
 
     /// The begin `#\s*(type:)\s*+(?!$|#)`.
@@ -376,7 +374,7 @@ impl Lexer<'_> {
         ) {
             return Some(p + 1);
         }
-        self.starts(p, b"->").then_some(p + 2)
+        self.lit(p, b"->")
     }
 
     /// The end `` `|(?<!\\)(\n) ``.
@@ -669,6 +667,7 @@ impl Lexer<'_> {
         }
         let end = self.word_end(p);
         let word = self.text(p, end);
+        debug_assert!(FLOW_KEYWORDS.is_sorted(), "FLOW_KEYWORDS not sorted");
         if FLOW_KEYWORDS.binary_search(&word).is_ok() {
             self.cap(1, p, end);
             return Some(end);

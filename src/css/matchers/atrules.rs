@@ -10,7 +10,7 @@ impl Lexer<'_> {
     fn at_follows(&self, p: usize, set: &[u8]) -> bool {
         self.space_at(p) > 0
             || self.starts(p, b"/*")
-            || self.at_end(p)
+            || self.at_eol(p)
             || (p < self.lim() && set.contains(&self.s[p]))
     }
 
@@ -81,7 +81,7 @@ impl Lexer<'_> {
 
     /// `;|(?=$)`
     pub(in crate::css) fn at_rules_at0_end(&mut self, p: usize) -> Option<usize> {
-        self.lit(p, b";").or_else(|| self.at_end(p).then_some(p))
+        self.lit(p, b";").or_else(|| self.at_eol(p).then_some(p))
     }
 
     /// The seven ways a `@charset` goes wrong.
@@ -176,7 +176,7 @@ impl Lexer<'_> {
 
     /// `"|$`
     pub(in crate::css) fn at_rules_at0_at2_end(&mut self, p: usize) -> Option<usize> {
-        self.lit(p, b"\"").or_else(|| self.at_end(p).then_some(p))
+        self.lit(p, b"\"").or_else(|| self.at_eol(p).then_some(p))
     }
 
     /// `(?:\G|^)(?=[^"]+$)`

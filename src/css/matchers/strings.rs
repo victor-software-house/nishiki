@@ -16,14 +16,7 @@ impl Lexer<'_> {
 
     /// `\\\h{1,6}`
     pub(in crate::css) fn escapes_at0(&mut self, p: usize) -> Option<usize> {
-        if self.s.get(p) != Some(&b'\\') {
-            return None;
-        }
-        let mut end = p + 1;
-        while end < self.lim() && end < p + 7 && self.s[end].is_ascii_hexdigit() {
-            end += 1;
-        }
-        (end > p + 1).then_some(end)
+        self.hex_escape_end(p)
     }
 
     /// `\\$\s*`: a backslash that ends the line, and the line feed.
@@ -100,7 +93,7 @@ impl Lexer<'_> {
 
     /// `$`
     pub(in crate::css) fn string_at0_at0_end(&mut self, p: usize) -> Option<usize> {
-        self.at_end(p).then_some(p)
+        self.at_eol(p).then_some(p)
     }
 
     /// `'`

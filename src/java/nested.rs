@@ -97,10 +97,9 @@ impl Lexer<'_> {
             .position(|b| b.is_ascii_alphabetic() || matches!(b, b'$' | b'_'))
         {
             let start = body + offset;
-            let mut end = start;
-            while self.s[end].is_ascii_alphanumeric() || matches!(self.s[end], b'$' | b'_') {
-                end += 1;
-            }
+            let end = self.skip(start, |b| {
+                b.is_ascii_alphanumeric() || matches!(b, b'$' | b'_')
+            });
             self.emit(start, base);
             let node = self.path(base, &[S::StorTypeGeneric]);
             self.emit(end, node);

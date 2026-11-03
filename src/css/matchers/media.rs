@@ -75,7 +75,7 @@ impl Lexer<'_> {
     fn ahead_blank_or_comment(&self, p: usize, extra: &[u8]) -> bool {
         self.space_at(p) > 0
             || self.starts(p, b"/*")
-            || self.at_end(p)
+            || self.at_eol(p)
             || self.s.get(p).is_some_and(|b| extra.contains(b))
     }
 
@@ -277,7 +277,7 @@ impl Lexer<'_> {
         }
         let (group, end) = self.media_feature(p)?;
         let ahead = self.space_at(end) > 0
-            || self.at_end(end)
+            || self.at_eol(end)
             || matches!(self.s.get(end), Some(b')' | b':' | b'<' | b'=' | b'>'))
             || self.starts(end, b"/*");
         ahead.then(|| {
@@ -293,7 +293,7 @@ impl Lexer<'_> {
         }
         let end = self.wordish_run(p);
         let ahead =
-            self.at(end) == b')' && end < self.lim() || self.space_at(end) > 0 || self.at_end(end);
+            self.at(end) == b')' && end < self.lim() || self.space_at(end) > 0 || self.at_eol(end);
         (end > p && self.in_list(p, end, FEATURE_KEYWORDS) && ahead).then_some(end)
     }
 

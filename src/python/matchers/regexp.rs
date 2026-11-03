@@ -155,14 +155,14 @@ impl Lexer<'_> {
             Re::CharacterSetAt1 => self.set_begin(p),
             Re::CharacterSetAt1End => self.regexp_close(p, flavour, b']'),
             Re::CharacterSetAt1At1 => (p < self.lim()).then(|| self.char_end(p)),
-            Re::Comments => self.starts(p, b"(?#").then_some(p + 3),
+            Re::Comments => self.lit(p, b"(?#"),
             Re::NamedGroup => self.named_group(p),
             Re::Lookahead => self.group_open(p, b"(?="),
             Re::LookaheadNegative => self.group_open(p, b"(?!"),
             Re::Lookbehind => self.group_open(p, b"(?<="),
             Re::LookbehindNegative => self.group_open(p, b"(?<!"),
             Re::Conditional => self.conditional(p),
-            Re::ParenthesesNonCapturing => self.starts(p, b"(?:").then_some(p + 3),
+            Re::ParenthesesNonCapturing => self.lit(p, b"(?:"),
             Re::Parentheses => (self.at(p) == b'(' && p < self.lim()).then_some(p + 1),
             Re::CommentsEnd
             | Re::NamedGroupEnd

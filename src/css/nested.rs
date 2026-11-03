@@ -25,10 +25,7 @@ impl Lexer<'_> {
                 i = self.char_end(i);
                 continue;
             }
-            let digits = self
-                .skip(i + 1, |b| b.is_ascii_hexdigit())
-                .min(i + 7)
-                .min(to);
+            let digits = self.hex_escape_end(i).map_or(i + 1, |end| end.min(to));
             let (end, scope) = if digits > i + 1 {
                 (digits, S::ConstCharacterEscapeCodepoint)
             } else if i + 1 >= to {

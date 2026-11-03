@@ -124,19 +124,25 @@ impl Lexer<'_> {
         (b.is_ascii_alphanumeric() || b == b'-' || b == b'_' || b >= 0x80).then(|| self.char_end(p))
     }
 
+    /// The end of `\\\h{1,6}` at `p`: a backslash and up to six hex digits.
+    pub(in crate::css) fn hex_escape_end(&self, p: usize) -> Option<usize> {
+        if self.s.get(p) != Some(&b'\\') {
+            return None;
+        }
+        let mut end = p + 1;
+        while end < self.lim() && end < p + 7 && self.s[end].is_ascii_hexdigit() {
+            end += 1;
+        }
+        (end > p + 1).then_some(end)
+    }
+
     /// The end of `\\(?:\h{1,6}|.)` at `p`.
     pub(in crate::css) fn escape_end(&self, p: usize) -> Option<usize> {
         if self.s.get(p) != Some(&b'\\') {
             return None;
         }
-        let mut i = p + 1;
-        while i < self.lim() && i < p + 7 && self.s[i].is_ascii_hexdigit() {
-            i += 1;
-        }
-        if i > p + 1 {
-            return Some(i);
-        }
-        (i < self.lim()).then(|| self.char_end(i))
+        self.hex_escape_end(p)
+            .or_else(|| (p + 1 < self.lim()).then(|| self.char_end(p + 1)))
     }
 
     /// The end of the run of `(?:[-0-9A-Z_a-z[^\x00-\x7F]]|\\(?:\h{1,6}|.))`
@@ -195,6 +201,7 @@ impl Lexer<'_> {
     /// Whether the text `from..to`, folded to lower case, is one of `words`,
     /// which are lower case and sorted.
     pub(in crate::css) fn in_list(&self, from: usize, to: usize, words: &[&str]) -> bool {
+        debug_assert!(words.is_sorted(), "word list not sorted: {words:?}");
         let mut buf = [0; LONGEST];
         self.fold(from, to, &mut buf).is_some_and(|n| {
             words
@@ -249,10 +256,5 @@ impl Lexer<'_> {
                 .char_at(p)
                 .and_then(|(c, end)| classes::is_digit(c).then_some(end)),
         }
-    }
-
-    /// Whether `$` matches at `p`: before the line feed or at the end.
-    pub(in crate::css) fn at_end(&self, p: usize) -> bool {
-        self.at_eol(p)
     }
 }
