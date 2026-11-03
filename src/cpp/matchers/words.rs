@@ -2,6 +2,7 @@
 
 use super::super::engine::Lexer;
 use super::chars::{is_digit, is_space};
+use crate::rules::Chars;
 
 /// The prefixes of a raw string, as the expressions spell them.
 #[derive(Clone, Copy)]
@@ -15,21 +16,7 @@ enum RawPrefix {
 impl Lexer<'_> {
     /// `(?<!\w)word(?!\w)`: where the word ends.
     pub(super) fn word_lit(&self, p: usize, word: &[u8]) -> Option<usize> {
-        self.kw_in(p, &[word])
-    }
-
-    /// `(?<!\w)(?:a|b|…)(?!\w)`: where the first of the words that fits
-    /// ends.
-    ///
-    /// A word that no word character follows is the whole run of word
-    /// characters at `p`.
-    pub(super) fn kw_in(&self, p: usize, words: &[&[u8]]) -> Option<usize> {
-        if self.word_before(p) {
-            return None;
-        }
-        let end = self.skip_word(p);
-        let run = self.text(p, end);
-        words.contains(&run).then_some(end)
+        self.word_in(p, &[word])
     }
 
     /// `(?<!\w)word(?!\w)` as capture group 1.

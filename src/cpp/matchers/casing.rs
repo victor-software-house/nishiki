@@ -2,6 +2,7 @@
 
 use super::super::engine::Lexer;
 use super::super::few::Few;
+use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// The end of the run from `p` of bytes that `class` takes.

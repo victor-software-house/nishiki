@@ -7,6 +7,7 @@ use super::super::engine::Lexer;
 use super::directives::Reference;
 use super::gaps::{Gap, GapForm};
 use super::qualified::{Layout, TypeMatch};
+use crate::rules::Chars;
 
 /// The storage words a head may begin with.
 pub(super) const STORAGE: &[&[u8]] = &[
@@ -121,7 +122,7 @@ impl Lexer<'_> {
         if !(first.is_ascii_alphabetic() || first == b'_') {
             return false;
         }
-        let end = self.skip_word(lead);
+        let end = self.word_end(lead);
         if self.starts(lead, b"__") || self.starts(lead, b"alignas") {
             return true;
         }
@@ -146,7 +147,7 @@ impl Lexer<'_> {
     ) -> Option<R> {
         let _depth = self.deeper()?;
         for gap in self.gaps(p) {
-            let Some(word) = self.kw_in(gap.end, STORAGE) else {
+            let Some(word) = self.word_in(gap.end, STORAGE) else {
                 continue;
             };
             let spaces = self.skip_space(word);

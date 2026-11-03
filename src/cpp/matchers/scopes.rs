@@ -5,6 +5,7 @@ use super::super::engine::Lexer;
 use super::super::few::Few;
 use super::gaps::GapForm;
 use crate::cpp::types::BEHIND_4D9B;
+use crate::rules::Chars;
 
 /// A way a scope chain matches: where it ends (after its white space), and
 /// its groups.
@@ -131,7 +132,7 @@ impl Lexer<'_> {
             }
             lexer
                 .ident_ends(at)
-                .find(|&name| lexer.word_at(name) == 0 && ahead(lexer, name))
+                .find(|&name| lexer.word_at(name).is_none() && ahead(lexer, name))
         };
         let (chain, name) = self
             .find_scope_chain(b, |lexer, chain| {
@@ -160,7 +161,7 @@ impl Lexer<'_> {
             }
             let name = lexer
                 .ident_ends(at)
-                .find(|&name| lexer.word_at(name) == 0)?;
+                .find(|&name| lexer.word_at(name).is_none())?;
             Some((*chain, at, name))
         })?;
         let after = self.skip_space(name);
@@ -209,7 +210,7 @@ impl Lexer<'_> {
                 return None;
             }
             lexer.ident_ends(at).find_map(|name| {
-                if lexer.word_at(name) != 0 {
+                if lexer.word_at(name).is_some() {
                     return None;
                 }
                 let tail = lexer.skip_space(name);
@@ -344,7 +345,7 @@ impl Lexer<'_> {
             return None;
         }
         let word = self.lit(p, b"enum")?;
-        if self.word_at(word) != 0 {
+        if self.word_at(word).is_some() {
             return None;
         }
         let mut keyword = None;
@@ -403,7 +404,7 @@ impl Lexer<'_> {
                 return None;
             }
             lexer.ident_ends(name_at).find_map(|name| {
-                if lexer.word_at(name) != 0 {
+                if lexer.word_at(name).is_some() {
                     return None;
                 }
                 let after = lexer.skip_space(name);

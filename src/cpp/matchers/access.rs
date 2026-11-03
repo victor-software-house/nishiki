@@ -3,6 +3,7 @@
 use super::super::engine::Lexer;
 use super::super::few::Few;
 use crate::cpp::types::TYPE_WORDS;
+use crate::rules::Chars;
 
 /// A way the object part of an access matches.
 #[derive(Clone, Copy)]
@@ -128,7 +129,7 @@ impl Lexer<'_> {
         }
         if !self.word_before(p) {
             for end in self.ident_ends(p) {
-                if self.word_at(end) != 0 {
+                if self.word_at(end).is_some() {
                     continue;
                 }
                 let object = Object::one(this + 5, p, end, self.skip_space(end));
@@ -265,7 +266,7 @@ impl Lexer<'_> {
                     if !lexer.boundary(name) {
                         return None;
                     }
-                    let run_end = lexer.skip_word(name);
+                    let run_end = lexer.word_end(name);
                     let excluded = lexer.ch(run_end).is_some()
                         && TYPE_WORDS.binary_search(&lexer.text(name, run_end)).is_ok();
                     if excluded {

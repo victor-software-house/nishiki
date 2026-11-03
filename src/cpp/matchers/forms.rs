@@ -6,6 +6,7 @@ use super::super::few::Few;
 use super::chars::is_space;
 use super::gaps::{Gap, GapForm};
 use crate::cpp::types::{PRIMITIVE_TYPES, STDINT_TYPES};
+use crate::rules::Chars;
 
 /// A way a part of a template parameter matches: where it ends and the
 /// groups it records, each with its start and end.
@@ -323,7 +324,7 @@ impl Lexer<'_> {
                 continue;
             }
             for ty in self.ident_ends(first.end) {
-                if self.word_at(ty) != 0 {
+                if self.word_at(ty).is_some() {
                     continue;
                 }
                 for second in self.gaps(ty) {
@@ -376,7 +377,7 @@ impl Lexer<'_> {
         let names = idents
             .into_iter()
             .flatten()
-            .filter(|&end| self.word_at(end) == 0);
+            .filter(|&end| self.word_at(end).is_none());
         for name in names.chain([after]) {
             for gap in self.gaps(name) {
                 if self.at(gap.end) == b'[' && gap.end < self.lim() {
@@ -429,7 +430,7 @@ impl Lexer<'_> {
         if self.word_before(start) {
             return out;
         }
-        let run_end = self.skip_word(start);
+        let run_end = self.word_end(start);
         let run = self.text(start, run_end);
         if PRIMITIVE_TYPES.binary_search(&run).is_ok() {
             out.push((1, start, run_end));
@@ -456,7 +457,7 @@ impl Lexer<'_> {
                     self.lit(word, suffix)
                 };
                 if let Some(t) = after.and_then(|e| self.lit(e, b"t"))
-                    && self.word_at(t) == 0
+                    && self.word_at(t).is_none()
                 {
                     out.push((3, start, t));
                     break;
@@ -465,7 +466,7 @@ impl Lexer<'_> {
         }
         let lead = self.at(start);
         if start < self.lim() && (lead.is_ascii_alphabetic() || lead == b'_') {
-            let end = self.skip_word(start);
+            let end = self.word_end(start);
             if end >= start + 3 && self.ends_with_at(end, b"_t") {
                 out.push((4, start, end));
             }
@@ -529,7 +530,7 @@ impl Lexer<'_> {
             return None;
         }
         for name in self.ident_ends(p) {
-            if self.word_at(name) != 0 {
+            if self.word_at(name).is_some() {
                 continue;
             }
             if let Some((end, comment)) = self.template_args(name) {
@@ -669,7 +670,7 @@ impl Lexer<'_> {
         };
         let spaces = |lexer: &Self, at: usize| (at..=lexer.skip_space(at)).rev();
         for name in self.ident_ends(p) {
-            if self.word_at(name) != 0 {
+            if self.word_at(name).is_some() {
                 continue;
             }
             for after in spaces(self, name) {

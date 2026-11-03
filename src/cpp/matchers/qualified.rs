@@ -7,6 +7,7 @@ use super::super::few::Few;
 use super::gaps::{Gap, GapForm};
 use super::heads::Pointers;
 use crate::cpp::types::{NOT_0C8F, NOT_C3E4};
+use crate::rules::Chars;
 
 /// Where the groups of a qualified type sit in an expression.
 #[derive(Clone, Copy)]
@@ -84,7 +85,7 @@ impl Lexer<'_> {
     /// `(?!(?:LIST)\b)` at `p`, without the leading boundary: the run of
     /// word characters from `p` is not a word of `list`.
     fn not_listed_word(&self, p: usize, list: &[&[u8]]) -> bool {
-        let end = self.skip_word(p);
+        let end = self.word_end(p);
         list.binary_search(&self.text(p, end)).is_err()
     }
 
@@ -470,7 +471,7 @@ impl Lexer<'_> {
                         .then(|| lexer.ident_ends(at))
                         .into_iter()
                         .flatten()
-                        .filter(|&end| lexer.word_at(end) == 0)
+                        .filter(|&end| lexer.word_at(end).is_none())
                         .map(|end| (19, end));
                     styles.chain(idents).find_map(|(group, end)| {
                         let second = lexer.gaps(end).find(|second| {

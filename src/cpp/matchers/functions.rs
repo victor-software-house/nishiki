@@ -6,6 +6,7 @@ use super::gaps::{Gap, GapForm};
 use super::heads::{Head, Pointer, Pointers, Shape};
 use super::qualified::{Layout, Step};
 use super::scopes::Chain;
+use crate::rules::Chars;
 
 /// The head of `OperatorOverload`: the return type and its pointer marks.
 const RETURN: Shape = Shape {
@@ -184,7 +185,7 @@ impl Lexer<'_> {
         }
         if !self.word_before(p) {
             for id in self.ident_ends(p) {
-                if self.word_at(id) != 0 {
+                if self.word_at(id).is_some() {
                     continue;
                 }
                 let found = self.find_pointer_run(id, |lexer, run| {
@@ -208,7 +209,7 @@ impl Lexer<'_> {
                     continue;
                 }
                 for id in self.ident_ends(gap.end) {
-                    if self.word_at(id) == 0
+                    if self.word_at(id).is_none()
                         && let Some(found) = rest(self, Named::Literal(gap, id), id)
                     {
                         return Some(found);
@@ -359,7 +360,7 @@ impl Lexer<'_> {
         let Some(_depth) = self.deeper() else {
             return rest(self, p, last);
         };
-        if let Some(word) = self.kw_in(p, SPECIFIERS) {
+        if let Some(word) = self.word_in(p, SPECIFIERS) {
             for gap in self.gaps(word) {
                 if gap.end > p
                     && let Some(found) =

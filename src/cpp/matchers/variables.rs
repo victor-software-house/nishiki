@@ -7,6 +7,7 @@ use super::directives::Reference;
 use super::gaps::{Gap, GapForm};
 use super::heads::{Head, Pointer, Pointers, Shape, Storage};
 use super::qualified::Layout;
+use crate::rules::Chars;
 
 /// The head of `NormalVariableDeclaration` and `NormalVariableAssignment`.
 const NORMAL: Shape = Shape {
@@ -416,7 +417,7 @@ impl Lexer<'_> {
     /// or not, and the end.
     fn alias_brackets(&self, pos: usize) -> Option<Bracketed> {
         if self.at(pos) == b'[' && pos < self.lim() {
-            let word = self.skip_word(pos + 1);
+            let word = self.word_end(pos + 1);
             if self.at(word) == b']'
                 && word < self.lim()
                 && let Some((end, semicolon)) = self.alias_end(self.skip_space(word + 1))

@@ -4,6 +4,7 @@
 use super::super::engine::Lexer;
 use super::chars::{is_digit, is_space};
 use super::gaps::GapForm;
+use crate::rules::Chars;
 
 /// Where each prefix of an identifier ends, the longest first, as
 /// [`Lexer::ident_ends`] finds them. It steps back over the identifier one
@@ -97,7 +98,7 @@ impl Lexer<'_> {
     /// `ID(?!\w)` at `p`: where the longest prefix of the identifier that no
     /// word character follows ends.
     pub(super) fn ident_bounded(&self, p: usize) -> Option<usize> {
-        self.ident_ends(p).find(|&end| self.word_at(end) == 0)
+        self.ident_ends(p).find(|&end| self.word_at(end).is_none())
     }
 
     /// `(?<!\w)ID(?!\w)`.
@@ -165,7 +166,7 @@ impl Lexer<'_> {
             return None;
         }
         self.ident_ends(p)
-            .find(|&end| self.word_at(end) == 0 && self.starts(end, b"::"))
+            .find(|&end| self.word_at(end).is_none() && self.starts(end, b"::"))
     }
 
     /// `((?<!\w)ID(?!\w))(\{)`.
@@ -175,7 +176,7 @@ impl Lexer<'_> {
         }
         let end = self
             .ident_ends(p)
-            .find(|&end| self.word_at(end) == 0 && self.at(end) == b'{' && end < self.lim())?;
+            .find(|&end| self.word_at(end).is_none() && self.at(end) == b'{' && end < self.lim())?;
         self.cap(1, p, end);
         self.cap(2, end, end + 1);
         Some(end + 1)
@@ -448,7 +449,7 @@ impl Lexer<'_> {
                 continue;
             }
             for name in self.ident_ends(first.end) {
-                if self.word_at(name) != 0 || !self.boundary(name) {
+                if self.word_at(name).is_some() || !self.boundary(name) {
                     continue;
                 }
                 if self.ends_with_at(name, b"case") || self.ends_with_at(name, b"default") {
@@ -477,7 +478,7 @@ impl Lexer<'_> {
             return None;
         }
         for name in self.ident_ends(p) {
-            if self.word_at(name) != 0 {
+            if self.word_at(name).is_some() {
                 continue;
             }
             for first in self.gaps(name) {

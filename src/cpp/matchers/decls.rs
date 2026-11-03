@@ -6,6 +6,7 @@ use super::super::few::Few;
 use super::super::limits::MAX_ENDS;
 use super::gaps::{Gap, GapForm};
 use crate::cpp::matchers::{NEED_BRACKETS, NEED_PAREN};
+use crate::rules::Chars;
 
 /// The specifiers a constructor or destructor may start with.
 const SPECIFIERS: &[&[u8]] = &[
@@ -165,7 +166,7 @@ impl Lexer<'_> {
                 continue;
             }
             for ty in self.ident_ends(first.end) {
-                if self.word_at(ty) != 0 {
+                if self.word_at(ty).is_some() {
                     continue;
                 }
                 let found = self
@@ -209,7 +210,7 @@ impl Lexer<'_> {
                 return None;
             }
             self.ident_ends(at)
-                .filter(|&name| self.word_at(name) == 0)
+                .filter(|&name| self.word_at(name).is_none())
                 .find_map(|name| {
                     let fourth = self
                         .gaps(name)
@@ -245,7 +246,7 @@ impl Lexer<'_> {
             return None;
         }
         self.ident_ends(p)
-            .find(|&end| self.word_at(end) == 0 && self.at(end) == b'(' && end < self.lim())
+            .find(|&end| self.word_at(end).is_none() && self.at(end) == b'(' && end < self.lim())
     }
 
     /// `(?:(?:KW)GAP)*` from `pos`, every way, the longest first: the first
@@ -353,7 +354,7 @@ impl Lexer<'_> {
         let _depth = self.deeper()?;
         let words: &[&[u8]] = &[b"override", b"volatile", b"noexcept", b"final", b"const"];
         for gap in self.gaps(pos) {
-            if let Some(end) = self.kw_in(gap.end, words)
+            if let Some(end) = self.word_in(gap.end, words)
                 && let Some(found) =
                     self.find_qualifier_loop(end, count + 1, Some((pos, gap, end)), rest)
             {

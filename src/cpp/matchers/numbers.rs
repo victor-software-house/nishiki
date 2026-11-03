@@ -5,6 +5,7 @@
 
 use super::super::engine::Lexer;
 use super::super::few::Few;
+use crate::rules::Chars;
 
 /// How a number's digits are written.
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -135,7 +136,7 @@ impl Lexer<'_> {
         }
         tried
             .into_iter()
-            .filter(|&end| self.word_at(end) == 0)
+            .filter(|&end| self.word_at(end).is_none())
             .collect()
     }
 
@@ -302,9 +303,10 @@ impl Lexer<'_> {
                         let mut invalid_end = None;
                         if let Some((_, excluded)) = shape.invalid {
                             let first = self.at(at);
-                            let takes = self.word_at(at) > 0 && !(first < 0x80 && excluded(first));
+                            let takes =
+                                self.word_at(at).is_some() && !(first < 0x80 && excluded(first));
                             if at < self.lim() && takes {
-                                invalid_end = Some(self.skip_word(at));
+                                invalid_end = Some(self.word_end(at));
                             }
                         }
                         for end in [invalid_end, Some(at)].into_iter().flatten() {

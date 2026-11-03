@@ -9,6 +9,7 @@ use super::super::engine::Lexer;
 use super::super::few::Few;
 use super::super::limits::MAX_COMMENT_RUNS;
 use super::chars::{is_space, is_word};
+use crate::rules::Chars;
 
 /// One way the block matches at a position.
 #[derive(Clone, Copy, Debug, Default)]
@@ -170,7 +171,7 @@ impl Lexer<'_> {
 
     /// `(?=\w)` at `p`.
     pub(crate) fn ahead_word(&self, p: usize) -> bool {
-        self.word_at(p) > 0
+        self.word_at(p).is_some()
     }
 
     /// The width of the white space character before `p`: whether `\s` ends

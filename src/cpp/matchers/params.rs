@@ -5,6 +5,7 @@ use super::super::engine::Lexer;
 use super::gaps::{Gap, GapForm};
 use super::heads::STORAGE;
 use super::qualified::{Layout, TypeMatch};
+use crate::rules::Chars;
 
 /// The last iteration of the storage loop: the word and the gap after it.
 type Last = (usize, usize, Gap);
@@ -92,7 +93,9 @@ impl Lexer<'_> {
         let other = (!self.word_before(at))
             .then(|| {
                 self.ident_ends(at).find(|&name| {
-                    self.word_at(name) == 0 && self.boundary(name) && !self.behind_storage(name)
+                    self.word_at(name).is_none()
+                        && self.boundary(name)
+                        && !self.behind_storage(name)
                 })
             })
             .flatten()
@@ -169,7 +172,7 @@ impl Lexer<'_> {
         let mut close = self.skip_space(name_end);
         let mut brackets = None;
         while close < self.lim() && self.at(close) == b'[' {
-            let word = self.skip_word(close + 1);
+            let word = self.word_end(close + 1);
             if word >= self.lim() || self.at(word) != b']' {
                 break;
             }

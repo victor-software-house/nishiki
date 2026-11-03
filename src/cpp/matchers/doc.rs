@@ -2,6 +2,7 @@
 
 use super::super::engine::Lexer;
 use super::chars::is_space;
+use crate::rules::Chars;
 
 /// Tags that take no argument: the first list of the grammar.
 const NO_ARGUMENT: &[&[u8]] = &[

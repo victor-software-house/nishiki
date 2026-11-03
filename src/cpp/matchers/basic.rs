@@ -3,6 +3,7 @@
 use super::super::engine::Lexer;
 use super::chars::{is_space, is_word};
 use crate::cpp::types::PREDEFINED;
+use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// One of the bytes of `set`, a character class such as `[&^|~]`.
@@ -213,7 +214,7 @@ impl Lexer<'_> {
     /// `\b__([A-Z_]+)__\b`.
     /// `\b(__cplusplus|…)\b`: one of the listed predefined macros.
     pub(super) fn predefined_macro(&mut self, p: usize) -> Option<usize> {
-        let end = self.kw_in(p, PREDEFINED)?;
+        let end = self.word_in(p, PREDEFINED)?;
         self.cap(1, p, end);
         Some(end)
     }
@@ -226,7 +227,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.span_of(p + 2, |c| c.is_ascii_uppercase() || c == '_');
-        if end < p + 5 || !self.ends_with_at(end, b"__") || self.word_at(end) > 0 {
+        if end < p + 5 || !self.ends_with_at(end, b"__") || self.word_at(end).is_some() {
             return None;
         }
         self.cap(1, p + 2, end - 2);

@@ -3,6 +3,7 @@
 use super::super::engine::Lexer;
 use super::super::limits::MAX_LOOPS;
 pub(crate) use crate::classes::{is_digit, is_space, is_word};
+use crate::rules::Chars;
 
 /// Marks a matcher as one level deeper into such a loop until it is dropped.
 pub(crate) struct LoopGuard<'a>(&'a std::cell::Cell<u32>);
@@ -48,11 +49,6 @@ impl Lexer<'_> {
         self.char_before(i.min(self.s.len()))
     }
 
-    /// `text` at `p`: where it ends.
-    pub(crate) fn lit(&self, p: usize, text: &[u8]) -> Option<usize> {
-        self.starts(p, text).then(|| p + text.len())
-    }
-
     /// The first of `texts` at `p`, in order: where it ends.
     pub(crate) fn lit_any(&self, p: usize, texts: &[&[u8]]) -> Option<usize> {
         texts.iter().find_map(|text| self.lit(p, text))
@@ -77,14 +73,6 @@ impl Lexer<'_> {
         p
     }
 
-    /// The width of the `\s` character at `p`, or 0.
-    pub(crate) fn space_at(&self, p: usize) -> usize {
-        match self.ch(p) {
-            Some((c, end)) if is_space(c) => end - p,
-            _ => 0,
-        }
-    }
-
     /// The end of `\s*` from `p`.
     pub(crate) fn skip_space(&self, p: usize) -> usize {
         let (start, end, len, nl) = self.x.blank_run.get();
@@ -92,34 +80,11 @@ impl Lexer<'_> {
             self.spend(1);
             return end;
         }
-        let end = self.span_of(p, is_space);
+        let end = self.space_end(p);
         if end > p {
             self.x.blank_run.set((p, end, self.s.len(), self.nl));
         }
         end
-    }
-
-    /// The width of the `\w` character at `p`, or 0.
-    pub(crate) fn word_at(&self, p: usize) -> usize {
-        match self.ch(p) {
-            Some((c, end)) if is_word(c) => end - p,
-            _ => 0,
-        }
-    }
-
-    /// Whether a `\w` character ends at `p`.
-    pub(crate) fn word_before(&self, p: usize) -> bool {
-        self.ch_before(p).is_some_and(is_word)
-    }
-
-    /// The regex `\b` at `p`.
-    pub(crate) fn boundary(&self, p: usize) -> bool {
-        self.word_before(p) != (self.word_at(p) > 0)
-    }
-
-    /// The end of `\w*` from `p`.
-    pub(crate) fn skip_word(&self, p: usize) -> usize {
-        self.span_of(p, is_word)
     }
 
     /// Whether the text before `p` ends with `text`.

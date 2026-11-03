@@ -2,6 +2,7 @@
 
 use super::super::engine::Lexer;
 use super::gaps::GapForm;
+use crate::rules::Chars;
 
 /// Whether a parenthesis is a capture group, for [`Lexer::gap_paren`].
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -22,7 +23,7 @@ impl Lexer<'_> {
         word_group: usize,
     ) -> Option<usize> {
         for gap in self.gaps(p) {
-            if let Some(end) = self.kw_in(gap.end, words) {
+            if let Some(end) = self.word_in(gap.end, words) {
                 self.put_gap(1, GapForm::Plain, p, &gap);
                 self.cap(word_group, gap.end, end);
                 return Some(end);
@@ -35,7 +36,7 @@ impl Lexer<'_> {
     /// comment's parts as groups 1 to 4 and the word as group 5.
     pub(super) fn gap4_word(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
         for gap in self.gaps(p) {
-            if let Some(end) = self.kw_in(gap.end, words) {
+            if let Some(end) = self.word_in(gap.end, words) {
                 self.put_gap(1, GapForm::Parts, p, &gap);
                 self.cap(5, gap.end, end);
                 return Some(end);
@@ -178,7 +179,7 @@ impl Lexer<'_> {
             let at = first.end;
             let word = self.word_prefix(at, b"static_assert").or_else(|| {
                 self.lit(at, b"_Static_assert")
-                    .filter(|&e| self.word_at(e) == 0)
+                    .filter(|&e| self.word_at(e).is_none())
             });
             let Some(word) = word else { continue };
             for second in self.gaps(word) {
@@ -243,7 +244,7 @@ impl Lexer<'_> {
     /// `((?<!\w)(?:(?:constexpr|…|friend)|(?:thread_local|…|const))(?!\w))GAP`
     /// with the gap as groups 2 to 5.
     pub(super) fn specifier_gap(&mut self, p: usize) -> Option<usize> {
-        let end = self.kw_in(
+        let end = self.word_in(
             p,
             &[
                 b"constexpr",

@@ -25,7 +25,8 @@ use std::fmt::Debug;
     feature = "lang-go",
     feature = "lang-ruby",
     feature = "lang-csharp",
-    feature = "lang-swift"
+    feature = "lang-swift",
+    feature = "lang-cpp"
 ))]
 pub(crate) use chars::Chars;
 use lexer::FIRST_LINE;

@@ -36,6 +36,7 @@ use variables::VariableForm;
 
 use super::engine::Lexer;
 use super::grammar::Rx;
+use crate::rules::Chars;
 
 /// Texts that some expressions always contain after where they start.
 /// A line without one of them after `p` cannot match the expression, which
@@ -218,12 +219,12 @@ impl Lexer<'_> {
             Rx::PreprocessorNumberLiteralCap0At0At6 => self.number_tail(p),
             Rx::StaticAssertAt0 => self.static_assert_comma(p),
             Rx::TemplateExplicitInstantiation => self.explicit_instantiation(p),
-            Rx::InheritanceContextAt2 => self.kw_in(p, &[b"protected", b"private", b"public"]),
-            Rx::LanguageConstants => self.kw_in(p, &[b"nullptr", b"false", b"NULL", b"true"]),
+            Rx::InheritanceContextAt2 => self.word_in(p, &[b"protected", b"private", b"public"]),
+            Rx::LanguageConstants => self.word_in(p, &[b"nullptr", b"false", b"NULL", b"true"]),
             Rx::ConstructorBracketCallCap1At1 => {
-                self.kw_in(p, &[b"struct", b"class", b"union", b"enum"])
+                self.word_in(p, &[b"struct", b"class", b"union", b"enum"])
             }
-            Rx::LambdasAt1 => self.kw_in(p, &[b"constexpr", b"consteval", b"mutable"]),
+            Rx::LambdasAt1 => self.word_in(p, &[b"constexpr", b"consteval", b"mutable"]),
             Rx::Assembly => self.asm_begin(p),
             Rx::PragmaMarkCap3At0 => self.spaced_comment(p),
             Rx::PragmaEnd => self.logical_line_end(p).then_some(p),
@@ -329,7 +330,7 @@ impl Lexer<'_> {
                 3,
             ),
 
-            Rx::FunctionalSpecifiersPreParameters => self.kw_in(
+            Rx::FunctionalSpecifiersPreParameters => self.word_in(
                 p,
                 &[
                     b"constexpr",
@@ -349,7 +350,7 @@ impl Lexer<'_> {
             Rx::CommentsAt0At7Cap3At0 => self.word_ident(p),
             Rx::CppAttributesAt5 => self.ident_ahead_scope(p),
             Rx::ConstructorInlineAt0At3At1 => self.ident_brace(p),
-            Rx::WordlikeOperatorsAt0 => self.kw_in(
+            Rx::WordlikeOperatorsAt0 => self.word_in(
                 p,
                 &[
                     b"noexcept",

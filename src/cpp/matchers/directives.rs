@@ -3,6 +3,7 @@
 
 use super::super::engine::Lexer;
 use super::gaps::{Gap, GapForm};
+use crate::rules::Chars;
 
 /// The groups of `delete[]`, `delete` and `new`: the keyword and the brackets,
 /// the lone `delete`, and the `new`.
@@ -108,18 +109,18 @@ impl Lexer<'_> {
             let mut found: Option<(usize, MemoryGroups)> = None;
             if let Some(word) = self.lit(at, b"delete") {
                 let open = self.skip_space(word);
-                if self.starts(open, b"[]") && self.word_at(open + 2) == 0 {
+                if self.starts(open, b"[]") && self.word_at(open + 2).is_none() {
                     found = Some((
                         open + 2,
                         [Some((at, word)), Some((open, open + 2)), None, None],
                     ));
-                } else if self.word_at(word) == 0 {
+                } else if self.word_at(word).is_none() {
                     found = Some((word, [None, None, Some((at, word)), None]));
                 }
             }
             if found.is_none()
                 && let Some(word) = self.lit(at, b"new")
-                && self.word_at(word) == 0
+                && self.word_at(word).is_none()
             {
                 found = Some((word, [None, None, None, Some((at, word))]));
             }
@@ -147,7 +148,7 @@ impl Lexer<'_> {
             }
             let name = self.skip_space(gap.end + 1);
             let words: &[&[u8]] = &[b"endif", b"else", b"elif", b"elifdef", b"elifndef"];
-            let Some(end) = self.kw_in(name, words) else {
+            let Some(end) = self.word_in(name, words) else {
                 continue;
             };
             self.put_gap(1, GapForm::Plain, 0, &gap);
@@ -199,7 +200,7 @@ impl Lexer<'_> {
     pub(super) fn qualifier_chain(&self, from: usize) -> Option<usize> {
         let _depth = self.deeper()?;
         self.gaps(from).find_map(|gap| {
-            let end = self.kw_in(gap.end, QUALIFIERS)?;
+            let end = self.word_in(gap.end, QUALIFIERS)?;
             self.qualifier_chain_after(end)
         })
     }
@@ -211,7 +212,7 @@ impl Lexer<'_> {
         let _depth = self.deeper()?;
         self.gaps(pos)
             .find_map(|gap| {
-                let end = self.kw_in(gap.end, QUALIFIERS)?;
+                let end = self.word_in(gap.end, QUALIFIERS)?;
                 self.qualifier_chain_after(end)
             })
             .or_else(|| self.ahead_qualifier_end(pos).then_some(pos))
