@@ -68,6 +68,9 @@ The decisions that created nishiki live in a private planning repository:
    - docs, as docs.rs builds them;
    - `cargo deny`;
    - the repository checks.
+
+   The Identity workflow (`.github/workflows/identity.yml`) runs `mise run identity` against the pull request's base: it fails when a fixture or an edited copy of one lexes differently.
+   A pull request that means to change output says so with a body line `identity: changes <languages>`, such as `identity: changes python java`.
 2. Nobody runs the full suite before a push; CI does.
    - Work CI cannot do runs locally: a lexer's build-and-probe loop, its oracle fixtures, the Shiki differential and the bench.
    - Before a push, run only the cheap checks: `typos`, `mise run lint:md`, `mise run format` (rustfmt) and `mise run format:toml` (taplo).

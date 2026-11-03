@@ -1,0 +1,69 @@
+name: Identity
+
+# Lexes every oracle fixture and edited copies of it at the pull request's
+# base and head (mise run identity), and fails when a document's tokens
+# differ in a language the pull request does not declare with a body line
+# `identity: changes <languages>`. It lives apart from ci.yml, which the
+# template renders.
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, ready_for_review]
+  merge_group:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: identity-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  MISE_ENV: ci
+
+jobs:
+  identity:
+    name: Identity
+    if: ${{ !github.event.pull_request.draft }}
+    # The build runner's cache volume, read only: this job never commits it.
+    runs-on: ["nscloud-ubuntu-24.04-amd64-4x8-with-cache", "nscloud-cache-tag-rust-nishiki", "nscloud-cache-size-50gb", "nscloud-cache-exp-do-not-commit"]
+    timeout-minutes: 12
+    steps:
+      - name: Check out repository
+        timeout-minutes: 3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Mount the cache volume
+        continue-on-error: true
+        timeout-minutes: 3
+        uses: namespacelabs/nscloud-cache-action@1124a6f3ce44e5cf84cc22111530961f4d2a15f9 # v1.7.0
+        with:
+          path: |
+            ~/.local/share/mise
+            ~/.rustup
+            ~/.cargo
+            ${{ github.workspace }}/target
+      - name: Install locked toolchain
+        timeout-minutes: 5
+        uses: jdx/mise-action@6612f0ef07ed2a736cd1e00a94a065522dd41195 # v5.2.5
+        with:
+          version: 2026.10.25
+          cache: false
+      - name: Compare with the base
+        timeout-minutes: 8
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}
+          BODY: ${{ github.event.pull_request.body }}
+          QUEUE_REF: ${{ github.event.merge_group.head_ref }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -n "$QUEUE_REF" ]; then
+            number=$(printf '%s\n' "$QUEUE_REF" | sed -n 's|.*/pr-\([0-9]*\)-.*|\1|p')
+            BODY=$(gh pr view "$number" --repo "$GITHUB_REPOSITORY" --json body --jq .body)
+          fi
+          IDENTITY_CHANGES=$(printf '%s\n' "$BODY" | tr -d '\r' | sed -n 's/^identity: changes //p' | tr ',' ' ')
+          export IDENTITY_CHANGES
+          git fetch --quiet --depth=1 origin "$BASE"
+          mise run identity "$BASE"
