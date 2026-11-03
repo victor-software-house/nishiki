@@ -167,3 +167,21 @@ fn an_embedded_document_runs_to_its_end() {
     );
     assert_eq!(scope_of(&rows[3], "Shown"), "entity.name.type.class.ruby");
 }
+
+#[test]
+fn a_ruby_heredoc_lexes_its_lines_as_ruby() {
+    let rows = lex_lines(indoc! {"
+        module_eval <<~RUBY, __FILE__, __LINE__ + 1
+          x = 1
+        RUBY
+        end
+    "});
+    assert_eq!(
+        scope_of(&rows[0], "<<~RUBY"),
+        "string.definition.begin.ruby"
+    );
+    assert_eq!(scope_of(&rows[0], "__FILE__"), "variable.language.ruby");
+    assert_eq!(scope_of(&rows[1], "="), "keyword.operator.assignment.ruby");
+    assert_eq!(scope_of(&rows[2], "RUBY"), "string.definition.end.ruby");
+    assert_eq!(scope_of(&rows[3], "end"), "keyword.control.ruby");
+}

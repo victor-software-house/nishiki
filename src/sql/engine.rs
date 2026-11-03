@@ -10,6 +10,7 @@ use std::cell::Cell;
 use super::rules::{Pat, patterns};
 use super::scope::S;
 use super::state::Rule;
+use crate::language::Halt;
 use crate::rules::{self, Act, Captures, Grammar, ScopeName};
 use crate::utf8::{char_len, is_continuation};
 
@@ -135,6 +136,11 @@ impl Lexer<'_> {
 
     /// The first pattern of `rule` that matches at `p`, after or before its
     /// end pattern.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: called from both instances of the scan, the halting one and the plain one, it stopped being inlined, at a call per place"
+    )]
+    #[inline(always)]
     fn first_at(&mut self, rule: Rule, p: usize) -> Option<(Pat, usize)> {
         if rule != Rule::Bracket
             && let Some(end) = self.hit(Pat::End, p)
@@ -197,44 +203,15 @@ impl Grammar for Sql {
         (&[], &[])
     }
 
-    /// The first match from the position. The bytes the rule's skip passes
-    /// start none of its patterns and end it nowhere. A rule the depth limit
-    /// keeps closed leaves its text plain, and since a rule that matched
-    /// nothing would match again where it did, the search goes on one
-    /// character later.
+    /// The first match from the position: see `search`.
     fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
-        let rule = lexer.top_rule();
-        let end = lexer.lim() + usize::from(lexer.nl);
-        let mut p = lexer.pos;
-        'search: while p <= end {
-            lexer.spend(1);
-            if lexer.over_budget() {
-                return None;
+        match lexer.root_halt() {
+            Some(halt) => {
+                let after = lexer.root_after();
+                lexer.search::<true>(halt, after)
             }
-            p = lexer.skip_to(rule, p);
-            if p > end {
-                break;
-            }
-            if (p >= lexer.lim() || !is_continuation(lexer.s[p]))
-                && let Some((pat, hit_end)) = lexer.first_at(rule, p)
-            {
-                if pat.opens().is_some() && lexer.at_depth_limit() {
-                    lexer.record_depth();
-                    let start = lexer.x.start;
-                    let next = if hit_end > start {
-                        hit_end
-                    } else {
-                        start + lexer.s.get(start).map_or(1, |&lead| char_len(lead))
-                    };
-                    lexer.skip_plain(start, next);
-                    p = lexer.pos;
-                    continue 'search;
-                }
-                return Some((lexer.x.start, pat, hit_end));
-            }
-            p += 1;
+            None => lexer.search::<false>(|_, _| false, None),
         }
-        None
     }
 
     fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
@@ -243,5 +220,67 @@ impl Grammar for Sql {
 
     fn tokenize_nested(_: &mut Lexer<'_>, kind: Nested, _: usize, _: usize, _: u32) {
         match kind {}
+    }
+}
+
+impl Lexer<'_> {
+    /// The first match from the position. The bytes the rule's skip passes
+    /// start none of its patterns and end it nowhere. A rule the depth limit
+    /// keeps closed leaves its text plain, and since a rule that matched
+    /// nothing would match again where it did, the search goes on one
+    /// character later.
+    ///
+    /// When `HALTING`, a language that embeds SQL takes the text back where
+    /// `halt` holds before the patterns at a place or `after` holds once they
+    /// fail there; only the root is open then. Without it the tests compile
+    /// out, so SQL that nothing embeds pays nothing for them.
+    fn search<const HALTING: bool>(
+        &mut self,
+        halt: Halt,
+        after: Option<Halt>,
+    ) -> Option<(usize, Pat, usize)> {
+        let rule = self.top_rule();
+        let end = self.lim() + usize::from(self.nl);
+        let mut p = self.pos;
+        'search: while p <= end {
+            self.spend(1);
+            if self.over_budget() {
+                return None;
+            }
+            p = if HALTING {
+                self.root_skip::<true>(p, halt, after)
+            } else {
+                self.skip_to(rule, p)
+            };
+            if p > end {
+                break;
+            }
+            let boundary = p >= self.lim() || !is_continuation(self.s[p]);
+            if HALTING && boundary && halt(self.s, p) {
+                self.halt_here(p);
+                return None;
+            }
+            if boundary && let Some((pat, hit_end)) = self.first_at(rule, p) {
+                if pat.opens().is_some() && self.at_depth_limit() {
+                    self.record_depth();
+                    let start = self.x.start;
+                    let next = if hit_end > start {
+                        hit_end
+                    } else {
+                        start + self.s.get(start).map_or(1, |&lead| char_len(lead))
+                    };
+                    self.skip_plain(start, next);
+                    p = self.pos;
+                    continue 'search;
+                }
+                return Some((self.x.start, pat, hit_end));
+            }
+            if HALTING && boundary && after.is_some_and(|after| after(self.s, p)) {
+                self.halt_here(p);
+                return None;
+            }
+            p += 1;
+        }
+        None
     }
 }

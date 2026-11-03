@@ -17,7 +17,7 @@ use super::rules::{Pat, patterns};
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::utf8::char_len;
 use crate::{Stack, Token, typescript};
@@ -129,6 +129,12 @@ pub(super) struct Lexer<'a> {
     pub(super) space_run: Cell<(usize, usize)>,
     /// The last run of name characters found, in the same way.
     pub(super) word_run: Cell<(usize, usize)>,
+    /// Where the language that embeds GraphQL takes the text back, while
+    /// only the root is open: before GraphQL's patterns at a place, and
+    /// after they fail there (see [`Halt`]).
+    halts: Option<(Halt, Option<Halt>)>,
+    /// Where the line halted.
+    halted: Cell<Option<usize>>,
 }
 
 impl<'a> Lexer<'a> {
@@ -158,6 +164,8 @@ impl<'a> Lexer<'a> {
             frames,
             space_run: Cell::new((0, 0)),
             word_run: Cell::new((0, 0)),
+            halts: None,
+            halted: Cell::new(None),
         };
         let mut id = state;
         loop {
@@ -187,11 +195,31 @@ impl<'a> Lexer<'a> {
     }
 
     /// Lexes the line and returns the state after it.
-    pub(super) fn run(mut self) -> u32 {
+    pub(super) fn run(self) -> u32 {
+        self.run_halting().0
+    }
+
+    /// Ends the line at the first place where `end` holds before GraphQL's
+    /// patterns, or `after` holds once they fail, while only the root is
+    /// open.
+    pub(super) fn halting(mut self, end: Halt, after: Option<Halt>) -> Self {
+        self.halts = Some((end, after));
+        self
+    }
+
+    /// Lexes the line like [`Lexer::run`], and returns where it halted too.
+    pub(super) fn run_halting(mut self) -> (u32, Option<usize>) {
         self.tokenize();
         let state = self.top().state;
         self.scratch.graphql.frames = std::mem::take(&mut self.frames);
-        state
+        (state, self.halted.get())
+    }
+
+    /// The halts a scan tests at each place: the line's, while only the root
+    /// is open, and `None` otherwise. A scan does not open or close rules,
+    /// so it asks once.
+    fn root_halts(&self) -> Option<(Halt, Option<Halt>)> {
+        self.halts.filter(|_| self.frames.len() == 1)
     }
 
     // Bytes.
@@ -277,6 +305,11 @@ impl<'a> Lexer<'a> {
                 self.search()
             };
             let Some(found) = found else {
+                if let Some(at) = self.halted.get() {
+                    let stack = self.top().content;
+                    self.tok(stack, at);
+                    return;
+                }
                 if self.over_budget() {
                     self.report.record(Limit::Work);
                 }
@@ -317,6 +350,7 @@ impl<'a> Lexer<'a> {
         let rule = self.top().rule;
         let end = self.lim + 1;
         let end_last = Self::end_last(rule);
+        let halts = self.root_halts();
         let mut p = self.pos;
         while p <= end {
             self.spend(1);
@@ -324,6 +358,12 @@ impl<'a> Lexer<'a> {
                 return None;
             }
             if p >= self.lim || self.s[p] & 0xc0 != 0x80 {
+                if let Some((halt, _)) = halts
+                    && halt(self.s, p)
+                {
+                    self.halted.set(Some(p));
+                    return None;
+                }
                 if !end_last && let Some(hit) = self.end_at(rule, p) {
                     return Some(Found::End(hit));
                 }
@@ -334,6 +374,12 @@ impl<'a> Lexer<'a> {
                 }
                 if end_last && let Some(hit) = self.end_at(rule, p) {
                     return Some(Found::End(hit));
+                }
+                if let Some((_, Some(after))) = halts
+                    && after(self.s, p)
+                {
+                    self.halted.set(Some(p));
+                    return None;
                 }
             }
             p += 1;

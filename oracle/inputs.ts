@@ -769,9 +769,15 @@ export const inputs: Input[] = [
   { lang: "python", name: "rich-console", url: `${rich}/rich/console.py` },
   { lang: "python", name: "sample", url: `${samples}/python.sample` },
   { lang: "ruby", name: "devise", url: `${devise}/lib/devise.rb` },
+  {
+    lang: "ruby",
+    name: "heredocs",
+    url: new URL("inputs/ruby-heredocs.rb", import.meta.url).href,
+  },
   { lang: "ruby", name: "jekyll-site", url: `${jekyll}/lib/jekyll/site.rb` },
   { lang: "ruby", name: "puma-server", url: `${puma}/lib/puma/server.rb` },
   { lang: "ruby", name: "rack-request", url: `${rack}/lib/rack/request.rb` },
+  { lang: "ruby", name: "rails-callbacks", url: `${rails}/activesupport/lib/active_support/callbacks.rb` },
   {
     lang: "ruby",
     name: "rails-inflector",

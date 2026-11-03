@@ -430,8 +430,9 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 
 ### Ruby
 
-- A here document named for another language, such as `<<~SQL` or `<<~RUBY`, is lexed as an ordinary here document.
-  Shiki lexes its lines in that language.
+- A here document named for SQL, GraphQL, CSS, C, shell or Ruby, such as `<<~SQL`, lexes its lines in that language, with Ruby's interpolation and escapes where the language has nothing open, as Shiki does.
+- One named for JavaScript, YAML, HTML, HAML, Slim, XML, C++ or Lua, such as `<<~JS`, keeps that language's scopes, but its lines are plain text with Ruby's interpolation.
+  Shiki lexes them in that language.
 - The text after `__END__` is plain, where Shiki lexes it as HTML when it starts like HTML.
 
 ### C\#

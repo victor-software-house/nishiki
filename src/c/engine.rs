@@ -12,6 +12,7 @@ use std::cell::Cell;
 use super::lists::{EOT, P, Tables, blank_run_live, kind};
 use super::scope::S;
 use super::state::R;
+use crate::language::Halt;
 use crate::rules::{self, Act, Captures, Grammar, ScopeName};
 
 /// The C lexer for one line.
@@ -211,10 +212,25 @@ impl Lexer<'_> {
         }
     }
 
+    /// The first match from the cursor on: see `find_from`. A language that
+    /// embeds C has the search test its halts while only the root is open.
+    pub(super) fn find(&mut self) -> Option<(usize, P, usize)> {
+        match self.root_halt() {
+            Some(halt) => {
+                let after = self.root_after();
+                self.find_from::<true>(halt, after)
+            }
+            None => self.find_from::<false>(|_, _| false, None),
+        }
+    }
+
     /// The first match from the cursor on: the earliest position where the
     /// innermost rule's end or one of its patterns matches, the end first,
     /// as where it starts, the pattern and where it ends. `None` when nothing
-    /// matches or the work runs out. A begin of a rule the depth limit keeps
+    /// matches, the work runs out, or, when `HALTING`, a language that embeds
+    /// C takes the text back: where `halt` holds before the patterns at a
+    /// place, or `after` once they fail there. Without `HALTING` the tests
+    /// compile out. A begin of a rule the depth limit keeps
     /// closed is tried only to record the limit, and its text stays plain.
     ///
     /// Each position tries only the patterns its kind of position allows
@@ -224,7 +240,11 @@ impl Lexer<'_> {
     /// It calls the matchers itself rather than through the engine's
     /// `try_pat`: C's matchers read no capture groups, so a try clears only
     /// the spans the last one left.
-    pub(super) fn find(&mut self) -> Option<(usize, P, usize)> {
+    fn find_from<const HALTING: bool>(
+        &mut self,
+        halt: Halt,
+        after: Option<Halt>,
+    ) -> Option<(usize, P, usize)> {
         self.fresh();
         let rule = self.top_rule();
         let tables = Tables::get();
@@ -240,6 +260,10 @@ impl Lexer<'_> {
         loop {
             self.spend(1);
             if self.over_budget() {
+                return None;
+            }
+            if HALTING && halt(self.s, p) {
+                self.halt_here(p);
                 return None;
             }
             let index = if p >= top {
@@ -295,6 +319,10 @@ impl Lexer<'_> {
                     continue;
                 }
                 return Some((self.x.start, pat, self.x.end));
+            }
+            if HALTING && after.is_some_and(|after| after(self.s, p)) {
+                self.halt_here(p);
+                return None;
             }
             blank_dead |= blank;
             if p >= word_scan && letter && p < top {

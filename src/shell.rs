@@ -92,6 +92,31 @@ pub(crate) fn line(
 #[cfg(test)]
 mod tests;
 
+/// Lexes `line` like [`lex`], for shell that another language embeds: the
+/// line halts at the first place where `end` holds before shell's patterns,
+/// or `after` holds once they fail, while no shell rule is open, and the
+/// second value is where.
+pub(crate) fn lex_until(
+    cx: &mut crate::language::Context<'_>,
+    line: crate::language::Line<'_>,
+    state: u32,
+    end: crate::language::Halt,
+    after: Option<crate::language::Halt>,
+) -> (u32, Option<usize>) {
+    if line.text.len() <= line.start {
+        return (state, None);
+    }
+    let text = Text {
+        bytes: line.text.as_bytes(),
+        start: line.start,
+        anchored: line.embedded,
+    };
+    let scratch = &mut cx.scratch.shell;
+    engine::Lexer::new(cx.arena, cx.limits, text, cx.out, state, cx.report, scratch)
+        .halting(end, after)
+        .run_halting(scratch)
+}
+
 /// Lexes `line` from `state` under the crate's one lexer contract
 /// ([`Language::lex`](crate::Language)), with token ends counted from the
 /// start of the whole line, and returns the state after it.

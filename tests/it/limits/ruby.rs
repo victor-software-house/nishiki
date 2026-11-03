@@ -1,6 +1,6 @@
 //! Hostile lines for the ruby lexer, under the default limits.
 
-use nishiki::{Highlighter, Language, Limit};
+use nishiki::{Highlighter, Language, Limit, Limits, Work};
 
 use super::lex;
 
@@ -82,4 +82,19 @@ fn hostile_ruby_lines_finish_within_the_default_limits() {
         }
     }
     assert!(failures.is_empty(), "{}", failures.join("\n"));
+}
+
+#[test]
+fn a_sql_heredoc_line_of_many_interpolations_runs_out_of_work() {
+    let limits = Limits {
+        work: Some(Work {
+            per_byte: 0,
+            base: 64,
+        }),
+        ..Limits::default()
+    };
+    let mut highlighter = Highlighter::new_with_limits(Language::Ruby, limits);
+    let body = format!("select {}", "#{}".repeat(5_000));
+    let (rows, _) = lex(&mut highlighter, &["x = <<~SQL", &body, "SQL"]);
+    assert!(rows[1].1.reached(Limit::Work));
 }

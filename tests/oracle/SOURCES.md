@@ -168,7 +168,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `yaml/prometheus-config` | [`documentation/examples/prometheus.yml`][prometheus-config] in prometheus/prometheus | [Apache-2.0][prometheus-licence] |
 | `yaml/ripgrep-ci` | [`.github/workflows/ci.yml`][ripgrep-ci] in BurntSushi/ripgrep | [Unlicense or MIT][ripgrep-licence] |
 | `yaml/sample` | [`samples/yaml.sample`][yaml-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-`ruby/sample`, `ruby/rack-request`, `ruby/rubocop-cop-base` and `ruby/rails-inflector` are the development inputs for Ruby, and `markdown/rack-readme` is the development input for Ruby fences.
+`ruby/sample`, `ruby/rack-request`, `ruby/rubocop-cop-base`, `ruby/rails-callbacks`, `ruby/rails-inflector` and `ruby/heredocs` are the development inputs for Ruby, and `markdown/rack-readme` is the development input for Ruby fences.
 `ruby/jekyll-site`, `ruby/devise`, `ruby/puma-server`, `ruby/rspec-example`, `ruby/thor`, `ruby/rake-task` and `markdown/devise-readme` are held out.
 | `kotlin/okhttp-request` | [`Request.kt`][okhttp-request] in square/okhttp | [Apache-2.0][okhttp-licence] |
 | `kotlin/moshi-util` | [`Util.kt`][moshi-util] in square/moshi | [Apache-2.0][moshi-licence] |
@@ -191,6 +191,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `ruby/sample` | [`samples/ruby.sample`][ruby-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `ruby/rack-request` | [`lib/rack/request.rb`][rack-request] in rack/rack | [MIT][rack-licence] |
 | `ruby/rubocop-cop-base` | [`lib/rubocop/cop/base.rb`][rubocop-cop-base] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rails-callbacks` | [`activesupport/lib/active_support/callbacks.rb`][rails-callbacks] in rails/rails | [MIT][rails-licence] |
 | `ruby/rails-inflector` | [`activesupport/lib/active_support/inflector/methods.rb`][rails-inflector] in rails/rails | [MIT][rails-licence] |
 | `ruby/jekyll-site` | [`lib/jekyll/site.rb`][jekyll-site] in jekyll/jekyll | [MIT][jekyll-licence] |
 | `ruby/devise` | [`lib/devise.rb`][devise] in heartcombo/devise | [MIT][devise-licence] |
@@ -198,6 +199,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `ruby/rspec-example` | [`lib/rspec/core/example.rb`][rspec-example] in rspec/rspec-core | [MIT][rspec-core-licence] |
 | `ruby/thor` | [`lib/thor.rb`][thor] in rails/thor | [MIT][thor-licence] |
 | `ruby/rake-task` | [`lib/rake/task.rb`][rake-task] in ruby/rake | [MIT][rake-licence] |
+| `ruby/heredocs` | `oracle/inputs/ruby-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `markdown/rack-readme` | [`README.md`][rack-readme] in rack/rack | [MIT][rack-licence] |
 | `markdown/devise-readme` | [`README.md`][devise-readme] in heartcombo/devise | [MIT][devise-licence] |
 | `swift/sample` | [`samples/swift.sample`][swift-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
@@ -852,6 +854,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [rag-output]: https://github.com/jxnl/n-levels-of-rag/blob/2ce1106b0163d11fcf7959187b42f0d3a67fbe05/output.jsonl
 [rag-output-50]: https://github.com/jxnl/n-levels-of-rag/blob/2ce1106b0163d11fcf7959187b42f0d3a67fbe05/output-50.jsonl
 [rails-app-layout]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/railties/lib/rails/generators/rails/app/templates/app/views/layouts/application.html.erb.tt
+[rails-callbacks]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/activesupport/lib/active_support/callbacks.rb
 [rails-inflector]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/activesupport/lib/active_support/inflector/methods.rb
 [rails-info-notes]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/railties/lib/rails/templates/rails/info/notes.html.erb
 [rails-licence]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/activesupport/MIT-LICENSE

@@ -15,6 +15,7 @@ use super::rules::{Act, Pat, rule_info};
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
+use crate::language::Halt;
 use crate::limits::{Limit, Limits, LineReport};
 use crate::utf8::char_len;
 use crate::{Stack, Token};
@@ -281,12 +282,23 @@ pub(crate) struct Lexer<'a> {
     /// The last [`Lexer::name_run`] answer: where it was asked, the end of
     /// the text, and the answer. Several rules ask about the same word.
     pub(crate) names: Cell<NameAnswer>,
+    /// Where the language that embeds shell takes the text back, while only
+    /// the root is open: before shell's patterns at a place, and after they
+    /// fail there (see [`Halt`]).
+    halts: Option<(Halt, Option<Halt>)>,
+    /// Where the line halted.
+    halted: Option<usize>,
 }
 
 impl<'a> Lexer<'a> {
     /// A lexer for one line from `state`. Its open rules are the ones the
     /// last line left in `scratch` when that line ended in `state`, and
     /// otherwise the state's chain of frames, rebuilt from its root down.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: with `lex_until` as a second caller it was left out of line, at a call once a line that moves the lexer"
+    )]
+    #[inline(always)]
     pub(crate) fn new(
         arena: &'a mut Arena,
         limits: &'a Limits,
@@ -341,6 +353,8 @@ impl<'a> Lexer<'a> {
                 lim: 0,
                 end: None,
             }),
+            halts: None,
+            halted: None,
         };
         if resume {
             lexer.frames.extend_from_slice(&scratch.resume_frames);
@@ -386,13 +400,37 @@ impl<'a> Lexer<'a> {
         lexer
     }
 
+    /// Ends the line at the first place where `end` holds before shell's
+    /// patterns, or `after` holds once they fail, while only the root is open.
+    pub(crate) fn halting(mut self, end: Halt, after: Option<Halt>) -> Self {
+        self.halts = Some((end, after));
+        self
+    }
+
+    /// The halts a scan tests at each place: the line's, while only the root
+    /// is open, and `None` otherwise. A scan does not open or close rules,
+    /// so it asks once.
+    fn root_halts(&self) -> Option<(Halt, Option<Halt>)> {
+        self.halts.filter(|_| self.frames.len() == 1)
+    }
+
     /// Lexes the line, returns the state after it, and gives the buffers back
     /// to `scratch`.
+    pub(crate) fn run(self, scratch: &mut Scratch) -> u32 {
+        self.run_halting(scratch).0
+    }
+
+    /// Lexes the line like [`Lexer::run`], and returns where it halted too.
     ///
     /// The next line may resume the open rules only when they are the
     /// state's chain: each a state of its own, which a node limit can deny,
     /// and none that kept its begin scopes.
-    pub(crate) fn run(mut self, scratch: &mut Scratch) -> u32 {
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: with `lex_until` as a second caller it was left out of line, at a call once a line that moves the lexer"
+    )]
+    #[inline(always)]
+    pub(crate) fn run_halting(mut self, scratch: &mut Scratch) -> (u32, Option<usize>) {
         self.tokenize();
         let state = self.top().state;
         let exact = !self.flags.kept
@@ -418,7 +456,7 @@ impl<'a> Lexer<'a> {
         scratch.name = self.name;
         scratch.paths = self.paths;
         scratch.pushes = self.pushes;
-        state
+        (state, self.halted)
     }
 
     // Bytes.
@@ -866,7 +904,7 @@ impl<'a> Lexer<'a> {
             self.g = self.anchor == Some(self.pos);
             let Some((start, pat, end)) = self.scan() else {
                 let node = self.top().content;
-                self.emit(line_length, node);
+                self.emit(self.halted.unwrap_or(line_length), node);
                 return;
             };
             let advanced = end > self.pos;
@@ -1017,7 +1055,10 @@ impl<'a> Lexer<'a> {
     /// and end, with the match's spans in `self.spans`.
     fn scan(&mut self) -> Option<(usize, Pat, usize)> {
         let mut visited = 0;
-        let found = self.scan_positions(&mut visited);
+        let found = match self.root_halts() {
+            Some((halt, after)) => self.scan_positions::<true>(&mut visited, halt, after),
+            None => self.scan_positions::<false>(&mut visited, |_, _| false, None),
+        };
         self.spend(visited);
         found
     }
@@ -1032,12 +1073,26 @@ impl<'a> Lexer<'a> {
     /// first and what follows decides; the position after the first blank is
     /// the exception, because `normal_statement` may look back over a
     /// keyword and one space. A match starts at the start of a character.
-    fn scan_positions(&mut self, visited: &mut usize) -> Option<(usize, Pat, usize)> {
+    ///
+    /// When `HALTING`, a language that embeds shell takes the text back where
+    /// `halt` holds before the patterns at a place or `after` holds once they
+    /// fail there; only the root is open then. Without it the tests compile
+    /// out, so shell that nothing embeds pays nothing for them.
+    fn scan_positions<const HALTING: bool>(
+        &mut self,
+        visited: &mut usize,
+        halt: Halt,
+        after: Option<Halt>,
+    ) -> Option<(usize, Pat, usize)> {
         let info = rule_info(self.top().rule);
         let full = self.at_depth_limit();
         let mut p = self.pos;
         while p <= self.lim {
             *visited += 1;
+            if HALTING && halt(self.s, p) {
+                self.halted = Some(p);
+                return None;
+            }
             let list: &[Pat] = if p < self.lim || self.nl {
                 let byte = if p < self.lim { self.s[p] } else { b'\n' };
                 let prev = if p > 0 { self.s[p - 1] } else { 0 };
@@ -1055,6 +1110,10 @@ impl<'a> Lexer<'a> {
                 if let Some(end) = self.try_pat(pat, p) {
                     return Some((p, pat, end));
                 }
+            }
+            if HALTING && after.is_some_and(|after| after(self.s, p)) {
+                self.halted = Some(p);
+                return None;
             }
             if info.skip_blanks
                 && p < self.lim

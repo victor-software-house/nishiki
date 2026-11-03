@@ -14,11 +14,13 @@
 use std::borrow::Cow;
 use std::cell::Cell;
 
+#[cfg(feature = "lang-ruby")]
+use super::Embedding;
 use super::{Act, Captures, DynName, Grammar, Payload, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
 use crate::language::Halt;
 use crate::limits::{Limit, Limits, LineReport};
-use crate::{Stack, Token};
+use crate::{Language, Stack, Token};
 
 /// An open rule.
 #[derive(Clone, Copy, Debug)]
@@ -109,6 +111,11 @@ pub(crate) struct Scratch<G: Grammar> {
     pushes: Vec<Option<PushEntry>>,
     /// What the matchers kept from the last line ([`Grammar::Kept`]).
     kept: G::Kept,
+    /// The test for the patterns the embedding rule lists after the grammar,
+    /// for a line that another language embeds (see
+    /// [`Lexer::halting_after`]). Kept here, not in the lexer, so a lexer
+    /// costs a grammar that nothing embeds nothing more.
+    after: Option<Halt>,
 }
 
 impl<G: Grammar> Default for Scratch<G> {
@@ -126,6 +133,7 @@ impl<G: Grammar> Default for Scratch<G> {
             paths: Vec::new(),
             pushes: Vec::new(),
             kept: G::Kept::default(),
+            after: None,
         }
     }
 }
@@ -209,10 +217,26 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     halt: Option<Halt>,
     /// Where the line halted.
     halted: Option<usize>,
+    /// Whether the line runs through [`Lexer::run_embedding`], which hands
+    /// an embedding rule's text to the language it embeds; a line run any
+    /// other way lexes such a rule's text as the rule's own.
+    embedding: bool,
+    /// The language the innermost rule embeds, which the loop hands the
+    /// text to at the cursor; only an embedding line sets it.
+    embeds: Option<Language>,
+    /// Whether the cursor is where an embedded language halted, so the
+    /// rule's own patterns are tried there before the text goes back to it.
+    host: bool,
+    /// Where the line stopped for the embedded language, and the language.
+    yielded: Option<(usize, Language)>,
 }
 
 impl<'a, G: Grammar> Lexer<'a, G> {
-    #[inline]
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: with `lex_until` a second caller, it stopped being inlined, which cost CSS, C and SQL a call and a copy of the lexer once a line"
+    )]
+    #[inline(always)]
     pub(crate) fn new(
         arena: &'a mut Arena,
         limits: &'a Limits,
@@ -271,6 +295,21 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             x,
             halt: None,
             halted: None,
+            embedding: false,
+            embeds: None,
+            host: false,
+            yielded: None,
+        }
+    }
+
+    /// Notes whether the innermost rule embeds another language, for a
+    /// grammar that has such rules.
+    fn note_embedding(&mut self) {
+        if G::EMBEDS && self.embedding {
+            self.embeds = match G::rule_payload(self.top().rule) {
+                Payload::Embed(language) => Some(language),
+                Payload::None | Payload::Backref(_) => None,
+            };
         }
     }
 
@@ -283,8 +322,22 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self
     }
 
+    /// Also ends the line at the first place where `after` holds and no
+    /// pattern matches, while only the root rule is open: the embedding
+    /// rule's patterns after the grammar, which a match of the grammar at
+    /// the same place beats.
+    pub(crate) fn halting_after(self, after: Option<Halt>) -> Self {
+        self.scratch.after = after;
+        self
+    }
+
     /// Opens the rules of the state the line starts in, unless the frames
     /// the last line ended with are already in place.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: once its callers were forced inline, it stopped being inlined, at a call once a line"
+    )]
+    #[inline(always)]
     fn open(&mut self) {
         if self.frames.is_empty() {
             let mut chain = std::mem::take(&mut self.scratch.chain);
@@ -363,11 +416,58 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// Lexes the line like [`Lexer::run`], and returns where it halted too:
     /// the tokens end there, and the embedding lexer goes on from there.
-    #[inline]
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: with `lex_until` a second caller, it stopped being inlined, which cost CSS, C and SQL a call once a line"
+    )]
+    #[inline(always)]
     pub(crate) fn run_halting(mut self) -> (u32, Option<usize>) {
         self.open();
         self.check_while();
         self.tokenize();
+        let halted = self.halted;
+        (self.finish(), halted)
+    }
+
+    /// Lexes the line like [`Lexer::run`], but stops where the innermost
+    /// rule embeds another language and returns where, with the steps spent
+    /// so far. The caller lexes the embedded text and, where it halts, goes
+    /// on with a new lexer given those steps as `spent`: the rule's own
+    /// patterns are tried at the cursor first, and the `while` rules, which
+    /// only the start of a line tries, are not.
+    #[cfg(feature = "lang-ruby")]
+    pub(crate) fn run_embedding(mut self, spent: Option<u64>) -> (u32, Option<Embedding>, u64) {
+        self.embedding = true;
+        self.host = spent.is_some();
+        self.open();
+        match spent {
+            Some(steps) => self.steps.set(steps),
+            None => self.check_while(),
+        }
+        self.note_embedding();
+        self.tokenize();
+        let embedding = self.yielded.map(|(at, language)| {
+            let top = self.top();
+            Embedding {
+                at,
+                language,
+                state: top.payload,
+                base: top.content,
+            }
+        });
+        let spent = self.steps.get();
+        (self.finish(), embedding, spent)
+    }
+
+    /// The state after the line, with the buffers given back to the scratch
+    /// and, where the open rules are the state's chain, kept for the next
+    /// line (see [`Lexer::run`]).
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: a call here, with the lexer moved into it, costs CSS 0.7% of its instructions"
+    )]
+    #[inline(always)]
+    fn finish(mut self) -> u32 {
         let state = self.top().state;
         let exact = !self.flags.kept
             && self
@@ -388,7 +488,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.scratch.spans = self.spans;
         self.scratch.caps = self.caps;
         self.scratch.kept = G::keep(self.x);
-        (state, self.halted)
+        state
     }
 
     // Bytes.
@@ -430,6 +530,15 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.halted = Some(p);
     }
 
+    /// The halt a scan tests at each place where no pattern matched: the
+    /// line's `after` halt while only the root rule is open, and `None`
+    /// otherwise.
+    pub(crate) fn root_after(&self) -> Option<Halt> {
+        self.halt
+            .and(self.scratch.after)
+            .filter(|_| self.frames.len() == 1)
+    }
+
     /// Whether `\G` matches at `p`.
     pub(crate) fn at_g(&self, p: usize) -> bool {
         self.g && p == self.pos
@@ -447,6 +556,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// where it matches as an empty literal does in a regular expression;
     /// matchers call this one with words from lists in their hot loops, where
     /// one more test costs (Make +1.9% instructions, 2026-11-03).
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: called from both instances of C's scan, it stopped being inlined there, at a call per place"
+    )]
+    #[inline(always)]
     pub(crate) fn starts(&self, i: usize, text: &[u8]) -> bool {
         debug_assert!(!text.is_empty(), "an empty needle goes through Chars::lit");
         text.first().is_some_and(|b| self.s.get(i) == Some(b))
@@ -1080,6 +1194,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             return;
         }
         let saved = (self.s, self.nl, self.pos, self.anchor, self.frames.len());
+        let saved_embeds = if G::EMBEDS { self.embeds.take() } else { None };
         let saved_base = self.span_base;
         self.span_base = self.spans.len();
         let state = self.top().state;
@@ -1102,6 +1217,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         let depth;
         (self.s, self.nl, self.pos, self.anchor, depth) = saved;
         self.frames.truncate(depth);
+        if G::EMBEDS {
+            self.embeds = saved_embeds;
+        }
         self.spans.truncate(self.span_base);
         self.span_base = saved_base;
         self.dirty = true;
@@ -1125,6 +1243,17 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 let node = self.top().content;
                 self.emit(line_length, node);
                 return;
+            }
+            if G::EMBEDS
+                && let Some(language) = self.embeds
+            {
+                if !self.host {
+                    let node = self.top().content;
+                    self.emit(self.pos, node);
+                    self.yielded = Some((self.pos, language));
+                    return;
+                }
+                self.host = false;
             }
             self.g = self.anchor == Some(self.pos);
             let Some((start, pat, end)) = G::scan(self) else {
@@ -1180,6 +1309,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// names its text under that rule's content scopes, not those of the rules
     /// above it, and moves the cursor and `\G` past it. The first rule whose
     /// pattern fails closes, with every rule above it.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: with run_embedding a second caller, it stopped being inlined, at a call once a line"
+    )]
+    #[inline(always)]
     fn check_while(&mut self) {
         for i in 1..self.frames.len() {
             let frame = self.frames[i];
@@ -1221,6 +1355,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.emit(start, top.content);
         self.emit_match(table, top.name, start, end);
         let popped = self.pop_frame();
+        self.note_embedding();
         self.anchor = popped.anchor;
         if !advanced && popped.enter == Some(self.pos) {
             // The rule opened and closed without advancing: the grammar would
@@ -1251,7 +1386,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         let before = self.depth();
         let payload = match G::rule_payload(rule) {
             Payload::None if G::CAPTURED_EOL && end > self.s.len() => CAPTURED_EOL,
-            Payload::None => 0,
+            Payload::None | Payload::Embed(_) => 0,
             Payload::Backref(group) => {
                 let text = std::str::from_utf8(self.cap_text(usize::from(group))).unwrap_or("");
                 self.arena.intern(text).unwrap_or_else(|| {
@@ -1276,6 +1411,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             self.emit(line_length, node);
             return true;
         }
+        self.note_embedding();
         false
     }
 
@@ -1325,6 +1461,15 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         }
         false
     }
+}
+
+/// The state `state` with its innermost rule's payload replaced by
+/// `payload`, such as the state of the language the rule embeds after a
+/// line, or `None` when the node limit keeps the new state from being made.
+#[cfg(feature = "lang-ruby")]
+pub(crate) fn with_payload(arena: &mut Arena, state: u32, payload: u32) -> Option<u32> {
+    let frame = arena.frame(state);
+    arena.push(frame.parent, frame.kind, payload, frame.stack)
 }
 
 #[cfg(test)]

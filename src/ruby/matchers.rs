@@ -9,12 +9,15 @@
 mod chars;
 mod comments;
 mod defs;
+mod embeds;
 mod heredocs;
 mod literals;
 mod names;
 mod operators;
 mod regexp;
 mod words;
+
+use embeds::EMBEDDED_NAMES;
 
 use super::engine::Lexer;
 use super::grammar::Pat;
@@ -185,6 +188,66 @@ impl Lexer<'_> {
             Pat::RootAt88 => self.data_marker(p),
             Pat::RootAt88End | Pat::RootAt88At0End => None,
             Pat::RootAt88At0 => self.data_html(p),
+            Pat::RootAt89 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[0]),
+            Pat::RootAt89End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[0]),
+            Pat::RootAt89At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[0]),
+            Pat::RootAt89At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[0]),
+            Pat::RootAt90 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[1]),
+            Pat::RootAt90End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[1]),
+            Pat::RootAt90At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[1]),
+            Pat::RootAt90At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[1]),
+            Pat::RootAt91 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[2]),
+            Pat::RootAt91End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[2]),
+            Pat::RootAt91At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[2]),
+            Pat::RootAt91At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[2]),
+            Pat::RootAt92 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[3]),
+            Pat::RootAt92End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[3]),
+            Pat::RootAt92At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[3]),
+            Pat::RootAt92At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[3]),
+            Pat::RootAt93 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[4]),
+            Pat::RootAt93End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[4]),
+            Pat::RootAt93At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[4]),
+            Pat::RootAt93At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[4]),
+            Pat::RootAt94 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[5]),
+            Pat::RootAt94End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[5]),
+            Pat::RootAt94At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[5]),
+            Pat::RootAt94At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[5]),
+            Pat::RootAt95 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[6]),
+            Pat::RootAt95End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[6]),
+            Pat::RootAt95At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[6]),
+            Pat::RootAt95At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[6]),
+            Pat::RootAt96 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[7]),
+            Pat::RootAt96End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[7]),
+            Pat::RootAt96At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[7]),
+            Pat::RootAt96At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[7]),
+            Pat::RootAt97 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[8]),
+            Pat::RootAt97End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[8]),
+            Pat::RootAt97At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[8]),
+            Pat::RootAt97At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[8]),
+            Pat::RootAt98 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[9]),
+            Pat::RootAt98End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[9]),
+            Pat::RootAt98At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[9]),
+            Pat::RootAt98At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[9]),
+            Pat::RootAt99 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[10]),
+            Pat::RootAt99End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[10]),
+            Pat::RootAt99At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[10]),
+            Pat::RootAt99At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[10]),
+            Pat::RootAt100 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[11]),
+            Pat::RootAt100End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[11]),
+            Pat::RootAt100At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[11]),
+            Pat::RootAt100At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[11]),
+            Pat::RootAt101 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[12]),
+            Pat::RootAt101End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[12]),
+            Pat::RootAt101At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[12]),
+            Pat::RootAt101At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[12]),
+            Pat::RootAt102 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[13]),
+            Pat::RootAt102End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[13]),
+            Pat::RootAt102At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[13]),
+            Pat::RootAt102At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[13]),
+            Pat::RootAt103 => self.embedded_heredoc_ahead(p, EMBEDDED_NAMES[14]),
+            Pat::RootAt103End => self.embedded_heredoc_end(p, EMBEDDED_NAMES[14]),
+            Pat::RootAt103At0 => self.embedded_heredoc(p, EMBEDDED_NAMES[14]),
+            Pat::RootAt103At0While => self.embedded_heredoc_goes_on(p, EMBEDDED_NAMES[14]),
             Pat::RootAt104 => self.assigned_heredoc(p),
             Pat::RootAt104End => self.assigned_heredoc_end(p),
             Pat::Heredoc => self.heredoc_at_line_start(p),

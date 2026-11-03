@@ -28,7 +28,10 @@ impl Place {
 
 /// The candidate patterns of one rule.
 pub(crate) struct Tables<G: Tabled> {
-    /// All patterns, the end pattern first: for the text after the line feed.
+    /// The patterns that can match where no byte stands, after the line
+    /// feed or at the end of a last line without one: all of them, the end
+    /// pattern first, less those that need a second byte
+    /// ([`Grammar::pat_next`](super::Grammar::pat_next)).
     all: Box<[G::Pat]>,
     /// The candidates for each byte, away from the start of the line (the
     /// first 256), at it (the next 256) and inside a word (the last 256).
@@ -60,7 +63,10 @@ impl<G: Tabled> Tables<G> {
             }
         }
         Tables {
-            all: all.into_boxed_slice(),
+            all: all
+                .into_iter()
+                .filter(|&pat| G::pat_next(pat).is_none())
+                .collect(),
             by_byte: by_byte.into_boxed_slice(),
         }
     }
@@ -70,7 +76,8 @@ impl<G: Tabled> Tables<G> {
         &self.by_byte[place.index() * 256 + usize::from(byte)]
     }
 
-    /// Every pattern, the end pattern first.
+    /// The patterns that can match where no byte stands, the end pattern
+    /// first.
     pub(crate) fn all(&self) -> &[G::Pat] {
         &self.all
     }
@@ -82,7 +89,9 @@ impl<G: Tabled> Tables<G> {
 ///
 /// The text a pattern sees ends after the line feed, where `$` and
 /// lookaheads can still match, and the search stops at a halt
-/// ([`Lexer::root_halt`]), to which a match starting there would lose. A
+/// ([`Lexer::root_halt`]), to which a match starting there would lose, or
+/// where no pattern matches and the halt after them holds
+/// ([`Lexer::root_after`]). A
 /// begin pattern of a rule the depth limit keeps closed is tried only to
 /// record the limit, and its text stays plain.
 /// A pattern that fails at a blank fails at the blanks after it, since the
@@ -91,16 +100,21 @@ impl<G: Tabled> Tables<G> {
 /// at once.
 pub(crate) fn table_scan<G: Tabled>(lexer: &mut Lexer<'_, G>) -> Option<(usize, G::Pat, usize)> {
     match lexer.root_halt() {
-        Some(halt) => scan::<G, true>(lexer, halt),
-        None => scan::<G, false>(lexer, |_, _| false),
+        Some(halt) => {
+            let after = lexer.root_after();
+            scan::<G, true>(lexer, halt, after)
+        }
+        None => scan::<G, false>(lexer, |_, _| false, None),
     }
 }
 
-/// [`table_scan`], with the halt test compiled in only when `HALTING`, so a
-/// grammar that no other embeds pays nothing for it.
+/// [`table_scan`], with the halt tests compiled in only when `HALTING`, so a
+/// grammar that no other embeds pays nothing for them: `halt` before the
+/// patterns at each place, and `after` where none of them matched.
 fn scan<G: Tabled, const HALTING: bool>(
     lexer: &mut Lexer<'_, G>,
     halt: Halt,
+    after: Option<Halt>,
 ) -> Option<(usize, G::Pat, usize)> {
     let tables = G::tables(lexer.top_rule());
     let full = lexer.at_depth_limit();
@@ -157,6 +171,10 @@ fn scan<G: Tabled, const HALTING: bool>(
         }
         if hit.is_some() {
             break hit;
+        }
+        if HALTING && after.is_some_and(|after| after(s, p)) {
+            lexer.halt_here(p);
+            break None;
         }
         p = match s.get(p) {
             Some(b' ' | b'\t') => lexer.skip(p, |b| matches!(b, b' ' | b'\t')),

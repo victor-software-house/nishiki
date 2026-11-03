@@ -22,6 +22,7 @@ type Node = {
   patterns?: Node[];
   include?: string;
   while?: string;
+  whileCaptures?: Captures;
   repository?: Record<string, Node>;
 };
 type CaptureNode = { name?: string; patterns?: Node[] };
@@ -90,7 +91,7 @@ const pascal = (key: string) =>
 type Pat = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" } | { kind: "while" };
   captures: [number, string[]][];
   /** Capture groups that the grammar tokenizes with patterns of their own. */
   nested: [number, string][];
@@ -105,7 +106,23 @@ type Rule = {
   end: string;
   /** The begin capture group that the end pattern repeats, when it does. */
   backref: number | null;
+  /** The `while` pattern, or the empty text. */
+  while: string;
+  /** The nishiki `Language` and its cargo feature, when the rule's patterns
+   * include another grammar that nishiki lexes. */
+  embed: [string, string] | null;
   patterns: string[];
+};
+
+/** The grammars the heredocs include that nishiki lexes and can halt, by
+ * scope name: the `Language` variant and its feature. The others leave the
+ * heredoc's lines plain. */
+const embeddable: Record<string, [string, string]> = {
+  "source.sql": ["Sql", "lang-sql"],
+  "source.graphql": ["GraphQl", "lang-graphql"],
+  "source.css": ["Css", "lang-css"],
+  "source.shell": ["Shell", "lang-shell"],
+  "source.c": ["C", "lang-c"],
 };
 
 const pats = new Map<string, Pat>();
@@ -122,7 +139,7 @@ function nestedRule(list: Node[], repos: Repos): string {
   if (known !== undefined) return known;
   const id = `Nested${nestedRules.size}`;
   nestedRules.set(key, id);
-  const rule: Rule = { id, key: id, name: [], content: [], end: "", backref: null, patterns: [] };
+  const rule: Rule = { id, key: id, name: [], content: [], end: "", backref: null, while: "", embed: null, patterns: [] };
   rules.set(id, rule);
   rule.patterns = flatten(list, id, repos);
   return id;
@@ -190,6 +207,8 @@ function register(node: Node, id: string, key: string, repos: Repos): string {
         content: scopeList(node.contentName),
         end: `${id}End`,
         backref: backref ? Number(backref[1]) : null,
+        while: "",
+        embed: null,
         patterns: [],
       };
       rules.set(id, rule);
@@ -197,14 +216,42 @@ function register(node: Node, id: string, key: string, repos: Repos): string {
     }
     return id;
   }
-  throw new Error(`${id}: neither a match nor a begin/end rule`);
-}
-
-/** Whether `node` is one of the grammar's heredocs that embed another
- * grammar through a `while` rule. They wait for the engine's shared embedding
- * hook; until then such a heredoc is read by the plain heredoc rules. */
-function embedsGrammar(node: Node): boolean {
-  return (node.patterns ?? []).some((inner) => inner.while !== undefined);
+  if (node.begin !== undefined && node.while !== undefined) {
+    if (!node.while.startsWith("^")) throw new Error(`${id}: while ${node.while} is not anchored`);
+    if (!pats.has(id)) {
+      pats.set(id, {
+        id,
+        regex: node.begin,
+        act: { kind: "begin", rule: id },
+        captures: captureList(node.beginCaptures ?? node.captures),
+        nested: nestedList(node.beginCaptures ?? node.captures, repos),
+        key,
+      });
+      pats.set(`${id}While`, {
+        id: `${id}While`,
+        regex: node.while,
+        act: { kind: "while" },
+        captures: captureList(node.whileCaptures ?? node.captures),
+        nested: nestedList(node.whileCaptures ?? node.captures, repos),
+        key,
+      });
+      const rule: Rule = {
+        id,
+        key,
+        name: scopeList(node.name),
+        content: scopeList(node.contentName),
+        end: "",
+        backref: null,
+        while: `${id}While`,
+        embed: null,
+        patterns: [],
+      };
+      rules.set(id, rule);
+      rule.patterns = flatten(node.patterns ?? [], id, node.repository ? [node.repository, ...repos] : repos);
+    }
+    return id;
+  }
+  throw new Error(`${id}: neither a match, a begin/end nor a begin/while rule`);
 }
 
 /** The pattern ids a pattern list expands to, `include`s flattened. */
@@ -214,13 +261,17 @@ function flatten(list: Node[], context: string, repos: Repos): string[] {
     if (node.include === "$self" || node.include === "source.ruby") {
       out.push(...flatten(root.patterns!, "Root", [repository]));
     } else if (node.include !== undefined && !node.include.startsWith("#")) {
-      // Another grammar (HTML after `__END__`): waits for the embedding hook.
+      // Another grammar, such as SQL in a heredoc: the engine hands the rule's
+      // text to that language, when nishiki lexes it.
+      const rule = rules.get(context);
+      const embed = embeddable[node.include];
+      if (rule && embed) rule.embed = embed;
     } else if (node.include !== undefined) {
       const key = node.include.slice(1);
       const target = repos.map((repo) => repo[key]).find((found) => found !== undefined);
       if (!target) throw new Error(`unknown include ${key}`);
       out.push(...expand(target, pascal(key), key, repos));
-    } else if (!embedsGrammar(node)) {
+    } else {
       out.push(...expand(node, `${context}At${index}`, context, repos));
     }
   });
@@ -242,12 +293,41 @@ rules.set("Root", {
   content: [],
   end: "",
   backref: null,
+  while: "",
+  embed: null,
   patterns: rootPatterns,
 });
 
 // Output.
 
 const list = (names: string[]) => (names.length ? `&[${names.map((n) => `S::${n}`).join(", ")}]` : "&[]");
+
+/** The second byte of every match of `regex`, when the regex starts with
+ * `<<` inside nothing but lookahead and atomic groups that hold no
+ * alternative: the here document openers, which then need two bytes. */
+function nextByte(regex: string): string | undefined {
+  let at = 0;
+  const groups: number[] = [];
+  while (regex.startsWith("(?=", at) || regex.startsWith("(?>", at)) {
+    groups.push(at + 3);
+    at += 3;
+  }
+  if (!regex.startsWith("<<", at) || "?*+{".includes(regex[at + 2] ?? "")) return undefined;
+  for (const from of [0, ...groups]) {
+    let depth = 0;
+    for (let i = from; i < regex.length && depth >= 0; i++) {
+      const c = regex[i];
+      if (c === "\\") i++;
+      else if (c === "[") {
+        i++;
+        while (i < regex.length && regex[i] !== "]") i += regex[i] === "\\" ? 2 : 1;
+      } else if (c === "(") depth++;
+      else if (c === ")") depth--;
+      else if (c === "|" && depth === 0) return undefined;
+    }
+  }
+  return "<";
+}
 
 let g = `//! The grammar's rules as tables. Generated by \`oracle/ruby-grammar.ts\` from
 //! the \`ruby\` grammar Shiki 4.6.0 bundles; do not edit.
@@ -257,7 +337,7 @@ let g = `//! The grammar's rules as tables. Generated by \`oracle/ruby-grammar.t
 //! its \`include\`s flattened, so the first that matches at the earliest
 //! position wins as in a \`TextMate\` engine.
 
-use super::engine::Ruby;
+use super::engine::{Ruby, embedded};
 use super::scope::S;
 use crate::rules;
 
@@ -286,6 +366,23 @@ g += arms(
   ]),
   "Rule",
 );
+g += `        }\n    }\n\n    /// The \`while\` pattern of a rule that has one.\n${tooLong}    pub(crate) fn while_pat(self) -> Option<Pat> {\n        match self {\n`;
+g += arms(
+  ruleList.map((r): [string, string] => [r.id, r.while ? `Some(Pat::${r.while})` : "None"]),
+  "Rule",
+);
+g += `        }\n    }\n\n    /// What a rule carries from line to line: the state of the language\n    /// whose grammar its patterns include, when nishiki lexes it and its\n    /// feature is on, or the begin capture group its end repeats.\n${tooLong}    #[inline]\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
+g += arms(
+  ruleList.map((r): [string, string] => [
+    r.id,
+    r.embed
+      ? `embedded!(${r.embed[0]}, "${r.embed[1]}").map_or(rules::Payload::None, rules::Payload::Embed)`
+      : r.backref === null
+        ? "rules::Payload::None"
+        : `rules::Payload::Backref(${r.backref})`,
+  ]),
+  "Rule",
+);
 g += `        }\n    }\n}\n\n`;
 
 g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pat {\n`;
@@ -294,7 +391,7 @@ const docs = (s: string) => {
   return one.length > 56 ? `…` : one;
 };
 for (const p of patList) {
-  const kind = p.act.kind === "end" ? "end" : p.act.kind === "begin" ? "begin" : "match";
+  const kind = p.act.kind;
   g += `    /// The ${kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
@@ -305,7 +402,9 @@ g += arms(
         ? `Act::Match(${list(p.act.name)})`
         : p.act.kind === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
-          : "Act::End";
+          : p.act.kind === "end"
+            ? "Act::End"
+            : "Act::Match(&[])";
     const caps = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
     const nested = p.nested.map(([n, kind]) => `(${n}, Rule::${kind})`).join(", ");
     return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
@@ -315,6 +414,21 @@ g += arms(
 g += `        }\n    }\n}\n`;
 
 g += startTable(patList, "any");
+g += `
+impl Pat {
+    /// The byte a match must have right after its first, where the pattern
+    /// fixes it: a here document opener's second \`<\`.
+${tooLong}    pub(crate) fn next_byte(self) -> Option<u8> {
+        match self {
+`;
+g += arms(
+  patList.map((p): [string, string] => {
+    const next = nextByte(p.regex);
+    return [p.id, next === undefined ? "None" : `Some(b'${next}')`];
+  }),
+  "Pat",
+);
+g += `        }\n    }\n}\n`;
 g += ruleCodes("Ruby", "RUBY");
 g += groupsCheck("Ruby", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 

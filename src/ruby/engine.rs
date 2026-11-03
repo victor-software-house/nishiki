@@ -6,6 +6,19 @@ use super::grammar::{Pat, Rule};
 use super::scope::S;
 use crate::rules::{self, Act, Captures, Grammar, HasRuns, Payload, Runs, ScopeName, table_scan};
 
+/// `Some(Language::$variant)` when the language's feature is on, and `None`
+/// otherwise: the language a heredoc's rule embeds, for the generated table.
+macro_rules! embedded {
+    ($variant:ident, $feature:literal) => {{
+        #[cfg(feature = $feature)]
+        let language = Some(crate::Language::$variant);
+        #[cfg(not(feature = $feature))]
+        let language = None;
+        language
+    }};
+}
+pub(crate) use embedded;
+
 /// The Ruby lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Ruby>;
 /// What a highlighter keeps from line to line.
@@ -66,8 +79,23 @@ impl Grammar for Ruby {
         rule.data().content
     }
 
+    fn rule_while(rule: Rule) -> Option<Pat> {
+        rule.while_pat()
+    }
+
+    const EMBEDS: bool = true;
+
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: a hint left it out of line, at a call on every rule opened and closed"
+    )]
+    #[inline(always)]
     fn rule_payload(rule: Rule) -> Payload {
-        rule.data().backref.map_or(Payload::None, Payload::Backref)
+        rule.payload()
+    }
+
+    fn pat_next(pat: Pat) -> Option<u8> {
+        pat.next_byte()
     }
 
     fn pat_act(pat: Pat) -> Act<Self> {

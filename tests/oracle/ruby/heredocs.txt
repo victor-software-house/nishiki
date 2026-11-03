@@ -1,0 +1,403 @@
+L # Here documents named for the languages Ruby embeds that nishiki lexes,
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 72 source.ruby comment.line.number-sign.ruby
+L # with interpolation and escapes where the embedded language has nothing open.
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 78 source.ruby comment.line.number-sign.ruby
+L query = <<~SQL
+T 5 source.ruby variable.ruby
+T 6 source.ruby
+T 7 source.ruby keyword.operator.assignment.ruby
+T 8 source.ruby
+T 14 source.ruby meta.embedded.block.sql string.definition.begin.ruby
+L   SELECT id, name FROM users WHERE id = #{user.id} AND name = 'a #{b}'
+T 2 source.ruby meta.embedded.block.sql source.sql
+T 8 source.ruby meta.embedded.block.sql source.sql keyword.other.DML.sql
+T 13 source.ruby meta.embedded.block.sql source.sql
+T 17 source.ruby meta.embedded.block.sql source.sql keyword.other.sql
+T 18 source.ruby meta.embedded.block.sql source.sql
+T 22 source.ruby meta.embedded.block.sql source.sql keyword.other.DML.sql
+T 29 source.ruby meta.embedded.block.sql source.sql
+T 34 source.ruby meta.embedded.block.sql source.sql keyword.other.DML.sql
+T 38 source.ruby meta.embedded.block.sql source.sql
+T 39 source.ruby meta.embedded.block.sql source.sql keyword.operator.comparison.sql
+T 40 source.ruby meta.embedded.block.sql source.sql
+T 42 source.ruby meta.embedded.block.sql source.sql meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 46 source.ruby meta.embedded.block.sql source.sql meta.embedded.line.ruby source.ruby
+T 47 source.ruby meta.embedded.block.sql source.sql meta.embedded.line.ruby source.ruby punctuation.separator.method.ruby
+T 49 source.ruby meta.embedded.block.sql source.sql meta.embedded.line.ruby source.ruby meta.function-call.ruby entity.name.function.ruby
+T 50 source.ruby meta.embedded.block.sql source.sql meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 51 source.ruby meta.embedded.block.sql source.sql
+T 54 source.ruby meta.embedded.block.sql source.sql keyword.other.DML.sql
+T 55 source.ruby meta.embedded.block.sql source.sql
+T 59 source.ruby meta.embedded.block.sql source.sql keyword.other.sql
+T 60 source.ruby meta.embedded.block.sql source.sql
+T 61 source.ruby meta.embedded.block.sql source.sql keyword.operator.comparison.sql
+T 62 source.ruby meta.embedded.block.sql source.sql
+T 63 source.ruby meta.embedded.block.sql source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 69 source.ruby meta.embedded.block.sql source.sql string.quoted.single.sql
+T 70 source.ruby meta.embedded.block.sql source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+L   -- #@note and #@@count and #$global
+T 2 source.ruby meta.embedded.block.sql source.sql punctuation.whitespace.comment.leading.sql
+T 4 source.ruby meta.embedded.block.sql source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 37 source.ruby meta.embedded.block.sql source.sql comment.line.double-dash.sql
+L   ORDER BY name \n LIMIT 10
+T 2 source.ruby meta.embedded.block.sql source.sql
+T 10 source.ruby meta.embedded.block.sql source.sql keyword.other.DML.sql
+T 11 source.ruby meta.embedded.block.sql source.sql
+T 15 source.ruby meta.embedded.block.sql source.sql keyword.other.sql
+T 16 source.ruby meta.embedded.block.sql source.sql
+T 18 source.ruby meta.embedded.block.sql source.sql constant.character.escape.ruby
+T 19 source.ruby meta.embedded.block.sql source.sql
+T 24 source.ruby meta.embedded.block.sql source.sql keyword.other.DML.sql
+T 25 source.ruby meta.embedded.block.sql source.sql
+T 27 source.ruby meta.embedded.block.sql source.sql constant.numeric.sql
+L SQL
+T 3 source.ruby meta.embedded.block.sql string.definition.end.ruby
+L 
+L schema = <<-GRAPHQL
+T 6 source.ruby variable.ruby
+T 7 source.ruby
+T 8 source.ruby keyword.operator.assignment.ruby
+T 9 source.ruby
+T 19 source.ruby meta.embedded.block.graphql string.definition.begin.ruby
+L   query Find($id: ID!) { user(id: $id) { name #{fields} } }
+T 2 source.ruby meta.embedded.block.graphql source.graphql
+T 7 source.ruby meta.embedded.block.graphql source.graphql keyword.operation.graphql
+T 8 source.ruby meta.embedded.block.graphql source.graphql
+T 12 source.ruby meta.embedded.block.graphql source.graphql entity.name.function.graphql
+T 13 source.ruby meta.embedded.block.graphql source.graphql meta.brace.round.graphql
+T 16 source.ruby meta.embedded.block.graphql source.graphql meta.variables.graphql variable.parameter.graphql
+T 17 source.ruby meta.embedded.block.graphql source.graphql meta.variables.graphql punctuation.colon.graphql
+T 18 source.ruby meta.embedded.block.graphql source.graphql meta.variables.graphql
+T 20 source.ruby meta.embedded.block.graphql source.graphql meta.variables.graphql support.type.builtin.graphql
+T 21 source.ruby meta.embedded.block.graphql source.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 22 source.ruby meta.embedded.block.graphql source.graphql meta.brace.round.graphql
+T 23 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql
+T 24 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql punctuation.operation.graphql
+T 25 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql
+T 29 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql variable.graphql
+T 30 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 32 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql meta.arguments.graphql variable.parameter.graphql
+T 33 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.colon.graphql
+T 34 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql meta.arguments.graphql
+T 37 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql meta.arguments.graphql variable.graphql
+T 38 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 39 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 40 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+T 41 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 45 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+T 46 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql meta.selectionset.graphql comment.line.graphql.js punctuation.whitespace.comment.leading.graphql
+T 59 source.ruby meta.embedded.block.graphql source.graphql meta.selectionset.graphql meta.selectionset.graphql comment.line.graphql.js
+L GRAPHQL
+T 7 source.ruby meta.embedded.block.graphql string.definition.end.ruby
+L 
+L styles = <<~CSS
+T 6 source.ruby variable.ruby
+T 7 source.ruby
+T 8 source.ruby keyword.operator.assignment.ruby
+T 9 source.ruby
+T 15 source.ruby meta.embedded.block.css string.definition.begin.ruby
+L   .button { color: #{color}; margin: 0 \1 2px; }
+T 2 source.ruby meta.embedded.block.css source.css
+T 3 source.ruby meta.embedded.block.css source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 source.ruby meta.embedded.block.css source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 source.ruby meta.embedded.block.css source.css
+T 11 source.ruby meta.embedded.block.css source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+T 12 source.ruby meta.embedded.block.css source.css meta.property-list.css
+T 17 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 18 source.ruby meta.embedded.block.css source.css meta.property-list.css punctuation.separator.key-value.css
+T 19 source.ruby meta.embedded.block.css source.css meta.property-list.css
+T 20 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-value.css
+T 21 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+T 26 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 27 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+T 28 source.ruby meta.embedded.block.css source.css meta.property-list.css punctuation.terminator.rule.css
+T 29 source.ruby meta.embedded.block.css source.css meta.property-list.css
+T 35 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 36 source.ruby meta.embedded.block.css source.css meta.property-list.css punctuation.separator.key-value.css
+T 37 source.ruby meta.embedded.block.css source.css meta.property-list.css
+T 38 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 39 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-value.css
+T 41 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-value.css constant.character.escape.codepoint.css
+T 42 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-value.css
+T 43 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 45 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 46 source.ruby meta.embedded.block.css source.css meta.property-list.css punctuation.terminator.rule.css
+T 47 source.ruby meta.embedded.block.css source.css meta.property-list.css
+T 48 source.ruby meta.embedded.block.css source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   a::before { content: "\201C"; }
+T 2 source.ruby meta.embedded.block.css source.css
+T 3 source.ruby meta.embedded.block.css source.css meta.selector.css entity.name.tag.css
+T 5 source.ruby meta.embedded.block.css source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 11 source.ruby meta.embedded.block.css source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 12 source.ruby meta.embedded.block.css source.css
+T 13 source.ruby meta.embedded.block.css source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+T 14 source.ruby meta.embedded.block.css source.css meta.property-list.css
+T 21 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 22 source.ruby meta.embedded.block.css source.css meta.property-list.css punctuation.separator.key-value.css
+T 23 source.ruby meta.embedded.block.css source.css meta.property-list.css
+T 24 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-value.css string.quoted.double.css punctuation.definition.string.begin.css
+T 29 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-value.css string.quoted.double.css constant.character.escape.codepoint.css
+T 30 source.ruby meta.embedded.block.css source.css meta.property-list.css meta.property-value.css string.quoted.double.css punctuation.definition.string.end.css
+T 31 source.ruby meta.embedded.block.css source.css meta.property-list.css punctuation.terminator.rule.css
+T 32 source.ruby meta.embedded.block.css source.css meta.property-list.css
+T 33 source.ruby meta.embedded.block.css source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L CSS
+T 3 source.ruby meta.embedded.block.css string.definition.end.ruby
+L 
+L source = <<~C
+T 6 source.ruby variable.ruby
+T 7 source.ruby
+T 8 source.ruby keyword.operator.assignment.ruby
+T 9 source.ruby
+T 13 source.ruby meta.embedded.block.c string.definition.begin.ruby
+L   #include <stdio.h>
+T 2 source.ruby meta.embedded.block.c source.c meta.preprocessor.include.c
+T 3 source.ruby meta.embedded.block.c source.c meta.preprocessor.include.c keyword.control.directive.include.c punctuation.definition.directive.c
+T 10 source.ruby meta.embedded.block.c source.c meta.preprocessor.include.c keyword.control.directive.include.c
+T 11 source.ruby meta.embedded.block.c source.c meta.preprocessor.include.c
+T 12 source.ruby meta.embedded.block.c source.c meta.preprocessor.include.c string.quoted.other.lt-gt.include.c punctuation.definition.string.begin.c
+T 19 source.ruby meta.embedded.block.c source.c meta.preprocessor.include.c string.quoted.other.lt-gt.include.c
+T 20 source.ruby meta.embedded.block.c source.c meta.preprocessor.include.c string.quoted.other.lt-gt.include.c punctuation.definition.string.end.c
+L   int main(void) { printf("%d\n", #{count}); return 0; } \
+T 2 source.ruby meta.embedded.block.c source.c
+T 5 source.ruby meta.embedded.block.c source.c storage.type.built-in.primitive.c
+T 6 source.ruby meta.embedded.block.c source.c
+T 10 source.ruby meta.embedded.block.c source.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 11 source.ruby meta.embedded.block.c source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 15 source.ruby meta.embedded.block.c source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 16 source.ruby meta.embedded.block.c source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 17 source.ruby meta.embedded.block.c source.c
+T 18 source.ruby meta.embedded.block.c source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+T 19 source.ruby meta.embedded.block.c source.c meta.block.c
+T 25 source.ruby meta.embedded.block.c source.c meta.block.c meta.function-call.c entity.name.function.c
+T 26 source.ruby meta.embedded.block.c source.c meta.block.c meta.function-call.c punctuation.section.arguments.begin.bracket.round.c
+T 27 source.ruby meta.embedded.block.c source.c meta.block.c meta.function-call.c string.quoted.double.c punctuation.definition.string.begin.c
+T 29 source.ruby meta.embedded.block.c source.c meta.block.c meta.function-call.c string.quoted.double.c constant.other.placeholder.c
+T 31 source.ruby meta.embedded.block.c source.c meta.block.c meta.function-call.c string.quoted.double.c constant.character.escape.c
+T 32 source.ruby meta.embedded.block.c source.c meta.block.c meta.function-call.c string.quoted.double.c punctuation.definition.string.end.c
+T 33 source.ruby meta.embedded.block.c source.c meta.block.c meta.function-call.c punctuation.separator.delimiter.c
+T 35 source.ruby meta.embedded.block.c source.c meta.block.c meta.function-call.c
+T 36 source.ruby meta.embedded.block.c source.c meta.block.c meta.function-call.c punctuation.section.block.begin.bracket.curly.c
+T 41 source.ruby meta.embedded.block.c source.c meta.block.c meta.function-call.c
+T 42 source.ruby meta.embedded.block.c source.c meta.block.c meta.function-call.c punctuation.section.block.end.bracket.curly.c
+T 43 source.ruby meta.embedded.block.c source.c meta.block.c meta.function-call.c punctuation.section.arguments.end.bracket.round.c
+T 44 source.ruby meta.embedded.block.c source.c meta.block.c punctuation.terminator.statement.c
+T 45 source.ruby meta.embedded.block.c source.c meta.block.c
+T 51 source.ruby meta.embedded.block.c source.c meta.block.c keyword.control.c
+T 52 source.ruby meta.embedded.block.c source.c meta.block.c
+T 53 source.ruby meta.embedded.block.c source.c meta.block.c constant.numeric.decimal.c
+T 54 source.ruby meta.embedded.block.c source.c meta.block.c punctuation.terminator.statement.c
+T 55 source.ruby meta.embedded.block.c source.c meta.block.c
+T 56 source.ruby meta.embedded.block.c source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+T 57 source.ruby meta.embedded.block.c source.c
+T 58 source.ruby meta.embedded.block.c source.c constant.character.escape.line-continuation.c
+L   /* done */
+T 2 source.ruby meta.embedded.block.c source.c comment.block.c
+T 4 source.ruby meta.embedded.block.c source.c comment.block.c punctuation.definition.comment.begin.c
+T 10 source.ruby meta.embedded.block.c source.c comment.block.c
+T 12 source.ruby meta.embedded.block.c source.c comment.block.c punctuation.definition.comment.end.c
+L   #{type} value = \x;
+T 2 source.ruby meta.embedded.block.c source.c
+T 4 source.ruby meta.embedded.block.c source.c meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 8 source.ruby meta.embedded.block.c source.c meta.embedded.line.ruby source.ruby
+T 9 source.ruby meta.embedded.block.c source.c meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 16 source.ruby meta.embedded.block.c source.c
+T 17 source.ruby meta.embedded.block.c source.c keyword.operator.assignment.c
+T 18 source.ruby meta.embedded.block.c source.c
+T 20 source.ruby meta.embedded.block.c source.c constant.character.escape.ruby
+T 21 source.ruby meta.embedded.block.c source.c punctuation.terminator.statement.c
+L C
+T 1 source.ruby meta.embedded.block.c string.definition.end.ruby
+L 
+L run = <<~SHELL
+T 3 source.ruby variable.ruby
+T 4 source.ruby
+T 5 source.ruby keyword.operator.assignment.ruby
+T 6 source.ruby
+T 14 source.ruby meta.embedded.block.shell string.definition.begin.ruby
+L   echo "hello #{name}" \$HOME
+T 2 source.ruby meta.embedded.block.shell source.shell meta.statement.shell
+T 6 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 7 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 8 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 21 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 22 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 25 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell constant.character.escape.shell
+T 29 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L   for f in *.rb; do ruby -c "$f"; done \
+T 2 source.ruby meta.embedded.block.shell source.shell
+T 5 source.ruby meta.embedded.block.shell source.shell meta.for.in.shell keyword.control.for.shell
+T 6 source.ruby meta.embedded.block.shell source.shell meta.for.in.shell
+T 7 source.ruby meta.embedded.block.shell source.shell meta.for.in.shell variable.other.for.shell
+T 8 source.ruby meta.embedded.block.shell source.shell meta.for.in.shell
+T 10 source.ruby meta.embedded.block.shell source.shell meta.for.in.shell keyword.control.in.shell
+T 11 source.ruby meta.embedded.block.shell source.shell meta.for.in.shell
+T 12 source.ruby meta.embedded.block.shell source.shell meta.for.in.shell string.unquoted.shell
+T 13 source.ruby meta.embedded.block.shell source.shell meta.for.in.shell string.unquoted.shell
+T 14 source.ruby meta.embedded.block.shell source.shell meta.for.in.shell string.unquoted.shell
+T 15 source.ruby meta.embedded.block.shell source.shell meta.for.in.shell string.unquoted.shell
+T 16 source.ruby meta.embedded.block.shell source.shell punctuation.terminator.statement.semicolon.shell
+T 17 source.ruby meta.embedded.block.shell source.shell
+T 19 source.ruby meta.embedded.block.shell source.shell keyword.control.do.shell
+T 20 source.ruby meta.embedded.block.shell source.shell
+T 24 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 25 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell
+T 26 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 27 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 28 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 29 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 30 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell variable.other.normal.shell
+T 31 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell variable.other.normal.shell
+T 32 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 33 source.ruby meta.embedded.block.shell source.shell punctuation.terminator.statement.semicolon.shell
+T 34 source.ruby meta.embedded.block.shell source.shell
+T 38 source.ruby meta.embedded.block.shell source.shell keyword.control.done.shell
+T 39 source.ruby meta.embedded.block.shell source.shell
+T 40 source.ruby meta.embedded.block.shell source.shell constant.character.escape.line-continuation.shell
+L     && echo ok
+T 4 source.ruby meta.embedded.block.shell source.shell meta.statement.shell
+T 6 source.ruby meta.embedded.block.shell source.shell punctuation.separator.statement.and.shell
+T 7 source.ruby meta.embedded.block.shell source.shell meta.statement.shell
+T 11 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 12 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 14 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L   #{command} --flag \x
+T 2 source.ruby meta.embedded.block.shell source.shell
+T 3 source.ruby meta.embedded.block.shell source.shell comment.line.number-sign.shell punctuation.definition.comment.shell
+T 22 source.ruby meta.embedded.block.shell source.shell comment.line.number-sign.shell
+L SHELL
+T 5 source.ruby meta.embedded.block.shell string.definition.end.ruby
+L 
+L sh = <<~'SH'
+T 2 source.ruby variable.ruby
+T 3 source.ruby
+T 4 source.ruby keyword.operator.assignment.ruby
+T 5 source.ruby
+T 12 source.ruby meta.embedded.block.shell string.definition.begin.ruby
+L   ls -la | grep '#{literal}'
+T 2 source.ruby meta.embedded.block.shell source.shell meta.statement.shell
+T 4 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 5 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell
+T 6 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 8 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 9 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell
+T 10 source.ruby meta.embedded.block.shell source.shell keyword.operator.pipe.shell
+T 11 source.ruby meta.embedded.block.shell source.shell meta.statement.shell
+T 15 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 16 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 17 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.begin.shell
+T 27 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell
+T 28 source.ruby meta.embedded.block.shell source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.end.shell
+L SH
+T 2 source.ruby meta.embedded.block.shell string.definition.end.ruby
+L 
+L jq = <<~JQUERY
+T 2 source.ruby variable.ruby
+T 3 source.ruby
+T 4 source.ruby keyword.operator.assignment.ruby
+T 5 source.ruby
+T 14 source.ruby meta.embedded.block.js.jquery string.definition.begin.ruby
+L   $("#id").hide();
+T 18 source.ruby meta.embedded.block.js.jquery source.js.jquery
+L JQUERY
+T 6 source.ruby meta.embedded.block.js.jquery string.definition.end.ruby
+L 
+L view = <<~SLIM
+T 4 source.ruby variable.ruby
+T 5 source.ruby
+T 6 source.ruby keyword.operator.assignment.ruby
+T 7 source.ruby
+T 14 source.ruby meta.embedded.block.slim string.definition.begin.ruby
+L   p = #{text}
+T 6 source.ruby meta.embedded.block.slim text.slim
+T 8 source.ruby meta.embedded.block.slim text.slim meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 12 source.ruby meta.embedded.block.slim text.slim meta.embedded.line.ruby source.ruby
+T 13 source.ruby meta.embedded.block.slim text.slim meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+L SLIM
+T 4 source.ruby meta.embedded.block.slim string.definition.end.ruby
+L 
+L eval <<~RUBY, __FILE__, __LINE__ + 1
+T 4 source.ruby support.function.kernel.ruby
+T 5 source.ruby
+T 12 source.ruby meta.embedded.block.ruby string.definition.begin.ruby
+T 13 source.ruby meta.embedded.block.ruby source.ruby punctuation.separator.object.ruby
+T 14 source.ruby meta.embedded.block.ruby source.ruby
+T 22 source.ruby meta.embedded.block.ruby source.ruby variable.language.ruby
+T 23 source.ruby meta.embedded.block.ruby source.ruby punctuation.separator.object.ruby
+T 24 source.ruby meta.embedded.block.ruby source.ruby
+T 32 source.ruby meta.embedded.block.ruby source.ruby variable.language.ruby
+T 33 source.ruby meta.embedded.block.ruby source.ruby
+T 34 source.ruby meta.embedded.block.ruby source.ruby keyword.operator.arithmetic.ruby
+T 35 source.ruby meta.embedded.block.ruby source.ruby
+T 36 source.ruby meta.embedded.block.ruby source.ruby constant.numeric.ruby
+L   def #{name}
+T 2 source.ruby meta.embedded.block.ruby source.ruby
+T 5 source.ruby meta.embedded.block.ruby source.ruby meta.function.method.without-arguments.ruby keyword.control.def.ruby
+T 6 source.ruby meta.embedded.block.ruby source.ruby
+T 8 source.ruby meta.embedded.block.ruby source.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 12 source.ruby meta.embedded.block.ruby source.ruby meta.embedded.line.ruby source.ruby
+T 13 source.ruby meta.embedded.block.ruby source.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+L     @value = "#{value}\n"
+T 4 source.ruby meta.embedded.block.ruby source.ruby
+T 5 source.ruby meta.embedded.block.ruby source.ruby variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 10 source.ruby meta.embedded.block.ruby source.ruby variable.other.readwrite.instance.ruby
+T 11 source.ruby meta.embedded.block.ruby source.ruby
+T 12 source.ruby meta.embedded.block.ruby source.ruby keyword.operator.assignment.ruby
+T 13 source.ruby meta.embedded.block.ruby source.ruby
+T 14 source.ruby meta.embedded.block.ruby source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 16 source.ruby meta.embedded.block.ruby source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 21 source.ruby meta.embedded.block.ruby source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 22 source.ruby meta.embedded.block.ruby source.ruby string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 24 source.ruby meta.embedded.block.ruby source.ruby string.quoted.double.interpolated.ruby constant.character.escape.ruby
+T 25 source.ruby meta.embedded.block.ruby source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L   end
+T 2 source.ruby meta.embedded.block.ruby source.ruby
+T 5 source.ruby meta.embedded.block.ruby source.ruby keyword.control.ruby
+L RUBY
+T 4 source.ruby meta.embedded.block.ruby string.definition.end.ruby
+L 
+L list = [<<~SQL, <<~CSS]
+T 4 source.ruby variable.ruby
+T 5 source.ruby
+T 6 source.ruby keyword.operator.assignment.ruby
+T 7 source.ruby
+T 8 source.ruby punctuation.section.array.begin.ruby
+T 14 source.ruby meta.embedded.block.sql string.definition.begin.ruby
+T 16 source.ruby meta.embedded.block.sql source.sql
+T 17 source.ruby meta.embedded.block.sql source.sql keyword.operator.comparison.sql
+T 18 source.ruby meta.embedded.block.sql source.sql keyword.operator.comparison.sql
+T 23 source.ruby meta.embedded.block.sql source.sql
+L   SELECT 1
+T 2 source.ruby meta.embedded.block.sql source.sql
+T 8 source.ruby meta.embedded.block.sql source.sql keyword.other.DML.sql
+T 9 source.ruby meta.embedded.block.sql source.sql
+T 10 source.ruby meta.embedded.block.sql source.sql constant.numeric.sql
+L SQL
+T 3 source.ruby meta.embedded.block.sql string.definition.end.ruby
+L   b { }
+T 4 source.ruby
+T 5 source.ruby punctuation.section.scope.begin.ruby
+T 6 source.ruby meta.syntax.ruby.start-block
+T 7 source.ruby punctuation.section.scope.end.ruby
+L CSS
+T 3 source.ruby variable.other.constant.ruby
+L 
+L trailing = <<~SQL
+T 8 source.ruby variable.ruby
+T 9 source.ruby
+T 10 source.ruby keyword.operator.assignment.ruby
+T 11 source.ruby
+T 17 source.ruby meta.embedded.block.sql string.definition.begin.ruby
+L   SELECT 2
+T 2 source.ruby meta.embedded.block.sql source.sql
+T 8 source.ruby meta.embedded.block.sql source.sql keyword.other.DML.sql
+T 9 source.ruby meta.embedded.block.sql source.sql
+T 10 source.ruby meta.embedded.block.sql source.sql constant.numeric.sql
+L   SQL  
+T 7 source.ruby meta.embedded.block.sql
+L SQL
+T 3 source.ruby meta.embedded.block.sql string.definition.end.ruby
+L 

@@ -26,7 +26,7 @@ use scope::S;
 use state::Rule;
 
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 
 /// The state at the start of a GraphQL document whose scopes sit on the stack
 /// `base`: one rule with `source.graphql` on top of it.
@@ -60,6 +60,25 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
         return state;
     }
     engine::Lexer::new(cx, line, state).run()
+}
+
+/// Lexes `line` like [`lex`], for GraphQL that another language embeds: the
+/// line halts at the first place where `end` holds before GraphQL's
+/// patterns, or `after` holds once they fail, while no GraphQL rule is open,
+/// and the second value is where.
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: Halt,
+    after: Option<Halt>,
+) -> (u32, Option<usize>) {
+    if line.text.len() <= line.start {
+        return (state, None);
+    }
+    engine::Lexer::new(cx, line, state)
+        .halting(end, after)
+        .run_halting()
 }
 
 #[cfg(test)]

@@ -31,6 +31,8 @@ use std::fmt::Debug;
 ))]
 pub(crate) use chars::Chars;
 use lexer::FIRST_LINE;
+#[cfg(feature = "lang-ruby")]
+use lexer::with_payload;
 pub(crate) use lexer::{Lexer, Scratch};
 #[cfg(any(feature = "lang-go", feature = "lang-ruby", feature = "lang-lua"))]
 pub(crate) use runs::{CachedRuns, HasRuns, Runs};
@@ -40,6 +42,8 @@ pub(crate) use tables::table_scan;
 
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line};
+#[cfg(feature = "lang-ruby")]
+use crate::limits::Limit;
 use crate::scope::Scope;
 
 /// One language's grammar: its rules and patterns, by type, and the
@@ -109,9 +113,18 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn rule_while(_rule: Self::Rule) -> Option<Self::Pat> {
         None
     }
+    /// Whether a rule of the grammar embeds another language
+    /// ([`Payload::Embed`]); the loop looks for one only then.
+    const EMBEDS: bool = false;
     /// What a rule carries from line to line.
     fn rule_payload(_rule: Self::Rule) -> Payload {
         Payload::None
+    }
+    /// The byte a match of `pat` must have right after its first, where the
+    /// pattern fixes it. Such a pattern needs two bytes, so the tables leave
+    /// it out where no byte stands (see [`Tables::all`]).
+    fn pat_next(_pat: Self::Pat) -> Option<u8> {
+        None
     }
     /// The prefix of a content scope that ends in the rule's payload text,
     /// for a rule whose content scope is named by it.
@@ -205,8 +218,9 @@ pub(crate) fn lex<G: Grammar>(
 
 /// Lexes `line` like [`lex`], for grammar `G` that another grammar embeds up
 /// to its end: the line halts at the first place where `end` holds that the
-/// scan reaches with only the root rule open (see [`Halt`]), and the second
-/// value is where. Without one, the state resumes on the next line.
+/// scan reaches with only the root rule open, or where `after` holds there
+/// and no pattern matches (see [`Halt`]), and the second value is where.
+/// Without one, the state resumes on the next line.
 #[inline]
 pub(crate) fn lex_until<G: Grammar>(
     cx: &mut Context<'_>,
@@ -214,6 +228,7 @@ pub(crate) fn lex_until<G: Grammar>(
     state: u32,
     scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
     end: Halt,
+    after: Option<Halt>,
 ) -> (u32, Option<usize>) {
     if line.text.len() <= line.start {
         return (state, None);
@@ -226,7 +241,107 @@ pub(crate) fn lex_until<G: Grammar>(
     let scratch = scratch(cx.scratch);
     Lexer::new(cx.arena, cx.limits, text, cx.out, state, cx.report, scratch)
         .halting_at(end)
+        .halting_after(after)
         .run_halting()
+}
+
+/// Lexes `line` like [`lex`], for grammar `G` whose rules embed other
+/// languages ([`Payload::Embed`]). Where the innermost rule embeds one, the
+/// engine stops, that language lexes the text from there until `end` holds
+/// at its root or `after` holds where none of its patterns match (the
+/// embedding rule's patterns before and after the grammar), and the engine
+/// goes on from where it halted, with the embedded state kept in the rule's
+/// payload. A language that cannot halt lexes the rest of the line.
+#[cfg(feature = "lang-ruby")]
+pub(crate) fn lex_embedding<G: Grammar>(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+    end: Halt,
+    after: Option<Halt>,
+) -> u32 {
+    if line.text.is_empty() {
+        return state;
+    }
+    let text = Text {
+        bytes: line.text.as_bytes(),
+        start: line.start,
+        anchored: line.embedded,
+    };
+    let lexer = Lexer::new(
+        cx.arena,
+        cx.limits,
+        text,
+        cx.out,
+        state,
+        cx.report,
+        scratch(cx.scratch),
+    );
+    let (next, embedding, steps) = lexer.run_embedding(None);
+    match embedding {
+        Some(embedding) => hand_over(cx, line, scratch, (end, after), next, embedding, steps),
+        None => next,
+    }
+}
+
+/// The rest of [`lex_embedding`]'s line from where the grammar stopped for
+/// `embedding`, in state `next` after `spent` steps: the embedded language
+/// lexes up to its halt, and the grammar goes on from there, as often as the
+/// line asks. Out of line, since most lines embed nothing.
+#[cfg(feature = "lang-ruby")]
+#[cold]
+fn hand_over<G: Grammar>(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+    (end, after): (Halt, Option<Halt>),
+    mut next: u32,
+    mut embedding: Embedding,
+    mut spent: u64,
+) -> u32 {
+    loop {
+        let language = embedding.language;
+        let inner = match embedding.state {
+            0 => language.start_embedded(cx.arena, embedding.base),
+            known => known,
+        };
+        let part = Line {
+            text: line.text,
+            start: embedding.at,
+            embedded: false,
+        };
+        let (inner, stop) = match language.lex_until(cx, part, inner, end, after) {
+            Some(halted) => halted,
+            None => (language.lex(cx, part, inner), None),
+        };
+        let state = with_payload(cx.arena, next, inner).unwrap_or_else(|| {
+            cx.report.record(Limit::Nodes);
+            next
+        });
+        let Some(at) = stop else {
+            return state;
+        };
+        let text = Text {
+            bytes: line.text.as_bytes(),
+            start: at,
+            anchored: false,
+        };
+        let lexer = Lexer::new(
+            cx.arena,
+            cx.limits,
+            text,
+            cx.out,
+            state,
+            cx.report,
+            scratch(cx.scratch),
+        );
+        let (state, found, steps) = lexer.run_embedding(Some(spent));
+        let Some(found) = found else {
+            return state;
+        };
+        (next, embedding, spent) = (state, found, steps);
+    }
 }
 
 /// The scopes of a pattern's capture groups by group number, and the groups
@@ -252,6 +367,22 @@ pub(crate) enum Payload {
     None,
     /// The text of a begin capture group, which the end pattern repeats.
     Backref(u8),
+    /// The state of `Language`, whose grammar the rule's patterns include: a
+    /// rule that embeds another language keeps that language's state, and
+    /// the lexer hands the text to it (see [`Lexer::run_embedding`]).
+    Embed(crate::Language),
+}
+
+/// Where a line stopped for an embedded language: the cursor, the language,
+/// its state (0 before it lexed anything) and the scope stack its text sits
+/// on.
+#[cfg(feature = "lang-ruby")]
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct Embedding {
+    pub(crate) at: usize,
+    pub(crate) language: crate::Language,
+    pub(crate) state: u32,
+    pub(crate) base: u32,
 }
 
 /// A scope whose name ends in text of the line, such as the digits of `2>`:

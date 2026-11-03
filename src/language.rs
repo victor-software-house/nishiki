@@ -44,6 +44,13 @@ macro_rules! languages {
     (@lex [] [$grammar:path] [] $cx:ident $line:ident $state:ident) => {
         crate::textmate::lex($cx, &$grammar, $line, $state)
     };
+    (@until [] [$($module:ident)?] [$($dialect:expr)?] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {{
+        let _ = ($cx, $line, $state, $end, $after);
+        None
+    }};
+    (@until [true] [$module:ident] [$($dialect:expr)?] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
+        Some(crate::$module::lex_until($cx, $($dialect,)? $line, $state, $end, $after))
+    };
     ($(
         $(#[$meta:meta])*
         $variant:ident {
@@ -53,6 +60,7 @@ macro_rules! languages {
             $(engine: $grammar:path)?
             $(, dialect: $dialect:expr)?
             $(, reads_line_feed: $line_feed:literal)?
+            $(, halts: $halts:tt)?
             $(,)?
         }
     )*) => {
@@ -135,6 +143,30 @@ macro_rules! languages {
                     $(#[cfg(feature = $feature)] Language::$variant => languages!(@lex [$($module)?] [$($grammar)?] [$($dialect)?] cx line state),)*
                 }
             }
+
+            /// Lexes `line` like [`Language::lex`], for a language that
+            /// another one embeds: the line halts at the first place where
+            /// `end` holds that the code reaches with only the language's
+            /// root open, or where `after` holds and nothing of the language
+            /// matches, and the second value is where. `None` for a
+            /// language that cannot halt.
+            #[cfg_attr(
+                not(feature = "lang-ruby"),
+                expect(dead_code, reason = "only Ruby embeds other languages")
+            )]
+            #[inline]
+            pub(crate) fn lex_until(
+                self,
+                cx: &mut Context<'_>,
+                line: Line<'_>,
+                state: u32,
+                end: Halt,
+                after: Option<Halt>,
+            ) -> Option<(u32, Option<usize>)> {
+                match self {
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@until [$($halts)?] [$($module)?] [$($dialect)?] cx line state end after),)*
+                }
+            }
         }
     };
 }
@@ -192,6 +224,7 @@ languages! {
         names: ["shellscript", "bash", "sh", "shell", "zsh"],
         module: shell,
         reads_line_feed: true,
+        halts: true,
     }
     /// JSON, with the scopes of Shiki's `json` grammar.
     Json {
@@ -229,17 +262,17 @@ languages! {
     /// Java, with the scopes of Shiki's `java` grammar.
     Java { feature: "lang-java", names: ["java"], module: java }
     /// C, with the scopes of Shiki's `c` grammar.
-    C { feature: "lang-c", names: ["c"], module: c, reads_line_feed: true }
+    C { feature: "lang-c", names: ["c"], module: c, reads_line_feed: true, halts: true }
     /// C++, with the scopes of Shiki's `cpp` grammar.
     Cpp { feature: "lang-cpp", names: ["cpp", "c++"], module: cpp, reads_line_feed: true }
     /// SQL, with the scopes of Shiki's `sql` grammar.
-    Sql { feature: "lang-sql", names: ["sql"], module: sql }
+    Sql { feature: "lang-sql", names: ["sql"], module: sql, halts: true }
     /// INI, with the scopes of Shiki's `ini` grammar.
     Ini { feature: "lang-ini", names: ["ini", "properties"], module: ini }
     /// GraphQL, with the scopes of Shiki's `graphql` grammar.
-    GraphQl { feature: "lang-graphql", names: ["graphql", "gql"], module: graphql }
+    GraphQl { feature: "lang-graphql", names: ["graphql", "gql"], module: graphql, halts: true }
     /// CSS, with the scopes of Shiki's `css` grammar.
-    Css { feature: "lang-css", names: ["css"], module: css }
+    Css { feature: "lang-css", names: ["css"], module: css, halts: true }
     /// Kotlin, with the scopes of Shiki's `kotlin` grammar.
     Kotlin { feature: "lang-kotlin", names: ["kotlin", "kt", "kts"], module: kotlin }
     /// Go, with the scopes of Shiki's `go` grammar.

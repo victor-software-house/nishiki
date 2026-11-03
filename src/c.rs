@@ -31,7 +31,7 @@ pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 
 /// The state at the start of a C document whose scopes sit on the stack
 /// `base`: one rule with `source.c` on top of it.
@@ -50,6 +50,19 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 #[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
     crate::rules::lex::<engine::C>(cx, line, state, |scratch| &mut scratch.c)
+}
+
+/// Lexes `line` like [`lex`], for C that another language embeds, up to
+/// where `end` or `after` halts it (see [`crate::rules::lex_until`]).
+#[inline]
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: Halt,
+    after: Option<Halt>,
+) -> (u32, Option<usize>) {
+    crate::rules::lex_until::<engine::C>(cx, line, state, |scratch| &mut scratch.c, end, after)
 }
 
 #[cfg(test)]

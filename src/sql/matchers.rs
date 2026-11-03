@@ -13,6 +13,7 @@ use super::scope::S;
 use super::state::Rule;
 use super::words::{FUNCTIONS, GLOBALS, KEYWORDS};
 use crate::classes::{digit_width, is_ascii_space, space_width, word_before, word_width};
+use crate::language::Halt;
 use crate::utf8::{char_at, char_len, char_start};
 
 /// The ASCII lowercase letter that `c` matches without regard to case: itself,
@@ -195,7 +196,7 @@ impl Lexer<'_> {
             Rule::StrBrace | Rule::StrModr => memchr2(b'}', b'#', text),
             Rule::Bracket => memchr2(b'[', b']', text),
             Rule::BlockComment => memchr2(b'/', b'*', text),
-            Rule::Root => return self.root_skip(p),
+            Rule::Root => return self.root_skip::<false>(p, |_, _| false, None),
             Rule::CommentDash | Rule::CommentHash => return p,
         };
         let skipped = found.unwrap_or(text.len());
@@ -204,9 +205,21 @@ impl Lexer<'_> {
     }
 
     /// The first position from `p` where a pattern of the root can start.
-    fn root_skip(&self, mut p: usize) -> usize {
+    ///
+    /// When `HALTING`, for SQL that another language embeds, it also stops
+    /// where `halt`, or `after`, holds, so the search asks there; without it
+    /// the tests compile out.
+    pub(super) fn root_skip<const HALTING: bool>(
+        &self,
+        mut p: usize,
+        halt: Halt,
+        after: Option<Halt>,
+    ) -> usize {
         let from = p;
-        while p < self.lim() && !self.root_start(p) {
+        while p < self.lim()
+            && !self.root_start(p)
+            && !(HALTING && (halt(self.s, p) || after.is_some_and(|after| after(self.s, p))))
+        {
             p += char_len(self.s[p]);
         }
         self.spend(p - from);
@@ -214,6 +227,11 @@ impl Lexer<'_> {
     }
 
     /// Whether a pattern of the root can start at `p`.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: called from both instances of the root skip, the halting one and the plain one, it stopped being inlined, at a call per place"
+    )]
+    #[inline(always)]
     fn root_start(&self, p: usize) -> bool {
         let b = self.s[p];
         if b >= 0x80 || b.is_ascii_alphanumeric() || b == b'_' {

@@ -14,6 +14,11 @@ impl Lexer<'_> {
     }
 
     /// One byte `c` that ends the rule, with `cap` on it.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: called from both instances of the scan, the halting one and the plain one, it stopped being inlined, at a call per place"
+    )]
+    #[inline(always)]
     fn end_byte(&mut self, p: usize, c: u8, cap: &'static [S]) -> bool {
         p < self.len_all() && self.b(p) == c && self.end_at(p, p + 1, Some(cap))
     }
@@ -79,6 +84,11 @@ impl Lexer<'_> {
     }
 
     /// `\)` or the end of a macro's line.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: called from both instances of the scan, the halting one and the plain one, it stopped being inlined, at a call per place"
+    )]
+    #[inline(always)]
     fn end_paren(&mut self, p: usize, cap: &'static [S], in_define: bool) -> bool {
         self.end_byte(p, b')', cap) || (in_define && self.end_blank(p))
     }

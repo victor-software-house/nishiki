@@ -727,9 +727,11 @@ impl<'a> Lexer<'a> {
         };
         let (next, halt) = match (css, self.document) {
             (true, Document::Html | Document::Derivative) => {
-                crate::css::lex_until(&mut cx, line, inner, style_end)
+                crate::css::lex_until(&mut cx, line, inner, style_end, None)
             }
-            (true, Document::Erb) => crate::css::lex_until(&mut cx, line, inner, style_end_or_erb),
+            (true, Document::Erb) => {
+                crate::css::lex_until(&mut cx, line, inner, style_end_or_erb, None)
+            }
             (false, document) => {
                 let after: Option<crate::language::Halt> = match document {
                     Document::Html | Document::Derivative => None,

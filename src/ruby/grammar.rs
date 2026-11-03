@@ -6,7 +6,7 @@
 //! its `include`s flattened, so the first that matches at the earliest
 //! position wins as in a `TextMate` engine.
 
-use super::engine::Ruby;
+use super::engine::{Ruby, embedded};
 use super::scope::S;
 use crate::rules;
 
@@ -110,8 +110,38 @@ pub(crate) enum Rule {
     RootAt86At0,
     RootAt88,
     RootAt88At0,
-    RootAt104,
+    RootAt89,
+    RootAt89At0,
     Heredoc,
+    RootAt90,
+    RootAt90At0,
+    RootAt91,
+    RootAt91At0,
+    RootAt92,
+    RootAt92At0,
+    RootAt93,
+    RootAt93At0,
+    RootAt94,
+    RootAt94At0,
+    RootAt95,
+    RootAt95At0,
+    RootAt96,
+    RootAt96At0,
+    RootAt97,
+    RootAt97At0,
+    RootAt98,
+    RootAt98At0,
+    RootAt99,
+    RootAt99At0,
+    RootAt100,
+    RootAt100At0,
+    RootAt101,
+    RootAt101At0,
+    RootAt102,
+    RootAt102At0,
+    RootAt103,
+    RootAt103At0,
+    RootAt104,
     Nested0,
     RootAt105,
     RootAt106,
@@ -123,7 +153,7 @@ pub(crate) enum Rule {
 
 impl Rule {
     /// Every rule, in code order.
-    pub(crate) const ALL: [Rule; 97] = [
+    pub(crate) const ALL: [Rule; 127] = [
         Rule::RootAt21,
         Rule::RootAt26,
         Rule::RootAt30,
@@ -212,8 +242,38 @@ impl Rule {
         Rule::RootAt86At0,
         Rule::RootAt88,
         Rule::RootAt88At0,
-        Rule::RootAt104,
+        Rule::RootAt89,
+        Rule::RootAt89At0,
         Rule::Heredoc,
+        Rule::RootAt90,
+        Rule::RootAt90At0,
+        Rule::RootAt91,
+        Rule::RootAt91At0,
+        Rule::RootAt92,
+        Rule::RootAt92At0,
+        Rule::RootAt93,
+        Rule::RootAt93At0,
+        Rule::RootAt94,
+        Rule::RootAt94At0,
+        Rule::RootAt95,
+        Rule::RootAt95At0,
+        Rule::RootAt96,
+        Rule::RootAt96At0,
+        Rule::RootAt97,
+        Rule::RootAt97At0,
+        Rule::RootAt98,
+        Rule::RootAt98At0,
+        Rule::RootAt99,
+        Rule::RootAt99At0,
+        Rule::RootAt100,
+        Rule::RootAt100At0,
+        Rule::RootAt101,
+        Rule::RootAt101At0,
+        Rule::RootAt102,
+        Rule::RootAt102At0,
+        Rule::RootAt103,
+        Rule::RootAt103At0,
+        Rule::RootAt104,
         Rule::Nested0,
         Rule::RootAt105,
         Rule::RootAt106,
@@ -328,6 +388,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -457,6 +532,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -591,6 +681,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -724,6 +829,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -856,6 +976,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -988,6 +1123,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -1120,6 +1270,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -1254,6 +1419,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -1387,6 +1567,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -1521,6 +1716,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -1654,6 +1864,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -1804,6 +2029,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -1925,6 +2165,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -2055,6 +2310,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -2940,11 +3210,18 @@ impl Rule {
                 backref: None,
                 patterns: &[],
             },
-            Rule::RootAt104 => RuleData {
+            Rule::RootAt89 => RuleData {
+                name: &[S::MetaEmbeddedBlockHtml],
+                content: &[],
+                end: Some(Pat::RootAt89End),
+                backref: None,
+                patterns: &[Pat::RootAt89At0],
+            },
+            Rule::RootAt89At0 => RuleData {
                 name: &[],
-                content: &[S::StrUnquotedHeredoc],
-                end: Some(Pat::RootAt104End),
-                backref: Some(2),
+                content: &[S::TextHtml],
+                end: None,
+                backref: None,
                 patterns: &[
                     Pat::Heredoc,
                     Pat::InterpolatedRubyAt0,
@@ -3056,6 +3333,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -3081,6 +3373,450 @@ impl Rule {
                     Pat::RootAt126,
                     Pat::RootAt127,
                     Pat::RootAt128,
+                ],
+            },
+            Rule::RootAt90 => RuleData {
+                name: &[S::MetaEmbeddedBlockHaml],
+                content: &[],
+                end: Some(Pat::RootAt90End),
+                backref: None,
+                patterns: &[Pat::RootAt90At0],
+            },
+            Rule::RootAt90At0 => RuleData {
+                name: &[],
+                content: &[S::TextHaml],
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::EscapedChar,
+                ],
+            },
+            Rule::RootAt91 => RuleData {
+                name: &[S::MetaEmbeddedBlockXml],
+                content: &[],
+                end: Some(Pat::RootAt91End),
+                backref: None,
+                patterns: &[Pat::RootAt91At0],
+            },
+            Rule::RootAt91At0 => RuleData {
+                name: &[],
+                content: &[S::TextXml],
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::EscapedChar,
+                ],
+            },
+            Rule::RootAt92 => RuleData {
+                name: &[S::MetaEmbeddedBlockSql],
+                content: &[],
+                end: Some(Pat::RootAt92End),
+                backref: None,
+                patterns: &[Pat::RootAt92At0],
+            },
+            Rule::RootAt92At0 => RuleData {
+                name: &[],
+                content: &[S::SourceSql],
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::EscapedChar,
+                ],
+            },
+            Rule::RootAt93 => RuleData {
+                name: &[S::MetaEmbeddedBlockGraphql],
+                content: &[],
+                end: Some(Pat::RootAt93End),
+                backref: None,
+                patterns: &[Pat::RootAt93At0],
+            },
+            Rule::RootAt93At0 => RuleData {
+                name: &[],
+                content: &[S::SourceGraphql],
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::EscapedChar,
+                ],
+            },
+            Rule::RootAt94 => RuleData {
+                name: &[S::MetaEmbeddedBlockCss],
+                content: &[],
+                end: Some(Pat::RootAt94End),
+                backref: None,
+                patterns: &[Pat::RootAt94At0],
+            },
+            Rule::RootAt94At0 => RuleData {
+                name: &[],
+                content: &[S::SourceCss],
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::EscapedChar,
+                ],
+            },
+            Rule::RootAt95 => RuleData {
+                name: &[S::MetaEmbeddedBlockCpp],
+                content: &[],
+                end: Some(Pat::RootAt95End),
+                backref: None,
+                patterns: &[Pat::RootAt95At0],
+            },
+            Rule::RootAt95At0 => RuleData {
+                name: &[],
+                content: &[S::SourceCpp],
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::EscapedChar,
+                ],
+            },
+            Rule::RootAt96 => RuleData {
+                name: &[S::MetaEmbeddedBlockC],
+                content: &[],
+                end: Some(Pat::RootAt96End),
+                backref: None,
+                patterns: &[Pat::RootAt96At0],
+            },
+            Rule::RootAt96At0 => RuleData {
+                name: &[],
+                content: &[S::SourceC],
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::EscapedChar,
+                ],
+            },
+            Rule::RootAt97 => RuleData {
+                name: &[S::MetaEmbeddedBlockJs],
+                content: &[],
+                end: Some(Pat::RootAt97End),
+                backref: None,
+                patterns: &[Pat::RootAt97At0],
+            },
+            Rule::RootAt97At0 => RuleData {
+                name: &[],
+                content: &[S::SourceJs],
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::EscapedChar,
+                ],
+            },
+            Rule::RootAt98 => RuleData {
+                name: &[S::MetaEmbeddedBlockJsJquery],
+                content: &[],
+                end: Some(Pat::RootAt98End),
+                backref: None,
+                patterns: &[Pat::RootAt98At0],
+            },
+            Rule::RootAt98At0 => RuleData {
+                name: &[],
+                content: &[S::SourceJsJquery],
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::EscapedChar,
+                ],
+            },
+            Rule::RootAt99 => RuleData {
+                name: &[S::MetaEmbeddedBlockShell],
+                content: &[],
+                end: Some(Pat::RootAt99End),
+                backref: None,
+                patterns: &[Pat::RootAt99At0],
+            },
+            Rule::RootAt99At0 => RuleData {
+                name: &[],
+                content: &[S::SourceShell],
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::EscapedChar,
+                ],
+            },
+            Rule::RootAt100 => RuleData {
+                name: &[S::MetaEmbeddedBlockLua],
+                content: &[],
+                end: Some(Pat::RootAt100End),
+                backref: None,
+                patterns: &[Pat::RootAt100At0],
+            },
+            Rule::RootAt100At0 => RuleData {
+                name: &[],
+                content: &[S::SourceLua],
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::EscapedChar,
+                ],
+            },
+            Rule::RootAt101 => RuleData {
+                name: &[S::MetaEmbeddedBlock],
+                content: &[],
+                end: Some(Pat::RootAt101End),
+                backref: None,
+                patterns: &[Pat::RootAt101At0],
+            },
+            Rule::RootAt101At0 => RuleData {
+                name: &[],
+                content: &[S::Source],
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::RootAt0,
+                    Pat::RootAt1,
+                    Pat::RootAt2,
+                    Pat::RootAt3,
+                    Pat::RootAt4,
+                    Pat::RootAt5,
+                    Pat::RootAt6,
+                    Pat::RootAt7,
+                    Pat::RootAt8,
+                    Pat::RootAt9,
+                    Pat::RootAt10,
+                    Pat::RootAt11,
+                    Pat::RootAt12,
+                    Pat::RootAt13,
+                    Pat::RootAt14,
+                    Pat::RootAt15,
+                    Pat::RootAt16,
+                    Pat::RootAt17,
+                    Pat::RootAt18,
+                    Pat::RootAt19,
+                    Pat::RootAt20,
+                    Pat::RootAt21,
+                    Pat::RootAt22,
+                    Pat::RootAt23,
+                    Pat::RootAt24,
+                    Pat::RootAt25,
+                    Pat::RootAt26,
+                    Pat::RootAt27,
+                    Pat::RootAt28,
+                    Pat::RootAt29,
+                    Pat::RootAt30,
+                    Pat::RootAt31,
+                    Pat::RootAt32,
+                    Pat::RootAt33,
+                    Pat::RootAt34,
+                    Pat::RootAt35,
+                    Pat::RootAt36,
+                    Pat::RootAt37,
+                    Pat::RootAt38,
+                    Pat::RootAt39,
+                    Pat::RootAt40,
+                    Pat::RootAt41,
+                    Pat::RootAt42,
+                    Pat::RootAt43,
+                    Pat::RootAt44,
+                    Pat::RootAt45,
+                    Pat::RootAt46,
+                    Pat::RootAt47,
+                    Pat::RootAt48,
+                    Pat::RootAt49,
+                    Pat::RootAt50,
+                    Pat::RootAt51,
+                    Pat::RootAt52,
+                    Pat::RootAt53,
+                    Pat::RootAt54,
+                    Pat::RootAt55,
+                    Pat::RootAt56,
+                    Pat::RootAt57,
+                    Pat::RootAt58,
+                    Pat::RootAt59,
+                    Pat::RootAt60,
+                    Pat::RootAt61,
+                    Pat::RootAt62,
+                    Pat::RootAt63,
+                    Pat::RootAt64,
+                    Pat::RootAt65,
+                    Pat::RootAt66,
+                    Pat::RootAt67,
+                    Pat::RootAt68,
+                    Pat::RootAt69,
+                    Pat::RootAt70,
+                    Pat::RootAt71,
+                    Pat::RootAt72,
+                    Pat::RootAt73,
+                    Pat::RootAt74,
+                    Pat::RootAt75,
+                    Pat::RootAt76,
+                    Pat::RootAt77,
+                    Pat::RootAt78,
+                    Pat::RootAt79,
+                    Pat::RootAt80,
+                    Pat::RootAt81,
+                    Pat::RootAt82,
+                    Pat::RootAt83,
+                    Pat::RootAt84,
+                    Pat::YardComment,
+                    Pat::YardParamTypes,
+                    Pat::YardOption,
+                    Pat::YardTag,
+                    Pat::YardTypes,
+                    Pat::YardDirective,
+                    Pat::YardSee,
+                    Pat::YardMacroAttribute,
+                    Pat::RootAt86,
+                    Pat::RootAt87,
+                    Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
+                    Pat::RootAt104,
+                    Pat::RootAt105,
+                    Pat::RootAt106,
+                    Pat::RootAt107,
+                    Pat::RootAt108,
+                    Pat::RootAt109,
+                    Pat::RootAt110,
+                    Pat::RootAt111,
+                    Pat::RootAt112,
+                    Pat::RootAt113,
+                    Pat::RootAt114,
+                    Pat::RootAt115,
+                    Pat::RootAt116,
+                    Pat::RootAt117,
+                    Pat::RootAt118,
+                    Pat::RootAt119,
+                    Pat::RootAt120,
+                    Pat::RootAt121,
+                    Pat::RootAt122,
+                    Pat::RootAt123,
+                    Pat::RootAt124,
+                    Pat::RootAt125,
+                    Pat::RootAt126,
+                    Pat::RootAt127,
+                    Pat::RootAt128,
+                    Pat::EscapedChar,
+                ],
+            },
+            Rule::RootAt102 => RuleData {
+                name: &[S::MetaEmbeddedBlockYaml],
+                content: &[],
+                end: Some(Pat::RootAt102End),
+                backref: None,
+                patterns: &[Pat::RootAt102At0],
+            },
+            Rule::RootAt102At0 => RuleData {
+                name: &[],
+                content: &[S::SourceYaml],
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::EscapedChar,
+                ],
+            },
+            Rule::RootAt103 => RuleData {
+                name: &[S::MetaEmbeddedBlockSlim],
+                content: &[],
+                end: Some(Pat::RootAt103End),
+                backref: None,
+                patterns: &[Pat::RootAt103At0],
+            },
+            Rule::RootAt103At0 => RuleData {
+                name: &[],
+                content: &[S::TextSlim],
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::EscapedChar,
+                ],
+            },
+            Rule::RootAt104 => RuleData {
+                name: &[],
+                content: &[S::StrUnquotedHeredoc],
+                end: Some(Pat::RootAt104End),
+                backref: Some(2),
+                patterns: &[
+                    Pat::Heredoc,
+                    Pat::InterpolatedRubyAt0,
+                    Pat::InterpolatedRubyAt1,
+                    Pat::InterpolatedRubyAt2,
+                    Pat::InterpolatedRubyAt3,
+                    Pat::EscapedChar,
                 ],
             },
             Rule::Nested0 | Rule::Root => RuleData {
@@ -3185,6 +3921,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -3349,6 +4100,21 @@ impl Rule {
                     Pat::RootAt86,
                     Pat::RootAt87,
                     Pat::RootAt88,
+                    Pat::RootAt89,
+                    Pat::RootAt90,
+                    Pat::RootAt91,
+                    Pat::RootAt92,
+                    Pat::RootAt93,
+                    Pat::RootAt94,
+                    Pat::RootAt95,
+                    Pat::RootAt96,
+                    Pat::RootAt97,
+                    Pat::RootAt98,
+                    Pat::RootAt99,
+                    Pat::RootAt100,
+                    Pat::RootAt101,
+                    Pat::RootAt102,
+                    Pat::RootAt103,
                     Pat::RootAt104,
                     Pat::RootAt105,
                     Pat::RootAt106,
@@ -3376,6 +4142,286 @@ impl Rule {
                     Pat::RootAt128,
                 ],
             },
+        }
+    }
+
+    /// The `while` pattern of a rule that has one.
+    #[expect(clippy::too_many_lines, reason = "a generated table")]
+    pub(crate) fn while_pat(self) -> Option<Pat> {
+        match self {
+            Rule::RootAt21
+            | Rule::RootAt26
+            | Rule::RootAt30
+            | Rule::RootAt30At0
+            | Rule::Parens
+            | Rule::Braces
+            | Rule::Brackets
+            | Rule::RootAt31
+            | Rule::RootAt31At0
+            | Rule::RootAt32
+            | Rule::RootAt32At0
+            | Rule::RootAt35
+            | Rule::RootAt36
+            | Rule::InterpolatedRubyAt0
+            | Rule::NestCurlyAndSelfAt0
+            | Rule::RootAt38
+            | Rule::RootAt39
+            | Rule::RootAt40
+            | Rule::RootAt41
+            | Rule::RegexSubAt3
+            | Rule::RegexSubAt4
+            | Rule::RegexSubAt5
+            | Rule::RegexSubAt6
+            | Rule::RootAt42
+            | Rule::NestCurlyR
+            | Rule::RootAt43
+            | Rule::NestBracketsR
+            | Rule::RootAt44
+            | Rule::NestParensR
+            | Rule::RootAt45
+            | Rule::NestLtgtR
+            | Rule::RootAt46
+            | Rule::RootAt47
+            | Rule::NestBracketsI
+            | Rule::RootAt48
+            | Rule::NestParensI
+            | Rule::RootAt49
+            | Rule::NestLtgtI
+            | Rule::RootAt50
+            | Rule::NestCurlyI
+            | Rule::RootAt51
+            | Rule::RootAt52
+            | Rule::NestBrackets
+            | Rule::RootAt53
+            | Rule::NestParens
+            | Rule::RootAt54
+            | Rule::NestLtgt
+            | Rule::RootAt55
+            | Rule::NestCurly
+            | Rule::RootAt56
+            | Rule::RootAt57
+            | Rule::RootAt58
+            | Rule::RootAt59
+            | Rule::RootAt60
+            | Rule::RootAt61
+            | Rule::RootAt62
+            | Rule::RootAt63
+            | Rule::RootAt64
+            | Rule::RootAt65
+            | Rule::RootAt66
+            | Rule::RootAt67
+            | Rule::RootAt68
+            | Rule::RootAt69
+            | Rule::RootAt70
+            | Rule::RootAt71
+            | Rule::RootAt72
+            | Rule::RootAt73
+            | Rule::RootAt74
+            | Rule::RootAt75
+            | Rule::RootAt76
+            | Rule::RootAt77
+            | Rule::RootAt78
+            | Rule::RootAt79
+            | Rule::RootAt80
+            | Rule::RootAt81
+            | Rule::RootAt82
+            | Rule::RootAt84
+            | Rule::YardComment
+            | Rule::YardParamTypes
+            | Rule::YardOption
+            | Rule::YardTypes
+            | Rule::YardDirective
+            | Rule::YardSee
+            | Rule::YardMacroAttribute
+            | Rule::RootAt86
+            | Rule::RootAt86At0
+            | Rule::RootAt88
+            | Rule::RootAt88At0
+            | Rule::RootAt89
+            | Rule::Heredoc
+            | Rule::RootAt90
+            | Rule::RootAt91
+            | Rule::RootAt92
+            | Rule::RootAt93
+            | Rule::RootAt94
+            | Rule::RootAt95
+            | Rule::RootAt96
+            | Rule::RootAt97
+            | Rule::RootAt98
+            | Rule::RootAt99
+            | Rule::RootAt100
+            | Rule::RootAt101
+            | Rule::RootAt102
+            | Rule::RootAt103
+            | Rule::RootAt104
+            | Rule::Nested0
+            | Rule::RootAt105
+            | Rule::RootAt106
+            | Rule::RootAt106At0
+            | Rule::RootAt127
+            | Rule::RootAt128
+            | Rule::Root => None,
+            Rule::RootAt89At0 => Some(Pat::RootAt89At0While),
+            Rule::RootAt90At0 => Some(Pat::RootAt90At0While),
+            Rule::RootAt91At0 => Some(Pat::RootAt91At0While),
+            Rule::RootAt92At0 => Some(Pat::RootAt92At0While),
+            Rule::RootAt93At0 => Some(Pat::RootAt93At0While),
+            Rule::RootAt94At0 => Some(Pat::RootAt94At0While),
+            Rule::RootAt95At0 => Some(Pat::RootAt95At0While),
+            Rule::RootAt96At0 => Some(Pat::RootAt96At0While),
+            Rule::RootAt97At0 => Some(Pat::RootAt97At0While),
+            Rule::RootAt98At0 => Some(Pat::RootAt98At0While),
+            Rule::RootAt99At0 => Some(Pat::RootAt99At0While),
+            Rule::RootAt100At0 => Some(Pat::RootAt100At0While),
+            Rule::RootAt101At0 => Some(Pat::RootAt101At0While),
+            Rule::RootAt102At0 => Some(Pat::RootAt102At0While),
+            Rule::RootAt103At0 => Some(Pat::RootAt103At0While),
+        }
+    }
+
+    /// What a rule carries from line to line: the state of the language
+    /// whose grammar its patterns include, when nishiki lexes it and its
+    /// feature is on, or the begin capture group its end repeats.
+    #[expect(clippy::too_many_lines, reason = "a generated table")]
+    #[inline]
+    pub(crate) fn payload(self) -> rules::Payload {
+        match self {
+            Rule::RootAt21
+            | Rule::RootAt26
+            | Rule::RootAt30
+            | Rule::RootAt30At0
+            | Rule::Parens
+            | Rule::Braces
+            | Rule::Brackets
+            | Rule::RootAt31
+            | Rule::RootAt31At0
+            | Rule::RootAt32
+            | Rule::RootAt32At0
+            | Rule::RootAt35
+            | Rule::RootAt36
+            | Rule::InterpolatedRubyAt0
+            | Rule::NestCurlyAndSelfAt0
+            | Rule::RootAt38
+            | Rule::RootAt39
+            | Rule::RootAt40
+            | Rule::RootAt41
+            | Rule::RegexSubAt3
+            | Rule::RegexSubAt4
+            | Rule::RegexSubAt5
+            | Rule::RegexSubAt6
+            | Rule::RootAt42
+            | Rule::NestCurlyR
+            | Rule::RootAt43
+            | Rule::NestBracketsR
+            | Rule::RootAt44
+            | Rule::NestParensR
+            | Rule::RootAt45
+            | Rule::NestLtgtR
+            | Rule::RootAt47
+            | Rule::NestBracketsI
+            | Rule::RootAt48
+            | Rule::NestParensI
+            | Rule::RootAt49
+            | Rule::NestLtgtI
+            | Rule::RootAt50
+            | Rule::NestCurlyI
+            | Rule::RootAt52
+            | Rule::NestBrackets
+            | Rule::RootAt53
+            | Rule::NestParens
+            | Rule::RootAt54
+            | Rule::NestLtgt
+            | Rule::RootAt55
+            | Rule::NestCurly
+            | Rule::RootAt57
+            | Rule::RootAt58
+            | Rule::RootAt59
+            | Rule::RootAt60
+            | Rule::RootAt62
+            | Rule::RootAt63
+            | Rule::RootAt64
+            | Rule::RootAt65
+            | Rule::RootAt67
+            | Rule::RootAt68
+            | Rule::RootAt69
+            | Rule::RootAt70
+            | Rule::RootAt73
+            | Rule::RootAt74
+            | Rule::RootAt75
+            | Rule::RootAt76
+            | Rule::RootAt78
+            | Rule::RootAt79
+            | Rule::RootAt80
+            | Rule::RootAt81
+            | Rule::RootAt84
+            | Rule::RootAt86
+            | Rule::RootAt86At0
+            | Rule::RootAt88
+            | Rule::RootAt88At0
+            | Rule::RootAt89
+            | Rule::RootAt89At0
+            | Rule::Heredoc
+            | Rule::RootAt90
+            | Rule::RootAt90At0
+            | Rule::RootAt91
+            | Rule::RootAt91At0
+            | Rule::RootAt92
+            | Rule::RootAt93
+            | Rule::RootAt94
+            | Rule::RootAt95
+            | Rule::RootAt95At0
+            | Rule::RootAt96
+            | Rule::RootAt97
+            | Rule::RootAt97At0
+            | Rule::RootAt98
+            | Rule::RootAt98At0
+            | Rule::RootAt99
+            | Rule::RootAt100
+            | Rule::RootAt100At0
+            | Rule::RootAt101
+            | Rule::RootAt101At0
+            | Rule::RootAt102
+            | Rule::RootAt102At0
+            | Rule::RootAt103
+            | Rule::RootAt103At0
+            | Rule::Nested0
+            | Rule::RootAt106
+            | Rule::RootAt106At0
+            | Rule::RootAt127
+            | Rule::RootAt128
+            | Rule::Root => rules::Payload::None,
+            Rule::RootAt46
+            | Rule::RootAt51
+            | Rule::RootAt56
+            | Rule::RootAt61
+            | Rule::RootAt66
+            | Rule::RootAt71
+            | Rule::RootAt72
+            | Rule::RootAt77
+            | Rule::RootAt82 => rules::Payload::Backref(1),
+            Rule::YardComment
+            | Rule::YardParamTypes
+            | Rule::YardOption
+            | Rule::YardTypes
+            | Rule::YardDirective
+            | Rule::YardSee
+            | Rule::YardMacroAttribute => rules::Payload::Backref(3),
+            Rule::RootAt92At0 => {
+                embedded!(Sql, "lang-sql").map_or(rules::Payload::None, rules::Payload::Embed)
+            }
+            Rule::RootAt93At0 => embedded!(GraphQl, "lang-graphql")
+                .map_or(rules::Payload::None, rules::Payload::Embed),
+            Rule::RootAt94At0 => {
+                embedded!(Css, "lang-css").map_or(rules::Payload::None, rules::Payload::Embed)
+            }
+            Rule::RootAt96At0 => {
+                embedded!(C, "lang-c").map_or(rules::Payload::None, rules::Payload::Embed)
+            }
+            Rule::RootAt99At0 => {
+                embedded!(Shell, "lang-shell").map_or(rules::Payload::None, rules::Payload::Embed)
+            }
+            Rule::RootAt104 => rules::Payload::Backref(2),
+            Rule::RootAt105 => rules::Payload::Backref(6),
         }
     }
 }
@@ -3862,14 +4908,134 @@ pub(crate) enum Pat {
     RootAt88At0,
     /// The end `(?=not)impossible`.
     RootAt88At0End,
-    /// The begin `(?>=\s*<<(["'']?)([A-Z_a-z]\w*)\1)`.
-    RootAt104,
-    /// The end `^\2$`.
-    RootAt104End,
+    /// The begin `(?=(?><<[-~]?(["'']?)((?:[_\w]+_|)HTML)\b\1))`.
+    RootAt89,
+    /// The end `^\s*((?:[_\w]+_|)HTML)$\n?`.
+    RootAt89End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)HTML)\b\1)`.
+    RootAt89At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)HTML)\s*$)`.
+    RootAt89At0While,
     /// The begin `^<<[-~]?[A-Z_a-z]\w*`.
     Heredoc,
     /// The end `$`.
     HeredocEnd,
+    /// The begin `(?=(?><<[-~]?(["'']?)((?:[_\w]+_|)HAML)\b\1))`.
+    RootAt90,
+    /// The end `^\s*((?:[_\w]+_|)HAML)$\n?`.
+    RootAt90End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)HAML)\b\1)`.
+    RootAt90At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)HAML)\s*$)`.
+    RootAt90At0While,
+    /// The begin `(?=(?><<[-~]?(["'']?)((?:[_\w]+_|)XML)\b\1))`.
+    RootAt91,
+    /// The end `^\s*((?:[_\w]+_|)XML)$\n?`.
+    RootAt91End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)XML)\b\1)`.
+    RootAt91At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)XML)\s*$)`.
+    RootAt91At0While,
+    /// The begin `(?=(?><<[-~]?(["'']?)((?:[_\w]+_|)SQL)\b\1))`.
+    RootAt92,
+    /// The end `^\s*((?:[_\w]+_|)SQL)$\n?`.
+    RootAt92End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)SQL)\b\1)`.
+    RootAt92At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)SQL)\s*$)`.
+    RootAt92At0While,
+    /// The begin `(?=(?><<[-~]?(["'']?)((?:[_\w]+_|)G(?:RAPHQL|QL))\b\1))`.
+    RootAt93,
+    /// The end `^\s*((?:[_\w]+_|)G(?:RAPHQL|QL))$\n?`.
+    RootAt93End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)G(?:RAPHQL|QL))\b\1)`.
+    RootAt93At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)G(?:RAPHQL|QL))\s*$)`.
+    RootAt93At0While,
+    /// The begin `(?=(?><<[-~]?(["'']?)((?:[_\w]+_|)CSS)\b\1))`.
+    RootAt94,
+    /// The end `^\s*((?:[_\w]+_|)CSS)$\n?`.
+    RootAt94End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)CSS)\b\1)`.
+    RootAt94At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)CSS)\s*$)`.
+    RootAt94At0While,
+    /// The begin `(?=(?><<[-~]?(["'']?)((?:[_\w]+_|)CPP)\b\1))`.
+    RootAt95,
+    /// The end `^\s*((?:[_\w]+_|)CPP)$\n?`.
+    RootAt95End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)CPP)\b\1)`.
+    RootAt95At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)CPP)\s*$)`.
+    RootAt95At0While,
+    /// The begin `(?=(?><<[-~]?(["'']?)((?:[_\w]+_|)C)\b\1))`.
+    RootAt96,
+    /// The end `^\s*((?:[_\w]+_|)C)$\n?`.
+    RootAt96End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)C)\b\1)`.
+    RootAt96At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)C)\s*$)`.
+    RootAt96At0While,
+    /// The begin `…`.
+    RootAt97,
+    /// The end `^\s*((?:[_\w]+_|)J(?:S|AVASCRIPT))$\n?`.
+    RootAt97End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)J(?:S|AVASCRIPT))\b\1)`.
+    RootAt97At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)J(?:S|AVASCRIPT))\s*$)`.
+    RootAt97At0While,
+    /// The begin `(?=(?><<[-~]?(["'']?)((?:[_\w]+_|)JQUERY)\b\1))`.
+    RootAt98,
+    /// The end `^\s*((?:[_\w]+_|)JQUERY)$\n?`.
+    RootAt98End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)JQUERY)\b\1)`.
+    RootAt98At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)JQUERY)\s*$)`.
+    RootAt98At0While,
+    /// The begin `(?=(?><<[-~]?(["'']?)((?:[_\w]+_|)SH(?:|ELL))\b\1))`.
+    RootAt99,
+    /// The end `^\s*((?:[_\w]+_|)SH(?:|ELL))$\n?`.
+    RootAt99End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)SH(?:|ELL))\b\1)`.
+    RootAt99At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)SH(?:|ELL))\s*$)`.
+    RootAt99At0While,
+    /// The begin `(?=(?><<[-~]?(["'']?)((?:[_\w]+_|)LUA)\b\1))`.
+    RootAt100,
+    /// The end `^\s*((?:[_\w]+_|)LUA)$\n?`.
+    RootAt100End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)LUA)\b\1)`.
+    RootAt100At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)LUA)\s*$)`.
+    RootAt100At0While,
+    /// The begin `(?=(?><<[-~]?(["'']?)((?:[_\w]+_|)RUBY)\b\1))`.
+    RootAt101,
+    /// The end `^\s*((?:[_\w]+_|)RUBY)$\n?`.
+    RootAt101End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)RUBY)\b\1)`.
+    RootAt101At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)RUBY)\s*$)`.
+    RootAt101At0While,
+    /// The begin `(?=(?><<[-~]?(["'']?)((?:[_\w]+_|)YA?ML)\b\1))`.
+    RootAt102,
+    /// The end `^\s*((?:[_\w]+_|)YA?ML)$\n?`.
+    RootAt102End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)YA?ML)\b\1)`.
+    RootAt102At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)YA?ML)\s*$)`.
+    RootAt102At0While,
+    /// The begin `(?=(?><<[-~]?(["'']?)((?:[_\w]+_|)SLIM)\b\1))`.
+    RootAt103,
+    /// The end `^\s*((?:[_\w]+_|)SLIM)$\n?`.
+    RootAt103End,
+    /// The begin `(?><<[-~]?(["'']?)((?:[_\w]+_|)SLIM)\b\1)`.
+    RootAt103At0,
+    /// The while `^(?!\s*((?:[_\w]+_|)SLIM)\s*$)`.
+    RootAt103At0While,
+    /// The begin `(?>=\s*<<(["'']?)([A-Z_a-z]\w*)\1)`.
+    RootAt104,
+    /// The end `^\2$`.
+    RootAt104End,
     /// The begin `…`.
     RootAt105,
     /// The end `^\s*\6$`.
@@ -4554,7 +5720,25 @@ impl Pat {
                 captures: &[(0, &[S::PSectionArrayBegin])],
                 nested: &[],
             },
-            Pat::RootAt56At0 | Pat::RootAt66At0 | Pat::RootAt77At0 | Pat::RootAt82At0 => PatData {
+            Pat::RootAt56At0
+            | Pat::RootAt66At0
+            | Pat::RootAt77At0
+            | Pat::RootAt82At0
+            | Pat::RootAt89At0While
+            | Pat::RootAt90At0While
+            | Pat::RootAt91At0While
+            | Pat::RootAt92At0While
+            | Pat::RootAt93At0While
+            | Pat::RootAt94At0While
+            | Pat::RootAt95At0While
+            | Pat::RootAt96At0While
+            | Pat::RootAt97At0While
+            | Pat::RootAt98At0While
+            | Pat::RootAt99At0While
+            | Pat::RootAt100At0While
+            | Pat::RootAt101At0While
+            | Pat::RootAt102At0While
+            | Pat::RootAt103At0While => PatData {
                 act: Act::Match(&[]),
                 captures: &[],
                 nested: &[],
@@ -4829,19 +6013,185 @@ impl Pat {
                 captures: &[],
                 nested: &[],
             },
-            Pat::RootAt104 => PatData {
-                act: Act::Begin(Rule::RootAt104),
-                captures: &[(0, &[S::StrDefinitionBegin])],
+            Pat::RootAt89 => PatData {
+                act: Act::Begin(Rule::RootAt89),
+                captures: &[],
                 nested: &[],
             },
-            Pat::RootAt104End | Pat::RootAt105End => PatData {
+            Pat::RootAt89End
+            | Pat::RootAt90End
+            | Pat::RootAt91End
+            | Pat::RootAt92End
+            | Pat::RootAt93End
+            | Pat::RootAt94End
+            | Pat::RootAt95End
+            | Pat::RootAt96End
+            | Pat::RootAt97End
+            | Pat::RootAt98End
+            | Pat::RootAt99End
+            | Pat::RootAt100End
+            | Pat::RootAt101End
+            | Pat::RootAt102End
+            | Pat::RootAt103End
+            | Pat::RootAt104End
+            | Pat::RootAt105End => PatData {
                 act: Act::End,
                 captures: &[(0, &[S::StrDefinitionEnd])],
+                nested: &[],
+            },
+            Pat::RootAt89At0 => PatData {
+                act: Act::Begin(Rule::RootAt89At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
                 nested: &[],
             },
             Pat::Heredoc => PatData {
                 act: Act::Begin(Rule::Heredoc),
                 captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt90 => PatData {
+                act: Act::Begin(Rule::RootAt90),
+                captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt90At0 => PatData {
+                act: Act::Begin(Rule::RootAt90At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
+                nested: &[],
+            },
+            Pat::RootAt91 => PatData {
+                act: Act::Begin(Rule::RootAt91),
+                captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt91At0 => PatData {
+                act: Act::Begin(Rule::RootAt91At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
+                nested: &[],
+            },
+            Pat::RootAt92 => PatData {
+                act: Act::Begin(Rule::RootAt92),
+                captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt92At0 => PatData {
+                act: Act::Begin(Rule::RootAt92At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
+                nested: &[],
+            },
+            Pat::RootAt93 => PatData {
+                act: Act::Begin(Rule::RootAt93),
+                captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt93At0 => PatData {
+                act: Act::Begin(Rule::RootAt93At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
+                nested: &[],
+            },
+            Pat::RootAt94 => PatData {
+                act: Act::Begin(Rule::RootAt94),
+                captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt94At0 => PatData {
+                act: Act::Begin(Rule::RootAt94At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
+                nested: &[],
+            },
+            Pat::RootAt95 => PatData {
+                act: Act::Begin(Rule::RootAt95),
+                captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt95At0 => PatData {
+                act: Act::Begin(Rule::RootAt95At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
+                nested: &[],
+            },
+            Pat::RootAt96 => PatData {
+                act: Act::Begin(Rule::RootAt96),
+                captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt96At0 => PatData {
+                act: Act::Begin(Rule::RootAt96At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
+                nested: &[],
+            },
+            Pat::RootAt97 => PatData {
+                act: Act::Begin(Rule::RootAt97),
+                captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt97At0 => PatData {
+                act: Act::Begin(Rule::RootAt97At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
+                nested: &[],
+            },
+            Pat::RootAt98 => PatData {
+                act: Act::Begin(Rule::RootAt98),
+                captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt98At0 => PatData {
+                act: Act::Begin(Rule::RootAt98At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
+                nested: &[],
+            },
+            Pat::RootAt99 => PatData {
+                act: Act::Begin(Rule::RootAt99),
+                captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt99At0 => PatData {
+                act: Act::Begin(Rule::RootAt99At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
+                nested: &[],
+            },
+            Pat::RootAt100 => PatData {
+                act: Act::Begin(Rule::RootAt100),
+                captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt100At0 => PatData {
+                act: Act::Begin(Rule::RootAt100At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
+                nested: &[],
+            },
+            Pat::RootAt101 => PatData {
+                act: Act::Begin(Rule::RootAt101),
+                captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt101At0 => PatData {
+                act: Act::Begin(Rule::RootAt101At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
+                nested: &[],
+            },
+            Pat::RootAt102 => PatData {
+                act: Act::Begin(Rule::RootAt102),
+                captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt102At0 => PatData {
+                act: Act::Begin(Rule::RootAt102At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
+                nested: &[],
+            },
+            Pat::RootAt103 => PatData {
+                act: Act::Begin(Rule::RootAt103),
+                captures: &[],
+                nested: &[],
+            },
+            Pat::RootAt103At0 => PatData {
+                act: Act::Begin(Rule::RootAt103At0),
+                captures: &[(0, &[S::StrDefinitionBegin])],
+                nested: &[],
+            },
+            Pat::RootAt104 => PatData {
+                act: Act::Begin(Rule::RootAt104),
+                captures: &[(0, &[S::StrDefinitionBegin])],
                 nested: &[],
             },
             Pat::RootAt105 => PatData {
@@ -5587,7 +6937,40 @@ impl Pat {
                 bol: false,
                 wb: false,
             },
-            Pat::NestLtgtR | Pat::NestLtgtI | Pat::NestLtgt | Pat::RootAt105 => Start {
+            Pat::NestLtgtR
+            | Pat::NestLtgtI
+            | Pat::NestLtgt
+            | Pat::RootAt89
+            | Pat::RootAt89At0
+            | Pat::RootAt90
+            | Pat::RootAt90At0
+            | Pat::RootAt91
+            | Pat::RootAt91At0
+            | Pat::RootAt92
+            | Pat::RootAt92At0
+            | Pat::RootAt93
+            | Pat::RootAt93At0
+            | Pat::RootAt94
+            | Pat::RootAt94At0
+            | Pat::RootAt95
+            | Pat::RootAt95At0
+            | Pat::RootAt96
+            | Pat::RootAt96At0
+            | Pat::RootAt97
+            | Pat::RootAt97At0
+            | Pat::RootAt98
+            | Pat::RootAt98At0
+            | Pat::RootAt99
+            | Pat::RootAt99At0
+            | Pat::RootAt100
+            | Pat::RootAt100At0
+            | Pat::RootAt101
+            | Pat::RootAt101At0
+            | Pat::RootAt102
+            | Pat::RootAt102At0
+            | Pat::RootAt103
+            | Pat::RootAt103At0
+            | Pat::RootAt105 => Start {
                 bytes: [
                     0x1000_0000_0000_0000,
                     0x0000_0000_0000_0000,
@@ -5632,6 +7015,21 @@ impl Pat {
             | Pat::YardDirectiveEnd
             | Pat::YardSeeEnd
             | Pat::YardMacroAttributeEnd
+            | Pat::RootAt89At0While
+            | Pat::RootAt90At0While
+            | Pat::RootAt91At0While
+            | Pat::RootAt92At0While
+            | Pat::RootAt93At0While
+            | Pat::RootAt94At0While
+            | Pat::RootAt95At0While
+            | Pat::RootAt96At0While
+            | Pat::RootAt97At0While
+            | Pat::RootAt98At0While
+            | Pat::RootAt99At0While
+            | Pat::RootAt100At0While
+            | Pat::RootAt101At0While
+            | Pat::RootAt102At0While
+            | Pat::RootAt103At0While
             | Pat::RootAt104End
             | Pat::RootAt105End => Start {
                 bytes: [
@@ -5693,14 +7091,28 @@ impl Pat {
                 bol: false,
                 wb: false,
             },
-            Pat::RootAt104 | Pat::RootAt107 | Pat::RootAt115 => Start {
+            Pat::RootAt89End
+            | Pat::RootAt90End
+            | Pat::RootAt91End
+            | Pat::RootAt92End
+            | Pat::RootAt93End
+            | Pat::RootAt94End
+            | Pat::RootAt95End
+            | Pat::RootAt96End
+            | Pat::RootAt97End
+            | Pat::RootAt98End
+            | Pat::RootAt99End
+            | Pat::RootAt100End
+            | Pat::RootAt101End
+            | Pat::RootAt102End
+            | Pat::RootAt103End => Start {
                 bytes: [
-                    0x2000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
+                    0x03ff_0001_0000_3e00,
+                    0x07ff_fffe_87ff_fffe,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
                 ],
-                bol: false,
+                bol: true,
                 wb: false,
             },
             Pat::Heredoc => Start {
@@ -5711,6 +7123,16 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 bol: true,
+                wb: false,
+            },
+            Pat::RootAt104 | Pat::RootAt107 | Pat::RootAt115 => Start {
+                bytes: [
+                    0x2000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
                 wb: false,
             },
             Pat::RootAt106 | Pat::RootAt106End => Start {
@@ -5863,6 +7285,352 @@ impl Pat {
                 bol: false,
                 wb: false,
             },
+        }
+    }
+}
+
+impl Pat {
+    /// The byte a match must have right after its first, where the pattern
+    /// fixes it: a here document opener's second `<`.
+    #[expect(clippy::too_many_lines, reason = "a generated table")]
+    pub(crate) fn next_byte(self) -> Option<u8> {
+        match self {
+            Pat::RootAt0
+            | Pat::RootAt1
+            | Pat::RootAt2
+            | Pat::RootAt3
+            | Pat::RootAt4
+            | Pat::RootAt5
+            | Pat::RootAt6
+            | Pat::RootAt7
+            | Pat::RootAt8
+            | Pat::RootAt9
+            | Pat::RootAt10
+            | Pat::RootAt11
+            | Pat::RootAt12
+            | Pat::RootAt13
+            | Pat::RootAt14
+            | Pat::RootAt15
+            | Pat::RootAt16
+            | Pat::RootAt17
+            | Pat::RootAt18
+            | Pat::RootAt19
+            | Pat::RootAt20
+            | Pat::RootAt21
+            | Pat::RootAt21End
+            | Pat::RootAt22
+            | Pat::RootAt23
+            | Pat::RootAt24
+            | Pat::RootAt25
+            | Pat::RootAt26
+            | Pat::RootAt26End
+            | Pat::RootAt27
+            | Pat::RootAt28
+            | Pat::RootAt29
+            | Pat::RootAt30
+            | Pat::RootAt30End
+            | Pat::RootAt30At0
+            | Pat::RootAt30At0End
+            | Pat::Parens
+            | Pat::ParensEnd
+            | Pat::Braces
+            | Pat::BracesEnd
+            | Pat::Brackets
+            | Pat::BracketsEnd
+            | Pat::RootAt31
+            | Pat::RootAt31End
+            | Pat::RootAt31At0
+            | Pat::RootAt31At0End
+            | Pat::Params
+            | Pat::RootAt32
+            | Pat::RootAt32End
+            | Pat::RootAt32At0
+            | Pat::RootAt32At0End
+            | Pat::RootAt33
+            | Pat::RootAt34
+            | Pat::RootAt35
+            | Pat::RootAt35End
+            | Pat::RootAt35At0
+            | Pat::RootAt36
+            | Pat::RootAt36End
+            | Pat::InterpolatedRubyAt0
+            | Pat::InterpolatedRubyAt0End
+            | Pat::NestCurlyAndSelfAt0
+            | Pat::NestCurlyAndSelfAt0End
+            | Pat::RootAt37
+            | Pat::RootAt38
+            | Pat::RootAt38End
+            | Pat::RootAt38At0
+            | Pat::RootAt39
+            | Pat::RootAt39End
+            | Pat::InterpolatedRubyAt1
+            | Pat::InterpolatedRubyAt2
+            | Pat::InterpolatedRubyAt3
+            | Pat::EscapedChar
+            | Pat::RootAt40
+            | Pat::RootAt40End
+            | Pat::RootAt41
+            | Pat::RootAt41End
+            | Pat::RegexSubAt2
+            | Pat::RegexSubAt3
+            | Pat::RegexSubAt3End
+            | Pat::RegexSubAt4
+            | Pat::RegexSubAt4End
+            | Pat::RegexSubAt5
+            | Pat::RegexSubAt5End
+            | Pat::RegexSubAt6
+            | Pat::RegexSubAt6End
+            | Pat::RootAt42
+            | Pat::RootAt42End
+            | Pat::NestCurlyR
+            | Pat::NestCurlyREnd
+            | Pat::RootAt43
+            | Pat::RootAt43End
+            | Pat::NestBracketsR
+            | Pat::NestBracketsREnd
+            | Pat::RootAt44
+            | Pat::RootAt44End
+            | Pat::NestParensR
+            | Pat::NestParensREnd
+            | Pat::RootAt45
+            | Pat::RootAt45End
+            | Pat::NestLtgtR
+            | Pat::NestLtgtREnd
+            | Pat::RootAt46
+            | Pat::RootAt46End
+            | Pat::RootAt47
+            | Pat::RootAt47End
+            | Pat::NestBracketsI
+            | Pat::NestBracketsIEnd
+            | Pat::RootAt48
+            | Pat::RootAt48End
+            | Pat::NestParensI
+            | Pat::NestParensIEnd
+            | Pat::RootAt49
+            | Pat::RootAt49End
+            | Pat::NestLtgtI
+            | Pat::NestLtgtIEnd
+            | Pat::RootAt50
+            | Pat::RootAt50End
+            | Pat::NestCurlyI
+            | Pat::NestCurlyIEnd
+            | Pat::RootAt51
+            | Pat::RootAt51End
+            | Pat::RootAt52
+            | Pat::RootAt52End
+            | Pat::RootAt52At0
+            | Pat::NestBrackets
+            | Pat::NestBracketsEnd
+            | Pat::RootAt53
+            | Pat::RootAt53End
+            | Pat::RootAt53At0
+            | Pat::NestParens
+            | Pat::NestParensEnd
+            | Pat::RootAt54
+            | Pat::RootAt54End
+            | Pat::RootAt54At0
+            | Pat::NestLtgt
+            | Pat::NestLtgtEnd
+            | Pat::RootAt55
+            | Pat::RootAt55End
+            | Pat::RootAt55At0
+            | Pat::NestCurly
+            | Pat::NestCurlyEnd
+            | Pat::RootAt56
+            | Pat::RootAt56End
+            | Pat::RootAt56At0
+            | Pat::RootAt57
+            | Pat::RootAt57End
+            | Pat::RootAt58
+            | Pat::RootAt58End
+            | Pat::RootAt59
+            | Pat::RootAt59End
+            | Pat::RootAt60
+            | Pat::RootAt60End
+            | Pat::RootAt61
+            | Pat::RootAt61End
+            | Pat::RootAt62
+            | Pat::RootAt62End
+            | Pat::RootAt62At0
+            | Pat::RootAt63
+            | Pat::RootAt63End
+            | Pat::RootAt63At0
+            | Pat::RootAt64
+            | Pat::RootAt64End
+            | Pat::RootAt64At0
+            | Pat::RootAt65
+            | Pat::RootAt65End
+            | Pat::RootAt65At0
+            | Pat::RootAt66
+            | Pat::RootAt66End
+            | Pat::RootAt66At0
+            | Pat::RootAt67
+            | Pat::RootAt67End
+            | Pat::RootAt68
+            | Pat::RootAt68End
+            | Pat::RootAt69
+            | Pat::RootAt69End
+            | Pat::RootAt70
+            | Pat::RootAt70End
+            | Pat::RootAt71
+            | Pat::RootAt71End
+            | Pat::RootAt72
+            | Pat::RootAt72End
+            | Pat::RootAt73
+            | Pat::RootAt73End
+            | Pat::RootAt73At0
+            | Pat::RootAt74
+            | Pat::RootAt74End
+            | Pat::RootAt74At0
+            | Pat::RootAt75
+            | Pat::RootAt75End
+            | Pat::RootAt75At0
+            | Pat::RootAt76
+            | Pat::RootAt76End
+            | Pat::RootAt76At0
+            | Pat::RootAt77
+            | Pat::RootAt77End
+            | Pat::RootAt77At0
+            | Pat::RootAt78
+            | Pat::RootAt78End
+            | Pat::RootAt78At0
+            | Pat::RootAt79
+            | Pat::RootAt79End
+            | Pat::RootAt79At0
+            | Pat::RootAt80
+            | Pat::RootAt80End
+            | Pat::RootAt80At0
+            | Pat::RootAt81
+            | Pat::RootAt81End
+            | Pat::RootAt81At0
+            | Pat::RootAt82
+            | Pat::RootAt82End
+            | Pat::RootAt82At0
+            | Pat::RootAt83
+            | Pat::RootAt84
+            | Pat::RootAt84End
+            | Pat::YardComment
+            | Pat::YardCommentEnd
+            | Pat::YardParamTypes
+            | Pat::YardParamTypesEnd
+            | Pat::YardOption
+            | Pat::YardOptionEnd
+            | Pat::YardTag
+            | Pat::YardTypes
+            | Pat::YardTypesEnd
+            | Pat::YardDirective
+            | Pat::YardDirectiveEnd
+            | Pat::YardSee
+            | Pat::YardSeeEnd
+            | Pat::YardMacroAttribute
+            | Pat::YardMacroAttributeEnd
+            | Pat::YardContinuation
+            | Pat::RootAt86
+            | Pat::RootAt86End
+            | Pat::RootAt86At0
+            | Pat::RootAt86At0End
+            | Pat::RootAt87
+            | Pat::RootAt88
+            | Pat::RootAt88End
+            | Pat::RootAt88At0
+            | Pat::RootAt88At0End
+            | Pat::RootAt89End
+            | Pat::RootAt89At0While
+            | Pat::Heredoc
+            | Pat::HeredocEnd
+            | Pat::RootAt90End
+            | Pat::RootAt90At0While
+            | Pat::RootAt91End
+            | Pat::RootAt91At0While
+            | Pat::RootAt92End
+            | Pat::RootAt92At0While
+            | Pat::RootAt93End
+            | Pat::RootAt93At0While
+            | Pat::RootAt94End
+            | Pat::RootAt94At0While
+            | Pat::RootAt95End
+            | Pat::RootAt95At0While
+            | Pat::RootAt96End
+            | Pat::RootAt96At0While
+            | Pat::RootAt97End
+            | Pat::RootAt97At0While
+            | Pat::RootAt98End
+            | Pat::RootAt98At0While
+            | Pat::RootAt99End
+            | Pat::RootAt99At0While
+            | Pat::RootAt100End
+            | Pat::RootAt100At0While
+            | Pat::RootAt101End
+            | Pat::RootAt101At0While
+            | Pat::RootAt102End
+            | Pat::RootAt102At0While
+            | Pat::RootAt103End
+            | Pat::RootAt103At0While
+            | Pat::RootAt104
+            | Pat::RootAt104End
+            | Pat::RootAt105
+            | Pat::RootAt105End
+            | Pat::RootAt106
+            | Pat::RootAt106End
+            | Pat::RootAt106At0
+            | Pat::RootAt106At0End
+            | Pat::RootAt106At0At0
+            | Pat::RootAt106At1
+            | Pat::RootAt107
+            | Pat::RootAt108
+            | Pat::RootAt109
+            | Pat::RootAt110
+            | Pat::RootAt111
+            | Pat::RootAt112
+            | Pat::RootAt113
+            | Pat::RootAt114
+            | Pat::RootAt115
+            | Pat::RootAt116
+            | Pat::RootAt117
+            | Pat::RootAt118
+            | Pat::RootAt119
+            | Pat::RootAt120
+            | Pat::RootAt121
+            | Pat::RootAt122
+            | Pat::RootAt123
+            | Pat::RootAt124
+            | Pat::RootAt125
+            | Pat::RootAt126
+            | Pat::RootAt127
+            | Pat::RootAt127End
+            | Pat::RootAt127At0
+            | Pat::RootAt128
+            | Pat::RootAt128End => None,
+            Pat::RootAt89
+            | Pat::RootAt89At0
+            | Pat::RootAt90
+            | Pat::RootAt90At0
+            | Pat::RootAt91
+            | Pat::RootAt91At0
+            | Pat::RootAt92
+            | Pat::RootAt92At0
+            | Pat::RootAt93
+            | Pat::RootAt93At0
+            | Pat::RootAt94
+            | Pat::RootAt94At0
+            | Pat::RootAt95
+            | Pat::RootAt95At0
+            | Pat::RootAt96
+            | Pat::RootAt96At0
+            | Pat::RootAt97
+            | Pat::RootAt97At0
+            | Pat::RootAt98
+            | Pat::RootAt98At0
+            | Pat::RootAt99
+            | Pat::RootAt99At0
+            | Pat::RootAt100
+            | Pat::RootAt100At0
+            | Pat::RootAt101
+            | Pat::RootAt101At0
+            | Pat::RootAt102
+            | Pat::RootAt102At0
+            | Pat::RootAt103
+            | Pat::RootAt103At0 => Some(b'<'),
         }
     }
 }

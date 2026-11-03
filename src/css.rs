@@ -27,7 +27,7 @@ pub(crate) use scope::NAMES;
 pub(crate) use scope::S;
 
 use crate::arena::Arena;
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 use crate::rules;
 
 /// The state at the start of a CSS document whose scopes sit on the stack
@@ -47,16 +47,17 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
     rules::lex::<Css>(cx, line, state, |scratch| &mut scratch.css)
 }
 
-/// Lexes `line` like [`lex`], for CSS that another grammar embeds up to its
-/// end (see [`rules::lex_until`]).
+/// Lexes `line` like [`lex`], for CSS that another language embeds, up to
+/// where `end` or `after` halts it (see [`rules::lex_until`]).
 #[inline]
 pub(crate) fn lex_until(
     cx: &mut Context<'_>,
     line: Line<'_>,
     state: u32,
-    end: crate::language::Halt,
+    end: Halt,
+    after: Option<Halt>,
 ) -> (u32, Option<usize>) {
-    rules::lex_until::<Css>(cx, line, state, |scratch| &mut scratch.css, end)
+    rules::lex_until::<Css>(cx, line, state, |scratch| &mut scratch.css, end, after)
 }
 
 #[cfg(test)]

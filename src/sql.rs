@@ -26,7 +26,7 @@ pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 
 /// The state at the start of a SQL document whose scopes sit on the stack
 /// `base`: one rule with `source.sql` on top of it.
@@ -47,6 +47,19 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 #[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
     crate::rules::lex::<engine::Sql>(cx, line, state, |scratch| &mut scratch.sql)
+}
+
+/// Lexes `line` like [`lex`], for SQL that another language embeds, up to
+/// where `end` or `after` halts it (see [`crate::rules::lex_until`]).
+#[inline]
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: Halt,
+    after: Option<Halt>,
+) -> (u32, Option<usize>) {
+    crate::rules::lex_until::<engine::Sql>(cx, line, state, |scratch| &mut scratch.sql, end, after)
 }
 
 #[cfg(test)]
