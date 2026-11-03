@@ -6,10 +6,11 @@
 # machine's load, over the same files: this tree's fixtures that the base
 # has too. A language the base has no fixtures for is listed as new.
 #
-# Both build with one codegen unit, so a change that only moves code between
-# units, which shifts counts by up to a few percent, does not read as a
-# change: the counts are a review signal, while the wall-clock bench keeps
-# the default profile users get. Only the harness's second pass is counted,
+# The gate builds both with one codegen unit, so a change that only moves
+# code between units, which shifts counts by up to a few percent, does not
+# read as a change: the counts are a review signal. The table also shows
+# both at the default sixteen units, the layout users get, for information
+# only: it never fails the task. Only the harness's second pass is counted,
 # so the work a process does once, such as building each rule's pattern
 # tables, stays out.
 #
@@ -22,7 +23,7 @@ base="${1:-origin/main}"
 shift || true
 languages=("$@")
 if [ "${#languages[@]}" -eq 0 ]; then
-  languages=(python java css kotlin make sql go ruby csharp markdown)
+  languages=(python java css kotlin make sql c cpp go ruby csharp swift markdown)
 fi
 tolerance="${CALLGRIND_TOLERANCE_PCT:-0.5}"
 dir=target/callgrind
@@ -42,30 +43,38 @@ for language in "${languages[@]}"; do
     fi
   done
 done
-export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
-CARGO_TARGET_DIR="$dir/target-base" cargo build --quiet --release --locked \
-  --manifest-path "$dir/base/Cargo.toml" --example lex
-CARGO_TARGET_DIR="$dir/target-head" cargo build --quiet --release --locked --example lex
+# One build of each side at one codegen unit, which gates, and one at the
+# default sixteen, which the table shows for information only.
+for units in 1 16; do
+  CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$dir/target-base-$units" \
+    cargo build --quiet --release --locked --manifest-path "$dir/base/Cargo.toml" --example lex
+  CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$dir/target-head-$units" \
+    cargo build --quiet --release --locked --example lex
+done
 count() {
   valgrind --tool=callgrind --callgrind-out-file=/dev/null --collect-atstart=no \
     --toggle-collect='*lex::measured*' "$1" "$fixtures" "$2" 2>&1 |
     sed -n 's/.*Collected : *\([0-9]*\).*/\1/p'
 }
-echo "| language | base (M) | head (M) | head/base |"
-echo "|:--|--:|--:|--:|"
+echo "| language | base (M) | head (M) | head/base | base, 16 units (M) | head, 16 units (M) | head/base, 16 units (not gated) |"
+echo "|:--|--:|--:|--:|--:|--:|--:|"
 failed=()
 for language in "${languages[@]}"; do
   if [ -z "$(ls -A "$fixtures/$language")" ]; then
-    echo "| $language | new | | |"
+    echo "| $language | new | | | | | |"
     continue
   fi
-  b=$(count "$dir/target-base/release/examples/lex" "$language")
-  h=$(count "$dir/target-head/release/examples/lex" "$language")
-  if [ "${b:-0}" = 0 ] || [ "${h:-0}" = 0 ]; then
+  b=$(count "$dir/target-base-1/release/examples/lex" "$language")
+  h=$(count "$dir/target-head-1/release/examples/lex" "$language")
+  b16=$(count "$dir/target-base-16/release/examples/lex" "$language")
+  h16=$(count "$dir/target-head-16/release/examples/lex" "$language")
+  if [ "${b:-0}" = 0 ] || [ "${h:-0}" = 0 ] || [ "${b16:-0}" = 0 ] || [ "${h16:-0}" = 0 ]; then
     echo "callgrind counted nothing for $language: lex::measured was not found" >&2
     exit 1
   fi
-  awk -v l="$language" -v b="$b" -v h="$h" 'BEGIN { printf "| %s | %.1f | %.1f | %.4f |\n", l, b / 1e6, h / 1e6, h / b }'
+  awk -v l="$language" -v b="$b" -v h="$h" -v b16="$b16" -v h16="$h16" 'BEGIN {
+    printf "| %s | %.1f | %.1f | %.4f | %.1f | %.1f | %.4f |\n", l, b / 1e6, h / 1e6, h / b, b16 / 1e6, h16 / 1e6, h16 / b16
+  }'
   if awk -v b="$b" -v h="$h" -v t="$tolerance" 'BEGIN { exit !(h > b * (1 + t / 100)) }'; then
     failed+=("$language")
   fi
