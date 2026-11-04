@@ -8,6 +8,7 @@
 use super::caps::Caps;
 use super::limits::{MAX_BRACKET_DEPTH, MAX_PAREN_DEPTH};
 use super::text::Cx;
+use super::ticks::{CodeSpan, Ticks};
 
 /// `&(?!([0-9A-Za-z]+|#[0-9]+|#x\h+);)`: an `&` that starts no entity.
 pub(crate) fn ampersand(cx: &Cx<'_>, p: usize) -> Option<usize> {
@@ -105,6 +106,7 @@ fn delimiter(cx: &Cx<'_>, p: usize, emphasis: Emphasis) -> Option<(u8, usize)> {
 /// character, except that italic skips a doubled delimiter whole.
 pub(crate) fn emphasis_open(
     cx: &Cx<'_>,
+    ticks: &mut Ticks,
     p: usize,
     emphasis: Emphasis,
     caps: &mut Caps,
@@ -118,7 +120,7 @@ pub(crate) fn emphasis_open(
     let mut atoms = 0;
     loop {
         let before = q;
-        q = emphasis_atom(cx, q, mark, len, emphasis).unwrap_or(q);
+        q = emphasis_atom(cx, ticks, q, mark, len, emphasis).unwrap_or(q);
         if q == before {
             break;
         }
@@ -141,7 +143,14 @@ pub(crate) fn emphasis_open(
 
 /// One step of the look-ahead: the end of the unit at `q`, or none when the
 /// look-ahead stops there.
-fn emphasis_atom(cx: &Cx<'_>, q: usize, mark: u8, len: usize, emphasis: Emphasis) -> Option<usize> {
+fn emphasis_atom(
+    cx: &Cx<'_>,
+    ticks: &mut Ticks,
+    q: usize,
+    mark: u8,
+    len: usize,
+    emphasis: Emphasis,
+) -> Option<usize> {
     let b = cx.get(q)?;
     match b {
         b'<' => {
@@ -152,7 +161,7 @@ fn emphasis_atom(cx: &Cx<'_>, q: usize, mark: u8, len: usize, emphasis: Emphasis
             }
         }
         b'`' => {
-            if let Some(span) = code_span(cx, q) {
+            if let Some(span) = code_span(cx, ticks, q) {
                 return Some(span.end);
             }
         }
@@ -200,50 +209,23 @@ pub(crate) fn italic_close(cx: &Cx<'_>, p: usize, mark: u8, caps: &mut Caps) -> 
     Some(p + 1)
 }
 
-/// A code span: the opening run, the closing run and where it ends.
-pub(crate) struct CodeSpan {
-    pub(crate) open_len: usize,
-    pub(crate) close: usize,
-    pub(crate) end: usize,
-}
-
 /// A run of backticks, then the first later run of the same length. When none
 /// of that length follows, the opening run gives back backticks one at a time,
 /// and the ones given back become text.
-pub(crate) fn code_span(cx: &Cx<'_>, p: usize) -> Option<CodeSpan> {
+/// The closing run comes from the line's backtick runs.
+#[inline(never)]
+pub(crate) fn code_span(cx: &Cx<'_>, ticks: &mut Ticks, p: usize) -> Option<CodeSpan> {
     if cx.get(p) != Some(b'`') {
         return None;
     }
-    let run = cx.skip(p, |b| b == b'`') - p;
-    let line_end = cx.end.min(cx.line.len());
-    for open_len in (1..=run).rev() {
-        cx.spend(line_end.saturating_sub(p + run));
-        if cx.over() {
-            return None;
-        }
-        let mut i = p + run;
-        while let Some(rest) = cx.line.get(i..line_end) {
-            let Some(tick) = memchr::memchr(b'`', rest) else {
-                break;
-            };
-            let start = i + tick;
-            let stop = cx.skip(start, |b| b == b'`').min(line_end);
-            if stop - start == open_len {
-                return Some(CodeSpan {
-                    open_len,
-                    close: start,
-                    end: stop,
-                });
-            }
-            i = stop;
-        }
-    }
-    None
+    let (span, steps) = ticks.code_span(cx.line, p, cx.end.min(cx.line.len()));
+    cx.spend(steps);
+    span
 }
 
 /// The raw rule: a code span, its backtick runs and its text.
-pub(crate) fn raw(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
-    let span = code_span(cx, p)?;
+pub(crate) fn raw(cx: &Cx<'_>, ticks: &mut Ticks, p: usize, caps: &mut Caps) -> Option<usize> {
+    let span = code_span(cx, ticks, p)?;
     caps.set(1, p, p + span.open_len);
     if span.close > p + span.open_len {
         caps.set(2, p + span.open_len, span.close);

@@ -13,10 +13,12 @@
 use super::caps::{Caps, NESTING};
 #[cfg(feature = "lang-html-derivative")]
 use super::html;
+use super::inline::Emphasis;
 use super::rules::{self, Capture, End, List, P};
 use super::scope::S;
 use super::state::{Fence, Kind};
 use super::text::Cx;
+use super::ticks::Ticks;
 use super::{block, inline};
 use crate::arena::{Arena, Frame as ArenaFrame, ROOT};
 use crate::language::{Context, Line, Parts};
@@ -221,6 +223,8 @@ pub(crate) struct Scratch {
     /// The frames of the first line's state, innermost first, while
     /// [`after_first_line`] rebuilds them.
     chain: Vec<ArenaFrame>,
+    /// The line's backtick runs, found when a code span first needs them.
+    ticks: Ticks,
 }
 
 impl<'a> Lexer<'a> {
@@ -236,6 +240,7 @@ impl<'a> Lexer<'a> {
         state: u32,
     ) -> Self {
         let first_token = out.len();
+        scratch.markdown.ticks.reset();
         let mut frames = std::mem::take(&mut scratch.markdown.frames);
         if scratch.markdown.resume == Some(state) {
             for frame in &mut frames {
@@ -585,6 +590,10 @@ impl<'a> Lexer<'a> {
     ///
     /// A link definition leads with `\s*`, so only the start of a run of
     /// blanks can start one.
+    #[expect(
+        clippy::too_many_lines,
+        reason = "one arm per rule; the tables are borrowed in the arms that read them"
+    )]
     fn try_rule(&mut self, rule: P, start: usize) -> Option<Hit> {
         self.caps.clear();
         #[cfg(feature = "lang-html-derivative")]
@@ -645,11 +654,21 @@ impl<'a> Lexer<'a> {
             P::Level6 => block::heading_part(&cx, start, 6, &mut self.caps),
             P::Ampersand => inline::ampersand(&cx, start),
             P::Bracket => inline::bracket(&cx, start),
-            P::Bold => inline::emphasis_open(&cx, start, inline::Emphasis::Bold, &mut self.caps),
-            P::Italic => {
-                inline::emphasis_open(&cx, start, inline::Emphasis::Italic, &mut self.caps)
-            }
-            P::Raw => inline::raw(&cx, start, &mut self.caps),
+            P::Bold => inline::emphasis_open(
+                &cx,
+                &mut self.scratch.markdown.ticks,
+                start,
+                Emphasis::Bold,
+                &mut self.caps,
+            ),
+            P::Italic => inline::emphasis_open(
+                &cx,
+                &mut self.scratch.markdown.ticks,
+                start,
+                Emphasis::Italic,
+                &mut self.caps,
+            ),
+            P::Raw => inline::raw(&cx, &mut self.scratch.markdown.ticks, start, &mut self.caps),
             P::Strike => inline::strikethrough(&cx, start, &mut self.caps),
             P::Escape => inline::escape(&cx, start),
             P::ImageInline => inline::image_inline(&cx, start, &mut self.caps),

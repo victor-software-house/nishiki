@@ -81,6 +81,7 @@ mod rules;
 mod scope;
 mod state;
 mod text;
+mod ticks;
 
 pub(crate) use lexer::Scratch;
 pub(crate) use scope::NAMES;

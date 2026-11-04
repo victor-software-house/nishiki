@@ -96,3 +96,42 @@ fn markdown_containers_past_the_depth_limit_are_not_opened() {
     );
     assert_ne!(state, State::default());
 }
+
+/// A line of code spans spends work linear in its length.
+/// A code span that scans the rest of the line from each opening fails here.
+#[test]
+fn a_line_of_code_spans_spends_work_linear_in_its_length() {
+    let short = steps_spent(Language::Markdown, &"``` a ` ".repeat(1_000));
+    let long = steps_spent(Language::Markdown, &"``` a ` ".repeat(2_000));
+    assert!(
+        long <= 2 * short + 16,
+        "spent {short} steps at 1,000 units and {long} at 2,000"
+    );
+}
+
+/// A ladder of backtick runs spends work linear in its length.
+/// Each run is one backtick longer than the one before.
+/// No run has a later run of its length, so each gives back backticks.
+/// The steps spent per byte stay flat as the ladder grows.
+#[test]
+fn a_ladder_of_backtick_runs_spends_work_linear_in_its_length() {
+    let ladder = |runs: usize| -> String {
+        let mut line = String::new();
+        for len in 1..=runs {
+            line.push_str("x ");
+            line.push_str(&"`".repeat(len));
+            line.push(' ');
+        }
+        line
+    };
+    let few = ladder(40);
+    let many = ladder(80);
+    let few_steps = u64::from(steps_spent(Language::Markdown, &few));
+    let many_steps = u64::from(steps_spent(Language::Markdown, &many));
+    let few_bytes = u64::try_from(few.len()).unwrap_or(u64::MAX);
+    let many_bytes = u64::try_from(many.len()).unwrap_or(u64::MAX);
+    assert!(
+        many_steps * few_bytes <= 2 * few_steps * many_bytes,
+        "spent {few_steps} steps on {few_bytes} bytes and {many_steps} on {many_bytes}"
+    );
+}
