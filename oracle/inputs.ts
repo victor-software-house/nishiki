@@ -16,6 +16,9 @@ import goCoverage from "./inputs/go-coverage.go" with { type: "text" };
 import hamlFilters from "./inputs/haml-filters.haml" with { type: "text" };
 import iniCoverage from "./inputs/ini-coverage.ini" with { type: "text" };
 import javaCoverage from "./inputs/java-coverage.java" with { type: "text" };
+import jsonCoverage from "./inputs/json-coverage.json" with { type: "text" };
+import jsoncCoverage from "./inputs/jsonc-coverage.jsonc" with { type: "text" };
+import jsonlCoverage from "./inputs/jsonl-coverage.jsonl" with { type: "text" };
 import kotlinCoverage from "./inputs/kotlin-coverage.kt" with { type: "text" };
 import lessCoverage from "./inputs/less-coverage.less" with { type: "text" };
 import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
@@ -702,6 +705,7 @@ export const inputs: Input[] = [
   { lang: "javascript", name: "tsc-tsx-react-emit-entities", url: `${typescriptTests}/conformance/jsx/tsxReactEmitEntities.tsx` },
   { lang: "javascript", name: "tsc-variadic-tuples1", url: `${typescriptTests}/conformance/types/tuple/variadicTuples1.ts` },
   { lang: "javascript", name: "tsc-yield-expression-inner-comment-emit", url: `${typescriptTests}/compiler/yieldExpressionInnerCommentEmit.ts` },
+  { lang: "json", name: "coverage", text: jsonCoverage },
   { lang: "json", name: "sample", url: `${samples}/json.sample` },
   {
     lang: "json",
@@ -710,8 +714,10 @@ export const inputs: Input[] = [
   },
   { lang: "json", name: "vue-package", url: `${vue}/package.json` },
   { lang: "json", name: "zod-package", url: `${zod}/packages/zod/package.json` },
+  { lang: "jsonc", name: "coverage", text: jsoncCoverage },
   { lang: "jsonc", name: "sample", url: `${samples}/jsonc.sample` },
   { lang: "jsonc", name: "vscode-launch", url: `${vscode}/.vscode/launch.json` },
+  { lang: "jsonl", name: "coverage", text: jsonlCoverage },
   { lang: "jsonl", name: "rag-output", url: `${rag}/output.jsonl` },
   { lang: "jsonl", name: "rag-output-50", url: `${rag}/output-50.jsonl` },
   { lang: "jsonl", name: "sample", url: `${samples}/jsonl.sample` },

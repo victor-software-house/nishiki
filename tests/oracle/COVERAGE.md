@@ -28,9 +28,9 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | INI | `ini` | 15 of 15 | 100.0% | 10 of 12 | 83.3% | 2 | 0 | yes |
 | Java | `java` | 214 of 214 | 100.0% | 133 of 134 | 99.3% | 1 | 0 | yes |
 | TypeScript | `javascript` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
-| JSON | `json` | 14 of 23 | 60.9% | 10 of 15 | 66.7% | 0 | 10 |  |
-| JSON | `jsonc` | 19 of 23 | 82.6% | 13 of 15 | 86.7% | 0 | 0 |  |
-| JSON | `jsonl` | 13 of 23 | 56.5% | 11 of 15 | 73.3% | 0 | 6 |  |
+| JSON | `json` | 23 of 23 | 100.0% | 15 of 15 | 100.0% | 0 | 0 | yes |
+| JSON | `jsonc` | 23 of 23 | 100.0% | 15 of 15 | 100.0% | 0 | 0 | yes |
+| JSON | `jsonl` | 23 of 23 | 100.0% | 15 of 15 | 100.0% | 0 | 0 | yes |
 | TypeScript | `jsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | Kotlin | `kotlin` | 63 of 65 | 96.9% | 35 of 35 | 100.0% | 2 | 0 | yes |
 | Less | `less` | 581 of 590 | 98.5% | 417 of 437 | 95.4% | 29 | 0 | yes |
@@ -466,44 +466,6 @@ patterns[1].begin  groups 1 (waived: the group matches only blanks, and the orac
 #support-objects.patterns[4].match  groups 4 (waived: the group sits inside the negative lookahead after the property names, so it never holds text; the constant names are group 53)
 #template.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
 #template-type.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
-```
-
-### `json`
-
-```text
-#array.patterns[2].match  [^]\s]  fuzz
-#comments.patterns[0].begin  /\*\*(?!/)
-#comments.patterns[0].end  \*/
-#comments.patterns[1].begin  /\*  fuzz
-#comments.patterns[1].end  \*/  fuzz
-#comments.patterns[2].match  (//).*$\n?  fuzz
-#object.patterns[2].patterns[1].match  [^,\s]  fuzz
-#object.patterns[3].match  [^}\s]  fuzz
-#stringcontent.patterns[1].match  \\.  fuzz
-```
-
-### `jsonc`
-
-```text
-#comments.patterns[0].begin  /\*\*(?!/)
-#comments.patterns[0].end  \*/
-#stringcontent.patterns[0].match  \\(?:["/\\bfnrt]|u\h{4})
-#stringcontent.patterns[1].match  \\.
-```
-
-### `jsonl`
-
-```text
-#array.patterns[2].match  [^]\s]  fuzz
-#comments.patterns[0].begin  /\*\*(?!/)
-#comments.patterns[0].end  \*/
-#comments.patterns[1].begin  /\*
-#comments.patterns[1].end  \*/
-#constant.match  \b(?:true|false|null)\b  fuzz
-#number.match  -?(?:0|[1-9]\d*)(?:(?:\.\d+)?(?:[Ee][-+]?\d+)?)?  fuzz
-#object.patterns[2].patterns[1].match  [^,\s]  fuzz
-#object.patterns[3].match  [^}\s]  fuzz
-#stringcontent.patterns[1].match  \\.  fuzz
 ```
 
 ### `jsx`

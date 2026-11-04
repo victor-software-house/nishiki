@@ -1,0 +1,9 @@
+/** A documentation comment. */
+/* A block comment. */
+// A line comment.
+{
+  "array": [1, 2 x],
+  "escape": "a\qb\n",
+  "value": 1 y,
+  "key": 2, w
+}

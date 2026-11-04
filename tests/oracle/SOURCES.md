@@ -102,12 +102,15 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `javascript/tsc-tsx-react-emit-entities` | [`tsxReactEmitEntities.tsx`][tsc-tsx-react-emit-entities] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
 | `javascript/tsc-variadic-tuples1` | [`variadicTuples1.ts`][tsc-variadic-tuples1] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
 | `javascript/tsc-yield-expression-inner-comment-emit` | [`yieldExpressionInnerCommentEmit.ts`][tsc-yield-expression-inner-comment-emit] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `json/coverage` | `oracle/inputs/json-coverage.json`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `json/sample` | [`samples/json.sample`][json-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `json/vscode-typescript-grammar` | [`extensions/typescript-basics/syntaxes/TypeScript.tmLanguage.json`][vscode-ts-grammar] in microsoft/vscode | [MIT][vscode-licence] |
 | `json/vue-package` | [`package.json`][vue-package] in vuejs/core | [MIT][vue-licence] |
 | `json/zod-package` | [`packages/zod/package.json`][zod-package] in colinhacks/zod | [MIT][zod-licence] |
+| `jsonc/coverage` | `oracle/inputs/jsonc-coverage.jsonc`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `jsonc/sample` | [`samples/jsonc.sample`][jsonc-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `jsonc/vscode-launch` | [`.vscode/launch.json`][vscode-launch] in microsoft/vscode | [MIT][vscode-licence] |
+| `jsonl/coverage` | `oracle/inputs/jsonl-coverage.jsonl`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `jsonl/rag-output` | [`output.jsonl`][rag-output] in jxnl/n-levels-of-rag | [MIT][rag-licence] |
 | `jsonl/rag-output-50` | [`output-50.jsonl`][rag-output-50] in jxnl/n-levels-of-rag | [MIT][rag-licence] |
 | `jsonl/sample` | [`samples/jsonl.sample`][jsonl-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
@@ -652,6 +655,7 @@ The `markdownlint-*` and `coverage` inputs of `markdown` are held out: they were
 `markdown/nvm-readme` is the development input for shell fences and `markdown/pyenv-readme` is held out.
 `json/sample`, `json/vue-package`, `jsonc/sample`, `jsonl/sample` and `jsonl/rag-output` are the development inputs for JSON.
 `json/zod-package`, `json/vscode-typescript-grammar`, `jsonc/vscode-launch` and `jsonl/rag-output-50` are held out.
+`json/coverage`, `jsonc/coverage` and `jsonl/coverage` are held out too: they were added to exercise the rest of the grammars, as [`COVERAGE.md`](COVERAGE.md) counts it.
 `markdown/eslint-no-restricted-imports` is the development input for JSON fences and `markdown/eslint-mcp` is held out.
 No input has a `jsonc` or `jsonl` fence, so those two spellings are covered by unit tests only.
 `sql/sample`, `sql/postgres-select`, `sql/postgres-create-table` and `sql/ssms-create-table` are the development inputs for SQL.

@@ -1,0 +1,3 @@
+/** A documentation comment. */ {"id": 1}
+/* A block comment. */ {"number": -1.5e3, "yes": true, "no": false, "none": null}
+{"array": [1, 2 x], "escape": "a\qb", "value": 1 y, "key": 2, w}

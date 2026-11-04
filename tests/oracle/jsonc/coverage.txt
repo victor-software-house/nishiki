@@ -1,0 +1,39 @@
+L /** A documentation comment. */
+T 3 source.json.comments comment.block.documentation.json.comments punctuation.definition.comment.json.comments
+T 29 source.json.comments comment.block.documentation.json.comments
+T 31 source.json.comments comment.block.documentation.json.comments punctuation.definition.comment.json.comments
+L {
+T 1 source.json.comments meta.structure.dictionary.json.comments punctuation.definition.dictionary.begin.json.comments
+L   // Escapes, valid and not.
+T 2 source.json.comments meta.structure.dictionary.json.comments
+T 4 source.json.comments meta.structure.dictionary.json.comments comment.line.double-slash.js punctuation.definition.comment.json.comments
+T 28 source.json.comments meta.structure.dictionary.json.comments comment.line.double-slash.js
+L   "escape": "\" \/ \\ \b \f \n \r \t é \q"
+T 2 source.json.comments meta.structure.dictionary.json.comments
+T 3 source.json.comments meta.structure.dictionary.json.comments string.json.comments support.type.property-name.json.comments punctuation.support.type.property-name.begin.json.comments
+T 9 source.json.comments meta.structure.dictionary.json.comments string.json.comments support.type.property-name.json.comments
+T 10 source.json.comments meta.structure.dictionary.json.comments string.json.comments support.type.property-name.json.comments punctuation.support.type.property-name.end.json.comments
+T 11 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments punctuation.separator.dictionary.key-value.json.comments
+T 12 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments
+T 13 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments punctuation.definition.string.begin.json.comments
+T 15 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments constant.character.escape.json.comments
+T 16 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments
+T 18 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments constant.character.escape.json.comments
+T 19 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments
+T 21 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments constant.character.escape.json.comments
+T 22 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments
+T 24 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments constant.character.escape.json.comments
+T 25 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments
+T 27 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments constant.character.escape.json.comments
+T 28 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments
+T 30 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments constant.character.escape.json.comments
+T 31 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments
+T 33 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments constant.character.escape.json.comments
+T 34 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments
+T 36 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments constant.character.escape.json.comments
+T 40 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments
+T 42 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments invalid.illegal.unrecognized-string-escape.json.comments
+T 43 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments punctuation.definition.string.end.json.comments
+L }
+T 1 source.json.comments meta.structure.dictionary.json.comments punctuation.definition.dictionary.end.json.comments
+L 

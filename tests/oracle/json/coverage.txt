@@ -1,0 +1,68 @@
+L /** A documentation comment. */
+T 3 source.json comment.block.documentation.json punctuation.definition.comment.json
+T 29 source.json comment.block.documentation.json
+T 31 source.json comment.block.documentation.json punctuation.definition.comment.json
+L /* A block comment. */
+T 2 source.json comment.block.json punctuation.definition.comment.json
+T 20 source.json comment.block.json
+T 22 source.json comment.block.json punctuation.definition.comment.json
+L // A line comment.
+T 2 source.json comment.line.double-slash.js punctuation.definition.comment.json
+T 18 source.json comment.line.double-slash.js
+L {
+T 1 source.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L   "array": [1, 2 x],
+T 2 source.json meta.structure.dictionary.json
+T 3 source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 8 source.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 9 source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 10 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 11 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 12 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.begin.json
+T 13 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json constant.numeric.json
+T 14 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.separator.array.json
+T 15 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json
+T 16 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json constant.numeric.json
+T 17 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json
+T 18 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json invalid.illegal.expected-array-separator.json
+T 19 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.end.json
+T 20 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L   "escape": "a\qb\n",
+T 2 source.json meta.structure.dictionary.json
+T 3 source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 9 source.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 10 source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 11 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 12 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 13 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 14 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 16 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json invalid.illegal.unrecognized-string-escape.json
+T 17 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 19 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json constant.character.escape.json
+T 20 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 21 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L   "value": 1 y,
+T 2 source.json meta.structure.dictionary.json
+T 3 source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 8 source.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 9 source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 10 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 11 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 12 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json constant.numeric.json
+T 13 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 14 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json invalid.illegal.expected-dictionary-separator.json
+T 15 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L   "key": 2, w
+T 2 source.json meta.structure.dictionary.json
+T 3 source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 6 source.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 7 source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 8 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 9 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 10 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json constant.numeric.json
+T 11 source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+T 12 source.json meta.structure.dictionary.json
+T 13 source.json meta.structure.dictionary.json invalid.illegal.expected-dictionary-separator.json
+L }
+T 1 source.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L 

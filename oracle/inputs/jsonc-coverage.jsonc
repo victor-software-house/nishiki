@@ -1,0 +1,5 @@
+/** A documentation comment. */
+{
+  // Escapes, valid and not.
+  "escape": "\" \/ \\ \b \f \n \r \t é \q"
+}
