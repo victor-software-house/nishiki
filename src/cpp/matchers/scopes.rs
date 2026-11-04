@@ -4,7 +4,7 @@
 use super::super::engine::Lexer;
 use super::super::few::Few;
 use super::gaps::GapForm;
-use crate::cpp::types::BEHIND_4D9B;
+use crate::cpp::keys::{BEHIND_KEYS, NOT_C3E4_KEYS};
 use crate::rules::Chars;
 
 /// A way a scope chain matches: where it ends (after its white space), and
@@ -399,8 +399,7 @@ impl Lexer<'_> {
     ) -> Option<(ScopeResolution, T)> {
         self.find_scope_chain(p, |lexer, chain| {
             let name_at = chain.end;
-            if !lexer.not_listed(name_at, crate::cpp::types::NOT_C3E4) || lexer.word_before(name_at)
-            {
+            if !lexer.not_listed(name_at, &NOT_C3E4_KEYS) || lexer.word_before(name_at) {
                 return None;
             }
             lexer.ident_ends(name_at).find_map(|name| {
@@ -521,7 +520,7 @@ impl Lexer<'_> {
             }
             start -= c.len_utf8();
         }
-        BEHIND_4D9B.binary_search(&self.text(start, e)).is_err()
+        !BEHIND_KEYS.contains(self.text(start, e))
     }
 
     /// `(CHAIN)(NAME)\b(?<!…)GAP((TEMPLATE)\s*+)?(\()` for calls of functions

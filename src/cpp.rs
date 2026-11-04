@@ -10,6 +10,7 @@
 mod engine;
 mod few;
 mod grammar;
+mod keys;
 mod limits;
 mod matchers;
 mod scope;

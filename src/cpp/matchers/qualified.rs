@@ -6,7 +6,7 @@ use super::super::engine::Lexer;
 use super::super::few::Few;
 use super::gaps::{Gap, GapForm};
 use super::heads::Pointers;
-use crate::cpp::types::{NOT_0C8F, NOT_C3E4};
+use crate::cpp::keys::{NOT_0C8F_KEYS, NOT_C3E4_KEYS, Words};
 use crate::rules::Chars;
 
 /// Where the groups of a qualified type sit in an expression.
@@ -78,15 +78,15 @@ impl Lexer<'_> {
     ///
     /// A word of the list that ends at a boundary is the whole run of word
     /// characters from `p`; the lists are sorted.
-    pub(super) fn not_listed(&self, p: usize, list: &[&[u8]]) -> bool {
+    pub(super) fn not_listed(&self, p: usize, list: &Words) -> bool {
         !self.boundary(p) || self.not_listed_word(p, list)
     }
 
     /// `(?!(?:LIST)\b)` at `p`, without the leading boundary: the run of
     /// word characters from `p` is not a word of `list`.
-    fn not_listed_word(&self, p: usize, list: &[&[u8]]) -> bool {
+    fn not_listed_word(&self, p: usize, list: &Words) -> bool {
         let end = self.word_end(p);
-        list.binary_search(&self.text(p, end)).is_err()
+        !list.contains(self.text(p, end))
     }
 
     /// One name of a scope chain:
@@ -97,7 +97,7 @@ impl Lexer<'_> {
     }
 
     fn scope_step(&self, p: usize) -> Option<Step> {
-        if !self.not_listed(p, NOT_C3E4) || self.word_before(p) {
+        if !self.not_listed(p, &NOT_C3E4_KEYS) || self.word_before(p) {
             return None;
         }
         let name = self.ident_bounded(p)?;
@@ -215,7 +215,7 @@ impl Lexer<'_> {
         (name_at, template, scope): ScopeGap,
         rest: &mut impl FnMut(&Self, &TypeMatch) -> Option<R>,
     ) -> Option<R> {
-        if !self.not_listed_word(name_at, NOT_0C8F) {
+        if !self.not_listed_word(name_at, &NOT_0C8F_KEYS) {
             return None;
         }
         for name in self.ident_ends(name_at) {

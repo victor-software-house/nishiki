@@ -5,7 +5,7 @@ use super::super::engine::Lexer;
 use super::super::few::Few;
 use super::chars::is_space;
 use super::gaps::{Gap, GapForm};
-use crate::cpp::types::{PRIMITIVE_TYPES, STDINT_TYPES};
+use crate::cpp::keys::{PRIMITIVE_KEYS, STDINT_KEYS};
 use crate::rules::Chars;
 
 /// A way a part of a template parameter matches: where it ends and the
@@ -431,11 +431,14 @@ impl Lexer<'_> {
             return out;
         }
         let run_end = self.word_end(start);
+        if run_end == start {
+            return out;
+        }
         let run = self.text(start, run_end);
-        if PRIMITIVE_TYPES.binary_search(&run).is_ok() {
+        if PRIMITIVE_KEYS.contains(run) {
             out.push((1, start, run_end));
         }
-        if STDINT_TYPES.binary_search(&run).is_ok() {
+        if STDINT_KEYS.contains(run) {
             out.push((2, start, run_end));
         }
         if let Some(word) = self.lit(start, b"pthread_") {
@@ -461,11 +464,11 @@ impl Lexer<'_> {
             }
         }
         let lead = self.at(start);
-        if start < self.lim() && (lead.is_ascii_alphabetic() || lead == b'_') {
-            let end = self.word_end(start);
-            if end >= start + 3 && self.ends_with_at(end, b"_t") {
-                out.push((4, start, end));
-            }
+        if (lead.is_ascii_alphabetic() || lead == b'_')
+            && run_end >= start + 3
+            && self.ends_with_at(run_end, b"_t")
+        {
+            out.push((4, start, run_end));
         }
         out
     }

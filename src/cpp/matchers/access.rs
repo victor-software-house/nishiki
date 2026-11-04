@@ -2,7 +2,7 @@
 
 use super::super::engine::Lexer;
 use super::super::few::Few;
-use crate::cpp::types::TYPE_WORDS;
+use crate::cpp::keys::TYPE_KEYS;
 use crate::rules::Chars;
 
 /// A way the object part of an access matches.
@@ -268,7 +268,7 @@ impl Lexer<'_> {
                     }
                     let run_end = lexer.word_end(name);
                     let excluded = lexer.ch(run_end).is_some()
-                        && TYPE_WORDS.binary_search(&lexer.text(name, run_end)).is_ok();
+                        && TYPE_KEYS.contains(lexer.text(name, run_end));
                     if excluded {
                         return None;
                     }
