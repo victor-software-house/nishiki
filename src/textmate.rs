@@ -93,13 +93,11 @@ pub(crate) fn lex_until(
 
 /// Lexes `line` like [`lex`], for a grammar that hands regions to languages
 /// lexed by hand (`Grammar::hand_offs`).
-#[cfg_attr(
-    not(test),
-    expect(
-        dead_code,
-        reason = "HAML, the first grammar that hands off, becomes a language in step 3 of engine-handoff"
-    )
-)]
+///
+/// Never inlined. Inlined into `Language::lex`, the handing loop widened
+/// `Highlighter::line` for every language: its own cost rose about 6% on the
+/// diff, Rust and JSON fixtures at one codegen unit.
+#[inline(never)]
 pub(crate) fn lex_handing(
     cx: &mut Context<'_>,
     grammar: &'static Grammar,
@@ -110,6 +108,42 @@ pub(crate) fn lex_handing(
         cx.scratch, cx.arena, cx.limits, grammar, line, state, cx.out, cx.report, None,
     )
     .0
+}
+
+/// Lexes `line` like [`lex_embedded`], for a grammar that hands regions to
+/// languages lexed by hand.
+pub(crate) fn lex_handing_embedded(
+    cx: &mut Context<'_>,
+    grammar: &'static Grammar,
+    line: Line<'_>,
+    state: u32,
+) -> Finished {
+    let next = lex_handing(cx, grammar, line, state);
+    counted(cx, line, next)
+}
+
+/// Lexes `line` like [`lex_until`], for a grammar that hands regions to
+/// languages lexed by hand.
+pub(crate) fn lex_handing_until(
+    cx: &mut Context<'_>,
+    grammar: &'static Grammar,
+    line: Line<'_>,
+    state: u32,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
+) -> (Finished, Option<usize>) {
+    let (next, halted) = tokenizer::line_handing(
+        cx.scratch,
+        cx.arena,
+        cx.limits,
+        grammar,
+        line,
+        state,
+        cx.out,
+        cx.report,
+        Some(Embedded { end, after }),
+    );
+    (counted(cx, line, next), halted)
 }
 
 /// `state` with the work the engine spent on `line`.

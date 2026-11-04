@@ -13,14 +13,6 @@ use super::tokenizer::{self, Scratch, Text};
 use crate::arena::Arena;
 use crate::limits::{Limits, LineReport};
 
-#[cfg(all(
-    feature = "lang-ruby",
-    feature = "lang-javascript",
-    feature = "lang-css",
-    feature = "lang-markdown"
-))]
-#[path = "../../tests/engine/haml.rs"]
-mod haml_tables;
 #[cfg(all(feature = "lang-javascript", feature = "lang-css"))]
 #[path = "../../tests/engine/html.rs"]
 mod html_tables;
@@ -427,6 +419,8 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::cmake::grammar::GRAMMAR, "cmake"),
     #[cfg(feature = "lang-dart")]
     (&crate::dart::grammar::GRAMMAR, "dart"),
+    #[cfg(feature = "lang-haml")]
+    (&crate::haml::grammar::GRAMMAR, "haml"),
     #[cfg(feature = "lang-haskell")]
     (&crate::haskell::grammar::GRAMMAR, "haskell"),
     #[cfg(feature = "lang-julia")]
@@ -686,8 +680,8 @@ fn the_folding_table_matches_the_patterns() {
     );
 }
 
-/// Every grammar with tables. HAML's and HTML's join when the languages they
-/// hand regions to are built.
+/// Every grammar with tables. HTML's joins when the languages it hands
+/// regions to are built.
 fn every_table() -> Vec<&'static Grammar> {
     let mut grammars: Vec<&'static Grammar> = SHIPPED.iter().map(|&(grammar, _)| grammar).collect();
     grammars.extend([
@@ -701,13 +695,6 @@ fn every_table() -> Vec<&'static Grammar> {
         &typescript_tables::GRAMMAR,
         &yaml_tables::GRAMMAR,
     ]);
-    #[cfg(all(
-        feature = "lang-ruby",
-        feature = "lang-javascript",
-        feature = "lang-css",
-        feature = "lang-markdown"
-    ))]
-    grammars.push(&haml_tables::GRAMMAR);
     #[cfg(all(feature = "lang-javascript", feature = "lang-css"))]
     grammars.push(&html_tables::GRAMMAR);
     grammars
@@ -799,16 +786,11 @@ fn no_hand_off_halts_where_the_last_match_ended() {
 /// HAML's filters hand their whole region to Ruby, JavaScript, CSS and
 /// Markdown. No rule of HAML's stands around their include. A line of Ruby
 /// code, `= expr`, keeps HAML's rules before the include and after it.
-#[cfg(all(
-    feature = "lang-ruby",
-    feature = "lang-javascript",
-    feature = "lang-css",
-    feature = "lang-markdown"
-))]
+#[cfg(feature = "lang-haml")]
 #[test]
 fn haml_hands_its_filters_over_whole() {
     use crate::language::Language;
-    let grammar = &haml_tables::GRAMMAR;
+    let grammar = &crate::haml::grammar::GRAMMAR;
     let hand_offs: Vec<(Language, usize, usize)> = grammar
         .hand_offs
         .iter()
@@ -1538,24 +1520,19 @@ fn every_listed_pattern_that_parses_compiles() {
     assert!(failures.is_empty(), "{}", failures.join("\n"));
 }
 
-/// The engine hands regions to languages lexed by hand, on HAML's and HTML's
-/// test tables. Design section 14.4 of `openspec/changes/engine-handoff`
-/// describes the steps.
-#[cfg(all(
-    feature = "lang-ruby",
-    feature = "lang-javascript",
-    feature = "lang-css",
-    feature = "lang-markdown",
-    feature = "lang-powershell"
-))]
+/// The engine hands regions to languages lexed by hand, on HAML's table and
+/// HTML's test table. Design section 14.4 of
+/// `openspec/changes/engine-handoff` describes the steps.
+#[cfg(all(feature = "lang-haml", feature = "lang-powershell"))]
 mod hand_offs {
     use indoc::indoc;
 
     use super::super::grammar::Grammar;
     use super::super::tokenizer;
-    use super::{haml_tables, html_tables};
+    use super::html_tables;
     use crate::Token;
     use crate::arena::{Arena, ROOT};
+    use crate::haml::grammar::GRAMMAR as HAML;
     use crate::language::{Context, Line};
     use crate::limits::{Limits, LineReport};
     use crate::scratch::Scratch;
@@ -1646,7 +1623,7 @@ mod hand_offs {
 
     #[test]
     fn a_ruby_filter_hands_its_lines_to_ruby_and_takes_the_line_back_after() {
-        let rows = Document::new(&haml_tables::GRAMMAR).lex(indoc! {"
+        let rows = Document::new(&HAML).lex(indoc! {"
             :ruby
               total = 1 + 2
             %p done
@@ -1673,7 +1650,7 @@ mod hand_offs {
 
     #[test]
     fn a_markdown_filter_lexes_a_powershell_fence_with_the_engine() {
-        let rows = Document::new(&haml_tables::GRAMMAR).lex(indoc! {"
+        let rows = Document::new(&HAML).lex(indoc! {"
             :markdown
               ```powershell
               $a = 1
@@ -1697,8 +1674,40 @@ mod hand_offs {
               ```
             %p done
         "};
-        let mut document = Document::new(&haml_tables::GRAMMAR);
+        let mut document = Document::new(&HAML);
         let first = document.lex(text);
+        let mut again = Vec::with_capacity(first.len());
+        let allocations = nishiki_alloc_count::count(|| {
+            document.run(text, |_, tokens, _| again.push(tokens.len()));
+        });
+        assert_eq!(again, first.iter().map(Vec::len).collect::<Vec<_>>());
+        assert_eq!(allocations, 0);
+    }
+
+    /// Three engine levels nest here, each on its own spare scratch. A
+    /// `:ruby` filter hands its lines to Ruby. Ruby's `<<~HAML` hands its
+    /// lines to HAML. That HAML's `:markdown` filter hands its lines to
+    /// Markdown, whose fence runs PowerShell on the engine. Lexing the
+    /// document again allocates nothing.
+    #[test]
+    fn lexing_three_nested_engine_levels_again_allocates_nothing() {
+        let text = indoc! {"
+            :ruby
+              page = <<~HAML
+                :markdown
+                  ```powershell
+                  $a = 1
+                  ```
+              HAML
+            %p done
+        "};
+        let mut document = Document::new(&HAML);
+        let first = document.lex(text);
+        assert!(
+            in_language(scope_of(&first[4], "1"), "powershell"),
+            "{:?}",
+            first[4]
+        );
         let mut again = Vec::with_capacity(first.len());
         let allocations = nishiki_alloc_count::count(|| {
             document.run(text, |_, tokens, _| again.push(tokens.len()));

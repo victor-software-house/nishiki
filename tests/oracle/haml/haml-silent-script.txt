@@ -1,0 +1,274 @@
+L %div
+T 1 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 4 text.haml meta.tag.haml entity.name.tag.haml
+L   %h1 I can count!
+T 2 text.haml
+T 3 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 5 text.haml meta.tag.haml entity.name.tag.haml
+T 18 text.haml
+L   - (1..20).each do |i|
+T 2 text.haml
+T 3 text.haml meta.line.ruby.haml
+T 4 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 5 text.haml meta.line.ruby.haml source.ruby.embedded.haml punctuation.section.function.ruby
+T 6 text.haml meta.line.ruby.haml source.ruby.embedded.haml constant.numeric.ruby
+T 7 text.haml meta.line.ruby.haml source.ruby.embedded.haml punctuation.separator.method.ruby
+T 8 text.haml meta.line.ruby.haml source.ruby.embedded.haml punctuation.separator.method.ruby
+T 10 text.haml meta.line.ruby.haml source.ruby.embedded.haml constant.numeric.ruby
+T 11 text.haml meta.line.ruby.haml source.ruby.embedded.haml punctuation.section.function.ruby
+T 12 text.haml meta.line.ruby.haml source.ruby.embedded.haml punctuation.separator.method.ruby
+T 16 text.haml meta.line.ruby.haml source.ruby.embedded.haml meta.function-call.ruby entity.name.function.ruby
+T 17 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 19 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.control.start-block.ruby
+T 20 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 21 text.haml meta.line.ruby.haml source.ruby.embedded.haml meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 22 text.haml meta.line.ruby.haml source.ruby.embedded.haml meta.block.parameters.ruby variable.other.block.ruby
+T 23 text.haml meta.line.ruby.haml source.ruby.embedded.haml meta.block.parameters.ruby punctuation.separator.variable.ruby
+L     = i
+T 4 text.haml
+T 5 text.haml meta.line.ruby.haml
+T 7 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+L   %h1 I know my ABCs!
+T 2 text.haml
+T 3 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 5 text.haml meta.tag.haml entity.name.tag.haml
+T 21 text.haml
+L   %ul
+T 2 text.haml
+T 3 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 5 text.haml meta.tag.haml entity.name.tag.haml
+L     - ('a'..'z').each do |i|
+T 4 text.haml
+T 5 text.haml meta.line.ruby.haml
+T 6 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 7 text.haml meta.line.ruby.haml source.ruby.embedded.haml punctuation.section.function.ruby
+T 8 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 9 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.single.ruby
+T 10 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 11 text.haml meta.line.ruby.haml source.ruby.embedded.haml punctuation.separator.method.ruby
+T 12 text.haml meta.line.ruby.haml source.ruby.embedded.haml punctuation.separator.method.ruby
+T 13 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 14 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.single.ruby
+T 15 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 16 text.haml meta.line.ruby.haml source.ruby.embedded.haml punctuation.section.function.ruby
+T 17 text.haml meta.line.ruby.haml source.ruby.embedded.haml punctuation.separator.method.ruby
+T 21 text.haml meta.line.ruby.haml source.ruby.embedded.haml meta.function-call.ruby entity.name.function.ruby
+T 22 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 24 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.control.start-block.ruby
+T 25 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 26 text.haml meta.line.ruby.haml source.ruby.embedded.haml meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 27 text.haml meta.line.ruby.haml source.ruby.embedded.haml meta.block.parameters.ruby variable.other.block.ruby
+T 28 text.haml meta.line.ruby.haml source.ruby.embedded.haml meta.block.parameters.ruby punctuation.separator.variable.ruby
+L       %li= i
+T 6 text.haml
+T 7 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 9 text.haml meta.tag.haml entity.name.tag.haml
+T 10 text.haml meta.line.ruby.haml
+T 12 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+L   %h1 I can catch errors!
+T 2 text.haml
+T 3 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 5 text.haml meta.tag.haml entity.name.tag.haml
+T 25 text.haml
+L   - begin
+T 2 text.haml
+T 3 text.haml meta.line.ruby.haml
+T 4 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 9 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.control.ruby
+L     - raise "foo"
+T 4 text.haml
+T 5 text.haml meta.line.ruby.haml
+T 6 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 11 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.other.special-method.ruby
+T 12 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 13 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 16 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby
+T 17 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L   - rescue RuntimeError => e
+T 2 text.haml
+T 3 text.haml meta.line.ruby.haml
+T 4 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 10 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.control.ruby
+T 11 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 23 text.haml meta.line.ruby.haml source.ruby.embedded.haml variable.other.constant.ruby
+T 24 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 26 text.haml meta.line.ruby.haml source.ruby.embedded.haml punctuation.separator.key-value
+T 28 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+L     = "Oh no! \"#{e}\" happened!"
+T 4 text.haml
+T 5 text.haml meta.line.ruby.haml
+T 6 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 7 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 14 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby
+T 16 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby constant.character.escape.ruby
+T 18 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 19 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 20 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 22 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby constant.character.escape.ruby
+T 32 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby
+T 33 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L   %p
+T 2 text.haml
+T 3 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 4 text.haml meta.tag.haml entity.name.tag.haml
+L     "false" is:
+T 15 text.haml
+L     - if false
+T 4 text.haml
+T 5 text.haml meta.line.ruby.haml
+T 6 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 8 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.control.ruby
+T 9 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 14 text.haml meta.line.ruby.haml source.ruby.embedded.haml constant.language.boolean.ruby
+L       = "true"
+T 6 text.haml
+T 7 text.haml meta.line.ruby.haml
+T 8 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 9 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 13 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby
+T 14 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L     - else
+T 4 text.haml
+T 5 text.haml meta.line.ruby.haml
+T 6 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 10 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.control.ruby
+L       = "false"
+T 6 text.haml
+T 7 text.haml meta.line.ruby.haml
+T 8 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 9 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 14 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby
+T 15 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L   - if true
+T 2 text.haml
+T 3 text.haml meta.line.ruby.haml
+T 4 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 6 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.control.ruby
+T 7 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 11 text.haml meta.line.ruby.haml source.ruby.embedded.haml constant.language.boolean.ruby
+L     - 5.times do |i|
+T 4 text.haml
+T 5 text.haml meta.line.ruby.haml
+T 6 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 7 text.haml meta.line.ruby.haml source.ruby.embedded.haml constant.numeric.ruby
+T 8 text.haml meta.line.ruby.haml source.ruby.embedded.haml punctuation.separator.method.ruby
+T 13 text.haml meta.line.ruby.haml source.ruby.embedded.haml meta.function-call.ruby entity.name.function.ruby
+T 14 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 16 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.control.start-block.ruby
+T 17 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 18 text.haml meta.line.ruby.haml source.ruby.embedded.haml meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 19 text.haml meta.line.ruby.haml source.ruby.embedded.haml meta.block.parameters.ruby variable.other.block.ruby
+T 20 text.haml meta.line.ruby.haml source.ruby.embedded.haml meta.block.parameters.ruby punctuation.separator.variable.ruby
+L       - if i % 2 == 1
+T 6 text.haml
+T 7 text.haml meta.line.ruby.haml
+T 8 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 10 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.control.ruby
+T 13 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 14 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.operator.arithmetic.ruby
+T 15 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 16 text.haml meta.line.ruby.haml source.ruby.embedded.haml constant.numeric.ruby
+T 17 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 19 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.operator.comparison.ruby
+T 20 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 21 text.haml meta.line.ruby.haml source.ruby.embedded.haml constant.numeric.ruby
+L         Odd!
+T 12 text.haml
+L       - else
+T 6 text.haml
+T 7 text.haml meta.line.ruby.haml
+T 8 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 12 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.control.ruby
+L         Even!
+T 13 text.haml
+L     - unless true
+T 4 text.haml
+T 5 text.haml meta.line.ruby.haml
+T 6 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 12 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.control.ruby
+T 13 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 17 text.haml meta.line.ruby.haml source.ruby.embedded.haml constant.language.boolean.ruby
+L       Testing else indent
+T 25 text.haml
+L     - case 1
+T 4 text.haml
+T 5 text.haml meta.line.ruby.haml
+T 6 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 10 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.control.ruby
+T 11 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 12 text.haml meta.line.ruby.haml source.ruby.embedded.haml constant.numeric.ruby
+L     - when 2
+T 4 text.haml
+T 5 text.haml meta.line.ruby.haml
+T 6 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 10 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.control.ruby
+T 11 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 12 text.haml meta.line.ruby.haml source.ruby.embedded.haml constant.numeric.ruby
+L       Also testing else indent
+T 30 text.haml
+L   - else
+T 2 text.haml
+T 3 text.haml meta.line.ruby.haml
+T 4 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 8 text.haml meta.line.ruby.haml source.ruby.embedded.haml keyword.control.ruby
+L     = "This can't happen!"
+T 4 text.haml
+T 5 text.haml meta.line.ruby.haml
+T 6 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 7 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 25 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby
+T 26 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+L - 13 |
+T 1 text.haml meta.line.ruby.haml
+T 2 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 4 text.haml meta.line.ruby.haml source.ruby.embedded.haml constant.numeric.ruby
+T 5 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 6 text.haml meta.line.ruby.haml source.ruby.embedded.haml source.ruby
+L .foo
+T 4 text.haml meta.selector.css entity.other.attribute-name.class
+L   %strong foobar
+T 2 text.haml
+T 3 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 9 text.haml meta.tag.haml entity.name.tag.haml
+T 16 text.haml
+L - 5.times   |
+T 1 text.haml meta.line.ruby.haml
+T 2 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 3 text.haml meta.line.ruby.haml source.ruby.embedded.haml constant.numeric.ruby
+T 4 text.haml meta.line.ruby.haml source.ruby.embedded.haml punctuation.separator.method.ruby
+T 9 text.haml meta.line.ruby.haml source.ruby.embedded.haml meta.function-call.ruby entity.name.function.ruby
+T 12 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 13 text.haml meta.line.ruby.haml source.ruby.embedded.haml source.ruby
+L     do      |
+T 13 text.haml
+L       |a|   |
+T 13 text.haml
+L   %strong= a
+T 2 text.haml
+T 3 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 9 text.haml meta.tag.haml entity.name.tag.haml
+T 10 text.haml meta.line.ruby.haml
+T 12 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+L .test
+T 5 text.haml meta.selector.css entity.other.attribute-name.class
+L   - "foo  |
+T 2 text.haml
+T 3 text.haml meta.line.ruby.haml
+T 4 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 5 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 11 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby
+L      bar  |
+T 11 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby
+L      baz" |
+T 8 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby
+T 9 text.haml meta.line.ruby.haml source.ruby.embedded.haml string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 10 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 11 text.haml meta.line.ruby.haml source.ruby.embedded.haml source.ruby
+L     
+T 4 text.haml
+L   %p boom
+T 2 text.haml
+T 3 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 4 text.haml meta.tag.haml entity.name.tag.haml
+T 9 text.haml
+L 

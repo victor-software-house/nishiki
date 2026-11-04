@@ -167,6 +167,8 @@ const guava =
   "https://raw.githubusercontent.com/google/guava/e98ea2340f6acc94ed9e2cca08976ccae68c3412";
 const h5bp =
   "https://raw.githubusercontent.com/h5bp/html5-boilerplate/b6597338e695dc4a8165c5abcb2bfffa586c3ee5";
+const haml =
+  "https://raw.githubusercontent.com/haml/haml/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b";
 const helm =
   "https://raw.githubusercontent.com/helm/helm/bc232c5312e784e808ea95ae76f9e82d4fe142fc";
 const highlightjs =
@@ -569,6 +571,16 @@ export const inputs: Input[] = [
   { lang: "graphql", name: "graphiql-star-wars", url: `${graphiql}/packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql` },
   { lang: "graphql", name: "graphql-js-kitchen-sink", url: `${graphqlJs}/benchmark/kitchen-sink.graphql` },
   { lang: "graphql", name: "sample", url: `${samples}/graphql.sample` },
+  // HAML runs on the TextMate engine, which hands its filters and Ruby lines
+  // to the hand-written lexers. Shiki's Markdown grammar has no HAML fence,
+  // so no Markdown input embeds it.
+  { lang: "haml", name: "haml-helpers", url: `${haml}/test/haml/templates/helpers.haml` },
+  { lang: "haml", name: "haml-just-stuff", url: `${haml}/test/haml/templates/just_stuff.haml` },
+  { lang: "haml", name: "haml-real-sample", url: `${haml}/benchmark/etc/real_sample.haml` },
+  { lang: "haml", name: "haml-silent-script", url: `${haml}/test/haml/templates/silent_script.haml` },
+  { lang: "haml", name: "haml-standard", url: `${haml}/test/haml/templates/standard.haml` },
+  { lang: "haml", name: "haml-whitespace", url: `${haml}/test/haml/templates/whitespace_handling.haml` },
+  { lang: "haml", name: "sample", url: `${samples}/haml.sample` },
   // Haskell runs on the TextMate engine. Shiki's Markdown grammar has no
   // Haskell fence, so no Markdown input embeds it.
   { lang: "haskell", name: "aeson-builder", url: `${aeson}/src/Data/Aeson/Encoding/Builder.hs` },

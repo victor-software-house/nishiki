@@ -4364,7 +4364,6 @@ impl Rule {
             | Rule::RootAt89
             | Rule::Heredoc
             | Rule::RootAt90
-            | Rule::RootAt90At0
             | Rule::RootAt91
             | Rule::RootAt92
             | Rule::RootAt93
@@ -4405,6 +4404,9 @@ impl Rule {
             | Rule::YardMacroAttribute => rules::Payload::Backref(3),
             Rule::RootAt89At0 => {
                 embedded!(Html, "lang-html").map_or(rules::Payload::None, rules::Payload::Embed)
+            }
+            Rule::RootAt90At0 => {
+                embedded!(Haml, "lang-haml").map_or(rules::Payload::None, rules::Payload::Embed)
             }
             Rule::RootAt91At0 => {
                 embedded!(Xml, "lang-xml").map_or(rules::Payload::None, rules::Payload::Embed)

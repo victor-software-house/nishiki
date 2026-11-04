@@ -178,12 +178,12 @@ const root = new URL("..", import.meta.url).pathname;
 
 /** The languages on nishiki's TextMate engine, by Shiki's name: each has a
  * `src/<id>/grammar.rs` that `oracle/engine-tables.ts` wrote, whose header
- * names the spec it was made from, such as `julia~cpp~r`. */
-const header = /^\/\/! The tables of Shiki \S+'s `([^`]+)` grammar, made by\n\/\/! `oracle\/engine-tables\.ts`/;
+ * names the spec it was made from, such as `julia~cpp~r` or `haml>ruby`. */
+const header = /^\/\/! The tables of Shiki \S+'s `([^`]+)` grammar,(?: |\n\/\/! )made by(?: |\n\/\/! )`oracle\/engine-tables\.ts`/;
 const engineLanguages = new Set<string>();
 for (const path of new Bun.Glob("src/*/grammar.rs").scanSync(root)) {
   const spec = header.exec(readFileSync(`${root}${path}`, "utf8"))?.[1];
-  if (spec !== undefined) engineLanguages.add(spec.split(/[+~]/)[0] ?? spec);
+  if (spec !== undefined) engineLanguages.add(spec.split(/[+~>]/)[0] ?? spec);
 }
 
 const loaded = structuredClone(grammars) as unknown as Grammar[];

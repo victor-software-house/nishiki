@@ -78,17 +78,18 @@ fn escape(s: &[u8], p: usize) -> bool {
     s.get(p) == Some(&b'\\') && p + 1 < s.len()
 }
 
-/// Lexes `line` like [`lex`], for Ruby that ERB embeds up to the end of its
-/// code (see [`rules::lex_until`]).
-#[cfg(feature = "lang-erb")]
+/// Lexes `line` like [`lex`], for Ruby that another language embeds up to a
+/// halt (see [`rules::lex_until`]). ERB embeds Ruby up to the end of its code.
+/// HAML embeds a line of Ruby up to the rules HAML lists around it.
 #[inline]
 pub(crate) fn lex_until(
     cx: &mut Context<'_>,
     line: Line<'_>,
     state: u32,
     end: &dyn crate::language::Halt,
+    after: Option<&dyn crate::language::Halt>,
 ) -> (Finished, Option<usize>) {
-    rules::lex_until::<Ruby>(cx, line, state, |scratch| &mut scratch.ruby, end, None)
+    rules::lex_until::<Ruby>(cx, line, state, |scratch| &mut scratch.ruby, end, after)
 }
 
 #[cfg(test)]

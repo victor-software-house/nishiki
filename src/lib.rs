@@ -242,6 +242,8 @@ mod fnv;
 mod go;
 #[cfg(feature = "lang-graphql")]
 mod graphql;
+#[cfg(feature = "lang-haml")]
+mod haml;
 #[cfg(feature = "lang-haskell")]
 mod haskell;
 mod highlighter;

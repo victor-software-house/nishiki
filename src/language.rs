@@ -16,7 +16,9 @@ use crate::scratch::Scratch;
 /// the containers around a Markdown fence took whole. A hand-written lexer is
 /// a `module`, optionally with the dialect the module is told; a language that
 /// nishiki's `TextMate` engine runs names its grammar table as `engine`, and
-/// the three entry points call the engine with it.
+/// the three entry points call the engine with it. An engine grammar that
+/// hands regions to languages lexed by hand says `hands_off: true`, and its
+/// entry points call the engine's handing loop.
 /// A new hand-written language is one row here, its scope table in
 /// `src/scope.rs`, its frame tag in `src/tag.rs`, its fence names in
 /// `src/markdown/fence.rs`, its field in `src/scratch.rs` when it keeps
@@ -38,27 +40,36 @@ macro_rules! languages {
     (@start_embedded [] [$grammar:path] $arena:ident $base:ident) => {
         crate::textmate::start_embedded($arena, &$grammar, $base)
     };
-    (@lex [$module:ident] [] [$($dialect:expr)?] $cx:ident $line:ident $state:ident) => {
+    (@lex [$module:ident] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident) => {
         crate::$module::lex($cx, $($dialect,)? $line, $state)
     };
-    (@lex [] [$grammar:path] [] $cx:ident $line:ident $state:ident) => {
+    (@lex [] [$grammar:path] [] [] $cx:ident $line:ident $state:ident) => {
         crate::limits::Finished::unspent(crate::textmate::lex($cx, &$grammar, $line, $state))
     };
-    (@embedded [$module:ident] [] [$($dialect:expr)?] $cx:ident $line:ident $state:ident) => {
+    (@lex [] [$grammar:path] [] [true] $cx:ident $line:ident $state:ident) => {
+        crate::limits::Finished::unspent(crate::textmate::lex_handing($cx, &$grammar, $line, $state))
+    };
+    (@embedded [$module:ident] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident) => {
         crate::$module::lex($cx, $($dialect,)? $line, $state)
     };
-    (@embedded [] [$grammar:path] [] $cx:ident $line:ident $state:ident) => {
+    (@embedded [] [$grammar:path] [] [] $cx:ident $line:ident $state:ident) => {
         crate::textmate::lex_embedded($cx, &$grammar, $line, $state)
     };
-    (@until [] [$($module:ident)?] [$($grammar:path)?] [$($dialect:expr)?] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {{
+    (@embedded [] [$grammar:path] [] [true] $cx:ident $line:ident $state:ident) => {
+        crate::textmate::lex_handing_embedded($cx, &$grammar, $line, $state)
+    };
+    (@until [] [$($module:ident)?] [$($grammar:path)?] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {{
         let _ = ($cx, $line, $state, $end, $after);
         None
     }};
-    (@until [true] [$module:ident] [] [$($dialect:expr)?] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
+    (@until [true] [$module:ident] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
         Some(crate::$module::lex_until($cx, $($dialect,)? $line, $state, $end, $after))
     };
-    (@until [true] [] [$grammar:path] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
+    (@until [true] [] [$grammar:path] [] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
         Some(crate::textmate::lex_until($cx, &$grammar, $line, $state, $end, $after))
+    };
+    (@until [true] [] [$grammar:path] [] [true] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
+        Some(crate::textmate::lex_handing_until($cx, &$grammar, $line, $state, $end, $after))
     };
     ($(
         $(#[$meta:meta])*
@@ -70,6 +81,7 @@ macro_rules! languages {
             $(, dialect: $dialect:expr)?
             $(, reads_line_feed: $line_feed:literal)?
             $(, halts: $halts:tt)?
+            $(, hands_off: $hands_off:tt)?
             $(,)?
         }
     )*) => {
@@ -150,7 +162,7 @@ macro_rules! languages {
             #[inline]
             pub(crate) fn lex(self, cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@lex [$($module)?] [$($grammar)?] [$($dialect)?] cx line state).state(),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@lex [$($module)?] [$($grammar)?] [$($dialect)?] [$($hands_off)?] cx line state).state(),)*
                 }
             }
 
@@ -174,7 +186,7 @@ macro_rules! languages {
                 state: u32,
             ) -> Finished {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@embedded [$($module)?] [$($grammar)?] [$($dialect)?] cx line state),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@embedded [$($module)?] [$($grammar)?] [$($dialect)?] [$($hands_off)?] cx line state),)*
                 }
             }
 
@@ -198,7 +210,7 @@ macro_rules! languages {
                 after: Option<&dyn Halt>,
             ) -> Option<(Finished, Option<usize>)> {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@until [$($halts)?] [$($module)?] [$($grammar)?] [$($dialect)?] cx line state end after),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@until [$($halts)?] [$($module)?] [$($grammar)?] [$($dialect)?] [$($hands_off)?] cx line state end after),)*
                 }
             }
         }
@@ -540,7 +552,7 @@ languages! {
     ///   Shiki lexes them as HAML.
     /// - One named for Slim is plain text with Ruby's interpolation, as in Shiki, which has no Slim grammar.
     /// - `__END__` is a constant, and the text after it is Ruby, as in Shiki: the grammar's rule for the data after `__END__` comes after the rule for constants, so it never matches.
-    Ruby { feature: "lang-ruby", names: ["ruby", "rb"], module: ruby }
+    Ruby { feature: "lang-ruby", names: ["ruby", "rb"], module: ruby, halts: true }
     /// C#, with the scopes of Shiki's `csharp` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -766,6 +778,21 @@ languages! {
     /// - Outside a guard, `default()` is the guard function only when a word character follows its `)`; otherwise `default` is a value keyword.
     /// - A Markdown fence names the language `less`.
     Less { feature: "lang-less", names: ["less"], module: less }
+    /// HAML, with the scopes of Shiki's `haml` grammar, which nishiki's
+    /// `TextMate` engine runs. Its filters and Ruby lines go to the Ruby,
+    /// JavaScript, CSS and Markdown lexers.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A `:sass`, `:scss`, `:less`, `:coffee` or `:erb` filter is plain text, as in Shiki without those grammars loaded.
+    Haml {
+        feature: "lang-haml",
+        names: ["haml"],
+        engine: crate::haml::grammar::GRAMMAR,
+        reads_line_feed: true,
+        halts: true,
+        hands_off: true,
+    }
 }
 
 impl Language {

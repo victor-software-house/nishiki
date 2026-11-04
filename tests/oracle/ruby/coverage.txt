@@ -503,6 +503,9 @@ T 6 source.ruby keyword.operator.assignment.ruby
 T 7 source.ruby
 T 14 source.ruby meta.embedded.block.haml string.definition.begin.ruby
 L   %p text
+T 2 source.ruby meta.embedded.block.haml text.haml
+T 3 source.ruby meta.embedded.block.haml text.haml meta.tag.haml punctuation.definition.tag.haml
+T 4 source.ruby meta.embedded.block.haml text.haml meta.tag.haml entity.name.tag.haml
 T 9 source.ruby meta.embedded.block.haml text.haml
 L <<~INNER
 T 8 source.ruby meta.embedded.block.haml text.haml

@@ -488,6 +488,13 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `haskell/aeson-github` | [`examples/src/GitHub.hs`][aeson-github] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
 | `haskell/aeson-builder` | [`src/Data/Aeson/Encoding/Builder.hs`][aeson-builder] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
 | `haskell/aeson-decoding-text` | [`src/Data/Aeson/Decoding/Text.hs`][aeson-decoding-text] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
+| `haml/sample` | [`samples/haml.sample`][haml-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `haml/haml-helpers` | [`test/haml/templates/helpers.haml`][haml-helpers] in haml/haml | [MIT][haml-licence] |
+| `haml/haml-just-stuff` | [`test/haml/templates/just_stuff.haml`][haml-just-stuff] in haml/haml | [MIT][haml-licence] |
+| `haml/haml-real-sample` | [`benchmark/etc/real_sample.haml`][haml-real-sample] in haml/haml | [MIT][haml-licence] |
+| `haml/haml-silent-script` | [`test/haml/templates/silent_script.haml`][haml-silent-script] in haml/haml | [MIT][haml-licence] |
+| `haml/haml-standard` | [`test/haml/templates/standard.haml`][haml-standard] in haml/haml | [MIT][haml-licence] |
+| `haml/haml-whitespace` | [`test/haml/templates/whitespace_handling.haml`][haml-whitespace] in haml/haml | [MIT][haml-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -1000,6 +1007,14 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [h5bp-404]: https://github.com/h5bp/html5-boilerplate/blob/b6597338e695dc4a8165c5abcb2bfffa586c3ee5/src/404.html
 [h5bp-index]: https://github.com/h5bp/html5-boilerplate/blob/b6597338e695dc4a8165c5abcb2bfffa586c3ee5/src/index.html
 [h5bp-licence]: https://github.com/h5bp/html5-boilerplate/blob/b6597338e695dc4a8165c5abcb2bfffa586c3ee5/LICENSE.txt
+[haml-helpers]: https://github.com/haml/haml/blob/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b/test/haml/templates/helpers.haml
+[haml-just-stuff]: https://github.com/haml/haml/blob/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b/test/haml/templates/just_stuff.haml
+[haml-licence]: https://github.com/haml/haml/blob/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b/MIT-LICENSE
+[haml-real-sample]: https://github.com/haml/haml/blob/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b/benchmark/etc/real_sample.haml
+[haml-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/haml.sample
+[haml-silent-script]: https://github.com/haml/haml/blob/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b/test/haml/templates/silent_script.haml
+[haml-standard]: https://github.com/haml/haml/blob/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b/test/haml/templates/standard.haml
+[haml-whitespace]: https://github.com/haml/haml/blob/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b/test/haml/templates/whitespace_handling.haml
 [haskell-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/haskell.sample
 [helm-licence]: https://github.com/helm/helm/blob/bc232c5312e784e808ea95ae76f9e82d4fe142fc/LICENSE
 [helm-make]: https://github.com/helm/helm/blob/bc232c5312e784e808ea95ae76f9e82d4fe142fc/Makefile

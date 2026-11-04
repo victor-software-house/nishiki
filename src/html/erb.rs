@@ -173,7 +173,7 @@ pub(super) fn lex_ruby(
     state: u32,
     halt: &dyn crate::language::Halt,
 ) -> (crate::limits::Finished, Option<usize>) {
-    crate::ruby::lex_until(cx, line, state, halt)
+    crate::ruby::lex_until(cx, line, state, halt, None)
 }
 
 /// Without the ERB feature no ERB document is lexed, so no code is open.

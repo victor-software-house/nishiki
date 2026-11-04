@@ -334,9 +334,10 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
    A chain of engine, hand lexer, engine, hand lexer and engine allocates one spare per engine level on its first line.
    The depth bounds the spares.
    An allocation test checks that later lines allocate nothing.
-   This change tests two engine levels: HAML's test table, Markdown and PowerShell.
-   Once HAML is a language, a test covers three: HAML, Markdown, HAML, Markdown and PowerShell.
-   Only a `Language` can be a fence's language.
+   One test covers two engine levels: HAML, Markdown and PowerShell.
+   Another covers three: HAML, Ruby, HAML, Markdown and PowerShell.
+   The third level comes through Ruby's `<<~HAML` heredoc.
+   Shiki's Markdown grammar has no HAML fence, so Markdown cannot give it.
 6. The Callgrind gate is every engine language at or under 1.000.
    The plain instances' code is unchanged.
 

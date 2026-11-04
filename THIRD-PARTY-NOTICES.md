@@ -1472,7 +1472,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-Its tests run the HAML TextMate grammar in [karuna/haml-vscode](https://github.com/karuna/haml-vscode), which Shiki bundles as `haml`, with its rules compiled into a test table (`tests/engine/haml.rs`).
+Its TextMate engine runs the HAML TextMate grammar in [karuna/haml-vscode](https://github.com/karuna/haml-vscode), which Shiki bundles as `haml`, with its rules compiled into tables (`src/haml/grammar.rs`).
 That grammar is licensed under the MIT License, read at commit `aa45415aefd691af0a501ea4f98e434490623e0d`:
 
 ```text

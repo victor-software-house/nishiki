@@ -3,17 +3,16 @@
 # src/html/words.rs is generated from the html grammar's word lists, whose
 # entity and attribute names (`ofr`, `pluse`, `seeked`) are not English, and
 # src/less/words.rs spells out `[ensw]{1,4}-resize`, as `nees-resize`.
-# Each src/<language>/grammar.rs listed here, and the test table
-# tests/engine/haml.rs, is generated from that language's grammar and keeps
-# the grammar's own words.
+# Each src/<language>/grammar.rs listed here is generated from that
+# language's grammar and keeps the grammar's own words.
 extend-exclude = [
   "*.lock",
   "src/bat/grammar.rs",
+  "src/haml/grammar.rs",
   "src/html/words.rs",
   "src/julia/grammar.rs",
   "src/less/words.rs",
   "src/mermaid/grammar.rs",
-  "tests/engine/haml.rs",
 ]
 
 # Unicode general-category codes, such as Nd, which are not words.

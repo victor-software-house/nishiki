@@ -1,0 +1,157 @@
+L !!! 5
+T 3 text.haml meta.prolog.haml punctuation.definition.prolog.haml
+T 5 text.haml meta.prolog.haml
+L %html
+T 1 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 5 text.haml meta.tag.haml entity.name.tag.haml
+L 	%head
+T 1 text.haml
+T 2 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 6 text.haml meta.tag.haml entity.name.tag.haml
+L 		%title Example HAML
+T 2 text.haml
+T 3 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 8 text.haml meta.tag.haml entity.name.tag.haml
+T 21 text.haml
+L 		/[if IE]
+T 2 text.haml comment.line.slash.haml punctuation.section.comment.haml
+T 10 text.haml comment.line.slash.haml
+L 			%link{ :rel => "stylesheet", :href => "/css/ie.css" }
+T 3 text.haml
+T 4 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 8 text.haml meta.tag.haml entity.name.tag.haml
+T 9 text.haml meta.section.attributes.haml
+T 10 text.haml meta.section.attributes.haml meta.syntax.ruby.start-block
+T 11 text.haml meta.section.attributes.haml constant.language.symbol.hashkey.ruby punctuation.definition.constant.ruby
+T 14 text.haml meta.section.attributes.haml constant.language.symbol.hashkey.ruby
+T 15 text.haml meta.section.attributes.haml
+T 17 text.haml meta.section.attributes.haml punctuation.separator.key-value
+T 18 text.haml meta.section.attributes.haml
+T 19 text.haml meta.section.attributes.haml string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 29 text.haml meta.section.attributes.haml string.quoted.double.interpolated.ruby
+T 30 text.haml meta.section.attributes.haml string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 31 text.haml meta.section.attributes.haml punctuation.separator.object.ruby
+T 32 text.haml meta.section.attributes.haml
+T 33 text.haml meta.section.attributes.haml constant.language.symbol.hashkey.ruby punctuation.definition.constant.ruby
+T 37 text.haml meta.section.attributes.haml constant.language.symbol.hashkey.ruby
+T 38 text.haml meta.section.attributes.haml
+T 40 text.haml meta.section.attributes.haml punctuation.separator.key-value
+T 41 text.haml meta.section.attributes.haml
+T 42 text.haml meta.section.attributes.haml string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 53 text.haml meta.section.attributes.haml string.quoted.double.interpolated.ruby
+T 54 text.haml meta.section.attributes.haml string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 56 text.haml meta.section.attributes.haml
+L 	%body
+T 1 text.haml
+T 2 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 6 text.haml meta.tag.haml entity.name.tag.haml
+L 		#container
+T 2 text.haml
+T 12 text.haml meta.selector.css entity.other.attribute-name.id
+L 			%header
+T 3 text.haml
+T 4 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 10 text.haml meta.tag.haml entity.name.tag.haml
+L 				%h1 Our Awesome HTML5 Template
+T 4 text.haml
+T 5 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 7 text.haml meta.tag.haml entity.name.tag.haml
+T 34 text.haml
+L 			#main
+T 3 text.haml
+T 8 text.haml meta.selector.css entity.other.attribute-name.id
+L 				Did we mention this was awesome?
+T 36 text.haml
+L 
+L 				/ Only this line will be wrapped in a comment
+T 4 text.haml comment.block.haml
+T 5 text.haml comment.block.haml punctuation.section.comment.haml
+T 49 text.haml comment.block.haml
+L 				%blockquote
+T 4 text.haml
+T 5 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 15 text.haml meta.tag.haml entity.name.tag.haml
+L 					%p Roads? Where we're going we don't need roads
+T 5 text.haml
+T 6 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 7 text.haml meta.tag.haml entity.name.tag.haml
+T 52 text.haml
+L 
+L 				/
+T 4 text.haml comment.block.haml
+T 5 text.haml comment.block.haml punctuation.section.comment.haml
+L 					Now the whole block will be commented out
+T 46 text.haml comment.block.haml
+L 					%blockquote
+T 5 text.haml comment.block.haml
+T 6 text.haml comment.block.haml meta.tag.haml punctuation.definition.tag.haml
+T 16 text.haml comment.block.haml meta.tag.haml entity.name.tag.haml
+L 						%p Roads? Where we're going we don't need roads
+T 6 text.haml comment.block.haml
+T 7 text.haml comment.block.haml meta.tag.haml punctuation.definition.tag.haml
+T 8 text.haml comment.block.haml meta.tag.haml entity.name.tag.haml
+T 53 text.haml comment.block.haml
+L 
+L 				%p The line below won't appear in the HTML
+T 4 text.haml
+T 5 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 6 text.haml meta.tag.haml entity.name.tag.haml
+T 46 text.haml
+L 				-# The rest of this line is a comment
+T 4 text.haml comment.block.haml
+T 6 text.haml comment.block.haml punctuation.section.comment.haml
+T 41 text.haml comment.block.haml
+L 				%p The line above won't appear in the HTML, nor will the lines underneath
+T 4 text.haml
+T 5 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 6 text.haml meta.tag.haml entity.name.tag.haml
+T 77 text.haml
+L 				-#
+T 4 text.haml comment.block.haml
+T 6 text.haml comment.block.haml punctuation.section.comment.haml
+L 					None of this text will appear in our
+T 41 text.haml comment.block.haml
+L 					rendered output
+T 20 text.haml comment.block.haml
+L 
+L 				%p= Time.now
+T 4 text.haml
+T 5 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 6 text.haml meta.tag.haml entity.name.tag.haml
+T 7 text.haml meta.line.ruby.haml
+T 8 text.haml meta.line.ruby.haml source.ruby.embedded.haml
+T 12 text.haml meta.line.ruby.haml source.ruby.embedded.haml support.class.ruby
+T 13 text.haml meta.line.ruby.haml source.ruby.embedded.haml punctuation.separator.method.ruby
+T 16 text.haml meta.line.ruby.haml source.ruby.embedded.haml meta.function-call.ruby entity.name.function.ruby
+L 
+L 			%footer
+T 3 text.haml
+T 4 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 10 text.haml meta.tag.haml entity.name.tag.haml
+L 				%address
+T 4 text.haml
+T 5 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 12 text.haml meta.tag.haml entity.name.tag.haml
+L 					.hcard
+T 5 text.haml
+T 11 text.haml meta.selector.css entity.other.attribute-name.class
+L 						.fn Ian Oxley
+T 6 text.haml
+T 9 text.haml meta.selector.css entity.other.attribute-name.class
+T 19 text.haml
+L 						.adr
+T 6 text.haml
+T 10 text.haml meta.selector.css entity.other.attribute-name.class
+L 							.locality Newcastle-upon-Tyne
+T 7 text.haml
+T 16 text.haml meta.selector.css entity.other.attribute-name.class
+T 36 text.haml
+L 							.country-name England
+T 7 text.haml
+T 20 text.haml meta.selector.css entity.other.attribute-name.class
+T 28 text.haml
+L 
+L / From https://gist.github.com/ianoxley/1147666
+T 1 text.haml comment.block.haml punctuation.section.comment.haml
+T 47 text.haml comment.block.haml
+L 

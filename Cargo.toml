@@ -106,6 +106,7 @@ textmate = [
   "lang-bat",
   "lang-cmake",
   "lang-dart",
+  "lang-haml",
   "lang-haskell",
   "lang-julia",
   "lang-mermaid",
@@ -134,6 +135,13 @@ lang-graphql = [
   "_classes",
   "_utf8",
   "_frame-kinds",
+]
+lang-haml = [
+  "_textmate",
+  "lang-css",
+  "lang-javascript",
+  "lang-markdown",
+  "lang-ruby",
 ]
 lang-haskell = ["_textmate"]
 lang-html = ["_scope-table", "lang-css", "lang-javascript", "_classes"]
