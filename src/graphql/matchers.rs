@@ -11,7 +11,7 @@ use super::scope::S;
 use super::state::Rule;
 use crate::classes;
 use crate::classes::is_ascii_space;
-use crate::utf8::char_len;
+use crate::utf8::char_at;
 
 /// A byte of `[0-9A-Z_a-z]`.
 fn is_name_byte(b: u8) -> bool {
@@ -26,13 +26,16 @@ impl Lexer<'_> {
     // Character classes.
 
     /// The character at `i` and its width.
+    ///
+    /// It is out of line.
+    /// `space_at` and `word_at` call it only for a byte above ASCII.
+    /// Their ASCII paths stay small.
+    #[inline(never)]
     fn char_at(&self, i: usize) -> Option<(char, usize)> {
         if i == self.lim {
             return Some(('\n', 1));
         }
-        let width = char_len(*self.s.get(i)?);
-        let text = std::str::from_utf8(self.s.get(i..i + width)?).ok()?;
-        Some((text.chars().next()?, width))
+        char_at(self.s, i)
     }
 
     /// The width of the white space character at `i`, 0 when there is none.

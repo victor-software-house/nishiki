@@ -672,9 +672,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         if b < 0x80 {
             return Some((char::from(b), i + 1));
         }
-        let end = self.char_end(i);
-        let text = std::str::from_utf8(&self.s[i..end]).ok()?;
-        Some((text.chars().next()?, end))
+        crate::utf8::multibyte_at(self.s, i, b).map(|(c, width)| (c, i + width))
     }
 
     /// The character that ends at `i`.

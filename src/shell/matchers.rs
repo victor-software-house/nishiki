@@ -266,8 +266,7 @@ impl Lexer<'_> {
         if i == self.lim {
             return Some('\n');
         }
-        let text = std::str::from_utf8(&self.s[i..self.char_end(i)]).ok()?;
-        text.chars().next()
+        crate::utf8::char_at(self.s.get(..self.lim)?, i).map(|(c, _)| c)
     }
 
     /// The character that ends at `p`.

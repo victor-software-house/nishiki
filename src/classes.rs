@@ -6,7 +6,7 @@
 
 mod table;
 
-use crate::utf8::{char_at, char_start};
+use crate::utf8::{char_start, multibyte_at};
 
 /// The regex `\s` for a character: the table measured on Shiki.
 pub(crate) fn is_space(c: char) -> bool {
@@ -120,7 +120,7 @@ fn width_if(s: &[u8], i: usize, ascii: fn(u8) -> bool, class: fn(char) -> bool) 
     match s.get(i) {
         None => 0,
         Some(&b) if b < 0x80 => usize::from(ascii(b)),
-        Some(_) => char_at(s, i)
+        Some(&lead) => multibyte_at(s, i, lead)
             .filter(|&(c, _)| class(c))
             .map_or(0, |(_, width)| width),
     }

@@ -91,8 +91,7 @@ impl Cx<'_> {
         if first < 0x80 {
             return Some(char::from(first));
         }
-        let bytes = self.line.get(p..p + utf8::char_len(first))?;
-        std::str::from_utf8(bytes).ok()?.chars().next()
+        utf8::char_at(self.line, p).map(|(c, _)| c)
     }
 
     /// The character that ends at `p`.
@@ -105,10 +104,9 @@ impl Cx<'_> {
         let start = (p.saturating_sub(4)..p)
             .rev()
             .find(|&q| self.line.get(q).is_some_and(|&b| b & 0xc0 != 0x80))?;
-        std::str::from_utf8(self.line.get(start..p)?)
-            .ok()?
-            .chars()
-            .next()
+        utf8::char_at(self.line, start)
+            .filter(|&(_, width)| start + width == p)
+            .map(|(c, _)| c)
     }
 
     /// The byte length of the whitespace character at `p`, or 0 when there is

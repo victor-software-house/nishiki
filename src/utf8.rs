@@ -32,18 +32,48 @@ pub(crate) fn char_start(s: &[u8], mut i: usize) -> usize {
 /// The character that starts at byte `i` of `s`, and its width; `None` past
 /// the end and where no whole character starts.
 ///
-/// An ASCII byte is its own character, so only a multibyte one is validated.
+/// The decoder builds the character from the bits of its bytes.
+/// It runs no separate validation pass.
+/// It returns `None` for a byte that cannot lead a character.
+/// It returns `None` when a continuation byte is missing or out of place.
+/// [`char::from_u32`] rejects a surrogate and a value past U+10FFFF.
+/// The width check rejects an overlong form.
+/// The tests check every character against [`str::from_utf8`].
+///
+/// The ASCII test is inline in the caller.
+/// A multibyte character goes to [`multibyte_at`], which is out of line.
+/// A caller that has already tested for ASCII calls [`multibyte_at`] directly.
+#[inline]
 pub(crate) fn char_at(s: &[u8], i: usize) -> Option<(char, usize)> {
     let lead = *s.get(i)?;
     if lead.is_ascii() {
         return Some((char::from(lead), 1));
     }
-    let width = char_len(lead);
-    let c = std::str::from_utf8(s.get(i..i + width)?)
-        .ok()?
-        .chars()
-        .next()?;
-    Some((c, width))
+    multibyte_at(s, i, lead)
+}
+
+/// [`char_at`] for the character at `i` whose `lead` is above ASCII.
+///
+/// It is `#[cold]`.
+/// The caller's ASCII path then saves no registers for this call.
+#[cold]
+pub(crate) fn multibyte_at(s: &[u8], i: usize, lead: u8) -> Option<(char, usize)> {
+    let (width, bits) = match lead {
+        0xc2..=0xdf => (2, lead & 0x1f),
+        0xe0..=0xef => (3, lead & 0x0f),
+        0xf0..=0xf4 => (4, lead & 0x07),
+        _ => return None,
+    };
+    let mut code = u32::from(bits);
+    for k in 1..width {
+        let byte = *s.get(i + k)?;
+        if !is_continuation(byte) {
+            return None;
+        }
+        code = (code << 6) | u32::from(byte & 0x3f);
+    }
+    let c = char::from_u32(code)?;
+    (c.len_utf8() == width).then_some((c, width))
 }
 
 #[cfg(test)]
@@ -81,5 +111,46 @@ mod tests {
         assert_eq!(char_at(b"\xc0\xaf", 0), None, "an overlong form");
         assert_eq!(char_at(b"\xed\xa0\x80", 0), None, "a surrogate");
         assert_eq!(char_at(b"\xff", 0), None, "a byte no character starts with");
+    }
+
+    /// `char_at` reads every encoded character back at its width.
+    /// It finds no character at a continuation byte.
+    #[test]
+    fn char_at_reads_every_character_as_str_chars_does() {
+        let mut buffer = [0; 4];
+        for code in 0..=0x10_ffff {
+            let Some(c) = char::from_u32(code) else {
+                continue;
+            };
+            let bytes = c.encode_utf8(&mut buffer).as_bytes();
+            let expected = std::str::from_utf8(bytes)
+                .ok()
+                .and_then(|text| text.chars().next());
+            assert_eq!(expected, Some(c));
+            assert_eq!(char_at(bytes, 0), Some((c, bytes.len())), "{code:#x}");
+            for i in 1..bytes.len() {
+                assert_eq!(char_at(bytes, i), None, "{code:#x} at {i}");
+            }
+        }
+    }
+
+    /// The test covers every input of one or two bytes.
+    /// `char_at` finds a character exactly where `str::from_utf8` finds one.
+    #[test]
+    fn char_at_agrees_with_from_utf8_on_every_short_input() {
+        let reference = |s: &[u8]| {
+            let width = s.first().map_or(0, |&lead| char_len(lead));
+            s.get(..width)
+                .and_then(|bytes| std::str::from_utf8(bytes).ok())
+                .and_then(|text| text.chars().next())
+                .map(|c| (c, width))
+        };
+        for first in 0..=u8::MAX {
+            assert_eq!(char_at(&[first], 0), reference(&[first]), "{first:#x}");
+            for second in 0..=u8::MAX {
+                let s = [first, second];
+                assert_eq!(char_at(&s, 0), reference(&s), "{first:#x} {second:#x}");
+            }
+        }
     }
 }

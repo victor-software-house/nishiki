@@ -12,7 +12,7 @@ use super::rules::Pat;
 use super::scope::S;
 use super::state::Rule;
 use crate::classes::{self, is_ascii_space};
-use crate::utf8::char_len;
+use crate::utf8::char_at;
 
 /// How the parts of a name are scoped.
 #[derive(Clone, Copy)]
@@ -55,9 +55,7 @@ impl Lexer<'_> {
         if i == self.lim {
             return Some(('\n', 1));
         }
-        let width = char_len(*self.s.get(i)?);
-        let text = std::str::from_utf8(self.s.get(i..i + width)?).ok()?;
-        Some((text.chars().next()?, width))
+        char_at(self.s, i)
     }
 
     /// The width of the white space character at `i`, 0 when there is none.
