@@ -8,7 +8,7 @@
 //! thread of its own, so tests running in parallel do not disturb the count.
 
 use nishiki::{Highlighter, Language, State, Token};
-use nishiki_alloc_count::{CountingAllocator, count};
+use nishiki_alloc_count::{CountingAllocator, count, measure};
 
 use crate::oracle::{every_language, fixtures, parse};
 
@@ -157,6 +157,45 @@ fn switching_to_a_grammar_with_injections_again_allocates_nothing() {
     let mut tokens = Vec::new();
     lex(&mut highlighter, &lines, &mut tokens);
     let allocations = count(|| lex(&mut highlighter, &lines, &mut tokens));
+    assert_eq!(
+        allocations, 0,
+        "allocations lexing the document a second time"
+    );
+}
+
+/// A Ruby document whose stack deepens by one rule per call, as Shiki's
+/// does: in `expect(<<~RUBY)` the here document takes the `)`, so the call's
+/// rule stays open. Each call adds one state on top of the last, which every
+/// later line shares, so twice the calls hold about twice the memory, and
+/// lexing the document again allocates nothing.
+#[test]
+fn a_deepening_ruby_stack_costs_one_state_per_open_call() {
+    let document = |calls: usize| -> Vec<String> {
+        ["expect(<<~RUBY)", "  x", "RUBY"]
+            .repeat(calls)
+            .into_iter()
+            .map(str::to_owned)
+            .collect()
+    };
+    let peak = |lines: &[String]| {
+        measure(|| {
+            let mut highlighter = Highlighter::new(Language::Ruby);
+            lex(&mut highlighter, lines, &mut Vec::new());
+            highlighter
+        })
+        .peak
+    };
+    let (short, long) = (document(300), document(600));
+    let _ = peak(&short);
+    let (short_peak, long_peak) = (peak(&short), peak(&long));
+    assert!(
+        long_peak < short_peak * 3,
+        "600 calls held {long_peak} bytes at most, 300 held {short_peak}"
+    );
+    let mut highlighter = Highlighter::new(Language::Ruby);
+    let mut tokens = Vec::new();
+    lex(&mut highlighter, &short, &mut tokens);
+    let allocations = count(|| lex(&mut highlighter, &short, &mut tokens));
     assert_eq!(
         allocations, 0,
         "allocations lexing the document a second time"

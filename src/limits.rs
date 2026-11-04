@@ -33,7 +33,10 @@ pub struct Limits {
     pub work: Option<Work>,
     /// Most contexts open at once inside a language's root context, which
     /// is not counted: with `Some(0)` nothing opens. Deeper contexts are not
-    /// opened, so the constructs inside them add no scope.
+    /// opened, so the constructs inside them add no scope. Shiki has no such
+    /// limit, and some of its grammars leave a rule open for good, such as
+    /// Ruby's for a call whose `)` a here document takes, so a long file can
+    /// hold hundreds open.
     pub depth: Option<usize>,
     /// Most scope stacks, and most states, a highlighter interns. A token
     /// whose stack would be new gets its context's stack instead.
@@ -285,7 +288,7 @@ impl Limits {
 
 impl Default for Limits {
     /// Limits no line of nishiki's oracle fixtures comes near: 1 MiB lines,
-    /// 64 steps per byte plus 4,096, 256 open contexts and a million nodes.
+    /// 64 steps per byte plus 4,096, 4,096 open contexts and a million nodes.
     fn default() -> Self {
         Limits {
             line_bytes: Some(1 << 20),
@@ -293,7 +296,7 @@ impl Default for Limits {
                 per_byte: 64,
                 base: 4_096,
             }),
-            depth: Some(256),
+            depth: Some(4_096),
             nodes: Some(1 << 20),
         }
     }

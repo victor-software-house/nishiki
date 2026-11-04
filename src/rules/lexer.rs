@@ -67,6 +67,14 @@ struct PushEntry {
 /// The deepest the capture groups of one match nest.
 const NEST: usize = 12;
 
+/// The steps at one byte that open a rule, past which the tokenizer asserts
+/// it is looping. A rule that repeats ends the line, so such a run is at most
+/// one open and one close per rule of the grammar; 4096 is far above that,
+/// and reaching it means a rule matches empty without being guarded. Closes
+/// are bounded by the rules open instead, up to the depth limit, as where a
+/// line's end closes every rule whose end is `$`, so the bound adds it.
+const STALLED_OPENS: usize = 4096;
+
 const PATH_ENTRIES: usize = 512;
 const PUSH_ENTRIES: usize = 256;
 
@@ -1276,7 +1284,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// clear the groups for it.
     fn tokenize(&mut self) {
         let line_length = self.s.len() + usize::from(self.nl);
-        let mut stalled = 0_u32;
+        let mut stalled = 0_usize;
         loop {
             self.spend(1);
             if self.steps.exhausted() {
@@ -1331,13 +1339,8 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 stalled = 0;
             } else {
                 stalled += 1;
-                // Each step that does not advance opens or closes a rule at
-                // this byte, and a rule that repeats ends the line, so a run
-                // is at most one open and one close per rule of the grammar.
-                // 4096 is far above that: reaching it means a rule matches
-                // empty without being guarded.
                 debug_assert!(
-                    stalled < 4096,
+                    stalled < STALLED_OPENS.saturating_add(self.limits.depth.unwrap_or(usize::MAX)),
                     "the {} lexer made no progress at byte {}",
                     G::NAME,
                     self.pos

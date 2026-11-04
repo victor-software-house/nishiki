@@ -185,3 +185,31 @@ fn a_ruby_heredoc_lexes_its_lines_as_ruby() {
     assert_eq!(scope_of(&rows[2], "RUBY"), "string.definition.end.ruby");
     assert_eq!(scope_of(&rows[3], "end"), "keyword.control.ruby");
 }
+
+/// In `expect(<<~RUBY)` the here document takes the `)`, so the call's rule
+/// stays open after it ends, as in Shiki, and a long spec file holds one per
+/// call. The default limits keep 300 of them open.
+#[test]
+fn a_call_whose_paren_a_heredoc_takes_stays_open() {
+    let calls = 300;
+    let call = indoc! {"
+        expect(<<~RUBY)
+          x
+        RUBY
+    "};
+    let text = format!("{}y", call.repeat(calls));
+    let mut highlighter = Highlighter::new(Language::Ruby);
+    let mut state = State::default();
+    let mut tokens = Vec::new();
+    for line in text.lines() {
+        tokens.clear();
+        let report = highlighter.line(line, &mut state, &mut tokens);
+        assert!(report.is_complete(), "{line:?} reached a limit");
+    }
+    let last = tokens.last().expect("`y` has a token");
+    let open = highlighter
+        .scopes(last.stack())
+        .filter(|&scope| scope == "meta.function-call.ruby")
+        .count();
+    assert_eq!(open, calls);
+}
