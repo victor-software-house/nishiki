@@ -128,6 +128,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.txt",
   },
+  matlab: {
+    bundled: "mathworks/MATLAB-Language-grammar@69dbf20c1eb19efd629c0438a2a493e60617e8de",
+    origin: "mathworks/MATLAB-Language-grammar",
+    licence: "BSD-2-Clause",
+    file: "license.txt",
+  },
   mermaid: {
     bundled: "bpruitt-goddard/vscode-mermaid-syntax-highlight@8b62f487cb7a89afcd152febfbf47f5d4787657f",
     origin: "bpruitt-goddard/vscode-mermaid-syntax-highlight",

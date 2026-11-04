@@ -1,0 +1,179 @@
+L % SYNTAX TEST "source.matlab"  "Arguments block: https://github.com/mathworks/MATLAB-Language-grammar/issues/13"
+T 1 source.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 112 source.matlab comment.line.percentage.matlab
+L function t13ArgumentsBlock(x,~,v,method,flag, opts)
+T 8 source.matlab meta.function.matlab storage.type.function.matlab
+T 9 source.matlab meta.function.matlab
+T 26 source.matlab meta.function.matlab entity.name.function.matlab
+T 27 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 28 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 31 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 32 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 33 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 39 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 40 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 44 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 46 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 50 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 51 source.matlab meta.function.matlab meta.arguments.function.matlab
+L % Comment before arguments blocks
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 33 source.matlab meta.function.matlab comment.line.percentage.matlab
+L arguments % Comment
+T 9 source.matlab meta.function.matlab meta.arguments.matlab keyword.control.arguments.matlab
+T 10 source.matlab meta.function.matlab meta.arguments.matlab
+T 11 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 19 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L %         ^^^^^^^^^ comment.line.percentage.matlab
+T 1 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 50 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L     % Block comment
+T 4 source.matlab meta.function.matlab meta.arguments.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 19 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L %   ^^^^^^^^^^^^^^^ comment.line.percentage.matlab
+T 1 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 50 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L     x (1,:) {mustBeNumeric,mustBeReal} % trailing coment
+T 5 source.matlab meta.function.matlab meta.arguments.matlab
+T 11 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 12 source.matlab meta.function.matlab meta.arguments.matlab
+T 13 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 37 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 38 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 39 source.matlab meta.function.matlab meta.arguments.matlab
+T 40 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 56 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L %                                      ^^^^^^^^^^^^^^^^^ comment.line.percentage.matlab
+T 1 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 87 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L %     ^^^^^ storage.type.matlab
+T 1 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 31 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L %           ^^^^^^^^^^^^^^^^^^^^^^^^^^ storage.type.matlab
+T 1 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 58 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L     ~
+T 5 source.matlab meta.function.matlab meta.arguments.matlab
+L     v (1,:) {mustBeNumeric,mustBeReal, mustBeEqualSize(v,x)}
+T 5 source.matlab meta.function.matlab meta.arguments.matlab
+T 11 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 12 source.matlab meta.function.matlab meta.arguments.matlab
+T 13 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 59 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 60 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+L %     ^^^^^ storage.type.matlab
+T 1 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 31 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L %           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ storage.type.matlab
+T 1 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 80 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L     method (1,:) char {mustBeMember(method,{'linear','cubic','spline'})} = 'linear' % End of line comment
+T 10 source.matlab meta.function.matlab meta.arguments.matlab
+T 16 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 17 source.matlab meta.function.matlab meta.arguments.matlab
+T 21 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 22 source.matlab meta.function.matlab meta.arguments.matlab
+T 23 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 43 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 44 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 45 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 51 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 52 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 53 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 54 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 59 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 60 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 61 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 62 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 68 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 69 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 70 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 71 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 72 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 73 source.matlab meta.function.matlab meta.arguments.matlab
+T 75 source.matlab meta.function.matlab meta.arguments.matlab
+T 76 source.matlab meta.function.matlab meta.arguments.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 82 source.matlab meta.function.matlab meta.arguments.matlab string.quoted.single.matlab
+T 83 source.matlab meta.function.matlab meta.arguments.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 84 source.matlab meta.function.matlab meta.arguments.matlab
+T 85 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 105 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L %          ^^^^^ storage.type.matlab
+T 1 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 36 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L %                ^^^^ storage.type.matlab
+T 1 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 41 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L %                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ storage.type.matlab
+T 1 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 92 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L %                                                                          ^^^^^^^^ string.quoted.single.matlab
+T 1 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 111 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L %                                                                                     ^^^^^^^^^^^^^^^^^^^ comment.line.percentage.matlab
+T 1 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 136 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.arguments.matlab keyword.control.end.arguments.matlab
+L arguments (Repeating) % Comment
+T 9 source.matlab meta.function.matlab meta.arguments.matlab keyword.control.arguments.matlab
+T 11 source.matlab meta.function.matlab meta.arguments.matlab
+T 20 source.matlab meta.function.matlab meta.arguments.matlab variable.parameter.arguments.matlab
+T 22 source.matlab meta.function.matlab meta.arguments.matlab
+T 23 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 31 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L %                       ^^^^^^^^^ comment.line.percentage.matlab
+T 1 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 64 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L     % Trailing flags
+T 4 source.matlab meta.function.matlab meta.arguments.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 20 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L     flag (1,:) string {mustBeMember(flag,["first","second","third"])}
+T 8 source.matlab meta.function.matlab meta.arguments.matlab
+T 14 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 15 source.matlab meta.function.matlab meta.arguments.matlab
+T 21 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 22 source.matlab meta.function.matlab meta.arguments.matlab
+T 23 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 42 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 43 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 48 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 49 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 50 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 51 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 57 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 58 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 59 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 60 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 65 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 66 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 68 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 69 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.arguments.matlab keyword.control.end.arguments.matlab
+L arguments
+T 9 source.matlab meta.function.matlab meta.arguments.matlab keyword.control.arguments.matlab
+L     opts.Named (1,:) string {mustBeNumeric(opts.Named), ... Dotdotdot comment
+T 14 source.matlab meta.function.matlab meta.arguments.matlab
+T 20 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 21 source.matlab meta.function.matlab meta.arguments.matlab
+T 27 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 28 source.matlab meta.function.matlab meta.arguments.matlab
+T 29 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 47 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 48 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 56 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 59 source.matlab meta.function.matlab meta.arguments.matlab meta.linecontinuation.matlab keyword.operator.symbols.matlab
+T 77 source.matlab meta.function.matlab meta.arguments.matlab meta.linecontinuation.matlab comment.line.continuation.matlab
+L                              mustBeReal}
+T 39 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 40 source.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+L %                            ^^^^^^^^^^^ storage.type.matlab
+T 1 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 60 source.matlab meta.function.matlab meta.arguments.matlab comment.line.percentage.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.arguments.matlab keyword.control.end.arguments.matlab
+L end
+T 3 source.matlab meta.function.matlab keyword.control.end.function.matlab

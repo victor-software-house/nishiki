@@ -1,0 +1,86 @@
+L 
+L 
+L clear
+T 5 source.matlab
+L number = input('Give an integer: ');
+T 14 source.matlab
+T 15 source.matlab
+T 16 source.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 33 source.matlab string.quoted.single.matlab
+T 34 source.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 35 source.matlab
+T 36 source.matlab
+L remainder2 = rem(number,2);
+T 16 source.matlab
+T 17 source.matlab
+T 24 source.matlab
+T 25 source.matlab constant.numeric.matlab
+T 26 source.matlab
+T 27 source.matlab
+L remainder3 = rem(number,3);
+T 16 source.matlab
+T 17 source.matlab
+T 24 source.matlab
+T 25 source.matlab constant.numeric.matlab
+T 26 source.matlab
+T 27 source.matlab
+L 
+L if remainder2==0 & remainder3==0
+T 2 source.matlab meta.if.matlab keyword.control.if.matlab
+T 15 source.matlab meta.if.matlab
+T 16 source.matlab meta.if.matlab constant.numeric.matlab
+T 17 source.matlab meta.if.matlab
+T 18 source.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 31 source.matlab meta.if.matlab
+T 32 source.matlab meta.if.matlab constant.numeric.matlab
+L     'Your number is divisible by both 2 and 3'
+T 4 source.matlab meta.if.matlab
+T 5 source.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 45 source.matlab meta.if.matlab string.quoted.single.matlab
+T 46 source.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+L else
+T 4 source.matlab meta.if.matlab meta.else.matlab keyword.control.else.matlab
+L     if remainder2==0
+T 4 source.matlab meta.if.matlab meta.if.matlab
+T 6 source.matlab meta.if.matlab meta.if.matlab keyword.control.if.matlab
+T 19 source.matlab meta.if.matlab meta.if.matlab
+T 20 source.matlab meta.if.matlab meta.if.matlab constant.numeric.matlab
+L         'Your number is divisble by 2 but not by 3'
+T 8 source.matlab meta.if.matlab meta.if.matlab
+T 9 source.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 50 source.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 51 source.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+L     else
+T 4 source.matlab meta.if.matlab meta.if.matlab meta.else.matlab
+T 8 source.matlab meta.if.matlab meta.if.matlab meta.else.matlab keyword.control.else.matlab
+L         if remainder3==0
+T 8 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 10 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab keyword.control.if.matlab
+T 23 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 24 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab constant.numeric.matlab
+L             'Your number is divisible by 3 but not by 2'
+T 12 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 13 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 55 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 56 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+L         else
+T 8 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab meta.else.matlab
+T 12 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab meta.else.matlab keyword.control.else.matlab
+L             'Your number is not divisible by either 2 or 3'
+T 12 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 13 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 58 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 59 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+L         end
+T 8 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 11 source.matlab meta.if.matlab meta.if.matlab meta.if.matlab keyword.control.end.if.matlab
+L     end
+T 4 source.matlab meta.if.matlab meta.if.matlab
+T 7 source.matlab meta.if.matlab meta.if.matlab keyword.control.end.if.matlab
+L end
+T 3 source.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L % From https://www.math.colostate.edu/~yzhou/course/matlab_doc/matlab_programming_intro.html
+T 1 source.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 92 source.matlab comment.line.percentage.matlab
+L 

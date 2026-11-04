@@ -118,6 +118,8 @@ const cargo =
   "https://raw.githubusercontent.com/rust-lang/cargo/6238f6fd61bffc158aabeb77b779fc16d6e7b5fc";
 const catch2 =
   "https://raw.githubusercontent.com/catchorg/Catch2/a1a991fee5f217b40035cb2f8ebc83864d66408d";
+const chebfun =
+  "https://raw.githubusercontent.com/chebfun/chebfun/7574c77680d7e82b79626300bf255498271a72df";
 const checkout =
   "https://raw.githubusercontent.com/actions/checkout/f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a";
 const circe =
@@ -270,6 +272,8 @@ const markdownlint =
   "https://raw.githubusercontent.com/DavidAnson/markdownlint/b67636d47f335cf124990faae4a72c5e9fadd613";
 const mathjaxDemos =
   "https://raw.githubusercontent.com/mathjax/MathJax-demos-web/82c49422ee92dc58fbeed278532495d52c00aed0";
+const matlabGrammar =
+  "https://raw.githubusercontent.com/mathworks/MATLAB-Language-grammar/69dbf20c1eb19efd629c0438a2a493e60617e8de";
 const mermaid =
   "https://raw.githubusercontent.com/mermaid-js/mermaid/ea53556f130b397fb6f781818ee0f1e924b429eb";
 const milligram =
@@ -1046,6 +1050,12 @@ export const inputs: Input[] = [
     name: "zod-readme",
     url: `${zod}/packages/zod/README.md`,
   },
+  // MATLAB runs on the TextMate engine.
+  { lang: "matlab", name: "chebfun-feval", url: `${chebfun}/@chebfun/feval.m` },
+  { lang: "matlab", name: "chebfun-roots", url: `${chebfun}/@chebfun/roots.m` },
+  { lang: "matlab", name: "grammar-arguments-block", url: `${matlabGrammar}/test/t13ArgumentsBlock.m` },
+  { lang: "matlab", name: "grammar-property-validation", url: `${matlabGrammar}/test/t08PropertyValidation.m` },
+  { lang: "matlab", name: "sample", url: `${samples}/matlab.sample` },
   // Mermaid runs on the TextMate engine. Shiki's Markdown grammar has no
   // Mermaid fence, so no Markdown input embeds it.
   { lang: "mermaid", name: "api-sequence", url: `${mermaid}/docs/diagrams/mermaid-api-sequence.mmd` },

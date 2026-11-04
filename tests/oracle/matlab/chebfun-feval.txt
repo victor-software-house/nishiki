@@ -1,0 +1,1144 @@
+L function out = feval(F, x, varargin)
+T 8 source.matlab meta.function.matlab storage.type.function.matlab
+T 9 source.matlab meta.function.matlab
+T 12 source.matlab meta.function.matlab variable.parameter.output.function.matlab
+T 15 source.matlab meta.function.matlab
+T 20 source.matlab meta.function.matlab entity.name.function.matlab
+T 21 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 22 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 24 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 25 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 27 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 35 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 36 source.matlab meta.function.matlab meta.arguments.function.matlab
+L %FEVAL   Evaluate a CHEBFUN.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 28 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   FEVAL(F, X) evaluates a CHEBFUN F at the points in X.  If F is a quasimatrix
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 80 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   with columns F1, ..., FN, then the result will be [F1(X), ..., FN(X)], the
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 78 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   horizontal concatenation of the results of evaluating each column at the
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 76 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   points in X.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 16 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+L %   FEVAL(F, 'left'), FEVAL(F, 'start'), and FEVAL(F, '-') return the value of F
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 80 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   at the left endpoint of its domain.  FEVAL(F, 'right'), FEVAL(F, 'end'), and
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 80 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   FEVAL(F, '+') do the same for the right endpoint.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 53 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+L %   FEVAL(F, X, 'left') and FEVAL(F, X, '-') evaluate F at the points in X,
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 75 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   using left-hand limits to evaluate F at any breakpoints. FEVAL(F, X,
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 72 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   'right') and FEVAL(F, X, '+') do the same but using right-hand limits.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 74 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+L %   F(X), F('left'), F(X, 'left'), etc, are equivalent syntaxes. 
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 65 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+L %   Example:
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 12 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %     f = chebfun(@(x) 1./(1 + 25*x.^2));
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 41 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %     y = feval(f, linspace(-1, 1, 100).');
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 43 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+L % See also SUBSREF.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 19 source.matlab meta.function.matlab comment.line.percentage.matlab
+L 
+L % Copyright 2017 by The University of Oxford and The Chebfun Developers.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 72 source.matlab meta.function.matlab comment.line.percentage.matlab
+L % See http://www.chebfun.org/ for Chebfun information.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 54 source.matlab meta.function.matlab comment.line.percentage.matlab
+L 
+L % If F or x are empty, there's nothing to do.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 45 source.matlab meta.function.matlab comment.line.percentage.matlab
+L if ( isempty(F) )
+T 2 source.matlab meta.function.matlab meta.if.matlab keyword.control.if.matlab
+T 3 source.matlab meta.function.matlab meta.if.matlab
+T 4 source.matlab meta.function.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab
+T 14 source.matlab meta.function.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab
+L     out = [];
+T 10 source.matlab meta.function.matlab meta.if.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab
+L     return
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.control.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab meta.control.matlab keyword.control.matlab
+L elseif ( isempty(x) )
+T 6 source.matlab meta.function.matlab meta.if.matlab meta.elseif.matlab keyword.control.elseif.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.elseif.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.elseif.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab meta.elseif.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab meta.elseif.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab meta.elseif.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.elseif.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.elseif.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab meta.elseif.matlab
+L     % Return empty matrix with dimensions of the appropriate size.
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 66 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     out = zeros(size(x));
+T 15 source.matlab meta.function.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab
+T 25 source.matlab meta.function.matlab meta.if.matlab
+L     return
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.control.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab meta.control.matlab keyword.control.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L % Deal with FEVAL(FUNCTION_HANDLE, CHEBFUN) type calls.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 55 source.matlab meta.function.matlab comment.line.percentage.matlab
+L if ( isa(F, 'function_handle') )
+T 2 source.matlab meta.function.matlab meta.if.matlab keyword.control.if.matlab
+T 3 source.matlab meta.function.matlab meta.if.matlab
+T 4 source.matlab meta.function.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab
+T 9 source.matlab meta.function.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab
+T 29 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 30 source.matlab meta.function.matlab meta.if.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab
+T 32 source.matlab meta.function.matlab meta.if.matlab
+L     out = F(x, varargin{:});
+T 11 source.matlab meta.function.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab variable.other.function.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab
+T 25 source.matlab meta.function.matlab meta.if.matlab
+T 26 source.matlab meta.function.matlab meta.if.matlab
+T 27 source.matlab meta.function.matlab meta.if.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab
+L     return
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.control.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab meta.control.matlab keyword.control.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L % Deal with FEVAL(CHEBFUN, CHEBFUN) type calls.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 47 source.matlab meta.function.matlab comment.line.percentage.matlab
+L if ( isa(x, 'chebfun') )
+T 2 source.matlab meta.function.matlab meta.if.matlab keyword.control.if.matlab
+T 3 source.matlab meta.function.matlab meta.if.matlab
+T 4 source.matlab meta.function.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab
+T 9 source.matlab meta.function.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab
+L     out = compose(x, F);
+T 17 source.matlab meta.function.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab
+L     return
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.control.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab meta.control.matlab keyword.control.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L %% LEFT / RIGHT / END VALUES:
+T 2 source.matlab meta.function.matlab comment.line.double-percentage.matlab punctuation.definition.comment.matlab
+T 3 source.matlab meta.function.matlab comment.line.double-percentage.matlab
+T 29 source.matlab meta.function.matlab comment.line.double-percentage.matlab meta.cell.matlab
+L % Support for feval(f, 'left') and feval(f, 'end'), etc.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 56 source.matlab meta.function.matlab comment.line.percentage.matlab
+L if ( ischar(x) )
+T 2 source.matlab meta.function.matlab meta.if.matlab keyword.control.if.matlab
+T 3 source.matlab meta.function.matlab meta.if.matlab
+T 4 source.matlab meta.function.matlab meta.if.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab
+T 14 source.matlab meta.function.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab
+L     if ( any(strcmpi(x, {'left', 'start' ,'-'})) )
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 6 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.control.if.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 25 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 26 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 30 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 33 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 34 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 39 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 40 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 42 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 43 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 44 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 45 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 46 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 47 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 48 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 49 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 50 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+L         out = F.pointValues(1,:);
+T 27 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 29 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab constant.numeric.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 32 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 33 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+L     elseif ( any(strcmpi(x, {'right', 'end', '+'})) )
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab keyword.control.elseif.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 25 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 29 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 30 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 35 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab string.quoted.single.matlab
+T 36 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 38 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 39 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 42 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab string.quoted.single.matlab
+T 43 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 45 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 46 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 47 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab string.quoted.single.matlab
+T 48 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 49 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 50 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 51 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 52 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 53 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+L         out = F.pointValues(end,:);
+T 27 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 33 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 34 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 35 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+L     else
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.else.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.else.matlab keyword.control.else.matlab
+L         error('CHEBFUN:CHEBFUN:feval:strInput', ...
+T 13 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 14 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 45 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 46 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 48 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 51 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.linecontinuation.matlab keyword.operator.symbols.matlab
+L             'Unknown input argument "%s".', x);
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 37 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 39 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab constant.character.escape.matlab
+T 41 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 42 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 45 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 46 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 47 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+L     end
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.control.end.if.matlab
+L     if ( F(1).isTransposed )
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 6 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.control.if.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab constant.numeric.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 27 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+L         out = out.';
+T 17 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.operator.transpose.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+L     end
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.control.end.if.matlab
+L     return
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.control.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab meta.control.matlab keyword.control.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L %% EVALUATE EACH COLUMN:
+T 2 source.matlab meta.function.matlab comment.line.double-percentage.matlab punctuation.definition.comment.matlab
+T 3 source.matlab meta.function.matlab comment.line.double-percentage.matlab
+T 24 source.matlab meta.function.matlab comment.line.double-percentage.matlab meta.cell.matlab
+L if ( numel(F) == 1 )
+T 2 source.matlab meta.function.matlab meta.if.matlab keyword.control.if.matlab
+T 3 source.matlab meta.function.matlab meta.if.matlab
+T 4 source.matlab meta.function.matlab meta.if.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab
+T 14 source.matlab meta.function.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab
+L     out = columnFeval(F, x, varargin{:});
+T 21 source.matlab meta.function.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab
+T 36 source.matlab meta.function.matlab meta.if.matlab variable.other.function.matlab
+T 37 source.matlab meta.function.matlab meta.if.matlab
+T 38 source.matlab meta.function.matlab meta.if.matlab
+T 39 source.matlab meta.function.matlab meta.if.matlab
+T 40 source.matlab meta.function.matlab meta.if.matlab
+T 41 source.matlab meta.function.matlab meta.if.matlab
+L else
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.else.matlab keyword.control.else.matlab
+L     % Deal with quasimatrices:
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 30 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     out = cell(1, numel(F));
+T 14 source.matlab meta.function.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab
+T 25 source.matlab meta.function.matlab meta.if.matlab
+T 26 source.matlab meta.function.matlab meta.if.matlab
+T 27 source.matlab meta.function.matlab meta.if.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab
+L     for k = 1:numel(F)
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab keyword.control.for.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab constant.numeric.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+L         out{k} = columnFeval(F(k), x, varargin{:});
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 14 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 29 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 30 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 32 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 33 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 38 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 46 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab variable.other.function.matlab
+T 47 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 48 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 49 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 50 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 51 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+L     end
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab keyword.control.end.for.matlab
+L     out = cell2mat(out);
+T 18 source.matlab meta.function.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L %% DEAL WITH ROW CHEBFUNS:
+T 2 source.matlab meta.function.matlab comment.line.double-percentage.matlab punctuation.definition.comment.matlab
+T 3 source.matlab meta.function.matlab comment.line.double-percentage.matlab
+T 26 source.matlab meta.function.matlab comment.line.double-percentage.matlab meta.cell.matlab
+L if ( F(1).isTransposed )
+T 2 source.matlab meta.function.matlab meta.if.matlab keyword.control.if.matlab
+T 3 source.matlab meta.function.matlab meta.if.matlab
+T 4 source.matlab meta.function.matlab meta.if.matlab
+T 6 source.matlab meta.function.matlab meta.if.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 9 source.matlab meta.function.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab
+L     % We got a passed a row CHEBFUN. If X had more than two dimensions, we can't
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 80 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     % simply transpose the output from above, instead, we need to use permute.
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 78 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     ndimsx = ndims(x);
+T 18 source.matlab meta.function.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab
+L     if ( ndimsx <= 2 )
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 6 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.control.if.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab constant.numeric.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+L         out = out.';
+T 17 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.operator.transpose.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+L     else
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.else.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.else.matlab keyword.control.else.matlab
+L         % We define "transposition" in this case to mean the switching of the
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 9 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 77 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab comment.line.percentage.matlab
+L         % first two dimensions.
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 9 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab comment.line.percentage.matlab
+L         out = permute(out, [2 1 3:ndimsx]);
+T 21 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 27 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 29 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab constant.numeric.matlab
+T 30 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab constant.numeric.matlab
+T 32 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 33 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab constant.numeric.matlab
+T 40 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 41 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 42 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 43 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+L     end
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.control.end.if.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.if.matlab keyword.control.end.if.matlab
+L         
+T 8 source.matlab meta.function.matlab
+L end
+T 3 source.matlab meta.function.matlab keyword.control.end.function.matlab
+L 
+L function out = columnFeval(f, x, varargin)
+T 8 source.matlab meta.function.matlab storage.type.function.matlab
+T 9 source.matlab meta.function.matlab
+T 12 source.matlab meta.function.matlab variable.parameter.output.function.matlab
+T 15 source.matlab meta.function.matlab
+T 26 source.matlab meta.function.matlab entity.name.function.matlab
+T 27 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 28 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 30 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 31 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 33 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 41 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 42 source.matlab meta.function.matlab meta.arguments.function.matlab
+L % Act on each column. Note that columnFeval ignores the transpose state of F.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 77 source.matlab meta.function.matlab comment.line.percentage.matlab
+L 
+L %% INITIALISE:
+T 2 source.matlab meta.function.matlab comment.line.double-percentage.matlab punctuation.definition.comment.matlab
+T 3 source.matlab meta.function.matlab comment.line.double-percentage.matlab
+T 14 source.matlab meta.function.matlab comment.line.double-percentage.matlab meta.cell.matlab
+L 
+L % Reshape x to be a column vector.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 34 source.matlab meta.function.matlab comment.line.percentage.matlab
+L sizex = size(x);
+T 12 source.matlab meta.function.matlab
+T 13 source.matlab meta.function.matlab
+T 14 source.matlab meta.function.matlab
+T 15 source.matlab meta.function.matlab
+T 16 source.matlab meta.function.matlab
+L ndimsx = ndims(x);
+T 14 source.matlab meta.function.matlab
+T 15 source.matlab meta.function.matlab
+T 16 source.matlab meta.function.matlab
+T 17 source.matlab meta.function.matlab
+T 18 source.matlab meta.function.matlab
+L x = x(:);
+T 5 source.matlab meta.function.matlab
+T 6 source.matlab meta.function.matlab
+T 7 source.matlab meta.function.matlab
+T 8 source.matlab meta.function.matlab
+T 9 source.matlab meta.function.matlab
+L 
+L % Initialise output:
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 20 source.matlab meta.function.matlab comment.line.percentage.matlab
+L numFuns = numel(f.funs);
+T 15 source.matlab meta.function.matlab
+T 16 source.matlab meta.function.matlab
+T 22 source.matlab meta.function.matlab
+T 23 source.matlab meta.function.matlab
+T 24 source.matlab meta.function.matlab
+L 
+L funs = f.funs;
+T 14 source.matlab meta.function.matlab
+L dom = f.domain;
+T 15 source.matlab meta.function.matlab
+L isTrans = f.isTransposed;
+T 25 source.matlab meta.function.matlab
+L 
+L %% LEFT AND RIGHT LIMITS:
+T 2 source.matlab meta.function.matlab comment.line.double-percentage.matlab punctuation.definition.comment.matlab
+T 3 source.matlab meta.function.matlab comment.line.double-percentage.matlab
+T 25 source.matlab meta.function.matlab comment.line.double-percentage.matlab meta.cell.matlab
+L % Deal with feval(f, x, 'left') and feval(f, x, 'right'):
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 57 source.matlab meta.function.matlab comment.line.percentage.matlab
+L leftFlag = 0; rightFlag = 0;
+T 11 source.matlab meta.function.matlab
+T 12 source.matlab meta.function.matlab constant.numeric.matlab
+T 26 source.matlab meta.function.matlab
+T 27 source.matlab meta.function.matlab constant.numeric.matlab
+T 28 source.matlab meta.function.matlab
+L if ( nargin > 2 )
+T 2 source.matlab meta.function.matlab meta.if.matlab keyword.control.if.matlab
+T 3 source.matlab meta.function.matlab meta.if.matlab
+T 4 source.matlab meta.function.matlab meta.if.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab variable.other.function.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 14 source.matlab meta.function.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab
+L     lr = varargin{1};
+T 9 source.matlab meta.function.matlab meta.if.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab variable.other.function.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab
+L     leftFlag = any(strcmpi(lr, {'left', '-'}));
+T 18 source.matlab meta.function.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab
+T 26 source.matlab meta.function.matlab meta.if.matlab
+T 27 source.matlab meta.function.matlab meta.if.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab
+T 32 source.matlab meta.function.matlab meta.if.matlab
+T 33 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 37 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab
+T 38 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 40 source.matlab meta.function.matlab meta.if.matlab
+T 41 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 42 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab
+T 43 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 44 source.matlab meta.function.matlab meta.if.matlab
+T 45 source.matlab meta.function.matlab meta.if.matlab
+T 46 source.matlab meta.function.matlab meta.if.matlab
+T 47 source.matlab meta.function.matlab meta.if.matlab
+L     rightFlag = any(strcmpi(lr, {'right', '+'}));
+T 19 source.matlab meta.function.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab
+T 27 source.matlab meta.function.matlab meta.if.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab
+T 32 source.matlab meta.function.matlab meta.if.matlab
+T 33 source.matlab meta.function.matlab meta.if.matlab
+T 34 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 39 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab
+T 40 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 42 source.matlab meta.function.matlab meta.if.matlab
+T 43 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 44 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab
+T 45 source.matlab meta.function.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 46 source.matlab meta.function.matlab meta.if.matlab
+T 47 source.matlab meta.function.matlab meta.if.matlab
+T 48 source.matlab meta.function.matlab meta.if.matlab
+T 49 source.matlab meta.function.matlab meta.if.matlab
+L     if ( ~(leftFlag || rightFlag) )
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 6 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.control.if.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 32 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 33 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 34 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 35 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+L         if ( ischar(lr) )
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab keyword.control.if.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 25 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+L             error('CHEBFUN:CHEBFUN:feval:leftRightChar',...
+T 17 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 54 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 55 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 56 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 59 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab meta.linecontinuation.matlab keyword.operator.symbols.matlab
+L                 'Unknown input argument "%s".', lr);
+T 16 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 41 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 43 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab constant.character.escape.matlab
+T 45 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 46 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 50 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 51 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 52 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+L         else
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab meta.else.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab meta.else.matlab keyword.control.else.matlab
+L             error('CHEBFUN:CHEBFUN:feval:leftRight', 'Unknown input argument.');
+T 17 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 50 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 51 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 53 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 54 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 77 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 78 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 79 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 80 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+L         end
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab keyword.control.end.if.matlab
+L     end
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.control.end.if.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L %% VALUES FROM FUNS:
+T 2 source.matlab meta.function.matlab comment.line.double-percentage.matlab punctuation.definition.comment.matlab
+T 3 source.matlab meta.function.matlab comment.line.double-percentage.matlab
+T 20 source.matlab meta.function.matlab comment.line.double-percentage.matlab meta.cell.matlab
+L 
+L if ( numFuns == 1 )
+T 2 source.matlab meta.function.matlab meta.if.matlab keyword.control.if.matlab
+T 3 source.matlab meta.function.matlab meta.if.matlab
+T 4 source.matlab meta.function.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab
+L     
+T 4 source.matlab meta.function.matlab meta.if.matlab
+L     % Things are simple when there is only a single FUN:
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 56 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     out = feval(funs{1}, x(:), varargin{:});
+T 15 source.matlab meta.function.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab
+T 26 source.matlab meta.function.matlab meta.if.matlab
+T 27 source.matlab meta.function.matlab meta.if.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab
+T 29 source.matlab meta.function.matlab meta.if.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab
+T 39 source.matlab meta.function.matlab meta.if.matlab variable.other.function.matlab
+T 40 source.matlab meta.function.matlab meta.if.matlab
+T 41 source.matlab meta.function.matlab meta.if.matlab
+T 42 source.matlab meta.function.matlab meta.if.matlab
+T 43 source.matlab meta.function.matlab meta.if.matlab
+T 44 source.matlab meta.function.matlab meta.if.matlab
+L     numCols = size(out, 2);
+T 18 source.matlab meta.function.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab
+T 25 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 26 source.matlab meta.function.matlab meta.if.matlab
+T 27 source.matlab meta.function.matlab meta.if.matlab
+L     
+T 4 source.matlab meta.function.matlab meta.if.matlab
+L else
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.else.matlab keyword.control.else.matlab
+L     
+T 4 source.matlab meta.function.matlab meta.if.matlab
+L     % For multiple FUNs we must determine which FUN corresponds to each x.
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 74 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     
+T 4 source.matlab meta.function.matlab meta.if.matlab
+L     % Initialise output matrix:
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     numCols = numColumns(f);
+T 24 source.matlab meta.function.matlab meta.if.matlab
+T 25 source.matlab meta.function.matlab meta.if.matlab
+T 26 source.matlab meta.function.matlab meta.if.matlab
+T 27 source.matlab meta.function.matlab meta.if.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab
+L     out = zeros(numel(x), numCols);
+T 15 source.matlab meta.function.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab
+T 33 source.matlab meta.function.matlab meta.if.matlab
+T 34 source.matlab meta.function.matlab meta.if.matlab
+T 35 source.matlab meta.function.matlab meta.if.matlab
+L     
+T 4 source.matlab meta.function.matlab meta.if.matlab
+L     % Replace the first and last domain entries with +/-inf. (Since we want to
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 78 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     % use FUN{1} if real(x) < dom(1) and FUN{end} if real(x) > dom(end)).
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 73 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     domInf = [-inf, dom(2:end-1), inf];
+T 13 source.matlab meta.function.matlab meta.if.matlab
+T 14 source.matlab meta.function.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab constant.language.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab
+T 25 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 26 source.matlab meta.function.matlab meta.if.matlab
+T 29 source.matlab meta.function.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 30 source.matlab meta.function.matlab meta.if.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 32 source.matlab meta.function.matlab meta.if.matlab
+T 34 source.matlab meta.function.matlab meta.if.matlab
+T 37 source.matlab meta.function.matlab meta.if.matlab constant.language.matlab
+T 38 source.matlab meta.function.matlab meta.if.matlab
+T 39 source.matlab meta.function.matlab meta.if.matlab
+L     
+T 4 source.matlab meta.function.matlab meta.if.matlab
+L     % Loop over each FUN. If real(x) is in [dom(k) dom(k+1)] then use FUN{k}.
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 77 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     xReal = real(x);
+T 16 source.matlab meta.function.matlab meta.if.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab
+L     for k = 1:numFuns
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab keyword.control.for.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab constant.numeric.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+L         I = ( xReal >= domInf(k) ) & ( xReal < domInf(k+1) );
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab keyword.operator.symbols.matlab
+T 29 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 30 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 32 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 33 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 34 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 35 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 36 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab keyword.operator.symbols.matlab
+T 37 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 38 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 45 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 46 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab keyword.operator.symbols.matlab
+T 53 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 54 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 56 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 57 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab constant.numeric.matlab
+T 58 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 59 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 60 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 61 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+L         if ( any(I(:)) )
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab keyword.control.if.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+L             % Evaluate the appropriate fun:
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 43 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab comment.line.percentage.matlab
+L             out(I,:) = feval(funs{k}, x(I), varargin{:});
+T 15 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 29 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 33 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 34 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 35 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 36 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 39 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 40 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 41 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 42 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 44 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 52 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab variable.other.function.matlab
+T 53 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 54 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 55 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 56 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 57 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+L         end
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab meta.if.matlab keyword.control.end.if.matlab
+L     end
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab keyword.control.end.for.matlab
+L     
+T 4 source.matlab meta.function.matlab meta.if.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L %% POINTVALUES:
+T 2 source.matlab meta.function.matlab comment.line.double-percentage.matlab punctuation.definition.comment.matlab
+T 3 source.matlab meta.function.matlab comment.line.double-percentage.matlab
+T 15 source.matlab meta.function.matlab comment.line.double-percentage.matlab meta.cell.matlab
+L % If the evaluation point corresponds to a breakpoint, we get the value from
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 76 source.matlab meta.function.matlab comment.line.percentage.matlab
+L 
+L % f.pointValues. However, if the 'left' or 'right' flag is given, we first 
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 75 source.matlab meta.function.matlab comment.line.percentage.matlab
+L % modify the entry in point values to take either the left- or right-sided
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 74 source.matlab meta.function.matlab comment.line.percentage.matlab
+L % limit, respectively.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 22 source.matlab meta.function.matlab comment.line.percentage.matlab
+L 
+L [xAtBreaks, domIndices] = ismember(x, dom);
+T 1 source.matlab meta.function.matlab
+T 22 source.matlab meta.function.matlab
+T 23 source.matlab meta.function.matlab
+T 34 source.matlab meta.function.matlab
+T 35 source.matlab meta.function.matlab
+T 41 source.matlab meta.function.matlab
+T 42 source.matlab meta.function.matlab
+T 43 source.matlab meta.function.matlab
+L if ( any(xAtBreaks) )
+T 2 source.matlab meta.function.matlab meta.if.matlab keyword.control.if.matlab
+T 3 source.matlab meta.function.matlab meta.if.matlab
+T 4 source.matlab meta.function.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab
+T 9 source.matlab meta.function.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab
+L     if ( leftFlag )
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 6 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.control.if.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+L         % Note that for leftFlag we use 'rval-local', which corresponds to the
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 9 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 78 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab comment.line.percentage.matlab
+L         % function value at the right part of the subdomain.
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 9 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 60 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab comment.line.percentage.matlab
+L         rvals = get(f, 'rval-local'); if ( isTrans ), rvals = rvals.'; end
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 34 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 35 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 36 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 37 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 38 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 40 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab keyword.control.if.matlab
+T 41 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 42 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 51 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 52 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 67 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 69 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab keyword.operator.transpose.matlab
+T 70 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 71 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 74 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab keyword.control.end.if.matlab
+L         pointValues = [f.pointValues(1,:); rvals];
+T 22 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 36 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 37 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 38 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab constant.numeric.matlab
+T 40 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 41 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 48 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 49 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 50 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+L     elseif ( rightFlag )
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab keyword.control.elseif.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.elseif.matlab
+L         % Similarly rightFlag uses lval-local.
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 9 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 46 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab comment.line.percentage.matlab
+L         lvals = get(f, 'lval-local'); if ( isTrans ), lvals = lvals.'; end
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 34 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab
+T 35 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 36 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 37 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 38 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 40 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab keyword.control.if.matlab
+T 41 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 42 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 51 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 52 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 67 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 69 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab keyword.operator.transpose.matlab
+T 70 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 71 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab
+T 74 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.if.matlab keyword.control.end.if.matlab
+L         pointValues = [lvals; f.pointValues(end,:)];
+T 22 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 43 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 44 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 47 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 49 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 50 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 51 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 52 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+L     else
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.else.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab meta.else.matlab keyword.control.else.matlab
+L         pointValues = f.pointValues;
+T 36 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+L     end
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.if.matlab keyword.control.end.if.matlab
+L     % Set the output values for any values of x at the breakpoints.
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 67 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     out(xAtBreaks,:) = pointValues(domIndices(xAtBreaks),:);
+T 7 source.matlab meta.function.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab
+T 34 source.matlab meta.function.matlab meta.if.matlab
+T 35 source.matlab meta.function.matlab meta.if.matlab
+T 45 source.matlab meta.function.matlab meta.if.matlab
+T 46 source.matlab meta.function.matlab meta.if.matlab
+T 55 source.matlab meta.function.matlab meta.if.matlab
+T 56 source.matlab meta.function.matlab meta.if.matlab
+T 58 source.matlab meta.function.matlab meta.if.matlab
+T 59 source.matlab meta.function.matlab meta.if.matlab
+T 60 source.matlab meta.function.matlab meta.if.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L %% RESHAPE FOR OUTPUT:
+T 2 source.matlab meta.function.matlab comment.line.double-percentage.matlab punctuation.definition.comment.matlab
+T 3 source.matlab meta.function.matlab comment.line.double-percentage.matlab
+T 22 source.matlab meta.function.matlab comment.line.double-percentage.matlab meta.cell.matlab
+L % Reshape fx, which is a column vector or horizontal concatenation of column
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 76 source.matlab meta.function.matlab comment.line.percentage.matlab
+L % vectors, to be of the appropriate size, and handle transposition.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 67 source.matlab meta.function.matlab comment.line.percentage.matlab
+L sizefx = sizex;
+T 15 source.matlab meta.function.matlab
+L sizefx(2) = numCols*sizex(2);
+T 6 source.matlab meta.function.matlab
+T 7 source.matlab meta.function.matlab
+T 8 source.matlab meta.function.matlab constant.numeric.matlab
+T 9 source.matlab meta.function.matlab
+T 25 source.matlab meta.function.matlab
+T 26 source.matlab meta.function.matlab
+T 27 source.matlab meta.function.matlab constant.numeric.matlab
+T 28 source.matlab meta.function.matlab
+T 29 source.matlab meta.function.matlab
+L if ( ndimsx == 2 )
+T 2 source.matlab meta.function.matlab meta.if.matlab keyword.control.if.matlab
+T 3 source.matlab meta.function.matlab meta.if.matlab
+T 4 source.matlab meta.function.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 14 source.matlab meta.function.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab
+L     % If x was just a matrix or vector, the reshape is straightforward.
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 71 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     out = reshape(out, sizefx);
+T 17 source.matlab meta.function.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab
+T 29 source.matlab meta.function.matlab meta.if.matlab
+T 30 source.matlab meta.function.matlab meta.if.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab
+L else
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.else.matlab keyword.control.else.matlab
+L     % If x had more than two dimensions, we have to be more careful.  The
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 73 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     % cell2mat(mat2cell(...).') effects a transpose which keeps certain
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 71 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     % columnar blocks of the fx matrix intact, putting the entries in the
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 73 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     % correct order for reshape().
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 34 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     blockLength = sizex(1)*sizex(2);
+T 23 source.matlab meta.function.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab
+T 25 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 26 source.matlab meta.function.matlab meta.if.matlab
+T 32 source.matlab meta.function.matlab meta.if.matlab
+T 33 source.matlab meta.function.matlab meta.if.matlab
+T 34 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 35 source.matlab meta.function.matlab meta.if.matlab
+T 36 source.matlab meta.function.matlab meta.if.matlab
+L     blocksPerCol = prod(sizex(3:end));
+T 23 source.matlab meta.function.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab
+T 29 source.matlab meta.function.matlab meta.if.matlab
+T 30 source.matlab meta.function.matlab meta.if.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 32 source.matlab meta.function.matlab meta.if.matlab
+T 35 source.matlab meta.function.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 36 source.matlab meta.function.matlab meta.if.matlab
+T 37 source.matlab meta.function.matlab meta.if.matlab
+T 38 source.matlab meta.function.matlab meta.if.matlab
+L     out = reshape(cell2mat(mat2cell(out, blockLength*ones(1, blocksPerCol), ...
+T 17 source.matlab meta.function.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab
+T 26 source.matlab meta.function.matlab meta.if.matlab
+T 27 source.matlab meta.function.matlab meta.if.matlab
+T 35 source.matlab meta.function.matlab meta.if.matlab
+T 36 source.matlab meta.function.matlab meta.if.matlab
+T 57 source.matlab meta.function.matlab meta.if.matlab
+T 58 source.matlab meta.function.matlab meta.if.matlab
+T 59 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 73 source.matlab meta.function.matlab meta.if.matlab
+T 74 source.matlab meta.function.matlab meta.if.matlab
+T 76 source.matlab meta.function.matlab meta.if.matlab
+T 79 source.matlab meta.function.matlab meta.if.matlab meta.linecontinuation.matlab keyword.operator.symbols.matlab
+L         ones(1, numCols)).'), sizefx);
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab
+T 14 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab
+T 24 source.matlab meta.function.matlab meta.if.matlab
+T 25 source.matlab meta.function.matlab meta.if.matlab
+T 27 source.matlab meta.function.matlab meta.if.matlab keyword.operator.transpose.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab
+T 36 source.matlab meta.function.matlab meta.if.matlab
+T 37 source.matlab meta.function.matlab meta.if.matlab
+T 38 source.matlab meta.function.matlab meta.if.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L end
+T 3 source.matlab meta.function.matlab keyword.control.end.function.matlab
+L 

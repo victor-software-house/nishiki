@@ -1,0 +1,165 @@
+L % SYNTAX TEST "source.matlab"  "Property validation: https://github.com/mathworks/MATLAB-Language-grammar/issues/8"
+T 1 source.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 115 source.matlab comment.line.percentage.matlab
+L classdef t08PropertyValidation
+T 8 source.matlab meta.class.matlab storage.type.class.matlab
+T 9 source.matlab meta.class.matlab
+T 30 source.matlab meta.class.matlab meta.class-declaration.matlab entity.name.section.class.matlab
+L     properties (GetAccess = 'public', SetAccess = 'private')
+T 4 source.matlab meta.class.matlab meta.properties.matlab
+T 14 source.matlab meta.class.matlab meta.properties.matlab keyword.control.properties.matlab
+T 16 source.matlab meta.class.matlab meta.properties.matlab
+T 25 source.matlab meta.class.matlab meta.properties.matlab variable.parameter.properties.matlab
+T 26 source.matlab meta.class.matlab meta.properties.matlab
+T 28 source.matlab meta.class.matlab meta.properties.matlab
+T 29 source.matlab meta.class.matlab meta.properties.matlab
+T 35 source.matlab meta.class.matlab meta.properties.matlab constant.language.access.matlab
+T 36 source.matlab meta.class.matlab meta.properties.matlab
+T 37 source.matlab meta.class.matlab meta.properties.matlab
+T 38 source.matlab meta.class.matlab meta.properties.matlab
+T 47 source.matlab meta.class.matlab meta.properties.matlab variable.parameter.properties.matlab
+T 48 source.matlab meta.class.matlab meta.properties.matlab
+T 50 source.matlab meta.class.matlab meta.properties.matlab
+T 51 source.matlab meta.class.matlab meta.properties.matlab
+T 58 source.matlab meta.class.matlab meta.properties.matlab constant.language.access.matlab
+T 59 source.matlab meta.class.matlab meta.properties.matlab
+T 60 source.matlab meta.class.matlab meta.properties.matlab
+L         % Commentary in the properties block
+T 8 source.matlab meta.class.matlab meta.properties.matlab punctuation.whitespace.comment.leading.matlab
+T 9 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 44 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L %       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.percentage.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 75 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L         Prop % comment
+T 12 source.matlab meta.class.matlab meta.properties.matlab
+T 13 source.matlab meta.class.matlab meta.properties.matlab
+T 14 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 22 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L %            ^^^^^^^^^ comment.line.percentage.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 53 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L         PropType some.type
+T 16 source.matlab meta.class.matlab meta.properties.matlab
+T 17 source.matlab meta.class.matlab meta.properties.matlab
+T 26 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+L %                ^^^^^^^^^ storage.type.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 46 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L         PropSize (1,2) % comment
+T 16 source.matlab meta.class.matlab meta.properties.matlab
+T 22 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 23 source.matlab meta.class.matlab meta.properties.matlab
+T 24 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 32 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L %                ^^^^^ storage.type.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 42 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L %                      ^^^^^^^^^ comment.line.percentage.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 63 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L         PropSizeType (:, 3) int64; % another comment
+T 20 source.matlab meta.class.matlab meta.properties.matlab
+T 27 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 28 source.matlab meta.class.matlab meta.properties.matlab
+T 33 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 35 source.matlab meta.class.matlab meta.properties.matlab
+T 36 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 52 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L %                    ^^^^^^ storage.type.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 47 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L %                           ^^^^^ storage.type.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 53 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L %                                  ^^^^^^^^^^^^^^^^^ comment.line.percentage.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 83 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L         PropSizeTypeFcn  (:, 3) foo.bar.baz {mustBeReal}
+T 23 source.matlab meta.class.matlab meta.properties.matlab
+T 31 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 32 source.matlab meta.class.matlab meta.properties.matlab
+T 43 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 44 source.matlab meta.class.matlab meta.properties.matlab
+T 45 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 55 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 56 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+L %                        ^^^^^^ storage.type.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 51 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L %                               ^^^^^^^^^^^ storage.type.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 63 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L %                                            ^^^^^^^^^^^^ storage.type.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 77 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L         PropInit = "string"
+T 16 source.matlab meta.class.matlab meta.properties.matlab
+T 17 source.matlab meta.class.matlab meta.properties.matlab
+T 19 source.matlab meta.class.matlab meta.properties.matlab
+T 20 source.matlab meta.class.matlab meta.properties.matlab string.quoted.double.matlab punctuation.definition.string.begin.matlab
+T 27 source.matlab meta.class.matlab meta.properties.matlab string.quoted.double.matlab
+L %                  ^^^^^^^^ string.quoted.double.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 55 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L         PropTypeInit some.type = some.type(1)
+T 20 source.matlab meta.class.matlab meta.properties.matlab
+T 21 source.matlab meta.class.matlab meta.properties.matlab
+T 30 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 31 source.matlab meta.class.matlab meta.properties.matlab
+T 42 source.matlab meta.class.matlab meta.properties.matlab
+T 43 source.matlab meta.class.matlab meta.properties.matlab
+T 44 source.matlab meta.class.matlab meta.properties.matlab constant.numeric.matlab
+T 45 source.matlab meta.class.matlab meta.properties.matlab
+L %                    ^^^^^^^^^ storage.type.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 50 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L         PropSizeInit (1,2) = 'char'
+T 20 source.matlab meta.class.matlab meta.properties.matlab
+T 26 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 27 source.matlab meta.class.matlab meta.properties.matlab
+T 29 source.matlab meta.class.matlab meta.properties.matlab
+T 30 source.matlab meta.class.matlab meta.properties.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 35 source.matlab meta.class.matlab meta.properties.matlab string.quoted.single.matlab
+L %                    ^^^^^ storage.type.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 46 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L %                             ^^^^^ string.quoted.single.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 63 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L         PropSizeTypeInit (:, 3, 6) int64 = rand
+T 24 source.matlab meta.class.matlab meta.properties.matlab
+T 34 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 35 source.matlab meta.class.matlab meta.properties.matlab
+T 40 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 41 source.matlab meta.class.matlab meta.properties.matlab
+T 47 source.matlab meta.class.matlab meta.properties.matlab
+L %                         ^^^^^^^^ storage.type.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 54 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L %                                  ^^^^^ storage.type.matlab
+T 1 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 60 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L         PropSizeTypeFcnInit  (:, 3) foo.bar.baz {mustBeReal} = pi;
+T 27 source.matlab meta.class.matlab meta.properties.matlab
+T 35 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 36 source.matlab meta.class.matlab meta.properties.matlab
+T 47 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 48 source.matlab meta.class.matlab meta.properties.matlab
+T 49 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 59 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 60 source.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 61 source.matlab meta.class.matlab meta.properties.matlab
+T 63 source.matlab meta.class.matlab meta.properties.matlab
+T 65 source.matlab meta.class.matlab meta.properties.matlab constant.language.matlab
+T 66 source.matlab meta.class.matlab meta.properties.matlab
+L         % Ending commentary
+T 8 source.matlab meta.class.matlab meta.properties.matlab punctuation.whitespace.comment.leading.matlab
+T 9 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 27 source.matlab meta.class.matlab meta.properties.matlab comment.line.percentage.matlab
+L     end
+T 4 source.matlab meta.class.matlab meta.properties.matlab
+T 7 source.matlab meta.class.matlab meta.properties.matlab keyword.control.end.properties.matlab
+L end
+T 3 source.matlab meta.class.matlab keyword.control.end.class.matlab
+L 

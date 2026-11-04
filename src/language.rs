@@ -1007,6 +1007,15 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
+    /// MATLAB, with the scopes of Shiki's `matlab` grammar, which nishiki's
+    /// `TextMate` engine runs.
+    Matlab {
+        feature: "lang-matlab",
+        names: ["matlab"],
+        engine: crate::matlab::grammar::GRAMMAR,
+        reads_line_feed: true,
+        halts: true,
+    }
 }
 
 impl Language {

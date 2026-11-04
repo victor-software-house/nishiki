@@ -1,0 +1,1004 @@
+L function r = roots(F, varargin)
+T 8 source.matlab meta.function.matlab storage.type.function.matlab
+T 9 source.matlab meta.function.matlab
+T 10 source.matlab meta.function.matlab variable.parameter.output.function.matlab
+T 13 source.matlab meta.function.matlab
+T 18 source.matlab meta.function.matlab entity.name.function.matlab
+T 19 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 20 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 22 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 30 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 31 source.matlab meta.function.matlab meta.arguments.function.matlab
+L %ROOTS   Roots of a CHEBFUN.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 28 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   ROOTS(F) returns the roots of F in its domain of definition. By default,
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 76 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   roots are returned at jumps in F which pass through zero, and if F is
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 73 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   identically zero on a part of its domain, then a single root is returned at
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 79 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   the midpoint. Each of these behaviours can be modified using the optional
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 77 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   inputs described below:
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 27 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+L %   ROOTS(F, 'nojump') prevents ROOTS() from returning points where F changes
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 77 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   sign due to a jump discontinuity, such as roots(chebfun(@sign, 'splitting',
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 79 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   'on')).
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 11 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+L %   ROOTS(F, 'nozerofun') prevents ROOTS() from returning a zero at the midpoint
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 80 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   of the domain of F when F if identically zero, such as ROOTS(chebfun(0)).
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 77 source.matlab meta.function.matlab comment.line.percentage.matlab
+L % 
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 2 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   ROOTS(F, 'norecursion') deactivates the recursion procedure used to compute
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 79 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   roots (see the Guide 3: Rootfinding and minima and maxima for more
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 70 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   information on this recursion procedure).
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 45 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+L %   ROOTS(F, 'all') returns the roots of all the FUN objects representing the
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 77 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   smooth pieces of F. Note that by default this disables recursion, and so is
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 79 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   equivalent to ROOTS(F, 'all', 'norecursion').
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 49 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+L %   ROOTS(F, 'complex') returns the real and complex roots of the FUN objects
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 77 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   representing the smooth pieces of F that are determined to be non-spurious.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 79 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   (See CHEBELLIPSEPLOT). This capability may remove some spurious roots that
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 78 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   can appear if using ROOTS(F, 'all'). ROOTS(F, 'complex') is equivalent to
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 77 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   ROOTS(F, 'complex', 'recursion').
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 37 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+L %   ROOTS(F, 'all', 'recursion') and ROOTS(F, 'complex','norecursion') can be
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 77 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   used to activate and deactivate the recursion procedure respectively, to
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 76 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %   compute the roots as explained in the 'all' and 'complex' modes.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 68 source.matlab meta.function.matlab comment.line.percentage.matlab
+L 
+L % Copyright 2017 by The University of Oxford and The Chebfun Developers.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 72 source.matlab meta.function.matlab comment.line.percentage.matlab
+L % See http://www.chebfun.org/ for Chebfun information.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 54 source.matlab meta.function.matlab comment.line.percentage.matlab
+L 
+L % [TODO]: Scales and tolerances are quite arbitrary here..
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 58 source.matlab meta.function.matlab comment.line.percentage.matlab
+L 
+L % TODO: Document array-valued and quasimatrix cases.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 52 source.matlab meta.function.matlab comment.line.percentage.matlab
+L 
+L %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 80 source.matlab meta.function.matlab comment.line.percentage.matlab
+L % Developer note: 
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 18 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %  Here we get around the fact that FUN/ROOTS will return NaN values for
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 72 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %  array-valued FUN objects by simply ignoring NaNs whenever we come across
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 75 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %  them. In particular, we make use of the fact that the built in MAX() command
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 79 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %  ignores NaNs. Once we have looped through all the intervals, we sort the
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 75 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %  resulting matrix of roots (note that SORT() also treats NaN as greater than
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 78 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %  any double, whereas MAX() in effect treats it as less than any double) and
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 77 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %  then remove any rows which contain only NaN values.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 54 source.matlab meta.function.matlab comment.line.percentage.matlab
+L %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 80 source.matlab meta.function.matlab comment.line.percentage.matlab
+L 
+L % Deal with the trivial empty case:
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 35 source.matlab meta.function.matlab comment.line.percentage.matlab
+L if ( isempty(F) )
+T 2 source.matlab meta.function.matlab meta.if.matlab keyword.control.if.matlab
+T 3 source.matlab meta.function.matlab meta.if.matlab
+T 4 source.matlab meta.function.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab
+T 14 source.matlab meta.function.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab
+L     r = [];
+T 8 source.matlab meta.function.matlab meta.if.matlab
+T 9 source.matlab meta.function.matlab meta.if.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab
+L     return
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.control.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab meta.control.matlab keyword.control.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L rootsPref = parseInputs(F, varargin{:});
+T 23 source.matlab meta.function.matlab
+T 24 source.matlab meta.function.matlab
+T 27 source.matlab meta.function.matlab
+T 35 source.matlab meta.function.matlab variable.other.function.matlab
+T 36 source.matlab meta.function.matlab
+T 37 source.matlab meta.function.matlab
+T 38 source.matlab meta.function.matlab
+T 39 source.matlab meta.function.matlab
+T 40 source.matlab meta.function.matlab
+L 
+L % Loops over the columns:
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 25 source.matlab meta.function.matlab comment.line.percentage.matlab
+L r = cell(1, numel(F));
+T 8 source.matlab meta.function.matlab
+T 9 source.matlab meta.function.matlab
+T 10 source.matlab meta.function.matlab constant.numeric.matlab
+T 17 source.matlab meta.function.matlab
+T 18 source.matlab meta.function.matlab
+T 19 source.matlab meta.function.matlab
+T 20 source.matlab meta.function.matlab
+T 21 source.matlab meta.function.matlab
+T 22 source.matlab meta.function.matlab
+L for k = 1:numel(F)
+T 3 source.matlab meta.function.matlab meta.for.matlab keyword.control.for.matlab
+T 8 source.matlab meta.function.matlab meta.for.matlab
+T 9 source.matlab meta.function.matlab meta.for.matlab constant.numeric.matlab
+T 15 source.matlab meta.function.matlab meta.for.matlab
+T 16 source.matlab meta.function.matlab meta.for.matlab
+T 17 source.matlab meta.function.matlab meta.for.matlab
+T 18 source.matlab meta.function.matlab meta.for.matlab
+L     r{k} = columnRoots(F(k), rootsPref); 
+T 4 source.matlab meta.function.matlab meta.for.matlab
+T 5 source.matlab meta.function.matlab meta.for.matlab
+T 6 source.matlab meta.function.matlab meta.for.matlab
+T 7 source.matlab meta.function.matlab meta.for.matlab
+T 8 source.matlab meta.function.matlab meta.for.matlab
+T 22 source.matlab meta.function.matlab meta.for.matlab
+T 23 source.matlab meta.function.matlab meta.for.matlab
+T 24 source.matlab meta.function.matlab meta.for.matlab
+T 25 source.matlab meta.function.matlab meta.for.matlab
+T 26 source.matlab meta.function.matlab meta.for.matlab
+T 27 source.matlab meta.function.matlab meta.for.matlab
+T 38 source.matlab meta.function.matlab meta.for.matlab
+T 39 source.matlab meta.function.matlab meta.for.matlab
+T 41 source.matlab meta.function.matlab meta.for.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.for.matlab keyword.control.end.for.matlab
+L 
+L % Pad with NaNs for quasimatrices:
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 34 source.matlab meta.function.matlab comment.line.percentage.matlab
+L if ( numel(F) > 1 )
+T 2 source.matlab meta.function.matlab meta.if.matlab keyword.control.if.matlab
+T 3 source.matlab meta.function.matlab meta.if.matlab
+T 4 source.matlab meta.function.matlab meta.if.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab
+T 14 source.matlab meta.function.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab
+L     l = cellfun(@length, r);
+T 15 source.matlab meta.function.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab
+T 26 source.matlab meta.function.matlab meta.if.matlab
+T 27 source.matlab meta.function.matlab meta.if.matlab
+T 28 source.matlab meta.function.matlab meta.if.matlab
+L     ml = max(l);
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab
+T 14 source.matlab meta.function.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab
+L     for k = 1:numel(F)
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab keyword.control.for.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab constant.numeric.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+L         r{k} = [r{k} ; NaN(ml-l(k), 1)];
+T 8 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 9 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 10 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 23 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 26 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab constant.language.matlab
+T 27 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 32 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 33 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 34 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 36 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 37 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab constant.numeric.matlab
+T 38 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 39 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 40 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+L     end
+T 4 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab
+T 7 source.matlab meta.function.matlab meta.if.matlab meta.for.matlab keyword.control.end.for.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L r = cell2mat(r);
+T 12 source.matlab meta.function.matlab
+T 13 source.matlab meta.function.matlab
+T 14 source.matlab meta.function.matlab
+T 15 source.matlab meta.function.matlab
+T 16 source.matlab meta.function.matlab
+L 
+L end
+T 3 source.matlab meta.function.matlab keyword.control.end.function.matlab
+L 
+L function r = columnRoots(f, rootsPref)
+T 8 source.matlab meta.function.matlab storage.type.function.matlab
+T 9 source.matlab meta.function.matlab
+T 10 source.matlab meta.function.matlab variable.parameter.output.function.matlab
+T 13 source.matlab meta.function.matlab
+T 24 source.matlab meta.function.matlab entity.name.function.matlab
+T 25 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 26 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 28 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 37 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 38 source.matlab meta.function.matlab meta.arguments.function.matlab
+L 
+L % Set horizontal and vertical scales:
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 37 source.matlab meta.function.matlab comment.line.percentage.matlab
+L hs = hscale(f);
+T 11 source.matlab meta.function.matlab
+T 12 source.matlab meta.function.matlab
+T 13 source.matlab meta.function.matlab
+T 14 source.matlab meta.function.matlab
+T 15 source.matlab meta.function.matlab
+L vs = vscale(f);
+T 11 source.matlab meta.function.matlab
+T 12 source.matlab meta.function.matlab
+T 13 source.matlab meta.function.matlab
+T 14 source.matlab meta.function.matlab
+T 15 source.matlab meta.function.matlab
+L htol = 100*eps*hs;
+T 7 source.matlab meta.function.matlab
+T 10 source.matlab meta.function.matlab constant.numeric.matlab
+T 11 source.matlab meta.function.matlab
+T 14 source.matlab meta.function.matlab constant.language.matlab
+T 18 source.matlab meta.function.matlab
+L vtol = eps*vs;
+T 7 source.matlab meta.function.matlab
+T 10 source.matlab meta.function.matlab constant.language.matlab
+T 14 source.matlab meta.function.matlab
+L dom = f.domain;
+T 15 source.matlab meta.function.matlab
+L 
+L % Initialise vector to store roots:
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 35 source.matlab meta.function.matlab comment.line.percentage.matlab
+L numCols = size(f.funs{1}, 2);
+T 14 source.matlab meta.function.matlab
+T 15 source.matlab meta.function.matlab
+T 21 source.matlab meta.function.matlab
+T 22 source.matlab meta.function.matlab
+T 23 source.matlab meta.function.matlab constant.numeric.matlab
+T 24 source.matlab meta.function.matlab
+T 26 source.matlab meta.function.matlab
+T 27 source.matlab meta.function.matlab constant.numeric.matlab
+T 28 source.matlab meta.function.matlab
+T 29 source.matlab meta.function.matlab
+L NaNRow = NaN(1, numCols);
+T 9 source.matlab meta.function.matlab
+T 12 source.matlab meta.function.matlab constant.language.matlab
+T 13 source.matlab meta.function.matlab
+T 14 source.matlab meta.function.matlab constant.numeric.matlab
+T 23 source.matlab meta.function.matlab
+T 24 source.matlab meta.function.matlab
+T 25 source.matlab meta.function.matlab
+L r = NaNRow;
+T 11 source.matlab meta.function.matlab
+L 
+L % Zero pointValues are roots.
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 29 source.matlab meta.function.matlab comment.line.percentage.matlab
+L index = abs(f.pointValues(1,:)) < vs*eps;
+T 11 source.matlab meta.function.matlab
+T 12 source.matlab meta.function.matlab
+T 25 source.matlab meta.function.matlab
+T 26 source.matlab meta.function.matlab
+T 27 source.matlab meta.function.matlab constant.numeric.matlab
+T 29 source.matlab meta.function.matlab
+T 30 source.matlab meta.function.matlab
+T 31 source.matlab meta.function.matlab
+T 32 source.matlab meta.function.matlab
+T 33 source.matlab meta.function.matlab keyword.operator.symbols.matlab
+T 37 source.matlab meta.function.matlab
+T 40 source.matlab meta.function.matlab constant.language.matlab
+T 41 source.matlab meta.function.matlab
+L if ( any(index) )
+T 2 source.matlab meta.function.matlab meta.if.matlab keyword.control.if.matlab
+T 3 source.matlab meta.function.matlab meta.if.matlab
+T 4 source.matlab meta.function.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.if.matlab
+T 9 source.matlab meta.function.matlab meta.if.matlab
+T 14 source.matlab meta.function.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab
+L     % Left pointValues is zero: (or sufficiently close)
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 55 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     r(index) = dom(1);
+T 5 source.matlab meta.function.matlab meta.if.matlab
+T 6 source.matlab meta.function.matlab meta.if.matlab
+T 11 source.matlab meta.function.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.if.matlab constant.numeric.matlab
+T 21 source.matlab meta.function.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.if.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L funs = f.funs;
+T 14 source.matlab meta.function.matlab
+L numFuns = numel(funs);
+T 15 source.matlab meta.function.matlab
+T 16 source.matlab meta.function.matlab
+T 20 source.matlab meta.function.matlab
+T 21 source.matlab meta.function.matlab
+T 22 source.matlab meta.function.matlab
+L for k = 1:numFuns
+T 3 source.matlab meta.function.matlab meta.for.matlab keyword.control.for.matlab
+T 8 source.matlab meta.function.matlab meta.for.matlab
+T 9 source.matlab meta.function.matlab meta.for.matlab constant.numeric.matlab
+T 17 source.matlab meta.function.matlab meta.for.matlab
+L 
+L     %% Roots within the subdomains:
+T 4 source.matlab meta.function.matlab meta.for.matlab punctuation.whitespace.comment.leading.matlab
+T 6 source.matlab meta.function.matlab meta.for.matlab comment.line.double-percentage.matlab punctuation.definition.comment.matlab
+T 7 source.matlab meta.function.matlab meta.for.matlab comment.line.double-percentage.matlab
+T 35 source.matlab meta.function.matlab meta.for.matlab comment.line.double-percentage.matlab meta.cell.matlab
+L     % Get the roots of the current fun:
+T 4 source.matlab meta.function.matlab meta.for.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.for.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 39 source.matlab meta.function.matlab meta.for.matlab comment.line.percentage.matlab
+L     rk = roots(funs{k}, rootsPref);
+T 14 source.matlab meta.function.matlab meta.for.matlab
+T 15 source.matlab meta.function.matlab meta.for.matlab
+T 19 source.matlab meta.function.matlab meta.for.matlab
+T 20 source.matlab meta.function.matlab meta.for.matlab
+T 21 source.matlab meta.function.matlab meta.for.matlab
+T 22 source.matlab meta.function.matlab meta.for.matlab
+T 33 source.matlab meta.function.matlab meta.for.matlab
+T 34 source.matlab meta.function.matlab meta.for.matlab
+T 35 source.matlab meta.function.matlab meta.for.matlab
+L     % Trim out roots that are repeated on either side of the breakpoint:
+T 4 source.matlab meta.function.matlab meta.for.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.for.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 72 source.matlab meta.function.matlab meta.for.matlab comment.line.percentage.matlab
+L     if ( ~isempty(r) )
+T 4 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 6 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.control.if.matlab
+T 7 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 17 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 21 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+L         % NOTE: Here we use the fact that MAX() ignores NaN values!
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 9 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 67 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab comment.line.percentage.matlab
+L         rk(abs(bsxfun(@minus, max(r, [], 1), rk)) < htol) = NaN;
+T 10 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 11 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 14 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 21 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 33 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 34 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 37 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 38 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 39 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 41 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 42 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab constant.numeric.matlab
+T 43 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 47 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 48 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 49 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 50 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 51 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 56 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 57 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 60 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 63 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab constant.language.matlab
+T 64 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+L     end
+T 4 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 7 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.control.end.if.matlab
+L     % Append new roots to r:
+T 4 source.matlab meta.function.matlab meta.for.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.for.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 28 source.matlab meta.function.matlab meta.for.matlab comment.line.percentage.matlab
+L     r = [ r ; rk ]; %#ok<AGROW>
+T 8 source.matlab meta.function.matlab meta.for.matlab
+T 9 source.matlab meta.function.matlab meta.for.matlab
+T 17 source.matlab meta.function.matlab meta.for.matlab
+T 18 source.matlab meta.function.matlab meta.for.matlab
+T 20 source.matlab meta.function.matlab meta.for.matlab
+T 21 source.matlab meta.function.matlab meta.for.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 31 source.matlab meta.function.matlab meta.for.matlab comment.line.percentage.matlab
+L         
+T 8 source.matlab meta.function.matlab meta.for.matlab
+L     %% Look for roots at next breakpoint:
+T 4 source.matlab meta.function.matlab meta.for.matlab punctuation.whitespace.comment.leading.matlab
+T 6 source.matlab meta.function.matlab meta.for.matlab comment.line.double-percentage.matlab punctuation.definition.comment.matlab
+T 7 source.matlab meta.function.matlab meta.for.matlab comment.line.double-percentage.matlab
+T 41 source.matlab meta.function.matlab meta.for.matlab comment.line.double-percentage.matlab meta.cell.matlab
+L     index = false(1, numCols);
+T 12 source.matlab meta.function.matlab meta.for.matlab
+T 17 source.matlab meta.function.matlab meta.for.matlab constant.language.matlab
+T 18 source.matlab meta.function.matlab meta.for.matlab
+T 19 source.matlab meta.function.matlab meta.for.matlab constant.numeric.matlab
+T 28 source.matlab meta.function.matlab meta.for.matlab
+T 29 source.matlab meta.function.matlab meta.for.matlab
+T 30 source.matlab meta.function.matlab meta.for.matlab
+L     if ( rootsPref.breakRoot )
+T 4 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 6 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.control.if.matlab
+T 7 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 29 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 30 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+L         index = abs(f.pointValues(k+1,:)) < vtol; % Include if zero pointValues
+T 19 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 33 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 34 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 36 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 37 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab constant.numeric.matlab
+T 39 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 40 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 41 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 42 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 43 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 50 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 51 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 79 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab comment.line.percentage.matlab
+L     end
+T 4 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 7 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.control.end.if.matlab
+L     if ( rootsPref.jumpRoot && k < numFuns )     % Or a change in sign in a jump
+T 4 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 6 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.control.if.matlab
+T 7 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 28 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 30 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 33 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 34 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 43 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 44 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 49 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 50 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 80 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab comment.line.percentage.matlab
+L         index = index | ( get(funs{k}, 'rval').*get(funs{k+1}, 'lval') <= 0 );
+T 22 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 24 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 25 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 29 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 30 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 34 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 35 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 36 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 37 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 39 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 40 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 44 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab string.quoted.single.matlab
+T 45 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 46 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 51 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 52 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 56 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 57 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 59 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 60 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab constant.numeric.matlab
+T 61 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 63 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 64 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 68 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab string.quoted.single.matlab
+T 69 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 70 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 71 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 73 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 74 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 75 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab constant.numeric.matlab
+T 76 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 77 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 78 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+L     end
+T 4 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 7 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.control.end.if.matlab
+L     if ( ~isempty(r) )                           % But not if already a root!
+T 4 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 6 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.control.if.matlab
+T 7 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 17 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 18 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 19 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 20 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 21 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 22 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 49 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 50 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 77 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab comment.line.percentage.matlab
+L         index = index & ~(abs(max(r, [], 1) - dom(k+1)) < htol);
+T 22 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 23 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 25 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 26 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 29 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 30 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 33 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 34 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 37 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 38 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 39 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 41 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 42 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab constant.numeric.matlab
+T 43 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 44 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 45 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 49 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 50 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 52 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 53 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab constant.numeric.matlab
+T 54 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 55 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 56 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 57 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 62 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 63 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 64 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+L     end
+T 4 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab
+T 7 source.matlab meta.function.matlab meta.for.matlab meta.if.matlab keyword.control.end.if.matlab
+L     rk = NaNRow;
+T 16 source.matlab meta.function.matlab meta.for.matlab
+L     rk(index) = dom(k+1);
+T 6 source.matlab meta.function.matlab meta.for.matlab
+T 7 source.matlab meta.function.matlab meta.for.matlab
+T 12 source.matlab meta.function.matlab meta.for.matlab
+T 13 source.matlab meta.function.matlab meta.for.matlab
+T 19 source.matlab meta.function.matlab meta.for.matlab
+T 20 source.matlab meta.function.matlab meta.for.matlab
+T 22 source.matlab meta.function.matlab meta.for.matlab
+T 23 source.matlab meta.function.matlab meta.for.matlab constant.numeric.matlab
+T 24 source.matlab meta.function.matlab meta.for.matlab
+T 25 source.matlab meta.function.matlab meta.for.matlab
+L     % Append new roots to r:
+T 4 source.matlab meta.function.matlab meta.for.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.for.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 28 source.matlab meta.function.matlab meta.for.matlab comment.line.percentage.matlab
+L     r = [ r ; rk ]; %#ok<AGROW>    
+T 8 source.matlab meta.function.matlab meta.for.matlab
+T 9 source.matlab meta.function.matlab meta.for.matlab
+T 17 source.matlab meta.function.matlab meta.for.matlab
+T 18 source.matlab meta.function.matlab meta.for.matlab
+T 20 source.matlab meta.function.matlab meta.for.matlab
+T 21 source.matlab meta.function.matlab meta.for.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 35 source.matlab meta.function.matlab meta.for.matlab comment.line.percentage.matlab
+L 
+L end
+T 3 source.matlab meta.function.matlab meta.for.matlab keyword.control.end.for.matlab
+L 
+L % Remove unnecessary NaNs:
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 26 source.matlab meta.function.matlab comment.line.percentage.matlab
+L r = sort(r, 1);             % Sort will place NaNs in the final rows.
+T 8 source.matlab meta.function.matlab
+T 9 source.matlab meta.function.matlab
+T 12 source.matlab meta.function.matlab
+T 13 source.matlab meta.function.matlab constant.numeric.matlab
+T 14 source.matlab meta.function.matlab
+T 28 source.matlab meta.function.matlab
+T 29 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 69 source.matlab meta.function.matlab comment.line.percentage.matlab
+L r(all(isnan(r), 2),:) = []; % This removes any rows which contain only NaNs.
+T 1 source.matlab meta.function.matlab
+T 2 source.matlab meta.function.matlab
+T 5 source.matlab meta.function.matlab
+T 6 source.matlab meta.function.matlab
+T 11 source.matlab meta.function.matlab
+T 12 source.matlab meta.function.matlab
+T 13 source.matlab meta.function.matlab
+T 14 source.matlab meta.function.matlab
+T 16 source.matlab meta.function.matlab
+T 17 source.matlab meta.function.matlab constant.numeric.matlab
+T 18 source.matlab meta.function.matlab
+T 20 source.matlab meta.function.matlab
+T 21 source.matlab meta.function.matlab
+T 24 source.matlab meta.function.matlab
+T 25 source.matlab meta.function.matlab
+T 26 source.matlab meta.function.matlab
+T 28 source.matlab meta.function.matlab
+T 29 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 76 source.matlab meta.function.matlab comment.line.percentage.matlab
+L 
+L end
+T 3 source.matlab meta.function.matlab keyword.control.end.function.matlab
+L 
+L function rootsPref = parseInputs(f, varargin)
+T 8 source.matlab meta.function.matlab storage.type.function.matlab
+T 9 source.matlab meta.function.matlab
+T 18 source.matlab meta.function.matlab variable.parameter.output.function.matlab
+T 21 source.matlab meta.function.matlab
+T 32 source.matlab meta.function.matlab entity.name.function.matlab
+T 33 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 34 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 36 source.matlab meta.function.matlab meta.arguments.function.matlab
+T 44 source.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 45 source.matlab meta.function.matlab meta.arguments.function.matlab
+L % Parse the preferences. See documentation in ROOTS().
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 54 source.matlab meta.function.matlab comment.line.percentage.matlab
+L 
+L % Defaults:
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 11 source.matlab meta.function.matlab comment.line.percentage.matlab
+L rootsPref = struct('all', 0, 'recurse', 1, 'prune', 0,  'zeroFun', 1, ...
+T 18 source.matlab meta.function.matlab
+T 19 source.matlab meta.function.matlab
+T 20 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 23 source.matlab meta.function.matlab string.quoted.single.matlab
+T 24 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 26 source.matlab meta.function.matlab
+T 27 source.matlab meta.function.matlab constant.numeric.matlab
+T 29 source.matlab meta.function.matlab
+T 30 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 37 source.matlab meta.function.matlab string.quoted.single.matlab
+T 38 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 40 source.matlab meta.function.matlab
+T 41 source.matlab meta.function.matlab constant.numeric.matlab
+T 43 source.matlab meta.function.matlab
+T 44 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 49 source.matlab meta.function.matlab string.quoted.single.matlab
+T 50 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 52 source.matlab meta.function.matlab
+T 53 source.matlab meta.function.matlab constant.numeric.matlab
+T 56 source.matlab meta.function.matlab
+T 57 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 64 source.matlab meta.function.matlab string.quoted.single.matlab
+T 65 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 67 source.matlab meta.function.matlab
+T 68 source.matlab meta.function.matlab constant.numeric.matlab
+T 70 source.matlab meta.function.matlab
+T 73 source.matlab meta.function.matlab meta.linecontinuation.matlab keyword.operator.symbols.matlab
+L     'jumpRoot', 1, 'breakRoot', 1, 'qz', 0, 'filter', []);
+T 4 source.matlab meta.function.matlab
+T 5 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 13 source.matlab meta.function.matlab string.quoted.single.matlab
+T 14 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 16 source.matlab meta.function.matlab
+T 17 source.matlab meta.function.matlab constant.numeric.matlab
+T 19 source.matlab meta.function.matlab
+T 20 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 29 source.matlab meta.function.matlab string.quoted.single.matlab
+T 30 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 32 source.matlab meta.function.matlab
+T 33 source.matlab meta.function.matlab constant.numeric.matlab
+T 35 source.matlab meta.function.matlab
+T 36 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 38 source.matlab meta.function.matlab string.quoted.single.matlab
+T 39 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 41 source.matlab meta.function.matlab
+T 42 source.matlab meta.function.matlab constant.numeric.matlab
+T 44 source.matlab meta.function.matlab
+T 45 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 51 source.matlab meta.function.matlab string.quoted.single.matlab
+T 52 source.matlab meta.function.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 54 source.matlab meta.function.matlab
+T 55 source.matlab meta.function.matlab
+T 56 source.matlab meta.function.matlab
+T 57 source.matlab meta.function.matlab
+T 58 source.matlab meta.function.matlab
+L 
+L if ( ~isreal(f) )
+T 2 source.matlab meta.function.matlab meta.if.matlab keyword.control.if.matlab
+T 3 source.matlab meta.function.matlab meta.if.matlab
+T 4 source.matlab meta.function.matlab meta.if.matlab
+T 12 source.matlab meta.function.matlab meta.if.matlab
+T 13 source.matlab meta.function.matlab meta.if.matlab
+T 14 source.matlab meta.function.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.if.matlab
+T 17 source.matlab meta.function.matlab meta.if.matlab
+L     % 'jumpRoots' only makes sense for real-valued functions, so disable it:
+T 4 source.matlab meta.function.matlab meta.if.matlab punctuation.whitespace.comment.leading.matlab
+T 5 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 76 source.matlab meta.function.matlab meta.if.matlab comment.line.percentage.matlab
+L     rootsPref.jumpRoot = false;
+T 25 source.matlab meta.function.matlab meta.if.matlab
+T 30 source.matlab meta.function.matlab meta.if.matlab constant.language.matlab
+T 31 source.matlab meta.function.matlab meta.if.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L % Parse the inputs:
+T 1 source.matlab meta.function.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 19 source.matlab meta.function.matlab comment.line.percentage.matlab
+L recurseHasBeenSet = 0;
+T 20 source.matlab meta.function.matlab
+T 21 source.matlab meta.function.matlab constant.numeric.matlab
+T 22 source.matlab meta.function.matlab
+L for k = 1:numel(varargin)
+T 3 source.matlab meta.function.matlab meta.for.matlab keyword.control.for.matlab
+T 8 source.matlab meta.function.matlab meta.for.matlab
+T 9 source.matlab meta.function.matlab meta.for.matlab constant.numeric.matlab
+T 15 source.matlab meta.function.matlab meta.for.matlab
+T 16 source.matlab meta.function.matlab meta.for.matlab
+T 24 source.matlab meta.function.matlab meta.for.matlab variable.other.function.matlab
+T 25 source.matlab meta.function.matlab meta.for.matlab
+L     argin = lower(varargin{k});
+T 17 source.matlab meta.function.matlab meta.for.matlab
+T 18 source.matlab meta.function.matlab meta.for.matlab
+T 26 source.matlab meta.function.matlab meta.for.matlab variable.other.function.matlab
+T 27 source.matlab meta.function.matlab meta.for.matlab
+T 28 source.matlab meta.function.matlab meta.for.matlab
+T 29 source.matlab meta.function.matlab meta.for.matlab
+T 30 source.matlab meta.function.matlab meta.for.matlab
+T 31 source.matlab meta.function.matlab meta.for.matlab
+L     switch ( argin )
+T 4 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 10 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab keyword.control.switch.matlab
+T 11 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 12 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 19 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 20 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L         case 'all'
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 12 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab keyword.control.case.matlab
+T 13 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 14 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 18 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+L             rootsPref.all = 1;
+T 28 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 29 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab constant.numeric.matlab
+T 30 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L             rootsPref.prune = 0;
+T 30 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 31 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab constant.numeric.matlab
+T 32 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L             if ( ~recurseHasBeenSet )
+T 12 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.if.matlab
+T 14 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.if.matlab keyword.control.if.matlab
+T 15 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.if.matlab
+T 16 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.if.matlab
+T 36 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.if.matlab
+T 37 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.if.matlab
+L                 rootsPref.recurse = 0;
+T 36 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.if.matlab
+T 37 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.if.matlab constant.numeric.matlab
+T 38 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.if.matlab
+L             end
+T 12 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.if.matlab
+T 15 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.if.matlab keyword.control.end.if.matlab
+L         case 'complex'
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 12 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab keyword.control.case.matlab
+T 13 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 14 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 22 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+L             rootsPref.prune = 1;
+T 30 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 31 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab constant.numeric.matlab
+T 32 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L             rootsPref.all = 1;
+T 28 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 29 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab constant.numeric.matlab
+T 30 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L         case 'zerofun'
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 12 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab keyword.control.case.matlab
+T 13 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 14 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 22 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+L             rootsPref.zeroFun = 1;
+T 32 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 33 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab constant.numeric.matlab
+T 34 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L         case 'nozerofun'
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 12 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab keyword.control.case.matlab
+T 13 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 14 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 24 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+L             rootsPref.zeroFun = 0;
+T 32 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 33 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab constant.numeric.matlab
+T 34 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L         case 'jump'
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 12 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab keyword.control.case.matlab
+T 13 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 14 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 19 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+L             rootsPref.jumpRoot = 1;
+T 33 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 34 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab constant.numeric.matlab
+T 35 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L         case 'nojump'
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 12 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab keyword.control.case.matlab
+T 13 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 14 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 21 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+L             rootsPref.jumpRoot = 0;
+T 33 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 34 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab constant.numeric.matlab
+T 35 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L         case 'breaks'
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 12 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab keyword.control.case.matlab
+T 13 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 14 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 21 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+L             rootsPref.breakRoot = 1;
+T 34 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 35 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab constant.numeric.matlab
+T 36 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L         case 'nobreaks'
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 12 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab keyword.control.case.matlab
+T 13 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 14 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 23 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+L             rootsPref.breakRoot = 0;
+T 34 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 35 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab constant.numeric.matlab
+T 36 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L         case 'qz'
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 12 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab keyword.control.case.matlab
+T 13 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 14 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 17 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+L             rootsPref.qz = 1; 
+T 27 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 28 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab constant.numeric.matlab
+T 30 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L         case {'recursion', 'recurse'}
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 12 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab keyword.control.case.matlab
+T 13 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 14 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 15 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 24 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+T 25 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 27 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 28 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 35 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+T 36 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 37 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+L             rootsPref.recurse = 1;
+T 32 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 33 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab constant.numeric.matlab
+T 34 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L             recurseHasBeenSet = 1;
+T 32 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 33 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab constant.numeric.matlab
+T 34 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L         case {'norecursion', 'norecurse'}
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 12 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab keyword.control.case.matlab
+T 13 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 14 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 15 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 26 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+T 27 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 29 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+T 30 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 39 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+T 40 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 41 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.case.matlab
+L             rootsPref.recurse = 0;
+T 32 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 33 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab constant.numeric.matlab
+T 34 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L         otherwise
+T 8 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.otherwise.matlab
+T 17 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.otherwise.matlab keyword.control.otherwise.matlab
+L             error('CHEBFUN:CHEBFUN:roots:parseInputs:UnknownOption', ...
+T 17 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 18 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 19 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 66 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab string.quoted.single.matlab
+T 67 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 69 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 72 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab meta.linecontinuation.matlab keyword.operator.symbols.matlab
+L                 'Unknown option in ROOTS.')
+T 16 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 17 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 41 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab string.quoted.single.matlab
+T 42 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 43 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+L     end
+T 4 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab
+T 7 source.matlab meta.function.matlab meta.for.matlab meta.switch.matlab keyword.control.end.switch.matlab
+L end
+T 3 source.matlab meta.function.matlab meta.for.matlab keyword.control.end.for.matlab
+L 
+L end
+T 3 source.matlab meta.function.matlab keyword.control.end.function.matlab
+L 

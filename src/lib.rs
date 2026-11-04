@@ -280,6 +280,8 @@ mod lua;
 mod make;
 #[cfg(feature = "lang-markdown")]
 mod markdown;
+#[cfg(feature = "lang-matlab")]
+mod matlab;
 #[cfg(feature = "lang-mermaid")]
 mod mermaid;
 #[cfg(feature = "lang-nix")]

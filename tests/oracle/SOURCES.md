@@ -424,6 +424,11 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/vitest-migration-jest` | [`docs/guide/migration/jest.md`][vitest-jest] in vitest-dev/vitest | [MIT][vitest-licence] |
 | `markdown/zod-api` | [`packages/docs/content/api.mdx`][zod-api] in colinhacks/zod | [MIT][zod-licence] |
 | `markdown/zod-readme` | [`packages/zod/README.md`][zod-readme] in colinhacks/zod | [MIT][zod-licence] |
+| `matlab/chebfun-feval` | [`@chebfun/feval.m`][chebfun-feval] in chebfun/chebfun | [BSD-3-Clause][chebfun-licence] |
+| `matlab/chebfun-roots` | [`@chebfun/roots.m`][chebfun-roots] in chebfun/chebfun | [BSD-3-Clause][chebfun-licence] |
+| `matlab/grammar-arguments-block` | [`test/t13ArgumentsBlock.m`][matlab-grammar-arguments-block] in mathworks/MATLAB-Language-grammar | [BSD-2-Clause][matlab-grammar-licence] |
+| `matlab/grammar-property-validation` | [`test/t08PropertyValidation.m`][matlab-grammar-property-validation] in mathworks/MATLAB-Language-grammar | [BSD-2-Clause][matlab-grammar-licence] |
+| `matlab/sample` | [`samples/matlab.sample`][matlab-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `mermaid/api-sequence` | [`docs/diagrams/mermaid-api-sequence.mmd`][mermaid-api-sequence] in mermaid-js/mermaid | [MIT][mermaid-licence] |
 | `mermaid/flowchart-code-flow` | [`docs/diagrams/flowchart-code-flow.mmd`][mermaid-flowchart-code-flow] in mermaid-js/mermaid | [MIT][mermaid-licence] |
 | `mermaid/mindmap-sequence` | [`docs/diagrams/mindmap-implementation-sequence.mmd`][mermaid-mindmap-sequence] in mermaid-js/mermaid | [MIT][mermaid-licence] |
@@ -931,6 +936,9 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [catch2-tutorial]: https://github.com/catchorg/Catch2/blob/a1a991fee5f217b40035cb2f8ebc83864d66408d/docs/tutorial.md
 [catppuccin]: https://github.com/catppuccin/vscode/tree/befc9e6fc41980f4241408f7049755d47c06ff45
 [catppuccin-licence]: https://github.com/catppuccin/vscode/blob/befc9e6fc41980f4241408f7049755d47c06ff45/LICENSE
+[chebfun-feval]: https://github.com/chebfun/chebfun/blob/7574c77680d7e82b79626300bf255498271a72df/@chebfun/feval.m
+[chebfun-licence]: https://github.com/chebfun/chebfun/blob/7574c77680d7e82b79626300bf255498271a72df/LICENSE.txt
+[chebfun-roots]: https://github.com/chebfun/chebfun/blob/7574c77680d7e82b79626300bf255498271a72df/@chebfun/roots.m
 [checkout-licence]: https://github.com/actions/checkout/blob/f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a/LICENSE
 [checkout-test]: https://github.com/actions/checkout/blob/f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a/.github/workflows/test.yml
 [circe-build]: https://github.com/circe/circe/blob/b38c17d9a9dd9b761a68319cff038d75bbf0cf8d/build.sbt
@@ -1248,6 +1256,10 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [mathjax-demos-licence]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/LICENSE
 [mathjax-mml-chtml]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/page/mml-chtml.html
 [mathjax-tex-mml]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/page/tex-mml.html
+[matlab-grammar-arguments-block]: https://github.com/mathworks/MATLAB-Language-grammar/blob/69dbf20c1eb19efd629c0438a2a493e60617e8de/test/t13ArgumentsBlock.m
+[matlab-grammar-licence]: https://github.com/mathworks/MATLAB-Language-grammar/blob/69dbf20c1eb19efd629c0438a2a493e60617e8de/license.txt
+[matlab-grammar-property-validation]: https://github.com/mathworks/MATLAB-Language-grammar/blob/69dbf20c1eb19efd629c0438a2a493e60617e8de/test/t08PropertyValidation.m
+[matlab-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/matlab.sample
 [mermaid-api-sequence]: https://github.com/mermaid-js/mermaid/blob/ea53556f130b397fb6f781818ee0f1e924b429eb/docs/diagrams/mermaid-api-sequence.mmd
 [mermaid-flowchart-code-flow]: https://github.com/mermaid-js/mermaid/blob/ea53556f130b397fb6f781818ee0f1e924b429eb/docs/diagrams/flowchart-code-flow.mmd
 [mermaid-licence]: https://github.com/mermaid-js/mermaid/blob/ea53556f130b397fb6f781818ee0f1e924b429eb/LICENSE

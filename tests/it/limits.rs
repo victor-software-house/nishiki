@@ -36,6 +36,8 @@ mod less;
 mod lua;
 mod make;
 mod markdown;
+#[cfg(feature = "lang-matlab")]
+mod matlab;
 #[cfg(feature = "lang-mermaid")]
 mod mermaid;
 mod nix;
