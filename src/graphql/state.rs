@@ -1,4 +1,5 @@
-//! The rules the lexer opens, which are frames of the interned state.
+//! The rules the lexer opens.
+//! Each is a frame of the interned state.
 
 use super::scope::S;
 
@@ -6,7 +7,8 @@ use super::scope::S;
 const TAG: u16 = crate::tag::GRAPHQL;
 
 crate::tag::frame_kinds! {
-    /// A begin/end rule of the grammar, which can stay open at the end of a line.
+    /// A begin/end rule of the grammar.
+    /// It can stay open at the end of a line.
     pub(crate) enum Rule: TAG {
         /// Outside every rule.
         Root,
