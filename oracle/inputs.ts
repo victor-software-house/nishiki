@@ -825,6 +825,11 @@ export const inputs: Input[] = [
   { lang: "ruby", name: "devise", url: `${devise}/lib/devise.rb` },
   {
     lang: "ruby",
+    name: "end-html",
+    url: new URL("inputs/ruby-end-html.rb", import.meta.url).href,
+  },
+  {
+    lang: "ruby",
     name: "heredocs",
     url: new URL("inputs/ruby-heredocs.rb", import.meta.url).href,
   },

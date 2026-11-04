@@ -1,0 +1,123 @@
+L # The text after __END__, which Ruby reads through DATA. Shiki lexes it as
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 74 source.ruby comment.line.number-sign.ruby
+L # Ruby: its rule for the data comes after the one for constants, which takes
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 76 source.ruby comment.line.number-sign.ruby
+L # __END__ first.
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 16 source.ruby comment.line.number-sign.ruby
+L puts DATA.read
+T 4 source.ruby support.function.kernel.ruby
+T 5 source.ruby
+T 9 source.ruby support.class.ruby
+T 10 source.ruby punctuation.separator.method.ruby
+T 14 source.ruby meta.function-call.ruby entity.name.function.ruby
+L 
+L __END__
+T 7 source.ruby variable.other.constant.ruby
+L Some plain text first.
+T 4 source.ruby variable.other.constant.ruby
+T 21 source.ruby
+T 22 source.ruby punctuation.separator.method.ruby
+L <!DOCTYPE html>
+T 1 source.ruby keyword.operator.comparison.ruby
+T 2 source.ruby
+T 9 source.ruby variable.other.constant.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.comparison.ruby
+L <html lang="en">
+T 1 source.ruby keyword.operator.comparison.ruby
+T 10 source.ruby
+T 11 source.ruby keyword.operator.assignment.ruby
+T 12 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 14 source.ruby string.quoted.double.interpolated.ruby
+T 15 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 16 source.ruby keyword.operator.comparison.ruby
+L   <head>
+T 2 source.ruby
+T 3 source.ruby keyword.operator.comparison.ruby
+T 7 source.ruby
+T 8 source.ruby keyword.operator.comparison.ruby
+L     <title>#{not_ruby} &amp; more</title>
+T 4 source.ruby
+T 5 source.ruby keyword.operator.comparison.ruby
+T 10 source.ruby
+T 11 source.ruby keyword.operator.comparison.ruby
+T 12 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 41 source.ruby comment.line.number-sign.ruby
+L     <style>body { color: red; }</style>
+T 4 source.ruby
+T 5 source.ruby keyword.operator.comparison.ruby
+T 10 source.ruby
+T 11 source.ruby keyword.operator.comparison.ruby
+T 16 source.ruby
+T 17 source.ruby punctuation.section.scope.begin.ruby
+T 18 source.ruby meta.syntax.ruby.start-block
+T 23 source.ruby constant.language.symbol.hashkey.ruby
+T 24 source.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 28 source.ruby
+T 29 source.ruby punctuation.separator.statement.ruby
+T 30 source.ruby
+T 31 source.ruby punctuation.section.scope.end.ruby
+T 32 source.ruby keyword.operator.comparison.ruby
+T 33 source.ruby keyword.operator.arithmetic.ruby
+T 38 source.ruby
+T 39 source.ruby keyword.operator.comparison.ruby
+L   </head>
+T 2 source.ruby
+T 3 source.ruby keyword.operator.comparison.ruby
+T 4 source.ruby keyword.operator.arithmetic.ruby
+T 8 source.ruby
+T 9 source.ruby keyword.operator.comparison.ruby
+L   <body>
+T 2 source.ruby
+T 3 source.ruby keyword.operator.comparison.ruby
+T 7 source.ruby
+T 8 source.ruby keyword.operator.comparison.ruby
+L     <p class="note">x \n y</p>
+T 4 source.ruby
+T 5 source.ruby keyword.operator.comparison.ruby
+T 6 source.ruby support.function.kernel.ruby
+T 7 source.ruby
+T 12 source.ruby keyword.control.ruby
+T 13 source.ruby keyword.operator.assignment.ruby
+T 14 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.begin.ruby
+T 18 source.ruby string.quoted.double.interpolated.ruby
+T 19 source.ruby string.quoted.double.interpolated.ruby punctuation.definition.string.end.ruby
+T 20 source.ruby keyword.operator.comparison.ruby
+T 26 source.ruby
+T 27 source.ruby keyword.operator.comparison.ruby
+T 28 source.ruby keyword.operator.arithmetic.ruby
+T 29 source.ruby support.function.kernel.ruby
+T 30 source.ruby keyword.operator.comparison.ruby
+L     <script>var a = 1; // done</script>
+T 4 source.ruby
+T 5 source.ruby keyword.operator.comparison.ruby
+T 11 source.ruby
+T 12 source.ruby keyword.operator.comparison.ruby
+T 18 source.ruby
+T 19 source.ruby keyword.operator.assignment.ruby
+T 20 source.ruby
+T 21 source.ruby constant.numeric.ruby
+T 22 source.ruby punctuation.separator.statement.ruby
+T 23 source.ruby
+T 24 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 25 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 30 source.ruby
+T 31 source.ruby keyword.operator.comparison.ruby
+T 32 source.ruby keyword.operator.arithmetic.ruby
+T 38 source.ruby
+T 39 source.ruby keyword.operator.comparison.ruby
+L   </body>
+T 2 source.ruby
+T 3 source.ruby keyword.operator.comparison.ruby
+T 4 source.ruby keyword.operator.arithmetic.ruby
+T 8 source.ruby
+T 9 source.ruby keyword.operator.comparison.ruby
+L </html>
+T 1 source.ruby keyword.operator.comparison.ruby
+T 2 source.ruby keyword.operator.arithmetic.ruby
+T 6 source.ruby
+T 7 source.ruby keyword.operator.comparison.ruby
+L 

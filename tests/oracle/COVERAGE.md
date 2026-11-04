@@ -38,7 +38,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Make | `make` | 58 of 75 | 77.3% | 23 of 32 | 71.9% | 0 | 0 |  |
 | Markdown | `markdown` | 145 of 311 | 46.6% | 158 of 373 | 42.4% | 0 | 8 |  |
 | Python | `python` | 163 of 350 | 46.6% | 125 of 372 | 33.6% | 0 | 27 |  |
-| Ruby | `ruby` | 168 of 336 | 50.0% | 139 of 293 | 47.4% | 0 | 16 |  |
+| Ruby | `ruby` | 168 of 336 | 50.0% | 139 of 293 | 47.4% | 0 | 8 |  |
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
 | SCSS | `scss` | 90 of 168 | 53.6% | 81 of 179 | 45.3% | 0 | 10 |  |
 | shell | `shellscript` | 119 of 174 | 68.4% | 106 of 199 | 53.3% | 0 | 10 |  |
@@ -3839,8 +3839,8 @@ patterns[30].begin  (->)\(
 patterns[30].end  \)
 patterns[30].patterns[0].begin  (?=[\&*A-Z_a-z])
 patterns[30].patterns[0].end  (?=[),])
-patterns[32].begin  (?=def\b)(?<=^|\s)(def)\s+((?>[A-Z_a-z]\w*(?>\.|::))?(?>[A-…  fuzz
-patterns[32].end  (?=;)|(?<=[]!"')?`}\w])(?=\s*#|\s*$)  fuzz
+patterns[32].begin  (?=def\b)(?<=^|\s)(def)\s+((?>[A-Z_a-z]\w*(?>\.|::))?(?>[A-…
+patterns[32].end  (?=;)|(?<=[]!"')?`}\w])(?=\s*#|\s*$)
 patterns[32].patterns[0].begin  (?=[\&*A-Z_a-z])
 patterns[32].patterns[0].end  (?=[,;]|\s*#|\s*$)
 patterns[35].begin  :'
@@ -3963,8 +3963,8 @@ patterns[104].end  ^\2$
 #heredoc.end  $
 #interpolated_ruby.patterns[2].match  (#@@)[A-Z_a-z]\w*
 #interpolated_ruby.patterns[3].match  (#\$)[A-Z_a-z]\w*
-#method_parameters.repository.#brackets.begin  \[  fuzz
-#method_parameters.repository.#brackets.end  ]  fuzz
+#method_parameters.repository.#brackets.begin  \[
+#method_parameters.repository.#brackets.end  ]
 #method_parameters.repository.#parens.begin  \(  fuzz
 #method_parameters.repository.#parens.end  \)  fuzz
 #nest_brackets.begin  \[

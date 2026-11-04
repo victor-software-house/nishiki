@@ -507,7 +507,7 @@ languages! {
     /// - One named for HAML, such as `<<~HAML`, keeps that language's scopes, but its lines are plain text with Ruby's interpolation.
     ///   Shiki lexes them as HAML.
     /// - One named for Slim is plain text with Ruby's interpolation, as in Shiki, which has no Slim grammar.
-    /// - The text after `__END__` is plain, where Shiki lexes it as HTML when it starts like HTML.
+    /// - `__END__` is a constant, and the text after it is Ruby, as in Shiki: the grammar's rule for the data after `__END__` comes after the rule for constants, so it never matches.
     Ruby { feature: "lang-ruby", names: ["ruby", "rb"], module: ruby }
     /// C#, with the scopes of Shiki's `csharp` grammar.
     ///
