@@ -4,21 +4,19 @@
 
 use super::caps::Caps;
 use super::text::Cx;
+use crate::case_fold;
 
 /// The tag names of a raw HTML block: `script`, `style` and `pre`, in any
 /// case.
 const RAW_TAGS: [&[u8]; 3] = [b"script", b"style", b"pre"];
 
-/// The length of the raw tag name at `p`, in any case.
+/// The end of the raw tag name at `p`, in any case, a character above ASCII
+/// standing for the letters it folds to ([`case_fold::literal_end`]).
 fn raw_tag(cx: &Cx<'_>, p: usize) -> Option<usize> {
+    let text = cx.line.get(..cx.end.min(cx.line.len()))?;
     RAW_TAGS
         .iter()
-        .find(|tag| {
-            tag.iter()
-                .enumerate()
-                .all(|(i, &b)| cx.get(p + i).is_some_and(|c| c.eq_ignore_ascii_case(&b)))
-        })
-        .map(|tag| tag.len())
+        .find_map(|tag| case_fold::literal_end(text, p, tag))
 }
 
 /// The start of each `</script>`, `</style>` or `</pre>`, in any case, from
@@ -31,7 +29,7 @@ fn raw_closes<'a>(cx: &'a Cx<'a>, from: usize) -> impl Iterator<Item = usize> + 
         .map(move |at| from + at)
         .filter(|&at| {
             cx.get(at + 1) == Some(b'/')
-                && raw_tag(cx, at + 2).is_some_and(|len| cx.get(at + 2 + len) == Some(b'>'))
+                && raw_tag(cx, at + 2).is_some_and(|end| cx.get(end) == Some(b'>'))
         })
 }
 
@@ -45,7 +43,7 @@ pub(crate) fn raw_open(cx: &Cx<'_>, p: usize) -> Option<usize> {
     if cx.get(i) != Some(b'<') {
         return None;
     }
-    let name = i + 1 + raw_tag(cx, i + 1)?;
+    let name = raw_tag(cx, i + 1)?;
     let ends = cx.space_at(name) > 0 || cx.at_eol(name) || cx.get(name) == Some(b'>');
     (ends && raw_closes(cx, name).next().is_none()).then_some(i)
 }
@@ -54,8 +52,7 @@ pub(crate) fn raw_open(cx: &Cx<'_>, p: usize) -> Option<usize> {
 /// the last closing tag of the line.
 pub(crate) fn raw_close(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
     let at = raw_closes(cx, p).last()?;
-    let len = raw_tag(cx, at + 2)?;
-    let end = at + 3 + len;
+    let end = raw_tag(cx, at + 2)? + 1;
     caps.set(1, p, at);
     caps.set(2, at, end);
     caps.set(3, at, at + 2);

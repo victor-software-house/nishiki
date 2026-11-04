@@ -10,7 +10,7 @@
 
 use super::state::Kind;
 use super::text::Cx;
-use crate::Language;
+use crate::{Language, case_fold};
 
 /// What a fence rule embeds: the language whose lexer takes the body, under
 /// the rule's `contentName`.
@@ -476,38 +476,33 @@ pub(crate) fn language(cx: &Cx<'_>, i: usize) -> Option<Found> {
 }
 
 /// The end of `word` matched at `i` the way a case-insensitive Oniguruma
-/// pattern matches it, which folds more than ASCII case: the Kelvin sign
-/// U+212A reads as `k`, the long s U+017F as `s`, and the ligatures U+FB00 to
-/// U+FB06 as the letters they stand for (`ff`, `fi`, `fl`, `ffi`, `ffl`,
-/// `st`). Checked against Shiki's Markdown grammar for each of them.
+/// pattern matches it, which folds more than ASCII case: the long s reads as
+/// `s`, `ß` as `ss` and the ligature `ﬁ` as `fi`.
+///
+/// The word is compared as ASCII in one pass that stops at the first byte
+/// that differs. Up to there the text has spelled the word one ASCII byte a
+/// letter, so a fold can start only at that byte, and only when it is above
+/// ASCII; only then is the rest read through [`folded_end`].
 fn fold_end(cx: &Cx<'_>, i: usize, word: &[u8]) -> Option<usize> {
-    let (mut at, mut k) = (i, 0);
-    while k < word.len() {
-        let b = cx.get(at)?;
-        if b.eq_ignore_ascii_case(&word[k]) {
-            at += 1;
-            k += 1;
-            continue;
+    let rest = cx.line.get(i..cx.end.min(cx.line.len()))?;
+    match rest
+        .iter()
+        .zip(word)
+        .position(|(have, want)| !have.eq_ignore_ascii_case(want))
+    {
+        None => (rest.len() >= word.len()).then_some(i + word.len()),
+        Some(k) if rest.get(k).is_some_and(|b| !b.is_ascii()) => {
+            folded_end(cx, i + k, word.get(k..)?)
         }
-        let (len, folded): (usize, &[u8]) = match (b, cx.get(at + 1), cx.get(at + 2)) {
-            (0xe2, Some(0x84), Some(0xaa)) => (3, b"k"),
-            (0xc5, Some(0xbf), _) => (2, b"s"),
-            (0xef, Some(0xac), Some(0x80)) => (3, b"ff"),
-            (0xef, Some(0xac), Some(0x81)) => (3, b"fi"),
-            (0xef, Some(0xac), Some(0x82)) => (3, b"fl"),
-            (0xef, Some(0xac), Some(0x83)) => (3, b"ffi"),
-            (0xef, Some(0xac), Some(0x84)) => (3, b"ffl"),
-            (0xef, Some(0xac), Some(0x85 | 0x86)) => (3, b"st"),
-            _ => return None,
-        };
-        let rest = word.get(k..k + folded.len())?;
-        if !rest.eq_ignore_ascii_case(folded) {
-            return None;
-        }
-        at += len;
-        k += folded.len();
+        Some(_) => None,
     }
-    Some(at)
+}
+
+/// [`fold_end`] from the first byte that differs, at `i`, which is above
+/// ASCII, with the rest of the word ([`case_fold::literal_end`]).
+#[cold]
+fn folded_end(cx: &Cx<'_>, i: usize, rest: &[u8]) -> Option<usize> {
+    case_fold::literal_end(cx.line.get(..cx.end.min(cx.line.len()))?, i, rest)
 }
 
 /// The attributes that may follow a language name at `i`: nothing, or a space

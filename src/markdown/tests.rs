@@ -1208,11 +1208,12 @@ fn second_line_is_embedded(text: &str) -> bool {
     })
 }
 
+/// Shiki matches the names without regard to case under Oniguruma's folding:
+/// the Kelvin sign is `k`, the long s is `s`, `ß` is `ss`, and a ligature is
+/// the letters it stands for. A fold stands for all its letters, so `rußt`,
+/// which reads as `russt`, is no name.
 #[test]
 fn a_fence_name_matches_with_oracles_case_folding() {
-    // Shiki matches the names without regard to case under Oniguruma's
-    // folding: the Kelvin sign is `k`, the long s is `s`, and a ligature is
-    // the letters it stands for.
     for name in [
         "ma\u{212a}efile",
         "GNUmake\u{fb01}le",
@@ -1220,6 +1221,8 @@ fn a_fence_name_matches_with_oracles_case_folding() {
         "ru\u{fb05}",
         "di\u{fb00}",
         "{.ru\u{17f}t .x}",
+        "le\u{df}",
+        "\u{17f}c\u{df}",
     ] {
         let text = formatdoc! {"
             ```{name}
@@ -1227,7 +1230,6 @@ fn a_fence_name_matches_with_oracles_case_folding() {
             ```"};
         assert!(second_line_is_embedded(&text), "{name:?}");
     }
-    // Other letters do not fold.
     assert!(!second_line_is_embedded(indoc! {"
         ```ru\u{df}t
         let x = 1;
@@ -1555,6 +1557,57 @@ fn a_raw_html_block_names_its_closing_tag_as_spelled() {
             "meta.embedded.block.html",
             "source.js",
             "variable.other.readwrite.js"
+        ]
+    );
+}
+
+/// A raw block's tag names read a character that folds to letters as those
+/// letters, as `ﬆ` for `st`, at its start and at its end. Shiki's answers.
+#[cfg(feature = "lang-html-derivative")]
+#[test]
+fn a_raw_html_block_reads_case_folds_in_its_tag_names() {
+    let close_folded = indoc! {"
+        <style>
+        a{}
+        </\u{fb06}yle>
+        x"};
+    for text in [
+        indoc! {"
+            <\u{fb06}yle>
+            a{}
+            </style>
+            x"},
+        close_folded,
+    ] {
+        assert_eq!(
+            stack_of(text, "a"),
+            [
+                "text.html.markdown",
+                "meta.embedded.block.html",
+                "source.css",
+                "meta.selector.css",
+                "entity.name.tag.css"
+            ],
+            "{text:?}"
+        );
+        assert_eq!(
+            row(text, 3),
+            [(
+                "x".to_owned(),
+                vec![
+                    "text.html.markdown".to_owned(),
+                    "meta.paragraph.markdown".to_owned()
+                ]
+            )],
+            "{text:?}"
+        );
+    }
+    assert_eq!(
+        row(close_folded, 2)[1].1,
+        [
+            "text.html.markdown",
+            "meta.tag.structure.\u{fb06}yle.end.html",
+            "entity.name.tag.html"
         ]
     );
 }
