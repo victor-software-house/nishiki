@@ -183,7 +183,18 @@ class RegexParser {
     let kind = "capture";
     if (this.src[this.pos] === "?") {
       const rest = this.src.slice(this.pos);
-      if (rest.startsWith("?:") || rest.startsWith("?>")) {
+      // A flag group such as `(?i)` in the middle of the expression matches
+      // the empty string. `startOf` folds the whole set where `(?i` appears.
+      const flags = /^\?[imx-]+\)/.exec(rest);
+      if (flags) {
+        this.pos += flags[0].length;
+        return info(EMPTY(), FULL());
+      }
+      const scoped = /^\?[imx-]+:/.exec(rest);
+      if (scoped) {
+        kind = "plain";
+        this.pos += scoped[0].length;
+      } else if (rest.startsWith("?:") || rest.startsWith("?>")) {
         kind = "plain";
         this.pos += 2;
       } else if (rest.startsWith("?=")) {
@@ -458,12 +469,15 @@ export function startOf(
         add(set, b + 32);
       }
     }
-    // Onig folds the long s (C5), the st ligatures (EF) and the Kelvin sign (E2).
+    // Onig folds the long s (C5), the sharp s (C3), the st ligatures (EF), the
+    // f ligatures (EF) and the Kelvin sign (E2).
     const has = (b: number) => ((set[b >> 6]! >> BigInt(b & 63)) & 1n) !== 0n;
     if (has(115)) {
+      add(set, 0xc3);
       add(set, 0xc5);
       add(set, 0xef);
     }
+    if (has(102)) add(set, 0xef);
     if (has(107)) add(set, 0xe2);
   }
   return { set, bol: result.bol, any: result.any, wb: result.wb };

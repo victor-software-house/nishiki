@@ -5123,7 +5123,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x07fd_fffe_07fd_fffe,
                     0x0000_0000_0000_0000,
-                    0x0000_8004_0000_0020,
+                    0x0000_8004_0000_0028,
                 ],
                 bol: false,
                 wb: true,
@@ -5133,42 +5133,37 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0039_bdbe_0039_bdbe,
                     0x0000_0000_0000_0000,
-                    0x0000_8004_0000_0020,
+                    0x0000_8004_0000_0028,
                 ],
                 bol: false,
                 wb: true,
             },
-            Pat::CssPropertyKeywordsAt2
-            | Pat::CssPropertyKeywordsAt3
-            | Pat::CssPropertyNamesAt1
-            | Pat::CssStringAt0End
-            | Pat::CssStringAt0At0
-            | Pat::CssStringAt0At0End
-            | Pat::CssStringAt1End
-            | Pat::CssStringAt1At0
-            | Pat::CssStringAt1At0End
-            | Pat::AtRuleMediaAt0At4At0End
-            | Pat::PropertiesAt0End
-            | Pat::AtRuleCharsetEnd
-            | Pat::AtRuleNamespaceAt0End
-            | Pat::AtRuleNamespaceAt1End
-            | Pat::AtRuleKeyframesEnd
-            | Pat::AtRuleSupportsEnd => Start {
+            Pat::CssPropertyKeywordsAt2 | Pat::CssPropertyNamesAt1 => Start {
                 bytes: [
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
+                    0x0000_2000_0000_0000,
+                    0x0001_2000_0001_2000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
                 ],
                 bol: false,
-                wb: false,
+                wb: true,
+            },
+            Pat::CssPropertyKeywordsAt3 => Start {
+                bytes: [
+                    0x0000_0000_0000_0000,
+                    0x00f8_338a_00f8_338a,
+                    0x0000_0000_0000_0000,
+                    0x0000_8000_0000_0028,
+                ],
+                bol: false,
+                wb: true,
             },
             Pat::CssColorKeywordsAt0 => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x029d_f0c6_029d_f0c6,
                     0x0000_0000_0000_0000,
-                    0x0000_8000_0000_0020,
+                    0x0000_8000_0000_0028,
                 ],
                 bol: false,
                 wb: true,
@@ -5178,7 +5173,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x02dd_fbde_02dd_fbde,
                     0x0000_0000_0000_0000,
-                    0x0000_8004_0000_0020,
+                    0x0000_8004_0000_0028,
                 ],
                 bol: false,
                 wb: true,
@@ -5198,7 +5193,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0098_238e_0098_238e,
                     0x0000_0000_0000_0000,
-                    0x0000_8000_0000_0020,
+                    0x0000_8000_0000_0028,
                 ],
                 bol: false,
                 wb: true,
@@ -5208,7 +5203,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x07ff_fffe_07ff_fffe,
                     0x0000_0000_0000_0000,
-                    0x0000_8004_0000_0020,
+                    0x0000_8004_0000_0028,
                 ],
                 bol: false,
                 wb: true,
@@ -5427,7 +5422,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x01ff_fbfe_01ff_fbfe,
                     0x0000_0000_0000_0000,
-                    0x0000_8004_0000_0020,
+                    0x0000_8004_0000_0028,
                 ],
                 bol: false,
                 wb: true,
@@ -5547,7 +5542,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0010_0342_0010_0342,
                     0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
+                    0x0000_8000_0000_0000,
                 ],
                 bol: false,
                 wb: true,
@@ -5567,7 +5562,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0010_0048_0010_0048,
                     0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
+                    0x0000_8000_0000_0000,
                 ],
                 bol: false,
                 wb: true,
@@ -5577,7 +5572,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x001d_b3fe_001d_b3fe,
                     0x0000_0000_0000_0000,
-                    0x0000_8000_0000_0020,
+                    0x0000_8000_0000_0028,
                 ],
                 bol: false,
                 wb: true,
@@ -5607,7 +5602,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0008_0008_0008_0008,
                     0x0000_0000_0000_0000,
-                    0x0000_8000_0000_0020,
+                    0x0000_8000_0000_0028,
                 ],
                 bol: false,
                 wb: true,
@@ -5617,7 +5612,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0008_0020_0008_0020,
                     0x0000_0000_0000_0000,
-                    0x0000_8000_0000_0020,
+                    0x0000_8000_0000_0028,
                 ],
                 bol: false,
                 wb: true,
@@ -5627,7 +5622,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x001d_2000_001d_2000,
                     0x0000_0000_0000_0000,
-                    0x0000_8000_0000_0020,
+                    0x0000_8000_0000_0028,
                 ],
                 bol: false,
                 wb: true,
@@ -5645,6 +5640,28 @@ impl Pat {
             Pat::CssUrlAt0 => Start {
                 bytes: [
                     0xffff_fd7a_ffff_c1ff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                bol: false,
+                wb: false,
+            },
+            Pat::CssStringAt0End
+            | Pat::CssStringAt0At0
+            | Pat::CssStringAt0At0End
+            | Pat::CssStringAt1End
+            | Pat::CssStringAt1At0
+            | Pat::CssStringAt1At0End
+            | Pat::AtRuleMediaAt0At4At0End
+            | Pat::PropertiesAt0End
+            | Pat::AtRuleCharsetEnd
+            | Pat::AtRuleNamespaceAt0End
+            | Pat::AtRuleNamespaceAt1End
+            | Pat::AtRuleKeyframesEnd
+            | Pat::AtRuleSupportsEnd => Start {
+                bytes: [
+                    0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
@@ -5912,7 +5929,7 @@ impl Pat {
                     0x0000_2000_0000_0000,
                     0x008d_a19a_808d_a19a,
                     0x0000_0000_0000_0000,
-                    0x0000_8000_0000_0020,
+                    0x0000_8000_0000_0028,
                 ],
                 bol: false,
                 wb: false,
@@ -5932,7 +5949,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0019_0126_0019_0126,
                     0x0000_0000_0000_0000,
-                    0x0000_8000_0000_0020,
+                    0x0000_8000_0000_0028,
                 ],
                 bol: false,
                 wb: false,

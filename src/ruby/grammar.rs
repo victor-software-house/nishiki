@@ -6568,7 +6568,6 @@ impl Pat {
             | Pat::RootAt77End
             | Pat::RootAt82End
             | Pat::RootAt86End
-            | Pat::RootAt88At0
             | Pat::HeredocEnd
             | Pat::RootAt106At0
             | Pat::RootAt106At0At0 => Start {
@@ -7126,6 +7125,16 @@ impl Pat {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x0000_0200_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+            },
+            Pat::RootAt88At0 => Start {
+                bytes: [
+                    0x1000_0002_0000_0000,
+                    0x0100_0000_0100_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],

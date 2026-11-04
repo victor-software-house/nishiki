@@ -13647,40 +13647,15 @@ impl Pat {
                 bol: false,
                 wb: false,
             },
-            Pat::AttrFunctionAt0At2At0
-            | Pat::CounterFunctionsAt0At0At4At1
-            | Pat::CounterFunctionsAt1At0At1At5
-            | Pat::AngleType
-            | Pat::FrequencyType
-            | Pat::TimeType
-            | Pat::ColorValuesAt6
-            | Pat::LessTypeFunctionsAt1At0At2
-            | Pat::SelectorsAt2End
-            | Pat::SelectorsAt3End
-            | Pat::SelectorsAt4End
-            | Pat::SelectorsAt10At3At3
-            | Pat::AtCharsetEnd
-            | Pat::AtCounterStyle
-            | Pat::MediaQuery
-            | Pat::AtImportAt2
-            | Pat::RuleListBodyAt4End
-            | Pat::RuleListBodyAt4At1End
-            | Pat::RuleListBodyAt5End
-            | Pat::RuleListBodyAt5At1At0End
-            | Pat::RuleListBodyAt5At3At0End
-            | Pat::RuleListBodyAt5At6At0End
-            | Pat::RuleListBodyAt5At7At0End
-            | Pat::RuleListBodyAt5At8At0End
-            | Pat::RuleListBodyAt5At12At0End
-            | Pat::KeyframeName => Start {
+            Pat::AttrFunctionAt0At2At0 | Pat::LessTypeFunctionsAt1At0At2 => Start {
                 bytes: [
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
+                    0x0000_0000_0000_0000,
+                    0x005f_2bf8_005f_2bf8,
+                    0x0000_0000_0000_0000,
+                    0x0000_8004_0000_0028,
                 ],
                 bol: false,
-                wb: false,
+                wb: true,
             },
             Pat::CommaDelimiter | Pat::LessMiscFunctionsAt3At0At2 | Pat::ArbitraryRepetition => {
                 Start {
@@ -13799,6 +13774,7 @@ impl Pat {
             Pat::LessVariablesAt0
             | Pat::AtCharset
             | Pat::AtContainer
+            | Pat::AtCounterStyle
             | Pat::AtCustomMedia
             | Pat::AtCustomMediaAt1
             | Pat::AtFontFace
@@ -13848,7 +13824,12 @@ impl Pat {
                 bol: false,
                 wb: false,
             },
-            Pat::PercentageType | Pat::NumberType | Pat::LengthTypeAt0 => Start {
+            Pat::PercentageType
+            | Pat::NumberType
+            | Pat::AngleType
+            | Pat::LengthTypeAt0
+            | Pat::FrequencyType
+            | Pat::TimeType => Start {
                 bytes: [
                     0x03ff_6800_0000_0000,
                     0x0000_0000_0000_0000,
@@ -13990,6 +13971,16 @@ impl Pat {
                     0x0000_0200_0000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: true,
+            },
+            Pat::CounterFunctionsAt0At0At4At1 | Pat::CounterFunctionsAt1At0At1At5 => Start {
+                bytes: [
+                    0x0000_0000_0000_0000,
+                    0x0039_fdbe_0039_fdbe,
+                    0x0000_0000_0000_0000,
+                    0x0000_8004_0000_0028,
                 ],
                 bol: false,
                 wb: true,
@@ -14262,6 +14253,16 @@ impl Pat {
                 bol: false,
                 wb: true,
             },
+            Pat::ColorValuesAt6 => Start {
+                bytes: [
+                    0x0000_0000_0000_0000,
+                    0x0010_0008_0010_0008,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: true,
+            },
             Pat::ColorValuesAt7 | Pat::SelectorsAt3 => Start {
                 bytes: [
                     0x0000_0008_0000_0000,
@@ -14448,6 +14449,32 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+            },
+            Pat::SelectorsAt2End
+            | Pat::SelectorsAt3End
+            | Pat::SelectorsAt4End
+            | Pat::SelectorsAt10At3At3
+            | Pat::AtCharsetEnd
+            | Pat::MediaQuery
+            | Pat::AtImportAt2
+            | Pat::RuleListBodyAt4End
+            | Pat::RuleListBodyAt4At1End
+            | Pat::RuleListBodyAt5End
+            | Pat::RuleListBodyAt5At1At0End
+            | Pat::RuleListBodyAt5At3At0End
+            | Pat::RuleListBodyAt5At6At0End
+            | Pat::RuleListBodyAt5At7At0End
+            | Pat::RuleListBodyAt5At8At0End
+            | Pat::RuleListBodyAt5At12At0End
+            | Pat::KeyframeName => Start {
+                bytes: [
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
                 ],
                 bol: false,
                 wb: false,
