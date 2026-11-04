@@ -2,8 +2,10 @@
 //! Oniguruma-style backtracking matcher would.
 //!
 //! A run of digits with underscores, `[0-9]([0-9_]*[0-9])?`, takes its
-//! longest match; a shorter one is followed by a digit or an underscore,
-//! which none of the expressions allow there, so it never matters.
+//! longest match.
+//! A shorter one is followed by a digit or an underscore.
+//! None of the expressions allows that character there, so a shorter run
+//! never matters.
 
 use crate::java::engine::Lexer;
 use crate::rules::Chars;
@@ -59,6 +61,11 @@ impl Lexer<'_> {
     }
 
     /// `\b(?<!\$)0([Xx])...\b(?!\$)`: a hexadecimal integer or float.
+    ///
+    /// The two branches match, in order:
+    /// - the integer, `(?<!\.)\h([_\h]*\h)?[Ll]?(?!\.)`;
+    /// - the float, `(\h([_\h]*\h)?\.?|(\h([_\h]*\h)?)?\.\h([_\h]*\h)?)`, then
+    ///   `[Pp][-+]?[0-9]([0-9_]*[0-9])?[DFdf]?`.
     pub(super) fn hex_number(&self, p: usize) -> Option<usize> {
         if !self.boundary(p) || self.prev_is(p, b'$') || self.at(p) != b'0' {
             return None;
@@ -68,15 +75,12 @@ impl Lexer<'_> {
         }
         let digits = p + 2;
         let hex: fn(u8) -> bool = |b| b.is_ascii_hexdigit();
-        // `(?<!\.)\h([_\h]*\h)?[Ll]?(?!\.)`
         if let Some(run) = self.digit_run(digits, hex) {
             let end = run + usize::from(matches!(self.at(run), b'L' | b'l'));
             if self.at(end) != b'.' && self.word_at(end).is_none() {
                 return self.not_dollar(end);
             }
         }
-        // `(\h([_\h]*\h)?\.?|(\h([_\h]*\h)?)?\.\h([_\h]*\h)?)[Pp][-+]?
-        // [0-9]([0-9_]*[0-9])?[DFdf]?`
         let whole = self.digit_run(digits, hex);
         let mantissas = [
             whole.map(|end| end + usize::from(self.at(end) == b'.')),
@@ -148,8 +152,17 @@ impl Lexer<'_> {
         None
     }
 
-    /// `(?<!\$)(...)(?!\$)`: a decimal integer or float, whose eight
-    /// alternatives are tried in the grammar's order.
+    /// `(?<!\$)(...)(?!\$)`: a decimal integer or float.
+    ///
+    /// Its eight alternatives are tried in the grammar's order:
+    /// - `\b[0-9]...\.\B(?!\.)`;
+    /// - `\b[0-9]...\.([Ee]...)[DFdf]?\b`;
+    /// - `\b[0-9]...\.([Ee]...)?[DFdf]\b`;
+    /// - `\b[0-9]...\.([0-9]...)([Ee]...)?[DFdf]?\b`;
+    /// - `(?<!\.)\B\.[0-9]...([Ee]...)?[DFdf]?\b`;
+    /// - `\b[0-9]...([Ee]...)[DFdf]?\b`;
+    /// - `\b[0-9]...([Ee]...)?[DFdf]\b`;
+    /// - `\b(0|[1-9]([0-9_]*[0-9])?)(?!\.)[Ll]?\b`.
     pub(super) fn decimal_number(&self, p: usize) -> Option<usize> {
         if self.prev_is(p, b'$') {
             return None;
@@ -160,23 +173,15 @@ impl Lexer<'_> {
             .filter(|&end| self.at(end) == b'.')
             .map(|end| end + 1);
         let alternatives = [
-            // `\b[0-9]...\.\B(?!\.)`
             after_dot.filter(|&end| !self.boundary(end) && self.at(end) != b'.'),
-            // `\b[0-9]...\.([Ee]...)[DFdf]?\b`
             after_dot.and_then(|end| self.float_tail(end, Part::Required, Part::Optional)),
-            // `\b[0-9]...\.([Ee]...)?[DFdf]\b`
             after_dot.and_then(|end| self.float_tail(end, Part::Optional, Part::Required)),
-            // `\b[0-9]...\.([0-9]...)([Ee]...)?[DFdf]?\b`
             after_dot
                 .and_then(|end| self.digit_run(end, digit))
                 .and_then(|end| self.float_tail(end, Part::Optional, Part::Optional)),
-            // `(?<!\.)\B\.[0-9]...([Ee]...)?[DFdf]?\b`
             self.leading_dot_float(p),
-            // `\b[0-9]...([Ee]...)[DFdf]?\b`
             start_digits.and_then(|end| self.float_tail(end, Part::Required, Part::Optional)),
-            // `\b[0-9]...([Ee]...)?[DFdf]\b`
             start_digits.and_then(|end| self.float_tail(end, Part::Optional, Part::Required)),
-            // `\b(0|[1-9]([0-9_]*[0-9])?)(?!\.)[Ll]?\b`
             self.decimal_integer(p),
         ];
         alternatives

@@ -1,6 +1,7 @@
-//! Java on the shared rule engine ([`crate::rules`]): the grammar's types and
-//! the answers its lookaheads keep for a line, so that scanning a run of the
-//! line stays linear.
+//! Java on the shared rule engine ([`crate::rules`]).
+//! The module holds the grammar's types and the answers its lookaheads keep
+//! for a line.
+//! Those answers keep the scan of a run of the line linear.
 
 use std::cell::Cell;
 
@@ -17,9 +18,10 @@ pub(crate) type Scratch = rules::Scratch<Java>;
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Java;
 
-/// A run of the line, the lookahead's answer for it, kept for the searches
-/// that start inside it: where the run starts and ends, and the place that
-/// answers them, the last one in the run.
+/// A run of the line and the lookahead's answer for it.
+/// It is kept for the searches that start inside the run.
+/// It holds where the run starts and ends, and the place that answers them,
+/// the last one in the run.
 pub(crate) type RunMemo = Cell<(usize, usize, Option<usize>)>;
 
 /// The answers of lookaheads that scan a run of the line.
@@ -68,8 +70,8 @@ impl Memo {
 /// What the Java matchers remember about a line.
 #[derive(Debug)]
 pub(crate) struct Extra {
-    /// The last run of word characters found: where it starts and ends. A
-    /// search from inside it ends where it does.
+    /// The last run of word characters found: where it starts and ends.
+    /// A search from inside the run ends where the run does.
     pub(crate) word_run: Cell<(usize, usize)>,
     /// The last run of `[$\w]` characters found, kept the same way.
     pub(crate) name_run: Cell<(usize, usize)>,

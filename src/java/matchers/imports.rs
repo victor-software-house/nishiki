@@ -49,8 +49,8 @@ const RESERVED: &[&[u8]] = &[
     b"strictfp",
     b"super",
     b"switch",
-    // The grammar misspells `synchronized` here; its spelling is kept, with
-    // one byte escaped so that the spelling check passes.
+    // The grammar misspells `synchronized` here, and its spelling is kept.
+    // One byte is escaped so that the spelling check passes.
     b"sync\x72onized",
     b"this",
     b"throw",
@@ -84,11 +84,12 @@ impl Lexer<'_> {
     }
 
     /// `\b(import)\b\s*\b(static)?\b\s`.
+    ///
+    /// The white space gives back from the end until the rest matches.
+    /// The last place in it that matches therefore wins.
     pub(super) fn import_begin(&mut self, p: usize) -> Option<usize> {
         let word_end = self.keyword(p, b"import")?;
         let blanks = self.space_end(word_end);
-        // The white space gives back from the end until the rest matches,
-        // so the last place in it that does wins.
         let mut best = None;
         let mut t = word_end;
         while t <= blanks {

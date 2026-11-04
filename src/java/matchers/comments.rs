@@ -87,6 +87,9 @@ impl Lexer<'_> {
     }
 
     /// `\{(@link)\s+(\S+)?#([$\w]+\s*\([^()]*\)).*?}`.
+    ///
+    /// `(\S+)?#` ends at the last `#` of the word that a member follows.
+    /// Without the word, it ends at the `#` that the white space ends at.
     pub(super) fn javadoc_link(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'{' {
             return None;
@@ -96,8 +99,6 @@ impl Lexer<'_> {
         if first == tag_end {
             return None;
         }
-        // `(\S+)?#`: the last `#` of the word that a member follows, or the
-        // `#` that the white space ends at.
         let run_end = self.non_space_end(first);
         let mut hash = run_end;
         loop {

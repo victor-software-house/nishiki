@@ -85,6 +85,8 @@ impl Lexer<'_> {
     }
 
     /// A string's escape: `\\.`, and in a text block `(\\""")(?!")` first.
+    ///
+    /// `.` matches any character but the line feed.
     pub(super) fn escape(&self, p: usize, escapes: Escapes) -> Option<usize> {
         if self.at(p) != b'\\' {
             return None;
@@ -93,7 +95,6 @@ impl Lexer<'_> {
         {
             return Some(p + 4);
         }
-        // `.` matches any character but the line feed.
         (p + 1 < self.lim()).then(|| self.char_end(p + 1))
     }
 
@@ -172,8 +173,8 @@ impl Lexer<'_> {
     }
 
     /// `([$A-Z_a-z][$\w]*)(?=\s*(\[])*\s*([,:;=]))` and its `var` twin: a
-    /// name that a declaration ends at, where `terminators` are the bytes
-    /// that may end it.
+    /// name that a declaration ends at.
+    /// `terminators` are the bytes that may end it.
     pub(super) fn definition(&mut self, p: usize, terminators: &[u8]) -> Option<usize> {
         let end = self.ident_end(p)?;
         let mut i = self.space_end(end);
@@ -232,6 +233,7 @@ pub(super) enum Property {
     Chained,
     /// Any name.
     Plain,
-    /// A name that starts with a digit, which is invalid.
+    /// A name that starts with a digit.
+    /// Such a name is invalid.
     Digit,
 }

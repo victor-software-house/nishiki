@@ -1,5 +1,6 @@
 //! The declarations: classes, records, enums, modules, methods and
-//! variables, whose rules open on a lookahead over the rest of the line.
+//! variables.
+//! Their rules open on a lookahead over the rest of the line.
 
 use crate::java::engine::Lexer;
 use crate::rules::Chars;
@@ -134,6 +135,9 @@ impl Lexer<'_> {
     }
 
     /// `^\s*([\w\s]*)(enum)\s+(\w+)`.
+    ///
+    /// `[\w\s]*` takes the longest run.
+    /// It then gives back until `enum` and a name follow.
     pub(super) fn enum_begin(&mut self, p: usize) -> Option<usize> {
         if p != 0 {
             return None;
@@ -142,8 +146,6 @@ impl Lexer<'_> {
         if first > self.lim() {
             return None;
         }
-        // `[\w\s]*` takes the longest run, then gives back until `enum`
-        // and a name follow.
         let mut run_end = first;
         while run_end <= self.lim() {
             let width = self.word_at(run_end).or_else(|| {

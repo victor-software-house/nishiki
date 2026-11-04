@@ -68,11 +68,13 @@ impl Lexer<'_> {
         (self.at(self.space_end(p)) != b'[').then_some(p)
     }
 
-    /// The dotted names `(?:[A-Z_a-z]\w*\s*\.\s*)*[A-Z_]\w*` from `p`:
+    /// The dotted names `(?:[A-Z_a-z]\w*\s*\.\s*)*[A-Z_]\w*` from `p`.
     /// `check` is asked about each place the final name can start, with where
-    /// it ends, and the last one it accepts wins, as the longest run of
-    /// names does in the grammar. It returns the match's start of the final
-    /// name, its end and what `check` made of it.
+    /// it ends.
+    /// The last place it accepts wins, as the longest run of names does in
+    /// the grammar.
+    /// It returns the start of the final name, its end and what `check` made
+    /// of it.
     fn dotted_type(
         &self,
         p: usize,

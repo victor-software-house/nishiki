@@ -1,10 +1,12 @@
 //! The matchers: for each regular expression of the grammar, the function that
-//! decides whether it matches at a position and where. A matcher records the
-//! capture groups the grammar names with [`Lexer::cap`]; the engine names them.
+//! decides whether it matches at a position and where.
+//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
+//! The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
-//! would. Where a quantifier could give characters back, the doc comment says
-//! why it cannot matter.
+//! would.
+//! Where a quantifier could give characters back, the doc comment says why it
+//! cannot matter.
 
 mod annotations;
 mod chars;
@@ -29,13 +31,30 @@ use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// Whether `pat` matches at `p`, and where its match ends.
+    ///
+    /// The arms come in groups, in this order:
+    /// - package, import and their names;
+    /// - comments;
+    /// - annotations;
+    /// - enums;
+    /// - generics and types;
+    /// - brackets;
+    /// - classes;
+    /// - records;
+    /// - statements;
+    /// - constants and numbers;
+    /// - expressions;
+    /// - keywords and operators;
+    /// - variables and names;
+    /// - strings;
+    /// - members;
+    /// - modules.
     #[expect(
         clippy::too_many_lines,
         reason = "one arm for each expression of the grammar"
     )]
     pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
         match pat {
-            // Package, import and their names.
             Pat::RootAt0 => self.package_begin(p),
             Pat::RootAt0End | Pat::RootAt1End => self.terminator(p),
             Pat::RootAt0At1 | Pat::RootAt1At1 => self.misplaced_dot(p),
@@ -49,7 +68,6 @@ impl Lexer<'_> {
             Pat::RootAt1At2 => self.illegal_star(p),
             Pat::RootAt1At6 => self.lit(p, b"*"),
 
-            // Comments.
             Pat::CommentsAt0 => self.lit(p, b"/**/"),
             Pat::CommentsInlineAt0 => self.lit(p, b"/*"),
             Pat::CommentsInlineAt0End | Pat::CommentsJavadocAt0End => self.lit(p, b"*/"),
@@ -63,7 +81,6 @@ impl Lexer<'_> {
             Pat::CommentsJavadocAt0At2 => self.javadoc_named(p, &[b"@exception", b"@throws"]),
             Pat::CommentsJavadocAt0At3 => self.javadoc_link(p),
 
-            // Annotations.
             Pat::AnnotationsAt0 => self.annotation_begin(p),
             Pat::AnnotationsAt0End
             | Pat::ParensAt0End
@@ -77,7 +94,6 @@ impl Lexer<'_> {
             Pat::AnnotationsAt0At0 => self.annotation_key(p),
             Pat::AnnotationsAt1 => self.annotation_name(p),
 
-            // Enums.
             Pat::Enums => self.enum_begin(p),
             Pat::EnumsEnd
             | Pat::AnonymousBlockAndInstanceInitializerEnd
@@ -127,7 +143,6 @@ impl Lexer<'_> {
             | Pat::TryCatchFinallyAt0At0
             | Pat::TryCatchFinallyAt1At1 => self.lit(p, b"("),
 
-            // Generics and types.
             Pat::Generics => self.lit(p, b"<"),
             Pat::GenericsEnd => self.lit(p, b">"),
             Pat::GenericsAt0 => self.keyword(p, b"extends"),
@@ -149,11 +164,9 @@ impl Lexer<'_> {
             Pat::ObjectTypesAt3 => self.object_type(p),
             Pat::ObjectTypesInheritedAt1 => self.inherited_class(p),
 
-            // Brackets.
             Pat::ParensAt1 => self.lit(p, b"["),
             Pat::ParensAt1End => self.lit(p, b"]"),
 
-            // Classes.
             Pat::Class => self.class_ahead(p),
             Pat::StorageModifiers => self.storage_modifier(p),
             Pat::ClassAt3 => self.class_name(p),
@@ -164,7 +177,6 @@ impl Lexer<'_> {
             Pat::ClassAt6 => self.keyword_blank(p, b"permits"),
             Pat::ClassAt6End => self.class_clause_end(p, b"extends", b"implements"),
 
-            // Records.
             Pat::Record => self.record_ahead(p),
             Pat::RecordAt3 => self.record_head(p),
             Pat::RecordAt4End | Pat::RecordConstructorAt1End => {
@@ -174,7 +186,6 @@ impl Lexer<'_> {
             Pat::RecordConstructorEnd | Pat::MethodsEnd => self.method_end(p),
             Pat::RecordConstructorAt1 => self.constructor_name(p),
 
-            // Statements.
             Pat::TryCatchFinallyAt0 => self.keyword(p, b"try"),
             Pat::TryCatchFinallyAt1 => self.keyword_group(p, b"catch"),
             Pat::TryCatchFinallyAt1At1At2 => self.catch_type(p),
@@ -189,7 +200,6 @@ impl Lexer<'_> {
             Pat::AssertionsAt0At0 => self.lit(p, b":"),
             Pat::KeywordsAt1 => self.one_of(p, b":?"),
 
-            // Constants and numbers.
             Pat::ConstantsAndSpecialVarsAt0 => self.word_in(p, &[b"true", b"false", b"null"]),
             Pat::ConstantsAndSpecialVarsAt1 => self.keyword(p, b"this"),
             Pat::NumbersAt0 => self.hex_number(p),
@@ -197,7 +207,6 @@ impl Lexer<'_> {
             Pat::NumbersAt2 => self.radix_number(p, Radix::Octal),
             Pat::NumbersAt3 => self.decimal_number(p),
 
-            // Expressions.
             Pat::AnonymousClassesAndNew => self.keyword(p, b"new"),
             Pat::AnonymousClassesAndNewEnd
             | Pat::AnonymousClassesAndNewAt3End
@@ -208,7 +217,6 @@ impl Lexer<'_> {
             Pat::LambdaExpressionAt0 => self.lit(p, b"->"),
             Pat::MethodCall => self.method_call(p),
 
-            // Keywords and operators.
             Pat::KeywordsAt0 => self.keyword(p, b"throw"),
             Pat::KeywordsAt2 => self.control_keyword(p),
             Pat::KeywordsAt3 => self.keyword(p, b"instanceof"),
@@ -223,7 +231,6 @@ impl Lexer<'_> {
             Pat::KeywordsAt12 => self.one_of(p, b"&|"),
             Pat::KeywordsAt13 => self.word_in(p, &[b"const", b"goto"]),
 
-            // Variables and names.
             Pat::Variables => self.variable_ahead(p),
             Pat::VariablesEnd | Pat::VariablesLocalEnd => self.ahead_of(p, b":;="),
             Pat::MemberVariablesEnd => self.ahead_of(p, b";="),
@@ -238,14 +245,12 @@ impl Lexer<'_> {
             Pat::PropertiesAt3 => self.property(p, Property::Digit),
             Pat::MemberVariables => self.member_variable_ahead(p),
 
-            // Strings.
             Pat::StringsAt0 | Pat::StringsAt0End => self.lit(p, b"\"\"\""),
             Pat::StringsAt0At0 => self.escape(p, Escapes::TextBlock),
             Pat::StringsAt1 | Pat::StringsAt1End => self.lit(p, b"\""),
             Pat::StringsAt1At0 | Pat::StringsAt2At0 => self.escape(p, Escapes::String),
             Pat::StringsAt2 | Pat::StringsAt2End => self.lit(p, b"'"),
 
-            // Members.
             Pat::CodeAt25 => self.lit(p, b";"),
             Pat::StaticInitializerAt1 => self.lit(p, b"static"),
             Pat::ClassFieldsAndMethodsAt0 => self.ahead_of(p, b"="),
@@ -260,7 +265,6 @@ impl Lexer<'_> {
             Pat::ThrowsEnd => self.ahead_of(p, b";{"),
             Pat::ThrowsAt1 => self.throws_type(p),
 
-            // Modules.
             Pat::Module => self.module_begin(p),
             Pat::ModuleAt0At2 => self.word_in(
                 p,

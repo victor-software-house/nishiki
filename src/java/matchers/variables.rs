@@ -9,8 +9,8 @@ use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// Where the type at `p` ends: a primitive type, or dotted names ending
-    /// in one that starts with a capital or an underscore. The second
-    /// alternative is atomic, so only its longest match counts.
+    /// in one that starts with a capital or an underscore.
+    /// The second alternative is atomic, so only its longest match counts.
     fn type_ends(&self, p: usize) -> [Option<usize>; 2] {
         let primitive = [
             &b"void"[..],
@@ -59,12 +59,13 @@ impl Lexer<'_> {
 
     /// `\s*(<...>)?\s*((\[\])*)?\s+` after a type that ends at `end`, then
     /// the name and what ends the definition.
+    ///
+    /// `>` can be any of the closing characters in the run, the last first.
+    /// The run is the same for every `<` in it.
+    /// So is the last `>` that works.
     fn after_type(&self, end: usize) -> bool {
         let angle = self.space_end(end);
         if self.at(angle) == b'<' {
-            // `>` can be any of the closing characters in the run, the last
-            // first; the run is the same for every `<` in it, and so is the
-            // last `>` that works.
             let (start, run_end, best) = self.x.memo.generics.get();
             let best = if start <= angle && angle < run_end {
                 best
@@ -120,13 +121,17 @@ impl Lexer<'_> {
     }
 
     /// `[$A-Z_a-z][$\w]*([]$,\[\w][],\[\w\s]*)?\s*([:;=])` at `name`.
+    ///
+    /// It reads the run of characters that the name and the group after it
+    /// can be made of, with the last `$` in it.
+    /// The name takes its `[$\w]*`.
+    /// The group takes the rest, from a character that is not a `$` onward.
+    /// Only blanks after the name are the `\s*` that ends the lookahead.
     fn definition_tail(&self, name: usize) -> bool {
         let b = self.at(name);
         if name >= self.lim() || !(b.is_ascii_alphabetic() || b == b'_' || b == b'$') {
             return false;
         }
-        // The run of characters that the name and the group after it can
-        // be made of, with the last `$` in it.
         let (start, end, dollar) = self.x.memo.names.get();
         let (end, dollar) = if start <= name && name < end {
             (end, dollar)
@@ -157,10 +162,7 @@ impl Lexer<'_> {
         if !matches!(self.at(end), b':' | b';' | b'=') || end >= self.lim() {
             return false;
         }
-        // The name takes its `[$\w]*`; the group takes the rest, from a
-        // character that is not a `$` onward.
         let plain = self.name_end(name + 1);
-        // Only blanks after the name are the `\s*` that ends the lookahead.
         if plain >= end || self.space_end(plain) >= end {
             return true;
         }

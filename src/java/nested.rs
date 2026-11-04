@@ -24,8 +24,9 @@ const MODIFIERS: &[&[u8]] = &[
 ];
 
 impl Lexer<'_> {
-    /// Emits the tokens of capture group text `from..to`, which sits under
-    /// the stack `base`, and leaves the cursor at `to`.
+    /// Emits the tokens of capture group text `from..to`, and leaves the
+    /// cursor at `to`.
+    /// The text sits under the stack `base`.
     pub(super) fn tokenize_capture(&mut self, kind: Nested, from: usize, to: usize, base: u32) {
         match kind {
             Nested::TypeChain => self.type_chain(from, to, base),
