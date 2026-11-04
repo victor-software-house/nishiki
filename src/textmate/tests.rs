@@ -744,6 +744,51 @@ fn a_hand_off_splits_its_list_in_two() {
     );
 }
 
+/// A capture runs the handing loop only when its own rule's list hands off.
+/// So no capture may reach a hand-off only through a rule nested in its rule:
+/// the plain loop would drop that hand-off.
+#[test]
+fn a_capture_reaches_a_hand_off_only_through_its_own_list() {
+    let mut wrong = Vec::new();
+    for grammar in every_table() {
+        let handed: Vec<usize> = grammar
+            .hand_offs
+            .iter()
+            .map(|hand_off| hand_off.list)
+            .collect();
+        let retokenized: BTreeSet<usize> = grammar
+            .rules
+            .iter()
+            .flat_map(|rule| rule.captures.iter().chain(rule.end_captures))
+            .map(|cap| cap.retokenize)
+            .filter(|&rule| rule != NONE)
+            .collect();
+        for &start in &retokenized {
+            if handed.contains(&grammar.rules[start].list) {
+                continue;
+            }
+            let mut seen = BTreeSet::new();
+            let mut stack = vec![start];
+            while let Some(rule) = stack.pop() {
+                if !seen.insert(rule) {
+                    continue;
+                }
+                let list = grammar.rules[rule].list;
+                if handed.contains(&list) {
+                    wrong.push(format!("{} capture rule {start}", grammar.scope));
+                    break;
+                }
+                stack.extend(grammar.lists[list].rules);
+            }
+        }
+    }
+    assert!(
+        wrong.is_empty(),
+        "captures that reach a hand-off only through a nested rule: {}",
+        wrong.join(", ")
+    );
+}
+
 /// No hand-off halt uses `\G`. The rule applies to the `before` and `after`
 /// rules and to the end of the rule that opens the region. The engine finds
 /// where the halts start before the language runs. `\G` matches where the
@@ -1764,6 +1809,62 @@ mod hand_offs {
                 .all(|(_, scopes)| scopes.iter().all(|scope| !in_language(scope, "css"))),
             "{:?}",
             rows[2]
+        );
+    }
+
+    /// An event attribute's value is a capture whose rule includes the whole
+    /// JavaScript grammar. Its text goes to the JavaScript lexer. The line
+    /// that lexer sees ends at the capture's end, so the tag closes in HTML.
+    #[test]
+    fn an_event_attribute_hands_its_value_to_javascript() {
+        let rows = Document::new(&html_tables::GRAMMAR).lex("<div onclick=\"var a = 1\">\n");
+        assert_eq!(
+            scope_of(&rows[0], "var"),
+            "storage.type.js",
+            "{:?}",
+            rows[0]
+        );
+        assert_eq!(
+            scope_of(&rows[0], "1"),
+            "constant.numeric.decimal.js",
+            "{:?}",
+            rows[0]
+        );
+        assert_eq!(
+            scope_of(&rows[0], ">"),
+            "punctuation.definition.tag.end.html",
+            "{:?}",
+            rows[0]
+        );
+    }
+
+    /// CoffeeScript's backticks hold JavaScript in a capture,
+    /// `` (`)(.*)(`) ``. The capture's text goes to the JavaScript lexer, and
+    /// the closing backtick stays CoffeeScript's.
+    #[cfg(feature = "lang-coffee")]
+    #[test]
+    fn a_coffee_backtick_hands_its_javascript_to_the_javascript_lexer() {
+        let rows = Document::new(&crate::coffee::grammar::GRAMMAR).lex("x = `var raw = 1;`\n");
+        assert_eq!(
+            scope_of(&rows[0], "var"),
+            "storage.type.js",
+            "{:?}",
+            rows[0]
+        );
+        assert_eq!(
+            scope_of(&rows[0], ";"),
+            "punctuation.terminator.statement.js",
+            "{:?}",
+            rows[0]
+        );
+        assert_eq!(
+            rows[0]
+                .last()
+                .and_then(|(_, scopes)| scopes.last())
+                .map(String::as_str),
+            Some("punctuation.definition.string.end.coffee"),
+            "{:?}",
+            rows[0]
         );
     }
 

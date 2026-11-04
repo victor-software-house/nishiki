@@ -22,6 +22,11 @@ use crate::limits::{Finished, Steps};
 
 /// Lexes `line` of a language the engine runs with `grammar`, under the
 /// crate's one lexer contract (`Language::lex`).
+///
+/// Never inlined, as `lex_handing` is not. With the engine's scratch boxed,
+/// this function was inlined into `Highlighter::line` and `line_until` was
+/// not inlined into it. Batch then rose 0.2% at one codegen unit.
+#[inline(never)]
 pub(crate) fn lex(
     cx: &mut Context<'_>,
     grammar: &'static Grammar,

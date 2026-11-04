@@ -424,6 +424,8 @@ export const inputs: Input[] = [
   { lang: "coffee", name: "coffeescript-browser", url: `${coffeescript}/src/browser.coffee` },
   { lang: "coffee", name: "coffeescript-cake", url: `${coffeescript}/src/cake.coffee` },
   { lang: "coffee", name: "coffeescript-helpers", url: `${coffeescript}/src/helpers.coffee` },
+  // Backticks hold JavaScript, in a capture on one line and in a block over several.
+  { lang: "coffee", name: "coffeescript-javascript-literals", url: `${coffeescript}/test/javascript_literals.coffee` },
   { lang: "coffee", name: "coffeescript-optparse", url: `${coffeescript}/src/optparse.coffee` },
   { lang: "coffee", name: "coffeescript-repl", url: `${coffeescript}/src/repl.coffee` },
   { lang: "coffee", name: "sample", url: `${samples}/coffee.sample` },

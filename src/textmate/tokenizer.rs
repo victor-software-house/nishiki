@@ -75,9 +75,6 @@ enum Entry {
     Line { anchored: bool },
     /// Inside a capture group whose text rules lex again.
     Capture,
-    /// Where a hand-off's language halted. `Scratch::handed` holds the
-    /// place. An entry then stays two bytes.
-    Resume,
 }
 
 /// Where the loop goes on after a language lexed by hand lexed part of the
@@ -130,17 +127,6 @@ enum Stop {
     End,
     /// Where the language that embeds the grammar takes the line back.
     Halted(usize),
-    /// Where a language lexed by hand takes the line over. `Scratch::handed`
-    /// holds the place.
-    HandOff,
-}
-
-/// What a run of the loop leaves for the next, around a hand-off.
-#[derive(Clone, Copy, Debug)]
-struct Carry {
-    last: usize,
-    steps: u64,
-    stopped: bool,
 }
 
 /// Where a line halts for the language that embeds the grammar. It also says
@@ -234,9 +220,6 @@ enum Flow {
     Done,
     /// The line halted at this place for the language that embeds it.
     Halted(usize),
-    /// A language lexed by hand takes the line over where
-    /// `Scratch::handed` says.
-    HandOff,
 }
 
 /// One open rule.
@@ -591,9 +574,6 @@ pub(crate) struct Scratch {
     starts_before: Vec<usize>,
     /// Where its `after` rules start.
     starts_after: Vec<usize>,
-    /// Where the last run of the loop stopped for a hand-off. Keeping it here
-    /// leaves the result of every run two words wide.
-    handed: Option<Resume>,
     /// What the language halted for, for the first step after a hand-off.
     part: Part,
     /// The scratch for an engine line inside a hand-off. An example is
@@ -705,6 +685,7 @@ pub(crate) fn line_until<H: Halting>(
         out_start,
         stopped: false,
         cells,
+        hand: None,
     };
     let halted = match tokenizer.tokenize_string(
         line.len() + 1,
@@ -719,7 +700,7 @@ pub(crate) fn line_until<H: Halting>(
         halt,
     ) {
         Stop::Halted(at) => Some(at),
-        Stop::End | Stop::HandOff => None,
+        Stop::End => None,
     };
     if halted.is_none() {
         let top = frames.last().map_or(ROOT, |f| f.content);
@@ -732,10 +713,13 @@ pub(crate) fn line_until<H: Halting>(
 }
 
 /// Lexes one line like [`line_until`], for a grammar that hands regions to
-/// languages lexed by hand. Each run of the loop stops where such a language
-/// takes the line over. The language lexes its part. The next run goes on
-/// where the language halted. The language needs the whole scratch. The loop
-/// holds it and lends the engine's part to each run.
+/// languages lexed by hand. Where such a language takes the line over, the
+/// step calls it in place. The step goes on where the language halted.
+///
+/// The language needs the whole scratch. The line swaps the engine's scratch
+/// for its spare, two pointers, and lexes with the engine's scratch apart from
+/// the whole one. The spare then sits in the whole scratch for any engine line
+/// inside a hand-off. The line swaps them back at its end.
 #[expect(
     clippy::too_many_arguments,
     reason = "line_until's arguments with the whole scratch the languages it hands off to need"
@@ -757,67 +741,49 @@ pub(crate) fn line_handing(
     if len <= line.start {
         return (state, None);
     }
-    let cells = whole.textmate.open_line(grammar, bytes);
-    let (mut frames, first) = whole
-        .textmate
-        .take_frames::<Handing<'static>>(grammar, arena, state);
+    let mut own = whole.textmate.spare.take().unwrap_or_default();
+    std::mem::swap(&mut whole.textmate, &mut own);
+    let cells = own.open_line(grammar, bytes);
+    let (mut frames, first) = own.take_frames::<Handing<'static>>(grammar, arena, state);
     let steps = limits
         .work
         .map_or(u64::MAX, |work| work.steps(len).saturating_mul(STEP));
     let out_start = out.len();
-    let halt = Handing { halts };
-    let mut carry = Carry {
+    let mut tokenizer = Tokenizer {
+        grammar,
+        arena,
+        limits,
+        report,
+        out,
+        s: &mut own,
+        len,
         last: line.start,
         steps,
-        stopped: false,
-    };
-    let mut entry = Entry::Line {
-        anchored: line.embedded,
-    };
-    let first_line = if first {
-        DocStart::Open
-    } else {
-        DocStart::Passed
-    };
-    let run = Run {
-        grammar,
-        limits,
-        len,
         out_start,
+        stopped: false,
         cells,
+        hand: Some(Hand {
+            whole: &mut *whole,
+            line,
+        }),
     };
-    let halted = loop {
-        let mut tokenizer = run.tokenizer(arena, report, out, &mut whole.textmate, carry);
-        let stop =
-            tokenizer.tokenize_string(len + 1, first_line, line.start, &mut frames, entry, halt);
-        carry = Carry {
-            last: tokenizer.last,
-            steps: tokenizer.steps,
-            stopped: tokenizer.stopped,
-        };
-        match stop {
-            Stop::End => break None,
-            Stop::Halted(at) => break Some(at),
-            Stop::HandOff => {
-                let Some(handed) = whole.textmate.handed.take() else {
-                    break None;
-                };
-                whole.textmate.handed = hand_off(
-                    (whole, arena, limits, out, report),
-                    grammar,
-                    line,
-                    &mut frames,
-                    handed,
-                    &mut carry,
-                );
-                if whole.textmate.handed.is_none() {
-                    break None;
-                }
-                entry = Entry::Resume;
-            }
-        }
+    let halted = match tokenizer.tokenize_string(
+        len + 1,
+        if first {
+            DocStart::Open
+        } else {
+            DocStart::Passed
+        },
+        line.start,
+        &mut frames,
+        Entry::Line {
+            anchored: line.embedded,
+        },
+        Handing { halts },
+    ) {
+        Stop::Halted(at) => Some(at),
+        Stop::End => None,
     };
-    let mut tokenizer = run.tokenizer(arena, report, out, &mut whole.textmate, carry);
     if halted.is_none() {
         let top = frames.last().map_or(ROOT, |f| f.content);
         tokenizer.produce(top, len);
@@ -825,153 +791,16 @@ pub(crate) fn line_handing(
     let next = tokenizer.intern::<Handing<'static>>(&mut frames);
     tokenizer.s.spent = steps.saturating_sub(tokenizer.steps);
     tokenizer.s.frames = frames;
+    std::mem::swap(&mut whole.textmate, &mut own);
+    whole.textmate.spare = Some(own);
     (next, halted)
 }
 
-/// What every run of the loop over one line shares.
-#[derive(Clone, Copy)]
-struct Run<'l> {
-    grammar: &'static Grammar,
-    limits: &'l Limits,
-    len: usize,
-    out_start: usize,
-    cells: &'static Cells,
-}
-
-impl<'l> Run<'l> {
-    /// The tokenizer of the next run, going on from `carry`.
-    fn tokenizer<'a>(
-        self,
-        arena: &'a mut Arena,
-        report: &'a mut LineReport,
-        out: &'a mut Vec<Token>,
-        s: &'a mut Scratch,
-        carry: Carry,
-    ) -> Tokenizer<'a>
-    where
-        'l: 'a,
-    {
-        Tokenizer {
-            grammar: self.grammar,
-            arena,
-            limits: self.limits,
-            report,
-            out,
-            s,
-            len: self.len,
-            last: carry.last,
-            steps: carry.steps,
-            out_start: self.out_start,
-            stopped: carry.stopped,
-            cells: self.cells,
-        }
-    }
-}
-
-/// What a language lexed by hand needs from the engine's line. It is the
-/// whole scratch, the arena, the limits, the tokens and the report.
-type HandOffContext<'a, 'b> = (
-    &'a mut crate::scratch::Scratch,
-    &'a mut Arena,
-    &'b Limits,
-    &'a mut Vec<Token>,
-    &'a mut LineReport,
-);
-
-/// Hands the line from `resume` to the language of the hand-off on top of
-/// `frames`. The language halts at the starts the run found. Its returned
-/// state goes into the hand-off frame. Returns where the engine goes on, or
-/// `None` when the language ran to the line's end.
-///
-/// The language may run the engine again, as Markdown does for a fence. The
-/// engine's scratch is swapped for its spare while the language runs.
-#[cold]
-#[inline(never)]
-fn hand_off(
-    (whole, arena, limits, out, report): HandOffContext<'_, '_>,
-    grammar: &'static Grammar,
-    line: Line<'_>,
-    frames: &mut [Frame],
-    resume: Resume,
-    carry: &mut Carry,
-) -> Option<Resume> {
-    let depth = frames.len();
-    let top = depth.checked_sub(1)?;
-    let embedding = frames.get(depth.checked_sub(2)?)?.rule;
-    let list = grammar.rules.get(embedding)?.list;
-    let language = grammar
-        .hand_offs
-        .iter()
-        .find(|hand_off| hand_off.list == list)?
-        .language;
-    let before = std::mem::take(&mut whole.textmate.starts_before);
-    let after = std::mem::take(&mut whole.textmate.starts_after);
-    let lent = Limits {
-        work: limits.work.map(|_| Work {
-            per_byte: 0,
-            base: u32::try_from(carry.steps / STEP).unwrap_or(u32::MAX),
-        }),
-        ..*limits
-    };
-    let mut spare = whole.textmate.spare.take().unwrap_or_default();
-    std::mem::swap(&mut whole.textmate, &mut spare);
-    let part = Line {
-        text: line.text,
-        start: resume.at,
-        embedded: false,
-    };
-    let state = frames[top].end;
-    let (finished, halted) = {
-        let mut cx = Lexing {
-            scratch: &mut *whole,
-            arena: &mut *arena,
-            limits: &lent,
-            out: &mut *out,
-            report: &mut *report,
-        };
-        let halting = if before.is_empty() && after.is_empty() {
-            None
-        } else {
-            language.lex_until(
-                &mut cx,
-                part,
-                state,
-                &Starts(&before),
-                Some(&Starts(&after)),
-            )
-        };
-        halting.unwrap_or_else(|| (language.lex_embedded(&mut cx, part, state), None))
-    };
-    std::mem::swap(&mut whole.textmate, &mut spare);
-    whole.textmate.spare = Some(spare);
-    let counter = Steps::new(&lent, line.text.len());
-    frames[top].end = counter.take_back(finished);
-    frames[top].state = NEW;
-    carry.steps = carry
-        .steps
-        .saturating_sub(counter.into_spent().saturating_mul(STEP));
-    if carry.steps == 0 && !carry.stopped {
-        carry.stopped = true;
-        report.record(Limit::Work);
-    }
-    carry.last = halted.unwrap_or(line.text.len());
-    let next = halted.map(|at| Resume {
-        at,
-        anchor: resume.anchor,
-        allow_a: if at > resume.at {
-            DocStart::Passed
-        } else {
-            resume.allow_a
-        },
-        part: if before.binary_search(&at).is_ok() {
-            Part::Before
-        } else {
-            Part::After
-        },
-    });
-    whole.textmate.starts_before = before;
-    whole.textmate.starts_after = after;
-    next
+/// What a line of a grammar that hands off lends a language lexed by hand:
+/// the whole scratch, whose engine part is the spare, and the line.
+struct Hand<'a> {
+    whole: &'a mut crate::scratch::Scratch,
+    line: Line<'a>,
 }
 
 /// Loads the frames of `state`, outermost first; true when it is the start of
@@ -1168,6 +997,9 @@ struct Tokenizer<'a> {
     /// The grammar's [`Grammar::cells`] for the line's kind, read once per
     /// line.
     cells: &'static Cells,
+    /// What a hand-off lends its language, on a line of a grammar that hands
+    /// off.
+    hand: Option<Hand<'a>>,
 }
 
 impl Tokenizer<'_> {
@@ -1638,9 +1470,8 @@ impl Tokenizer<'_> {
         found
     }
 
-    /// Returns how the run stopped. It stops at the line's end, where `halt`
-    /// says the embedding language takes the line back, or where a language
-    /// lexed by hand takes the line over.
+    /// Returns how the run stopped. It stops at `end` or where `halt` says
+    /// the embedding language takes the line back.
     fn tokenize_string<H: Halting>(
         &mut self,
         end: usize,
@@ -1653,15 +1484,6 @@ impl Tokenizer<'_> {
         let mut pos = start;
         let mut anchor = usize::MAX;
         let mut allow_a = first_line;
-        if H::HANDS_OFF
-            && entry == Entry::Resume
-            && let Some(resume) = self.s.handed.take()
-        {
-            pos = resume.at;
-            anchor = resume.anchor;
-            allow_a = resume.allow_a;
-            self.s.part = resume.part;
-        }
         if let Entry::Line { anchored } = entry {
             if anchored {
                 anchor = start;
@@ -1706,7 +1528,6 @@ impl Tokenizer<'_> {
                 Flow::Next => {}
                 Flow::Done => break,
                 Flow::Halted(at) => return Stop::Halted(at),
-                Flow::HandOff => return Stop::HandOff,
             }
         }
         Stop::End
@@ -1780,7 +1601,7 @@ impl Tokenizer<'_> {
             && let Some(part) = handing
             && best.is_none_or(|b| b.start != *pos)
         {
-            return self.hand_off_at(part, end, (*pos, *anchor, *allow_a), top.content);
+            return self.hand_off_at(part, end, (pos, anchor, allow_a), top.content, frames);
         }
         let Some(best) = best else {
             self.produce(top.content, end);
@@ -1853,17 +1674,18 @@ impl Tokenizer<'_> {
         })
     }
 
-    /// Stops the run where a hand-off's language takes the line over. It
-    /// finds where the hand-off's rules and end start on the rest of the line.
-    /// The language halts at those places.
+    /// Hands the line to a hand-off's language at the cursor. It finds where
+    /// the hand-off's rules and end start on the rest of the run. The
+    /// language halts at those places, and the step goes on there.
     #[cold]
     #[inline(never)]
     fn hand_off_at(
         &mut self,
         part: HandPart,
         end: usize,
-        (pos, anchor, allow_a): (usize, usize, DocStart),
+        (pos, anchor, allow_a): (&mut usize, &mut usize, &mut DocStart),
         content: u32,
+        frames: &mut [Frame],
     ) -> Flow {
         let rule: &'static Rule = &self.grammar.rules[part.rule];
         let end_pat = (rule.kind == RuleKind::BeginEnd).then(|| self.end_pat(rule.end, part.end));
@@ -1871,7 +1693,7 @@ impl Tokenizer<'_> {
         let after_end = end_pat.filter(|_| rule.apply_end_last);
         let mut before = std::mem::take(&mut self.s.starts_before);
         let mut after = std::mem::take(&mut self.s.starts_after);
-        let at = (part.from, end, anchor, allow_a);
+        let at = (part.from, end, *anchor, *allow_a);
         self.collect_starts(&mut before, part.before, before_end, at);
         self.collect_starts(&mut after, part.after, after_end, at);
         self.s.starts_before = before;
@@ -1880,14 +1702,109 @@ impl Tokenizer<'_> {
         if self.stopped {
             return Flow::Done;
         }
-        self.produce(content, pos);
-        self.s.handed = Some(Resume {
-            at: pos,
-            anchor,
-            allow_a,
+        self.produce(content, *pos);
+        let from = Resume {
+            at: *pos,
+            anchor: *anchor,
+            allow_a: *allow_a,
             part: Part::Fresh,
+        };
+        let Some(next) = self.run_language(frames, from, end) else {
+            return Flow::Done;
+        };
+        *pos = next.at;
+        *anchor = next.anchor;
+        *allow_a = next.allow_a;
+        self.s.part = next.part;
+        Flow::Next
+    }
+
+    /// Lexes the line from `from` with the language of the hand-off on top
+    /// of `frames`. The language halts at the starts the step found. Its
+    /// state goes into the hand-off frame. Returns where the engine goes on,
+    /// or `None` when the language ran to `end`.
+    ///
+    /// The language sees the line cut at `end`, the end of the run. A capture
+    /// ends its run at the capture's end. Shiki also lexes a capture's text
+    /// as a line cut there.
+    ///
+    /// The language may run the engine again, as Markdown does for a fence.
+    /// That engine line uses the spare scratch, which sits in the whole
+    /// scratch while the line runs.
+    #[cold]
+    #[inline(never)]
+    fn run_language(&mut self, frames: &mut [Frame], from: Resume, end: usize) -> Option<Resume> {
+        let depth = frames.len();
+        let top = depth.checked_sub(1)?;
+        let embedding = frames.get(depth.checked_sub(2)?)?.rule;
+        let language = self.hand_off_of(embedding)?.language;
+        let hand = self.hand.as_mut()?;
+        let cut = end.min(hand.line.text.len());
+        let text = hand.line.text.get(..cut)?;
+        let before = std::mem::take(&mut self.s.starts_before);
+        let after = std::mem::take(&mut self.s.starts_after);
+        let lent = Limits {
+            work: self.limits.work.map(|_| Work {
+                per_byte: 0,
+                base: u32::try_from(self.steps / STEP).unwrap_or(u32::MAX),
+            }),
+            ..*self.limits
+        };
+        let part = Line {
+            text,
+            start: from.at,
+            embedded: false,
+        };
+        let state = frames[top].end;
+        let (finished, halted) = {
+            let mut cx = Lexing {
+                scratch: &mut *hand.whole,
+                arena: &mut *self.arena,
+                limits: &lent,
+                out: &mut *self.out,
+                report: &mut *self.report,
+            };
+            let halting = if before.is_empty() && after.is_empty() {
+                None
+            } else {
+                language.lex_until(
+                    &mut cx,
+                    part,
+                    state,
+                    &Starts(&before),
+                    Some(&Starts(&after)),
+                )
+            };
+            halting.unwrap_or_else(|| (language.lex_embedded(&mut cx, part, state), None))
+        };
+        let counter = Steps::new(&lent, text.len());
+        frames[top].end = counter.take_back(finished);
+        frames[top].state = NEW;
+        self.steps = self
+            .steps
+            .saturating_sub(counter.into_spent().saturating_mul(STEP));
+        if self.steps == 0 && !self.stopped {
+            self.stopped = true;
+            self.report.record(Limit::Work);
+        }
+        self.last = halted.unwrap_or(cut);
+        let next = halted.map(|at| Resume {
+            at,
+            anchor: from.anchor,
+            allow_a: if at > from.at {
+                DocStart::Passed
+            } else {
+                from.allow_a
+            },
+            part: if before.binary_search(&at).is_ok() {
+                Part::Before
+            } else {
+                Part::After
+            },
         });
-        Flow::HandOff
+        self.s.starts_before = before;
+        self.s.starts_after = after;
+        next
     }
 
     /// The hand-off of the list of `rule`, if it has one.
@@ -2097,6 +2014,11 @@ impl Tokenizer<'_> {
     /// The frame goes on top of `frames`, and `frames` get back their length
     /// after the group. A capture's rule has no end, so nothing below it is
     /// closed.
+    ///
+    /// A capture runs the handing loop only when its own rule's list hands
+    /// off. Every other capture runs the plain loop, which costs less per
+    /// step. No table has a capture that reaches a hand-off only through a
+    /// nested rule (`a_capture_reaches_a_hand_off_only_through_its_own_list`).
     fn handle_captures(
         &mut self,
         captures: &'static [Cap],
@@ -2156,7 +2078,19 @@ impl Tokenizer<'_> {
                 } else {
                     DocStart::Passed
                 };
-                self.tokenize_string(e.min(end), first, s, frames, Entry::Capture, Whole);
+                if self.hand.is_some() && self.hand_off_of(capture.retokenize).is_some() {
+                    self.tokenize_string(
+                        e.min(end),
+                        first,
+                        s,
+                        frames,
+                        Entry::Capture,
+                        Handing { halts: None },
+                    );
+                    self.s.part = Part::Fresh;
+                } else {
+                    self.tokenize_string(e.min(end), first, s, frames, Entry::Capture, Whole);
+                }
                 frames.truncate(depth);
                 continue;
             }

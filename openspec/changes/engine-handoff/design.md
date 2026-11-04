@@ -319,13 +319,30 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
    The generator therefore refuses a hand-off that uses `\G` in its `before` or `after` patterns or in its embedding rule's end.
    `no_hand_off_halts_where_the_last_match_ended` checks every table.
    HAML's tables use none.
-4. At a halt the engine runs its own step.
+4. The step calls the target in place, in the cold `Tokenizer::run_language`.
+   The step then goes on where the target halted.
+   At a halt the engine runs its own step.
    The end pops the rule together with the hand-off frame.
    A `before` rule matches and applies.
    The region then resumes from the target's state.
-5. A target needs the whole crate `Scratch`.
-   The handing loop holds it.
-   Around a call it swaps `scratch.textmate` with a spare kept inside it, `textmate::Scratch::spare: Option<Box<textmate::Scratch>>`.
+   An earlier shape unwound the loop to the line's entry at each hand-off.
+   It could not hand off inside a capture, which runs nested in a step.
+5. A capture whose rule includes a hand-lexed grammar hands its text off too.
+   CoffeeScript's backticks, `` (`)(.*)(`) ``, hold JavaScript this way.
+   The capture's run ends at the capture's end.
+   The target sees the line cut there.
+   vscode-textmate also lexes a capture as the line cut at its end, `lineText.substring(0, captureEnd)`.
+   So a target that cannot halt still stops at the capture's end.
+   The capture's hand-off frame closes with the capture.
+   Only a capture whose own rule's list hands off runs the handing loop.
+   Every other capture runs the plain loop, which costs less per step.
+   No table reaches a hand-off from a capture only through a nested rule, and a test over every table keeps it so.
+6. A target needs the whole crate `Scratch`.
+   `scratch.textmate` is a `Box`.
+   A handing line swaps it with the spare kept inside it, `textmate::Scratch::spare: Option<Box<textmate::Scratch>>`.
+   That moves two pointers per line, and nothing at a hand-off.
+   The tokenizer lexes with the engine's scratch apart from the whole one, and lends the whole one to each target.
+   The line swaps them back at its end.
    An engine fence inside a hand-lexed region then has buffers and grammar caches of its own.
    An example is PowerShell in Markdown in HAML.
    The outer line's buffers stay untouched.
@@ -338,7 +355,7 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
    Another covers three: HAML, Ruby, HAML, Markdown and PowerShell.
    The third level comes through Ruby's `<<~HAML` heredoc.
    Shiki's Markdown grammar has no HAML fence, so Markdown cannot give it.
-6. The Callgrind gate is every engine language at or under 1.000.
+7. The Callgrind gate is every engine language at or under 1.000.
    The plain instances' code is unchanged.
 
 ### 14.5 State and limits

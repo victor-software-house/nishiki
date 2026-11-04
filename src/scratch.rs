@@ -68,8 +68,10 @@ pub(crate) struct Scratch {
     #[cfg(feature = "lang-swift")]
     pub(crate) swift: crate::swift::Scratch,
     /// The `TextMate` engine's, for every language it runs.
+    /// Boxed, so a line of a grammar that hands off swaps it for its spare by
+    /// swapping two pointers.
     #[cfg(feature = "_textmate")]
-    pub(crate) textmate: crate::textmate::Scratch,
+    pub(crate) textmate: Box<crate::textmate::Scratch>,
     /// The TypeScript lexer's, for every dialect and the JavaScript of
     /// GraphQL interpolations and Markdown fences.
     #[cfg(any(

@@ -1,0 +1,646 @@
+L # JavaScript Literals
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 21 source.coffee comment.line.number-sign.coffee
+L # -------------------
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 21 source.coffee comment.line.number-sign.coffee
+L 
+L test "inline JavaScript is evaluated", ->
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 36 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee
+T 37 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+T 38 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 39 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 41 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function.inline.coffee storage.type.function.coffee
+L   eq '\\`', `
+T 2 source.coffee
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 7 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 8 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 9 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 10 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 11 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 13 source.coffee meta.function-call.coffee meta.arguments.coffee
+L     // Inline JS
+T 4 source.coffee
+T 5 source.coffee keyword.operator.coffee
+T 6 source.coffee keyword.operator.coffee
+T 7 source.coffee
+T 13 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 14 source.coffee meta.function-call.coffee
+T 16 source.coffee meta.function-call.coffee meta.arguments.coffee
+L     "\\\\\`"
+T 4 source.coffee
+T 5 source.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 6 source.coffee string.quoted.double.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 7 source.coffee string.quoted.double.coffee constant.character.escape.backslash.coffee
+T 8 source.coffee string.quoted.double.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 9 source.coffee string.quoted.double.coffee constant.character.escape.backslash.coffee
+T 10 source.coffee string.quoted.double.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 11 source.coffee string.quoted.double.coffee constant.character.escape.backslash.coffee
+T 12 source.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+L   `
+T 3 source.coffee
+L 
+L test "escaped backticks are output correctly", ->
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 44 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee
+T 45 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+T 46 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 47 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 49 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function.inline.coffee storage.type.function.coffee
+L   `var a = \`2 + 2 = ${4}\``
+T 2 source.coffee
+T 3 source.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 6 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js storage.type.js
+T 7 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js
+T 8 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 9 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js meta.var-single-variable.expr.js
+T 10 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js keyword.operator.assignment.js
+T 12 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js
+T 13 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js string.template.js punctuation.definition.string.template.begin.js
+T 21 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js string.template.js
+T 23 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js string.template.js meta.template.expression.js punctuation.definition.template-expression.begin.js
+T 24 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js string.template.js meta.template.expression.js meta.embedded.line.js constant.numeric.decimal.js
+T 25 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js string.template.js meta.template.expression.js punctuation.definition.template-expression.end.js
+T 27 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js string.template.js constant.character.escape.js
+T 28 source.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+L   eq a, '2 + 2 = 4'
+T 2 source.coffee
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 7 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 8 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 9 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 18 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 19 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L 
+L test "backslashes before a newline don’t break JavaScript blocks", ->
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 66 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee
+T 67 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+T 68 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 69 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 71 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function.inline.coffee storage.type.function.coffee
+L   `var a = \`To be, or not\\
+T 2 source.coffee
+T 3 source.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 6 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js storage.type.js
+T 7 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js
+T 8 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 9 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js meta.var-single-variable.expr.js
+T 10 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js keyword.operator.assignment.js
+T 12 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js
+T 13 source.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+T 15 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 16 source.coffee meta.function-call.coffee
+T 18 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 19 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 20 source.coffee
+T 22 source.coffee keyword.operator.logical.coffee
+T 23 source.coffee
+T 26 source.coffee keyword.operator.logical.coffee
+T 28 source.coffee
+L   to be.\``
+T 2 source.coffee
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 9 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 10 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 11 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+L   eq a, '''
+T 2 source.coffee
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 7 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 8 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 11 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.heredoc.coffee punctuation.definition.string.begin.coffee
+L   To be, or not\\
+T 15 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.heredoc.coffee
+T 16 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.heredoc.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 17 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.heredoc.coffee constant.character.escape.backslash.coffee
+L     to be.'''
+T 10 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.heredoc.coffee
+T 13 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.heredoc.coffee punctuation.definition.string.end.coffee
+L 
+L test "block inline JavaScript is evaluated", ->
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 42 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee
+T 43 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+T 44 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 45 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 47 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function.inline.coffee storage.type.function.coffee
+L   ```
+T 2 source.coffee
+T 3 source.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 4 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.template.js punctuation.definition.string.template.begin.js
+T 5 source.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+L   var a = 1;
+T 2 source.coffee
+T 5 source.coffee keyword.reserved.coffee
+T 6 source.coffee
+T 7 source.coffee variable.assignment.coffee
+T 8 source.coffee
+T 9 source.coffee keyword.operator.assignment.coffee
+T 10 source.coffee
+T 11 source.coffee constant.numeric.decimal.coffee
+T 12 source.coffee punctuation.terminator.statement.coffee
+L   var b = 2;
+T 2 source.coffee
+T 5 source.coffee keyword.reserved.coffee
+T 6 source.coffee
+T 7 source.coffee variable.assignment.coffee
+T 8 source.coffee
+T 9 source.coffee keyword.operator.assignment.coffee
+T 10 source.coffee
+T 11 source.coffee constant.numeric.decimal.coffee
+T 12 source.coffee punctuation.terminator.statement.coffee
+L   ```
+T 2 source.coffee
+T 3 source.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 4 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.template.js punctuation.definition.string.template.begin.js
+T 5 source.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+L   c = 3
+T 2 source.coffee
+T 3 source.coffee variable.assignment.coffee
+T 4 source.coffee
+T 5 source.coffee keyword.operator.assignment.coffee
+T 6 source.coffee
+T 7 source.coffee constant.numeric.decimal.coffee
+L   ```var d = 4;```
+T 2 source.coffee
+T 3 source.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 4 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.template.js punctuation.definition.string.template.begin.js
+T 5 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.template.js punctuation.definition.string.template.end.js
+T 8 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js storage.type.js
+T 9 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js
+T 10 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 11 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js meta.var-single-variable.expr.js
+T 12 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js keyword.operator.assignment.js
+T 13 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js
+T 14 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js constant.numeric.decimal.js
+T 15 source.coffee string.quoted.script.coffee source.js.embedded.coffee punctuation.terminator.statement.js
+T 16 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.template.js punctuation.definition.string.template.begin.js
+T 17 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.template.js punctuation.definition.string.template.end.js
+T 18 source.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+L   eq a + b + c + d, 10
+T 2 source.coffee
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 7 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 8 source.coffee meta.function-call.coffee meta.arguments.coffee keyword.operator.coffee
+T 11 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 12 source.coffee meta.function-call.coffee meta.arguments.coffee keyword.operator.coffee
+T 15 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 16 source.coffee meta.function-call.coffee meta.arguments.coffee keyword.operator.coffee
+T 18 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 19 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 20 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 22 source.coffee meta.function-call.coffee meta.arguments.coffee constant.numeric.decimal.coffee
+L 
+L test "block inline JavaScript containing backticks", ->
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 50 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee
+T 51 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+T 52 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 53 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 55 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function.inline.coffee storage.type.function.coffee
+L   ```
+T 2 source.coffee
+T 3 source.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 4 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.template.js punctuation.definition.string.template.begin.js
+T 5 source.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+L   // This is a comment with `backticks`
+T 2 source.coffee
+T 3 source.coffee keyword.operator.coffee
+T 4 source.coffee keyword.operator.coffee
+T 10 source.coffee
+T 12 source.coffee keyword.operator.comparison.coffee
+T 13 source.coffee
+T 14 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 15 source.coffee meta.function-call.coffee
+T 22 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function-call.coffee entity.name.function.coffee
+T 23 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function-call.coffee
+T 27 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee keyword.reserved.coffee
+T 28 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee
+T 29 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 38 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.script.coffee source.js.embedded.coffee variable.other.readwrite.js
+T 39 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+L   var a = 42;
+T 2 source.coffee
+T 5 source.coffee keyword.reserved.coffee
+T 6 source.coffee
+T 7 source.coffee variable.assignment.coffee
+T 8 source.coffee
+T 9 source.coffee keyword.operator.assignment.coffee
+T 10 source.coffee
+T 12 source.coffee constant.numeric.decimal.coffee
+T 13 source.coffee punctuation.terminator.statement.coffee
+L   var b = `foo ${'bar'}`;
+T 2 source.coffee
+T 5 source.coffee keyword.reserved.coffee
+T 6 source.coffee
+T 7 source.coffee variable.assignment.coffee
+T 8 source.coffee
+T 9 source.coffee keyword.operator.assignment.coffee
+T 10 source.coffee
+T 11 source.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 14 source.coffee string.quoted.script.coffee source.js.embedded.coffee variable.other.readwrite.js
+T 15 source.coffee string.quoted.script.coffee source.js.embedded.coffee
+T 16 source.coffee string.quoted.script.coffee source.js.embedded.coffee variable.other.readwrite.js
+T 17 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.block.js punctuation.definition.block.js
+T 18 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 21 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.block.js string.quoted.single.js
+T 22 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 23 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.block.js punctuation.definition.block.js
+T 24 source.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+T 25 source.coffee punctuation.terminator.statement.coffee
+L   var c = 3;
+T 2 source.coffee
+T 5 source.coffee keyword.reserved.coffee
+T 6 source.coffee
+T 7 source.coffee variable.assignment.coffee
+T 8 source.coffee
+T 9 source.coffee keyword.operator.assignment.coffee
+T 10 source.coffee
+T 11 source.coffee constant.numeric.decimal.coffee
+T 12 source.coffee punctuation.terminator.statement.coffee
+L   var d = 'foo`bar`';
+T 2 source.coffee
+T 5 source.coffee keyword.reserved.coffee
+T 6 source.coffee
+T 7 source.coffee variable.assignment.coffee
+T 8 source.coffee
+T 9 source.coffee keyword.operator.assignment.coffee
+T 10 source.coffee
+T 11 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 19 source.coffee string.quoted.single.coffee
+T 20 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 21 source.coffee punctuation.terminator.statement.coffee
+L   ```
+T 2 source.coffee
+T 3 source.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 4 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.template.js punctuation.definition.string.template.begin.js
+T 5 source.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+L   eq a + c, 45
+T 2 source.coffee
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 7 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 8 source.coffee meta.function-call.coffee meta.arguments.coffee keyword.operator.coffee
+T 10 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 11 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 12 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 14 source.coffee meta.function-call.coffee meta.arguments.coffee constant.numeric.decimal.coffee
+L   eq b, 'foo bar'
+T 2 source.coffee
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 7 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 8 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 9 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 16 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 17 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L   eq d, 'foo`bar`'
+T 2 source.coffee
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 7 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 8 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 9 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 17 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 18 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L 
+L test "block JavaScript can end with an escaped backtick character", ->
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 65 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee
+T 66 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+T 67 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 68 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 70 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function.inline.coffee storage.type.function.coffee
+L   ```var a = \`hello\````
+T 2 source.coffee
+T 3 source.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 4 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.template.js punctuation.definition.string.template.begin.js
+T 5 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.template.js punctuation.definition.string.template.end.js
+T 8 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js storage.type.js
+T 9 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js
+T 10 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 11 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js meta.var-single-variable.expr.js
+T 12 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js keyword.operator.assignment.js
+T 14 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js
+T 15 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js string.template.js punctuation.definition.string.template.begin.js
+T 20 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js string.template.js
+T 22 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js string.template.js constant.character.escape.js
+T 23 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js string.template.js punctuation.definition.string.template.end.js
+T 24 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.var.expr.js string.template.js punctuation.definition.string.template.begin.js
+T 25 source.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+L   ```
+T 2 source.coffee
+T 3 source.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 4 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.template.js punctuation.definition.string.template.begin.js
+T 5 source.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+L   var b = \`world${'!'}\````
+T 2 source.coffee
+T 5 source.coffee keyword.reserved.coffee
+T 6 source.coffee
+T 7 source.coffee variable.assignment.coffee
+T 8 source.coffee
+T 9 source.coffee keyword.operator.assignment.coffee
+T 11 source.coffee
+T 12 source.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 18 source.coffee string.quoted.script.coffee source.js.embedded.coffee variable.other.readwrite.js
+T 19 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.block.js punctuation.definition.block.js
+T 20 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 21 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.block.js string.quoted.single.js
+T 22 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 23 source.coffee string.quoted.script.coffee source.js.embedded.coffee meta.block.js punctuation.definition.block.js
+T 24 source.coffee string.quoted.script.coffee source.js.embedded.coffee
+T 25 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.template.js punctuation.definition.string.template.begin.js
+T 26 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.template.js punctuation.definition.string.template.end.js
+T 27 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.template.js punctuation.definition.string.template.begin.js
+T 28 source.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+L   eq a, 'hello'
+T 2 source.coffee
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 7 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 8 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 9 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 14 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 15 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L   eq b, 'world!'
+T 2 source.coffee
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 7 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 8 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 9 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 15 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 16 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L 
+L test "JavaScript block only escapes backslashes followed by backticks", ->
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 69 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee
+T 70 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+T 71 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 72 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 74 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function.inline.coffee storage.type.function.coffee
+L   eq `'\\\n'`, '\\\n'
+T 5 source.coffee
+T 6 source.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 7 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.quoted.single.js punctuation.definition.string.begin.js
+T 9 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.quoted.single.js constant.character.escape.js
+T 11 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.quoted.single.js constant.character.escape.js
+T 12 source.coffee string.quoted.script.coffee source.js.embedded.coffee string.quoted.single.js punctuation.definition.string.end.js
+T 13 source.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+T 14 source.coffee punctuation.separator.delimiter.coffee
+T 15 source.coffee
+T 16 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 17 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 18 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 19 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 20 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 21 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L 
+L test "escaped JavaScript blocks speed round", ->
+T 4 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 5 source.coffee meta.function-call.coffee
+T 6 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 43 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee
+T 44 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+T 45 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 46 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 48 source.coffee meta.function-call.coffee meta.arguments.coffee meta.function.inline.coffee storage.type.function.coffee
+L   # The following has escaped backslashes because they’re required in strings, but the intent is this:
+T 2 source.coffee
+T 3 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 104 source.coffee comment.line.number-sign.coffee
+L   # `hello`                                       → hello;
+T 2 source.coffee
+T 3 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 60 source.coffee comment.line.number-sign.coffee
+L   # `\`hello\``                                   → `hello`;
+T 2 source.coffee
+T 3 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 62 source.coffee comment.line.number-sign.coffee
+L   # `\`Escaping backticks in JS: \\\`hello\\\`\`` → `Escaping backticks in JS: \`hello\``;
+T 2 source.coffee
+T 3 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 92 source.coffee comment.line.number-sign.coffee
+L   # `Single backslash: \ `                        → Single backslash: \ ;
+T 2 source.coffee
+T 3 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 75 source.coffee comment.line.number-sign.coffee
+L   # `Double backslash: \\ `                       → Double backslash: \\ ;
+T 2 source.coffee
+T 3 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 76 source.coffee comment.line.number-sign.coffee
+L   # `Single backslash at EOS: \\`                 → Single backslash at EOS: \;
+T 2 source.coffee
+T 3 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 81 source.coffee comment.line.number-sign.coffee
+L   # `Double backslash at EOS: \\\\`               → Double backslash at EOS: \\;
+T 2 source.coffee
+T 3 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 82 source.coffee comment.line.number-sign.coffee
+L   for [input, output] in [
+T 2 source.coffee
+T 5 source.coffee keyword.control.coffee
+T 6 source.coffee
+T 7 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 12 source.coffee
+T 13 source.coffee punctuation.separator.delimiter.coffee
+T 20 source.coffee
+T 21 source.coffee punctuation.definition.array.end.bracket.square.coffee
+T 22 source.coffee
+T 24 source.coffee keyword.control.coffee
+T 25 source.coffee
+T 26 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+L     ['`hello`',                                               'hello;']
+T 4 source.coffee
+T 5 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 6 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 13 source.coffee string.quoted.single.coffee
+T 14 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 15 source.coffee punctuation.separator.delimiter.coffee
+T 62 source.coffee
+T 63 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 69 source.coffee string.quoted.single.coffee
+T 70 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 71 source.coffee punctuation.definition.array.end.bracket.square.coffee
+L     ['`\\`hello\\``',                                         '`hello`;']
+T 4 source.coffee
+T 5 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 6 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 7 source.coffee string.quoted.single.coffee
+T 8 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 9 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 15 source.coffee string.quoted.single.coffee
+T 16 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 17 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 19 source.coffee string.quoted.single.coffee
+T 20 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 21 source.coffee punctuation.separator.delimiter.coffee
+T 62 source.coffee
+T 63 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 71 source.coffee string.quoted.single.coffee
+T 72 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 73 source.coffee punctuation.definition.array.end.bracket.square.coffee
+L     ['`\\`Escaping backticks in JS: \\\\\\`hello\\\\\\`\\``', '`Escaping backticks in JS: \\`hello\\``;']
+T 4 source.coffee
+T 5 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 6 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 7 source.coffee string.quoted.single.coffee
+T 8 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 9 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 36 source.coffee string.quoted.single.coffee
+T 37 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 38 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 39 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 40 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 41 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 42 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 48 source.coffee string.quoted.single.coffee
+T 49 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 50 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 51 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 52 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 53 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 54 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 55 source.coffee string.quoted.single.coffee
+T 56 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 57 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 59 source.coffee string.quoted.single.coffee
+T 60 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 61 source.coffee punctuation.separator.delimiter.coffee
+T 62 source.coffee
+T 63 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 90 source.coffee string.quoted.single.coffee
+T 91 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 92 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 98 source.coffee string.quoted.single.coffee
+T 99 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 100 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 103 source.coffee string.quoted.single.coffee
+T 104 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 105 source.coffee punctuation.definition.array.end.bracket.square.coffee
+L     ['`Single backslash: \\ `',                               'Single backslash: \\ ;']
+T 4 source.coffee
+T 5 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 6 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 25 source.coffee string.quoted.single.coffee
+T 26 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 27 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 29 source.coffee string.quoted.single.coffee
+T 30 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 31 source.coffee punctuation.separator.delimiter.coffee
+T 62 source.coffee
+T 63 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 81 source.coffee string.quoted.single.coffee
+T 82 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 83 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 85 source.coffee string.quoted.single.coffee
+T 86 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 87 source.coffee punctuation.definition.array.end.bracket.square.coffee
+L     ['`Double backslash: \\\\ `',                             'Double backslash: \\\\ ;']
+T 4 source.coffee
+T 5 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 6 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 25 source.coffee string.quoted.single.coffee
+T 26 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 27 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 28 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 29 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 31 source.coffee string.quoted.single.coffee
+T 32 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 33 source.coffee punctuation.separator.delimiter.coffee
+T 62 source.coffee
+T 63 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 81 source.coffee string.quoted.single.coffee
+T 82 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 83 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 84 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 85 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 87 source.coffee string.quoted.single.coffee
+T 88 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 89 source.coffee punctuation.definition.array.end.bracket.square.coffee
+L     ['`Single backslash at EOS: \\\\`',                       'Single backslash at EOS: \\;']
+T 4 source.coffee
+T 5 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 6 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 32 source.coffee string.quoted.single.coffee
+T 33 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 34 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 35 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 36 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 37 source.coffee string.quoted.single.coffee
+T 38 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 39 source.coffee punctuation.separator.delimiter.coffee
+T 62 source.coffee
+T 63 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 88 source.coffee string.quoted.single.coffee
+T 89 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 90 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 91 source.coffee string.quoted.single.coffee
+T 92 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 93 source.coffee punctuation.definition.array.end.bracket.square.coffee
+L     ['`Double backslash at EOS: \\\\\\\\`',                   'Double backslash at EOS: \\\\;']
+T 4 source.coffee
+T 5 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 6 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 32 source.coffee string.quoted.single.coffee
+T 33 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 34 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 35 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 36 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 37 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 38 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 39 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 40 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 41 source.coffee string.quoted.single.coffee
+T 42 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 43 source.coffee punctuation.separator.delimiter.coffee
+T 62 source.coffee
+T 63 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 88 source.coffee string.quoted.single.coffee
+T 89 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 90 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 91 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 92 source.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 93 source.coffee string.quoted.single.coffee
+T 94 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 95 source.coffee punctuation.definition.array.end.bracket.square.coffee
+L   ]
+T 2 source.coffee
+T 3 source.coffee punctuation.definition.array.end.bracket.square.coffee
+L     eqJS input, output
+T 4 source.coffee
+T 8 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 9 source.coffee meta.function-call.coffee
+T 14 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 15 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 22 source.coffee meta.function-call.coffee meta.arguments.coffee
+L 

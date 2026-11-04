@@ -506,6 +506,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `coffee/coffeescript-browser` | [`src/browser.coffee`][coffeescript-browser] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
 | `coffee/coffeescript-cake` | [`src/cake.coffee`][coffeescript-cake] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
 | `coffee/coffeescript-helpers` | [`src/helpers.coffee`][coffeescript-helpers] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
+| `coffee/coffeescript-javascript-literals` | [`test/javascript_literals.coffee`][coffeescript-javascript-literals] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
 | `coffee/coffeescript-optparse` | [`src/optparse.coffee`][coffeescript-optparse] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
 | `coffee/coffeescript-repl` | [`src/repl.coffee`][coffeescript-repl] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
 
@@ -875,6 +876,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [coffeescript-cake]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/src/cake.coffee
 [coffeescript-classes]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/documentation/sections/breaking_changes_classes.md
 [coffeescript-helpers]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/src/helpers.coffee
+[coffeescript-javascript-literals]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/test/javascript_literals.coffee
 [coffeescript-licence]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/LICENSE
 [coffeescript-optparse]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/src/optparse.coffee
 [coffeescript-repl]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/src/repl.coffee
