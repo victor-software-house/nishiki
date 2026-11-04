@@ -1,17 +1,20 @@
 //! INI, with the scopes of the `ini` grammar that Shiki bundles.
 //!
 //! Every rule of the grammar is a regular expression that can match at any
-//! position of a line, and the line's next token is the match that starts
-//! first. The lexer keeps each rule's next match (see `rules`) until the
-//! cursor passes it, so a line is scanned once. A string runs across lines;
-//! an open string is the one frame the lexer pushes. A comment runs to the
-//! end of its line.
+//! position of a line.
+//! The line's next token is the match that starts first.
+//! The lexer keeps each rule's next match, in `rules`, until the cursor passes
+//! it.
+//! A line is therefore scanned once.
+//! A string runs across lines.
+//! An open string is the one frame the lexer pushes.
+//! A comment runs to the end of its line.
 //!
-//! It reproduces Shiki's output, quirks included: a `#` or `;` starts a
-//! comment anywhere outside a string, so `a = b # c` has a comment; a
-//! `key = value` is found anywhere in a line, so `a = b = c` has two keys; a
-//! double-quoted string has no escapes; and a section header is read only at
-//! the start of a line.
+//! It reproduces Shiki's output, quirks included:
+//! - a `#` or `;` outside a string starts a comment, as in `a = b # c`;
+//! - a `key = value` is found anywhere in a line, so `a = b = c` has two keys;
+//! - a double-quoted string has no escapes;
+//! - a section header is read only at the start of a line.
 //!
 //! An empty line leaves the state as it is, because Shiki does not tokenize
 //! empty lines.
@@ -60,12 +63,13 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// Lexes `line` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), appending tokens whose ends count
-/// from the start of the whole line, and returns the state after it.
+/// ([`Language::lex`](crate::Language)).
+/// It appends tokens whose ends count from the start of the whole line.
+/// It returns the state after the line.
 ///
 /// Lexing starts at `line.start`, where a Markdown fence's text begins after
-/// the indentation of the containers around it; the bytes before it stay in
-/// the line, because `^` matches only at 0.
+/// the indentation of the containers around it.
+/// The bytes before it stay in the line, because `^` matches only at 0.
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     let (bytes, start) = (line.text.as_bytes(), line.start);
     if bytes.len() <= start {
@@ -171,8 +175,9 @@ impl Lexer<'_> {
     /// Finds the next token outside a string at or after `pos` and returns
     /// where scanning goes on.
     ///
-    /// The match that starts first wins, and of matches that start at one
-    /// byte the rule the grammar lists first, which is the first in `found`:
+    /// The match that starts first wins.
+    /// Of matches that start at one byte, the rule the grammar lists first
+    /// wins, and it is the first in `found`.
     /// `min_by_key` keeps the first of equal keys.
     fn top(&mut self, text: &mut rules::Line<'_>, slots: &mut Slots, pos: usize) -> usize {
         let found = [

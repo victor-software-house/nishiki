@@ -1,11 +1,12 @@
-//! Ruby, with the scopes of the `ruby` grammar that Shiki bundles, which
-//! comes from Shopify's ruby-lsp through VS Code.
+//! Ruby, with the scopes of the `ruby` grammar that Shiki bundles.
+//! The grammar comes from Shopify's ruby-lsp through VS Code.
 //!
-//! The lexer runs the grammar's begin/end rules with hand-written matchers
-//! over bytes (see the `engine` module): the tables in `grammar` are
-//! generated from the grammar, and the `matchers` decide where each pattern
-//! matches. The rules left open at the end of a line (strings, heredocs,
-//! `=begin` comments, blocks) are frames of the highlighter's interned state.
+//! The lexer runs the grammar's begin/end rules with hand-written matchers over
+//! bytes, in the `engine` module.
+//! The tables in `grammar` are generated from the grammar.
+//! The `matchers` decide where each pattern matches.
+//! The rules left open at the end of a line (strings, heredocs, `=begin`
+//! comments, blocks) are frames of the highlighter's interned state.
 
 mod engine;
 mod grammar;
@@ -33,10 +34,10 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     rules::start_embedded::<Ruby>(arena, base)
 }
 
-/// Lexes one line under the crate's lexer contract. A heredoc named for a
-/// language hands its text to that language up to where Ruby's own patterns
-/// take it back ([`interpolation`] and [`escape`]); see
-/// [`rules::lex_embedding`].
+/// Lexes one line under the crate's lexer contract.
+/// A heredoc named for a language hands its text to that language up to where
+/// Ruby's own patterns take it back ([`interpolation`] and [`escape`]).
+/// See [`rules::lex_embedding`].
 #[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     rules::lex_embedding::<Ruby>(
@@ -72,8 +73,9 @@ fn interpolation(s: &[u8], p: usize) -> bool {
     }
 }
 
-/// Where Ruby's escape `\\.` begins, which a language-named heredoc lists
-/// after the embedded grammar, so a match of that grammar there wins.
+/// Where Ruby's escape `\\.` begins.
+/// A language-named heredoc lists it after the embedded grammar.
+/// A match of that grammar there therefore wins.
 fn escape(s: &[u8], p: usize) -> bool {
     s.get(p) == Some(&b'\\') && p + 1 < s.len()
 }

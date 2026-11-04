@@ -2,13 +2,15 @@
 //!
 //! The lexer runs the grammar's begin/end rules on the shared rule engine
 //! ([`crate::rules`]), with C's hand-written pattern lists and matchers (see
-//! the `engine` module). The rules left open at the end of a
-//! line (comments, strings, blocks, macros with a backslash at the end) are
-//! frames of the highlighter's interned state.
+//! the `engine` module).
+//! The rules left open at the end of a line (comments, strings, blocks, macros
+//! with a backslash at the end) are frames of the highlighter's interned state.
 //!
-//! It reproduces Shiki's output, quirks included: a `#define` is found
-//! anywhere in a line, an unterminated string runs to the end of the
-//! document, `x or(` is an initialization, and `a.b.c (` is a member access.
+//! It reproduces Shiki's output, quirks included:
+//! - a `#define` is found anywhere in a line;
+//! - an unterminated string runs to the end of the document;
+//! - `x or(` is an initialization;
+//! - `a.b.c (` is a member access.
 
 mod access;
 mod comments;

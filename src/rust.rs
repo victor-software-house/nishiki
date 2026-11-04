@@ -1,12 +1,15 @@
 //! Rust, with the scopes of the Rust grammar that Shiki bundles.
 //!
-//! The lexer is a hand-written state machine over bytes. Its contexts
-//! (strings, comments, calls, generics and so on) are frames of the
-//! highlighter's interned state.
+//! The lexer is a hand-written state machine over bytes.
+//! Its contexts (strings, comments, calls, generics and so on) are frames of
+//! the highlighter's interned state.
 //!
-//! It reproduces Shiki's output, quirks included: `||` is two `|` operators,
-//! `a!=b` reads `a!` as a macro, and a camel-case name such as `fooBar` gets no
-//! scope. Every non-ASCII byte counts as a word character.
+//! It reproduces Shiki's output, quirks included:
+//! - `||` is two `|` operators;
+//! - `a!=b` reads `a!` as a macro;
+//! - a camel-case name such as `fooBar` gets no scope.
+//!
+//! Every non-ASCII byte counts as a word character.
 
 mod code;
 mod lexer;

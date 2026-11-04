@@ -1,15 +1,18 @@
 //! Dockerfile, with the scopes of the `docker` grammar that Shiki bundles.
 //!
-//! The grammar has three rules that start with `^` (a `FROM ... AS` line, an
-//! instruction keyword, a comment) and two string rules that run across
-//! lines. The lexer tries the first three at the start of a line, in the
-//! grammar's order, and then scans for quotes and backslashes; an open string
-//! is the one frame the lexer pushes.
+//! The grammar has three rules that start with `^`: a `FROM ... AS` line, an
+//! instruction keyword and a comment.
+//! It also has two string rules that run across lines.
+//! The lexer tries the first three at the start of a line, in the grammar's
+//! order, and then scans for quotes and backslashes.
+//! An open string is the one frame the lexer pushes.
 //!
-//! It reproduces Shiki's output, quirks included: a comment is read only at
-//! the start of a line and never inside a string, a backslash escapes any
-//! character, a string does not end at a line end, and a line that continues
-//! another still reads its first word as an instruction.
+//! It reproduces Shiki's output, quirks included:
+//! - a comment is read only at the start of a line and never inside a string;
+//! - a backslash escapes any character;
+//! - a string does not end at a line end;
+//! - a line that continues another still reads its first word as an
+//!   instruction.
 //!
 //! An empty line leaves the state as it is, because Shiki does not tokenize
 //! empty lines.
@@ -68,12 +71,13 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// Lexes `line` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), appending tokens whose ends count
-/// from the start of the whole line, and returns the state after it.
+/// ([`Language::lex`](crate::Language)).
+/// It appends tokens whose ends count from the start of the whole line.
+/// It returns the state after the line.
 ///
 /// Lexing starts at `line.start`, where a Markdown fence's text begins after
-/// the indentation of the containers around it; the bytes before it stay in
-/// the line, because `^` matches only at 0.
+/// the indentation of the containers around it.
+/// The bytes before it stay in the line, because `^` matches only at 0.
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     let (bytes, start) = (line.text.as_bytes(), line.start);
     if bytes.len() <= start {
@@ -166,8 +170,9 @@ impl Lexer<'_> {
         at + 1
     }
 
-    /// A backslash at `at` and the character after it, which is not the line
-    /// feed, make one escape; at the end of the line it is plain text.
+    /// A backslash at `at` and the character after it make one escape.
+    /// The character after it is not the line feed.
+    /// At the end of the line the backslash is plain text.
     fn escape(&mut self, at: usize) -> usize {
         let Some(&next) = self.bytes.get(at + 1) else {
             return at + 1;

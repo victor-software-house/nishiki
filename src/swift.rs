@@ -1,11 +1,12 @@
-//! Swift, with the scopes of the `swift` grammar that Shiki bundles, which
-//! comes from Jacob Bandes-Storch's `swift-tmlanguage`.
+//! Swift, with the scopes of the `swift` grammar that Shiki bundles.
+//! The grammar comes from Jacob Bandes-Storch's `swift-tmlanguage`.
 //!
-//! The lexer runs the grammar's begin/end rules with hand-written matchers
-//! over bytes (see the `engine` module): the tables in `grammar` are
-//! generated from the grammar, and the `matchers` decide where each pattern
-//! matches. The rules left open at the end of a line (blocks, parentheses,
-//! strings, comments) are frames of the highlighter's interned state.
+//! The lexer runs the grammar's begin/end rules with hand-written matchers over
+//! bytes, in the `engine` module.
+//! The tables in `grammar` are generated from the grammar.
+//! The `matchers` decide where each pattern matches.
+//! The rules left open at the end of a line (blocks, parentheses, strings,
+//! comments) are frames of the highlighter's interned state.
 
 mod dispatch;
 mod engine;

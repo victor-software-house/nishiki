@@ -1,11 +1,12 @@
-//! C++, with the scopes of the `cpp` grammar that Shiki bundles, which
-//! comes from the C and C++ extension of VS Code.
+//! C++, with the scopes of the `cpp` grammar that Shiki bundles.
+//! The grammar comes from the C and C++ extension of VS Code.
 //!
-//! The lexer runs the grammar's begin/end rules with hand-written matchers
-//! over bytes (see the `engine` module): the tables in `grammar` are
-//! generated from the grammar, and the `matchers` decide where each regular
-//! expression matches. The rules left open at the end of a line are frames of
-//! the highlighter's interned state.
+//! The lexer runs the grammar's begin/end rules with hand-written matchers over
+//! bytes, in the `engine` module.
+//! The tables in `grammar` are generated from the grammar.
+//! The `matchers` decide where each regular expression matches.
+//! The rules left open at the end of a line are frames of the highlighter's
+//! interned state.
 
 mod engine;
 mod few;

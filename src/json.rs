@@ -1,17 +1,21 @@
-//! JSON, with the scopes of the `json`, `jsonc` and `jsonl` grammars that
-//! Shiki bundles.
+//! JSON, with the scopes of the `json`, `jsonc` and `jsonl` grammars that Shiki
+//! bundles.
 //!
-//! The three grammars are one grammar with three spellings of its scope names,
-//! so one lexer serves them, told apart by [`Dialect`]. It is a hand-written
-//! state machine over bytes whose contexts (arrays, objects, the value after a
-//! colon, strings and comments) are frames of the highlighter's interned
-//! state.
+//! The three grammars are one grammar with three spellings of its scope names.
+//! One lexer therefore serves them, told apart by [`Dialect`].
+//! It is a hand-written state machine over bytes whose contexts (arrays,
+//! objects, the value after a colon, strings and comments) are frames of the
+//! highlighter's interned state.
 //!
-//! It reproduces Shiki's output, quirks included: every dialect takes `//` and
-//! `/* */` comments, a stray character in an array or object is an
-//! `invalid.illegal` scope of its own, and `01` is the number `0` and then the
-//! number `1`. A non-ASCII digit is not a digit, and a non-ASCII word
-//! character is one when it is alphanumeric, so combining marks are not.
+//! It reproduces Shiki's output, quirks included:
+//! - every dialect takes `//` and `/* */` comments;
+//! - a stray character in an array or object is an `invalid.illegal` scope of
+//!   its own;
+//! - `01` is the number `0` and then the number `1`.
+//!
+//! A non-ASCII digit is not a digit.
+//! A non-ASCII word character is one when it is alphanumeric.
+//! Combining marks therefore are not.
 
 mod lexer;
 mod scope;
@@ -37,7 +41,8 @@ pub(crate) enum Dialect {
 }
 
 impl Dialect {
-    /// The dialect's position among the three, which numbers its table.
+    /// The dialect's position among the three.
+    /// It numbers the dialect's table.
     pub(crate) const fn index(self) -> u16 {
         match self {
             Dialect::Json => 0,

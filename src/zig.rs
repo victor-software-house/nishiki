@@ -1,10 +1,13 @@
 //! Zig, run by nishiki's `TextMate` engine on the `zig` grammar that Shiki
-//! bundles, which `oracle/engine-tables.ts` compiles into `grammar.rs`.
+//! bundles.
+//! `oracle/engine-tables.ts` compiles that grammar into `grammar.rs`.
 //!
-//! The language has no lexer of its own: its row in `languages!` names the
-//! table, and the engine runs the grammar's rules as Shiki does and names
-//! their scopes at run time, so the language has no scope table or frame tag
-//! of its own either. Shiki's Markdown grammar has no Zig fence, so no
-//! language embeds Zig yet.
+//! The language has no lexer of its own.
+//! Its row in `languages!` names the table.
+//! The engine runs the grammar's rules as Shiki does and names their scopes at
+//! run time.
+//! The language therefore has no scope table or frame tag of its own either.
+//! Shiki's Markdown grammar has no Zig fence.
+//! No language therefore embeds Zig yet.
 
 pub(crate) mod grammar;

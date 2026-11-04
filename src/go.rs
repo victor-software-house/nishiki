@@ -1,11 +1,12 @@
-//! Go, with the scopes of the `go` grammar that Shiki bundles, which
-//! comes from VS Code.
+//! Go, with the scopes of the `go` grammar that Shiki bundles.
+//! The grammar comes from VS Code.
 //!
-//! The lexer runs the grammar's begin/end rules with hand-written matchers
-//! over bytes (see the `engine` module): the tables in `grammar` are
-//! generated from the grammar, and the `matchers` decide where each pattern
-//! matches. The rules left open at the end of a line (blocks, comments, raw
-//! strings, declarations) are frames of the highlighter's interned state.
+//! The lexer runs the grammar's begin/end rules with hand-written matchers over
+//! bytes, in the `engine` module.
+//! The tables in `grammar` are generated from the grammar.
+//! The `matchers` decide where each pattern matches.
+//! The rules left open at the end of a line (blocks, comments, raw strings,
+//! declarations) are frames of the highlighter's interned state.
 
 mod engine;
 mod grammar;

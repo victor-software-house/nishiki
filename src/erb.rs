@@ -1,10 +1,11 @@
-//! ERB, with the scopes of the `erb` grammar that Shiki bundles, which comes
-//! from `TextMate`'s Ruby bundle: HTML whose `<% %>` tags hold Ruby.
+//! ERB, with the scopes of the `erb` grammar that Shiki bundles.
+//! The grammar comes from `TextMate`'s Ruby bundle: HTML whose `<% %>` tags
+//! hold Ruby.
 //!
-//! The HTML lexer runs it, with ERB's injection in place of the HTML
-//! grammar's: wherever no HTML rule matches, outside comments, a `<%` opens
-//! a comment or Ruby code, which the Ruby lexer reads up to the `%>` that
-//! ends it.
+//! The HTML lexer runs it, with ERB's injection in place of the HTML grammar's.
+//! Wherever no HTML rule matches, outside comments, a `<%` opens a comment or
+//! Ruby code.
+//! The Ruby lexer reads that code up to the `%>` that ends it.
 
 use crate::arena::Arena;
 use crate::language::{Context, Line};
@@ -17,8 +18,8 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// The state at the start of ERB embedded in another language, whose text
-/// sits on `base` with no `text.html.erb` of its own; Shiki's Markdown has
-/// no ERB fence, so no Markdown block opens it.
+/// sits on `base` with no `text.html.erb` of its own.
+/// Shiki's Markdown has no ERB fence, so no Markdown block opens it.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     crate::html::start_embedded(arena, base)
 }

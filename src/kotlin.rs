@@ -1,11 +1,12 @@
-//! Kotlin, with the scopes of the `kotlin` grammar that Shiki bundles, which
-//! comes from the Kotlin extension for VS Code by fwcd.
+//! Kotlin, with the scopes of the `kotlin` grammar that Shiki bundles.
+//! The grammar comes from the Kotlin extension for VS Code by fwcd.
 //!
-//! The lexer runs the grammar's begin/end rules with hand-written matchers
-//! over bytes (see the `engine` module): the tables in `grammar` are
-//! generated from the grammar, and the `matchers` decide where each pattern
-//! matches. The rules left open at the end of a line (comments, strings,
-//! template expressions) are frames of the highlighter's interned state.
+//! The lexer runs the grammar's begin/end rules with hand-written matchers over
+//! bytes, in the `engine` module.
+//! The tables in `grammar` are generated from the grammar.
+//! The `matchers` decide where each pattern matches.
+//! The rules left open at the end of a line (comments, strings, template
+//! expressions) are frames of the highlighter's interned state.
 
 mod engine;
 mod grammar;

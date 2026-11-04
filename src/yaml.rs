@@ -1,10 +1,9 @@
 //! YAML, with the scopes of the `yaml` grammar that Shiki bundles.
 //!
-//! The lexer is built from the YAML 1.2 specification and from Shiki's
-//! output.
-//! It is a hand-written state machine over bytes whose contexts (block
-//! scalars, quoted strings and flow collections) are frames of the
-//! highlighter's interned state.
+//! The lexer is built from the YAML 1.2 specification and from Shiki's output.
+//! It is a hand-written state machine over bytes whose contexts (block scalars,
+//! quoted strings and flow collections) are frames of the highlighter's
+//! interned state.
 
 mod lexer;
 mod scalar;
@@ -36,11 +35,12 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 
 /// Lexes `line` from `state` under the crate's one lexer contract
 /// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
+/// start of the whole line.
+/// It returns the state after the line.
 ///
-/// An empty line appends nothing and leaves the state as it is. The lexer
-/// reads the text from `line.start`, where `^` does not match when a Markdown
-/// container began the line.
+/// An empty line appends nothing and leaves the state as it is.
+/// The lexer reads the text from `line.start`, where `^` does not match when a
+/// Markdown container began the line.
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     let start = if line.start == 0 {
         TextStart::Line
@@ -61,12 +61,14 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished 
 /// [`start_embedded`], and returns where the line went back to it.
 ///
 /// The halts are tested only where the lexer begins a step while its top
-/// context alone is open: `end` there, and `after` where that step is no
-/// YAML token. HTML and XML test them at every place up to their next match,
-/// but a YAML step takes its blanks with it, as the grammar does: the
-/// comment rule begins at the blanks before `#`, so an indented `#{` in a
-/// Ruby here document is a YAML comment, and only one where a step begins,
-/// such as at the start of an unindented line, goes back to Ruby.
+/// context alone is open.
+/// `end` is tested there, and `after` where that step is no YAML token.
+/// HTML and XML test them at every place up to their next match.
+/// A YAML step takes its blanks with it, as the grammar does.
+/// The comment rule begins at the blanks before `#`.
+/// An indented `#{` in a Ruby here document is therefore a YAML comment.
+/// Only a `#{` where a step begins, such as at the start of an unindented
+/// line, goes back to Ruby.
 #[inline]
 pub(crate) fn lex_until(
     cx: &mut Context<'_>,

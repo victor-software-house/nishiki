@@ -1,14 +1,18 @@
 //! Diff, with the scopes of the `diff` grammar that Shiki bundles.
 //!
-//! The grammar has no state: every rule is one regular expression over a
-//! line, and all but one start with `^`. So a line is lexed on its own, by
-//! matchers written by hand for each rule (see `rules`), and the state after
-//! any line is the state before it.
+//! The grammar has no state: every rule is one regular expression over a line,
+//! and all but one start with `^`.
+//! A line is therefore lexed on its own, by matchers written by hand for each
+//! rule, in `rules`.
+//! The state after any line is the state before it.
 //!
-//! It reproduces Shiki's output, quirks included: `--- a` is a from-file
-//! header wherever it is, a lone `---` is a separator, and a ` - x ====` at
-//! the end of any line is a to-file header. `\d` and `\s` for non-ASCII
-//! characters come from the table the JSON lexer shares.
+//! It reproduces Shiki's output, quirks included:
+//! - `--- a` is a from-file header wherever it is;
+//! - a lone `---` is a separator;
+//! - a ` - x ====` at the end of any line is a to-file header.
+//!
+//! `\d` and `\s` for non-ASCII characters come from the table the JSON lexer
+//! shares.
 //!
 //! An empty line leaves the state as it is, because Shiki does not tokenize
 //! empty lines.
@@ -35,20 +39,20 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// The state at the start of a diff fence of a Markdown document whose
-/// scopes sit on the stack `base`, which has no `source.diff` of its own, as
-/// in Shiki's embedding.
+/// scopes sit on the stack `base`.
+/// The stack has no `source.diff` of its own, as in Shiki's embedding.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, TAG, 0, base).unwrap_or(ROOT)
 }
 
 /// Lexes `line` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), appending tokens whose ends count
-/// from the start of the whole line, and returns the state after it, which
-/// is `state`.
+/// ([`Language::lex`](crate::Language)).
+/// It appends tokens whose ends count from the start of the whole line.
+/// It returns the state after the line, which is `state`.
 ///
 /// Lexing starts at `line.start`, where a Markdown fence's text begins after
-/// the indentation of the containers around it; the bytes before it stay in
-/// the line, because `^` matches only at 0.
+/// the indentation of the containers around it.
+/// The bytes before it stay in the line, because `^` matches only at 0.
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     let (bytes, start) = (line.text.as_bytes(), line.start);
     if bytes.len() <= start {
@@ -114,8 +118,8 @@ impl Emit<'_> {
         self.pos = to;
     }
 
-    /// Emits a match: the text before it, then its bytes under its scope
-    /// with each capture group's under that scope and the group's own.
+    /// Emits a match: the text before it, then its bytes under its scope.
+    /// Each capture group's bytes go under that scope and the group's own.
     fn hit(&mut self, hit: &rules::Hit) {
         self.tok(hit.start, &[]);
         for cap in hit.caps.iter().flatten() {

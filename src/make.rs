@@ -1,15 +1,15 @@
 //! Makefile, with the scopes of the `make` grammar that Shiki bundles.
 //!
-//! The lexer runs the grammar's begin/end rules with hand-written matchers
-//! over bytes (see the `engine` module). The rules left open at the end of a
-//! line (a definition, a conditional, a recipe or a target continued by a
-//! backslash, an unclosed variable reference) are frames of the highlighter's
-//! interned state.
+//! The lexer runs the grammar's begin/end rules with hand-written matchers over
+//! bytes, in the `engine` module.
+//! The rules left open at the end of a line (a definition, a conditional, a
+//! recipe or a target continued by a backslash, an unclosed variable reference)
+//! are frames of the highlighter's interned state.
 //!
-//! It reproduces Shiki's output, quirks included: `$` at the end of a recipe
-//! line is not a variable, a `:` anywhere in a line that is not an assignment
-//! makes it a target, and the `endef` of a definition has the scope of an
-//! `override`.
+//! It reproduces Shiki's output, quirks included:
+//! - `$` at the end of a recipe line is not a variable;
+//! - a `:` anywhere in a line that is not an assignment makes it a target;
+//! - the `endef` of a definition has the scope of an `override`.
 //!
 //! An empty line leaves the state as it is, because Shiki does not tokenize
 //! empty lines.
