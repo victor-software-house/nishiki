@@ -1,12 +1,14 @@
-//! The contexts the Rust lexer opens, which are frames of the interned state.
+//! The contexts the Rust lexer opens.
+//! Each is a frame of the interned state.
 
 use super::scope::S;
 
 /// The high byte that marks a frame as one of Rust's.
 const TAG: u16 = crate::tag::RUST;
 
-/// An open context. Each one is a TextMate-style begin/end rule of the Rust
-/// grammar: it adds a scope (some add none) and limits which rules apply.
+/// An open context.
+/// Each one is a TextMate-style begin/end rule of the Rust grammar.
+/// It adds a scope, though some add none, and limits which rules apply.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(u8)]
 pub(crate) enum Kind {
@@ -28,13 +30,16 @@ pub(crate) enum Kind {
     Import,
     /// `"` or `b"` up to `"`.
     Str,
-    /// `r#"` up to `"#`; the hash count is the frame's payload.
+    /// `r#"` up to `"#`.
+    /// The hash count is the frame's payload.
     Raw,
     /// `'` or `b'` up to `'`.
     Char,
-    /// `/*` up to `*/`; nests.
+    /// `/*` up to `*/`.
+    /// It nests.
     Block,
-    /// `/**` up to `*/`; nests.
+    /// `/**` up to `*/`.
+    /// It nests.
     Doc,
 }
 
@@ -49,8 +54,9 @@ impl Kind {
         TAG | self as u16
     }
 
-    /// The kind a frame's code names; [`Kind::Top`] for a code that is not
-    /// Rust's, such as the empty state's.
+    /// The kind a frame's code names.
+    /// It is [`Kind::Top`] for a code that is not Rust's, such as the empty
+    /// state's.
     pub(crate) fn from_code(code: u16) -> Kind {
         if code & 0xff00 != TAG {
             return Kind::Top;

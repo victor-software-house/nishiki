@@ -3,7 +3,8 @@
 use super::lexer::Lexer;
 use super::scope::S;
 
-/// The numeric type names, which are also the literal suffixes.
+/// The numeric type names.
+/// They are also the literal suffixes.
 pub(super) const NUMERIC: [&[u8]; 14] = [
     b"f32", b"f64", b"i128", b"i16", b"i32", b"i64", b"i8", b"isize", b"u128", b"u16", b"u32",
     b"u64", b"u8", b"usize",
@@ -32,7 +33,8 @@ impl Lexer<'_> {
     }
 
     /// The exponent and suffix after the fraction ending at `f`, then the
-    /// closing word boundary; the first reading that reaches one wins.
+    /// closing word boundary.
+    /// The first reading that reaches a boundary wins.
     fn tail(&self, f: usize) -> Option<Tail> {
         if matches!(self.at(f), b'E' | b'e') {
             let sign_end = f + 1 + usize::from(matches!(self.at(f + 1), b'+' | b'-'));
@@ -69,8 +71,8 @@ impl Lexer<'_> {
         })
     }
 
-    /// `12`, `1_000`, `1.5`, `2e-3`, `7u8`; a trailing dot is kept only when
-    /// a word boundary follows it.
+    /// `12`, `1_000`, `1.5`, `2e-3`, `7u8`.
+    /// A trailing dot is kept only when a word boundary follows it.
     pub(crate) fn decimal(&mut self, p: usize) -> Option<usize> {
         if !self.at(p).is_ascii_digit() || !self.word_start(p) {
             return None;

@@ -370,8 +370,8 @@ fn an_uppercase_word_before_non_ascii_text_advances() {
     }
 }
 
-/// `\s` reads the Unicode `White_Space` characters and `\w` does not, so a
-/// keyword before one is still a keyword.
+/// `\s` reads the Unicode `White_Space` characters, and `\w` does not.
+/// A keyword before one is still a keyword.
 #[test]
 fn unicode_spaces_are_blanks_as_in_the_grammars_whitespace_class() {
     for space in [

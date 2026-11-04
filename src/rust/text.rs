@@ -92,7 +92,8 @@ impl Lexer<'_> {
         Some(hashes_end + 1)
     }
 
-    // Contexts that span text. Each returns the position to continue from.
+    // Contexts that span text.
+    // Each returns the position to continue from.
 
     pub(crate) fn in_string(&mut self, p: usize) -> usize {
         let Some(i) = memchr3(b'"', b'\\', b'{', &self.s[p..]) else {
@@ -167,7 +168,8 @@ impl Lexer<'_> {
 
     // Rules inside strings.
 
-    /// `\n`, `\x41`, `\u{1F600}`; a backslash then any character otherwise.
+    /// `\n`, `\x41`, `\u{1F600}`.
+    /// Otherwise, a backslash and then any character.
     fn escape(&mut self, q: usize) -> Option<usize> {
         let hex = |b: u8| b.is_ascii_hexdigit();
         let (c1, c2) = (self.at(q + 1), self.at(q + 2));

@@ -4,9 +4,9 @@ use super::lexer::Lexer;
 use super::scope::S;
 use crate::classes::is_ascii_word;
 
-/// The scopes of a word keyword, or none when the word is not one. Every
-/// keyword is two to eight lowercase letters, which rules most words out
-/// before the match.
+/// The scopes of a word keyword, or none when the word is not one.
+/// Every keyword is two to eight lowercase letters.
+/// That length rules most words out before the match.
 fn keyword(word: &[u8]) -> Option<&'static [S]> {
     if !(2..=8).contains(&word.len()) || !word[0].is_ascii_lowercase() {
         return None;
@@ -56,8 +56,9 @@ impl Lexer<'_> {
 
     /// The length and scope of the operator at `p`, in the grammar's order:
     /// logical (`^`, `|`, `&&`, `<<`, `>>` and `!`, none followed by `=`) and
-    /// borrow, assignment, comparison, math, then the rest. A closing
-    /// bracket is the caller's, which emits several tokens for it.
+    /// borrow, assignment, comparison, math, then the rest.
+    /// A closing bracket is the caller's.
+    /// The caller emits several tokens for it.
     fn operator(&self, p: usize, b: u8) -> Option<(usize, S)> {
         let (c1, c2) = (self.at(p + 1), self.at(p + 2));
         let not_eq = |c: u8| c != b'=';
@@ -121,8 +122,8 @@ impl Lexer<'_> {
     }
 
     /// A closing bracket, or the blanks after a word, then `<` or `>` between
-    /// blanks, then a word or an opening bracket. Only the operator and the
-    /// brackets are scoped.
+    /// blanks, then a word or an opening bracket.
+    /// Only the operator and the brackets are scoped.
     pub(crate) fn comparison(&mut self, p: usize) -> Option<usize> {
         let bracket = |b: u8| match b {
             b')' | b'(' => Some(S::Round),

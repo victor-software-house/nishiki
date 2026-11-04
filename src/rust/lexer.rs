@@ -11,8 +11,9 @@ use crate::classes::{is_ascii_space, is_ascii_word};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::{Stack, Token};
 
-/// Lexes one line. `pos` is the end of the last token; `s` is scanned ahead
-/// of it, and the bytes in between are plain text of the current context.
+/// Lexes one line.
+/// `pos` is the end of the last token, and `s` is scanned ahead of it.
+/// The bytes in between are plain text of the current context.
 pub(crate) struct Lexer<'a> {
     pub(crate) s: &'a [u8],
     out: &'a mut Vec<Token>,
@@ -28,15 +29,16 @@ pub(crate) struct Lexer<'a> {
     /// Where the line's last `>(` starts, once [`Lexer::call_ahead`] has
     /// searched for it.
     last_call: OnceCell<Option<usize>>,
-    /// End of the ASCII identifier run at the cursor, and of the word run
-    /// (which also covers non-ASCII bytes). Set by [`Lexer::scan_word`].
+    /// End of the ASCII identifier run at the cursor, and of the word run.
+    /// The word run also covers non-ASCII bytes.
+    /// [`Lexer::scan_word`] sets both.
     pub(crate) ident_end: usize,
     pub(crate) word_end: usize,
 }
 
-/// The regex `\w`, with non-ASCII bytes counted as word characters. A
-/// Unicode space is not one: [`Lexer::word_at`] and [`Lexer::word_before`]
-/// tell it apart.
+/// The regex `\w`, with non-ASCII bytes counted as word characters.
+/// A Unicode space is not one.
+/// [`Lexer::word_at`] and [`Lexer::word_before`] tell it apart.
 pub(crate) fn is_word(b: u8) -> bool {
     is_ascii_word(b) || b >= 0x80
 }
@@ -140,8 +142,10 @@ impl<'a> Lexer<'a> {
     }
 
     /// Whether `>(` occurs at or after `from`: the lookahead of the turbofish
-    /// call rule. The line is searched once, from its end, so each check is
-    /// one comparison and a line of repeated `a::<` stays linear.
+    /// call rule.
+    /// The line is searched once, from its end.
+    /// Each check is then one comparison, and a line of repeated `a::<` stays
+    /// linear.
     pub(crate) fn call_ahead(&self, from: usize) -> bool {
         let last = self.last_call.get_or_init(move || {
             self.spend(self.s.len());
@@ -256,8 +260,9 @@ impl<'a> Lexer<'a> {
         self.frame.payload
     }
 
-    /// Opens a context; false when a limit keeps it closed. Call
-    /// [`Lexer::gap`] first.
+    /// Opens a context.
+    /// It returns false when a limit keeps the context closed.
+    /// Call [`Lexer::gap`] first.
     pub(crate) fn push(&mut self, kind: Kind) -> bool {
         self.push_with(kind, 0)
     }
@@ -336,7 +341,8 @@ impl<'a> Lexer<'a> {
         p + 1
     }
 
-    /// Skips blanks. A blank run after a word may start the comparison rule.
+    /// Skips blanks.
+    /// A blank run after a word may start the comparison rule.
     fn whitespace(&mut self, p: usize) -> usize {
         if p > 0
             && self.word_before(p)

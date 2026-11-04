@@ -31,9 +31,10 @@ use Group::{
 };
 
 impl Group {
-    /// Whether the rules of the group can match at a byte `b`, so that the
-    /// lexer asks only those that can. Every rule begins by testing this
-    /// byte, so a group that answers false would have declined anyway.
+    /// Whether the rules of the group can match at a byte `b`.
+    /// The lexer then asks only the groups that can.
+    /// Every rule begins by testing this byte.
+    /// A group that answers false would have declined anyway.
     pub(crate) fn can_start(self, b: u8) -> bool {
         match self {
             BlockComments | Comments => b == b'/',
