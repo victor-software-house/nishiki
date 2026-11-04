@@ -11,7 +11,7 @@ use super::scope::S;
 use crate::arena::{Arena, Frame};
 use crate::classes::is_ascii_space;
 use crate::language::{Context, Halt};
-use crate::limits::{Limit, Limits, LineReport};
+use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::{Stack, Token, classes};
 
 /// Lexes one line. `pos` is the end of the last token emitted; the bytes
@@ -33,9 +33,7 @@ pub(crate) struct Lexer<'a, const D: u8> {
     state: u32,
     frame: Frame,
     /// Steps spent on this line, counted in `&self` scans too.
-    steps: Cell<u64>,
-    /// Steps this line may spend; `u64::MAX` for no limit.
-    budget: u64,
+    steps: Steps,
     /// The contexts opened on this line and still open, innermost last: the
     /// top frames of the stack.
     opened: &'a mut Vec<Opened>,
@@ -126,7 +124,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
         let frame = cx.arena.frame(state);
         let limits = cx.limits;
         let text = src.len().saturating_sub(from);
-        let budget = limits.work.map_or(u64::MAX, |work| work.steps(text));
+        let steps = Steps::new(limits, text);
         let line = cx.scratch.line();
         let scratch = &mut cx.scratch.typescript;
         scratch.opened.clear();
@@ -142,8 +140,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
             pos: from,
             state,
             frame,
-            steps: Cell::new(0),
-            budget,
+            steps,
             opened: &mut scratch.opened,
             line_pos: from,
             anchor: usize::MAX,
@@ -169,9 +166,9 @@ impl<'a, const D: u8> Lexer<'a, D> {
         lexer
     }
 
-    /// The state after the line.
-    pub(crate) fn into_state(self) -> u32 {
-        self.state
+    /// The state after the line, with its count given back to the lender.
+    pub(crate) fn finish_line(self) -> Finished {
+        self.steps.finish(self.state)
     }
 
     /// `^` at `p`: only the line's first byte, which an embedded text that
@@ -182,8 +179,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
 
     /// Counts `bytes` read ahead of the cursor against the line's work.
     pub(crate) fn spend(&self, bytes: usize) {
-        let bytes = u64::try_from(bytes).unwrap_or(u64::MAX);
-        self.steps.set(self.steps.get().saturating_add(bytes));
+        self.steps.spend(bytes);
     }
 
     /// Whether a `(` or `<` lies at or after `p`, which every call lookahead
@@ -234,7 +230,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
         let (mut still, mut bound) = (0usize, 0usize);
         while p <= self.window() && !self.stuck && self.halt.is_none() {
             self.spend(1);
-            if self.steps.get() > self.budget {
+            if self.steps.exhausted() {
                 self.report.record(Limit::Work);
                 break;
             }

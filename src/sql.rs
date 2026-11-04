@@ -27,6 +27,7 @@ pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
 use crate::language::{Context, Halt, Line};
+use crate::limits::Finished;
 
 /// The state at the start of a SQL document whose scopes sit on the stack
 /// `base`: one rule with `source.sql` on top of it.
@@ -45,7 +46,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// line, `\G` stays where the fence's `while` rule matched the container
 /// prefix, as in Shiki; a SQL document has no such rule.
 #[inline]
-pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     crate::rules::lex::<engine::Sql>(cx, line, state, |scratch| &mut scratch.sql)
 }
 
@@ -58,7 +59,7 @@ pub(crate) fn lex_until(
     state: u32,
     end: Halt,
     after: Option<Halt>,
-) -> (u32, Option<usize>) {
+) -> (Finished, Option<usize>) {
     crate::rules::lex_until::<engine::Sql>(cx, line, state, |scratch| &mut scratch.sql, end, after)
 }
 

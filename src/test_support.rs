@@ -3,6 +3,7 @@
 
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line};
+use crate::limits::Finished;
 use crate::scratch::Scratch;
 use crate::{Highlighter, Language, Limits, LineReport, State, Token};
 
@@ -117,14 +118,15 @@ pub(crate) fn leaf_in(row: &LeafRow, token: &str) -> String {
 /// A language's lexer for lines another language embeds: it lexes a line
 /// from a state up to where `end` or `after` halts it, and returns the state
 /// and where it halted.
-type LexUntil = fn(&mut Context<'_>, Line<'_>, u32, Halt, Option<Halt>) -> (u32, Option<usize>);
+type LexUntil =
+    fn(&mut Context<'_>, Line<'_>, u32, Halt, Option<Halt>) -> (Finished, Option<usize>);
 
 /// How a language lexes the lines another language embeds: its start over a
 /// base stack, its whole-line lexer, and its `lex_until`.
 #[derive(Clone, Copy)]
 pub(crate) struct Embedded {
     pub(crate) start: fn(&mut Arena, u32) -> u32,
-    pub(crate) lex: fn(&mut Context<'_>, Line<'_>, u32) -> u32,
+    pub(crate) lex: fn(&mut Context<'_>, Line<'_>, u32) -> Finished,
     pub(crate) lex_until: LexUntil,
 }
 
@@ -182,7 +184,7 @@ pub(crate) fn lex_embedded(
             Some((end, after)) => (language.lex_until)(&mut cx, line, state, end, after),
             None => ((language.lex)(&mut cx, line, state), None),
         };
-        state = next;
+        state = next.state();
         let mut from = 0;
         let mut row = Row::new();
         for token in &out {

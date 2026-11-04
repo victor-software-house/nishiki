@@ -27,6 +27,7 @@ use state::Rule;
 
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line};
+use crate::limits::Finished;
 
 /// The state at the start of a GraphQL document whose scopes sit on the stack
 /// `base`: one rule with `source.graphql` on top of it.
@@ -55,9 +56,9 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// An empty line leaves the state as it is: Shiki does not tokenize empty
 /// lines, and the grammar would otherwise close a rule it left open at the end
 /// of the line before.
-pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     if line.text.is_empty() {
-        return state;
+        return Finished::unspent(state);
     }
     engine::Lexer::new(cx, line, state).run()
 }
@@ -72,13 +73,14 @@ pub(crate) fn lex_until(
     state: u32,
     end: Halt,
     after: Option<Halt>,
-) -> (u32, Option<usize>) {
+) -> (Finished, Option<usize>) {
     if line.text.len() <= line.start {
-        return (state, None);
+        return (Finished::unspent(state), None);
     }
-    engine::Lexer::new(cx, line, state)
+    let (finished, halt) = engine::Lexer::new(cx, line, state)
         .halting(end, after)
-        .run_halting()
+        .run_halting();
+    (finished, halt)
 }
 
 #[cfg(test)]

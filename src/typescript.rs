@@ -63,6 +63,7 @@ pub(crate) use searches::Scratch;
 
 use crate::arena::{Arena, ROOT};
 use crate::language::Halt;
+use crate::limits::Finished;
 
 /// Which of the grammars to follow: TypeScript, or one of the three that
 /// share a structure with it and add JSX.
@@ -188,9 +189,9 @@ fn line(
     from: usize,
     state: u32,
     halts: Option<Halts>,
-) -> (u32, Option<usize>) {
+) -> (Finished, Option<usize>) {
     if line.len() <= from {
-        return (state, None);
+        return (Finished::unspent(state), None);
     }
     match dialect {
         #[cfg(feature = "lang-typescript")]
@@ -212,11 +213,11 @@ fn run<const D: u8>(
     from: usize,
     state: u32,
     halts: Option<Halts>,
-) -> (u32, Option<usize>) {
+) -> (Finished, Option<usize>) {
     let mut lexer = lexer::Lexer::<D>::new(cx, line, from, state, halts);
     lexer.run();
     let halt = lexer.halted_at();
-    (lexer.into_state(), halt)
+    (lexer.finish_line(), halt)
 }
 
 #[cfg(all(
@@ -237,7 +238,7 @@ pub(crate) fn lex(
     dialect: Dialect,
     line: crate::language::Line<'_>,
     state: u32,
-) -> u32 {
+) -> Finished {
     self::line(cx, dialect, line.text, line.start, state, None).0
 }
 
@@ -253,9 +254,9 @@ pub(crate) fn lex_capture(
     cx: &mut crate::language::Context<'_>,
     line: crate::language::Line<'_>,
     state: u32,
-) -> u32 {
+) -> Finished {
     if line.text.len() <= line.start {
-        return state;
+        return Finished::unspent(state);
     }
     run::<{ Dialect::JAVASCRIPT | Dialect::BARE }>(cx, line.text, line.start, state, None).0
 }
@@ -277,7 +278,7 @@ pub(crate) fn lex_until(
     state: u32,
     end: Halt,
     after: Option<Halt>,
-) -> (u32, Option<usize>) {
+) -> (Finished, Option<usize>) {
     let halts = Halts { end, after };
     self::line(cx, dialect, line.text, line.start, state, Some(halts))
 }

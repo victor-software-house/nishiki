@@ -14,7 +14,7 @@ use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line};
-use crate::limits::{Limit, Limits, LineReport};
+use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scratch::Scratch;
 use crate::{Stack, Token, java};
 
@@ -120,10 +120,9 @@ pub(super) struct Lexer<'a> {
     arena: &'a mut Arena,
     limits: &'a Limits,
     report: &'a mut LineReport,
-    /// Steps spent on this line, counted in scans too.
-    steps: Cell<u64>,
-    /// Steps this line may spend; `u64::MAX` for no limit.
-    budget: u64,
+    /// Steps spent on this line, counted in scans too, and lent to the
+    /// languages this one embeds.
+    steps: Steps,
     /// End of the last token.
     last: usize,
     /// Where the current search starts.
@@ -157,7 +156,7 @@ impl<'a> Lexer<'a> {
     #[inline(always)]
     pub(super) fn new(cx: &'a mut Context<'_>, line: Line<'a>, state: u32) -> Self {
         let (s, start) = (line.text.as_bytes(), line.start);
-        let budget = cx.limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+        let steps = Steps::new(cx.limits, s.len());
         let buffers = std::mem::take(&mut cx.scratch.xml);
         let mut lexer = Lexer {
             s,
@@ -168,8 +167,7 @@ impl<'a> Lexer<'a> {
             arena: &mut *cx.arena,
             limits: cx.limits,
             report: &mut *cx.report,
-            steps: Cell::new(0),
-            budget,
+            steps,
             last: start,
             pos: start,
             frames: buffers.frames,
@@ -207,7 +205,7 @@ impl<'a> Lexer<'a> {
     }
 
     /// Lexes the line and returns the state after it.
-    pub(super) fn run(self) -> u32 {
+    pub(super) fn run(self) -> Finished {
         self.run_until().0
     }
 
@@ -218,14 +216,14 @@ impl<'a> Lexer<'a> {
         reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and XML rose 5% (1.0509)"
     )]
     #[inline(always)]
-    pub(super) fn run_until(mut self) -> (u32, Option<usize>) {
+    pub(super) fn run_until(mut self) -> (Finished, Option<usize>) {
         self.tokenize();
         let state = self.top().state;
         self.scratch.xml = Buffers {
             frames: std::mem::take(&mut self.frames),
             chain: std::mem::take(&mut self.chain),
         };
-        (state, self.halted)
+        (self.steps.finish(state), self.halted)
     }
 
     // Bytes.
@@ -242,12 +240,11 @@ impl<'a> Lexer<'a> {
 
     /// Counts `steps` of work against the line's budget.
     pub(super) fn spend(&self, steps: usize) {
-        let steps = u64::try_from(steps).unwrap_or(u64::MAX);
-        self.steps.set(self.steps.get().saturating_add(steps));
+        self.steps.spend(steps);
     }
 
     fn over_budget(&self) -> bool {
-        self.steps.get() > self.budget
+        self.steps.exhausted()
     }
 
     // Scopes and tokens.
@@ -446,10 +443,11 @@ impl<'a> Lexer<'a> {
     /// Lexes the Java of the line from `from` and `state`, up to the `%>`
     /// that ends it, and returns the state after it and where that `%>` is.
     fn java(&mut self, from: usize, state: u32) -> (u32, Option<usize>) {
+        let lent = self.steps.lend(self.limits);
         let mut cx = Context {
             scratch: &mut *self.scratch,
             arena: &mut *self.arena,
-            limits: self.limits,
+            limits: &lent,
             out: &mut *self.out,
             report: &mut *self.report,
         };
@@ -458,7 +456,8 @@ impl<'a> Lexer<'a> {
             start: from,
             embedded: false,
         };
-        java::lex_until(&mut cx, line, state, jsp_end)
+        let (finished, at) = java::lex_until(&mut cx, line, state, jsp_end);
+        (self.steps.take_back(finished), at)
     }
 
     /// Applies an end match.

@@ -18,6 +18,7 @@ use state::Kind;
 
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line};
+use crate::limits::Finished;
 
 /// The state at the start of a YAML document whose scopes sit on the stack
 /// `base`: one context with `source.yaml` on top.
@@ -40,7 +41,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// An empty line appends nothing and leaves the state as it is. The lexer
 /// reads the text from `line.start`, where `^` does not match when a Markdown
 /// container began the line.
-pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     let start = if line.start == 0 {
         TextStart::Line
     } else {
@@ -48,11 +49,11 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
     };
     cx.lex_from_start(line, |cx, rest| {
         if rest.is_empty() {
-            return state;
+            return Finished::unspent(state);
         }
         let mut lexer = lexer::Lexer::new(cx, rest.as_bytes(), start, state);
         lexer.run();
-        lexer.into_state()
+        lexer.finish_line()
     })
 }
 
@@ -73,7 +74,7 @@ pub(crate) fn lex_until(
     state: u32,
     end: Halt,
     after: Option<Halt>,
-) -> (u32, Option<usize>) {
+) -> (Finished, Option<usize>) {
     let start = if line.start == 0 {
         TextStart::Line
     } else {
@@ -82,7 +83,7 @@ pub(crate) fn lex_until(
     let mut halted = None;
     let next = cx.lex_from_start(line, |cx, rest| {
         if rest.is_empty() {
-            return state;
+            return Finished::unspent(state);
         }
         let mut lexer = lexer::Lexer::new(cx, rest.as_bytes(), start, state);
         lexer.halts = Some(lexer::Halts {
@@ -93,7 +94,7 @@ pub(crate) fn lex_until(
         });
         lexer.run();
         halted = lexer.halted().map(|p| line.start + p);
-        lexer.into_state()
+        lexer.finish_line()
     });
     (next, halted)
 }

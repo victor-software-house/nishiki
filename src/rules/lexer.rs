@@ -12,14 +12,13 @@
 //! stops the line.
 
 use std::borrow::Cow;
-use std::cell::Cell;
 
 #[cfg(feature = "lang-ruby")]
 use super::Embedding;
 use super::{Act, Captures, DynName, Grammar, Payload, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
-use crate::language::Halt;
-use crate::limits::{Limit, Limits, LineReport};
+use crate::language::{Halt, Parts};
+use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::{Language, Stack, Token};
 
 /// An open rule.
@@ -180,9 +179,7 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     limits: &'a Limits,
     report: &'a mut LineReport,
     /// Steps spent on this line, counted in `&self` scans too.
-    steps: Cell<u64>,
-    /// Steps this line may spend; `u64::MAX` for no limit.
-    budget: u64,
+    steps: Steps,
     /// End of the last token.
     last: usize,
     /// Where the current search starts.
@@ -231,6 +228,17 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     yielded: Option<(usize, Language)>,
 }
 
+/// Where an embedding line enters the rule engine.
+#[cfg(feature = "lang-ruby")]
+#[derive(Clone, Copy, Debug)]
+enum Entry {
+    /// At the start of the line, where the `while` rules are tried.
+    Start,
+    /// Where an embedded language halted, where the rule's own patterns are
+    /// tried at the cursor before the text goes back to that language.
+    Resume,
+}
+
 impl<'a, G: Grammar> Lexer<'a, G> {
     #[expect(
         clippy::inline_always,
@@ -238,16 +246,18 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     )]
     #[inline(always)]
     pub(crate) fn new(
-        arena: &'a mut Arena,
-        limits: &'a Limits,
+        Parts {
+            arena,
+            limits,
+            out,
+            report,
+        }: Parts<'a>,
         text: Text<'a>,
-        out: &'a mut Vec<Token>,
         state: u32,
-        report: &'a mut LineReport,
         scratch: &'a mut Scratch<G>,
     ) -> Self {
         let (s, start) = (text.bytes, text.start);
-        let budget = limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+        let steps = Steps::new(limits, s.len());
         let mut frames = std::mem::take(&mut scratch.frames);
         if scratch.resume == Some(state) {
             std::mem::swap(&mut frames, &mut scratch.resume_frames);
@@ -277,8 +287,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             arena,
             limits,
             report,
-            steps: Cell::new(0),
-            budget,
+            steps,
             last: start,
             pos: start,
             anchor: text.anchored.then_some(start),
@@ -410,7 +419,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// are the state's chain, and the next line takes them over as the
     /// frames it starts with.
     #[inline]
-    pub(crate) fn run(self) -> u32 {
+    pub(crate) fn run(self) -> Finished {
         self.run_halting().0
     }
 
@@ -421,7 +430,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         reason = "measured at one codegen unit: with `lex_until` a second caller, it stopped being inlined, which cost CSS, C and SQL a call once a line"
     )]
     #[inline(always)]
-    pub(crate) fn run_halting(mut self) -> (u32, Option<usize>) {
+    pub(crate) fn run_halting(mut self) -> (Finished, Option<usize>) {
         self.open();
         self.check_while();
         self.tokenize();
@@ -430,19 +439,33 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// Lexes the line like [`Lexer::run`], but stops where the innermost
-    /// rule embeds another language and returns where, with the steps spent
-    /// so far. The caller lexes the embedded text and, where it halts, goes
-    /// on with a new lexer given those steps as `spent`: the rule's own
-    /// patterns are tried at the cursor first, and the `while` rules, which
-    /// only the start of a line tries, are not.
+    /// rule embeds another language and returns where. Its count is given
+    /// back by then, so the caller lends what the line has left to the
+    /// embedded language and, where it halts, to
+    /// [`Lexer::resume_embedding`], and every part of the line spends one
+    /// budget.
     #[cfg(feature = "lang-ruby")]
-    pub(crate) fn run_embedding(mut self, spent: Option<u64>) -> (u32, Option<Embedding>, u64) {
+    pub(crate) fn run_embedding(self) -> (Finished, Option<Embedding>) {
+        self.embed(Entry::Start)
+    }
+
+    /// Goes on with the line where an embedded language halted, like
+    /// [`Lexer::run_embedding`]: the rule's own patterns are tried at the
+    /// cursor first, and the `while` rules, which only the start of a line
+    /// tries, are not.
+    #[cfg(feature = "lang-ruby")]
+    pub(crate) fn resume_embedding(self) -> (Finished, Option<Embedding>) {
+        self.embed(Entry::Resume)
+    }
+
+    /// The loop of [`Lexer::run_embedding`] and [`Lexer::resume_embedding`].
+    #[cfg(feature = "lang-ruby")]
+    fn embed(mut self, entry: Entry) -> (Finished, Option<Embedding>) {
         self.embedding = true;
-        self.host = spent.is_some();
         self.open();
-        match spent {
-            Some(steps) => self.steps.set(steps),
-            None => self.check_while(),
+        match entry {
+            Entry::Start => self.check_while(),
+            Entry::Resume => self.host = true,
         }
         self.note_embedding();
         self.tokenize();
@@ -455,19 +478,19 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 base: top.content,
             }
         });
-        let spent = self.steps.get();
-        (self.finish(), embedding, spent)
+        (self.finish(), embedding)
     }
 
     /// The state after the line, with the buffers given back to the scratch
     /// and, where the open rules are the state's chain, kept for the next
-    /// line (see [`Lexer::run`]).
+    /// line (see [`Lexer::run`]), and the line's count given back to the
+    /// lender (see [`Steps::finish`]).
     #[expect(
         clippy::inline_always,
         reason = "measured at one codegen unit: a call here, with the lexer moved into it, costs CSS 0.7% of its instructions"
     )]
     #[inline(always)]
-    fn finish(mut self) -> u32 {
+    fn finish(mut self) -> Finished {
         let state = self.top().state;
         let exact = !self.flags.kept
             && self
@@ -488,7 +511,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.scratch.spans = self.spans;
         self.scratch.caps = self.caps;
         self.scratch.kept = G::keep(self.x);
-        state
+        self.steps.finish(state)
     }
 
     // Bytes.
@@ -581,13 +604,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// Counts `steps` of work against the line's budget.
     pub(crate) fn spend(&self, steps: usize) {
-        let steps = u64::try_from(steps).unwrap_or(u64::MAX);
-        self.steps.set(self.steps.get().saturating_add(steps));
+        self.steps.spend(steps);
     }
 
     /// Whether the line has spent its work budget.
     pub(crate) fn over_budget(&self) -> bool {
-        self.steps.get() > self.budget
+        self.steps.exhausted()
     }
 
     /// The end of the character at `i`, which is a whole UTF-8 sequence.
@@ -1240,7 +1262,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         let mut stalled = 0_u32;
         loop {
             self.spend(1);
-            if self.steps.get() > self.budget {
+            if self.steps.exhausted() {
                 // Out of work: the rest of the line is the rule's.
                 self.report.record(Limit::Work);
                 let node = self.top().content;
@@ -1265,7 +1287,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                     self.emit(at, node);
                     return;
                 }
-                if self.steps.get() > self.budget {
+                if self.steps.exhausted() {
                     self.report.record(Limit::Work);
                 }
                 let node = self.top().content;
@@ -1477,8 +1499,10 @@ pub(crate) fn with_payload(arena: &mut Arena, state: u32, payload: u32) -> Optio
 
 #[cfg(test)]
 mod tests {
+
     use super::{Lexer, Scratch};
     use crate::arena::{Arena, ROOT};
+    use crate::language::Parts;
     use crate::limits::{Limits, LineReport};
     use crate::rules::{Act, Captures, Grammar, Payload, ScopeName, Text};
     use crate::scope::Scope;
@@ -1613,16 +1637,13 @@ mod tests {
             start: 0,
             anchored: false,
         };
-        Lexer::new(
-            &mut arena,
-            &limits,
-            text,
-            &mut tokens,
-            ROOT,
-            &mut report,
-            &mut scratch,
-        )
-        .run();
+        let parts = Parts {
+            arena: &mut arena,
+            limits: &limits,
+            out: &mut tokens,
+            report: &mut report,
+        };
+        let _ = Lexer::new(parts, text, ROOT, &mut scratch).run();
         let innermost: Vec<(usize, &str)> = tokens
             .iter()
             .map(|token| {
@@ -1656,15 +1677,13 @@ mod tests {
             start: 0,
             anchored: false,
         };
-        let mut lexer = Lexer::new(
-            &mut arena,
-            &limits,
-            text,
-            &mut tokens,
-            ROOT,
-            &mut report,
-            &mut scratch,
-        );
+        let parts = Parts {
+            arena: &mut arena,
+            limits: &limits,
+            out: &mut tokens,
+            report: &mut report,
+        };
+        let mut lexer = Lexer::new(parts, text, ROOT, &mut scratch);
         lexer.caps[1] = Some((1, 3));
         lexer.caps[2] = Some((3, 4));
         assert_eq!(lexer.cap_text(1), b"b");
@@ -1672,19 +1691,13 @@ mod tests {
     }
 
     /// A lexer over `b"ab"` for the needle tests.
-    fn ab_lexer<'a>(
-        arena: &'a mut Arena,
-        limits: &'a Limits,
-        tokens: &'a mut Vec<crate::Token>,
-        report: &'a mut LineReport,
-        scratch: &'a mut Scratch<Brackets>,
-    ) -> Lexer<'a, Brackets> {
+    fn ab_lexer<'a>(parts: Parts<'a>, scratch: &'a mut Scratch<Brackets>) -> Lexer<'a, Brackets> {
         let text = Text {
             bytes: b"ab",
             start: 0,
             anchored: false,
         };
-        Lexer::new(arena, limits, text, tokens, ROOT, report, scratch)
+        Lexer::new(parts, text, ROOT, scratch)
     }
 
     #[cfg(feature = "_rule-tables")]
@@ -1693,7 +1706,13 @@ mod tests {
         use crate::rules::Chars;
         let (mut arena, limits, mut tokens) = (Arena::new(None), Limits::default(), Vec::new());
         let (mut report, mut scratch) = (LineReport::default(), Scratch::<Brackets>::default());
-        let lexer = ab_lexer(&mut arena, &limits, &mut tokens, &mut report, &mut scratch);
+        let parts = Parts {
+            arena: &mut arena,
+            limits: &limits,
+            out: &mut tokens,
+            report: &mut report,
+        };
+        let lexer = ab_lexer(parts, &mut scratch);
         assert_eq!(lexer.lit(0, b""), Some(0));
         assert_eq!(lexer.lit(2, b""), Some(2));
         assert_eq!(lexer.lit(3, b""), None);
@@ -1707,7 +1726,13 @@ mod tests {
     fn starts_refuses_an_empty_needle() {
         let (mut arena, limits, mut tokens) = (Arena::new(None), Limits::default(), Vec::new());
         let (mut report, mut scratch) = (LineReport::default(), Scratch::<Brackets>::default());
-        let lexer = ab_lexer(&mut arena, &limits, &mut tokens, &mut report, &mut scratch);
+        let parts = Parts {
+            arena: &mut arena,
+            limits: &limits,
+            out: &mut tokens,
+            report: &mut report,
+        };
+        let lexer = ab_lexer(parts, &mut scratch);
         let _ = lexer.starts(0, b"");
     }
 
@@ -1889,16 +1914,13 @@ mod tests {
                 start: 0,
                 anchored: false,
             };
-            state = Lexer::new(
-                arena,
-                &limits,
-                text,
-                &mut tokens,
-                state,
-                &mut report,
-                &mut scratch,
-            )
-            .run();
+            let parts = Parts {
+                arena: &mut *arena,
+                limits: &limits,
+                out: &mut tokens,
+                report: &mut report,
+            };
+            state = Lexer::new(parts, text, state, &mut scratch).run().state();
             rows.push(
                 tokens
                     .iter()

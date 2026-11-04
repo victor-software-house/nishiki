@@ -143,7 +143,9 @@ A state is still one integer, and two lines that reach the same embedded state r
 
 1. Depth stays per language, as the rule engine counts it today: each language counts only its own contexts, so a pinned depth keeps giving the same output.
 2. The languages on one line share its work budget, and a hand-off does not reset it.
-   nishiki-archive#159 carries the host's steps across segments, but each embedded `lex_until` still starts its own counter; one budget for the line waits on core-fix's `Context { steps, open }` (`feat/shared-line-budget`).
+   nishiki-archive#159 carried the host's steps across segments through `run_embedding(spent)`, while each embedded `lex_until` started its own counter.
+   core-fix's `Context { steps }` (`feat/shared-line-budget`) replaces both with one budget for the line: each lexer counts in a field of its own, an embedding lexer lends that count, and the embedded lexer gives it back when dropped.
+   `run_embedding(spent)` is gone, and depth stays per language (1 above).
 3. Limits reached by the embedded lexer go to the same `cx.report`, as a Markdown fence's do.
 
 ## 10. Agreed with
@@ -159,7 +161,7 @@ A state is still one integer, and two lines that reach the same embedded state r
 
 1. `Halts`, its contract, `Grammar::rule_halts` and `Language::lex_until(…, &Halts)`, in one PR on top of nishiki-archive#159 and primitives' GraphQL port, with the rule engine, SQL, C, shell, GraphQL and TypeScript honouring all three tests; HTML, GraphQL and Ruby heredoc fixtures unchanged.
 2. Entries: `start_embedded(arena, base, entry)`; xml-html adds TypeScript's `expression`.
-3. core-fix's shared line budget, `Context { steps, open }` (`feat/shared-line-budget`).
+3. core-fix's shared line budget, `Context { steps }` (`feat/shared-line-budget`); depth stays per language (section 9).
 4. The engine's hand-off: `RuleKind::HandOff`, the generator's list, the frame and the resume; Julia's table without its engine copies first.
 5. ERB's any-depth injection (xml-html), and Perl, Elixir, Objective-C, PHP, Vue and Svelte, each its own PR.
 

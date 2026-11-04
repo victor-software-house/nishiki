@@ -23,6 +23,7 @@ use state::Kind;
 
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Line};
+use crate::limits::Finished;
 
 /// Which of the grammars' scope-name spellings to use.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -65,14 +66,14 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// start of the whole line, and returns the state after it.
 ///
 /// An empty line appends nothing and leaves the state as it is.
-pub(crate) fn lex(cx: &mut Context<'_>, dialect: Dialect, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex(cx: &mut Context<'_>, dialect: Dialect, line: Line<'_>, state: u32) -> Finished {
     cx.lex_from_start(line, |cx, rest| {
         if rest.is_empty() {
-            return state;
+            return Finished::unspent(state);
         }
         let mut lexer = lexer::Lexer::new(cx, dialect, rest.as_bytes(), state);
         lexer.run();
-        lexer.into_state()
+        lexer.finish_line()
     })
 }
 

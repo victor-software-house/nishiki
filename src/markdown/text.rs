@@ -1,9 +1,8 @@
 //! The text a rule is matched against, and the character classes of the
 //! grammar's regular expressions.
 
-use std::cell::Cell;
-
 use crate::classes::{self, is_space, is_word};
+use crate::limits::Steps;
 use crate::utf8;
 
 /// A window on one line, as the `TextMate` engine presents it to a regular
@@ -20,11 +19,9 @@ pub(crate) struct Cx<'a> {
     pub(crate) end: usize,
     /// The position `\G` matches: where the last rule matched ended.
     pub(crate) anchor: Option<usize>,
-    /// The steps the line has spent, which the lexer's loop checks against
-    /// the line's work limit.
-    pub(crate) steps: &'a Cell<u64>,
-    /// The steps the line may spend, `u64::MAX` for no limit.
-    pub(crate) budget: u64,
+    /// The steps the line has spent and may spend, which the lexer's loop
+    /// checks each turn.
+    pub(crate) steps: &'a Steps,
 }
 
 impl Cx<'_> {
@@ -177,12 +174,11 @@ impl Cx<'_> {
 
     /// Whether the line has spent its work, so that a long scan gives up.
     pub(crate) fn over(&self) -> bool {
-        self.steps.get() > self.budget
+        self.steps.exhausted()
     }
 
     /// Counts `bytes` read ahead of the cursor against the line's work.
     pub(crate) fn spend(&self, bytes: usize) {
-        let bytes = u64::try_from(bytes).unwrap_or(u64::MAX);
-        self.steps.set(self.steps.get().saturating_add(bytes));
+        self.steps.spend(bytes);
     }
 }

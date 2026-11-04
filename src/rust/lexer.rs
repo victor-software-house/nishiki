@@ -1,6 +1,6 @@
 //! The per-line lexer: cursor, token emission and the context stack.
 
-use std::cell::{Cell, OnceCell};
+use std::cell::OnceCell;
 
 use memchr::memmem;
 
@@ -8,7 +8,7 @@ use super::scope::S;
 use super::state::Kind;
 use crate::arena::{Arena, Frame};
 use crate::classes::{is_ascii_space, is_ascii_word};
-use crate::limits::{Limit, Limits, LineReport};
+use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::{Stack, Token};
 
 /// Lexes one line. `pos` is the end of the last token; `s` is scanned ahead
@@ -24,9 +24,7 @@ pub(crate) struct Lexer<'a> {
     state: u32,
     frame: Frame,
     /// Steps spent on this line, counted in `&self` scans too.
-    steps: Cell<u64>,
-    /// Steps this line may spend; `u64::MAX` for no limit.
-    budget: u64,
+    steps: Steps,
     /// Where the line's last `>(` starts, once [`Lexer::call_ahead`] has
     /// searched for it.
     last_call: OnceCell<Option<usize>>,
@@ -53,7 +51,7 @@ impl<'a> Lexer<'a> {
         report: &'a mut LineReport,
     ) -> Self {
         let frame = arena.frame(state);
-        let budget = limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+        let steps = Steps::new(limits, s.len());
         Lexer {
             s,
             out,
@@ -63,16 +61,16 @@ impl<'a> Lexer<'a> {
             pos: 0,
             state,
             frame,
-            steps: Cell::new(0),
-            budget,
+            steps,
             last_call: OnceCell::new(),
             ident_end: 0,
             word_end: 0,
         }
     }
 
-    pub(crate) fn into_state(self) -> u32 {
-        self.state
+    /// The state after the line, with its count given back to the lender.
+    pub(crate) fn finish_line(self) -> Finished {
+        self.steps.finish(self.state)
     }
 
     pub(crate) fn run(&mut self) {
@@ -80,7 +78,7 @@ impl<'a> Lexer<'a> {
         let mut p = 0;
         while p < len {
             self.spend(1);
-            if self.steps.get() > self.budget {
+            if self.steps.exhausted() {
                 self.report.record(Limit::Work);
                 break;
             }
@@ -154,8 +152,7 @@ impl<'a> Lexer<'a> {
 
     /// Counts `bytes` read ahead of the cursor against the line's work.
     pub(crate) fn spend(&self, bytes: usize) {
-        let bytes = u64::try_from(bytes).unwrap_or(u64::MAX);
-        self.steps.set(self.steps.get().saturating_add(bytes));
+        self.steps.spend(bytes);
     }
 
     /// The regex `\b` at `i`.

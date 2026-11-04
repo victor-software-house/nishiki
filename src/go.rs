@@ -19,6 +19,7 @@ pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
 use crate::language::{Context, Line};
+use crate::limits::Finished;
 use crate::rules;
 
 /// The state at the start of a Go document whose scopes sit on the stack
@@ -34,7 +35,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 
 /// Lexes one line under the crate's lexer contract.
 #[inline]
-pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     rules::lex::<Go>(cx, line, state, |scratch| &mut scratch.go)
 }
 

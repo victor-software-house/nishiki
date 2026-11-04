@@ -664,7 +664,7 @@ fn until(
         };
         let (next, halt) =
             super::lex_until(&mut cx, super::Dialect::JavaScript, line, state, end, after);
-        state = next;
+        state = next.state();
         let mut from = 0;
         let mut row = Row::new();
         for token in &out {

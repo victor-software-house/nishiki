@@ -23,7 +23,7 @@ use scope::S;
 
 use crate::arena::{Arena, Frame, ROOT};
 use crate::language::{Context, Line};
-use crate::limits::{Limit, Limits, LineReport, Steps};
+use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::utf8::char_len;
 use crate::{Stack, Token};
 
@@ -74,10 +74,10 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// Lexing starts at `line.start`, where a Markdown fence's text begins after
 /// the indentation of the containers around it; the bytes before it stay in
 /// the line, because `^` matches only at 0.
-pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     let (bytes, start) = (line.text.as_bytes(), line.start);
     if bytes.len() <= start {
-        return state;
+        return Finished::unspent(state);
     }
     let steps = Steps::new(cx.limits, bytes.len() - start);
     let frame = cx.arena.frame(state);
@@ -91,8 +91,7 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
         frame,
         pos: start,
     };
-    lexer.run(start, &steps);
-    lexer.state
+    lexer.run(start, steps)
 }
 
 struct Lexer<'a> {
@@ -108,9 +107,9 @@ struct Lexer<'a> {
 }
 
 impl Lexer<'_> {
-    fn run(&mut self, start: usize, steps: &Steps) {
+    fn run(&mut self, start: usize, steps: Steps) -> Finished {
         let len = self.bytes.len();
-        let mut text = rules::Line::new(self.bytes, steps);
+        let mut text = rules::Line::new(self.bytes, &steps);
         let mut pos = start;
         if start == 0
             && Kind::from_code(self.frame.kind) == Kind::Top
@@ -136,6 +135,7 @@ impl Lexer<'_> {
             );
         }
         self.tok(len, &[]);
+        steps.finish(self.state)
     }
 
     /// Scans the text outside a string from `pos` for its next quote or

@@ -4,7 +4,7 @@
 
 use crate::Token;
 use crate::arena::Arena;
-use crate::limits::{Limits, LineReport};
+use crate::limits::{Finished, Limits, LineReport};
 use crate::scratch::Scratch;
 
 /// The language list, and with it every function that has one arm per
@@ -42,7 +42,7 @@ macro_rules! languages {
         crate::$module::lex($cx, $($dialect,)? $line, $state)
     };
     (@lex [] [$grammar:path] [] $cx:ident $line:ident $state:ident) => {
-        crate::textmate::lex($cx, &$grammar, $line, $state)
+        crate::limits::Finished::unspent(crate::textmate::lex($cx, &$grammar, $line, $state))
     };
     (@until [] [$($module:ident)?] [$($dialect:expr)?] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {{
         let _ = ($cx, $line, $state, $end, $after);
@@ -136,9 +136,34 @@ macro_rules! languages {
 
             /// Lexes `line` from its `start` and from `state`, appending
             /// tokens whose ends count from the start of the whole line, and
-            /// returns the state after it.
+            /// returns the state after it. The highlighter calls it for the
+            /// line's own language, which needs no count back.
             #[inline]
             pub(crate) fn lex(self, cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+                match self {
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@lex [$($module)?] [$($grammar)?] [$($dialect)?] cx line state).state(),)*
+                }
+            }
+
+            /// Lexes `line` like [`Language::lex`], for a language that
+            /// another one embeds, and returns the steps it spent beside the
+            /// state, which the embedding lexer adds to its own count.
+            ///
+            /// Embedded lines are the rare path, so this dispatch is cold
+            /// and out of line: the lexers inline into [`Language::lex`]
+            /// alone, and the count stays off the highlighter's path.
+            #[cfg_attr(
+                not(any(feature = "lang-markdown", feature = "lang-ruby")),
+                expect(dead_code, reason = "only Markdown and Ruby embed through the dispatch")
+            )]
+            #[cold]
+            #[inline(never)]
+            pub(crate) fn lex_embedded(
+                self,
+                cx: &mut Context<'_>,
+                line: Line<'_>,
+                state: u32,
+            ) -> Finished {
                 match self {
                     $(#[cfg(feature = $feature)] Language::$variant => languages!(@lex [$($module)?] [$($grammar)?] [$($dialect)?] cx line state),)*
                 }
@@ -162,7 +187,7 @@ macro_rules! languages {
                 state: u32,
                 end: Halt,
                 after: Option<Halt>,
-            ) -> Option<(u32, Option<usize>)> {
+            ) -> Option<(Finished, Option<usize>)> {
                 match self {
                     $(#[cfg(feature = $feature)] Language::$variant => languages!(@until [$($halts)?] [$($module)?] [$($dialect)?] cx line state end after),)*
                 }
@@ -749,8 +774,22 @@ impl Language {
 
 /// What a lexer needs besides the line: the interned stacks and states, the
 /// limits, the reusable buffers, and where its tokens and limits go.
+///
+/// A lexer that embeds another passes it limits whose work is what the line
+/// has left, and adds what it spent, which comes back from its `lex`, so the
+/// embedded language spends the line's one work budget
+/// (`CODING_STANDARDS.md` 1.6).
 pub(crate) struct Context<'a> {
     pub(crate) scratch: &'a mut Scratch,
+    pub(crate) arena: &'a mut Arena,
+    pub(crate) limits: &'a Limits,
+    pub(crate) out: &'a mut Vec<Token>,
+    pub(crate) report: &'a mut LineReport,
+}
+
+/// A [`Context`] without its scratch, for a lexer that keeps its buffers in
+/// one field of the scratch and borrows that field beside these.
+pub(crate) struct Parts<'a> {
     pub(crate) arena: &'a mut Arena,
     pub(crate) limits: &'a Limits,
     pub(crate) out: &'a mut Vec<Token>,
@@ -813,6 +852,18 @@ pub(crate) struct Line<'a> {
 }
 
 impl Context<'_> {
+    /// The context split into its scratch and the rest.
+    #[inline]
+    pub(crate) fn parts(&mut self) -> (Parts<'_>, &mut Scratch) {
+        let parts = Parts {
+            arena: &mut *self.arena,
+            limits: self.limits,
+            out: &mut *self.out,
+            report: &mut *self.report,
+        };
+        (parts, &mut *self.scratch)
+    }
+
     /// Runs `lex` on the line's text from its start, for a lexer that counts
     /// token ends from there, then moves the new tokens' ends to count from
     /// the start of the whole line, as [`Language::lex`] promises.
@@ -820,8 +871,8 @@ impl Context<'_> {
     pub(crate) fn lex_from_start(
         &mut self,
         line: Line<'_>,
-        lex: impl FnOnce(&mut Self, &str) -> u32,
-    ) -> u32 {
+        lex: impl FnOnce(&mut Self, &str) -> Finished,
+    ) -> Finished {
         let first = self.out.len();
         let next = lex(self, &line.text[line.start..]);
         if line.start > 0 {

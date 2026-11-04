@@ -36,6 +36,7 @@ use state::{ROOT_EMBEDDED, Rule};
 
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line};
+use crate::limits::Finished;
 
 /// The state at the start of an HTML document whose scopes sit on the stack
 /// `base`: one rule with `text.html.basic` on top of it.
@@ -63,9 +64,9 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// An empty line leaves the state as it is: Shiki does not tokenize empty
 /// lines.
 #[inline]
-pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     if line.text.len() <= line.start {
-        return state;
+        return Finished::unspent(state);
     }
     engine::Lexer::new(cx, line, state, engine::Document::Html).run()
 }
@@ -81,13 +82,14 @@ pub(crate) fn lex_until(
     state: u32,
     end: Halt,
     after: Option<Halt>,
-) -> (u32, Option<usize>) {
+) -> (Finished, Option<usize>) {
     if line.text.len() <= line.start {
-        return (state, None);
+        return (Finished::unspent(state), None);
     }
     let mut lexer = engine::Lexer::new(cx, line, state, engine::Document::Html);
     lexer.give_back = Some(engine::GiveBack::Halts { end, after });
-    lexer.run_until()
+    let (finished, halt) = lexer.run_until();
+    (finished, halt)
 }
 
 /// The state at the start of an html-derivative document whose scopes sit on
@@ -106,9 +108,9 @@ pub(crate) fn start_derivative(arena: &mut Arena, base: u32) -> u32 {
 /// Lexes a line of an html-derivative document like [`lex`], with the
 /// grammar's own rule for the tags no other rule takes.
 #[cfg(feature = "lang-html-derivative")]
-pub(crate) fn lex_derivative(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex_derivative(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     if line.text.len() <= line.start {
-        return state;
+        return Finished::unspent(state);
     }
     engine::Lexer::new(cx, line, state, engine::Document::Derivative).run()
 }
@@ -135,9 +137,9 @@ pub(crate) fn lex_derivative_until(
     state: u32,
     span: Span,
     give_back: Option<engine::GiveBack>,
-) -> (u32, Option<usize>) {
+) -> (Finished, Option<usize>) {
     if line.text.len() <= line.start {
-        return (state, None);
+        return (Finished::unspent(state), None);
     }
     let mut lexer = engine::Lexer::new(cx, line, state, engine::Document::Derivative);
     lexer.lf = span == Span::Line;
@@ -146,14 +148,15 @@ pub(crate) fn lex_derivative_until(
 }
 
 /// Whether one of html-derivative's root patterns matches at `line.start`,
-/// as it would from `state`, an embedded start; it lexes nothing.
+/// as it would from `state`, an embedded start, with the steps the test
+/// spent; it lexes nothing.
 #[cfg(feature = "lang-html-derivative")]
 pub(crate) fn derivative_opens_at(
     cx: &mut Context<'_>,
     line: Line<'_>,
     state: u32,
     span: Span,
-) -> bool {
+) -> (bool, u64) {
     let start = line.start;
     let mut lexer = engine::Lexer::new(cx, line, state, engine::Document::Derivative);
     lexer.lf = span == Span::Line;
@@ -173,9 +176,9 @@ pub(crate) fn start_erb(arena: &mut Arena, base: u32) -> u32 {
 /// Lexes a line of an ERB document like [`lex`], with ERB's injection in
 /// place of the grammar's.
 #[cfg(feature = "lang-erb")]
-pub(crate) fn lex_erb(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex_erb(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     if line.text.len() <= line.start {
-        return state;
+        return Finished::unspent(state);
     }
     engine::Lexer::new(cx, line, state, engine::Document::Erb).run()
 }

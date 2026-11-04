@@ -4,6 +4,7 @@ use crate::arena::{Arena, ROOT};
 use crate::csharp::engine::{Lexer, Scratch};
 use crate::csharp::grammar::Pat;
 use crate::csharp::matchers::ProbeGroups;
+use crate::language::Parts;
 use crate::limits::{Limits, LineReport};
 use crate::rules::Text;
 
@@ -35,17 +36,20 @@ fn answer(
     let mut tokens = Vec::new();
     let mut report = LineReport::default();
     let mut scratch = Scratch::default();
-    let mut lexer = Lexer::new(
+    let parts = Parts {
         arena,
-        &limits,
+        limits: &limits,
+        out: &mut tokens,
+        report: &mut report,
+    };
+    let mut lexer = Lexer::new(
+        parts,
         Text {
             bytes: text.as_bytes(),
             start: 0,
             anchored: false,
         },
-        &mut tokens,
         ROOT,
-        &mut report,
         &mut scratch,
     );
     lexer.nl = matches!(after, After::LineFeed);

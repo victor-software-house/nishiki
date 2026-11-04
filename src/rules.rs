@@ -42,9 +42,12 @@ pub(crate) use tables::Tables;
 pub(crate) use tables::table_scan;
 
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Halt, Line};
 #[cfg(feature = "lang-ruby")]
-use crate::limits::Limit;
+use crate::language::Parts;
+use crate::language::{Context, Halt, Line};
+use crate::limits::Finished;
+#[cfg(feature = "lang-ruby")]
+use crate::limits::{Limit, Steps};
 use crate::scope::Scope;
 
 /// One language's grammar: its rules and patterns, by type, and the
@@ -209,17 +212,17 @@ pub(crate) fn lex<G: Grammar>(
     line: Line<'_>,
     state: u32,
     scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
-) -> u32 {
+) -> Finished {
     if line.text.is_empty() {
-        return state;
+        return Finished::unspent(state);
     }
     let text = Text {
         bytes: line.text.as_bytes(),
         start: line.start,
         anchored: line.embedded,
     };
-    let scratch = scratch(cx.scratch);
-    Lexer::new(cx.arena, cx.limits, text, cx.out, state, cx.report, scratch).run()
+    let (parts, buffers) = cx.parts();
+    Lexer::new(parts, text, state, scratch(buffers)).run()
 }
 
 /// Lexes `line` like [`lex`], for grammar `G` that another grammar embeds up
@@ -235,20 +238,21 @@ pub(crate) fn lex_until<G: Grammar>(
     scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
     end: Halt,
     after: Option<Halt>,
-) -> (u32, Option<usize>) {
+) -> (Finished, Option<usize>) {
     if line.text.len() <= line.start {
-        return (state, None);
+        return (Finished::unspent(state), None);
     }
     let text = Text {
         bytes: line.text.as_bytes(),
         start: line.start,
         anchored: line.embedded,
     };
-    let scratch = scratch(cx.scratch);
-    Lexer::new(cx.arena, cx.limits, text, cx.out, state, cx.report, scratch)
+    let (parts, buffers) = cx.parts();
+    let (finished, halt) = Lexer::new(parts, text, state, scratch(buffers))
         .halting_at(end)
         .halting_after(after)
-        .run_halting()
+        .run_halting();
+    (finished, halt)
 }
 
 /// Lexes `line` like [`lex`], for grammar `G` whose rules embed other
@@ -266,35 +270,29 @@ pub(crate) fn lex_embedding<G: Grammar>(
     scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
     end: Halt,
     after: Option<Halt>,
-) -> u32 {
+) -> Finished {
     if line.text.is_empty() {
-        return state;
+        return Finished::unspent(state);
     }
     let text = Text {
         bytes: line.text.as_bytes(),
         start: line.start,
         anchored: line.embedded,
     };
-    let lexer = Lexer::new(
-        cx.arena,
-        cx.limits,
-        text,
-        cx.out,
-        state,
-        cx.report,
-        scratch(cx.scratch),
-    );
-    let (next, embedding, steps) = lexer.run_embedding(None);
+    let (parts, buffers) = cx.parts();
+    let (first, embedding) = Lexer::new(parts, text, state, scratch(buffers)).run_embedding();
     match embedding {
-        Some(embedding) => hand_over(cx, line, scratch, (end, after), next, embedding, steps),
-        None => next,
+        Some(embedding) => hand_over(cx, line, scratch, (end, after), first, embedding),
+        None => first,
     }
 }
 
-/// The rest of [`lex_embedding`]'s line from where the grammar stopped for
-/// `embedding`, in state `next` after `spent` steps: the embedded language
-/// lexes up to its halt, and the grammar goes on from there, as often as the
-/// line asks. Out of line, since most lines embed nothing.
+/// The rest of [`lex_embedding`]'s line from where the grammar's `first`
+/// lexer stopped for `embedding`: the embedded language lexes up to its
+/// halt, and the grammar goes on from there, as often as the line asks.
+/// One count for the line starts from what `first` spent; each part is lent
+/// what it has left and adds what it spends, so the whole line spends one
+/// work budget. Out of line, since most lines embed nothing.
 #[cfg(feature = "lang-ruby")]
 #[cold]
 fn hand_over<G: Grammar>(
@@ -302,11 +300,12 @@ fn hand_over<G: Grammar>(
     line: Line<'_>,
     scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
     (end, after): (Halt, Option<Halt>),
-    mut next: u32,
+    first: Finished,
     mut embedding: Embedding,
-    mut spent: u64,
-) -> u32 {
-    loop {
+) -> Finished {
+    let steps = Steps::new(cx.limits, line.text.len());
+    let mut next = steps.take_back(first);
+    let state = loop {
         let language = embedding.language;
         let inner = match embedding.state {
             0 => language.start_embedded(cx.arena, embedding.base),
@@ -317,37 +316,47 @@ fn hand_over<G: Grammar>(
             start: embedding.at,
             embedded: false,
         };
-        let (inner, stop) = match language.lex_until(cx, part, inner, end, after) {
-            Some(halted) => halted,
-            None => (language.lex(cx, part, inner), None),
+        let lent = steps.lend(cx.limits);
+        let mut part_cx = Context {
+            scratch: &mut *cx.scratch,
+            arena: &mut *cx.arena,
+            limits: &lent,
+            out: &mut *cx.out,
+            report: &mut *cx.report,
         };
+        let (inner, stop) = match language.lex_until(&mut part_cx, part, inner, end, after) {
+            Some(halted) => halted,
+            None => (language.lex_embedded(&mut part_cx, part, inner), None),
+        };
+        let inner = steps.take_back(inner);
         let state = with_payload(cx.arena, next, inner).unwrap_or_else(|| {
             cx.report.record(Limit::Nodes);
             next
         });
         let Some(at) = stop else {
-            return state;
+            break state;
         };
         let text = Text {
             bytes: line.text.as_bytes(),
             start: at,
             anchored: false,
         };
-        let lexer = Lexer::new(
-            cx.arena,
-            cx.limits,
-            text,
-            cx.out,
-            state,
-            cx.report,
-            scratch(cx.scratch),
-        );
-        let (state, found, steps) = lexer.run_embedding(Some(spent));
-        let Some(found) = found else {
-            return state;
+        let lent = steps.lend(cx.limits);
+        let parts = Parts {
+            arena: &mut *cx.arena,
+            limits: &lent,
+            out: &mut *cx.out,
+            report: &mut *cx.report,
         };
-        (next, embedding, spent) = (state, found, steps);
-    }
+        let (finished, found) =
+            Lexer::new(parts, text, state, scratch(&mut *cx.scratch)).resume_embedding();
+        let resumed = steps.take_back(finished);
+        let Some(found) = found else {
+            break resumed;
+        };
+        (next, embedding) = (resumed, found);
+    };
+    steps.finish(state)
 }
 
 /// The scopes of a pattern's capture groups by group number, and the groups

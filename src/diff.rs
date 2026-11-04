@@ -21,7 +21,7 @@ use scope::S;
 
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Line};
-use crate::limits::{Limit, LineReport, Steps};
+use crate::limits::{Finished, Limit, LineReport, Steps};
 use crate::{Stack, Token};
 
 /// The high byte that marks a frame as one of the diff lexer's.
@@ -49,10 +49,10 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// Lexing starts at `line.start`, where a Markdown fence's text begins after
 /// the indentation of the containers around it; the bytes before it stay in
 /// the line, because `^` matches only at 0.
-pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     let (bytes, start) = (line.text.as_bytes(), line.start);
     if bytes.len() <= start {
-        return state;
+        return Finished::unspent(state);
     }
     let base = cx.arena.frame(state).stack;
     let steps = Steps::new(cx.limits, bytes.len() - start);
@@ -82,7 +82,7 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
         pos = found.end;
     }
     emit.tok(bytes.len(), &[]);
-    state
+    steps.finish(state)
 }
 
 /// Appends tokens from a position to a line's end.

@@ -10,7 +10,7 @@ use super::state::{ArrayNext, InlineComments, Kind};
 use crate::classes::space_width;
 use crate::emit::Emitter;
 use crate::language::Context;
-use crate::limits::{Limit, Steps};
+use crate::limits::{Finished, Limit, Steps};
 use crate::utf8::char_len;
 
 /// Lexes one line. `pos` is the end of the last token; the bytes between it
@@ -60,8 +60,9 @@ impl<'a> Lexer<'a> {
         lexer
     }
 
-    pub(crate) fn into_state(self) -> u32 {
-        self.em.state
+    /// The state after the line, with its count given back to the lender.
+    pub(crate) fn finish_line(self) -> Finished {
+        self.steps.finish(self.em.state)
     }
 
     pub(crate) fn run(&mut self) {

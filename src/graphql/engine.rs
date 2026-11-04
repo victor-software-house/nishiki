@@ -18,7 +18,7 @@ use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line};
-use crate::limits::{Limit, Limits, LineReport};
+use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::utf8::char_len;
 use crate::{Stack, Token, typescript};
 
@@ -114,10 +114,9 @@ pub(super) struct Lexer<'a> {
     arena: &'a mut Arena,
     limits: &'a Limits,
     report: &'a mut LineReport,
-    /// Steps spent on this line, counted in scans too.
-    steps: Cell<u64>,
-    /// Steps this line may spend; `u64::MAX` for no limit.
-    budget: u64,
+    /// Steps spent on this line, counted in scans too, and lent to the
+    /// languages this one embeds.
+    steps: Steps,
     /// End of the last token.
     last: usize,
     /// Where the current search starts.
@@ -145,7 +144,7 @@ impl<'a> Lexer<'a> {
     /// parent's content scopes.
     pub(super) fn new(cx: &'a mut Context<'_>, line: Line<'a>, state: u32) -> Self {
         let (s, start) = (line.text.as_bytes(), line.start);
-        let budget = cx.limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+        let steps = Steps::new(cx.limits, s.len());
         let mut frames = std::mem::take(&mut cx.scratch.graphql.frames);
         frames.clear();
         let mut lexer = Lexer {
@@ -157,8 +156,7 @@ impl<'a> Lexer<'a> {
             arena: &mut *cx.arena,
             limits: cx.limits,
             report: &mut *cx.report,
-            steps: Cell::new(0),
-            budget,
+            steps,
             last: start,
             pos: start,
             frames,
@@ -195,7 +193,7 @@ impl<'a> Lexer<'a> {
     }
 
     /// Lexes the line and returns the state after it.
-    pub(super) fn run(self) -> u32 {
+    pub(super) fn run(self) -> Finished {
         self.run_halting().0
     }
 
@@ -208,11 +206,12 @@ impl<'a> Lexer<'a> {
     }
 
     /// Lexes the line like [`Lexer::run`], and returns where it halted too.
-    pub(super) fn run_halting(mut self) -> (u32, Option<usize>) {
+    pub(super) fn run_halting(mut self) -> (Finished, Option<usize>) {
         self.tokenize();
         let state = self.top().state;
         self.scratch.graphql.frames = std::mem::take(&mut self.frames);
-        (state, self.halted.get())
+        let halted = self.halted.get();
+        (self.steps.finish(state), halted)
     }
 
     /// The halts a scan tests at each place: the line's, while only the root
@@ -236,12 +235,11 @@ impl<'a> Lexer<'a> {
 
     /// Counts `steps` of work against the line's budget.
     pub(super) fn spend(&self, steps: usize) {
-        let steps = u64::try_from(steps).unwrap_or(u64::MAX);
-        self.steps.set(self.steps.get().saturating_add(steps));
+        self.steps.spend(steps);
     }
 
     fn over_budget(&self) -> bool {
-        self.steps.get() > self.budget
+        self.steps.exhausted()
     }
 
     // Scopes and tokens.
@@ -399,10 +397,11 @@ impl<'a> Lexer<'a> {
             js = typescript::start_embedded(self.arena, top.content);
         }
         self.spend(self.lim.saturating_sub(self.pos) + 1);
+        let lent = self.steps.lend(self.limits);
         let mut cx = Context {
             scratch: &mut *self.scratch,
             arena: &mut *self.arena,
-            limits: self.limits,
+            limits: &lent,
             out: &mut *self.out,
             report: &mut *self.report,
         };
@@ -419,6 +418,7 @@ impl<'a> Lexer<'a> {
             closing_brace,
             None,
         );
+        let next = self.steps.take_back(next);
         let to = close.unwrap_or(self.lim);
         if to > self.pos {
             self.last = to;

@@ -30,9 +30,8 @@ pub(crate) use scope::NAMES;
 use scope::S;
 use state::Rule;
 
-use crate::Token;
 use crate::arena::{Arena, ROOT};
-use crate::limits::{Limits, LineReport};
+use crate::limits::Finished;
 
 /// The state at the start of a shell document whose scopes sit on the stack
 /// `base`: one rule with `source.shell` on top of it.
@@ -73,20 +72,13 @@ pub(crate) struct Text<'a> {
 /// An empty line leaves the state as it is: Shiki does not tokenize empty
 /// lines, and the grammar would otherwise close a statement it left open at
 /// the end of the line before.
-pub(crate) fn line(
-    scratch: &mut crate::scratch::Scratch,
-    arena: &mut Arena,
-    limits: &Limits,
-    line: Text<'_>,
-    state: u32,
-    out: &mut Vec<Token>,
-    report: &mut LineReport,
-) -> u32 {
+pub(crate) fn line(cx: &mut crate::language::Context<'_>, line: Text<'_>, state: u32) -> Finished {
     if line.bytes.is_empty() {
-        return state;
+        return Finished::unspent(state);
     }
+    let (parts, scratch) = cx.parts();
     let scratch = &mut scratch.shell;
-    engine::Lexer::new(arena, limits, line, out, state, report, scratch).run(scratch)
+    engine::Lexer::new(parts, line, state, scratch).run(scratch)
 }
 
 #[cfg(test)]
@@ -102,19 +94,21 @@ pub(crate) fn lex_until(
     state: u32,
     end: crate::language::Halt,
     after: Option<crate::language::Halt>,
-) -> (u32, Option<usize>) {
+) -> (Finished, Option<usize>) {
     if line.text.len() <= line.start {
-        return (state, None);
+        return (Finished::unspent(state), None);
     }
     let text = Text {
         bytes: line.text.as_bytes(),
         start: line.start,
         anchored: line.embedded,
     };
-    let scratch = &mut cx.scratch.shell;
-    engine::Lexer::new(cx.arena, cx.limits, text, cx.out, state, cx.report, scratch)
+    let (parts, scratch) = cx.parts();
+    let scratch = &mut scratch.shell;
+    let (finished, halt) = engine::Lexer::new(parts, text, state, scratch)
         .halting(end, after)
-        .run_halting(scratch)
+        .run_halting(scratch);
+    (finished, halt)
 }
 
 /// Lexes `line` from `state` under the crate's one lexer contract
@@ -125,13 +119,11 @@ pub(crate) fn lex(
     cx: &mut crate::language::Context<'_>,
     line: crate::language::Line<'_>,
     state: u32,
-) -> u32 {
+) -> Finished {
     let text = Text {
         bytes: line.text.as_bytes(),
         start: line.start,
         anchored: line.embedded,
     };
-    self::line(
-        cx.scratch, cx.arena, cx.limits, text, state, cx.out, cx.report,
-    )
+    self::line(cx, text, state)
 }

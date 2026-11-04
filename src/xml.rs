@@ -27,6 +27,7 @@ use state::Rule;
 
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line};
+use crate::limits::Finished;
 
 /// The state at the start of an XML document whose scopes sit on the stack
 /// `base`: one rule with `text.xml` on top of it.
@@ -51,9 +52,9 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// lines, and the grammar would otherwise close a rule it left open at the end
 /// of the line before.
 #[inline]
-pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     if line.text.is_empty() {
-        return state;
+        return Finished::unspent(state);
     }
     engine::Lexer::new(cx, line, state).run()
 }
@@ -69,13 +70,14 @@ pub(crate) fn lex_until(
     state: u32,
     end: Halt,
     after: Option<Halt>,
-) -> (u32, Option<usize>) {
+) -> (Finished, Option<usize>) {
     if line.text.len() <= line.start {
-        return (state, None);
+        return (Finished::unspent(state), None);
     }
     let mut lexer = engine::Lexer::new(cx, line, state);
     lexer.halts = Some((end, after));
-    lexer.run_until()
+    let (finished, halt) = lexer.run_until();
+    (finished, halt)
 }
 
 #[cfg(test)]

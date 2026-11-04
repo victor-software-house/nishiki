@@ -15,8 +15,8 @@ use super::rules::{Act, Pat, rule_info};
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
-use crate::language::Halt;
-use crate::limits::{Limit, Limits, LineReport};
+use crate::language::{Halt, Parts};
+use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::utf8::char_len;
 use crate::{Stack, Token};
 
@@ -244,9 +244,7 @@ pub(crate) struct Lexer<'a> {
     limits: &'a Limits,
     report: &'a mut LineReport,
     /// Steps spent on this line, counted in `&self` scans too.
-    steps: Cell<u64>,
-    /// Steps this line may spend; `u64::MAX` for no limit.
-    budget: u64,
+    steps: Steps,
     /// End of the last token.
     last: usize,
     /// Where the current search starts.
@@ -300,17 +298,19 @@ impl<'a> Lexer<'a> {
     )]
     #[inline(always)]
     pub(crate) fn new(
-        arena: &'a mut Arena,
-        limits: &'a Limits,
+        Parts {
+            arena,
+            limits,
+            out,
+            report,
+        }: Parts<'a>,
         text: super::Text<'a>,
-        out: &'a mut Vec<Token>,
         state: u32,
-        report: &'a mut LineReport,
         scratch: &mut Scratch,
     ) -> Self {
         let (s, start) = (text.bytes, text.start);
         let anchor = text.anchored.then_some(start);
-        let budget = limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+        let steps = Steps::new(limits, s.len());
         let mut frames = std::mem::take(&mut scratch.frames);
         frames.clear();
         let mut spans = std::mem::take(&mut scratch.spans);
@@ -325,8 +325,7 @@ impl<'a> Lexer<'a> {
             arena,
             limits,
             report,
-            steps: Cell::new(0),
-            budget,
+            steps,
             last: start,
             pos: start,
             anchor,
@@ -416,7 +415,7 @@ impl<'a> Lexer<'a> {
 
     /// Lexes the line, returns the state after it, and gives the buffers back
     /// to `scratch`.
-    pub(crate) fn run(self, scratch: &mut Scratch) -> u32 {
+    pub(crate) fn run(self, scratch: &mut Scratch) -> Finished {
         self.run_halting(scratch).0
     }
 
@@ -430,7 +429,7 @@ impl<'a> Lexer<'a> {
         reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and shell rose 0.8% (1.0081)"
     )]
     #[inline(always)]
-    pub(crate) fn run_halting(mut self, scratch: &mut Scratch) -> (u32, Option<usize>) {
+    pub(crate) fn run_halting(mut self, scratch: &mut Scratch) -> (Finished, Option<usize>) {
         self.tokenize();
         let state = self.top().state;
         let exact = !self.flags.kept
@@ -456,7 +455,7 @@ impl<'a> Lexer<'a> {
         scratch.name = self.name;
         scratch.paths = self.paths;
         scratch.pushes = self.pushes;
-        (state, self.halted)
+        (self.steps.finish(state), self.halted)
     }
 
     // Bytes.
@@ -525,8 +524,7 @@ impl<'a> Lexer<'a> {
 
     /// Counts `steps` of work against the line's budget.
     pub(crate) fn spend(&self, steps: usize) {
-        let steps = u64::try_from(steps).unwrap_or(u64::MAX);
-        self.steps.set(self.steps.get().saturating_add(steps));
+        self.steps.spend(steps);
     }
 
     /// The first position from `from` to the end of the text where `test`
@@ -895,7 +893,7 @@ impl<'a> Lexer<'a> {
         let mut stalled = 0_u32;
         loop {
             self.spend(1);
-            if self.steps.get() > self.budget {
+            if self.steps.exhausted() {
                 self.report.record(Limit::Work);
                 let node = self.top().content;
                 self.emit(line_length, node);

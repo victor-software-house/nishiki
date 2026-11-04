@@ -115,7 +115,8 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 
 - It starts through `start_embedded`, on the fence's stack, without a root scope of its own, as Shiki embeds it.
 - Its state is the payload of the fence's frame.
-- It shares the embedding line's work and depth limits.
+- It spends the embedding line's work budget: each lexer counts in a `Steps` field of its own against the limit its `Limits` give it, the embedding lexer passes it limits whose work is what the line has left (`Steps::lend`), and every lexer's `lex` returns what it spent beside its state (`Finished`), which the embedding lexer adds to its own count (`Steps::take_back`).
+- It counts only its own contexts against the depth limit, so a pinned depth gives it the same output wherever it is embedded.
 - A fence's kind holds the embedded `Language`, and Markdown numbers its kinds from `Language::ALL`.
   Adding a fence language is one entry in the fence table and its embedded scope in `rules::content_name`.
 
@@ -150,6 +151,12 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 
 - On a hot path, the closure given to `get_or_init` is `move` and captures only `Copy` values, such as an index or a shared reference.
   A closure that borrows its captures builds their environment on the stack before the cell's initialized test, on every call, though it runs only once.
+
+### 2.6 State on the hot path has no `Drop` impl
+
+- A value a lexer holds while it lexes a line, such as its `Steps`, has no `Drop` impl.
+  Drop glue turns every call made while the value lives into an unwinding call with a cleanup path, which grows the caller and changes what LLVM inlines into it.
+- Work that must happen when the value is done goes in one consuming method, which the type system makes every exit call: `Steps::finish` is the only way to make the `Finished` that carries a lexer's state.
 
 ## 3. Code
 

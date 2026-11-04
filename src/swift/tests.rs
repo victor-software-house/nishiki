@@ -3,6 +3,7 @@
 use indoc::indoc;
 
 use crate::arena::{Arena, ROOT};
+use crate::language::Parts;
 use crate::limits::{Limits, LineReport};
 use crate::rules::{Grammar, Text};
 use crate::swift::engine::{Lexer, Scratch, Swift};
@@ -275,17 +276,20 @@ fn answer(
     let mut tokens = Vec::new();
     let mut report = LineReport::default();
     let mut scratch = Scratch::default();
-    let mut lexer = Lexer::new(
+    let parts = Parts {
         arena,
-        &limits,
+        limits: &limits,
+        out: &mut tokens,
+        report: &mut report,
+    };
+    let mut lexer = Lexer::new(
+        parts,
         Text {
             bytes: text.as_bytes(),
             start: 0,
             anchored: false,
         },
-        &mut tokens,
         ROOT,
-        &mut report,
         &mut scratch,
     );
     lexer.nl = matches!(after, After::LineFeed);

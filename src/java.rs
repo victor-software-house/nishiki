@@ -19,6 +19,7 @@ pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
 use crate::language::{Context, Line};
+use crate::limits::Finished;
 use crate::rules;
 
 /// The state at the start of a Java document whose scopes sit on the stack
@@ -34,7 +35,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 
 /// Lexes one line under the crate's lexer contract.
 #[inline]
-pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     rules::lex::<Java>(cx, line, state, |scratch| &mut scratch.java)
 }
 
@@ -46,7 +47,7 @@ pub(crate) fn lex_until(
     line: Line<'_>,
     state: u32,
     end: crate::language::Halt,
-) -> (u32, Option<usize>) {
+) -> (Finished, Option<usize>) {
     rules::lex_until::<Java>(cx, line, state, |scratch| &mut scratch.java, end, None)
 }
 

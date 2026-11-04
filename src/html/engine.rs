@@ -24,7 +24,7 @@ use super::scope::S;
 use super::state::{self, ErbInjection, ROOT_EMBEDDED, Rule};
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line};
-use crate::limits::{Limit, Limits, LineReport};
+use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scratch::Scratch as AllScratch;
 use crate::{Stack, Token, case_fold};
 
@@ -237,10 +237,9 @@ pub(super) struct Lexer<'a> {
     pub(super) lim: usize,
     /// Whether a line feed follows the text, where the line ends.
     pub(super) lf: bool,
-    /// Steps spent on this line, counted in scans too.
-    steps: Cell<u64>,
-    /// Steps this line may spend; `u64::MAX` for no limit.
-    budget: u64,
+    /// Steps spent on this line, counted in scans too, and lent to the
+    /// languages this one embeds.
+    steps: Steps,
     /// End of the last token.
     last: usize,
     /// Where the current search starts.
@@ -277,7 +276,7 @@ impl<'a> Lexer<'a> {
         document: Document,
     ) -> Self {
         let s = line.text.as_bytes();
-        let budget = cx.limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+        let steps = Steps::new(cx.limits, s.len());
         let mut frames = std::mem::take(&mut cx.scratch.html.frames);
         frames.clear();
         let mut lexer = Lexer {
@@ -290,8 +289,7 @@ impl<'a> Lexer<'a> {
             report: &mut *cx.report,
             lim: s.len(),
             lf: true,
-            steps: Cell::new(0),
-            budget,
+            steps,
             last: line.start,
             pos: line.start,
             anchor: line.embedded.then_some(line.start),
@@ -352,25 +350,26 @@ impl<'a> Lexer<'a> {
     }
 
     /// Lexes the line and returns the state after it.
-    pub(super) fn run(self) -> u32 {
+    pub(super) fn run(self) -> Finished {
         self.run_until().0
     }
 
     /// Lexes the line and returns the state after it, with the position
     /// where the line went back to the including grammar, if it did.
-    pub(super) fn run_until(mut self) -> (u32, Option<usize>) {
+    pub(super) fn run_until(mut self) -> (Finished, Option<usize>) {
         self.tokenize();
         let state = self.top().state;
         self.scratch.html.frames = std::mem::take(&mut self.frames);
-        (state, self.given_back)
+        (self.steps.finish(state), self.given_back)
     }
 
-    /// Whether a root pattern matches at `p`, which lexes nothing.
+    /// Whether a root pattern matches at `p`, which lexes nothing, with the
+    /// steps the test spent.
     #[cfg(feature = "lang-html-derivative")]
-    pub(super) fn opens_at(mut self, p: usize) -> bool {
+    pub(super) fn opens_at(mut self, p: usize) -> (bool, u64) {
         let opens = self.match_at(Rule::Root, p).is_some();
         self.scratch.html.frames = std::mem::take(&mut self.frames);
-        opens
+        (opens, self.steps.into_spent())
     }
 
     // Bytes.
@@ -392,12 +391,11 @@ impl<'a> Lexer<'a> {
 
     /// Counts `steps` of work against the line's budget.
     pub(super) fn spend(&self, steps: usize) {
-        let steps = u64::try_from(steps).unwrap_or(u64::MAX);
-        self.steps.set(self.steps.get().saturating_add(steps));
+        self.steps.spend(steps);
     }
 
     pub(super) fn over_budget(&self) -> bool {
-        self.steps.get() > self.budget
+        self.steps.exhausted()
     }
 
     /// The position of the next `<` at or after `from`, found once for the
@@ -745,10 +743,11 @@ impl<'a> Lexer<'a> {
         if pos >= self.lim {
             return None;
         }
+        let lent = self.steps.lend(self.limits);
         let mut cx = Context {
             scratch: &mut *self.scratch,
             arena: &mut *self.arena,
-            limits: self.limits,
+            limits: &lent,
             out: &mut *self.out,
             report: &mut *self.report,
         };
@@ -779,6 +778,7 @@ impl<'a> Lexer<'a> {
                 )
             }
         };
+        let next = self.steps.take_back(next);
         self.advance_to(pos, halt);
         let Some(at) = halt else {
             self.keep_inner(next);
@@ -833,10 +833,11 @@ impl<'a> Lexer<'a> {
         if pos >= self.lim {
             return None;
         }
+        let lent = self.steps.lend(self.limits);
         let mut cx = Context {
             scratch: &mut *self.scratch,
             arena: &mut *self.arena,
-            limits: self.limits,
+            limits: &lent,
             out: &mut *self.out,
             report: &mut *self.report,
         };
@@ -846,6 +847,7 @@ impl<'a> Lexer<'a> {
             embedded: false,
         };
         let (next, halt) = erb::lex_ruby(&mut cx, line, inner, erb::ruby_halt);
+        let next = self.steps.take_back(next);
         self.advance_to(pos, halt);
         let text = &self.s[..self.lim];
         let Some(at) = halt else {
@@ -1109,10 +1111,11 @@ impl<'a> Lexer<'a> {
         self.tok(base, from);
         self.spend(to - from);
         let state = crate::typescript::start_embedded(self.arena, base);
+        let lent = self.steps.lend(self.limits);
         let mut cx = Context {
             scratch: &mut *self.scratch,
             arena: &mut *self.arena,
-            limits: self.limits,
+            limits: &lent,
             out: &mut *self.out,
             report: &mut *self.report,
         };
@@ -1122,7 +1125,8 @@ impl<'a> Lexer<'a> {
             start: from,
             embedded: false,
         };
-        crate::typescript::lex_capture(&mut cx, line, state);
+        let finished = crate::typescript::lex_capture(&mut cx, line, state);
+        self.steps.take_back(finished);
         self.last = self.last.max(to);
     }
 }

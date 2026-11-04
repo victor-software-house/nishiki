@@ -10,8 +10,6 @@
 //! together the rule listed first. A match opens a container, closes one, or
 //! only scopes text.
 
-use std::cell::Cell;
-
 use super::caps::{Caps, NESTING};
 #[cfg(feature = "lang-html-derivative")]
 use super::html;
@@ -21,8 +19,8 @@ use super::state::{Fence, Kind};
 use super::text::Cx;
 use super::{block, inline};
 use crate::arena::{Arena, Frame as ArenaFrame, ROOT};
-use crate::language::{Context, Line};
-use crate::limits::{Limit, Limits, LineReport};
+use crate::language::{Context, Line, Parts};
+use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::{Language, Stack, Token};
 
 /// The window on the line that the rules see, built from the fields it needs
@@ -34,7 +32,6 @@ macro_rules! cx {
             end: $lexer.limit,
             anchor: $lexer.anchor,
             steps: &$lexer.steps,
-            budget: $lexer.budget,
         }
     };
 }
@@ -194,10 +191,9 @@ pub(crate) struct Lexer<'a> {
     limit: usize,
     /// The end of the last token emitted.
     last: usize,
-    /// Steps spent on this line, counted in the matchers' scans too.
-    steps: Cell<u64>,
-    /// Steps this line may spend; `u64::MAX` for no limit.
-    budget: u64,
+    /// Steps spent on this line, counted in the matchers' scans too, and
+    /// lent to the languages of its fences.
+    steps: Steps,
     /// The fence the last match of the fence rule opened.
     opened: Option<block::FenceOpen>,
     /// The capture groups of the rule being tried.
@@ -229,13 +225,15 @@ pub(crate) struct Scratch {
 
 impl<'a> Lexer<'a> {
     pub(crate) fn new(
+        Parts {
+            arena,
+            limits,
+            out,
+            report,
+        }: Parts<'a>,
         scratch: &'a mut crate::scratch::Scratch,
-        arena: &'a mut Arena,
-        limits: &'a Limits,
         line: &'a str,
-        out: &'a mut Vec<Token>,
         state: u32,
-        report: &'a mut LineReport,
     ) -> Self {
         let first_token = out.len();
         let mut frames = std::mem::take(&mut scratch.markdown.frames);
@@ -281,8 +279,7 @@ impl<'a> Lexer<'a> {
             anchor: None,
             limit: line.len() + 1,
             last: 0,
-            steps: Cell::new(0),
-            budget: limits.work.map_or(u64::MAX, |work| work.steps(line.len())),
+            steps: Steps::new(limits, line.len()),
             opened: None,
             caps: Caps::new(),
             scratch,
@@ -294,8 +291,8 @@ impl<'a> Lexer<'a> {
     ///
     /// After the first line the containers rest on the document's start
     /// state, so they move onto a root that is not the start, and the next
-    /// line rebuilds them.
-    pub(crate) fn finish(self) -> u32 {
+    /// line rebuilds them. The line's count goes back to the lender.
+    pub(crate) fn finish(self) -> Finished {
         let state = self
             .frames
             .iter()
@@ -303,18 +300,26 @@ impl<'a> Lexer<'a> {
             .find_map(|frame| frame.state)
             .unwrap_or(ROOT);
         self.scratch.markdown.frames = self.frames;
-        if self.first_line {
+        let next = if self.first_line {
             self.scratch.markdown.resume = None;
             let chain = &mut self.scratch.markdown.chain;
-            return after_first_line(self.arena, chain, state).unwrap_or(state);
-        }
-        self.scratch.markdown.resume = Some(state);
-        state
+            after_first_line(self.arena, chain, state).unwrap_or(state)
+        } else {
+            self.scratch.markdown.resume = Some(state);
+            state
+        };
+        self.steps.finish(next)
     }
 
+    /// Lexes the line. A line whose scans spent its work reports the work
+    /// limit, though the scan that ran out gave up without a match and the
+    /// loop then found nothing more.
     pub(crate) fn run(&mut self) {
         self.check_whiles();
         while self.step() {}
+        if self.steps.exhausted() {
+            self.report.record(Limit::Work);
+        }
         let node = self.content();
         self.emit(self.line.len(), node);
     }
@@ -443,8 +448,7 @@ impl<'a> Lexer<'a> {
     /// Takes the next match from the cursor. False when nothing matches, or
     /// the line has spent its work.
     fn step(&mut self) -> bool {
-        self.steps.set(self.steps.get().saturating_add(1));
-        if self.steps.get() > self.budget {
+        if self.steps.step() {
             self.report.record(Limit::Work);
             return false;
         }
@@ -1027,10 +1031,11 @@ impl<'a> Lexer<'a> {
         let span = self.span();
         let text = &self.line[..self.limit.min(self.line.len())];
         let state = crate::html::start_embedded(self.arena, ROOT);
+        let lent = self.steps.lend(self.limits);
         let mut cx = Context {
             scratch: &mut *self.scratch,
             arena: &mut *self.arena,
-            limits: self.limits,
+            limits: &lent,
             out: &mut *self.out,
             report: &mut *self.report,
         };
@@ -1039,7 +1044,9 @@ impl<'a> Lexer<'a> {
             start,
             embedded: true,
         };
-        crate::html::derivative_opens_at(&mut cx, line, state, span)
+        let (opens, spent) = crate::html::derivative_opens_at(&mut cx, line, state, span);
+        self.steps.add(spent);
+        opens
     }
 
     /// Gives the line back from html-derivative, which gave it back at `at`,
@@ -1073,10 +1080,11 @@ impl<'a> Lexer<'a> {
         let [_, (text, close), _, _, (name, name_end), _] = groups;
         if text < close {
             let state = crate::html::start_embedded(self.arena, base);
+            let lent = self.steps.lend(self.limits);
             let mut cx = Context {
                 scratch: &mut *self.scratch,
                 arena: &mut *self.arena,
-                limits: self.limits,
+                limits: &lent,
                 out: &mut *self.out,
                 report: &mut *self.report,
             };
@@ -1085,13 +1093,14 @@ impl<'a> Lexer<'a> {
                 start: text,
                 embedded: false,
             };
-            crate::html::lex_derivative_until(
+            let (finished, _) = crate::html::lex_derivative_until(
                 &mut cx,
                 line,
                 state,
                 crate::html::Span::Capture,
                 None,
             );
+            self.steps.take_back(finished);
             self.last = self.last.max(close);
         }
         let mut buffer = [0_u8; 40];
@@ -1147,10 +1156,11 @@ impl<'a> Lexer<'a> {
         self.emit(start, frame.content);
         #[cfg(feature = "lang-html-derivative")]
         let span = self.span();
+        let lent = self.steps.lend(self.limits);
         let mut cx = Context {
             scratch: &mut *self.scratch,
             arena: &mut *self.arena,
-            limits: self.limits,
+            limits: &lent,
             out: &mut *self.out,
             report: &mut *self.report,
         };
@@ -1168,15 +1178,19 @@ impl<'a> Lexer<'a> {
                 span,
                 Some(give_back),
             ),
-            None => (lang.lex(&mut cx, line, frame.payload), None),
+            None => (lang.lex_embedded(&mut cx, line, frame.payload), None),
         };
+        #[cfg(feature = "lang-html-derivative")]
+        let state = self.steps.take_back(state);
         #[cfg(feature = "lang-html-derivative")]
         if let Some(at) = back {
             self.give_back_at(at, start, end, &frame);
             return;
         }
         #[cfg(not(feature = "lang-html-derivative"))]
-        let state = lang.lex(&mut cx, line, frame.payload);
+        let state = lang.lex_embedded(&mut cx, line, frame.payload);
+        #[cfg(not(feature = "lang-html-derivative"))]
+        let state = self.steps.take_back(state);
         self.last = end;
         self.pos = self.limit;
         if state == frame.payload {

@@ -1689,3 +1689,80 @@ fn emphasis_hands_a_tag_to_html() {
         ]
     );
 }
+
+/// Whether `lines`, lexed in order under a work budget of `base` steps per
+/// line, reach the work limit on the last line.
+fn last_line_runs_out(language: Language, lines: &[&str], base: u32) -> bool {
+    let limits = Limits {
+        work: Some(crate::Work { per_byte: 0, base }),
+        ..Limits::default()
+    };
+    let mut highlighter = Highlighter::new_with_limits(language, limits);
+    let mut state = State::default();
+    let mut report = None;
+    for line in lines {
+        report = Some(highlighter.line(line, &mut state, &mut Vec::new()));
+    }
+    report.is_some_and(|report| report.reached(Limit::Work))
+}
+
+#[test]
+fn a_fence_line_shares_one_work_budget_with_its_language() {
+    let code = "let a = /* b */ c(d, e) + 1;";
+    let mut base = 0;
+    while last_line_runs_out(Language::Rust, &[code], base) {
+        base += 1;
+    }
+    assert!(
+        last_line_runs_out(Language::Markdown, &["```rust", code], base),
+        "the budget Rust needs alone, {base} steps, must not also cover the fence"
+    );
+    assert!(!last_line_runs_out(
+        Language::Markdown,
+        &["```rust", code],
+        2 * base
+    ));
+}
+
+/// Whether `line`, lexed alone under a work budget of `base` steps, reaches
+/// the work limit, and whether its last byte but two sits in bold.
+fn reached_and_bold_before_end(line: &str, base: u32) -> (bool, bool) {
+    let limits = Limits {
+        work: Some(crate::Work { per_byte: 0, base }),
+        ..Limits::default()
+    };
+    let mut highlighter = Highlighter::new_with_limits(Language::Markdown, limits);
+    let mut tokens = Vec::new();
+    let report = highlighter.line(line, &mut State::default(), &mut tokens);
+    let at = line.len() - 3;
+    let bold = tokens
+        .iter()
+        .find(|token| token.end() > at)
+        .is_some_and(|token| {
+            highlighter
+                .scopes(token.stack())
+                .any(|scope| scope == "markup.bold.markdown")
+        });
+    (report.reached(Limit::Work), bold)
+}
+
+/// Markdown lends its count to HTML, and HTML to an event handler's
+/// JavaScript. A handler long enough to spend the line's budget, which HTML
+/// and its JavaScript count together, stops Markdown too, before the bold
+/// text after the tag.
+#[test]
+fn an_event_handler_that_spends_the_budget_stops_the_markdown_line() {
+    let short = r#"x <a onclick="f(1);">y</a> **b**"#;
+    assert_eq!(scope_of(short, "f"), "entity.name.function.js");
+    let long = format!(r#"x <a onclick="{}">y</a> **b**"#, "f(1);".repeat(100));
+    let mut base = 0;
+    while last_line_runs_out(Language::Markdown, &[short], base) {
+        base += 1;
+    }
+    assert_eq!(reached_and_bold_before_end(short, base), (false, true));
+    assert_eq!(
+        reached_and_bold_before_end(&long, base),
+        (true, false),
+        "the handler spent the {base} steps the short line needs"
+    );
+}

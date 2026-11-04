@@ -22,7 +22,7 @@ use state::Kind;
 
 use crate::Token;
 use crate::arena::{Arena, ROOT};
-use crate::limits::{Limits, LineReport};
+use crate::limits::{Finished, Limits, LineReport};
 
 /// The state at the start of a Rust document whose scopes sit on the stack
 /// `base`: one context with `source.rust` on top of it.
@@ -39,7 +39,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// Lexes one line from `state`, appending its tokens, and returns the state
-/// after it.
+/// after it, with the steps it spent.
 pub(crate) fn line(
     arena: &mut Arena,
     limits: &Limits,
@@ -47,10 +47,10 @@ pub(crate) fn line(
     state: u32,
     out: &mut Vec<Token>,
     report: &mut LineReport,
-) -> u32 {
+) -> Finished {
     let mut lexer = lexer::Lexer::new(arena, limits, line, out, state, report);
     lexer.run();
-    lexer.into_state()
+    lexer.finish_line()
 }
 
 #[cfg(test)]
@@ -64,7 +64,7 @@ pub(crate) fn lex(
     cx: &mut crate::language::Context<'_>,
     line: crate::language::Line<'_>,
     state: u32,
-) -> u32 {
+) -> Finished {
     cx.lex_from_start(line, |cx, rest| {
         self::line(
             cx.arena,

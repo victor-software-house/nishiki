@@ -30,11 +30,13 @@ mod raw_strings {
 
 #[cfg(feature = "json")]
 mod probe {
+
     use serde_json::{Value, json};
 
     use crate::arena::Arena;
     use crate::cpp::engine::{Lexer, Scratch};
     use crate::cpp::grammar::Rx;
+    use crate::language::Parts;
     use crate::limits::{Limits, LineReport};
     use crate::rules::Text;
 
@@ -64,17 +66,20 @@ mod probe {
             let mut tokens = Vec::new();
             let mut report = LineReport::default();
             let mut scratch = Scratch::default();
+            let parts = Parts {
+                arena: &mut arena,
+                limits: &limits,
+                out: &mut tokens,
+                report: &mut report,
+            };
             let mut lexer = Lexer::new(
-                &mut arena,
-                &limits,
+                parts,
                 Text {
                     bytes: text.as_bytes(),
                     start: 0,
                     anchored: false,
                 },
-                &mut tokens,
                 crate::arena::ROOT,
-                &mut report,
                 &mut scratch,
             );
             lexer.nl = case["nl"].as_bool().unwrap_or(true);

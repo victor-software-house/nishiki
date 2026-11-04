@@ -28,7 +28,7 @@
 
 ## 4. The engine hands off
 
-- [ ] 4.0 core-fix's shared line budget, `Context { steps, open }`, has landed → verify: its PR cited here
+- [ ] 4.0 core-fix's shared line budget, `Context { steps }`, with depth per language (design section 9), has landed → verify: its PR cited here
 - [ ] 4.1 `RuleKind::HandOff` and the generator's list of hand-lexed grammars and entries → verify: regenerating every engine table changes only tables that include a hand-lexed grammar
 - [ ] 4.2 The hand-off frame and the resume at a halt → verify: Julia's oracle fixtures and a new input with `py"""` and `sql"""` match Shiki
 - [ ] 4.3 Limits through the hand-off → verify: hostile lines inside an embedded region end at the work limit

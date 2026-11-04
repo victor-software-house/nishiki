@@ -8,6 +8,7 @@
 
 use crate::arena::Arena;
 use crate::language::{Context, Line};
+use crate::limits::Finished;
 
 /// The state at the start of an ERB document whose scopes sit on the stack
 /// `base`.
@@ -24,7 +25,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 
 /// Lexes one line under the crate's lexer contract.
 #[inline]
-pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     crate::html::lex_erb(cx, line, state)
 }
 

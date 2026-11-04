@@ -28,6 +28,7 @@ pub(crate) use scope::S;
 
 use crate::arena::Arena;
 use crate::language::{Context, Halt, Line};
+use crate::limits::Finished;
 use crate::rules;
 
 /// The state at the start of a CSS document whose scopes sit on the stack
@@ -43,7 +44,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 
 /// Lexes one line under the crate's lexer contract.
 #[inline]
-pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     rules::lex::<Css>(cx, line, state, |scratch| &mut scratch.css)
 }
 
@@ -56,7 +57,7 @@ pub(crate) fn lex_until(
     state: u32,
     end: Halt,
     after: Option<Halt>,
-) -> (u32, Option<usize>) {
+) -> (Finished, Option<usize>) {
     rules::lex_until::<Css>(cx, line, state, |scratch| &mut scratch.css, end, after)
 }
 

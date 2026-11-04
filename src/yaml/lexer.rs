@@ -7,7 +7,7 @@ use super::scope::S;
 use super::state::Kind;
 use crate::emit::Emitter;
 use crate::language::{Context, Halt};
-use crate::limits::{Limit, Steps};
+use crate::limits::{Finished, Limit, Steps};
 use crate::utf8::char_len;
 
 /// Lexes one line. `pos` is the end of the last token; the bytes between it
@@ -136,8 +136,9 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    pub(crate) fn into_state(self) -> u32 {
-        self.em.state
+    /// The state after the line, with its count given back to the lender.
+    pub(crate) fn finish_line(self) -> Finished {
+        self.steps.finish(self.em.state)
     }
 
     /// Where in `s` the line went back to the embedding language, if it did.

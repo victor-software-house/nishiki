@@ -66,8 +66,18 @@ impl Work {
 /// The steps one line spends against its [`Limits::work`]: the turns of a
 /// lexer's main loop and the bytes its lookaheads read.
 ///
+/// A lexer counts in a `Steps` of its own, from 0 against the limit its
+/// [`Limits`] give its text, as each lexer counted alone. The lexers on one
+/// line still spend one budget: a lexer that embeds another passes it
+/// limits whose work is what the line has left ([`Steps::lend`]), and every
+/// lexer returns what it spent beside its state ([`Finished`]), which the
+/// embedding lexer adds to its own count ([`Steps::take_back`]).
+///
+/// `Steps` has no `Drop` impl (`CODING_STANDARDS.md` 2.6).
+///
 /// The count is a `Cell`, so a scan that only reads the line can still spend.
 #[derive(Debug)]
+#[must_use = "a lexer returns its count through `Steps::finish`"]
 pub(crate) struct Steps {
     spent: Cell<u64>,
     /// The line's allowance; `u64::MAX` for no limit.
@@ -75,7 +85,8 @@ pub(crate) struct Steps {
 }
 
 impl Steps {
-    /// Nothing spent yet on a line of `len` bytes under `limits`.
+    /// Nothing spent yet on a text of `len` bytes under `limits`.
+    #[inline]
     pub(crate) fn new(limits: &Limits, len: usize) -> Self {
         Steps {
             spent: Cell::new(0),
@@ -90,10 +101,97 @@ impl Steps {
         self.spent.set(self.spent.get().saturating_add(steps));
     }
 
+    /// Counts one turn of a lexer's main loop, and says whether the line
+    /// has now spent more than it may.
+    #[inline]
+    pub(crate) fn step(&self) -> bool {
+        let spent = self.spent.get().saturating_add(1);
+        self.spent.set(spent);
+        spent > self.limit
+    }
+
     /// Whether the line has spent more than it may.
     #[inline]
     pub(crate) fn exhausted(&self) -> bool {
         self.spent.get() > self.limit
+    }
+
+    /// The limits a lexer this one embeds runs under: `limits` with the
+    /// work this line has left, or no work limit when this one has none.
+    ///
+    /// [`Work::base`] holds a `u32`, so an embedded part gets at most
+    /// `u32::MAX` steps, far above the default limits of the longest line
+    /// they allow. Out of line, since few lines embed a language.
+    #[cold]
+    pub(crate) fn lend(&self, limits: &Limits) -> Limits {
+        let left = self.limit.saturating_sub(self.spent.get());
+        Limits {
+            work: limits.work.map(|_| Work {
+                per_byte: 0,
+                base: u32::try_from(left).unwrap_or(u32::MAX),
+            }),
+            ..*limits
+        }
+    }
+
+    /// Counts what an embedded lexer spent, from the [`Finished`] it
+    /// returned, and gives back its state.
+    #[inline]
+    pub(crate) fn take_back(&self, finished: Finished) -> u32 {
+        self.add(finished.spent);
+        finished.state
+    }
+
+    /// Counts `spent` steps that an embedded lexer spent testing the line.
+    #[inline]
+    pub(crate) fn add(&self, spent: u64) {
+        self.spent.set(self.spent.get().saturating_add(spent));
+    }
+
+    /// Ends the lexer's count: `state`, the state after the line, with what
+    /// the lexer spent.
+    #[inline]
+    pub(crate) fn finish(self, state: u32) -> Finished {
+        Finished {
+            state,
+            spent: self.spent.get(),
+        }
+    }
+
+    /// What the lexer spent, for a lexer that only tests the line and
+    /// returns no state.
+    #[inline]
+    pub(crate) fn into_spent(self) -> u64 {
+        self.spent.get()
+    }
+}
+
+/// The state after a line and the steps the lexer spent on it, which the
+/// lexer that embeds it adds to its own count ([`Steps::take_back`]) and
+/// the highlighter ignores.
+///
+/// A lexer with a count makes one only through [`Steps::finish`], so an
+/// exit that skips it does not compile. The two words come back in
+/// registers, so the top-level path stores nothing.
+#[derive(Clone, Copy, Debug)]
+#[must_use]
+pub(crate) struct Finished {
+    state: u32,
+    spent: u64,
+}
+
+impl Finished {
+    /// A line on which the lexer spent nothing: an empty one, or one for a
+    /// lexer that keeps its own budget, as nishiki's `TextMate` engine does.
+    #[inline]
+    pub(crate) fn unspent(state: u32) -> Self {
+        Finished { state, spent: 0 }
+    }
+
+    /// The state after the line.
+    #[inline]
+    pub(crate) fn state(self) -> u32 {
+        self.state
     }
 }
 

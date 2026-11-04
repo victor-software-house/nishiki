@@ -19,6 +19,7 @@ pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
 use crate::language::{Context, Line};
+use crate::limits::Finished;
 use crate::rules;
 
 /// The state at the start of a Ruby document whose scopes sit on the stack
@@ -37,7 +38,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// take it back ([`interpolation`] and [`escape`]); see
 /// [`rules::lex_embedding`].
 #[inline]
-pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     rules::lex_embedding::<Ruby>(
         cx,
         line,
@@ -86,7 +87,7 @@ pub(crate) fn lex_until(
     line: Line<'_>,
     state: u32,
     end: crate::language::Halt,
-) -> (u32, Option<usize>) {
+) -> (Finished, Option<usize>) {
     rules::lex_until::<Ruby>(cx, line, state, |scratch| &mut scratch.ruby, end, None)
 }
 
