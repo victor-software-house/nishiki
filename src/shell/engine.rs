@@ -147,6 +147,7 @@ struct Flags {
     failed: bool,
     /// A rule closed without advancing, which keeps its begin scopes for the
     /// rest of the line.
+    /// The next line takes the rule over with its content scopes put back.
     kept: bool,
     /// A node limit denied a rule its own state, so it shares its parent's.
     /// Only then do two open rules share a state at the end of a line.
@@ -429,8 +430,8 @@ impl<'a> Lexer<'a> {
     /// Lexes the line like [`Lexer::run`], and returns where it halted too.
     ///
     /// The next line may resume the open rules only when they are the
-    /// state's chain: each a state of its own, which a node limit can deny,
-    /// and none that kept its begin scopes.
+    /// state's chain.
+    /// They are when each has a state of its own, which a node limit can deny.
     #[expect(
         clippy::inline_always,
         reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and shell rose 0.8% (1.0081)"
@@ -439,9 +440,16 @@ impl<'a> Lexer<'a> {
     pub(crate) fn run_halting(mut self, scratch: &mut Scratch) -> (Finished, Option<usize>) {
         self.tokenize();
         let state = self.top().state;
-        let exact = !self.flags.kept && !self.flags.shared;
+        let exact = !self.flags.shared;
+        #[cfg(test)]
+        let exact = exact && !crate::resume_check::rebuilds();
         scratch.resume = exact.then_some(state);
         if exact {
+            if self.flags.kept
+                && let Some(top) = self.frames.last_mut()
+            {
+                top.content = self.arena.frame(top.state).stack;
+            }
             let low = self.low.min(self.frames.len());
             for frame in &mut self.frames[low..] {
                 (frame.enter, frame.anchor) = (None, None);

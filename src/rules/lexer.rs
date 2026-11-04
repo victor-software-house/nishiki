@@ -92,6 +92,7 @@ struct Flags {
     failed: bool,
     /// A rule closed without advancing, which keeps its begin scopes for the
     /// rest of the line.
+    /// The next line takes the rule over with its content scopes put back.
     kept: bool,
     /// A node limit denied a rule its own state, so it shares its parent's.
     /// Only then do two open rules share a state at the end of a line.
@@ -449,10 +450,10 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// Lexes the line, returns the state after it, and gives the buffers back
-    /// to the scratch. When each open rule is a state of its own, which a
-    /// node limit can deny, and none kept its begin scopes, the open rules
-    /// are the state's chain, and the next line takes them over as the
-    /// frames it starts with.
+    /// to the scratch.
+    /// When each open rule has a state of its own, the open rules are the
+    /// state's chain, and the next line takes them over.
+    /// A node limit can deny a rule its own state.
     #[inline]
     pub(crate) fn run(self) -> Finished {
         self.run_halting().0
@@ -527,9 +528,16 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     #[inline(always)]
     fn finish(mut self) -> Finished {
         let state = self.top().state;
-        let exact = !self.flags.kept && !self.flags.shared;
+        let exact = !self.flags.shared;
+        #[cfg(test)]
+        let exact = exact && !crate::resume_check::rebuilds();
         self.scratch.resume = exact.then_some(state);
         if exact {
+            if self.flags.kept
+                && let Some(top) = self.frames.last_mut()
+            {
+                top.content = self.arena.frame(top.state).stack;
+            }
             let low = self.low.min(self.frames.len());
             for frame in &mut self.frames[low..] {
                 (frame.enter, frame.anchor) = (None, None);
