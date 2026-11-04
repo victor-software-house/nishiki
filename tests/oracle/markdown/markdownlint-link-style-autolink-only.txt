@@ -1,0 +1,390 @@
+L # Link Style Autolink Only
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 26 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L Text [url](https://example.com) text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 30 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 31 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 44 text.html.markdown meta.paragraph.markdown
+L 
+L Text ![url](https://example.com) text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 7 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.description.begin.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown string.other.link.description.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.description.end.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.metadata.markdown
+T 31 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown markup.underline.link.image.markdown
+T 32 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.metadata.markdown
+T 45 text.html.markdown meta.paragraph.markdown
+L 
+L Text [url](<https://example.com>) text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.markdown
+T 31 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 32 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.markdown
+T 33 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 46 text.html.markdown meta.paragraph.markdown
+L 
+L Text ![url](<https://example.com>) text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 7 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.description.begin.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown string.other.link.description.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.description.end.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.metadata.markdown
+T 13 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.markdown
+T 32 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown markup.underline.link.image.markdown
+T 33 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.markdown
+T 34 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.metadata.markdown
+T 47 text.html.markdown meta.paragraph.markdown
+L 
+L Text [url](https://example.com "title") text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 30 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 31 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown
+T 32 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.description.title.markdown punctuation.definition.string.begin.markdown
+T 37 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.description.title.markdown
+T 38 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.description.title.markdown punctuation.definition.string.end.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 52 text.html.markdown meta.paragraph.markdown
+L 
+L Text ![url](https://example.com "title") text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 7 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.description.begin.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown string.other.link.description.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.description.end.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.metadata.markdown
+T 31 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown markup.underline.link.image.markdown
+T 32 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown
+T 33 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown string.other.link.description.title.markdown punctuation.definition.string.begin.markdown
+T 38 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown string.other.link.description.title.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown string.other.link.description.title.markdown punctuation.definition.string.end.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.metadata.markdown
+T 53 text.html.markdown meta.paragraph.markdown
+L 
+L Text {MD054} [url](https://example.com
+T 13 text.html.markdown meta.paragraph.markdown
+T 14 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 17 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 18 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 38 text.html.markdown meta.paragraph.markdown
+L "title") text
+T 13 text.html.markdown meta.paragraph.markdown
+L 
+L Text {MD054} ![url](https://example.com
+T 14 text.html.markdown meta.paragraph.markdown
+T 15 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 18 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 19 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 39 text.html.markdown meta.paragraph.markdown
+L "title") text
+T 13 text.html.markdown meta.paragraph.markdown
+L 
+L Text [text][url] text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 15 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
+T 16 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 29 text.html.markdown meta.paragraph.markdown
+L 
+L Text ![text][url] text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 7 text.html.markdown meta.paragraph.markdown meta.image.reference.markdown punctuation.definition.link.description.begin.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.image.reference.markdown string.other.link.description.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.image.reference.markdown punctuation.definition.link.description.end.markdown
+T 13 text.html.markdown meta.paragraph.markdown meta.image.reference.markdown punctuation.definition.constant.markdown
+T 16 text.html.markdown meta.paragraph.markdown meta.image.reference.markdown constant.other.reference.link.markdown
+T 17 text.html.markdown meta.paragraph.markdown meta.image.reference.markdown punctuation.definition.constant.markdown
+T 30 text.html.markdown meta.paragraph.markdown
+L 
+L Text [url][] text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 25 text.html.markdown meta.paragraph.markdown
+L 
+L Text ![url][] text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 7 text.html.markdown meta.paragraph.markdown meta.image.reference.markdown punctuation.definition.link.description.begin.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.image.reference.markdown string.other.link.description.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.image.reference.markdown punctuation.definition.link.description.end.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.image.reference.markdown punctuation.definition.constant.markdown
+T 13 text.html.markdown meta.paragraph.markdown meta.image.reference.markdown punctuation.definition.constant.markdown
+T 26 text.html.markdown meta.paragraph.markdown
+L 
+L Text [url] text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 23 text.html.markdown meta.paragraph.markdown
+L 
+L Text ![url] text {MD054}
+T 6 text.html.markdown meta.paragraph.markdown
+T 7 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 24 text.html.markdown meta.paragraph.markdown
+L 
+L Text <https://example.com> text
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 25 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown markup.underline.link.markdown
+T 26 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 31 text.html.markdown meta.paragraph.markdown
+L 
+L [url]: https://example.com "title"
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 4 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 5 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 6 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 7 text.html.markdown meta.link.reference.def.markdown
+T 26 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+T 27 text.html.markdown meta.link.reference.def.markdown
+T 28 text.html.markdown meta.link.reference.def.markdown string.other.link.description.title.markdown punctuation.definition.string.begin.markdown
+T 33 text.html.markdown meta.link.reference.def.markdown string.other.link.description.title.markdown
+T 34 text.html.markdown meta.link.reference.def.markdown string.other.link.description.title.markdown punctuation.definition.string.end.markdown
+L 
+L [undefined]
+T 1 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+L 
+L Text [url](https://example.com/embedded\3backslash) text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 50 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 51 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 64 text.html.markdown meta.paragraph.markdown
+L 
+L Text [url](https://example.com/backslash\[escape) text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 48 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 49 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 62 text.html.markdown meta.paragraph.markdown
+L 
+L Text [embedded-backslash] text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 24 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 25 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 38 text.html.markdown meta.paragraph.markdown
+L 
+L Text [backslash-escape] text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 22 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 23 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 36 text.html.markdown meta.paragraph.markdown
+L 
+L Text <https://example.com/embedded\3backslash> text
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 45 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown markup.underline.link.markdown
+T 46 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 51 text.html.markdown meta.paragraph.markdown
+L 
+L Text <https://example.com/backslash[no-escape> text
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 45 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown markup.underline.link.markdown
+T 46 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 51 text.html.markdown meta.paragraph.markdown
+L 
+L [embedded-backslash]: https://example.com/embedded\3backslash
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 19 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 20 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 21 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 22 text.html.markdown meta.link.reference.def.markdown
+T 61 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L [backslash-escape]: https://example.com/backslash\[escape
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 17 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 18 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 19 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 20 text.html.markdown meta.link.reference.def.markdown
+T 57 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L Text [url](<https://example.com/embedded space>) text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.markdown
+T 46 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 47 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.markdown
+T 48 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 61 text.html.markdown meta.paragraph.markdown
+L 
+L Text [url](<https://example.com/embedded)paren>) text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.markdown
+T 46 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 47 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.markdown
+T 48 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 61 text.html.markdown meta.paragraph.markdown
+L 
+L Text [url](https://example.com/\(parens\)) text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 41 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 42 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 55 text.html.markdown meta.paragraph.markdown
+L 
+L Text [url](https://example.com/pa(re(ns))) text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 41 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 42 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 55 text.html.markdown meta.paragraph.markdown
+L 
+L Text [url](relative/path) text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 24 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 25 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 38 text.html.markdown meta.paragraph.markdown
+L 
+L Text [url](#fragment) text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 20 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 21 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 34 text.html.markdown meta.paragraph.markdown
+L 
+L Text <https://example.com/pa)re(ns> text
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 34 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown markup.underline.link.markdown
+T 35 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 40 text.html.markdown meta.paragraph.markdown
+L 
+L Text [url](https://example.com/an>g<le>) text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 53 text.html.markdown meta.paragraph.markdown
+L 
+L Text <user@example.com> text
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.email.lt-gt.markdown punctuation.definition.link.markdown
+T 22 text.html.markdown meta.paragraph.markdown meta.link.email.lt-gt.markdown markup.underline.link.markdown
+T 23 text.html.markdown meta.paragraph.markdown meta.link.email.lt-gt.markdown
+T 28 text.html.markdown meta.paragraph.markdown
+L 
+L Text [user@example.com](user@example.com) text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 22 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 23 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 24 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 41 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 54 text.html.markdown meta.paragraph.markdown
+L 
+L Text [user@example.com][email] text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 22 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 23 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 24 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 29 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
+T 30 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 43 text.html.markdown meta.paragraph.markdown
+L 
+L Text [email][] text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 13 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 14 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 27 text.html.markdown meta.paragraph.markdown
+L 
+L Text [email] text {MD054}
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 25 text.html.markdown meta.paragraph.markdown
+L 
+L [email]: user@example.com
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 6 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 7 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 8 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 9 text.html.markdown meta.link.reference.def.markdown
+T 25 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L <!-- markdownlint-configure-file {
+T 4 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 34 text.html.markdown comment.block.html
+L   "link-fragments": false,
+T 26 text.html.markdown comment.block.html
+L   "link-image-reference-definitions": false,
+T 44 text.html.markdown comment.block.html
+L   "link-image-style": {
+T 23 text.html.markdown comment.block.html
+L     "inline": false,
+T 20 text.html.markdown comment.block.html
+L     "full": false,
+T 18 text.html.markdown comment.block.html
+L     "collapsed": false,
+T 23 text.html.markdown comment.block.html
+L     "shortcut": false
+T 21 text.html.markdown comment.block.html
+L   }
+T 3 text.html.markdown comment.block.html
+L } -->
+T 2 text.html.markdown comment.block.html
+T 5 text.html.markdown comment.block.html punctuation.definition.comment.html
+L 

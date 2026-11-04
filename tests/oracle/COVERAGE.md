@@ -36,13 +36,13 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Less | `less` | 581 of 590 | 98.5% | 417 of 437 | 95.4% | 29 | 0 | yes |
 | Lua | `lua` | 81 of 152 | 53.3% | 32 of 74 | 43.2% | 0 | 3 |  |
 | Make | `make` | 58 of 75 | 77.3% | 23 of 32 | 71.9% | 0 | 0 |  |
-| Markdown | `markdown` | 145 of 311 | 46.6% | 158 of 373 | 42.4% | 0 | 8 |  |
+| Markdown | `markdown` | 205 of 311 | 65.9% | 266 of 373 | 71.3% | 213 | 0 | yes |
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
 | Ruby | `ruby` | 168 of 336 | 50.0% | 139 of 293 | 47.4% | 0 | 8 |  |
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
 | SCSS | `scss` | 161 of 168 | 95.8% | 136 of 179 | 76.0% | 50 | 0 | yes |
 | shell | `shellscript` | 119 of 174 | 68.4% | 106 of 199 | 53.3% | 0 | 10 |  |
-| SQL | `sql` | 47 of 75 | 62.7% | 42 of 79 | 53.2% | 0 | 4 |  |
+| SQL | `sql` | 47 of 75 | 62.7% | 42 of 79 | 53.2% | 0 | 9 |  |
 | Swift | `swift` | 267 of 448 | 59.6% | 183 of 448 | 40.8% | 0 | 11 |  |
 | TOML | `toml` | 40 of 54 | 74.1% | 30 of 53 | 56.6% | 0 | 2 |  |
 | TypeScript | `tsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
@@ -2197,198 +2197,115 @@ patterns[23].match  \b(\|\||&&|!)\b
 ### `markdown`
 
 ```text
-#bold.patterns[0].begin  (?=<[^>]*?>)
-#bold.patterns[0].end  (?<=>)
-#fenced_code_block_abap.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(abap)((\s+|[,:?{])[^`]*)?$)
-#fenced_code_block_abap.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_abap.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_abap.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_bibtex.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(bibtex)((\s+|[,:?{])[^`]*)?…
-#fenced_code_block_bibtex.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_bibtex.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_bibtex.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_c.begin  groups 5
-#fenced_code_block_clojure.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(cl(?:js??|ojure))((\s+|[,:?…
-#fenced_code_block_clojure.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_clojure.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_clojure.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_coffee.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(coffee|Cakefile|coffee.erb)…
-#fenced_code_block_coffee.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_coffee.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_coffee.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_cpp.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(c(?:pp|\+\+|xx))((\s+|[,:?{…  fuzz
-#fenced_code_block_cpp.end  (^|\G)(\2|\s{0,3})(\3)\s*$  fuzz
-#fenced_code_block_cpp.patterns[0].begin  (^|\G)(\s*)(.*)  fuzz
-#fenced_code_block_cpp.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  fuzz
-#fenced_code_block_csharp.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(c(?:s|sharp|#))((\s+|[,:?{]…
-#fenced_code_block_csharp.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_csharp.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_csharp.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_dart.begin  groups 5
-#fenced_code_block_dockerfile.begin  groups 5
-#fenced_code_block_dosbatch.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(bat(?:|ch))((\s+|[,:?{])[^`…
-#fenced_code_block_dosbatch.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_dosbatch.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_dosbatch.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_elixir.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(elixir)((\s+|[,:?{])[^`]*)?…
-#fenced_code_block_elixir.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_elixir.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_elixir.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_erlang.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(erlang)((\s+|[,:?{])[^`]*)?…
-#fenced_code_block_erlang.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_erlang.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_erlang.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_fsharp.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(f(?:s|sharp|#))((\s+|[,:?{]…
-#fenced_code_block_fsharp.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_fsharp.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_fsharp.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_git_commit.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:((?:COMMIT_EDIT|MERGE_)MSG)(…
-#fenced_code_block_git_commit.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_git_commit.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_git_commit.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_git_rebase.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(git-rebase-todo)((\s+|[,:?{…
-#fenced_code_block_git_rebase.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_git_rebase.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_git_rebase.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_go.begin  groups 5
-#fenced_code_block_groovy.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(g(?:roovy|vy))((\s+|[,:?{])…
-#fenced_code_block_groovy.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_groovy.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_groovy.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_handlebars.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(h(?:andlebars|bs))((\s+|[,:…
-#fenced_code_block_handlebars.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_handlebars.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_handlebars.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_ignore.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:((?:git|)ignore)((\s+|[,:?{]…
-#fenced_code_block_ignore.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_ignore.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_ignore.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_ini.begin  groups 5
-#fenced_code_block_java.begin  groups 5
-#fenced_code_block_js_regexp.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(regexp)((\s+|[,:?{])[^`]*)?…
-#fenced_code_block_js_regexp.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_js_regexp.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_js_regexp.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_jsonc.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(jsonc)((\s+|[,:?{])[^`]*)?$)
-#fenced_code_block_jsonc.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_jsonc.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_jsonc.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_jsonl.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(jsonl(?:|ines))((\s+|[,:?{]…
-#fenced_code_block_jsonl.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_jsonl.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_jsonl.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_julia.begin  groups 5
-#fenced_code_block_latex.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:((?:la|)tex)((\s+|[,:?{])[^`…
-#fenced_code_block_latex.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_latex.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_latex.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_less.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(less)((\s+|[,:?{])[^`]*)?$)
-#fenced_code_block_less.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_less.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_less.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_log.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(log)((\s+|[,:?{])[^`]*)?$)
-#fenced_code_block_log.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_log.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_log.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_lua.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(lua)((\s+|[,:?{])[^`]*)?$)
-#fenced_code_block_lua.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_lua.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_lua.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_makefile.begin  groups 5
-#fenced_code_block_markdown.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(m(?:arkdown|d))((\s+|[,:?{]…
-#fenced_code_block_markdown.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_markdown.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_markdown.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_objc.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(objectivec|objective-c|mm|o…
-#fenced_code_block_objc.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_objc.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_objc.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_perl.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(perl|pl|pm|pod|t|PL|psgi|vc…
-#fenced_code_block_perl.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_perl.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_perl.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_perl6.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(perl6|p6|pl6|pm6|nqp)((\s+|…
-#fenced_code_block_perl6.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_perl6.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_perl6.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_php.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(php3??|php4|php5|phpt|phtml…
-#fenced_code_block_php.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_php.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_php.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_powershell.begin  groups 5
-#fenced_code_block_pug.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(jade|pug)((\s+|[,:?{])[^`]*…
-#fenced_code_block_pug.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_pug.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_pug.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_python.begin  groups 5 (fuzz)
-#fenced_code_block_r.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:([RSrs]|Rprofile|\{\.r.+?})(…
-#fenced_code_block_r.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_r.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_r.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_regexp_python.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(re)((\s+|[,:?{])[^`]*)?$)
-#fenced_code_block_regexp_python.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_regexp_python.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_regexp_python.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_restructuredtext.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(r(?:estructuredtext|st))((\…
-#fenced_code_block_restructuredtext.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_restructuredtext.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_restructuredtext.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_ruby.begin  groups 5
-#fenced_code_block_scss.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(scss)((\s+|[,:?{])[^`]*)?$)
-#fenced_code_block_scss.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_scss.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_scss.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_shell.begin  groups 5
-#fenced_code_block_sql.begin  groups 5
-#fenced_code_block_swift.begin  groups 5
-#fenced_code_block_tsx.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(tsx)((\s+|[,:?{])[^`]*)?$)
-#fenced_code_block_tsx.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_tsx.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_tsx.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_twig.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(twig)((\s+|[,:?{])[^`]*)?$)
-#fenced_code_block_twig.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_twig.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_twig.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_vs_net.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(vb)((\s+|[,:?{])[^`]*)?$)
-#fenced_code_block_vs_net.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_vs_net.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_vs_net.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_xml.begin  groups 5
-#fenced_code_block_xsl.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(xslt??)((\s+|[,:?{])[^`]*)?…
-#fenced_code_block_xsl.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_xsl.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_xsl.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#fenced_code_block_yaml.begin  groups 5
-#fenced_code_block_yang.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(yang)((\s+|[,:?{])[^`]*)?$)
-#fenced_code_block_yang.end  (^|\G)(\2|\s{0,3})(\3)\s*$
-#fenced_code_block_yang.patterns[0].begin  (^|\G)(\s*)(.*)
-#fenced_code_block_yang.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
-#frontMatter.patterns[0].begin  groups 2
-#heading.captures[1].patterns[0].match  (#{6})\s+(.*?)(?:\s+(#+))?\s*$
-#heading.captures[1].patterns[1].match  groups 3
-#heading.captures[1].patterns[2].match  groups 3
-#heading.captures[1].patterns[4].match  groups 3
-#heading.captures[1].patterns[5].match  groups 3
-#html.patterns[0].begin  groups 1
-#html.patterns[0].end  groups 2
-#html.patterns[1].begin  (?i)(^|\G)\s*(?=<(script|style|pre)(\s|$|>)(?!.*?</(script|…
-#html.patterns[1].end  (?i)(.*)((</)(script|style|pre)(>))
-#html.patterns[1].patterns[0].begin  (\s*|$)
-#html.patterns[1].patterns[0].while  (?i)^(?!.*</(script|style|pre)>)
-#html.patterns[3].begin  (^|\G)\s*(?=(<(?:[-0-9A-Za-z](/?>|\s.*?>)|/[-0-9A-Za-z]>))\…
-#html.patterns[3].while  ^(?!\s*$)
-#image-inline.match  groups 7, 8, 9, 12, 13, 14, 18, 19, 20
-#image-ref.match  (!\[)((?<square>[^]\[\\]|\\.|\[\g<square>*+])*+)(]) ?(\[)(.…
-#italic.patterns[0].begin  (?=<[^>]*?>)
-#italic.patterns[0].end  (?<=>)
-#link-def.match  groups 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17
-#link-email.match  (<)((?:mailto:)?[!#-'*+\--9=?A-Z^-~]+@[-0-9A-Za-z]+(?:\.[-0…
-#link-inline.match  groups 12, 13, 14
-#list_paragraph.begin  (^|\G)(?=\S)(?![*->]\s|[0-9]+\.\s)
-#list_paragraph.while  (^|\G)(?!\s*$|#| {0,3}([-*>_] {2,}){3,}[\t ]*$\n?| {0,3}[*-…
-#strikethrough.match  (?<!\\)(~{2,})(?!(?<=\w~~)_)((?:[^~]|(?!(?<![\\~])\1(?!~))~…
-#strikethrough.captures[2].patterns[0].begin  (?=<[^>]*?>)
-#strikethrough.captures[2].patterns[0].end  (?<=>)
+#fenced_code_block_abap.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(abap)((\s+|[,:?{])[^`]*)?$)  waived: the fence's only pattern includes `source.abap`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_abap.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.abap`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_abap.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.abap`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_abap.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.abap`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_bibtex.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(bibtex)((\s+|[,:?{])[^`]*)?…  waived: the fence's only pattern includes `text.bibtex`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_bibtex.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.bibtex`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_bibtex.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.bibtex`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_bibtex.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.bibtex`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_clojure.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(cl(?:js??|ojure))((\s+|[,:?…  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_clojure.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_clojure.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_clojure.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_coffee.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(coffee|Cakefile|coffee.erb)…  waived: the fence's only pattern includes `source.coffee`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_coffee.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.coffee`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_coffee.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.coffee`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_coffee.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.coffee`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_elixir.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(elixir)((\s+|[,:?{])[^`]*)?…  waived: the fence's only pattern includes `source.elixir`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_elixir.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.elixir`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_elixir.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.elixir`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_elixir.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.elixir`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_erlang.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(erlang)((\s+|[,:?{])[^`]*)?…  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_erlang.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_erlang.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_erlang.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_fsharp.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(f(?:s|sharp|#))((\s+|[,:?{]…  waived: the fence's only pattern includes `source.fsharp`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_fsharp.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.fsharp`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_fsharp.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.fsharp`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_fsharp.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.fsharp`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_git_commit.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:((?:COMMIT_EDIT|MERGE_)MSG)(…  waived: the fence's only pattern includes `text.git-commit`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_git_commit.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.git-commit`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_git_commit.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.git-commit`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_git_commit.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.git-commit`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_git_rebase.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(git-rebase-todo)((\s+|[,:?{…  waived: the fence's only pattern includes `text.git-rebase`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_git_rebase.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.git-rebase`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_git_rebase.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.git-rebase`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_git_rebase.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.git-rebase`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_groovy.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(g(?:roovy|vy))((\s+|[,:?{])…  waived: the fence's only pattern includes `source.groovy`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_groovy.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.groovy`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_groovy.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.groovy`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_groovy.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.groovy`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_handlebars.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(h(?:andlebars|bs))((\s+|[,:…  waived: the fence's only pattern includes `text.html.handlebars`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_handlebars.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.html.handlebars`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_handlebars.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.html.handlebars`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_handlebars.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.html.handlebars`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_ignore.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:((?:git|)ignore)((\s+|[,:?{]…  waived: the fence's only pattern includes `source.ignore`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_ignore.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.ignore`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_ignore.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.ignore`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_ignore.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.ignore`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_js_regexp.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(regexp)((\s+|[,:?{])[^`]*)?…  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_js_regexp.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_js_regexp.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_js_regexp.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_latex.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:((?:la|)tex)((\s+|[,:?{])[^`…  waived: the fence's only pattern includes `text.tex.latex`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_latex.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.tex.latex`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_latex.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.tex.latex`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_latex.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.tex.latex`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_log.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(log)((\s+|[,:?{])[^`]*)?$)  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_log.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_log.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_log.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_objc.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(objectivec|objective-c|mm|o…  waived: the fence's only pattern includes `source.objc`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_objc.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.objc`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_objc.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.objc`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_objc.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.objc`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_perl.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(perl|pl|pm|pod|t|PL|psgi|vc…  waived: the fence's only pattern includes `source.perl`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_perl.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.perl`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_perl.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.perl`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_perl.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.perl`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_perl6.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(perl6|p6|pl6|pm6|nqp)((\s+|…  waived: the fence's only pattern includes `source.perl.6`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_perl6.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.perl.6`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_perl6.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.perl.6`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_perl6.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.perl.6`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_pug.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(jade|pug)((\s+|[,:?{])[^`]*…  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_pug.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_pug.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_pug.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_r.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:([RSrs]|Rprofile|\{\.r.+?})(…  waived: the fence's only pattern includes `source.r`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_r.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.r`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_r.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.r`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_r.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.r`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_regexp_python.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(re)((\s+|[,:?{])[^`]*)?$)  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_regexp_python.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_regexp_python.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_regexp_python.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_restructuredtext.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(r(?:estructuredtext|st))((\…  waived: the fence's only pattern includes `source.rst`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_restructuredtext.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.rst`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_restructuredtext.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.rst`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_restructuredtext.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.rst`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_twig.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(twig)((\s+|[,:?{])[^`]*)?$)  waived: the fence's only pattern includes `source.twig`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_twig.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.twig`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_twig.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.twig`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_twig.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.twig`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_vs_net.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(vb)((\s+|[,:?{])[^`]*)?$)  waived: the fence's only pattern includes `source.asp.vb.net`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_vs_net.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.asp.vb.net`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_vs_net.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.asp.vb.net`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_vs_net.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.asp.vb.net`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_xsl.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(xslt??)((\s+|[,:?{])[^`]*)?…  waived: the fence's only pattern includes `text.xml.xsl`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_xsl.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.xml.xsl`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_xsl.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.xml.xsl`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_xsl.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.xml.xsl`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_yang.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(yang)((\s+|[,:?{])[^`]*)?$)  waived: the fence's only pattern includes `source.yang`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_yang.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.yang`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_yang.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.yang`, which the oracle does not load, so vscode-textmate drops the rule
+#fenced_code_block_yang.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.yang`, which the oracle does not load, so vscode-textmate drops the rule
+#html.patterns[0].begin  groups 1 (waived: the group matches only the empty start of a line, so it never holds text)
+#html.patterns[0].end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#link-email.match  groups 4 (waived: the grammar names the group, but the expression has three groups)
+#list_paragraph.begin  (^|\G)(?=\S)(?![*->]\s|[0-9]+\.\s)  waived: `#paragraph`, which `#block` includes before it in both list rules, begins at every position this does
+#list_paragraph.while  (^|\G)(?!\s*$|#| {0,3}([-*>_] {2,}){3,}[\t ]*$\n?| {0,3}[*-…  waived: its begin never matches
 ```
 
 ### `python`
@@ -2766,9 +2683,9 @@ patterns[44].match  (?i)\b(vector_(?:distance|norm|normalize))\b\s*\(
 #regexps.patterns[1].end  }
 #string_escape.match  \\.
 #string_interpolation.match  (#\{)([^}]*)(})
-#strings.patterns[2].match  (`)[^\\`]*(`)
+#strings.patterns[2].match  (`)[^\\`]*(`)  fuzz
 #strings.patterns[3].begin  `  fuzz
-#strings.patterns[3].end  `
+#strings.patterns[3].end  `  fuzz
 #strings.patterns[5].begin  "  fuzz
 #strings.patterns[5].end  "
 #strings.patterns[6].begin  %\{

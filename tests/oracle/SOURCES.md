@@ -152,6 +152,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/cjson-readme` | [`README.md`][cjson-readme] in DaveGamble/cJSON | [MIT][cjson-licence] |
 | `markdown/clap-readme` | [`README.md`][clap-readme] in clap-rs/clap | [MIT or Apache-2.0][clap-licence] |
 | `markdown/click-man-readme` | [`README.md`][click-man-readme] in click-contrib/click-man | [MIT][click-man-licence] |
+| `markdown/coverage` | `oracle/inputs/markdown-coverage.md`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `markdown/device-virtual-readme` | [`README.md`][device-virtual-readme] in edgexfoundry/device-virtual-go | [Apache-2.0][device-virtual-licence] |
 | `markdown/eslint-mcp` | [`docs/src/use/mcp.md`][eslint-mcp] in eslint/eslint | [MIT][eslint-licence] |
 | `markdown/eslint-no-restricted-imports` | [`docs/src/rules/no-restricted-imports.md`][eslint-imports] in eslint/eslint | [MIT][eslint-licence] |
@@ -164,6 +165,8 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/knex-schema-builder` | [`docs/src/guide/schema-builder.md`][knex-schema] in knex/knex | [MIT][knex-licence] |
 | `markdown/ky-readme` | [`readme.md`][ky-readme] in sindresorhus/ky | [MIT][ky-licence] |
 | `markdown/latexrun-readme` | [`README.md`][latexrun-readme] in aclements/latexrun | [MIT][latexrun-licence] |
+| `markdown/markdownlint-blanks-around-headings-arrays` | [`blanks-around-headings-arrays.md`][markdown-markdownlint-blanks-around-headings-arrays] in DavidAnson/markdownlint | [MIT][markdownlint-licence] |
+| `markdown/markdownlint-link-style-autolink-only` | [`link-style-autolink-only.md`][markdown-markdownlint-link-style-autolink-only] in DavidAnson/markdownlint | [MIT][markdownlint-licence] |
 | `markdown/nvm-readme` | [`README.md`][nvm-readme] in nvm-sh/nvm | [MIT][nvm-licence] |
 | `markdown/pgvector-readme` | [`README.md`][pgvector-readme] in pgvector/pgvector | [PostgreSQL][pgvector-licence] |
 | `markdown/preact-readme` | [`README.md`][preact-readme] in preactjs/preact | [MIT][preact-licence] |
@@ -542,6 +545,8 @@ Their test cases are pinned at TypeScript's `v5.9.3` tag, the release they were 
 `python/flask-helpers`, `python/rich-console`, `python/fastapi-routing` and `python/pytest-python` are held out.
 The `black-*`, `ruff-class` and `coverage` inputs of `python` are held out too: they were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 `markdown/fastapi-readme` is the development input for Python fences and `markdown/rich-readme` is held out.
+The `markdownlint-*` and `coverage` inputs of `markdown` are held out: they were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
+`markdown/coverage` opens a fence in each language the grammar names, and ends with HTML blocks, because in the oracle a block-level HTML tag carries on to the end of the document.
 `markdown/nvm-readme` is the development input for shell fences and `markdown/pyenv-readme` is held out.
 `json/sample`, `json/vue-package`, `jsonc/sample`, `jsonl/sample` and `jsonl/rag-output` are the development inputs for JSON.
 `json/zod-package`, `json/vscode-typescript-grammar`, `jsonc/vscode-launch` and `jsonl/rag-output-50` are held out.
@@ -977,7 +982,10 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [lume]: https://github.com/rxi/lume/blob/98847e7812cf28d3d64b289b03fad71dc704547d/lume.lua
 [lume-licence]: https://github.com/rxi/lume/blob/98847e7812cf28d3d64b289b03fad71dc704547d/LICENSE
 [make-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/make.sample
+[markdown-markdownlint-blanks-around-headings-arrays]: https://github.com/DavidAnson/markdownlint/blob/b67636d47f335cf124990faae4a72c5e9fadd613/test/blanks-around-headings-arrays.md
+[markdown-markdownlint-link-style-autolink-only]: https://github.com/DavidAnson/markdownlint/blob/b67636d47f335cf124990faae4a72c5e9fadd613/test/link-style-autolink-only.md
 [markdown-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/markdown.sample
+[markdownlint-licence]: https://github.com/DavidAnson/markdownlint/blob/b67636d47f335cf124990faae4a72c5e9fadd613/LICENSE
 [mathjax-demos-licence]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/LICENSE
 [mathjax-mml-chtml]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/page/mml-chtml.html
 [mathjax-tex-mml]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/page/tex-mml.html

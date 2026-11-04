@@ -36,7 +36,40 @@ const lookahead = "the group is a lookahead, so it never holds text";
 /** The reason for a group that the grammar names but its expression, with
  * `groups` groups, does not have. */
 const missing = (groups: number) =>
-  `the grammar names the group, but the expression has ${["no groups", "one group", "two groups"][groups]}`;
+  `the grammar names the group, but the expression has ${["no groups", "one group", "two groups", "three groups"][groups]}`;
+
+/** Markdown's fences whose only pattern includes a grammar the oracle does
+ * not load, because nishiki does not lex its language, with that grammar's
+ * scope. vscode-textmate drops such a rule, and then the fence around it, so
+ * a fence in one of these languages is a plain fence in the oracle. */
+const unloadedFences = [
+  ["abap", "source.abap"],
+  ["bibtex", "text.bibtex"],
+  ["clojure", "source.clojure"],
+  ["coffee", "source.coffee"],
+  ["elixir", "source.elixir"],
+  ["erlang", "source.erlang"],
+  ["fsharp", "source.fsharp"],
+  ["git_commit", "text.git-commit"],
+  ["git_rebase", "text.git-rebase"],
+  ["groovy", "source.groovy"],
+  ["handlebars", "text.html.handlebars"],
+  ["ignore", "source.ignore"],
+  ["js_regexp", "source.js.regexp"],
+  ["latex", "text.tex.latex"],
+  ["log", "text.log"],
+  ["objc", "source.objc"],
+  ["perl", "source.perl"],
+  ["perl6", "source.perl.6"],
+  ["pug", "text.pug"],
+  ["r", "source.r"],
+  ["regexp_python", "source.regexp.python"],
+  ["restructuredtext", "source.rst"],
+  ["twig", "source.twig"],
+  ["vs_net", "source.asp.vb.net"],
+  ["xsl", "text.xml.xsl"],
+  ["yang", "source.yang"],
+] as const;
 
 export const waivers: Waiver[] = [
   {
@@ -508,6 +541,27 @@ export const waivers: Waiver[] = [
   { grammar: "python", path: "#string-raw-bin-quoted-single-line.end", group: 2, reason: lineFeed },
   { grammar: "python", path: "#string-raw-quoted-multi-line.end", group: 2, reason: missing(1) },
   { grammar: "python", path: "#string-raw-quoted-single-line.end", group: 2, reason: lineFeed },
+  ...unloadedFences.flatMap(([name, scope]): Waiver[] =>
+    ["begin", "end", "patterns[0].begin", "patterns[0].while"].map((part) => ({
+      grammar: "markdown",
+      path: `#fenced_code_block_${name}.${part}`,
+      reason: `the fence's only pattern includes \`${scope}\`, which the oracle does not load, so vscode-textmate drops the rule`,
+    })),
+  ),
+  {
+    grammar: "markdown",
+    path: "#html.patterns[0].begin",
+    group: 1,
+    reason: "the group matches only the empty start of a line, so it never holds text",
+  },
+  { grammar: "markdown", path: "#html.patterns[0].end", group: 2, reason: missing(1) },
+  { grammar: "markdown", path: "#link-email.match", group: 4, reason: missing(3) },
+  {
+    grammar: "markdown",
+    path: "#list_paragraph.begin",
+    reason: "`#paragraph`, which `#block` includes before it in both list rules, begins at every position this does",
+  },
+  { grammar: "markdown", path: "#list_paragraph.while", reason: "its begin never matches" },
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -518,6 +572,7 @@ export const complete: string[] = [
   "javascript",
   "jsx",
   "less",
+  "markdown",
   "python",
   "rust",
   "scss",

@@ -28,7 +28,8 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 - [x] 3.1 C#: `csharp`
   - 2026-11-04 UTC, [PR 261][pr261]: twenty-two C# inputs added; C# complete with twelve waivers, each with its probe. On `a1288bbe` the [oracle test][run-261-ci] and the [coverage check][run-261-cov] passed.
 - [ ] 3.2 Swift: `swift`
-- [ ] 3.3 Python: `python`
+- [x] 3.3 Python: `python`
+  - 2026-11-04 UTC, [PR 288][pr288] and [PR 289][pr289]: seven black test cases, one ruff parser fixture and a written input added, and a docstring line-feed close fixed in the lexer; Python complete with 62 waived units. On `18e2a261` the [oracle test][run-289-ci] and the [coverage check][run-289-cov] passed.
 - [ ] 3.4 Go: `go`
 - [ ] 3.5 Java: `java`
 - [x] 3.6 TypeScript: `typescript`, `javascript`, `jsx`, `tsx`
@@ -68,3 +69,7 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr287]: https://github.com/victor-software-house/nishiki-archive/pull/287
 [run-287-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41772490259
 [run-287-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41772489900
+[pr288]: https://github.com/victor-software-house/nishiki-archive/pull/288
+[pr289]: https://github.com/victor-software-house/nishiki-archive/pull/289
+[run-289-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41774739380
+[run-289-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41774738906

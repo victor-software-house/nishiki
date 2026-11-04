@@ -182,6 +182,8 @@ const luarocks =
   "https://raw.githubusercontent.com/luarocks/luarocks/85bfe36c812465b2f377877939d884a4db829a25";
 const lume =
   "https://raw.githubusercontent.com/rxi/lume/98847e7812cf28d3d64b289b03fad71dc704547d";
+const markdownlint =
+  "https://raw.githubusercontent.com/DavidAnson/markdownlint/b67636d47f335cf124990faae4a72c5e9fadd613";
 const mathjaxDemos =
   "https://raw.githubusercontent.com/mathjax/MathJax-demos-web/82c49422ee92dc58fbeed278532495d52c00aed0";
 const mermaid =
@@ -786,6 +788,11 @@ export const inputs: Input[] = [
   { lang: "markdown", name: "clap-readme", url: `${clap}/README.md` },
   { lang: "markdown", name: "click-man-readme", url: `${clickMan}/README.md` },
   { lang: "markdown", name: "cobra-user-guide", url: `${cobra}/site/content/user_guide.md` },
+  {
+    lang: "markdown",
+    name: "coverage",
+    url: new URL("inputs/markdown-coverage.md", import.meta.url).href,
+  },
   { lang: "markdown", name: "dart-args-readme", url: `${dartCore}/pkgs/args/README.md` },
   { lang: "markdown", name: "dart-http-readme", url: `${dartHttp}/pkgs/http/README.md` },
   { lang: "markdown", name: "device-virtual-readme", url: `${deviceVirtual}/README.md` },
@@ -818,6 +825,8 @@ export const inputs: Input[] = [
   { lang: "markdown", name: "knex-schema-builder", url: `${knex}/docs/src/guide/schema-builder.md` },
   { lang: "markdown", name: "ky-readme", url: `${ky}/readme.md` },
   { lang: "markdown", name: "latexrun-readme", url: `${latexrun}/README.md` },
+  { lang: "markdown", name: "markdownlint-blanks-around-headings-arrays", url: `${markdownlint}/test/blanks-around-headings-arrays.md` },
+  { lang: "markdown", name: "markdownlint-link-style-autolink-only", url: `${markdownlint}/test/link-style-autolink-only.md` },
   { lang: "markdown", name: "next-with-docker-export-readme", url: `${nextjs}/examples/with-docker-export-output/README.md` },
   { lang: "markdown", name: "next-with-docker-readme", url: `${nextjs}/examples/with-docker/README.md` },
   { lang: "markdown", name: "nvm-readme", url: `${nvm}/README.md` },

@@ -1,0 +1,244 @@
+L # Blanks Around Headings (Arrays)
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 33 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L # Apple - Good
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 14 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L # Apple - Top {MD022}
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 21 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L # Apple - Bottom
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 16 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L ## Banana - Good
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 16 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L ## Banana - Top {MD022}
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 23 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L ## Banana - Bottom {MD022}
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 26 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L 
+L ### Cherry - Good
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 17 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L ### Cherry - Top {MD022}
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 24 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L 
+L ### Cherry - Bottom {MD022}
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 27 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L #### Durian - Good ####
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 18 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+T 19 text.html.markdown markup.heading.markdown heading.4.markdown
+T 23 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+L 
+L 
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L #### Durian - Top ####
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 17 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+T 18 text.html.markdown markup.heading.markdown heading.4.markdown
+T 22 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+L 
+L 
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L #### Durian - Bottom {MD022} ####
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 28 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+T 29 text.html.markdown markup.heading.markdown heading.4.markdown
+T 33 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L ##### Elderberry - Good
+T 5 text.html.markdown markup.heading.markdown heading.5.markdown punctuation.definition.heading.markdown
+T 6 text.html.markdown markup.heading.markdown heading.5.markdown
+T 23 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L ##### Elderberry - Top {MD022}
+T 5 text.html.markdown markup.heading.markdown heading.5.markdown punctuation.definition.heading.markdown
+T 6 text.html.markdown markup.heading.markdown heading.5.markdown
+T 30 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L ##### Elderberry - Bottom
+T 5 text.html.markdown markup.heading.markdown heading.5.markdown punctuation.definition.heading.markdown
+T 6 text.html.markdown markup.heading.markdown heading.5.markdown
+T 25 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L ###### Fig - Good ######
+T 6 text.html.markdown markup.heading.markdown heading.6.markdown punctuation.definition.heading.markdown
+T 7 text.html.markdown markup.heading.markdown heading.6.markdown
+T 17 text.html.markdown markup.heading.markdown heading.6.markdown entity.name.section.markdown
+T 18 text.html.markdown markup.heading.markdown heading.6.markdown
+T 24 text.html.markdown markup.heading.markdown heading.6.markdown punctuation.definition.heading.markdown
+L 
+L 
+L 
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L ###### Fig - Top {MD022} ######
+T 6 text.html.markdown markup.heading.markdown heading.6.markdown punctuation.definition.heading.markdown
+T 7 text.html.markdown markup.heading.markdown heading.6.markdown
+T 24 text.html.markdown markup.heading.markdown heading.6.markdown entity.name.section.markdown
+T 25 text.html.markdown markup.heading.markdown heading.6.markdown
+T 31 text.html.markdown markup.heading.markdown heading.6.markdown punctuation.definition.heading.markdown
+L 
+L 
+L 
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L ###### Fig - Bottom {MD022} ######
+T 6 text.html.markdown markup.heading.markdown heading.6.markdown punctuation.definition.heading.markdown
+T 7 text.html.markdown markup.heading.markdown heading.6.markdown
+T 27 text.html.markdown markup.heading.markdown heading.6.markdown entity.name.section.markdown
+T 28 text.html.markdown markup.heading.markdown heading.6.markdown
+T 34 text.html.markdown markup.heading.markdown heading.6.markdown punctuation.definition.heading.markdown
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L Grape - Good
+T 12 text.html.markdown meta.paragraph.markdown
+L ============
+T 12 text.html.markdown meta.paragraph.markdown markup.heading.setext.1.markdown
+L 
+L ---
+T 3 text.html.markdown meta.paragraph.markdown markup.heading.setext.2.markdown
+L Grape - Top {MD022}
+T 19 text.html.markdown meta.paragraph.markdown
+L ===================
+T 19 text.html.markdown meta.paragraph.markdown markup.heading.setext.1.markdown
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L Grape - Bottom
+T 14 text.html.markdown meta.paragraph.markdown
+L ==============
+T 14 text.html.markdown meta.paragraph.markdown markup.heading.setext.1.markdown
+L 
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L Honeycomb - Good
+T 16 text.html.markdown meta.paragraph.markdown
+L ---------
+T 9 text.html.markdown meta.paragraph.markdown markup.heading.setext.2.markdown
+L 
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L Honeycomb - Top {MD022}
+T 23 text.html.markdown meta.paragraph.markdown
+L -----------------------
+T 23 text.html.markdown meta.paragraph.markdown markup.heading.setext.2.markdown
+L 
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L Honeycomb - Bottom {MD022}
+T 26 text.html.markdown meta.paragraph.markdown
+L --------------------------
+T 26 text.html.markdown meta.paragraph.markdown markup.heading.setext.2.markdown
+L 
+L Text
+T 4 text.html.markdown meta.paragraph.markdown
+L 
+L <!-- markdownlint-configure-file {
+T 4 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 34 text.html.markdown comment.block.html
+L   "heading-style": false,
+T 25 text.html.markdown comment.block.html
+L   "no-multiple-blanks": false,
+T 30 text.html.markdown comment.block.html
+L   "single-title": false,
+T 24 text.html.markdown comment.block.html
+L   "blanks-around-headings": {
+T 29 text.html.markdown comment.block.html
+L     "lines_above": [ 1, 2, 3, -1],
+T 34 text.html.markdown comment.block.html
+L     "lines_below": [ -1, 2, 1, 3, -1, 4, 10 ]
+T 45 text.html.markdown comment.block.html
+L   }
+T 3 text.html.markdown comment.block.html
+L } -->
+T 2 text.html.markdown comment.block.html
+T 5 text.html.markdown comment.block.html punctuation.definition.comment.html
+L 
