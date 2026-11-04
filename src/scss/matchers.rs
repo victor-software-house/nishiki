@@ -1,13 +1,15 @@
 //! The matchers: for each regular expression of the grammar, the function that
-//! decides whether it matches at a position and where. A matcher records the
-//! capture groups the grammar names with
-//! [`Lexer::cap`](crate::rules::Lexer::cap); the engine names them. The
-//! patterns that `source.css#…` brings in go to CSS's matchers instead (see the
-//! `engine` module).
+//! decides whether it matches at a position and where.
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::cap`](crate::rules::Lexer::cap).
+//! The engine names them.
+//! The patterns that `source.css#…` brings in go to CSS's matchers instead.
+//! The `engine` module says how.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
-//! would. Where a quantifier could give characters back, the doc comment says
-//! why it cannot matter, or the matcher tries the shorter matches.
+//! would.
+//! Where a quantifier could give characters back, the doc comment says why it
+//! cannot matter, or the matcher tries the shorter matches.
 
 mod atrules;
 mod chars;

@@ -126,8 +126,9 @@ impl Lexer<'_> {
     }
 
     /// `(?<=@include)\s+(?:([-\w]+)\s*(\.))?([-\w]+)`, then `\s*(\()` for
-    /// the rule with parameters. The optional module name is tried first;
-    /// without the dot after it, the name is read again as the mixin's.
+    /// the rule with parameters.
+    /// The optional module name is tried first.
+    /// Without the dot after it, the name is read again as the mixin's.
     fn include_name(&mut self, p: usize, open: bool) -> Option<usize> {
         if !self.after(p, b"@include") {
             return None;
@@ -299,8 +300,9 @@ impl Lexer<'_> {
         Some(at + 1)
     }
 
-    /// `\b(?:(?:100|[1-9]\d|\d)%|from|to)(?=\s*\{)`. Each alternative is
-    /// tried in order, as the first that the lookahead accepts wins.
+    /// `\b(?:(?:100|[1-9]\d|\d)%|from|to)(?=\s*\{)`.
+    /// Each alternative is tried in order, because the first that the
+    /// lookahead accepts wins.
     pub(super) fn at_rule_keyframes_at3_at0(&mut self, p: usize) -> Option<usize> {
         if self.word_before(p) {
             return None;

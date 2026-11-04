@@ -118,8 +118,8 @@ fn a_multi_letter_case_fold_stands_for_its_letters() {
     }
 }
 
-/// SCSS shares CSS's unit matcher. A unit spelled with `ſ` keeps the `ſ` in
-/// its name, as in Shiki.
+/// SCSS shares CSS's unit matcher.
+/// A unit spelled with `ſ` keeps the `ſ` in its name, as in Shiki.
 #[test]
 fn a_unit_spelled_with_a_fold_is_named_from_its_text_lowered() {
     assert_eq!(

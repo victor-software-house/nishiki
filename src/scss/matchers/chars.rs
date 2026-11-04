@@ -4,7 +4,7 @@ use super::super::engine::Lexer;
 use crate::rules::Chars;
 
 impl Lexer<'_> {
-    /// The end of the run of `[-\w]` from `p`, where `\w` is Oniguruma's;
+    /// The end of the run of `[-\w]` from `p`, where `\w` is Oniguruma's.
     /// CSS's cache answers a search from inside the last run.
     pub(super) fn dash_word_end(&self, p: usize) -> usize {
         self.wordish_run(p)
@@ -49,8 +49,9 @@ impl Lexer<'_> {
     }
 
     /// `\s*(?=[set])`: the white space from `p` when one of the bytes of
-    /// `set` follows it. The white space cannot give back a character that
-    /// would be one of them.
+    /// `set` follows it.
+    /// The white space cannot give back a character that would be one of
+    /// them.
     pub(super) fn spaces_before(&self, p: usize, set: &[u8]) -> Option<usize> {
         let end = self.spaces(p);
         set.contains(&self.at(end)).then_some(end)

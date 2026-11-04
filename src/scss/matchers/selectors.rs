@@ -2,16 +2,18 @@
 //! elements, `:nth-*()` and attribute selectors.
 //!
 //! The names share one repeated group, `(?:[-0-9A-Z_a-z[^\x00-\x7F]]|
-//! \\(?:\h{1,6}|.)|#\{|\.?\$|})+`. Each place in the line starts at most one
-//! of its alternatives, and a backslash's hex digits are name characters
-//! too, so the ends the group can stop at are the ends of the units read one
-//! after another; a backslash with `\h{1,6}` stops at no end that this
-//! misses.
+//! \\(?:\h{1,6}|.)|#\{|\.?\$|})+`.
+//! Each place in the line starts at most one of its alternatives.
+//! A backslash's hex digits are name characters too.
+//! The ends the group can stop at are therefore the ends of the units read
+//! one after another.
+//! A backslash with `\h{1,6}` stops at no end that this misses.
 
 use super::super::engine::Lexer;
 use crate::rules::Chars;
 
-/// The sigil before a selector name, which decides the lookahead after it.
+/// The sigil before a selector name.
+/// It decides the lookahead after the name.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) enum Sigil {
     /// `.`, a class.
@@ -121,8 +123,8 @@ impl Lexer<'_> {
             || self.starts(p, b"/*")
     }
 
-    /// `\.[^$]` at `p`: a dot and a character after it, the line feed
-    /// included, that is not `$`.
+    /// `\.[^$]` at `p`: a dot, then a character that is not `$`.
+    /// That character may be the line feed.
     fn dot_not_dollar(&self, p: usize) -> bool {
         self.at(p) == b'.'
             && (p + 1 < self.lim() || (p + 1 == self.lim() && self.nl))
@@ -131,6 +133,9 @@ impl Lexer<'_> {
 
     /// The class, id and placeholder names: the sigil, then the name group,
     /// then each one's lookahead.
+    ///
+    /// A name read from an earlier sigil holds this one as `.$`.
+    /// Its units go on from here as they did, and so does its match.
     pub(super) fn selector_name(&mut self, p: usize, sigil: Sigil) -> Option<usize> {
         let byte = match sigil {
             Sigil::Class => b'.',
@@ -140,8 +145,6 @@ impl Lexer<'_> {
         if self.at(p) != byte || self.name_unit(p + 1, DotDollar::Allowed).is_none() {
             return None;
         }
-        // A name read from an earlier sigil holds this one as `.$`: its
-        // units go on from here as they did, and so does its match.
         let (cached, from, to, last) = self.x.name.get();
         let end = if cached == byte && from < p && p < to {
             last.filter(|&end| end > p + 1)
@@ -197,13 +200,15 @@ impl Lexer<'_> {
         self.at(k) == b':' && CUSTOM_PSEUDO.iter().any(|word| self.starts(k + 1, word))
     }
 
-    /// `\b([0-9A-Za-z]+(-[0-9A-Za-z]+)+)(?=…)`: the last part gives
-    /// characters back, and then whole parts, until the lookahead holds; the
-    /// first part cannot, as a dash must follow it.
+    /// `\b([0-9A-Za-z]+(-[0-9A-Za-z]+)+)(?=…)`.
+    /// The last part gives characters back, and then whole parts, until the
+    /// lookahead holds.
+    /// The first part cannot, because a dash must follow it.
     ///
-    /// A `\b` holds at the start of every part, so a chain read from its
-    /// first part answers for the later ones: their match ends at the same
-    /// place, when that lies past their own first part.
+    /// A `\b` holds at the start of every part.
+    /// A chain read from its first part therefore answers for the later ones.
+    /// Their match ends at the same place, when that lies past their own first
+    /// part.
     pub(super) fn selector_custom(&mut self, p: usize) -> Option<usize> {
         if !self.at(p).is_ascii_alphanumeric() || self.word_before(p) {
             return None;
@@ -288,8 +293,8 @@ impl Lexer<'_> {
         (at > p).then_some(Value::Bare(at))
     }
 
-    /// The first `quote` at or after `from` that `\s*]` follows, which a
-    /// search from before it finds again.
+    /// The first `quote` at or after `from` that `\s*]` follows.
+    /// A search from before it finds it again.
     fn quote_bracket(&self, quote: u8, from: usize) -> Option<usize> {
         let (cached, searched, found) = self.x.quote.get();
         if cached == quote && searched <= from && found.is_none_or(|at| at >= from) {
@@ -311,8 +316,8 @@ impl Lexer<'_> {
     }
 
     /// `(?:\s*([$*^|~]?=)\s*(?:value))?\s*(])` after an attribute's name
-    /// at `k`: with the operator and value, and else without. The groups
-    /// are recorded once the whole of it matches.
+    /// at `k`: with the operator and value, and else without.
+    /// The groups are recorded once the whole of it matches.
     fn attribute_rest(&mut self, k: usize) -> Option<usize> {
         let op = self.spaces(k);
         let equals =
@@ -354,8 +359,9 @@ impl Lexer<'_> {
         Some(bracket + 1)
     }
 
-    /// `(?i)(\[)\s*(name+?)(?:…)?\s*(])`: the name is lazy, so it takes one
-    /// unit, then one more, until the rest matches after it.
+    /// `(?i)(\[)\s*(name+?)(?:…)?\s*(])`.
+    /// The name is lazy.
+    /// It takes one unit, then one more, until the rest matches after it.
     pub(super) fn selector_attribute(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'[' {
             return None;

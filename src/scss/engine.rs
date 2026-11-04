@@ -1,7 +1,7 @@
 //! SCSS on the shared rule engine ([`crate::rules`]): the grammar's types,
-//! and what the matchers remember about a line. The patterns that
-//! `source.css#…` brings in run on CSS's matchers, so a line keeps CSS's
-//! memory for them too.
+//! and what the matchers remember about a line.
+//! The patterns that `source.css#…` brings in run on CSS's matchers.
+//! A line therefore keeps CSS's memory for them too.
 
 use std::cell::Cell;
 
@@ -21,8 +21,8 @@ pub(crate) struct Extra {
     /// CSS's, for the patterns `source.css#…` brings in.
     pub(crate) css: crate::css::Extra,
     /// The last chain of a custom element's parts read: where it was read
-    /// from, where it ends, and the last end the lookahead accepted. A
-    /// match from a later part of the chain ends there too, when it can.
+    /// from, where it ends, and the last end the lookahead accepted.
+    /// A match from a later part of the chain ends there too, when it can.
     pub(crate) custom: Cell<(usize, usize, Option<usize>)>,
     /// The last selector name read: its sigil, where it was read from,
     /// where its units end, and the last end the lookahead accepted.

@@ -5,8 +5,9 @@ use super::super::engine::Lexer;
 use crate::rules::Chars;
 
 /// The functions of `constant_sass_functions`, its alternatives spelled out.
-/// The expression takes the first alternative that a `(` follows, and no
-/// word of it holds a `(`, so the text before the next `(` decides.
+/// The expression takes the first alternative that a `(` follows.
+/// No word of it holds a `(`.
+/// The text before the next `(` therefore decides.
 const SASS_FUNCTIONS: &[&[u8]] = &[
     b"headings",
     b"stylesheet-url",
@@ -170,9 +171,9 @@ impl Lexer<'_> {
         Some(colon + 1)
     }
 
-    /// `\b([-\w]+)(\.)(\$[-\w]+)\b`: the module name cannot give back a
-    /// character that would be the dot; the variable's name gives
-    /// characters back until a `\b` follows.
+    /// `\b([-\w]+)(\.)(\$[-\w]+)\b`.
+    /// The module name cannot give back a character that would be the dot.
+    /// The variable's name gives characters back until a `\b` follows.
     pub(super) fn variables_at0(&mut self, p: usize) -> Option<usize> {
         if !self.boundary(p) {
             return None;
@@ -213,8 +214,9 @@ impl Lexer<'_> {
         last
     }
 
-    /// `\\(\h{1,6}|.)`: a backslash and up to six hex digits, else one
-    /// character that is not the line feed.
+    /// `\\(\h{1,6}|.)`: a backslash and up to six hex digits.
+    /// Otherwise it is a backslash and one character that is not the line
+    /// feed.
     pub(super) fn string_single_at0(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'\\' {
             return None;
@@ -226,8 +228,9 @@ impl Lexer<'_> {
         (p + 1 < self.lim()).then(|| self.char_end(p + 1))
     }
 
-    /// `(?:([-\w]+)(\.))?([-\w]+)(\()`: with the module name, which cannot
-    /// give back a character that would be the dot, and else without it.
+    /// `(?:([-\w]+)(\.))?([-\w]+)(\()`: with the module name, and else
+    /// without it.
+    /// The module name cannot give back a character that would be the dot.
     pub(super) fn constant_functions(&mut self, p: usize) -> Option<usize> {
         let first = self.dash_word_run(p)?;
         if self.at(first) == b'.'
@@ -286,7 +289,8 @@ impl Lexer<'_> {
         (!arithmetic(self.at(next))).then_some(p + 1)
     }
 
-    /// `[^\t "'),]+`, which takes the line feed too.
+    /// `[^\t "'),]+`.
+    /// It takes the line feed too.
     pub(super) fn parameters_at4(&mut self, p: usize) -> Option<usize> {
         let mut end = self.skip(p, |b| {
             !matches!(b, b'\t' | b' ' | b'"' | b'\'' | b')' | b',')
