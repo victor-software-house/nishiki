@@ -314,6 +314,110 @@ fn every_grammar_matches_shiki_without_the_scanners() {
     check(&javascript_tables::GRAMMAR, "javascript", Scanners::Off);
 }
 
+/// Where a line's frames come from.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Frames {
+    /// The frames the last line left on the scratch.
+    Kept,
+    /// The arena. A line of another grammar runs before each line on the
+    /// same scratch, so no line finds its frames kept.
+    Rebuilt,
+}
+
+/// The tokens of each of `lines` in `grammar`, as ends and scope names.
+fn scoped_tokens(
+    grammar: &'static Grammar,
+    lines: &[Line],
+    frames: Frames,
+) -> Vec<Vec<(usize, String)>> {
+    let other: &'static Grammar = if grammar.scope == toml_tables::GRAMMAR.scope {
+        &yaml_tables::GRAMMAR
+    } else {
+        &toml_tables::GRAMMAR
+    };
+    let mut arena = Arena::new(None);
+    let limits = Limits::unlimited();
+    let mut scratch = Scratch::default();
+    let mut state = tokenizer::start(&mut arena, grammar, crate::arena::ROOT);
+    let other_state = tokenizer::start(&mut arena, other, crate::arena::ROOT);
+    let mut report = LineReport::default();
+    let mut lexed = Vec::new();
+    for line in lines {
+        let mut out = Vec::new();
+        if frames == Frames::Rebuilt {
+            let text = Text {
+                grammar: other,
+                bytes: b"a = 1",
+                start: 0,
+                anchored: false,
+            };
+            tokenizer::line(
+                &mut scratch,
+                &mut arena,
+                &limits,
+                text,
+                other_state,
+                &mut out,
+                &mut report,
+            );
+            out.clear();
+        }
+        let text = Text {
+            grammar,
+            bytes: line.text.as_bytes(),
+            start: 0,
+            anchored: false,
+        };
+        state = tokenizer::line(
+            &mut scratch,
+            &mut arena,
+            &limits,
+            text,
+            state,
+            &mut out,
+            &mut report,
+        );
+        lexed.push(
+            out.iter()
+                .map(|token| {
+                    let mut scopes: Vec<&str> = arena.scopes(token.stack.0).collect();
+                    scopes.reverse();
+                    (token.end, scopes.join(" "))
+                })
+                .collect(),
+        );
+    }
+    lexed
+}
+
+/// A line that reuses the frames the last line left lexes as one that loads
+/// them from the arena, on every fixture of every grammar with fixtures.
+#[test]
+fn kept_frames_lex_as_rebuilt_ones() {
+    let tables: [(&'static Grammar, &str); 9] = [
+        (&rust_tables::GRAMMAR, "rust"),
+        (&shell_tables::GRAMMAR, "shellscript"),
+        (&typescript_tables::GRAMMAR, "typescript"),
+        (&markdown_tables::GRAMMAR, "markdown"),
+        (&python_tables::GRAMMAR, "python"),
+        (&yaml_tables::GRAMMAR, "yaml"),
+        (&make_tables::GRAMMAR, "make"),
+        (&toml_tables::GRAMMAR, "toml"),
+        (&javascript_tables::GRAMMAR, "javascript"),
+    ];
+    for (grammar, language) in tables.into_iter().chain(SHIPPED.iter().copied()) {
+        for path in fixtures(language) {
+            let lines = parse(&path);
+            assert_eq!(
+                scoped_tokens(grammar, &lines, Frames::Kept),
+                scoped_tokens(grammar, &lines, Frames::Rebuilt),
+                "{}",
+                path.display()
+            );
+        }
+    }
+}
+
 /// The engine grammars the crate ships, with the oracle fixtures of each,
 /// for the features that are on.
 static SHIPPED: &[(&Grammar, &str)] = &[

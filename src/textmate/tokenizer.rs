@@ -286,6 +286,32 @@ enum Pat {
 }
 
 impl Scratch {
+    /// Takes the frames of `state` for a line of `grammar`, with whether the
+    /// state is the start of the document. The frames the last line left are
+    /// reused when they are that state's. Otherwise they are rebuilt from the
+    /// arena.
+    #[expect(
+        clippy::inline_always,
+        reason = "at a call once a line: split out of `line_until`, whose code it must keep"
+    )]
+    #[inline(always)]
+    fn take_frames<H: Halting>(
+        &mut self,
+        grammar: &'static Grammar,
+        arena: &Arena,
+        state: u32,
+    ) -> (Vec<Frame>, bool) {
+        let mut frames = std::mem::take(&mut self.frames);
+        if self
+            .kept
+            .is_some_and(|kept| kept.state == state && std::ptr::eq(kept.grammar, grammar))
+        {
+            return (frames, false);
+        }
+        let first = rebuild::<H>(grammar, arena, state, &mut frames, &mut self.whiles);
+        (frames, first)
+    }
+
     /// Readies the scratch for a line of `grammar`. It loads the grammar's
     /// caches, starts a fresh epoch for the searches, and copies the line's
     /// text with its newline. Returns the grammar's cells for the line's kind.
@@ -511,12 +537,24 @@ struct Injected {
     list: usize,
 }
 
+/// The frames a line left in [`Scratch::frames`], named by their grammar and
+/// the state they make.
+#[derive(Clone, Copy, Debug)]
+struct Kept {
+    grammar: &'static Grammar,
+    state: u32,
+}
+
 /// The buffers and caches the tokenizer keeps between lines.
 #[derive(Debug, Default)]
 pub(crate) struct Scratch {
     text: Vec<u8>,
     frames: Vec<Frame>,
-    pool: Vec<Vec<Frame>>,
+    /// The grammar and the state of the frames in `frames`, when the last
+    /// line left them there. A line from that state reuses them.
+    kept: Option<Kept>,
+    /// The places in `frames` of the open `while` rules, from the bottom.
+    whiles: Vec<usize>,
     locals: Vec<Vec<(u32, usize)>>,
     /// Spans of the groups of matches in progress, kept for reuse.
     caps: Vec<Vec<Option<(usize, usize)>>>,
@@ -649,8 +687,7 @@ pub(crate) fn line_until<H: Halting>(
         return (state, None);
     }
     let cells = scratch.open_line(grammar, line);
-    let mut frames = std::mem::take(&mut scratch.frames);
-    let first = rebuild::<H>(grammar, arena, state, &mut frames);
+    let (mut frames, first) = scratch.take_frames::<H>(grammar, arena, state);
     let steps = limits
         .work
         .map_or(u64::MAX, |work| work.steps(line.len()).saturating_mul(STEP));
@@ -721,8 +758,9 @@ pub(crate) fn line_handing(
         return (state, None);
     }
     let cells = whole.textmate.open_line(grammar, bytes);
-    let mut frames = std::mem::take(&mut whole.textmate.frames);
-    let first = rebuild::<Handing<'static>>(grammar, arena, state, &mut frames);
+    let (mut frames, first) = whole
+        .textmate
+        .take_frames::<Handing<'static>>(grammar, arena, state);
     let steps = limits
         .work
         .map_or(u64::MAX, |work| work.steps(len).saturating_mul(STEP));
@@ -938,6 +976,7 @@ fn hand_off(
 
 /// Loads the frames of `state`, outermost first; true when it is the start of
 /// the document. Only a grammar that hands off has hand-off frames to load.
+/// Writes the places of the open `while` rules into `whiles`.
 ///
 /// Out of line: inlined into `textmate::lex`, its frame walk cost Nix about
 /// 2% more than the call, measured at one codegen unit.
@@ -947,6 +986,7 @@ fn rebuild<H: Halting>(
     arena: &Arena,
     state: u32,
     frames: &mut Vec<Frame>,
+    whiles: &mut Vec<usize>,
 ) -> bool {
     frames.clear();
     let mut at = state;
@@ -1006,7 +1046,23 @@ fn rebuild<H: Halting>(
             content: ROOT,
         });
     }
+    whiles.clear();
+    whiles.extend(
+        frames
+            .iter()
+            .enumerate()
+            .filter(|&(_, frame)| opens_while(grammar, frame))
+            .map(|(at, _)| at),
+    );
     first
+}
+
+/// Whether `frame` is an open `while` rule.
+fn opens_while(grammar: &Grammar, frame: &Frame) -> bool {
+    grammar
+        .rules
+        .get(frame.rule)
+        .is_some_and(|rule| rule.kind == RuleKind::BeginWhile)
 }
 
 /// Writes `source` into `out` with `\1`..`\9` replaced by the escaped text
@@ -1612,18 +1668,12 @@ impl Tokenizer<'_> {
             } else if frames.last().is_some_and(|f| f.eol) {
                 anchor = 0;
             }
-            let mut i = 0;
-            while i < frames.len() {
-                let frame = frames[i];
-                if H::HANDS_OFF && frame.rule == HANDED {
-                    i += 1;
-                    continue;
-                }
+            let mut next = 0;
+            while let Some(&i) = self.s.whiles.get(next) {
+                let Some(&frame) = frames.get(i) else {
+                    break;
+                };
                 let rule = &self.grammar.rules[frame.rule];
-                if rule.kind != RuleKind::BeginWhile {
-                    i += 1;
-                    continue;
-                }
                 let pat = self.end_pat(rule.until, frame.end);
                 if self.search(pat, pos, end, anchor, allow_a) {
                     let mut caps = self.s.caps.pop().unwrap_or_default();
@@ -1638,7 +1688,7 @@ impl Tokenizer<'_> {
                         pos = e;
                         allow_a = DocStart::Passed;
                     }
-                    i += 1;
+                    next += 1;
                 } else {
                     frames.truncate(i);
                     break;
@@ -2043,11 +2093,15 @@ impl Tokenizer<'_> {
     /// Handing text to rules opens a frame for them, and those rules' captures
     /// can do the same, so the depth limit bounds how deep it goes: past it,
     /// the group's text gets the group's scopes only.
+    ///
+    /// The frame goes on top of `frames`, and `frames` get back their length
+    /// after the group. A capture's rule has no end, so nothing below it is
+    /// closed.
     fn handle_captures(
         &mut self,
         captures: &'static [Cap],
         caps: &Caps,
-        frames: &mut [Frame],
+        frames: &mut Vec<Frame>,
         index: usize,
         end: usize,
     ) {
@@ -2086,10 +2140,8 @@ impl Tokenizer<'_> {
                     continue;
                 }
                 let content = self.push_names(named, capture.content_name, caps);
-                let mut sub = self.s.pool.pop().unwrap_or_default();
-                sub.clear();
-                sub.extend_from_slice(frames);
-                sub.push(Frame {
+                let depth = frames.len();
+                frames.push(Frame {
                     rule: capture.retokenize,
                     state: NEW,
                     enter: s,
@@ -2104,8 +2156,8 @@ impl Tokenizer<'_> {
                 } else {
                     DocStart::Passed
                 };
-                self.tokenize_string(e.min(end), first, s, &mut sub, Entry::Capture, Whole);
-                self.s.pool.push(sub);
+                self.tokenize_string(e.min(end), first, s, frames, Entry::Capture, Whole);
+                frames.truncate(depth);
                 continue;
             }
             if !capture.name.is_empty() {
@@ -2121,30 +2173,56 @@ impl Tokenizer<'_> {
 
     /// Gives the frames their arena states and returns the innermost. Only a
     /// grammar that hands off has hand-off frames to store.
+    ///
+    /// The frames a line opened sit on top, above every frame it kept, so
+    /// the walk starts at the lowest of them. It leaves each frame as
+    /// [`rebuild`] would load it, and keeps the frames for the next line.
     fn intern<H: Halting>(&mut self, frames: &mut [Frame]) -> u32 {
-        let mut parent = ROOT;
-        let mut changed = false;
-        for frame in frames.iter_mut() {
-            changed |= frame.state == NEW;
-            if changed {
-                let (kind, payload) = if H::HANDS_OFF && frame.rule == HANDED {
-                    (HAND_OFF_KIND, frame.end)
-                } else {
-                    (
-                        KIND,
-                        pack(frame.rule, frame.end) | if frame.eol { EOL } else { 0 },
-                    )
-                };
-                frame.state = self
-                    .arena
-                    .push(parent, kind, payload, frame.content)
-                    .unwrap_or_else(|| {
-                        self.report.record(Limit::Nodes);
-                        ROOT
-                    });
+        let low = frames
+            .iter()
+            .rposition(|frame| frame.state != NEW)
+            .map_or(0, |at| at + 1);
+        let whiles = &mut self.s.whiles;
+        whiles.truncate(whiles.partition_point(|&at| at < low));
+        let mut parent = low
+            .checked_sub(1)
+            .and_then(|at| frames.get(at))
+            .map_or(ROOT, |frame| frame.state);
+        let mut kept = true;
+        for (at, frame) in frames.iter_mut().enumerate().skip(low) {
+            let (kind, payload) = if H::HANDS_OFF && frame.rule == HANDED {
+                (HAND_OFF_KIND, frame.end)
+            } else {
+                (
+                    KIND,
+                    pack(frame.rule, frame.end) | if frame.eol { EOL } else { 0 },
+                )
+            };
+            frame.state = self
+                .arena
+                .push(parent, kind, payload, frame.content)
+                .unwrap_or_else(|| {
+                    self.report.record(Limit::Nodes);
+                    kept = false;
+                    ROOT
+                });
+            frame.enter = usize::MAX;
+            frame.anchor = usize::MAX;
+            if let Some(rule) = self.grammar.rules.get(frame.rule) {
+                frame.name = frame.content;
+                for _ in 0..rule.content_name.len() {
+                    frame.name = self.arena.parent(frame.name);
+                }
+                if rule.kind == RuleKind::BeginWhile {
+                    self.s.whiles.push(at);
+                }
             }
             parent = frame.state;
         }
+        self.s.kept = kept.then_some(Kept {
+            grammar: self.grammar,
+            state: parent,
+        });
         parent
     }
 }
