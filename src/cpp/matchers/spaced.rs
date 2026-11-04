@@ -46,8 +46,8 @@ impl Lexer<'_> {
     }
 
     /// `((?<!\w)word(?!\w))GAP(\()`, the word as group 1, the gap as groups
-    /// 2 to 5 and the parenthesis as group 6; `bounded` for `\bword` instead
-    /// of `(?<!\w)word`.
+    /// 2 to 5 and the parenthesis as group 6.
+    /// `bounded` stands for `\bword` instead of `(?<!\w)word`.
     pub(super) fn word_gap_paren(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let end = self.word_lit(p, word)?;
         self.gap_then_paren(p, end, 1, 2, 6)
@@ -195,8 +195,8 @@ impl Lexer<'_> {
         None
     }
 
-    /// `^GAP(#)\s+{0,1}WORD\b`, the hash as group 5; the match ends after the
-    /// directive's name.
+    /// `^GAP(#)\s+{0,1}WORD\b`, the hash as group 5.
+    /// The match ends after the directive's name.
     pub(super) fn directive_head(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         if p != 0 {
             return None;

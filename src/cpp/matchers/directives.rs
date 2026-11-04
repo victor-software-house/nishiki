@@ -237,8 +237,9 @@ impl Lexer<'_> {
     /// the last symbol, `count` of them already taken.
     ///
     /// It gives `rest` each way it matches, in the order the expression tries
-    /// them, as where it ends and the gap of the last repetition, until
-    /// `rest` accepts one. `last` is the gap of the repetition before `pos`.
+    /// them, as where it ends and the gap of the last repetition.
+    /// It stops when `rest` accepts one.
+    /// `last` is the gap of the repetition before `pos`.
     pub(super) fn find_symbol_chain<R>(
         &self,
         pos: usize,
@@ -288,8 +289,8 @@ impl Lexer<'_> {
         })
     }
 
-    /// `GAP?(?:[\&*]GAP)*[\&*]`: group 0 only; the gaps are groups 1 to 4 and
-    /// 5 to 8.
+    /// `GAP?(?:[\&*]GAP)*[\&*]`: group 0 only.
+    /// The gaps are groups 1 to 4 and 5 to 8.
     pub(super) fn reference_chain(&mut self, p: usize) -> Option<usize> {
         let (end, first, last) = self.find_reference_chain(p, |_, chain| Some(chain))?;
         if let Some(gap) = first {

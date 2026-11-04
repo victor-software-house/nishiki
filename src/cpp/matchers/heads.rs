@@ -1,7 +1,8 @@
 //! The head of a declaration: storage words, a qualified type and pointer
-//! marks, the part that the variable, alias and range `for` expressions
-//! share. Each expression numbers the groups of the head differently, so the
-//! caller gives a [`Shape`] with the numbers.
+//! marks.
+//! The variable, alias and range `for` expressions share this part.
+//! Each expression numbers the groups of the head differently.
+//! The caller therefore gives a [`Shape`] with the numbers.
 
 use super::super::engine::Lexer;
 use super::directives::Reference;
@@ -38,9 +39,9 @@ pub(super) struct Pointer {
 pub(super) struct Storage {
     /// The group of the loop.
     pub(super) group: usize,
-    /// The first group of the gap in the loop, which has no group for the
-    /// whole of it: three groups for the parts of a comment, or one for the
-    /// run.
+    /// The first group of the gap in the loop.
+    /// The gap has no group for the whole of it.
+    /// It has three groups for the parts of a comment, or one for the run.
     pub(super) inline: usize,
     pub(super) parts: bool,
     /// The group of the gap after the loop, if there is one.
@@ -104,12 +105,12 @@ pub(super) enum Pointers {
 }
 
 impl Lexer<'_> {
-    /// A cheap test that a type and a name can follow at `at`, which the
-    /// expressions for declarations, definitions and constructor calls pass
-    /// before their enumeration of ways: the first word is followed by
-    /// another word, or by what continues a type, a pointer mark as
-    /// `pointers` says. An attribute or a comment may come first, and any of
-    /// them passes.
+    /// A cheap test that a type and a name can follow at `at`.
+    /// The expressions for declarations, definitions and constructor calls
+    /// pass it before their enumeration of ways.
+    /// It holds when the first word is followed by another word, or by what
+    /// continues a type, a pointer mark as `pointers` says.
+    /// An attribute or a comment may come first, and any of them passes.
     pub(super) fn may_start_declaration(&self, at: usize, pointers: Pointers) -> bool {
         let lead = self.skip_space(at);
         if lead >= self.lim() {
@@ -164,12 +165,13 @@ impl Lexer<'_> {
         None
     }
 
-    /// `(GAP?(?:[&*]GAP)*[&*])?` at `p`, every way: the first for which
-    /// `rest` matches what follows, given where the run ends, the first gap,
-    /// and the gap after the last `*` or `&` that the loop took with where
-    /// that gap starts. The loop takes as much as it can and gives back one
-    /// step at a time. The run itself is optional: without one, `rest` is
-    /// given `None` last.
+    /// `(GAP?(?:[&*]GAP)*[&*])?` at `p`, every way.
+    /// It finds the first way for which `rest` matches what follows.
+    /// `rest` gets where the run ends, the first gap, and the gap after the
+    /// last `*` or `&` that the loop took, with where that gap starts.
+    /// The loop takes as much as it can and gives back one step at a time.
+    /// The run itself is optional.
+    /// Without one, `rest` is given `None` last.
     pub(super) fn find_pointer_run<R>(
         &self,
         p: usize,

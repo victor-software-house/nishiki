@@ -1,7 +1,8 @@
-//! Number literals. Each expression matches a whole run of number
-//! characters: digits with separators, a point, an exponent, a suffix and, in
-//! the variants that mark mistakes, a word that no pattern takes. A group the
-//! expression repeats keeps its last match.
+//! Number literals.
+//! Each expression matches a whole run of number characters: digits with
+//! separators, a point, an exponent, a suffix and, in the variants that mark
+//! mistakes, a word that no pattern takes.
+//! A group the expression repeats keeps its last match.
 
 use super::super::engine::Lexer;
 use super::super::few::Few;
@@ -117,7 +118,8 @@ impl Lexer<'_> {
     }
 
     /// The suffixes of an integer in the order the expression tries them,
-    /// each not followed by a word character; or the floating one.
+    /// each not followed by a word character.
+    /// For a float, it is the floating suffix.
     ///
     /// An integer suffix is a letter, an optional second one and an optional
     /// `u`.
@@ -192,8 +194,8 @@ impl Lexer<'_> {
     /// The expression `shape` at `p`, which has to be where `\G` matches.
     ///
     /// In an octal shape, `(?:[0-7]|SEP)+`, a separator may follow the `0`
-    /// already; an integer shape has only the empty choice where a float has
-    /// its point.
+    /// already.
+    /// An integer shape has only the empty choice where a float has its point.
     #[expect(clippy::too_many_lines, reason = "one flow for the twelve shapes")]
     fn shape_match(&mut self, p: usize, shape: &Shape) -> Option<usize> {
         if !self.at_g(p) {
@@ -331,8 +333,8 @@ impl Lexer<'_> {
     }
 
     /// Number literal expression number `which` (0 to 5): hexadecimal float,
-    /// decimal float, binary, octal, hexadecimal and decimal integer; with
-    /// in code, the group for a word that no pattern takes.
+    /// decimal float, binary, octal, hexadecimal and decimal integer.
+    /// In code, it adds the group for a word that no pattern takes.
     pub(super) fn number_shape(&mut self, p: usize, which: u8, place: NumberIn) -> Option<usize> {
         let invalid = place == NumberIn::Code;
         let shape = match which {

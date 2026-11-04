@@ -5,10 +5,12 @@
 use super::super::engine::Lexer;
 use super::chars::is_digit;
 
-/// The number fields of a placeholder, which take the same digits.
+/// The number fields of a placeholder.
+/// Both take the same digits.
 #[derive(Clone, Copy)]
 enum Field {
-    /// The width, which a precision may follow.
+    /// The width.
+    /// A precision may follow it.
     Width,
     /// The precision, after the dot.
     Precision,

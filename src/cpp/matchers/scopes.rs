@@ -55,10 +55,13 @@ pub(super) enum Callee {
 
 impl Lexer<'_> {
     /// `(::)?(?:STEP)*\s*+` at `p`, every way: the leading `::` taken or not,
-    /// and the loop given back one step at a time. The first way for which
-    /// `rest` matches what follows, with what `rest` found. The loop is
-    /// followed forward and the last end that `rest` accepts kept, which is
-    /// the end the longest-first search stops at, with no list of ends.
+    /// and the loop given back one step at a time.
+    /// It finds the first way for which `rest` matches what follows.
+    /// It returns what `rest` found.
+    /// The loop is followed forward, and the last end that `rest` accepts is
+    /// kept.
+    /// That is the end the longest-first search stops at, with no list of
+    /// ends.
     pub(super) fn find_scope_chain<R>(
         &self,
         p: usize,
@@ -511,7 +514,8 @@ impl Lexer<'_> {
     /// matched is not one of the words.
     ///
     /// A word of the list that has no word character before it is the whole run
-    /// of word characters that ends at `e`; the list is sorted.
+    /// of word characters that ends at `e`.
+    /// The list is sorted.
     pub(super) fn not_behind_listed(&self, e: usize) -> bool {
         let mut start = e;
         while let Some(c) = self.ch_before(start) {

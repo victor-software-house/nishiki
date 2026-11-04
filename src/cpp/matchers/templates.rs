@@ -9,22 +9,24 @@ pub(crate) type LastComment = Option<[(usize, usize); 3]>;
 
 impl Lexer<'_> {
     /// The template arguments `<…>` at `p`: where the closing `>` ends, and
-    /// the last comment inside. They are `(?<!<)<(?!<)` and any run of a
-    /// comment, a quoted string, a nested arguments group that calls itself,
-    /// or other characters but quotes, `/` and angle brackets, then `>`. A `<`
-    /// that another `<` precedes or follows does not open arguments, in the
-    /// group that calls itself too.
+    /// the last comment inside.
+    /// They are `(?<!<)<(?!<)`, then any run of a comment, a quoted string, a
+    /// nested arguments group that calls itself, or other characters but
+    /// quotes, `/` and angle brackets, then `>`.
+    /// A `<` that another `<` precedes or follows does not open arguments.
+    /// That holds in the group that calls itself too.
     pub(crate) fn template_args(&self, p: usize) -> Option<(usize, LastComment)> {
         let mut last = None;
         let end = self.template_args_in(p, &mut last, 0)?;
         Some((end, last))
     }
 
-    /// One level of [`Lexer::template_args`], `depth` levels in. Oniguruma lets
-    /// a group call itself 19 times inside the group that defines it: 20
-    /// levels of `<`, and a match with a 21st fails. The body is a possessive
-    /// run of `[^"'/<>]` and `/[^*]`, and the line feed is a character the
-    /// class takes.
+    /// One level of [`Lexer::template_args`], `depth` levels in.
+    /// Oniguruma lets a group call itself 19 times inside the group that
+    /// defines it.
+    /// That allows 20 levels of `<`, and a match with a 21st fails.
+    /// The body is a possessive run of `[^"'/<>]` and `/[^*]`.
+    /// The line feed is a character the class takes.
     fn template_args_in(&self, p: usize, last: &mut LastComment, depth: usize) -> Option<usize> {
         if depth >= MAX_CALL_DEPTH || self.at(p) != b'<' || p >= self.lim() {
             return None;

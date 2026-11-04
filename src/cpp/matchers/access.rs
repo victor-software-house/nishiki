@@ -89,10 +89,12 @@ impl Lexer<'_> {
     }
 
     /// `(?:GAP((?<!\w)this(?!\w))|(?:(?:\b(?:…)\b|((?<!\w)ID(?!\w)))|(?
-    /// <=[])]))\s+{0,1})`: the first way the object matches at `p`, in the
-    /// order the expression tries them, for which `rest` matches what
-    /// follows, with what `rest` found. `gap_groups` is 4 for the gap that
-    /// names a comment's parts and 2 for the plain one.
+    /// <=[])]))\s+{0,1})`.
+    /// It finds the first way the object matches at `p`, in the order the
+    /// expression tries them, for which `rest` matches what follows.
+    /// It returns what `rest` found.
+    /// `gap_groups` is 4 for the gap that names a comment's parts and 2 for
+    /// the plain one.
     fn find_object<R>(
         &self,
         p: usize,
@@ -164,10 +166,12 @@ impl Lexer<'_> {
     }
 
     /// `ID\s+{0,1}(?:\.\*?|->\*?)\s+{0,1}` repeated from `from`, the longest
-    /// first, followed by what `rest` matches: where the chain ends and what
-    /// `rest` found. The chain is followed forward and the last end that
-    /// `rest` accepts kept, which is the end the longest-first search stops
-    /// at, with no list of ends.
+    /// first, followed by what `rest` matches.
+    /// It returns where the chain ends and what `rest` found.
+    /// The chain is followed forward, and the last end that `rest` accepts is
+    /// kept.
+    /// That is the end the longest-first search stops at, with no list of
+    /// ends.
     fn find_chain_end<R>(
         &self,
         from: usize,
@@ -255,8 +259,10 @@ impl Lexer<'_> {
     }
 
     /// `OBJECT(?:(\.\*?)|(->\*?))((?:ID\s*(?:\.\*?|->\*?)\s*)*)\s*\b((?!TYPE\
-    /// W)ID\b(?!\())`. A listed word that a non-word character follows is
-    /// the whole run of word characters at the member; the list is sorted.
+    /// W)ID\b(?!\())`.
+    /// A listed word that a non-word character follows is the whole run of
+    /// word characters at the member.
+    /// The list is sorted.
     pub(super) fn member_access(&mut self, p: usize) -> Option<usize> {
         let (object, (op_end, operator, chain_end, (name, end))) =
             self.find_object(p, 2, |lexer, object| {

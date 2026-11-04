@@ -271,8 +271,9 @@ impl Lexer<'_> {
     /// whose start had group 2 as its delimiter, then the optional suffix
     /// in its two forms, `[A-Za-z]…` and `_…`, as groups 4 and 5.
     ///
-    /// The delimiter is the rule's payload. One longer than 16 bytes is
-    /// group 3 of the start and of the end, whose group 2 is then empty.
+    /// The delimiter is the rule's payload.
+    /// One longer than 16 bytes is group 3 of the start and of the end.
+    /// Their group 2 is then empty.
     ///
     /// The suffix: one letter or UCN (`_` for the second form), then word
     /// characters and UCNs.

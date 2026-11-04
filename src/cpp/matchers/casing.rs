@@ -18,9 +18,11 @@ impl Lexer<'_> {
     /// `\b(?:(?:(?:([0-9a-z]+)|([0-9A-Za-z]+_[0-9A-Za-z]*
     /// ))|([a-z]+[A-Z][0-9A-Za-z]*))|([A-Z][0-9A-Z_]*))\b|((?<!\w)ID(?!\w))`.
     ///
-    /// The styles are tried in order: lower case and digits; snake case,
-    /// letters and digits with an underscore; camel case, lower case letters
-    /// and then a capital; upper case.
+    /// The styles are tried in this order:
+    /// - lower case and digits;
+    /// - snake case, letters and digits with an underscore;
+    /// - camel case, lower case letters and then a capital;
+    /// - upper case.
     pub(super) fn unknown_variable(&mut self, p: usize) -> Option<usize> {
         if self.boundary(p) {
             let lower = |b: u8| b.is_ascii_lowercase() || b.is_ascii_digit();

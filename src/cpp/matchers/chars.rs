@@ -26,8 +26,9 @@ impl Lexer<'_> {
         Some(LoopGuard(&self.x.loops))
     }
 
-    /// The character at `i` and its end. The line feed that follows the text
-    /// counts as a character, as it does to the expressions.
+    /// The character at `i` and its end.
+    /// The line feed that follows the text counts as a character, as it does
+    /// to the expressions.
     pub(crate) fn ch(&self, i: usize) -> Option<(char, usize)> {
         if i == self.s.len() {
             return self.nl.then_some(('\n', i + 1));
@@ -41,7 +42,8 @@ impl Lexer<'_> {
         Some((text.chars().next()?, end))
     }
 
-    /// The character that ends at `i`; the line feed after the text counts.
+    /// The character that ends at `i`.
+    /// The line feed after the text counts.
     pub(crate) fn ch_before(&self, i: usize) -> Option<char> {
         if self.nl && i == self.s.len() + 1 {
             return Some('\n');

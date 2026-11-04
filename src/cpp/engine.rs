@@ -22,8 +22,8 @@ pub(crate) struct Cpp;
 /// What the C++ matchers remember about a line.
 pub(crate) struct Extra {
     /// The last run of white space found: where it starts, where it ends, and
-    /// the text length and line feed it was found with. A search from inside
-    /// it ends where it does.
+    /// the text length and line feed it was found with.
+    /// A search from inside the run ends where the run does.
     pub(super) blank_run: Cell<(usize, usize, usize, bool)>,
     /// How many of the matchers that loop by calling themselves are active.
     pub(super) loops: Cell<u32>,
@@ -31,9 +31,10 @@ pub(crate) struct Extra {
     nested: u32,
     /// For each text of [`NEEDS`], the last search for it: where it started,
     /// how long the text it searched was, and the first place at or after
-    /// the start where the text lies. It answers every later search in a
-    /// text of that length from a place up to that one; a capture group
-    /// lexed again sees a shorter text.
+    /// the start where the text lies.
+    /// It answers every later search in a text of that length from a place up
+    /// to that one.
+    /// A capture group lexed again sees a shorter text.
     needs: [Cell<(usize, usize, Option<usize>)>; NEEDS.len()],
 }
 
@@ -94,8 +95,9 @@ impl Lexer<'_> {
 
 impl Cpp {
     /// The prefix of the name of a rule whose name is a prefix followed by
-    /// the text of a begin group. The raw string is that rule. Its name ends
-    /// in its delimiter.
+    /// the text of a begin group.
+    /// The raw string is that rule.
+    /// Its name ends in its delimiter.
     fn delimited_name(rule: Rule) -> Option<&'static str> {
         match rule.data().name {
             [Sc::Group(prefix, _, "")] => Some(prefix),
@@ -185,9 +187,10 @@ impl Grammar for Cpp {
     }
 
     /// Lexes the group again with its rule, under the stack the engine
-    /// gives and the group's own scopes. Past [`MAX_NESTED`] groups lexed
-    /// again around it, the text keeps the group's scopes alone and the line
-    /// reports the depth limit.
+    /// gives and the group's own scopes.
+    /// Past [`MAX_NESTED`] groups lexed again around it, the text keeps the
+    /// group's scopes alone.
+    /// The line then reports the depth limit.
     fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
         let inner = lexer.path(base, kind.scopes);
         if lexer.x.nested >= MAX_NESTED {

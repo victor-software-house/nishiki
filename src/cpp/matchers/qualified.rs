@@ -1,6 +1,6 @@
 //! Qualified type names: attributes, specifiers, a scope chain of names and
-//! templates, and the name itself, the block most of the large expressions
-//! of the grammar begin with.
+//! templates, and the name itself.
+//! Most of the large expressions of the grammar begin with this block.
 
 use super::super::engine::Lexer;
 use super::super::few::Few;
@@ -77,7 +77,8 @@ impl Lexer<'_> {
     /// `(?!\b(?:LIST)\b)` at `p`: no word of `list` stands there alone.
     ///
     /// A word of the list that ends at a boundary is the whole run of word
-    /// characters from `p`; the lists are sorted.
+    /// characters from `p`.
+    /// The lists are sorted.
     pub(super) fn not_listed(&self, p: usize, list: &Words) -> bool {
         !self.boundary(p) || self.not_listed_word(p, list)
     }
@@ -112,7 +113,8 @@ impl Lexer<'_> {
     }
 
     /// `(?:::)?(?:STEP)*+`: the scope chain at `p`, as its end and the last
-    /// template in it. The loop is possessive; the leading `::` is optional.
+    /// template in it.
+    /// The loop is possessive, and the leading `::` is optional.
     pub(super) fn scope_chain(&self, p: usize) -> Few<Step, 2> {
         let mut out = Few::new();
         let mut starts: Few<usize, 2> = Few::new();
@@ -135,10 +137,11 @@ impl Lexer<'_> {
         out
     }
 
-    /// `(?:(?:unsigned|…)GAP)*` from `pos`, every way, the longest first: the
-    /// first for which `rest` matches what follows, given the end and the
-    /// last specifier's end and gap, with what `rest` found. `last` is the
-    /// iteration before `pos`.
+    /// `(?:(?:unsigned|…)GAP)*` from `pos`, every way, the longest first.
+    /// It finds the first way for which `rest` matches what follows, given the
+    /// end and the last specifier's end and gap.
+    /// It returns what `rest` found.
+    /// `last` is the iteration before `pos`.
     fn find_specifier_chain<R>(
         &self,
         pos: usize,

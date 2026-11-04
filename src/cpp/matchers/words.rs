@@ -60,7 +60,8 @@ impl Lexer<'_> {
 
     /// `(using)\s+(?!namespace\b)`.
     ///
-    /// The white space gives back its last character, which is not `namespace`.
+    /// The white space gives back its last character.
+    /// That character is not `namespace`.
     pub(super) fn using_name(&mut self, p: usize) -> Option<usize> {
         let word_end = self.lit(p, b"using")?;
         let first = self.ch(word_end).filter(|&(c, _)| is_space(c))?.1;
@@ -167,8 +168,8 @@ impl Lexer<'_> {
         None
     }
 
-    /// `((?:[LUu]8?)?R)"` with the optional prefix, which is group 1: where the
-    /// quote starts.
+    /// `((?:[LUu]8?)?R)"` with the optional prefix as group 1.
+    /// It returns where the quote starts.
     ///
     /// The prefixes are tried in the grammar's order.
     fn raw_prefix(&mut self, p: usize, prefix: RawPrefix) -> Option<usize> {

@@ -40,10 +40,11 @@ mod probe {
     use crate::limits::{Limits, LineReport};
     use crate::rules::Text;
 
-    /// Runs the matchers on the cases in the file that `PROBE_IN` names, one
-    /// JSON object per line (`rx`, `text`, `p`, `g`, `nl`), and writes their
-    /// answers to the file `PROBE_OUT` names. `oracle/onig.ts` compares them
-    /// with Oniguruma's.
+    /// Runs the matchers on the cases in the file that `PROBE_IN` names.
+    /// That file holds one JSON object per line, with the fields `rx`, `text`,
+    /// `p`, `g` and `nl`.
+    /// It writes their answers to the file `PROBE_OUT` names.
+    /// `oracle/onig.ts` compares them with Oniguruma's.
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {

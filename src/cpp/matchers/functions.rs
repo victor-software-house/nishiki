@@ -81,8 +81,8 @@ const CONVERSION: Pointer = Pointer {
     gap_form: GapForm::Parts,
 };
 
-/// The operators, in the order the expression tries them. The characters
-/// that follow stand alone.
+/// The operators, in the order the expression tries them.
+/// The characters that follow stand alone.
 const OPERATORS: &[&[u8]] = &[
     b"delete[]",
     b"delete",
@@ -347,10 +347,11 @@ impl Lexer<'_> {
         self.put_gap(83, GapForm::Parts, found.name_end, &found.last);
     }
 
-    /// `(?:(WORD)GAP)*` at `p`, every way, the longest first: the first for
-    /// which `rest` matches what follows, given where the loop ends and its
-    /// last iteration, with what `rest` found. `last` is the iteration before
-    /// `p`.
+    /// `(?:(WORD)GAP)*` at `p`, every way, the longest first.
+    /// It finds the first way for which `rest` matches what follows, given
+    /// where the loop ends and its last iteration.
+    /// It returns what `rest` found.
+    /// `last` is the iteration before `p`.
     fn find_definition_specifiers<R>(
         &self,
         p: usize,

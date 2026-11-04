@@ -156,8 +156,9 @@ impl Lexer<'_> {
     }
 
     /// Where a normal variable's expression ends after its name and gap, at
-    /// `at`: an assignment operator, or a `,`, `;` or `[` with no `=` in the
-    /// rest of the line.
+    /// `at`.
+    /// It ends at an assignment operator, or at a `,`, `;` or `[` with no `=`
+    /// in the rest of the line.
     ///
     /// It gives where the match ends and, for an assignment, the group of
     /// the operator.
@@ -268,7 +269,8 @@ impl Lexer<'_> {
     }
 }
 
-/// The head of `TypeAlias`, which has no storage loop in it.
+/// The head of `TypeAlias`.
+/// It has no storage loop in it.
 const ALIAS: Shape = Shape {
     storage: None,
     outer: Some(8),
@@ -399,7 +401,8 @@ struct Tail {
 
 impl Lexer<'_> {
     /// `\s?` then a `;` or the line feed, from `at`: where the match ends and
-    /// the `;`. The white space gives back what it took until one fits.
+    /// the `;`.
+    /// The white space gives back what it took until one fits.
     fn alias_end(&self, at: usize) -> Option<(usize, Option<usize>)> {
         let full = self.skip_space(at);
         for q in (at..=full).rev() {
@@ -560,8 +563,8 @@ impl Lexer<'_> {
 
     /// `\s?(typename)?\s?` after the `=` at `c`, every way: where `typename`
     /// would start, where it ends if it is there, and where the type starts.
-    /// Each white space takes as much as it can and gives it back one
-    /// character at a time.
+    /// Each white space takes as much as it can.
+    /// It gives it back one character at a time.
     fn alias_keywords(&self, c: usize) -> impl Iterator<Item = (usize, Option<usize>, usize)> + '_ {
         (c + 1..=self.skip_space(c + 1)).rev().flat_map(move |d| {
             self.lit(d, b"typename")
@@ -575,8 +578,9 @@ impl Lexer<'_> {
         })
     }
 
-    /// The target of an alias at `at`: a type with its tail, or else the rest
-    /// of the line up to its last character that is no `;`.
+    /// The target of an alias at `at`: a type with its tail.
+    /// Otherwise it is the rest of the line up to its last character that is
+    /// no `;`.
     fn alias_target(&self, at: usize) -> Option<(usize, Target)> {
         if let Some(found) = self.find_head(at, &ALIAS, |lexer, head| {
             let tail = lexer.alias_tail(head)?;

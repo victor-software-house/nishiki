@@ -98,8 +98,9 @@ impl Lexer<'_> {
     /// GAP)?((?:(?<!\w)ID(?!\w)GAP)*+)?(?:GAP(:(?!:)))?))` for the keywords
     /// `class`, `union` and `struct` after `typedef`.
     ///
-    /// The possessive run of names and gaps. Each gap records its groups: a
-    /// group that a later gap leaves out keeps an earlier gap's text, as in
+    /// The possessive run of names and gaps.
+    /// Each gap records its groups.
+    /// A group that a later gap leaves out keeps an earlier gap's text, as in
     /// Oniguruma.
     pub(super) fn typedef_tag(&mut self, p: usize, keyword: &[u8]) -> Option<usize> {
         let word = self.word_lit(p, keyword)?;
@@ -249,10 +250,11 @@ impl Lexer<'_> {
             .find(|&end| self.word_at(end).is_none() && self.at(end) == b'(' && end < self.lim())
     }
 
-    /// `(?:(?:KW)GAP)*` from `pos`, every way, the longest first: the first
-    /// way for which `rest` matches what follows, given the loop's end and
-    /// its last keyword's end and gap, with what `rest` found. `last` is the
-    /// iteration before `pos`.
+    /// `(?:(?:KW)GAP)*` from `pos`, every way, the longest first.
+    /// It finds the first way for which `rest` matches what follows, given the
+    /// loop's end and its last keyword's end and gap.
+    /// It returns what `rest` found.
+    /// `last` is the iteration before `pos`.
     fn find_specifier_loop<R>(
         &self,
         pos: usize,
@@ -340,10 +342,11 @@ impl Lexer<'_> {
     }
 
     /// `(?:GAP((?<!\w)(?:override|…)(?!\w)))+(?=\s*[\n\r;={])` from
-    /// `pos`, every way, the longest first: the first way for which `rest`
-    /// matches what follows, given the loop's end and its last iteration's
-    /// gap and word, with what `rest` found. `count` iterations come before
-    /// `pos`, the last of them `last`.
+    /// `pos`, every way, the longest first.
+    /// It finds the first way for which `rest` matches what follows, given the
+    /// loop's end and its last iteration's gap and word.
+    /// It returns what `rest` found.
+    /// `count` iterations come before `pos`, the last of them `last`.
     fn find_qualifier_loop<R>(
         &self,
         pos: usize,

@@ -1,12 +1,14 @@
-//! The sorted word lists of [`super::types`] as integer keys, so that a
-//! lookup compares integers instead of calling `memcmp` at every step of its
-//! binary search.
+//! The sorted word lists of [`super::types`] as integer keys.
+//! A lookup then compares integers instead of calling `memcmp` at every step
+//! of its binary search.
 //!
 //! A key is a word's bytes packed big-endian into three `u64`s and padded
-//! with zeros. Packed that way, keys sort as their words do, because no word
-//! holds a zero byte. The tables are built from the generated lists at
-//! compile time, which fails when a word is longer than a key or a list is
-//! out of order.
+//! with zeros.
+//! Packed that way, keys sort as their words do, because no word holds a zero
+//! byte.
+//! The tables are built from the generated lists at compile time.
+//! The build fails when a word is longer than a key or a list is out of
+//! order.
 
 use super::types::{BEHIND_4D9B, NOT_0C8F, NOT_C3E4, PRIMITIVE_TYPES, STDINT_TYPES, TYPE_WORDS};
 
@@ -61,8 +63,9 @@ const fn before(a: &Key, b: &Key) -> bool {
     false
 }
 
-/// The keys of `words`, which must number `N`, each fit in a key, and be
-/// sorted without repeats.
+/// The keys of `words`.
+/// The words must number `N`, each fit in a key, and be sorted without
+/// repeats.
 const fn keys<const N: usize>(words: &[&[u8]]) -> [Key; N] {
     assert!(words.len() == N, "the list has N words");
     let mut out = [[0; 3]; N];

@@ -1,10 +1,12 @@
 //! The matchers: for each regular expression of the grammar, the function that
-//! decides whether it matches at a position and where. A matcher records the
-//! capture groups the grammar names with [`Lexer::cap`]; the engine names them.
+//! decides whether it matches at a position and where.
+//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
+//! The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
-//! would. Where a quantifier could give characters back, the doc comment says
-//! why it cannot matter.
+//! would.
+//! Where a quantifier could give characters back, the doc comment says why it
+//! cannot matter.
 
 mod access;
 mod basic;
@@ -94,12 +96,12 @@ const NEED_TYPENAME: usize = 18;
 const NEED_HASH: usize = 19;
 
 /// The capture group, past the groups of the raw string's begin pattern,
-/// that holds its delimiter. It holds it whichever of groups 2 and 3 took
-/// it. It is the rule's payload, and the end pattern `(\)(\2)(\3)")`
-/// repeats it.
+/// that holds its delimiter.
+/// It holds it whichever of groups 2 and 3 took it.
+/// It is the rule's payload, and the end pattern `(\)(\2)(\3)")` repeats it.
 pub(super) const RAW_DELIMITER: u8 = 4;
-/// The longest delimiter that group 2 of the raw string's begin takes. A
-/// longer one is group 3, and the name `string.quoted.double.raw.$2` leaves
+/// The longest delimiter that group 2 of the raw string's begin takes.
+/// A longer one is group 3, and the name `string.quoted.double.raw.$2` leaves
 /// it out.
 pub(super) const RAW_DELIMITER_MAX: usize = 16;
 

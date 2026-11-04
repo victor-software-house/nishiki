@@ -161,7 +161,8 @@ impl Lexer<'_> {
         None
     }
 
-    /// The longest `ID` at `p`, which has no boundaries.
+    /// The longest `ID` at `p`.
+    /// This form has no boundaries.
     fn plain_ident(&self, p: usize) -> Option<usize> {
         self.ident_ends(p).longest()
     }
@@ -197,7 +198,8 @@ impl Lexer<'_> {
     /// it.
     ///
     /// The run of words is followed forward, keeping the last stop that
-    /// matches, which is the longest the greedy `(?:ID\s+)+` gives.
+    /// matches.
+    /// That stop is the longest the greedy `(?:ID\s+)+` gives.
     fn template_parameter_head(&self, at: usize) -> Option<(Caps, ParamTail)> {
         let with_tail = |part: Caps| Some((part, self.template_parameter_tail(part.0)?));
         let name = self
@@ -370,8 +372,9 @@ impl Lexer<'_> {
     }
 
     /// `((?:(?<!\w)ID(?!\w))?)GAP(?:\[GAP]GAP)?(?=[\n),])` from `after`: the
-    /// end of [`Lexer::over_qualified`]. The name is tried longest first, then
-    /// left out, and the brackets are tried before they are left out.
+    /// end of [`Lexer::over_qualified`].
+    /// The name is tried longest first, then left out.
+    /// The brackets are tried before they are left out.
     fn over_qualified_tail(&self, after: usize) -> Option<OverTail> {
         let idents = (!self.word_before(after)).then(|| self.ident_ends(after));
         let names = idents
@@ -422,7 +425,7 @@ impl Lexer<'_> {
     /// start after the white space.
     ///
     /// - A listed word that no word character follows is the whole run of word
-    ///   characters at `start`; the lists are sorted.
+    ///   characters at `start`. The lists are sorted.
     /// - `[A-Z_a-z]\w*_t`: the run of word characters has to end in `_t`.
     pub(super) fn builtin_types(&self, p: usize) -> Few<(usize, usize, usize), 4> {
         let start = self.skip_space(p);

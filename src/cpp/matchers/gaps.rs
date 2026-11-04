@@ -1,9 +1,14 @@
 //! The block that the grammar puts between tokens:
-//! `((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W)|(?=\W)|^|\n?
-//! $|\A|\Z)`, which is white space and comments, or just a place where a token
-//! may start. It can match in several ways, and what follows it decides which
-//! one the matcher takes, so [`Lexer::gaps`] gives every way in the order
-//! the regular expression tries them.
+//!
+//! ```text
+//! ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W)|(?=\W)|^|\n?$|\A|\Z)
+//! ```
+//!
+//! It is white space and comments, or just a place where a token may start.
+//! It can match in several ways, and what follows it decides which one the
+//! matcher takes.
+//! [`Lexer::gaps`] therefore gives every way, in the order the regular
+//! expression tries them.
 
 use super::super::engine::Lexer;
 use super::super::few::Few;
@@ -25,8 +30,8 @@ pub(crate) struct Gap {
     pub(crate) comment: Option<[(usize, usize); 3]>,
 }
 
-/// The two forms the grammar writes the gap block in, which group its parts
-/// differently.
+/// The two forms the grammar writes the gap block in.
+/// They group its parts differently.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum GapForm {
     /// The comment run is one group.
@@ -35,14 +40,15 @@ pub(crate) enum GapForm {
     Parts,
 }
 
-/// The gaps at a position, in the order the expression tries them: the
-/// comment runs, longest first, which most positions have none of, then up
-/// to three ways without a comment. It keeps the longest
-/// [`MAX_COMMENT_RUNS`] runs, so making it allocates nothing.
+/// The gaps at a position, in the order the expression tries them.
+/// The comment runs come first, longest first, and most positions have none.
+/// Up to three ways without a comment follow.
+/// It keeps the longest [`MAX_COMMENT_RUNS`] runs, so making it allocates
+/// nothing.
 ///
-/// It holds where the first kept run opens rather than every run, and finds
-/// each run again from there as it gives it, so that it stays small enough
-/// to be returned without a call to copy it.
+/// It holds where the first kept run opens, not every run.
+/// It finds each run again from there as it gives it.
+/// It then stays small enough to be returned without a call to copy it.
 pub(crate) struct Gaps<'a> {
     /// The text the runs lie in.
     s: &'a [u8],
@@ -70,8 +76,8 @@ struct Run {
 }
 
 impl Run {
-    /// The run whose comment opens at `open` in `s`, which has a `/*`
-    /// there.
+    /// The run whose comment opens at `open` in `s`.
+    /// `s` has a `/*` there.
     fn at(s: &[u8], nl: bool, open: usize) -> Option<Run> {
         let close = comment_close(s, open)?;
         Some(Run {
@@ -87,12 +93,15 @@ fn comment_close(s: &[u8], open: usize) -> Option<usize> {
     memchr::memmem::find(s.get(open + 2..)?, b"*/").map(|i| open + 2 + i)
 }
 
-/// The end of the `\s*` from `i` in `s`, which takes the line feed after it
-/// when `nl` holds, as [`Lexer::skip_space`] does.
+/// The end of the `\s*` from `i` in `s`.
+/// It takes the line feed after it when `nl` holds, as [`Lexer::skip_space`]
+/// does.
 ///
 /// It mirrors [`Chars::space_end`] over the text alone, because `Gaps` holds
-/// no lexer. One function shared by both cost Java 2% of its instructions at
-/// one codegen unit, even inlined, so each keeps its own loop.
+/// no lexer.
+/// One function shared by both cost Java 2% of its instructions at one
+/// codegen unit, even inlined.
+/// Each therefore keeps its own loop.
 fn blank_end(s: &[u8], nl: bool, mut i: usize) -> usize {
     loop {
         let width = space_width(s, i);
@@ -143,9 +152,10 @@ impl<'a> Lexer<'a> {
     /// them.
     ///
     /// The first alternative is iterations of white space, a comment and
-    /// white space, taken greedily and given back one at a time. The others
-    /// are `\s++`, the zero-width `(?<=\W)`, `(?=\W)` and `^`, and `\n?$`,
-    /// which takes the line feed when one follows.
+    /// white space, taken greedily and given back one at a time.
+    /// The others are `\s++`, the zero-width `(?<=\W)`, `(?=\W)` and `^`, and
+    /// `\n?$`.
+    /// `\n?$` takes the line feed when one follows.
     pub(crate) fn gaps(&self, p: usize) -> Gaps<'a> {
         let spaces = self.skip_space(p);
         let (first, kept) = self.comment_runs(spaces);
@@ -201,8 +211,9 @@ impl<'a> Lexer<'a> {
         (opens[found % MAX_COMMENT_RUNS], found.min(MAX_COMMENT_RUNS))
     }
 
-    /// Records a way the block matched, which started at `p`, as the groups
-    /// from `base`, in the form `form` of the expression.
+    /// Records a way the block matched, as the groups from `base`, in the form
+    /// `form` of the expression.
+    /// The match started at `p`.
     pub(crate) fn put_gap(&mut self, base: usize, form: GapForm, p: usize, gap: &Gap) {
         self.cap(base, p, gap.end);
         match form {

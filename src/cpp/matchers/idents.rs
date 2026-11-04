@@ -7,10 +7,12 @@ use super::gaps::GapForm;
 use crate::rules::Chars;
 
 /// Where each prefix of an identifier ends, the longest first, as
-/// [`Lexer::ident_ends`] finds them. It steps back over the identifier one
-/// character or universal character name at a time: inside an identifier a
-/// backslash only starts a name, so the name that ends at a place is the one
-/// whose backslash stands 6 or 10 bytes before it.
+/// [`Lexer::ident_ends`] finds them.
+/// It steps back over the identifier one character or universal character
+/// name at a time.
+/// Inside an identifier a backslash only starts a name.
+/// The name that ends at a place is therefore the one whose backslash stands
+/// 6 or 10 bytes before it.
 #[derive(Clone)]
 pub(crate) struct IdentEnds<'a> {
     s: &'a [u8],

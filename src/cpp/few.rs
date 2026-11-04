@@ -1,5 +1,6 @@
 //! A list of at most `N` items kept inline, for the small sets of
-//! alternatives a matcher tries, so that trying them allocates nothing.
+//! alternatives a matcher tries.
+//! Trying them then allocates nothing.
 
 use std::ops::Deref;
 
@@ -21,9 +22,10 @@ impl<T: Copy + Default, const N: usize> Few<T, N> {
 }
 
 impl<T: Copy, const N: usize> Few<T, N> {
-    /// Adds `item` at the end. Each list is sized for every item its
-    /// expression can give, so an item past `N` cannot come; it would be
-    /// dropped.
+    /// Adds `item` at the end.
+    /// Each list is sized for every item its expression can give.
+    /// An item past `N` therefore cannot come.
+    /// It would be dropped.
     pub(crate) fn push(&mut self, item: T) {
         if let Some(slot) = self.items.get_mut(self.len) {
             *slot = item;
