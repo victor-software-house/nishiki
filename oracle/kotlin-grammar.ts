@@ -7,7 +7,7 @@
 // Run with `bun run oracle/kotlin-grammar.ts` and commit the result; the
 // output is generated, do not edit it.
 import kotlin from "@shikijs/langs@4.6.0/kotlin";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
+import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: unknown[] }>;
 type Node = {
@@ -295,9 +295,9 @@ g += startTable(patList);
 g += ruleCodes("Kotlin", "KOTLIN");
 g += groupsCheck("Kotlin", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 
-await Bun.write(`${root_dir}src/kotlin/grammar.rs`, g);
+await writeRust(`${root_dir}src/kotlin/grammar.rs`, g);
 
 // Scope table.
 const s = scopeFile("kotlin-grammar.ts", "KOTLIN", scopes);
-await Bun.write(`${root_dir}src/kotlin/scope.rs`, s);
+await writeRust(`${root_dir}src/kotlin/scope.rs`, s);
 console.log(`${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes`);

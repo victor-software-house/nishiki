@@ -7,7 +7,7 @@
 // Run with `bun run oracle/go-grammar.ts` and commit the result; the
 // output is generated, do not edit it.
 import go from "@shikijs/langs@4.6.0/go";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
+import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: unknown[] }>;
 type Node = {
@@ -326,7 +326,7 @@ g += startTable(patList);
 g += ruleCodes("Go", "GO");
 g += groupsCheck("Go", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 
-await Bun.write(`${root_dir}src/go/grammar.rs`, g);
+await writeRust(`${root_dir}src/go/grammar.rs`, g);
 
-await Bun.write(`${root_dir}src/go/scope.rs`, scopeFile("go-grammar.ts", "GO", scopes));
+await writeRust(`${root_dir}src/go/scope.rs`, scopeFile("go-grammar.ts", "GO", scopes));
 console.log(`${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes`);

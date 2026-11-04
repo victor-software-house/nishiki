@@ -7,7 +7,7 @@
 // Run with `bun run oracle/css-grammar.ts` and commit the result; the
 // output is generated, do not edit it.
 import css from "@shikijs/langs@4.6.0/css";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
+import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: unknown[] }>;
 export type Node = {
@@ -376,7 +376,7 @@ g += startTable(patList);
 g += ruleCodes("Css", "CSS");
 g += groupsCheck("Css", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 
-await Bun.write(`${root_dir}src/css/grammar.rs`, g);
+await writeRust(`${root_dir}src/css/grammar.rs`, g);
 
 // Scope table.
 const s = scopeFile("css-grammar.ts", "CSS", scopes, `    #[expect(
@@ -384,7 +384,7 @@ const s = scopeFile("css-grammar.ts", "CSS", scopes, `    #[expect(
         reason = "the names are the scope names, and the unit s ends in S"
     )]
 `);
-await Bun.write(`${root_dir}src/css/scope.rs`, s);
+await writeRust(`${root_dir}src/css/scope.rs`, s);
 if (Bun.env.CSS_DUMP) await Bun.write(Bun.env.CSS_DUMP, JSON.stringify(patList.map((p) => ({ id: p.id, kind: p.act.kind, regex: p.regex, captures: p.captures, nested: p.nested })), null, 0));
 console.log(`${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes`);
 }

@@ -2,9 +2,10 @@
 // grammar spell out, expanded and sorted, so a matcher can test a whole word
 // against a list.
 //
-// Run with `bun run oracle/c-words.ts`, then `cargo +nightly-2026-11-01 fmt
-// --all`, and commit the result; the output is generated, do not edit it.
+// Run with `bun run oracle/c-words.ts`, which formats what it writes, and
+// commit the result; the output is generated, do not edit it.
 import c from "@shikijs/langs@4.6.0/c";
+import { writeRust } from "./rule-grammar.ts";
 
 type Node = { match?: string; begin?: string; patterns?: Node[] };
 const repository = (c as unknown as { repository: Record<string, Node> }[])[0]!.repository;
@@ -71,4 +72,4 @@ for (const [name, list] of Object.entries(lists)) {
   const sorted = [...new Set(list)].sort();
   out += `pub(super) const ${name}: &[&str] = &[\n${sorted.map((w) => `    "${w}",\n`).join("")}];\n\n`;
 }
-await Bun.write(new URL("../src/c/words.rs", import.meta.url).pathname, out);
+await writeRust(new URL("../src/c/words.rs", import.meta.url).pathname, out);

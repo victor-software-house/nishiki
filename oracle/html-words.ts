@@ -4,11 +4,12 @@
 // here), attribute names, event handler names and character entity names
 // (matched as written).
 //
-// Run with `bun run oracle/html-words.ts`, then `cargo +nightly-2026-11-01 fmt
-// --all`, and commit the result; the output is generated, do not edit it.
+// Run with `bun run oracle/html-words.ts`, which formats what it writes, and
+// commit the result; the output is generated, do not edit it.
 import html from "@shikijs/langs@4.6.0/html";
 
 import { expand } from "./alternation.ts";
+import { writeRust } from "./rule-grammar.ts";
 
 type Node = {
   name?: string;
@@ -129,5 +130,5 @@ for (const [name, list] of lists) {
   out += `pub(super) const ${name}: &[&str] = &[\n${list.map((w) => `    ${JSON.stringify(w)},\n`).join("")}];\n\n`;
 }
 const root = new URL("..", import.meta.url).pathname;
-await Bun.write(`${root}src/html/words.rs`, out.trimEnd() + "\n");
+await writeRust(`${root}src/html/words.rs`, out.trimEnd() + "\n");
 console.log(lists.map(([n, l]) => `${n} ${l.length}`).join(", "));

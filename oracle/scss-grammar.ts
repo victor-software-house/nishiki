@@ -17,7 +17,7 @@
 // output is generated, do not edit it.
 import scss from "@shikijs/langs@4.6.0/scss";
 import * as css from "./css-grammar.ts";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
+import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: unknown[] }>;
 type Node = {
@@ -371,9 +371,9 @@ g += startTable(patList);
 g += ruleCodes("Scss", "SCSS");
 g += groupsCheck("Scss", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 
-await Bun.write(`${root_dir}src/scss/grammar.rs`, g);
+await writeRust(`${root_dir}src/scss/grammar.rs`, g);
 
 const s = scopeFile("scss-grammar.ts", "SCSS", scopes);
-await Bun.write(`${root_dir}src/scss/scope.rs`, s);
+await writeRust(`${root_dir}src/scss/scope.rs`, s);
 if (Bun.env.SCSS_DUMP) await Bun.write(Bun.env.SCSS_DUMP, JSON.stringify(patList.map((p) => ({ id: p.id, kind: p.act.kind, regex: p.regex, captures: p.captures, nested: p.nested, css: p.css })), null, 0));
 console.log(`${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes`);

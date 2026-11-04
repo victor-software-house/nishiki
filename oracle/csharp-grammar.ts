@@ -24,7 +24,7 @@
 // pattern's regular expression and capture groups, one JSON object per line,
 // for oracle/onig.ts.
 import csharp from "@shikijs/langs@4.6.0/csharp";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
+import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -616,13 +616,13 @@ g += startTable(patList);
 g += ruleCodes("CSharp", "CSHARP");
 g += groupsCheck("CSharp", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 
-await Bun.write(`${root_dir}src/csharp/grammar.rs`, g);
+await writeRust(`${root_dir}src/csharp/grammar.rs`, g);
 
 // Scope table. The grammar misspells a scope name; it is written with one
 // byte escape so that the spelling check passes.
 const written = new Map([...scopes].map(([ident, name]) => [ident, name.replaceAll("pre" + "ffix", "pre\\x66fix")]));
 const s = scopeFile("csharp-grammar.ts", "CSHARP", written);
-await Bun.write(`${root_dir}src/csharp/scope.rs`, s);
+await writeRust(`${root_dir}src/csharp/scope.rs`, s);
 
 if (Bun.env["RX_DUMP"]) {
   await Bun.write(

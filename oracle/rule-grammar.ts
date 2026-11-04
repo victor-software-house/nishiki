@@ -6,6 +6,21 @@
 // Each `oracle/<language>-grammar.ts` imports these and keeps only what its
 // grammar needs of its own.
 
+import { $ } from "bun";
+
+/** Writes a generated Rust file and formats it as `mise run format` does,
+ * with the repository's `rustfmt.toml` and the formatting nightly that
+ * `RUSTFMT_TOOLCHAIN` names in `mise.toml`, so a run leaves a committed table
+ * unchanged. */
+export async function writeRust(path: string, text: string): Promise<void> {
+  const toolchain = Bun.env["RUSTFMT_TOOLCHAIN"];
+  if (toolchain === undefined) {
+    throw new Error("RUSTFMT_TOOLCHAIN is unset: run the generator where mise has loaded mise.toml");
+  }
+  await Bun.write(path, text);
+  await $`rustfmt ${toolchain} ${path}`;
+}
+
 // First bytes. For each pattern, the bytes a match can start at, so that the
 // engine tries it only where one stands. The analysis reads the regular
 // expression, over-approximating: a byte it leaves out cannot start a match.

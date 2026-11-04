@@ -2,8 +2,11 @@ name: Generated tables
 
 # Regenerates a table that a script writes from Shiki, and fails when the
 # committed table differs: src/textmate/regex/folds.rs, measured on Oniguruma
-# by oracle/case-folds.ts (`mise run check:case-folds`), and src/css/words.rs,
-# from the css grammar by oracle/css-words.ts (`mise run check:css-words`).
+# by oracle/case-folds.ts (`mise run check:case-folds`); src/css/words.rs,
+# from the css grammar by oracle/css-words.ts (`mise run check:css-words`);
+# and Swift's rule-engine tables, which oracle/swift-grammar.ts writes and
+# formats with rustfmt (`mise run check:swift-grammar`), the round trip every
+# rule-engine generator shares.
 # Bun fetches Shiki from npm, so the checks sit outside the offline verify in
 # ci.yml, which the template renders, and run only on a pull request that
 # touches a table or its script.
@@ -19,6 +22,12 @@ on:
       - oracle/css-words.ts
       - src/css/words.rs
       - mise-tasks/check/css-words.sh
+      - oracle/rule-grammar.ts
+      - oracle/swift-grammar.ts
+      - src/swift/grammar.rs
+      - src/swift/scope.rs
+      - src/swift/dispatch.rs
+      - mise-tasks/check/swift-grammar.sh
 
 permissions:
   contents: read
@@ -29,7 +38,8 @@ concurrency:
 
 env:
   MISE_ENV: ci
-  # Only bun, which the check pins, is installed; the Rust toolchain stays out.
+  # Only what each check needs is installed: bun, and for the Swift tables the
+  # formatting nightly; the build toolchain stays out.
   MISE_TASK_RUN_AUTO_INSTALL: "false"
 
 jobs:
@@ -82,3 +92,28 @@ jobs:
       - name: Compare the CSS word table with what its script writes
         timeout-minutes: 3
         run: mise run check:css-words
+
+  swift-grammar:
+    name: Swift grammar tables
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: nscloud-ubuntu-24.04-amd64-2x4
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        timeout-minutes: 3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install mise
+        timeout-minutes: 3
+        uses: jdx/mise-action@6612f0ef07ed2a736cd1e00a94a065522dd41195 # v5.2.5
+        with:
+          version: 2026.10.25
+          install: false
+          cache: false
+      - name: Install bun and the formatting nightly
+        timeout-minutes: 5
+        run: mise install --locked bun@1.4.4 rust@nightly-2026-11-01
+      - name: Compare the Swift tables with what their script writes
+        timeout-minutes: 3
+        run: mise run check:swift-grammar

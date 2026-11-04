@@ -7,7 +7,7 @@
 // Run with `bun run oracle/java-grammar.ts` and commit the result; the
 // output is generated, do not edit it.
 import java from "@shikijs/langs@4.6.0/java";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
+import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: unknown[] }>;
 type Node = {
@@ -309,9 +309,9 @@ g += startTable(patList);
 g += ruleCodes("Java", "JAVA");
 g += groupsCheck("Java", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 
-await Bun.write(`${root_dir}src/java/grammar.rs`, g);
+await writeRust(`${root_dir}src/java/grammar.rs`, g);
 
 // Scope table.
 const s = scopeFile("java-grammar.ts", "JAVA", scopes);
-await Bun.write(`${root_dir}src/java/scope.rs`, s);
+await writeRust(`${root_dir}src/java/scope.rs`, s);
 console.log(`${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes`);

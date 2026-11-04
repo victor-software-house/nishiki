@@ -5,11 +5,12 @@
 // backtracking matcher does, not the longest: `\b(auto|auto-fill)\b` takes the
 // `auto` of `auto-fill`.
 //
-// Run with `bun run oracle/less-words.ts`, then `cargo +nightly-2026-11-01 fmt
-// --all`, and commit the result; the output is generated, do not edit it.
+// Run with `bun run oracle/less-words.ts`, which formats what it writes, and
+// commit the result; the output is generated, do not edit it.
 import less from "@shikijs/langs@4.6.0/less";
 
 import { expand } from "./alternation.ts";
+import { writeRust } from "./rule-grammar.ts";
 
 type Node = { match?: string; begin?: string; patterns?: Node[]; include?: string };
 const repository = (less as unknown as { repository: Record<string, Node> }[])[0]!.repository;
@@ -87,5 +88,5 @@ for (const [name, what, list] of lists) {
   out += `/// The words of ${what}.\npub(super) const ${name}: &[Word] = &[\n${rows}];\n\n`;
 }
 const root = new URL("..", import.meta.url).pathname;
-await Bun.write(`${root}src/less/words.rs`, out.trimEnd() + "\n");
+await writeRust(`${root}src/less/words.rs`, out.trimEnd() + "\n");
 console.log(lists.map(([n, , l]) => `${n} ${table(l).length}`).join(", "));

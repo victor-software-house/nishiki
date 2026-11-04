@@ -7,7 +7,7 @@
 // Run with `bun run oracle/python-grammar.ts` and commit the result; the
 // output is generated, do not edit it.
 import python from "@shikijs/langs@4.6.0/python";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
+import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string }>;
 type Node = {
@@ -323,9 +323,9 @@ g += startTable(patList);
 g += ruleCodes("Python", "PYTHON");
 g += groupsCheck("Python", [...patList.flatMap((p) => [...p.captures.map(([n]) => n)]), ...ruleList.flatMap((r) => (r.backref === null ? [] : [r.backref]))]);
 
-await Bun.write(`${root_dir}src/python/grammar.rs`, g);
+await writeRust(`${root_dir}src/python/grammar.rs`, g);
 
 // Scope table.
 const s = scopeFile("python-grammar.ts", "PYTHON", scopes);
-await Bun.write(`${root_dir}src/python/scope.rs`, s);
+await writeRust(`${root_dir}src/python/scope.rs`, s);
 console.log(`${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes`);

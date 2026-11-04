@@ -7,7 +7,7 @@
 // Run with `bun run oracle/swift-grammar.ts` and commit the result; the
 // output is generated, do not edit it.
 import swift from "@shikijs/langs@4.6.0/swift";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
+import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: unknown[] }>;
 type Node = {
@@ -412,7 +412,7 @@ g += startTable(patList);
 g += ruleCodes("Swift", "SWIFT");
 g += groupsCheck("Swift", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 
-await Bun.write(`${root_dir}src/swift/grammar.rs`, g);
+await writeRust(`${root_dir}src/swift/grammar.rs`, g);
 
 // Matcher dispatch: one function for each distinct regular expression, named
 // for the first pattern that has it, in the file of the family it belongs to.
@@ -455,7 +455,7 @@ impl Lexer<'_> {
 for (const { name, ids } of functionOf.values())
   dispatch += `            ${ids.map((id) => `Pat::${id}`).join("\n            | ")} => self.${name}(p),\n`;
 dispatch += "        }\n    }\n}\n";
-await Bun.write(`${root_dir}src/swift/dispatch.rs`, dispatch);
+await writeRust(`${root_dir}src/swift/dispatch.rs`, dispatch);
 
 // A stub for each matcher in a file that does not exist yet; the files are
 // then written by hand and never touched again.
@@ -468,7 +468,7 @@ for (const [regex, { name, ids }] of functionOf) {
 for (const [file, rows] of byFile) {
   const path = `${root_dir}src/swift/matchers/${file}.rs`;
   if (await Bun.file(path).exists()) continue;
-  await Bun.write(
+  await writeRust(
     path,
     `//! Matchers: ${file}.\n\nuse super::super::engine::Lexer;\n\nimpl Lexer<'_> {\n${rows.join("\n")}}\n`,
   );
@@ -498,5 +498,5 @@ if (process.env.RX_DUMP) {
 
 // Scope table.
 const s = scopeFile("swift-grammar.ts", "SWIFT", scopes);
-await Bun.write(`${root_dir}src/swift/scope.rs`, s);
+await writeRust(`${root_dir}src/swift/scope.rs`, s);
 console.log(`${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes`);

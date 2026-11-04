@@ -41,6 +41,7 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { inputs } from "./inputs.ts";
 import { allowed, refused } from "./licences.ts";
+import { writeRust } from "./rule-grammar.ts";
 
 type Json = Record<string, unknown>;
 /** The repositories an include can name, innermost last: a rule without a
@@ -503,6 +504,6 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     full_cells: OnceLock::new(),
 };
 `;
-  writeFileSync(`${outDir}/${shipped ? "grammar" : base(id)}.rs`, source);
+  await writeRust(`${outDir}/${shipped ? "grammar" : base(id)}.rs`, source);
   console.log(`${id}: ${builder.rules.length} rules, ${builder.patterns.length} patterns, ${builder.names.length} names`);
 }

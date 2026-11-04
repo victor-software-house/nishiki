@@ -12,7 +12,7 @@
 // Run with `bun run oracle/lua-grammar.ts` and commit the result; the output
 // is generated, do not edit it.
 import lua from "@shikijs/langs@4.6.0/lua";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
+import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: unknown[] }>;
 type Node = {
@@ -263,10 +263,10 @@ g += startTable(patList, "any");
 g += groupsCheck("Lua", patList.flatMap((p) => p.captures.map(([n]) => n)));
 g += ruleCodes("Lua", "LUA");
 
-await Bun.write(`${root_dir}src/lua/grammar.rs`, g);
+await writeRust(`${root_dir}src/lua/grammar.rs`, g);
 
 const s = scopeFile("lua-grammar.ts", "LUA", scopes);
-await Bun.write(`${root_dir}src/lua/scope.rs`, s);
+await writeRust(`${root_dir}src/lua/scope.rs`, s);
 
 // With RX_DUMP set to a file, writes each pattern for oracle/onig.ts. An end
 // that repeats a group of its begin, as `]\1]` does, is left out: its text

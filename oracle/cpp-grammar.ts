@@ -11,7 +11,7 @@
 // expressions there for oracle/onig.ts.
 import langs from "@shikijs/langs@4.6.0/cpp";
 
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
+import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -452,11 +452,11 @@ g += groupsCheck(
   patList.flatMap((p) => p.captures.map((c) => c.group)),
 );
 
-await Bun.write(`${root_dir}src/cpp/grammar.rs`, g);
+await writeRust(`${root_dir}src/cpp/grammar.rs`, g);
 
 // Scope table.
 const s = scopeFile("cpp-grammar.ts", "CPP", scopes);
-await Bun.write(`${root_dir}src/cpp/scope.rs`, s);
+await writeRust(`${root_dir}src/cpp/scope.rs`, s);
 console.log(`${ruleList.length} rules (${stateful} open across lines), ${patList.length} patterns, ${rxOf.size} expressions, ${scopes.size} scopes`);
 
 // The type names that a member access may not name: the alternation in the
@@ -531,7 +531,7 @@ for (const [name, words] of [...exclusions].sort()) {
   for (const w of words) t += `    b"${w}",\n`;
   t += "];\n";
 }
-await Bun.write(`${root_dir}src/cpp/types.rs`, t);
+await writeRust(`${root_dir}src/cpp/types.rs`, t);
 
 if (process.env["RX_DUMP"]) {
   const lines = [...rxOf].map(([regex, id]) => {

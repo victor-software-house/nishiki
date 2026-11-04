@@ -7,7 +7,7 @@
 // Run with `bun run oracle/ruby-grammar.ts` and commit the result; the
 // output is generated, do not edit it.
 import ruby from "@shikijs/langs@4.6.0/ruby";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
+import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: unknown[] }>;
 type Node = {
@@ -442,8 +442,8 @@ g += `        }\n    }\n}\n`;
 g += ruleCodes("Ruby", "RUBY");
 g += groupsCheck("Ruby", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 
-await Bun.write(`${root_dir}src/ruby/grammar.rs`, g);
+await writeRust(`${root_dir}src/ruby/grammar.rs`, g);
 
 const s = scopeFile("ruby-grammar.ts", "RUBY", scopes);
-await Bun.write(`${root_dir}src/ruby/scope.rs`, s);
+await writeRust(`${root_dir}src/ruby/scope.rs`, s);
 console.log(`${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes`);
