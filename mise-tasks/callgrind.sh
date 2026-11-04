@@ -20,7 +20,8 @@
 # prints, for information, what one pass over each language's fixtures
 # allocates on each side (examples/memory.rs). Needs
 # valgrind from the bench profile: MISE_ENV=ci,bench in CI,
-# MISE_ENV=dev,bench locally (Linux only).
+# MISE_ENV=dev,bench locally (Linux only); it stops when the valgrind on
+# PATH is not the version mise.bench.toml pins.
 set -euo pipefail
 base="${1:-origin/main}"
 shift || true
@@ -36,6 +37,15 @@ if [ "${#languages[@]}" -eq 0 ]; then
   done
 fi
 tolerance="${CALLGRIND_TOLERANCE_PCT:-0.5}"
+# The counts are compared against runs of the pinned valgrind, so another
+# version, or none on PATH because the bench profile is not loaded, stops the
+# task here instead of yielding empty or shifted counts.
+pin=$(taplo get -f mise.bench.toml 'tools."conda:valgrind"')
+found=$(valgrind --version 2>/dev/null || echo none)
+if [ "$found" != "valgrind-$pin" ]; then
+  echo "valgrind $found is not the pinned $pin (mise.bench.toml); run with MISE_ENV=dev,bench, or ci,bench in CI" >&2
+  exit 1
+fi
 dir=target/callgrind
 rm -rf "$dir/base"
 mkdir -p "$dir/base/examples"
@@ -82,13 +92,21 @@ done
 # Counts one build (base-1, head-1, base-16 or head-16) on one language into
 # counts/<build>.<language>. valgrind runs one thread, so the runs go in
 # parallel, one per core; callgrind's counts do not depend on the load.
+# valgrind's output stays in counts/<build>.<language>.log, and a run that
+# fails stops the task with its tail: xargs then exits non-zero. The child
+# shells run with -euo pipefail, as this one does, which they do not inherit.
 counts="$dir/counts"
 rm -rf "$counts"
 mkdir -p "$counts"
 count() {
-  valgrind --tool=callgrind --callgrind-out-file=/dev/null --collect-atstart=no \
-    --toggle-collect='*lex::measured*' "$dir/target-$1/release/examples/lex" "$fixtures" "$2" 2>&1 |
-    sed -n 's/.*Collected : *\([0-9]*\).*/\1/p' >"$counts/$1.$2"
+  local log="$counts/$1.$2.log"
+  if ! valgrind --tool=callgrind --callgrind-out-file=/dev/null --collect-atstart=no \
+    --toggle-collect='*lex::measured*' "$dir/target-$1/release/examples/lex" "$fixtures" "$2" >"$log" 2>&1; then
+    echo "valgrind failed on $1 $2; the end of $log:" >&2
+    tail -n 20 "$log" >&2
+    return 1
+  fi
+  sed -n 's/.*Collected : *\([0-9]*\).*/\1/p' "$log" >"$counts/$1.$2"
 }
 export -f count
 export dir fixtures counts
@@ -96,7 +114,7 @@ for language in "${languages[@]}"; do
   if [ -n "$(ls -A "$fixtures/$language")" ]; then
     printf '%s %s\n' base-1 "$language" head-1 "$language" base-16 "$language" head-16 "$language"
   fi
-done | xargs -P "$(nproc)" -n 2 bash -c 'count "$1" "$2"' _
+done | xargs -P "$(nproc)" -n 2 bash -euo pipefail -c 'count "$1" "$2"' _
 echo "| language | base (M) | head (M) | head/base | base, 16 units (M) | head, 16 units (M) | head/base, 16 units (not gated) |"
 echo "|:--|--:|--:|--:|--:|--:|--:|"
 failed=()
