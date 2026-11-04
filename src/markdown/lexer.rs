@@ -26,7 +26,7 @@ use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::{Language, Stack, Token};
 
 /// The window on the line that the rules see, built from the fields it needs
-/// so that a rule can fill in `self.caps` while it is held.
+/// so that a rule can borrow other fields, such as the runs, while it is held.
 macro_rules! cx {
     ($lexer:expr) => {
         Cx {
@@ -202,8 +202,6 @@ pub(crate) struct Lexer<'a> {
     steps: Steps,
     /// The fence the last match of the fence rule opened.
     opened: Option<block::FenceOpen>,
-    /// The capture groups of the rule being tried.
-    caps: Caps,
     /// What the highlighter keeps from line to line.
     scratch: &'a mut crate::scratch::Scratch,
     /// Whether this is the first line of the document, where `\A` matches.
@@ -288,7 +286,6 @@ impl<'a> Lexer<'a> {
             last: 0,
             steps: Steps::new(limits, line.len()),
             opened: None,
-            caps: Caps::new(),
             scratch,
             first_line,
         }
@@ -329,8 +326,9 @@ impl<'a> Lexer<'a> {
     /// limit, though the scan that ran out gave up without a match and the
     /// loop then found nothing more.
     pub(crate) fn run(&mut self) {
-        self.check_whiles();
-        while self.step() {}
+        let mut caps = Caps::new();
+        self.check_whiles(&mut caps);
+        while self.step(&mut caps) {}
         if self.steps.exhausted() {
             self.report.record(Limit::Work);
         }
@@ -383,17 +381,17 @@ impl<'a> Lexer<'a> {
     /// Runs the `while` rule of each open container, outermost first. The
     /// first that fails closes its container and everything inside it. Only
     /// a quote's rule has capture groups.
-    fn check_whiles(&mut self) {
+    fn check_whiles(&mut self, caps: &mut Caps) {
         let mut index = 0;
         while index < self.frames.len() {
             let Rule::Open(kind) = self.frames[index].rule else {
                 break;
             };
-            self.caps.clear();
+            caps.clear();
             let cx = cx!(self);
             let pos = self.pos;
             let end = match kind {
-                Kind::Quote => block::quote_while(&cx, pos, &mut self.caps),
+                Kind::Quote => block::quote_while(&cx, pos, caps),
                 Kind::ListBullet | Kind::ListOrdered => block::list_while(&cx, pos),
                 Kind::FrontMatterBody => {
                     let dashes = index
@@ -447,9 +445,8 @@ impl<'a> Lexer<'a> {
                 break;
             };
             let node = self.frames[index].content;
-            let caps = self.caps;
             self.emit(pos, node);
-            self.captures(node, end, &caps, |group| rules::capture(P::Quote, group));
+            self.captures(node, end, caps, |group| rules::capture(P::Quote, group));
             self.emit(end, node);
             self.pos = self.pos.max(end);
             self.anchor = Some(end);
@@ -461,7 +458,7 @@ impl<'a> Lexer<'a> {
 
     /// Takes the next match from the cursor. False when nothing matches, or
     /// the line has spent its work.
-    fn step(&mut self) -> bool {
+    fn step(&mut self, caps: &mut Caps) -> bool {
         if self.steps.step() {
             self.report.record(Limit::Work);
             return false;
@@ -475,10 +472,10 @@ impl<'a> Lexer<'a> {
         {
             self.embedded();
         }
-        let Some(hit) = self.find() else {
+        let Some(hit) = self.find(caps) else {
             return false;
         };
-        self.apply(&hit);
+        self.apply(&hit, caps);
         debug_assert!(
             (self.pos, self.frames.len()) != from,
             "the Markdown lexer made no progress at byte {}",
@@ -492,7 +489,7 @@ impl<'a> Lexer<'a> {
     ///
     /// In inline text it skips to the next byte that opens an inline rule;
     /// the first byte of the line may also start a setext underline.
-    fn find(&mut self) -> Option<Hit> {
+    fn find(&mut self, caps: &mut Caps) -> Option<Hit> {
         let (end, list, starts) = match self.frames.last() {
             None => (None, rules::patterns(Kind::Base), Starts::Block),
             Some(frame) => match frame.rule {
@@ -523,7 +520,7 @@ impl<'a> Lexer<'a> {
                 continue;
             }
             if let Some((end, kind)) = end
-                && let Some(hit) = self.try_end(end, kind, start)
+                && let Some(hit) = self.try_end(end, kind, start, caps)
             {
                 return Some(hit);
             }
@@ -542,12 +539,12 @@ impl<'a> Lexer<'a> {
                 };
                 if skip {
                     debug_assert!(
-                        self.try_rule(rule, start).is_none(),
+                        self.try_rule(rule, start, caps).is_none(),
                         "{rule:?} matches at byte {start} outside the bytes it opens with"
                     );
                     continue;
                 }
-                if let Some(hit) = self.try_rule(rule, start) {
+                if let Some(hit) = self.try_rule(rule, start, caps) {
                     return Some(hit);
                 }
             }
@@ -560,13 +557,13 @@ impl<'a> Lexer<'a> {
     ///
     /// Front matter's closing rule applies last, so on the first line, which
     /// it would close, the front matter begins instead.
-    fn try_end(&mut self, end: End, kind: Kind, start: usize) -> Option<Hit> {
-        self.caps.clear();
+    fn try_end(&mut self, end: End, kind: Kind, start: usize, caps: &mut Caps) -> Option<Hit> {
+        caps.clear();
         let cx = cx!(self);
         let end_pos = match end {
             End::Fence => {
                 let payload = self.frames.last().map_or(0, |frame| frame.payload);
-                block::fence_close(&cx, start, Fence::from_payload(payload), &mut self.caps)
+                block::fence_close(&cx, start, Fence::from_payload(payload), caps)
             }
             End::FrontMatter => {
                 if self.first_line {
@@ -574,18 +571,18 @@ impl<'a> Lexer<'a> {
                 }
                 let payload = self.frames.last().map_or(3, |frame| frame.payload);
                 let dashes = usize::try_from(payload).unwrap_or(3);
-                block::front_matter_close(&cx, start, dashes, &mut self.caps)
+                block::front_matter_close(&cx, start, dashes, caps)
             }
-            End::Comment => block::comment_close(&cx, start, &mut self.caps),
+            End::Comment => block::comment_close(&cx, start, caps),
             #[cfg(feature = "lang-html-derivative")]
-            End::HtmlRaw => html::raw_close(&cx, start, &mut self.caps),
+            End::HtmlRaw => html::raw_close(&cx, start, caps),
             End::Bold => {
                 let mark = if kind == Kind::BoldStar { b'*' } else { b'_' };
-                inline::bold_close(&cx, start, mark, &mut self.caps)
+                inline::bold_close(&cx, start, mark, caps)
             }
             End::Italic => {
                 let mark = if kind == Kind::ItalicStar { b'*' } else { b'_' };
-                inline::italic_close(&cx, start, mark, &mut self.caps)
+                inline::italic_close(&cx, start, mark, caps)
             }
         }?;
         Some(Hit {
@@ -603,8 +600,8 @@ impl<'a> Lexer<'a> {
         clippy::too_many_lines,
         reason = "one arm per rule; the tables are borrowed in the arms that read them"
     )]
-    fn try_rule(&mut self, rule: P, start: usize) -> Option<Hit> {
-        self.caps.clear();
+    fn try_rule(&mut self, rule: P, start: usize, caps: &mut Caps) -> Option<Hit> {
+        caps.clear();
         #[cfg(feature = "lang-html-derivative")]
         if rule == P::Html {
             return self.html_opens(start).then_some(Hit {
@@ -622,14 +619,14 @@ impl<'a> Lexer<'a> {
                 }
                 block::front_matter_open(&cx, start)
             }
-            P::FrontMatterBegin => block::front_matter_begin(&cx, start, &mut self.caps),
+            P::FrontMatterBegin => block::front_matter_begin(&cx, start, caps),
             P::Separator => block::separator(&cx, start),
-            P::Heading => block::heading(&cx, start, &mut self.caps),
-            P::Quote => block::quote(&cx, start, &mut self.caps),
-            P::Bullet => block::bullet(&cx, start, &mut self.caps),
-            P::Ordered => block::ordered(&cx, start, &mut self.caps),
+            P::Heading => block::heading(&cx, start, caps),
+            P::Quote => block::quote(&cx, start, caps),
+            P::Bullet => block::bullet(&cx, start, caps),
+            P::Ordered => block::ordered(&cx, start, caps),
             P::Fence => {
-                let open = block::fence_open(&cx, start, &mut self.caps)?;
+                let open = block::fence_open(&cx, start, caps)?;
                 let end = open.end;
                 rule = if open.embed.is_none() {
                     P::FencePlain
@@ -644,23 +641,23 @@ impl<'a> Lexer<'a> {
                 if start > self.pos && cx.space_before(start) > 0 {
                     return None;
                 }
-                block::link_def(&cx, start, &mut self.caps)
+                block::link_def(&cx, start, caps)
             }
-            P::Comment => block::comment_open(&cx, start, &mut self.caps),
-            P::Table => block::table(&cx, start, &mut self.caps),
+            P::Comment => block::comment_open(&cx, start, caps),
+            P::Table => block::table(&cx, start, caps),
             P::Paragraph => block::paragraph(&cx, start),
             P::EmbedBegin => embed_begin(&cx, start),
             P::TablePipe => (cx.get(start) == Some(b'|')).then_some(start + 1),
-            P::TableSeparator => block::table_separator(&cx, start, &mut self.caps),
-            P::TableCell => block::table_cell(&cx, start, &mut self.caps),
+            P::TableSeparator => block::table_separator(&cx, start, caps),
+            P::TableCell => block::table_cell(&cx, start, caps),
             P::Setext1 => block::setext(&cx, start, b'='),
             P::Setext2 => block::setext(&cx, start, b'-'),
-            P::Level1 => block::heading_part(&cx, start, 1, &mut self.caps),
-            P::Level2 => block::heading_part(&cx, start, 2, &mut self.caps),
-            P::Level3 => block::heading_part(&cx, start, 3, &mut self.caps),
-            P::Level4 => block::heading_part(&cx, start, 4, &mut self.caps),
-            P::Level5 => block::heading_part(&cx, start, 5, &mut self.caps),
-            P::Level6 => block::heading_part(&cx, start, 6, &mut self.caps),
+            P::Level1 => block::heading_part(&cx, start, 1, caps),
+            P::Level2 => block::heading_part(&cx, start, 2, caps),
+            P::Level3 => block::heading_part(&cx, start, 3, caps),
+            P::Level4 => block::heading_part(&cx, start, 4, caps),
+            P::Level5 => block::heading_part(&cx, start, 5, caps),
+            P::Level6 => block::heading_part(&cx, start, 6, caps),
             P::Ampersand => inline::ampersand(&cx, start),
             P::Bracket => inline::bracket(&cx, start),
             P::Bold => inline::emphasis_open(
@@ -668,28 +665,26 @@ impl<'a> Lexer<'a> {
                 &mut self.scratch.markdown.runs,
                 start,
                 Emphasis::Bold,
-                &mut self.caps,
+                caps,
             ),
             P::Italic => inline::emphasis_open(
                 &cx,
                 &mut self.scratch.markdown.runs,
                 start,
                 Emphasis::Italic,
-                &mut self.caps,
+                caps,
             ),
-            P::Raw => inline::raw(&cx, &mut self.scratch.markdown.runs, start, &mut self.caps),
-            P::Strike => {
-                inline::strikethrough(&cx, &mut self.scratch.markdown.runs, start, &mut self.caps)
-            }
+            P::Raw => inline::raw(&cx, &mut self.scratch.markdown.runs, start, caps),
+            P::Strike => inline::strikethrough(&cx, &mut self.scratch.markdown.runs, start, caps),
             P::Escape => inline::escape(&cx, start),
-            P::ImageInline => inline::image_inline(&cx, start, &mut self.caps),
-            P::ImageRef => inline::image_reference(&cx, start, &mut self.caps),
-            P::LinkEmail => inline::link_email(&cx, start, &mut self.caps),
-            P::LinkInet => inline::link_inet(&cx, start, &mut self.caps),
-            P::LinkInline => inline::link_inline(&cx, start, &mut self.caps),
-            P::LinkRef => inline::link_reference(&cx, start, &mut self.caps),
-            P::LinkRefLiteral => inline::link_reference_literal(&cx, start, &mut self.caps),
-            P::LinkRefShortcut => inline::link_reference_shortcut(&cx, start, &mut self.caps),
+            P::ImageInline => inline::image_inline(&cx, start, caps),
+            P::ImageRef => inline::image_reference(&cx, start, caps),
+            P::LinkEmail => inline::link_email(&cx, start, caps),
+            P::LinkInet => inline::link_inet(&cx, start, caps),
+            P::LinkInline => inline::link_inline(&cx, start, caps),
+            P::LinkRef => inline::link_reference(&cx, start, caps),
+            P::LinkRefLiteral => inline::link_reference_literal(&cx, start, caps),
+            P::LinkRefShortcut => inline::link_reference_shortcut(&cx, start, caps),
             P::FenceLanguage | P::FencePlain => None,
             #[cfg(feature = "lang-html-derivative")]
             P::HtmlRaw => html::raw_open(&cx, start),
@@ -711,16 +706,16 @@ impl<'a> Lexer<'a> {
 
     // Matches.
 
-    /// Applies a match: closes, opens or scopes. The capture groups are
-    /// copied out first, because the rules the groups hand text to overwrite
-    /// them.
-    fn apply(&mut self, hit: &Hit) {
-        let caps = self.caps;
+    /// Applies a match: closes, opens or scopes.
+    /// `caps` holds the match's capture groups.
+    /// The rules that a group hands text to fill groups of their own, in
+    /// [`Lexer::subrun`], so `caps` stays as the match left it.
+    fn apply(&mut self, hit: &Hit, caps: &Caps) {
         match hit.rule {
-            None => self.close(hit, &caps),
+            None => self.close(hit, caps),
             Some(rule) => match self.container(rule, hit.start) {
-                Some(kind) => self.open(kind, rule, hit, &caps),
-                None => self.scope_match(rule, hit, &caps),
+                Some(kind) => self.open(kind, rule, hit, caps),
+                None => self.scope_match(rule, hit, caps),
             },
         }
     }
@@ -1015,6 +1010,8 @@ impl<'a> Lexer<'a> {
     /// Lexes the text from `start` to `end` with `list`'s rules alone, as a
     /// capture group that has rules of its own is. The line looks as if it
     /// ended at `end`, and every container the text opens ends with it.
+    /// Its rules fill a table of groups of their own, so the match that
+    /// called it keeps its groups.
     fn subrun(&mut self, list: List, start: usize, end: usize, node: u32) {
         if self.at_depth_limit() {
             self.report.record(Limit::Depth);
@@ -1034,7 +1031,8 @@ impl<'a> Lexer<'a> {
         self.limit = end;
         self.pos = start;
         self.anchor = None;
-        while self.step() {}
+        let mut caps = Caps::new();
+        while self.step(&mut caps) {}
         let top = self.content();
         self.emit(end, top);
         self.frames.truncate(floor - 1);
