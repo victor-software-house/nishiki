@@ -13,9 +13,12 @@
 
 ## 2. Gate
 
-- [ ] 2.1 Add `oracle/coverage-waivers.ts`, with its complete list empty, and fail on a waiver whose unit a fixture exercises → verify: a waiver on an exercised Swift unit fails the task with its path
+- [x] 2.1 Add `oracle/coverage-waivers.ts`, with its complete list empty, and fail on a waiver whose unit a fixture exercises → verify: a waiver on an exercised Swift unit fails the task with its path
+  - 2026-11-04 UTC: a waiver on Swift's exercised `#comments.patterns[5].begin` failed the run with "is exercised by a fixture: remove its waiver". A waiver on the unexercised `#comments.patterns[2].begin` failed without a `probe`, since Swift has probe support, and passed with one, the report reading `waived:` and the reason. A waiver on a path the grammar lacks failed with "names no unit the report counts".
 - [ ] 2.2 Add `mise run check:oracle-coverage` and `.github/workflows/coverage.yml`, after `tables.yml` → verify: on the pull request, the check passes; on a scratch branch, a stale report fails it, and so does a complete grammar with a gap
-- [ ] 2.3 Document the report, the waivers and the gate in `AGENTS.md` under "The Shiki oracle", and in `tests/oracle/SOURCES.md`'s note on inputs → verify: `mise run lint:md` passes
+  - 2026-11-04 UTC, locally: the check passed on the committed report; with a line added to the report it failed and printed the difference; with `rust` listed complete it failed and named Rust's unexercised paths. The pull request's run is still to pass.
+- [x] 2.3 Document the report, the waivers and the gate in `AGENTS.md` under "The Shiki oracle", and in `tests/oracle/SOURCES.md`'s note on inputs → verify: `mise run lint:md` passes
+  - 2026-11-04 UTC: `AGENTS.md` item 6 under "The Shiki oracle" and a sentence in `tests/oracle/SOURCES.md`; `mise run lint:md` and `typos` pass.
 
 ## 3. Close the gaps
 

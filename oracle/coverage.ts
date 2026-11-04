@@ -2,7 +2,10 @@
 // oracle fixtures exercise, as openspec/changes/oracle-coverage/design.md
 // defines it (sections 2 and 3).
 //
-//   bun run oracle/coverage.ts
+//   bun run oracle/coverage.ts [report]
+//
+// The report goes to tests/oracle/COVERAGE.md unless another path is given,
+// as the coverage check gives one to compare with the committed file.
 //
 // A unit is an expression (`match`, `begin`, `end` or `while`), or a capture
 // group of one that the grammar names or gives patterns. Every expression of a
@@ -17,7 +20,9 @@
 // exercise, those only the fuzz corpus exercises, and the units no root
 // reaches, to tests/oracle/COVERAGE.md. Every loaded grammar must
 // be listed as hand-lexed or have engine tables under src/, so a new hand
-// lexer cannot drop out of the count.
+// lexer cannot drop out of the count. The run fails after writing the report
+// when a waiver in oracle/coverage-waivers.ts is wrong, or when a grammar
+// listed complete there has a unit that neither a fixture nor a waiver covers.
 import { mkdtempSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -25,6 +30,7 @@ import { createHighlighter, type RegexEngine } from "shiki@4.6.0";
 import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
 import { fixture } from "./fixture.ts";
 import { grammars } from "./grammars.ts";
+import { complete, waivers } from "./coverage-waivers.ts";
 import { inputs } from "./inputs.ts";
 
 /** The grammars a hand-written lexer follows, by Shiki's name, and the
@@ -408,6 +414,37 @@ for (const rule of places.keys()) {
   }
 }
 
+/** What fails the gate, in the order found. */
+const failures: string[] = [];
+const unitAt = new Map(
+  expressions.map((expression, unit) => [`${expression.grammar} ${expression.path}`, unit]),
+);
+/** Each waived unit, by its key, with its reason. */
+const waived = new Map<string, string>();
+for (const waiver of waivers) {
+  const where = `${waiver.grammar} ${waiver.path}${waiver.group === undefined ? "" : ` group ${waiver.group}`}`;
+  const unit = unitAt.get(`${waiver.grammar} ${waiver.path}`);
+  const counted =
+    unit !== undefined &&
+    reachable.has(unit) &&
+    (waiver.group === undefined || (expressions[unit]?.groups ?? []).includes(waiver.group));
+  if (!counted) {
+    failures.push(`the waiver for ${where} names no unit the report counts`);
+    continue;
+  }
+  const u: Unit = { unit, group: waiver.group };
+  if (hitIn(fixtures, u)) failures.push(`${where} is exercised by a fixture: remove its waiver`);
+  const pieces = `${root}oracle/fuzz/${waiver.grammar}.ts`;
+  const probed = (await Bun.file(pieces).exists()) && (await import(pieces)).probe !== undefined;
+  if (probed && !waiver.probe) failures.push(`the waiver for ${where} names no oracle/onig.ts probe`);
+  waived.set(keyOf(u), waiver.reason);
+}
+const isWaived = (u: Unit) =>
+  waived.has(keyOf(u)) || (u.group !== undefined && waived.has(String(u.unit)));
+for (const name of complete) {
+  if (!handLexed.has(name)) failures.push(`${name} is listed complete, but is not a hand-lexed grammar`);
+}
+
 const rows: string[] = [];
 const sections: string[] = [];
 const unreachableSections: string[] = [];
@@ -424,18 +461,32 @@ for (const name of [...handLexed.keys()].sort()) {
   const groupsHit = groups.filter((u) => hitIn(fixtures, u)).length;
   const missing = all.filter((u) => !hitIn(fixtures, u));
   const fuzzOnly = missing.filter((u) => hitIn(fuzzed, u)).length;
+  const open = missing.filter((u) => !isWaived(u));
+  const listed = complete.includes(name);
+  if (listed && open.length > 0) {
+    const paths = open.map((u) => `${expressions[u.unit]?.path}${u.group === undefined ? "" : ` group ${u.group}`}`);
+    failures.push(`${name} is listed complete, but no fixture or waiver covers ${paths.join(", ")}`);
+  }
+  const state = listed ? "yes" : open.length === 0 ? "ready" : "";
   rows.push(
-    `| ${handLexed.get(name)} | \`${name}\` | ${hit} of ${live.length} | ${percent(hit, live.length)} | ${groupsHit} of ${groups.length} | ${percent(groupsHit, groups.length)} | ${fuzzOnly} |`,
+    `| ${handLexed.get(name)} | \`${name}\` | ${hit} of ${live.length} | ${percent(hit, live.length)} | ${groupsHit} of ${groups.length} | ${percent(groupsHit, groups.length)} | ${missing.length - open.length} | ${fuzzOnly} | ${state} |`,
   );
   const lines = live.flatMap((unit) => {
     const path = expressions[unit]?.path ?? "";
     if (!fixtures.expressions.has(unit)) {
       const fuzz = fuzzed.expressions.has(unit) ? "  fuzz" : "";
-      return [`${path}  ${excerpt(sourceOf.get(unit) ?? "")}${fuzz}`];
+      const reason = waived.get(String(unit));
+      const note = reason === undefined ? "" : `  waived: ${reason}`;
+      return [`${path}  ${excerpt(sourceOf.get(unit) ?? "")}${fuzz}${note}`];
     }
-    const open = groups.filter((u) => u.unit === unit && !hitIn(fixtures, u));
-    if (open.length === 0) return [];
-    const list = open.map((u) => `${u.group}${hitIn(fuzzed, u) ? " (fuzz)" : ""}`);
+    const gaps = groups.filter((u) => u.unit === unit && !hitIn(fixtures, u));
+    if (gaps.length === 0) return [];
+    const list = gaps.map((u) => {
+      const reason = waived.get(keyOf(u));
+      const marks = [hitIn(fuzzed, u) ? "fuzz" : "", reason === undefined ? "" : `waived: ${reason}`];
+      const note = marks.filter((mark) => mark !== "").join("; ");
+      return `${u.group}${note === "" ? "" : ` (${note})`}`;
+    });
     return [`${path}  groups ${list.join(", ")}`];
   });
   if (lines.length > 0) {
@@ -458,15 +509,17 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 - A capture is exercised when its group takes part in such a match and holds a non-whitespace byte.
 - Fuzz only counts the units that only the fixed fuzz corpus exercises: ${fuzzCount} mutated windows per language, and ${fuzzCount} generated documents where \`oracle/fuzz/<lang>.ts\` has pieces, at seed 1.
   No CI job compares that corpus with nishiki.
+- Waived counts the units that [\`oracle/coverage-waivers.ts\`](../../oracle/coverage-waivers.ts) waives, each for a reason given there.
+- Complete reads \`yes\` for a grammar listed complete there, whose every unit a fixture or a waiver covers, which the coverage check holds; and \`ready\` for one that could be listed.
 
-| Lexer | Grammar | Expressions | Share | Captures | Share | Fuzz only |
-|:--|:--|--:|--:|--:|--:|--:|
+| Lexer | Grammar | Expressions | Share | Captures | Share | Waived | Fuzz only | Complete |
+|:--|:--|--:|--:|--:|--:|--:|--:|:--|
 ${rows.join("\n")}
 
 ## Units no fixture exercises
 
-Each line is an expression's path in its grammar, then the start of its regex and \`fuzz\` when the fuzz corpus exercises it.
-An expression the fixtures do exercise is listed with the groups they do not, each marked \`(fuzz)\` when the fuzz corpus exercises it.
+Each line is an expression's path in its grammar, then the start of its regex, \`fuzz\` when the fuzz corpus exercises it, and the reason when a waiver covers it.
+An expression the fixtures do exercise is listed with the groups they do not, each marked \`fuzz\` and the waiver's reason likewise.
 The groups of an unexercised expression count as unexercised and are not listed.
 
 ${sections.join("\n\n")}
@@ -477,5 +530,10 @@ Neither an input language's grammar nor an injection reaches these, so they are 
 
 ${unreachableSections.join("\n\n")}
 `;
-await Bun.write(`${root}tests/oracle/COVERAGE.md`, report);
-console.log(`✔ tests/oracle/COVERAGE.md: ${handLexed.size} grammars`);
+const out = process.argv[2] ?? `${root}tests/oracle/COVERAGE.md`;
+await Bun.write(out, report);
+if (failures.length > 0) {
+  for (const failure of failures) console.error(`✘ ${failure}`);
+  process.exit(1);
+}
+console.log(`✔ ${out}: ${handLexed.size} grammars`);

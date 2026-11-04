@@ -70,11 +70,13 @@ function mutate(text: string): string {
   return out;
 }
 
-/** The text of every fixture of `lang`. */
+/** The text of every fixture of `lang`, in name order: `readdirSync` order
+ * varies between file systems, and the windows drawn depend on it. */
 function fixtureTexts(): string[] {
   const dir = `${root}tests/oracle/${lang}`;
   return readdirSync(dir)
     .filter((name) => name.endsWith(".txt"))
+    .sort()
     .map((name) =>
       readFileSync(`${dir}/${name}`, "utf8")
         .split("\n")

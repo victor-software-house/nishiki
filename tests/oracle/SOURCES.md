@@ -3,6 +3,7 @@
 `mise run oracle` fetches each input below at its pinned commit and writes Shiki's scopes for it to `<language>/<name>.txt`.
 Each fixture repeats its input's text line by line.
 The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published crate.
+[`COVERAGE.md`](COVERAGE.md) shows how much of each hand-lexed grammar these inputs exercise; an input added to close a gap is listed here like any other.
 
 | Fixture | Source | Licence |
 |:--|:--|:--|

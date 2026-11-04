@@ -152,6 +152,13 @@ The decisions that created nishiki live in a private planning repository:
 
    `the_corpus_matches_shiki` in `tests/it/oracle.rs` compares a corpus with nishiki.
    `oracle/fuzz/<language>.ts` holds what the tools draw on for one language.
+6. `mise run oracle:coverage` writes `tests/oracle/COVERAGE.md`: how much of each hand-lexed grammar the fixtures exercise, and every unit they do not.
+   - A pull request that changes the oracle's inputs or fixtures writes it again.
+   - `oracle/coverage-waivers.ts` waives the units no document can reach, each with a reason, and lists the grammars that are complete.
+   - The Oracle coverage workflow (`.github/workflows/coverage.yml`) runs `mise run check:oracle-coverage`.
+     It fails on a stale report, a wrong waiver, or a gap in a complete grammar.
+   - A new hand lexer adds its grammar to `handLexed` in `oracle/coverage.ts`; the run fails on a loaded grammar it cannot place.
+   - A gap closes with an input: a pinned, licensed third-party file first, then one written for nishiki under `oracle/inputs/`.
 
 ### Benchmarks
 

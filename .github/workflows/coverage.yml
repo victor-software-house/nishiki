@@ -1,0 +1,57 @@
+name: Oracle coverage
+
+# Measures how much of each hand-lexed grammar the oracle fixtures exercise,
+# and fails when tests/oracle/COVERAGE.md differs from the measure, when a
+# waiver in oracle/coverage-waivers.ts is wrong, or when a grammar listed
+# complete there has a gap (`mise run check:oracle-coverage`). Coverage
+# depends only on the grammars and the oracle's inputs, so lexer changes do
+# not trigger it. Bun fetches Shiki from npm, so the check sits outside the
+# offline verify in ci.yml, as tables.yml does.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - oracle/**
+      - tests/oracle/**
+      - mise-tasks/oracle/coverage.sh
+      - mise-tasks/check/oracle-coverage.sh
+      - .github/workflows/coverage.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: coverage-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  MISE_ENV: ci
+  # Only bun, which the check pins, is installed; the Rust toolchain stays out.
+  MISE_TASK_RUN_AUTO_INSTALL: "false"
+
+jobs:
+  coverage:
+    name: Coverage
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: nscloud-ubuntu-24.04-amd64-2x4
+    timeout-minutes: 12
+    steps:
+      - name: Check out repository
+        timeout-minutes: 3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install mise
+        timeout-minutes: 3
+        uses: jdx/mise-action@6612f0ef07ed2a736cd1e00a94a065522dd41195 # v5.2.5
+        with:
+          version: 2026.10.25
+          install: false
+          cache: false
+      - name: Install bun
+        timeout-minutes: 3
+        run: mise install --locked bun@1.4.4
+      - name: Compare the coverage report with what its script measures
+        timeout-minutes: 6
+        run: mise run check:oracle-coverage
