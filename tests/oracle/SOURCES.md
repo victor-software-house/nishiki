@@ -495,6 +495,11 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `haml/haml-silent-script` | [`test/haml/templates/silent_script.haml`][haml-silent-script] in haml/haml | [MIT][haml-licence] |
 | `haml/haml-standard` | [`test/haml/templates/standard.haml`][haml-standard] in haml/haml | [MIT][haml-licence] |
 | `haml/haml-whitespace` | [`test/haml/templates/whitespace_handling.haml`][haml-whitespace] in haml/haml | [MIT][haml-licence] |
+| `sass/sample` | [`samples/sass.sample`][sass-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `sass/bulma-functions` | [`sass/utilities/functions.sass`][sass-bulma-functions] in jgthms/bulma | [MIT][bulma-sass-licence] |
+| `sass/bulma-generic` | [`sass/base/generic.sass`][sass-bulma-generic] in jgthms/bulma | [MIT][bulma-sass-licence] |
+| `sass/bulma-mixins` | [`sass/utilities/mixins.sass`][sass-bulma-mixins] in jgthms/bulma | [MIT][bulma-sass-licence] |
+| `sass/bulma-navbar` | [`sass/components/navbar.sass`][sass-bulma-navbar] in jgthms/bulma | [MIT][bulma-sass-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -825,6 +830,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [buildx-docker]: https://github.com/docker/buildx/blob/6997c2578c3fb0ac66e883ceaa535aae90c1ee3d/Dockerfile
 [buildx-licence]: https://github.com/docker/buildx/blob/6997c2578c3fb0ac66e883ceaa535aae90c1ee3d/LICENSE
 [bulma-licence]: https://github.com/jgthms/bulma/blob/c5cd04baf0258cfcc77b4e8610488a0d439effa2/LICENSE
+[bulma-sass-licence]: https://github.com/jgthms/bulma/blob/3e00a8e6d0d0e566d507328f0185ef84854effba/LICENSE
 [burntsushi-example]: https://github.com/BurntSushi/toml/blob/d733fc535e4a9f3c454e421a87b90ade5d49bf31/_example/example.toml
 [burntsushi-toml-licence]: https://github.com/BurntSushi/toml/blob/d733fc535e4a9f3c454e421a87b90ade5d49bf31/COPYING
 [c-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/c.sample
@@ -1292,6 +1298,11 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [rust-core-macros]: https://github.com/rust-lang/rust/blob/ae36fe22c7e590df40ffd53ac25fea35597c3f3d/library/core/src/macros/mod.rs
 [rust-licence]: https://github.com/rust-lang/rust/blob/ae36fe22c7e590df40ffd53ac25fea35597c3f3d/LICENSE-MIT
 [rust-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/rust.sample
+[sass-bulma-functions]: https://github.com/jgthms/bulma/blob/3e00a8e6d0d0e566d507328f0185ef84854effba/sass/utilities/functions.sass
+[sass-bulma-generic]: https://github.com/jgthms/bulma/blob/3e00a8e6d0d0e566d507328f0185ef84854effba/sass/base/generic.sass
+[sass-bulma-mixins]: https://github.com/jgthms/bulma/blob/3e00a8e6d0d0e566d507328f0185ef84854effba/sass/utilities/mixins.sass
+[sass-bulma-navbar]: https://github.com/jgthms/bulma/blob/3e00a8e6d0d0e566d507328f0185ef84854effba/sass/components/navbar.sass
+[sass-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/sass.sample
 [scala-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/scala.sample
 [scala3-boundary]: https://github.com/scala/scala3/blob/d71919d08172571e6a5c9392f186b2a6a4413097/library/src/scala/util/boundary.scala
 [scala3-enums]: https://github.com/scala/scala3/blob/d71919d08172571e6a5c9392f186b2a6a4413097/docs/_docs/reference/enums/enums.md

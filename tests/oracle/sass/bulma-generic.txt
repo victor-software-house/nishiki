@@ -1,0 +1,655 @@
+L @import "../utilities/mixins"
+T 7 source.sass keyword.control.at-rule.use
+T 29 source.sass keyword.control.at-rule.use constant.character.css.sass
+L 
+L $body-background-color: $scheme-main !default
+T 22 source.sass sass.script.maps variable.other.name
+T 24 source.sass sass.script.maps
+T 36 source.sass sass.script.maps variable.other.value
+T 37 source.sass sass.script.maps
+T 45 source.sass sass.script.maps keyword.other.important.css.sass
+L $body-size: 16px !default
+T 10 source.sass sass.script.maps variable.other.name
+T 12 source.sass sass.script.maps
+T 14 source.sass sass.script.maps constant.numeric.css.sass
+T 16 source.sass sass.script.maps keyword.control.unit.css.sass
+T 17 source.sass sass.script.maps
+T 25 source.sass sass.script.maps keyword.other.important.css.sass
+L $body-min-width: 300px !default
+T 15 source.sass sass.script.maps variable.other.name
+T 17 source.sass sass.script.maps
+T 20 source.sass sass.script.maps constant.numeric.css.sass
+T 22 source.sass sass.script.maps keyword.control.unit.css.sass
+T 23 source.sass sass.script.maps
+T 31 source.sass sass.script.maps keyword.other.important.css.sass
+L $body-rendering: optimizeLegibility !default
+T 15 source.sass sass.script.maps variable.other.name
+T 17 source.sass sass.script.maps
+T 35 source.sass sass.script.maps meta.property-value.css.sass support.constant.property-value.css.sass
+T 36 source.sass sass.script.maps
+T 44 source.sass sass.script.maps keyword.other.important.css.sass
+L $body-family: $family-primary !default
+T 12 source.sass sass.script.maps variable.other.name
+T 14 source.sass sass.script.maps
+T 29 source.sass sass.script.maps variable.other.value
+T 30 source.sass sass.script.maps
+T 38 source.sass sass.script.maps keyword.other.important.css.sass
+L $body-overflow-x: hidden !default
+T 16 source.sass sass.script.maps variable.other.name
+T 18 source.sass sass.script.maps
+T 24 source.sass sass.script.maps meta.property-value.css.sass support.constant.property-value.css.sass
+T 25 source.sass sass.script.maps
+T 33 source.sass sass.script.maps keyword.other.important.css.sass
+L $body-overflow-y: scroll !default
+T 16 source.sass sass.script.maps variable.other.name
+T 18 source.sass sass.script.maps
+T 24 source.sass sass.script.maps meta.property-value.css.sass support.constant.property-value.css.sass
+T 25 source.sass sass.script.maps
+T 33 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $body-color: $text !default
+T 11 source.sass sass.script.maps variable.other.name
+T 13 source.sass sass.script.maps
+T 18 source.sass sass.script.maps variable.other.value
+T 19 source.sass sass.script.maps
+T 27 source.sass sass.script.maps keyword.other.important.css.sass
+L $body-font-size: 1em !default
+T 15 source.sass sass.script.maps variable.other.name
+T 17 source.sass sass.script.maps
+T 18 source.sass sass.script.maps constant.numeric.css.sass
+T 20 source.sass sass.script.maps keyword.control.unit.css.sass
+T 21 source.sass sass.script.maps
+T 29 source.sass sass.script.maps keyword.other.important.css.sass
+L $body-weight: $weight-normal !default
+T 12 source.sass sass.script.maps variable.other.name
+T 14 source.sass sass.script.maps
+T 28 source.sass sass.script.maps variable.other.value
+T 29 source.sass sass.script.maps
+T 37 source.sass sass.script.maps keyword.other.important.css.sass
+L $body-line-height: 1.5 !default
+T 17 source.sass sass.script.maps variable.other.name
+T 19 source.sass sass.script.maps
+T 22 source.sass sass.script.maps constant.numeric.css.sass
+T 23 source.sass sass.script.maps
+T 31 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $code-family: $family-code !default
+T 12 source.sass sass.script.maps variable.other.name
+T 14 source.sass sass.script.maps
+T 26 source.sass sass.script.maps variable.other.value
+T 27 source.sass sass.script.maps
+T 35 source.sass sass.script.maps keyword.other.important.css.sass
+L $code-padding: 0.25em 0.5em 0.25em !default
+T 13 source.sass sass.script.maps variable.other.name
+T 15 source.sass sass.script.maps
+T 19 source.sass sass.script.maps constant.numeric.css.sass
+T 21 source.sass sass.script.maps keyword.control.unit.css.sass
+T 22 source.sass sass.script.maps
+T 25 source.sass sass.script.maps constant.numeric.css.sass
+T 27 source.sass sass.script.maps keyword.control.unit.css.sass
+T 28 source.sass sass.script.maps
+T 32 source.sass sass.script.maps constant.numeric.css.sass
+T 34 source.sass sass.script.maps keyword.control.unit.css.sass
+T 35 source.sass sass.script.maps
+T 43 source.sass sass.script.maps keyword.other.important.css.sass
+L $code-weight: normal !default
+T 12 source.sass sass.script.maps variable.other.name
+T 14 source.sass sass.script.maps
+T 20 source.sass sass.script.maps meta.property-value.css.sass support.constant.property-value.css.sass
+T 21 source.sass sass.script.maps
+T 29 source.sass sass.script.maps keyword.other.important.css.sass
+L $code-size: 0.875em !default
+T 10 source.sass sass.script.maps variable.other.name
+T 12 source.sass sass.script.maps
+T 17 source.sass sass.script.maps constant.numeric.css.sass
+T 19 source.sass sass.script.maps keyword.control.unit.css.sass
+T 20 source.sass sass.script.maps
+T 28 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $small-font-size: 0.875em !default
+T 16 source.sass sass.script.maps variable.other.name
+T 18 source.sass sass.script.maps
+T 23 source.sass sass.script.maps constant.numeric.css.sass
+T 25 source.sass sass.script.maps keyword.control.unit.css.sass
+T 26 source.sass sass.script.maps
+T 34 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $hr-background-color: $background !default
+T 20 source.sass sass.script.maps variable.other.name
+T 22 source.sass sass.script.maps
+T 33 source.sass sass.script.maps variable.other.value
+T 34 source.sass sass.script.maps
+T 42 source.sass sass.script.maps keyword.other.important.css.sass
+L $hr-height: 2px !default
+T 10 source.sass sass.script.maps variable.other.name
+T 12 source.sass sass.script.maps
+T 13 source.sass sass.script.maps constant.numeric.css.sass
+T 15 source.sass sass.script.maps keyword.control.unit.css.sass
+T 16 source.sass sass.script.maps
+T 24 source.sass sass.script.maps keyword.other.important.css.sass
+L $hr-margin: 1.5rem 0 !default
+T 10 source.sass sass.script.maps variable.other.name
+T 12 source.sass sass.script.maps
+T 15 source.sass sass.script.maps constant.numeric.css.sass
+T 18 source.sass sass.script.maps keyword.control.unit.css.sass
+T 19 source.sass sass.script.maps
+T 20 source.sass sass.script.maps constant.numeric.css.sass
+T 21 source.sass sass.script.maps
+T 29 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $strong-color: $text-strong !default
+T 13 source.sass sass.script.maps variable.other.name
+T 15 source.sass sass.script.maps
+T 27 source.sass sass.script.maps variable.other.value
+T 28 source.sass sass.script.maps
+T 36 source.sass sass.script.maps keyword.other.important.css.sass
+L $strong-weight: $weight-bold !default
+T 14 source.sass sass.script.maps variable.other.name
+T 16 source.sass sass.script.maps
+T 28 source.sass sass.script.maps variable.other.value
+T 29 source.sass sass.script.maps
+T 37 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $pre-font-size: 0.875em !default
+T 14 source.sass sass.script.maps variable.other.name
+T 16 source.sass sass.script.maps
+T 21 source.sass sass.script.maps constant.numeric.css.sass
+T 23 source.sass sass.script.maps keyword.control.unit.css.sass
+T 24 source.sass sass.script.maps
+T 32 source.sass sass.script.maps keyword.other.important.css.sass
+L $pre-padding: 1.25rem 1.5rem !default
+T 12 source.sass sass.script.maps variable.other.name
+T 14 source.sass sass.script.maps
+T 18 source.sass sass.script.maps constant.numeric.css.sass
+T 21 source.sass sass.script.maps keyword.control.unit.css.sass
+T 22 source.sass sass.script.maps
+T 25 source.sass sass.script.maps constant.numeric.css.sass
+T 28 source.sass sass.script.maps keyword.control.unit.css.sass
+T 29 source.sass sass.script.maps
+T 37 source.sass sass.script.maps keyword.other.important.css.sass
+L $pre-code-font-size: 1em !default
+T 19 source.sass sass.script.maps variable.other.name
+T 21 source.sass sass.script.maps
+T 22 source.sass sass.script.maps constant.numeric.css.sass
+T 24 source.sass sass.script.maps keyword.control.unit.css.sass
+T 25 source.sass sass.script.maps
+T 33 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L html
+T 4 source.sass entity.name.tag.css.sass.symbol
+L   background-color: $body-background-color
+T 2 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 42 source.sass meta.property-list.css.sass.prop variable.other.value
+L   font-size: $body-size
+T 2 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 23 source.sass meta.property-list.css.sass.prop variable.other.value
+L   -moz-osx-font-smoothing: grayscale
+T 2 source.sass
+T 25 source.sass support.type.property-name.css.sass.prop.name
+T 26 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop
+T 36 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   -webkit-font-smoothing: antialiased
+T 2 source.sass
+T 24 source.sass support.type.property-name.css.sass.prop.name
+T 25 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop
+T 37 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   min-width: $body-min-width
+T 2 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 28 source.sass meta.property-list.css.sass.prop variable.other.value
+L   overflow-x: $body-overflow-x
+T 2 source.sass
+T 12 source.sass support.type.property-name.css.sass.prop.name
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop variable.other.value
+L   overflow-y: $body-overflow-y
+T 2 source.sass
+T 12 source.sass support.type.property-name.css.sass.prop.name
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop variable.other.value
+L   text-rendering: $body-rendering
+T 2 source.sass
+T 16 source.sass support.type.property-name.css.sass.prop.name
+T 17 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop
+T 33 source.sass meta.property-list.css.sass.prop variable.other.value
+L   text-size-adjust: 100%
+T 2 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 23 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 24 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L 
+L article,
+T 7 source.sass entity.name.tag.css.sass.symbol
+T 8 source.sass comment.punctuation.comma.sass
+L aside,
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass comment.punctuation.comma.sass
+L figure,
+T 6 source.sass entity.name.tag.css.sass.symbol
+T 7 source.sass comment.punctuation.comma.sass
+L footer,
+T 6 source.sass entity.name.tag.css.sass.symbol
+T 7 source.sass comment.punctuation.comma.sass
+L header,
+T 6 source.sass entity.name.tag.css.sass.symbol
+T 7 source.sass comment.punctuation.comma.sass
+L hgroup,
+T 6 source.sass entity.name.tag.css.sass.symbol
+T 7 source.sass comment.punctuation.comma.sass
+L section
+T 7 source.sass entity.name.tag.css.sass.symbol
+L   display: block
+T 2 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L 
+L body,
+T 4 source.sass entity.name.tag.css.sass.symbol
+T 5 source.sass comment.punctuation.comma.sass
+L button,
+T 6 source.sass entity.name.tag.css.sass.symbol
+T 7 source.sass comment.punctuation.comma.sass
+L input,
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass comment.punctuation.comma.sass
+L optgroup,
+T 8 source.sass entity.name.tag.css.sass.symbol
+T 9 source.sass comment.punctuation.comma.sass
+L select,
+T 6 source.sass entity.name.tag.css.sass.symbol
+T 7 source.sass comment.punctuation.comma.sass
+L textarea
+T 8 source.sass entity.name.tag.css.sass.symbol
+L   font-family: $body-family
+T 2 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop variable.other.value
+L 
+L code,
+T 4 source.sass entity.name.tag.css.sass.symbol
+T 5 source.sass comment.punctuation.comma.sass
+L pre
+T 3 source.sass entity.name.tag.css.sass.symbol
+L   -moz-osx-font-smoothing: auto
+T 2 source.sass
+T 25 source.sass support.type.property-name.css.sass.prop.name
+T 26 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop
+T 31 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   -webkit-font-smoothing: auto
+T 2 source.sass
+T 24 source.sass support.type.property-name.css.sass.prop.name
+T 25 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   font-family: $code-family
+T 2 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop variable.other.value
+L 
+L body
+T 4 source.sass entity.name.tag.css.sass.symbol
+L   color: $body-color
+T 2 source.sass
+T 7 source.sass support.type.property-name.css.sass.prop.name
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop variable.other.value
+L   font-size: $body-font-size
+T 2 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 28 source.sass meta.property-list.css.sass.prop variable.other.value
+L   font-weight: $body-weight
+T 2 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop variable.other.value
+L   line-height: $body-line-height
+T 2 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 32 source.sass meta.property-list.css.sass.prop variable.other.value
+L 
+L // Inline
+T 2 source.sass comment.line.sass
+T 9 source.sass comment.line.sass
+L 
+L a
+T 1 source.sass entity.name.tag.css.sass.symbol
+L   color: $link
+T 2 source.sass
+T 7 source.sass support.type.property-name.css.sass.prop.name
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop variable.other.value
+L   cursor: pointer
+T 2 source.sass
+T 8 source.sass support.type.property-name.css.sass.prop.name
+T 9 source.sass meta.property-list.css.sass.prop
+T 10 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   text-decoration: none
+T 2 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 23 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   strong
+T 2 source.sass
+T 8 source.sass entity.name.tag.css.sass.symbol
+L     color: currentColor
+T 4 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 23 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   &:hover
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 9 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+L     color: $link-hover
+T 4 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop variable.other.value
+L 
+L code
+T 4 source.sass entity.name.tag.css.sass.symbol
+L   background-color: $code-background
+T 2 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 36 source.sass meta.property-list.css.sass.prop variable.other.value
+L   color: $code
+T 2 source.sass
+T 7 source.sass support.type.property-name.css.sass.prop.name
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop variable.other.value
+L   font-size: $code-size
+T 2 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 23 source.sass meta.property-list.css.sass.prop variable.other.value
+L   font-weight: $code-weight
+T 2 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop variable.other.value
+L   padding: $code-padding
+T 2 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop variable.other.value
+L 
+L hr
+T 2 source.sass entity.name.tag.css.sass.symbol
+L   background-color: $hr-background-color
+T 2 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 40 source.sass meta.property-list.css.sass.prop variable.other.value
+L   border: none
+T 2 source.sass
+T 8 source.sass support.type.property-name.css.sass.prop.name
+T 9 source.sass meta.property-list.css.sass.prop
+T 10 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   display: block
+T 2 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   height: $hr-height
+T 2 source.sass
+T 8 source.sass support.type.property-name.css.sass.prop.name
+T 9 source.sass meta.property-list.css.sass.prop
+T 10 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop variable.other.value
+L   margin: $hr-margin
+T 2 source.sass
+T 8 source.sass support.type.property-name.css.sass.prop.name
+T 9 source.sass meta.property-list.css.sass.prop
+T 10 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop variable.other.value
+L 
+L img
+T 3 source.sass entity.name.tag.css.sass.symbol
+L   height: auto
+T 2 source.sass
+T 8 source.sass support.type.property-name.css.sass.prop.name
+T 9 source.sass meta.property-list.css.sass.prop
+T 10 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   max-width: 100%
+T 2 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 17 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L 
+L input[type="checkbox"],
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-selector.sass
+T 11 source.sass entity.other.attribute-selector.sass
+T 12 source.sass entity.other.attribute-selector.sass string.quoted.double.css.sass
+T 20 source.sass entity.other.attribute-selector.sass string.quoted.double.css.sass
+T 21 source.sass entity.other.attribute-selector.sass string.quoted.double.css.sass
+T 22 source.sass entity.other.attribute-selector.sass
+T 23 source.sass comment.punctuation.comma.sass
+L input[type="radio"]
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-selector.sass
+T 11 source.sass entity.other.attribute-selector.sass
+T 12 source.sass entity.other.attribute-selector.sass string.quoted.double.css.sass
+T 17 source.sass entity.other.attribute-selector.sass string.quoted.double.css.sass
+T 18 source.sass entity.other.attribute-selector.sass string.quoted.double.css.sass
+T 19 source.sass entity.other.attribute-selector.sass
+L   vertical-align: baseline
+T 2 source.sass
+T 16 source.sass support.type.property-name.css.sass.prop.name
+T 17 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L 
+L small
+T 5 source.sass entity.name.tag.css.sass.symbol
+L   font-size: $small-font-size
+T 2 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 29 source.sass meta.property-list.css.sass.prop variable.other.value
+L 
+L span
+T 4 source.sass entity.name.tag.css.sass.symbol
+L   font-style: inherit
+T 2 source.sass
+T 12 source.sass support.type.property-name.css.sass.prop.name
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   font-weight: inherit
+T 2 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L 
+L strong
+T 6 source.sass entity.name.tag.css.sass.symbol
+L   color: $strong-color
+T 2 source.sass
+T 7 source.sass support.type.property-name.css.sass.prop.name
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop variable.other.value
+L   font-weight: $strong-weight
+T 2 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 29 source.sass meta.property-list.css.sass.prop variable.other.value
+L 
+L // Block
+T 2 source.sass comment.line.sass
+T 8 source.sass comment.line.sass
+L 
+L fieldset
+T 8 source.sass entity.name.tag.css.sass.symbol
+L   border: none
+T 2 source.sass
+T 8 source.sass support.type.property-name.css.sass.prop.name
+T 9 source.sass meta.property-list.css.sass.prop
+T 10 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L 
+L pre
+T 3 source.sass entity.name.tag.css.sass.symbol
+L   +overflow-touch
+T 2 source.sass
+T 3 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 17 source.sass support.function.name.sass.library
+L   background-color: $pre-background
+T 2 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 35 source.sass meta.property-list.css.sass.prop variable.other.value
+L   color: $pre
+T 2 source.sass
+T 7 source.sass support.type.property-name.css.sass.prop.name
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop variable.other.value
+L   font-size: $pre-font-size
+T 2 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop variable.other.value
+L   overflow-x: auto
+T 2 source.sass
+T 12 source.sass support.type.property-name.css.sass.prop.name
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   padding: $pre-padding
+T 2 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 23 source.sass meta.property-list.css.sass.prop variable.other.value
+L   white-space: pre
+T 2 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   word-wrap: normal
+T 2 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   code
+T 2 source.sass
+T 6 source.sass entity.name.tag.css.sass.symbol
+L     background-color: transparent
+T 4 source.sass
+T 20 source.sass support.type.property-name.css.sass.prop.name
+T 21 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop
+T 33 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     color: currentColor
+T 4 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 23 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     font-size: $pre-code-font-size
+T 4 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 34 source.sass meta.property-list.css.sass.prop variable.other.value
+L     padding: 0
+T 4 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L 
+L table
+T 5 source.sass entity.name.tag.css.sass.symbol
+L   td,
+T 2 source.sass
+T 4 source.sass entity.name.tag.css.sass.symbol
+T 5 source.sass comment.punctuation.comma.sass
+L   th
+T 2 source.sass
+T 4 source.sass entity.name.tag.css.sass.symbol
+L     vertical-align: top
+T 4 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 23 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     &:not([align])
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 9 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 10 source.sass entity.name.function
+T 11 source.sass entity.other.attribute-selector.sass
+T 16 source.sass entity.other.attribute-selector.sass
+T 17 source.sass entity.other.attribute-selector.sass
+T 18 source.sass entity.name.function.close
+L       text-align: inherit
+T 6 source.sass
+T 16 source.sass support.type.property-name.css.sass.prop.name
+T 17 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop
+T 25 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   th
+T 2 source.sass
+T 4 source.sass entity.name.tag.css.sass.symbol
+L     color: $text-strong
+T 4 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 23 source.sass meta.property-list.css.sass.prop variable.other.value
+L 

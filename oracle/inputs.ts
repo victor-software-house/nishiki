@@ -81,6 +81,9 @@ const buildx =
   "https://raw.githubusercontent.com/docker/buildx/6997c2578c3fb0ac66e883ceaa535aae90c1ee3d";
 const bulma =
   "https://raw.githubusercontent.com/jgthms/bulma/c5cd04baf0258cfcc77b4e8610488a0d439effa2";
+// Bulma 0.9.4, the last release written in Sass's indented syntax.
+const bulmaSass =
+  "https://raw.githubusercontent.com/jgthms/bulma/3e00a8e6d0d0e566d507328f0185ef84854effba";
 const burntsushiToml =
   "https://raw.githubusercontent.com/BurntSushi/toml/d733fc535e4a9f3c454e421a87b90ade5d49bf31";
 const cargo =
@@ -1037,6 +1040,13 @@ export const inputs: Input[] = [
   },
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   { lang: "rust", name: "serde-de", url: `${serde}/serde_core/src/de/mod.rs` },
+  // Sass runs on the TextMate engine. Shiki's Markdown grammar has no Sass
+  // fence, so no Markdown input embeds it.
+  { lang: "sass", name: "bulma-functions", url: `${bulmaSass}/sass/utilities/functions.sass` },
+  { lang: "sass", name: "bulma-generic", url: `${bulmaSass}/sass/base/generic.sass` },
+  { lang: "sass", name: "bulma-mixins", url: `${bulmaSass}/sass/utilities/mixins.sass` },
+  { lang: "sass", name: "bulma-navbar", url: `${bulmaSass}/sass/components/navbar.sass` },
+  { lang: "sass", name: "sample", url: `${samples}/sass.sample` },
   // Scala runs on the TextMate engine.
   { lang: "scala", name: "circe-build", url: `${circe}/build.sbt` },
   { lang: "scala", name: "circe-json", url: `${circe}/modules/core/shared/src/main/scala/io/circe/Json.scala` },

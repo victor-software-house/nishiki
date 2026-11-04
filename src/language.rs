@@ -795,6 +795,15 @@ languages! {
         halts: true,
         hands_off: true,
     }
+    /// Sass, the indented syntax, with the scopes of Shiki's `sass` grammar,
+    /// which nishiki's `TextMate` engine runs.
+    Sass {
+        feature: "lang-sass",
+        names: ["sass"],
+        engine: crate::sass::grammar::GRAMMAR,
+        reads_line_feed: true,
+        halts: true,
+    }
 }
 
 impl Language {

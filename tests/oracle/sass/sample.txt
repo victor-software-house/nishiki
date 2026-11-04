@@ -1,0 +1,117 @@
+L /* This CSS will print because %message-shared is extended. */
+T 2 source.sass comment.block.sass
+T 60 source.sass comment.block.sass
+T 62 source.sass comment.block.sass
+L %message-shared
+T 1 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+T 15 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+L   border: 1px solid #ccc
+T 2 source.sass
+T 8 source.sass support.type.property-name.css.sass.prop.name
+T 9 source.sass meta.property-list.css.sass.prop
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 13 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 14 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+T 20 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop constant.language.color.rgb-value.css.sass
+L   padding: 10px
+T 2 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 15 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L   color: #333
+T 2 source.sass
+T 7 source.sass support.type.property-name.css.sass.prop.name
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop constant.language.color.rgb-value.css.sass
+L 
+L // This CSS won't print because %equal-heights is never extended.
+T 2 source.sass comment.line.sass
+T 65 source.sass comment.line.sass
+L %equal-heights
+T 1 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+T 14 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+L   display: flex
+T 2 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   flex-wrap: wrap
+T 2 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L 
+L .message
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 8 source.sass entity.other.attribute-name.class.css.sass
+L   @extend %message-shared
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+T 25 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+L 
+L .success
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 8 source.sass entity.other.attribute-name.class.css.sass
+L   @extend %message-shared
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+T 25 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+L   border-color: green
+T 2 source.sass
+T 14 source.sass support.type.property-name.css.sass.prop.name
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L 
+L .error
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 6 source.sass entity.other.attribute-name.class.css.sass
+L   @extend %message-shared
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+T 25 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+L   border-color: red
+T 2 source.sass
+T 14 source.sass support.type.property-name.css.sass.prop.name
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L 
+L .warning
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 8 source.sass entity.other.attribute-name.class.css.sass
+L   @extend %message-shared
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+T 25 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+L   border-color: yellow
+T 2 source.sass
+T 14 source.sass support.type.property-name.css.sass.prop.name
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L 
+L // From https://sass-lang.com/guide/
+T 2 source.sass comment.line.sass
+T 36 source.sass comment.line.sass
+L 

@@ -146,6 +146,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.txt",
   },
+  sass: {
+    bundled: "TheRealSyler/vscode-sass-indented@f0e50cfaca4b64a1d49f8d938f188d6fd0bcfb6f",
+    origin: "TheRealSyler/vscode-sass-indented",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   scala: {
     bundled: "scala/vscode-scala-syntax@672fa16c64e12b2cc8b98da011411463968de727",
     origin: "scala/vscode-scala-syntax",

@@ -290,6 +290,8 @@ mod ruby;
 mod rules;
 #[cfg(feature = "lang-rust")]
 mod rust;
+#[cfg(feature = "lang-sass")]
+mod sass;
 #[cfg(feature = "lang-scala")]
 mod scala;
 mod scope;

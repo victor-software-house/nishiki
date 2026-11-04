@@ -1,0 +1,1267 @@
+L @function mergeColorMaps($bulma-colors, $custom-colors)
+T 9 source.sass support.function.name.sass keyword.control.at-rule.css.sass
+T 10 source.sass support.function.name.sass
+T 24 source.sass support.function.name.sass entity.name.function
+T 25 source.sass entity.name.function
+T 38 source.sass variable.other.root
+T 39 source.sass comment.punctuation.comma.sass
+T 40 source.sass
+T 54 source.sass variable.other.root
+T 55 source.sass entity.name.function.close
+L   // We return at least Bulma's hard-coded colors
+T 2 source.sass
+T 4 source.sass comment.line.sass
+T 49 source.sass comment.line.sass
+L   $merged-colors: $bulma-colors
+T 2 source.sass
+T 16 source.sass sass.script.maps variable.other.name
+T 18 source.sass sass.script.maps
+T 31 source.sass sass.script.maps variable.other.value
+L 
+L   // We want a map as input
+T 2 source.sass
+T 4 source.sass comment.line.sass
+T 27 source.sass comment.line.sass
+L   @if type-of($custom-colors) == 'map'
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 6 source.sass keyword.control.at-rule.css.sass
+T 14 source.sass entity.name.function
+T 28 source.sass variable.other.root
+T 29 source.sass entity.name.function.close
+T 30 source.sass
+T 31 source.sass keyword.operator.sass
+T 32 source.sass keyword.operator.sass
+T 33 source.sass
+T 34 source.sass string.quoted.single.css.sass
+T 37 source.sass string.quoted.single.css.sass
+T 38 source.sass string.quoted.single.css.sass
+L     @each $name, $components in $custom-colors
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 15 source.sass variable.other.root
+T 16 source.sass comment.punctuation.comma.sass
+T 17 source.sass
+T 28 source.sass variable.other.root
+T 29 source.sass
+T 31 source.sass support.type.property-name.css.sass
+T 32 source.sass
+T 46 source.sass variable.other.root
+L       // The color name should be a string
+T 6 source.sass
+T 8 source.sass comment.line.sass
+T 42 source.sass comment.line.sass
+L       // and the components either a single color
+T 6 source.sass
+T 8 source.sass comment.line.sass
+T 49 source.sass comment.line.sass
+L       // or a colors list with at least one element
+T 6 source.sass
+T 8 source.sass comment.line.sass
+T 51 source.sass comment.line.sass
+L       @if type-of($name) == 'string' and (type-of($components) == 'list' or type-of($components) == 'color') and length($components) >= 1
+T 6 source.sass
+T 7 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 18 source.sass entity.name.function
+T 23 source.sass variable.other.root
+T 24 source.sass entity.name.function.close
+T 25 source.sass
+T 26 source.sass keyword.operator.sass
+T 27 source.sass keyword.operator.sass
+T 28 source.sass
+T 29 source.sass string.quoted.single.css.sass
+T 35 source.sass string.quoted.single.css.sass
+T 36 source.sass string.quoted.single.css.sass
+T 37 source.sass
+T 40 source.sass comment.punctuation.comma.sass
+T 41 source.sass
+T 42 source.sass entity.name.function
+T 50 source.sass entity.name.function
+T 61 source.sass variable.other.root
+T 62 source.sass entity.name.function.close
+T 63 source.sass
+T 64 source.sass keyword.operator.sass
+T 65 source.sass keyword.operator.sass
+T 66 source.sass
+T 67 source.sass string.quoted.single.css.sass
+T 71 source.sass string.quoted.single.css.sass
+T 72 source.sass string.quoted.single.css.sass
+T 73 source.sass
+T 75 source.sass comment.punctuation.comma.sass
+T 76 source.sass
+T 84 source.sass entity.name.function
+T 95 source.sass variable.other.root
+T 96 source.sass entity.name.function.close
+T 97 source.sass
+T 98 source.sass keyword.operator.sass
+T 99 source.sass keyword.operator.sass
+T 100 source.sass
+T 101 source.sass string.quoted.single.css.sass
+T 106 source.sass string.quoted.single.css.sass
+T 107 source.sass string.quoted.single.css.sass
+T 108 source.sass entity.name.function.close
+T 109 source.sass
+T 112 source.sass comment.punctuation.comma.sass
+T 113 source.sass
+T 120 source.sass entity.name.function
+T 131 source.sass variable.other.root
+T 132 source.sass entity.name.function.close
+T 133 source.sass
+T 134 source.sass keyword.operator.sass
+T 135 source.sass keyword.operator.sass
+T 136 source.sass
+T 137 source.sass constant.numeric.css.sass
+L         $color-base: null
+T 8 source.sass
+T 19 source.sass sass.script.maps variable.other.name
+T 21 source.sass sass.script.maps
+T 25 source.sass sass.script.maps support.type.property-name.css.sass
+L         $color-invert: null
+T 8 source.sass
+T 21 source.sass sass.script.maps variable.other.name
+T 23 source.sass sass.script.maps
+T 27 source.sass sass.script.maps support.type.property-name.css.sass
+L         $color-light: null
+T 8 source.sass
+T 20 source.sass sass.script.maps variable.other.name
+T 22 source.sass sass.script.maps
+T 26 source.sass sass.script.maps support.type.property-name.css.sass
+L         $color-dark: null
+T 8 source.sass
+T 19 source.sass sass.script.maps variable.other.name
+T 21 source.sass sass.script.maps
+T 25 source.sass sass.script.maps support.type.property-name.css.sass
+L         $value: null
+T 8 source.sass
+T 14 source.sass sass.script.maps variable.other.name
+T 16 source.sass sass.script.maps
+T 20 source.sass sass.script.maps support.type.property-name.css.sass
+L 
+L         // The param can either be a single color
+T 8 source.sass
+T 10 source.sass comment.line.sass
+T 49 source.sass comment.line.sass
+L         // or a list of 2 colors
+T 8 source.sass
+T 10 source.sass comment.line.sass
+T 32 source.sass comment.line.sass
+L         @if type-of($components) == 'color'
+T 8 source.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 12 source.sass keyword.control.at-rule.css.sass
+T 20 source.sass entity.name.function
+T 31 source.sass variable.other.root
+T 32 source.sass entity.name.function.close
+T 33 source.sass
+T 34 source.sass keyword.operator.sass
+T 35 source.sass keyword.operator.sass
+T 36 source.sass
+T 37 source.sass string.quoted.single.css.sass
+T 42 source.sass string.quoted.single.css.sass
+T 43 source.sass string.quoted.single.css.sass
+L           $color-base: $components
+T 10 source.sass
+T 21 source.sass sass.script.maps variable.other.name
+T 23 source.sass sass.script.maps
+T 34 source.sass sass.script.maps variable.other.value
+L           $color-invert: findColorInvert($color-base)
+T 10 source.sass
+T 23 source.sass sass.script.maps variable.other.name
+T 25 source.sass sass.script.maps
+T 40 source.sass sass.script.maps support.function.name.sass
+T 41 source.sass sass.script.maps
+T 52 source.sass sass.script.maps variable.other.value
+T 53 source.sass entity.name.function.close
+L           $color-light: findLightColor($color-base)
+T 10 source.sass
+T 22 source.sass sass.script.maps variable.other.name
+T 24 source.sass sass.script.maps
+T 38 source.sass sass.script.maps support.function.name.sass
+T 39 source.sass sass.script.maps
+T 50 source.sass sass.script.maps variable.other.value
+T 51 source.sass entity.name.function.close
+L           $color-dark: findDarkColor($color-base)
+T 10 source.sass
+T 21 source.sass sass.script.maps variable.other.name
+T 23 source.sass sass.script.maps
+T 36 source.sass sass.script.maps support.function.name.sass
+T 37 source.sass sass.script.maps
+T 48 source.sass sass.script.maps variable.other.value
+T 49 source.sass entity.name.function.close
+L         @else if type-of($components) == 'list'
+T 8 source.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 16 source.sass keyword.control.at-rule.css.sass
+T 17 source.sass keyword.control.at-rule.css.sass
+T 25 source.sass entity.name.function
+T 36 source.sass variable.other.root
+T 37 source.sass entity.name.function.close
+T 38 source.sass
+T 39 source.sass keyword.operator.sass
+T 40 source.sass keyword.operator.sass
+T 41 source.sass
+T 42 source.sass string.quoted.single.css.sass
+T 46 source.sass string.quoted.single.css.sass
+T 47 source.sass string.quoted.single.css.sass
+L           $color-base: nth($components, 1)
+T 10 source.sass
+T 21 source.sass sass.script.maps variable.other.name
+T 23 source.sass sass.script.maps
+T 26 source.sass sass.script.maps support.function.name.sass
+T 27 source.sass sass.script.maps
+T 38 source.sass sass.script.maps variable.other.value
+T 39 source.sass sass.script.maps comment.punctuation.comma.sass
+T 40 source.sass sass.script.maps
+T 41 source.sass sass.script.maps constant.numeric.css.sass
+T 42 source.sass entity.name.function.close
+L           // If Invert, Light and Dark are provided
+T 10 source.sass
+T 12 source.sass comment.line.sass
+T 51 source.sass comment.line.sass
+L           @if length($components) > 3
+T 10 source.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 13 source.sass keyword.control.at-rule.css.sass
+T 14 source.sass keyword.control.at-rule.css.sass
+T 21 source.sass entity.name.function
+T 32 source.sass variable.other.root
+T 33 source.sass entity.name.function.close
+T 34 source.sass
+T 35 source.sass keyword.operator.sass
+T 36 source.sass
+T 37 source.sass constant.numeric.css.sass
+L             $color-invert: nth($components, 2)
+T 12 source.sass
+T 25 source.sass sass.script.maps variable.other.name
+T 27 source.sass sass.script.maps
+T 30 source.sass sass.script.maps support.function.name.sass
+T 31 source.sass sass.script.maps
+T 42 source.sass sass.script.maps variable.other.value
+T 43 source.sass sass.script.maps comment.punctuation.comma.sass
+T 44 source.sass sass.script.maps
+T 45 source.sass sass.script.maps constant.numeric.css.sass
+T 46 source.sass entity.name.function.close
+L             $color-light: nth($components, 3)
+T 12 source.sass
+T 24 source.sass sass.script.maps variable.other.name
+T 26 source.sass sass.script.maps
+T 29 source.sass sass.script.maps support.function.name.sass
+T 30 source.sass sass.script.maps
+T 41 source.sass sass.script.maps variable.other.value
+T 42 source.sass sass.script.maps comment.punctuation.comma.sass
+T 43 source.sass sass.script.maps
+T 44 source.sass sass.script.maps constant.numeric.css.sass
+T 45 source.sass entity.name.function.close
+L             $color-dark: nth($components, 4)
+T 12 source.sass
+T 23 source.sass sass.script.maps variable.other.name
+T 25 source.sass sass.script.maps
+T 28 source.sass sass.script.maps support.function.name.sass
+T 29 source.sass sass.script.maps
+T 40 source.sass sass.script.maps variable.other.value
+T 41 source.sass sass.script.maps comment.punctuation.comma.sass
+T 42 source.sass sass.script.maps
+T 43 source.sass sass.script.maps constant.numeric.css.sass
+T 44 source.sass entity.name.function.close
+L             // If only Invert and Light are provided
+T 12 source.sass
+T 14 source.sass comment.line.sass
+T 52 source.sass comment.line.sass
+L           @else if length($components) > 2
+T 10 source.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 18 source.sass keyword.control.at-rule.css.sass
+T 19 source.sass keyword.control.at-rule.css.sass
+T 26 source.sass entity.name.function
+T 37 source.sass variable.other.root
+T 38 source.sass entity.name.function.close
+T 39 source.sass
+T 40 source.sass keyword.operator.sass
+T 41 source.sass
+T 42 source.sass constant.numeric.css.sass
+L             $color-invert: nth($components, 2)
+T 12 source.sass
+T 25 source.sass sass.script.maps variable.other.name
+T 27 source.sass sass.script.maps
+T 30 source.sass sass.script.maps support.function.name.sass
+T 31 source.sass sass.script.maps
+T 42 source.sass sass.script.maps variable.other.value
+T 43 source.sass sass.script.maps comment.punctuation.comma.sass
+T 44 source.sass sass.script.maps
+T 45 source.sass sass.script.maps constant.numeric.css.sass
+T 46 source.sass entity.name.function.close
+L             $color-light: nth($components, 3)
+T 12 source.sass
+T 24 source.sass sass.script.maps variable.other.name
+T 26 source.sass sass.script.maps
+T 29 source.sass sass.script.maps support.function.name.sass
+T 30 source.sass sass.script.maps
+T 41 source.sass sass.script.maps variable.other.value
+T 42 source.sass sass.script.maps comment.punctuation.comma.sass
+T 43 source.sass sass.script.maps
+T 44 source.sass sass.script.maps constant.numeric.css.sass
+T 45 source.sass entity.name.function.close
+L             $color-dark: findDarkColor($color-base)
+T 12 source.sass
+T 23 source.sass sass.script.maps variable.other.name
+T 25 source.sass sass.script.maps
+T 38 source.sass sass.script.maps support.function.name.sass
+T 39 source.sass sass.script.maps
+T 50 source.sass sass.script.maps variable.other.value
+T 51 source.sass entity.name.function.close
+L             // If only Invert is provided
+T 12 source.sass
+T 14 source.sass comment.line.sass
+T 41 source.sass comment.line.sass
+L           @else
+T 10 source.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 15 source.sass keyword.control.at-rule.css.sass
+L             $color-invert: nth($components, 2)
+T 12 source.sass
+T 25 source.sass sass.script.maps variable.other.name
+T 27 source.sass sass.script.maps
+T 30 source.sass sass.script.maps support.function.name.sass
+T 31 source.sass sass.script.maps
+T 42 source.sass sass.script.maps variable.other.value
+T 43 source.sass sass.script.maps comment.punctuation.comma.sass
+T 44 source.sass sass.script.maps
+T 45 source.sass sass.script.maps constant.numeric.css.sass
+T 46 source.sass entity.name.function.close
+L             $color-light: findLightColor($color-base)
+T 12 source.sass
+T 24 source.sass sass.script.maps variable.other.name
+T 26 source.sass sass.script.maps
+T 40 source.sass sass.script.maps support.function.name.sass
+T 41 source.sass sass.script.maps
+T 52 source.sass sass.script.maps variable.other.value
+T 53 source.sass entity.name.function.close
+L             $color-dark: findDarkColor($color-base)
+T 12 source.sass
+T 23 source.sass sass.script.maps variable.other.name
+T 25 source.sass sass.script.maps
+T 38 source.sass sass.script.maps support.function.name.sass
+T 39 source.sass sass.script.maps
+T 50 source.sass sass.script.maps variable.other.value
+T 51 source.sass entity.name.function.close
+L 
+L         $value: ($color-base, $color-invert, $color-light, $color-dark)
+T 8 source.sass
+T 14 source.sass sass.script.maps variable.other.name
+T 17 source.sass sass.script.maps
+T 28 source.sass sass.script.maps variable.other.value
+T 29 source.sass sass.script.maps comment.punctuation.comma.sass
+T 30 source.sass sass.script.maps
+T 43 source.sass sass.script.maps variable.other.value
+T 44 source.sass sass.script.maps comment.punctuation.comma.sass
+T 45 source.sass sass.script.maps
+T 57 source.sass sass.script.maps variable.other.value
+T 58 source.sass sass.script.maps comment.punctuation.comma.sass
+T 59 source.sass sass.script.maps
+T 70 source.sass sass.script.maps variable.other.value
+T 71 source.sass entity.name.function.close
+L 
+L         // We only want to merge the map if the color base is an actual color
+T 8 source.sass
+T 10 source.sass comment.line.sass
+T 77 source.sass comment.line.sass
+L         @if type-of($color-base) == 'color'
+T 8 source.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 12 source.sass keyword.control.at-rule.css.sass
+T 20 source.sass entity.name.function
+T 31 source.sass variable.other.root
+T 32 source.sass entity.name.function.close
+T 33 source.sass
+T 34 source.sass keyword.operator.sass
+T 35 source.sass keyword.operator.sass
+T 36 source.sass
+T 37 source.sass string.quoted.single.css.sass
+T 42 source.sass string.quoted.single.css.sass
+T 43 source.sass string.quoted.single.css.sass
+L           // We merge this colors elements as map with Bulma's colors map
+T 10 source.sass
+T 12 source.sass comment.line.sass
+T 73 source.sass comment.line.sass
+L           // (we can override them this way, no multiple definition for the same name)
+T 10 source.sass
+T 12 source.sass comment.line.sass
+T 86 source.sass comment.line.sass
+L           // $merged-colors: map_merge($merged-colors, ($name: ($color-base, $color-invert, $color-light, $color-dark)))
+T 10 source.sass
+T 12 source.sass comment.line.sass
+T 120 source.sass comment.line.sass
+L           $merged-colors: map_merge($merged-colors, ($name: $value))
+T 10 source.sass
+T 24 source.sass sass.script.maps variable.other.name
+T 26 source.sass sass.script.maps
+T 35 source.sass sass.script.maps support.function.name.sass
+T 36 source.sass sass.script.maps
+T 50 source.sass sass.script.maps variable.other.value
+T 51 source.sass sass.script.maps comment.punctuation.comma.sass
+T 53 source.sass sass.script.maps
+T 58 source.sass sass.script.maps variable.other.value
+T 60 source.sass sass.script.maps
+T 66 source.sass sass.script.maps variable.other.value
+T 67 source.sass sass.script.maps
+T 68 source.sass entity.name.function.close
+L 
+L   @return $merged-colors
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 24 source.sass variable.other.root
+L 
+L @function powerNumber($number, $exp)
+T 9 source.sass support.function.name.sass keyword.control.at-rule.css.sass
+T 10 source.sass support.function.name.sass
+T 21 source.sass support.function.name.sass entity.name.function
+T 22 source.sass entity.name.function
+T 29 source.sass variable.other.root
+T 30 source.sass comment.punctuation.comma.sass
+T 31 source.sass
+T 35 source.sass variable.other.root
+T 36 source.sass entity.name.function.close
+L   $value: 1
+T 2 source.sass
+T 8 source.sass sass.script.maps variable.other.name
+T 10 source.sass sass.script.maps
+T 11 source.sass sass.script.maps constant.numeric.css.sass
+L   @if $exp > 0
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 6 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass variable.other.root
+T 11 source.sass
+T 12 source.sass keyword.operator.sass
+T 13 source.sass
+T 14 source.sass constant.numeric.css.sass
+L     @for $i from 1 through $exp
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 8 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass variable.other.root
+T 12 source.sass
+T 16 source.sass support.type.property-name.css.sass
+T 17 source.sass
+T 18 source.sass constant.numeric.css.sass
+T 19 source.sass
+T 26 source.sass support.type.property-name.css.sass
+T 27 source.sass
+T 31 source.sass variable.other.root
+L       $value: $value * $number
+T 6 source.sass
+T 12 source.sass sass.script.maps variable.other.name
+T 14 source.sass sass.script.maps
+T 20 source.sass sass.script.maps variable.other.value
+T 21 source.sass sass.script.maps
+T 22 source.sass sass.script.maps keyword.operator.sass
+T 23 source.sass sass.script.maps
+T 30 source.sass sass.script.maps variable.other.value
+L   @else if $exp < 0
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 15 source.sass variable.other.root
+T 16 source.sass
+T 17 source.sass keyword.operator.sass
+T 18 source.sass
+T 19 source.sass constant.numeric.css.sass
+L     @for $i from 1 through -$exp
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 8 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass variable.other.root
+T 12 source.sass
+T 16 source.sass support.type.property-name.css.sass
+T 17 source.sass
+T 18 source.sass constant.numeric.css.sass
+T 19 source.sass
+T 26 source.sass support.type.property-name.css.sass
+T 28 source.sass keyword.operator.sass
+T 32 source.sass variable.other.root
+L       $value: divide($value, $number)
+T 6 source.sass
+T 12 source.sass sass.script.maps variable.other.name
+T 14 source.sass sass.script.maps
+T 20 source.sass sass.script.maps support.function.name.sass
+T 21 source.sass sass.script.maps
+T 27 source.sass sass.script.maps variable.other.value
+T 28 source.sass sass.script.maps comment.punctuation.comma.sass
+T 29 source.sass sass.script.maps
+T 36 source.sass sass.script.maps variable.other.value
+T 37 source.sass entity.name.function.close
+L   @return $value
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 16 source.sass variable.other.root
+L 
+L @function colorLuminance($color)
+T 9 source.sass support.function.name.sass keyword.control.at-rule.css.sass
+T 10 source.sass support.function.name.sass
+T 24 source.sass support.function.name.sass entity.name.function
+T 25 source.sass entity.name.function
+T 31 source.sass variable.other.root
+T 32 source.sass entity.name.function.close
+L   @if type-of($color) != 'color'
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 6 source.sass keyword.control.at-rule.css.sass
+T 14 source.sass entity.name.function
+T 20 source.sass variable.other.root
+T 21 source.sass entity.name.function.close
+T 22 source.sass
+T 23 source.sass keyword.operator.sass
+T 24 source.sass keyword.operator.sass
+T 25 source.sass
+T 26 source.sass string.quoted.single.css.sass
+T 31 source.sass string.quoted.single.css.sass
+T 32 source.sass string.quoted.single.css.sass
+L     @return 0.55
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 12 source.sass keyword.control.at-rule.css.sass
+T 16 source.sass constant.numeric.css.sass
+L   $color-rgb: ('red': red($color),'green': green($color),'blue': blue($color))
+T 2 source.sass
+T 12 source.sass sass.script.maps variable.other.name
+T 15 source.sass sass.script.maps
+T 16 source.sass sass.script.maps string.quoted.single.css.sass
+T 19 source.sass sass.script.maps string.quoted.single.css.sass
+T 20 source.sass sass.script.maps string.quoted.single.css.sass
+T 22 source.sass sass.script.maps
+T 25 source.sass sass.script.maps support.function.name.sass
+T 26 source.sass sass.script.maps
+T 32 source.sass sass.script.maps variable.other.value
+T 33 source.sass sass.script.maps
+T 34 source.sass sass.script.maps comment.punctuation.comma.sass
+T 35 source.sass sass.script.maps string.quoted.single.css.sass
+T 40 source.sass sass.script.maps string.quoted.single.css.sass
+T 41 source.sass sass.script.maps string.quoted.single.css.sass
+T 43 source.sass sass.script.maps
+T 48 source.sass sass.script.maps support.function.name.sass
+T 49 source.sass sass.script.maps
+T 55 source.sass sass.script.maps variable.other.value
+T 56 source.sass sass.script.maps
+T 57 source.sass sass.script.maps comment.punctuation.comma.sass
+T 58 source.sass sass.script.maps string.quoted.single.css.sass
+T 62 source.sass sass.script.maps string.quoted.single.css.sass
+T 63 source.sass sass.script.maps string.quoted.single.css.sass
+T 65 source.sass sass.script.maps
+T 69 source.sass sass.script.maps support.function.name.sass
+T 70 source.sass sass.script.maps
+T 76 source.sass sass.script.maps variable.other.value
+T 77 source.sass sass.script.maps
+T 78 source.sass entity.name.function.close
+L   @each $name, $value in $color-rgb
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 7 source.sass keyword.control.at-rule.css.sass
+T 8 source.sass keyword.control.at-rule.css.sass
+T 13 source.sass variable.other.root
+T 14 source.sass comment.punctuation.comma.sass
+T 15 source.sass
+T 21 source.sass variable.other.root
+T 22 source.sass
+T 24 source.sass support.type.property-name.css.sass
+T 25 source.sass
+T 35 source.sass variable.other.root
+L     $adjusted: 0
+T 4 source.sass
+T 13 source.sass sass.script.maps variable.other.name
+T 15 source.sass sass.script.maps
+T 16 source.sass sass.script.maps constant.numeric.css.sass
+L     $value: divide($value, 255)
+T 4 source.sass
+T 10 source.sass sass.script.maps variable.other.name
+T 12 source.sass sass.script.maps
+T 18 source.sass sass.script.maps support.function.name.sass
+T 19 source.sass sass.script.maps
+T 25 source.sass sass.script.maps variable.other.value
+T 26 source.sass sass.script.maps comment.punctuation.comma.sass
+T 27 source.sass sass.script.maps
+T 30 source.sass sass.script.maps constant.numeric.css.sass
+T 31 source.sass entity.name.function.close
+L     @if $value < 0.03928
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 7 source.sass keyword.control.at-rule.css.sass
+T 8 source.sass keyword.control.at-rule.css.sass
+T 14 source.sass variable.other.root
+T 15 source.sass
+T 16 source.sass keyword.operator.sass
+T 17 source.sass
+T 24 source.sass constant.numeric.css.sass
+L       $value: divide($value, 12.92)
+T 6 source.sass
+T 12 source.sass sass.script.maps variable.other.name
+T 14 source.sass sass.script.maps
+T 20 source.sass sass.script.maps support.function.name.sass
+T 21 source.sass sass.script.maps
+T 27 source.sass sass.script.maps variable.other.value
+T 28 source.sass sass.script.maps comment.punctuation.comma.sass
+T 29 source.sass sass.script.maps
+T 34 source.sass sass.script.maps constant.numeric.css.sass
+T 35 source.sass entity.name.function.close
+L     @else
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+L       $value: divide(($value + .055), 1.055)
+T 6 source.sass
+T 12 source.sass sass.script.maps variable.other.name
+T 14 source.sass sass.script.maps
+T 20 source.sass sass.script.maps support.function.name.sass
+T 22 source.sass sass.script.maps
+T 28 source.sass sass.script.maps variable.other.value
+T 29 source.sass sass.script.maps
+T 30 source.sass sass.script.maps keyword.operator.sass
+T 31 source.sass sass.script.maps
+T 35 source.sass sass.script.maps constant.numeric.css.sass
+T 36 source.sass sass.script.maps
+T 37 source.sass sass.script.maps comment.punctuation.comma.sass
+T 38 source.sass sass.script.maps
+T 43 source.sass sass.script.maps constant.numeric.css.sass
+T 44 source.sass entity.name.function.close
+L       $value: powerNumber($value, 2)
+T 6 source.sass
+T 12 source.sass sass.script.maps variable.other.name
+T 14 source.sass sass.script.maps
+T 25 source.sass sass.script.maps support.function.name.sass
+T 26 source.sass sass.script.maps
+T 32 source.sass sass.script.maps variable.other.value
+T 33 source.sass sass.script.maps comment.punctuation.comma.sass
+T 34 source.sass sass.script.maps
+T 35 source.sass sass.script.maps constant.numeric.css.sass
+T 36 source.sass entity.name.function.close
+L     $color-rgb: map-merge($color-rgb, ($name: $value))
+T 4 source.sass
+T 14 source.sass sass.script.maps variable.other.name
+T 16 source.sass sass.script.maps
+T 25 source.sass sass.script.maps support.function.name.sass
+T 26 source.sass sass.script.maps
+T 36 source.sass sass.script.maps variable.other.value
+T 37 source.sass sass.script.maps comment.punctuation.comma.sass
+T 39 source.sass sass.script.maps
+T 44 source.sass sass.script.maps variable.other.value
+T 46 source.sass sass.script.maps
+T 52 source.sass sass.script.maps variable.other.value
+T 53 source.sass sass.script.maps
+T 54 source.sass entity.name.function.close
+L   @return (map-get($color-rgb, 'red') * .2126) + (map-get($color-rgb, 'green') * .7152) + (map-get($color-rgb, 'blue') * .0722)
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass entity.name.function
+T 19 source.sass entity.name.function
+T 29 source.sass variable.other.root
+T 30 source.sass comment.punctuation.comma.sass
+T 31 source.sass
+T 32 source.sass string.quoted.single.css.sass
+T 35 source.sass string.quoted.single.css.sass
+T 36 source.sass string.quoted.single.css.sass
+T 37 source.sass entity.name.function.close
+T 38 source.sass
+T 39 source.sass keyword.operator.sass
+T 40 source.sass
+T 45 source.sass constant.numeric.css.sass
+T 46 source.sass entity.name.function.close
+T 47 source.sass
+T 48 source.sass keyword.operator.sass
+T 49 source.sass
+T 50 source.sass entity.name.function
+T 58 source.sass entity.name.function
+T 68 source.sass variable.other.root
+T 69 source.sass comment.punctuation.comma.sass
+T 70 source.sass
+T 71 source.sass string.quoted.single.css.sass
+T 76 source.sass string.quoted.single.css.sass
+T 77 source.sass string.quoted.single.css.sass
+T 78 source.sass entity.name.function.close
+T 79 source.sass
+T 80 source.sass keyword.operator.sass
+T 81 source.sass
+T 86 source.sass constant.numeric.css.sass
+T 87 source.sass entity.name.function.close
+T 88 source.sass
+T 89 source.sass keyword.operator.sass
+T 90 source.sass
+T 91 source.sass entity.name.function
+T 99 source.sass entity.name.function
+T 109 source.sass variable.other.root
+T 110 source.sass comment.punctuation.comma.sass
+T 111 source.sass
+T 112 source.sass string.quoted.single.css.sass
+T 116 source.sass string.quoted.single.css.sass
+T 117 source.sass string.quoted.single.css.sass
+T 118 source.sass entity.name.function.close
+T 119 source.sass
+T 120 source.sass keyword.operator.sass
+T 121 source.sass
+T 126 source.sass constant.numeric.css.sass
+T 127 source.sass entity.name.function.close
+L 
+L @function findColorInvert($color)
+T 9 source.sass support.function.name.sass keyword.control.at-rule.css.sass
+T 10 source.sass support.function.name.sass
+T 25 source.sass support.function.name.sass entity.name.function
+T 26 source.sass entity.name.function
+T 32 source.sass variable.other.root
+T 33 source.sass entity.name.function.close
+L   @if (colorLuminance($color) > 0.55)
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 6 source.sass keyword.control.at-rule.css.sass
+T 7 source.sass entity.name.function
+T 22 source.sass entity.name.function
+T 28 source.sass variable.other.root
+T 29 source.sass entity.name.function.close
+T 30 source.sass
+T 31 source.sass keyword.operator.sass
+T 32 source.sass
+T 36 source.sass constant.numeric.css.sass
+T 37 source.sass entity.name.function.close
+L     @return rgba(#000, 0.7)
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 12 source.sass keyword.control.at-rule.css.sass
+T 17 source.sass entity.name.function
+T 18 source.sass entity.other.attribute-name.id.css.sass
+T 21 source.sass entity.other.attribute-name.id.css.sass
+T 22 source.sass comment.punctuation.comma.sass
+T 23 source.sass
+T 26 source.sass constant.numeric.css.sass
+T 27 source.sass entity.name.function.close
+L   @else
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 7 source.sass keyword.control.at-rule.css.sass
+L     @return #fff
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 12 source.sass keyword.control.at-rule.css.sass
+T 13 source.sass entity.other.attribute-name.id.css.sass
+T 16 source.sass entity.other.attribute-name.id.css.sass
+L 
+L @function findLightColor($color, $l: 96%)
+T 9 source.sass support.function.name.sass keyword.control.at-rule.css.sass
+T 10 source.sass support.function.name.sass
+T 24 source.sass support.function.name.sass entity.name.function
+T 25 source.sass entity.name.function
+T 31 source.sass variable.other.root
+T 32 source.sass comment.punctuation.comma.sass
+T 33 source.sass
+T 35 source.sass sass.script.maps variable.other.name
+T 37 source.sass sass.script.maps
+T 39 source.sass sass.script.maps constant.numeric.css.sass
+T 40 source.sass sass.script.maps keyword.control.unit.css.sass
+T 41 source.sass entity.name.function.close
+L   @if type-of($color) == 'color'
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 6 source.sass keyword.control.at-rule.css.sass
+T 14 source.sass entity.name.function
+T 20 source.sass variable.other.root
+T 21 source.sass entity.name.function.close
+T 22 source.sass
+T 23 source.sass keyword.operator.sass
+T 24 source.sass keyword.operator.sass
+T 25 source.sass
+T 26 source.sass string.quoted.single.css.sass
+T 31 source.sass string.quoted.single.css.sass
+T 32 source.sass string.quoted.single.css.sass
+L     $l: 96%
+T 4 source.sass
+T 6 source.sass sass.script.maps variable.other.name
+T 8 source.sass sass.script.maps
+T 10 source.sass sass.script.maps constant.numeric.css.sass
+T 11 source.sass sass.script.maps keyword.control.unit.css.sass
+L     @if lightness($color) > 96%
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 7 source.sass keyword.control.at-rule.css.sass
+T 8 source.sass keyword.control.at-rule.css.sass
+T 18 source.sass entity.name.function
+T 24 source.sass variable.other.root
+T 25 source.sass entity.name.function.close
+T 26 source.sass
+T 27 source.sass keyword.operator.sass
+T 28 source.sass
+T 30 source.sass constant.numeric.css.sass
+T 31 source.sass keyword.control.unit.css.sass
+L       $l: lightness($color)
+T 6 source.sass
+T 8 source.sass sass.script.maps variable.other.name
+T 10 source.sass sass.script.maps
+T 19 source.sass sass.script.maps support.function.name.sass
+T 20 source.sass sass.script.maps
+T 26 source.sass sass.script.maps variable.other.value
+T 27 source.sass entity.name.function.close
+L     @return change-color($color, $lightness: $l)
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 12 source.sass keyword.control.at-rule.css.sass
+T 25 source.sass entity.name.function
+T 31 source.sass variable.other.root
+T 32 source.sass comment.punctuation.comma.sass
+T 33 source.sass
+T 43 source.sass sass.script.maps variable.other.name
+T 45 source.sass sass.script.maps
+T 47 source.sass sass.script.maps variable.other.value
+T 48 source.sass entity.name.function.close
+L   @return $background
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 21 source.sass variable.other.root
+L 
+L @function findDarkColor($color, $base-l: 29%)
+T 9 source.sass support.function.name.sass keyword.control.at-rule.css.sass
+T 10 source.sass support.function.name.sass
+T 23 source.sass support.function.name.sass entity.name.function
+T 24 source.sass entity.name.function
+T 30 source.sass variable.other.root
+T 31 source.sass comment.punctuation.comma.sass
+T 32 source.sass
+T 39 source.sass sass.script.maps variable.other.name
+T 41 source.sass sass.script.maps
+T 43 source.sass sass.script.maps constant.numeric.css.sass
+T 44 source.sass sass.script.maps keyword.control.unit.css.sass
+T 45 source.sass entity.name.function.close
+L   @if type-of($color) == 'color'
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 6 source.sass keyword.control.at-rule.css.sass
+T 14 source.sass entity.name.function
+T 20 source.sass variable.other.root
+T 21 source.sass entity.name.function.close
+T 22 source.sass
+T 23 source.sass keyword.operator.sass
+T 24 source.sass keyword.operator.sass
+T 25 source.sass
+T 26 source.sass string.quoted.single.css.sass
+T 31 source.sass string.quoted.single.css.sass
+T 32 source.sass string.quoted.single.css.sass
+L     $luminance: colorLuminance($color)
+T 4 source.sass
+T 14 source.sass sass.script.maps variable.other.name
+T 16 source.sass sass.script.maps
+T 30 source.sass sass.script.maps support.function.name.sass
+T 31 source.sass sass.script.maps
+T 37 source.sass sass.script.maps variable.other.value
+T 38 source.sass entity.name.function.close
+L     $luminance-delta: (0.53 - $luminance)
+T 4 source.sass
+T 20 source.sass sass.script.maps variable.other.name
+T 23 source.sass sass.script.maps
+T 27 source.sass sass.script.maps constant.numeric.css.sass
+T 30 source.sass sass.script.maps keyword.operator.sass
+T 40 source.sass sass.script.maps variable.other.value
+T 41 source.sass entity.name.function.close
+L     $target-l: round($base-l + ($luminance-delta * 53))
+T 4 source.sass
+T 13 source.sass sass.script.maps variable.other.name
+T 15 source.sass sass.script.maps
+T 20 source.sass sass.script.maps support.function.name.sass
+T 21 source.sass sass.script.maps
+T 28 source.sass sass.script.maps variable.other.value
+T 29 source.sass sass.script.maps
+T 30 source.sass sass.script.maps keyword.operator.sass
+T 32 source.sass sass.script.maps
+T 48 source.sass sass.script.maps variable.other.value
+T 49 source.sass sass.script.maps
+T 50 source.sass sass.script.maps keyword.operator.sass
+T 51 source.sass sass.script.maps
+T 53 source.sass sass.script.maps constant.numeric.css.sass
+T 54 source.sass sass.script.maps
+T 55 source.sass entity.name.function.close
+L     @return change-color($color, $lightness: max($base-l, $target-l))
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 12 source.sass keyword.control.at-rule.css.sass
+T 25 source.sass entity.name.function
+T 31 source.sass variable.other.root
+T 32 source.sass comment.punctuation.comma.sass
+T 33 source.sass
+T 43 source.sass sass.script.maps variable.other.name
+T 45 source.sass sass.script.maps
+T 48 source.sass sass.script.maps support.function.name.sass
+T 49 source.sass sass.script.maps
+T 56 source.sass sass.script.maps variable.other.value
+T 57 source.sass sass.script.maps comment.punctuation.comma.sass
+T 58 source.sass sass.script.maps
+T 67 source.sass sass.script.maps variable.other.value
+T 68 source.sass sass.script.maps
+T 69 source.sass entity.name.function.close
+L   @return $text-strong
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 22 source.sass variable.other.root
+L 
+L @function bulmaRgba($color, $alpha)
+T 9 source.sass support.function.name.sass keyword.control.at-rule.css.sass
+T 10 source.sass support.function.name.sass
+T 19 source.sass support.function.name.sass entity.name.function
+T 20 source.sass entity.name.function
+T 26 source.sass variable.other.root
+T 27 source.sass comment.punctuation.comma.sass
+T 28 source.sass
+T 34 source.sass variable.other.root
+T 35 source.sass entity.name.function.close
+L   @if type-of($color) != 'color'
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 6 source.sass keyword.control.at-rule.css.sass
+T 14 source.sass entity.name.function
+T 20 source.sass variable.other.root
+T 21 source.sass entity.name.function.close
+T 22 source.sass
+T 23 source.sass keyword.operator.sass
+T 24 source.sass keyword.operator.sass
+T 25 source.sass
+T 26 source.sass string.quoted.single.css.sass
+T 31 source.sass string.quoted.single.css.sass
+T 32 source.sass string.quoted.single.css.sass
+L     @return $color
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 12 source.sass keyword.control.at-rule.css.sass
+T 18 source.sass variable.other.root
+L   @return rgba($color, $alpha)
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 15 source.sass entity.name.function
+T 21 source.sass variable.other.root
+T 22 source.sass comment.punctuation.comma.sass
+T 23 source.sass
+T 29 source.sass variable.other.root
+T 30 source.sass entity.name.function.close
+L 
+L @function bulmaDarken($color, $amount)
+T 9 source.sass support.function.name.sass keyword.control.at-rule.css.sass
+T 10 source.sass support.function.name.sass
+T 21 source.sass support.function.name.sass entity.name.function
+T 22 source.sass entity.name.function
+T 28 source.sass variable.other.root
+T 29 source.sass comment.punctuation.comma.sass
+T 30 source.sass
+T 37 source.sass variable.other.root
+T 38 source.sass entity.name.function.close
+L   @if type-of($color) != 'color'
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 6 source.sass keyword.control.at-rule.css.sass
+T 14 source.sass entity.name.function
+T 20 source.sass variable.other.root
+T 21 source.sass entity.name.function.close
+T 22 source.sass
+T 23 source.sass keyword.operator.sass
+T 24 source.sass keyword.operator.sass
+T 25 source.sass
+T 26 source.sass string.quoted.single.css.sass
+T 31 source.sass string.quoted.single.css.sass
+T 32 source.sass string.quoted.single.css.sass
+L     @return $color
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 12 source.sass keyword.control.at-rule.css.sass
+T 18 source.sass variable.other.root
+L   @return darken($color, $amount)
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 17 source.sass entity.name.function
+T 23 source.sass variable.other.root
+T 24 source.sass comment.punctuation.comma.sass
+T 25 source.sass
+T 32 source.sass variable.other.root
+T 33 source.sass entity.name.function.close
+L 
+L @function bulmaLighten($color, $amount)
+T 9 source.sass support.function.name.sass keyword.control.at-rule.css.sass
+T 10 source.sass support.function.name.sass
+T 22 source.sass support.function.name.sass entity.name.function
+T 23 source.sass entity.name.function
+T 29 source.sass variable.other.root
+T 30 source.sass comment.punctuation.comma.sass
+T 31 source.sass
+T 38 source.sass variable.other.root
+T 39 source.sass entity.name.function.close
+L   @if type-of($color) != 'color'
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 6 source.sass keyword.control.at-rule.css.sass
+T 14 source.sass entity.name.function
+T 20 source.sass variable.other.root
+T 21 source.sass entity.name.function.close
+T 22 source.sass
+T 23 source.sass keyword.operator.sass
+T 24 source.sass keyword.operator.sass
+T 25 source.sass
+T 26 source.sass string.quoted.single.css.sass
+T 31 source.sass string.quoted.single.css.sass
+T 32 source.sass string.quoted.single.css.sass
+L     @return $color
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 12 source.sass keyword.control.at-rule.css.sass
+T 18 source.sass variable.other.root
+L   @return lighten($color, $amount)
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 18 source.sass entity.name.function
+T 24 source.sass variable.other.root
+T 25 source.sass comment.punctuation.comma.sass
+T 26 source.sass
+T 33 source.sass variable.other.root
+T 34 source.sass entity.name.function.close
+L 
+L // Custom divide function by @mdo from https://github.com/twbs/bootstrap/pull/34245
+T 2 source.sass comment.line.sass
+T 83 source.sass comment.line.sass
+L // Replaces old slash division deprecated in Dart Sass
+T 2 source.sass comment.line.sass
+T 54 source.sass comment.line.sass
+L @function divide($dividend, $divisor, $precision: 10)
+T 9 source.sass support.function.name.sass keyword.control.at-rule.css.sass
+T 10 source.sass support.function.name.sass
+T 16 source.sass support.function.name.sass entity.name.function
+T 17 source.sass entity.name.function
+T 26 source.sass variable.other.root
+T 27 source.sass comment.punctuation.comma.sass
+T 28 source.sass
+T 36 source.sass variable.other.root
+T 37 source.sass comment.punctuation.comma.sass
+T 38 source.sass
+T 48 source.sass sass.script.maps variable.other.name
+T 50 source.sass sass.script.maps
+T 52 source.sass sass.script.maps constant.numeric.css.sass
+T 53 source.sass entity.name.function.close
+L   $sign: if($dividend > 0 and $divisor > 0, 1, -1)
+T 2 source.sass
+T 7 source.sass sass.script.maps variable.other.name
+T 9 source.sass sass.script.maps
+T 11 source.sass sass.script.maps support.function.name.sass
+T 12 source.sass sass.script.maps
+T 21 source.sass sass.script.maps variable.other.value
+T 22 source.sass sass.script.maps
+T 23 source.sass sass.script.maps keyword.operator.sass
+T 24 source.sass sass.script.maps
+T 25 source.sass sass.script.maps constant.numeric.css.sass
+T 26 source.sass sass.script.maps
+T 29 source.sass sass.script.maps comment.punctuation.comma.sass
+T 30 source.sass sass.script.maps
+T 38 source.sass sass.script.maps variable.other.value
+T 39 source.sass sass.script.maps
+T 40 source.sass sass.script.maps keyword.operator.sass
+T 41 source.sass sass.script.maps
+T 42 source.sass sass.script.maps constant.numeric.css.sass
+T 43 source.sass sass.script.maps comment.punctuation.comma.sass
+T 44 source.sass sass.script.maps
+T 45 source.sass sass.script.maps constant.numeric.css.sass
+T 46 source.sass sass.script.maps comment.punctuation.comma.sass
+T 47 source.sass sass.script.maps
+T 49 source.sass sass.script.maps constant.numeric.css.sass
+T 50 source.sass entity.name.function.close
+L   $dividend: abs($dividend)
+T 2 source.sass
+T 11 source.sass sass.script.maps variable.other.name
+T 13 source.sass sass.script.maps
+T 16 source.sass sass.script.maps support.function.name.sass
+T 17 source.sass sass.script.maps
+T 26 source.sass sass.script.maps variable.other.value
+T 27 source.sass entity.name.function.close
+L   $divisor: abs($divisor)
+T 2 source.sass
+T 10 source.sass sass.script.maps variable.other.name
+T 12 source.sass sass.script.maps
+T 15 source.sass sass.script.maps support.function.name.sass
+T 16 source.sass sass.script.maps
+T 24 source.sass sass.script.maps variable.other.value
+T 25 source.sass entity.name.function.close
+L   $quotient: 0
+T 2 source.sass
+T 11 source.sass sass.script.maps variable.other.name
+T 13 source.sass sass.script.maps
+T 14 source.sass sass.script.maps constant.numeric.css.sass
+L   $remainder: $dividend
+T 2 source.sass
+T 12 source.sass sass.script.maps variable.other.name
+T 14 source.sass sass.script.maps
+T 23 source.sass sass.script.maps variable.other.value
+L   @if $dividend == 0
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 6 source.sass keyword.control.at-rule.css.sass
+T 15 source.sass variable.other.root
+T 16 source.sass
+T 17 source.sass keyword.operator.sass
+T 18 source.sass keyword.operator.sass
+T 19 source.sass
+T 20 source.sass constant.numeric.css.sass
+L     @return 0
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 12 source.sass keyword.control.at-rule.css.sass
+T 13 source.sass constant.numeric.css.sass
+L   @if $divisor == 0
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 6 source.sass keyword.control.at-rule.css.sass
+T 14 source.sass variable.other.root
+T 15 source.sass
+T 16 source.sass keyword.operator.sass
+T 17 source.sass keyword.operator.sass
+T 18 source.sass
+T 19 source.sass constant.numeric.css.sass
+L     @error "Cannot divide by 0"
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 12 source.sass string.quoted.double.css.sass
+T 30 source.sass string.quoted.double.css.sass
+T 31 source.sass string.quoted.double.css.sass
+L   @if $divisor == 1
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 6 source.sass keyword.control.at-rule.css.sass
+T 14 source.sass variable.other.root
+T 15 source.sass
+T 16 source.sass keyword.operator.sass
+T 17 source.sass keyword.operator.sass
+T 18 source.sass
+T 19 source.sass constant.numeric.css.sass
+L     @return $dividend
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 12 source.sass keyword.control.at-rule.css.sass
+T 21 source.sass variable.other.root
+L   @while $remainder >= $divisor
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 8 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 19 source.sass variable.other.root
+T 20 source.sass
+T 21 source.sass keyword.operator.sass
+T 22 source.sass keyword.operator.sass
+T 23 source.sass
+T 31 source.sass variable.other.root
+L     $quotient: $quotient + 1
+T 4 source.sass
+T 13 source.sass sass.script.maps variable.other.name
+T 15 source.sass sass.script.maps
+T 24 source.sass sass.script.maps variable.other.value
+T 25 source.sass sass.script.maps
+T 26 source.sass sass.script.maps keyword.operator.sass
+T 27 source.sass sass.script.maps
+T 28 source.sass sass.script.maps constant.numeric.css.sass
+L     $remainder: $remainder - $divisor
+T 4 source.sass
+T 14 source.sass sass.script.maps variable.other.name
+T 16 source.sass sass.script.maps
+T 26 source.sass sass.script.maps variable.other.value
+T 29 source.sass sass.script.maps keyword.operator.sass
+T 37 source.sass sass.script.maps variable.other.value
+L   @if $remainder > 0 and $precision > 0
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 6 source.sass keyword.control.at-rule.css.sass
+T 16 source.sass variable.other.root
+T 17 source.sass
+T 18 source.sass keyword.operator.sass
+T 19 source.sass
+T 20 source.sass constant.numeric.css.sass
+T 21 source.sass
+T 24 source.sass comment.punctuation.comma.sass
+T 25 source.sass
+T 35 source.sass variable.other.root
+T 36 source.sass
+T 37 source.sass keyword.operator.sass
+T 38 source.sass
+T 39 source.sass constant.numeric.css.sass
+L     $remainder: divide($remainder * 10, $divisor, $precision - 1) * .1
+T 4 source.sass
+T 14 source.sass sass.script.maps variable.other.name
+T 16 source.sass sass.script.maps
+T 22 source.sass sass.script.maps support.function.name.sass
+T 23 source.sass sass.script.maps
+T 33 source.sass sass.script.maps variable.other.value
+T 34 source.sass sass.script.maps
+T 35 source.sass sass.script.maps keyword.operator.sass
+T 36 source.sass sass.script.maps
+T 38 source.sass sass.script.maps constant.numeric.css.sass
+T 39 source.sass sass.script.maps comment.punctuation.comma.sass
+T 40 source.sass sass.script.maps
+T 48 source.sass sass.script.maps variable.other.value
+T 49 source.sass sass.script.maps comment.punctuation.comma.sass
+T 50 source.sass sass.script.maps
+T 60 source.sass sass.script.maps variable.other.value
+T 63 source.sass sass.script.maps keyword.operator.sass
+T 64 source.sass sass.script.maps constant.numeric.css.sass
+T 66 source.sass sass.script.maps
+T 67 source.sass sass.script.maps keyword.operator.sass
+T 68 source.sass sass.script.maps
+T 70 source.sass sass.script.maps constant.numeric.css.sass
+L   @return ($quotient + $remainder) * $sign
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass entity.name.function
+T 20 source.sass variable.other.root
+T 21 source.sass
+T 22 source.sass keyword.operator.sass
+T 23 source.sass
+T 33 source.sass variable.other.root
+T 34 source.sass entity.name.function.close
+T 35 source.sass
+T 36 source.sass keyword.operator.sass
+T 37 source.sass
+T 42 source.sass variable.other.root
+L 

@@ -1,0 +1,2668 @@
+L @import "../utilities/mixins"
+T 7 source.sass keyword.control.at-rule.use
+T 29 source.sass keyword.control.at-rule.use constant.character.css.sass
+L 
+L $navbar-background-color: $scheme-main !default
+T 24 source.sass sass.script.maps variable.other.name
+T 26 source.sass sass.script.maps
+T 38 source.sass sass.script.maps variable.other.value
+T 39 source.sass sass.script.maps
+T 47 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-box-shadow-size: 0 2px 0 0 !default
+T 23 source.sass sass.script.maps variable.other.name
+T 25 source.sass sass.script.maps
+T 26 source.sass sass.script.maps constant.numeric.css.sass
+T 27 source.sass sass.script.maps
+T 28 source.sass sass.script.maps constant.numeric.css.sass
+T 30 source.sass sass.script.maps keyword.control.unit.css.sass
+T 31 source.sass sass.script.maps
+T 32 source.sass sass.script.maps constant.numeric.css.sass
+T 33 source.sass sass.script.maps
+T 34 source.sass sass.script.maps constant.numeric.css.sass
+T 35 source.sass sass.script.maps
+T 43 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-box-shadow-color: $background !default
+T 24 source.sass sass.script.maps variable.other.name
+T 26 source.sass sass.script.maps
+T 37 source.sass sass.script.maps variable.other.value
+T 38 source.sass sass.script.maps
+T 46 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-height: 3.25rem !default
+T 14 source.sass sass.script.maps variable.other.name
+T 16 source.sass sass.script.maps
+T 20 source.sass sass.script.maps constant.numeric.css.sass
+T 23 source.sass sass.script.maps keyword.control.unit.css.sass
+T 24 source.sass sass.script.maps
+T 32 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-padding-vertical: 1rem !default
+T 24 source.sass sass.script.maps variable.other.name
+T 26 source.sass sass.script.maps
+T 27 source.sass sass.script.maps constant.numeric.css.sass
+T 30 source.sass sass.script.maps keyword.control.unit.css.sass
+T 31 source.sass sass.script.maps
+T 39 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-padding-horizontal: 2rem !default
+T 26 source.sass sass.script.maps variable.other.name
+T 28 source.sass sass.script.maps
+T 29 source.sass sass.script.maps constant.numeric.css.sass
+T 32 source.sass sass.script.maps keyword.control.unit.css.sass
+T 33 source.sass sass.script.maps
+T 41 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-z: 30 !default
+T 9 source.sass sass.script.maps variable.other.name
+T 11 source.sass sass.script.maps
+T 13 source.sass sass.script.maps constant.numeric.css.sass
+T 14 source.sass sass.script.maps
+T 22 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-fixed-z: 30 !default
+T 15 source.sass sass.script.maps variable.other.name
+T 17 source.sass sass.script.maps
+T 19 source.sass sass.script.maps constant.numeric.css.sass
+T 20 source.sass sass.script.maps
+T 28 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $navbar-item-color: $text !default
+T 18 source.sass sass.script.maps variable.other.name
+T 20 source.sass sass.script.maps
+T 25 source.sass sass.script.maps variable.other.value
+T 26 source.sass sass.script.maps
+T 34 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-item-hover-color: $link !default
+T 24 source.sass sass.script.maps variable.other.name
+T 26 source.sass sass.script.maps
+T 31 source.sass sass.script.maps variable.other.value
+T 32 source.sass sass.script.maps
+T 40 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-item-hover-background-color: $scheme-main-bis !default
+T 35 source.sass sass.script.maps variable.other.name
+T 37 source.sass sass.script.maps
+T 53 source.sass sass.script.maps variable.other.value
+T 54 source.sass sass.script.maps
+T 62 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-item-active-color: $scheme-invert !default
+T 25 source.sass sass.script.maps variable.other.name
+T 27 source.sass sass.script.maps
+T 41 source.sass sass.script.maps variable.other.value
+T 42 source.sass sass.script.maps
+T 50 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-item-active-background-color: transparent !default
+T 36 source.sass sass.script.maps variable.other.name
+T 38 source.sass sass.script.maps
+T 49 source.sass sass.script.maps meta.property-value.css.sass support.constant.property-value.css.sass
+T 50 source.sass sass.script.maps
+T 58 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-item-img-max-height: 1.75rem !default
+T 27 source.sass sass.script.maps variable.other.name
+T 29 source.sass sass.script.maps
+T 33 source.sass sass.script.maps constant.numeric.css.sass
+T 36 source.sass sass.script.maps keyword.control.unit.css.sass
+T 37 source.sass sass.script.maps
+T 45 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $navbar-burger-color: $navbar-item-color !default
+T 20 source.sass sass.script.maps variable.other.name
+T 22 source.sass sass.script.maps
+T 40 source.sass sass.script.maps variable.other.value
+T 41 source.sass sass.script.maps
+T 49 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $navbar-tab-hover-background-color: transparent !default
+T 34 source.sass sass.script.maps variable.other.name
+T 36 source.sass sass.script.maps
+T 47 source.sass sass.script.maps meta.property-value.css.sass support.constant.property-value.css.sass
+T 48 source.sass sass.script.maps
+T 56 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-tab-hover-border-bottom-color: $link !default
+T 37 source.sass sass.script.maps variable.other.name
+T 39 source.sass sass.script.maps
+T 44 source.sass sass.script.maps variable.other.value
+T 45 source.sass sass.script.maps
+T 53 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-tab-active-color: $link !default
+T 24 source.sass sass.script.maps variable.other.name
+T 26 source.sass sass.script.maps
+T 31 source.sass sass.script.maps variable.other.value
+T 32 source.sass sass.script.maps
+T 40 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-tab-active-background-color: transparent !default
+T 35 source.sass sass.script.maps variable.other.name
+T 37 source.sass sass.script.maps
+T 48 source.sass sass.script.maps meta.property-value.css.sass support.constant.property-value.css.sass
+T 49 source.sass sass.script.maps
+T 57 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-tab-active-border-bottom-color: $link !default
+T 38 source.sass sass.script.maps variable.other.name
+T 40 source.sass sass.script.maps
+T 45 source.sass sass.script.maps variable.other.value
+T 46 source.sass sass.script.maps
+T 54 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-tab-active-border-bottom-style: solid !default
+T 38 source.sass sass.script.maps variable.other.name
+T 40 source.sass sass.script.maps
+T 45 source.sass sass.script.maps meta.property-value.css.sass support.constant.property-value.css.sass
+T 46 source.sass sass.script.maps
+T 54 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-tab-active-border-bottom-width: 3px !default
+T 38 source.sass sass.script.maps variable.other.name
+T 40 source.sass sass.script.maps
+T 41 source.sass sass.script.maps constant.numeric.css.sass
+T 43 source.sass sass.script.maps keyword.control.unit.css.sass
+T 44 source.sass sass.script.maps
+T 52 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $navbar-dropdown-background-color: $scheme-main !default
+T 33 source.sass sass.script.maps variable.other.name
+T 35 source.sass sass.script.maps
+T 47 source.sass sass.script.maps variable.other.value
+T 48 source.sass sass.script.maps
+T 56 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-dropdown-border-top: 2px solid $border !default
+T 27 source.sass sass.script.maps variable.other.name
+T 29 source.sass sass.script.maps
+T 30 source.sass sass.script.maps constant.numeric.css.sass
+T 32 source.sass sass.script.maps keyword.control.unit.css.sass
+T 33 source.sass sass.script.maps
+T 38 source.sass sass.script.maps meta.property-value.css.sass support.constant.property-value.css.sass
+T 39 source.sass sass.script.maps
+T 46 source.sass sass.script.maps variable.other.value
+T 47 source.sass sass.script.maps
+T 55 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-dropdown-offset: -4px !default
+T 23 source.sass sass.script.maps variable.other.name
+T 25 source.sass sass.script.maps
+T 27 source.sass sass.script.maps constant.numeric.css.sass
+T 29 source.sass sass.script.maps keyword.control.unit.css.sass
+T 30 source.sass sass.script.maps
+T 38 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-dropdown-arrow: $link !default
+T 22 source.sass sass.script.maps variable.other.name
+T 24 source.sass sass.script.maps
+T 29 source.sass sass.script.maps variable.other.value
+T 30 source.sass sass.script.maps
+T 38 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-dropdown-radius: $radius-large !default
+T 23 source.sass sass.script.maps variable.other.name
+T 25 source.sass sass.script.maps
+T 38 source.sass sass.script.maps variable.other.value
+T 39 source.sass sass.script.maps
+T 47 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-dropdown-z: 20 !default
+T 18 source.sass sass.script.maps variable.other.name
+T 20 source.sass sass.script.maps
+T 22 source.sass sass.script.maps constant.numeric.css.sass
+T 23 source.sass sass.script.maps
+T 31 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $navbar-dropdown-boxed-radius: $radius-large !default
+T 29 source.sass sass.script.maps variable.other.name
+T 31 source.sass sass.script.maps
+T 44 source.sass sass.script.maps variable.other.value
+T 45 source.sass sass.script.maps
+T 53 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-dropdown-boxed-shadow: 0 8px 8px bulmaRgba($scheme-invert, 0.1), 0 0 0 1px bulmaRgba($scheme-invert, 0.1) !default
+T 29 source.sass sass.script.maps variable.other.name
+T 31 source.sass sass.script.maps
+T 32 source.sass sass.script.maps constant.numeric.css.sass
+T 33 source.sass sass.script.maps
+T 34 source.sass sass.script.maps constant.numeric.css.sass
+T 36 source.sass sass.script.maps keyword.control.unit.css.sass
+T 37 source.sass sass.script.maps
+T 38 source.sass sass.script.maps constant.numeric.css.sass
+T 40 source.sass sass.script.maps keyword.control.unit.css.sass
+T 41 source.sass sass.script.maps
+T 50 source.sass sass.script.maps support.function.name.sass
+T 51 source.sass sass.script.maps
+T 65 source.sass sass.script.maps variable.other.value
+T 66 source.sass sass.script.maps comment.punctuation.comma.sass
+T 67 source.sass sass.script.maps
+T 70 source.sass sass.script.maps constant.numeric.css.sass
+T 71 source.sass sass.script.maps
+T 72 source.sass sass.script.maps comment.punctuation.comma.sass
+T 73 source.sass sass.script.maps
+T 74 source.sass sass.script.maps constant.numeric.css.sass
+T 75 source.sass sass.script.maps
+T 76 source.sass sass.script.maps constant.numeric.css.sass
+T 77 source.sass sass.script.maps
+T 78 source.sass sass.script.maps constant.numeric.css.sass
+T 79 source.sass sass.script.maps
+T 80 source.sass sass.script.maps constant.numeric.css.sass
+T 82 source.sass sass.script.maps keyword.control.unit.css.sass
+T 83 source.sass sass.script.maps
+T 92 source.sass sass.script.maps support.function.name.sass
+T 93 source.sass sass.script.maps
+T 107 source.sass sass.script.maps variable.other.value
+T 108 source.sass sass.script.maps comment.punctuation.comma.sass
+T 109 source.sass sass.script.maps
+T 112 source.sass sass.script.maps constant.numeric.css.sass
+T 114 source.sass sass.script.maps
+T 122 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $navbar-dropdown-item-hover-color: $scheme-invert !default
+T 33 source.sass sass.script.maps variable.other.name
+T 35 source.sass sass.script.maps
+T 49 source.sass sass.script.maps variable.other.value
+T 50 source.sass sass.script.maps
+T 58 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-dropdown-item-hover-background-color: $background !default
+T 44 source.sass sass.script.maps variable.other.name
+T 46 source.sass sass.script.maps
+T 57 source.sass sass.script.maps variable.other.value
+T 58 source.sass sass.script.maps
+T 66 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-dropdown-item-active-color: $link !default
+T 34 source.sass sass.script.maps variable.other.name
+T 36 source.sass sass.script.maps
+T 41 source.sass sass.script.maps variable.other.value
+T 42 source.sass sass.script.maps
+T 50 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-dropdown-item-active-background-color: $background !default
+T 45 source.sass sass.script.maps variable.other.name
+T 47 source.sass sass.script.maps
+T 58 source.sass sass.script.maps variable.other.value
+T 59 source.sass sass.script.maps
+T 67 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $navbar-divider-background-color: $background !default
+T 32 source.sass sass.script.maps variable.other.name
+T 34 source.sass sass.script.maps
+T 45 source.sass sass.script.maps variable.other.value
+T 46 source.sass sass.script.maps
+T 54 source.sass sass.script.maps keyword.other.important.css.sass
+L $navbar-divider-height: 2px !default
+T 22 source.sass sass.script.maps variable.other.name
+T 24 source.sass sass.script.maps
+T 25 source.sass sass.script.maps constant.numeric.css.sass
+T 27 source.sass sass.script.maps keyword.control.unit.css.sass
+T 28 source.sass sass.script.maps
+T 36 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $navbar-bottom-box-shadow-size: 0 -2px 0 0 !default
+T 30 source.sass sass.script.maps variable.other.name
+T 32 source.sass sass.script.maps
+T 33 source.sass sass.script.maps constant.numeric.css.sass
+T 34 source.sass sass.script.maps
+T 36 source.sass sass.script.maps constant.numeric.css.sass
+T 38 source.sass sass.script.maps keyword.control.unit.css.sass
+T 39 source.sass sass.script.maps
+T 40 source.sass sass.script.maps constant.numeric.css.sass
+T 41 source.sass sass.script.maps
+T 42 source.sass sass.script.maps constant.numeric.css.sass
+T 43 source.sass sass.script.maps
+T 51 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $navbar-breakpoint: $desktop !default
+T 18 source.sass sass.script.maps variable.other.name
+T 20 source.sass sass.script.maps
+T 28 source.sass sass.script.maps variable.other.value
+T 29 source.sass sass.script.maps
+T 37 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L $navbar-colors: $colors !default
+T 14 source.sass sass.script.maps variable.other.name
+T 16 source.sass sass.script.maps
+T 23 source.sass sass.script.maps variable.other.value
+T 24 source.sass sass.script.maps
+T 32 source.sass sass.script.maps keyword.other.important.css.sass
+L 
+L =navbar-fixed
+T 1 source.sass support.function.name.sass keyword.control.at-rule.css.sass
+T 13 source.sass support.function.name.sass entity.name.function
+L   left: 0
+T 2 source.sass
+T 6 source.sass support.type.property-name.css.sass.prop.name
+T 7 source.sass meta.property-list.css.sass.prop
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L   position: fixed
+T 2 source.sass
+T 10 source.sass support.type.property-name.css.sass.prop.name
+T 11 source.sass meta.property-list.css.sass.prop
+T 12 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   right: 0
+T 2 source.sass
+T 7 source.sass support.type.property-name.css.sass.prop.name
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop
+T 10 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L   z-index: $navbar-fixed-z
+T 2 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop variable.other.value
+L 
+L .navbar
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+L   background-color: $navbar-background-color
+T 2 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 44 source.sass meta.property-list.css.sass.prop variable.other.value
+L   min-height: $navbar-height
+T 2 source.sass
+T 12 source.sass support.type.property-name.css.sass.prop.name
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop
+T 28 source.sass meta.property-list.css.sass.prop variable.other.value
+L   position: relative
+T 2 source.sass
+T 10 source.sass support.type.property-name.css.sass.prop.name
+T 11 source.sass meta.property-list.css.sass.prop
+T 12 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   z-index: $navbar-z
+T 2 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop variable.other.value
+L   @each $name, $pair in $navbar-colors
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 7 source.sass keyword.control.at-rule.css.sass
+T 8 source.sass keyword.control.at-rule.css.sass
+T 13 source.sass variable.other.root
+T 14 source.sass comment.punctuation.comma.sass
+T 15 source.sass
+T 20 source.sass variable.other.root
+T 21 source.sass
+T 23 source.sass support.type.property-name.css.sass
+T 24 source.sass
+T 38 source.sass variable.other.root
+L     $color: nth($pair, 1)
+T 4 source.sass
+T 10 source.sass sass.script.maps variable.other.name
+T 12 source.sass sass.script.maps
+T 15 source.sass sass.script.maps support.function.name.sass
+T 16 source.sass sass.script.maps
+T 21 source.sass sass.script.maps variable.other.value
+T 22 source.sass sass.script.maps comment.punctuation.comma.sass
+T 23 source.sass sass.script.maps
+T 24 source.sass sass.script.maps constant.numeric.css.sass
+T 25 source.sass entity.name.function.close
+L     $color-invert: nth($pair, 2)
+T 4 source.sass
+T 17 source.sass sass.script.maps variable.other.name
+T 19 source.sass sass.script.maps
+T 22 source.sass sass.script.maps support.function.name.sass
+T 23 source.sass sass.script.maps
+T 28 source.sass sass.script.maps variable.other.value
+T 29 source.sass sass.script.maps comment.punctuation.comma.sass
+T 30 source.sass sass.script.maps
+T 31 source.sass sass.script.maps constant.numeric.css.sass
+T 32 source.sass entity.name.function.close
+L     &.is-#{$name}
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+T 11 source.sass entity.other.attribute-name.class.css.sass support.function.interpolation.sass
+T 16 source.sass entity.other.attribute-name.class.css.sass support.function.interpolation.sass variable.other.value
+T 17 source.sass entity.other.attribute-name.class.css.sass support.function.interpolation.sass
+L       background-color: $color
+T 6 source.sass
+T 22 source.sass support.type.property-name.css.sass.prop.name
+T 23 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop variable.other.value
+L       color: $color-invert
+T 6 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop variable.other.value
+L       .navbar-brand
+T 6 source.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+T 19 source.sass entity.other.attribute-name.class.css.sass
+L         & > .navbar-item,
+T 8 source.sass
+T 9 source.sass entity.name.tag.css.sass.symbol
+T 10 source.sass
+T 11 source.sass keyword.operator.sass
+T 12 source.sass
+T 13 source.sass entity.other.attribute-name.class.css.sass
+T 24 source.sass entity.other.attribute-name.class.css.sass
+T 25 source.sass comment.punctuation.comma.sass
+L         .navbar-link
+T 8 source.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+T 20 source.sass entity.other.attribute-name.class.css.sass
+L           color: $color-invert
+T 10 source.sass
+T 15 source.sass support.type.property-name.css.sass.prop.name
+T 16 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop variable.other.value
+L         & > a.navbar-item,
+T 8 source.sass
+T 9 source.sass entity.name.tag.css.sass.symbol
+T 10 source.sass
+T 11 source.sass keyword.operator.sass
+T 12 source.sass
+T 13 source.sass entity.name.tag.css.sass.symbol
+T 14 source.sass entity.other.attribute-name.class.css.sass
+T 25 source.sass entity.other.attribute-name.class.css.sass
+T 26 source.sass comment.punctuation.comma.sass
+L         .navbar-link
+T 8 source.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+T 20 source.sass entity.other.attribute-name.class.css.sass
+L           &:focus,
+T 10 source.sass
+T 11 source.sass entity.name.tag.css.sass.symbol
+T 17 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 18 source.sass comment.punctuation.comma.sass
+L           &:hover,
+T 10 source.sass
+T 11 source.sass entity.name.tag.css.sass.symbol
+T 17 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 18 source.sass comment.punctuation.comma.sass
+L           &.is-active
+T 10 source.sass
+T 11 source.sass entity.name.tag.css.sass.symbol
+T 12 source.sass entity.other.attribute-name.class.css.sass
+T 21 source.sass entity.other.attribute-name.class.css.sass
+L             background-color: bulmaDarken($color, 5%)
+T 12 source.sass
+T 28 source.sass support.type.property-name.css.sass.prop.name
+T 29 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop
+T 42 source.sass meta.property-list.css.sass.prop entity.name.function
+T 48 source.sass meta.property-list.css.sass.prop variable.other.value
+T 49 source.sass meta.property-list.css.sass.prop comment.punctuation.comma.sass
+T 50 source.sass meta.property-list.css.sass.prop
+T 51 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 52 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 53 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L             color: $color-invert
+T 12 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 32 source.sass meta.property-list.css.sass.prop variable.other.value
+L         .navbar-link
+T 8 source.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+T 20 source.sass entity.other.attribute-name.class.css.sass
+L           &::after
+T 10 source.sass
+T 11 source.sass entity.name.tag.css.sass.symbol
+T 18 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+L             border-color: $color-invert
+T 12 source.sass
+T 24 source.sass support.type.property-name.css.sass.prop.name
+T 25 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop
+T 39 source.sass meta.property-list.css.sass.prop variable.other.value
+L       .navbar-burger
+T 6 source.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+T 20 source.sass entity.other.attribute-name.class.css.sass
+L         color: $color-invert
+T 8 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 28 source.sass meta.property-list.css.sass.prop variable.other.value
+L       +from($navbar-breakpoint)
+T 6 source.sass
+T 7 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 11 source.sass support.function.name.sass.library
+T 12 source.sass entity.name.function
+T 30 source.sass variable.other.root
+T 31 source.sass entity.name.function.close
+L         .navbar-start,
+T 8 source.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+T 21 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass comment.punctuation.comma.sass
+L         .navbar-end
+T 8 source.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+T 19 source.sass entity.other.attribute-name.class.css.sass
+L           & > .navbar-item,
+T 10 source.sass
+T 11 source.sass entity.name.tag.css.sass.symbol
+T 12 source.sass
+T 13 source.sass keyword.operator.sass
+T 14 source.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+T 26 source.sass entity.other.attribute-name.class.css.sass
+T 27 source.sass comment.punctuation.comma.sass
+L           .navbar-link
+T 10 source.sass
+T 11 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass entity.other.attribute-name.class.css.sass
+L             color: $color-invert
+T 12 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 32 source.sass meta.property-list.css.sass.prop variable.other.value
+L           & > a.navbar-item,
+T 10 source.sass
+T 11 source.sass entity.name.tag.css.sass.symbol
+T 12 source.sass
+T 13 source.sass keyword.operator.sass
+T 14 source.sass
+T 15 source.sass entity.name.tag.css.sass.symbol
+T 16 source.sass entity.other.attribute-name.class.css.sass
+T 27 source.sass entity.other.attribute-name.class.css.sass
+T 28 source.sass comment.punctuation.comma.sass
+L           .navbar-link
+T 10 source.sass
+T 11 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass entity.other.attribute-name.class.css.sass
+L             &:focus,
+T 12 source.sass
+T 13 source.sass entity.name.tag.css.sass.symbol
+T 19 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 20 source.sass comment.punctuation.comma.sass
+L             &:hover,
+T 12 source.sass
+T 13 source.sass entity.name.tag.css.sass.symbol
+T 19 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 20 source.sass comment.punctuation.comma.sass
+L             &.is-active
+T 12 source.sass
+T 13 source.sass entity.name.tag.css.sass.symbol
+T 14 source.sass entity.other.attribute-name.class.css.sass
+T 23 source.sass entity.other.attribute-name.class.css.sass
+L               background-color: bulmaDarken($color, 5%)
+T 14 source.sass
+T 30 source.sass support.type.property-name.css.sass.prop.name
+T 31 source.sass meta.property-list.css.sass.prop
+T 32 source.sass meta.property-list.css.sass.prop
+T 44 source.sass meta.property-list.css.sass.prop entity.name.function
+T 50 source.sass meta.property-list.css.sass.prop variable.other.value
+T 51 source.sass meta.property-list.css.sass.prop comment.punctuation.comma.sass
+T 52 source.sass meta.property-list.css.sass.prop
+T 53 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 54 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 55 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L               color: $color-invert
+T 14 source.sass
+T 19 source.sass support.type.property-name.css.sass.prop.name
+T 20 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop
+T 34 source.sass meta.property-list.css.sass.prop variable.other.value
+L           .navbar-link
+T 10 source.sass
+T 11 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass entity.other.attribute-name.class.css.sass
+L             &::after
+T 12 source.sass
+T 13 source.sass entity.name.tag.css.sass.symbol
+T 20 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+L               border-color: $color-invert
+T 14 source.sass
+T 26 source.sass support.type.property-name.css.sass.prop.name
+T 27 source.sass meta.property-list.css.sass.prop
+T 28 source.sass meta.property-list.css.sass.prop
+T 41 source.sass meta.property-list.css.sass.prop variable.other.value
+L         .navbar-item.has-dropdown:focus .navbar-link,
+T 8 source.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+T 33 source.sass entity.other.attribute-name.class.css.sass
+T 39 source.sass entity.other.attribute-name.class.css.sass entity.other.attribute-name.pseudo-class.css.sass
+T 40 source.sass
+T 41 source.sass entity.other.attribute-name.class.css.sass
+T 52 source.sass entity.other.attribute-name.class.css.sass
+T 53 source.sass comment.punctuation.comma.sass
+L         .navbar-item.has-dropdown:hover .navbar-link,
+T 8 source.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+T 33 source.sass entity.other.attribute-name.class.css.sass
+T 39 source.sass entity.other.attribute-name.class.css.sass entity.other.attribute-name.pseudo-class.css.sass
+T 40 source.sass
+T 41 source.sass entity.other.attribute-name.class.css.sass
+T 52 source.sass entity.other.attribute-name.class.css.sass
+T 53 source.sass comment.punctuation.comma.sass
+L         .navbar-item.has-dropdown.is-active .navbar-link
+T 8 source.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+T 43 source.sass entity.other.attribute-name.class.css.sass
+T 44 source.sass
+T 45 source.sass entity.other.attribute-name.class.css.sass
+T 56 source.sass entity.other.attribute-name.class.css.sass
+L           background-color: bulmaDarken($color, 5%)
+T 10 source.sass
+T 26 source.sass support.type.property-name.css.sass.prop.name
+T 27 source.sass meta.property-list.css.sass.prop
+T 28 source.sass meta.property-list.css.sass.prop
+T 40 source.sass meta.property-list.css.sass.prop entity.name.function
+T 46 source.sass meta.property-list.css.sass.prop variable.other.value
+T 47 source.sass meta.property-list.css.sass.prop comment.punctuation.comma.sass
+T 48 source.sass meta.property-list.css.sass.prop
+T 49 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 50 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 51 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L           color: $color-invert
+T 10 source.sass
+T 15 source.sass support.type.property-name.css.sass.prop.name
+T 16 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop variable.other.value
+L         .navbar-dropdown
+T 8 source.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+T 24 source.sass entity.other.attribute-name.class.css.sass
+L           a.navbar-item
+T 10 source.sass
+T 11 source.sass entity.name.tag.css.sass.symbol
+T 12 source.sass entity.other.attribute-name.class.css.sass
+T 23 source.sass entity.other.attribute-name.class.css.sass
+L             &.is-active
+T 12 source.sass
+T 13 source.sass entity.name.tag.css.sass.symbol
+T 14 source.sass entity.other.attribute-name.class.css.sass
+T 23 source.sass entity.other.attribute-name.class.css.sass
+L               background-color: $color
+T 14 source.sass
+T 30 source.sass support.type.property-name.css.sass.prop.name
+T 31 source.sass meta.property-list.css.sass.prop
+T 32 source.sass meta.property-list.css.sass.prop
+T 38 source.sass meta.property-list.css.sass.prop variable.other.value
+L               color: $color-invert
+T 14 source.sass
+T 19 source.sass support.type.property-name.css.sass.prop.name
+T 20 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop
+T 34 source.sass meta.property-list.css.sass.prop variable.other.value
+L   & > .container
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass
+T 5 source.sass keyword.operator.sass
+T 6 source.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass entity.other.attribute-name.class.css.sass
+L     align-items: stretch
+T 4 source.sass
+T 15 source.sass support.type.property-name.css.sass.prop.name
+T 16 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     display: flex
+T 4 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     min-height: $navbar-height
+T 4 source.sass
+T 14 source.sass support.type.property-name.css.sass.prop.name
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop variable.other.value
+L     width: 100%
+T 4 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 15 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L   &.has-shadow
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass entity.other.attribute-name.class.css.sass
+L     box-shadow: $navbar-box-shadow-size $navbar-box-shadow-color
+T 4 source.sass
+T 14 source.sass support.type.property-name.css.sass.prop.name
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop
+T 39 source.sass meta.property-list.css.sass.prop variable.other.value
+T 40 source.sass meta.property-list.css.sass.prop
+T 64 source.sass meta.property-list.css.sass.prop variable.other.value
+L   &.is-fixed-bottom,
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass entity.other.attribute-name.class.css.sass
+T 19 source.sass entity.other.attribute-name.class.css.sass
+T 20 source.sass comment.punctuation.comma.sass
+L   &.is-fixed-top
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass entity.other.attribute-name.class.css.sass
+L     +navbar-fixed
+T 4 source.sass
+T 5 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 17 source.sass support.function.name.sass.library
+L   &.is-fixed-bottom
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass entity.other.attribute-name.class.css.sass
+T 19 source.sass entity.other.attribute-name.class.css.sass
+L     bottom: 0
+T 4 source.sass
+T 10 source.sass support.type.property-name.css.sass.prop.name
+T 11 source.sass meta.property-list.css.sass.prop
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L     &.has-shadow
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass entity.other.attribute-name.class.css.sass
+L       box-shadow: $navbar-bottom-box-shadow-size $navbar-box-shadow-color
+T 6 source.sass
+T 16 source.sass support.type.property-name.css.sass.prop.name
+T 17 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop
+T 48 source.sass meta.property-list.css.sass.prop variable.other.value
+T 49 source.sass meta.property-list.css.sass.prop
+T 73 source.sass meta.property-list.css.sass.prop variable.other.value
+L   &.is-fixed-top
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass entity.other.attribute-name.class.css.sass
+L     top: 0
+T 4 source.sass
+T 7 source.sass support.type.property-name.css.sass.prop.name
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop
+T 10 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L 
+L html,
+T 4 source.sass entity.name.tag.css.sass.symbol
+T 5 source.sass comment.punctuation.comma.sass
+L body
+T 4 source.sass entity.name.tag.css.sass.symbol
+L   &.has-navbar-fixed-top
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass entity.other.attribute-name.class.css.sass
+T 24 source.sass entity.other.attribute-name.class.css.sass
+L     padding-top: $navbar-height
+T 4 source.sass
+T 15 source.sass support.type.property-name.css.sass.prop.name
+T 16 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop
+T 31 source.sass meta.property-list.css.sass.prop variable.other.value
+L   &.has-navbar-fixed-bottom
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass entity.other.attribute-name.class.css.sass
+T 27 source.sass entity.other.attribute-name.class.css.sass
+L     padding-bottom: $navbar-height
+T 4 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 34 source.sass meta.property-list.css.sass.prop variable.other.value
+L 
+L .navbar-brand,
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 13 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass comment.punctuation.comma.sass
+L .navbar-tabs
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 12 source.sass entity.other.attribute-name.class.css.sass
+L   align-items: stretch
+T 2 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   display: flex
+T 2 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   flex-shrink: 0
+T 2 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L   min-height: $navbar-height
+T 2 source.sass
+T 12 source.sass support.type.property-name.css.sass.prop.name
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop
+T 28 source.sass meta.property-list.css.sass.prop variable.other.value
+L 
+L .navbar-brand
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 13 source.sass entity.other.attribute-name.class.css.sass
+L   a.navbar-item
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+L     &:focus,
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 11 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 12 source.sass comment.punctuation.comma.sass
+L     &:hover
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 11 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+L       background-color: transparent
+T 6 source.sass
+T 22 source.sass support.type.property-name.css.sass.prop.name
+T 23 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop
+T 35 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L 
+L .navbar-tabs
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 12 source.sass entity.other.attribute-name.class.css.sass
+L   +overflow-touch
+T 2 source.sass
+T 3 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 17 source.sass support.function.name.sass.library
+L   max-width: 100vw
+T 2 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 18 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L   overflow-x: auto
+T 2 source.sass
+T 12 source.sass support.type.property-name.css.sass.prop.name
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   overflow-y: hidden
+T 2 source.sass
+T 12 source.sass support.type.property-name.css.sass.prop.name
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L 
+L .navbar-burger
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass entity.other.attribute-name.class.css.sass
+L   @extend %reset
+T 2 source.sass
+T 3 source.sass keyword.control.at-rule.css.sass
+T 9 source.sass keyword.control.at-rule.css.sass
+T 10 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+T 16 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+L   color: $navbar-burger-color
+T 2 source.sass
+T 7 source.sass support.type.property-name.css.sass.prop.name
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop
+T 29 source.sass meta.property-list.css.sass.prop variable.other.value
+L   +hamburger($navbar-height)
+T 2 source.sass
+T 3 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 12 source.sass support.function.name.sass.library
+T 13 source.sass entity.name.function
+T 27 source.sass variable.other.root
+T 28 source.sass entity.name.function.close
+L   +ltr-property("margin", auto, false)
+T 2 source.sass
+T 3 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 15 source.sass support.function.name.sass.library
+T 16 source.sass entity.name.function
+T 17 source.sass string.quoted.double.css.sass
+T 23 source.sass string.quoted.double.css.sass
+T 24 source.sass string.quoted.double.css.sass
+T 25 source.sass comment.punctuation.comma.sass
+T 26 source.sass
+T 30 source.sass meta.property-value.css.sass support.constant.property-value.css.sass
+T 31 source.sass comment.punctuation.comma.sass
+T 32 source.sass
+T 37 source.sass support.type.property-name.css.sass
+T 38 source.sass entity.name.function.close
+L 
+L .navbar-menu
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 12 source.sass entity.other.attribute-name.class.css.sass
+L   display: none
+T 2 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L 
+L .navbar-item,
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 12 source.sass entity.other.attribute-name.class.css.sass
+T 13 source.sass comment.punctuation.comma.sass
+L .navbar-link
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 12 source.sass entity.other.attribute-name.class.css.sass
+L   color: $navbar-item-color
+T 2 source.sass
+T 7 source.sass support.type.property-name.css.sass.prop.name
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop variable.other.value
+L   display: block
+T 2 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   line-height: 1.5
+T 2 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L   padding: 0.5rem 0.75rem
+T 2 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 17 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 18 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 25 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L   position: relative
+T 2 source.sass
+T 10 source.sass support.type.property-name.css.sass.prop.name
+T 11 source.sass meta.property-list.css.sass.prop
+T 12 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   .icon
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+L     &:only-child
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 16 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+L       margin-left: -0.25rem
+T 6 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 27 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L       margin-right: -0.25rem
+T 6 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 25 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 28 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L 
+L a.navbar-item,
+T 1 source.sass entity.name.tag.css.sass.symbol
+T 2 source.sass entity.other.attribute-name.class.css.sass
+T 13 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass comment.punctuation.comma.sass
+L .navbar-link
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 12 source.sass entity.other.attribute-name.class.css.sass
+L   cursor: pointer
+T 2 source.sass
+T 8 source.sass support.type.property-name.css.sass.prop.name
+T 9 source.sass meta.property-list.css.sass.prop
+T 10 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   &:focus,
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 9 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 10 source.sass comment.punctuation.comma.sass
+L   &:focus-within,
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 16 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 17 source.sass comment.punctuation.comma.sass
+L   &:hover,
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 9 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 10 source.sass comment.punctuation.comma.sass
+L   &.is-active
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass entity.other.attribute-name.class.css.sass
+T 13 source.sass entity.other.attribute-name.class.css.sass
+L     background-color: $navbar-item-hover-background-color
+T 4 source.sass
+T 20 source.sass support.type.property-name.css.sass.prop.name
+T 21 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop
+T 57 source.sass meta.property-list.css.sass.prop variable.other.value
+L     color: $navbar-item-hover-color
+T 4 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 35 source.sass meta.property-list.css.sass.prop variable.other.value
+L 
+L .navbar-item
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 12 source.sass entity.other.attribute-name.class.css.sass
+L   flex-grow: 0
+T 2 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L   flex-shrink: 0
+T 2 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L   img
+T 2 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+L     max-height: $navbar-item-img-max-height
+T 4 source.sass
+T 14 source.sass support.type.property-name.css.sass.prop.name
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop
+T 43 source.sass meta.property-list.css.sass.prop variable.other.value
+L   &.has-dropdown
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass entity.other.attribute-name.class.css.sass
+L     padding: 0
+T 4 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L   &.is-expanded
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+L     flex-grow: 1
+T 4 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L     flex-shrink: 1
+T 4 source.sass
+T 15 source.sass support.type.property-name.css.sass.prop.name
+T 16 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L   &.is-tab
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass entity.other.attribute-name.class.css.sass
+T 10 source.sass entity.other.attribute-name.class.css.sass
+L     border-bottom: 1px solid transparent
+T 4 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 22 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 23 source.sass meta.property-list.css.sass.prop
+T 28 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+T 29 source.sass meta.property-list.css.sass.prop
+T 40 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     min-height: $navbar-height
+T 4 source.sass
+T 14 source.sass support.type.property-name.css.sass.prop.name
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop variable.other.value
+L     padding-bottom: calc(0.5rem - 1px)
+T 4 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 25 source.sass meta.property-list.css.sass.prop entity.name.function
+T 28 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 31 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 34 source.sass meta.property-list.css.sass.prop keyword.operator.sass
+T 35 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 37 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 38 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L     &:focus,
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 11 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 12 source.sass comment.punctuation.comma.sass
+L     &:hover
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 11 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+L       background-color: $navbar-tab-hover-background-color
+T 6 source.sass
+T 22 source.sass support.type.property-name.css.sass.prop.name
+T 23 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop
+T 58 source.sass meta.property-list.css.sass.prop variable.other.value
+L       border-bottom-color: $navbar-tab-hover-border-bottom-color
+T 6 source.sass
+T 25 source.sass support.type.property-name.css.sass.prop.name
+T 26 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop
+T 64 source.sass meta.property-list.css.sass.prop variable.other.value
+L     &.is-active
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+L       background-color: $navbar-tab-active-background-color
+T 6 source.sass
+T 22 source.sass support.type.property-name.css.sass.prop.name
+T 23 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop
+T 59 source.sass meta.property-list.css.sass.prop variable.other.value
+L       border-bottom-color: $navbar-tab-active-border-bottom-color
+T 6 source.sass
+T 25 source.sass support.type.property-name.css.sass.prop.name
+T 26 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop
+T 65 source.sass meta.property-list.css.sass.prop variable.other.value
+L       border-bottom-style: $navbar-tab-active-border-bottom-style
+T 6 source.sass
+T 25 source.sass support.type.property-name.css.sass.prop.name
+T 26 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop
+T 65 source.sass meta.property-list.css.sass.prop variable.other.value
+L       border-bottom-width: $navbar-tab-active-border-bottom-width
+T 6 source.sass
+T 25 source.sass support.type.property-name.css.sass.prop.name
+T 26 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop
+T 65 source.sass meta.property-list.css.sass.prop variable.other.value
+L       color: $navbar-tab-active-color
+T 6 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 37 source.sass meta.property-list.css.sass.prop variable.other.value
+L       padding-bottom: calc(0.5rem - #{$navbar-tab-active-border-bottom-width})
+T 6 source.sass
+T 20 source.sass support.type.property-name.css.sass.prop.name
+T 21 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop entity.name.function
+T 30 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 33 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 36 source.sass meta.property-list.css.sass.prop keyword.operator.sass
+T 38 source.sass meta.property-list.css.sass.prop support.function.interpolation.sass
+T 76 source.sass meta.property-list.css.sass.prop support.function.interpolation.sass variable.other.value
+T 77 source.sass meta.property-list.css.sass.prop support.function.interpolation.sass
+T 78 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L 
+L .navbar-content
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+L   flex-grow: 1
+T 2 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L   flex-shrink: 1
+T 2 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L 
+L .navbar-link:not(.is-arrowless)
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 12 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass entity.other.attribute-name.class.css.sass entity.other.attribute-name.pseudo-class.css.sass
+T 17 source.sass entity.name.function
+T 18 source.sass entity.other.attribute-name.class.css.sass
+T 30 source.sass entity.other.attribute-name.class.css.sass
+T 31 source.sass entity.name.function.close
+L   +ltr-property("padding", 2.5em)
+T 2 source.sass
+T 3 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 15 source.sass support.function.name.sass.library
+T 16 source.sass entity.name.function
+T 17 source.sass string.quoted.double.css.sass
+T 24 source.sass string.quoted.double.css.sass
+T 25 source.sass string.quoted.double.css.sass
+T 26 source.sass comment.punctuation.comma.sass
+T 27 source.sass
+T 30 source.sass constant.numeric.css.sass
+T 32 source.sass keyword.control.unit.css.sass
+T 33 source.sass entity.name.function.close
+L   &::after
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 10 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+L     @extend %arrow
+T 4 source.sass
+T 5 source.sass keyword.control.at-rule.css.sass
+T 11 source.sass keyword.control.at-rule.css.sass
+T 12 source.sass keyword.control.at-rule.css.sass
+T 13 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+T 18 source.sass entity.other.inherited-class.placeholder-selector.css.sass
+L     border-color: $navbar-dropdown-arrow
+T 4 source.sass
+T 16 source.sass support.type.property-name.css.sass.prop.name
+T 17 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop
+T 40 source.sass meta.property-list.css.sass.prop variable.other.value
+L     margin-top: -0.375em
+T 4 source.sass
+T 14 source.sass support.type.property-name.css.sass.prop.name
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 24 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L     +ltr-position(1.125em)
+T 4 source.sass
+T 5 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 17 source.sass support.function.name.sass.library
+T 18 source.sass entity.name.function
+T 23 source.sass constant.numeric.css.sass
+T 25 source.sass keyword.control.unit.css.sass
+T 26 source.sass entity.name.function.close
+L 
+L .navbar-dropdown
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass entity.other.attribute-name.class.css.sass
+L   font-size: 0.875rem
+T 2 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 21 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L   padding-bottom: 0.5rem
+T 2 source.sass
+T 16 source.sass support.type.property-name.css.sass.prop.name
+T 17 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 24 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L   padding-top: 0.5rem
+T 2 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 21 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L   .navbar-item
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass entity.other.attribute-name.class.css.sass
+L     padding-left: 1.5rem
+T 4 source.sass
+T 16 source.sass support.type.property-name.css.sass.prop.name
+T 17 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 24 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L     padding-right: 1.5rem
+T 4 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 25 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L 
+L .navbar-divider
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+L   background-color: $navbar-divider-background-color
+T 2 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 52 source.sass meta.property-list.css.sass.prop variable.other.value
+L   border: none
+T 2 source.sass
+T 8 source.sass support.type.property-name.css.sass.prop.name
+T 9 source.sass meta.property-list.css.sass.prop
+T 10 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   display: none
+T 2 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   height: $navbar-divider-height
+T 2 source.sass
+T 8 source.sass support.type.property-name.css.sass.prop.name
+T 9 source.sass meta.property-list.css.sass.prop
+T 10 source.sass meta.property-list.css.sass.prop
+T 32 source.sass meta.property-list.css.sass.prop variable.other.value
+L   margin: 0.5rem 0
+T 2 source.sass
+T 8 source.sass support.type.property-name.css.sass.prop.name
+T 9 source.sass meta.property-list.css.sass.prop
+T 10 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 16 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 17 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L 
+L +until($navbar-breakpoint)
+T 1 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 6 source.sass support.function.name.sass.library
+T 7 source.sass entity.name.function
+T 25 source.sass variable.other.root
+T 26 source.sass entity.name.function.close
+L   .navbar > .container
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+T 10 source.sass
+T 11 source.sass keyword.operator.sass
+T 12 source.sass
+T 13 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass entity.other.attribute-name.class.css.sass
+L     display: block
+T 4 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   .navbar-brand,
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass comment.punctuation.comma.sass
+L   .navbar-tabs
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass entity.other.attribute-name.class.css.sass
+L     .navbar-item
+T 4 source.sass
+T 5 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass entity.other.attribute-name.class.css.sass
+L       align-items: center
+T 6 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 25 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L       display: flex
+T 6 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   .navbar-link
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass entity.other.attribute-name.class.css.sass
+L     &::after
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 12 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+L       display: none
+T 6 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   .navbar-menu
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass entity.other.attribute-name.class.css.sass
+L     background-color: $navbar-background-color
+T 4 source.sass
+T 20 source.sass support.type.property-name.css.sass.prop.name
+T 21 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop
+T 46 source.sass meta.property-list.css.sass.prop variable.other.value
+L     box-shadow: 0 8px 16px bulmaRgba($scheme-invert, 0.1)
+T 4 source.sass
+T 14 source.sass support.type.property-name.css.sass.prop.name
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 21 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 22 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 26 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 27 source.sass meta.property-list.css.sass.prop
+T 37 source.sass meta.property-list.css.sass.prop entity.name.function
+T 51 source.sass meta.property-list.css.sass.prop variable.other.value
+T 52 source.sass meta.property-list.css.sass.prop comment.punctuation.comma.sass
+T 53 source.sass meta.property-list.css.sass.prop
+T 56 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 57 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L     padding: 0.5rem 0
+T 4 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 19 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 20 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L     &.is-active
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+L       display: block
+T 6 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   // Fixed navbar
+T 2 source.sass
+T 4 source.sass comment.line.sass
+T 17 source.sass comment.line.sass
+L   .navbar
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+L     &.is-fixed-bottom-touch,
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 27 source.sass entity.other.attribute-name.class.css.sass
+T 28 source.sass comment.punctuation.comma.sass
+L     &.is-fixed-top-touch
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 24 source.sass entity.other.attribute-name.class.css.sass
+L       +navbar-fixed
+T 6 source.sass
+T 7 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 19 source.sass support.function.name.sass.library
+L     &.is-fixed-bottom-touch
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 27 source.sass entity.other.attribute-name.class.css.sass
+L       bottom: 0
+T 6 source.sass
+T 12 source.sass support.type.property-name.css.sass.prop.name
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L       &.has-shadow
+T 6 source.sass
+T 7 source.sass entity.name.tag.css.sass.symbol
+T 8 source.sass entity.other.attribute-name.class.css.sass
+T 18 source.sass entity.other.attribute-name.class.css.sass
+L         box-shadow: 0 -2px 3px bulmaRgba($scheme-invert, 0.1)
+T 8 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 22 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 26 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 27 source.sass meta.property-list.css.sass.prop
+T 28 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 30 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 31 source.sass meta.property-list.css.sass.prop
+T 41 source.sass meta.property-list.css.sass.prop entity.name.function
+T 55 source.sass meta.property-list.css.sass.prop variable.other.value
+T 56 source.sass meta.property-list.css.sass.prop comment.punctuation.comma.sass
+T 57 source.sass meta.property-list.css.sass.prop
+T 60 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 61 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L     &.is-fixed-top-touch
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 24 source.sass entity.other.attribute-name.class.css.sass
+L       top: 0
+T 6 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 12 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L     &.is-fixed-top,
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 18 source.sass entity.other.attribute-name.class.css.sass
+T 19 source.sass comment.punctuation.comma.sass
+L     &.is-fixed-top-touch
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 24 source.sass entity.other.attribute-name.class.css.sass
+L       .navbar-menu
+T 6 source.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+T 18 source.sass entity.other.attribute-name.class.css.sass
+L         +overflow-touch
+T 8 source.sass
+T 9 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 23 source.sass support.function.name.sass.library
+L         max-height: calc(100vh - #{$navbar-height})
+T 8 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 25 source.sass meta.property-list.css.sass.prop entity.name.function
+T 28 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 30 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 33 source.sass meta.property-list.css.sass.prop keyword.operator.sass
+T 35 source.sass meta.property-list.css.sass.prop support.function.interpolation.sass
+T 49 source.sass meta.property-list.css.sass.prop support.function.interpolation.sass variable.other.value
+T 50 source.sass meta.property-list.css.sass.prop support.function.interpolation.sass
+T 51 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L         overflow: auto
+T 8 source.sass
+T 16 source.sass support.type.property-name.css.sass.prop.name
+T 17 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   html,
+T 2 source.sass
+T 6 source.sass entity.name.tag.css.sass.symbol
+T 7 source.sass comment.punctuation.comma.sass
+L   body
+T 2 source.sass
+T 6 source.sass entity.name.tag.css.sass.symbol
+L     &.has-navbar-fixed-top-touch
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 32 source.sass entity.other.attribute-name.class.css.sass
+L       padding-top: $navbar-height
+T 6 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 33 source.sass meta.property-list.css.sass.prop variable.other.value
+L     &.has-navbar-fixed-bottom-touch
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 35 source.sass entity.other.attribute-name.class.css.sass
+L       padding-bottom: $navbar-height
+T 6 source.sass
+T 20 source.sass support.type.property-name.css.sass.prop.name
+T 21 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop
+T 36 source.sass meta.property-list.css.sass.prop variable.other.value
+L 
+L +from($navbar-breakpoint)
+T 1 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 5 source.sass support.function.name.sass.library
+T 6 source.sass entity.name.function
+T 24 source.sass variable.other.root
+T 25 source.sass entity.name.function.close
+L   .navbar,
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+T 10 source.sass comment.punctuation.comma.sass
+L   .navbar-menu,
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass comment.punctuation.comma.sass
+L   .navbar-start,
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass comment.punctuation.comma.sass
+L   .navbar-end
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 13 source.sass entity.other.attribute-name.class.css.sass
+L     align-items: stretch
+T 4 source.sass
+T 15 source.sass support.type.property-name.css.sass.prop.name
+T 16 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     display: flex
+T 4 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   .navbar
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+L     min-height: $navbar-height
+T 4 source.sass
+T 14 source.sass support.type.property-name.css.sass.prop.name
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop variable.other.value
+L     &.is-spaced
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+L       padding: $navbar-padding-vertical $navbar-padding-horizontal
+T 6 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 39 source.sass meta.property-list.css.sass.prop variable.other.value
+T 40 source.sass meta.property-list.css.sass.prop
+T 66 source.sass meta.property-list.css.sass.prop variable.other.value
+L       .navbar-start,
+T 6 source.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+T 19 source.sass entity.other.attribute-name.class.css.sass
+T 20 source.sass comment.punctuation.comma.sass
+L       .navbar-end
+T 6 source.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+T 17 source.sass entity.other.attribute-name.class.css.sass
+L         align-items: center
+T 8 source.sass
+T 19 source.sass support.type.property-name.css.sass.prop.name
+T 20 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L       a.navbar-item,
+T 6 source.sass
+T 7 source.sass entity.name.tag.css.sass.symbol
+T 8 source.sass entity.other.attribute-name.class.css.sass
+T 19 source.sass entity.other.attribute-name.class.css.sass
+T 20 source.sass comment.punctuation.comma.sass
+L       .navbar-link
+T 6 source.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+T 18 source.sass entity.other.attribute-name.class.css.sass
+L         border-radius: $radius
+T 8 source.sass
+T 21 source.sass support.type.property-name.css.sass.prop.name
+T 22 source.sass meta.property-list.css.sass.prop
+T 23 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop variable.other.value
+L     &.is-transparent
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 20 source.sass entity.other.attribute-name.class.css.sass
+L       a.navbar-item,
+T 6 source.sass
+T 7 source.sass entity.name.tag.css.sass.symbol
+T 8 source.sass entity.other.attribute-name.class.css.sass
+T 19 source.sass entity.other.attribute-name.class.css.sass
+T 20 source.sass comment.punctuation.comma.sass
+L       .navbar-link
+T 6 source.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+T 18 source.sass entity.other.attribute-name.class.css.sass
+L         &:focus,
+T 8 source.sass
+T 9 source.sass entity.name.tag.css.sass.symbol
+T 15 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 16 source.sass comment.punctuation.comma.sass
+L         &:hover,
+T 8 source.sass
+T 9 source.sass entity.name.tag.css.sass.symbol
+T 15 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 16 source.sass comment.punctuation.comma.sass
+L         &.is-active
+T 8 source.sass
+T 9 source.sass entity.name.tag.css.sass.symbol
+T 10 source.sass entity.other.attribute-name.class.css.sass
+T 19 source.sass entity.other.attribute-name.class.css.sass
+L           background-color: transparent !important
+T 10 source.sass
+T 26 source.sass support.type.property-name.css.sass.prop.name
+T 27 source.sass meta.property-list.css.sass.prop
+T 28 source.sass meta.property-list.css.sass.prop
+T 39 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+T 40 source.sass meta.property-list.css.sass.prop
+T 50 source.sass meta.property-list.css.sass.prop keyword.other.important.css.sass
+L       .navbar-item.has-dropdown
+T 6 source.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+T 31 source.sass entity.other.attribute-name.class.css.sass
+L         &.is-active,
+T 8 source.sass
+T 9 source.sass entity.name.tag.css.sass.symbol
+T 10 source.sass entity.other.attribute-name.class.css.sass
+T 19 source.sass entity.other.attribute-name.class.css.sass
+T 20 source.sass comment.punctuation.comma.sass
+L         &.is-hoverable:focus,
+T 8 source.sass
+T 9 source.sass entity.name.tag.css.sass.symbol
+T 10 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass entity.other.attribute-name.class.css.sass
+T 28 source.sass entity.other.attribute-name.class.css.sass entity.other.attribute-name.pseudo-class.css.sass
+T 29 source.sass comment.punctuation.comma.sass
+L         &.is-hoverable:focus-within,
+T 8 source.sass
+T 9 source.sass entity.name.tag.css.sass.symbol
+T 10 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass entity.other.attribute-name.class.css.sass
+T 35 source.sass entity.other.attribute-name.class.css.sass entity.other.attribute-name.pseudo-class.css.sass
+T 36 source.sass comment.punctuation.comma.sass
+L         &.is-hoverable:hover
+T 8 source.sass
+T 9 source.sass entity.name.tag.css.sass.symbol
+T 10 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass entity.other.attribute-name.class.css.sass
+T 28 source.sass entity.other.attribute-name.class.css.sass entity.other.attribute-name.pseudo-class.css.sass
+L           .navbar-link
+T 10 source.sass
+T 11 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass entity.other.attribute-name.class.css.sass
+L             background-color: transparent !important
+T 12 source.sass
+T 28 source.sass support.type.property-name.css.sass.prop.name
+T 29 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop
+T 41 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+T 42 source.sass meta.property-list.css.sass.prop
+T 52 source.sass meta.property-list.css.sass.prop keyword.other.important.css.sass
+L       .navbar-dropdown
+T 6 source.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass entity.other.attribute-name.class.css.sass
+L         a.navbar-item
+T 8 source.sass
+T 9 source.sass entity.name.tag.css.sass.symbol
+T 10 source.sass entity.other.attribute-name.class.css.sass
+T 21 source.sass entity.other.attribute-name.class.css.sass
+L           &:focus,
+T 10 source.sass
+T 11 source.sass entity.name.tag.css.sass.symbol
+T 17 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 18 source.sass comment.punctuation.comma.sass
+L           &:hover
+T 10 source.sass
+T 11 source.sass entity.name.tag.css.sass.symbol
+T 17 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+L             background-color: $navbar-dropdown-item-hover-background-color
+T 12 source.sass
+T 28 source.sass support.type.property-name.css.sass.prop.name
+T 29 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop
+T 74 source.sass meta.property-list.css.sass.prop variable.other.value
+L             color: $navbar-dropdown-item-hover-color
+T 12 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 52 source.sass meta.property-list.css.sass.prop variable.other.value
+L           &.is-active
+T 10 source.sass
+T 11 source.sass entity.name.tag.css.sass.symbol
+T 12 source.sass entity.other.attribute-name.class.css.sass
+T 21 source.sass entity.other.attribute-name.class.css.sass
+L             background-color: $navbar-dropdown-item-active-background-color
+T 12 source.sass
+T 28 source.sass support.type.property-name.css.sass.prop.name
+T 29 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop
+T 75 source.sass meta.property-list.css.sass.prop variable.other.value
+L             color: $navbar-dropdown-item-active-color
+T 12 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 53 source.sass meta.property-list.css.sass.prop variable.other.value
+L   .navbar-burger
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass entity.other.attribute-name.class.css.sass
+L     display: none
+T 4 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   .navbar-item,
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass comment.punctuation.comma.sass
+L   .navbar-link
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass entity.other.attribute-name.class.css.sass
+L     align-items: center
+T 4 source.sass
+T 15 source.sass support.type.property-name.css.sass.prop.name
+T 16 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop
+T 23 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     display: flex
+T 4 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   .navbar-item
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass entity.other.attribute-name.class.css.sass
+L     &.has-dropdown
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 18 source.sass entity.other.attribute-name.class.css.sass
+L       align-items: stretch
+T 6 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     &.has-dropdown-up
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 21 source.sass entity.other.attribute-name.class.css.sass
+L       .navbar-link::after
+T 6 source.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+T 18 source.sass entity.other.attribute-name.class.css.sass
+T 25 source.sass entity.other.attribute-name.class.css.sass entity.other.attribute-name.pseudo-class.css.sass
+L         transform: rotate(135deg) translate(0.25em, -0.25em)
+T 8 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop entity.name.function
+T 29 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 32 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 33 source.sass meta.property-list.css.sass.prop entity.name.function.close
+T 34 source.sass meta.property-list.css.sass.prop
+T 44 source.sass meta.property-list.css.sass.prop entity.name.function
+T 48 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 50 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 51 source.sass meta.property-list.css.sass.prop comment.punctuation.comma.sass
+T 52 source.sass meta.property-list.css.sass.prop
+T 57 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 59 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 60 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L       .navbar-dropdown
+T 6 source.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass entity.other.attribute-name.class.css.sass
+L         border-bottom: $navbar-dropdown-border-top
+T 8 source.sass
+T 21 source.sass support.type.property-name.css.sass.prop.name
+T 22 source.sass meta.property-list.css.sass.prop
+T 23 source.sass meta.property-list.css.sass.prop
+T 50 source.sass meta.property-list.css.sass.prop variable.other.value
+L         border-radius: $navbar-dropdown-radius $navbar-dropdown-radius 0 0
+T 8 source.sass
+T 21 source.sass support.type.property-name.css.sass.prop.name
+T 22 source.sass meta.property-list.css.sass.prop
+T 23 source.sass meta.property-list.css.sass.prop
+T 46 source.sass meta.property-list.css.sass.prop variable.other.value
+T 47 source.sass meta.property-list.css.sass.prop
+T 70 source.sass meta.property-list.css.sass.prop variable.other.value
+T 71 source.sass meta.property-list.css.sass.prop
+T 72 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 73 source.sass meta.property-list.css.sass.prop
+T 74 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L         border-top: none
+T 8 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L         bottom: 100%
+T 8 source.sass
+T 14 source.sass support.type.property-name.css.sass.prop.name
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 20 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L         box-shadow: 0 -8px 8px bulmaRgba($scheme-invert, 0.1)
+T 8 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 22 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 26 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 27 source.sass meta.property-list.css.sass.prop
+T 28 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 30 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 31 source.sass meta.property-list.css.sass.prop
+T 41 source.sass meta.property-list.css.sass.prop entity.name.function
+T 55 source.sass meta.property-list.css.sass.prop variable.other.value
+T 56 source.sass meta.property-list.css.sass.prop comment.punctuation.comma.sass
+T 57 source.sass meta.property-list.css.sass.prop
+T 60 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 61 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L         top: auto
+T 8 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     &.is-active,
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass comment.punctuation.comma.sass
+L     &.is-hoverable:focus,
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 18 source.sass entity.other.attribute-name.class.css.sass
+T 24 source.sass entity.other.attribute-name.class.css.sass entity.other.attribute-name.pseudo-class.css.sass
+T 25 source.sass comment.punctuation.comma.sass
+L     &.is-hoverable:focus-within,
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 18 source.sass entity.other.attribute-name.class.css.sass
+T 31 source.sass entity.other.attribute-name.class.css.sass entity.other.attribute-name.pseudo-class.css.sass
+T 32 source.sass comment.punctuation.comma.sass
+L     &.is-hoverable:hover
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 18 source.sass entity.other.attribute-name.class.css.sass
+T 24 source.sass entity.other.attribute-name.class.css.sass entity.other.attribute-name.pseudo-class.css.sass
+L       .navbar-dropdown
+T 6 source.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass entity.other.attribute-name.class.css.sass
+L         display: block
+T 8 source.sass
+T 15 source.sass support.type.property-name.css.sass.prop.name
+T 16 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L         .navbar.is-spaced &,
+T 8 source.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+T 25 source.sass entity.other.attribute-name.class.css.sass
+T 26 source.sass
+T 27 source.sass entity.name.tag.css.sass.symbol
+T 28 source.sass comment.punctuation.comma.sass
+L         &.is-boxed
+T 8 source.sass
+T 9 source.sass entity.name.tag.css.sass.symbol
+T 10 source.sass entity.other.attribute-name.class.css.sass
+T 18 source.sass entity.other.attribute-name.class.css.sass
+L           opacity: 1
+T 10 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L           pointer-events: auto
+T 10 source.sass
+T 24 source.sass support.type.property-name.css.sass.prop.name
+T 25 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop
+T 30 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L           transform: translateY(0)
+T 10 source.sass
+T 19 source.sass support.type.property-name.css.sass.prop.name
+T 20 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop
+T 32 source.sass meta.property-list.css.sass.prop entity.name.function
+T 33 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 34 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L   .navbar-menu
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass entity.other.attribute-name.class.css.sass
+L     flex-grow: 1
+T 4 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L     flex-shrink: 0
+T 4 source.sass
+T 15 source.sass support.type.property-name.css.sass.prop.name
+T 16 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L   .navbar-start
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+L     justify-content: flex-start
+T 4 source.sass
+T 19 source.sass support.type.property-name.css.sass.prop.name
+T 20 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop
+T 31 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     +ltr-property("margin", auto)
+T 4 source.sass
+T 5 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 17 source.sass support.function.name.sass.library
+T 18 source.sass entity.name.function
+T 19 source.sass string.quoted.double.css.sass
+T 25 source.sass string.quoted.double.css.sass
+T 26 source.sass string.quoted.double.css.sass
+T 27 source.sass comment.punctuation.comma.sass
+T 28 source.sass
+T 32 source.sass meta.property-value.css.sass support.constant.property-value.css.sass
+T 33 source.sass entity.name.function.close
+L   .navbar-end
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 13 source.sass entity.other.attribute-name.class.css.sass
+L     justify-content: flex-end
+T 4 source.sass
+T 19 source.sass support.type.property-name.css.sass.prop.name
+T 20 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop
+T 29 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     +ltr-property("margin", auto, false)
+T 4 source.sass
+T 5 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 17 source.sass support.function.name.sass.library
+T 18 source.sass entity.name.function
+T 19 source.sass string.quoted.double.css.sass
+T 25 source.sass string.quoted.double.css.sass
+T 26 source.sass string.quoted.double.css.sass
+T 27 source.sass comment.punctuation.comma.sass
+T 28 source.sass
+T 32 source.sass meta.property-value.css.sass support.constant.property-value.css.sass
+T 33 source.sass comment.punctuation.comma.sass
+T 34 source.sass
+T 39 source.sass support.type.property-name.css.sass
+T 40 source.sass entity.name.function.close
+L   .navbar-dropdown
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 18 source.sass entity.other.attribute-name.class.css.sass
+L     background-color: $navbar-dropdown-background-color
+T 4 source.sass
+T 20 source.sass support.type.property-name.css.sass.prop.name
+T 21 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop
+T 55 source.sass meta.property-list.css.sass.prop variable.other.value
+L     border-bottom-left-radius: $navbar-dropdown-radius
+T 4 source.sass
+T 29 source.sass support.type.property-name.css.sass.prop.name
+T 30 source.sass meta.property-list.css.sass.prop
+T 31 source.sass meta.property-list.css.sass.prop
+T 54 source.sass meta.property-list.css.sass.prop variable.other.value
+L     border-bottom-right-radius: $navbar-dropdown-radius
+T 4 source.sass
+T 30 source.sass support.type.property-name.css.sass.prop.name
+T 31 source.sass meta.property-list.css.sass.prop
+T 32 source.sass meta.property-list.css.sass.prop
+T 55 source.sass meta.property-list.css.sass.prop variable.other.value
+L     border-top: $navbar-dropdown-border-top
+T 4 source.sass
+T 14 source.sass support.type.property-name.css.sass.prop.name
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop
+T 43 source.sass meta.property-list.css.sass.prop variable.other.value
+L     box-shadow: 0 8px 8px bulmaRgba($scheme-invert, 0.1)
+T 4 source.sass
+T 14 source.sass support.type.property-name.css.sass.prop.name
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 21 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 22 source.sass meta.property-list.css.sass.prop
+T 23 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 25 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 26 source.sass meta.property-list.css.sass.prop
+T 36 source.sass meta.property-list.css.sass.prop entity.name.function
+T 50 source.sass meta.property-list.css.sass.prop variable.other.value
+T 51 source.sass meta.property-list.css.sass.prop comment.punctuation.comma.sass
+T 52 source.sass meta.property-list.css.sass.prop
+T 55 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 56 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L     display: none
+T 4 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     font-size: 0.875rem
+T 4 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 23 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L     +ltr-position(0, false)
+T 4 source.sass
+T 5 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 17 source.sass support.function.name.sass.library
+T 18 source.sass entity.name.function
+T 19 source.sass constant.numeric.css.sass
+T 20 source.sass comment.punctuation.comma.sass
+T 21 source.sass
+T 26 source.sass support.type.property-name.css.sass
+T 27 source.sass entity.name.function.close
+L     min-width: 100%
+T 4 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 19 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L     position: absolute
+T 4 source.sass
+T 12 source.sass support.type.property-name.css.sass.prop.name
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     top: 100%
+T 4 source.sass
+T 7 source.sass support.type.property-name.css.sass.prop.name
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop
+T 12 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 13 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L     z-index: $navbar-dropdown-z
+T 4 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 31 source.sass meta.property-list.css.sass.prop variable.other.value
+L     .navbar-item
+T 4 source.sass
+T 5 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass entity.other.attribute-name.class.css.sass
+L       padding: 0.375rem 1rem
+T 6 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 23 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 24 source.sass meta.property-list.css.sass.prop
+T 25 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 28 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+L       white-space: nowrap
+T 6 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 25 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     a.navbar-item
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 17 source.sass entity.other.attribute-name.class.css.sass
+L       +ltr-property("padding", 3rem)
+T 6 source.sass
+T 7 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 19 source.sass support.function.name.sass.library
+T 20 source.sass entity.name.function
+T 21 source.sass string.quoted.double.css.sass
+T 28 source.sass string.quoted.double.css.sass
+T 29 source.sass string.quoted.double.css.sass
+T 30 source.sass comment.punctuation.comma.sass
+T 31 source.sass
+T 32 source.sass constant.numeric.css.sass
+T 35 source.sass keyword.control.unit.css.sass
+T 36 source.sass entity.name.function.close
+L       &:focus,
+T 6 source.sass
+T 7 source.sass entity.name.tag.css.sass.symbol
+T 13 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 14 source.sass comment.punctuation.comma.sass
+L       &:hover
+T 6 source.sass
+T 7 source.sass entity.name.tag.css.sass.symbol
+T 13 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+L         background-color: $navbar-dropdown-item-hover-background-color
+T 8 source.sass
+T 24 source.sass support.type.property-name.css.sass.prop.name
+T 25 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop
+T 70 source.sass meta.property-list.css.sass.prop variable.other.value
+L         color: $navbar-dropdown-item-hover-color
+T 8 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 48 source.sass meta.property-list.css.sass.prop variable.other.value
+L       &.is-active
+T 6 source.sass
+T 7 source.sass entity.name.tag.css.sass.symbol
+T 8 source.sass entity.other.attribute-name.class.css.sass
+T 17 source.sass entity.other.attribute-name.class.css.sass
+L         background-color: $navbar-dropdown-item-active-background-color
+T 8 source.sass
+T 24 source.sass support.type.property-name.css.sass.prop.name
+T 25 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop
+T 71 source.sass meta.property-list.css.sass.prop variable.other.value
+L         color: $navbar-dropdown-item-active-color
+T 8 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 49 source.sass meta.property-list.css.sass.prop variable.other.value
+L     .navbar.is-spaced &,
+T 4 source.sass
+T 5 source.sass entity.other.attribute-name.class.css.sass
+T 21 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass
+T 23 source.sass entity.name.tag.css.sass.symbol
+T 24 source.sass comment.punctuation.comma.sass
+L     &.is-boxed
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass entity.other.attribute-name.class.css.sass
+L       border-radius: $navbar-dropdown-boxed-radius
+T 6 source.sass
+T 19 source.sass support.type.property-name.css.sass.prop.name
+T 20 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop
+T 50 source.sass meta.property-list.css.sass.prop variable.other.value
+L       border-top: none
+T 6 source.sass
+T 16 source.sass support.type.property-name.css.sass.prop.name
+T 17 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L       box-shadow: $navbar-dropdown-boxed-shadow
+T 6 source.sass
+T 16 source.sass support.type.property-name.css.sass.prop.name
+T 17 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop
+T 47 source.sass meta.property-list.css.sass.prop variable.other.value
+L       display: block
+T 6 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L       opacity: 0
+T 6 source.sass
+T 13 source.sass support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L       pointer-events: none
+T 6 source.sass
+T 20 source.sass support.type.property-name.css.sass.prop.name
+T 21 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L       top: calc(100% + (#{$navbar-dropdown-offset}))
+T 6 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop entity.name.function
+T 19 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 20 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 21 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop keyword.operator.sass
+T 23 source.sass
+T 24 source.sass entity.name.function
+T 26 source.sass support.function.interpolation.sass
+T 49 source.sass support.function.interpolation.sass variable.other.value
+T 50 source.sass support.function.interpolation.sass
+T 51 source.sass entity.name.function.close
+T 52 source.sass entity.name.function.close
+L       transform: translateY(-5px)
+T 6 source.sass
+T 15 source.sass support.type.property-name.css.sass.prop.name
+T 16 source.sass meta.property-list.css.sass.prop
+T 17 source.sass meta.property-list.css.sass.prop
+T 28 source.sass meta.property-list.css.sass.prop entity.name.function
+T 30 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 32 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 33 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L       transition-duration: $speed
+T 6 source.sass
+T 25 source.sass support.type.property-name.css.sass.prop.name
+T 26 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop
+T 33 source.sass meta.property-list.css.sass.prop variable.other.value
+L       transition-property: opacity, transform
+T 6 source.sass
+T 25 source.sass support.type.property-name.css.sass.prop.name
+T 26 source.sass meta.property-list.css.sass.prop
+T 27 source.sass meta.property-list.css.sass.prop
+T 34 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+T 35 source.sass meta.property-list.css.sass.prop comment.punctuation.comma.sass
+T 36 source.sass meta.property-list.css.sass.prop
+T 45 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L     &.is-right
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass entity.other.attribute-name.class.css.sass
+L       left: auto
+T 6 source.sass
+T 10 source.sass support.type.property-name.css.sass.prop.name
+T 11 source.sass meta.property-list.css.sass.prop
+T 12 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L       right: 0
+T 6 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L   .navbar-divider
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 17 source.sass entity.other.attribute-name.class.css.sass
+L     display: block
+T 4 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   .navbar > .container,
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+T 10 source.sass
+T 11 source.sass keyword.operator.sass
+T 12 source.sass
+T 13 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass entity.other.attribute-name.class.css.sass
+T 23 source.sass comment.punctuation.comma.sass
+L   .container > .navbar
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 12 source.sass entity.other.attribute-name.class.css.sass
+T 13 source.sass
+T 14 source.sass keyword.operator.sass
+T 15 source.sass
+T 16 source.sass entity.other.attribute-name.class.css.sass
+T 22 source.sass entity.other.attribute-name.class.css.sass
+L     .navbar-brand
+T 4 source.sass
+T 5 source.sass entity.other.attribute-name.class.css.sass
+T 17 source.sass entity.other.attribute-name.class.css.sass
+L       +ltr-property("margin", -.75rem, false)
+T 6 source.sass
+T 7 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 19 source.sass support.function.name.sass.library
+T 20 source.sass entity.name.function
+T 21 source.sass string.quoted.double.css.sass
+T 27 source.sass string.quoted.double.css.sass
+T 28 source.sass string.quoted.double.css.sass
+T 29 source.sass comment.punctuation.comma.sass
+T 30 source.sass
+T 31 source.sass constant.character.module constant.character.module.name
+T 32 source.sass constant.character.module constant.numeric.module.dot
+T 34 source.sass constant.numeric.css.sass
+T 37 source.sass keyword.control.unit.css.sass
+T 38 source.sass comment.punctuation.comma.sass
+T 39 source.sass
+T 44 source.sass support.type.property-name.css.sass
+T 45 source.sass entity.name.function.close
+L     .navbar-menu
+T 4 source.sass
+T 5 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass entity.other.attribute-name.class.css.sass
+L       +ltr-property("margin", -.75rem)
+T 6 source.sass
+T 7 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 19 source.sass support.function.name.sass.library
+T 20 source.sass entity.name.function
+T 21 source.sass string.quoted.double.css.sass
+T 27 source.sass string.quoted.double.css.sass
+T 28 source.sass string.quoted.double.css.sass
+T 29 source.sass comment.punctuation.comma.sass
+T 30 source.sass
+T 31 source.sass constant.character.module constant.character.module.name
+T 32 source.sass constant.character.module constant.numeric.module.dot
+T 34 source.sass constant.numeric.css.sass
+T 37 source.sass keyword.control.unit.css.sass
+T 38 source.sass entity.name.function.close
+L   // Fixed navbar
+T 2 source.sass
+T 4 source.sass comment.line.sass
+T 17 source.sass comment.line.sass
+L   .navbar
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 9 source.sass entity.other.attribute-name.class.css.sass
+L     &.is-fixed-bottom-desktop,
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 29 source.sass entity.other.attribute-name.class.css.sass
+T 30 source.sass comment.punctuation.comma.sass
+L     &.is-fixed-top-desktop
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 26 source.sass entity.other.attribute-name.class.css.sass
+L       +navbar-fixed
+T 6 source.sass
+T 7 source.sass support.function.name.sass.library keyword.control.at-rule.css.sass
+T 19 source.sass support.function.name.sass.library
+L     &.is-fixed-bottom-desktop
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 29 source.sass entity.other.attribute-name.class.css.sass
+L       bottom: 0
+T 6 source.sass
+T 12 source.sass support.type.property-name.css.sass.prop.name
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop
+T 15 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L       &.has-shadow
+T 6 source.sass
+T 7 source.sass entity.name.tag.css.sass.symbol
+T 8 source.sass entity.other.attribute-name.class.css.sass
+T 18 source.sass entity.other.attribute-name.class.css.sass
+L         box-shadow: 0 -2px 3px bulmaRgba($scheme-invert, 0.1)
+T 8 source.sass
+T 18 source.sass support.type.property-name.css.sass.prop.name
+T 19 source.sass meta.property-list.css.sass.prop
+T 20 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 22 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 26 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 27 source.sass meta.property-list.css.sass.prop
+T 28 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 30 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 31 source.sass meta.property-list.css.sass.prop
+T 41 source.sass meta.property-list.css.sass.prop entity.name.function
+T 55 source.sass meta.property-list.css.sass.prop variable.other.value
+T 56 source.sass meta.property-list.css.sass.prop comment.punctuation.comma.sass
+T 57 source.sass meta.property-list.css.sass.prop
+T 60 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 61 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L     &.is-fixed-top-desktop
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 26 source.sass entity.other.attribute-name.class.css.sass
+L       top: 0
+T 6 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 12 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+L   html,
+T 2 source.sass
+T 6 source.sass entity.name.tag.css.sass.symbol
+T 7 source.sass comment.punctuation.comma.sass
+L   body
+T 2 source.sass
+T 6 source.sass entity.name.tag.css.sass.symbol
+L     &.has-navbar-fixed-top-desktop
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 34 source.sass entity.other.attribute-name.class.css.sass
+L       padding-top: $navbar-height
+T 6 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 33 source.sass meta.property-list.css.sass.prop variable.other.value
+L     &.has-navbar-fixed-bottom-desktop
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 37 source.sass entity.other.attribute-name.class.css.sass
+L       padding-bottom: $navbar-height
+T 6 source.sass
+T 20 source.sass support.type.property-name.css.sass.prop.name
+T 21 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop
+T 36 source.sass meta.property-list.css.sass.prop variable.other.value
+L     &.has-spaced-navbar-fixed-top
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 33 source.sass entity.other.attribute-name.class.css.sass
+L       padding-top: $navbar-height + ($navbar-padding-vertical * 2)
+T 6 source.sass
+T 17 source.sass support.type.property-name.css.sass.prop.name
+T 18 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop
+T 33 source.sass meta.property-list.css.sass.prop variable.other.value
+T 34 source.sass meta.property-list.css.sass.prop
+T 35 source.sass meta.property-list.css.sass.prop keyword.operator.sass
+T 36 source.sass
+T 37 source.sass entity.name.function
+T 61 source.sass variable.other.root
+T 62 source.sass
+T 63 source.sass keyword.operator.sass
+T 64 source.sass
+T 65 source.sass constant.numeric.css.sass
+T 66 source.sass entity.name.function.close
+L     &.has-spaced-navbar-fixed-bottom
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 36 source.sass entity.other.attribute-name.class.css.sass
+L       padding-bottom: $navbar-height + ($navbar-padding-vertical * 2)
+T 6 source.sass
+T 20 source.sass support.type.property-name.css.sass.prop.name
+T 21 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop
+T 36 source.sass meta.property-list.css.sass.prop variable.other.value
+T 37 source.sass meta.property-list.css.sass.prop
+T 38 source.sass meta.property-list.css.sass.prop keyword.operator.sass
+T 39 source.sass
+T 40 source.sass entity.name.function
+T 64 source.sass variable.other.root
+T 65 source.sass
+T 66 source.sass keyword.operator.sass
+T 67 source.sass
+T 68 source.sass constant.numeric.css.sass
+T 69 source.sass entity.name.function.close
+L   // Hover/Active states
+T 2 source.sass
+T 4 source.sass comment.line.sass
+T 24 source.sass comment.line.sass
+L   a.navbar-item,
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+T 16 source.sass comment.punctuation.comma.sass
+L   .navbar-link
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 14 source.sass entity.other.attribute-name.class.css.sass
+L     &.is-active
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+L       color: $navbar-item-active-color
+T 6 source.sass
+T 11 source.sass support.type.property-name.css.sass.prop.name
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop
+T 38 source.sass meta.property-list.css.sass.prop variable.other.value
+L     &.is-active:not(:focus):not(:hover)
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+T 19 source.sass entity.other.attribute-name.class.css.sass entity.other.attribute-name.pseudo-class.css.sass
+T 20 source.sass entity.name.function
+T 21 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+T 27 source.sass meta.property-list.css.sass.prop entity.name.function.close
+T 28 source.sass meta.property-list.css.sass.prop
+T 32 source.sass meta.property-list.css.sass.prop entity.name.function
+T 33 source.sass meta.property-list.css.sass.prop
+T 38 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+T 39 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L       background-color: $navbar-item-active-background-color
+T 6 source.sass
+T 22 source.sass support.type.property-name.css.sass.prop.name
+T 23 source.sass meta.property-list.css.sass.prop
+T 24 source.sass meta.property-list.css.sass.prop
+T 60 source.sass meta.property-list.css.sass.prop variable.other.value
+L   .navbar-item.has-dropdown
+T 2 source.sass
+T 3 source.sass entity.other.attribute-name.class.css.sass
+T 27 source.sass entity.other.attribute-name.class.css.sass
+L     &:focus,
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 11 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 12 source.sass comment.punctuation.comma.sass
+L     &:hover,
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 11 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+T 12 source.sass comment.punctuation.comma.sass
+L     &.is-active
+T 4 source.sass
+T 5 source.sass entity.name.tag.css.sass.symbol
+T 6 source.sass entity.other.attribute-name.class.css.sass
+T 15 source.sass entity.other.attribute-name.class.css.sass
+L       .navbar-link
+T 6 source.sass
+T 7 source.sass entity.other.attribute-name.class.css.sass
+T 18 source.sass entity.other.attribute-name.class.css.sass
+L         background-color: $navbar-item-hover-background-color
+T 8 source.sass
+T 24 source.sass support.type.property-name.css.sass.prop.name
+T 25 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop
+T 61 source.sass meta.property-list.css.sass.prop variable.other.value
+L 
+L // Combination
+T 2 source.sass comment.line.sass
+T 14 source.sass comment.line.sass
+L 
+L .hero
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 5 source.sass entity.other.attribute-name.class.css.sass
+L   &.is-fullheight-with-navbar
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 4 source.sass entity.other.attribute-name.class.css.sass
+T 29 source.sass entity.other.attribute-name.class.css.sass
+L     min-height: calc(100vh - #{$navbar-height})
+T 4 source.sass
+T 14 source.sass support.type.property-name.css.sass.prop.name
+T 15 source.sass meta.property-list.css.sass.prop
+T 16 source.sass meta.property-list.css.sass.prop
+T 21 source.sass meta.property-list.css.sass.prop entity.name.function
+T 24 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 26 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 29 source.sass meta.property-list.css.sass.prop keyword.operator.sass
+T 31 source.sass meta.property-list.css.sass.prop support.function.interpolation.sass
+T 45 source.sass meta.property-list.css.sass.prop support.function.interpolation.sass variable.other.value
+T 46 source.sass meta.property-list.css.sass.prop support.function.interpolation.sass
+T 47 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L 

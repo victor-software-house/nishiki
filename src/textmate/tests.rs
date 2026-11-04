@@ -433,6 +433,8 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::powershell::grammar::GRAMMAR, "powershell"),
     #[cfg(feature = "lang-proto")]
     (&crate::proto::grammar::GRAMMAR, "proto"),
+    #[cfg(feature = "lang-sass")]
+    (&crate::sass::grammar::GRAMMAR, "sass"),
     #[cfg(feature = "lang-scala")]
     (&crate::scala::grammar::GRAMMAR, "scala"),
     #[cfg(feature = "lang-zig")]
