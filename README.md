@@ -18,11 +18,10 @@ cargo add nishiki
 ```
 
 A `Highlighter` lexes one language, one line at a time.
+For each line it gives:
 
-| Piece | What it holds |
-|:--|:--|
-| Token | The byte offset where it ends, and the TextMate scope stack Shiki gives it. |
-| `State` | Where the lexer stands after a line. It is the input of the next line. |
+- tokens, each with the byte offset where it ends and the TextMate scope stack Shiki gives it;
+- a `State`: where the lexer stands after the line, which the next line starts from.
 
 Because the state passes from line to line:
 

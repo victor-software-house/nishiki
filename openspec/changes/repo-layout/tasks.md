@@ -20,8 +20,12 @@
 
 ## 3. Writing rules
 
-- [ ] 3.1 Put the writing rules in one section of `AGENTS.md` and fold in the old ones → verify: no other guide restates them
-- [ ] 3.2 Rewrite every guide and README to the rules → verify: no table header names a vague concept, no paragraph runs past four lines, and `mise run lint:md` passes
+- [x] 3.1 Put the writing rules in one section of `AGENTS.md` and fold in the old ones → verify: no other guide restates them
+  - 2026-11-04 UTC: they are Documentation rules 3 and 4 of `AGENTS.md`; `rg` for their phrases finds them nowhere else but this change's design.
+- [x] 3.2 Rewrite every guide and README to the rules → verify: no table header names a vague concept, no paragraph runs past four lines, and `mise run lint:md` passes
+  - 2026-11-04 UTC: tables that only paired a name with a description became lists, in the README, `src/README.md` and `oracle/README.md`.
+    The root guide's Verify section and Limits rule 3 split into a table and lists, and the bench-methodology layout table names its columns.
+    A scan of every table header in the guides, READMEs and changes finds no vague one, and `mise run lint:md` passes.
 
 ## 4. README and crate docs
 

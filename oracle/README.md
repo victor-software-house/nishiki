@@ -6,23 +6,23 @@ The rules for working here are in [AGENTS.md](AGENTS.md).
 
 ## The fixtures
 
-| Script | Writes or does |
-|:--|:--|
-| [`inputs.ts`](inputs.ts) | The inputs, each pinned to a commit. [`tests/oracle/SOURCES.md`](../tests/oracle/SOURCES.md) lists their licences. |
-| [`grammars.ts`](grammars.ts) | The grammars every script loads into Shiki. |
-| [`fixture.ts`](fixture.ts) | The fixture format. |
-| [`generate.ts`](generate.ts) | Shiki's scopes and colours for every input, into `tests/oracle/<language>/`. Run by `mise run oracle`. |
-| [`inputs/`](inputs) | Inputs written for nishiki, where no third-party file covers a case. |
+- [`inputs.ts`](inputs.ts): the inputs, each pinned to a commit.
+  [`tests/oracle/SOURCES.md`](../tests/oracle/SOURCES.md) lists their licences.
+- [`inputs/`](inputs): inputs written for nishiki, where no third-party file covers a case.
+- [`grammars.ts`](grammars.ts): the grammars every script loads into Shiki.
+- [`fixture.ts`](fixture.ts): the fixture format.
+- [`generate.ts`](generate.ts): writes Shiki's scopes and colours for every input into `tests/oracle/<language>/`.
+  `mise run oracle` runs it.
 
 ## Checks past the fixtures
 
-| Script | Writes or does |
-|:--|:--|
-| [`fuzz.ts`](fuzz.ts) | A corpus of mutated and generated documents, bare and in Markdown fences. [`fuzz/`](fuzz) holds the pieces for one language each. |
-| [`dump.ts`](dump.ts) | A corpus of held-out source files. |
-| [`differential.ts`](differential.ts) | Random documents for one language, in the fixture format. |
-| [`onig.ts`](onig.ts) | Compares a language's hand matchers with Oniguruma, one expression at a time. |
-| [`coverage.ts`](coverage.ts) | How much of each hand-lexed grammar the fixtures exercise, into [`tests/oracle/COVERAGE.md`](../tests/oracle/COVERAGE.md); [`coverage-waivers.ts`](coverage-waivers.ts) lists the waivers and the complete grammars. |
+- [`fuzz.ts`](fuzz.ts): writes a corpus of mutated and generated documents, bare and in Markdown fences.
+  [`fuzz/`](fuzz) has what it draws on for each language.
+- [`dump.ts`](dump.ts): writes a corpus of held-out source files.
+- [`differential.ts`](differential.ts): writes random documents for one language, in the fixture format.
+- [`onig.ts`](onig.ts): compares a language's hand matchers with Oniguruma, one expression at a time.
+- [`coverage.ts`](coverage.ts): writes [`tests/oracle/COVERAGE.md`](../tests/oracle/COVERAGE.md), how much of each hand-lexed grammar the fixtures exercise.
+  [`coverage-waivers.ts`](coverage-waivers.ts) lists the waivers and the complete grammars.
 
 ## Generated tables
 

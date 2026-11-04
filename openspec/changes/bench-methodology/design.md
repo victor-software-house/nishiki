@@ -91,7 +91,7 @@ It is not the mean of per-file speeds, which weighs a 1 KB file as much as a 1 M
 
 ### 3. Two homes, split by what they measure
 
-| Home | Holds | Built with |
+| Directory | Programs | Lockfile |
 |:--|:--|:--|
 | `examples/` in the root | `lex.rs` and `memory.rs`: deterministic counts that CI compares between base and head | each tree's own `Cargo.lock` |
 | `bench/`, its own workspace | `throughput`, `styling`, `latency`, `cold`: wall time on a recorded host | `bench/Cargo.lock` |

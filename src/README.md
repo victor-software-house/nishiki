@@ -5,25 +5,21 @@ The public API and its docs are on [docs.rs](https://docs.rs/nishiki); this page
 
 ## Public API
 
-| Module | Holds |
-|:--|:--|
-| [`lib.rs`](lib.rs) | The crate docs and the public re-exports. |
-| [`highlighter.rs`](highlighter.rs) | `Highlighter`: one language, lexed one line at a time. |
-| [`language.rs`](language.rs) | `Language`, and the one table every per-language list is built from. |
-| [`limits.rs`](limits.rs) | `Limits`, the bounds on one line's work and memory, and `LineReport`. |
-| [`theme.rs`](theme.rs) | `Theme`: TextMate themes in Shiki's format, and the style each scope gets. |
+- [`lib.rs`](lib.rs): the crate docs and the public re-exports.
+- [`highlighter.rs`](highlighter.rs): `Highlighter`, which lexes one language one line at a time.
+- [`language.rs`](language.rs): `Language`, and the one table every per-language list is built from.
+- [`limits.rs`](limits.rs): `Limits`, the bounds on one line's work and memory, and `LineReport`.
+- [`theme.rs`](theme.rs): `Theme`, which reads TextMate themes in Shiki's format and styles each scope.
 
 ## Shared by the lexers
 
-| Module | Holds |
-|:--|:--|
-| [`arena.rs`](arena.rs) | Interned scope stacks and lexer states. |
-| [`scope.rs`](scope.rs), [`tag.rs`](tag.rs) | Scope names and frame tags, numbered in one space across languages. |
-| [`scratch.rs`](scratch.rs) | Buffers a highlighter keeps from line to line. |
-| [`emit.rs`](emit.rs) | Token and frame bookkeeping for the hand-written state machines. |
-| [`utf8.rs`](utf8.rs), [`space.rs`](space.rs), [`classes.rs`](classes.rs), [`case_fold.rs`](case_fold.rs) | Characters as Oniguruma reads them: UTF-8, `\s`, the classes, and `(?i)` folds. |
-| [`fnv.rs`](fnv.rs) | A fixed-hash map for tables built from the crate's own words. |
-| [`test_support.rs`](test_support.rs) | Helpers the unit tests share. |
+- [`arena.rs`](arena.rs): interned scope stacks and lexer states.
+- [`scope.rs`](scope.rs) and [`tag.rs`](tag.rs): scope names and frame tags, numbered in one space across languages.
+- [`scratch.rs`](scratch.rs): buffers a highlighter keeps from line to line.
+- [`emit.rs`](emit.rs): token and frame bookkeeping for the hand-written state machines.
+- [`utf8.rs`](utf8.rs), [`space.rs`](space.rs), [`classes.rs`](classes.rs) and [`case_fold.rs`](case_fold.rs): characters as Oniguruma reads them, that is UTF-8, `\s`, the classes and `(?i)` folds.
+- [`fnv.rs`](fnv.rs): a fixed-hash map for tables built from the crate's own words.
+- [`test_support.rs`](test_support.rs): helpers the unit tests share.
 
 ## Engines
 

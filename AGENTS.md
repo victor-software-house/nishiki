@@ -75,28 +75,31 @@ The decisions that created nishiki live in a private planning repository:
    - docs, as docs.rs builds them;
    - `cargo deny`;
    - the repository checks.
+2. Three more workflows check a pull request against its base:
 
-   The Identity workflow (`.github/workflows/identity.yml`) runs `mise run identity` against the pull request's base: it fails when a fixture or an edited copy of one lexes differently.
-   A pull request that means to change output says so with a body line `identity: changes <languages>`, such as `identity: changes python java`.
+   | Workflow | Runs | Fails when |
+   |:--|:--|:--|
+   | Identity, `identity.yml` | `mise run identity` | a fixture, or an edited copy of one, lexes differently |
+   | Callgrind, `callgrind.yml` | `mise run callgrind`, on a pull request labelled `bench` | a language's instruction count rises more than 0.5% |
+   | Oracle coverage, `coverage.yml` | `mise run check:oracle-coverage` | the report is stale, or a complete grammar has a gap ([oracle/AGENTS.md](oracle/AGENTS.md) rule 6) |
 
-   The Callgrind workflow (`.github/workflows/callgrind.yml`) runs on a pull request labelled `bench`.
-   It runs `mise run callgrind` against the base: instruction counts of lexing the oracle fixtures of every language that has them, as a table in the job summary.
-   It gates on both sides built at one codegen unit, so the counts follow the code and not its layout, and fails when a language rises more than 0.5%; columns at the default sixteen units are for information only (`bench/AGENTS.md` rule 12).
-   Label a pull request that touches a hot path.
-   valgrind comes from the bench mise profile, `mise.bench.toml` with `mise.bench.lock`, which only this workflow loads (`MISE_ENV=ci,bench`); a local run on Linux uses `MISE_ENV=dev,bench mise run callgrind`.
-2. Nobody runs the full suite before a push; CI does.
+3. A pull request that means to change output says so in a body line, `identity: changes <languages>`, such as `identity: changes python java`.
+4. Callgrind counts the lexing of every language's oracle fixtures, as a table in the job summary.
+   - Label a pull request that touches a hot path.
+   - The gate builds both sides at one codegen unit, so the counts follow the code and not its layout.
+   - Columns at the default sixteen units are for information only (`bench/AGENTS.md` rule 12).
+   - valgrind comes from the bench mise profile, `mise.bench.toml` with `mise.bench.lock`, which only this workflow loads (`MISE_ENV=ci,bench`).
+   - A local run on Linux uses `MISE_ENV=dev,bench mise run callgrind`.
+5. Nobody runs the full suite before a push; CI does.
    - Work CI cannot do runs locally: a lexer's build-and-probe loop, its oracle fixtures, the Shiki differential and the bench.
    - The pre-commit hook runs the cheapest checks: `mise run format` (rustfmt) and `mise run check:literals` when a commit touches a Rust file, and `mise run lint:md` when it touches Markdown.
    - Before a push, run the other cheap checks: `typos` and `mise run format:toml` (taplo).
    - When CI fails, fix forward.
-3. Formatting uses rustfmt on the nightly pinned in `mise.toml`.
-
-   | Command | Does |
-   |:--|:--|
-   | `mise run format` | Checks formatting, as the pre-commit hook does. |
-   | `mise x -- cargo $RUSTFMT_TOOLCHAIN fmt --all` | Applies it. |
-
-4. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file, and runs `check:literals` (`mise-tasks/check/literals.sh`).
+6. Formatting uses rustfmt on the nightly pinned in `mise.toml`.
+   - `mise run format` checks it, as the pre-commit hook does.
+   - `mise x -- cargo $RUSTFMT_TOOLCHAIN fmt --all` applies it.
+7. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file.
+   It also runs `check:layout` (every browsable directory has its README and guide) and `check:literals`.
 
 ### Documentation
 
@@ -159,5 +162,8 @@ The rules are in [oracle/AGENTS.md](oracle/AGENTS.md) and [tests/AGENTS.md](test
 1. Every per-line limit is configurable and overridable by the caller (operator, 2026-11-02).
 2. Defaults may follow the resources the caller has, such as memory or a time budget.
    A caller that pins the limits gets the same output on every machine.
-3. A language's own bounds, such as C++'s `MAX_LOOPS`, are named constants listed in the README's section for that language until the next minor release (operator, 2026-11-03).
-   Adding them to `Limits` and `Limit` breaks the public API, so that release does it once: it marks both `#[non_exhaustive]`, adds a builder and moves every language bound into `Limits`, together with the `feat/non-exhaustive-next-minor` branch.
+3. Until the next minor release, a language's own bounds, such as C++'s `MAX_LOOPS`, are named constants listed in the README's section for that language (operator, 2026-11-03).
+   Adding them to `Limits` and `Limit` breaks the public API, so the next minor does it once, with the `feat/non-exhaustive-next-minor` branch:
+   - it marks both `#[non_exhaustive]`;
+   - it adds a builder;
+   - it moves every language bound into `Limits`.
