@@ -77,6 +77,20 @@ Each grammar's licence was read in its repository at the commit its release tag 
 The two-face summary covers only the syntaxes two-face acknowledges.
 A syntax it ships without a licence file would not appear there.
 
+## The newest record
+
+`mise run bench:compare-record` records a comparison as `results/namespace-8x16/<date>-<sha8>.json`.
+It runs only on the reference host class, as `bench:record` does.
+It runs every engine on the medium and large tiers, with an anchor at the start and the end.
+`mise run bench:report` renders the record's page and the summary below.
+`check:bench-report` fails when either differs from its JSON.
+
+<!-- record summary: rendered by `mise run bench:report summary` -->
+
+No record under this method yet.
+
+<!-- end of record summary -->
+
 ## Running
 
 ```sh

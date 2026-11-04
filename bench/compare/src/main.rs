@@ -11,8 +11,10 @@
 //! - agreement: the share of non-whitespace bytes whose colour matches Shiki's,
 //!   from `bun bench/compare/shiki.ts reference`.
 //!
-//! Usage: `compare [--rounds N] [--cold N] [--tier T] [language...]`, by
-//! default 5 rounds, 11 cold processes, the medium tier of every language.
+//! Usage: `compare [--rounds N] [--cold N] [--tier T] [--tsv] [language...]`,
+//! by default 5 rounds, 11 cold processes, the medium tier of every language.
+//! `--tsv` prints one tab-separated row per file and engine, with every
+//! cold sample and every round, for `bench/compare/record.ts`.
 //! A cold sample is `compare --sample <engine> <file>`.
 //! `compare --pierre-theme <path>` writes github-dark as a Zed theme for
 //! `@pierre/highlights`, which `shiki.ts time` reads.
@@ -33,11 +35,21 @@ use crate::engines::{Colours, NAMES, lines, pierre_theme, setup};
 /// Time each round spends on one engine and file.
 const ROUND: Duration = Duration::from_millis(300);
 
+/// How the runner prints its rows.
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum Output {
+    /// A Markdown table of medians, for a reader.
+    Table,
+    /// Tab-separated rows with every sample, for `bench/compare/record.ts`.
+    Tsv,
+}
+
 /// What the runner measures, from the command line.
 struct Options {
     rounds: usize,
     cold: usize,
     tier: Tier,
+    output: Output,
     languages: Vec<Language>,
 }
 
@@ -46,6 +58,7 @@ fn options(args: &[String]) -> Result<Options, String> {
         rounds: 5,
         cold: 11,
         tier: Tier::Medium,
+        output: Output::Table,
         languages: Vec::new(),
     };
     let mut args = args.iter();
@@ -59,6 +72,7 @@ fn options(args: &[String]) -> Result<Options, String> {
         match arg.as_str() {
             "--rounds" => options.rounds = number("--rounds", 5)?,
             "--cold" => options.cold = number("--cold", 3)?,
+            "--tsv" => options.output = Output::Tsv,
             "--tier" => {
                 let value = args.next().ok_or("--tier needs a tier")?;
                 options.tier = Tier::ALL
@@ -200,14 +214,51 @@ fn nishiki_complete(document: &Document) -> bool {
     })
 }
 
-/// One engine's row for one file.
+/// One engine's row for one file: every cold sample and every round.
 struct Row {
     engine: &'static str,
-    setup_ms: f64,
-    first_ms: f64,
-    mib_per_s: f64,
+    setup_ms: Vec<f64>,
+    first_ms: Vec<f64>,
+    mib_per_s: Vec<f64>,
     tokens: usize,
     agreement: Option<f64>,
+}
+
+impl Row {
+    /// The row as the Markdown table prints it: medians.
+    fn table_line(&self, file: &str) -> String {
+        format!(
+            "| {file} | {} | {:.2} | {:.2} | {:.1} | {} | {} |",
+            self.engine,
+            median(&mut self.setup_ms.clone()),
+            median(&mut self.first_ms.clone()),
+            median(&mut self.mib_per_s.clone()),
+            self.tokens,
+            self.agreement
+                .map_or_else(|| "n/a".to_owned(), |share| format!("{share:.2}")),
+        )
+    }
+
+    /// The row as `--tsv` prints it: each list of samples joined by commas.
+    fn tsv_line(&self, file: &str) -> String {
+        let list = |values: &[f64]| {
+            values
+                .iter()
+                .map(f64::to_string)
+                .collect::<Vec<_>>()
+                .join(",")
+        };
+        format!(
+            "{file}\t{}\t{}\t{}\t{}\t{}\t{}",
+            self.engine,
+            list(&self.setup_ms),
+            list(&self.first_ms),
+            list(&self.mib_per_s),
+            self.tokens,
+            self.agreement
+                .map_or_else(|| "n/a".to_owned(), |share| share.to_string()),
+        )
+    }
 }
 
 fn runner(options: &Options) -> Result<(), String> {
@@ -219,17 +270,22 @@ fn runner(options: &Options) -> Result<(), String> {
                 && (options.languages.is_empty() || options.languages.contains(&document.language))
         })
         .collect();
-    println!(
-        "{} rounds of {} ms per engine and file, the order rotating; {} fresh processes for setup and first document; colours against Shiki 4.6.0, github-dark",
-        options.rounds,
-        ROUND.as_millis(),
-        options.cold
-    );
-    println!();
-    println!(
-        "| file | engine | setup ms | first document ms | warm MiB/s | tokens | agreement % |"
-    );
-    println!("|:--|:--|--:|--:|--:|--:|--:|");
+    match options.output {
+        Output::Table => {
+            println!(
+                "{} rounds of {} ms per engine and file, the order rotating; {} fresh processes for setup and first document; colours against Shiki 4.6.0, github-dark",
+                options.rounds,
+                ROUND.as_millis(),
+                options.cold
+            );
+            println!();
+            println!(
+                "| file | engine | setup ms | first document ms | warm MiB/s | tokens | agreement % |"
+            );
+            println!("|:--|:--|--:|--:|--:|--:|--:|");
+        }
+        Output::Tsv => println!("file\tengine\tsetup_ms\tfirst_ms\tmib_per_s\ttokens\tagreement"),
+    }
     for document in selected {
         if !nishiki_complete(document) {
             return Err(format!(
@@ -270,7 +326,7 @@ fn runner(options: &Options) -> Result<(), String> {
             }
         }
         let mut rows = Vec::new();
-        for ((engine, ready), mut speed) in ready.iter_mut().zip(speeds) {
+        for ((engine, ready), speed) in ready.iter_mut().zip(speeds) {
             let mut setups = Vec::new();
             let mut firsts = Vec::new();
             for _ in 0..options.cold {
@@ -284,25 +340,19 @@ fn runner(options: &Options) -> Result<(), String> {
                 .map(|shiki| agreement(&text, &ready.colours(&text), shiki));
             rows.push(Row {
                 engine,
-                setup_ms: median(&mut setups),
-                first_ms: median(&mut firsts),
-                mib_per_s: median(&mut speed),
+                setup_ms: setups,
+                first_ms: firsts,
+                mib_per_s: speed,
                 tokens,
                 agreement,
             });
         }
         for row in rows {
-            println!(
-                "| {} | {} | {:.2} | {:.2} | {:.1} | {} | {} |",
-                document.name,
-                row.engine,
-                row.setup_ms,
-                row.first_ms,
-                row.mib_per_s,
-                row.tokens,
-                row.agreement
-                    .map_or_else(|| "n/a".to_owned(), |share| format!("{share:.2}")),
-            );
+            let line = match options.output {
+                Output::Table => row.table_line(&document.name),
+                Output::Tsv => row.tsv_line(&document.name),
+            };
+            println!("{line}");
         }
     }
     Ok(())
