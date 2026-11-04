@@ -71,11 +71,13 @@ enum Prefixes {
 /// [`LITERALS`] literals.
 /// `regex-automata`'s own extraction keeps up to 250 literals.
 /// On CMake's first token that extraction cost 29 million instructions.
-fn compile(hirs: &[&Hir]) -> Result<meta::Regex, Box<meta::BuildError>> {
+/// The lazy DFA's cache holds at most `dfa_cache` bytes, the grammar's
+/// [`Grammar::dfa_cache`](super::grammar::Grammar::dfa_cache).
+fn compile(hirs: &[&Hir], dfa_cache: usize) -> Result<meta::Regex, Box<meta::BuildError>> {
     let config = meta::Config::new()
         .match_kind(MatchKind::LeftmostFirst)
         .nfa_size_limit(Some(1 << 24))
-        .hybrid_cache_capacity(1 << 22);
+        .hybrid_cache_capacity(dfa_cache);
     let config = match prefixes(hirs) {
         Prefixes::Literals => config,
         Prefixes::Extracted(prefilter) => config.auto_prefilter(false).prefilter(prefilter),
@@ -148,17 +150,18 @@ impl Scanner {
                 None => residual.push(position),
             }
         }
-        let mut meta = compile(&widened.iter().map(|w| w.1).collect::<Vec<_>>());
+        let dfa_cache = cells.grammar.dfa_cache;
+        let mut meta = compile(&widened.iter().map(|w| w.1).collect::<Vec<_>>(), dfa_cache);
         if meta.is_err() {
             widened.retain(|&(position, relaxed, _)| {
-                let fits = compile(&[relaxed]).is_ok();
+                let fits = compile(&[relaxed], dfa_cache).is_ok();
                 if !fits {
                     residual.push(position);
                 }
                 fits
             });
             residual.sort_unstable();
-            meta = compile(&widened.iter().map(|w| w.1).collect::<Vec<_>>());
+            meta = compile(&widened.iter().map(|w| w.1).collect::<Vec<_>>(), dfa_cache);
         }
         let meta = meta.ok().filter(|_| !widened.is_empty());
         if meta.is_none() {

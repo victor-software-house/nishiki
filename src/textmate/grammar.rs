@@ -215,6 +215,17 @@ pub(crate) struct Grammar {
     /// a capture runs the handing loop. Empty in a grammar that hands nothing
     /// off.
     pub(crate) handing_captures: &'static [usize],
+    /// The most memory, in bytes, that the lazy DFA of one of the grammar's
+    /// scanners may hold in a cache.
+    ///
+    /// It is a ceiling, not an allocation.
+    /// A cache grows only as the searches need states.
+    /// Past it, the lazy DFA clears and builds its states again, and each new
+    /// state allocates.
+    /// `oracle/engine-tables.ts` writes it.
+    /// A grammar takes 4 MiB unless its fixtures need more.
+    /// The generator's comment then records the measurement.
+    pub(crate) dfa_cache: usize,
     /// The cells a search fills on [`LineKind::Lean`] lines: see
     /// [`Grammar::cells`].
     pub(crate) cells: OnceLock<Cells>,

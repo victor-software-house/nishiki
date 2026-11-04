@@ -1198,6 +1198,7 @@ mod survey {
             hand_offs: &[],
             list_hand_offs: &[],
             handing_captures: &[],
+            dfa_cache: 1 << 22,
             cells: OnceLock::new(),
             full_cells: OnceLock::new(),
         }))
@@ -1324,6 +1325,7 @@ mod many_groups {
         hand_offs: &[],
         list_hand_offs: &[],
         handing_captures: &[],
+        dfa_cache: 1 << 22,
         cells: OnceLock::new(),
         full_cells: OnceLock::new(),
     };
@@ -1419,6 +1421,7 @@ mod nested_captures {
         hand_offs: &[],
         list_hand_offs: &[],
         handing_captures: &[],
+        dfa_cache: 1 << 22,
         cells: OnceLock::new(),
         full_cells: OnceLock::new(),
     };
@@ -1515,6 +1518,7 @@ mod injected {
         hand_offs: &[],
         list_hand_offs: &[],
         handing_captures: &[],
+        dfa_cache: 1 << 22,
         cells: OnceLock::new(),
         full_cells: OnceLock::new(),
     };

@@ -400,6 +400,13 @@ function gate(spec: string, used: Set<string>) {
   if (problems.length > 0) throw new Error(`${spec}: ${problems.join("; ")}`);
 }
 
+// The most memory, in bytes, that the lazy DFA of one of a grammar's scanners
+// may hold in a cache (`Grammar::dfa_cache`). It is a ceiling, not an
+// allocation. Past it, the lazy DFA builds its states again, and each new
+// state allocates. A grammar takes 4 MiB unless its fixtures need more.
+const dfaCache: Record<string, string> = {};
+const DFA_CACHE = "1 << 22";
+
 // A Markdown fence whose rule includes more than one grammar gets a second
 // root in that language's table, `FENCE`, sharing its rules. Markdown's `php`
 // fence includes HTML, then PHP. HTML is lexed by hand, so the root hands it
@@ -652,6 +659,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     hand_offs: ${handsOff ? "HAND_OFFS" : "&[]"},
     list_hand_offs: ${handsOff ? "&LIST_HAND_OFFS" : "&[]"},
     handing_captures: ${handsOff ? "HANDING_CAPTURES" : "&[]"},
+    dfa_cache: ${dfaCache[base(spec)] ?? DFA_CACHE},
     cells: OnceLock::new(),
     full_cells: OnceLock::new(),
 };
@@ -672,6 +680,7 @@ pub(crate) static FENCE: Grammar = Grammar {
     hand_offs: ${handsOff ? "HAND_OFFS" : "&[]"},
     list_hand_offs: ${handsOff ? "&LIST_HAND_OFFS" : "&[]"},
     handing_captures: ${handsOff ? "HANDING_CAPTURES" : "&[]"},
+    dfa_cache: ${dfaCache[base(spec)] ?? DFA_CACHE},
     cells: OnceLock::new(),
     full_cells: OnceLock::new(),
 };

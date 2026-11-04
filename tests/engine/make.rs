@@ -1115,6 +1115,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     hand_offs: &[],
     list_hand_offs: &[],
     handing_captures: &[],
+    dfa_cache: 1 << 22,
     cells: OnceLock::new(),
     full_cells: OnceLock::new(),
 };
