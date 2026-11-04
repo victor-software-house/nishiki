@@ -18,14 +18,14 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | C++ | `cpp-macro` | 593 of 611 | 97.1% | 1532 of 1645 | 93.1% | 131 | 0 | yes |
 | C# | `csharp` | 544 of 547 | 99.5% | 515 of 525 | 98.1% | 13 | 0 | yes |
 | CSS | `css` | 219 of 222 | 98.6% | 181 of 184 | 98.4% | 6 | 0 | yes |
-| diff | `diff` | 10 of 16 | 62.5% | 10 of 23 | 43.5% | 0 | 1 |  |
-| Dockerfile | `docker` | 8 of 9 | 88.9% | 5 of 13 | 38.5% | 0 | 0 |  |
+| diff | `diff` | 16 of 16 | 100.0% | 22 of 23 | 95.7% | 1 | 0 | yes |
+| Dockerfile | `docker` | 8 of 9 | 88.9% | 6 of 13 | 46.2% | 8 | 0 | yes |
 | ERB | `erb` | 6 of 12 | 50.0% | 6 of 14 | 42.9% | 0 | 8 |  |
 | Go | `go` | 201 of 336 | 59.8% | 145 of 250 | 58.0% | 0 | 2 |  |
 | GraphQL | `graphql` | 76 of 88 | 86.4% | 83 of 113 | 73.5% | 0 | 7 |  |
 | HTML | `html` | 131 of 227 | 57.7% | 162 of 368 | 44.0% | 0 | 2 |  |
 | HTML | `html-derivative` | 2 of 3 | 66.7% | 3 of 3 | 100.0% | 0 | 1 |  |
-| INI | `ini` | 14 of 15 | 93.3% | 10 of 12 | 83.3% | 0 | 0 |  |
+| INI | `ini` | 15 of 15 | 100.0% | 10 of 12 | 83.3% | 2 | 0 | yes |
 | Java | `java` | 157 of 214 | 73.4% | 102 of 134 | 76.1% | 0 | 19 |  |
 | TypeScript | `javascript` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | JSON | `json` | 14 of 23 | 60.9% | 10 of 15 | 66.7% | 0 | 10 |  |
@@ -35,7 +35,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Kotlin | `kotlin` | 57 of 65 | 87.7% | 25 of 35 | 71.4% | 0 | 0 |  |
 | Less | `less` | 581 of 590 | 98.5% | 417 of 437 | 95.4% | 29 | 0 | yes |
 | Lua | `lua` | 147 of 152 | 96.7% | 72 of 74 | 97.3% | 7 | 0 | ready |
-| Make | `make` | 58 of 75 | 77.3% | 23 of 32 | 71.9% | 0 | 0 |  |
+| Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
 | Markdown | `markdown` | 205 of 311 | 65.9% | 266 of 373 | 71.3% | 213 | 0 | yes |
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
 | Ruby | `ruby` | 168 of 336 | 50.0% | 139 of 293 | 47.4% | 0 | 8 |  |
@@ -244,29 +244,18 @@ The groups of an unexercised expression count as unexercised and are not listed.
 ### `diff`
 
 ```text
-patterns[1].match  ^\d+(,\d+)*([acd])\d+(,\d+)*$\n?
-patterns[3].match  ^(((-{3}) .+ (-{4}))|((\*{3}) .+ (\*{4})))$\n?
-patterns[5].match  ^diff (-|\S+\s+\S+).*$\n?  fuzz
-patterns[6].match  groups 7
-patterns[7].match  groups 3, 4
-patterns[8].match  groups 3
-patterns[9].match  ^(!).*$\n?
-patterns[10].match  groups 3
-patterns[11].end  groups 1
-patterns[13].match  ^Index(:) (.+)$\n?
-patterns[14].match  ^Only in .*: .*$\n?
+patterns[11].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
 ```
 
 ### `docker`
 
 ```text
-patterns[1].match  groups 1
-patterns[2].match  ^\s*(?i:(ONBUILD)\s+)?(?i:(CMD|ENTRYPOINT))\s
-patterns[4].begin  groups 1
-patterns[4].end  groups 1
-patterns[5].begin  groups 1
-patterns[5].end  groups 1
-patterns[6].match  groups 1
+patterns[2].match  ^\s*(?i:(ONBUILD)\s+)?(?i:(CMD|ENTRYPOINT))\s  waived: `patterns[1]`, before it, lists `CMD` and `ENTRYPOINT` after the same optional `ONBUILD`, so it matches wherever this does
+patterns[4].begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[4].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[5].begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[5].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[6].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
 ```
 
 ### `erb`
@@ -577,9 +566,8 @@ injections[R:text.html - (comment.block, text.html meta.embedded, meta.tag.*.*.h
 ### `ini`
 
 ```text
-patterns[0].begin  groups 1
-patterns[1].begin  groups 1
-patterns[4].patterns[0].match  \\.
+patterns[0].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+patterns[1].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
 ```
 
 ### `java`
@@ -771,26 +759,8 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 ### `make`
 
 ```text
-#another-variable-braces.patterns[0].patterns[1].match  \\\n
-#another-variable-parentheses.patterns[0].patterns[1].match  \\\n
-#builtin-variable-braces.patterns[0].match  (?<=\{)(MAKEFILES|VPATH|SHELL|MAKESHELL|MAKE|MAKELEVEL|MAKE…
-#comment.begin  groups 1
-#directives.patterns[0].patterns[2].match  %
-#directives.patterns[1].begin  ^ *(vpath)\b
-#directives.patterns[1].end  ^
-#directives.patterns[1].patterns[2].match  %
-#directives.patterns[2].begin  groups 1
-#directives.patterns[2].end  groups 2, 3, 4
-#directives.patterns[2].patterns[0].begin  \G(?!\n)
-#directives.patterns[2].patterns[0].end  ^
-#flavor-variable-braces.patterns[0].begin  (?<=\{)(origin|flavor)\s(?=[^}\s]+\s*})
-#flavor-variable-braces.patterns[0].end  (?=})
-#flavor-variable-parentheses.patterns[0].begin  (?<=\()(origin|flavor)\s(?=[^)\s]+\s*\))
-#flavor-variable-parentheses.patterns[0].end  (?=\))
-#function-variable-braces.patterns[0].begin  (?<=\{)(subst|patsubst|strip|findstring|filter(-out)?|sort|…
-#function-variable-braces.patterns[0].end  (?=}|((?<!\\)\n))
-#function-variable-braces.patterns[0].patterns[3].match  [%*]
-#function-variable-braces.patterns[0].patterns[4].match  \\\n
+#comment.begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#directives.patterns[2].end  groups 2 (waived: the grammar names the group, but the expression has one group), 3 (waived: the grammar names the group, but the expression has one group), 4 (waived: the grammar names the group, but the expression has one group)
 ```
 
 ### `markdown`

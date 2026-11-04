@@ -958,6 +958,22 @@ export const waivers: Waiver[] = [
     reason: "`[-\\]*,.0-9<>A-\\[_a-z]+`, the pattern before it, takes every `.` of a `...`",
     probe: "EmmydocTypeAt4At1",
   },
+  { grammar: "diff", path: "patterns[11].end", group: 1, reason: missing(0) },
+  {
+    grammar: "docker",
+    path: "patterns[2].match",
+    reason: "`patterns[1]`, before it, lists `CMD` and `ENTRYPOINT` after the same optional `ONBUILD`, so it matches wherever this does",
+  },
+  ...["patterns[4].begin", "patterns[4].end", "patterns[5].begin", "patterns[5].end"].map(
+    (path): Waiver => ({ grammar: "docker", path, group: 1, reason: missing(0) }),
+  ),
+  { grammar: "docker", path: "patterns[6].match", group: 1, reason: blanks },
+  { grammar: "ini", path: "patterns[0].begin", group: 1, reason: blanks },
+  { grammar: "ini", path: "patterns[1].begin", group: 1, reason: blanks },
+  { grammar: "make", path: "#comment.begin", group: 1, reason: blanks },
+  ...[2, 3, 4].map(
+    (group): Waiver => ({ grammar: "make", path: "#directives.patterns[2].end", group, reason: missing(1) }),
+  ),
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -968,9 +984,13 @@ export const complete: string[] = [
   "cpp-macro",
   "csharp",
   "css",
+  "diff",
+  "docker",
+  "ini",
   "javascript",
   "jsx",
   "less",
+  "make",
   "markdown",
   "python",
   "rust",

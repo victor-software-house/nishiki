@@ -480,6 +480,11 @@ export const inputs: Input[] = [
   { lang: "dart", name: "sample", url: `${samples}/dart.sample` },
   {
     lang: "diff",
+    name: "coverage",
+    url: new URL("inputs/diff-coverage.diff", import.meta.url).href,
+  },
+  {
+    lang: "diff",
     name: "cranelift-stdarch-sve",
     url: `${rustc}/compiler/rustc_codegen_cranelift/patches/0001-stdarch-Disable-SVE.patch`,
   },
@@ -510,6 +515,11 @@ export const inputs: Input[] = [
     url: `${vscode}/build/npm/patches/foundry-local-sdk.patch`,
   },
   { lang: "docker", name: "buildx", url: `${buildx}/Dockerfile` },
+  {
+    lang: "docker",
+    name: "coverage",
+    url: new URL("inputs/docker-coverage.dockerfile", import.meta.url).href,
+  },
   { lang: "docker", name: "moby", url: `${moby}/Dockerfile` },
   { lang: "docker", name: "next-with-docker", url: `${nextjs}/examples/with-docker/Dockerfile` },
   { lang: "docker", name: "postgres-bookworm", url: `${dockerPostgres}/18/bookworm/Dockerfile` },
@@ -584,6 +594,11 @@ export const inputs: Input[] = [
   { lang: "html-derivative", name: "vue-transition-list", url: `${vue}/packages/vue/examples/transition/list.html` },
   { lang: "html-derivative", name: "vue-tree", url: `${vue}/packages/vue/examples/composition/tree.html` },
   { lang: "ini", name: "black-tox", url: `${black}/tox.ini` },
+  {
+    lang: "ini",
+    name: "coverage",
+    url: new URL("inputs/ini-coverage.ini", import.meta.url).href,
+  },
   { lang: "ini", name: "django-tox", url: `${django}/tox.ini` },
   { lang: "ini", name: "kafka-consumer", url: `${kafka}/config/consumer.properties` },
   { lang: "ini", name: "kafka-server", url: `${kafka}/config/server.properties` },
@@ -793,6 +808,11 @@ export const inputs: Input[] = [
   { lang: "lua", name: "penlight-stringx", url: `${penlight}/lua/pl/stringx.lua` },
   { lang: "lua", name: "sample", url: `${samples}/lua.sample` },
   { lang: "make", name: "cjson", url: `${cjson}/Makefile` },
+  {
+    lang: "make",
+    name: "coverage",
+    url: new URL("inputs/make-coverage.mk", import.meta.url).href,
+  },
   { lang: "make", name: "helm", url: `${helm}/Makefile` },
   { lang: "make", name: "minikube", url: `${minikube}/Makefile` },
   { lang: "make", name: "moby", url: `${moby}/Makefile` },

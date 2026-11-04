@@ -61,6 +61,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `css/normalize` | [`normalize.css`][normalize-css] in necolas/normalize.css | [MIT][normalize-licence] |
 | `css/sample` | [`samples/css.sample`][css-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `css/tailwind-preflight` | [`packages/tailwindcss/preflight.css`][tailwind-preflight] in tailwindlabs/tailwindcss | [MIT][tailwind-licence] |
+| `diff/coverage` | `oracle/inputs/diff-coverage.diff`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `diff/cranelift-stdarch-sve` | [`compiler/rustc_codegen_cranelift/patches/0001-stdarch-Disable-SVE.patch`][cranelift-sve] in rust-lang/rust | [MIT or Apache-2.0][rust-licence] |
 | `diff/cranelift-stdlib-atomics` | [`compiler/rustc_codegen_cranelift/patches/0027-stdlib-128bit-atomic-operations.patch`][cranelift-atomics] in rust-lang/rust | [MIT or Apache-2.0][rust-licence] |
 | `diff/cranelift-sysroot-tests` | [`compiler/rustc_codegen_cranelift/patches/0028-sysroot_tests-Disable-long-running-tests.patch`][cranelift-tests] in rust-lang/rust | [MIT or Apache-2.0][rust-licence] |
@@ -160,6 +161,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `less/lessjs-urls` | [`urls.less`][less-lessjs-urls] in less/less.js | [Apache-2.0][lessjs-licence] |
 | `less/sample` | [`samples/less.sample`][less-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `make/cjson` | [`Makefile`][cjson-make] in DaveGamble/cJSON | [MIT][cjson-licence] |
+| `make/coverage` | `oracle/inputs/make-coverage.mk`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `make/helm` | [`Makefile`][helm-make] in helm/helm | [Apache-2.0][helm-licence] |
 | `make/minikube` | [`Makefile`][minikube-make] in kubernetes/minikube | [Apache-2.0][minikube-licence] |
 | `make/moby` | [`Makefile`][moby-make] in moby/moby | [Apache-2.0][moby-licence] |
@@ -475,6 +477,7 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `docker/moby` | [`Dockerfile`][moby-docker] in moby/moby | [Apache-2.0][moby-licence] |
 | `docker/postgres-bookworm` | [`18/bookworm/Dockerfile`][postgres-docker] in docker-library/postgres | [MIT][postgres-docker-licence] |
 | `docker/buildx` | [`Dockerfile`][buildx-docker] in docker/buildx | [Apache-2.0][buildx-licence] |
+| `docker/coverage` | `oracle/inputs/docker-coverage.dockerfile`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `markdown/fastapi-docker` | [`docs/en/docs/deployment/docker.md`][fastapi-docker] in tiangolo/fastapi | [MIT][fastapi-licence] |
 | `markdown/next-with-docker-readme` | [`examples/with-docker/README.md`][next-docker-readme] in vercel/next.js | [MIT][next-licence] |
 | `markdown/next-with-docker-export-readme` | [`examples/with-docker-export-output/README.md`][next-docker-export-readme] in vercel/next.js | [MIT][next-licence] |
@@ -486,6 +489,7 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `ini/sqlalchemy-tox` | [`tox.ini`][sqlalchemy-tox] in sqlalchemy/sqlalchemy | [MIT][sqlalchemy-licence] |
 | `ini/tomcat-catalina` | [`conf/catalina.properties`][tomcat-catalina] in apache/tomcat | [Apache-2.0][tomcat-licence] |
 | `ini/kafka-consumer` | [`config/consumer.properties`][kafka-consumer] in apache/kafka | [Apache-2.0][kafka-licence] |
+| `ini/coverage` | `oracle/inputs/ini-coverage.ini`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `markdown/black-other-tools` | [`docs/guides/using_black_with_other_tools.md`][black-other-tools] in psf/black | [MIT][black-licence] |
 | `markdown/poetry-faq` | [`docs/faq.md`][poetry-faq] in python-poetry/poetry | [MIT][poetry-licence] |
 | `graphql/sample` | [`samples/graphql.sample`][graphql-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
@@ -613,15 +617,18 @@ The YAML test suite keeps its test files on its `data` branch, generated from it
 Their first scores, before any fix, were 100% for the three YAML files and 64 of 3,517 bytes different for `traefik-docker`, all of them on the line after a `\` in a shell fence, which the fix for shell fences (nishiki-archive#54) makes match.
 `make/sample`, `make/nvm`, `make/cjson` and `make/prometheus-common` are the development inputs for Makefiles.
 `make/node`, `make/minikube`, `make/moby`, `make/zlib` and `make/helm` are held out.
+`make/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 `markdown/click-man-readme` and `markdown/httparser-readme` are the development inputs for `makefile` fences, and `markdown/latexrun-readme` and `markdown/device-virtual-readme` are held out.
 `diff/sample`, `diff/cranelift-stdarch-sve`, `diff/cranelift-stdlib-atomics` and `diff/mir-opt-gvn-cast` are the development inputs for diff.
 `diff/cranelift-sysroot-tests`, `diff/mir-opt-gvn-slices` and `diff/vscode-foundry-local-sdk` are held out.
+`diff/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 `markdown/vitest-migration-jest` is the development input for diff fences, and `markdown/vite-ssr` and `markdown/prettier-plugins` are held out.
 `graphql/sample`, `graphql/graphql-js-kitchen-sink`, `graphql/graphiql-schema-kitchen-sink` and `graphql/codegen-apollo-tooling` are the development inputs for GraphQL.
 `graphql/graphiql-kitchen-sink`, `graphql/graphiql-star-wars` and `graphql/graphiql-merged-query` are held out.
 Their first scores, before any fix, were 351 of 709, 6,316 of 6,338 and 12 of 708 bytes different, all from one cause, a `\s*\n` rule that matched nothing at the end of the text and so closed the rule it sat in.
 `docker/sample`, `docker/python-slim-bookworm`, `docker/next-with-docker` and `docker/prometheus` are the development inputs for Dockerfiles.
 `docker/moby`, `docker/postgres-bookworm` and `docker/buildx` are held out.
+`docker/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 `markdown/fastapi-docker` is the development input for `dockerfile` fences, and `markdown/next-with-docker-readme` and `markdown/next-with-docker-export-readme` are held out.
 The lexer matched every input on its first run, held-out ones included.
 `xml/sample`, `xml/ant-build`, `xml/commons-lang-pom`, `xml/views-lots-of-cards`, `xml/ant-junit-frames`, `xml/rome-slashdot`, `xml/xerces-design` and `xml/xerces-xni-config` are the development inputs for XML.
@@ -640,6 +647,7 @@ Their first scores, before any fix, were 239 of 18,266 bytes different for `absl
 They came from six bugs: the generator cut a rule's or a capture's pattern list short at a list being expanded above it, `$0` in a scope name was empty, the first-byte table read the quantifier `{1,0}` as required, an alias whose line ends after `=` did not give back the line feed, captures nested at most 8 deep, and C++ in a Markdown fence lacked `source.cpp`.
 `ini/sample`, `ini/pytest-tox`, `ini/kafka-server` and `ini/black-tox` are the development inputs for INI.
 `ini/django-tox`, `ini/sqlalchemy-tox`, `ini/tomcat-catalina` and `ini/kafka-consumer` are held out.
+`ini/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 `markdown/black-other-tools` is the development input for `ini` fences, and `markdown/poetry-faq` is held out.
 The lexer matched every input on its first run, held-out ones included.
 

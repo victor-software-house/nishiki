@@ -1,0 +1,127 @@
+L -include deps/%.d
+T 8 source.makefile keyword.control.include.makefile
+T 14 source.makefile
+T 15 source.makefile constant.other.placeholder.makefile
+T 17 source.makefile
+L vpath %.c src lib
+T 5 source.makefile keyword.control.vpath.makefile
+T 6 source.makefile
+T 7 source.makefile constant.other.placeholder.makefile
+T 17 source.makefile
+L here := ${CURDIR}
+T 4 source.makefile variable.other.makefile
+T 5 source.makefile
+T 7 source.makefile punctuation.separator.key-value.makefile
+T 8 source.makefile
+T 10 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 16 source.makefile string.interpolated.makefile variable.language.makefile
+T 17 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L kind := ${origin CC} $(flavor LD)
+T 4 source.makefile variable.other.makefile
+T 5 source.makefile
+T 7 source.makefile punctuation.separator.key-value.makefile
+T 8 source.makefile
+T 10 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 16 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.origin.makefile
+T 17 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 19 source.makefile string.interpolated.makefile meta.scope.function-call.makefile variable.other.makefile
+T 20 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 21 source.makefile
+T 23 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.flavor.makefile
+T 30 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 32 source.makefile string.interpolated.makefile meta.scope.function-call.makefile variable.other.makefile
+T 33 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L objects := ${patsubst %.c,%.o,${wildcard src/*.c}}
+T 7 source.makefile variable.other.makefile
+T 8 source.makefile
+T 10 source.makefile punctuation.separator.key-value.makefile
+T 11 source.makefile
+T 13 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 21 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.patsubst.makefile
+T 22 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 23 source.makefile string.interpolated.makefile meta.scope.function-call.makefile constant.other.placeholder.makefile
+T 25 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 26 source.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 27 source.makefile string.interpolated.makefile meta.scope.function-call.makefile constant.other.placeholder.makefile
+T 29 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 30 source.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 32 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 40 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.wildcard.makefile
+T 41 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 45 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 46 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile constant.other.placeholder.makefile
+T 48 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 49 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 50 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L long := ${subst a,b,\
+T 4 source.makefile variable.other.makefile
+T 5 source.makefile
+T 7 source.makefile punctuation.separator.key-value.makefile
+T 8 source.makefile
+T 10 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 15 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.subst.makefile
+T 16 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 17 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 18 source.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 19 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 20 source.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 21 source.makefile string.interpolated.makefile meta.scope.function-call.makefile constant.character.escape.continuation.makefile
+L   $(sources)}
+T 2 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 4 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 11 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 12 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 13 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L more := $(sources\
+T 4 source.makefile variable.other.makefile
+T 5 source.makefile
+T 7 source.makefile punctuation.separator.key-value.makefile
+T 8 source.makefile
+T 10 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 17 source.makefile string.interpolated.makefile variable.other.makefile
+T 18 source.makefile string.interpolated.makefile variable.other.makefile constant.character.escape.continuation.makefile
+L   )
+T 2 source.makefile string.interpolated.makefile variable.other.makefile
+T 3 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L brace := ${name\
+T 5 source.makefile variable.other.makefile
+T 6 source.makefile
+T 8 source.makefile punctuation.separator.key-value.makefile
+T 9 source.makefile
+T 11 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 15 source.makefile string.interpolated.makefile variable.other.makefile
+T 16 source.makefile string.interpolated.makefile variable.other.makefile constant.character.escape.continuation.makefile
+L   }
+T 2 source.makefile string.interpolated.makefile variable.other.makefile
+T 3 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L override define RECIPE = # the recipe
+T 8 source.makefile meta.scope.conditional.makefile keyword.control.override.makefile
+T 9 source.makefile meta.scope.conditional.makefile
+T 15 source.makefile meta.scope.conditional.makefile keyword.control.define.makefile
+T 16 source.makefile meta.scope.conditional.makefile
+T 22 source.makefile meta.scope.conditional.makefile variable.other.makefile
+T 23 source.makefile meta.scope.conditional.makefile
+T 24 source.makefile meta.scope.conditional.makefile punctuation.separator.key-value.makefile
+T 25 source.makefile meta.scope.conditional.makefile
+T 26 source.makefile meta.scope.conditional.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 37 source.makefile meta.scope.conditional.makefile comment.line.number-sign.makefile
+L 	@echo building $@
+T 16 source.makefile meta.scope.conditional.makefile
+T 18 source.makefile meta.scope.conditional.makefile variable.language.makefile
+L endef
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.override.makefile
+L 
+L all: $(objects)
+T 3 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 4 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 5 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 7 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 14 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile variable.other.makefile
+T 15 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(RECIPE)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 10 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 

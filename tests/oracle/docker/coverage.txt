@@ -1,0 +1,56 @@
+L FROM alpine:3.20 AS base
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 17 source.dockerfile
+T 19 source.dockerfile keyword.other.special-method.dockerfile
+T 24 source.dockerfile
+L ONBUILD RUN apk add --no-cache git
+T 7 source.dockerfile keyword.control.dockerfile
+T 8 source.dockerfile
+T 11 source.dockerfile keyword.other.special-method.dockerfile
+T 12 source.dockerfile
+T 34 source.dockerfile
+L onbuild COPY . /src
+T 7 source.dockerfile keyword.control.dockerfile
+T 8 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 13 source.dockerfile
+T 19 source.dockerfile
+L ONBUILD ENTRYPOINT ["/src/run"]
+T 7 source.dockerfile keyword.control.dockerfile
+T 8 source.dockerfile
+T 18 source.dockerfile keyword.other.special-method.dockerfile
+T 19 source.dockerfile
+T 20 source.dockerfile
+T 21 source.dockerfile string.quoted.double.dockerfile
+T 29 source.dockerfile string.quoted.double.dockerfile
+T 30 source.dockerfile string.quoted.double.dockerfile
+T 31 source.dockerfile
+L CMD ["sh", "-c", "echo \"done\""]
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 5 source.dockerfile
+T 6 source.dockerfile string.quoted.double.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 9 source.dockerfile string.quoted.double.dockerfile
+T 11 source.dockerfile
+T 12 source.dockerfile string.quoted.double.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+T 15 source.dockerfile string.quoted.double.dockerfile
+T 17 source.dockerfile
+T 18 source.dockerfile string.quoted.double.dockerfile
+T 23 source.dockerfile string.quoted.double.dockerfile
+T 25 source.dockerfile string.quoted.double.dockerfile constant.character.escaped.dockerfile
+T 29 source.dockerfile string.quoted.double.dockerfile
+T 31 source.dockerfile string.quoted.double.dockerfile constant.character.escaped.dockerfile
+T 32 source.dockerfile string.quoted.double.dockerfile
+T 33 source.dockerfile
+L LABEL note='it\'s here'
+T 5 source.dockerfile keyword.other.special-method.dockerfile
+T 6 source.dockerfile
+T 11 source.dockerfile
+T 12 source.dockerfile string.quoted.single.dockerfile
+T 14 source.dockerfile string.quoted.single.dockerfile
+T 16 source.dockerfile string.quoted.single.dockerfile constant.character.escaped.dockerfile
+T 22 source.dockerfile string.quoted.single.dockerfile
+T 23 source.dockerfile string.quoted.single.dockerfile
+L 

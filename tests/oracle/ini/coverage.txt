@@ -1,0 +1,35 @@
+L [section]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 8 source.ini entity.name.section.group-title.ini
+T 9 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L path = 'C:\\Program Files\\app'
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 7 source.ini
+T 8 source.ini string.quoted.single.ini punctuation.definition.string.begin.ini
+T 10 source.ini string.quoted.single.ini
+T 12 source.ini string.quoted.single.ini constant.character.escape.ini
+T 25 source.ini string.quoted.single.ini
+T 27 source.ini string.quoted.single.ini constant.character.escape.ini
+T 30 source.ini string.quoted.single.ini
+T 31 source.ini string.quoted.single.ini punctuation.definition.string.end.ini
+L quote = 'it\'s'
+T 5 source.ini keyword.other.definition.ini
+T 6 source.ini
+T 7 source.ini punctuation.separator.key-value.ini
+T 8 source.ini
+T 9 source.ini string.quoted.single.ini punctuation.definition.string.begin.ini
+T 11 source.ini string.quoted.single.ini
+T 13 source.ini string.quoted.single.ini constant.character.escape.ini
+T 14 source.ini string.quoted.single.ini
+T 15 source.ini string.quoted.single.ini punctuation.definition.string.end.ini
+L   # indented comment
+T 2 source.ini punctuation.whitespace.comment.leading.ini
+T 3 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 20 source.ini comment.line.number-sign.ini
+L 	; indented comment
+T 1 source.ini punctuation.whitespace.comment.leading.ini
+T 2 source.ini comment.line.semicolon.ini punctuation.definition.comment.ini
+T 19 source.ini comment.line.semicolon.ini
+L 

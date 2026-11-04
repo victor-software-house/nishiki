@@ -1,0 +1,118 @@
+L Only in old: removed.txt
+T 24 source.diff meta.diff.only-in
+L Index: src/main.c
+T 5 source.diff meta.diff.index
+T 6 source.diff meta.diff.index punctuation.separator.key-value.diff
+T 7 source.diff meta.diff.index
+T 17 source.diff meta.diff.index meta.toc-list.file-name.diff
+L ===================================================================
+T 67 source.diff meta.separator.diff punctuation.definition.separator.diff
+L --- src/main.c	(revision 41)
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 28 source.diff meta.diff.header.from-file
+L +++ src/main.c	(working copy)
+T 3 source.diff meta.diff.header.to-file punctuation.definition.to-file.diff
+T 29 source.diff meta.diff.header.to-file
+L @@ -1,3 +1,3 @@
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 12 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 13 source.diff meta.diff.range.unified
+T 15 source.diff meta.diff.range.unified punctuation.definition.range.diff
+L  int main(void) {
+T 17 source.diff
+L -  return 1;
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 12 source.diff markup.deleted.diff
+L +  return 0;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 12 source.diff markup.inserted.diff
+L  }
+T 2 source.diff
+L diff -c old/list.txt new/list.txt
+T 33 source.diff meta.diff.header.command
+L *** old/list.txt	2026-11-01 10:00:00
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 36 source.diff meta.diff.header.from-file
+L --- new/list.txt	2026-11-02 10:00:00
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 36 source.diff meta.diff.header.from-file
+L ***************
+T 15 source.diff meta.separator.diff punctuation.definition.separator.diff
+L *** 1,4 ****
+T 3 source.diff meta.diff.range.context punctuation.definition.range.diff
+T 8 source.diff meta.diff.range.context
+T 12 source.diff meta.diff.range.context punctuation.definition.range.diff
+L   alpha
+T 7 source.diff
+L ! beta
+T 1 source.diff markup.changed.diff punctuation.definition.changed.diff
+T 6 source.diff markup.changed.diff
+L   gamma
+T 7 source.diff
+L   delta
+T 7 source.diff
+L --- 1,4 ----
+T 3 source.diff meta.diff.range.context punctuation.definition.range.diff
+T 8 source.diff meta.diff.range.context
+T 12 source.diff meta.diff.range.context punctuation.definition.range.diff
+L   alpha
+T 7 source.diff
+L ! bravo
+T 1 source.diff markup.changed.diff punctuation.definition.changed.diff
+T 7 source.diff markup.changed.diff
+L   gamma
+T 7 source.diff
+L   delta
+T 7 source.diff
+L diff old/words.txt new/words.txt
+T 32 source.diff meta.diff.header.command
+L 2,3c2,3
+T 7 source.diff meta.diff.range.normal
+L < second
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 8 source.diff markup.deleted.diff
+L < third
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 7 source.diff markup.deleted.diff
+L ---
+T 3 source.diff meta.separator.diff punctuation.definition.separator.diff
+L > 2nd
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 5 source.diff markup.inserted.diff
+L > 3rd
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 5 source.diff markup.inserted.diff
+L 5d4
+T 3 source.diff meta.diff.range.normal
+L < fifth
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 7 source.diff markup.deleted.diff
+L 7a7
+T 3 source.diff meta.diff.range.normal
+L > seventh
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 9 source.diff markup.inserted.diff
+L ==== //depot/main/notes.txt#3 - /home/user/notes.txt ====
+T 4 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 29 source.diff meta.diff.header.from-file
+T 30 source.diff meta.diff.header.to-file
+T 31 source.diff meta.diff.header.to-file punctuation.definition.to-file.diff
+T 53 source.diff meta.diff.header.to-file
+T 57 source.diff meta.diff.header.to-file punctuation.definition.to-file.diff
+L @@ -1 +1 @@
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 8 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 9 source.diff meta.diff.range.unified
+T 11 source.diff meta.diff.range.unified punctuation.definition.range.diff
+L -old note
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 9 source.diff markup.deleted.diff
+L +new note
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 9 source.diff markup.inserted.diff
+L # a comment line
+T 1 source.diff comment.line.number-sign.diff punctuation.definition.comment.diff
+T 16 source.diff comment.line.number-sign.diff
+L 
