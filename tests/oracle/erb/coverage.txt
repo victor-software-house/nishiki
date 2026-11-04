@@ -1,0 +1,44 @@
+L <%# Written for nishiki: what the erb grammar's other inputs leave out. %>
+T 3 text.html.erb comment.block.erb punctuation.definition.comment.begin.erb
+T 72 text.html.erb comment.block.erb
+T 74 text.html.erb comment.block.erb punctuation.definition.comment.end.erb
+L   <%# A comment that runs
+T 2 text.html.erb punctuation.whitespace.comment.leading.erb
+T 5 text.html.erb comment.block.erb punctuation.definition.comment.begin.erb
+T 25 text.html.erb comment.block.erb
+L   across two lines. %>
+T 20 text.html.erb comment.block.erb
+T 22 text.html.erb comment.block.erb punctuation.definition.comment.end.erb
+L <p><%= name # the name %></p>
+T 1 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.erb meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.erb meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 6 text.html.erb meta.embedded.line.erb punctuation.section.embedded.begin.erb
+T 12 text.html.erb meta.embedded.line.erb source.ruby
+T 13 text.html.erb meta.embedded.line.erb source.ruby comment.line.number-sign.erb punctuation.definition.comment.erb
+T 23 text.html.erb meta.embedded.line.erb source.ruby comment.line.number-sign.erb
+T 24 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb source.ruby
+T 25 text.html.erb meta.embedded.line.erb punctuation.section.embedded.end.erb
+T 27 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 28 text.html.erb meta.tag.structure.p.end.html entity.name.tag.html
+T 29 text.html.erb meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L <%
+T 2 text.html.erb meta.embedded.block.erb punctuation.section.embedded.begin.erb
+L # A comment that ends the block %>
+T 1 text.html.erb meta.embedded.block.erb source.ruby comment.line.number-sign.erb punctuation.definition.comment.erb
+T 32 text.html.erb meta.embedded.block.erb source.ruby comment.line.number-sign.erb
+T 33 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb source.ruby
+T 34 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb
+L   <% if ready
+T 2 text.html.erb punctuation.whitespace.embedded.leading.erb
+T 4 text.html.erb meta.embedded.block.erb punctuation.section.embedded.begin.erb
+T 5 text.html.erb meta.embedded.block.erb source.ruby
+T 7 text.html.erb meta.embedded.block.erb source.ruby keyword.control.ruby
+T 13 text.html.erb meta.embedded.block.erb source.ruby
+L   end %>
+T 2 text.html.erb meta.embedded.block.erb source.ruby
+T 5 text.html.erb meta.embedded.block.erb source.ruby keyword.control.ruby
+T 6 text.html.erb meta.embedded.block.erb source.ruby
+T 7 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb source.ruby
+T 8 text.html.erb meta.embedded.block.erb punctuation.section.embedded.end.erb
+L 

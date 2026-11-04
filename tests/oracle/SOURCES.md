@@ -643,6 +643,7 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `erb/devise-confirmation-instructions` | [`app/views/devise/mailer/confirmation_instructions.html.erb`][devise-confirmation-instructions] in heartcombo/devise | [MIT][devise-licence] |
 | `erb/devise-sessions-new` | [`app/views/devise/sessions/new.html.erb`][devise-sessions-new] in heartcombo/devise | [MIT][devise-licence] |
 | `erb/devise-error-messages` | [`app/views/devise/shared/_error_messages.html.erb`][devise-error-messages] in heartcombo/devise | [MIT][devise-licence] |
+| `erb/coverage` | `oracle/inputs/erb-coverage.erb`, written for nishiki | MIT or Apache-2.0, as nishiki |
 
 `ripgrep-searcher` and `serde-de` are held out: they were not among the inputs the Rust lexer was written against.
 `core-macros` and `coverage` are held out too: they were added to exercise the rest of the `rust` grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
@@ -773,6 +774,7 @@ Shiki's Markdown grammar has no Haskell fence, so no Markdown input embeds Haske
 
 `erb/sample`, `erb/rails-welcome`, `erb/rails-routes-table`, `erb/rails-rescues-source`, `erb/devise-registrations-edit` and `erb/rails-scaffold-form` are the development inputs for ERB.
 `erb/rails-mailer-email`, `erb/rails-rescues-diagnostics`, `erb/rails-info-notes`, `erb/rails-app-layout`, `erb/rails-pwa-offline`, `erb/devise-shared-links`, `erb/devise-confirmation-instructions`, `erb/devise-sessions-new` and `erb/devise-error-messages` are held out.
+`erb/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 They cover code inside quoted values and `<style>` and `<script>` blocks, `-%>`, and the `<%%` of the generators' Thor templates; none has an ERB comment, which the unit tests and the mutation differential cover.
 Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railties/` and `actionpack/` here.
 

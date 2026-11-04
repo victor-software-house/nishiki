@@ -1080,6 +1080,20 @@ export const waivers: Waiver[] = [
     path: "#type-parameter.patterns[1].match",
     reason: "`#type-parameter.patterns[0]`, `\\b\\w+\\b`, before it, matches every word this does",
   },
+  ...[0, 1].flatMap((index): Waiver[] => [
+    {
+      grammar: "erb",
+      path: `injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[${index}].begin`,
+      group: 0,
+      reason: "the match is only the blanks that lead the line, before the lookahead, and the oracle compares no blank",
+    },
+    {
+      grammar: "erb",
+      path: `injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[${index}].end`,
+      group: 0,
+      reason: "the match is only blanks and the line feed that end the line, and the oracle compares no blank",
+    },
+  ]),
   {
     grammar: "sql",
     path: "#comments.patterns[0].begin",
@@ -1150,6 +1164,7 @@ export const complete: string[] = [
   "css",
   "diff",
   "docker",
+  "erb",
   "go",
   "ini",
   "java",

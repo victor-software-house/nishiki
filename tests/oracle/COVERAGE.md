@@ -20,7 +20,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | CSS | `css` | 219 of 222 | 98.6% | 181 of 184 | 98.4% | 6 | 0 | yes |
 | diff | `diff` | 16 of 16 | 100.0% | 22 of 23 | 95.7% | 1 | 0 | yes |
 | Dockerfile | `docker` | 8 of 9 | 88.9% | 6 of 13 | 46.2% | 8 | 0 | yes |
-| ERB | `erb` | 6 of 12 | 50.0% | 6 of 14 | 42.9% | 0 | 8 |  |
+| ERB | `erb` | 12 of 12 | 100.0% | 10 of 14 | 71.4% | 4 | 0 | yes |
 | Go | `go` | 317 of 336 | 94.3% | 240 of 250 | 96.0% | 29 | 0 | yes |
 | GraphQL | `graphql` | 76 of 88 | 86.4% | 83 of 113 | 73.5% | 0 | 7 |  |
 | HTML | `html` | 131 of 227 | 57.7% | 162 of 368 | 44.0% | 0 | 2 |  |
@@ -261,14 +261,10 @@ patterns[6].match  groups 1 (waived: the group matches only blanks, and the orac
 ### `erb`
 
 ```text
-#comment.patterns[0].begin  <%+#  fuzz
-#comment.patterns[0].end  %>  fuzz
-#tags.patterns[0].patterns[0].match  (#).*?(?=-?%>)  fuzz
-#tags.patterns[1].patterns[0].match  (#).*?(?=-?%>)
-injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[0].begin  ^(\s*)(?=<%+#(?![^%]*%>))  fuzz
-injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[0].end  (?!\G)(\s*$\n)?  fuzz
-injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[1].begin  groups 0
-injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[1].end  groups 0
+injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[0].begin  groups 0 (waived: the match is only the blanks that lead the line, before the lookahead, and the oracle compares no blank)
+injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[0].end  groups 0 (waived: the match is only blanks and the line feed that end the line, and the oracle compares no blank)
+injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[1].begin  groups 0 (waived: the match is only the blanks that lead the line, before the lookahead, and the oracle compares no blank)
+injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[1].end  groups 0 (waived: the match is only blanks and the line feed that end the line, and the oracle compares no blank)
 ```
 
 ### `go`

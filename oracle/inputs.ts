@@ -12,6 +12,7 @@ import cssCharsetUnquoted from "./inputs/css-charset-unquoted.css" with { type: 
 import cssCoverage from "./inputs/css-coverage.css" with { type: "text" };
 import diffCoverage from "./inputs/diff-coverage.diff" with { type: "text" };
 import dockerCoverage from "./inputs/docker-coverage.dockerfile" with { type: "text" };
+import erbCoverage from "./inputs/erb-coverage.erb" with { type: "text" };
 import goCoverage from "./inputs/go-coverage.go" with { type: "text" };
 import hamlFilters from "./inputs/haml-filters.haml" with { type: "text" };
 import iniCoverage from "./inputs/ini-coverage.ini" with { type: "text" };
@@ -560,6 +561,7 @@ export const inputs: Input[] = [
   { lang: "docker", name: "prometheus", url: `${prometheus}/Dockerfile` },
   { lang: "docker", name: "python-slim-bookworm", url: `${dockerPython}/3.13/slim-bookworm/Dockerfile` },
   { lang: "docker", name: "sample", url: `${samples}/docker.sample` },
+  { lang: "erb", name: "coverage", text: erbCoverage },
   { lang: "erb", name: "devise-confirmation-instructions", url: `${devise}/app/views/devise/mailer/confirmation_instructions.html.erb` },
   { lang: "erb", name: "devise-error-messages", url: `${devise}/app/views/devise/shared/_error_messages.html.erb` },
   { lang: "erb", name: "devise-registrations-edit", url: `${devise}/app/views/devise/registrations/edit.html.erb` },
