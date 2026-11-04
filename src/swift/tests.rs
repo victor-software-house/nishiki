@@ -2,12 +2,11 @@
 
 use indoc::indoc;
 
-use crate::arena::{Arena, ROOT};
-use crate::language::Parts;
-use crate::limits::{Limits, LineReport};
-use crate::rules::{Grammar, Text};
-use crate::swift::engine::{Lexer, Scratch, Swift};
+use crate::arena::Arena;
+use crate::rules::Grammar;
+use crate::swift::engine::Swift;
 use crate::swift::grammar::Pat;
+use crate::test_support::probe::{After, Anchor, Case, lexer};
 use crate::test_support::{leaf_in, merge_by_leaf};
 use crate::{Highlighter, Language, State};
 
@@ -245,60 +244,18 @@ fn an_operator_that_ends_a_capture_lexed_again_is_postfix() {
     );
 }
 
-/// Whether `\G` holds where a matcher is tried.
-#[derive(Clone, Copy, Debug)]
-enum Anchor {
-    G,
-    Free,
-}
-
-/// What follows the text a matcher is tried on.
-#[derive(Clone, Copy, Debug)]
-enum After {
-    LineFeed,
-    Nothing,
-}
-
 /// The span of each capture group of a match, `None` for a group that did
 /// not take part.
 type Groups = Vec<Option<(usize, usize)>>;
 
-/// What `pat` answers at `p` in `text`: where its match ends and the span of
-/// each capture group, or `None` where it does not match.
-fn answer(
-    arena: &mut Arena,
-    pat: Pat,
-    text: &str,
-    p: usize,
-    anchor: Anchor,
-    after: After,
-) -> Option<(usize, Groups)> {
-    let limits = Limits::default();
-    let mut tokens = Vec::new();
-    let mut report = LineReport::default();
-    let mut scratch = Scratch::default();
-    let parts = Parts {
-        arena,
-        limits: &limits,
-        out: &mut tokens,
-        report: &mut report,
-    };
-    let mut lexer = Lexer::new(
-        parts,
-        Text {
-            bytes: text.as_bytes(),
-            start: 0,
-            anchored: false,
-        },
-        ROOT,
-        &mut scratch,
-    );
-    lexer.nl = matches!(after, After::LineFeed);
-    lexer.pos = p;
-    lexer.g = matches!(anchor, Anchor::G);
-    let end = lexer.probe(pat, p)?;
-    let caps = (0..Swift::GROUPS).map(|group| lexer.cap_span(group));
-    Some((end, caps.collect()))
+/// What `pat` answers on `case`: where its match ends and the span of each
+/// capture group, or `None` where it does not match.
+fn answer(arena: &mut Arena, pat: Pat, case: &Case<'_>) -> Option<(usize, Groups)> {
+    lexer::<Swift, _>(arena, case, |lexer| {
+        let end = lexer.probe(pat, case.p)?;
+        let caps = (0..Swift::GROUPS).map(|group| lexer.cap_span(group));
+        Some((end, caps.collect()))
+    })
 }
 
 /// Where the text ends, the matchers answer as Oniguruma does, which
@@ -336,7 +293,13 @@ fn the_matchers_answer_as_oniguruma_where_the_text_ends() {
         (SameTypeEnd, "T == U {", 6, Free, Nothing, Some(6)),
     ];
     for (pat, text, p, anchor, after, want) in cases {
-        let got = answer(&mut arena, pat, text, p, anchor, after).map(|(end, _)| end);
+        let case = Case {
+            text,
+            p,
+            anchor,
+            after,
+        };
+        let got = answer(&mut arena, pat, &case).map(|(end, _)| end);
         assert_eq!(
             got, want,
             "{pat:?} on {text:?} at {p}, {anchor:?}, {after:?}"
@@ -346,60 +309,15 @@ fn the_matchers_answer_as_oniguruma_where_the_text_ends() {
 
 #[cfg(feature = "json")]
 mod probe {
-    use serde_json::{Value, json};
-
-    use super::{After, Anchor, answer};
-    use crate::arena::Arena;
+    use super::answer;
     use crate::swift::grammar::Pat;
+    use crate::test_support::probe::answer_cases;
 
-    /// Runs the matchers on the cases in the file that `PROBE_IN` names.
-    /// That file holds one JSON object per line, with these fields:
-    /// - `rx`, the name of a pattern;
-    /// - `text`;
-    /// - `p`, the byte it is tried at;
-    /// - `g`, whether `\G` holds there;
-    /// - `nl`, whether the line feed follows the text.
-    ///
-    /// It writes their answers to the file `PROBE_OUT` names.
-    /// An answer is `null` for no match, else the end and the capture groups.
-    /// `oracle/onig.ts` compares them with Oniguruma's.
+    /// Answers the cases of `oracle/onig.ts` with Swift's matchers (see
+    /// [`answer_cases`]).
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        let input = std::env::var("PROBE_IN").expect("PROBE_IN");
-        let output = std::env::var("PROBE_OUT").expect("PROBE_OUT");
-        let cases = std::fs::read_to_string(input).expect("cases");
-        let mut out = String::new();
-        let mut arena = Arena::new(None);
-        for line in cases.lines() {
-            let case: Value = serde_json::from_str(line).expect("a case");
-            let name = case["rx"].as_str().expect("rx");
-            let pat = Pat::ALL
-                .iter()
-                .copied()
-                .find(|pat| format!("{pat:?}") == name)
-                .expect("a known pattern");
-            let text = case["text"].as_str().expect("text");
-            let p = usize::try_from(case["p"].as_u64().expect("p")).expect("p");
-            let anchor = match case["g"].as_bool() {
-                Some(true) => Anchor::G,
-                _ => Anchor::Free,
-            };
-            let after = match case["nl"].as_bool() {
-                Some(false) => After::Nothing,
-                _ => After::LineFeed,
-            };
-            let found = answer(&mut arena, pat, text, p, anchor, after);
-            let value = found.map_or(Value::Null, |(end, caps)| {
-                let caps: Vec<Option<[usize; 2]>> = caps
-                    .into_iter()
-                    .map(|span| span.map(|(a, b)| [a, b]))
-                    .collect();
-                json!({ "end": end, "caps": caps })
-            });
-            out.push_str(&value.to_string());
-            out.push('\n');
-        }
-        std::fs::write(output, out).expect("write");
+        answer_cases(&Pat::ALL, answer);
     }
 }

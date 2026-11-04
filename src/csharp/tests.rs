@@ -1,61 +1,15 @@
 //! Tests of the C# lexer.
 
-use crate::arena::{Arena, ROOT};
-use crate::csharp::engine::{Lexer, Scratch};
+use crate::arena::Arena;
+use crate::csharp::engine::CSharp;
 use crate::csharp::grammar::Pat;
 use crate::csharp::matchers::ProbeGroups;
-use crate::language::Parts;
-use crate::limits::{Limits, LineReport};
-use crate::rules::Text;
+use crate::test_support::probe::{After, Anchor, Case, lexer};
 
-/// Whether `\G` holds where a matcher is tried.
-#[derive(Clone, Copy, Debug)]
-enum Anchor {
-    G,
-    Free,
-}
-
-/// What follows the text a matcher is tried on.
-#[derive(Clone, Copy, Debug)]
-enum After {
-    LineFeed,
-    Nothing,
-}
-
-/// What `pat` answers at `p` in `text`: where its match ends and the span of
-/// each capture group, or `None` where it does not match.
-fn answer(
-    arena: &mut Arena,
-    pat: Pat,
-    text: &str,
-    p: usize,
-    anchor: Anchor,
-    after: After,
-) -> Option<(usize, ProbeGroups)> {
-    let limits = Limits::default();
-    let mut tokens = Vec::new();
-    let mut report = LineReport::default();
-    let mut scratch = Scratch::default();
-    let parts = Parts {
-        arena,
-        limits: &limits,
-        out: &mut tokens,
-        report: &mut report,
-    };
-    let mut lexer = Lexer::new(
-        parts,
-        Text {
-            bytes: text.as_bytes(),
-            start: 0,
-            anchored: false,
-        },
-        ROOT,
-        &mut scratch,
-    );
-    lexer.nl = matches!(after, After::LineFeed);
-    lexer.pos = p;
-    lexer.g = matches!(anchor, Anchor::G);
-    lexer.probe(pat, p)
+/// What `pat` answers on `case`: where its match ends and the span of each
+/// capture group, or `None` where it does not match.
+fn answer(arena: &mut Arena, pat: Pat, case: &Case<'_>) -> Option<(usize, ProbeGroups)> {
+    lexer::<CSharp, _>(arena, case, |lexer| lexer.probe(pat, case.p))
 }
 
 /// The type and the name in `foreach` split the blanks between them as
@@ -75,65 +29,32 @@ fn a_foreach_type_keeps_all_but_the_last_blank_before_the_name() {
         ("c  ent in source)", (0, 2), (3, 6)),
     ];
     for (text, ty, name) in cases {
-        let (_, caps) = answer(
-            &mut arena,
-            Pat::ForeachStatementAt1At1,
+        let case = Case {
             text,
-            0,
-            Anchor::Free,
-            After::LineFeed,
-        )
-        .unwrap_or_else(|| panic!("no match in {text:?}"));
+            p: 0,
+            anchor: Anchor::Free,
+            after: After::LineFeed,
+        };
+        let (_, caps) = answer(&mut arena, Pat::ForeachStatementAt1At1, &case)
+            .unwrap_or_else(|| panic!("no match in {text:?}"));
         assert_eq!((caps[3], caps[8]), (Some(ty), Some(name)), "{text:?}");
     }
 }
 
 #[cfg(feature = "json")]
 mod probe {
-    use serde_json::{Value, json};
-
-    use super::{After, Anchor, answer};
-    use crate::arena::Arena;
+    use super::answer;
     use crate::csharp::grammar::Pat;
+    use crate::test_support::probe::answer_cases;
 
-    /// Runs the matchers on the cases in the file that `PROBE_IN` names, one
-    /// JSON object per line (`rx`, `text`, `p`, `g`, `nl`), and writes their
-    /// answers to the file `PROBE_OUT` names. `oracle/onig.ts` compares them
-    /// with Oniguruma's.
+    /// Answers the cases of `oracle/onig.ts` with C#'s matchers (see
+    /// [`answer_cases`]).
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        let input = std::env::var("PROBE_IN").expect("PROBE_IN");
-        let output = std::env::var("PROBE_OUT").expect("PROBE_OUT");
-        let cases = std::fs::read_to_string(input).expect("cases");
-        let mut out = String::new();
-        let mut arena = Arena::new(None);
-        for line in cases.lines() {
-            let case: Value = serde_json::from_str(line).expect("a case");
-            let name = case["rx"].as_str().expect("rx");
-            let pat = Pat::ALL
-                .iter()
-                .copied()
-                .find(|pat| format!("{pat:?}") == name)
-                .expect("a known pattern");
-            let text = case["text"].as_str().expect("text");
-            let p = usize::try_from(case["p"].as_u64().expect("p")).expect("p");
-            let anchor = match case["g"].as_bool() {
-                Some(true) => Anchor::G,
-                _ => Anchor::Free,
-            };
-            let after = match case["nl"].as_bool() {
-                Some(false) => After::Nothing,
-                _ => After::LineFeed,
-            };
-            let found = answer(&mut arena, pat, text, p, anchor, after);
-            let value = found.map_or(Value::Null, |(end, caps)| {
-                json!({ "end": end, "caps": caps.iter().map(|c| c.map(|(a, b)| [a, b])).collect::<Vec<_>>() })
-            });
-            out.push_str(&value.to_string());
-            out.push('\n');
-        }
-        std::fs::write(output, out).expect("write");
+        answer_cases(&Pat::ALL, |arena, pat, case| {
+            answer(arena, pat, case).map(|(end, caps)| (end, caps.to_vec()))
+        });
     }
 }
 

@@ -226,3 +226,6 @@ pub(crate) fn ruby_heredoc_halts(
     }
     halting.into_iter().map(|(halt, _)| halt).collect()
 }
+
+#[cfg(feature = "_rule-engine")]
+pub(crate) mod probe;
