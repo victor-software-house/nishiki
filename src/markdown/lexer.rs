@@ -15,10 +15,10 @@ use super::caps::{Caps, NESTING};
 use super::html;
 use super::inline::Emphasis;
 use super::rules::{self, Capture, End, List, P};
+use super::runs::Runs;
 use super::scope::S;
 use super::state::{Fence, Kind};
 use super::text::Cx;
-use super::ticks::Ticks;
 use super::{block, inline};
 use crate::arena::{Arena, Frame as ArenaFrame, ROOT};
 use crate::language::{Context, Line, Parts};
@@ -223,8 +223,9 @@ pub(crate) struct Scratch {
     /// The frames of the first line's state, innermost first, while
     /// [`after_first_line`] rebuilds them.
     chain: Vec<ArenaFrame>,
-    /// The line's backtick runs, found when a code span first needs them.
-    ticks: Ticks,
+    /// The line's delimiter runs, found when a code span or a
+    /// strikethrough first needs them.
+    runs: Runs,
 }
 
 impl<'a> Lexer<'a> {
@@ -240,7 +241,7 @@ impl<'a> Lexer<'a> {
         state: u32,
     ) -> Self {
         let first_token = out.len();
-        scratch.markdown.ticks.reset();
+        scratch.markdown.runs.reset();
         let mut frames = std::mem::take(&mut scratch.markdown.frames);
         if scratch.markdown.resume == Some(state) {
             for frame in &mut frames {
@@ -656,20 +657,22 @@ impl<'a> Lexer<'a> {
             P::Bracket => inline::bracket(&cx, start),
             P::Bold => inline::emphasis_open(
                 &cx,
-                &mut self.scratch.markdown.ticks,
+                &mut self.scratch.markdown.runs,
                 start,
                 Emphasis::Bold,
                 &mut self.caps,
             ),
             P::Italic => inline::emphasis_open(
                 &cx,
-                &mut self.scratch.markdown.ticks,
+                &mut self.scratch.markdown.runs,
                 start,
                 Emphasis::Italic,
                 &mut self.caps,
             ),
-            P::Raw => inline::raw(&cx, &mut self.scratch.markdown.ticks, start, &mut self.caps),
-            P::Strike => inline::strikethrough(&cx, start, &mut self.caps),
+            P::Raw => inline::raw(&cx, &mut self.scratch.markdown.runs, start, &mut self.caps),
+            P::Strike => {
+                inline::strikethrough(&cx, &mut self.scratch.markdown.runs, start, &mut self.caps)
+            }
             P::Escape => inline::escape(&cx, start),
             P::ImageInline => inline::image_inline(&cx, start, &mut self.caps),
             P::ImageRef => inline::image_reference(&cx, start, &mut self.caps),

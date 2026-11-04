@@ -135,3 +135,16 @@ fn a_ladder_of_backtick_runs_spends_work_linear_in_its_length() {
         "spent {few_steps} steps on {few_bytes} bytes and {many_steps} on {many_bytes}"
     );
 }
+
+/// A line of strikethroughs spends work linear in its length.
+/// A strikethrough that scans the rest of the line from each opening fails
+/// here.
+#[test]
+fn a_line_of_strikethroughs_spends_work_linear_in_its_length() {
+    let short = steps_spent(Language::Markdown, &"~~ a ".repeat(1_000));
+    let long = steps_spent(Language::Markdown, &"~~ a ".repeat(2_000));
+    assert!(
+        long <= 2 * short + 16,
+        "spent {short} steps at 1,000 units and {long} at 2,000"
+    );
+}

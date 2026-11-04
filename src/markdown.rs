@@ -78,10 +78,10 @@ mod inline;
 mod lexer;
 mod limits;
 mod rules;
+mod runs;
 mod scope;
 mod state;
 mod text;
-mod ticks;
 
 pub(crate) use lexer::Scratch;
 pub(crate) use scope::NAMES;

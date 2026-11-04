@@ -7,8 +7,8 @@
 
 use super::caps::Caps;
 use super::limits::{MAX_BRACKET_DEPTH, MAX_PAREN_DEPTH};
+use super::runs::{Closer, Delim, Open, Runs, Span};
 use super::text::Cx;
-use super::ticks::{CodeSpan, Ticks};
 
 /// `&(?!([0-9A-Za-z]+|#[0-9]+|#x\h+);)`: an `&` that starts no entity.
 pub(crate) fn ampersand(cx: &Cx<'_>, p: usize) -> Option<usize> {
@@ -106,7 +106,7 @@ fn delimiter(cx: &Cx<'_>, p: usize, emphasis: Emphasis) -> Option<(u8, usize)> {
 /// character, except that italic skips a doubled delimiter whole.
 pub(crate) fn emphasis_open(
     cx: &Cx<'_>,
-    ticks: &mut Ticks,
+    runs: &mut Runs,
     p: usize,
     emphasis: Emphasis,
     caps: &mut Caps,
@@ -120,7 +120,7 @@ pub(crate) fn emphasis_open(
     let mut atoms = 0;
     loop {
         let before = q;
-        q = emphasis_atom(cx, ticks, q, mark, len, emphasis).unwrap_or(q);
+        q = emphasis_atom(cx, runs, q, mark, len, emphasis).unwrap_or(q);
         if q == before {
             break;
         }
@@ -145,7 +145,7 @@ pub(crate) fn emphasis_open(
 /// look-ahead stops there.
 fn emphasis_atom(
     cx: &Cx<'_>,
-    ticks: &mut Ticks,
+    runs: &mut Runs,
     q: usize,
     mark: u8,
     len: usize,
@@ -161,7 +161,7 @@ fn emphasis_atom(
             }
         }
         b'`' => {
-            if let Some(span) = code_span(cx, ticks, q) {
+            if let Some(span) = code_span(cx, runs, q) {
                 return Some(span.end);
             }
         }
@@ -209,23 +209,63 @@ pub(crate) fn italic_close(cx: &Cx<'_>, p: usize, mark: u8, caps: &mut Caps) -> 
     Some(p + 1)
 }
 
+/// A code span's closing run.
+/// Any backtick run of the right length closes it.
+struct Code;
+
+impl Closer for Code {
+    const DELIM: Delim = Delim::Backtick;
+    const SHORTEST: usize = 1;
+
+    fn eligible(&self, _start: usize) -> bool {
+        true
+    }
+
+    fn closes(&self, _start: usize, _end: usize) -> bool {
+        true
+    }
+}
+
+/// A strikethrough's closing run.
+/// It is a tilde run without a `\` before it: `(?<![\\~])\1(?!~)`.
+/// It must also pass `(?!(?<=_\1)\w)`.
+/// If the first such run of a length fails, no run of that length closes.
+struct Strike<'a>(Cx<'a>);
+
+impl Closer for Strike<'_> {
+    const DELIM: Delim = Delim::Tilde;
+    const SHORTEST: usize = 2;
+
+    fn eligible(&self, start: usize) -> bool {
+        self.0.before(start) != Some(b'\\')
+    }
+
+    fn closes(&self, start: usize, end: usize) -> bool {
+        !(self.0.before(start) == Some(b'_') && self.0.word_at(end))
+    }
+}
+
 /// A run of backticks, then the first later run of the same length. When none
 /// of that length follows, the opening run gives back backticks one at a time,
 /// and the ones given back become text.
 /// The closing run comes from the line's backtick runs.
-#[inline(never)]
-pub(crate) fn code_span(cx: &Cx<'_>, ticks: &mut Ticks, p: usize) -> Option<CodeSpan> {
+pub(crate) fn code_span(cx: &Cx<'_>, runs: &mut Runs, p: usize) -> Option<Span> {
     if cx.get(p) != Some(b'`') {
         return None;
     }
-    let (span, steps) = ticks.code_span(cx.line, p, cx.end.min(cx.line.len()));
+    let open = Open {
+        p,
+        widest: usize::MAX,
+        line_end: cx.end.min(cx.line.len()),
+    };
+    let (span, steps) = runs.closing(cx.line, open, &Code, &Code);
     cx.spend(steps);
     span
 }
 
 /// The raw rule: a code span, its backtick runs and its text.
-pub(crate) fn raw(cx: &Cx<'_>, ticks: &mut Ticks, p: usize, caps: &mut Caps) -> Option<usize> {
-    let span = code_span(cx, ticks, p)?;
+pub(crate) fn raw(cx: &Cx<'_>, runs: &mut Runs, p: usize, caps: &mut Caps) -> Option<usize> {
+    let span = code_span(cx, runs, p)?;
     caps.set(1, p, p + span.open_len);
     if span.close > p + span.open_len {
         caps.set(2, p + span.open_len, span.close);
@@ -237,52 +277,43 @@ pub(crate) fn raw(cx: &Cx<'_>, ticks: &mut Ticks, p: usize, caps: &mut Caps) -> 
 /// `(?<!\\)(~{2,})(?!(?<=\w~~)_)((?:[^~]|(?!(?<![\\~])\1(?!~))~)*+)(\1)
 /// (?!(?<=_\1)\w)`: a run of at least two `~`, the first later run of the
 /// same length, and what lies between.
-pub(crate) fn strikethrough(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+/// An opening run can fail `(?!(?<=\w~~)_)` at its whole length.
+/// That happens when `_` follows it and a word and two tildes end it.
+pub(crate) fn strikethrough(
+    cx: &Cx<'_>,
+    runs: &mut Runs,
+    p: usize,
+    caps: &mut Caps,
+) -> Option<usize> {
     if cx.get(p) != Some(b'~') || cx.before(p) == Some(b'\\') {
         return None;
     }
     let run = cx.skip(p, |b| b == b'~') - p;
-    let line_end = cx.end.min(cx.line.len());
-    for open_len in (2..=run).rev() {
-        let open_end = p + open_len;
-        // `(?!(?<=\w~~)_)`
-        if cx.get(open_end) == Some(b'_')
-            && open_end >= 3
-            && cx.get(open_end - 1) == Some(b'~')
-            && cx.get(open_end - 2) == Some(b'~')
-            && cx.word_before(open_end - 2)
-        {
-            continue;
-        }
-        cx.spend(line_end.saturating_sub(p + run));
-        if cx.over() {
-            return None;
-        }
-        let mut i = p + run;
-        while let Some(rest) = cx.line.get(i..line_end) {
-            let Some(tilde) = memchr::memchr(b'~', rest) else {
-                break;
-            };
-            let start = i + tilde;
-            let stop = cx.skip(start, |b| b == b'~').min(line_end);
-            i = stop;
-            let escaped = start > 0 && cx.get(start - 1) == Some(b'\\');
-            if stop - start != open_len || escaped {
-                continue;
-            }
-            // `(?!(?<=_\1)\w)`
-            if cx.before(start) == Some(b'_') && cx.word_at(stop) {
-                break;
-            }
-            caps.set(1, p, open_end);
-            if start > open_end {
-                caps.set(2, open_end, start);
-            }
-            caps.set(3, start, stop);
-            return Some(stop);
-        }
+    let open_end = p + run;
+    let after_word_tildes = cx.get(open_end) == Some(b'_')
+        && open_end >= 3
+        && cx.get(open_end - 1) == Some(b'~')
+        && cx.get(open_end - 2) == Some(b'~')
+        && cx.word_before(open_end - 2);
+    let open = Open {
+        p,
+        widest: if after_word_tildes { run - 1 } else { run },
+        line_end: cx.end.min(cx.line.len()),
+    };
+    let full = Cx {
+        end: cx.line.len() + 1,
+        ..*cx
+    };
+    let (span, steps) = runs.closing(cx.line, open, &Strike(*cx), &Strike(full));
+    cx.spend(steps);
+    let span = span?;
+    let open_end = p + span.open_len;
+    caps.set(1, p, open_end);
+    if span.close > open_end {
+        caps.set(2, open_end, span.close);
     }
-    None
+    caps.set(3, span.close, span.end);
+    Some(span.end)
 }
 
 /// `(?<square>[^]\[\\]|\\.|\[\g<square>*+])*+`: the end of the label that
