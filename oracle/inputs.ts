@@ -20,6 +20,7 @@ import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
 import makeCoverage from "./inputs/make-coverage.mk" with { type: "text" };
 import markdownCoverage from "./inputs/markdown-coverage.md" with { type: "text" };
 import pythonCoverage from "./inputs/python-coverage.py" with { type: "text" };
+import rubyCoverage from "./inputs/ruby-coverage.rb" with { type: "text" };
 import rubyCppLuaHeredocs from "./inputs/ruby-cpp-lua-heredocs.rb" with { type: "text" };
 import rubyEndHtml from "./inputs/ruby-end-html.rb" with { type: "text" };
 import rubyHeredocs from "./inputs/ruby-heredocs.rb" with { type: "text" };
@@ -979,6 +980,7 @@ export const inputs: Input[] = [
   { lang: "python", name: "rich-console", url: `${rich}/rich/console.py` },
   { lang: "python", name: "ruff-class", url: `${ruff}/crates/ruff_python_parser/resources/valid/statement/class.py` },
   { lang: "python", name: "sample", url: `${samples}/python.sample` },
+  { lang: "ruby", name: "coverage", text: rubyCoverage },
   { lang: "ruby", name: "cpp-lua-heredocs", text: rubyCppLuaHeredocs },
   { lang: "ruby", name: "devise", url: `${devise}/lib/devise.rb` },
   { lang: "ruby", name: "end-html", text: rubyEndHtml },

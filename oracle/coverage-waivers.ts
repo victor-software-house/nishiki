@@ -999,6 +999,29 @@ export const waivers: Waiver[] = [
       reason: "group 2 holds only blanks, brackets, `*`, `.`, `<-`, braces, commas and words, never `(` or `)`",
     }),
   ),
+  { grammar: "ruby", path: "patterns[21].end", group: 1, reason: missing(0) },
+  { grammar: "ruby", path: "patterns[86].begin", group: 1, reason: blanks },
+  {
+    grammar: "ruby",
+    path: "patterns[88].begin",
+    reason: "`patterns[29]` (`\\b[A-Z_]\\w*\\b`), earlier in the same list, takes `__END__` as a constant at the same place",
+  },
+  { grammar: "ruby", path: "patterns[88].end", reason: "its begin never matches" },
+  { grammar: "ruby", path: "patterns[88].patterns[0].begin", reason: "the rule that holds it never opens" },
+  { grammar: "ruby", path: "patterns[88].patterns[0].end", reason: "the rule that holds it never opens" },
+  {
+    grammar: "ruby",
+    path: "#nest_brackets_r.begin",
+    reason: "`#regex_sub`, before it in every list that holds it, opens a character class at every `[`",
+  },
+  { grammar: "ruby", path: "#nest_brackets_r.end", reason: "its begin never matches" },
+  {
+    grammar: "ruby",
+    path: "#nest_parens_r.begin",
+    reason: "`#regex_sub`, before it in every list that holds it, opens a group at every `(`",
+  },
+  { grammar: "ruby", path: "#nest_parens_r.end", reason: "its begin never matches" },
+  { grammar: "ruby", path: "#regex_sub.patterns[6].end", group: 0, reason: lineFeed },
   ...cFamily.flatMap(([reason, rows]) =>
     rows.flatMap(([grammar, path, groups, probe]): Waiver[] => {
       const waiver: Waiver = { grammar, path, reason, ...(probe === undefined ? {} : { probe }) };
@@ -1076,6 +1099,7 @@ export const complete: string[] = [
   "make",
   "markdown",
   "python",
+  "ruby",
   "rust",
   "scss",
   "swift",

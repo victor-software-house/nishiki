@@ -38,7 +38,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
 | Markdown | `markdown` | 205 of 311 | 65.9% | 266 of 373 | 71.3% | 213 | 0 | yes |
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
-| Ruby | `ruby` | 251 of 336 | 74.7% | 225 of 293 | 76.8% | 0 | 0 |  |
+| Ruby | `ruby` | 328 of 336 | 97.6% | 284 of 293 | 96.9% | 17 | 0 | yes |
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
 | SCSS | `scss` | 161 of 168 | 95.8% | 136 of 179 | 76.0% | 50 | 0 | yes |
 | shell | `shellscript` | 119 of 174 | 68.4% | 106 of 199 | 53.3% | 0 | 10 |  |
@@ -760,95 +760,17 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 ### `ruby`
 
 ```text
-patterns[3].match  (?<!\.)\belse(\s)+if\b
-patterns[5].match  (?<!\.)\b(case|if|elsif|unless|until|while)\b\s*(\()*?\s*([…
-patterns[21].end  groups 1
-patterns[37].match  (?<!\()/=
-patterns[45].begin  %r<
-patterns[45].end  >[eimnosux]*
-patterns[49].begin  %I<
-patterns[49].end  >
-patterns[50].begin  %I\{
-patterns[50].end  }
-patterns[51].begin  %I(\W)
-patterns[51].end  \1
-patterns[52].patterns[0].match  \\[]\\]
-patterns[53].patterns[0].match  \\[)\\]
-patterns[54].begin  %i<
-patterns[54].end  >
-patterns[54].patterns[0].match  \\[>\\]
-patterns[55].begin  %i\{
-patterns[55].end  }
-patterns[55].patterns[0].match  \\[\\}]
-patterns[56].patterns[0].match  \\.
-patterns[60].begin  %W\{
-patterns[60].end  }
-patterns[61].begin  %W(\W)
-patterns[61].end  \1
-patterns[62].patterns[0].match  \\[]\\]
-patterns[63].patterns[0].match  \\[)\\]
-patterns[64].begin  %w<
-patterns[64].end  >
-patterns[64].patterns[0].match  \\[>\\]
-patterns[65].begin  %w\{
-patterns[65].end  }
-patterns[65].patterns[0].match  \\[\\}]
-patterns[66].patterns[0].match  \\.
-patterns[70].begin  %[Qx]?<
-patterns[70].end  >
-patterns[71].begin  %[Qx](\W)
-patterns[71].end  \1
-patterns[74].begin  %q<
-patterns[74].end  >
-patterns[74].patterns[0].match  \\[>\\]
-patterns[75].patterns[0].match  \\[]\\]
-patterns[76].patterns[0].match  \\[\\}]
-patterns[77].begin  %q(\W)
-patterns[77].end  \1
-patterns[77].patterns[0].match  \\.
-patterns[78].patterns[0].match  \\[)\\]
-patterns[79].begin  %s<
-patterns[79].end  >
-patterns[79].patterns[0].match  \\[>\\]
-patterns[80].patterns[0].match  \\[]\\]
-patterns[81].begin  %s\{
-patterns[81].end  }
-patterns[81].patterns[0].match  \\[\\}]
-patterns[82].begin  %s(\W)
-patterns[82].end  \1
-patterns[82].patterns[0].match  \\.
-patterns[84].begin  ^=begin
-patterns[84].end  ^=end
-patterns[86].begin  groups 1
-patterns[88].begin  ^__END__\n
-patterns[88].end  (?=not)impossible
-patterns[88].patterns[0].begin  (?=<?xml|<(?i:html\b)|!DOCTYPE (?i:html\b))
-patterns[88].patterns[0].end  (?=not)impossible
-patterns[90].begin  (?=(?><<[-~]?(["'`]?)((?:[_\w]+_|)HAML)\b\1))
-patterns[90].end  ^\s*((?:[_\w]+_|)HAML)$\n?
-patterns[90].patterns[0].begin  (?><<[-~]?(["'`]?)((?:[_\w]+_|)HAML)\b\1)
-patterns[90].patterns[0].while  ^(?!\s*((?:[_\w]+_|)HAML)\s*$)
-patterns[104].end  ^\2$
-#heredoc.begin  ^<<[-~]?[A-Z_a-z]\w*
-#heredoc.end  $
-#nest_brackets_i.begin  \[
-#nest_brackets_i.end  ]
-#nest_brackets_r.begin  \[
-#nest_brackets_r.end  ]
-#nest_curly_i.begin  \{
-#nest_curly_i.end  }
-#nest_ltgt.begin  <
-#nest_ltgt.end  >
-#nest_ltgt_r.begin  <
-#nest_ltgt_r.end  >
-#nest_parens_r.begin  \(
-#nest_parens_r.end  \)
-#regex_sub.patterns[4].begin  \(\?#
-#regex_sub.patterns[4].end  \)
-#regex_sub.patterns[6].begin  (?<=^|\s)(#)\s(?=[-\t !,.0-9?A-Za-z[^\x00-\x7F]]*$)
-#regex_sub.patterns[6].end  $\n?
-#yard_directive.begin  groups 7, 8, 9
-#yard_option.begin  groups 12, 13, 14
+patterns[21].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[86].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+patterns[88].begin  ^__END__\n  waived: `patterns[29]` (`\b[A-Z_]\w*\b`), earlier in the same list, takes `__END__` as a constant at the same place
+patterns[88].end  (?=not)impossible  waived: its begin never matches
+patterns[88].patterns[0].begin  (?=<?xml|<(?i:html\b)|!DOCTYPE (?i:html\b))  waived: the rule that holds it never opens
+patterns[88].patterns[0].end  (?=not)impossible  waived: the rule that holds it never opens
+#nest_brackets_r.begin  \[  waived: `#regex_sub`, before it in every list that holds it, opens a character class at every `[`
+#nest_brackets_r.end  ]  waived: its begin never matches
+#nest_parens_r.begin  \(  waived: `#regex_sub`, before it in every list that holds it, opens a group at every `(`
+#nest_parens_r.end  \)  waived: its begin never matches
+#regex_sub.patterns[6].end  groups 0 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
 ```
 
 ### `rust`

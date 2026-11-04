@@ -387,6 +387,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `ruby/xml-heredocs` | `oracle/inputs/ruby-xml-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `ruby/yaml-heredocs` | `oracle/inputs/ruby-yaml-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `ruby/end-html` | `oracle/inputs/ruby-end-html.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `ruby/coverage` | `oracle/inputs/ruby-coverage.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `markdown/rack-readme` | [`README.md`][rack-readme] in rack/rack | [MIT][rack-licence] |
 | `markdown/devise-readme` | [`README.md`][devise-readme] in heartcombo/devise | [MIT][devise-licence] |
 | `swift/sample` | [`samples/swift.sample`][swift-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |

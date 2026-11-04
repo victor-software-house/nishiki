@@ -1,0 +1,511 @@
+L # Ruby that nishiki's other oracle inputs leave out, written to exercise the
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 76 source.ruby comment.line.number-sign.ruby
+L # rest of Shiki's `ruby` grammar.
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 33 source.ruby comment.line.number-sign.ruby
+L 
+L # Percent literals with each delimiter, and the escapes each one allows.
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 72 source.ruby comment.line.number-sign.ruby
+L regex_angle = %r<a<b>c\>d>imx
+T 11 source.ruby variable.ruby
+T 12 source.ruby
+T 13 source.ruby keyword.operator.assignment.ruby
+T 14 source.ruby
+T 17 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.begin.ruby
+T 18 source.ruby string.regexp.interpolated.ruby
+T 19 source.ruby string.regexp.interpolated.ruby punctuation.section.scope.ruby
+T 20 source.ruby string.regexp.interpolated.ruby
+T 21 source.ruby string.regexp.interpolated.ruby punctuation.section.scope.ruby
+T 22 source.ruby string.regexp.interpolated.ruby
+T 24 source.ruby string.regexp.interpolated.ruby constant.character.escape.ruby
+T 25 source.ruby string.regexp.interpolated.ruby
+T 29 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.end.ruby
+L regex_comment = %r{
+T 13 source.ruby variable.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 19 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.begin.ruby
+L   a # a comment
+T 4 source.ruby string.regexp.interpolated.ruby
+T 5 source.ruby string.regexp.interpolated.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 6 source.ruby string.regexp.interpolated.ruby comment.line.number-sign.ruby
+T 15 source.ruby string.regexp.interpolated.ruby comment.line.number-sign.ruby
+L   b
+T 3 source.ruby string.regexp.interpolated.ruby
+L }x
+T 2 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.end.ruby
+L symbols_angle = %I<a#{b} c\> d>
+T 13 source.ruby variable.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 19 source.ruby constant.language.symbol.interpolated.ruby punctuation.section.array.begin.ruby
+T 20 source.ruby constant.language.symbol.interpolated.ruby
+T 22 source.ruby constant.language.symbol.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 23 source.ruby constant.language.symbol.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 24 source.ruby constant.language.symbol.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 26 source.ruby constant.language.symbol.interpolated.ruby
+T 28 source.ruby constant.language.symbol.interpolated.ruby constant.character.escape.ruby
+T 30 source.ruby constant.language.symbol.interpolated.ruby
+T 31 source.ruby constant.language.symbol.interpolated.ruby punctuation.section.array.end.ruby
+L symbols_nested = %I{a{b}c}
+T 14 source.ruby variable.ruby
+T 15 source.ruby
+T 16 source.ruby keyword.operator.assignment.ruby
+T 17 source.ruby
+T 20 source.ruby constant.language.symbol.interpolated.ruby punctuation.section.array.begin.ruby
+T 21 source.ruby constant.language.symbol.interpolated.ruby
+T 22 source.ruby constant.language.symbol.interpolated.ruby punctuation.section.scope.ruby
+T 23 source.ruby constant.language.symbol.interpolated.ruby
+T 24 source.ruby constant.language.symbol.interpolated.ruby punctuation.section.scope.ruby
+T 25 source.ruby constant.language.symbol.interpolated.ruby
+T 26 source.ruby constant.language.symbol.interpolated.ruby punctuation.section.array.end.ruby
+L symbols_pipe = %I|a#{b} c\| d|
+T 12 source.ruby variable.ruby
+T 13 source.ruby
+T 14 source.ruby keyword.operator.assignment.ruby
+T 15 source.ruby
+T 18 source.ruby constant.language.symbol.interpolated.ruby punctuation.section.array.begin.ruby
+T 19 source.ruby constant.language.symbol.interpolated.ruby
+T 21 source.ruby constant.language.symbol.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 22 source.ruby constant.language.symbol.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 23 source.ruby constant.language.symbol.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 25 source.ruby constant.language.symbol.interpolated.ruby
+T 27 source.ruby constant.language.symbol.interpolated.ruby constant.character.escape.ruby
+T 29 source.ruby constant.language.symbol.interpolated.ruby
+T 30 source.ruby constant.language.symbol.interpolated.ruby punctuation.section.array.end.ruby
+L symbols_square = %I[a [b] c\] d]
+T 14 source.ruby variable.ruby
+T 15 source.ruby
+T 16 source.ruby keyword.operator.assignment.ruby
+T 17 source.ruby
+T 20 source.ruby constant.language.symbol.interpolated.ruby punctuation.section.array.begin.ruby
+T 22 source.ruby constant.language.symbol.interpolated.ruby
+T 23 source.ruby constant.language.symbol.interpolated.ruby punctuation.section.scope.ruby
+T 24 source.ruby constant.language.symbol.interpolated.ruby
+T 25 source.ruby constant.language.symbol.interpolated.ruby punctuation.section.scope.ruby
+T 27 source.ruby constant.language.symbol.interpolated.ruby
+T 29 source.ruby constant.language.symbol.interpolated.ruby constant.character.escape.ruby
+T 31 source.ruby constant.language.symbol.interpolated.ruby
+T 32 source.ruby constant.language.symbol.interpolated.ruby punctuation.section.array.end.ruby
+L plain_symbols_angle = %i<a <b> c\> d>
+T 19 source.ruby variable.ruby
+T 20 source.ruby
+T 21 source.ruby keyword.operator.assignment.ruby
+T 22 source.ruby
+T 25 source.ruby constant.language.symbol.ruby punctuation.section.array.begin.ruby
+T 27 source.ruby constant.language.symbol.ruby
+T 28 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 29 source.ruby constant.language.symbol.ruby
+T 30 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 32 source.ruby constant.language.symbol.ruby
+T 34 source.ruby constant.language.symbol.ruby constant.character.escape.ruby
+T 36 source.ruby constant.language.symbol.ruby
+T 37 source.ruby constant.language.symbol.ruby punctuation.section.array.end.ruby
+L plain_symbols_curly = %i{a {b} c\} d}
+T 19 source.ruby variable.ruby
+T 20 source.ruby
+T 21 source.ruby keyword.operator.assignment.ruby
+T 22 source.ruby
+T 25 source.ruby constant.language.symbol.ruby punctuation.section.array.begin.ruby
+T 27 source.ruby constant.language.symbol.ruby
+T 28 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 29 source.ruby constant.language.symbol.ruby
+T 30 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 32 source.ruby constant.language.symbol.ruby
+T 34 source.ruby constant.language.symbol.ruby constant.character.escape.ruby
+T 36 source.ruby constant.language.symbol.ruby
+T 37 source.ruby constant.language.symbol.ruby punctuation.section.array.end.ruby
+L plain_symbols_pipe = %i|a b\| c|
+T 18 source.ruby variable.ruby
+T 19 source.ruby
+T 20 source.ruby keyword.operator.assignment.ruby
+T 21 source.ruby
+T 24 source.ruby constant.language.symbol.ruby punctuation.section.array.begin.ruby
+T 27 source.ruby constant.language.symbol.ruby
+T 29 source.ruby constant.language.symbol.ruby
+T 31 source.ruby constant.language.symbol.ruby
+T 32 source.ruby constant.language.symbol.ruby punctuation.section.array.end.ruby
+L plain_symbols_square = %i[a [b] c\] d]
+T 20 source.ruby variable.ruby
+T 21 source.ruby
+T 22 source.ruby keyword.operator.assignment.ruby
+T 23 source.ruby
+T 26 source.ruby constant.language.symbol.ruby punctuation.section.array.begin.ruby
+T 28 source.ruby constant.language.symbol.ruby
+T 29 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 30 source.ruby constant.language.symbol.ruby
+T 31 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 33 source.ruby constant.language.symbol.ruby
+T 35 source.ruby constant.language.symbol.ruby constant.character.escape.ruby
+T 37 source.ruby constant.language.symbol.ruby
+T 38 source.ruby constant.language.symbol.ruby punctuation.section.array.end.ruby
+L plain_symbols_parens = %i(a (b) c\) d)
+T 20 source.ruby variable.ruby
+T 21 source.ruby
+T 22 source.ruby keyword.operator.assignment.ruby
+T 23 source.ruby
+T 26 source.ruby constant.language.symbol.ruby punctuation.section.array.begin.ruby
+T 28 source.ruby constant.language.symbol.ruby
+T 29 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 30 source.ruby constant.language.symbol.ruby
+T 31 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 33 source.ruby constant.language.symbol.ruby
+T 35 source.ruby constant.language.symbol.ruby constant.character.escape.ruby
+T 37 source.ruby constant.language.symbol.ruby
+T 38 source.ruby constant.language.symbol.ruby punctuation.section.array.end.ruby
+L words_curly = %W{a#{b} c\} d}
+T 11 source.ruby variable.ruby
+T 12 source.ruby
+T 13 source.ruby keyword.operator.assignment.ruby
+T 14 source.ruby
+T 17 source.ruby string.quoted.other.interpolated.ruby punctuation.section.array.begin.ruby
+T 18 source.ruby string.quoted.other.interpolated.ruby
+T 20 source.ruby string.quoted.other.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 21 source.ruby string.quoted.other.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 22 source.ruby string.quoted.other.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 24 source.ruby string.quoted.other.interpolated.ruby
+T 26 source.ruby string.quoted.other.interpolated.ruby constant.character.escape.ruby
+T 28 source.ruby string.quoted.other.interpolated.ruby
+T 29 source.ruby string.quoted.other.interpolated.ruby punctuation.section.array.end.ruby
+L words_pipe = %W|a#{b} c\| d|
+T 10 source.ruby variable.ruby
+T 11 source.ruby
+T 12 source.ruby keyword.operator.assignment.ruby
+T 13 source.ruby
+T 16 source.ruby string.quoted.other.interpolated.ruby punctuation.section.array.begin.ruby
+T 17 source.ruby string.quoted.other.interpolated.ruby
+T 19 source.ruby string.quoted.other.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 20 source.ruby string.quoted.other.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 21 source.ruby string.quoted.other.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 23 source.ruby string.quoted.other.interpolated.ruby
+T 25 source.ruby string.quoted.other.interpolated.ruby constant.character.escape.ruby
+T 27 source.ruby string.quoted.other.interpolated.ruby
+T 28 source.ruby string.quoted.other.interpolated.ruby punctuation.section.array.end.ruby
+L plain_words_angle = %w<a <b> c\> d>
+T 17 source.ruby variable.ruby
+T 18 source.ruby
+T 19 source.ruby keyword.operator.assignment.ruby
+T 20 source.ruby
+T 23 source.ruby string.quoted.other.ruby punctuation.section.array.begin.ruby
+T 25 source.ruby string.quoted.other.ruby
+T 26 source.ruby string.quoted.other.ruby punctuation.section.scope.ruby
+T 27 source.ruby string.quoted.other.ruby
+T 28 source.ruby string.quoted.other.ruby punctuation.section.scope.ruby
+T 30 source.ruby string.quoted.other.ruby
+T 32 source.ruby string.quoted.other.ruby constant.character.escape.ruby
+T 34 source.ruby string.quoted.other.ruby
+T 35 source.ruby string.quoted.other.ruby punctuation.section.array.end.ruby
+L plain_words_curly = %w{a {b} c\} d}
+T 17 source.ruby variable.ruby
+T 18 source.ruby
+T 19 source.ruby keyword.operator.assignment.ruby
+T 20 source.ruby
+T 23 source.ruby string.quoted.other.ruby punctuation.section.array.begin.ruby
+T 25 source.ruby string.quoted.other.ruby
+T 26 source.ruby string.quoted.other.ruby punctuation.section.scope.ruby
+T 27 source.ruby string.quoted.other.ruby
+T 28 source.ruby string.quoted.other.ruby punctuation.section.scope.ruby
+T 30 source.ruby string.quoted.other.ruby
+T 32 source.ruby string.quoted.other.ruby constant.character.escape.ruby
+T 34 source.ruby string.quoted.other.ruby
+T 35 source.ruby string.quoted.other.ruby punctuation.section.array.end.ruby
+L plain_words_pipe = %w|a b\| c|
+T 16 source.ruby variable.ruby
+T 17 source.ruby
+T 18 source.ruby keyword.operator.assignment.ruby
+T 19 source.ruby
+T 22 source.ruby string.quoted.other.ruby punctuation.section.array.begin.ruby
+T 25 source.ruby string.quoted.other.ruby
+T 27 source.ruby string.quoted.other.ruby
+T 29 source.ruby string.quoted.other.ruby
+T 30 source.ruby string.quoted.other.ruby punctuation.section.array.end.ruby
+L plain_words_square = %w[a [b] c\] d]
+T 18 source.ruby variable.ruby
+T 19 source.ruby
+T 20 source.ruby keyword.operator.assignment.ruby
+T 21 source.ruby
+T 24 source.ruby string.quoted.other.ruby punctuation.section.array.begin.ruby
+T 26 source.ruby string.quoted.other.ruby
+T 27 source.ruby string.quoted.other.ruby punctuation.section.scope.ruby
+T 28 source.ruby string.quoted.other.ruby
+T 29 source.ruby string.quoted.other.ruby punctuation.section.scope.ruby
+T 31 source.ruby string.quoted.other.ruby
+T 33 source.ruby string.quoted.other.ruby constant.character.escape.ruby
+T 35 source.ruby string.quoted.other.ruby
+T 36 source.ruby string.quoted.other.ruby punctuation.section.array.end.ruby
+L plain_words_parens = %w(a (b) c\) d)
+T 18 source.ruby variable.ruby
+T 19 source.ruby
+T 20 source.ruby keyword.operator.assignment.ruby
+T 21 source.ruby
+T 24 source.ruby string.quoted.other.ruby punctuation.section.array.begin.ruby
+T 26 source.ruby string.quoted.other.ruby
+T 27 source.ruby string.quoted.other.ruby punctuation.section.scope.ruby
+T 28 source.ruby string.quoted.other.ruby
+T 29 source.ruby string.quoted.other.ruby punctuation.section.scope.ruby
+T 31 source.ruby string.quoted.other.ruby
+T 33 source.ruby string.quoted.other.ruby constant.character.escape.ruby
+T 35 source.ruby string.quoted.other.ruby
+T 36 source.ruby string.quoted.other.ruby punctuation.section.array.end.ruby
+L string_angle = %<a <b> c>
+T 12 source.ruby variable.ruby
+T 13 source.ruby
+T 14 source.ruby keyword.operator.assignment.ruby
+T 15 source.ruby
+T 17 source.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 19 source.ruby string.quoted.other.interpolated.ruby
+T 20 source.ruby string.quoted.other.interpolated.ruby punctuation.section.scope.ruby
+T 21 source.ruby string.quoted.other.interpolated.ruby
+T 22 source.ruby string.quoted.other.interpolated.ruby punctuation.section.scope.ruby
+T 24 source.ruby string.quoted.other.interpolated.ruby
+T 25 source.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+L quoted_pipe = %Q|a #{b} c|
+T 11 source.ruby variable.ruby
+T 12 source.ruby
+T 13 source.ruby keyword.operator.assignment.ruby
+T 14 source.ruby
+T 17 source.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.begin.ruby
+T 19 source.ruby string.quoted.other.interpolated.ruby
+T 21 source.ruby string.quoted.other.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 22 source.ruby string.quoted.other.interpolated.ruby meta.embedded.line.ruby source.ruby
+T 23 source.ruby string.quoted.other.interpolated.ruby meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 25 source.ruby string.quoted.other.interpolated.ruby
+T 26 source.ruby string.quoted.other.interpolated.ruby punctuation.definition.string.end.ruby
+L single_angle = %q<a <b> c\> d>
+T 12 source.ruby variable.ruby
+T 13 source.ruby
+T 14 source.ruby keyword.operator.assignment.ruby
+T 15 source.ruby
+T 18 source.ruby string.quoted.other.ruby punctuation.definition.string.begin.ruby
+T 20 source.ruby string.quoted.other.ruby
+T 21 source.ruby string.quoted.other.ruby punctuation.section.scope.ruby
+T 22 source.ruby string.quoted.other.ruby
+T 23 source.ruby string.quoted.other.ruby punctuation.section.scope.ruby
+T 25 source.ruby string.quoted.other.ruby
+T 27 source.ruby string.quoted.other.ruby constant.character.escape.ruby
+T 29 source.ruby string.quoted.other.ruby
+T 30 source.ruby string.quoted.other.ruby punctuation.definition.string.end.ruby
+L single_square = %q[a [b] c\] d]
+T 13 source.ruby variable.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 19 source.ruby string.quoted.other.ruby punctuation.definition.string.begin.ruby
+T 21 source.ruby string.quoted.other.ruby
+T 22 source.ruby string.quoted.other.ruby punctuation.section.scope.ruby
+T 23 source.ruby string.quoted.other.ruby
+T 24 source.ruby string.quoted.other.ruby punctuation.section.scope.ruby
+T 26 source.ruby string.quoted.other.ruby
+T 28 source.ruby string.quoted.other.ruby constant.character.escape.ruby
+T 30 source.ruby string.quoted.other.ruby
+T 31 source.ruby string.quoted.other.ruby punctuation.definition.string.end.ruby
+L single_curly = %q{a {b} c\} d}
+T 12 source.ruby variable.ruby
+T 13 source.ruby
+T 14 source.ruby keyword.operator.assignment.ruby
+T 15 source.ruby
+T 18 source.ruby string.quoted.other.ruby punctuation.definition.string.begin.ruby
+T 20 source.ruby string.quoted.other.ruby
+T 21 source.ruby string.quoted.other.ruby punctuation.section.scope.ruby
+T 22 source.ruby string.quoted.other.ruby
+T 23 source.ruby string.quoted.other.ruby punctuation.section.scope.ruby
+T 25 source.ruby string.quoted.other.ruby
+T 27 source.ruby string.quoted.other.ruby constant.character.escape.ruby
+T 29 source.ruby string.quoted.other.ruby
+T 30 source.ruby string.quoted.other.ruby punctuation.definition.string.end.ruby
+L single_pipe = %q|a b\| c|
+T 11 source.ruby variable.ruby
+T 12 source.ruby
+T 13 source.ruby keyword.operator.assignment.ruby
+T 14 source.ruby
+T 17 source.ruby string.quoted.other.ruby punctuation.definition.string.begin.ruby
+T 20 source.ruby string.quoted.other.ruby
+T 22 source.ruby string.quoted.other.ruby
+T 24 source.ruby string.quoted.other.ruby
+T 25 source.ruby string.quoted.other.ruby punctuation.definition.string.end.ruby
+L symbol_angle = %s<a <b> c\> d>
+T 12 source.ruby variable.ruby
+T 13 source.ruby
+T 14 source.ruby keyword.operator.assignment.ruby
+T 15 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.symbol.begin.ruby
+T 20 source.ruby constant.language.symbol.ruby
+T 21 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 22 source.ruby constant.language.symbol.ruby
+T 23 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 25 source.ruby constant.language.symbol.ruby
+T 27 source.ruby constant.language.symbol.ruby constant.character.escape.ruby
+T 29 source.ruby constant.language.symbol.ruby
+T 30 source.ruby constant.language.symbol.ruby punctuation.definition.symbol.end.ruby
+L symbol_square = %s[a [b] c\] d]
+T 13 source.ruby variable.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 19 source.ruby constant.language.symbol.ruby punctuation.definition.symbol.begin.ruby
+T 21 source.ruby constant.language.symbol.ruby
+T 22 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 23 source.ruby constant.language.symbol.ruby
+T 24 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 26 source.ruby constant.language.symbol.ruby
+T 28 source.ruby constant.language.symbol.ruby constant.character.escape.ruby
+T 30 source.ruby constant.language.symbol.ruby
+T 31 source.ruby constant.language.symbol.ruby punctuation.definition.symbol.end.ruby
+L symbol_curly = %s{a {b} c\} d}
+T 12 source.ruby variable.ruby
+T 13 source.ruby
+T 14 source.ruby keyword.operator.assignment.ruby
+T 15 source.ruby
+T 18 source.ruby constant.language.symbol.ruby punctuation.definition.symbol.begin.ruby
+T 20 source.ruby constant.language.symbol.ruby
+T 21 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 22 source.ruby constant.language.symbol.ruby
+T 23 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 25 source.ruby constant.language.symbol.ruby
+T 27 source.ruby constant.language.symbol.ruby constant.character.escape.ruby
+T 29 source.ruby constant.language.symbol.ruby
+T 30 source.ruby constant.language.symbol.ruby punctuation.definition.symbol.end.ruby
+L symbol_pipe = %s|a b\| c|
+T 11 source.ruby variable.ruby
+T 12 source.ruby
+T 13 source.ruby keyword.operator.assignment.ruby
+T 14 source.ruby
+T 17 source.ruby constant.language.symbol.ruby punctuation.definition.symbol.begin.ruby
+T 20 source.ruby constant.language.symbol.ruby
+T 22 source.ruby constant.language.symbol.ruby
+T 24 source.ruby constant.language.symbol.ruby
+T 25 source.ruby constant.language.symbol.ruby punctuation.definition.symbol.end.ruby
+L symbol_parens = %s(a (b) c\) d)
+T 13 source.ruby variable.ruby
+T 14 source.ruby
+T 15 source.ruby keyword.operator.assignment.ruby
+T 16 source.ruby
+T 19 source.ruby constant.language.symbol.ruby punctuation.definition.symbol.begin.ruby
+T 21 source.ruby constant.language.symbol.ruby
+T 22 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 23 source.ruby constant.language.symbol.ruby
+T 24 source.ruby constant.language.symbol.ruby punctuation.section.scope.ruby
+T 26 source.ruby constant.language.symbol.ruby
+T 28 source.ruby constant.language.symbol.ruby constant.character.escape.ruby
+T 30 source.ruby constant.language.symbol.ruby
+T 31 source.ruby constant.language.symbol.ruby punctuation.definition.symbol.end.ruby
+L 
+L # Control flow the grammar scopes on its own.
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 45 source.ruby comment.line.number-sign.ruby
+L if a
+T 2 source.ruby keyword.control.ruby
+T 4 source.ruby
+L   b
+T 3 source.ruby
+L else if c
+T 7 source.ruby invalid.deprecated.ruby
+T 9 source.ruby
+L   d
+T 3 source.ruby
+L end
+T 3 source.ruby keyword.control.ruby
+L end
+T 3 source.ruby keyword.control.ruby
+L if (x ||= compute)
+T 2 source.ruby keyword.control.ruby
+T 4 source.ruby
+T 5 source.ruby variable.ruby
+T 6 source.ruby
+T 9 source.ruby keyword.operator.assignment.augmented.ruby
+T 17 source.ruby
+T 18 source.ruby punctuation.section.function.ruby
+L   x
+T 3 source.ruby
+L end
+T 3 source.ruby keyword.control.ruby
+L half = total /= 2
+T 4 source.ruby variable.ruby
+T 5 source.ruby
+T 6 source.ruby keyword.operator.assignment.ruby
+T 13 source.ruby
+T 15 source.ruby keyword.operator.assignment.augmented.ruby
+T 16 source.ruby
+T 17 source.ruby constant.numeric.ruby
+L 
+L # A regular expression with a comment group.
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 44 source.ruby comment.line.number-sign.ruby
+L pattern = /a(?# a comment )b/
+T 7 source.ruby variable.ruby
+T 8 source.ruby
+T 9 source.ruby keyword.operator.assignment.ruby
+T 10 source.ruby
+T 11 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+T 12 source.ruby string.regexp.interpolated.ruby
+T 15 source.ruby string.regexp.interpolated.ruby comment.line.number-sign.ruby punctuation.definition.comment.begin.ruby
+T 26 source.ruby string.regexp.interpolated.ruby comment.line.number-sign.ruby
+T 27 source.ruby string.regexp.interpolated.ruby comment.line.number-sign.ruby punctuation.definition.comment.end.ruby
+T 28 source.ruby string.regexp.interpolated.ruby
+T 29 source.ruby string.regexp.interpolated.ruby punctuation.section.regexp.ruby
+L 
+L # YARD tags with types and default values.
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 42 source.ruby comment.line.number-sign.ruby
+L # @option opts [Integer] :size (10) the size
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 2 source.ruby comment.line.number-sign.ruby
+T 3 source.ruby comment.line.number-sign.ruby comment.line.keyword.punctuation.yard.ruby
+T 9 source.ruby comment.line.number-sign.ruby comment.line.keyword.yard.ruby
+T 10 source.ruby comment.line.number-sign.ruby
+T 14 source.ruby comment.line.number-sign.ruby comment.line.parameter.yard.ruby
+T 15 source.ruby comment.line.number-sign.ruby
+T 16 source.ruby comment.line.number-sign.ruby comment.line.type.yard.ruby comment.line.punctuation.yard.ruby
+T 23 source.ruby comment.line.number-sign.ruby comment.line.type.yard.ruby
+T 24 source.ruby comment.line.number-sign.ruby comment.line.type.yard.ruby comment.line.punctuation.yard.ruby
+T 25 source.ruby comment.line.number-sign.ruby
+T 30 source.ruby comment.line.number-sign.ruby comment.line.keyword.yard.ruby comment.line.hashkey.yard.ruby
+T 31 source.ruby comment.line.number-sign.ruby
+T 32 source.ruby comment.line.number-sign.ruby comment.line.defaultvalue.yard.ruby comment.line.punctuation.yard.ruby
+T 34 source.ruby comment.line.number-sign.ruby comment.line.defaultvalue.yard.ruby
+T 35 source.ruby comment.line.number-sign.ruby comment.line.defaultvalue.yard.ruby comment.line.punctuation.yard.ruby
+T 44 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L # @!parse [ruby] module Parsed; end
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 2 source.ruby comment.line.number-sign.ruby
+T 4 source.ruby comment.line.number-sign.ruby comment.line.keyword.punctuation.yard.ruby
+T 9 source.ruby comment.line.number-sign.ruby comment.line.keyword.yard.ruby
+T 10 source.ruby comment.line.number-sign.ruby
+T 11 source.ruby comment.line.number-sign.ruby comment.line.type.yard.ruby comment.line.punctuation.yard.ruby
+T 15 source.ruby comment.line.number-sign.ruby comment.line.type.yard.ruby
+T 16 source.ruby comment.line.number-sign.ruby comment.line.type.yard.ruby comment.line.punctuation.yard.ruby
+T 35 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L 
+L =begin
+T 6 source.ruby comment.block.documentation.ruby punctuation.definition.comment.ruby
+L A block comment.
+T 16 source.ruby comment.block.documentation.ruby
+L =end
+T 4 source.ruby comment.block.documentation.ruby punctuation.definition.comment.ruby
+L 
+L plain = <<TEXT
+T 5 source.ruby variable.ruby
+T 6 source.ruby
+T 14 source.ruby string.definition.begin.ruby
+L body
+T 4 source.ruby string.unquoted.heredoc.ruby
+L TEXT
+T 4 source.ruby string.definition.end.ruby
+L 
+L page = <<~HAML
+T 4 source.ruby variable.ruby
+T 5 source.ruby
+T 6 source.ruby keyword.operator.assignment.ruby
+T 7 source.ruby
+T 14 source.ruby meta.embedded.block.haml string.definition.begin.ruby
+L   %p text
+T 9 source.ruby meta.embedded.block.haml text.haml
+L <<~INNER
+T 8 source.ruby meta.embedded.block.haml text.haml
+L HAML
+T 4 source.ruby meta.embedded.block.haml string.definition.end.ruby
+L 
