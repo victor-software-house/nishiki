@@ -39,8 +39,14 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
     The lexer now closes a docstring at a line feed as Shiki does.
     Python is complete with 62 waived units.
     On `18e2a261` the [oracle test][run-289-ci] and the [coverage check][run-289-cov] passed.
-- [ ] 3.4 Go: `go`
-- [ ] 3.5 Java: `java`
+- [x] 3.4 Go: `go`
+  - 2026-11-04 UTC, [PR 339][pr339] and [PR 340][pr340]: Go inputs and a written input added.
+    Go is complete with 29 waived units.
+    On `add9c1dd` the [oracle test][run-340-ci] and the [coverage check][run-340-cov] passed.
+- [x] 3.5 Java: `java`
+  - 2026-11-04 UTC, [PR 333][pr333]: google-java-format inputs and a written input added.
+    Java is complete with 1 waived unit.
+    On `dd4e13fb` the [oracle test][run-333-ci] and the [coverage check][run-333-cov] passed.
 - [x] 3.6 TypeScript: `typescript`, `javascript`, `jsx`, `tsx`
   - 2026-11-04 UTC, [PR 281][pr281], [PR 275][pr275] and [PR 282][pr282]: 67 TypeScript test cases and a written input added.
     The lexer now reads a Unicode digit in a numeric object key.
@@ -185,3 +191,10 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr450]: https://github.com/victor-software-house/nishiki-archive/pull/450
 [run-450-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41867949614
 [run-450-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41867948643
+[pr333]: https://github.com/victor-software-house/nishiki-archive/pull/333
+[run-333-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41802546339
+[run-333-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41802545894
+[pr339]: https://github.com/victor-software-house/nishiki-archive/pull/339
+[pr340]: https://github.com/victor-software-house/nishiki-archive/pull/340
+[run-340-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41805706593
+[run-340-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41805706070
