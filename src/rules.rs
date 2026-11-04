@@ -86,6 +86,11 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// the same match, and so takes that span's scopes too, as nested
     /// capture groups do. Off, every span sits directly under the match.
     const NESTED_SPANS: bool = false;
+    /// The longest payload that the name of a rule with a delimiter repeats.
+    /// A longer one, which the begin pattern takes in another group than the
+    /// one the name reads, as C++'s raw strings do with a delimiter of more
+    /// than 16 bytes, leaves the delimiter out of the name.
+    const NAMED_PAYLOAD: usize = usize::MAX;
 
     /// The scope in the crate's shared numbering, or the name it makes
     /// from a capture group's text.

@@ -1,5 +1,33 @@
 //! Tests of the C++ lexer.
 
+mod raw_strings {
+    use crate::Language;
+    use crate::test_support::scopes_of;
+
+    const LONG: &str =
+        "auto s = R\"abcdefghijklmnopqrstuvwxyz(text)abcdefghijklmnopqrstuvwxyz\";\nint n;";
+
+    #[test]
+    fn a_delimiter_longer_than_16_bytes_closes_the_string() {
+        assert_eq!(
+            scopes_of(Language::Cpp, LONG, "int"),
+            [
+                "source.cpp",
+                "storage.type.primitive.cpp",
+                "storage.type.built-in.primitive.cpp"
+            ],
+        );
+    }
+
+    #[test]
+    fn a_long_delimiter_is_left_out_of_the_name() {
+        assert_eq!(
+            scopes_of(Language::Cpp, LONG, "text"),
+            ["source.cpp", "string.quoted.double.raw."],
+        );
+    }
+}
+
 #[cfg(feature = "json")]
 mod probe {
     use serde_json::{Value, json};

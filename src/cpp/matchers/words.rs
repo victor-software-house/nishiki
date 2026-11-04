@@ -2,6 +2,7 @@
 
 use super::super::engine::Lexer;
 use super::chars::{is_digit, is_space};
+use super::{RAW_DELIMITER, RAW_DELIMITER_MAX};
 use crate::rules::Chars;
 
 /// The prefixes of a raw string, as the expressions spell them.
@@ -204,11 +205,12 @@ impl Lexer<'_> {
         if self.at(end) != b'(' || end >= self.lim() {
             return None;
         }
-        if end - from <= 16 {
+        if end - from <= RAW_DELIMITER_MAX {
             self.cap(2, from, end);
         } else {
             self.cap(3, from, end);
         }
+        self.cap(usize::from(RAW_DELIMITER), from, end);
         Some(end + 1)
     }
 

@@ -923,6 +923,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     fn rule_name_path(&mut self, parent: u32, rule: G::Rule, payload: u32) -> u32 {
         let name = self.path(parent, G::rule_name(rule));
         match G::rule_name_delimiter(rule) {
+            Some(prefix) if self.arena.string(payload).len() > G::NAMED_PAYLOAD => {
+                self.dynamic_path(name, prefix, NameSource::Line { start: 0, end: 0 }, "")
+            }
             Some(prefix) => self.dynamic_path(name, prefix, NameSource::Interned(payload), ""),
             None => name,
         }

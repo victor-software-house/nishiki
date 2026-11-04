@@ -93,6 +93,14 @@ const NEED_TYPENAME: usize = 18;
 /// `^GAP(#)\s*include(?:|_next)`.
 const NEED_HASH: usize = 19;
 
+/// The capture group, past the groups of the raw string's begin pattern,
+/// that holds its delimiter whichever of groups 2 and 3 took it: the rule's
+/// payload, which its end pattern `(\)(\2)(\3)")` repeats.
+pub(super) const RAW_DELIMITER: u8 = 4;
+/// The longest delimiter group 2 of the raw string's begin takes; a longer
+/// one is group 3, and the name `string.quoted.double.raw.$2` leaves it out.
+pub(super) const RAW_DELIMITER_MAX: usize = 16;
+
 /// The index in [`NEEDS`] of `]]`, which closes an attribute.
 pub(super) const NEED_BRACKETS: usize = 7;
 /// The index in [`NEEDS`] of `)`.

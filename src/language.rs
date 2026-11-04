@@ -406,8 +406,6 @@ languages! {
     /// - A Markdown fence names the languages `cpp`, `c++` and `cxx`.
     /// - Raw strings are lexed without the grammars that Shiki embeds in `R"re(`, `R"_r(`, `R"regex(`, `R"glsl(` and `R"GLSL(`.
     ///   Their text is plain raw-string text.
-    /// - A raw string whose delimiter is longer than 16 bytes closes on `)"` alone.
-    ///   Shiki closes it on the delimiter.
     /// - `\d`, `\w` and `\s` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
     /// - Bounds the lexer sets itself, beside `Limits`:
     ///   - template arguments and bracket groups nested deeper than 20 levels do not match, as in the Oniguruma engine Shiki runs;

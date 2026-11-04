@@ -6,7 +6,7 @@ use std::cell::Cell;
 use super::few::Few;
 use super::grammar::{Nested, Pat, Rule, Sc};
 use super::limits::{MAX_ENDS, MAX_NESTED};
-use super::matchers::NEEDS;
+use super::matchers::{NEEDS, RAW_DELIMITER, RAW_DELIMITER_MAX};
 use super::scope::S;
 use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
 
@@ -94,11 +94,11 @@ impl Lexer<'_> {
 
 impl Cpp {
     /// The prefix of the name of a rule whose name is a prefix and the text
-    /// of a begin group with nothing after it, and that group: the raw
-    /// string, whose name ends in its delimiter.
-    fn delimited_name(rule: Rule) -> Option<(&'static str, u8)> {
+    /// of a begin group with nothing after it: the raw string, whose name
+    /// ends in its delimiter.
+    fn delimited_name(rule: Rule) -> Option<&'static str> {
         match rule.data().name {
-            [Sc::Group(prefix, group, "")] => Some((prefix, *group)),
+            [Sc::Group(prefix, _, "")] => Some(prefix),
             _ => None,
         }
     }
@@ -117,6 +117,7 @@ impl Grammar for Cpp {
     const SOURCE: crate::scope::Scope = S::Source.scope();
     const GROUPS: usize = 128;
     const CAPTURED_EOL: bool = true;
+    const NAMED_PAYLOAD: usize = RAW_DELIMITER_MAX;
 
     fn scope(scope: Sc) -> ScopeName {
         match scope {
@@ -150,7 +151,7 @@ impl Grammar for Cpp {
     }
 
     fn rule_payload(rule: Rule) -> Payload {
-        let delimiter = Self::delimited_name(rule).map(|(_, group)| group);
+        let delimiter = Self::delimited_name(rule).map(|_| RAW_DELIMITER);
         rule.data()
             .backref
             .or(delimiter)
@@ -158,7 +159,7 @@ impl Grammar for Cpp {
     }
 
     fn rule_name_delimiter(rule: Rule) -> Option<&'static str> {
-        Self::delimited_name(rule).map(|(prefix, _)| prefix)
+        Self::delimited_name(rule)
     }
 
     fn pat_act(pat: Pat) -> Act<Self> {
