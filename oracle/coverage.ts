@@ -3,9 +3,16 @@
 // defines it (sections 2 and 3).
 //
 //   bun run oracle/coverage.ts [report]
+//   bun run oracle/coverage.ts --pick <grammar> <lang> <file or directory>…
 //
 // The report goes to tests/oracle/COVERAGE.md unless another path is given,
 // as the coverage check gives one to compare with the committed file.
+//
+// `--pick` ranks candidate inputs for closing a grammar's gaps, and writes no
+// report. It reads each candidate as `<lang>`, every file of a directory
+// included, and repeatedly takes the one that exercises the most units of
+// `<grammar>` that neither the fixtures nor an earlier pick exercise. It
+// prints each pick with the units it adds, then the units still left.
 //
 // A unit is an expression (`match`, `begin`, `end` or `while`), or a capture
 // group of one that the grammar names or gives patterns. Every expression of a
@@ -23,7 +30,7 @@
 // lexer cannot drop out of the count. The run fails after writing the report
 // when a waiver in oracle/coverage-waivers.ts is wrong, or when a grammar
 // listed complete there has a unit that neither a fixture nor a waiver covers.
-import { mkdtempSync, readdirSync, readFileSync, rmSync } from "node:fs";
+import { mkdtempSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createHighlighter, type RegexEngine } from "shiki@4.6.0";
@@ -32,6 +39,13 @@ import { fixture } from "./fixture.ts";
 import { grammars } from "./grammars.ts";
 import { complete, waivers } from "./coverage-waivers.ts";
 import { inputs } from "./inputs.ts";
+
+const picking = process.argv[2] === "--pick";
+const reportPath = picking ? undefined : process.argv[2];
+const [pickGrammar, pickLang, ...pickPaths] = picking ? process.argv.slice(3) : [];
+if (picking && (pickGrammar === undefined || pickLang === undefined || pickPaths.length === 0)) {
+  throw new Error("usage: bun run oracle/coverage.ts --pick <grammar> <lang> <file or directory>…");
+}
 
 /** The grammars a hand-written lexer follows, by Shiki's name, and the
  * lexer that follows each. */
@@ -355,6 +369,53 @@ for (const lang of inputLangs) {
   }
 }
 
+if (picking) {
+  const keysOf = (counted: Tally) => [
+    ...[...counted.expressions].filter((unit) => expressions[unit]?.grammar === pickGrammar).map(String),
+    ...[...counted.captures].filter((key) => expressions[Number(key.split(":")[0])]?.grammar === pickGrammar),
+  ];
+  const nameOf = (key: string) => {
+    const [unit, group] = key.split(":");
+    return `${expressions[Number(unit)]?.path}${group === undefined ? "" : ` group ${group}`}`;
+  };
+  const all = expressions.flatMap(({ grammar, groups }, unit) =>
+    grammar === pickGrammar && reachable.has(unit) ? [String(unit), ...groups.map((group) => `${unit}:${group}`)] : [],
+  );
+  if (all.length === 0) throw new Error(`${pickGrammar}: not a hand-lexed grammar with reachable units`);
+  const have = new Set(keysOf(fixtures));
+  const files = pickPaths.flatMap((path) =>
+    statSync(path).isDirectory()
+      ? readdirSync(path)
+          .sort()
+          .map((name) => join(path, name))
+      : [path],
+  );
+  const adds = new Map<string, Set<string>>();
+  for (const file of files) {
+    counting = tally();
+    fixture(highlighter, readFileSync(file, "utf8").replaceAll("\r\n", "\n"), pickLang);
+    settle();
+    adds.set(file, new Set(keysOf(counting).filter((key) => !have.has(key))));
+  }
+  console.log(`${pickGrammar}: the fixtures exercise ${have.size} of ${all.length} units`);
+  for (;;) {
+    const ranked = [...adds].map(([file, keys]) => ({ file, keys: [...keys].filter((key) => !have.has(key)) }));
+    const best = ranked.reduce((a, b) => (b.keys.length > a.keys.length ? b : a), { file: "", keys: [] as string[] });
+    if (best.keys.length === 0) break;
+    for (const key of best.keys) have.add(key);
+    console.log(`+${best.keys.length}\t${have.size}\t${best.file}`);
+    for (const key of best.keys) console.log(`\t\t${nameOf(key)}`);
+  }
+  const left = all.filter((key) => !have.has(key));
+  console.log(`left ${left.length}:`);
+  for (const key of left) console.log(`\t${nameOf(key)}`);
+  if (differing.length > 0) {
+    console.error(`✘ the tagged grammars changed Shiki's scopes in ${differing.join(", ")}`);
+    process.exit(1);
+  }
+  process.exit(0);
+}
+
 /** The fuzz corpus: per hand-lexed input language, `fuzzCount` mutated
  * windows of its fixtures, and as many generated documents where
  * oracle/fuzz/<lang>.ts has pieces, at seed 1. oracle/fuzz.ts writes the
@@ -530,7 +591,7 @@ Neither an input language's grammar nor an injection reaches these, so they are 
 
 ${unreachableSections.join("\n\n")}
 `;
-const out = process.argv[2] ?? `${root}tests/oracle/COVERAGE.md`;
+const out = reportPath ?? `${root}tests/oracle/COVERAGE.md`;
 await Bun.write(out, report);
 if (failures.length > 0) {
   for (const failure of failures) console.error(`✘ ${failure}`);

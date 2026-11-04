@@ -14,8 +14,10 @@ import { inputs, type Input } from "./inputs.ts";
 
 const root = new URL("..", import.meta.url).pathname;
 
-/** The input's text, with CRLF read as LF, as Shiki splits lines. */
+/** The input's text, fetched unless it was imported, with CRLF read as LF,
+ * as Shiki splits lines. */
 async function fetchText(input: Input): Promise<string> {
+  if ("text" in input) return input.text.replaceAll("\r\n", "\n");
   const response = await fetch(input.url);
   if (!response.ok) {
     throw new Error(`${input.url}: HTTP ${response.status}`);

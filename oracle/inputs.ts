@@ -1,14 +1,46 @@
-// The oracle's inputs, each pinned to a commit. tests/oracle/SOURCES.md
-// records each one's licence; keep the two lists in step.
+// The oracle's inputs: third-party files, each pinned to a commit, and files
+// written for nishiki under inputs/. tests/oracle/SOURCES.md records each
+// one's licence; keep the two lists in step.
 
-/** One source file the oracle tokenizes. */
+import cCoverage from "./inputs/c-coverage.c" with { type: "text" };
+import cppCoverage from "./inputs/cpp-coverage.cpp" with { type: "text" };
+import csharpCoverage from "./inputs/csharp-coverage.cs" with { type: "text" };
+import cssCharsetNoSpace from "./inputs/css-charset-no-space.css" with { type: "text" };
+import cssCharsetUnclosed from "./inputs/css-charset-unclosed.css" with { type: "text" };
+import cssCharsetUnquoted from "./inputs/css-charset-unquoted.css" with { type: "text" };
+import cssCoverage from "./inputs/css-coverage.css" with { type: "text" };
+import diffCoverage from "./inputs/diff-coverage.diff" with { type: "text" };
+import dockerCoverage from "./inputs/docker-coverage.dockerfile" with { type: "text" };
+import iniCoverage from "./inputs/ini-coverage.ini" with { type: "text" };
+import lessCoverage from "./inputs/less-coverage.less" with { type: "text" };
+import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
+import makeCoverage from "./inputs/make-coverage.mk" with { type: "text" };
+import markdownCoverage from "./inputs/markdown-coverage.md" with { type: "text" };
+import pythonCoverage from "./inputs/python-coverage.py" with { type: "text" };
+import rubyCppLuaHeredocs from "./inputs/ruby-cpp-lua-heredocs.rb" with { type: "text" };
+import rubyEndHtml from "./inputs/ruby-end-html.rb" with { type: "text" };
+import rubyHeredocs from "./inputs/ruby-heredocs.rb" with { type: "text" };
+import rubyHtmlHeredocs from "./inputs/ruby-html-heredocs.rb" with { type: "text" };
+import rubyJsHeredocs from "./inputs/ruby-js-heredocs.rb" with { type: "text" };
+import rubyXmlHeredocs from "./inputs/ruby-xml-heredocs.rb" with { type: "text" };
+import rubyYamlHeredocs from "./inputs/ruby-yaml-heredocs.rb" with { type: "text" };
+import rustCoverage from "./inputs/rust-coverage.rs" with { type: "text" };
+import scssCoverage from "./inputs/scss-coverage.scss" with { type: "text" };
+import shellscriptUnicodeWords from "./inputs/shellscript-unicode-words.sh" with { type: "text" };
+import swiftCoverage from "./inputs/swift-coverage.swift" with { type: "text" };
+import tomlCoverage from "./inputs/toml-coverage.toml" with { type: "text" };
+import typescriptCoverage from "./inputs/typescript-coverage.ts" with { type: "text" };
+import yamlCoverage from "./inputs/yaml-coverage.yaml" with { type: "text" };
+
+/** One source file the oracle tokenizes: a third-party file, fetched from
+ * its pinned `url`, or one written for nishiki under `inputs/`, imported as
+ * `text`. */
 export type Input = {
   /** Shiki's language id. */
   lang: string;
   /** The fixture's file name, without extension. */
   name: string;
-  url: string;
-};
+} & ({ url: string } | { text: string });
 
 const abseil =
   "https://raw.githubusercontent.com/abseil/abseil-cpp/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8";
@@ -359,11 +391,7 @@ export const inputs: Input[] = [
   { lang: "bat", name: "tomcat-catalina", url: `${tomcat}/bin/catalina.bat` },
   { lang: "bat", name: "tomcat-setclasspath", url: `${tomcat}/bin/setclasspath.bat` },
   { lang: "c", name: "cjson", url: `${cjson}/cJSON.c` },
-  {
-    lang: "c",
-    name: "coverage",
-    url: new URL("inputs/c-coverage.c", import.meta.url).href,
-  },
+  { lang: "c", name: "coverage", text: cCoverage },
   { lang: "c", name: "jq-print", url: `${jq}/src/jv_print.c` },
   { lang: "c", name: "libuv-core", url: `${libuv}/src/unix/core.c` },
   { lang: "c", name: "libuv-freertos-startup", url: `${libuv}/test/freertos/mps2/startup.c` },
@@ -396,11 +424,7 @@ export const inputs: Input[] = [
   { lang: "cpp", name: "absl-symbolize-test", url: `${abseil}/absl/debugging/symbolize_test.cc` },
   { lang: "cpp", name: "benchmark-core", url: `${benchmark}/src/benchmark.cc` },
   { lang: "cpp", name: "benchmark-sysinfo", url: `${benchmark}/src/sysinfo.cc` },
-  {
-    lang: "cpp",
-    name: "coverage",
-    url: new URL("inputs/cpp-coverage.cpp", import.meta.url).href,
-  },
+  { lang: "cpp", name: "coverage", text: cppCoverage },
   { lang: "cpp", name: "fmt-c", url: `${fmt}/include/fmt/fmt-c.h` },
   { lang: "cpp", name: "fmt-core-test", url: `${fmt}/test/core-test.cc` },
   { lang: "cpp", name: "fmt-gtest-extra", url: `${fmt}/test/gtest-extra.h` },
@@ -410,11 +434,7 @@ export const inputs: Input[] = [
   { lang: "cpp", name: "rapidjson-reader", url: `${rapidjson}/include/rapidjson/reader.h` },
   { lang: "cpp", name: "sample", url: `${samples}/cpp.sample` },
   { lang: "cpp", name: "spdlog-logger", url: `${spdlog}/include/spdlog/logger.h` },
-  {
-    lang: "csharp",
-    name: "coverage",
-    url: new URL("inputs/csharp-coverage.cs", import.meta.url).href,
-  },
+  { lang: "csharp", name: "coverage", text: csharpCoverage },
   { lang: "csharp", name: "docs-async-wpf", url: `${dotnetDocs}/keywords/snippets/async/wpf/MainWindow.xaml.cs` },
   { lang: "csharp", name: "docs-bitwise-shift", url: `${dotnetDocs}/operators/snippets/shared/BitwiseAndShiftOperators.cs` },
   { lang: "csharp", name: "docs-closed-hierarchy-patterns", url: `${dotnetDocs}/operators/snippets/patterns/ClosedHierarchyPatterns.cs` },
@@ -441,26 +461,10 @@ export const inputs: Input[] = [
   { lang: "csharp", name: "runtime-linq-where", url: `${dotnetRuntime}/src/libraries/System.Linq/src/System/Linq/Where.cs` },
   { lang: "csharp", name: "runtime-stack", url: `${dotnetRuntime}/src/libraries/System.Collections/src/System/Collections/Generic/Stack.cs` },
   { lang: "csharp", name: "sample", url: `${samples}/csharp.sample` },
-  {
-    lang: "css",
-    name: "charset-no-space",
-    url: new URL("inputs/css-charset-no-space.css", import.meta.url).href,
-  },
-  {
-    lang: "css",
-    name: "charset-unclosed",
-    url: new URL("inputs/css-charset-unclosed.css", import.meta.url).href,
-  },
-  {
-    lang: "css",
-    name: "charset-unquoted",
-    url: new URL("inputs/css-charset-unquoted.css", import.meta.url).href,
-  },
-  {
-    lang: "css",
-    name: "coverage",
-    url: new URL("inputs/css-coverage.css", import.meta.url).href,
-  },
+  { lang: "css", name: "charset-no-space", text: cssCharsetNoSpace },
+  { lang: "css", name: "charset-unclosed", text: cssCharsetUnclosed },
+  { lang: "css", name: "charset-unquoted", text: cssCharsetUnquoted },
+  { lang: "css", name: "coverage", text: cssCoverage },
   { lang: "css", name: "github-markdown", url: `${githubMarkdownCss}/github-markdown.css` },
   { lang: "css", name: "highlightjs-atom-one-dark", url: `${highlightjs}/src/styles/atom-one-dark.css` },
   { lang: "css", name: "highlightjs-github", url: `${highlightjs}/src/styles/github.css` },
@@ -478,11 +482,7 @@ export const inputs: Input[] = [
   { lang: "dart", name: "http-base-request", url: `${dartHttp}/pkgs/http/lib/src/base_request.dart` },
   { lang: "dart", name: "http-client", url: `${dartHttp}/pkgs/http/lib/src/client.dart` },
   { lang: "dart", name: "sample", url: `${samples}/dart.sample` },
-  {
-    lang: "diff",
-    name: "coverage",
-    url: new URL("inputs/diff-coverage.diff", import.meta.url).href,
-  },
+  { lang: "diff", name: "coverage", text: diffCoverage },
   {
     lang: "diff",
     name: "cranelift-stdarch-sve",
@@ -515,11 +515,7 @@ export const inputs: Input[] = [
     url: `${vscode}/build/npm/patches/foundry-local-sdk.patch`,
   },
   { lang: "docker", name: "buildx", url: `${buildx}/Dockerfile` },
-  {
-    lang: "docker",
-    name: "coverage",
-    url: new URL("inputs/docker-coverage.dockerfile", import.meta.url).href,
-  },
+  { lang: "docker", name: "coverage", text: dockerCoverage },
   { lang: "docker", name: "moby", url: `${moby}/Dockerfile` },
   { lang: "docker", name: "next-with-docker", url: `${nextjs}/examples/with-docker/Dockerfile` },
   { lang: "docker", name: "postgres-bookworm", url: `${dockerPostgres}/18/bookworm/Dockerfile` },
@@ -594,11 +590,7 @@ export const inputs: Input[] = [
   { lang: "html-derivative", name: "vue-transition-list", url: `${vue}/packages/vue/examples/transition/list.html` },
   { lang: "html-derivative", name: "vue-tree", url: `${vue}/packages/vue/examples/composition/tree.html` },
   { lang: "ini", name: "black-tox", url: `${black}/tox.ini` },
-  {
-    lang: "ini",
-    name: "coverage",
-    url: new URL("inputs/ini-coverage.ini", import.meta.url).href,
-  },
+  { lang: "ini", name: "coverage", text: iniCoverage },
   { lang: "ini", name: "django-tox", url: `${django}/tox.ini` },
   { lang: "ini", name: "kafka-consumer", url: `${kafka}/config/consumer.properties` },
   { lang: "ini", name: "kafka-server", url: `${kafka}/config/server.properties` },
@@ -643,11 +635,7 @@ export const inputs: Input[] = [
   },
   { lang: "java", name: "sample", url: `${samples}/java.sample` },
   { lang: "javascript", name: "axios-xhr", url: `${axios}/lib/adapters/xhr.js` },
-  {
-    lang: "javascript",
-    name: "coverage",
-    url: new URL("inputs/typescript-coverage.ts", import.meta.url).href,
-  },
+  { lang: "javascript", name: "coverage", text: typescriptCoverage },
   { lang: "javascript", name: "express-application", url: `${express}/lib/application.js` },
   { lang: "javascript", name: "express-response", url: `${express}/lib/response.js` },
   { lang: "javascript", name: "sample", url: `${samples}/javascript.sample` },
@@ -679,11 +667,7 @@ export const inputs: Input[] = [
   { lang: "jsonl", name: "rag-output", url: `${rag}/output.jsonl` },
   { lang: "jsonl", name: "rag-output-50", url: `${rag}/output-50.jsonl` },
   { lang: "jsonl", name: "sample", url: `${samples}/jsonl.sample` },
-  {
-    lang: "jsx",
-    name: "coverage",
-    url: new URL("inputs/typescript-coverage.ts", import.meta.url).href,
-  },
+  { lang: "jsx", name: "coverage", text: typescriptCoverage },
   { lang: "jsx", name: "preact-keys", url: `${preact}/test/browser/keys.test.jsx` },
   { lang: "jsx", name: "preact-render", url: `${preact}/compat/test/browser/render.test.jsx` },
   { lang: "jsx", name: "sample", url: `${samples}/jsx.sample` },
@@ -772,11 +756,7 @@ export const inputs: Input[] = [
   { lang: "less", name: "bootstrap3-mixins-grid-framework", url: `${bootstrap3}/less/mixins/grid-framework.less` },
   { lang: "less", name: "bootstrap3-navbar", url: `${bootstrap3}/less/navbar.less` },
   { lang: "less", name: "bootstrap3-variables", url: `${bootstrap3}/less/variables.less` },
-  {
-    lang: "less",
-    name: "coverage",
-    url: new URL("inputs/less-coverage.less", import.meta.url).href,
-  },
+  { lang: "less", name: "coverage", text: lessCoverage },
   { lang: "less", name: "lessjs-at-rules", url: `${lessjs}/packages/test-data/tests-unit/at-rules/at-rules.less` },
   { lang: "less", name: "lessjs-at-rules-compressed", url: `${lessjs}/packages/test-data/tests-config/at-rules-compressed/at-rules-compressed.less` },
   { lang: "less", name: "lessjs-container", url: `${lessjs}/packages/test-data/tests-unit/container/container.less` },
@@ -791,11 +771,7 @@ export const inputs: Input[] = [
   { lang: "less", name: "lessjs-sourcemaps-comprehensive", url: `${lessjs}/packages/test-data/tests-config/sourcemaps/comprehensive/comprehensive.less` },
   { lang: "less", name: "lessjs-urls", url: `${lessjs}/packages/test-data/tests-unit/urls/urls.less` },
   { lang: "less", name: "sample", url: `${samples}/less.sample` },
-  {
-    lang: "lua",
-    name: "coverage",
-    url: new URL("inputs/lua-coverage.lua", import.meta.url).href,
-  },
+  { lang: "lua", name: "coverage", text: luaCoverage },
   { lang: "lua", name: "inspect", url: `${inspectLua}/inspect.lua` },
   { lang: "lua", name: "json", url: `${jsonLua}/json.lua` },
   { lang: "lua", name: "lua-literals", url: `${lua}/testes/literals.lua` },
@@ -808,11 +784,7 @@ export const inputs: Input[] = [
   { lang: "lua", name: "penlight-stringx", url: `${penlight}/lua/pl/stringx.lua` },
   { lang: "lua", name: "sample", url: `${samples}/lua.sample` },
   { lang: "make", name: "cjson", url: `${cjson}/Makefile` },
-  {
-    lang: "make",
-    name: "coverage",
-    url: new URL("inputs/make-coverage.mk", import.meta.url).href,
-  },
+  { lang: "make", name: "coverage", text: makeCoverage },
   { lang: "make", name: "helm", url: `${helm}/Makefile` },
   { lang: "make", name: "minikube", url: `${minikube}/Makefile` },
   { lang: "make", name: "moby", url: `${moby}/Makefile` },
@@ -853,11 +825,7 @@ export const inputs: Input[] = [
   { lang: "markdown", name: "clap-readme", url: `${clap}/README.md` },
   { lang: "markdown", name: "click-man-readme", url: `${clickMan}/README.md` },
   { lang: "markdown", name: "cobra-user-guide", url: `${cobra}/site/content/user_guide.md` },
-  {
-    lang: "markdown",
-    name: "coverage",
-    url: new URL("inputs/markdown-coverage.md", import.meta.url).href,
-  },
+  { lang: "markdown", name: "coverage", text: markdownCoverage },
   { lang: "markdown", name: "dart-args-readme", url: `${dartCore}/pkgs/args/README.md` },
   { lang: "markdown", name: "dart-http-readme", url: `${dartHttp}/pkgs/http/README.md` },
   { lang: "markdown", name: "device-virtual-readme", url: `${deviceVirtual}/README.md` },
@@ -985,11 +953,7 @@ export const inputs: Input[] = [
   { lang: "python", name: "black-string-prefixes", url: `${black}/tests/data/cases/string_prefixes.py` },
   { lang: "python", name: "black-string-quotes", url: `${black}/tests/data/miscellaneous/string_quotes.py` },
   { lang: "python", name: "black-strings", url: `${black}/src/black/strings.py` },
-  {
-    lang: "python",
-    name: "coverage",
-    url: new URL("inputs/python-coverage.py", import.meta.url).href,
-  },
+  { lang: "python", name: "coverage", text: pythonCoverage },
   { lang: "python", name: "fastapi-routing", url: `${fastapi}/fastapi/routing.py` },
   { lang: "python", name: "flask-helpers", url: `${flask}/src/flask/helpers.py` },
   { lang: "python", name: "pytest-python", url: `${pytest}/src/_pytest/python.py` },
@@ -997,33 +961,13 @@ export const inputs: Input[] = [
   { lang: "python", name: "rich-console", url: `${rich}/rich/console.py` },
   { lang: "python", name: "ruff-class", url: `${ruff}/crates/ruff_python_parser/resources/valid/statement/class.py` },
   { lang: "python", name: "sample", url: `${samples}/python.sample` },
-  {
-    lang: "ruby",
-    name: "cpp-lua-heredocs",
-    url: new URL("inputs/ruby-cpp-lua-heredocs.rb", import.meta.url).href,
-  },
+  { lang: "ruby", name: "cpp-lua-heredocs", text: rubyCppLuaHeredocs },
   { lang: "ruby", name: "devise", url: `${devise}/lib/devise.rb` },
-  {
-    lang: "ruby",
-    name: "end-html",
-    url: new URL("inputs/ruby-end-html.rb", import.meta.url).href,
-  },
-  {
-    lang: "ruby",
-    name: "heredocs",
-    url: new URL("inputs/ruby-heredocs.rb", import.meta.url).href,
-  },
-  {
-    lang: "ruby",
-    name: "html-heredocs",
-    url: new URL("inputs/ruby-html-heredocs.rb", import.meta.url).href,
-  },
+  { lang: "ruby", name: "end-html", text: rubyEndHtml },
+  { lang: "ruby", name: "heredocs", text: rubyHeredocs },
+  { lang: "ruby", name: "html-heredocs", text: rubyHtmlHeredocs },
   { lang: "ruby", name: "jekyll-site", url: `${jekyll}/lib/jekyll/site.rb` },
-  {
-    lang: "ruby",
-    name: "js-heredocs",
-    url: new URL("inputs/ruby-js-heredocs.rb", import.meta.url).href,
-  },
+  { lang: "ruby", name: "js-heredocs", text: rubyJsHeredocs },
   { lang: "ruby", name: "puma-server", url: `${puma}/lib/puma/server.rb` },
   { lang: "ruby", name: "rack-request", url: `${rack}/lib/rack/request.rb` },
   { lang: "ruby", name: "rails-callbacks", url: `${rails}/activesupport/lib/active_support/callbacks.rb` },
@@ -1037,22 +981,10 @@ export const inputs: Input[] = [
   { lang: "ruby", name: "rubocop-cop-base", url: `${rubocop}/lib/rubocop/cop/base.rb` },
   { lang: "ruby", name: "sample", url: `${samples}/ruby.sample` },
   { lang: "ruby", name: "thor", url: `${thor}/lib/thor.rb` },
-  {
-    lang: "ruby",
-    name: "xml-heredocs",
-    url: new URL("inputs/ruby-xml-heredocs.rb", import.meta.url).href,
-  },
-  {
-    lang: "ruby",
-    name: "yaml-heredocs",
-    url: new URL("inputs/ruby-yaml-heredocs.rb", import.meta.url).href,
-  },
+  { lang: "ruby", name: "xml-heredocs", text: rubyXmlHeredocs },
+  { lang: "ruby", name: "yaml-heredocs", text: rubyYamlHeredocs },
   { lang: "rust", name: "core-macros", url: `${rustc}/library/core/src/macros/mod.rs` },
-  {
-    lang: "rust",
-    name: "coverage",
-    url: new URL("inputs/rust-coverage.rs", import.meta.url).href,
-  },
+  { lang: "rust", name: "coverage", text: rustCoverage },
   {
     lang: "rust",
     name: "ripgrep-searcher",
@@ -1077,21 +1009,13 @@ export const inputs: Input[] = [
   { lang: "scss", name: "bulma-button", url: `${bulma}/sass/elements/button.scss` },
   { lang: "scss", name: "bulma-functions", url: `${bulma}/sass/utilities/functions.scss` },
   { lang: "scss", name: "bulma-mixins", url: `${bulma}/sass/utilities/mixins.scss` },
-  {
-    lang: "scss",
-    name: "coverage",
-    url: new URL("inputs/scss-coverage.scss", import.meta.url).href,
-  },
+  { lang: "scss", name: "coverage", text: scssCoverage },
   { lang: "scss", name: "sample", url: `${samples}/scss.sample` },
   { lang: "shellscript", name: "nvm", url: `${nvm}/nvm.sh` },
   { lang: "shellscript", name: "pyenv-init", url: `${pyenv}/libexec/pyenv-init` },
   { lang: "shellscript", name: "ruby-build", url: `${rubyBuild}/bin/ruby-build` },
   { lang: "shellscript", name: "sample", url: `${samples}/shellscript.sample` },
-  {
-    lang: "shellscript",
-    name: "unicode-words",
-    url: new URL("inputs/shellscript-unicode-words.sh", import.meta.url).href,
-  },
+  { lang: "shellscript", name: "unicode-words", text: shellscriptUnicodeWords },
   {
     lang: "sql",
     name: "northwind-pubs",
@@ -1135,11 +1059,7 @@ export const inputs: Input[] = [
     name: "composable-store",
     url: `${composable}/Sources/ComposableArchitecture/Store.swift`,
   },
-  {
-    lang: "swift",
-    name: "coverage",
-    url: new URL("inputs/swift-coverage.swift", import.meta.url).href,
-  },
+  { lang: "swift", name: "coverage", text: swiftCoverage },
   {
     lang: "swift",
     name: "kingfisher-image-processor",
@@ -1189,11 +1109,7 @@ export const inputs: Input[] = [
   { lang: "toml", name: "burntsushi-example", url: `${burntsushiToml}/_example/example.toml` },
   { lang: "toml", name: "cargo-manifest", url: `${cargo}/Cargo.toml` },
   { lang: "toml", name: "clap-manifest", url: `${clap}/Cargo.toml` },
-  {
-    lang: "toml",
-    name: "coverage",
-    url: new URL("inputs/toml-coverage.toml", import.meta.url).href,
-  },
+  { lang: "toml", name: "coverage", text: tomlCoverage },
   { lang: "toml", name: "poetry-pyproject", url: `${poetry}/pyproject.toml` },
   { lang: "toml", name: "ripgrep-manifest", url: `${ripgrep}/Cargo.toml` },
   { lang: "toml", name: "ruff-pyproject", url: `${ruff}/pyproject.toml` },
@@ -1201,11 +1117,7 @@ export const inputs: Input[] = [
   { lang: "toml", name: "tokio-manifest", url: `${tokio}/tokio/Cargo.toml` },
   { lang: "toml", name: "toml-test-inline-table-key-dotted-01", url: `${tomlTest}/tests/valid/inline-table/key-dotted-01.toml` },
   { lang: "toml", name: "toml-test-key-quoted-unicode", url: `${tomlTest}/tests/valid/key/quoted-unicode.toml` },
-  {
-    lang: "tsx",
-    name: "coverage",
-    url: new URL("inputs/typescript-coverage.ts", import.meta.url).href,
-  },
+  { lang: "tsx", name: "coverage", text: typescriptCoverage },
   { lang: "tsx", name: "sample", url: `${samples}/tsx.sample` },
   { lang: "tsx", name: "shadcn-chart", url: `${shadcn}/apps/v4/registry/new-york-v4/ui/chart.tsx` },
   { lang: "tsx", name: "shadcn-combobox", url: `${shadcn}/apps/v4/registry/new-york-v4/ui/combobox.tsx` },
@@ -1227,11 +1139,7 @@ export const inputs: Input[] = [
   { lang: "tsx", name: "tsc-source-map-validation-statements", url: `${typescriptTests}/compiler/sourceMapValidationStatements.ts` },
   { lang: "tsx", name: "tsc-tsx-react-emit-entities", url: `${typescriptTests}/conformance/jsx/tsxReactEmitEntities.tsx` },
   { lang: "tsx", name: "tsc-yield-expression-inner-comment-emit", url: `${typescriptTests}/compiler/yieldExpressionInnerCommentEmit.ts` },
-  {
-    lang: "typescript",
-    name: "coverage",
-    url: new URL("inputs/typescript-coverage.ts", import.meta.url).href,
-  },
+  { lang: "typescript", name: "coverage", text: typescriptCoverage },
   { lang: "typescript", name: "ky-core", url: `${ky}/source/core/Ky.ts` },
   { lang: "typescript", name: "sample", url: `${samples}/typescript.sample` },
   { lang: "typescript", name: "tsc-assertion-type-predicates1", url: `${typescriptTests}/conformance/controlFlow/assertionTypePredicates1.ts` },
@@ -1291,11 +1199,7 @@ export const inputs: Input[] = [
     name: "checkout-test",
     url: `${checkout}/.github/workflows/test.yml`,
   },
-  {
-    lang: "yaml",
-    name: "coverage",
-    url: new URL("inputs/yaml-coverage.yaml", import.meta.url).href,
-  },
+  { lang: "yaml", name: "coverage", text: yamlCoverage },
   {
     lang: "yaml",
     name: "petstore-openapi",

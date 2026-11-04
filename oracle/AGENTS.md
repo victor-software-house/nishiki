@@ -25,6 +25,8 @@ Rules for the Shiki oracle, beside the root guide's invariants.
      It fails on a stale report, a wrong waiver, or a gap in a complete grammar.
    - A new hand lexer adds its grammar to `handLexed` in `coverage.ts`; the run fails on a loaded grammar it cannot place.
    - A gap closes with an input: a pinned, licensed third-party file first, then one written for nishiki under `inputs/`.
+   - `bun run oracle/coverage.ts --pick <grammar> <lang> <file or directory>…` ranks candidate files by the units each adds beyond the fixtures, and prints the units still left.
+   - A written input is a text import in `inputs.ts`, listed as `{ lang, name, text }`.
    - An input may hold text that is not valid in its language, in a commented section, to reach a grammar unit, because fidelity covers text being edited.
      A waiver is only for a unit no document can reach.
 7. Scripts are TypeScript run by Bun, with each import pinned to an exact version, such as `shiki@4.6.0`.
