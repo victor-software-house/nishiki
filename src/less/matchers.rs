@@ -51,6 +51,11 @@ pub(super) struct Word {
 
 impl Lexer<'_> {
     /// Whether pattern `pat` matches at `p`, and where its match ends.
+    ///
+    /// Each arm is a test of the bytes at `p` or a single call.
+    /// A single call compiles to a tail jump.
+    /// The function then saves no registers on entry.
+    /// An arm that needs more work calls an out-of-line helper.
     #[expect(
         clippy::too_many_lines,
         reason = "one arm for each expression of the grammar"
@@ -337,7 +342,7 @@ impl Lexer<'_> {
             | Pat::SelectorsAt10At2
             | Pat::AtNamespaceAt2 => self.name(p, Class::Alpha, Class::DashWord, Escape::Hex),
             Pat::AttrFunctionAt0At2At0 | Pat::LessTypeFunctionsAt1At0At2 => self.unit_name(p),
-            Pat::CommaDelimiter => self.spaced_lit(p, b',').map(|end| self.spaces(end)),
+            Pat::CommaDelimiter => self.separator(p, b','),
             Pat::PropertyValueConstantsAt0 => self.alt(
                 p,
                 &[
@@ -393,7 +398,7 @@ impl Lexer<'_> {
             Pat::CustomPropertyName => self.custom_property(p),
             Pat::LessVariablesAt0 => self.variable(p),
             Pat::ColorFunctionsAt0 => self.func(p, &[b"rgba", b"rgb"]),
-            Pat::ValueSeparator => self.spaced_lit(p, b'/').map(|end| self.spaces(end)),
+            Pat::ValueSeparator => self.separator(p, b'/'),
             Pat::PercentageType => self.percentage(p),
             Pat::NumberType => self.number(p),
             Pat::ColorFunctionsAt1 => self.func(
@@ -522,11 +527,7 @@ impl Lexer<'_> {
             ),
             Pat::LessMiscFunctionsAt3 => self.func(p, &[b"data-uri"]),
             Pat::LessMiscFunctionsAt3At0At2 | Pat::ArbitraryRepetition => self.spaced_lit(p, b','),
-            Pat::LessMiscFunctionsAt4 => self
-                .boundary(p)
-                .then(|| self.default_call(p))
-                .flatten()
-                .filter(|&end| self.boundary(end)),
+            Pat::LessMiscFunctionsAt4 => self.default_word(p),
             Pat::LessMiscFunctionsAt5 => self.func(p, &[b"get-unit"]),
             Pat::LessMiscFunctionsAt6 => self.func(p, &[b"svg-gradient"]),
             Pat::LessStringFunctionsAt0 => self.func(p, &[b"escape", b"e"]),
@@ -615,10 +616,7 @@ impl Lexer<'_> {
             Pat::ColorValuesAt6 => self.current_color(p),
             Pat::ColorValuesAt7 => self.hex_color(p),
             Pat::RelativeColorAt0 => self.lit(p, b"from"),
-            Pat::RelativeColorAt1 => (self.boundary(p)
-                && matches!(self.at(p), b'a' | b'b' | b'c' | b'h' | b'l' | b's' | b'w')
-                && self.boundary(p + 1))
-            .then_some(p + 1),
+            Pat::RelativeColorAt1 => self.channel_letter(p),
             Pat::PropertyValueConstantsAt5 => self.alt(p, &[b"replace", b"add", b"accumulate"]),
             Pat::PropertyValueConstantsAt6 => self.alt(
                 p,
@@ -717,9 +715,7 @@ impl Lexer<'_> {
             }
             Pat::PseudoSelectorsAt6At0At0
             | Pat::RuleListBodyAt5At12At0At3
-            | Pat::AtContainerAt0At0At3 => self
-                .lit(p, b"--")
-                .or_else(|| self.name(p, Class::NameStart, Class::NameRest, Escape::Any)),
+            | Pat::AtContainerAt0At0At3 => self.dashes_or_name(p),
             Pat::PseudoSelectorsAt7 => self.pseudo_element_func(p, &[b"slotted"]),
             Pat::PseudoSelectorsAt8 => self.pseudo_element(p),
             Pat::PseudoSelectorsAt9 => self.vendor_pseudo(p),
@@ -731,9 +727,9 @@ impl Lexer<'_> {
             Pat::SelectorsAt10 => self.lit(p, b"["),
             Pat::SelectorsAt10End | Pat::SelectorsAt10At3At4 => self.lit(p, b"]"),
             Pat::SelectorsAt10At3 => self.attribute_operator(p),
-            Pat::SelectorsAt10At3End => (self.at(p) == b']' || self.space_at(p) > 0).then_some(p),
+            Pat::SelectorsAt10At3End => self.attribute_value_end(p),
             Pat::SelectorsAt10At3At1 => self.unquoted_char(p, b"[]"),
-            Pat::SelectorsAt10At3At3 => Some(self.attribute_flag(p)),
+            Pat::SelectorsAt10At3At3 => self.attribute_flag(p),
             Pat::SelectorsAt12 => self.lit(p, b"*"),
             Pat::LessMixinGuardsAt0At0At1 => self.default_call(p),
             Pat::LessNamespaceAccessorsAt1 => self.group_lit(p, b"("),
@@ -744,11 +740,11 @@ impl Lexer<'_> {
             | Pat::RuleListBodyAt5At5At0
             | Pat::RuleListBodyAt5At9At0
             | Pat::RuleListBodyAt5At10At0
-            | Pat::RuleListBodyAt5At11At0 => self.merge_colon(p).map(|end| self.blanks_cap(end, 4)),
+            | Pat::RuleListBodyAt5At11At0 => self.merge_colon_blanks(p),
             Pat::PropertyListAt0 | Pat::AtContainerAt0End => (self.at(p) == b'{').then_some(p),
             Pat::PropertyListAt0End => self.lit(p, b"}"),
             Pat::RuleListAt0 => self.lit(p, b"{"),
-            Pat::RuleListAt0End => self.spaces_then(p, b"}").map(|_| p),
+            Pat::RuleListAt0End => self.rule_list_end(p),
             Pat::RuleListAt0At0
             | Pat::RuleListBodyAt5At1End
             | Pat::RuleListBodyAt5At3End
@@ -794,23 +790,13 @@ impl Lexer<'_> {
             Pat::AtCounterStyle => self.at_counter_style(p),
             Pat::AtCustomMedia => self.at_rule_ahead(p, b"custom-media", Tail::Boundary),
             Pat::AtCustomMediaEnd | Pat::AtImportAt2End => self.spaces_then(p, b";"),
-            Pat::AtCustomMediaAt0 => self.spaces_then(p, b";").map(|end| end + 1),
+            Pat::AtCustomMediaAt0 => self.through_semicolon(p),
             Pat::AtCustomMediaAt1 => self.spaced_at_keyword(p, b"custom-media"),
-            Pat::MediaQuery => Some(self.media_query(p)),
+            Pat::MediaQuery => self.media_query(p),
             Pat::MediaQueryAt2 => self.media_feature_open(p),
             Pat::MediaQueryAt2At0 => self.media_feature_name(p),
-            Pat::MediaQueryAt2At0End => self
-                .merge_colon(p)
-                .or_else(|| (self.at(p) == b')').then_some(p)),
-            Pat::MediaQueryAt2At1 => self
-                .boundary(p)
-                .then(|| {
-                    self.first_of(
-                        p,
-                        &[b"portrait", b"landscape", b"progressive", b"interlace"],
-                    )
-                })
-                .flatten(),
+            Pat::MediaQueryAt2At0End => self.feature_name_end(p),
+            Pat::MediaQueryAt2At1 => self.feature_keyword(p),
             Pat::MediaQueryAt2At2 => self.ratio(p),
             Pat::AtFontFace => self.at_font_face(p),
             Pat::AtMedia => self.at_rule_ahead(p, b"media", Tail::Boundary),
@@ -931,8 +917,86 @@ impl Lexer<'_> {
             Pat::SelectorAt0 => self.selector_ahead(p),
             Pat::SelectorAt0End => self.selector_end(p),
             Pat::RuleListBodyAt6 => self.merge_colon_word(p),
-            Pat::KeyframeName => Some(self.keyframe_name(p)),
+            Pat::KeyframeName => self.keyframe_name(p),
         }
+    }
+
+    /// `\s*(x)\s*` for the byte `byte`, in group 1.
+    #[inline(never)]
+    fn separator(&mut self, p: usize, byte: u8) -> Option<usize> {
+        let end = self.spaced_lit(p, byte)?;
+        Some(self.spaces(end))
+    }
+
+    /// `\b(default(\()(\)))\b`.
+    #[inline(never)]
+    fn default_word(&mut self, p: usize) -> Option<usize> {
+        if !self.boundary(p) {
+            return None;
+        }
+        self.default_call(p).filter(|&end| self.boundary(end))
+    }
+
+    /// `\b[abchlsw]\b`: a channel of a relative colour.
+    #[inline(never)]
+    fn channel_letter(&self, p: usize) -> Option<usize> {
+        (self.boundary(p)
+            && matches!(self.at(p), b'a' | b'b' | b'c' | b'h' | b'l' | b's' | b'w')
+            && self.boundary(p + 1))
+        .then_some(p + 1)
+    }
+
+    /// `--|NAME`: two dashes, or a CSS name.
+    #[inline(never)]
+    fn dashes_or_name(&mut self, p: usize) -> Option<usize> {
+        self.lit(p, b"--")
+            .or_else(|| self.name(p, Class::NameStart, Class::NameRest, Escape::Any))
+    }
+
+    /// `(?=([]\s]))`: the end of an unquoted attribute value.
+    #[inline(never)]
+    fn attribute_value_end(&self, p: usize) -> Option<usize> {
+        (self.at(p) == b']' || self.space_at(p) > 0).then_some(p)
+    }
+
+    /// `(((\+_?)?):)([\t\s]*)`: the colon of [`Lexer::merge_colon`], then
+    /// blanks in group 4.
+    #[inline(never)]
+    fn merge_colon_blanks(&mut self, p: usize) -> Option<usize> {
+        let end = self.merge_colon(p)?;
+        Some(self.blanks_cap(end, 4))
+    }
+
+    /// `(?=\s*})`: the end of a rule list.
+    #[inline(never)]
+    fn rule_list_end(&self, p: usize) -> Option<usize> {
+        self.spaces_then(p, b"}").map(|_| p)
+    }
+
+    /// `\s*;`.
+    #[inline(never)]
+    fn through_semicolon(&self, p: usize) -> Option<usize> {
+        self.spaces_then(p, b";").map(|end| end + 1)
+    }
+
+    /// `(((\+_?)?):)|(?=\))`: the colon of [`Lexer::merge_colon`], or the place
+    /// before a `)`.
+    #[inline(never)]
+    fn feature_name_end(&mut self, p: usize) -> Option<usize> {
+        self.merge_colon(p)
+            .or_else(|| (self.at(p) == b')').then_some(p))
+    }
+
+    /// `\b(portrait|landscape|progressive|interlace)`.
+    #[inline(never)]
+    fn feature_keyword(&self, p: usize) -> Option<usize> {
+        if !self.boundary(p) {
+            return None;
+        }
+        self.first_of(
+            p,
+            &[b"portrait", b"landscape", b"progressive", b"interlace"],
+        )
     }
 
     /// `\b(a|b|…)\b` at `p` for a big alternation, as a table: of the words

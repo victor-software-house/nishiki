@@ -44,6 +44,8 @@ impl Lexer<'_> {
     }
 
     /// `\s*((@)word)`.
+    /// It is out of line because `less_matcher` calls it directly.
+    #[inline(never)]
     pub(super) fn spaced_at_keyword(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let at = self.spaces(p);
         self.at_name(at, word)
@@ -198,8 +200,12 @@ impl Lexer<'_> {
 
     /// `\s*(only|not)?\s*
     /// (all|aural|braille|embossed|handheld|print|projection|screen|tty|tv)?`,
-    /// which always matches.
-    pub(super) fn media_query(&mut self, p: usize) -> usize {
+    /// It always matches.
+    #[expect(
+        clippy::unnecessary_wraps,
+        reason = "less_matcher tail-calls it and needs the same return type"
+    )]
+    pub(super) fn media_query(&mut self, p: usize) -> Option<usize> {
         const TYPES: [&[u8]; 10] = [
             b"all",
             b"aural",
@@ -221,9 +227,9 @@ impl Lexer<'_> {
         let kind = self.spaces(end);
         if let Some(stop) = self.first_of(kind, &TYPES) {
             self.cap(2, kind, stop);
-            return stop;
+            return Some(stop);
         }
-        kind
+        Some(kind)
     }
 
     /// `\s*(and)?\s*(\()\s*`.

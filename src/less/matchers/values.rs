@@ -20,6 +20,8 @@ fn sign(b: u8) -> bool {
 
 impl Lexer<'_> {
     /// `\s*(;)|(?=[)}])`, or `(;)|(?=[)}])`: the `;` in group 1.
+    /// It is out of line because `less_matcher` calls it directly.
+    #[inline(never)]
     pub(super) fn semicolon_or_close(&mut self, p: usize, spaces: Spaces) -> Option<usize> {
         let at = match spaces {
             Spaces::Before => self.spaces(p),

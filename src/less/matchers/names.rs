@@ -67,17 +67,22 @@ impl Lexer<'_> {
 
     /// `\s*(-?(?:[_a-z[^\x00-\x7F]]|ESC)(?:[-0-9_a-z[^\x00-\x7F]]|ESC)*)?`:
     /// white space, and the keyframe name in group 1 when one follows.
-    pub(super) fn keyframe_name(&mut self, p: usize) -> usize {
+    /// It always matches.
+    #[expect(
+        clippy::unnecessary_wraps,
+        reason = "less_matcher tail-calls it and needs the same return type"
+    )]
+    pub(super) fn keyframe_name(&mut self, p: usize) -> Option<usize> {
         let at = self.spaces(p);
         let Some(end) = self.name_with(
             at,
             (Class::Lower, Escape::KeyframeStart),
             (Class::LowerRest, Escape::KeyframeRest),
         ) else {
-            return at;
+            return Some(at);
         };
         self.cap(1, at, end);
-        end
+        Some(end)
     }
 
     /// `\s*(--)((?:[-\w[^\x00-\x7F]]|ESC)+)`.

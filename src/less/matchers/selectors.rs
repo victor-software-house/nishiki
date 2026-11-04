@@ -108,15 +108,20 @@ impl Lexer<'_> {
     }
 
     /// `(?:\s+([Ii]))?`.
-    pub(super) fn attribute_flag(&mut self, p: usize) -> usize {
+    /// It always matches.
+    #[expect(
+        clippy::unnecessary_wraps,
+        reason = "less_matcher tail-calls it and needs the same return type"
+    )]
+    pub(super) fn attribute_flag(&mut self, p: usize) -> Option<usize> {
         if let Some(at) = self.spaces_run(p)
             && matches!(self.at(at), b'I' | b'i')
             && at < self.lim()
         {
             self.cap(1, at, at + 1);
-            return at + 1;
+            return Some(at + 1);
         }
-        p
+        Some(p)
     }
 
     /// `(:)(a|b|…)(?=\()`, the colon in group 1 and the name in group 2.
