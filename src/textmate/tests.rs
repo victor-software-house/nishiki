@@ -1534,7 +1534,7 @@ mod hand_offs {
     use crate::arena::{Arena, ROOT};
     use crate::haml::grammar::GRAMMAR as HAML;
     use crate::language::{Context, Line};
-    use crate::limits::{Limits, LineReport};
+    use crate::limits::{Limit, Limits, LineReport, Steps, Work};
     use crate::scratch::Scratch;
 
     /// One token: its text and its scopes, outermost first.
@@ -1761,5 +1761,81 @@ mod hand_offs {
             "{:?}",
             rows[2]
         );
+    }
+
+    /// What the last of `lines` costs, lexed under `last` after the others
+    /// under the default limits. HAML is a language that a host line embeds
+    /// and lends its work to. Returns what the host spent once it takes
+    /// HAML's count back, whether the line ran out of work, and whether its
+    /// tokens cover it.
+    fn budgeted(lines: &[&str], last: &Limits) -> (u64, bool, bool) {
+        let mut arena = Arena::new(None);
+        let mut scratch = Scratch::default();
+        let mut state = tokenizer::start_embedded(&mut arena, &HAML, ROOT);
+        let mut out = Vec::new();
+        let mut result = (0, false, false);
+        for (index, &line) in lines.iter().enumerate() {
+            let host = if index + 1 == lines.len() {
+                *last
+            } else {
+                Limits::default()
+            };
+            let steps = Steps::new(&host, line.len());
+            let lent = steps.lend(&host);
+            out.clear();
+            let mut report = LineReport::default();
+            scratch.start_line();
+            let mut cx = Context {
+                scratch: &mut scratch,
+                arena: &mut arena,
+                limits: &lent,
+                out: &mut out,
+                report: &mut report,
+            };
+            let text = Line {
+                text: line,
+                start: 0,
+                embedded: false,
+            };
+            let finished = crate::textmate::lex_handing_embedded(&mut cx, &HAML, text, state);
+            state = steps.take_back(finished);
+            result = (
+                steps.into_spent(),
+                report.reached(Limit::Work),
+                out.last().is_some_and(|token| token.end() == line.len()),
+            );
+        }
+        result
+    }
+
+    /// With two steps left on the host line, a HAML line stops within them.
+    /// The rule holds whichever language lexes the costly part: Ruby on a
+    /// line of code, JavaScript in a filter, or PowerShell in a Markdown
+    /// fence in a filter. Under the default limits each line spends more.
+    #[test]
+    fn a_hand_off_spends_only_what_the_host_line_has_left() {
+        let tight = Limits {
+            work: Some(Work {
+                per_byte: 0,
+                base: 2,
+            }),
+            ..Limits::default()
+        };
+        let ruby = format!("= {}", "a + b * c - d / e % f && g || h; ".repeat(40));
+        let javascript = format!("  {}", "let a = b + c * d - e / f; ".repeat(40));
+        let powershell = format!("  {}", "$a = $b + $c * $d - $e / $f; ".repeat(40));
+        let documents = [
+            vec![ruby.as_str()],
+            vec![":javascript", javascript.as_str()],
+            vec![":markdown", "  ```powershell", powershell.as_str()],
+        ];
+        for lines in documents {
+            let (free, _, _) = budgeted(&lines, &Limits::default());
+            assert!(free > 2, "{:?} spends {free} steps", lines[0]);
+            let (spent, ran_out, covered) = budgeted(&lines, &tight);
+            assert!(ran_out, "{:?} never ran out", lines[0]);
+            assert!(spent <= 2, "{:?} spent {spent} steps", lines[0]);
+            assert!(covered, "{:?} left its line uncovered", lines[0]);
+        }
     }
 }
