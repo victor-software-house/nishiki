@@ -22,10 +22,12 @@ mod vm;
 #[cfg(test)]
 mod tests;
 
+use std::sync::Mutex;
+
 use analysis::{Starts, anchors, first_bytes, literal_prefix, required_byte, uses_context};
 use memchr::{memchr, memchr2, memchr3, memmem};
-use parse::Dialect;
 pub(crate) use parse::Error;
+use parse::{Dialect, Parsed};
 use program::{Program, compile};
 use regex_syntax::hir::Hir;
 use vm::Machine;
@@ -160,13 +162,65 @@ fn next_lead(bytes: &[u8]) -> Option<usize> {
         .map(|within| words.len() * 8 + within)
 }
 
-/// Whether a compile also works out the pattern's relaxed expression.
-#[derive(Clone, Copy, Debug)]
-enum Relaxed {
-    /// For a scanner's build, which reads it.
-    Kept,
-    /// For every other compile.
-    Skipped,
+/// A pattern parsed once for a scanner's build.
+///
+/// A scanner reads the first bytes and the relaxed expression.
+/// The parsed tree waits here until the pattern's program compiles.
+/// Most patterns a scanner lists are never tried, so most never compile.
+#[derive(Debug)]
+pub(crate) struct Sketch {
+    /// The bytes a match can start with.
+    /// `None` when a match can be empty, so it can start anywhere.
+    first: Option<Box<[bool; 256]>>,
+    /// The pattern as a plain expression that matches at least what it does.
+    /// `None` for a pattern that depends on the document or needs no text.
+    relaxed: Option<Box<Hir>>,
+    /// The parsed tree, until [`Regex::from_sketch`] takes it.
+    tree: Mutex<Option<Box<Parsed>>>,
+}
+
+impl Sketch {
+    /// Parses `pattern` of a grammar once and sketches it.
+    ///
+    /// The sketch reads the full tree, whatever the kind of line.
+    /// The lean rewrite only drops alternatives.
+    /// So the full tree's first bytes and relaxed expression cover the lean
+    /// tree's.
+    pub(crate) fn for_grammar(pattern: &str) -> Result<Sketch, Error> {
+        Sketch::build(pattern, Dialect::Grammar)
+    }
+
+    /// Parses `pattern` as Oniguruma reads it, and sketches it.
+    #[cfg(test)]
+    pub(crate) fn oniguruma(pattern: &str) -> Result<Sketch, Error> {
+        Sketch::build(pattern, Dialect::Oniguruma)
+    }
+
+    fn build(pattern: &str, dialect: Dialect) -> Result<Sketch, Error> {
+        let parsed = parse::parse(pattern, dialect)?;
+        let mut set = [false; 256];
+        let nullable = first_bytes(&parsed.root, &mut set);
+        let relaxed = (!uses_context(&parsed.root))
+            .then(|| relax::relaxed(&parsed.root))
+            .filter(|relaxed| relaxed.properties().minimum_len().is_none_or(|len| len > 0));
+        Ok(Sketch {
+            first: (!nullable).then(|| Box::new(set)),
+            relaxed: relaxed.map(Box::new),
+            tree: Mutex::new(Some(Box::new(parsed))),
+        })
+    }
+
+    /// Whether a match can start with `byte`.
+    pub(crate) fn can_start_with(&self, byte: u8) -> bool {
+        self.first
+            .as_ref()
+            .is_none_or(|first| first[usize::from(byte)])
+    }
+
+    /// The relaxed expression, or `None` for a pattern no automaton can take.
+    pub(crate) fn relaxed(&self) -> Option<&Hir> {
+        self.relaxed.as_deref()
+    }
 }
 
 /// A compiled regular expression.
@@ -176,8 +230,6 @@ pub(crate) struct Regex {
     prefilter: Prefilter,
     anchored: Option<Starts>,
     context_free: bool,
-    /// The bytes a match can start with; `None` when it can match nothing.
-    first: Option<Box<[bool; 256]>>,
     /// A byte every match has at or after its start.
     required: Option<u8>,
 }
@@ -186,65 +238,43 @@ impl Regex {
     /// Compiles `pattern` as Oniguruma reads it.
     #[cfg(test)]
     pub(crate) fn new(pattern: &str) -> Result<Regex, Error> {
-        Regex::build(
-            pattern,
-            Dialect::Oniguruma,
-            LineKind::Full,
-            Relaxed::Skipped,
-        )
-        .map(|built| built.0)
+        Regex::compile(parse::parse(pattern, Dialect::Oniguruma)?, LineKind::Full)
     }
 
     /// Compiles `pattern` as Oniguruma reads it, for a [`LineKind::Lean`]
     /// line.
     #[cfg(test)]
     pub(crate) fn lean(pattern: &str) -> Result<Regex, Error> {
-        Regex::build(
-            pattern,
-            Dialect::Oniguruma,
-            LineKind::Lean,
-            Relaxed::Skipped,
-        )
-        .map(|built| built.0)
-    }
-
-    /// The relaxed expression of `pattern` as Oniguruma reads it, for lines
-    /// of `kind`, as [`Regex::for_scanner`] gives it.
-    #[cfg(test)]
-    pub(crate) fn relaxed_of(pattern: &str, kind: LineKind) -> Option<Hir> {
-        Regex::build(pattern, Dialect::Oniguruma, kind, Relaxed::Kept)
-            .ok()?
-            .1
+        Regex::compile(parse::parse(pattern, Dialect::Oniguruma)?, LineKind::Lean)
     }
 
     /// Compiles `pattern` of a grammar, where `\z` never matches, for lines
     /// of `kind`.
     pub(crate) fn for_grammar(pattern: &str, kind: LineKind) -> Result<Regex, Error> {
-        Regex::build(pattern, Dialect::Grammar, kind, Relaxed::Skipped).map(|built| built.0)
+        Regex::compile(parse::parse(pattern, Dialect::Grammar)?, kind)
     }
 
-    /// Compiles `pattern` of a grammar as [`Regex::for_grammar`] does, with
-    /// the pattern as a plain expression that matches at least what it does,
-    /// for an automaton that finds where a match can start: `None` for a
-    /// pattern that depends on the document or can match no text.
+    /// Compiles the pattern of `sketch` for lines of `kind`, from the tree
+    /// the sketch kept.
     ///
-    /// The expression is handed back rather than kept, because only a
-    /// scanner's build reads it, and a regex the machine reads on every
-    /// search stays as it was without it.
-    pub(crate) fn for_scanner(
+    /// The tree is taken, so the sketch no longer holds it.
+    /// The sketch's lock is poisoned if a thread panicked while holding it.
+    /// A poisoned lock and an empty slot both mean `pattern` is parsed again.
+    /// Neither one panics.
+    pub(crate) fn from_sketch(
+        sketch: &Sketch,
         pattern: &str,
         kind: LineKind,
-    ) -> Result<(Regex, Option<Hir>), Error> {
-        Regex::build(pattern, Dialect::Grammar, kind, Relaxed::Kept)
+    ) -> Result<Regex, Error> {
+        let tree = sketch.tree.lock().ok().and_then(|mut tree| tree.take());
+        let parsed = match tree {
+            Some(tree) => *tree,
+            None => parse::parse(pattern, Dialect::Grammar)?,
+        };
+        Regex::compile(parsed, kind)
     }
 
-    fn build(
-        pattern: &str,
-        dialect: Dialect,
-        kind: LineKind,
-        relaxed: Relaxed,
-    ) -> Result<(Regex, Option<Hir>), Error> {
-        let mut parsed = parse::parse(pattern, dialect)?;
+    fn compile(mut parsed: Parsed, kind: LineKind) -> Result<Regex, Error> {
         match kind {
             LineKind::Lean => {
                 if let Some(root) = ast::lean(&parsed.root) {
@@ -259,13 +289,6 @@ impl Regex {
         let mut set = [false; 256];
         let nullable = first_bytes(&parsed.root, &mut set);
         let members: Vec<u8> = (0..=255_u8).filter(|&b| set[usize::from(b)]).collect();
-        let context_free = !uses_context(&parsed.root);
-        let relaxed = match relaxed {
-            Relaxed::Kept => context_free
-                .then(|| relax::relaxed(&parsed.root))
-                .filter(|relaxed| relaxed.properties().minimum_len().is_none_or(|len| len > 0)),
-            Relaxed::Skipped => None,
-        };
         let prefilter = if prefix.len() >= 2 {
             Prefilter::Literal(Box::new(memmem::Finder::new(&prefix).into_owned()))
         } else if nullable || members.len() == 256 {
@@ -278,15 +301,13 @@ impl Regex {
                 _ => Prefilter::Set(Box::new(set)),
             }
         };
-        let regex = Regex {
+        Ok(Regex {
             program,
             prefilter,
             anchored,
-            context_free,
-            first: (!nullable).then(|| Box::new(set)),
+            context_free: !uses_context(&parsed.root),
             required: required_byte(&parsed.root),
-        };
-        Ok((regex, relaxed))
+        })
     }
 
     /// Whether a match depends only on the text and where the search starts,
@@ -294,13 +315,6 @@ impl Regex {
     /// position up to its start.
     pub(crate) fn context_free(&self) -> bool {
         self.context_free
-    }
-
-    /// Whether a match can start with `byte`.
-    pub(crate) fn can_start_with(&self, byte: u8) -> bool {
-        self.first
-            .as_ref()
-            .is_none_or(|first| first[usize::from(byte)])
     }
 
     /// Matches `text` at exactly `at`, leaving the groups in `scratch`. Only

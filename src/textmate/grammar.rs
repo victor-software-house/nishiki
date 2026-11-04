@@ -15,9 +15,7 @@
 
 use std::sync::OnceLock;
 
-use regex_syntax::hir::Hir;
-
-use super::regex::{LineKind, Regex};
+use super::regex::{LineKind, Regex, Sketch};
 use super::scanner::Scanner;
 
 /// The index that stands for no rule, pattern or name.
@@ -96,14 +94,24 @@ impl List {
     }
 }
 
-/// Where a pattern's compiled form is kept once a search needs it: `None`
-/// inside for text the engine cannot compile, which never matches.
+/// Where a pattern's compiled form is kept once a search needs it.
+/// `None` inside for text the engine cannot compile, which never matches.
+///
+/// `Tokenizer::scan`, `search` and `probe` index the cells on every pattern
+/// they try.
+/// The cell's size sets the code for that index.
+/// At 152 bytes LLVM emits one `imul`.
+/// At 144 bytes it emits `lea` and `shl`, and at 128 bytes `mov` and `shl`.
+/// Callgrind counts the two-instruction forms as one instruction more per
+/// lookup.
+/// On hardware they cost the same or less, since `imul` takes about three
+/// cycles.
+/// No size is a target, so no test holds one.
 pub(crate) type RegexCell = OnceLock<Option<Regex>>;
 
-/// Where a pattern's relaxed expression is kept, set when the pattern is
-/// compiled: `None` inside for a pattern no automaton can take. Boxed, so a
-/// cell is two words.
-pub(crate) type RelaxedCell = OnceLock<Option<Box<Hir>>>;
+/// Where a pattern's sketch is kept once a scanner needs it.
+/// `None` inside for text the engine cannot parse, which never matches.
+pub(crate) type SketchCell = OnceLock<Option<Sketch>>;
 
 /// Where a list's scanner is kept once a search needs it.
 pub(crate) type ScannerCell = OnceLock<Scanner>;
@@ -212,9 +220,8 @@ pub(crate) struct Cells {
     pub(crate) kind: LineKind,
     /// The cell of each pattern's compiled form, by the pattern's index.
     pub(crate) regexes: Box<[RegexCell]>,
-    /// The cell of each pattern's relaxed expression, by the pattern's index,
-    /// apart from its compiled form, which the machine reads on every search.
-    pub(crate) relaxed: Box<[RelaxedCell]>,
+    /// The cell of each pattern's sketch, by the pattern's index.
+    pub(crate) sketches: Box<[SketchCell]>,
     /// The cell of each list's scanner, by the list's index.
     pub(crate) scanners: Box<[ScannerCell]>,
 }
@@ -226,7 +233,7 @@ impl Grammar {
             grammar: self,
             kind,
             regexes: self.patterns.iter().map(|_| RegexCell::new()).collect(),
-            relaxed: self.patterns.iter().map(|_| RelaxedCell::new()).collect(),
+            sketches: self.patterns.iter().map(|_| SketchCell::new()).collect(),
             scanners: self.lists.iter().map(|_| ScannerCell::new()).collect(),
         })
     }
@@ -258,22 +265,24 @@ impl Cells {
         self.regexes
             .get(index)?
             .get_or_init(move || {
-                let pattern = self.grammar.patterns.get(index)?;
-                let (regex, relaxed) = Regex::for_scanner(pattern.source, self.kind).ok()?;
-                if let Some(cell) = self.relaxed.get(index) {
-                    let _ = cell.set(relaxed.map(Box::new));
-                }
-                Some(regex)
+                let source = self.grammar.patterns.get(index)?.source;
+                let compiled = match self.sketches.get(index).and_then(OnceLock::get) {
+                    Some(Some(sketch)) => Regex::from_sketch(sketch, source, self.kind),
+                    Some(None) | None => Regex::for_grammar(source, self.kind),
+                };
+                compiled.ok()
             })
             .as_ref()
     }
 
-    /// The relaxed expression of the pattern at `index`, compiling the
-    /// pattern first if no search has, or `None` for a pattern no automaton
-    /// can take.
-    pub(crate) fn relaxed(&self, index: usize) -> Option<&Hir> {
-        self.regex(index)?;
-        self.relaxed.get(index)?.get()?.as_deref()
+    /// The sketch of the pattern at `index`, parsed on first use, or `None`
+    /// for text the engine cannot parse.
+    pub(crate) fn sketch(&self, index: usize) -> Option<&Sketch> {
+        let source = self.grammar.patterns.get(index)?.source;
+        self.sketches
+            .get(index)?
+            .get_or_init(move || Sketch::for_grammar(source).ok())
+            .as_ref()
     }
 
     /// The scanner of the list at `index`, built on first use, or `None`

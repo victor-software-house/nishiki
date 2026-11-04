@@ -53,7 +53,18 @@ Each side must repeat across its three builds.
     | Scala | medium | 2 | 76 | 2 |
 
 - [ ] 3.2 The sketch stage and the program stage run from one parse, with the parsed tree kept until the program stage takes it → verify: the oracle and the Identity workflow pass
+  - 2026-11-04, locally on a Linux box: the oracle passes.
+    `every_listed_pattern_that_parses_compiles` passes.
+    The Identity workflow runs on the pull request.
 - [ ] 3.3 Measured, with the held trees' memory → verify: first token falls, and steady state and memory are at or under main for every TextMate language
+  - 2026-11-04: first token falls by 3% to 23%.
+    Memory is equal or lower for every TextMate language.
+    Steady state is 1.0000 to 1.0015 by instruction count.
+    `Regex` lost its first bytes, so a regex cell went from 152 to 144 bytes.
+    LLVM indexes 144 bytes with `lea` and `shl`, where 152 bytes took one `imul`.
+    Layouts of 128, 136 and 160 bytes did no better.
+  - Lead, 2026-11-04: land it.
+    The extra instruction is not extra time, since `imul` takes about three cycles.
 
 ## 4. The automaton's engines
 

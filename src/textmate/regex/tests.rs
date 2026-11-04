@@ -5,7 +5,7 @@ use regex_syntax::hir::Hir;
 use super::ast::orbit;
 use super::folds::{MULTI, UNFOLD};
 use super::parse::{self, Dialect};
-use super::{Context, LineKind, Regex, Scratch};
+use super::{Context, LineKind, Regex, Scratch, Sketch};
 
 /// The whole match and the groups of the first match in `text`, from `from`,
 /// with `\G` at `search` and `\A` at the start.
@@ -378,13 +378,7 @@ fn differential(dir: &std::path::Path) -> Vec<String> {
     let expected = read("expected.tsv");
     let compiled: Vec<Option<Regex>> = patterns.iter().map(|p| Regex::new(p).ok()).collect();
     let lean: Vec<Option<Regex>> = patterns.iter().map(|p| Regex::lean(p).ok()).collect();
-    let relaxed_of = |kind| -> Vec<Option<Hir>> {
-        patterns
-            .iter()
-            .map(|p| Regex::relaxed_of(p, kind))
-            .collect()
-    };
-    let (relaxed_full, relaxed_lean) = (relaxed_of(LineKind::Full), relaxed_of(LineKind::Lean));
+    let relaxed: Vec<Option<Hir>> = patterns.iter().map(|p| relaxed_of(p)).collect();
     let mut differ = Vec::new();
     let mut scratch = Scratch::default();
     for (case, want) in cases.lines().zip(expected.lines()) {
@@ -396,13 +390,10 @@ fn differential(dir: &std::path::Path) -> Vec<String> {
         let text = format!("{}\n", lines[line]);
         let programs = match LineKind::of(lines[line].as_bytes()) {
             LineKind::Lean => [
-                Some((&compiled[pattern], &relaxed_full[pattern], "full")),
-                Some((&lean[pattern], &relaxed_lean[pattern], "lean")),
+                Some((&compiled[pattern], &relaxed[pattern], "full")),
+                Some((&lean[pattern], &relaxed[pattern], "lean")),
             ],
-            LineKind::Full => [
-                Some((&compiled[pattern], &relaxed_full[pattern], "full")),
-                None,
-            ],
+            LineKind::Full => [Some((&compiled[pattern], &relaxed[pattern], "full")), None],
         };
         for (program, relaxed, kind) in programs.into_iter().flatten() {
             let Some(regex) = program else {
@@ -592,8 +583,8 @@ fn the_relaxed_form_ends_with_the_first_positive_lookahead() {
         ("a(?!b)c", "ac", "ab"),
     ];
     for (pattern, matched, missed) in cases {
-        let relaxed = Regex::relaxed_of(pattern, LineKind::Full)
-            .unwrap_or_else(|| panic!("{pattern} has no relaxed form"));
+        let relaxed =
+            relaxed_of(pattern).unwrap_or_else(|| panic!("{pattern} has no relaxed form"));
         let automaton = regex_automata::meta::Regex::builder()
             .build_from_hir(&relaxed)
             .unwrap_or_else(|e| panic!("{pattern}: {e}"));
@@ -608,14 +599,19 @@ fn the_relaxed_form_ends_with_the_first_positive_lookahead() {
 fn a_relaxed_form_needs_a_character() {
     for pattern in ["(?<=a)", "^", "\\b", "(?=)", "a*"] {
         assert!(
-            Regex::relaxed_of(pattern, LineKind::Full).is_none(),
+            relaxed_of(pattern).is_none(),
             "{pattern} has a relaxed form"
         );
     }
     for pattern in ["a", "(?<=a)b", "[^\\x{0}-\\x{10ffff}]", "a+"] {
         assert!(
-            Regex::relaxed_of(pattern, LineKind::Full).is_some(),
+            relaxed_of(pattern).is_some(),
             "{pattern} has no relaxed form"
         );
     }
+}
+
+/// The relaxed form of `pattern` as Oniguruma reads it, from its sketch.
+fn relaxed_of(pattern: &str) -> Option<Hir> {
+    Sketch::oniguruma(pattern).ok()?.relaxed().cloned()
 }

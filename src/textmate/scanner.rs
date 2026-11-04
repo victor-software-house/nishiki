@@ -15,7 +15,7 @@ use regex_automata::{Input, MatchKind};
 use regex_syntax::hir::Hir;
 
 use super::grammar::Cells;
-use super::regex::Regex;
+use super::regex::Sketch;
 
 /// What the automaton covers of one list of rules.
 #[derive(Debug)]
@@ -60,21 +60,23 @@ impl Scanner {
     /// The scanner of the list `rules` of the grammar of `cells`, from the
     /// patterns in them.
     ///
-    /// A pattern the engine cannot compile never matches, so it is left out;
-    /// when the automaton refuses the patterns together, each is tried alone
-    /// and the ones it refuses are searched alone.
+    /// The build reads each pattern's sketch.
+    /// It compiles no pattern's program.
+    /// A pattern the engine cannot parse never matches, so it is left out.
+    /// When the automaton refuses the patterns together, each is tried alone.
+    /// The ones it refuses are searched alone.
     pub(crate) fn build(cells: &Cells, rules: &'static [usize]) -> Scanner {
-        let mut widened: Vec<(usize, &Hir, &Regex)> = Vec::new();
+        let mut widened: Vec<(usize, &Hir, &Sketch)> = Vec::new();
         let mut residual = Vec::new();
         for (position, &rule) in rules.iter().enumerate() {
             let Some(begin) = cells.grammar.rules.get(rule).map(|rule| rule.begin) else {
                 continue;
             };
-            let Some(regex) = cells.regex(begin) else {
+            let Some(sketch) = cells.sketch(begin) else {
                 continue;
             };
-            match cells.relaxed(begin) {
-                Some(relaxed) => widened.push((position, relaxed, regex)),
+            match sketch.relaxed() {
+                Some(relaxed) => widened.push((position, relaxed, sketch)),
                 None => residual.push(position),
             }
         }

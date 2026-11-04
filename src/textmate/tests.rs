@@ -2,13 +2,13 @@
 //! run over the fixtures `oracle/generate.ts` wrote, must give every
 //! non-whitespace byte the scope stack Shiki gives it.
 
-use std::collections::HashMap;
+use std::collections::{BTreeSet, HashMap};
 use std::fmt::Write as _;
 use std::fs;
 use std::path::{Path, PathBuf};
 
 use super::grammar::{Folding, Grammar, NONE};
-use super::regex::{self, Context, LineKind, Regex};
+use super::regex::{self, Context, LineKind, Regex, Sketch};
 use super::tokenizer::{self, Scratch, Text};
 use crate::arena::Arena;
 use crate::limits::{Limits, LineReport};
@@ -1219,4 +1219,41 @@ mod halts {
         assert!(engine <= 2, "the engine spent {engine} steps");
         assert_eq!(host, engine);
     }
+}
+
+/// Every begin pattern a shipped grammar's lists hold compiles if it parses,
+/// for both kinds of line.
+/// A scanner sketches a list's begin patterns from their parse alone.
+/// A pattern that parsed but failed to compile would sit in the automaton.
+/// Its candidates would then change the work a line spends.
+/// An `end` or `while` pattern can refer to its begin's groups.
+/// It compiles only once the tokenizer fills those in, and no list holds it.
+#[test]
+fn every_listed_pattern_that_parses_compiles() {
+    let mut failures = Vec::new();
+    for &(grammar, language) in SHIPPED {
+        let begins: BTreeSet<usize> = grammar
+            .lists
+            .iter()
+            .flat_map(|list| list.rules)
+            .filter_map(|&rule| grammar.rules.get(rule).map(|rule| rule.begin))
+            .collect();
+        for pattern in begins
+            .iter()
+            .filter_map(|&begin| grammar.patterns.get(begin))
+        {
+            if Sketch::for_grammar(pattern.source).is_err() {
+                continue;
+            }
+            for kind in [LineKind::Lean, LineKind::Full] {
+                if let Err(error) = Regex::for_grammar(pattern.source, kind) {
+                    failures.push(format!(
+                        "{language} {kind:?} {:?}: {error:?}",
+                        pattern.source
+                    ));
+                }
+            }
+        }
+    }
+    assert!(failures.is_empty(), "{}", failures.join("\n"));
 }

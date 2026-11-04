@@ -18,6 +18,7 @@ fn err<T>(message: impl Into<String>) -> Result<T> {
 }
 
 /// A parsed pattern.
+#[derive(Debug)]
 pub(super) struct Parsed {
     pub(super) root: Node,
     /// How many capture groups the pattern has.
