@@ -1,7 +1,9 @@
 //! For each rule, the patterns that can match at a byte, in the order the
 //! grammar tries them, so the engine tries only those where a byte stands.
 
-use super::{Act, Lexer, RuleData, Tabled};
+use std::collections::HashMap;
+
+use super::{Act, Lexer, RuleData, Start, Tabled};
 use crate::language::Halt;
 
 /// Where a position lies, for the patterns that need a word boundary or the
@@ -35,45 +37,45 @@ pub(crate) struct Tables<G: Tabled> {
     all: Box<[G::Pat]>,
     /// The candidates for each byte, away from the start of the line (the
     /// first 256), at it (the next 256) and inside a word (the last 256).
-    by_byte: Box<[Box<[G::Pat]>]>,
+    /// Bytes with the same candidates share one list.
+    by_byte: Box<[&'static [G::Pat]]>,
 }
 
 impl<G: Tabled> Tables<G> {
     /// The tables of the rule whose data is `data`.
+    ///
+    /// Each pattern's start is read once, and each distinct list of
+    /// candidates is stored once, in one allocation that lives as long as
+    /// the program: the tables are built into statics that are never
+    /// dropped, so it is leaked rather than owned.
     pub(crate) fn build(data: RuleData<G>) -> Self {
         let all: Vec<G::Pat> = data
             .end
             .into_iter()
             .chain(data.patterns.iter().copied())
             .collect();
-        let mut by_byte = Vec::with_capacity(768);
-        for place in [Place::Away, Place::LineStart, Place::InWord] {
-            for byte in 0..=255_u8 {
-                let list: Vec<G::Pat> = all
-                    .iter()
-                    .copied()
-                    .filter(|&pat| {
-                        let start = G::pat_start(pat);
-                        (place == Place::LineStart || !start.bol)
-                            && (place != Place::InWord || !start.wb)
-                            && start.bytes[usize::from(byte >> 6)] >> (byte & 63) & 1 == 1
-                    })
-                    .collect();
-                by_byte.push(list.into_boxed_slice());
-            }
-        }
+        let starts: Vec<Start> = all.iter().map(|&pat| G::pat_start(pat)).collect();
+        let (picks, spans) = candidate_lists(&starts);
+        let lists: Vec<G::Pat> = picks
+            .iter()
+            .filter_map(|&index| all.get(index).copied())
+            .collect();
+        let lists: &'static [G::Pat] = Box::leak(lists.into_boxed_slice());
         Tables {
             all: all
                 .into_iter()
                 .filter(|&pat| G::pat_next(pat).is_none())
                 .collect(),
-            by_byte: by_byte.into_boxed_slice(),
+            by_byte: spans
+                .into_iter()
+                .map(|(start, len)| lists.get(start..start + len).unwrap_or_default())
+                .collect(),
         }
     }
 
     /// The patterns that can match at a position where byte `byte` stands.
     pub(crate) fn candidates(&self, place: Place, byte: u8) -> &[G::Pat] {
-        &self.by_byte[place.index() * 256 + usize::from(byte)]
+        self.by_byte[place.index() * 256 + usize::from(byte)]
     }
 
     /// The patterns that can match where no byte stands, the end pattern
@@ -81,6 +83,43 @@ impl<G: Tabled> Tables<G> {
     pub(crate) fn all(&self) -> &[G::Pat] {
         &self.all
     }
+}
+
+/// For patterns with the starts `starts`, the positions of the candidates
+/// of every place and byte, each distinct list once, and where each place
+/// and byte's list lies among them. It works on positions, so it is built
+/// once for every grammar.
+fn candidate_lists(starts: &[Start]) -> (Vec<usize>, Vec<(usize, usize)>) {
+    let mut lists = Vec::new();
+    let mut seen: HashMap<Vec<usize>, (usize, usize)> = HashMap::new();
+    let mut spans = Vec::with_capacity(768);
+    let mut picks = Vec::new();
+    for place in [Place::Away, Place::LineStart, Place::InWord] {
+        for byte in 0..=255_u8 {
+            picks.clear();
+            picks.extend(
+                starts
+                    .iter()
+                    .enumerate()
+                    .filter(|(_, start)| {
+                        (place == Place::LineStart || !start.bol)
+                            && (place != Place::InWord || !start.wb)
+                            && start.bytes[usize::from(byte >> 6)] >> (byte & 63) & 1 == 1
+                    })
+                    .map(|(index, _)| index),
+            );
+            let span = if let Some(&span) = seen.get(&picks) {
+                span
+            } else {
+                let span = (lists.len(), picks.len());
+                lists.extend_from_slice(&picks);
+                seen.insert(picks.clone(), span);
+                span
+            };
+            spans.push(span);
+        }
+    }
+    (lists, spans)
 }
 
 /// The first pattern of the innermost rule that matches at or after the
