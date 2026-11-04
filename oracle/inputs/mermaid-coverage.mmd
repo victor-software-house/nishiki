@@ -1,0 +1,342 @@
+architecture-beta
+  %% services and groups
+  group api(cloud)[API]
+  service db(database)[Database] in api
+  service s3(logos:aws)[S3]
+  service disk1(disk)[Storage] in api
+  db:L -- R:server
+  disk1{group}:T <--> B:db{group}
+  junction junctionCenter in api
+```
+C4Component
+  %% a comment
+  title The system
+  Person(a), "A", "a person")
+  Person_Ext
+  System(s), "S", "a system")
+  System_Ext
+  Rel(a, s, "Uses", "HTTPS")
+  Rel
+  BiRel( a ), s, "x", "y")
+  Boundary(b, "B", "t", "u")
+  Enterprise_Boundary(e), "E")
+  System_Boundary
+  Container_Boundary(cb, "B", "t", "u")
+  Container(w), "W", "Rust", "Serves")
+  ContainerDb
+  Component(c), "C", "Rust")
+  Component
+  RelIndex(1), a, b, "Calls", "HTTP")
+  RelIndex
+  LAYOUT_TOP_DOWN()
+  UpdateElementStyle(a)
+  UpdateRelStyle(a)
+  AddPersonTag("v1")
+  Deployment_Node(dn)
+```
+C4Container
+  %% a comment
+  title The system
+  Person(a), "A", "a person")
+  Person_Ext
+  System(s), "S", "a system")
+  System_Ext
+  Rel(a, s, "Uses", "HTTPS")
+  Rel
+  BiRel( a ), s, "x", "y")
+  Boundary(b, "B", "t", "u")
+  Enterprise_Boundary(e), "E")
+  System_Boundary
+  Container_Boundary(cb, "B", "t", "u")
+  Container(w), "W", "Rust", "Serves")
+  ContainerDb
+  Component(c), "C", "Rust")
+  Component
+  RelIndex(1), a, b, "Calls", "HTTP")
+  RelIndex
+  LAYOUT_TOP_DOWN()
+  UpdateElementStyle(a)
+  UpdateRelStyle(a)
+  AddPersonTag("v1")
+  Deployment_Node(dn)
+```
+C4Deployment
+  %% a comment
+  title The system
+  Person(a), "A", "a person")
+  Person_Ext
+  System(s), "S", "a system")
+  System_Ext
+  Rel(a, s, "Uses", "HTTPS")
+  Rel
+  BiRel( a ), s, "x", "y")
+  Boundary(b, "B", "t", "u")
+  Enterprise_Boundary(e), "E")
+  System_Boundary
+  Container_Boundary(cb, "B", "t", "u")
+  Container(w), "W", "Rust", "Serves")
+  ContainerDb
+  Component(c), "C", "Rust")
+  Component
+  RelIndex(1), a, b, "Calls", "HTTP")
+  RelIndex
+  LAYOUT_TOP_DOWN()
+  UpdateElementStyle(a)
+  UpdateRelStyle(a)
+  AddPersonTag("v1")
+  Deployment_Node(dn)
+```
+C4Dynamic
+  %% a comment
+  title The system
+  Person(a), "A", "a person")
+  Person_Ext
+  System(s), "S", "a system")
+  System_Ext
+  Rel(a, s, "Uses", "HTTPS")
+  Rel
+  BiRel( a ), s, "x", "y")
+  Boundary(b, "B", "t", "u")
+  Enterprise_Boundary(e), "E")
+  System_Boundary
+  Container_Boundary(cb, "B", "t", "u")
+  Container(w), "W", "Rust", "Serves")
+  ContainerDb
+  Component(c), "C", "Rust")
+  Component
+  RelIndex(1), a, b, "Calls", "HTTP")
+  RelIndex
+  LAYOUT_TOP_DOWN()
+  UpdateElementStyle(a)
+  UpdateRelStyle(a)
+  AddPersonTag("v1")
+  Deployment_Node(dn)
+```
+classDiagram
+  %% a class diagram
+  note for Duck "can fly"
+  note for `Odd name` "quoted"
+  namespace Animals {
+    %% inside a namespace
+    class Fish~T~ {
+      %% inside a class
+      +int size
+      +swim(List~int~ x, int y)$ List~int~
+      -List~int~ items
+      map~string,int~
+      <<interface>> Fish
+    }
+    class `Odd fish` {
+    }
+  }
+  class `Odd name`
+  class Duck~T~ {
+    <<interface>>
+    +String beakColor
+    -List~int~ items
+    +swim(int x, List~T~ y) bool
+    +quack()$
+    map~string,int~
+    int[] counts
+  }
+  class Bare~K~
+  class `Quoted` {
+    %% a comment
+    +get() List~int~
+    <<service>> Quoted
+  }
+  <<abstract>> `Odd name`
+  <<abstract>> Animal
+  Animal <|-- Duck
+  Animal "1" --o "*" Fish : owns
+  `Odd name` ..> Duck
+  Duck ..> `Odd name`
+  `Odd name` : +run(List~int~ x)$ Map~K~
+  `Odd name` : +List~int~ items
+  Animal : +isMammal() bool
+  Animal : +int age
+```
+erDiagram
+  %% entities
+  CUSTOMER
+  CUSTOMER[Customer]
+  ORDER["Order line"] {
+    string name PK, FK "the name"
+    int id UK
+    %% a comment
+  }
+  CUSTOMER ||--o{ ORDER : places
+  ORDER }|..|{ LINE : "contains"
+  A one or more--zero or many B : x
+  A only one--many(1) B : y
+  A1+--0+ B : z
+```
+gantt
+  %% a gantt chart
+  dateFormat YYYY-MM-DD
+  axisFormat %Y/%m
+  tickInterval 1week
+  title A Gantt chart
+  excludes weekends, 2014-01-10
+   todayMarker stroke-width:5px
+  section Section one
+  Task one :crit, done, a1, 2014-01-01, 30d
+  Task two :active, after a1, 20d
+  Task three :a3, 1d %% note
+```
+gitGraph
+  %% a git graph
+  commit
+  commit id: "a1" type: HIGHLIGHT tag: "v1.0"
+  branch develop order: 2
+  checkout develop
+  merge main tag: "m1"
+  cherry-pick id: "a1"
+```
+graph TD
+  %% a flowchart
+  subgraph one[A title]
+  subgraph Two words
+  direction LR
+  A[Start] -->|yes| B(Round)
+  B -- some text --> C{Rhombus}
+  C == bold ==> D((Circle))
+  D -.-> E>Flag]
+  E --- F[[Sub]]
+  F --o G[(Db)]
+  G --x H([Stadium])
+  H <--> I{{Hex}}
+  I -. dotted .- J["quoted text"]
+  J -->|"quoted label"| K
+  K@{ shape: rect, label: "Box" }
+  L@{ label: "Lbl", shape: rect }
+  M["a quoted text
+  over two lines"]
+  M -->|"a quoted label
+  over two lines"| N
+  click A callback "tip"
+  click B "https://example.com"
+  class A,B fancy
+  classDef fancy fill:#f9f,stroke:#333
+  end
+```
+mindmap
+  %% a mind map
+  root((center))
+    A[Square]
+      ::icon(fa fa-book)
+    B)Cloud(
+      :::urgent large
+    C{{Hex}}
+    D
+```
+pie title Pets
+  %% a pie
+  title Pets adopted
+  "Dogs" : 386
+  "Cats" : 85
+  "Birds" : 5 %% few
+```
+quadrantChart
+  %% a quadrant chart
+  title Reach and engagement
+  x-axis Low Reach --> High Reach
+  y-axis Low --> High
+  quadrant-1 We should expand
+  Campaign A: [0.3, 0.6]
+```
+requirementDiagram
+  %% requirements
+  requirement test_req {
+    id: 1
+    text: the test text.
+    risk: high
+    verifymethod: test
+  }
+  functionalRequirement f_req {
+  }
+  element test_entity {
+    type: simulation
+    docref: reqs/test_entity
+  }
+  test_entity - satisfies -> test_req
+  test_req <- copies - test_entity
+```
+sequenceDiagram
+  %% a sequence
+  # a hash comment
+  title: Greetings
+  participant Alice
+  actor B as Bob
+  activate Alice
+  deactivate Alice
+  Note right of Bob: thinks
+  Note over Alice,Bob: both
+  loop Every minute
+  end
+  alt is sick
+  else is well
+  opt extra
+  par one
+  and two
+  rect rgb(0, 0, 0)
+  critical step
+  autonumber
+  Alice->>Bob: Hello
+  Bob-->>Alice: Hi back
+  Alice-xBob: lost
+  Alice-)Bob: async
+  Alice->>+Bob: activate
+  box transparent Aqua
+  box Purple group
+```
+stateDiagram-v2
+  %% states
+  direction LR
+  [*] --> Still
+  [*] --> Moving : start
+  Still --> [*]
+  Still-->Moving : go
+  Moving --> Crash
+  state "Long name" as L {
+  state Composite {
+  }
+  state fork_state <<fork>>
+  state join_state <<join>>
+  Lone
+  S1 : description
+  Crash --> [*] : end
+  note right of Still : a note
+  note left of Moving
+  a multi-line note
+  end note
+  --
+```
+journey
+  %% a journey
+  title My working day
+  section Go to work
+  Make tea: 5: Me, Cat
+  Do work: 1: Me
+```
+xychart-beta horizontal
+  %% a chart
+  title "Sales Revenue"
+  x-axis [jan, feb, "mar", 4]
+  x-axis "Months" 1 --> 12
+  y-axis "Revenue" 4000 --> 11000
+  y-axis Revenue
+  x-axis Months
+  line [5000, 6000, 7500]
+  bar [5000, 6000]
+```
+```mermaid
+graph TD
+  A-->B
+```
+```{.mermaid foo}
+sequenceDiagram
+```
+::: mermaid
+graph LR
+:::

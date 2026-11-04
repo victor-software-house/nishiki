@@ -108,6 +108,9 @@ tags! {
     /// Markdown.
     #[cfg(feature = "lang-markdown")]
     MARKDOWN = 0x0200,
+    /// Mermaid.
+    #[cfg(feature = "lang-mermaid")]
+    MERMAID = 0x3d00,
     /// Nix.
     #[cfg(feature = "lang-nix")]
     NIX = 0x3700,

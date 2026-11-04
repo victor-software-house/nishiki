@@ -1,0 +1,2087 @@
+L architecture-beta
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% services and groups
+T 2 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock comment
+L   group api(cloud)[API]
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 17 markdown.mermaid.codeblock string
+T 18 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 19 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 22 markdown.mermaid.codeblock string
+T 23 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+L   service db(database)[Database] in api
+T 2 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 21 markdown.mermaid.codeblock string
+T 22 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 23 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 31 markdown.mermaid.codeblock string
+T 32 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 33 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock keyword.control.mermaid
+T 36 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock variable
+L   service s3(logos:aws)[S3]
+T 2 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 18 markdown.mermaid.codeblock string
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock string
+T 23 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 24 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 26 markdown.mermaid.codeblock string
+T 27 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+L   service disk1(disk)[Storage] in api
+T 2 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 20 markdown.mermaid.codeblock string
+T 21 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 22 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 29 markdown.mermaid.codeblock string
+T 30 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 31 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock variable
+L   db:L -- R:server
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock variable
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock entity.name.function.mermaid
+T 7 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock entity.name.function.mermaid
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock variable
+L   disk1{group}:T <--> B:db{group}
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 8 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock entity.name.function.mermaid
+T 17 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock entity.name.function.mermaid
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock variable
+T 27 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 32 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+L   junction junctionCenter in api
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+L ```
+T 3 markdown.mermaid.codeblock
+L C4Component
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% a comment
+T 2 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock comment
+L   title The system
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock string
+L   Person(a), "A", "a person")
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 13 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 16 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 18 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 28 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 29 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   Person_Ext
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L   System(s), "S", "a system")
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 13 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 16 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 18 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 28 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 29 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   System_Ext
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L   Rel(a, s, "Uses", "HTTPS")
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock punctuation.section.group.begin.mermaid
+T 7 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 10 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 18 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 20 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 27 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 28 markdown.mermaid.codeblock punctuation.section.group.end.mermaid
+L   Rel
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+L   BiRel( a ), s, "x", "y")
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock punctuation.section.group.begin.mermaid
+T 9 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock punctuation.section.group.end.mermaid
+T 14 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 15 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 20 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 22 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 25 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 26 markdown.mermaid.codeblock punctuation.section.group.end.mermaid
+L   Boundary(b, "B", "t", "u")
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 12 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 17 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 19 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 22 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 24 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 27 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 28 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   Enterprise_Boundary(e), "E")
+T 2 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 26 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 29 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 30 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   System_Boundary
+T 2 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+L   Container_Boundary(cb, "B", "t", "u")
+T 39 markdown.mermaid.codeblock
+L   Container(w), "W", "Rust", "Serves")
+T 38 markdown.mermaid.codeblock
+L   ContainerDb
+T 13 markdown.mermaid.codeblock
+L   Component(c), "C", "Rust")
+T 2 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 16 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 19 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 21 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 27 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 28 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   Component
+T 2 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+L   RelIndex(1), a, b, "Calls", "HTTP")
+T 37 markdown.mermaid.codeblock
+L   RelIndex
+T 10 markdown.mermaid.codeblock
+L   LAYOUT_TOP_DOWN()
+T 2 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+L   UpdateElementStyle(a)
+T 2 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+L   UpdateRelStyle(a)
+T 2 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+L   AddPersonTag("v1")
+T 2 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+L   Deployment_Node(dn)
+T 2 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+L ```
+T 3 markdown.mermaid.codeblock
+L C4Container
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% a comment
+T 2 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock comment
+L   title The system
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock string
+L   Person(a), "A", "a person")
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 13 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 16 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 18 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 28 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 29 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   Person_Ext
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L   System(s), "S", "a system")
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 13 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 16 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 18 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 28 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 29 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   System_Ext
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L   Rel(a, s, "Uses", "HTTPS")
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock punctuation.section.group.begin.mermaid
+T 7 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 10 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 18 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 20 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 27 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 28 markdown.mermaid.codeblock punctuation.section.group.end.mermaid
+L   Rel
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+L   BiRel( a ), s, "x", "y")
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock punctuation.section.group.begin.mermaid
+T 9 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock punctuation.section.group.end.mermaid
+T 14 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 15 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 20 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 22 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 25 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 26 markdown.mermaid.codeblock punctuation.section.group.end.mermaid
+L   Boundary(b, "B", "t", "u")
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 12 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 17 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 19 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 22 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 24 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 27 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 28 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   Enterprise_Boundary(e), "E")
+T 2 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 26 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 29 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 30 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   System_Boundary
+T 2 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+L   Container_Boundary(cb, "B", "t", "u")
+T 2 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 28 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 30 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 33 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 35 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 38 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 39 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   Container(w), "W", "Rust", "Serves")
+T 2 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 16 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 19 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 21 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 27 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 29 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 37 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 38 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   ContainerDb
+T 2 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+L   Component(c), "C", "Rust")
+T 28 markdown.mermaid.codeblock
+L   Component
+T 11 markdown.mermaid.codeblock
+L   RelIndex(1), a, b, "Calls", "HTTP")
+T 37 markdown.mermaid.codeblock
+L   RelIndex
+T 10 markdown.mermaid.codeblock
+L   LAYOUT_TOP_DOWN()
+T 2 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+L   UpdateElementStyle(a)
+T 2 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+L   UpdateRelStyle(a)
+T 2 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+L   AddPersonTag("v1")
+T 20 markdown.mermaid.codeblock
+L   Deployment_Node(dn)
+T 2 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+L ```
+T 3 markdown.mermaid.codeblock
+L C4Deployment
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% a comment
+T 2 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock comment
+L   title The system
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock string
+L   Person(a), "A", "a person")
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 13 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 16 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 18 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 28 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 29 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   Person_Ext
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L   System(s), "S", "a system")
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 13 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 16 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 18 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 28 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 29 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   System_Ext
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L   Rel(a, s, "Uses", "HTTPS")
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock punctuation.section.group.begin.mermaid
+T 7 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 10 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 18 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 20 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 27 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 28 markdown.mermaid.codeblock punctuation.section.group.end.mermaid
+L   Rel
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+L   BiRel( a ), s, "x", "y")
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock punctuation.section.group.begin.mermaid
+T 9 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock punctuation.section.group.end.mermaid
+T 14 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 15 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 20 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 22 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 25 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 26 markdown.mermaid.codeblock punctuation.section.group.end.mermaid
+L   Boundary(b, "B", "t", "u")
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 12 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 17 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 19 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 22 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 24 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 27 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 28 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   Enterprise_Boundary(e), "E")
+T 2 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 26 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 29 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 30 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   System_Boundary
+T 2 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+L   Container_Boundary(cb, "B", "t", "u")
+T 39 markdown.mermaid.codeblock
+L   Container(w), "W", "Rust", "Serves")
+T 38 markdown.mermaid.codeblock
+L   ContainerDb
+T 13 markdown.mermaid.codeblock
+L   Component(c), "C", "Rust")
+T 28 markdown.mermaid.codeblock
+L   Component
+T 11 markdown.mermaid.codeblock
+L   RelIndex(1), a, b, "Calls", "HTTP")
+T 37 markdown.mermaid.codeblock
+L   RelIndex
+T 10 markdown.mermaid.codeblock
+L   LAYOUT_TOP_DOWN()
+T 2 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+L   UpdateElementStyle(a)
+T 2 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+L   UpdateRelStyle(a)
+T 2 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+L   AddPersonTag("v1")
+T 2 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+L   Deployment_Node(dn)
+T 21 markdown.mermaid.codeblock
+L ```
+T 3 markdown.mermaid.codeblock
+L C4Dynamic
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% a comment
+T 2 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock comment
+L   title The system
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock string
+L   Person(a), "A", "a person")
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 13 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 16 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 18 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 28 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 29 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   Person_Ext
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L   System(s), "S", "a system")
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 13 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 16 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 18 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 28 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 29 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   System_Ext
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L   Rel(a, s, "Uses", "HTTPS")
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock punctuation.section.group.begin.mermaid
+T 7 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 10 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 18 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 20 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 27 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 28 markdown.mermaid.codeblock punctuation.section.group.end.mermaid
+L   Rel
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+L   BiRel( a ), s, "x", "y")
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock punctuation.section.group.begin.mermaid
+T 9 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock punctuation.section.group.end.mermaid
+T 14 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 15 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 20 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 22 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 25 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 26 markdown.mermaid.codeblock punctuation.section.group.end.mermaid
+L   Boundary(b, "B", "t", "u")
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 12 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 17 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 19 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 22 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 24 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 27 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 28 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   Enterprise_Boundary(e), "E")
+T 2 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 26 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 29 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 30 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   System_Boundary
+T 2 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+L   Container_Boundary(cb, "B", "t", "u")
+T 39 markdown.mermaid.codeblock
+L   Container(w), "W", "Rust", "Serves")
+T 38 markdown.mermaid.codeblock
+L   ContainerDb
+T 13 markdown.mermaid.codeblock
+L   Component(c), "C", "Rust")
+T 28 markdown.mermaid.codeblock
+L   Component
+T 11 markdown.mermaid.codeblock
+L   RelIndex(1), a, b, "Calls", "HTTP")
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 12 markdown.mermaid.codeblock constant.numeric.mermaid
+T 13 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+T 15 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 16 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 28 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 30 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 36 markdown.mermaid.codeblock string.quoted.double.mermaid
+T 37 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L   RelIndex
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+L   LAYOUT_TOP_DOWN()
+T 2 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+L   UpdateElementStyle(a)
+T 2 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+L   UpdateRelStyle(a)
+T 2 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+L   AddPersonTag("v1")
+T 2 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+L   Deployment_Node(dn)
+T 21 markdown.mermaid.codeblock
+L ```
+T 3 markdown.mermaid.codeblock
+L classDiagram
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% a class diagram
+T 2 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock comment
+L   note for Duck "can fly"
+T 2 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock keyword.control.mermaid
+T 7 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 16 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock string.quoted.double.mermaid
+L   note for `Odd name` "quoted"
+T 2 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock keyword.control.mermaid
+T 7 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock punctuation.definition.string.begin.mermaid
+T 20 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 21 markdown.mermaid.codeblock punctuation.definition.string.end.mermaid
+T 22 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock string.quoted.double.mermaid
+L   namespace Animals {
+T 2 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable.other.namespace.mermaid
+T 20 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+L     %% inside a namespace
+T 4 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock comment
+L     class Fish~T~ {
+T 4 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 15 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 16 markdown.mermaid.codeblock storage.type.mermaid
+T 17 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 18 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+L       %% inside a class
+T 6 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock comment
+L       +int size
+T 5 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock storage.type.mermaid
+T 11 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock entity.name.variable.field.mermaid
+L       +swim(List~int~ x, int y)$ List~int~
+T 5 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock entity.name.function.mermaid
+T 12 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 16 markdown.mermaid.codeblock storage.type.mermaid
+T 17 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 20 markdown.mermaid.codeblock storage.type.mermaid
+T 21 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 22 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock entity.name.variable.parameter.mermaid
+T 25 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock storage.type.mermaid
+T 29 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock entity.name.variable.parameter.mermaid
+T 31 markdown.mermaid.codeblock punctuation.parenthesis.closed.mermaid
+T 32 markdown.mermaid.codeblock keyword.control.mermaid
+T 33 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock storage.type.mermaid
+T 38 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 41 markdown.mermaid.codeblock storage.type.mermaid
+T 42 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+L       -List~int~ items
+T 5 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock storage.type.mermaid
+T 12 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 15 markdown.mermaid.codeblock storage.type.mermaid
+T 16 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 17 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock entity.name.variable.field.mermaid
+L       map~string,int~
+T 6 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.map.mermaid
+T 10 markdown.mermaid.codeblock punctuation.definition.generic.begin.mermaid
+T 16 markdown.mermaid.codeblock support.type.primitive.mermaid
+T 17 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 20 markdown.mermaid.codeblock support.type.primitive.mermaid
+T 21 markdown.mermaid.codeblock punctuation.definition.generic.end.mermaid
+L       <<interface>> Fish
+T 6 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock punctuation.definition.stereotype.begin.mermaid
+T 17 markdown.mermaid.codeblock entity.name.tag.stereotype.mermaid
+T 19 markdown.mermaid.codeblock punctuation.definition.stereotype.end.mermaid
+T 20 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock entity.name.type.class.mermaid
+L     }
+T 4 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+L     class `Odd fish` {
+T 4 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock punctuation.definition.string.begin.mermaid
+T 19 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 20 markdown.mermaid.codeblock punctuation.definition.string.end.mermaid
+T 21 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+L     }
+T 4 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+L   }
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock keyword.control.mermaid
+L   class `Odd name`
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock punctuation.definition.string.begin.mermaid
+T 17 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 18 markdown.mermaid.codeblock punctuation.definition.string.end.mermaid
+L   class Duck~T~ {
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 13 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 14 markdown.mermaid.codeblock storage.type.mermaid
+T 15 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 16 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+L     <<interface>>
+T 4 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock punctuation.definition.stereotype.begin.mermaid
+T 15 markdown.mermaid.codeblock entity.name.tag.stereotype.mermaid
+T 17 markdown.mermaid.codeblock punctuation.definition.stereotype.end.mermaid
+L     +String beakColor
+T 3 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock storage.type.mermaid
+T 12 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock entity.name.variable.field.mermaid
+L     -List~int~ items
+T 3 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock storage.type.mermaid
+T 10 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 13 markdown.mermaid.codeblock storage.type.mermaid
+T 14 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 15 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock entity.name.variable.field.mermaid
+L     +swim(int x, List~T~ y) bool
+T 3 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock entity.name.function.mermaid
+T 10 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 13 markdown.mermaid.codeblock storage.type.mermaid
+T 14 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock entity.name.variable.parameter.mermaid
+T 17 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock storage.type.mermaid
+T 22 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 23 markdown.mermaid.codeblock storage.type.mermaid
+T 24 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 25 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock entity.name.variable.parameter.mermaid
+T 27 markdown.mermaid.codeblock punctuation.parenthesis.closed.mermaid
+T 28 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock storage.type.mermaid
+L     +quack()$
+T 3 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock entity.name.function.mermaid
+T 11 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 12 markdown.mermaid.codeblock punctuation.parenthesis.closed.mermaid
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+L     map~string,int~
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.map.mermaid
+T 8 markdown.mermaid.codeblock punctuation.definition.generic.begin.mermaid
+T 14 markdown.mermaid.codeblock support.type.primitive.mermaid
+T 15 markdown.mermaid.codeblock punctuation.separator.comma.mermaid
+T 18 markdown.mermaid.codeblock support.type.primitive.mermaid
+T 19 markdown.mermaid.codeblock punctuation.definition.generic.end.mermaid
+L     int[] counts
+T 4 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock storage.type.mermaid
+T 10 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock entity.name.variable.field.mermaid
+L   }
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock keyword.control.mermaid
+L   class Bare~K~
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 13 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 14 markdown.mermaid.codeblock storage.type.mermaid
+T 15 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+L   class `Quoted` {
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock punctuation.definition.string.begin.mermaid
+T 15 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 16 markdown.mermaid.codeblock punctuation.definition.string.end.mermaid
+T 17 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+L     %% a comment
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock comment
+L     +get() List~int~
+T 3 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock entity.name.function.mermaid
+T 9 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 10 markdown.mermaid.codeblock punctuation.parenthesis.closed.mermaid
+T 11 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock storage.type.mermaid
+T 16 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 19 markdown.mermaid.codeblock storage.type.mermaid
+T 20 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+L     <<service>> Quoted
+T 4 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock punctuation.definition.stereotype.begin.mermaid
+T 13 markdown.mermaid.codeblock entity.name.tag.stereotype.mermaid
+T 15 markdown.mermaid.codeblock punctuation.definition.stereotype.end.mermaid
+T 16 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock entity.name.type.class.mermaid
+L   }
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock keyword.control.mermaid
+L   <<abstract>> `Odd name`
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock punctuation.definition.stereotype.begin.mermaid
+T 12 markdown.mermaid.codeblock entity.name.tag.stereotype.mermaid
+T 14 markdown.mermaid.codeblock punctuation.definition.stereotype.end.mermaid
+T 15 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock punctuation.definition.string.begin.mermaid
+T 24 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 25 markdown.mermaid.codeblock punctuation.definition.string.end.mermaid
+L   <<abstract>> Animal
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock punctuation.definition.stereotype.begin.mermaid
+T 12 markdown.mermaid.codeblock entity.name.tag.stereotype.mermaid
+T 14 markdown.mermaid.codeblock punctuation.definition.stereotype.end.mermaid
+T 15 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock entity.name.type.class.mermaid
+L   Animal <|-- Duck
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 9 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock entity.name.type.class.mermaid
+L   Animal "1" --o "*" Fish : owns
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 9 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 26 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock string
+L   `Odd name` ..> Duck
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock punctuation.definition.string.begin.mermaid
+T 11 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 12 markdown.mermaid.codeblock punctuation.definition.string.end.mermaid
+T 13 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock entity.name.type.class.mermaid
+L   Duck ..> `Odd name`
+T 2 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 7 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock punctuation.definition.string.begin.mermaid
+T 20 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 21 markdown.mermaid.codeblock punctuation.definition.string.end.mermaid
+L   `Odd name` : +run(List~int~ x)$ Map~K~
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock punctuation.definition.string.begin.mermaid
+T 11 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 12 markdown.mermaid.codeblock punctuation.definition.string.end.mermaid
+T 13 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock entity.name.function.mermaid
+T 20 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 24 markdown.mermaid.codeblock storage.type.mermaid
+T 25 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 28 markdown.mermaid.codeblock storage.type.mermaid
+T 29 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 30 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock entity.name.variable.parameter.mermaid
+T 32 markdown.mermaid.codeblock punctuation.parenthesis.closed.mermaid
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock storage.type.mermaid
+T 38 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 39 markdown.mermaid.codeblock storage.type.mermaid
+T 40 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+L   `Odd name` : +List~int~ items
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock punctuation.definition.string.begin.mermaid
+T 11 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 12 markdown.mermaid.codeblock punctuation.definition.string.end.mermaid
+T 13 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock storage.type.mermaid
+T 21 markdown.mermaid.codeblock punctuation.definition.typeparameters.begin.mermaid
+T 24 markdown.mermaid.codeblock storage.type.mermaid
+T 25 markdown.mermaid.codeblock punctuation.definition.typeparameters.end.mermaid
+T 26 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock entity.name.variable.field.mermaid
+L   Animal : +isMammal() bool
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 9 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock entity.name.function.mermaid
+T 21 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 22 markdown.mermaid.codeblock punctuation.parenthesis.closed.mermaid
+T 23 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock storage.type.mermaid
+L   Animal : +int age
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock entity.name.type.class.mermaid
+T 9 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock storage.type.mermaid
+T 16 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock entity.name.variable.field.mermaid
+L ```
+T 3 markdown.mermaid.codeblock
+L erDiagram
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% entities
+T 2 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock comment
+L   CUSTOMER
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+L   CUSTOMER[Customer]
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock string
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+L   ORDER["Order line"] {
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock string
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+L     string name PK, FK "the name"
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock storage.type.mermaid
+T 11 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock string
+L     int id UK
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock storage.type.mermaid
+T 8 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+L     %% a comment
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock comment
+L   }
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock keyword.control.mermaid
+L   CUSTOMER ||--o{ ORDER : places
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock string
+L   ORDER }|..|{ LINE : "contains"
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 8 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock string
+L   A one or more--zero or many B : x
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock variable
+T 4 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock variable
+T 32 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L   A only one--many(1) B : y
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock variable
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock string
+L   A1+--0+ B : z
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock string
+L ```
+T 3 markdown.mermaid.codeblock
+L gantt
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% a gantt chart
+T 2 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock comment
+L   dateFormat YYYY-MM-DD
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock entity.name.function.mermaid
+L   axisFormat %Y/%m
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock entity.name.function.mermaid
+L   tickInterval 1week
+T 2 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock string
+L   title A Gantt chart
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock string
+L   excludes weekends, 2014-01-10
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock string
+L    todayMarker stroke-width:5px
+T 3 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock string
+L   section Section one
+T 2 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock string
+L   Task one :crit, done, a1, 2014-01-01, 30d
+T 1 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock string
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock entity.name.function.mermaid
+T 18 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock entity.name.function.mermaid
+T 43 markdown.mermaid.codeblock
+L   Task two :active, after a1, 20d
+T 1 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock string
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock entity.name.function.mermaid
+T 20 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock entity.name.function.mermaid
+T 33 markdown.mermaid.codeblock
+L   Task three :a3, 1d %% note
+T 1 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock string
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock comment
+L ```
+T 3 markdown.mermaid.codeblock
+L gitGraph
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% a git graph
+T 2 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock comment
+L   commit
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+L   commit id: "a1" type: HIGHLIGHT tag: "v1.0"
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock string
+T 18 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock entity.name.function.mermaid
+T 34 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock keyword.control.mermaid
+T 38 markdown.mermaid.codeblock keyword.control.mermaid
+T 39 markdown.mermaid.codeblock
+T 45 markdown.mermaid.codeblock string
+L   branch develop order: 2
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+L   checkout develop
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+L   merge main tag: "m1"
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock string
+L   cherry-pick id: "a1"
+T 2 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock string
+L ```
+T 3 markdown.mermaid.codeblock
+L graph TD
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock entity.name.function.mermaid
+L   %% a flowchart
+T 2 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock comment
+L   subgraph one[A title]
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock string
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+L   subgraph Two words
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock entity.name.function.mermaid
+L   direction LR
+T 2 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock entity.name.function.mermaid
+L   A[Start] -->|yes| B(Round)
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock variable
+T 4 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock string
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock string
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock string
+T 28 markdown.mermaid.codeblock keyword.control.mermaid
+L   B -- some text --> C{Rhombus}
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock variable
+T 6 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock string
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock string
+T 31 markdown.mermaid.codeblock keyword.control.mermaid
+L   C == bold ==> D((Circle))
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock variable
+T 6 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock string
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock string
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+L   D -.-> E>Flag]
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock variable
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock string
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+L   E --- F[[Sub]]
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock variable
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock string
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+L   F --o G[(Db)]
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock variable
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock string
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+L   G --x H([Stadium])
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock variable
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock string
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+L   H <--> I{{Hex}}
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock variable
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock string
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+L   I -. dotted .- J["quoted text"]
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock variable
+T 6 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock string
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock string
+T 31 markdown.mermaid.codeblock string
+T 32 markdown.mermaid.codeblock string
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+L   J -->|"quoted label"| K
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock variable
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock string
+T 21 markdown.mermaid.codeblock string
+T 22 markdown.mermaid.codeblock string
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock variable
+L   K@{ shape: rect, label: "Box" }
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock variable
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock entity.name.function.mermaid
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 32 markdown.mermaid.codeblock string
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+L   L@{ label: "Lbl", shape: rect }
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock variable
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock string
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 32 markdown.mermaid.codeblock entity.name.function.mermaid
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+L   M["a quoted text
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock variable
+T 4 markdown.mermaid.codeblock keyword.control.mermaid
+T 5 markdown.mermaid.codeblock string
+T 18 markdown.mermaid.codeblock string
+L   over two lines"]
+T 16 markdown.mermaid.codeblock string
+T 17 markdown.mermaid.codeblock string
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+L   M -->|"a quoted label
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock variable
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock string
+T 23 markdown.mermaid.codeblock string
+L   over two lines"| N
+T 16 markdown.mermaid.codeblock string
+T 17 markdown.mermaid.codeblock string
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+L   click A callback "tip"
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock string
+L   click B "https://example.com"
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock string
+L   class A,B fancy
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock string
+L   classDef fancy fill:#f9f,stroke:#333
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock string
+L   end
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+L ```
+T 3 markdown.mermaid.codeblock
+L mindmap
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% a mind map
+T 2 markdown.mermaid.codeblock string
+T 15 markdown.mermaid.codeblock comment
+L   root((center))
+T 6 markdown.mermaid.codeblock variable
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock string
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+L     A[Square]
+T 5 markdown.mermaid.codeblock variable
+T 6 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock string
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+L       ::icon(fa fa-book)
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock punctuation.parenthesis.open.mermaid
+T 23 markdown.mermaid.codeblock string
+T 24 markdown.mermaid.codeblock punctuation.parenthesis.close.mermaid
+L     B)Cloud(
+T 5 markdown.mermaid.codeblock variable
+T 6 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock string
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L       :::urgent large
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock string
+L     C{{Hex}}
+T 5 markdown.mermaid.codeblock variable
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock string
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L     D
+T 5 markdown.mermaid.codeblock string
+L ```
+T 3 markdown.mermaid.codeblock
+L pie title Pets
+T 3 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock
+L   %% a pie
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock comment
+L   title Pets adopted
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock string
+L   "Dogs" : 386
+T 1 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock string
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock
+L   "Cats" : 85
+T 1 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock string
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+L   "Birds" : 5 %% few
+T 1 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock string
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock comment
+L ```
+T 3 markdown.mermaid.codeblock
+L quadrantChart
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% a quadrant chart
+T 2 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock comment
+L   title Reach and engagement
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock string
+L   x-axis Low Reach --> High Reach
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock string
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock string
+L   y-axis Low --> High
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock string
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock string
+L   quadrant-1 We should expand
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock string
+L   Campaign A: [0.3, 0.6]
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock string
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+L ```
+T 3 markdown.mermaid.codeblock
+L requirementDiagram
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% requirements
+T 2 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock comment
+L   requirement test_req {
+T 2 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+L     id: 1
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock variable
+L     text: the test text.
+T 4 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock string
+L     risk: high
+T 4 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock entity.name.function.mermaid
+L     verifymethod: test
+T 4 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock entity.name.function.mermaid
+L   }
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock keyword.control.mermaid
+L   functionalRequirement f_req {
+T 2 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock variable
+T 31 markdown.mermaid.codeblock keyword.control.mermaid
+L   }
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock keyword.control.mermaid
+L   element test_entity {
+T 2 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+L     type: simulation
+T 4 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+L     docref: reqs/test_entity
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock variable
+L   }
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock keyword.control.mermaid
+L   test_entity - satisfies -> test_req
+T 2 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock variable
+L   test_req <- copies - test_entity
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock variable
+L ```
+T 3 markdown.mermaid.codeblock
+L sequenceDiagram
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% a sequence
+T 2 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock comment
+L   # a hash comment
+T 2 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock comment
+L   title: Greetings
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock string
+L   participant Alice
+T 2 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+L   actor B as Bob
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock string
+L   activate Alice
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+L   deactivate Alice
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+L   Note right of Bob: thinks
+T 2 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock keyword.control.mermaid
+T 7 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock entity.name.function.mermaid
+T 16 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock string
+L   Note over Alice,Bob: both
+T 2 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock keyword.control.mermaid
+T 7 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock entity.name.function.mermaid
+T 12 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock string
+L   loop Every minute
+T 2 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock keyword.control.mermaid
+T 7 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock string
+L   end
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+L   alt is sick
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock string
+L   else is well
+T 2 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock keyword.control.mermaid
+T 7 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock string
+L   opt extra
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock string
+L   par one
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock string
+L   and two
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock string
+L   rect rgb(0, 0, 0)
+T 2 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock keyword.control.mermaid
+T 7 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock string
+L   critical step
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock string
+L   autonumber
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L   Alice->>Bob: Hello
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock string
+L   Bob-->>Alice: Hi back
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock string
+L   Alice-xBob: lost
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock string
+L   Alice-)Bob: async
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock string
+L   Alice->>+Bob: activate
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock string
+L   box transparent Aqua
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock entity.name.function.mermaid
+T 18 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock string
+L   box Purple group
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock string
+L ```
+T 3 markdown.mermaid.codeblock
+L stateDiagram-v2
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% states
+T 2 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock comment
+L   direction LR
+T 2 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock entity.name.function.mermaid
+L   [*] --> Still
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+L   [*] --> Moving : start
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock string
+L   Still --> [*]
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+L   Still-->Moving : go
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock string
+L   Moving --> Crash
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+L   state "Long name" as L {
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock string
+T 20 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+L   state Composite {
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+L   }
+T 2 markdown.mermaid.codeblock
+T 3 markdown.mermaid.codeblock keyword.control.mermaid
+L   state fork_state <<fork>>
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+L   state join_state <<join>>
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+L   Lone
+T 6 markdown.mermaid.codeblock variable
+L   S1 : description
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock variable
+T 5 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock keyword.control.mermaid
+T 7 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock string
+L   Crash --> [*] : end
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock string
+L   note right of Still : a note
+T 2 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock string
+L   note left of Moving
+T 2 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+L   a multi-line note
+T 19 markdown.mermaid.codeblock string
+L   end note
+T 2 markdown.mermaid.codeblock string
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+L   --
+T 2 markdown.mermaid.codeblock
+T 4 markdown.mermaid.codeblock keyword.control.mermaid
+L ```
+T 3 markdown.mermaid.codeblock
+L journey
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% a journey
+T 2 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock comment
+L   title My working day
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock string
+L   section Go to work
+T 2 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock string
+L   Make tea: 5: Me, Cat
+T 2 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock string
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+L   Do work: 1: Me
+T 2 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock string
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+L ```
+T 3 markdown.mermaid.codeblock
+L xychart-beta horizontal
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+L   %% a chart
+T 2 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock comment
+L   title "Sales Revenue"
+T 2 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock string
+L   x-axis [jan, feb, "mar", 4]
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock string
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock string
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock string
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+L   x-axis "Months" 1 --> 12
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock string
+T 18 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+T 20 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+L   y-axis "Revenue" 4000 --> 11000
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock string
+T 19 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+T 24 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+L   y-axis Revenue
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock string
+L   x-axis Months
+T 2 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock string
+L   line [5000, 6000, 7500]
+T 2 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock keyword.control.mermaid
+T 7 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+L   bar [5000, 6000]
+T 2 markdown.mermaid.codeblock
+T 5 markdown.mermaid.codeblock keyword.control.mermaid
+T 6 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock constant.numeric.decimal.mermaid
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+L ```
+T 3 markdown.mermaid.codeblock
+L ```mermaid
+T 3 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock
+L graph TD
+T 5 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 6 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 8 markdown.mermaid.codeblock meta.embedded.block.mermaid entity.name.function.mermaid
+L   A-->B
+T 2 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 3 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 6 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 7 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+L ```
+T 3 markdown.mermaid.codeblock
+L ```{.mermaid foo}
+T 3 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock
+L sequenceDiagram
+T 15 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+L ```
+T 3 markdown.mermaid.codeblock
+L ::: mermaid
+T 11 markdown.mermaid.codeblock
+L graph LR
+T 5 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 6 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 8 markdown.mermaid.codeblock meta.embedded.block.mermaid entity.name.function.mermaid
+L :::
+T 3 markdown.mermaid.codeblock
+L 

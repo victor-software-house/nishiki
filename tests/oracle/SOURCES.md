@@ -436,6 +436,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `matlab/grammar-property-validation` | [`test/t08PropertyValidation.m`][matlab-grammar-property-validation] in mathworks/MATLAB-Language-grammar | [BSD-2-Clause][matlab-grammar-licence] |
 | `matlab/sample` | [`samples/matlab.sample`][matlab-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `mermaid/api-sequence` | [`docs/diagrams/mermaid-api-sequence.mmd`][mermaid-api-sequence] in mermaid-js/mermaid | [MIT][mermaid-licence] |
+| `mermaid/coverage` | `oracle/inputs/mermaid-coverage.mmd`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `mermaid/flowchart-code-flow` | [`docs/diagrams/flowchart-code-flow.mmd`][mermaid-flowchart-code-flow] in mermaid-js/mermaid | [MIT][mermaid-licence] |
 | `mermaid/mindmap-sequence` | [`docs/diagrams/mindmap-implementation-sequence.mmd`][mermaid-mindmap-sequence] in mermaid-js/mermaid | [MIT][mermaid-licence] |
 | `mermaid/sample` | [`samples/mermaid.sample`][mermaid-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
@@ -842,8 +843,7 @@ None of them has an `R` string macro, whose contents Shiki lexes as R and nishik
 `html/todomvc-polymer`, `html/h5bp-404`, `html/todomvc-lit`, `html/three-geometry-colors`, `html/mathjax-tex-mml`, `html/three-loader-gltf`, `html/bootstrap3-visual-modal`, `html/jquery-delegatetest`, `html/todomvc-knockoutjs` and `html/todomvc-jquery` are held out.
 The held-out ones cover `<style>` CSS, classic and module `<script>` JavaScript, a Polymer `<template>`, and character entities; the MathML of `html/mathjax-mml-chtml` is a development input.
 TodoMVC's `license.md` puts the repository under MIT unless a file says otherwise, and its Polymer example carries its own BSD-3-Clause `LICENSE`.
-Mermaid runs on nishiki's TextMate engine as well.
-`mermaid/sample` and `mermaid/flowchart-code-flow` are its development inputs, and `mermaid/api-sequence` and `mermaid/mindmap-sequence` are held out.
+`mermaid/sample`, `mermaid/flowchart-code-flow` and `mermaid/coverage` are its development inputs, and `mermaid/api-sequence` and `mermaid/mindmap-sequence` are held out.
 Shiki's Markdown grammar has no Mermaid fence, so no Markdown input embeds Mermaid.
 Haskell runs on nishiki's TextMate engine as well.
 `haskell/sample` and `haskell/aeson-github` are its development inputs, and `haskell/aeson-builder` and `haskell/aeson-decoding-text` are held out.

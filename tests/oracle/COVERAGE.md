@@ -42,6 +42,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
 | Markdown | `markdown` | 225 of 311 | 72.3% | 286 of 373 | 76.7% | 173 | 0 | yes |
 | Markdown | `markdown-vue` | 2 of 2 | 100.0% | 3 of 4 | 75.0% | 0 | 0 |  |
+| Mermaid | `mermaid` | 282 of 287 | 98.3% | 699 of 715 | 97.8% | 21 | 0 | yes |
 | Nix | `nix` | 155 of 157 | 98.7% | 47 of 49 | 95.9% | 4 | 0 | yes |
 | PostCSS | `postcss` | 53 of 53 | 100.0% | 2 of 4 | 50.0% | 2 | 0 | yes |
 | PowerShell | `powershell` | 96 of 96 | 100.0% | 130 of 136 | 95.6% | 6 | 0 | yes |
@@ -651,6 +652,19 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 
 ```text
 #vue-code-block.begin  groups 5
+```
+
+### `mermaid`
+
+```text
+#mermaid.patterns[1].patterns[9].match  (?i)^\s*((?:|Enterprise_|System_)Boundary)\b  waived: the boundary's long form, the pattern before it, makes every part after the word optional, so it matches wherever this one does
+#mermaid.patterns[1].patterns[15].match  (?i)^\s*(Component(?:|Db|Queue|_Ext|Db_Ext|Queue_Ext))\b(\(…  waived: it is the same expression as `patterns[14]`, the pattern before it, which matches first
+#mermaid.patterns[2].patterns[11].match  (?i)^\s*((?:|Enterprise_|System_|Container_)Boundary)\b  waived: the boundary's long form, the pattern before it, makes every part after the word optional, so it matches wherever this one does
+#mermaid.patterns[3].patterns[9].match  (?i)^\s*((?:|Enterprise_|System_)Boundary)\b  waived: the boundary's long form, the pattern before it, makes every part after the word optional, so it matches wherever this one does
+#mermaid.patterns[4].patterns[11].match  (?i)^\s*((?:|Enterprise_|System_)Boundary)\b  waived: the boundary's long form, the pattern before it, makes every part after the word optional, so it matches wherever this one does
+#mermaid.patterns[9].patterns[5].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#mermaid.patterns[9].patterns[5].patterns[0].patterns[0].patterns[0].match  groups 1 (waived: the rule's begin `([^"]*)` takes the text up to the quote, where its end `(?=")` holds, or the rest of the line; Shiki lexes the next line outside the rule, so this match only matches empty)
+#mermaid.patterns[9].patterns[6].patterns[0].patterns[0].patterns[0].match  groups 1 (waived: the rule's begin `([^"]*)` takes the text up to the quote, where its end `(?=")` holds, or the rest of the line; Shiki lexes the next line outside the rule, so this match only matches empty)
 ```
 
 ### `nix`

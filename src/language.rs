@@ -847,15 +847,14 @@ languages! {
     /// - In an attribute selector such as `[x="y"]`, the quotes of the value are a string and the text between them, `y`, is not.
     /// - A Markdown fence names the language `scss`.
     Scss { feature: "lang-scss", names: ["scss"], module: scss, halts: true }
-    /// Mermaid, with the scopes of Shiki's `mermaid` grammar, which nishiki's
-    /// `TextMate` engine runs.
-    Mermaid {
-        feature: "lang-mermaid",
-        names: ["mermaid", "mmd"],
-        engine: crate::mermaid::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-    }
+    /// Mermaid, with the scopes of Shiki's `mermaid` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A document is plain until a line starts a diagram, such as `graph TD` or `sequenceDiagram`, or opens a ```` ```mermaid ```` or `::: mermaid` block.
+    /// - A diagram runs to a line of three or more colons, backticks or tildes, and the next diagram needs such a line before it.
+    /// - Most keywords match without regard to case, and `ſ` and the Kelvin sign match `s` and `k`; the words that start a diagram match only as written.
+    Mermaid { feature: "lang-mermaid", names: ["mermaid", "mmd"], module: mermaid, reads_line_feed: true }
     /// Haskell, with the scopes of Shiki's `haskell` grammar, which nishiki's
     /// `TextMate` engine runs.
     Haskell {

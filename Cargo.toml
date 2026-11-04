@@ -56,6 +56,7 @@ all = [
   "lang-lua",
   "lang-make",
   "lang-markdown",
+  "lang-mermaid",
   "lang-nix",
   "lang-postcss",
   "lang-powershell",
@@ -124,7 +125,6 @@ textmate = [
   "lang-haml",
   "lang-haskell",
   "lang-matlab",
-  "lang-mermaid",
   "lang-objective-c",
   "lang-pascal",
   "lang-perl",
@@ -198,7 +198,7 @@ lang-make = [
 ]
 lang-markdown = ["_scope-table", "_classes", "_utf8"]
 lang-matlab = ["_textmate"]
-lang-mermaid = ["_textmate"]
+lang-mermaid = ["_scope-table", "_rule-tables", "_classes"]
 lang-nix = ["_scope-table", "_rule-tables", "_classes"]
 lang-objective-c = ["_textmate"]
 lang-pascal = ["_textmate"]

@@ -39,7 +39,8 @@ use std::fmt::Debug;
     feature = "lang-less",
     feature = "lang-postcss",
     feature = "lang-powershell",
-    feature = "lang-julia"
+    feature = "lang-julia",
+    feature = "lang-mermaid"
 ))]
 pub(crate) use chars::Chars;
 use lexer::FIRST_LINE;

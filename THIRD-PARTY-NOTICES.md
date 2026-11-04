@@ -1325,7 +1325,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 ## Mermaid
 
-Its TextMate engine runs the Mermaid TextMate grammar in [bpruitt-goddard/vscode-mermaid-syntax-highlight](https://github.com/bpruitt-goddard/vscode-mermaid-syntax-highlight), which Shiki bundles as `mermaid`, with its rules compiled into tables (`src/mermaid/grammar.rs`).
+Its Mermaid lexer emits the scope names of the Mermaid TextMate grammar in [bpruitt-goddard/vscode-mermaid-syntax-highlight](https://github.com/bpruitt-goddard/vscode-mermaid-syntax-highlight), which Shiki bundles as `mermaid`, and tries that grammar's rules in its order, from tables generated from it (`src/mermaid/grammar.rs`).
 That grammar is licensed under the MIT License:
 
 ```text

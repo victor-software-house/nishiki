@@ -120,6 +120,8 @@ tables! {
     MAKE = make;
     #[cfg(feature = "lang-markdown")]
     MARKDOWN = markdown;
+    #[cfg(feature = "lang-mermaid")]
+    MERMAID = mermaid;
     #[cfg(feature = "lang-nix")]
     NIX = nix;
     #[cfg(feature = "lang-postcss")]

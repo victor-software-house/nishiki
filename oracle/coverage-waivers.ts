@@ -1301,6 +1301,28 @@ export const waivers: Waiver[] = [
     }),
   ),
   { grammar: "bat", path: "#strings.patterns[0].end", group: 2, reason: lineFeed },
+  ...["#mermaid.patterns[1].patterns[9]", "#mermaid.patterns[2].patterns[11]", "#mermaid.patterns[3].patterns[9]", "#mermaid.patterns[4].patterns[11]"].map(
+    (rule): Waiver => ({
+      grammar: "mermaid",
+      path: `${rule}.match`,
+      reason: "the boundary's long form, the pattern before it, makes every part after the word optional, so it matches wherever this one does",
+    }),
+  ),
+  {
+    grammar: "mermaid",
+    path: "#mermaid.patterns[1].patterns[15].match",
+    reason: "it is the same expression as `patterns[14]`, the pattern before it, which matches first",
+  },
+  { grammar: "mermaid", path: "#mermaid.patterns[9].patterns[5].begin", group: 3, reason: missing(2) },
+  ...["#mermaid.patterns[9].patterns[5]", "#mermaid.patterns[9].patterns[6]"].map(
+    (rule): Waiver => ({
+      grammar: "mermaid",
+      path: `${rule}.patterns[0].patterns[0].patterns[0].match`,
+      group: 1,
+      reason:
+        "the rule's begin `([^\"]*)` takes the text up to the quote, where its end `(?=\")` holds, or the rest of the line; Shiki lexes the next line outside the rule, so this match only matches empty",
+    }),
+  ),
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -1332,6 +1354,7 @@ export const complete: string[] = [
   "lua",
   "make",
   "markdown",
+  "mermaid",
   "nix",
   "postcss",
   "powershell",

@@ -86,6 +86,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["(", ")", "[", "]", "{", "}", "<", ">", ",", ".", "...", "..<", "?", "!", "??", "?.", ":", ";", "=", "==", "+", "-", "*", "/", "&+", "->", "=>", "@", "#", "\\", "\"", "\"\"\"", "#\"", "\"#", "##\"", "\\(", "/*", "*/", "///", "//", "#/", "/#", "/a+/", "#/a|b/#", "(?i)", "|>"],
     heads: ["", "", " ", "    ", "// ", "} ", "case "],
   },
+  mermaid: {
+    words: ["A", "B", "Foo", "x", "id1", "a-b", "a.b", "end", "class", "classDef", "click", "callback", "subgraph", "direction", "TD", "LR", "participant", "actor", "as", "Note", "note", "left of", "right of", "over", "activate", "loop", "alt", "else", "opt", "option", "par", "box", "transparent", "state", "fork", "join", "<<fork>>", "<<interface>>", "namespace", "map", "int", "String", "List~int~", "title", "section", "dateFormat", "axisFormat", "excludes", "weekends", "todayMarker", "tickInterval", "1day", "crit", "done", "after", "commit", "id", "tag", "type", "NORMAL", "branch", "merge", "order", "checkout", "cherry-pick", "group", "service", "junction", "in", "requirement", "element", "risk", "low", "verifymethod", "test", "satisfies", "contains", "x-axis", "y-axis", "quadrant-1", "line", "bar", "::icon", "PK", "FK", "string", "1", "0.5", "386"],
+    marks: ["(", ")", "((", "))", "[", "]", "[[", "]]", "([", "])", "{", "}", "{{", "}}", ">", "<", "-->", "---", "-.->", "==>", "--o", "--x", "<--", "-- ", " --", "|", "|o", "||", "o{", "}|", "..", "..>", "<|--", "*--", "->>", "-->>", "-x", "-)", "+", "-", "#", "~", ":", ":::", ",", ";", "\"", "\"1\"", "\"*\"", "`", "@{", "%%", "[*]", "1+", "0+", "only one", "zero or more", "one or many"],
+    heads: ["", "", " ", "  ", "    ", "%% ", "graph TD", "flowchart LR", "classDiagram", "sequenceDiagram", "stateDiagram-v2", "erDiagram", "gantt", "gitGraph", "mindmap", "pie", "quadrantChart", "requirementDiagram", "journey", "xychart-beta", "architecture-beta", "C4Context", "C4Component", "```", "```mermaid", "::: mermaid", ":::"],
+  },
 };
 const pool = pools[lang!];
 if (!pool) throw new Error(`no fragment pool for ${lang}`);

@@ -69,6 +69,10 @@ pub(crate) struct Scratch {
     /// The Markdown lexer's.
     #[cfg(feature = "lang-markdown")]
     pub(crate) markdown: crate::markdown::Scratch,
+    /// The Mermaid lexer's, for Mermaid documents.
+    /// It is boxed and allocated by the first Mermaid line, as Dart's is.
+    #[cfg(feature = "lang-mermaid")]
+    pub(crate) mermaid: Option<Box<crate::mermaid::Scratch>>,
     /// The Nix lexer's, for Nix documents.
     /// It is boxed and allocated by the first Nix line, as Dart's is.
     #[cfg(feature = "lang-nix")]

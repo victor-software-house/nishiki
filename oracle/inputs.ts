@@ -31,6 +31,7 @@ import lessCoverage from "./inputs/less-coverage.less" with { type: "text" };
 import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
 import makeCoverage from "./inputs/make-coverage.mk" with { type: "text" };
 import markdownCoverage from "./inputs/markdown-coverage.md" with { type: "text" };
+import mermaidCoverage from "./inputs/mermaid-coverage.mmd" with { type: "text" };
 import nixCoverage from "./inputs/nix-coverage.nix" with { type: "text" };
 import perlEmbedded from "./inputs/perl-embedded.pl" with { type: "text" };
 import phpEmbedded from "./inputs/php-embedded.php" with { type: "text" };
@@ -1075,9 +1076,10 @@ export const inputs: Input[] = [
   { lang: "matlab", name: "grammar-arguments-block", url: `${matlabGrammar}/test/t13ArgumentsBlock.m` },
   { lang: "matlab", name: "grammar-property-validation", url: `${matlabGrammar}/test/t08PropertyValidation.m` },
   { lang: "matlab", name: "sample", url: `${samples}/matlab.sample` },
-  // Mermaid runs on the TextMate engine. Shiki's Markdown grammar has no
-  // Mermaid fence, so no Markdown input embeds it.
+  // Shiki's Markdown grammar has no Mermaid fence, so no Markdown input
+  // embeds Mermaid.
   { lang: "mermaid", name: "api-sequence", url: `${mermaid}/docs/diagrams/mermaid-api-sequence.mmd` },
+  { lang: "mermaid", name: "coverage", text: mermaidCoverage },
   { lang: "mermaid", name: "flowchart-code-flow", url: `${mermaid}/docs/diagrams/flowchart-code-flow.mmd` },
   { lang: "mermaid", name: "mindmap-sequence", url: `${mermaid}/docs/diagrams/mindmap-implementation-sequence.mmd` },
   { lang: "mermaid", name: "sample", url: `${samples}/mermaid.sample` },

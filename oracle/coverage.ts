@@ -78,6 +78,7 @@ const handLexed = new Map([
   ["lua", "Lua"],
   ["make", "Make"],
   ["markdown", "Markdown"],
+  ["mermaid", "Mermaid"],
   ["markdown-vue", "Markdown"],
   ["nix", "Nix"],
   ["postcss", "PostCSS"],

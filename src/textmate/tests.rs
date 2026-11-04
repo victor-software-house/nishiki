@@ -427,8 +427,6 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::haskell::grammar::GRAMMAR, "haskell"),
     #[cfg(feature = "lang-matlab")]
     (&crate::matlab::grammar::GRAMMAR, "matlab"),
-    #[cfg(feature = "lang-mermaid")]
-    (&crate::mermaid::grammar::GRAMMAR, "mermaid"),
     #[cfg(feature = "lang-objective-c")]
     (&crate::objective_c::grammar::GRAMMAR, "objective-c"),
     #[cfg(feature = "lang-pascal")]

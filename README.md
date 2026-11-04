@@ -87,7 +87,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | Makefile | `Language::Make` | `lang-make` | `all` | `make`, `makefile` |
 | Markdown | `Language::Markdown` | `lang-markdown` | `all` | `markdown`, `md` |
 | MATLAB | `Language::Matlab` | `lang-matlab` | `textmate` | `matlab` |
-| Mermaid | `Language::Mermaid` | `lang-mermaid` | `textmate` | `mermaid`, `mmd` |
+| Mermaid | `Language::Mermaid` | `lang-mermaid` | `all` | `mermaid`, `mmd` |
 | Nix | `Language::Nix` | `lang-nix` | `all` | `nix` |
 | Objective-C | `Language::ObjectiveC` | `lang-objective-c` | `textmate` | `objective-c`, `objc` |
 | Pascal | `Language::Pascal` | `lang-pascal` | `textmate` | `pascal` |
