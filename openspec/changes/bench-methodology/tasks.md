@@ -151,7 +151,15 @@ The probe uses the current `examples/bench.rs` throughput figure, so it does not
     In GraphQL, Pierre colours descriptions as strings, where Shiki colours them as comments.
     Those gaps come from Pierre's lexers, not from the theme map.
     The same box ran the Rust harness on the small tier of Rust, JSON and Markdown, and clippy with warnings denied passed.
-- [ ] 7.4 The first recorded comparison on the reference host, rendered into `bench/compare/README.md` → verify: the record lists every engine's version, features and backend, the languages left out, and the rounds; its anchor drift is under the reference class's bound
+- [x] 7.4 The first recorded comparison on the reference host, rendered into `bench/compare/README.md` → verify: the record lists every engine's version, features and backend, the languages left out, and the rounds; its anchor drift is under the reference class's bound
+  - 2026-11-04 UTC: the record is `bench/compare/results/namespace-8x16/2026-11-04-855723c6.json`.
+    It ran `855723c6` on a Namespace 8x16, with 5 rounds and 11 fresh processes per engine and file.
+    It holds 399 rows: 62 files for each engine, 60 for syntect and 29 for tree-sitter.
+    The record names each engine's version, features, backend and the languages it leaves out.
+    The anchor moved 5.98%, inside the 11% bound.
+    The run took 1,358 s, 181 unit minutes, $0.27.
+    `check:bench-report` passes.
+    `git ls-remote` shows the tag `bench/855723c6495a8b16d37e65818c425a7cfc440477`.
 
 ## 8. Later questions
 

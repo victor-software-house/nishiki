@@ -161,7 +161,7 @@ function tsv(text: string): Record<string, string>[] {
 }
 
 /** This host's description, or an error naming the reference class when it is another host. */
-async function referenceHost(): Promise<BenchRecord["host"]> {
+export async function referenceHost(): Promise<BenchRecord["host"]> {
   if (process.platform !== "linux") throw new Error(`a record comes from the reference host class, ${REFERENCE.class}, and this host is not Linux`);
   const cpuinfo = readFileSync("/proc/cpuinfo", "utf8");
   const meminfo = readFileSync("/proc/meminfo", "utf8");

@@ -77,6 +77,33 @@ Each grammar's licence was read in its repository at the commit its release tag 
 The two-face summary covers only the syntaxes two-face acknowledges.
 A syntax it ships without a licence file would not appear there.
 
+## The newest record
+
+`mise run bench:compare-record` records a comparison as `results/namespace-8x16/<date>-<sha8>.json`.
+It runs only on the reference host class, as `bench:record` does.
+It runs every engine on the medium and large tiers, with an anchor at the start and the end.
+`mise run bench:report` renders the record's page and the summary below.
+`check:bench-report` fails when either differs from its JSON.
+
+<!-- record summary: rendered by `mise run bench:report summary` -->
+
+namespace-8x16, 2026-11-04, commit `855723c6`, tiers medium and large; [the full record](results/namespace-8x16/2026-11-04-855723c6.md).
+These figures are indicative only.
+No host class keeps two runs of one build within 2%, and this one moves by up to 11% ([probe](../../openspec/research/2026-11-04-bench-host-probe-criterion.md)).
+Speed decisions rest on Callgrind instruction counts.
+
+| Engine | Files | Warm MiB/s, median | First document ms, median | Agreement, median |
+|:--|--:|--:|--:|--:|
+| nishiki | 62 | 22.9 | 4.78 | 100.00% |
+| syntect | 60 | 2.4 | 18.76 | 83.32% |
+| tree-sitter | 29 | 9.3 | 8.71 | 72.13% |
+| giallo | 62 | 2.1 | 29.72 | 100.00% |
+| shiki-oniguruma | 62 | 1.9 | 67.43 | 100.00% |
+| shiki-javascript | 62 | 3.8 | 71.45 | 100.00% |
+| pierre | 62 | 254.5 | 2.01 | 74.39% |
+
+<!-- end of record summary -->
+
 ## Running
 
 ```sh

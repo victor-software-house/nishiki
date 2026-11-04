@@ -9,13 +9,16 @@
 //   between the record markers.
 // - `check` fails when a record's Markdown or the README summary differs
 //   from what its JSON renders: nobody edits either by hand.
+//
+// It handles two kinds of record the same way: nishiki's own, under
+// bench/results/, and comparisons with other highlighters, under
+// bench/compare/results/, summarised in bench/compare/README.md.
 
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { basename, dirname, join } from "node:path";
+import { COMPARE_SCHEMA, type CompareRecord } from "./compare/record.ts";
 import { type BenchRecord, SCHEMA, type Summary } from "./record.ts";
 
-const RESULTS = "bench/results";
-const README = "bench/README.md";
 const BEGIN = "<!-- record summary: rendered by `mise run bench:report summary` -->";
 const END = "<!-- end of record summary -->";
 const NO_RECORD = "No record under this method yet.";
@@ -60,11 +63,39 @@ export function readRecord(path: string): BenchRecord {
   return record;
 }
 
-/** Every record's JSON path, oldest first by start time. */
-function records(): { path: string; record: BenchRecord }[] {
-  const found = (readdirSync(RESULTS, { recursive: true }) as string[])
+/** Reads and checks one comparison record: the files are the boundary. */
+export function readCompareRecord(path: string): CompareRecord {
+  const record = JSON.parse(readFileSync(path, "utf8")) as CompareRecord;
+  expect(record.schema === COMPARE_SCHEMA, path, `schema ${record.schema} is not ${COMPARE_SCHEMA}`);
+  for (const key of ["commit", "date", "started", "finished"] as const) {
+    expect(typeof record[key] === "string", path, `${key} is not a string`);
+  }
+  expect(typeof record.host?.class === "string" && typeof record.host.cpus === "number", path, "host is incomplete");
+  expect(typeof record.anchor?.drift_pct === "number" && typeof record.anchor.bound_pct === "number", path, "anchor is incomplete");
+  expect(Array.isArray(record.engines) && record.engines.every((e) => typeof e.name === "string" && typeof e.version === "string"), path, "an engine is malformed");
+  expect(
+    Array.isArray(record.rows) && record.rows.every((r) => isSummary(r.setup_ms) && isSummary(r.first_ms) && isSummary(r.mib_per_s)),
+    path,
+    "a row is malformed",
+  );
+  return record;
+}
+
+/** One kind of record: where its files live, and how it reads and renders. */
+type Kind<R> = {
+  results: string;
+  readme: string;
+  read: (path: string) => R;
+  page: (record: R, stem: string) => string;
+  summary: (newest: { path: string; record: R } | undefined) => string;
+};
+
+/** Every record of `kind`, oldest first by start time. */
+function records<R extends { started: string }>(kind: Kind<R>): { path: string; record: R }[] {
+  if (!existsSync(kind.results)) return [];
+  const found = (readdirSync(kind.results, { recursive: true }) as string[])
     .filter((path) => path.endsWith(".json"))
-    .map((path) => ({ path: join(RESULTS, path), record: readRecord(join(RESULTS, path)) }));
+    .map((path) => ({ path: join(kind.results, path), record: kind.read(join(kind.results, path)) }));
   return found.sort((a, b) => ordinal(a.record.started, b.record.started));
 }
 
@@ -79,7 +110,7 @@ function micros(ns: number, resolutionNs: number): string {
 }
 
 /** What a record's wall-clock figures can carry. `probe` links the probe note. */
-function standing(record: BenchRecord, probe: string): string {
+function standing(record: { anchor: { bound_pct: number } }, probe: string): string {
   return [
     "These figures are indicative only.",
     `No host class keeps two runs of one build within 2%, and this one moves by up to ${fixed(record.anchor.bound_pct, 0)}% ([probe](${probe})).`,
@@ -87,7 +118,7 @@ function standing(record: BenchRecord, probe: string): string {
   ].join("\n");
 }
 
-function hostLine(record: BenchRecord): string {
+function hostLine(record: { host: BenchRecord["host"] }): string {
   const h = record.host;
   return `${h.class}: ${h.cpu}, ${h.cpus} CPUs (${h.threads_per_core} ${h.threads_per_core === 1 ? "thread" : "threads"} a core), ${fixed(h.memory_mib / 1024, 1)} GiB, ${h.os}, Linux ${h.kernel}`;
 }
@@ -219,26 +250,166 @@ export function renderSummary(newest: { path: string; record: BenchRecord } | un
   return out.join("\n");
 }
 
-/** The README with its summary block replaced by `summary`. */
-function withSummary(readme: string, summary: string): string {
-  const start = readme.indexOf(BEGIN);
-  const end = readme.indexOf(END);
-  if (start < 0 || end < start) throw new Error(`${README} lacks the record markers`);
-  return readme.slice(0, start) + summary + readme.slice(end + END.length);
+/** A comparison record's own page. */
+export function renderCompareRecord(record: CompareRecord, stem: string): string {
+  const sha8 = record.commit.slice(0, 8);
+  const compute = record.compute
+    ? `${record.compute.seconds} s, ${fixed(record.compute.unit_minutes, 1)} unit minutes, $${fixed(record.compute.usd, 2)}`
+    : "not filled in";
+  const out: string[] = [
+    `# ${record.date}, commit ${sha8}: comparison with other highlighters`,
+    "",
+    "A recorded comparison under the `bench-methodology` method, rendered from its JSON by `mise run bench:report`.",
+    standing(record, `../../../../${PROBE}`),
+    "",
+    "## Session",
+    "",
+    "| | |",
+    "|:--|:--|",
+    `| Commit | \`${record.commit}\`, kept reachable by the tag \`bench/${record.commit}\` |`,
+    `| Host | ${hostLine(record)} |`,
+    `| Toolchain | ${record.toolchain.rustc}, ${record.toolchain.cargo}, Bun ${record.toolchain.bun} |`,
+    `| When | ${record.started} to ${record.finished} |`,
+    `| Tiers | ${record.tiers.join(", ")} |`,
+    `| Rounds | ${record.rounds} rounds of warm throughput per engine and file, the order rotating; ${record.cold_processes} fresh processes per engine and file |`,
+    `| Anchor | ${record.anchor.id}: ${fixed(record.anchor.start_mib_s, 1)} MiB/s at the start, ${fixed(record.anchor.end_mib_s, 1)} at the end, drift ${fixed(record.anchor.drift_pct, 2)}%, within the class's bound of ${fixed(record.anchor.bound_pct, 0)}% |`,
+    `| Corpus | version ${record.corpus_version} |`,
+    `| Compute | ${compute} |`,
+    "",
+    `The harnesses' output, unchanged, is in [\`${stem}.txt\`](${stem}.txt).`,
+    "",
+    "## Engines",
+    "",
+    "| engine | version | features | backend | runtime | languages left out |",
+    "|:--|:--|:--|:--|:--|:--|",
+    ...record.engines.map(
+      (e) => `| ${e.name} | ${e.version} | ${e.features} | ${e.backend} | ${e.runtime} | ${(record.left_out[e.name] ?? []).join(", ") || "none"} |`,
+    ),
+    "",
+    "## Results",
+    "",
+    "Setup and first document are medians over the fresh processes.",
+    "Warm throughput is the median over the rounds, and its spread is the largest round minus the smallest, over the median.",
+    "Agreement is the share of non-whitespace bytes whose colour matches Shiki's, in percent.",
+    "",
+    "| file | engine | setup ms | first document ms | warm MiB/s | spread | tokens | agreement |",
+    "|:--|:--|--:|--:|--:|--:|--:|--:|",
+  ];
+  for (const row of record.rows.toSorted((a, b) => ordinal(a.file, b.file) || ordinal(a.engine, b.engine))) {
+    const agreement = row.agreement === null ? "n/a" : `${fixed(row.agreement, 2)}%`;
+    out.push(
+      `| ${row.file} | ${row.engine} | ${fixed(row.setup_ms.median, 2)} | ${fixed(row.first_ms.median, 2)} | ${fixed(row.mib_per_s.median, 1)} | ${fixed(row.mib_per_s.spread_pct, 1)}% | ${row.tokens} | ${agreement} |`,
+    );
+  }
+  return `${out.join("\n")}\n`;
 }
+
+/** bench/compare/README.md's summary of the newest comparison, markers
+ * included: one row per engine, its medians over the files. */
+export function renderCompareSummary(newest: { path: string; record: CompareRecord } | undefined): string {
+  if (!newest) return `${BEGIN}\n\n${NO_RECORD}\n\n${END}`;
+  const { path, record } = newest;
+  const page = join(basename(dirname(path)), `${basename(path, ".json")}.md`);
+  const out = [
+    BEGIN,
+    "",
+    `${record.host.class}, ${record.date}, commit \`${record.commit.slice(0, 8)}\`, tiers ${record.tiers.join(" and ")}; [the full record](results/${page}).`,
+    standing(record, `../../${PROBE}`),
+    "",
+    "| Engine | Files | Warm MiB/s, median | First document ms, median | Agreement, median |",
+    "|:--|--:|--:|--:|--:|",
+  ];
+  for (const engine of record.engines) {
+    const rows = record.rows.filter((row) => row.engine === engine.name);
+    if (rows.length === 0) continue;
+    const agreements = rows.flatMap((row) => (row.agreement === null ? [] : [row.agreement]));
+    const agreement = agreements.length === 0 ? "n/a" : `${fixed(median(agreements), 2)}%`;
+    out.push(
+      `| ${engine.name} | ${rows.length} | ${fixed(median(rows.map((row) => row.mib_per_s.median)), 1)} | ${fixed(median(rows.map((row) => row.first_ms.median)), 2)} | ${agreement} |`,
+    );
+  }
+  out.push("", END);
+  return out.join("\n");
+}
+
+/** `readme`'s text with its summary block replaced by `summary`. */
+function withSummary(readme: string, text: string, summary: string): string {
+  const start = text.indexOf(BEGIN);
+  const end = text.indexOf(END);
+  if (start < 0 || end < start) throw new Error(`${readme} lacks the record markers`);
+  return text.slice(0, start) + summary + text.slice(end + END.length);
+}
+
+const BENCH: Kind<BenchRecord> = {
+  results: "bench/results",
+  readme: "bench/README.md",
+  read: readRecord,
+  page: renderRecord,
+  summary: renderSummary,
+};
+const COMPARE: Kind<CompareRecord> = {
+  results: "bench/compare/results",
+  readme: "bench/compare/README.md",
+  read: readCompareRecord,
+  page: renderCompareRecord,
+  summary: renderCompareSummary,
+};
 
 const stemOf = (path: string) => basename(path, ".json");
 const markdownOf = (path: string) => join(dirname(path), `${stemOf(path)}.md`);
 
+/** Renders every record of `kind`, or those at `paths`. */
+async function render<R extends { started: string }>(kind: Kind<R>, paths: string[]): Promise<void> {
+  for (const path of paths.length > 0 ? paths : records(kind).map((r) => r.path)) {
+    await Bun.write(markdownOf(path), kind.page(kind.read(path), stemOf(path)));
+    console.log(`✔ ${markdownOf(path)}`);
+  }
+}
+
+/** Writes the newest record's summary into `kind`'s README. */
+async function summarise<R extends { started: string }>(kind: Kind<R>): Promise<void> {
+  const text = readFileSync(kind.readme, "utf8");
+  await Bun.write(kind.readme, withSummary(kind.readme, text, kind.summary(records(kind).at(-1))));
+  console.log(`✔ ${kind.readme}`);
+}
+
+/** What differs from its JSON among `kind`'s pages and its README summary. */
+function problems<R extends { started: string }>(kind: Kind<R>): { count: number; found: string[] } {
+  const all = records(kind);
+  const found: string[] = [];
+  for (const { path, record } of all) {
+    let page = "";
+    try {
+      page = readFileSync(markdownOf(path), "utf8");
+    } catch {
+      found.push(`${markdownOf(path)} is missing`);
+      continue;
+    }
+    if (page !== kind.page(record, stemOf(path))) found.push(`${markdownOf(path)} differs from its JSON`);
+  }
+  const text = readFileSync(kind.readme, "utf8");
+  if (text !== withSummary(kind.readme, text, kind.summary(all.at(-1)))) {
+    found.push(`${kind.readme}'s record summary differs from the newest record`);
+  }
+  return { count: all.length, found };
+}
+
+/** Fills a record's compute and renders it again. */
+async function fillCompute<R extends { compute: BenchRecord["compute"]; started: string }>(kind: Kind<R>, path: string, numbers: number[]): Promise<void> {
+  const record = kind.read(path);
+  record.compute = { seconds: numbers[0] ?? 0, unit_minutes: numbers[1] ?? 0, usd: numbers[2] ?? 0 };
+  await Bun.write(path, `${JSON.stringify(record, null, 2)}\n`);
+  await Bun.write(markdownOf(path), kind.page(record, stemOf(path)));
+  console.log(`✔ ${path} and ${markdownOf(path)}`);
+}
+
 async function main(): Promise<void> {
   const [command, ...args] = process.argv.slice(2);
+  const isCompare = (path: string) => path.startsWith(`${COMPARE.results}/`);
   switch (command) {
     case "render": {
-      const paths = args.length > 0 ? args : records().map((r) => r.path);
-      for (const path of paths) {
-        await Bun.write(markdownOf(path), renderRecord(readRecord(path), stemOf(path)));
-        console.log(`✔ ${markdownOf(path)}`);
-      }
+      await render(BENCH, args.filter((path) => !isCompare(path)));
+      await render(COMPARE, args.filter(isCompare));
       return;
     }
     case "compute": {
@@ -247,40 +418,23 @@ async function main(): Promise<void> {
       if (!path || numbers.some((n) => !Number.isFinite(n) || n < 0)) {
         throw new Error("usage: report.ts compute <record.json> <seconds> <unit-minutes> <usd>");
       }
-      const record = readRecord(path);
-      record.compute = { seconds: numbers[0], unit_minutes: numbers[1], usd: numbers[2] };
-      await Bun.write(path, `${JSON.stringify(record, null, 2)}\n`);
-      await Bun.write(markdownOf(path), renderRecord(record, stemOf(path)));
-      console.log(`✔ ${path} and ${markdownOf(path)}`);
+      if (isCompare(path)) await fillCompute(COMPARE, path, numbers);
+      else await fillCompute(BENCH, path, numbers);
       return;
     }
     case "summary": {
-      const readme = readFileSync(README, "utf8");
-      await Bun.write(README, withSummary(readme, renderSummary(records().at(-1))));
-      console.log(`✔ ${README}`);
+      await summarise(BENCH);
+      await summarise(COMPARE);
       return;
     }
     case "check": {
-      const all = records();
-      const problems: string[] = [];
-      for (const { path, record } of all) {
-        let page = "";
-        try {
-          page = readFileSync(markdownOf(path), "utf8");
-        } catch {
-          problems.push(`${markdownOf(path)} is missing`);
-          continue;
-        }
-        if (page !== renderRecord(record, stemOf(path))) problems.push(`${markdownOf(path)} differs from its JSON`);
+      const bench = problems(BENCH);
+      const compare = problems(COMPARE);
+      const found = [...bench.found, ...compare.found];
+      if (found.length > 0) {
+        throw new Error(`${found.join("\n")}\nRun \`mise run bench:report render\` and \`mise run bench:report summary\`; never edit them by hand.`);
       }
-      const readme = readFileSync(README, "utf8");
-      if (readme !== withSummary(readme, renderSummary(all.at(-1)))) {
-        problems.push(`${README}'s record summary differs from the newest record`);
-      }
-      if (problems.length > 0) {
-        throw new Error(`${problems.join("\n")}\nRun \`mise run bench:report render\` and \`mise run bench:report summary\`; never edit them by hand.`);
-      }
-      console.log(`✔ ${all.length} records and the README summary match their JSON`);
+      console.log(`✔ ${bench.count} records, ${compare.count} comparison records and both README summaries match their JSON`);
       return;
     }
     default:

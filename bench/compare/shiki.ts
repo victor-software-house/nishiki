@@ -7,14 +7,17 @@
 // Shiki's per-line limits are off.
 // The Rust harness reads them to score every engine's agreement with Shiki.
 //
-// `bun bench/compare/shiki.ts time [rounds]` times Shiki itself on the same
-// files.
+// `bun bench/compare/shiki.ts time [--rounds N] [--cold N] [--tier T]... [--tsv]`
+// times Shiki and Pierre themselves on the same files.
+// By default it runs 5 rounds and one cold process on every tier.
 // It needs the reference colours that `reference` writes.
 // It times both engines: Oniguruma in WebAssembly and the JavaScript engine.
 // Setup and warm throughput are separate figures.
-// A fresh Bun process per file gives the first-document time.
+// Fresh Bun processes give the setup and first-document times.
 // Rows are tab-separated: engine, file, setup ms, first document ms, warm
-// MiB/s, tokens, agreement.
+// MiB/s, tokens, agreement, each time a median.
+// With `--tsv`, rows follow the Rust harness's `--tsv` columns instead.
+// They hold every cold sample and every round, for bench/compare/record.ts.
 // Tokens are the tokens one call returns.
 // Agreement is the share of non-whitespace bytes whose colour matches the
 // reference, in percent.
@@ -24,6 +27,7 @@ import { createJavaScriptRegexEngine } from "shiki@4.6.0/engine/javascript";
 import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
 import { readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { parseArgs } from "node:util";
 
 const root = new URL("../..", import.meta.url).pathname;
 const corpus = join(root, "bench/corpus");
@@ -207,21 +211,48 @@ function median(values: number[]): number {
   return sorted[Math.floor(sorted.length / 2)] ?? Number.NaN;
 }
 
-async function time(rounds: number): Promise<void> {
-  const all = files();
+/** What `time` measures and how it prints, from the command line. */
+type TimeOptions = { rounds: number; cold: number; tiers: string[]; output: "medians" | "tsv" };
+
+function timeOptions(args: string[]): TimeOptions {
+  const { values } = parseArgs({
+    args,
+    options: {
+      rounds: { type: "string", default: "5" },
+      cold: { type: "string", default: "1" },
+      tier: { type: "string", multiple: true, default: [] },
+      tsv: { type: "boolean", default: false },
+    },
+  });
+  const rounds = Number(values.rounds);
+  const cold = Number(values.cold);
+  if (!Number.isInteger(rounds) || rounds < 1) throw new Error("--rounds needs a whole number of at least 1");
+  if (!Number.isInteger(cold) || cold < 1) throw new Error("--cold needs a whole number of at least 1");
+  return { rounds, cold, tiers: values.tier, output: values.tsv ? "tsv" : "medians" };
+}
+
+async function time(options: TimeOptions): Promise<void> {
+  const all = files().filter((file) => options.tiers.length === 0 || options.tiers.includes(file.name.split("/")[1] ?? ""));
   const names = Object.keys(engines) as EngineName[];
+  if (options.output === "tsv") console.log("file\tengine\tsetup_ms\tfirst_ms\tmib_per_s\ttokens\tagreement");
   for (const file of all) {
     const code = await text(file);
     const bytes = encoder.encode(code).length;
     const shiki = await referenceOf(file);
     for (const engine of names) {
-      const cold = Bun.spawnSync(["bun", import.meta.path, "sample", engine, file.name]);
-      const [setup, first] = cold.stdout.toString().trim().split(" ").map(Number);
+      const setups: number[] = [];
+      const firsts: number[] = [];
+      for (let sampled = 0; sampled < options.cold; sampled++) {
+        const cold = Bun.spawnSync(["bun", import.meta.path, "sample", engine, file.name]);
+        const [setup, first] = cold.stdout.toString().trim().split(" ").map(Number);
+        setups.push(setup ?? Number.NaN);
+        firsts.push(first ?? Number.NaN);
+      }
       const ready = await engines[engine](file);
       const run = () => ready.run(code);
       run();
       const speeds: number[] = [];
-      for (let round = 0; round < rounds; round++) {
+      for (let round = 0; round < options.rounds; round++) {
         let iterations = 0;
         const start = performance.now();
         while (performance.now() - start < 200) {
@@ -234,7 +265,11 @@ async function time(rounds: number): Promise<void> {
       const tokens = run();
       const count = tokens.reduce((sum, line) => sum + line.length, 0);
       const score = agreement(code, coloursOf(tokens), shiki);
-      console.log([engine, file.name, setup, first, median(speeds), count, score.toFixed(2)].join("\t"));
+      const row =
+        options.output === "tsv"
+          ? [file.name, engine, setups.join(","), firsts.join(","), speeds.join(","), count, score]
+          : [engine, file.name, median(setups), median(firsts), median(speeds), count, score.toFixed(2)];
+      console.log(row.join("\t"));
       ready.dispose();
     }
   }
@@ -244,7 +279,7 @@ const [mode, ...rest] = Bun.argv.slice(2);
 if (mode === "reference") {
   await reference();
 } else if (mode === "time") {
-  await time(Number(rest[0] ?? 5));
+  await time(timeOptions(rest));
 } else if (mode === "sample") {
   const [engine, name] = rest;
   const file = files().find((candidate) => candidate.name === name);
@@ -254,6 +289,6 @@ if (mode === "reference") {
   }
   await sample(engine as EngineName, file);
 } else {
-  console.error("usage: shiki.ts reference | time [rounds] | sample <engine> <file>");
+  console.error("usage: shiki.ts reference | time [--rounds N] [--cold N] [--tier T]... [--tsv] | sample <engine> <file>");
   process.exit(1);
 }
