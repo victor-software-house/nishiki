@@ -14,28 +14,37 @@ tolerance_pct = 10
 mib_per_s = 1.0
 us = 0.5
 
-# A streamed line must never cost a frame: the 4 ms frame budget the
-# 2026-10-22 engine comparison used for streaming. Applies
-# to every language's p99 per-line time on every oracle fixture.
+# A streamed line must never cost a frame.
+# The frame budget is 4 ms, as in the 2026-10-22 engine comparison.
+# The two targets below apply it to the latency program's figures
+# (openspec bench-methodology, design decision 6; lead, 2026-11-04).
+# They hold for every language and tier of the corpus.
+
+# A line's steady cost: each line's median over passes 2 to 11, then the
+# p99 over the document's lines.
+# The first record meets it on every language and tier.
 [[target]]
-metric = "line_time"
-stat = "p99"
+metric = "steady_p99"
+stat = "median"
 op = "<="
 value = 4000
 unit = "us"
 reason = "one streamed line fits a 4 ms frame"
 
-# The worst single line of an oracle fixture, which a stream may hit once.
+# The worst line of the first pass, while lazy structures are still built.
+# The first record misses it on bat, cmake, haskell and powershell at the
+# medium tier, and on c at the large tier.
 [[target]]
-metric = "line_time"
-stat = "max"
+metric = "first_contact_max"
+stat = "median"
 op = "<="
 value = 4000
 unit = "us"
-reason = "even the worst real line fits a frame"
+reason = "even the first line a highlighter meets fits a frame"
 
-# Reported, not bound: compared with the last recorded result on the same
-# host class under the regression rule above.
+# Reported, not bound.
+# Each is compared with the last recorded result on the same host class,
+# under the regression rule above.
 [reported.throughput]
 metric = "throughput"
 stat = "median"

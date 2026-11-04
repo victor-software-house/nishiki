@@ -39,7 +39,9 @@ No new dependency.
     `measure` reports allocations, bytes and peak live bytes.
     Its unit tests and Miri passed.
     `tests/it/alloc.rs` ran unchanged.
-- [ ] 2.3 `examples/memory.rs` prints each language's allocations, bytes and peak over one pass of its fixtures, and the Callgrind job shows it for base and head → verify: the job summary of the pull request shows the memory table, and the job passes
+- [x] 2.3 `examples/memory.rs` prints each language's allocations, bytes and peak over one pass of its fixtures, and the Callgrind job shows it for base and head → verify: the job summary of the pull request shows the memory table, and the job passes
+  - 2026-11-04 UTC: [#270][pr-270] added `examples/memory.rs` and the memory table below the instruction table.
+    On [#360's Callgrind run][run-360], the job printed the table for base and head and passed.
 
 ## 3. The reference host
 
@@ -81,14 +83,31 @@ The probe uses the current `examples/bench.rs` throughput figure, so it does not
 
 ## 5. The `bench/` workspace
 
-- [ ] 5.1 The workspace, its corpus loader (language and tier read from `corpus/<language>/<tier>/`), and Criterion benches `throughput` and `styling`; `mise run bench` runs them; `bench/README.md` says what each question measures and how to run it, and `mise-tasks/check/layout.sh` moves `bench` from `guide_only` to `both`, dropping the list now empty → verify: a Bench job, on pull requests labelled `bench`, runs `mise run bench:check` (rustfmt, clippy with warnings denied, and every bench once in Criterion's untimed test mode, all with `--locked`), and passes; it times nothing, so wall time cannot gate it
-- [ ] 5.2 `latency`: repeated passes, timer overhead subtracted, first contact apart, as design decision 6 → verify: the bench job runs it on the small tier with three passes, and its output names steady p50, p99 and maximum, the first-contact maximum, and the count of lines below resolution
-- [ ] 5.3 `cold`: one sample per process, and `examples/bench.rs` goes once 5.2 and 5.3 give its figures; a runner that interleaves languages and drops the first three samples, and theme loading → verify: the bench job runs it with five processes for one language, and its output gives the median and p90 of each of the three times
+- [x] 5.1 The workspace, its corpus loader (language and tier read from `corpus/<language>/<tier>/`), and Criterion benches `throughput` and `styling`; `mise run bench` runs them; `bench/README.md` says what each question measures and how to run it, and `mise-tasks/check/layout.sh` moves `bench` from `guide_only` to `both`, dropping the list now empty → verify: a Bench job, on pull requests labelled `bench`, runs `mise run bench:check` (rustfmt, clippy with warnings denied, and every bench once in Criterion's untimed test mode, all with `--locked`), and passes; it times nothing, so wall time cannot gate it
+  - 2026-11-04 UTC: [#273][pr-273] added the workspace, its corpus loader and the `throughput` and `styling` benches.
+    On [#360's run][run-360], the Bench job ran `mise run bench:check` and passed.
+- [x] 5.2 `latency`: repeated passes, timer overhead subtracted, first contact apart, as design decision 6 → verify: the bench job runs it on the small tier with three passes, and its output names steady p50, p99 and maximum, the first-contact maximum, and the count of lines below resolution
+  - 2026-11-04 UTC: [#276][pr-276] added `latency`.
+    On [#360's run][run-360], the Bench job ran it on the small tier with three passes.
+    Its table named steady p50, p99 and maximum, the first-contact maximum and the lines below resolution.
+- [x] 5.3 `cold`: one sample per process, and `examples/bench.rs` goes once 5.2 and 5.3 give its figures; a runner that interleaves languages and drops the first three samples, and theme loading → verify: the bench job runs it with five processes for one language, and its output gives the median and p90 of each of the three times
+  - 2026-11-04 UTC: [#277][pr-277] added `cold` and removed `examples/bench.rs`.
+    On [#360's run][run-360], the Bench job ran it with five processes for one file.
+    Its table gave the median and p90 of each of the three times, and the theme's load time.
 
 ## 6. Records
 
-- [ ] 6.1 The JSON record of design decision 12, `bench/report.ts` to render a record and the README summary, and a check that the README matches the newest record → verify: CI passes, and the pull request shows the check failing when the README summary is edited by hand
-- [ ] 6.2 Rewrite `bench/AGENTS.md` as design decision 16 says, and update `targets.toml` to the new figures (steady p99 and first-contact maximum) → verify: every kept rule is still present, and `rg` finds no rule naming `examples/bench.rs` or `research/`
+- [x] 6.1 The JSON record of design decision 12, `bench/report.ts` to render a record and the README summary, and a check that the README matches the newest record → verify: CI passes, and the pull request shows the check failing when the README summary is edited by hand
+  - 2026-11-04 UTC: [#317][pr-317] added the recorder and [#318][pr-318] the report and its check.
+    Both merged with CI green.
+    Locally, `check` failed when a number in the README summary was edited by hand.
+- [x] 6.2 Rewrite `bench/AGENTS.md` as design decision 16 says, and update `targets.toml` to the new figures (steady p99 and first-contact maximum) → verify: every kept rule is still present, and `rg` finds no rule naming `examples/bench.rs` or `research/`
+  - 2026-11-04 UTC: `bench/AGENTS.md` follows design decision 16.
+    Rules 1, 3, 5 and 8 are replaced, and rule 15 was already rewritten.
+    Rules 2, 4, 9, 10, 11 and 12 to 14 keep their content.
+    `rg 'examples/bench.rs|research/' bench/AGENTS.md` finds nothing.
+    `targets.toml` binds the steady p99 and the first-contact maximum to 4 ms (lead).
+    The first record misses the first-contact target on bat, cmake, haskell and powershell at the medium tier, and on c at the large tier.
 - [x] 6.3 The first record under this method, on the reference host, with the `bench/<full sha>` tag pushed; set the throughput floors in `targets.toml` by a dated decision → verify: the record's anchor drift is under the reference class's bound (decision 11, point 4), the rendered summary matches the JSON, and `git ls-remote` shows the tag
   - 2026-11-04 UTC: the record is `bench/results/namespace-8x16/2026-11-04-0a58343a.json`.
     It ran main `0a58343a` on a Namespace 8x16, five rounds.
@@ -124,15 +143,20 @@ The probe uses the current `examples/bench.rs` throughput figure, so it does not
 
 ## 8. Later questions
 
-- [ ] 8.1 Q7: move each language's hostile lines from `tests/it/limits/` into data that both the limit tests and a `hostile` bench read, and report the slowest line per language under the default limits → verify: the limit tests pass in CI unchanged in what they check, and a recorded run shows the new figure against the 4 ms target
-- [ ] 8.2 The stripped binary size each language feature adds, in recorded runs → verify: a record lists the size of a build with no language, and the growth for each language alone
+Moved to the `bench-later-questions` change (lead, 2026-11-04).
 
 ## Workflow follow-up
 
 - Archive the change once groups 2 to 7 are done, with `openspec archive bench-methodology`.
-- Group 8 can stay open in a later change if it has not started by then.
 
 [pr-239]: https://github.com/victor-software-house/nishiki-archive/pull/239
+[pr-270]: https://github.com/victor-software-house/nishiki-archive/pull/270
+[pr-273]: https://github.com/victor-software-house/nishiki-archive/pull/273
+[pr-276]: https://github.com/victor-software-house/nishiki-archive/pull/276
+[pr-277]: https://github.com/victor-software-house/nishiki-archive/pull/277
+[pr-317]: https://github.com/victor-software-house/nishiki-archive/pull/317
+[pr-318]: https://github.com/victor-software-house/nishiki-archive/pull/318
+[run-360]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41818929609
 [pr-242]: https://github.com/victor-software-house/nishiki-archive/pull/242
 [run-242]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41754856763
 [pr-244]: https://github.com/victor-software-house/nishiki-archive/pull/244
