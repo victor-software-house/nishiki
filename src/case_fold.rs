@@ -1,18 +1,20 @@
 //! The case folds that `Onig`'s `(?i)` applies to characters above ASCII whose
-//! fold is ASCII letters, for the hand lexers that match keywords without
-//! regard to case.
+//! fold is ASCII letters.
+//! The hand lexers use them to match keywords without regard to case.
 //!
-//! A lexer matches a literal with [`literal_end`], whose ASCII loop inlines
-//! into the caller and whose cold half, [`literal_at`], reads a character
-//! above ASCII. It lowers a word for a list lookup with [`lower_into`]. Each
-//! takes the text slice its caller bounds, so a character that runs past the
-//! bound does not match.
+//! A lexer matches a literal with [`literal_end`].
+//! Its ASCII loop inlines into the caller.
+//! Its cold half, [`literal_at`], reads a character above ASCII.
+//! A lexer lowers a word for a list lookup with [`lower_into`].
+//! Each takes the text slice its caller bounds.
+//! A character that runs past the bound therefore does not match.
 
 use crate::utf8::char_at;
 
 /// The ASCII letters that `c`, a character above ASCII, matches under `(?i)`:
 /// `s` for `ſ`, `k` for the Kelvin sign, `ss` for `ß` and `ẞ`, and the letters
-/// of each Latin ligature from `ﬀ` to `ﬆ`; `None` for any other character.
+/// of each Latin ligature from `ﬀ` to `ﬆ`.
+/// It is `None` for any other character.
 pub(crate) fn letters(c: char) -> Option<&'static [u8]> {
     match c {
         'ſ' => Some(b"s"),
@@ -31,8 +33,10 @@ pub(crate) fn letters(c: char) -> Option<&'static [u8]> {
 /// The width of the character at `at` of `text` and how many bytes of `word`
 /// it stands for, when its fold starts `word` without regard to ASCII case.
 ///
-/// `#[cold]`: a caller compares ASCII bytes itself and comes here only at a
-/// byte above ASCII, so its own loop stays small enough to inline.
+/// It is `#[cold]`.
+/// A caller compares ASCII bytes itself and comes here only at a byte above
+/// ASCII.
+/// The caller's own loop then stays small enough to inline.
 #[cold]
 pub(crate) fn literal_at(text: &[u8], at: usize, word: &[u8]) -> Option<(usize, usize)> {
     let (c, width) = char_at(text, at)?;
@@ -69,8 +73,9 @@ pub(crate) fn literal_end(text: &[u8], at: usize, word: &[u8]) -> Option<usize> 
 }
 
 /// `text` lowered into `buf` as `(?i)` reads it, a character above ASCII as
-/// the letters it folds to, and the length written; `None` when a character
-/// above ASCII folds to no ASCII letters or `buf` is too short.
+/// the letters it folds to, and the length written.
+/// It is `None` when a character above ASCII folds to no ASCII letters, or
+/// when `buf` is too short.
 #[inline]
 pub(crate) fn lower_into(text: &[u8], buf: &mut [u8]) -> Option<usize> {
     let mut len = 0;
@@ -93,7 +98,8 @@ pub(crate) fn lower_into(text: &[u8], buf: &mut [u8]) -> Option<usize> {
 }
 
 /// The end of the text at `at` of `text` that `word` matches as a
-/// back-reference does under `(?i)`. `word` is a text matched before.
+/// back-reference does under `(?i)`.
+/// `word` is a text matched before.
 ///
 /// - An ASCII letter matches in either case.
 /// - A character above ASCII matches as the letters it folds to.
@@ -101,9 +107,10 @@ pub(crate) fn lower_into(text: &[u8], buf: &mut [u8]) -> Option<usize> {
 ///
 /// So `ﬁlter` and `FILTER` match each other.
 ///
-/// Nearly every end tag equals `word` but for ASCII case. One slice
-/// comparison answers that case. Only text or a word with a byte above ASCII
-/// is read character by character, in [`folded_reference_end`].
+/// Nearly every end tag equals `word` but for ASCII case.
+/// One slice comparison answers that case.
+/// Only text or a word with a byte above ASCII is read character by
+/// character, in [`folded_reference_end`].
 #[inline]
 pub(crate) fn reference_end(text: &[u8], at: usize, word: &[u8]) -> Option<usize> {
     let same = text.get(at..at + word.len());

@@ -1,11 +1,13 @@
 //! Interned scope stacks and lexer states, shared by every lexer of one
 //! highlighter.
 //!
-//! Both are persistent linked lists, hash-consed: a node is its parent's id
-//! and one step, created once. A push is one hash lookup, a pop follows the
-//! parent link, and two equal stacks or states have the same id, so comparing
-//! them is one integer comparison. Memory grows with the number of distinct
-//! nodes, not with depth times the number of lines.
+//! Both are persistent linked lists, hash-consed.
+//! A node is its parent's id and one step, created once.
+//! A push is one hash lookup, and a pop follows the parent link.
+//! Two equal stacks or states have the same id.
+//! Comparing them is therefore one integer comparison.
+//! Memory grows with the number of distinct nodes, not with depth times the
+//! number of lines.
 
 use std::collections::HashMap;
 use std::hash::{BuildHasherDefault, Hasher};
@@ -17,9 +19,10 @@ use crate::scope::Scope;
 pub(crate) const ROOT: u32 = 0;
 
 /// A hasher for the arena's integer keys, after rustc's `FxHasher`:
-/// one rotate, xor and multiply per word. The keys are ids the arena made, so
-/// no adversary picks them, and the default `SipHash` would cost several
-/// times more on the hot path of every token.
+/// one rotate, xor and multiply per word.
+/// The keys are ids the arena made, so no adversary picks them.
+/// The default `SipHash` would cost several times more on the hot path of
+/// every token.
 #[derive(Default)]
 pub(crate) struct IdHasher(u64);
 
@@ -51,8 +54,10 @@ impl Hasher for IdHasher {
 }
 
 /// A map keyed by ids an arena made, such as scope stacks, states or
-/// interned strings. No adversary picks the key. Its probes are the same in
-/// every process, and so are the instruction counts of lexing.
+/// interned strings.
+/// No adversary picks the key.
+/// Its probes are the same in every process, and so are the instruction
+/// counts of lexing.
 pub(crate) type IdMap<K, V = u32> = HashMap<K, V, BuildHasherDefault<IdHasher>>;
 
 /// A scope stack's key: its parent and its top scope.
@@ -91,10 +96,12 @@ pub(crate) struct Arena {
     frames: Vec<Frame>,
     frame_ids: IdMap<FrameKey>,
     /// Strings lexers intern: payloads such as a here-document's delimiter,
-    /// and the names of scopes made from source text. Number 0 is empty.
+    /// and the names of scopes made from source text.
+    /// Number 0 is empty.
     strings: Vec<Box<str>>,
     string_ids: HashMap<Box<str>, u32>,
-    /// Most nodes each list may hold; `None` for no limit.
+    /// Most nodes each list may hold.
+    /// It is `None` for no limit.
     limit: Option<usize>,
 }
 
@@ -141,9 +148,10 @@ impl Arena {
         Some(id)
     }
 
-    /// The stack `base` with `scopes` on top, in order. The node limit keeps
-    /// a new stack from being made: the scope it stops is left off with every
-    /// scope after it, and `report` records the limit.
+    /// The stack `base` with `scopes` on top, in order.
+    /// The node limit can keep a new stack from being made.
+    /// The scope it stops is then left off with every scope after it.
+    /// `report` records the limit.
     pub(crate) fn path(
         &mut self,
         base: u32,
@@ -161,8 +169,8 @@ impl Arena {
         stack
     }
 
-    /// The number of `text`, which stays the same for equal text, or `None`
-    /// when the node limit keeps a new string from being made.
+    /// The number of `text`, which stays the same for equal text.
+    /// It is `None` when the node limit keeps a new string from being made.
     pub(crate) fn intern(&mut self, text: &str) -> Option<u32> {
         if let Some(&id) = self.string_ids.get(text) {
             return Some(id);
@@ -176,7 +184,8 @@ impl Arena {
         Some(id)
     }
 
-    /// The text of string `id`; empty for a number this arena never made.
+    /// The text of string `id`.
+    /// It is empty for a number this arena never made.
     pub(crate) fn string(&self, id: u32) -> &str {
         usize::try_from(id)
             .ok()
@@ -191,8 +200,8 @@ impl Arena {
         Some(Scope::dynamic(index))
     }
 
-    /// The stack `stack` without its top scope; the empty stack for an id
-    /// this arena never made.
+    /// The stack `stack` without its top scope.
+    /// It is the empty stack for an id this arena never made.
     #[cfg(feature = "_textmate")]
     pub(crate) fn parent(&self, stack: u32) -> u32 {
         usize::try_from(stack)
@@ -201,8 +210,8 @@ impl Arena {
             .map_or(ROOT, |node| node.parent)
     }
 
-    /// The scopes of `stack`, innermost first; empty for an id this arena
-    /// never made.
+    /// The scopes of `stack`, innermost first.
+    /// They are empty for an id this arena never made.
     pub(crate) fn scopes(&self, stack: u32) -> Scopes<'_> {
         let valid = usize::try_from(stack).is_ok_and(|index| index < self.scopes.len());
         Scopes {
@@ -211,8 +220,8 @@ impl Arena {
         }
     }
 
-    /// The frame of `state`; the document start for an id this arena never
-    /// made.
+    /// The frame of `state`.
+    /// It is the document start for an id this arena never made.
     pub(crate) fn frame(&self, state: u32) -> Frame {
         usize::try_from(state)
             .ok()

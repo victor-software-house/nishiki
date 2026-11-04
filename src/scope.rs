@@ -1,11 +1,13 @@
-//! Scope names of every language, numbered in one space, so that the stacks
-//! of a language embedded in another (Rust in a Markdown fence) live in the
-//! same arena.
+//! Scope names of every language, numbered in one space.
+//! The stacks of a language embedded in another, such as Rust in a Markdown
+//! fence, then live in the same arena.
 //!
 //! A scope number is a table's slot in the high 16 bits and the name's index
-//! in that table in the low 16. A table's slot is the high byte of its
-//! language's frame tag (`src/tag.rs`), so it needs no number of its own and
-//! does not depend on any other table's length, or on which languages are
+//! in that table in the low 16.
+//! A table's slot is the high byte of its language's frame tag
+//! (`src/tag.rs`).
+//! The slot therefore needs no number of its own.
+//! It does not depend on any other table's length, or on which languages are
 //! built.
 
 /// A scope name: a language's table base plus the name's index in it.
@@ -13,7 +15,8 @@
 pub(crate) struct Scope(u32);
 
 /// Scope numbers from here up name scopes made at run time, such as the
-/// delimiter of a here-document; the arena resolves them.
+/// delimiter of a here-document.
+/// The arena resolves them.
 pub(crate) const DYNAMIC: u32 = 0x8000_0000;
 
 /// What the low 16 bits of a scope number index: the most names one table
@@ -41,9 +44,11 @@ const fn base(tag: u16) -> u32 {
     ((tag >> 8) as u32) << 16
 }
 
-/// Registers each language's scope table, one row per language: the constant
-/// that names its base, which is also the name of its frame tag, and its
-/// module. A row is on only when its language's feature is.
+/// Registers each language's scope table, one row per language.
+/// A row holds the constant that names the table's base, and the language's
+/// module.
+/// The constant is also the name of the language's frame tag.
+/// A row is on only when its language's feature is.
 macro_rules! tables {
     ($($(#[cfg($($cfg:tt)*)])* $base:ident = $module:ident;)*) => {
         $(
@@ -52,9 +57,11 @@ macro_rules! tables {
             pub(crate) const $base: u32 = base(crate::tag::$base);
         )*
 
-        /// Every language's scope names, by slot. Each row rebinds the array
-        /// rather than writing into one mutable binding, so a build with no
-        /// language that has a table leaves nothing unused.
+        /// Every language's scope names, by slot.
+        /// Each row rebinds the array rather than writing into one mutable
+        /// binding.
+        /// A build with no language that has a table then leaves nothing
+        /// unused.
         const TABLES: [&[&str]; SLOTS] = {
             let tables: [&[&str]; SLOTS] = [&[]; SLOTS];
             $(
@@ -155,7 +162,8 @@ macro_rules! scope_table {
         $(#[$meta:meta])* $base:ident;
         $($(#[cfg($($cfg:tt)*)])* $id:ident $name:literal)*
     ) => {
-        /// A scope name; the discriminant indexes [`NAMES`].
+        /// A scope name.
+        /// The discriminant indexes [`NAMES`].
         #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
         #[repr(u16)]
         $(#[$meta])*

@@ -29,8 +29,8 @@ pub(crate) fn char_start(s: &[u8], mut i: usize) -> usize {
     i
 }
 
-/// The character that starts at byte `i` of `s`, and its width; `None` past
-/// the end and where no whole character starts.
+/// The character that starts at byte `i` of `s`, and its width.
+/// It is `None` past the end and where no whole character starts.
 ///
 /// The decoder builds the character from the bits of its bytes.
 /// It runs no separate validation pass.

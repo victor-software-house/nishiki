@@ -9,10 +9,11 @@ use crate::{Language, Stack, State, Token};
 
 /// Highlights one language, a line at a time.
 ///
-/// It owns the scope stacks and states its tokens and [`State`]s name, so
-/// both belong to the highlighter that made them. Lines are lexed in order
-/// from [`State::default`], and the state after one line is the input of the
-/// next, so an editor can keep each line's state and re-highlight from any
+/// It owns the scope stacks and states its tokens and [`State`]s name.
+/// Both therefore belong to the highlighter that made them.
+/// Lines are lexed in order from [`State::default`].
+/// The state after one line is the input of the next.
+/// An editor can therefore keep each line's state and re-highlight from any
 /// line.
 #[derive(Debug)]
 pub struct Highlighter {
@@ -21,8 +22,8 @@ pub struct Highlighter {
     arena: Arena,
     /// Buffers and caches of the lexers, one field per language.
     scratch: Scratch,
-    /// The state at the start of a document; [`State::default`] stands for
-    /// it.
+    /// The state at the start of a document.
+    /// [`State::default`] stands for it.
     start: u32,
 }
 
@@ -61,9 +62,10 @@ impl Highlighter {
 
     /// Lexes `line`, which excludes its line ending, starting from `state`.
     ///
-    /// Appends tokens that cover every byte of `line` in order (an empty line
-    /// appends none), leaves in `state` the state for the next line, and
-    /// reports the limits the line reached.
+    /// Appends tokens that cover every byte of `line` in order.
+    /// An empty line appends none.
+    /// It leaves in `state` the state for the next line.
+    /// It reports the limits the line reached.
     pub fn line(&mut self, line: &str, state: &mut State, out: &mut Vec<Token>) -> LineReport {
         let mut report = LineReport::default();
         let from = if state.0 == ROOT { self.start } else { state.0 };
@@ -97,8 +99,9 @@ impl Highlighter {
     /// The scope names of `stack`, innermost first, such as
     /// `"string.quoted.double.rust"` then `"source.rust"`.
     ///
-    /// Empty when `stack` is unknown to this highlighter. A stack from another
-    /// highlighter resolves to an unrelated stack or to nothing.
+    /// Empty when `stack` is unknown to this highlighter.
+    /// A stack from another highlighter resolves to an unrelated stack or to
+    /// nothing.
     #[must_use]
     pub fn scopes(&self, stack: Stack) -> Scopes<'_> {
         self.arena.scopes(stack.0)
