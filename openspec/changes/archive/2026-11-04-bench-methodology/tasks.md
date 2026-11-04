@@ -51,14 +51,14 @@ No new dependency.
 ## 3. The reference host
 
 - [x] 3.1 Run the A/A probe of design decision 11 on an instabox box, a Namespace 4x8 and a Namespace 8x16 pinned to one core, and check `perf stat -e instructions:u` on each → verify: a research note under `openspec/research/` names the reference host class, each candidate's A/A spread per language, and each run's minutes and cost
-  - 2026-11-04 UTC: [the probe note](../../research/2026-11-04-bench-host-probe.md) found no candidate that passed.
+  - 2026-11-04 UTC: [the probe note](../../../research/2026-11-04-bench-host-probe.md) found no candidate that passed.
     On every host and mode, 14 to 33 of 46 languages moved by more than 2% between the halves of one session.
     Pinning did not fix it.
     instabox has no `perf` for its kernel.
     On Namespace the `perf` install failed silently.
     Compute: about 36 Namespace unit minutes ($0.06) and 460 s of instabox.
 - [x] 3.2 Run the same probe with the Criterion harness of task 5.1, before the first record (task 6.3) → verify: a research note gives each candidate's A/A gap and spread per language under the new harness, and names the reference host class or confirms that no host passes
-  - 2026-11-04 UTC: [the second probe note](../../research/2026-11-04-bench-host-probe-criterion.md) found no host that passed.
+  - 2026-11-04 UTC: [the second probe note](../../../research/2026-11-04-bench-host-probe-criterion.md) found no host that passed.
     Each host's per-language lines sit beside the note.
     On every host and mode, Boat `large` included, 13 to 46 of 46 languages moved by more than 2%.
     Namespace 8x16, unpinned, is the reference class because it is the least noisy.

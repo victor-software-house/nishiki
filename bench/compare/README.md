@@ -1,7 +1,7 @@
 # Comparison with other highlighters
 
 How fast nishiki colours code next to other highlighters, and how close each comes to Shiki's colours.
-The reasons for each rule are in the `bench-methodology` change, design decision 13.
+The reasons for each rule are in the [`bench-methodology` design](../../openspec/changes/archive/2026-11-04-bench-methodology/design.md), decision 13.
 
 ## Engines
 

@@ -58,4 +58,4 @@ None.
 
 [bench-rs]: https://github.com/victor-software-house/nishiki-archive/blob/fc6d39a0bb1df915e26d66243810318470602c82/examples/bench.rs
 [record]: https://github.com/victor-software-house/nishiki-archive/blob/fc6d39a0bb1df915e26d66243810318470602c82/bench/results/namespace-4x8/2026-11-03-574fad99.md
-[survey]: ../../research/2026-11-03-benchmark-practice.md
+[survey]: ../../../research/2026-11-03-benchmark-practice.md

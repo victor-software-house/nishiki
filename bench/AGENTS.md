@@ -7,7 +7,7 @@ Rules for measuring nishiki, beside the root guide's invariants.
 `mise run bench:cold` gives cold start.
 `targets.toml` holds what results are judged against.
 `results/` holds recorded runs.
-The reasons for these rules are in the `bench-methodology` change under `openspec/changes/`.
+The reasons for these rules are in the [`bench-methodology` design](../openspec/changes/archive/2026-11-04-bench-methodology/design.md).
 
 1. Wall time never gates CI (design decision 10).
    Shared CI runners move it by more than any change we care about.

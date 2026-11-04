@@ -387,10 +387,10 @@ Rollback is reverting a pull request; the crate never depends on any of this.
 [record]: https://github.com/victor-software-house/nishiki-archive/blob/fc6d39a0bb1df915e26d66243810318470602c82/bench/results/namespace-4x8/2026-11-03-574fad99.md
 [shb]: https://github.com/ryanatkn/syntax-highlighter-bench/blob/dcc0a8897aaf115337eadc7845ffa1179c69a4da/README.md
 [standards]: https://github.com/victor-software-house/nishiki-archive/blob/fc6d39a0bb1df915e26d66243810318470602c82/CODING_STANDARDS.md
-[survey]: ../../research/2026-11-03-benchmark-practice.md
+[survey]: ../../../research/2026-11-03-benchmark-practice.md
 [syntect-bench]: https://github.com/trishume/syntect/blob/4efbec173db6ea83caaf7a34994cb7e4d038a13e/benches/highlighting.rs
 [targets]: https://github.com/victor-software-house/nishiki-archive/blob/fc6d39a0bb1df915e26d66243810318470602c82/bench/targets.toml
 [ts-bench]: https://github.com/tree-sitter/tree-sitter/blob/9632b561db2f647e9c0be9e61cf91f10671a6491/crates/cli/benches/benchmark.rs
 [run-242]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41754856763
-[probe]: ../../research/2026-11-04-bench-host-probe.md
-[probe-criterion]: ../../research/2026-11-04-bench-host-probe-criterion.md
+[probe]: ../../../research/2026-11-04-bench-host-probe.md
+[probe-criterion]: ../../../research/2026-11-04-bench-host-probe-criterion.md
