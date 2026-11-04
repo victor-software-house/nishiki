@@ -45,6 +45,9 @@ macro_rules! tags {
 }
 
 tags! {
+    /// Batch.
+    #[cfg(feature = "lang-bat")]
+    BAT = 0x3500,
     /// C, with the next byte for its end-of-line flag.
     #[cfg(feature = "lang-c")]
     C = 0x0c00 mask 0xfe00,

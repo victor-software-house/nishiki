@@ -413,8 +413,6 @@ fn kept_frames_lex_as_rebuilt_ones() {
 /// The engine grammars the crate ships, with the oracle fixtures of each,
 /// for the features that are on.
 static SHIPPED: &[(&Grammar, &str)] = &[
-    #[cfg(feature = "lang-bat")]
-    (&crate::bat::grammar::GRAMMAR, "bat"),
     #[cfg(feature = "lang-coffee")]
     (&crate::coffee::grammar::GRAMMAR, "coffee"),
     #[cfg(feature = "lang-elixir")]
@@ -1456,6 +1454,109 @@ fn nested_captures_stop_at_their_bound() {
     );
     assert!(report.limits().any(|limit| limit == Limit::Depth));
     assert_eq!(out.last().map(|token| token.end), Some(line.len()));
+}
+
+/// A grammar whose block, `{` to `}`, holds `x`, and whose injection,
+/// `L:meta.block.test`, tries its own `x` in any context under the block.
+/// Outside the block, `x` is the grammar's own.
+mod injected {
+    use std::sync::OnceLock;
+
+    use super::super::grammar::{Grammar, Injection, List, NONE, Pattern, Rule, RuleKind};
+
+    /// A rule of one kind, with no captures.
+    const fn rule(
+        kind: RuleKind,
+        name: &'static [u16],
+        begin: usize,
+        end: usize,
+        list: usize,
+    ) -> Rule {
+        Rule {
+            kind,
+            name,
+            content_name: &[],
+            begin,
+            end,
+            until: NONE,
+            captures: &[],
+            end_captures: &[],
+            list,
+            apply_end_last: false,
+        }
+    }
+
+    static PATTERNS: [Pattern; 3] = [Pattern::new(r"\{"), Pattern::new(r"\}"), Pattern::new("x")];
+    static LISTS: [List; 4] = [
+        List::new(&[1, 2]),
+        List::new(&[2]),
+        List::new(&[]),
+        List::new(&[4]),
+    ];
+    static RULES: [Rule; 5] = [
+        rule(RuleKind::Container, &[], NONE, NONE, 0),
+        rule(RuleKind::BeginEnd, &[0], 0, 1, 1),
+        rule(RuleKind::Match, &[1], 2, NONE, 2),
+        rule(RuleKind::Container, &[], NONE, NONE, 3),
+        rule(RuleKind::Match, &[2], 2, NONE, 2),
+    ];
+    static INJECTIONS: [Injection; 1] = [Injection {
+        selector: "L:meta.block.test",
+        rule: 3,
+    }];
+    pub(super) static GRAMMAR: Grammar = Grammar {
+        scope: "source.test",
+        names: &["meta.block.test", "plain.test", "injected.test"],
+        rules: &RULES,
+        lists: &LISTS,
+        injections: &INJECTIONS,
+        patterns: &PATTERNS,
+        root: 0,
+        hand_offs: &[],
+        list_hand_offs: &[],
+        handing_captures: &[],
+        cells: OnceLock::new(),
+        full_cells: OnceLock::new(),
+    };
+}
+
+/// An `L:` injection applies where its selector matches the scopes, and wins
+/// a tie with the context's own patterns.
+/// No grammar the crate ships has an injection, so this test grammar keeps
+/// the path tested.
+#[test]
+fn an_injection_wins_a_tie_where_its_selector_matches() {
+    let grammar: &'static Grammar = &injected::GRAMMAR;
+    let mut arena = Arena::new(None);
+    let mut scratch = Scratch::default();
+    let state = tokenizer::start(&mut arena, grammar, crate::arena::ROOT);
+    let line = "x {x}";
+    let mut out = Vec::new();
+    tokenizer::line(
+        &mut scratch,
+        &mut arena,
+        &Limits::default(),
+        Text {
+            grammar,
+            bytes: line.as_bytes(),
+            start: 0,
+            anchored: false,
+        },
+        state,
+        &mut out,
+        &mut LineReport::default(),
+    );
+    let scopes = |end: usize| -> Vec<&str> {
+        out.iter()
+            .find(|t| t.end == end)
+            .map(|t| arena.scopes(t.stack.0).collect())
+            .unwrap_or_default()
+    };
+    assert_eq!(scopes(1), ["plain.test", "source.test"]);
+    assert_eq!(
+        scopes(4),
+        ["injected.test", "meta.block.test", "source.test"]
+    );
 }
 
 /// A tab that a capture brings into a filled scope name stays inside that

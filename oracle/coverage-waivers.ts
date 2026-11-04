@@ -1273,11 +1273,13 @@ export const waivers: Waiver[] = [
       reason: "the rule's `captures` name the begin's groups for its end too, and the end's expression has one group",
     }),
   ),
+  { grammar: "bat", path: "#strings.patterns[0].end", group: 2, reason: lineFeed },
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
  * pull request that closes its last gap. */
 export const complete: string[] = [
+  "bat",
   "c",
   "cmake",
   "cpp",

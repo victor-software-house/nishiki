@@ -7,6 +7,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 
 | Fixture | Source | Licence |
 |:--|:--|:--|
+| `bat/coverage` | `oracle/inputs/bat-coverage.bat`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `bat/gradlew` | [`gradlew.bat`][gradlew-bat] in gradle/gradle | [Apache-2.0][gradle-licence] |
 | `bat/sample` | [`samples/bat.sample`][bat-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `bat/tomcat-catalina` | [`bin/catalina.bat`][tomcat-catalina-bat] in apache/tomcat | [Apache-2.0][tomcat-licence] |
@@ -776,9 +777,9 @@ Shiki's Markdown grammar has no CMake fence, so no Markdown input embeds CMake.
 Protobuf runs on nishiki's TextMate engine as well.
 `proto/sample` and `proto/googleapis-http` are its development inputs, and `proto/googleapis-operations` and `proto/grpc-route-guide` are held out.
 Shiki's Markdown grammar has no Protobuf fence, so no Markdown input embeds Protobuf.
-Batch runs on nishiki's TextMate engine as well.
-`bat/sample` and `bat/gradlew` are its development inputs, and `bat/tomcat-catalina` and `bat/tomcat-setclasspath` are held out.
-Shiki's Markdown grammar has no Batch fence, so no Markdown input embeds Batch.
+`bat/sample` and `bat/gradlew` are Batch's development inputs, and `bat/tomcat-catalina` and `bat/tomcat-setclasspath` are held out.
+`bat/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
+Shiki's Markdown grammar embeds Batch in `bat` and `batch` fences, and no Markdown input holds one yet.
 `nix/sample`, `nix/nixpkgs-ripgrep` and `nix/coverage` are Nix's development inputs, and `nix/nixpkgs-lists`, `nix/home-manager-tmux` and `nix/home-manager-flake` are held out.
 Shiki's Markdown grammar has no Nix fence, so no Markdown input embeds Nix.
 `dart/sample`, `dart/http-client` and `dart/coverage` are Dart's development inputs, and `markdown/dart-http-readme` is the development input for Dart fences.

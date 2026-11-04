@@ -147,6 +147,13 @@ impl<G: Grammar> Scratch<G> {
     pub(crate) fn forget_resume(&mut self) {
         self.resume = None;
     }
+
+    /// Sets what the next line's matchers start from ([`Grammar::Kept`]).
+    /// Batch tells its matchers there whether a Markdown fence embeds it.
+    #[cfg(feature = "lang-bat")]
+    pub(crate) fn set_kept(&mut self, kept: G::Kept) {
+        self.kept = kept;
+    }
 }
 
 impl<G: Grammar> Default for Scratch<G> {

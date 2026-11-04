@@ -1,0 +1,245 @@
+L @echo off
+T 1 source.batchfile keyword.operator.at.batchfile
+T 5 source.batchfile keyword.command.batchfile
+T 6 source.batchfile
+T 9 source.batchfile keyword.other.special-method.batchfile
+L rem Written for nishiki: what the bat grammar's other inputs leave out.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 71 source.batchfile comment.line.rem.batchfile
+L setlocal EnableDelayedExpansion
+T 8 source.batchfile keyword.command.batchfile
+T 9 source.batchfile
+T 31 source.batchfile keyword.other.special-method.batchfile
+L set /a total=(1+2)*3, count+=1, mask^=0x0F, shift<<=2, flag=!flag, neg=~5
+T 3 source.batchfile keyword.command.batchfile
+T 7 source.batchfile meta.expression.set.batchfile
+T 12 source.batchfile meta.expression.set.batchfile variable.other.readwrite.batchfile
+T 13 source.batchfile meta.expression.set.batchfile keyword.operator.assignment.batchfile
+T 14 source.batchfile meta.expression.set.batchfile punctuation.section.group.begin.batchfile
+T 15 source.batchfile meta.expression.set.batchfile
+T 16 source.batchfile meta.expression.set.batchfile keyword.operator.arithmetic.batchfile
+T 17 source.batchfile meta.expression.set.batchfile
+T 18 source.batchfile meta.expression.set.batchfile punctuation.section.group.end.batchfile
+T 19 source.batchfile meta.expression.set.batchfile keyword.operator.arithmetic.batchfile
+T 20 source.batchfile meta.expression.set.batchfile
+T 21 source.batchfile meta.expression.set.batchfile punctuation.separator.batchfile
+T 22 source.batchfile meta.expression.set.batchfile
+T 27 source.batchfile meta.expression.set.batchfile variable.other.readwrite.batchfile
+T 29 source.batchfile meta.expression.set.batchfile keyword.operator.assignment.augmented.batchfile
+T 30 source.batchfile meta.expression.set.batchfile
+T 31 source.batchfile meta.expression.set.batchfile punctuation.separator.batchfile
+T 32 source.batchfile meta.expression.set.batchfile
+T 36 source.batchfile meta.expression.set.batchfile variable.other.readwrite.batchfile
+T 38 source.batchfile meta.expression.set.batchfile keyword.operator.assignment.augmented.batchfile
+T 42 source.batchfile meta.expression.set.batchfile
+T 43 source.batchfile meta.expression.set.batchfile punctuation.separator.batchfile
+T 44 source.batchfile meta.expression.set.batchfile
+T 49 source.batchfile meta.expression.set.batchfile variable.other.readwrite.batchfile
+T 52 source.batchfile meta.expression.set.batchfile keyword.operator.assignment.augmented.batchfile
+T 53 source.batchfile meta.expression.set.batchfile
+T 54 source.batchfile meta.expression.set.batchfile punctuation.separator.batchfile
+T 55 source.batchfile meta.expression.set.batchfile
+T 59 source.batchfile meta.expression.set.batchfile variable.other.readwrite.batchfile
+T 60 source.batchfile meta.expression.set.batchfile keyword.operator.assignment.batchfile
+T 61 source.batchfile meta.expression.set.batchfile keyword.operator.logical.batchfile
+T 65 source.batchfile meta.expression.set.batchfile
+T 66 source.batchfile meta.expression.set.batchfile punctuation.separator.batchfile
+T 67 source.batchfile meta.expression.set.batchfile
+T 70 source.batchfile meta.expression.set.batchfile variable.other.readwrite.batchfile
+T 71 source.batchfile meta.expression.set.batchfile keyword.operator.assignment.batchfile
+T 72 source.batchfile meta.expression.set.batchfile keyword.operator.arithmetic.batchfile
+T 73 source.batchfile meta.expression.set.batchfile
+L set /a "quoted=4/2, other%%=3"
+T 3 source.batchfile keyword.command.batchfile
+T 7 source.batchfile meta.expression.set.batchfile
+T 8 source.batchfile meta.expression.set.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 14 source.batchfile meta.expression.set.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile meta.expression.set.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 16 source.batchfile meta.expression.set.batchfile string.quoted.double.batchfile
+T 17 source.batchfile meta.expression.set.batchfile string.quoted.double.batchfile keyword.operator.arithmetic.batchfile
+T 18 source.batchfile meta.expression.set.batchfile string.quoted.double.batchfile
+T 19 source.batchfile meta.expression.set.batchfile string.quoted.double.batchfile punctuation.separator.batchfile
+T 20 source.batchfile meta.expression.set.batchfile string.quoted.double.batchfile
+T 25 source.batchfile meta.expression.set.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 28 source.batchfile meta.expression.set.batchfile string.quoted.double.batchfile keyword.operator.assignment.augmented.batchfile
+T 29 source.batchfile meta.expression.set.batchfile string.quoted.double.batchfile
+T 30 source.batchfile meta.expression.set.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L set /p answer=Enter a value:
+T 3 source.batchfile keyword.command.batchfile
+T 7 source.batchfile
+T 13 source.batchfile meta.prompt.set.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile meta.prompt.set.batchfile keyword.operator.assignment.batchfile
+T 28 source.batchfile meta.prompt.set.batchfile
+L set /p "name=Your name? "
+T 3 source.batchfile keyword.command.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 12 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 13 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 24 source.batchfile string.quoted.double.batchfile
+T 25 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L echo %path:~1,-2% %str:~5% %var:a=b%
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 6 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 10 source.batchfile variable.other.readwrite.batchfile
+T 12 source.batchfile variable.other.readwrite.batchfile meta.variable.substring.batchfile punctuation.separator.batchfile
+T 13 source.batchfile variable.other.readwrite.batchfile meta.variable.substring.batchfile constant.numeric.batchfile
+T 14 source.batchfile variable.other.readwrite.batchfile meta.variable.substring.batchfile punctuation.separator.batchfile
+T 16 source.batchfile variable.other.readwrite.batchfile meta.variable.substring.batchfile constant.numeric.batchfile
+T 17 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 18 source.batchfile
+T 19 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 22 source.batchfile variable.other.readwrite.batchfile
+T 24 source.batchfile variable.other.readwrite.batchfile meta.variable.substring.batchfile punctuation.separator.batchfile
+T 25 source.batchfile variable.other.readwrite.batchfile meta.variable.substring.batchfile constant.numeric.batchfile
+T 26 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 27 source.batchfile
+T 28 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 31 source.batchfile variable.other.readwrite.batchfile
+T 32 source.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile punctuation.separator.batchfile
+T 33 source.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile string.unquoted.batchfile
+T 34 source.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile punctuation.separator.batchfile
+T 35 source.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile string.unquoted.batchfile
+T 36 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+L echo !path:~0,3! !var:old=new! !var:x! !value!
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 6 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 10 source.batchfile variable.other.readwrite.batchfile
+T 12 source.batchfile variable.other.readwrite.batchfile meta.variable.substring.batchfile punctuation.separator.batchfile
+T 13 source.batchfile variable.other.readwrite.batchfile meta.variable.substring.batchfile constant.numeric.batchfile
+T 14 source.batchfile variable.other.readwrite.batchfile meta.variable.substring.batchfile punctuation.separator.batchfile
+T 15 source.batchfile variable.other.readwrite.batchfile meta.variable.substring.batchfile constant.numeric.batchfile
+T 16 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 17 source.batchfile
+T 18 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 21 source.batchfile variable.other.readwrite.batchfile
+T 22 source.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile punctuation.separator.batchfile
+T 25 source.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile string.unquoted.batchfile
+T 26 source.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile punctuation.separator.batchfile
+T 29 source.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile string.unquoted.batchfile
+T 30 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 31 source.batchfile
+T 32 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 35 source.batchfile variable.other.readwrite.batchfile
+T 36 source.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile punctuation.separator.batchfile
+T 37 source.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile string.unquoted.batchfile
+T 38 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 39 source.batchfile
+T 40 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 45 source.batchfile variable.other.readwrite.batchfile
+T 46 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+L echo %%literal ^^! ^& ^| caret^
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 7 source.batchfile constant.character.escape.batchfile
+T 15 source.batchfile
+T 18 source.batchfile constant.character.escape.batchfile
+T 19 source.batchfile
+T 20 source.batchfile constant.character.escape.batchfile
+T 22 source.batchfile
+T 23 source.batchfile constant.character.escape.batchfile
+T 30 source.batchfile
+T 31 source.batchfile constant.character.escape.batchfile
+L echo "a %%b c" "%x%"
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 6 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 8 source.batchfile string.quoted.double.batchfile
+T 10 source.batchfile string.quoted.double.batchfile constant.character.escape.batchfile
+T 13 source.batchfile string.quoted.double.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 15 source.batchfile
+T 16 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 17 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 18 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 19 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 20 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L x & : comment after an ampersand
+T 2 source.batchfile
+T 3 source.batchfile keyword.operator.conditional.batchfile
+T 4 source.batchfile
+T 6 source.batchfile comment.line.colon.batchfile punctuation.definition.comment.batchfile
+T 32 source.batchfile comment.line.colon.batchfile
+L x & :: two colons
+T 2 source.batchfile
+T 3 source.batchfile keyword.operator.conditional.batchfile
+T 4 source.batchfile
+T 6 source.batchfile comment.line.colon.batchfile punctuation.definition.comment.batchfile
+T 17 source.batchfile comment.line.colon.batchfile
+L rem. dotted remark
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 4 source.batchfile comment.line.rem.batchfile punctuation.separator.batchfile
+T 18 source.batchfile comment.line.rem.batchfile
+L REM.with text | more
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 4 source.batchfile comment.line.rem.batchfile punctuation.separator.batchfile
+T 14 source.batchfile comment.line.rem.batchfile
+T 15 source.batchfile keyword.operator.pipe.batchfile
+T 16 source.batchfile
+T 20 source.batchfile keyword.command.batchfile
+L rem a | b < c
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 6 source.batchfile comment.line.rem.batchfile
+T 7 source.batchfile comment.line.rem.batchfile invalid.illegal.unexpected-character.batchfile
+T 10 source.batchfile comment.line.rem.batchfile
+T 11 source.batchfile comment.line.rem.batchfile invalid.illegal.unexpected-character.batchfile
+T 13 source.batchfile comment.line.rem.batchfile
+L dir | find "a" || echo none
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile keyword.operator.pipe.batchfile
+T 6 source.batchfile
+T 10 source.batchfile keyword.command.batchfile
+T 11 source.batchfile
+T 12 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 13 source.batchfile string.quoted.double.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 15 source.batchfile
+T 17 source.batchfile keyword.operator.conditional.batchfile
+T 18 source.batchfile
+T 22 source.batchfile keyword.command.batchfile
+T 23 source.batchfile
+T 27 source.batchfile
+L (echo a, b; c)
+T 1 source.batchfile meta.group.batchfile punctuation.section.group.begin.batchfile
+T 7 source.batchfile meta.group.batchfile
+T 8 source.batchfile meta.group.batchfile punctuation.separator.batchfile
+T 10 source.batchfile meta.group.batchfile
+T 11 source.batchfile meta.group.batchfile punctuation.separator.batchfile
+T 13 source.batchfile meta.group.batchfile
+T 14 source.batchfile meta.group.batchfile punctuation.section.group.end.batchfile
+L for %%f in (*.txt) do echo %%~nxf %%~dp$PATH:f
+T 3 source.batchfile meta.block.repeat.batchfile keyword.control.repeat.batchfile
+T 4 source.batchfile meta.block.repeat.batchfile
+T 6 source.batchfile meta.block.repeat.batchfile variable.parameter.repeat.batchfile punctuation.definition.variable.batchfile
+T 7 source.batchfile meta.block.repeat.batchfile variable.parameter.repeat.batchfile
+T 8 source.batchfile meta.block.repeat.batchfile
+T 10 source.batchfile meta.block.repeat.batchfile keyword.control.repeat.in.batchfile
+T 11 source.batchfile meta.block.repeat.batchfile
+T 12 source.batchfile meta.block.repeat.batchfile meta.group.batchfile punctuation.section.group.begin.batchfile
+T 17 source.batchfile meta.block.repeat.batchfile meta.group.batchfile
+T 18 source.batchfile meta.block.repeat.batchfile meta.group.batchfile punctuation.section.group.end.batchfile
+T 19 source.batchfile meta.block.repeat.batchfile
+T 21 source.batchfile meta.block.repeat.batchfile keyword.control.repeat.do.batchfile
+T 22 source.batchfile meta.block.repeat.batchfile
+T 26 source.batchfile meta.block.repeat.batchfile keyword.command.batchfile
+T 27 source.batchfile meta.block.repeat.batchfile
+T 29 source.batchfile meta.block.repeat.batchfile variable.parameter.repeat.batchfile punctuation.definition.variable.batchfile
+T 33 source.batchfile meta.block.repeat.batchfile variable.parameter.repeat.batchfile
+T 34 source.batchfile meta.block.repeat.batchfile
+T 36 source.batchfile meta.block.repeat.batchfile variable.parameter.repeat.batchfile punctuation.definition.variable.batchfile
+T 46 source.batchfile meta.block.repeat.batchfile variable.parameter.repeat.batchfile
+L echo NUL > out.txt
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 9 source.batchfile
+T 10 source.batchfile keyword.operator.redirection.batchfile
+T 18 source.batchfile
+L echo "unclosed
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 6 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile
+L 

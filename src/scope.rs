@@ -78,6 +78,8 @@ macro_rules! tables {
 }
 
 tables! {
+    #[cfg(feature = "lang-bat")]
+    BAT = bat;
     #[cfg(feature = "lang-c")]
     C = c;
     #[cfg(feature = "lang-cmake")]

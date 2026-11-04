@@ -10,6 +10,10 @@
 pub(crate) struct Scratch {
     /// The number of the current line (see [`Scratch::line`]).
     line: u64,
+    /// The Batch lexer's, for Batch documents and Markdown Batch fences.
+    /// It is boxed and allocated by the first Batch line, as Dart's is.
+    #[cfg(feature = "lang-bat")]
+    pub(crate) bat: Option<Box<crate::bat::Scratch>>,
     /// The C lexer's, for C documents and Markdown C fences.
     #[cfg(feature = "lang-c")]
     pub(crate) c: crate::c::Scratch,

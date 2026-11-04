@@ -3,6 +3,7 @@
 // tests/oracle/SOURCES.md records each one's licence.
 // Keep the two lists in step.
 
+import batCoverage from "./inputs/bat-coverage.bat" with { type: "text" };
 import cCoverage from "./inputs/c-coverage.c" with { type: "text" };
 import cmakeCoverage from "./inputs/cmake-coverage.cmake" with { type: "text" };
 import cppCoverage from "./inputs/cpp-coverage.cpp" with { type: "text" };
@@ -436,8 +437,7 @@ const zod =
   "https://raw.githubusercontent.com/colinhacks/zod/2554b70c3d4a80273381e61d527d820720626440";
 
 export const inputs: Input[] = [
-  // Batch runs on the TextMate engine. Shiki's Markdown grammar has no Batch
-  // fence, so no Markdown input embeds it.
+  { lang: "bat", name: "coverage", text: batCoverage },
   { lang: "bat", name: "gradlew", url: `${gradle}/gradlew.bat` },
   { lang: "bat", name: "sample", url: `${samples}/bat.sample` },
   { lang: "bat", name: "tomcat-catalina", url: `${tomcat}/bin/catalina.bat` },

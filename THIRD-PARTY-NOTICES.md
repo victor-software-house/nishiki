@@ -6,7 +6,7 @@ Each section below covers one language, sorted by name, with its grammar's sourc
 
 ## Batch
 
-Its TextMate engine runs the Batch TextMate grammar in [mmims/language-batchfile](https://github.com/mmims/language-batchfile), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode) as `bat`, with its rules compiled into tables (`src/bat/grammar.rs`).
+Its Batch lexer emits the scope names of the Batch TextMate grammar in [mmims/language-batchfile](https://github.com/mmims/language-batchfile), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode) as `bat`, and tries that grammar's rules in its order, from tables generated from it (`src/bat/grammar.rs`).
 That grammar is licensed under the MIT License:
 
 ```text

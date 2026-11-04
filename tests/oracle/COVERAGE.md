@@ -13,6 +13,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 
 | Lexer | Grammar | Expressions | Share | Captures | Share | Waived | Fuzz only | Complete |
 |:--|:--|--:|--:|--:|--:|--:|--:|:--|
+| Batch | `bat` | 79 of 79 | 100.0% | 53 of 54 | 98.1% | 1 | 0 | yes |
 | C | `c` | 321 of 342 | 93.9% | 318 of 341 | 93.3% | 44 | 0 | yes |
 | CMake | `cmake` | 29 of 29 | 100.0% | 0 of 0 | - | 0 | 0 | yes |
 | C++ | `cpp` | 877 of 912 | 96.2% | 2480 of 2679 | 92.6% | 234 | 0 | yes |
@@ -60,6 +61,12 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 Each line is an expression's path in its grammar, then the start of its regex, `fuzz` when the fuzz corpus exercises it, and the reason when a waiver covers it.
 An expression the fixtures do exercise is listed with the groups they do not, each marked `fuzz` and the waiver's reason likewise.
 The groups of an unexercised expression count as unexercised and are not listed.
+
+### `bat`
+
+```text
+#strings.patterns[0].end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+```
 
 ### `c`
 

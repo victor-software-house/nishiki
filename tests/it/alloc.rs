@@ -131,12 +131,12 @@ fn switching_between_engine_grammars_again_allocates_nothing() {
     );
 }
 
-/// A Markdown document with Batch and PowerShell fences: Batch's grammar is
-/// the engine's one with an injection, whose selectors the first switch to
-/// it parses and a second pass reuses.
+/// A Markdown document with Batch and PowerShell fences.
+/// The first pass allocates each lexer's scratch.
+/// A second pass switches between them again and allocates nothing.
 #[cfg(all(feature = "lang-bat", feature = "lang-powershell"))]
 #[test]
-fn switching_to_a_grammar_with_injections_again_allocates_nothing() {
+fn switching_between_fenced_lexers_again_allocates_nothing() {
     let lines: Vec<String> = indoc::indoc! {r#"
         ```bat
         for %%f in (*.txt) do (echo %%f)

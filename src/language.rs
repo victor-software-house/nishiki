@@ -784,15 +784,17 @@ languages! {
         names: ["html-derivative"],
         module: html_derivative,
     }
-    /// Batch, with the scopes of Shiki's `bat` grammar, which nishiki's
-    /// `TextMate` engine runs.
-    Bat {
-        feature: "lang-bat",
-        names: ["bat", "batch", "cmd"],
-        engine: crate::bat::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-    }
+    /// Batch, with the scopes of Shiki's `bat` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - Commands, keywords and operators match without regard to case, and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
+    /// - A `for` line's `in` clause ends at the end of its line only after `)`, `^` or a blank, so the clause and the `for` rule can stay open on the lines after it.
+    ///   The grammar's inline `(?i)` takes its `\n` alternative into the lookbehind before `do`.
+    /// - Inside a `for` line, the grammar's injection reads a loop parameter such as `%%i` first, before any other rule and before the end of the rule open there.
+    ///   In a Markdown fence it does not, since Shiki applies an embedded grammar's injection nowhere.
+    /// - `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
+    Bat { feature: "lang-bat", names: ["bat", "batch", "cmd"], module: bat }
     /// Nix, with the scopes of Shiki's `nix` grammar.
     ///
     /// # Behaviour kept from Shiki

@@ -21,6 +21,11 @@ const pick = <T,>(a: T[]): T => a[Math.floor(rnd() * a.length)]!;
 
 /** Fragments to glue into lines: words, marks and line starts. */
 const pools: Record<string, { words: string[]; marks: string[]; heads: string[] }> = {
+  bat: {
+    words: ["echo", "ECHO", "echo.", "off", "on", "set", "SET", "setlocal", "EnableDelayedExpansion", "endlocal", "call", "goto", "exit", "if", "not", "exist", "defined", "errorlevel", "else", "for", "in", "do", "rem", "REM.", "copy", "xcopy", "net user", "net", "dir", "find", "NUL", "EQU", "LSS", "x", "name", "value", "1", "-2", "0x1F", "\u017fet", "L\u00df", "/a", "/p", "/A", "%1", "%~dp0", "%*", "%%i", "%%~nxi", "%%~dp$PATH:f", "%path%", "%x:~1,2%", "%x:a=b%", "!x!", "!x:~0,3!", "!x:a=b!", ":label", "::"],
+    marks: ["(", ")", ",", ";", "=", "==", "+=", "<<=", "%%=", "&", "&&", "|", "||", "<", ">", ">>", "2>&1", "@", "^", "^^!", "^&", "!", "~", "%", "\"", "'", ":", ":~", "*.txt"],
+    heads: ["", "", " ", "  ", "@", "rem ", ":: ", ":", "for %%i in (", "set /a ", "set \"", "echo "],
+  },
   kotlin: {
     words: ["fun", "class", "interface", "object", "val", "var", "import", "package", "if", "else", "when", "in", "is", "as", "by", "get", "set", "this", "super", "private", "open", "data", "suspend", "true", "false", "null", "Foo", "x", "String", "List", "foo", "1", "0x1F", "1.5f", "@Foo", "@file:JvmName", "@param", "{@link a.B#c(d)}", "`a b`"],
     marks: ["(", ")", "[", "]", "{", "}", "<", ">", ",", ".", "?.", "::", ":", "?", "=", "==", "+", "-", "->", "\"", "\"\"\"", "'", "\"${x}\"", "$x", "/*", "*/", "/**", "//"],

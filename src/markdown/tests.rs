@@ -659,7 +659,24 @@ fn elixir_fences_embed_elixir() {
     );
 }
 
-/// Batch runs on the engine, whose `lex` takes the fence's body line by
+/// A Batch fence's `for` line reads `%%` as an escape: Shiki applies the
+/// Batch grammar's injection, which reads loop parameters, only where Batch
+/// is the document's grammar.
+#[cfg(feature = "lang-bat")]
+#[test]
+fn a_batch_fence_takes_no_loop_parameters() {
+    let text = indoc! {"
+        ```bat
+        for %%i in (a) do echo %%i
+        ```
+    "};
+    assert_eq!(
+        stack_of(text, "%%").last().map(String::as_str),
+        Some("constant.character.escape.batchfile")
+    );
+}
+
+/// A Batch fence embeds the Batch lexer, which lexes the fence's body line by
 /// line while Markdown finds the closing fence.
 #[cfg(feature = "lang-bat")]
 #[test]

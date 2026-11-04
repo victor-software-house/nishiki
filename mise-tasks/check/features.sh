@@ -14,8 +14,6 @@ RUSTFLAGS="" cargo check --locked --tests --no-default-features
 RUSTFLAGS="" cargo check --locked --tests --no-default-features --features json
 cargo check --locked --tests --no-default-features --features config
 cargo check --locked --tests --no-default-features --features docs
-# One engine language alone, Batch, with no language that hands off. The
-# engine's hand-off code still builds, since any capture can reach it.
 cargo check --locked --tests --no-default-features --features lang-bat
 cargo check --locked --tests --no-default-features --features lang-c
 cargo check --locked --tests --no-default-features --features lang-cmake
@@ -40,6 +38,9 @@ cargo check --locked --tests --no-default-features --features lang-less
 cargo check --locked --tests --no-default-features --features lang-lua
 cargo check --locked --tests --no-default-features --features lang-make
 cargo check --locked --tests --no-default-features --features lang-markdown
+# One engine language alone, Objective-C, with no language that hands off.
+# The engine's hand-off code still builds, since any capture can reach it.
+cargo check --locked --tests --no-default-features --features lang-objective-c
 cargo check --locked --tests --no-default-features --features lang-powershell
 cargo check --locked --tests --no-default-features --features lang-python
 cargo check --locked --tests --no-default-features --features lang-ruby
