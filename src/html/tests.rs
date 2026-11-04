@@ -1,7 +1,8 @@
 use indoc::indoc;
 
 use crate::Language;
-use crate::test_support::{leaf, lex, scopes_of};
+use crate::language::Halt;
+use crate::test_support::{self, leaf, lex, scopes_of};
 
 /// The innermost scope of each token of `row`.
 fn leaves(row: &[(String, Vec<String>)]) -> Vec<(&str, &str)> {
@@ -165,80 +166,28 @@ fn an_event_handler_line_ending_in_a_jsx_assignment_has_no_line_feed() {
     assert_eq!(equals, Some("invalid.illegal.attribute.js"));
 }
 
-/// A token's text and full scope stack.
-type Row = Vec<(String, Vec<String>)>;
+/// HTML as another language embeds it.
+const EMBEDDED: test_support::Embedded = test_support::Embedded {
+    start: super::start_embedded,
+    lex: super::lex,
+    lex_until: super::lex_until,
+};
 
 /// The scopes a Ruby here document named for HTML puts under its lines, as
 /// Shiki gives them: the grammar's `text.html.basic` adds none of its own.
 const RUBY_HEREDOC: [&str; 3] = ["source.ruby", "meta.embedded.block.html", "text.html"];
 
-/// Lexes `lines` in order from [`super::start_embedded`] over
-/// [`RUBY_HEREDOC`], each from the start of the line, with
-/// [`super::lex_until`] and `halts`, or with [`super::lex`] when there are
-/// none, and returns, per line, where it halted and each token's text and
-/// full scope stack.
-fn embedded(
-    lines: &[&str],
-    halts: Option<(crate::language::Halt, Option<crate::language::Halt>)>,
-) -> Vec<(Option<usize>, Row)> {
-    use crate::arena::{Arena, ROOT};
-    use crate::language::{Context, Line};
-    use crate::scratch::Scratch;
-    use crate::{Limits, LineReport, Token};
-
-    let mut arena = Arena::new(None);
-    let mut stack = ROOT;
-    for name in RUBY_HEREDOC {
-        let scope = arena.named_scope(name).expect("room for the base");
-        stack = arena.child(stack, scope).expect("room for the base");
-    }
-    let mut scratch = Scratch::default();
-    let mut state = super::start_embedded(&mut arena, stack);
-    let limits = Limits::default();
-    let mut rows = Vec::new();
-    for text in lines {
-        let mut out: Vec<Token> = Vec::new();
-        let mut report = LineReport::default();
-        let mut cx = Context {
-            scratch: &mut scratch,
-            arena: &mut arena,
-            limits: &limits,
-            out: &mut out,
-            report: &mut report,
-        };
-        let line = Line {
-            text,
-            start: 0,
-            embedded: false,
-        };
-        let (next, halt) = match halts {
-            Some((end, after)) => super::lex_until(&mut cx, line, state, end, after),
-            None => (super::lex(&mut cx, line, state), None),
-        };
-        state = next;
-        let mut from = 0;
-        let mut row = Row::new();
-        for token in &out {
-            let mut scopes: Vec<String> =
-                arena.scopes(token.stack().0).map(str::to_owned).collect();
-            scopes.reverse();
-            row.push((text[from..token.end()].to_owned(), scopes));
-            from = token.end();
-        }
-        assert_eq!(
-            from,
-            halt.unwrap_or(text.len()),
-            "tokens up to the halt: {text:?}"
-        );
-        rows.push((halt, row));
-    }
-    rows
+/// Where each line halts under a Ruby here document's halts.
+fn ruby_halts(lines: &[&str]) -> Vec<Option<usize>> {
+    test_support::ruby_heredoc_halts(EMBEDDED, &RUBY_HEREDOC, lines)
 }
 
-/// A Ruby interpolation, which a Ruby here document's patterns try before
-/// the HTML's.
-fn interpolation(bytes: &[u8], p: usize) -> bool {
-    bytes.get(p..p + 2) == Some(b"#{")
+/// Where each line halts under `end` and `after`.
+fn halts(lines: &[&str], end: Halt, after: Option<Halt>) -> Vec<Option<usize>> {
+    test_support::lex_embedded(EMBEDDED, &RUBY_HEREDOC, lines, Some((end, after)))
+        .into_iter()
+        .map(|(halt, _)| halt)
+        .collect()
 }
 
 /// A `<`, for the order of the halts and the patterns at a tag.
@@ -246,36 +195,17 @@ fn at_lt(bytes: &[u8], p: usize) -> bool {
     bytes.get(p) == Some(&b'<')
 }
 
-/// A Ruby escape, which a Ruby here document's patterns try after the
-/// HTML's.
-fn escape(bytes: &[u8], p: usize) -> bool {
-    bytes.get(p) == Some(&b'\\')
-}
-
-/// Where each line halts under a Ruby here document's halts, checking that
-/// its tokens are those it gets with no halts: all of them on a line that
-/// does not halt, and all but the last on one that does, since the halt cuts
-/// the last token short.
-fn ruby_halts(lines: &[&str]) -> Vec<Option<usize>> {
-    let halting = embedded(lines, Some((interpolation, Some(escape))));
-    let plain = embedded(lines, None);
-    for ((halt, row), (_, whole)) in halting.iter().zip(&plain) {
-        if halt.is_none() {
-            assert_eq!(row, whole, "no halt, the same tokens");
-        } else {
-            let before = row.len().saturating_sub(1);
-            assert_eq!(row[..before], whole[..before]);
-        }
-    }
-    halting.into_iter().map(|(halt, _)| halt).collect()
-}
-
 /// The places Shiki hands a line of a Ruby here document named for HTML
 /// back to Ruby: an interpolation or an escape while no HTML rule is open,
 /// and neither inside a tag, across lines too, or a script.
 #[test]
 fn ruby_takes_an_html_heredoc_line_back_only_where_no_html_rule_is_open() {
-    let rows = embedded(&["  x #{a} <b>y</b>"], Some((interpolation, Some(escape))));
+    let rows = test_support::lex_embedded(
+        EMBEDDED,
+        &RUBY_HEREDOC,
+        &["  x #{a} <b>y</b>"],
+        Some(test_support::RUBY_HALTS),
+    );
     assert_eq!(rows[0].0, Some(4));
     assert_eq!(
         rows[0].1,
@@ -298,11 +228,8 @@ fn an_html_end_halt_beats_a_tag_at_its_place_and_holds_at_the_end() {
     fn at_end(bytes: &[u8], p: usize) -> bool {
         p == bytes.len()
     }
-    assert_eq!(embedded(&["x <b>y"], Some((at_lt, None)))[0].0, Some(2));
-    assert_eq!(
-        embedded(&["x <b>y</b>"], Some((at_end, None)))[0].0,
-        Some(10)
-    );
+    assert_eq!(halts(&["x <b>y"], at_lt, None), [Some(2)]);
+    assert_eq!(halts(&["x <b>y</b>"], at_end, None), [Some(10)]);
 }
 
 /// `after` is tried only where no root pattern matches: not at a tag's `<`,
@@ -312,8 +239,5 @@ fn an_html_after_halt_yields_to_a_root_match_at_its_place() {
     fn never(_: &[u8], _: usize) -> bool {
         false
     }
-    assert_eq!(
-        embedded(&["x <b>y</b> < z"], Some((never, Some(at_lt))))[0].0,
-        Some(11)
-    );
+    assert_eq!(halts(&["x <b>y</b> < z"], never, Some(at_lt)), [Some(11)]);
 }

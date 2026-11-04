@@ -1,7 +1,10 @@
 //! What the languages' unit tests share: lexing text line by line as one
 //! document, and reading back each token's text and scope names.
 
-use crate::{Highlighter, Language, State};
+use crate::arena::{Arena, ROOT};
+use crate::language::{Context, Halt, Line};
+use crate::scratch::Scratch;
+use crate::{Highlighter, Language, Limits, LineReport, State, Token};
 
 /// One lexed line: each token's text and its scope names, outermost first.
 pub(crate) type Row = Vec<(String, Vec<String>)>;
@@ -109,4 +112,113 @@ pub(crate) fn leaf_in(row: &LeafRow, token: &str) -> String {
         .unwrap_or_else(|| panic!("no token {token:?} in {row:?}"))
         .1
         .clone()
+}
+
+/// A language's lexer for lines another language embeds: it lexes a line
+/// from a state up to where `end` or `after` halts it, and returns the state
+/// and where it halted.
+type LexUntil = fn(&mut Context<'_>, Line<'_>, u32, Halt, Option<Halt>) -> (u32, Option<usize>);
+
+/// How a language lexes the lines another language embeds: its start over a
+/// base stack, its whole-line lexer, and its `lex_until`.
+#[derive(Clone, Copy)]
+pub(crate) struct Embedded {
+    pub(crate) start: fn(&mut Arena, u32) -> u32,
+    pub(crate) lex: fn(&mut Context<'_>, Line<'_>, u32) -> u32,
+    pub(crate) lex_until: LexUntil,
+}
+
+/// The halts of a Ruby here document: its interpolation, tried before the
+/// embedded language's patterns, and its escapes, tried after them.
+pub(crate) const RUBY_HALTS: (Halt, Option<Halt>) = (ruby_interpolation, Some(ruby_escape));
+
+/// A Ruby interpolation, as a Ruby here document's patterns start it.
+fn ruby_interpolation(bytes: &[u8], p: usize) -> bool {
+    bytes.get(p..p + 2) == Some(b"#{")
+}
+
+/// A Ruby escape, as a Ruby here document's patterns start it.
+fn ruby_escape(bytes: &[u8], p: usize) -> bool {
+    bytes.get(p) == Some(&b'\\')
+}
+
+/// Lexes `lines` in order with `language` from its start over the scopes
+/// `base`, each from the start of the line, under its `lex_until` with
+/// `halts`, or its whole-line lexer when there are none, and returns, per
+/// line, where it halted and each token's text and full scope stack.
+pub(crate) fn lex_embedded(
+    language: Embedded,
+    base: &[&str],
+    lines: &[&str],
+    halts: Option<(Halt, Option<Halt>)>,
+) -> Vec<(Option<usize>, Row)> {
+    let mut arena = Arena::new(None);
+    let mut stack = ROOT;
+    for name in base {
+        let scope = arena.named_scope(name).expect("room for the base");
+        stack = arena.child(stack, scope).expect("room for the base");
+    }
+    let mut scratch = Scratch::default();
+    let mut state = (language.start)(&mut arena, stack);
+    let limits = Limits::default();
+    let mut rows = Vec::new();
+    for text in lines {
+        let mut out: Vec<Token> = Vec::new();
+        let mut report = LineReport::default();
+        let mut cx = Context {
+            scratch: &mut scratch,
+            arena: &mut arena,
+            limits: &limits,
+            out: &mut out,
+            report: &mut report,
+        };
+        let line = Line {
+            text,
+            start: 0,
+            embedded: false,
+        };
+        let (next, halt) = match halts {
+            Some((end, after)) => (language.lex_until)(&mut cx, line, state, end, after),
+            None => ((language.lex)(&mut cx, line, state), None),
+        };
+        state = next;
+        let mut from = 0;
+        let mut row = Row::new();
+        for token in &out {
+            let mut scopes: Vec<String> =
+                arena.scopes(token.stack().0).map(str::to_owned).collect();
+            scopes.reverse();
+            row.push((text[from..token.end()].to_owned(), scopes));
+            from = token.end();
+        }
+        assert_eq!(
+            from,
+            halt.unwrap_or(text.len()),
+            "tokens up to the halt: {text:?}"
+        );
+        rows.push((halt, row));
+    }
+    rows
+}
+
+/// Where each line of `lines` halts under a Ruby here document's halts,
+/// checking that its tokens are those it gets with no halts: all of them on
+/// a line that does not halt, and all but the last on one that does, since
+/// the halt cuts the last token short.
+pub(crate) fn ruby_heredoc_halts(
+    language: Embedded,
+    base: &[&str],
+    lines: &[&str],
+) -> Vec<Option<usize>> {
+    let halting = lex_embedded(language, base, lines, Some(RUBY_HALTS));
+    let plain = lex_embedded(language, base, lines, None);
+    for ((halt, row), (_, whole)) in halting.iter().zip(&plain) {
+        if halt.is_none() {
+            assert_eq!(row, whole, "no halt, the same tokens");
+        } else {
+            let before = row.len().saturating_sub(1);
+            assert_eq!(row[..before], whole[..before]);
+        }
+    }
+    halting.into_iter().map(|(halt, _)| halt).collect()
 }

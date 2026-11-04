@@ -665,30 +665,16 @@ impl<'a> Lexer<'a> {
         at.map(|at| from + at + 1)
     }
 
-    /// The first character start from the position where [`GiveBack::Halts`]
-    /// takes the line back before `found`: `end` up to and at its start,
-    /// since `end` is tried before the patterns, and `after` only before it,
-    /// since a match at a place beats `after` there. With no match ahead, the
-    /// places run to the end of the text, its end included.
+    /// Where [`GiveBack::Halts`] takes the line back before `found`, the root's
+    /// next match (see [`crate::language::halt_before`]).
     fn halt_before(&self, found: Option<&Hit>, end: Halt, after: Option<Halt>) -> Option<usize> {
         if self.over_budget() {
             return None;
         }
         let to = found.map_or(self.lim, |hit| hit.start);
-        let mut p = self.pos;
-        let halted = loop {
-            if p > to {
-                break None;
-            }
-            if end(self.s, p) || (p < to && after.is_some_and(|after| after(self.s, p))) {
-                break Some(p);
-            }
-            if p >= self.lim {
-                break None;
-            }
-            p += crate::utf8::char_len(self.s[p]);
-        };
-        self.spend(p.saturating_sub(self.pos));
+        let (halted, scanned) =
+            crate::language::halt_before(self.s, self.pos, to, self.lim, end, after);
+        self.spend(scanned);
         halted
     }
 

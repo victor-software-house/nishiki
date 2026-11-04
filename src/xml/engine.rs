@@ -13,7 +13,7 @@ use super::rules::{Pat, next_start, patterns};
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::scratch::Scratch;
 use crate::{Stack, Token, java};
@@ -139,11 +139,22 @@ pub(super) struct Lexer<'a> {
     /// The last stretch without a `>`: where it was found from, and where the
     /// `>` or the end of the text is.
     pub(super) angle_run: Cell<(usize, usize)>,
+    /// Where the language that embeds XML takes the line back, while only the
+    /// root is open: `end` before the root's patterns at a place, and `after`
+    /// where none of them matches (see [`Halt`]).
+    pub(super) halts: Option<(Halt, Option<Halt>)>,
+    /// Where the line went back to the embedding language.
+    halted: Option<usize>,
 }
 
 impl<'a> Lexer<'a> {
     /// A lexer for `line` from `state`, with the open rules of `state` as its
     /// frames, from the root down.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and XML rose 5% (1.0509)"
+    )]
+    #[inline(always)]
     pub(super) fn new(cx: &'a mut Context<'_>, line: Line<'a>, state: u32) -> Self {
         let (s, start) = (line.text.as_bytes(), line.start);
         let budget = cx.limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
@@ -166,6 +177,8 @@ impl<'a> Lexer<'a> {
             space_run: Cell::new((0, 0)),
             name_run: Cell::new((0, 0)),
             angle_run: Cell::new((0, 0)),
+            halts: None,
+            halted: None,
         };
         lexer.frames.clear();
         lexer.chain.clear();
@@ -194,14 +207,25 @@ impl<'a> Lexer<'a> {
     }
 
     /// Lexes the line and returns the state after it.
-    pub(super) fn run(mut self) -> u32 {
+    pub(super) fn run(self) -> u32 {
+        self.run_until().0
+    }
+
+    /// Lexes the line and returns the state after it, with where it went back
+    /// to the embedding language, if it did.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and XML rose 5% (1.0509)"
+    )]
+    #[inline(always)]
+    pub(super) fn run_until(mut self) -> (u32, Option<usize>) {
         self.tokenize();
         let state = self.top().state;
         self.scratch.xml = Buffers {
             frames: std::mem::take(&mut self.frames),
             chain: std::mem::take(&mut self.chain),
         };
-        state
+        (state, self.halted)
     }
 
     // Bytes.
@@ -274,6 +298,15 @@ impl<'a> Lexer<'a> {
             } else {
                 self.search()
             };
+            if self.halts.is_some()
+                && let Some(at) = self.halt_before(found.as_ref())
+            {
+                let stack = self.top().stack;
+                self.tok(stack, at);
+                self.pos = at;
+                self.halted = Some(at);
+                return;
+            }
             let Some(found) = found else {
                 if self.over_budget() {
                     self.report.record(Limit::Work);
@@ -290,6 +323,26 @@ impl<'a> Lexer<'a> {
                 "every pattern consumes a byte, so a match advances"
             );
         }
+    }
+
+    /// Where `halts` takes the line back before `found`, the next match, while
+    /// only the root is open (see [`crate::language::halt_before`]).
+    ///
+    /// `#[cold]`: only XML that another language embeds has halts, and kept
+    /// out of `tokenize`, the test costs a document one branch per match.
+    #[cold]
+    fn halt_before(&self, found: Option<&Found>) -> Option<usize> {
+        let (end, after) = self.halts?;
+        if self.frames.len() != 1 || self.over_budget() {
+            return None;
+        }
+        let to = found.map_or(self.lim, |found| match found {
+            Found::End(hit) | Found::Pat(_, hit) => hit.start,
+        });
+        let (halted, scanned) =
+            crate::language::halt_before(self.s, self.pos, to, self.lim, end, after);
+        self.spend(scanned);
+        halted
     }
 
     /// Gives the rest of the text to the innermost rule's content.

@@ -538,7 +538,7 @@ languages! {
     /// - `<% ... %>` is Java, lexed by the Java lexer.
     ///   A `%>` ends the code only when Java has no context open, so one inside a string, a block or a `//` comment belongs to Java.
     /// - A Markdown fence names the languages `xml`, `xsd`, `tld`, `jsp`, `pt`, `cpt`, `dtml`, `rss`, `opml`, `xsl` and `xslt`.
-    Xml { feature: "lang-xml", names: ["xml"], module: xml }
+    Xml { feature: "lang-xml", names: ["xml"], module: xml, halts: true }
     /// Swift, with the scopes of Shiki's `swift` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -762,6 +762,42 @@ pub(crate) struct Context<'a> {
 /// It never holds at a space or tab, because the rule engine's scan skips
 /// runs of them.
 pub(crate) type Halt = fn(&[u8], usize) -> bool;
+
+/// The first character start of `s` from `from` where a language that
+/// embeds another takes the line back before the embedded language's next
+/// match, which starts at `to`: `end` up to and at `to`, since `end` is tried
+/// before the patterns, and `after` only before it, since a match at a place
+/// beats `after` there. With no match ahead, `to` is `lim`, the end of the
+/// text, which is tested too. Returns the place, and how many bytes the scan
+/// passed, for the caller's work budget.
+///
+/// `#[inline]` because the HTML and XML lexers, in other modules, call it
+/// (`bench/AGENTS.md` rule 13).
+#[cfg(feature = "_utf8")]
+#[inline]
+pub(crate) fn halt_before(
+    s: &[u8],
+    from: usize,
+    to: usize,
+    lim: usize,
+    end: Halt,
+    after: Option<Halt>,
+) -> (Option<usize>, usize) {
+    let mut p = from;
+    let halted = loop {
+        if p > to {
+            break None;
+        }
+        if end(s, p) || (p < to && after.is_some_and(|after| after(s, p))) {
+            break Some(p);
+        }
+        if p >= lim {
+            break None;
+        }
+        p += crate::utf8::char_len(s[p]);
+    };
+    (halted, p.saturating_sub(from))
+}
 
 /// The line a lexer reads: all of it, and the byte where its own text starts,
 /// which is past the containers when a Markdown fence embeds it.

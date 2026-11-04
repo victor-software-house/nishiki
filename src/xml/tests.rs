@@ -1,3 +1,4 @@
+use crate::language::Halt;
 use crate::test_support::{self, LeafRow, leaf_row, merge_by_leaf};
 use crate::{Highlighter, Language, Limits, State};
 
@@ -338,4 +339,83 @@ fn java_does_not_read_into_the_middle_of_a_character_after_its_end() {
         row.last().map(|(_, scope)| scope.as_str()),
         Some("text.xml")
     );
+}
+
+/// XML as another language embeds it.
+const EMBEDDED: test_support::Embedded = test_support::Embedded {
+    start: super::start_embedded,
+    lex: super::lex,
+    lex_until: super::lex_until,
+};
+
+/// The scopes a Ruby here document named for XML puts under its lines, as
+/// Shiki gives them: the grammar's `text.xml` comes from the rule's
+/// `contentName`, and the include adds none of its own.
+const RUBY_HEREDOC: [&str; 3] = ["source.ruby", "meta.embedded.block.xml", "text.xml"];
+
+/// Where each line halts under a Ruby here document's halts.
+fn ruby_halts(lines: &[&str]) -> Vec<Option<usize>> {
+    test_support::ruby_heredoc_halts(EMBEDDED, &RUBY_HEREDOC, lines)
+}
+
+/// Where each line halts under `end` and `after`.
+fn halts(lines: &[&str], end: Halt, after: Option<Halt>) -> Vec<Option<usize>> {
+    test_support::lex_embedded(EMBEDDED, &RUBY_HEREDOC, lines, Some((end, after)))
+        .into_iter()
+        .map(|(halt, _)| halt)
+        .collect()
+}
+
+/// A `<`, for the order of the halts and the patterns at a tag.
+fn at_lt(bytes: &[u8], p: usize) -> bool {
+    bytes.get(p) == Some(&b'<')
+}
+
+/// The places Shiki hands a line of a Ruby here document named for XML back
+/// to Ruby: an interpolation or an escape while no XML rule is open, after a
+/// comment or a CDATA section that closes on the line too, and neither
+/// inside a tag, across lines too, a comment or a CDATA section.
+#[test]
+fn ruby_takes_an_xml_heredoc_line_back_only_where_no_xml_rule_is_open() {
+    let rows = test_support::lex_embedded(
+        EMBEDDED,
+        &RUBY_HEREDOC,
+        &["  x #{a} <b>y</b>"],
+        Some(test_support::RUBY_HALTS),
+    );
+    assert_eq!(rows[0].0, Some(4));
+    assert_eq!(
+        rows[0].1,
+        [("  x ".to_owned(), RUBY_HEREDOC.map(str::to_owned).to_vec())]
+    );
+    assert_eq!(ruby_halts(&["  a \\n b"]), [Some(4)]);
+    assert_eq!(ruby_halts(&["  <a title=\"#{x}\">t</a>"]), [None]);
+    assert_eq!(
+        ruby_halts(&["  <a href=\"x\"", "     data-y=\"#{y}\">z</a>"]),
+        [None, None]
+    );
+    assert_eq!(ruby_halts(&["  <!-- c #{c} --> #{d}"]), [Some(18)]);
+    assert_eq!(ruby_halts(&["  <![CDATA[ #{e} ]]> #{f}"]), [Some(21)]);
+}
+
+/// `end` is tried before the root's patterns at a place, so it takes the
+/// line back at a `<` that starts a tag, and at the end of the text when
+/// nothing matches after it.
+#[test]
+fn an_xml_end_halt_beats_a_tag_at_its_place_and_holds_at_the_end() {
+    fn at_end(bytes: &[u8], p: usize) -> bool {
+        p == bytes.len()
+    }
+    assert_eq!(halts(&["x <b>y"], at_lt, None), [Some(2)]);
+    assert_eq!(halts(&["x <b>y</b>"], at_end, None), [Some(10)]);
+}
+
+/// `after` is tried only where no root pattern matches: not at a tag's `<`,
+/// but at a bare one.
+#[test]
+fn an_xml_after_halt_yields_to_a_root_match_at_its_place() {
+    fn never(_: &[u8], _: usize) -> bool {
+        false
+    }
+    assert_eq!(halts(&["x <b>y</b> < z"], never, Some(at_lt)), [Some(11)]);
 }
