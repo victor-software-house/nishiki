@@ -29,12 +29,15 @@ const HOSTILE: [(&str, &str, &str); 15] = [
 /// work limit cuts short.
 const QUADRATIC: [&str; 1] = ["![a]("];
 
+/// Units whose emphasis look-aheads pass the plain steps.
+/// The line's last look-aheads fall short of them, by a fixed term per line.
+const LONG_LOOK_AHEADS: [&str; 1] = ["*a "];
+
 fn hostile(head: &str, unit: &str, tail: &str, count: usize) -> String {
     format!("{head}{}{tail}", unit.repeat(count))
 }
 
 #[test]
-#[ignore = "waits for the linear code-span scan: a scan that runs out of work now reports it, which shows that code span's quadratic cost"]
 fn hostile_markdown_lines_finish_within_the_default_limits() {
     let mut highlighter = Highlighter::new(Language::Markdown);
     for (head, unit, tail) in HOSTILE {
@@ -60,16 +63,20 @@ fn hostile_markdown_lines_finish_within_the_default_limits() {
 /// look-ahead that rescans the rest of the line from each position, and
 /// spends what it reads as it must, fails here.
 #[test]
-#[ignore = "waits for the linear code-span scan: a scan that runs out of work now reports it, which shows that code span's quadratic cost"]
 fn hostile_markdown_lines_spend_work_linear_in_their_length() {
     for (head, unit, tail) in HOSTILE {
         if QUADRATIC.contains(&unit) {
             continue;
         }
+        let slack = if LONG_LOOK_AHEADS.contains(&unit) {
+            NEAR_END_SHORTFALL
+        } else {
+            16
+        };
         let short = steps_spent(Language::Markdown, &hostile(head, unit, tail, 1_000));
         let long = steps_spent(Language::Markdown, &hostile(head, unit, tail, 2_000));
         assert!(
-            long <= 2 * short + 16,
+            long <= 2 * short + slack,
             "{unit:?} spent {short} steps at 1,000 and {long} at 2,000"
         );
     }
