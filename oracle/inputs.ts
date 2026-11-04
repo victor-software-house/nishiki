@@ -13,6 +13,7 @@ import diffCoverage from "./inputs/diff-coverage.diff" with { type: "text" };
 import dockerCoverage from "./inputs/docker-coverage.dockerfile" with { type: "text" };
 import iniCoverage from "./inputs/ini-coverage.ini" with { type: "text" };
 import javaCoverage from "./inputs/java-coverage.java" with { type: "text" };
+import kotlinCoverage from "./inputs/kotlin-coverage.kt" with { type: "text" };
 import lessCoverage from "./inputs/less-coverage.less" with { type: "text" };
 import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
 import makeCoverage from "./inputs/make-coverage.mk" with { type: "text" };
@@ -713,6 +714,7 @@ export const inputs: Input[] = [
     name: "coroutines-state-flow",
     url: `${coroutines}/kotlinx-coroutines-core/common/src/flow/StateFlow.kt`,
   },
+  { lang: "kotlin", name: "coverage", text: kotlinCoverage },
   {
     lang: "kotlin",
     name: "exposed-op",

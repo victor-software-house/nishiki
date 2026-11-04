@@ -1,0 +1,152 @@
+L @file:[Suppress JvmName]
+T 5 source.kotlin entity.name.type.annotation-site.kotlin
+T 7 source.kotlin
+T 15 source.kotlin entity.name.type.annotation.kotlin
+T 16 source.kotlin
+T 23 source.kotlin entity.name.type.annotation.kotlin
+T 24 source.kotlin
+L 
+L package coverage
+T 7 source.kotlin meta.package.kotlin keyword.hard.package.kotlin
+T 8 source.kotlin meta.package.kotlin
+T 16 source.kotlin meta.package.kotlin entity.name.package.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * @param[value] the value to box
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 9 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 10 source.kotlin comment.block.javadoc.kotlin
+T 15 source.kotlin comment.block.javadoc.kotlin variable.parameter.kotlin
+T 16 source.kotlin comment.block.javadoc.kotlin
+T 33 source.kotlin comment.block.javadoc.kotlin
+L  * See {@link Box#map(Int) the mapper}.
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 8 source.kotlin comment.block.javadoc.kotlin
+T 13 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin
+T 17 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 18 source.kotlin comment.block.javadoc.kotlin
+T 26 source.kotlin comment.block.javadoc.kotlin variable.parameter.kotlin
+T 38 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class Box<out T>(val value: T)
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 9 source.kotlin entity.name.type.class.kotlin
+T 10 source.kotlin
+T 13 source.kotlin entity.name.type.kotlin
+T 14 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+T 20 source.kotlin keyword.hard.kotlin
+T 21 source.kotlin
+T 26 source.kotlin storage.modifier.other.kotlin
+T 28 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+L 
+L typealias Pairs<K, V> = Map<K, List<V>>
+T 9 source.kotlin keyword.hard.typealias.kotlin
+T 10 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.comparison.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.comparison.kotlin
+T 37 source.kotlin
+T 38 source.kotlin keyword.operator.comparison.kotlin
+T 39 source.kotlin keyword.operator.comparison.kotlin
+L 
+L val <T> List<T>.second: T get() = this[1]
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 5 source.kotlin
+T 6 source.kotlin entity.name.type.kotlin
+T 7 source.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.comparison.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.comparison.kotlin
+T 22 source.kotlin
+T 24 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+T 33 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+T 38 source.kotlin variable.language.this.kotlin
+T 39 source.kotlin
+T 40 source.kotlin constant.numeric.decimal.kotlin
+T 41 source.kotlin
+L 
+L fun count(n: Int): Int {
+T 3 source.kotlin keyword.hard.fun.kotlin
+T 4 source.kotlin
+T 9 source.kotlin entity.name.function.declaration.kotlin
+T 11 source.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+T 19 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 24 source.kotlin
+L     var i = n
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 10 source.kotlin
+T 11 source.kotlin keyword.operator.assignment.kotlin
+T 13 source.kotlin
+L     i++
+T 5 source.kotlin
+T 6 source.kotlin keyword.operator.arithmetic.kotlin
+T 7 source.kotlin keyword.operator.arithmetic.kotlin
+L     i--
+T 5 source.kotlin
+T 6 source.kotlin keyword.operator.arithmetic.kotlin
+T 7 source.kotlin keyword.operator.arithmetic.kotlin
+L     val text = """first \$ line
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+L         second"""
+T 14 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+L     call(a= = 1)
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 9 source.kotlin
+T 11 source.kotlin variable.parameter.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.assignment.kotlin
+T 14 source.kotlin
+T 15 source.kotlin constant.numeric.decimal.kotlin
+T 16 source.kotlin
+L     return i
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+L }
+T 1 source.kotlin
+L 

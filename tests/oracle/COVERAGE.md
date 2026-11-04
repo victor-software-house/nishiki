@@ -32,7 +32,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | JSON | `jsonc` | 19 of 23 | 82.6% | 13 of 15 | 86.7% | 0 | 0 |  |
 | JSON | `jsonl` | 13 of 23 | 56.5% | 11 of 15 | 73.3% | 0 | 6 |  |
 | TypeScript | `jsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
-| Kotlin | `kotlin` | 57 of 65 | 87.7% | 25 of 35 | 71.4% | 0 | 0 |  |
+| Kotlin | `kotlin` | 63 of 65 | 96.9% | 35 of 35 | 100.0% | 2 | 0 | yes |
 | Less | `less` | 581 of 590 | 98.5% | 417 of 437 | 95.4% | 29 | 0 | yes |
 | Lua | `lua` | 147 of 152 | 96.7% | 72 of 74 | 97.3% | 7 | 0 | ready |
 | Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
@@ -641,16 +641,8 @@ patterns[1].begin  groups 1 (waived: the group matches only blanks, and the orac
 ### `kotlin`
 
 ```text
-#annotation-site-list.begin  (?<!\w)(@\w+):\s*\[
-#annotation-site-list.end  ]
-#comment-javadoc.patterns[0].patterns[2].match  (@param)\[(\S+)]
-#comment-javadoc.patterns[0].patterns[4].match  \{(@link)\s+(\S+)?#([$\w]+\s*\([^()]*\)).*}
-#key.match  \b(\w=)\s*(=)
-#operators.patterns[5].match  (--|\+\+)
-#string-multiline.patterns[0].match  \\.
-#type-alias.match  groups 3
-#type-parameter.patterns[1].match  \b(in|out)\b
-#variable-declaration.match  groups 2
+#operators.patterns[5].match  (--|\+\+)  waived: `#operators.patterns[3]`, `([-%*+/])`, before it, takes the first character of every `--` and `++`
+#type-parameter.patterns[1].match  \b(in|out)\b  waived: `#type-parameter.patterns[0]`, `\b\w+\b`, before it, matches every word this does
 ```
 
 ### `less`

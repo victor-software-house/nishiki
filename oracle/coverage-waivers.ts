@@ -975,6 +975,16 @@ export const waivers: Waiver[] = [
     (group): Waiver => ({ grammar: "make", path: "#directives.patterns[2].end", group, reason: missing(1) }),
   ),
   { grammar: "java", path: "#comments-inline.patterns[1].begin", group: 1, reason: blanks },
+  {
+    grammar: "kotlin",
+    path: "#operators.patterns[5].match",
+    reason: "`#operators.patterns[3]`, `([-%*+/])`, before it, takes the first character of every `--` and `++`",
+  },
+  {
+    grammar: "kotlin",
+    path: "#type-parameter.patterns[1].match",
+    reason: "`#type-parameter.patterns[0]`, `\\b\\w+\\b`, before it, matches every word this does",
+  },
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -991,6 +1001,7 @@ export const complete: string[] = [
   "java",
   "javascript",
   "jsx",
+  "kotlin",
   "less",
   "make",
   "markdown",
