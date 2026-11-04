@@ -35,3 +35,17 @@ Rules for measuring nishiki, beside the root guide's invariants.
 14. A port onto `crate::rules` passes when identity is clean, its own instructions at one codegen unit (rule 12) are at parity with the lexer it replaces or better, and every other rule language stays within ±0.3% there.
     The pull request also records the instructions at sixteen units and the wall time in the default profile, but they do not decide: they follow layout across codegen units, and rule 13 is how a port closes that gap.
 15. `mise run callgrind` counts every language with oracle fixtures, read from the directories under `tests/oracle/`, so a new language is counted without editing any list.
+16. Instruction counts of one build are not exactly repeatable.
+    The arena's map of interned strings keeps std's seeded hasher, because its keys come from the text being lexed and must resist keys crafted to collide (lead, 2026-11-04).
+    Six runs of one build at one codegen unit on one box spread by this much, as the largest minus the smallest over the mean (2026-11-04):
+    - haskell and erb: 0.09%;
+    - mermaid, html and julia: 0.06%;
+    - nix: 0.04%;
+    - html-derivative: 0.03%;
+    - proto and markdown: 0.02%;
+    - ruby: 0.01%;
+    - python and c: under 0.01%;
+    - go: none.
+
+    The other engine languages intern through the same map and were not measured.
+    A move of 0.1% or less in these languages is within that spread; the 0.5% gate sits five times above the largest.

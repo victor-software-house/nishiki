@@ -13,15 +13,13 @@
 //! and whether the rule opened at the end of its line into the frame's
 //! payload; its scope stack is the stack of text inside the rule.
 
-use std::collections::HashMap;
-
 use regex_automata::meta::Cache;
 
 use super::grammar::{Cap, DYNAMIC_NAME, Grammar, List, NONE, Rule, RuleKind};
 use super::regex::{self, Context, Regex};
 use super::scanner::Scanner;
 use super::selector::{self, Expr};
-use crate::arena::{Arena, ROOT};
+use crate::arena::{Arena, IdMap, ROOT};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::scope::Scope;
 use crate::{Stack, Token};
@@ -189,11 +187,11 @@ pub(crate) struct Scratch {
     /// so the arena's node limit and [`MAX_END`] bound how many there are.
     dynamic: Vec<Option<Regex>>,
     /// The place in `dynamic` of each interned pattern number.
-    dynamic_ids: HashMap<u32, usize>,
+    dynamic_ids: IdMap<u32, usize>,
     /// The grammar's injections, by priority.
     injected: Vec<Injected>,
     /// Per scope stack, the injections whose selector it satisfies.
-    injected_at: HashMap<u32, Vec<usize>>,
+    injected_at: IdMap<u32, Vec<usize>>,
     /// The injections that apply at the cursor, reused.
     hits: Vec<usize>,
 }

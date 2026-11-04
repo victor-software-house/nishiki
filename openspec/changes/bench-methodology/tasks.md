@@ -15,7 +15,17 @@ Each lands the docs its work changes: `bench/AGENTS.md`, `bench/README.md` and t
 
 No new dependency.
 
-- [ ] 2.1 `mise-tasks/callgrind.sh` takes its default languages from the fixture directories and runs one valgrind per core; bench rule 15 goes → verify: the pull request's Callgrind job prints a row for each of the 46 languages, and its step finishes inside the 20-minute timeout
+- [x] 2.0 Measure the instruction counts' noise floor: run `examples/lex.rs` under callgrind several times on one build, find what differs between runs, remove each cause that costs nothing to remove, and record the spread that stays in bench rule 16 → verify: bench rule 16 lists the measured spread per language, and every spread is under the 0.5% gate
+  - 2026-11-04 UTC: two instabox runs, three builds at one codegen unit, three to six counts each.
+    - The arena's map of interned strings (std's seeded hasher) is the cause for the HTML family, Python and the TextMate languages. A fixed hasher or a `BTreeMap` there made all of them repeatable.
+    - The `BTreeMap` cost HTML 2.04% more instructions; html-derivative, erb and Markdown held parity. The lead kept the seeded map for its resistance to crafted collisions.
+    - The engine's two maps keyed by arena ids moved to the arena's `IdHasher`; alone, that left the counts as noisy as before.
+    - Running valgrind with address randomization off (`setarch -R`) changed nothing.
+    - A residual of up to 0.02% in Markdown, Ruby and C stays with every variant; its cause was not looked for further.
+    - Six counts of main spread by 0.09% at most (haskell, erb), recorded in bench rule 16.
+- [x] 2.1 `mise-tasks/callgrind.sh` takes its default languages from the fixture directories and runs one valgrind per core; bench rule 15 says so → verify: the pull request's Callgrind job prints a row for each of the 46 languages, and its step finishes inside the 20-minute timeout
+  - 2026-11-04 UTC: [#242][pr-242]'s [Callgrind run][run-242] printed 46 rows and passed; its compare step took 2 min 4 s, against 4.5 to 5 min for 27 languages on the four runs before it.
+    Untouched languages read 0.9993 to 1.0003 there, so the counts carry some run-to-run noise of their own, well inside the 0.5% gate; its cause is not established.
 - [ ] 2.2 `nishiki-alloc-count` counts bytes and peak live bytes beside calls → verify: `tests/it/alloc.rs` passes in CI unchanged, and a unit test in the crate covers the new counts
 - [ ] 2.3 `examples/memory.rs` prints each language's allocations, bytes and peak over one pass of its fixtures, and the Callgrind job shows it for base and head → verify: the job summary of the pull request shows the memory table, and the job passes
 
@@ -32,7 +42,7 @@ The probe uses the current `examples/bench.rs` throughput figure, so it does not
 
 ## 5. The `bench/` workspace
 
-- [ ] 5.1 The workspace, its corpus loader, and Criterion benches `throughput` and `styling`; `mise run bench` runs them; `examples/bench.rs` and the old `mise-tasks/bench.sh` go; `bench/README.md` says what each question measures and how to run it → verify: a bench job, on pull requests labelled `bench` or touching `bench/`, builds the workspace with `--locked` and runs every bench once in test mode, and passes
+- [ ] 5.1 The workspace, its corpus loader, and Criterion benches `throughput` and `styling`; `mise run bench` runs them; `examples/bench.rs` and the old `mise-tasks/bench.sh` go; `bench/README.md` says what each question measures and how to run it, and `mise-tasks/check/layout.sh` moves `bench` from `guide_only` to `both` → verify: a bench job, on pull requests labelled `bench` or touching `bench/`, builds the workspace with `--locked` and runs every bench once in test mode, and passes
 - [ ] 5.2 `latency`: repeated passes, timer overhead subtracted, first contact apart, as design decision 6 → verify: the bench job runs it on the small tier with three passes, and its output names steady p50, p99 and maximum, the first-contact maximum, and the count of lines below resolution
 - [ ] 5.3 `cold`: one sample per process, a runner that interleaves languages and drops the first three samples, and theme loading → verify: the bench job runs it with five processes for one language, and its output gives the median and p90 of each of the three times
 
@@ -60,3 +70,5 @@ The probe uses the current `examples/bench.rs` throughput figure, so it does not
 - Group 8 can stay open in a later change if it has not started by then.
 
 [pr-239]: https://github.com/victor-software-house/nishiki-archive/pull/239
+[pr-242]: https://github.com/victor-software-house/nishiki-archive/pull/242
+[run-242]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41754856763

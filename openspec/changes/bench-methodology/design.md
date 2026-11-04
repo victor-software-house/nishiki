@@ -182,8 +182,14 @@ It changes:
 
 - The language list comes from the fixture directories, not a hand-kept line.
   All 46 languages with fixtures are counted, not 27.
-  [Bench rule 15][bench-rules], which exists because engine pull requests collided on that line, goes away.
+  [Bench rule 15][bench-rules], which exists because engine pull requests collided on that line, now states that the list comes from the fixture directories.
 - Languages run in parallel, one valgrind per core, so the larger list fits the job's 20-minute step.
+- The noise floor is measured and recorded.
+  On an unchanged tree, languages read 0.9993 to 1.0003 in [#242's run][run-242].
+  The cause is the arena's map of interned strings, which keeps std's seeded hasher so that crafted text cannot make its keys collide.
+  A deterministic map (`BTreeMap`) made the counts repeatable but cost HTML 2% more instructions, so the map stays seeded (lead, 2026-11-04).
+  The spread, at most 0.09%, is five times under the gate; bench rule 16 records it per language.
+  The engine's maps keyed by arena ids move to the arena's fixed hasher, since no adversary picks those keys.
 
 Rejected: gungraun.
 It would add cache metrics and JSON output, but it compares runs of one bench binary, needs a runner binary pinned to its exact version, and gives the gate no guarantee it lacks.
@@ -311,7 +317,7 @@ examples/
 - replaced: what a local run is for (decision 10), the record format (decision 12), and the before-and-after rule (decision 17);
 - replaced: rule 8, which puts comparisons under `research/`, a directory the `repo-layout` change removes.
   The new rule: every comparison with another engine runs in `bench/compare/`, a non-published workspace of its own, never a dependency of the crate or of `bench/` (decisions 3 and 13);
-- removed: rule 15 (decision 9).
+- rewritten: rule 15, which now says the language list comes from the fixture directories (decision 9).
 
 ### 17. A speed claim
 
@@ -361,3 +367,4 @@ Rollback is reverting a pull request; the crate never depends on any of this.
 [syntect-bench]: https://github.com/trishume/syntect/blob/4efbec173db6ea83caaf7a34994cb7e4d038a13e/benches/highlighting.rs
 [targets]: https://github.com/victor-software-house/nishiki-archive/blob/fc6d39a0bb1df915e26d66243810318470602c82/bench/targets.toml
 [ts-bench]: https://github.com/tree-sitter/tree-sitter/blob/9632b561db2f647e9c0be9e61cf91f10671a6491/crates/cli/benches/benchmark.rs
+[run-242]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41754856763

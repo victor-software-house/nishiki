@@ -100,6 +100,15 @@ The gate SHALL build base and head each from their own tree and lockfile, SHALL 
 - **WHEN** a pull request changes the crate's dependency versions
 - **THEN** the base still builds with the base's own lockfile, and the gate runs
 
+### Requirement: The gate's noise floor is measured and recorded
+
+The bench rules SHALL state, per measured language, how far repeated counts of one build spread, and that spread SHALL stay below the gate's tolerance for every language.
+
+#### Scenario: A reviewer reads a small move
+
+- **WHEN** a pull request moves a language's count by less than the spread recorded for it
+- **THEN** the reviewer reads the move as noise, not as a change of code
+
 ### Requirement: Layout-only counts never fail the gate
 
 Counts at the default codegen units SHALL be shown for information only and SHALL never fail the job.

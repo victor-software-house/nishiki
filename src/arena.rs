@@ -21,7 +21,7 @@ pub(crate) const ROOT: u32 = 0;
 /// no adversary picks them, and the default `SipHash` would cost several
 /// times more on the hot path of every token.
 #[derive(Default)]
-struct IdHasher(u64);
+pub(crate) struct IdHasher(u64);
 
 /// The multiplier of rustc's `FxHasher`.
 const SEED: u64 = 0x51_7c_c1_b7_27_22_0a_95;
@@ -50,7 +50,10 @@ impl Hasher for IdHasher {
     }
 }
 
-type IdMap<K> = HashMap<K, u32, BuildHasherDefault<IdHasher>>;
+/// A map keyed by ids an arena made, such as scope stacks, states or
+/// interned strings: no adversary picks the key, and its probes are the same
+/// in every process, so instruction counts of lexing are too.
+pub(crate) type IdMap<K, V = u32> = HashMap<K, V, BuildHasherDefault<IdHasher>>;
 
 /// A scope stack's key: its parent and its top scope.
 type ScopeKey = (u32, u32);
