@@ -35,7 +35,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createHighlighter, type RegexEngine } from "shiki@4.6.0";
 import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
-import { fixture } from "./fixture.ts";
+import { fixtureParts, type Highlighter } from "./fixture.ts";
 import { grammars } from "./grammars.ts";
 import { complete, waivers } from "./coverage-waivers.ts";
 import { inputs } from "./inputs.ts";
@@ -338,38 +338,101 @@ const engine: RegexEngine = {
     };
   },
 };
-const highlighter = await createHighlighter({
-  langs: loaded as unknown as typeof grammars,
-  themes: ["github-dark"],
-  engine,
-});
+/** A highlighter on the tagged grammars. The run makes one per input
+ * language. It disposes the highlighter after that language. Disposing it
+ * frees the scanners the language compiled. One highlighter for every
+ * language kept all of them, and the run outgrew the 4 GB Coverage runner.
+ * The run also collects garbage after each fixture and each fuzz batch.
+ * Bun's collector runs late, and the garbage of several large fixtures piled
+ * up before it ran. */
+const newHighlighter = () =>
+  createHighlighter({
+    langs: loaded as unknown as typeof grammars,
+    themes: ["github-dark"],
+    engine,
+  });
 
-/** The text of a file in the fixture format, from its `L` records. */
-const textOf = (records: string) =>
-  records
-    .split("\n")
-    .filter((record) => record.startsWith("L "))
-    .map((record) => record.slice(2))
-    .join("\n");
-/** Tokenizes `text` as `lang` on the tagged grammars, counting what it
- * exercises, and tells whether the scopes equal `committed`. */
-function agrees(text: string, lang: string, committed: string): boolean {
-  const scopes = fixture(highlighter, text, lang);
+/** The text of a file in the fixture format, from its `L` records. It reads
+ * the records in place. It makes no array of every record. */
+function textOf(records: string): string {
+  const lines: string[] = [];
+  for (let at = 0; at < records.length; ) {
+    const newline = records.indexOf("\n", at);
+    const end = newline < 0 ? records.length : newline;
+    if (records.startsWith("L ", at)) lines.push(records.slice(at + 2, end));
+    at = end + 1;
+  }
+  return lines.join("\n");
+}
+/** Tokenizes `text` as `lang` on the tagged grammars and counts what it
+ * exercises. It tells whether the scopes equal `committed`. It compares one
+ * part at a time. */
+function agrees(highlighter: Highlighter, text: string, lang: string, committed: string): boolean {
+  let at = 0;
+  let same = true;
+  for (const part of fixtureParts(highlighter, text, lang)) {
+    same &&= committed.startsWith(part, at);
+    at += part.length;
+  }
   settle();
-  return scopes === committed;
+  return same && at === committed.length;
+}
+/** Tokenizes `text` as `lang` on the tagged grammars and counts what it
+ * exercises. */
+function exercise(highlighter: Highlighter, text: string, lang: string): void {
+  const parts = fixtureParts(highlighter, text, lang);
+  let part = parts.next();
+  while (part.done !== true) part = parts.next();
+  settle();
+}
+
+/** The fuzz corpus: per hand-lexed input language, `fuzzCount` mutated
+ * windows of its fixtures, and as many generated documents where
+ * oracle/fuzz/<lang>.ts has pieces, at seed 1. oracle/fuzz.ts writes the
+ * same documents for the same arguments. Only their text is read: fuzz.ts
+ * loads one grammar, so its scopes leave other languages' fences plain. */
+const fuzzCount = 100;
+const corpus = mkdtempSync(join(tmpdir(), "nishiki-coverage-"));
+/** Tokenizes the fuzz corpus of `lang`, counting what it exercises. */
+async function fuzz(highlighter: Highlighter, lang: string): Promise<void> {
+  const pieces = `${root}oracle/fuzz/${lang}.ts`;
+  const extras = (await Bun.file(pieces).exists()) ? await import(pieces) : {};
+  for (const mode of extras.pieces === undefined ? ["win"] : ["win", "gen"]) {
+    const dir = join(corpus, `${lang}-${mode}`);
+    const run = Bun.spawnSync(
+      [process.execPath, "run", `${root}oracle/fuzz.ts`, lang, mode, "1", String(fuzzCount), dir],
+      { stdout: "ignore", stderr: "pipe" },
+    );
+    if (run.exitCode !== 0) throw new Error(`fuzz.ts ${lang} ${mode}: ${run.stderr.toString()}`);
+    for (const name of readdirSync(dir).sort()) {
+      exercise(highlighter, textOf(readFileSync(join(dir, name), "utf8")), lang);
+    }
+    Bun.gc(true);
+  }
 }
 
 const differing: string[] = [];
 const inputLangs = [...new Set(inputs.map((input) => input.lang))].sort();
 for (const lang of inputLangs) {
+  const highlighter = await newHighlighter();
+  counting = fixtures;
   const dir = `${root}tests/oracle/${lang}`;
   for (const name of readdirSync(dir).filter((file) => file.endsWith(".txt")).sort()) {
     const committed = readFileSync(`${dir}/${name}`, "utf8");
-    if (!agrees(textOf(committed), lang, committed)) differing.push(`${lang}/${name}`);
+    if (!agrees(highlighter, textOf(committed), lang, committed)) differing.push(`${lang}/${name}`);
+    Bun.gc(true);
   }
+  if (!picking && handLexed.has(lang)) {
+    counting = fuzzed;
+    await fuzz(highlighter, lang);
+  }
+  highlighter.dispose();
+  Bun.gc(true);
 }
+rmSync(corpus, { recursive: true });
 
 if (picking) {
+  const highlighter = await newHighlighter();
   const keysOf = (counted: Tally) => [
     ...[...counted.expressions].filter((unit) => expressions[unit]?.grammar === pickGrammar).map(String),
     ...[...counted.captures].filter((key) => expressions[Number(key.split(":")[0])]?.grammar === pickGrammar),
@@ -393,8 +456,7 @@ if (picking) {
   const adds = new Map<string, Set<string>>();
   for (const file of files) {
     counting = tally();
-    fixture(highlighter, readFileSync(file, "utf8").replaceAll("\r\n", "\n"), pickLang);
-    settle();
+    exercise(highlighter, readFileSync(file, "utf8").replaceAll("\r\n", "\n"), pickLang);
     adds.set(file, new Set(keysOf(counting).filter((key) => !have.has(key))));
   }
   console.log(`${pickGrammar}: the fixtures exercise ${have.size} of ${all.length} units`);
@@ -415,32 +477,6 @@ if (picking) {
   }
   process.exit(0);
 }
-
-/** The fuzz corpus: per hand-lexed input language, `fuzzCount` mutated
- * windows of its fixtures, and as many generated documents where
- * oracle/fuzz/<lang>.ts has pieces, at seed 1. oracle/fuzz.ts writes the
- * same documents for the same arguments. Only their text is read: fuzz.ts
- * loads one grammar, so its scopes leave other languages' fences plain. */
-const fuzzCount = 100;
-const corpus = mkdtempSync(join(tmpdir(), "nishiki-coverage-"));
-counting = fuzzed;
-for (const lang of inputLangs.filter((lang) => handLexed.has(lang))) {
-  const pieces = `${root}oracle/fuzz/${lang}.ts`;
-  const extras = (await Bun.file(pieces).exists()) ? await import(pieces) : {};
-  for (const mode of extras.pieces === undefined ? ["win"] : ["win", "gen"]) {
-    const dir = join(corpus, `${lang}-${mode}`);
-    const run = Bun.spawnSync(
-      [process.execPath, "run", `${root}oracle/fuzz.ts`, lang, mode, "1", String(fuzzCount), dir],
-      { stdout: "ignore", stderr: "pipe" },
-    );
-    if (run.exitCode !== 0) throw new Error(`fuzz.ts ${lang} ${mode}: ${run.stderr.toString()}`);
-    for (const name of readdirSync(dir).sort()) {
-      fixture(highlighter, textOf(readFileSync(join(dir, name), "utf8")), lang);
-      settle();
-    }
-  }
-}
-rmSync(corpus, { recursive: true });
 
 if (differing.length > 0) {
   console.error(`✘ the tagged grammars changed Shiki's scopes in ${differing.join(", ")}`);
