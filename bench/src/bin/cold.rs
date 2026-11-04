@@ -14,10 +14,12 @@
 //!   interleaving files and languages round by round, drops the first three
 //!   rounds, and prints the median and p90 of each time.
 //!
-//! Usage: `cold [--processes N] [--tier small|medium|large|reply]
+//! Usage: `cold [--processes N] [--tier small|medium|large|reply] [--tsv]
 //! [language...]`, by default the small tier of every language;
 //! `mise run bench:cold` runs it in release mode. A sample is
-//! `cold --sample <file>` or `cold --theme`.
+//! `cold --sample <file>` or `cold --theme`. `--tsv` prints tab-separated
+//! rows, one per file or theme and measure, instead of the table, for
+//! `bench/record.ts`.
 
 use std::hint::black_box;
 use std::path::{Path, PathBuf};
@@ -118,6 +120,7 @@ fn rank(values: &mut [f64], percent: usize) -> f64 {
 struct Options {
     processes: usize,
     tier: Tier,
+    tsv: bool,
     languages: Vec<Language>,
 }
 
@@ -125,6 +128,7 @@ fn options(args: &[String]) -> Result<Options, String> {
     let mut options = Options {
         processes: PROCESSES,
         tier: Tier::Small,
+        tsv: false,
         languages: Vec::new(),
     };
     let mut args = args.iter();
@@ -144,6 +148,7 @@ fn options(args: &[String]) -> Result<Options, String> {
                     .find(|tier| tier.name() == value)
                     .ok_or_else(|| format!("unknown tier {value:?}"))?;
             }
+            "--tsv" => options.tsv = true,
             name => options.languages.push(
                 Language::from_name(name).ok_or_else(|| format!("unknown language {name:?}"))?,
             ),
@@ -178,6 +183,25 @@ fn runner(options: &Options) -> Result<(), String> {
         if round >= DROPPED {
             theme.extend(numbers);
         }
+    }
+    if options.tsv {
+        println!("kind\tname\tmeasure\tmedian_us\tp90_us");
+        for ((name, _), [created, first, whole]) in files.iter().zip(&mut times) {
+            for (measure, series) in [("new", created), ("first_line", first), ("document", whole)]
+            {
+                println!(
+                    "file\t{name}\t{measure}\t{:.1}\t{:.1}",
+                    rank(series, 50),
+                    rank(series, 90)
+                );
+            }
+        }
+        println!(
+            "theme\tgithub-dark\tfrom_json\t{:.1}\t{:.1}",
+            rank(&mut theme, 50),
+            rank(&mut theme, 90)
+        );
+        return Ok(());
     }
     println!(
         "{} fresh processes per file, the first {DROPPED} rounds dropped; µs from just before the highlighter is created",

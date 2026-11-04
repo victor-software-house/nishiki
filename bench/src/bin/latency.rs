@@ -12,8 +12,10 @@
 //! - A time under four times the timer's overhead is below resolution and
 //!   printed as `<` that bound, not as a number.
 //!
-//! Usage: `latency [--passes N] [--tier small|medium|large|reply]
+//! Usage: `latency [--passes N] [--tier small|medium|large|reply] [--tsv]
 //! [language...]`; `mise run bench:latency` runs it in release mode.
+//! `--tsv` prints tab-separated rows in nanoseconds instead of the table,
+//! for `bench/record.ts`.
 
 use std::hint::black_box;
 use std::process::ExitCode;
@@ -32,6 +34,7 @@ const OVERHEAD_SAMPLES: usize = 10_000;
 struct Options {
     passes: usize,
     tier: Option<Tier>,
+    tsv: bool,
     languages: Vec<Language>,
 }
 
@@ -39,6 +42,7 @@ fn options() -> Result<Options, String> {
     let mut options = Options {
         passes: PASSES,
         tier: None,
+        tsv: false,
         languages: Vec::new(),
     };
     let mut args = std::env::args().skip(1);
@@ -60,6 +64,7 @@ fn options() -> Result<Options, String> {
                     .ok_or_else(|| format!("unknown tier {value:?}"))?;
                 options.tier = Some(tier);
             }
+            "--tsv" => options.tsv = true,
             name => {
                 let language = Language::from_name(name)
                     .ok_or_else(|| format!("unknown language {name:?}"))?;
@@ -137,17 +142,23 @@ fn main() -> ExitCode {
     };
     let overhead = timer_overhead();
     let resolution = overhead * 4;
-    println!(
-        "timer overhead {:.1} ns, subtracted; below {:.3} µs is below resolution; {} passes, the first apart",
-        overhead.as_secs_f64() * 1e9,
-        resolution.as_secs_f64() * 1e6,
-        options.passes
-    );
-    println!();
-    println!(
-        "| language | tier | lines | below resolution | steady p50 µs | steady p99 µs | steady max µs | first-contact max µs |"
-    );
-    println!("|:--|:--|--:|--:|--:|--:|--:|--:|");
+    if options.tsv {
+        println!(
+            "language\ttier\tlines\tbelow_resolution\tsteady_p50_ns\tsteady_p99_ns\tsteady_max_ns\tfirst_contact_max_ns\tresolution_ns"
+        );
+    } else {
+        println!(
+            "timer overhead {:.1} ns, subtracted; below {:.3} µs is below resolution; {} passes, the first apart",
+            overhead.as_secs_f64() * 1e9,
+            resolution.as_secs_f64() * 1e6,
+            options.passes
+        );
+        println!();
+        println!(
+            "| language | tier | lines | below resolution | steady p50 µs | steady p99 µs | steady max µs | first-contact max µs |"
+        );
+        println!("|:--|:--|--:|--:|--:|--:|--:|--:|");
+    }
 
     let selected = documents.iter().filter(|document| {
         options.tier.is_none_or(|tier| document.tier == tier)
@@ -182,15 +193,31 @@ fn main() -> ExitCode {
     for (language, tier, mut steady, first_max) in groups {
         steady.sort_unstable();
         let below = steady.iter().filter(|&&time| time < resolution).count();
-        println!(
-            "| {} | {tier} | {} | {below} | {} | {} | {} | {} |",
-            language.id(),
-            steady.len(),
-            micros(rank(&steady, 500), resolution),
-            micros(rank(&steady, 990), resolution),
-            micros(steady.last().copied().unwrap_or_default(), resolution),
-            micros(first_max, resolution),
-        );
+        let p50 = rank(&steady, 500);
+        let p99 = rank(&steady, 990);
+        let max = steady.last().copied().unwrap_or_default();
+        if options.tsv {
+            println!(
+                "{}\t{tier}\t{}\t{below}\t{}\t{}\t{}\t{}\t{}",
+                language.id(),
+                steady.len(),
+                p50.as_nanos(),
+                p99.as_nanos(),
+                max.as_nanos(),
+                first_max.as_nanos(),
+                resolution.as_nanos(),
+            );
+        } else {
+            println!(
+                "| {} | {tier} | {} | {below} | {} | {} | {} | {} |",
+                language.id(),
+                steady.len(),
+                micros(p50, resolution),
+                micros(p99, resolution),
+                micros(max, resolution),
+                micros(first_max, resolution),
+            );
+        }
     }
     ExitCode::SUCCESS
 }

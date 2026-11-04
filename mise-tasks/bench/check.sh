@@ -21,3 +21,7 @@ cargo run --quiet --locked --release --manifest-path bench/Cargo.toml --bin late
 # counted after the three dropped rounds; its table shows in the log, and no
 # figure in it can fail the job.
 cargo run --quiet --locked --release --manifest-path bench/Cargo.toml --bin cold -- --processes 5 python
+# The tab-separated modes bench/record.ts reads, once each on one file, so a
+# change to either program's output shows here.
+cargo run --quiet --locked --release --manifest-path bench/Cargo.toml --bin latency -- --passes 2 --tier small --tsv python
+cargo run --quiet --locked --release --manifest-path bench/Cargo.toml --bin cold -- --processes 4 --tsv python
