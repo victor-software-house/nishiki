@@ -35,7 +35,7 @@ use scope::S;
 use state::{ROOT_EMBEDDED, Rule};
 
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 
 /// The state at the start of an HTML document whose scopes sit on the stack
 /// `base`: one rule with `text.html.basic` on top of it.
@@ -68,6 +68,26 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
         return state;
     }
     engine::Lexer::new(cx, line, state, engine::Document::Html).run()
+}
+
+/// Lexes `line` like [`lex`], for HTML that another language embeds from
+/// [`start_embedded`]: the line halts at the first place where `end` holds
+/// before the root's patterns, or `after` holds where none of them matches,
+/// while no rule of HTML is open, and the second value is where.
+#[inline]
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: Halt,
+    after: Option<Halt>,
+) -> (u32, Option<usize>) {
+    if line.text.len() <= line.start {
+        return (state, None);
+    }
+    let mut lexer = engine::Lexer::new(cx, line, state, engine::Document::Html);
+    lexer.give_back = Some(engine::GiveBack::Halts { end, after });
+    lexer.run_until()
 }
 
 /// The state at the start of an html-derivative document whose scopes sit on

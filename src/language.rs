@@ -303,7 +303,7 @@ languages! {
         reads_line_feed: true,
     }
     /// HTML, with the scopes of Shiki's `html` grammar.
-    Html { feature: "lang-html", names: ["html"], module: html }
+    Html { feature: "lang-html", names: ["html"], module: html, halts: true }
     /// Zig, with the scopes of Shiki's `zig` grammar, which nishiki's
     /// `TextMate` engine runs.
     Zig {

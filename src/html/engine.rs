@@ -23,7 +23,7 @@ use super::erb::{self, Erb};
 use super::scope::S;
 use super::state::{self, ErbInjection, ROOT_EMBEDDED, Rule};
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::scratch::Scratch as AllScratch;
 use crate::{Stack, Token};
@@ -134,9 +134,9 @@ pub(super) enum Document {
     Erb,
 }
 
-/// Where html-derivative, lexed inside a rule of another grammar that
-/// includes the grammar's root patterns, gives the line back to that rule.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Where HTML, lexed inside a rule of another grammar that includes the
+/// grammar's root patterns, gives the line back to that rule.
+#[derive(Clone, Copy, Debug)]
 pub(crate) enum GiveBack {
     /// Back at the root after one root-level construct, because the
     /// rule's own patterns compete at every position: a Markdown paragraph
@@ -146,6 +146,11 @@ pub(crate) enum GiveBack {
     /// matches: the end `(?<=>)`, tried after the patterns, of the rule that
     /// Markdown's emphasis opens at a tag.
     AfterTag,
+    /// At the root, where `end` holds before the root's patterns at a place,
+    /// or `after` holds where none of them matches: the embedding rule's
+    /// patterns listed before and after the grammar (see [`Halt`]), such as
+    /// the interpolation and escapes of a Ruby here document.
+    Halts { end: Halt, after: Option<Halt> },
 }
 
 /// A match: the bytes `start..end`, and the positions and bits that the
@@ -551,7 +556,10 @@ impl<'a> Lexer<'a> {
                 self.finish();
                 return;
             }
-            if self.give_back == Some(GiveBack::AtRoot) && self.applied && self.frames.len() == 1 {
+            if matches!(self.give_back, Some(GiveBack::AtRoot))
+                && self.applied
+                && self.frames.len() == 1
+            {
                 self.given_back = Some(self.pos);
                 return;
             }
@@ -596,7 +604,7 @@ impl<'a> Lexer<'a> {
                 | Rule::ErbTagWrap
                 | Rule::ErbComment => self.search(),
             };
-            if let Some(at) = self.after_tag(found.as_ref()) {
+            if let Some(at) = self.give_back_at(found.as_ref()) {
                 let content = self.top().content;
                 self.tok(content, at);
                 self.pos = at;
@@ -632,18 +640,56 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    /// Where the end `(?<=>)` of [`GiveBack::AfterTag`] matches before `found`,
-    /// the root's next match: after a `>` at or past the position.
-    fn after_tag(&self, found: Option<&Hit>) -> Option<usize> {
-        if self.give_back != Some(GiveBack::AfterTag) || self.frames.len() != 1 {
+    /// Where the line goes back to the including grammar before `found`, the
+    /// root's next match, while only the root is open: see [`GiveBack`].
+    fn give_back_at(&self, found: Option<&Hit>) -> Option<usize> {
+        let give_back = self.give_back?;
+        if self.frames.len() != 1 {
             return None;
         }
+        match give_back {
+            GiveBack::AtRoot => None,
+            GiveBack::AfterTag => self.after_tag(found),
+            GiveBack::Halts { end, after } => self.halt_before(found, end, after),
+        }
+    }
+
+    /// Where the end `(?<=>)` of [`GiveBack::AfterTag`] matches before `found`:
+    /// after a `>` at or past the position.
+    fn after_tag(&self, found: Option<&Hit>) -> Option<usize> {
         let before = found.map_or(self.lim, |hit| hit.start.saturating_sub(1));
         let from = self.pos.max(1) - 1;
         let window = self.s.get(from..before)?;
         let at = memchr(b'>', window);
         self.spend(at.unwrap_or(window.len()) / 16);
         at.map(|at| from + at + 1)
+    }
+
+    /// The first character start from the position where [`GiveBack::Halts`]
+    /// takes the line back before `found`: `end` up to and at its start,
+    /// since `end` is tried before the patterns, and `after` only before it,
+    /// since a match at a place beats `after` there. With no match ahead, the
+    /// places run to the end of the text, its end included.
+    fn halt_before(&self, found: Option<&Hit>, end: Halt, after: Option<Halt>) -> Option<usize> {
+        if self.over_budget() {
+            return None;
+        }
+        let to = found.map_or(self.lim, |hit| hit.start);
+        let mut p = self.pos;
+        let halted = loop {
+            if p > to {
+                break None;
+            }
+            if end(self.s, p) || (p < to && after.is_some_and(|after| after(self.s, p))) {
+                break Some(p);
+            }
+            if p >= self.lim {
+                break None;
+            }
+            p += crate::utf8::char_len(self.s[p]);
+        };
+        self.spend(p.saturating_sub(self.pos));
+        halted
     }
 
     /// The first match from the position: for each candidate position the
