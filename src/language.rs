@@ -19,6 +19,13 @@ use crate::scratch::Scratch;
 /// the three entry points call the engine with it. An engine grammar that
 /// hands regions to languages lexed by hand says `hands_off: true`, and its
 /// entry points call the engine's handing loop.
+/// A module that lexes the text from the line's start says `from_start: true`.
+/// Each entry point then calls its `line` through
+/// [`Context::lex_from_start`], with a closure of its own.
+/// Each closure gets its own copy of `lex_from_start`, with one caller.
+/// A small hand-written lexer says `inlined: true`.
+/// Its arm of [`Language::lex`] holds the lexer inline.
+/// Every other arm calls a `lex_arm` of its own, which has that one caller.
 /// A new hand-written language is one row here, its scope table in
 /// `src/scope.rs`, its frame tag in `src/tag.rs`, its fence names in
 /// `src/markdown/fence.rs`, its field in `src/scratch.rs` when it keeps
@@ -40,22 +47,40 @@ macro_rules! languages {
     (@start_embedded [] [$grammar:path] $arena:ident $base:ident) => {
         crate::textmate::start_embedded($arena, &$grammar, $base)
     };
-    (@lex [$module:ident] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident) => {
+    (@lex [] [$module:ident] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident) => {
         crate::$module::lex($cx, $($dialect,)? $line, $state)
     };
-    (@lex [] [$grammar:path] [] [] $cx:ident $line:ident $state:ident) => {
+    (@lex [true] [$module:ident] [] [] [] $cx:ident $line:ident $state:ident) => {
+        $cx.lex_from_start($line, |cx, rest| crate::$module::line(cx, rest, $state))
+    };
+    (@lex [] [] [$grammar:path] [] [] $cx:ident $line:ident $state:ident) => {
         crate::limits::Finished::unspent(crate::textmate::lex($cx, &$grammar, $line, $state))
     };
-    (@lex [] [$grammar:path] [] [true] $cx:ident $line:ident $state:ident) => {
+    (@inlined [true] $from_start:tt $module:tt $grammar:tt $dialect:tt $hands_off:tt $cx:ident $line:ident $state:ident) => {
+        languages!(@lex $from_start $module $grammar $dialect $hands_off $cx $line $state).state()
+    };
+    (@inlined [] $from_start:tt $module:tt $grammar:tt $dialect:tt $hands_off:tt $cx:ident $line:ident $state:ident) => {{
+        /// The language's lexer, called from its arm of [`Language::lex`]
+        /// alone.
+        #[inline]
+        fn lex_arm(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+            languages!(@lex $from_start $module $grammar $dialect $hands_off cx line state).state()
+        }
+        lex_arm($cx, $line, $state)
+    }};
+    (@lex [] [] [$grammar:path] [] [true] $cx:ident $line:ident $state:ident) => {
         crate::limits::Finished::unspent(crate::textmate::lex_handing($cx, &$grammar, $line, $state))
     };
-    (@embedded [$module:ident] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident) => {
+    (@embedded [] [$module:ident] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident) => {
         crate::$module::lex($cx, $($dialect,)? $line, $state)
     };
-    (@embedded [] [$grammar:path] [] [] $cx:ident $line:ident $state:ident) => {
+    (@embedded [true] [$module:ident] [] [] [] $cx:ident $line:ident $state:ident) => {
+        $cx.lex_from_start($line, |cx, rest| crate::$module::line(cx, rest, $state))
+    };
+    (@embedded [] [] [$grammar:path] [] [] $cx:ident $line:ident $state:ident) => {
         crate::textmate::lex_embedded($cx, &$grammar, $line, $state)
     };
-    (@embedded [] [$grammar:path] [] [true] $cx:ident $line:ident $state:ident) => {
+    (@embedded [] [] [$grammar:path] [] [true] $cx:ident $line:ident $state:ident) => {
         crate::textmate::lex_handing_embedded($cx, &$grammar, $line, $state)
     };
     (@until [] [$($module:ident)?] [$($grammar:path)?] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {{
@@ -82,6 +107,8 @@ macro_rules! languages {
             $(, reads_line_feed: $line_feed:literal)?
             $(, halts: $halts:tt)?
             $(, hands_off: $hands_off:tt)?
+            $(, from_start: $from_start:tt)?
+            $(, inlined: $inlined:tt)?
             $(,)?
         }
     )*) => {
@@ -159,10 +186,13 @@ macro_rules! languages {
             /// tokens whose ends count from the start of the whole line, and
             /// returns the state after it. The highlighter calls it for the
             /// line's own language, which needs no count back.
-            #[inline]
+            ///
+            /// The rows marked `inlined` lex here.
+            /// Every other arm calls a function that holds its lexer.
+            #[inline(always)]
             pub(crate) fn lex(self, cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@lex [$($module)?] [$($grammar)?] [$($dialect)?] [$($hands_off)?] cx line state).state(),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@inlined [$($inlined)?] [$($from_start)?] [$($module)?] [$($grammar)?] [$($dialect)?] [$($hands_off)?] cx line state),)*
                 }
             }
 
@@ -172,7 +202,8 @@ macro_rules! languages {
             ///
             /// Embedded lines are the rare path, so this dispatch is cold
             /// and out of line: the lexers inline into [`Language::lex`]
-            /// alone, and the count stays off the highlighter's path.
+            /// and its out-of-line arms alone, and the count stays off the
+            /// highlighter's path.
             #[cfg_attr(
                 not(any(feature = "lang-markdown", feature = "_embedding", feature = "_textmate")),
                 expect(
@@ -189,7 +220,7 @@ macro_rules! languages {
                 state: u32,
             ) -> Finished {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@embedded [$($module)?] [$($grammar)?] [$($dialect)?] [$($hands_off)?] cx line state),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@embedded [$($from_start)?] [$($module)?] [$($grammar)?] [$($dialect)?] [$($hands_off)?] cx line state),)*
                 }
             }
 
@@ -269,7 +300,13 @@ languages! {
     /// - With `lang-html`, a `php` fence is HTML under `meta.embedded.block.php`, since the grammar includes HTML there before PHP, which nishiki does not lex.
     /// - A dot in the fence names `css.erb`, `Berksfile.lock` and `.textmate_init` matches any one character.
     ///   The grammar leaves it unescaped, so `cssXerb` embeds CSS.
-    Markdown { feature: "lang-markdown", names: ["markdown", "md"], module: markdown }
+    Markdown {
+        feature: "lang-markdown",
+        names: ["markdown", "md"],
+        module: markdown,
+        from_start: true,
+        inlined: true,
+    }
     /// `TypeScript`, with the scopes of Shiki's `typescript` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -344,6 +381,7 @@ languages! {
         names: ["json"],
         module: json,
         dialect: crate::json::Dialect::Json,
+        inlined: true,
     }
     /// JSON with comments, with the scopes of Shiki's `jsonc` grammar.
     ///
@@ -353,6 +391,7 @@ languages! {
         names: ["jsonc"],
         module: json,
         dialect: crate::json::Dialect::Jsonc,
+        inlined: true,
     }
     /// JSON Lines, with the scopes of Shiki's `jsonl` grammar.
     ///
@@ -362,6 +401,7 @@ languages! {
         names: ["jsonl"],
         module: json,
         dialect: crate::json::Dialect::Jsonl,
+        inlined: true,
     }
     /// Python, with the scopes of Shiki's `python` grammar.
     ///
@@ -386,7 +426,7 @@ languages! {
     /// - Front matter starts only on the first line of a Markdown document.
     ///   The state of a document's first line therefore differs from the states after it.
     /// - A line of a block scalar is text up to the first line indented less than the scalar's first line.
-    Yaml { feature: "lang-yaml", names: ["yaml", "yml"], module: yaml, halts: true }
+    Yaml { feature: "lang-yaml", names: ["yaml", "yml"], module: yaml, halts: true, inlined: true }
     /// TOML, with the scopes of Shiki's `toml` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -400,7 +440,7 @@ languages! {
     /// - A key that begins with a `"` ends at the first later `"` that an `=` follows.
     /// - `\s` for non-ASCII characters is JSON's table.
     ///   A pass over every character confirmed it for this grammar too.
-    Toml { feature: "lang-toml", names: ["toml"], module: toml }
+    Toml { feature: "lang-toml", names: ["toml"], module: toml, inlined: true }
     /// Makefile, with the scopes of Shiki's `make` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -417,7 +457,7 @@ languages! {
     ///
     /// - Diff lines are lexed on their own, as the grammar has no state.
     /// - A Markdown fence's diff lines lose their `^` anchors when a quote or list indents the fence.
-    Diff { feature: "lang-diff", names: ["diff"], module: diff }
+    Diff { feature: "lang-diff", names: ["diff"], module: diff, inlined: true }
     /// Dockerfile, with the scopes of Shiki's `docker` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -428,7 +468,12 @@ languages! {
     /// - A line that continues another still reads its first word as an instruction.
     /// - A Markdown fence names the language `dockerfile`.
     ///   The `docker` fence is plain text, as in Shiki.
-    Dockerfile { feature: "lang-dockerfile", names: ["docker", "dockerfile"], module: dockerfile }
+    Dockerfile {
+        feature: "lang-dockerfile",
+        names: ["docker", "dockerfile"],
+        module: dockerfile,
+        inlined: true,
+    }
     /// Java, with the scopes of Shiki's `java` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -490,7 +535,7 @@ languages! {
     ///   A Markdown fence's INI lines lose that anchor when a quote or list indents the fence.
     /// - A Markdown fence names the language `ini` or `conf`.
     ///   A `properties` fence is plain text, as in Shiki.
-    Ini { feature: "lang-ini", names: ["ini", "properties"], module: ini }
+    Ini { feature: "lang-ini", names: ["ini", "properties"], module: ini, inlined: true }
     /// GraphQL, with the scopes of Shiki's `graphql` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -503,7 +548,7 @@ languages! {
     /// - A Markdown fence is plain text, as Shiki's Markdown grammar has no rule that embeds GraphQL.
     /// - A `${...}` in a selection set is lexed as JavaScript by the JavaScript lexer.
     ///   It carries its state across lines, up to the first `}` that no context of the code is waiting for.
-    GraphQl { feature: "lang-graphql", names: ["graphql", "gql"], module: graphql, halts: true }
+    GraphQl { feature: "lang-graphql", names: ["graphql", "gql"], module: graphql, halts: true, inlined: true }
     /// CSS, with the scopes of Shiki's `css` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -1003,7 +1048,14 @@ impl Context<'_> {
     /// Runs `lex` on the line's text from its start, for a lexer that counts
     /// token ends from there, then moves the new tokens' ends to count from
     /// the start of the whole line, as [`Language::lex`] promises.
-    #[inline]
+    ///
+    /// Each caller passes a closure of its own type.
+    /// Each instance then has one caller, so forcing it inline copies nothing.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: in Markdown's arm of the dispatch it stayed a call, at 1.0039 of main; forced, 0.9993"
+    )]
+    #[inline(always)]
     pub(crate) fn lex_from_start(
         &mut self,
         line: Line<'_>,

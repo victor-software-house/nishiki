@@ -135,15 +135,3 @@ mod tests;
 
 #[cfg(all(test, not(all(feature = "lang-rust", feature = "lang-yaml"))))]
 mod subset_tests;
-
-/// Lexes `line` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
-#[inline]
-pub(crate) fn lex(
-    cx: &mut crate::language::Context<'_>,
-    line: crate::language::Line<'_>,
-    state: u32,
-) -> Finished {
-    cx.lex_from_start(line, |cx, rest| self::line(cx, rest, state))
-}

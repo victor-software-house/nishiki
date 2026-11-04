@@ -66,7 +66,11 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// Otherwise the grammar would close a rule the line before left open.
 /// An interpolation's text goes to the JavaScript lexer, up to its `}`
 /// ([`crate::rules::lex_embedding`]).
-#[inline]
+#[expect(
+    clippy::inline_always,
+    reason = "measured at one codegen unit: inlined by hint, it stayed a call from Language::lex once that dispatch inlined"
+)]
+#[inline(always)]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     crate::rules::lex_embedding::<GraphQl>(cx, line, state, buffers)
 }
