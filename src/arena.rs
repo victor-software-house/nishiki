@@ -10,6 +10,7 @@
 //! number of lines.
 
 use std::collections::HashMap;
+use std::collections::hash_map::Entry;
 use std::hash::{BuildHasherDefault, Hasher};
 
 use crate::limits::{Limit, LineReport};
@@ -128,24 +129,44 @@ impl Arena {
         }
     }
 
-    fn has_room(&self, len: usize) -> bool {
-        self.limit.is_none_or(|limit| len < limit)
-    }
-
     /// The stack `parent` with `scope` on top, or `None` when the node limit
     /// keeps a new stack from being made.
+    #[inline(never)]
     pub(crate) fn child(&mut self, parent: u32, scope: Scope) -> Option<u32> {
         let key = (parent, scope.id());
         if let Some(&id) = self.scope_ids.get(&key) {
             return Some(id);
         }
-        if !self.has_room(self.scopes.len()) {
-            return None;
-        }
-        let id = u32::try_from(self.scopes.len()).ok()?;
-        self.scopes.push(ScopeNode { parent, scope });
+        self.new_child(key, scope)
+    }
+
+    /// A [`child`](Self::child) the arena does not hold yet: makes the node
+    /// keyed `key`.
+    ///
+    /// Out of line, so the map's insert never joins the lookup.
+    /// Where it joined, at sixteen codegen units, each lookup cost more.
+    #[inline(never)]
+    fn new_child(&mut self, key: (u32, u32), scope: Scope) -> Option<u32> {
+        let (parent, _) = key;
+        let id = append(&mut self.scopes, self.limit, ScopeNode { parent, scope })?;
         self.scope_ids.insert(key, id);
         Some(id)
+    }
+
+    /// A [`child`](Self::child) for a caller that expects to make the node,
+    /// such as the walk after a path cache misses.
+    /// One hash of the key serves the lookup and the insert.
+    /// A hit costs more than `child`'s, so a caller that usually hits calls
+    /// `child`.
+    #[inline(never)]
+    pub(crate) fn child_or_insert(&mut self, parent: u32, scope: Scope) -> Option<u32> {
+        match self.scope_ids.entry((parent, scope.id())) {
+            Entry::Occupied(found) => Some(*found.get()),
+            Entry::Vacant(slot) => {
+                let id = append(&mut self.scopes, self.limit, ScopeNode { parent, scope })?;
+                Some(*slot.insert(id))
+            }
+        }
     }
 
     /// The stack `base` with `scopes` on top, in order.
@@ -175,11 +196,7 @@ impl Arena {
         if let Some(&id) = self.string_ids.get(text) {
             return Some(id);
         }
-        if !self.has_room(self.strings.len()) {
-            return None;
-        }
-        let id = u32::try_from(self.strings.len()).ok()?;
-        self.strings.push(Box::from(text));
+        let id = append(&mut self.strings, self.limit, Box::from(text))?;
         self.string_ids.insert(Box::from(text), id);
         Some(id)
     }
@@ -232,26 +249,70 @@ impl Arena {
 
     /// The state `parent` with a context of `kind` opened on it, or `None`
     /// when the node limit keeps a new state from being made.
+    #[inline(never)]
     pub(crate) fn push(&mut self, parent: u32, kind: u16, payload: u32, stack: u32) -> Option<u32> {
         let key = (parent, kind, payload, stack);
         if let Some(&id) = self.frame_ids.get(&key) {
             return Some(id);
         }
-        if !self.has_room(self.frames.len()) {
-            return None;
+        self.new_frame(key)
+    }
+
+    /// A [`push`](Self::push) the arena does not hold yet: makes the state
+    /// keyed `key`.
+    ///
+    /// Out of line for the reason [`new_child`](Self::new_child) is.
+    #[inline(never)]
+    fn new_frame(&mut self, key: (u32, u16, u32, u32)) -> Option<u32> {
+        let frame = self.frame_on(key);
+        let id = append(&mut self.frames, self.limit, frame)?;
+        self.frame_ids.insert(key, id);
+        Some(id)
+    }
+
+    /// A [`push`](Self::push) for a caller that expects to make the state,
+    /// such as a lexer after its push cache misses.
+    /// One hash of the key serves the lookup and the insert.
+    #[inline(never)]
+    pub(crate) fn push_or_insert(
+        &mut self,
+        parent: u32,
+        kind: u16,
+        payload: u32,
+        stack: u32,
+    ) -> Option<u32> {
+        let key = (parent, kind, payload, stack);
+        let frame = self.frame_on(key);
+        match self.frame_ids.entry(key) {
+            Entry::Occupied(found) => Some(*found.get()),
+            Entry::Vacant(slot) => {
+                let id = append(&mut self.frames, self.limit, frame)?;
+                Some(*slot.insert(id))
+            }
         }
-        let id = u32::try_from(self.frames.len()).ok()?;
-        let depth = self.frame(parent).depth + 1;
-        self.frames.push(Frame {
+    }
+
+    /// The state that the key's context makes on its parent.
+    fn frame_on(&self, (parent, kind, payload, stack): (u32, u16, u32, u32)) -> Frame {
+        Frame {
             parent,
             kind,
             payload,
             stack,
-            depth,
-        });
-        self.frame_ids.insert(key, id);
-        Some(id)
+            depth: self.frame(parent).depth + 1,
+        }
     }
+}
+
+/// Adds `node` to `nodes` and returns its number.
+/// It is `None` when `limit` keeps `nodes` from growing.
+fn append<T>(nodes: &mut Vec<T>, limit: Option<usize>, node: T) -> Option<u32> {
+    if limit.is_some_and(|limit| nodes.len() >= limit) {
+        return None;
+    }
+    let id = u32::try_from(nodes.len()).ok()?;
+    nodes.push(node);
+    Some(id)
 }
 
 /// The scope names of one stack, innermost first, as theme rules match them.

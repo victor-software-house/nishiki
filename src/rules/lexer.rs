@@ -972,7 +972,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                     continue;
                 }
             };
-            let Some(child) = self.arena.child(stack, fixed_scope) else {
+            let Some(child) = self.arena.child_or_insert(stack, fixed_scope) else {
                 self.report.record(Limit::Nodes);
                 self.flags.failed = true;
                 whole = false;
@@ -1126,7 +1126,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         };
         let state = self
             .arena
-            .push(parent_state, code, payload, content)
+            .push_or_insert(parent_state, code, payload, content)
             .unwrap_or_else(|| {
                 self.report.record(Limit::Nodes);
                 self.flags.failed = true;

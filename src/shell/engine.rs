@@ -699,7 +699,7 @@ impl<'a> Lexer<'a> {
         let mut stack = base;
         let mut whole = true;
         for scope in &scopes.list {
-            let Some(child) = self.arena.child(stack, scope.scope()) else {
+            let Some(child) = self.arena.child_or_insert(stack, scope.scope()) else {
                 self.report.record(Limit::Nodes);
                 self.flags.failed = true;
                 whole = false;
@@ -804,7 +804,7 @@ impl<'a> Lexer<'a> {
         };
         let state = self
             .arena
-            .push(parent_state, code, payload, content)
+            .push_or_insert(parent_state, code, payload, content)
             .unwrap_or_else(|| {
                 self.report.record(Limit::Nodes);
                 self.flags.failed = true;
