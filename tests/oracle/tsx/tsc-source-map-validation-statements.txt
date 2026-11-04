@@ -1,0 +1,643 @@
+L // @sourcemap: true
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 19 source.tsx comment.line.double-slash.tsx
+L function f() {
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 10 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 13 source.tsx meta.function.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L     var y;
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx storage.type.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     var x = 0;
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx storage.type.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx constant.numeric.decimal.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     for (var i = 0; i < 10; i++) {
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx keyword.control.loop.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx storage.type.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.readwrite.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx constant.numeric.decimal.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx keyword.operator.relational.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx
+T 26 source.tsx meta.function.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 27 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx keyword.operator.increment.tsx
+T 32 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 33 source.tsx meta.function.tsx meta.block.tsx
+T 34 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L         x += i;
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.operator.assignment.compound.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.readwrite.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L         x *= 0;
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.operator.assignment.compound.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     }
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L     if (x > 17) {
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx keyword.control.conditional.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx keyword.operator.relational.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L         x /= 9;
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.operator.assignment.compound.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     } else {
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx keyword.control.conditional.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L         x += 10;
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.operator.assignment.compound.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L         x++;
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.readwrite.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.operator.increment.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     }
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L     var a = [
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx storage.type.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.array.literal.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.array.literal.tsx meta.brace.square.tsx
+L         1,
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.array.literal.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.array.literal.tsx constant.numeric.decimal.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.array.literal.tsx punctuation.separator.comma.tsx
+L         2,
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.array.literal.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.array.literal.tsx constant.numeric.decimal.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.array.literal.tsx punctuation.separator.comma.tsx
+L         3
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.array.literal.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.array.literal.tsx constant.numeric.decimal.tsx
+L     ];
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.array.literal.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.array.literal.tsx meta.brace.square.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     var obj = {
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx storage.type.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.readwrite.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx punctuation.definition.block.tsx
+L         z: 1,
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.object-literal.key.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.object-literal.key.tsx punctuation.separator.key-value.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx constant.numeric.decimal.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx punctuation.separator.comma.tsx
+L         q: "hello"
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.object-literal.key.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.object-literal.key.tsx punctuation.separator.key-value.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx string.quoted.double.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L     };
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.objectliteral.tsx punctuation.definition.block.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     for (var j in a) {
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx keyword.control.loop.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx storage.type.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.readwrite.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx keyword.operator.expression.in.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L         obj.z = a[j];
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.object.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.accessor.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.property.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.operator.assignment.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.readwrite.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.array.literal.tsx meta.brace.square.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.array.literal.tsx variable.other.readwrite.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.array.literal.tsx meta.brace.square.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L         var v = 10;
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.var.expr.tsx storage.type.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.var.expr.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.readwrite.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.var.expr.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.var.expr.tsx constant.numeric.decimal.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     }
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L     try {
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx keyword.control.trycatch.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L         obj.q = "ohhh";
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.object.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.accessor.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.property.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.operator.assignment.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx string.quoted.double.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     } catch (e) {
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx keyword.control.trycatch.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L         if (obj.z < 10) {
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.control.conditional.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.brace.round.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.object.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.accessor.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.property.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.operator.relational.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.brace.round.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 25 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L             obj.z = 12;
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx variable.other.object.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx punctuation.accessor.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx variable.other.property.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx keyword.operator.assignment.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L         } else {
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.control.conditional.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L             obj.q = "hmm";
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx variable.other.object.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx punctuation.accessor.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx variable.other.property.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx keyword.operator.assignment.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx string.quoted.double.tsx
+T 25 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 26 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L         }
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L     }
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L     try {
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx keyword.control.trycatch.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L         throw new Error();
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.control.trycatch.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx new.expr.tsx keyword.operator.new.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx new.expr.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx new.expr.tsx meta.function-call.tsx entity.name.function.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx new.expr.tsx meta.brace.round.tsx
+T 25 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx new.expr.tsx meta.brace.round.tsx
+T 26 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     } catch (e1) {
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx keyword.control.trycatch.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L         var b = e1;
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.var.expr.tsx storage.type.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.var.expr.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.readwrite.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.var.expr.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx meta.var.expr.tsx variable.other.readwrite.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     } finally {
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx keyword.control.trycatch.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L         y = 70;
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.operator.assignment.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     }
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L     with (obj) {
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.with.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L         i = 2;
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.operator.assignment.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L         z = 10;
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.operator.assignment.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     }
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L     switch (obj.z) {
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-expression.expr.tsx keyword.control.switch.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-expression.expr.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-expression.expr.tsx meta.brace.round.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-expression.expr.tsx variable.other.object.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-expression.expr.tsx punctuation.accessor.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-expression.expr.tsx variable.other.property.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-expression.expr.tsx meta.brace.round.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx punctuation.definition.block.tsx
+L         case 0: {
+T 8 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx case-clause.expr.tsx keyword.control.switch.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx case-clause.expr.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx case-clause.expr.tsx constant.numeric.decimal.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx case-clause.expr.tsx punctuation.definition.section.case-statement.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx punctuation.definition.block.tsx
+L             x++;
+T 12 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx variable.other.readwrite.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx keyword.operator.increment.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L             break;
+T 12 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx keyword.control.loop.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L 
+L         }
+T 8 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx punctuation.definition.block.tsx
+L         case 1: {
+T 8 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx case-clause.expr.tsx keyword.control.switch.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx case-clause.expr.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx case-clause.expr.tsx constant.numeric.decimal.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx case-clause.expr.tsx punctuation.definition.section.case-statement.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx punctuation.definition.block.tsx
+L             x--;
+T 12 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx variable.other.readwrite.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx keyword.operator.decrement.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L             break;
+T 12 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx keyword.control.loop.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L 
+L         }
+T 8 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx punctuation.definition.block.tsx
+L         default: {
+T 8 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx case-clause.expr.tsx keyword.control.switch.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx case-clause.expr.tsx punctuation.definition.section.case-statement.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx punctuation.definition.block.tsx
+L             x *= 2;
+T 12 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx variable.other.readwrite.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx keyword.operator.assignment.compound.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L             x = 50;
+T 12 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx variable.other.readwrite.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx keyword.operator.assignment.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L             break;
+T 12 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx keyword.control.loop.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L 
+L         }
+T 8 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx meta.block.tsx punctuation.definition.block.tsx
+L     }
+T 4 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx switch-block.expr.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx switch-statement.expr.tsx punctuation.definition.block.tsx
+L     while (x < 10) {
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx keyword.control.loop.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx keyword.operator.relational.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L         x++;
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.readwrite.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.operator.increment.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     }
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L     do {
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx keyword.control.loop.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+L         x--;
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx variable.other.readwrite.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx keyword.operator.decrement.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     } while (x > 4)
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.block.tsx punctuation.definition.block.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx keyword.control.loop.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx keyword.operator.relational.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     x = y;
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx keyword.operator.assignment.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     var z = (x == 1) ? x + 1 : x - 1;
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx storage.type.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.brace.round.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx variable.other.readwrite.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx keyword.operator.comparison.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx constant.numeric.decimal.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx meta.brace.round.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx keyword.operator.ternary.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx variable.other.readwrite.tsx
+T 25 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 26 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx keyword.operator.arithmetic.tsx
+T 27 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx constant.numeric.decimal.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx keyword.operator.ternary.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 32 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx variable.other.readwrite.tsx
+T 33 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 34 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx keyword.operator.arithmetic.tsx
+T 35 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx
+T 36 source.tsx meta.function.tsx meta.block.tsx meta.var.expr.tsx constant.numeric.decimal.tsx
+T 37 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     (x == 1) ? x + 1 : x - 1;
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx keyword.operator.comparison.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx keyword.operator.ternary.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx keyword.operator.arithmetic.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx keyword.operator.ternary.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 25 source.tsx meta.function.tsx meta.block.tsx
+T 26 source.tsx meta.function.tsx meta.block.tsx keyword.operator.arithmetic.tsx
+T 27 source.tsx meta.function.tsx meta.block.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     x === 1;
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx keyword.operator.comparison.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     x = z = 40;
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx keyword.operator.assignment.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx keyword.operator.assignment.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     eval("y");
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.function-call.tsx entity.name.function.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx string.quoted.double.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     return;
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L var b = function () {
+T 3 source.tsx meta.var.expr.tsx storage.type.tsx
+T 4 source.tsx meta.var.expr.tsx
+T 5 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx entity.name.function.tsx
+T 6 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 7 source.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 8 source.tsx meta.var.expr.tsx
+T 16 source.tsx meta.var.expr.tsx meta.function.expression.tsx storage.type.function.tsx
+T 17 source.tsx meta.var.expr.tsx meta.function.expression.tsx
+T 18 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 19 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 20 source.tsx meta.var.expr.tsx meta.function.expression.tsx
+T 21 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx punctuation.definition.block.tsx
+L     var x = 10;
+T 4 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx
+T 7 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx meta.var.expr.tsx storage.type.tsx
+T 8 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx meta.var.expr.tsx
+T 9 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 11 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 12 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx meta.var.expr.tsx
+T 14 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx meta.var.expr.tsx constant.numeric.decimal.tsx
+T 15 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     x = x + 1;
+T 4 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx
+T 5 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx variable.other.readwrite.tsx
+T 6 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx
+T 7 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx keyword.operator.assignment.tsx
+T 8 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx
+T 9 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx variable.other.readwrite.tsx
+T 10 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx
+T 11 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx keyword.operator.arithmetic.tsx
+T 12 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx
+T 13 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 14 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L };
+T 1 source.tsx meta.var.expr.tsx meta.function.expression.tsx meta.block.tsx punctuation.definition.block.tsx
+T 2 source.tsx punctuation.terminator.statement.tsx
+L f();
+T 1 source.tsx meta.function-call.tsx entity.name.function.tsx
+T 2 source.tsx meta.brace.round.tsx
+T 3 source.tsx meta.brace.round.tsx
+T 4 source.tsx punctuation.terminator.statement.tsx

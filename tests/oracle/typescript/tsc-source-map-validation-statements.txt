@@ -1,0 +1,643 @@
+L // @sourcemap: true
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 19 source.ts comment.line.double-slash.ts
+L function f() {
+T 8 source.ts meta.function.ts storage.type.function.ts
+T 9 source.ts meta.function.ts
+T 10 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 11 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 12 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 13 source.ts meta.function.ts
+T 14 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L     var x = 0;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 14 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L     for (var i = 0; i < 10; i++) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 19 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+T 20 source.ts meta.function.ts meta.block.ts
+T 21 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 22 source.ts meta.function.ts meta.block.ts
+T 23 source.ts meta.function.ts meta.block.ts keyword.operator.relational.ts
+T 24 source.ts meta.function.ts meta.block.ts
+T 26 source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+T 27 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+T 28 source.ts meta.function.ts meta.block.ts
+T 29 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 31 source.ts meta.function.ts meta.block.ts keyword.operator.increment.ts
+T 32 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 33 source.ts meta.function.ts meta.block.ts
+T 34 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         x += i;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.operator.assignment.compound.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L         x *= 0;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.operator.assignment.compound.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts constant.numeric.decimal.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     if (x > 17) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 6 source.ts meta.function.ts meta.block.ts keyword.control.conditional.ts
+T 7 source.ts meta.function.ts meta.block.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 9 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts keyword.operator.relational.ts
+T 12 source.ts meta.function.ts meta.block.ts
+T 14 source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 16 source.ts meta.function.ts meta.block.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         x /= 9;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.operator.assignment.compound.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts constant.numeric.decimal.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     } else {
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+T 6 source.ts meta.function.ts meta.block.ts
+T 10 source.ts meta.function.ts meta.block.ts keyword.control.conditional.ts
+T 11 source.ts meta.function.ts meta.block.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         x += 10;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.operator.assignment.compound.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts constant.numeric.decimal.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L         x++;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.readwrite.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.operator.increment.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     var a = [
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array.literal.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array.literal.ts meta.brace.square.ts
+L         1,
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array.literal.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array.literal.ts constant.numeric.decimal.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array.literal.ts punctuation.separator.comma.ts
+L         2,
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array.literal.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array.literal.ts constant.numeric.decimal.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array.literal.ts punctuation.separator.comma.ts
+L         3
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array.literal.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array.literal.ts constant.numeric.decimal.ts
+L     ];
+T 4 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array.literal.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array.literal.ts meta.brace.square.ts
+T 6 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L     var obj = {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts punctuation.definition.block.ts
+L         z: 1,
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts punctuation.separator.key-value.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts meta.object.member.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts meta.object.member.ts constant.numeric.decimal.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts punctuation.separator.comma.ts
+L         q: "hello"
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts punctuation.separator.key-value.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts meta.object.member.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts meta.object.member.ts string.quoted.double.ts punctuation.definition.string.begin.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts meta.object.member.ts string.quoted.double.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts meta.object.member.ts string.quoted.double.ts punctuation.definition.string.end.ts
+L     };
+T 4 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts meta.object.member.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 6 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L     for (var j in a) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 17 source.ts meta.function.ts meta.block.ts keyword.operator.expression.in.ts
+T 18 source.ts meta.function.ts meta.block.ts
+T 19 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 21 source.ts meta.function.ts meta.block.ts
+T 22 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         obj.z = a[j];
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.object.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.accessor.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.property.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.operator.assignment.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.readwrite.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.block.ts meta.array.literal.ts meta.brace.square.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.block.ts meta.array.literal.ts variable.other.readwrite.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.block.ts meta.array.literal.ts meta.brace.square.ts
+T 21 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L         var v = 10;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     try {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         obj.q = "ohhh";
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.object.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.accessor.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.property.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.operator.assignment.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.block.ts string.quoted.double.ts punctuation.definition.string.begin.ts
+T 21 source.ts meta.function.ts meta.block.ts meta.block.ts string.quoted.double.ts
+T 22 source.ts meta.function.ts meta.block.ts meta.block.ts string.quoted.double.ts punctuation.definition.string.end.ts
+T 23 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     } catch (e) {
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+T 6 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 12 source.ts meta.function.ts meta.block.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 14 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 16 source.ts meta.function.ts meta.block.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         if (obj.z < 10) {
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.control.conditional.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.brace.round.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.object.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.accessor.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.property.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.operator.relational.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 22 source.ts meta.function.ts meta.block.ts meta.block.ts constant.numeric.decimal.ts
+T 23 source.ts meta.function.ts meta.block.ts meta.block.ts meta.brace.round.ts
+T 24 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 25 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L             obj.z = 12;
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts variable.other.object.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts punctuation.accessor.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts variable.other.property.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts keyword.operator.assignment.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts
+T 22 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts constant.numeric.decimal.ts
+T 23 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L         } else {
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.control.conditional.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L             obj.q = "hmm";
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts variable.other.object.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts punctuation.accessor.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts variable.other.property.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts keyword.operator.assignment.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts
+T 21 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts string.quoted.double.ts punctuation.definition.string.begin.ts
+T 24 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts string.quoted.double.ts
+T 25 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts string.quoted.double.ts punctuation.definition.string.end.ts
+T 26 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L         }
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     try {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         throw new Error();
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.control.trycatch.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.block.ts new.expr.ts keyword.operator.new.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.block.ts new.expr.ts
+T 23 source.ts meta.function.ts meta.block.ts meta.block.ts new.expr.ts meta.function-call.ts entity.name.function.ts
+T 24 source.ts meta.function.ts meta.block.ts meta.block.ts new.expr.ts meta.brace.round.ts
+T 25 source.ts meta.function.ts meta.block.ts meta.block.ts new.expr.ts meta.brace.round.ts
+T 26 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     } catch (e1) {
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+T 6 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 12 source.ts meta.function.ts meta.block.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 15 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 17 source.ts meta.function.ts meta.block.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var b = e1;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     } finally {
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+T 6 source.ts meta.function.ts meta.block.ts
+T 13 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 14 source.ts meta.function.ts meta.block.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         y = 70;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.operator.assignment.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts constant.numeric.decimal.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     with (obj) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 8 source.ts meta.function.ts meta.block.ts keyword.control.with.ts
+T 9 source.ts meta.function.ts meta.block.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 13 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 15 source.ts meta.function.ts meta.block.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         i = 2;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.operator.assignment.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts constant.numeric.decimal.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L         z = 10;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.operator.assignment.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts constant.numeric.decimal.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     switch (obj.z) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 10 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-expression.expr.ts keyword.control.switch.ts
+T 11 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-expression.expr.ts
+T 12 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-expression.expr.ts meta.brace.round.ts
+T 15 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-expression.expr.ts variable.other.object.ts
+T 16 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-expression.expr.ts punctuation.accessor.ts
+T 17 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-expression.expr.ts variable.other.property.ts
+T 18 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-expression.expr.ts meta.brace.round.ts
+T 19 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts
+T 20 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts punctuation.definition.block.ts
+L         case 0: {
+T 8 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts
+T 12 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts case-clause.expr.ts keyword.control.switch.ts
+T 13 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts case-clause.expr.ts
+T 14 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts case-clause.expr.ts constant.numeric.decimal.ts
+T 15 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts case-clause.expr.ts punctuation.definition.section.case-statement.ts
+T 16 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts
+T 17 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts punctuation.definition.block.ts
+L             x++;
+T 12 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts
+T 13 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts keyword.operator.increment.ts
+T 16 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts punctuation.terminator.statement.ts
+L             break;
+T 12 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts
+T 17 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts keyword.control.loop.ts
+T 18 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts punctuation.terminator.statement.ts
+L 
+L         }
+T 8 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts punctuation.definition.block.ts
+L         case 1: {
+T 8 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts
+T 12 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts case-clause.expr.ts keyword.control.switch.ts
+T 13 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts case-clause.expr.ts
+T 14 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts case-clause.expr.ts constant.numeric.decimal.ts
+T 15 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts case-clause.expr.ts punctuation.definition.section.case-statement.ts
+T 16 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts
+T 17 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts punctuation.definition.block.ts
+L             x--;
+T 12 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts
+T 13 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts keyword.operator.decrement.ts
+T 16 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts punctuation.terminator.statement.ts
+L             break;
+T 12 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts
+T 17 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts keyword.control.loop.ts
+T 18 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts punctuation.terminator.statement.ts
+L 
+L         }
+T 8 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts punctuation.definition.block.ts
+L         default: {
+T 8 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts
+T 15 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts case-clause.expr.ts keyword.control.switch.ts
+T 16 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts case-clause.expr.ts punctuation.definition.section.case-statement.ts
+T 17 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts
+T 18 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts punctuation.definition.block.ts
+L             x *= 2;
+T 12 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts
+T 13 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts
+T 16 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts keyword.operator.assignment.compound.ts
+T 17 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts
+T 18 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts constant.numeric.decimal.ts
+T 19 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts punctuation.terminator.statement.ts
+L             x = 50;
+T 12 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts
+T 13 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts
+T 15 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts keyword.operator.assignment.ts
+T 16 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts
+T 18 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts constant.numeric.decimal.ts
+T 19 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts punctuation.terminator.statement.ts
+L             break;
+T 12 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts
+T 17 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts keyword.control.loop.ts
+T 18 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts punctuation.terminator.statement.ts
+L 
+L         }
+T 8 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.block.ts punctuation.definition.block.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts
+T 5 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts punctuation.definition.block.ts
+L     while (x < 10) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 13 source.ts meta.function.ts meta.block.ts
+T 14 source.ts meta.function.ts meta.block.ts keyword.operator.relational.ts
+T 15 source.ts meta.function.ts meta.block.ts
+T 17 source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 19 source.ts meta.function.ts meta.block.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         x++;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.readwrite.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.operator.increment.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     do {
+T 4 source.ts meta.function.ts meta.block.ts
+T 6 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 7 source.ts meta.function.ts meta.block.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         x--;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts variable.other.readwrite.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.operator.decrement.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     } while (x > 4)
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+T 6 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 12 source.ts meta.function.ts meta.block.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 14 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts
+T 16 source.ts meta.function.ts meta.block.ts keyword.operator.relational.ts
+T 17 source.ts meta.function.ts meta.block.ts
+T 18 source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+L     x = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 6 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.operator.assignment.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L     var z = (x == 1) ? x + 1 : x - 1;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.brace.round.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.comparison.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.brace.round.ts
+T 21 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 22 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.ternary.ts
+T 23 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 24 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 25 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 26 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.arithmetic.ts
+T 27 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 28 source.ts meta.function.ts meta.block.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 29 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 30 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.ternary.ts
+T 31 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 32 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 33 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 34 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.arithmetic.ts
+T 35 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 36 source.ts meta.function.ts meta.block.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 37 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L     (x == 1) ? x + 1 : x - 1;
+T 4 source.ts meta.function.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 6 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 7 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.operator.comparison.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 13 source.ts meta.function.ts meta.block.ts
+T 14 source.ts meta.function.ts meta.block.ts keyword.operator.ternary.ts
+T 15 source.ts meta.function.ts meta.block.ts
+T 16 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 17 source.ts meta.function.ts meta.block.ts
+T 18 source.ts meta.function.ts meta.block.ts keyword.operator.arithmetic.ts
+T 19 source.ts meta.function.ts meta.block.ts
+T 20 source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+T 21 source.ts meta.function.ts meta.block.ts
+T 22 source.ts meta.function.ts meta.block.ts keyword.operator.ternary.ts
+T 23 source.ts meta.function.ts meta.block.ts
+T 24 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 25 source.ts meta.function.ts meta.block.ts
+T 26 source.ts meta.function.ts meta.block.ts keyword.operator.arithmetic.ts
+T 27 source.ts meta.function.ts meta.block.ts
+T 28 source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+T 29 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L     x === 1;
+T 4 source.ts meta.function.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 6 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.operator.comparison.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+T 12 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L     x = z = 40;
+T 4 source.ts meta.function.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 6 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.operator.assignment.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts keyword.operator.assignment.ts
+T 12 source.ts meta.function.ts meta.block.ts
+T 14 source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+T 15 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L     eval("y");
+T 4 source.ts meta.function.ts meta.block.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.function-call.ts entity.name.function.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 10 source.ts meta.function.ts meta.block.ts string.quoted.double.ts punctuation.definition.string.begin.ts
+T 11 source.ts meta.function.ts meta.block.ts string.quoted.double.ts
+T 12 source.ts meta.function.ts meta.block.ts string.quoted.double.ts punctuation.definition.string.end.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 14 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L     return;
+T 4 source.ts meta.function.ts meta.block.ts
+T 10 source.ts meta.function.ts meta.block.ts keyword.control.flow.ts
+T 11 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L var b = function () {
+T 3 source.ts meta.var.expr.ts storage.type.ts
+T 4 source.ts meta.var.expr.ts
+T 5 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts entity.name.function.ts
+T 6 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 7 source.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 8 source.ts meta.var.expr.ts
+T 16 source.ts meta.var.expr.ts meta.function.expression.ts storage.type.function.ts
+T 17 source.ts meta.var.expr.ts meta.function.expression.ts
+T 18 source.ts meta.var.expr.ts meta.function.expression.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 19 source.ts meta.var.expr.ts meta.function.expression.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 20 source.ts meta.var.expr.ts meta.function.expression.ts
+T 21 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts punctuation.definition.block.ts
+L     var x = 10;
+T 4 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts
+T 7 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 10 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 11 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 12 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts meta.var.expr.ts
+T 14 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 15 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts punctuation.terminator.statement.ts
+L     x = x + 1;
+T 4 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts
+T 5 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts variable.other.readwrite.ts
+T 6 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts
+T 7 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts keyword.operator.assignment.ts
+T 8 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts
+T 9 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts variable.other.readwrite.ts
+T 10 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts
+T 11 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts keyword.operator.arithmetic.ts
+T 12 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts
+T 13 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts constant.numeric.decimal.ts
+T 14 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts punctuation.terminator.statement.ts
+L };
+T 1 source.ts meta.var.expr.ts meta.function.expression.ts meta.block.ts punctuation.definition.block.ts
+T 2 source.ts punctuation.terminator.statement.ts
+L f();
+T 1 source.ts meta.function-call.ts entity.name.function.ts
+T 2 source.ts meta.brace.round.ts
+T 3 source.ts meta.brace.round.ts
+T 4 source.ts punctuation.terminator.statement.ts

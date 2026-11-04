@@ -1,0 +1,610 @@
+L // @erasableSyntaxOnly: true
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 28 source.ts comment.line.double-slash.ts
+L 
+L // @filename: index.ts
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 22 source.ts comment.line.double-slash.ts
+L class MyClassErr {
+T 5 source.ts meta.class.ts storage.type.class.ts
+T 6 source.ts meta.class.ts
+T 16 source.ts meta.class.ts entity.name.type.class.ts
+T 17 source.ts meta.class.ts
+T 18 source.ts meta.class.ts punctuation.definition.block.ts
+L     // No parameter properties
+T 4 source.ts meta.class.ts punctuation.whitespace.comment.leading.ts
+T 6 source.ts meta.class.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 30 source.ts meta.class.ts comment.line.double-slash.ts
+L     constructor(public foo: string) { }
+T 4 source.ts meta.class.ts meta.method.declaration.ts
+T 15 source.ts meta.class.ts meta.method.declaration.ts storage.type.ts
+T 16 source.ts meta.class.ts meta.method.declaration.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 22 source.ts meta.class.ts meta.method.declaration.ts meta.parameters.ts storage.modifier.ts
+T 23 source.ts meta.class.ts meta.method.declaration.ts meta.parameters.ts
+T 26 source.ts meta.class.ts meta.method.declaration.ts meta.parameters.ts variable.parameter.ts
+T 27 source.ts meta.class.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 28 source.ts meta.class.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts
+T 34 source.ts meta.class.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 35 source.ts meta.class.ts meta.method.declaration.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 36 source.ts meta.class.ts meta.method.declaration.ts
+T 37 source.ts meta.class.ts meta.method.declaration.ts meta.block.ts punctuation.definition.block.ts
+T 38 source.ts meta.class.ts meta.method.declaration.ts meta.block.ts
+T 39 source.ts meta.class.ts meta.method.declaration.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.class.ts punctuation.definition.block.ts
+L 
+L namespace IllegalBecauseInstantiated {
+T 9 source.ts meta.namespace.declaration.ts storage.type.namespace.ts
+T 10 source.ts meta.namespace.declaration.ts
+T 36 source.ts meta.namespace.declaration.ts entity.name.type.module.ts
+T 37 source.ts meta.namespace.declaration.ts
+T 38 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L     export const m = 1;
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts
+T 10 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts keyword.control.export.ts
+T 11 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts
+T 16 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 17 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts
+T 18 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 19 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 20 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 21 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts
+T 22 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 23 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L 
+L namespace AlsoIllegalBecauseInstantiated {
+T 9 source.ts meta.namespace.declaration.ts storage.type.namespace.ts
+T 10 source.ts meta.namespace.declaration.ts
+T 40 source.ts meta.namespace.declaration.ts entity.name.type.module.ts
+T 41 source.ts meta.namespace.declaration.ts
+T 42 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L     class PrivateClass {
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts
+T 9 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts storage.type.class.ts
+T 10 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts
+T 22 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts entity.name.type.class.ts
+T 23 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts
+T 24 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts punctuation.definition.block.ts
+L 
+L     }
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts
+T 5 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L 
+L namespace IllegalBecauseNestedInstantiated {
+T 9 source.ts meta.namespace.declaration.ts storage.type.namespace.ts
+T 10 source.ts meta.namespace.declaration.ts
+T 42 source.ts meta.namespace.declaration.ts entity.name.type.module.ts
+T 43 source.ts meta.namespace.declaration.ts
+T 44 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L     namespace Nested {
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts
+T 13 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts storage.type.namespace.ts
+T 14 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts
+T 20 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts entity.name.type.module.ts
+T 21 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts
+T 22 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L         export const m = 1;
+T 8 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts
+T 14 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts keyword.control.export.ts
+T 15 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts
+T 20 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 21 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts
+T 22 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 23 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 24 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 25 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts
+T 26 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 27 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts
+T 5 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L 
+L enum NotLegalEnum {
+T 4 source.ts meta.enum.declaration.ts storage.type.enum.ts
+T 5 source.ts meta.enum.declaration.ts
+T 17 source.ts meta.enum.declaration.ts entity.name.type.enum.ts
+T 18 source.ts meta.enum.declaration.ts
+T 19 source.ts meta.enum.declaration.ts punctuation.definition.block.ts
+L     B = 1
+T 4 source.ts meta.enum.declaration.ts
+T 5 source.ts meta.enum.declaration.ts variable.other.enummember.ts
+T 6 source.ts meta.enum.declaration.ts
+T 7 source.ts meta.enum.declaration.ts keyword.operator.assignment.ts
+T 8 source.ts meta.enum.declaration.ts
+T 9 source.ts meta.enum.declaration.ts constant.numeric.decimal.ts
+L }
+T 1 source.ts meta.enum.declaration.ts punctuation.definition.block.ts
+L 
+L import NoGoodAlias = NotLegalEnum.B;
+T 6 source.ts meta.import-equals.internal.ts keyword.control.import.ts
+T 7 source.ts meta.import-equals.internal.ts
+T 18 source.ts meta.import-equals.internal.ts variable.other.readwrite.alias.ts
+T 19 source.ts meta.import-equals.internal.ts
+T 20 source.ts meta.import-equals.internal.ts keyword.operator.assignment.ts
+T 21 source.ts meta.import-equals.internal.ts
+T 33 source.ts meta.import-equals.internal.ts entity.name.type.module.ts
+T 34 source.ts meta.import-equals.internal.ts punctuation.accessor.ts
+T 35 source.ts meta.import-equals.internal.ts variable.other.readwrite.ts
+T 36 source.ts punctuation.terminator.statement.ts
+L 
+L const enum NotLegalConstEnum {
+T 5 source.ts meta.enum.declaration.ts storage.modifier.ts
+T 6 source.ts meta.enum.declaration.ts
+T 10 source.ts meta.enum.declaration.ts storage.type.enum.ts
+T 11 source.ts meta.enum.declaration.ts
+T 28 source.ts meta.enum.declaration.ts entity.name.type.enum.ts
+T 29 source.ts meta.enum.declaration.ts
+T 30 source.ts meta.enum.declaration.ts punctuation.definition.block.ts
+L     C = 2
+T 4 source.ts meta.enum.declaration.ts
+T 5 source.ts meta.enum.declaration.ts variable.other.enummember.ts
+T 6 source.ts meta.enum.declaration.ts
+T 7 source.ts meta.enum.declaration.ts keyword.operator.assignment.ts
+T 8 source.ts meta.enum.declaration.ts
+T 9 source.ts meta.enum.declaration.ts constant.numeric.decimal.ts
+L }
+T 1 source.ts meta.enum.declaration.ts punctuation.definition.block.ts
+L 
+L // No errors after this point
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 29 source.ts comment.line.double-slash.ts
+L class MyClassOk {
+T 5 source.ts meta.class.ts storage.type.class.ts
+T 6 source.ts meta.class.ts
+T 15 source.ts meta.class.ts entity.name.type.class.ts
+T 16 source.ts meta.class.ts
+T 17 source.ts meta.class.ts punctuation.definition.block.ts
+L     // Not a parameter property, ok
+T 4 source.ts meta.class.ts punctuation.whitespace.comment.leading.ts
+T 6 source.ts meta.class.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 35 source.ts meta.class.ts comment.line.double-slash.ts
+L     constructor(foo: string) { }
+T 4 source.ts meta.class.ts meta.method.declaration.ts
+T 15 source.ts meta.class.ts meta.method.declaration.ts storage.type.ts
+T 16 source.ts meta.class.ts meta.method.declaration.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 19 source.ts meta.class.ts meta.method.declaration.ts meta.parameters.ts variable.parameter.ts
+T 20 source.ts meta.class.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 21 source.ts meta.class.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts
+T 27 source.ts meta.class.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 28 source.ts meta.class.ts meta.method.declaration.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 29 source.ts meta.class.ts meta.method.declaration.ts
+T 30 source.ts meta.class.ts meta.method.declaration.ts meta.block.ts punctuation.definition.block.ts
+T 31 source.ts meta.class.ts meta.method.declaration.ts meta.block.ts
+T 32 source.ts meta.class.ts meta.method.declaration.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.class.ts punctuation.definition.block.ts
+L 
+L // Note for implementors: This should not be an error
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 53 source.ts comment.line.double-slash.ts
+L // as this entire namespace block is fully erased
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 49 source.ts comment.line.double-slash.ts
+L namespace NotInstantiated {
+T 9 source.ts meta.namespace.declaration.ts storage.type.namespace.ts
+T 10 source.ts meta.namespace.declaration.ts
+T 25 source.ts meta.namespace.declaration.ts entity.name.type.module.ts
+T 26 source.ts meta.namespace.declaration.ts
+T 27 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L     export interface JustAType { }
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts
+T 10 source.ts meta.namespace.declaration.ts meta.block.ts meta.interface.ts keyword.control.export.ts
+T 11 source.ts meta.namespace.declaration.ts meta.block.ts meta.interface.ts
+T 20 source.ts meta.namespace.declaration.ts meta.block.ts meta.interface.ts storage.type.interface.ts
+T 21 source.ts meta.namespace.declaration.ts meta.block.ts meta.interface.ts
+T 30 source.ts meta.namespace.declaration.ts meta.block.ts meta.interface.ts entity.name.type.interface.ts
+T 31 source.ts meta.namespace.declaration.ts meta.block.ts meta.interface.ts
+T 32 source.ts meta.namespace.declaration.ts meta.block.ts meta.interface.ts punctuation.definition.block.ts
+T 33 source.ts meta.namespace.declaration.ts meta.block.ts meta.interface.ts
+T 34 source.ts meta.namespace.declaration.ts meta.block.ts meta.interface.ts punctuation.definition.block.ts
+L     export type ATypeInANamespace = {};
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts
+T 10 source.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts keyword.control.export.ts
+T 11 source.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts
+T 15 source.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts storage.type.type.ts
+T 16 source.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts
+T 33 source.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts entity.name.type.alias.ts
+T 34 source.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts
+T 35 source.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts keyword.operator.assignment.ts
+T 36 source.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts
+T 37 source.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts meta.object.type.ts punctuation.definition.block.ts
+T 38 source.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts meta.object.type.ts punctuation.definition.block.ts
+T 39 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.terminator.statement.ts
+L     namespace Nested {
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts
+T 13 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts storage.type.namespace.ts
+T 14 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts
+T 20 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts entity.name.type.module.ts
+T 21 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts
+T 22 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L         export type ATypeInANamespace = {};
+T 8 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts
+T 14 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts keyword.control.export.ts
+T 15 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts
+T 19 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts storage.type.type.ts
+T 20 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts
+T 37 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts entity.name.type.alias.ts
+T 38 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts
+T 39 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts keyword.operator.assignment.ts
+T 40 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts
+T 41 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts meta.object.type.ts punctuation.definition.block.ts
+T 42 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.type.declaration.ts meta.object.type.ts punctuation.definition.block.ts
+T 43 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts
+T 5 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L declare namespace AmbientIsNotInstantiated {
+T 7 source.ts meta.namespace.declaration.ts storage.modifier.ts
+T 8 source.ts meta.namespace.declaration.ts
+T 17 source.ts meta.namespace.declaration.ts storage.type.namespace.ts
+T 18 source.ts meta.namespace.declaration.ts
+T 42 source.ts meta.namespace.declaration.ts entity.name.type.module.ts
+T 43 source.ts meta.namespace.declaration.ts
+T 44 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L     export const stillOk = 12;
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts
+T 10 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts keyword.control.export.ts
+T 11 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts
+T 16 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 17 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts
+T 24 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 25 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 26 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 27 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts
+T 29 source.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 30 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L 
+L declare enum LegalEnum {
+T 7 source.ts meta.enum.declaration.ts storage.modifier.ts
+T 8 source.ts meta.enum.declaration.ts
+T 12 source.ts meta.enum.declaration.ts storage.type.enum.ts
+T 13 source.ts meta.enum.declaration.ts
+T 22 source.ts meta.enum.declaration.ts entity.name.type.enum.ts
+T 23 source.ts meta.enum.declaration.ts
+T 24 source.ts meta.enum.declaration.ts punctuation.definition.block.ts
+L     A = 1
+T 4 source.ts meta.enum.declaration.ts
+T 5 source.ts meta.enum.declaration.ts variable.other.enummember.ts
+T 6 source.ts meta.enum.declaration.ts
+T 7 source.ts meta.enum.declaration.ts keyword.operator.assignment.ts
+T 8 source.ts meta.enum.declaration.ts
+T 9 source.ts meta.enum.declaration.ts constant.numeric.decimal.ts
+L }
+T 1 source.ts meta.enum.declaration.ts punctuation.definition.block.ts
+L 
+L declare namespace AmbientStuff {
+T 7 source.ts meta.namespace.declaration.ts storage.modifier.ts
+T 8 source.ts meta.namespace.declaration.ts
+T 17 source.ts meta.namespace.declaration.ts storage.type.namespace.ts
+T 18 source.ts meta.namespace.declaration.ts
+T 30 source.ts meta.namespace.declaration.ts entity.name.type.module.ts
+T 31 source.ts meta.namespace.declaration.ts
+T 32 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L     namespace Nested {
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts
+T 13 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts storage.type.namespace.ts
+T 14 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts
+T 20 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts entity.name.type.module.ts
+T 21 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts
+T 22 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L         export const stillOk = 12;
+T 8 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts
+T 14 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts keyword.control.export.ts
+T 15 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts
+T 20 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 21 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts
+T 28 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 29 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 30 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 31 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts
+T 33 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 34 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts
+T 5 source.ts meta.namespace.declaration.ts meta.block.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L     enum EnumInAmbientContext {
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts
+T 8 source.ts meta.namespace.declaration.ts meta.block.ts meta.enum.declaration.ts storage.type.enum.ts
+T 9 source.ts meta.namespace.declaration.ts meta.block.ts meta.enum.declaration.ts
+T 29 source.ts meta.namespace.declaration.ts meta.block.ts meta.enum.declaration.ts entity.name.type.enum.ts
+T 30 source.ts meta.namespace.declaration.ts meta.block.ts meta.enum.declaration.ts
+T 31 source.ts meta.namespace.declaration.ts meta.block.ts meta.enum.declaration.ts punctuation.definition.block.ts
+L         B = 1
+T 8 source.ts meta.namespace.declaration.ts meta.block.ts meta.enum.declaration.ts
+T 9 source.ts meta.namespace.declaration.ts meta.block.ts meta.enum.declaration.ts variable.other.enummember.ts
+T 10 source.ts meta.namespace.declaration.ts meta.block.ts meta.enum.declaration.ts
+T 11 source.ts meta.namespace.declaration.ts meta.block.ts meta.enum.declaration.ts keyword.operator.assignment.ts
+T 12 source.ts meta.namespace.declaration.ts meta.block.ts meta.enum.declaration.ts
+T 13 source.ts meta.namespace.declaration.ts meta.block.ts meta.enum.declaration.ts constant.numeric.decimal.ts
+L     }
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts meta.enum.declaration.ts
+T 5 source.ts meta.namespace.declaration.ts meta.block.ts meta.enum.declaration.ts punctuation.definition.block.ts
+L 
+L     import FineAlias = EnumInAmbientContext.B;
+T 4 source.ts meta.namespace.declaration.ts meta.block.ts
+T 10 source.ts meta.namespace.declaration.ts meta.block.ts meta.import-equals.internal.ts keyword.control.import.ts
+T 11 source.ts meta.namespace.declaration.ts meta.block.ts meta.import-equals.internal.ts
+T 20 source.ts meta.namespace.declaration.ts meta.block.ts meta.import-equals.internal.ts variable.other.readwrite.alias.ts
+T 21 source.ts meta.namespace.declaration.ts meta.block.ts meta.import-equals.internal.ts
+T 22 source.ts meta.namespace.declaration.ts meta.block.ts meta.import-equals.internal.ts keyword.operator.assignment.ts
+T 23 source.ts meta.namespace.declaration.ts meta.block.ts meta.import-equals.internal.ts
+T 43 source.ts meta.namespace.declaration.ts meta.block.ts meta.import-equals.internal.ts entity.name.type.module.ts
+T 44 source.ts meta.namespace.declaration.ts meta.block.ts meta.import-equals.internal.ts punctuation.accessor.ts
+T 45 source.ts meta.namespace.declaration.ts meta.block.ts meta.import-equals.internal.ts variable.other.readwrite.ts
+T 46 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L 
+L // Not erasable
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 15 source.ts comment.line.double-slash.ts
+L (()=><any>{})();
+T 1 source.ts meta.brace.round.ts
+T 2 source.ts meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 3 source.ts meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 5 source.ts meta.arrow.ts storage.type.function.arrow.ts
+T 6 source.ts cast.expr.ts meta.brace.angle.ts
+T 9 source.ts cast.expr.ts support.type.primitive.ts
+T 10 source.ts cast.expr.ts meta.brace.angle.ts
+T 11 source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 12 source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 13 source.ts meta.brace.round.ts
+T 14 source.ts meta.brace.round.ts
+T 15 source.ts meta.brace.round.ts
+T 16 source.ts punctuation.terminator.statement.ts
+L (()=>< any >{})();
+T 1 source.ts meta.brace.round.ts
+T 2 source.ts meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 3 source.ts meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 5 source.ts meta.arrow.ts storage.type.function.arrow.ts
+T 6 source.ts cast.expr.ts meta.brace.angle.ts
+T 7 source.ts cast.expr.ts
+T 10 source.ts cast.expr.ts support.type.primitive.ts
+T 11 source.ts cast.expr.ts
+T 12 source.ts cast.expr.ts meta.brace.angle.ts
+T 13 source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 14 source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 15 source.ts meta.brace.round.ts
+T 16 source.ts meta.brace.round.ts
+T 17 source.ts meta.brace.round.ts
+T 18 source.ts punctuation.terminator.statement.ts
+L (()=> < any > {})();
+T 1 source.ts meta.brace.round.ts
+T 2 source.ts meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 3 source.ts meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 5 source.ts meta.arrow.ts storage.type.function.arrow.ts
+T 6 source.ts meta.arrow.ts cast.expr.ts
+T 7 source.ts meta.arrow.ts cast.expr.ts meta.brace.angle.ts
+T 8 source.ts meta.arrow.ts cast.expr.ts
+T 11 source.ts meta.arrow.ts cast.expr.ts support.type.primitive.ts
+T 12 source.ts meta.arrow.ts cast.expr.ts
+T 13 source.ts meta.arrow.ts cast.expr.ts meta.brace.angle.ts
+T 14 source.ts
+T 15 source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 16 source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 17 source.ts meta.brace.round.ts
+T 18 source.ts meta.brace.round.ts
+T 19 source.ts meta.brace.round.ts
+T 20 source.ts punctuation.terminator.statement.ts
+L 
+L // Erasable
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 11 source.ts comment.line.double-slash.ts
+L (()=><any>({}))();
+T 1 source.ts meta.brace.round.ts
+T 2 source.ts meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 3 source.ts meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 5 source.ts meta.arrow.ts storage.type.function.arrow.ts
+T 6 source.ts cast.expr.ts meta.brace.angle.ts
+T 9 source.ts cast.expr.ts support.type.primitive.ts
+T 10 source.ts cast.expr.ts meta.brace.angle.ts
+T 11 source.ts meta.brace.round.ts
+T 12 source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 13 source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 14 source.ts meta.brace.round.ts
+T 15 source.ts meta.brace.round.ts
+T 16 source.ts meta.brace.round.ts
+T 17 source.ts meta.brace.round.ts
+T 18 source.ts punctuation.terminator.statement.ts
+L (()=>(<any>{}))();
+T 1 source.ts meta.brace.round.ts
+T 2 source.ts meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 3 source.ts meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 5 source.ts meta.arrow.ts storage.type.function.arrow.ts
+T 6 source.ts meta.brace.round.ts
+T 7 source.ts cast.expr.ts meta.brace.angle.ts
+T 10 source.ts cast.expr.ts support.type.primitive.ts
+T 11 source.ts cast.expr.ts meta.brace.angle.ts
+T 12 source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 13 source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 14 source.ts meta.brace.round.ts
+T 15 source.ts meta.brace.round.ts
+T 16 source.ts meta.brace.round.ts
+T 17 source.ts meta.brace.round.ts
+T 18 source.ts punctuation.terminator.statement.ts
+L <any>{};
+T 1 source.ts cast.expr.ts meta.brace.angle.ts
+T 4 source.ts cast.expr.ts support.type.primitive.ts
+T 5 source.ts cast.expr.ts meta.brace.angle.ts
+T 6 source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 7 source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 8 source.ts punctuation.terminator.statement.ts
+L 
+L 
+L // return and yield ASI
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 23 source.ts comment.line.double-slash.ts
+L function *gen() {
+T 8 source.ts meta.function.ts storage.type.function.ts
+T 9 source.ts meta.function.ts
+T 10 source.ts meta.function.ts keyword.generator.asterisk.ts
+T 13 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 14 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 15 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 16 source.ts meta.function.ts
+T 17 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     yield <any>
+T 4 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.control.flow.ts
+T 10 source.ts meta.function.ts meta.block.ts cast.expr.ts
+T 11 source.ts meta.function.ts meta.block.ts cast.expr.ts meta.brace.angle.ts
+T 14 source.ts meta.function.ts meta.block.ts cast.expr.ts support.type.primitive.ts
+T 15 source.ts meta.function.ts meta.block.ts cast.expr.ts meta.brace.angle.ts
+L         1;
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+T 10 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L     return <any>
+T 4 source.ts meta.function.ts meta.block.ts
+T 10 source.ts meta.function.ts meta.block.ts keyword.control.flow.ts
+T 11 source.ts meta.function.ts meta.block.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.type.parameters.ts support.type.primitive.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L         1;
+T 10 source.ts meta.function.ts meta.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts
+L 
+L // at the start of an ExpressionStatement if followed by an object literal; though I'm not sure why one would use it there
+T 122 source.ts meta.function.ts meta.block.ts
+L <unknown>{foo() {}}.foo();
+T 1 source.ts meta.function.ts meta.block.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.type.parameters.ts support.type.primitive.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+T 13 source.ts meta.function.ts meta.block.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 16 source.ts meta.function.ts meta.block.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 19 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+T 20 source.ts meta.function-call.ts punctuation.accessor.ts
+T 23 source.ts meta.function-call.ts entity.name.function.ts
+T 24 source.ts meta.brace.round.ts
+T 25 source.ts meta.brace.round.ts
+T 26 source.ts punctuation.terminator.statement.ts
+L 
+L // at the start of an ExpressionStatement if followed by function keyword
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 73 source.ts comment.line.double-slash.ts
+L <unknown>function() {}();
+T 1 source.ts cast.expr.ts meta.brace.angle.ts
+T 8 source.ts cast.expr.ts support.type.primitive.ts
+T 9 source.ts cast.expr.ts meta.brace.angle.ts
+T 17 source.ts meta.function.ts storage.type.function.ts
+T 18 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 19 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 20 source.ts meta.function.ts
+T 21 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+T 22 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+T 23 source.ts meta.brace.round.ts
+T 24 source.ts meta.brace.round.ts
+T 25 source.ts punctuation.terminator.statement.ts
+L <unknown>function() {};
+T 1 source.ts cast.expr.ts meta.brace.angle.ts
+T 8 source.ts cast.expr.ts support.type.primitive.ts
+T 9 source.ts cast.expr.ts meta.brace.angle.ts
+T 17 source.ts meta.function.ts storage.type.function.ts
+T 18 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 19 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 20 source.ts meta.function.ts
+T 21 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+T 22 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+T 23 source.ts punctuation.terminator.statement.ts
+L 
+L // at the start of an ExpressionStatement if followed by an anonymous class expression
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 86 source.ts comment.line.double-slash.ts
+L // note that this exact syntax currently emits invalid JS (no parenthesis added like for function above)
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 104 source.ts comment.line.double-slash.ts
+L <unknown>class {}
+T 1 source.ts cast.expr.ts meta.brace.angle.ts
+T 8 source.ts cast.expr.ts support.type.primitive.ts
+T 9 source.ts cast.expr.ts meta.brace.angle.ts
+T 14 source.ts meta.class.ts storage.type.class.ts
+T 15 source.ts meta.class.ts
+T 16 source.ts meta.class.ts punctuation.definition.block.ts
+T 17 source.ts meta.class.ts punctuation.definition.block.ts
+L 
+L // @filename: commonjs.cts
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 26 source.ts comment.line.double-slash.ts
+L import foo = require("./other.cjs");
+T 6 source.ts meta.import-equals.external.ts keyword.control.import.ts
+T 7 source.ts meta.import-equals.external.ts
+T 10 source.ts meta.import-equals.external.ts variable.other.readwrite.alias.ts
+T 11 source.ts meta.import-equals.external.ts
+T 12 source.ts meta.import-equals.external.ts keyword.operator.assignment.ts
+T 13 source.ts meta.import-equals.external.ts
+T 20 source.ts meta.import-equals.external.ts keyword.control.require.ts
+T 21 source.ts meta.import-equals.external.ts meta.brace.round.ts
+T 22 source.ts meta.import-equals.external.ts string.quoted.double.ts punctuation.definition.string.begin.ts
+T 33 source.ts meta.import-equals.external.ts string.quoted.double.ts
+T 34 source.ts meta.import-equals.external.ts string.quoted.double.ts punctuation.definition.string.end.ts
+T 35 source.ts meta.import-equals.external.ts meta.brace.round.ts
+T 36 source.ts punctuation.terminator.statement.ts
+L export = foo;
+T 6 source.ts meta.export.default.ts keyword.control.export.ts
+T 7 source.ts meta.export.default.ts
+T 8 source.ts meta.export.default.ts keyword.operator.assignment.ts
+T 9 source.ts meta.export.default.ts
+T 12 source.ts meta.export.default.ts variable.other.readwrite.ts
+T 13 source.ts punctuation.terminator.statement.ts
+L 
+L 
+L // @filename: other.d.cts
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 25 source.ts comment.line.double-slash.ts
+L declare function foo(): void;
+T 7 source.ts meta.function.ts storage.modifier.ts
+T 8 source.ts meta.function.ts
+T 16 source.ts meta.function.ts storage.type.function.ts
+T 17 source.ts meta.function.ts
+T 20 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 21 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts meta.return.type.ts keyword.operator.type.annotation.ts
+T 24 source.ts meta.function.ts meta.return.type.ts
+T 28 source.ts meta.function.ts meta.return.type.ts support.type.primitive.ts
+T 29 source.ts punctuation.terminator.statement.ts
+L export = foo;
+T 6 source.ts meta.export.default.ts keyword.control.export.ts
+T 7 source.ts meta.export.default.ts
+T 8 source.ts meta.export.default.ts keyword.operator.assignment.ts
+T 9 source.ts meta.export.default.ts
+T 12 source.ts meta.export.default.ts variable.other.readwrite.ts
+T 13 source.ts punctuation.terminator.statement.ts
+L 
+L 
+L // @filename: esm.mts
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 21 source.ts comment.line.double-slash.ts
+L const foo = 1234;
+T 5 source.ts meta.var.expr.ts storage.type.ts
+T 6 source.ts meta.var.expr.ts
+T 9 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 10 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 11 source.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 12 source.ts meta.var.expr.ts
+T 16 source.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 17 source.ts punctuation.terminator.statement.ts
+L export default foo;
+T 6 source.ts meta.export.default.ts keyword.control.export.ts
+T 7 source.ts meta.export.default.ts
+T 14 source.ts meta.export.default.ts keyword.control.default.ts
+T 15 source.ts meta.export.default.ts
+T 18 source.ts meta.export.default.ts variable.other.readwrite.ts
+T 19 source.ts punctuation.terminator.statement.ts
+L 

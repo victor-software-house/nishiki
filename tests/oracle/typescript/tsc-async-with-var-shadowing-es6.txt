@@ -1,0 +1,1313 @@
+L // @target: es2015
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 18 source.ts comment.line.double-slash.ts
+L // @noEmitHelpers: true
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 23 source.ts comment.line.double-slash.ts
+L // https://github.com/Microsoft/TypeScript/issues/20461
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 55 source.ts comment.line.double-slash.ts
+L declare const y: any;
+T 7 source.ts meta.var.expr.ts storage.modifier.ts
+T 8 source.ts meta.var.expr.ts
+T 13 source.ts meta.var.expr.ts storage.type.ts
+T 14 source.ts meta.var.expr.ts
+T 15 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 16 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 17 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts
+T 20 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts support.type.primitive.ts
+T 21 source.ts punctuation.terminator.statement.ts
+L 
+L async function fn1(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 18 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 19 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 20 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 21 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 22 source.ts meta.function.ts
+T 23 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var x;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn2(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 18 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 19 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 20 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 21 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 22 source.ts meta.function.ts
+T 23 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var x, z;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts punctuation.separator.comma.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 13 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn3(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 18 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 19 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 20 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 21 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 22 source.ts meta.function.ts
+T 23 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var z;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn4(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 18 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 19 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 20 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 21 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 22 source.ts meta.function.ts
+T 23 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var x = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn5(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 18 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 19 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 20 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 21 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 22 source.ts meta.function.ts
+T 23 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var { x } = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 18 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn6(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 18 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 19 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 20 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 21 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 22 source.ts meta.function.ts
+T 23 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var { x, z } = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.separator.comma.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 21 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn7(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 18 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 19 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 20 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 21 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 22 source.ts meta.function.ts
+T 23 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var { x = y } = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts keyword.operator.assignment.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts variable.other.readwrite.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 21 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 22 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn8(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 18 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 19 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 20 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 21 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 22 source.ts meta.function.ts
+T 23 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var { z: x } = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts variable.object.property.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.destructuring.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 21 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn9(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 18 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 19 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 20 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 21 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 22 source.ts meta.function.ts
+T 23 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var { z: { x } } = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts variable.object.property.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.destructuring.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 21 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 22 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 23 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 24 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 25 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn10(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var { z: { x } = y } = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts variable.object.property.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.destructuring.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts keyword.operator.assignment.ts
+T 21 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 22 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts variable.other.readwrite.ts
+T 23 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 24 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 25 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 26 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 27 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 28 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 29 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn11(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var { ...x } = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts keyword.operator.rest.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 21 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn12(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var [x] = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 16 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn13(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var [x = y] = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts keyword.operator.assignment.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 20 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn14(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var [, x] = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.separator.comma.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 18 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn15(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var [...x] = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts keyword.operator.rest.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 19 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn16(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var [[x]] = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 18 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn17(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var [[x] = y] = y;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts keyword.operator.assignment.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts variable.other.readwrite.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts punctuation.definition.binding-pattern.array.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.array-binding-pattern-variable.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 21 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 22 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn18({ x }) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts meta.parameter.object-binding-pattern.ts punctuation.definition.binding-pattern.object.ts
+T 22 source.ts meta.function.ts meta.parameters.ts meta.parameter.object-binding-pattern.ts
+T 23 source.ts meta.function.ts meta.parameters.ts meta.parameter.object-binding-pattern.ts variable.parameter.ts
+T 24 source.ts meta.function.ts meta.parameters.ts meta.parameter.object-binding-pattern.ts
+T 25 source.ts meta.function.ts meta.parameters.ts meta.parameter.object-binding-pattern.ts punctuation.definition.binding-pattern.object.ts
+T 26 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 27 source.ts meta.function.ts
+T 28 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var x;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn19([x]) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts meta.paramter.array-binding-pattern.ts punctuation.definition.binding-pattern.array.ts
+T 22 source.ts meta.function.ts meta.parameters.ts meta.paramter.array-binding-pattern.ts variable.parameter.ts
+T 23 source.ts meta.function.ts meta.parameters.ts meta.paramter.array-binding-pattern.ts punctuation.definition.binding-pattern.array.ts
+T 24 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 25 source.ts meta.function.ts
+T 26 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     var x;
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn20(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     {
+T 4 source.ts meta.function.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn21(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     if (y) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 6 source.ts meta.function.ts meta.block.ts keyword.control.conditional.ts
+T 7 source.ts meta.function.ts meta.block.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 9 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 11 source.ts meta.function.ts meta.block.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn22(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     if (y) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 6 source.ts meta.function.ts meta.block.ts keyword.control.conditional.ts
+T 7 source.ts meta.function.ts meta.block.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 9 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 11 source.ts meta.function.ts meta.block.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     else {
+T 4 source.ts meta.function.ts meta.block.ts
+T 8 source.ts meta.function.ts meta.block.ts keyword.control.conditional.ts
+T 9 source.ts meta.function.ts meta.block.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn23(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     try {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     catch (e) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 14 source.ts meta.function.ts meta.block.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn24(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     try {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L 
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     catch (e) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 14 source.ts meta.function.ts meta.block.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn25(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     try {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L 
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     catch (x) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 14 source.ts meta.function.ts meta.block.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn26(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     try {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L 
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     catch ({ x }) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.objectliteral.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.objectliteral.ts meta.object.member.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.objectliteral.ts meta.object.member.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 18 source.ts meta.function.ts meta.block.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn27(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     try {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     finally {
+T 4 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 12 source.ts meta.function.ts meta.block.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn28(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     while (y) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 14 source.ts meta.function.ts meta.block.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn29(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     do {
+T 4 source.ts meta.function.ts meta.block.ts
+T 6 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 7 source.ts meta.function.ts meta.block.ts
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     while (y);
+T 4 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 14 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn30(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     for (var x = y;;) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 19 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+T 20 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+T 21 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 22 source.ts meta.function.ts meta.block.ts
+T 23 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L 
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn31(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     for (var { x } = y;;) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 21 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 22 source.ts meta.function.ts meta.block.ts meta.var.expr.ts variable.other.readwrite.ts
+T 23 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+T 25 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 26 source.ts meta.function.ts meta.block.ts
+T 27 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn32(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     for (;;) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 10 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+T 11 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 13 source.ts meta.function.ts meta.block.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn33(x: string) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 23 source.ts meta.function.ts meta.parameters.ts meta.type.annotation.ts
+T 29 source.ts meta.function.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 30 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 31 source.ts meta.function.ts
+T 32 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     for (var x in y) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 17 source.ts meta.function.ts meta.block.ts keyword.operator.expression.in.ts
+T 18 source.ts meta.function.ts meta.block.ts
+T 19 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 21 source.ts meta.function.ts meta.block.ts
+T 22 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn34(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     for (var z in y) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 17 source.ts meta.function.ts meta.block.ts keyword.operator.expression.in.ts
+T 18 source.ts meta.function.ts meta.block.ts
+T 19 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 21 source.ts meta.function.ts meta.block.ts
+T 22 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn35(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     for (var x of y) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 17 source.ts meta.function.ts meta.block.ts keyword.operator.expression.of.ts
+T 18 source.ts meta.function.ts meta.block.ts
+T 19 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 21 source.ts meta.function.ts meta.block.ts
+T 22 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn36(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     for (var { x } of y) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 16 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 19 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 21 source.ts meta.function.ts meta.block.ts keyword.operator.expression.of.ts
+T 22 source.ts meta.function.ts meta.block.ts
+T 23 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 24 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 25 source.ts meta.function.ts meta.block.ts
+T 26 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn37(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     for (var z of y) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.loop.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.var.expr.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 17 source.ts meta.function.ts meta.block.ts keyword.operator.expression.of.ts
+T 18 source.ts meta.function.ts meta.block.ts
+T 19 source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 20 source.ts meta.function.ts meta.block.ts meta.brace.round.ts
+T 21 source.ts meta.function.ts meta.block.ts
+T 22 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn38(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     switch (y) {
+T 4 source.ts meta.function.ts meta.block.ts
+T 10 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-expression.expr.ts keyword.control.switch.ts
+T 11 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-expression.expr.ts
+T 12 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-expression.expr.ts meta.brace.round.ts
+T 13 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-expression.expr.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-expression.expr.ts meta.brace.round.ts
+T 15 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts
+T 16 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts punctuation.definition.block.ts
+L         case y:
+T 8 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts
+T 12 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts case-clause.expr.ts keyword.control.switch.ts
+T 13 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts case-clause.expr.ts
+T 14 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts case-clause.expr.ts variable.other.readwrite.ts
+T 15 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts case-clause.expr.ts punctuation.definition.section.case-statement.ts
+L             var x;
+T 12 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts
+T 15 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.var.expr.ts storage.type.ts
+T 16 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.var.expr.ts
+T 17 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 18 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts switch-block.expr.ts
+T 5 source.ts meta.function.ts meta.block.ts switch-statement.expr.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn39(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     foo: {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts entity.name.label.ts
+T 8 source.ts meta.function.ts meta.block.ts punctuation.separator.label.ts
+T 9 source.ts meta.function.ts meta.block.ts
+T 10 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L         break foo;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts keyword.control.loop.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 17 source.ts meta.function.ts meta.block.ts meta.block.ts entity.name.label.ts
+T 18 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 
+L async function fn40(x) {
+T 5 source.ts meta.function.ts storage.modifier.async.ts
+T 6 source.ts meta.function.ts
+T 14 source.ts meta.function.ts storage.type.function.ts
+T 15 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 20 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 21 source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 22 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 23 source.ts meta.function.ts
+T 24 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     try {
+T 4 source.ts meta.function.ts meta.block.ts
+T 7 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 8 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L 
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L     catch {
+T 4 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.control.trycatch.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L         var x;
+T 8 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 12 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts
+T 13 source.ts meta.function.ts meta.block.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 14 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.terminator.statement.ts
+L     }
+T 4 source.ts meta.function.ts meta.block.ts meta.block.ts
+T 5 source.ts meta.function.ts meta.block.ts meta.block.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 

@@ -1,0 +1,87 @@
+L // @Filename: three.d.ts
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 24 source.ts comment.line.double-slash.ts
+L export namespace THREE {
+T 6 source.ts meta.namespace.declaration.ts keyword.control.export.ts
+T 7 source.ts meta.namespace.declaration.ts
+T 16 source.ts meta.namespace.declaration.ts storage.type.namespace.ts
+T 17 source.ts meta.namespace.declaration.ts
+T 22 source.ts meta.namespace.declaration.ts entity.name.type.module.ts
+T 23 source.ts meta.namespace.declaration.ts
+T 24 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L   export class Vector2 {}
+T 2 source.ts meta.namespace.declaration.ts meta.block.ts
+T 8 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts keyword.control.export.ts
+T 9 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts
+T 14 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts storage.type.class.ts
+T 15 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts
+T 22 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts entity.name.type.class.ts
+T 23 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts
+T 24 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts punctuation.definition.block.ts
+T 25 source.ts meta.namespace.declaration.ts meta.block.ts meta.class.ts punctuation.definition.block.ts
+L }
+T 1 source.ts meta.namespace.declaration.ts meta.block.ts punctuation.definition.block.ts
+L 
+L // @Filename: global.d.ts
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 25 source.ts comment.line.double-slash.ts
+L import * as _three from './three';
+T 6 source.ts meta.import.ts keyword.control.import.ts
+T 7 source.ts meta.import.ts
+T 8 source.ts meta.import.ts constant.language.import-export-all.ts
+T 9 source.ts meta.import.ts
+T 11 source.ts meta.import.ts keyword.control.as.ts
+T 12 source.ts meta.import.ts
+T 18 source.ts meta.import.ts variable.other.readwrite.alias.ts
+T 19 source.ts meta.import.ts
+T 23 source.ts meta.import.ts keyword.control.from.ts
+T 24 source.ts meta.import.ts
+T 25 source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 32 source.ts meta.import.ts string.quoted.single.ts
+T 33 source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 34 source.ts punctuation.terminator.statement.ts
+L 
+L export as namespace THREE;
+T 6 source.ts keyword.control.export.ts
+T 7 source.ts
+T 9 source.ts keyword.control.as.ts
+T 10 source.ts
+T 19 source.ts storage.type.namespace.ts
+T 20 source.ts
+T 25 source.ts entity.name.type.module.ts
+T 26 source.ts punctuation.terminator.statement.ts
+L 
+L declare global {
+T 7 source.ts storage.modifier.ts
+T 8 source.ts
+T 14 source.ts variable.other.readwrite.ts
+T 15 source.ts
+T 16 source.ts meta.block.ts punctuation.definition.block.ts
+L   export const THREE: typeof _three;
+T 2 source.ts meta.block.ts
+T 8 source.ts meta.block.ts meta.var.expr.ts keyword.control.export.ts
+T 9 source.ts meta.block.ts meta.var.expr.ts
+T 14 source.ts meta.block.ts meta.var.expr.ts storage.type.ts
+T 15 source.ts meta.block.ts meta.var.expr.ts
+T 20 source.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 21 source.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 22 source.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts
+T 28 source.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts keyword.operator.expression.typeof.ts
+T 29 source.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts
+T 35 source.ts meta.block.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts variable.other.readwrite.ts
+T 36 source.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.block.ts punctuation.definition.block.ts
+L 
+L // @Filename: test.ts
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 21 source.ts comment.line.double-slash.ts
+L const m = THREE
+T 5 source.ts meta.var.expr.ts storage.type.ts
+T 6 source.ts meta.var.expr.ts
+T 7 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 8 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 9 source.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 10 source.ts meta.var.expr.ts
+T 15 source.ts meta.var.expr.ts variable.other.constant.ts
+L 

@@ -44,9 +44,25 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `java/rewrite-switch-patterns` | [`SwitchPatternMatchingTest.java`][rewrite-switch-patterns] in openrewrite/rewrite | [Apache-2.0][rewrite-licence] |
 | `java/sample` | [`samples/java.sample`][java-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `javascript/axios-xhr` | [`lib/adapters/xhr.js`][axios-xhr] in axios/axios | [MIT][axios-licence] |
+| `javascript/coverage` | `oracle/inputs/typescript-coverage.ts`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `javascript/express-application` | [`lib/application.js`][express-application] in expressjs/express | [MIT][express-licence] |
 | `javascript/express-response` | [`lib/response.js`][express-response] in expressjs/express | [MIT][express-licence] |
 | `javascript/sample` | [`samples/javascript.sample`][js-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `javascript/tsc-await-using-declarations-11` | [`awaitUsingDeclarations.11.ts`][tsc-await-using-declarations-11] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `javascript/tsc-check-merged-global-umdsymbol` | [`checkMergedGlobalUMDSymbol.ts`][tsc-check-merged-global-umdsymbol] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `javascript/tsc-contextual-type-caching` | [`contextualTypeCaching.ts`][tsc-contextual-type-caching] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `javascript/tsc-contravariant-only-inference-from-annotated-function-js` | [`contravariantOnlyInferenceFromAnnotatedFunctionJs.ts`][tsc-contravariant-only-inference-from-annotated-function-js] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `javascript/tsc-declaration-emit-higher-order-retained-generics` | [`declarationEmitHigherOrderRetainedGenerics.ts`][tsc-declaration-emit-higher-order-retained-generics] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `javascript/tsc-divergent-accessors-types7` | [`divergentAccessorsTypes7.ts`][tsc-divergent-accessors-types7] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `javascript/tsc-fix-signature-caching` | [`fixSignatureCaching.ts`][tsc-fix-signature-caching] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `javascript/tsc-jsdoc-disallowed-in-typescript` | [`jsdocDisallowedInTypescript.ts`][tsc-jsdoc-disallowed-in-typescript] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `javascript/tsc-jsx-namespace-prefix-in-name` | [`jsxNamespacePrefixInName.tsx`][tsc-jsx-namespace-prefix-in-name] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `javascript/tsc-parserharness` | [`parserharness.ts`][tsc-parserharness] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `javascript/tsc-plain-jsgrammar-errors` | [`plainJSGrammarErrors.ts`][tsc-plain-jsgrammar-errors] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `javascript/tsc-source-map-validation-statements` | [`sourceMapValidationStatements.ts`][tsc-source-map-validation-statements] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `javascript/tsc-tsx-react-emit-entities` | [`tsxReactEmitEntities.tsx`][tsc-tsx-react-emit-entities] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `javascript/tsc-variadic-tuples1` | [`variadicTuples1.ts`][tsc-variadic-tuples1] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `javascript/tsc-yield-expression-inner-comment-emit` | [`yieldExpressionInnerCommentEmit.ts`][tsc-yield-expression-inner-comment-emit] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
 | `json/sample` | [`samples/json.sample`][json-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `json/vscode-typescript-grammar` | [`extensions/typescript-basics/syntaxes/TypeScript.tmLanguage.json`][vscode-ts-grammar] in microsoft/vscode | [MIT][vscode-licence] |
 | `json/vue-package` | [`package.json`][vue-package] in vuejs/core | [MIT][vue-licence] |
@@ -56,9 +72,29 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `jsonl/rag-output` | [`output.jsonl`][rag-output] in jxnl/n-levels-of-rag | [MIT][rag-licence] |
 | `jsonl/rag-output-50` | [`output-50.jsonl`][rag-output-50] in jxnl/n-levels-of-rag | [MIT][rag-licence] |
 | `jsonl/sample` | [`samples/jsonl.sample`][jsonl-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `jsx/coverage` | `oracle/inputs/typescript-coverage.ts`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `jsx/preact-keys` | [`test/browser/keys.test.jsx`][preact-keys] in preactjs/preact | [MIT][preact-licence] |
 | `jsx/preact-render` | [`compat/test/browser/render.test.jsx`][preact-render] in preactjs/preact | [MIT][preact-licence] |
 | `jsx/sample` | [`samples/jsx.sample`][jsx-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `jsx/tsc-arbitrary-module-namespace-identifiers-syntax` | [`arbitraryModuleNamespaceIdentifiers_syntax.ts`][tsc-arbitrary-module-namespace-identifiers-syntax] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-async-with-var-shadowing-es6` | [`asyncWithVarShadowing_es6.ts`][tsc-async-with-var-shadowing-es6] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-await-using-declarations-1` | [`awaitUsingDeclarations.1.ts`][tsc-await-using-declarations-1] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-checker-initialization-crash` | [`checkerInitializationCrash.ts`][tsc-checker-initialization-crash] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-computed-property-names-contextual-type6-es5` | [`computedPropertyNamesContextualType6_ES5.ts`][tsc-computed-property-names-contextual-type6-es5] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-contravariant-only-inference-from-annotated-function-js` | [`contravariantOnlyInferenceFromAnnotatedFunctionJs.ts`][tsc-contravariant-only-inference-from-annotated-function-js] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-control-flow-optional-chain` | [`controlFlowOptionalChain.ts`][tsc-control-flow-optional-chain] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-correlated-unions` | [`correlatedUnions.ts`][tsc-correlated-unions] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-declaration-emit-binding-patterns-unused` | [`declarationEmitBindingPatternsUnused.ts`][tsc-declaration-emit-binding-patterns-unused] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-declaration-emit-higher-order-retained-generics` | [`declarationEmitHigherOrderRetainedGenerics.ts`][tsc-declaration-emit-higher-order-retained-generics] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-divergent-accessors-types7` | [`divergentAccessorsTypes7.ts`][tsc-divergent-accessors-types7] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-fix-signature-caching` | [`fixSignatureCaching.ts`][tsc-fix-signature-caching] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-jsdoc-disallowed-in-typescript` | [`jsdocDisallowedInTypescript.ts`][tsc-jsdoc-disallowed-in-typescript] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-jsx-complex-signature-has-applicability-error` | [`jsxComplexSignatureHasApplicabilityError.tsx`][tsc-jsx-complex-signature-has-applicability-error] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-jsx-namespace-prefix-in-name` | [`jsxNamespacePrefixInName.tsx`][tsc-jsx-namespace-prefix-in-name] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-parserharness` | [`parserharness.ts`][tsc-parserharness] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-source-map-validation-statements` | [`sourceMapValidationStatements.ts`][tsc-source-map-validation-statements] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-tsx-react-emit-entities` | [`tsxReactEmitEntities.tsx`][tsc-tsx-react-emit-entities] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jsx/tsc-yield-expression-inner-comment-emit` | [`yieldExpressionInnerCommentEmit.ts`][tsc-yield-expression-inner-comment-emit] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
 | `kotlin/coroutines-produce` | [`Produce.kt`][coroutines-produce] in Kotlin/kotlinx.coroutines | [Apache-2.0][coroutines-licence] |
 | `kotlin/coroutines-state-flow` | [`StateFlow.kt`][coroutines-state-flow] in Kotlin/kotlinx.coroutines | [Apache-2.0][coroutines-licence] |
 | `kotlin/exposed-op` | [`Op.kt`][exposed-op] in JetBrains/Exposed | [Apache-2.0][exposed-licence] |
@@ -167,12 +203,47 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `toml/ruff-pyproject` | [`pyproject.toml`][ruff-pyproject] in astral-sh/ruff | [MIT][ruff-licence] |
 | `toml/sample` | [`samples/toml.sample`][toml-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `toml/tokio-manifest` | [`tokio/Cargo.toml`][tokio-manifest] in tokio-rs/tokio | [MIT][tokio-licence] |
+| `tsx/coverage` | `oracle/inputs/typescript-coverage.ts`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `tsx/sample` | [`samples/tsx.sample`][tsx-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `tsx/shadcn-chart` | [`apps/v4/registry/new-york-v4/ui/chart.tsx`][shadcn-chart] in shadcn-ui/ui | [MIT][shadcn-licence] |
 | `tsx/shadcn-combobox` | [`apps/v4/registry/new-york-v4/ui/combobox.tsx`][shadcn-combobox] in shadcn-ui/ui | [MIT][shadcn-licence] |
 | `tsx/shadcn-sidebar` | [`apps/v4/registry/new-york-v4/ui/sidebar.tsx`][shadcn-sidebar] in shadcn-ui/ui | [MIT][shadcn-licence] |
+| `tsx/tsc-async-with-var-shadowing-es6` | [`asyncWithVarShadowing_es6.ts`][tsc-async-with-var-shadowing-es6] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-await-using-declarations-11` | [`awaitUsingDeclarations.11.ts`][tsc-await-using-declarations-11] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-co-and-contra-variant-inferences3` | [`coAndContraVariantInferences3.ts`][tsc-co-and-contra-variant-inferences3] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-conflicting-declarations-import-from-namespace2` | [`conflictingDeclarationsImportFromNamespace2.ts`][tsc-conflicting-declarations-import-from-namespace2] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-contextual-type-caching` | [`contextualTypeCaching.ts`][tsc-contextual-type-caching] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-contravariant-only-inference-from-annotated-function-js` | [`contravariantOnlyInferenceFromAnnotatedFunctionJs.ts`][tsc-contravariant-only-inference-from-annotated-function-js] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-declaration-emit-higher-order-retained-generics` | [`declarationEmitHigherOrderRetainedGenerics.ts`][tsc-declaration-emit-higher-order-retained-generics] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-dependent-destructured-variables-from-nested-patterns` | [`dependentDestructuredVariablesFromNestedPatterns.ts`][tsc-dependent-destructured-variables-from-nested-patterns] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-divergent-accessors-types7` | [`divergentAccessorsTypes7.ts`][tsc-divergent-accessors-types7] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-fix-signature-caching` | [`fixSignatureCaching.ts`][tsc-fix-signature-caching] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-jsdoc-disallowed-in-typescript` | [`jsdocDisallowedInTypescript.ts`][tsc-jsdoc-disallowed-in-typescript] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-jsx-namespace-prefix-in-name` | [`jsxNamespacePrefixInName.tsx`][tsc-jsx-namespace-prefix-in-name] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-parserharness` | [`parserharness.ts`][tsc-parserharness] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-plain-jsgrammar-errors` | [`plainJSGrammarErrors.ts`][tsc-plain-jsgrammar-errors] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-source-map-validation-statements` | [`sourceMapValidationStatements.ts`][tsc-source-map-validation-statements] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-tsx-react-emit-entities` | [`tsxReactEmitEntities.tsx`][tsc-tsx-react-emit-entities] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `tsx/tsc-yield-expression-inner-comment-emit` | [`yieldExpressionInnerCommentEmit.ts`][tsc-yield-expression-inner-comment-emit] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/coverage` | `oracle/inputs/typescript-coverage.ts`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `typescript/ky-core` | [`source/core/Ky.ts`][ky-core] in sindresorhus/ky | [MIT][ky-licence] |
 | `typescript/sample` | [`samples/typescript.sample`][ts-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `typescript/tsc-assertion-type-predicates1` | [`assertionTypePredicates1.ts`][tsc-assertion-type-predicates1] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-async-with-var-shadowing-es6` | [`asyncWithVarShadowing_es6.ts`][tsc-async-with-var-shadowing-es6] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-await-using-declarations-11` | [`awaitUsingDeclarations.11.ts`][tsc-await-using-declarations-11] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-check-merged-global-umdsymbol` | [`checkMergedGlobalUMDSymbol.ts`][tsc-check-merged-global-umdsymbol] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-const-assertions` | [`constAssertions.ts`][tsc-const-assertions] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-constructor-with-incomplete-type-annotation` | [`constructorWithIncompleteTypeAnnotation.ts`][tsc-constructor-with-incomplete-type-annotation] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-contravariant-only-inference-from-annotated-function-js` | [`contravariantOnlyInferenceFromAnnotatedFunctionJs.ts`][tsc-contravariant-only-inference-from-annotated-function-js] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-declaration-emit-higher-order-retained-generics` | [`declarationEmitHigherOrderRetainedGenerics.ts`][tsc-declaration-emit-higher-order-retained-generics] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-declaration-emit-mapped-type-preserves-type-parameter-constraint` | [`declarationEmitMappedTypePreservesTypeParameterConstraint.ts`][tsc-declaration-emit-mapped-type-preserves-type-parameter-constraint] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-duplicate-identifier-binding-element-in-parameter-declaration1` | [`duplicateIdentifierBindingElementInParameterDeclaration1.ts`][tsc-duplicate-identifier-binding-element-in-parameter-declaration1] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-erasable-syntax-only` | [`erasableSyntaxOnly.ts`][tsc-erasable-syntax-only] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-fix-signature-caching` | [`fixSignatureCaching.ts`][tsc-fix-signature-caching] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-intra-expression-inferences` | [`intraExpressionInferences.ts`][tsc-intra-expression-inferences] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-jsdoc-disallowed-in-typescript` | [`jsdocDisallowedInTypescript.ts`][tsc-jsdoc-disallowed-in-typescript] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-source-map-validation-statements` | [`sourceMapValidationStatements.ts`][tsc-source-map-validation-statements] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `typescript/tsc-yield-expression-inner-comment-emit` | [`yieldExpressionInnerCommentEmit.ts`][tsc-yield-expression-inner-comment-emit] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
 | `typescript/vue-api-create-app` | [`packages/runtime-core/src/apiCreateApp.ts`][vue-app] in vuejs/core | [MIT][vue-licence] |
 | `typescript/vue-effect` | [`packages/reactivity/src/effect.ts`][vue-effect] in vuejs/core | [MIT][vue-licence] |
 | `typescript/zod-classic-schemas` | [`packages/zod/src/v4/classic/schemas.ts`][zod-schemas] in colinhacks/zod | [MIT][zod-licence] |
@@ -428,6 +499,8 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 `markdown/book-ownership`, `markdown/book-strings` and `markdown/clap-readme` are held out in the same way: they were added after the other Markdown inputs passed.
 `markdown/ky-readme` and `markdown/zod-api` are held out for the TypeScript fences, and `markdown/zod-readme` is the development input for them.
 `zod-classic-schemas` and `ky-core` are held out for the TypeScript lexer the same way.
+The `tsc-*` and `coverage` inputs of `javascript`, `jsx`, `tsx` and `typescript` are held out: they were added to exercise the rest of those grammars, as [`COVERAGE.md`](COVERAGE.md) counts them.
+Their test cases are pinned at TypeScript's `v5.9.3` tag, the release they were picked from, because microsoft/TypeScript's main branch now holds the Go port and no longer has `tests/cases`.
 `ruby-build` and `pyenv-init` are held out for shell, for the same reason.
 `shellscript/unicode-words` puts combining marks in names, where `\w` decides a token, because no other input has one.
 `python/sample`, `python/requests-models` and `python/black-strings` are the development inputs for Python.
@@ -1065,11 +1138,46 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [traefik-docker]: https://github.com/traefik/traefik/blob/38d53dd06c53c7e9bd08e57b217e72686d823610/docs/content/getting-started/docker.md
 [traefik-licence]: https://github.com/traefik/traefik/blob/38d53dd06c53c7e9bd08e57b217e72686d823610/LICENSE.md
 [ts-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/typescript.sample
+[tsc-arbitrary-module-namespace-identifiers-syntax]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/es2022/arbitraryModuleNamespaceIdentifiers/arbitraryModuleNamespaceIdentifiers_syntax.ts
+[tsc-assertion-type-predicates1]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/controlFlow/assertionTypePredicates1.ts
+[tsc-async-with-var-shadowing-es6]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/async/es6/asyncWithVarShadowing_es6.ts
+[tsc-await-using-declarations-1]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/statements/VariableStatements/usingDeclarations/awaitUsingDeclarations.1.ts
+[tsc-await-using-declarations-11]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/statements/VariableStatements/usingDeclarations/awaitUsingDeclarations.11.ts
+[tsc-check-merged-global-umdsymbol]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/checkMergedGlobalUMDSymbol.ts
+[tsc-checker-initialization-crash]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/checkerInitializationCrash.ts
+[tsc-co-and-contra-variant-inferences3]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/coAndContraVariantInferences3.ts
+[tsc-computed-property-names-contextual-type6-es5]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/es6/computedProperties/computedPropertyNamesContextualType6_ES5.ts
+[tsc-conflicting-declarations-import-from-namespace2]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/conflictingDeclarationsImportFromNamespace2.ts
+[tsc-const-assertions]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/expressions/typeAssertions/constAssertions.ts
+[tsc-constructor-with-incomplete-type-annotation]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/constructorWithIncompleteTypeAnnotation.ts
+[tsc-contextual-type-caching]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/contextualTypeCaching.ts
+[tsc-contravariant-only-inference-from-annotated-function-js]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/contravariantOnlyInferenceFromAnnotatedFunctionJs.ts
+[tsc-control-flow-optional-chain]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/controlFlow/controlFlowOptionalChain.ts
+[tsc-correlated-unions]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/correlatedUnions.ts
+[tsc-declaration-emit-binding-patterns-unused]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/declarationEmitBindingPatternsUnused.ts
+[tsc-declaration-emit-higher-order-retained-generics]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/declarationEmitHigherOrderRetainedGenerics.ts
+[tsc-declaration-emit-mapped-type-preserves-type-parameter-constraint]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/declarationEmitMappedTypePreservesTypeParameterConstraint.ts
+[tsc-dependent-destructured-variables-from-nested-patterns]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/controlFlow/dependentDestructuredVariablesFromNestedPatterns.ts
+[tsc-divergent-accessors-types7]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/divergentAccessorsTypes7.ts
+[tsc-duplicate-identifier-binding-element-in-parameter-declaration1]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/duplicateIdentifierBindingElementInParameterDeclaration1.ts
+[tsc-erasable-syntax-only]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/erasableSyntaxOnly.ts
+[tsc-fix-signature-caching]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/fixSignatureCaching.ts
+[tsc-intra-expression-inferences]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/types/typeRelationships/typeInference/intraExpressionInferences.ts
+[tsc-jsdoc-disallowed-in-typescript]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/jsdoc/jsdocDisallowedInTypescript.ts
+[tsc-jsx-complex-signature-has-applicability-error]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/jsxComplexSignatureHasApplicabilityError.tsx
+[tsc-jsx-namespace-prefix-in-name]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/jsxNamespacePrefixInName.tsx
+[tsc-parserharness]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/parser/ecmascript5/RealWorld/parserharness.ts
+[tsc-plain-jsgrammar-errors]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/salsa/plainJSGrammarErrors.ts
+[tsc-source-map-validation-statements]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/sourceMapValidationStatements.ts
+[tsc-tsx-react-emit-entities]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/jsx/tsxReactEmitEntities.tsx
+[tsc-variadic-tuples1]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/conformance/types/tuple/variadicTuples1.ts
+[tsc-yield-expression-inner-comment-emit]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases/compiler/yieldExpressionInnerCommentEmit.ts
 [tsx-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/tsx.sample
 [turbine-flow-test]: https://github.com/cashapp/turbine/blob/8c4e8c9b391d75ac9d7a168cca34b1bf99ed2cb0/src/commonTest/kotlin/app/cash/turbine/FlowTest.kt
 [turbine-licence]: https://github.com/cashapp/turbine/blob/8c4e8c9b391d75ac9d7a168cca34b1bf99ed2cb0/LICENSE.txt
 [typeorm-indexes]: https://github.com/typeorm/typeorm/blob/5bdc67882dee5a02d975d5ed140c9c3f91661116/docs/docs/indexes.md
 [typeorm-licence]: https://github.com/typeorm/typeorm/blob/5bdc67882dee5a02d975d5ed140c9c3f91661116/LICENSE
+[typescript-tests-licence]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/LICENSE.txt
 [unity-assertions]: https://github.com/ThrowTheSwitch/Unity/blob/54f864cf6027a50f4cc5424616e9e01e1bb729da/docs/UnityAssertionsReference.md
 [unity-getting-started]: https://github.com/ThrowTheSwitch/Unity/blob/54f864cf6027a50f4cc5424616e9e01e1bb729da/docs/UnityGettingStartedGuide.md
 [unity-licence]: https://github.com/ThrowTheSwitch/Unity/blob/54f864cf6027a50f4cc5424616e9e01e1bb729da/LICENSE.txt

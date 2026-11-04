@@ -1,0 +1,71 @@
+L // @target: es6
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 15 source.js.jsx comment.line.double-slash.js.jsx
+L function * foo2() {
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 10 source.js.jsx meta.function.js.jsx keyword.generator.asterisk.js.jsx
+T 11 source.js.jsx meta.function.js.jsx
+T 15 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 16 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 17 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 18 source.js.jsx meta.function.js.jsx
+T 19 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L     /*comment1*/ yield 1;
+T 4 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 6 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 14 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx
+T 16 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 17 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.control.flow.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.block.js.jsx constant.numeric.decimal.js.jsx
+T 25 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L     yield /*comment2*/ 2;
+T 4 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.control.flow.js.jsx
+T 10 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 12 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 20 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.block.js.jsx constant.numeric.decimal.js.jsx
+T 25 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L     yield 3 /*comment3*/
+T 4 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.control.flow.js.jsx
+T 10 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 11 source.js.jsx meta.function.js.jsx meta.block.js.jsx constant.numeric.decimal.js.jsx
+T 12 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 14 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+L     yield */*comment4*/ [4];
+T 4 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.control.flow.js.jsx
+T 10 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 11 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.generator.asterisk.js.jsx
+T 13 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.array.literal.js.jsx
+T 25 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 26 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx
+T 27 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 28 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L     yield /*comment5*/* [5];
+T 4 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.control.flow.js.jsx
+T 10 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 12 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 20 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.block.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.generator.asterisk.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.array.literal.js.jsx
+T 25 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 26 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx
+T 27 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 28 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L }
+T 1 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L 

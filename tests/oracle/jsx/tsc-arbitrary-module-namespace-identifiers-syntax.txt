@@ -1,0 +1,577 @@
+L //@module: ES2022
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 17 source.js.jsx comment.line.double-slash.js.jsx
+L //@target: ES2022
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 17 source.js.jsx comment.line.double-slash.js.jsx
+L //@declaration: true
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 20 source.js.jsx comment.line.double-slash.js.jsx
+L 
+L 
+L // @filename: values-valid.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 29 source.js.jsx comment.line.double-slash.js.jsx
+L export const foo = 123;
+T 6 source.js.jsx meta.var.expr.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx constant.numeric.decimal.js.jsx
+T 23 source.js.jsx punctuation.terminator.statement.js.jsx
+L export { foo as "valid 1" };
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 8 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 12 source.js.jsx meta.export.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 13 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 15 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 16 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 25 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 26 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 27 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 28 source.js.jsx punctuation.terminator.statement.js.jsx
+L import { "valid 1" as bar } from "./values-valid";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 8 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 18 source.js.jsx meta.import.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 19 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 21 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 22 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 25 source.js.jsx meta.import.js.jsx meta.block.js.jsx variable.other.readwrite.alias.js.jsx
+T 26 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 27 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 28 source.js.jsx meta.import.js.jsx
+T 32 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 33 source.js.jsx meta.import.js.jsx
+T 34 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 48 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 49 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 50 source.js.jsx punctuation.terminator.statement.js.jsx
+L export { "valid 1" as "valid 2" } from "./values-valid";
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 8 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 18 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 19 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 21 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 22 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 31 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 32 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 33 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 34 source.js.jsx meta.export.js.jsx
+T 38 source.js.jsx meta.export.js.jsx keyword.control.from.js.jsx
+T 39 source.js.jsx meta.export.js.jsx
+T 40 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 54 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx
+T 55 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 56 source.js.jsx punctuation.terminator.statement.js.jsx
+L export { foo as "valid 3" } from "./values-valid";
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 8 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 12 source.js.jsx meta.export.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 13 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 15 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 16 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 25 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 26 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 27 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 28 source.js.jsx meta.export.js.jsx
+T 32 source.js.jsx meta.export.js.jsx keyword.control.from.js.jsx
+T 33 source.js.jsx meta.export.js.jsx
+T 34 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 48 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx
+T 49 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 50 source.js.jsx punctuation.terminator.statement.js.jsx
+L export * as "valid 4" from "./values-valid";
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 8 source.js.jsx meta.export.js.jsx constant.language.import-export-all.js.jsx
+T 9 source.js.jsx meta.export.js.jsx
+T 11 source.js.jsx meta.export.js.jsx keyword.control.as.js.jsx
+T 12 source.js.jsx meta.export.js.jsx
+T 21 source.js.jsx meta.export.js.jsx string.quoted.alias.js.jsx
+T 22 source.js.jsx meta.export.js.jsx
+T 26 source.js.jsx meta.export.js.jsx keyword.control.from.js.jsx
+T 27 source.js.jsx meta.export.js.jsx
+T 28 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 42 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx
+T 43 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 44 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L // @filename: values-bad-import.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 34 source.js.jsx comment.line.double-slash.js.jsx
+L import { foo as "invalid 2" } from "./values-valid";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 8 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 12 source.js.jsx meta.import.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 13 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 15 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 16 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 27 source.js.jsx meta.import.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 28 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 29 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 30 source.js.jsx meta.import.js.jsx
+T 34 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 35 source.js.jsx meta.import.js.jsx
+T 36 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 50 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 51 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 52 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L // @filename: values-bad-export.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 34 source.js.jsx comment.line.double-slash.js.jsx
+L export { "invalid 3" as baz };
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 8 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 20 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 21 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 23 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 24 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 27 source.js.jsx meta.export.js.jsx meta.block.js.jsx variable.other.readwrite.alias.js.jsx
+T 28 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 29 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 30 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L // @filename: values-no-as.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 29 source.js.jsx comment.line.double-slash.js.jsx
+L import { "invalid 1" } from "./values-valid";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 8 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 20 source.js.jsx meta.import.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 21 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 22 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 23 source.js.jsx meta.import.js.jsx
+T 27 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 28 source.js.jsx meta.import.js.jsx
+T 29 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 43 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 44 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 45 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L // @filename: values-type-as.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 31 source.js.jsx comment.line.double-slash.js.jsx
+L import { type as "invalid 4" } from "./values-valid";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 8 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 13 source.js.jsx meta.import.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 14 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 16 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 17 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 28 source.js.jsx meta.import.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 29 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 30 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 31 source.js.jsx meta.import.js.jsx
+T 35 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 36 source.js.jsx meta.import.js.jsx
+T 37 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 51 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 52 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 53 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L 
+L // @filename: type-decls-valid.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 33 source.js.jsx comment.line.double-slash.js.jsx
+L export type foo = 123;
+T 6 source.js.jsx meta.type.declaration.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.type.declaration.js.jsx
+T 11 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 12 source.js.jsx meta.type.declaration.js.jsx
+T 15 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 16 source.js.jsx meta.type.declaration.js.jsx
+T 17 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 18 source.js.jsx meta.type.declaration.js.jsx
+T 21 source.js.jsx meta.type.declaration.js.jsx constant.numeric.decimal.js.jsx
+T 22 source.js.jsx punctuation.terminator.statement.js.jsx
+L export type { foo as "valid 1" };
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 11 source.js.jsx meta.export.js.jsx keyword.control.type.js.jsx
+T 12 source.js.jsx meta.export.js.jsx
+T 13 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 14 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 17 source.js.jsx meta.export.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 18 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 20 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 21 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 30 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 31 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 32 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 33 source.js.jsx punctuation.terminator.statement.js.jsx
+L import type { "valid 1" as bar } from "./type-decls-valid";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 11 source.js.jsx meta.import.js.jsx keyword.control.type.js.jsx
+T 12 source.js.jsx meta.import.js.jsx
+T 13 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 14 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 23 source.js.jsx meta.import.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 24 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 26 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 27 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 30 source.js.jsx meta.import.js.jsx meta.block.js.jsx variable.other.readwrite.alias.js.jsx
+T 31 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 32 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 33 source.js.jsx meta.import.js.jsx
+T 37 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 38 source.js.jsx meta.import.js.jsx
+T 39 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 57 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 58 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 59 source.js.jsx punctuation.terminator.statement.js.jsx
+L export type { "valid 1" as "valid 2" } from "./type-decls-valid";
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 11 source.js.jsx meta.export.js.jsx keyword.control.type.js.jsx
+T 12 source.js.jsx meta.export.js.jsx
+T 13 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 14 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 23 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 24 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 26 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 27 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 36 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 37 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 38 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 39 source.js.jsx meta.export.js.jsx
+T 43 source.js.jsx meta.export.js.jsx keyword.control.from.js.jsx
+T 44 source.js.jsx meta.export.js.jsx
+T 45 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 63 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx
+T 64 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 65 source.js.jsx punctuation.terminator.statement.js.jsx
+L export type { foo as "valid 3" } from "./type-decls-valid";
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 11 source.js.jsx meta.export.js.jsx keyword.control.type.js.jsx
+T 12 source.js.jsx meta.export.js.jsx
+T 13 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 14 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 17 source.js.jsx meta.export.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 18 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 20 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 21 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 30 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 31 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 32 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 33 source.js.jsx meta.export.js.jsx
+T 37 source.js.jsx meta.export.js.jsx keyword.control.from.js.jsx
+T 38 source.js.jsx meta.export.js.jsx
+T 39 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 57 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx
+T 58 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 59 source.js.jsx punctuation.terminator.statement.js.jsx
+L export type * as "valid 4" from "./type-decls-valid";
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 11 source.js.jsx meta.export.js.jsx keyword.control.type.js.jsx
+T 12 source.js.jsx meta.export.js.jsx
+T 13 source.js.jsx meta.export.js.jsx constant.language.import-export-all.js.jsx
+T 14 source.js.jsx meta.export.js.jsx
+T 16 source.js.jsx meta.export.js.jsx keyword.control.as.js.jsx
+T 17 source.js.jsx meta.export.js.jsx
+T 26 source.js.jsx meta.export.js.jsx string.quoted.alias.js.jsx
+T 27 source.js.jsx meta.export.js.jsx
+T 31 source.js.jsx meta.export.js.jsx keyword.control.from.js.jsx
+T 32 source.js.jsx meta.export.js.jsx
+T 33 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 51 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx
+T 52 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 53 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L // @filename: type-decls-bad-import.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 38 source.js.jsx comment.line.double-slash.js.jsx
+L import type { foo as "invalid 2" } from "./type-decls-valid";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 11 source.js.jsx meta.import.js.jsx keyword.control.type.js.jsx
+T 12 source.js.jsx meta.import.js.jsx
+T 13 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 14 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 17 source.js.jsx meta.import.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 18 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 20 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 21 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 32 source.js.jsx meta.import.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 33 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 34 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 35 source.js.jsx meta.import.js.jsx
+T 39 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 40 source.js.jsx meta.import.js.jsx
+T 41 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 59 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 60 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 61 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L // @filename: type-decls-bad-export.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 38 source.js.jsx comment.line.double-slash.js.jsx
+L export type { "invalid 3" as baz };
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 11 source.js.jsx meta.export.js.jsx keyword.control.type.js.jsx
+T 12 source.js.jsx meta.export.js.jsx
+T 13 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 14 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 25 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 26 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 28 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 29 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 32 source.js.jsx meta.export.js.jsx meta.block.js.jsx variable.other.readwrite.alias.js.jsx
+T 33 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 34 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 35 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L // @filename: type-decls-no-as.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 33 source.js.jsx comment.line.double-slash.js.jsx
+L import type { "invalid 1" } from "./type-decls-valid";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 11 source.js.jsx meta.import.js.jsx keyword.control.type.js.jsx
+T 12 source.js.jsx meta.import.js.jsx
+T 13 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 14 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 25 source.js.jsx meta.import.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 26 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 27 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 28 source.js.jsx meta.import.js.jsx
+T 32 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 33 source.js.jsx meta.import.js.jsx
+T 34 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 52 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 53 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 54 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L // @filename: type-decls-type-as.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 35 source.js.jsx comment.line.double-slash.js.jsx
+L import type { type as "invalid 4" } from "./type-decls-valid";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 11 source.js.jsx meta.import.js.jsx keyword.control.type.js.jsx
+T 12 source.js.jsx meta.import.js.jsx
+T 13 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 14 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 18 source.js.jsx meta.import.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 19 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 21 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 22 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 33 source.js.jsx meta.import.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 34 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 35 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 36 source.js.jsx meta.import.js.jsx
+T 40 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 41 source.js.jsx meta.import.js.jsx
+T 42 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 60 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 61 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 62 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L // @filename: type-clause-valid.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 34 source.js.jsx comment.line.double-slash.js.jsx
+L export type foo = 123;
+T 6 source.js.jsx meta.type.declaration.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.type.declaration.js.jsx
+T 11 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 12 source.js.jsx meta.type.declaration.js.jsx
+T 15 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 16 source.js.jsx meta.type.declaration.js.jsx
+T 17 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 18 source.js.jsx meta.type.declaration.js.jsx
+T 21 source.js.jsx meta.type.declaration.js.jsx constant.numeric.decimal.js.jsx
+T 22 source.js.jsx punctuation.terminator.statement.js.jsx
+L export { type foo as "valid 1" };
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 8 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 13 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.type.js.jsx
+T 14 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 17 source.js.jsx meta.export.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 18 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 20 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 21 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 30 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 31 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 32 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 33 source.js.jsx punctuation.terminator.statement.js.jsx
+L import { type "valid 1" as bar } from "./type-clause-valid";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 8 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 13 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.type.js.jsx
+T 14 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 23 source.js.jsx meta.import.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 24 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 26 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 27 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 30 source.js.jsx meta.import.js.jsx meta.block.js.jsx variable.other.readwrite.alias.js.jsx
+T 31 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 32 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 33 source.js.jsx meta.import.js.jsx
+T 37 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 38 source.js.jsx meta.import.js.jsx
+T 39 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 58 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 59 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 60 source.js.jsx punctuation.terminator.statement.js.jsx
+L export { type "valid 1" as "valid 2" } from "./type-clause-valid";
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 8 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 13 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.type.js.jsx
+T 14 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 23 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 24 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 26 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 27 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 36 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 37 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 38 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 39 source.js.jsx meta.export.js.jsx
+T 43 source.js.jsx meta.export.js.jsx keyword.control.from.js.jsx
+T 44 source.js.jsx meta.export.js.jsx
+T 45 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 64 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx
+T 65 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 66 source.js.jsx punctuation.terminator.statement.js.jsx
+L export { type foo as "valid 3" } from "./type-clause-valid";
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 8 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 13 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.type.js.jsx
+T 14 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 17 source.js.jsx meta.export.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 18 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 20 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 21 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 30 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 31 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 32 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 33 source.js.jsx meta.export.js.jsx
+T 37 source.js.jsx meta.export.js.jsx keyword.control.from.js.jsx
+T 38 source.js.jsx meta.export.js.jsx
+T 39 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 58 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx
+T 59 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 60 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L // @filename: type-clause-bad-import.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 39 source.js.jsx comment.line.double-slash.js.jsx
+L import { type foo as "invalid 2" } from "./type-clause-valid";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 8 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 13 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.type.js.jsx
+T 14 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 17 source.js.jsx meta.import.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 18 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 20 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 21 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 32 source.js.jsx meta.import.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 33 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 34 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 35 source.js.jsx meta.import.js.jsx
+T 39 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 40 source.js.jsx meta.import.js.jsx
+T 41 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 60 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 61 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 62 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L // @filename: type-clause-bad-export.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 39 source.js.jsx comment.line.double-slash.js.jsx
+L export { type "invalid 3" as baz };
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 8 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 13 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.type.js.jsx
+T 14 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 25 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 26 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 28 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 29 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 32 source.js.jsx meta.export.js.jsx meta.block.js.jsx variable.other.readwrite.alias.js.jsx
+T 33 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 34 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 35 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L // @filename: type-clause-no-as.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 34 source.js.jsx comment.line.double-slash.js.jsx
+L import { type "invalid 1" } from "./type-clause-valid";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 8 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 13 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.type.js.jsx
+T 14 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 25 source.js.jsx meta.import.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 26 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 27 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 28 source.js.jsx meta.import.js.jsx
+T 32 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 33 source.js.jsx meta.import.js.jsx
+T 34 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 53 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 54 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 55 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L // @filename: type-clause-type-as-as.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 39 source.js.jsx comment.line.double-slash.js.jsx
+L import { type as as "invalid 4" } from "./type-clause-valid";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 8 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 13 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.type.js.jsx
+T 14 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 16 source.js.jsx meta.import.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 17 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 19 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 20 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 31 source.js.jsx meta.import.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 32 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 33 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 34 source.js.jsx meta.import.js.jsx
+T 38 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 39 source.js.jsx meta.import.js.jsx
+T 40 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 59 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 60 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 61 source.js.jsx punctuation.terminator.statement.js.jsx
+L 

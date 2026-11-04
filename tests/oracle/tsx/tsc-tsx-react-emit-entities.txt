@@ -1,0 +1,208 @@
+L //@filename: file.tsx
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 21 source.tsx comment.line.double-slash.tsx
+L //@jsx: react
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 13 source.tsx comment.line.double-slash.tsx
+L declare module JSX {
+T 7 source.tsx meta.namespace.declaration.tsx storage.modifier.tsx
+T 8 source.tsx meta.namespace.declaration.tsx
+T 14 source.tsx meta.namespace.declaration.tsx storage.type.namespace.tsx
+T 15 source.tsx meta.namespace.declaration.tsx
+T 18 source.tsx meta.namespace.declaration.tsx entity.name.type.module.tsx
+T 19 source.tsx meta.namespace.declaration.tsx
+T 20 source.tsx meta.namespace.declaration.tsx meta.block.tsx punctuation.definition.block.tsx
+L 	interface Element { }
+T 1 source.tsx meta.namespace.declaration.tsx meta.block.tsx
+T 10 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx storage.type.interface.tsx
+T 11 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx
+T 18 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx entity.name.type.interface.tsx
+T 19 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx
+T 20 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx punctuation.definition.block.tsx
+T 21 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx
+T 22 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx punctuation.definition.block.tsx
+L 	interface IntrinsicElements {
+T 1 source.tsx meta.namespace.declaration.tsx meta.block.tsx
+T 10 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx storage.type.interface.tsx
+T 11 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx
+T 28 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx entity.name.type.interface.tsx
+T 29 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx
+T 30 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx punctuation.definition.block.tsx
+L 		[s: string]: any;
+T 2 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.indexer.declaration.tsx
+T 3 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.indexer.declaration.tsx meta.brace.square.tsx
+T 4 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.indexer.declaration.tsx variable.parameter.tsx
+T 5 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.indexer.declaration.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 6 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.indexer.declaration.tsx meta.type.annotation.tsx
+T 12 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.indexer.declaration.tsx meta.type.annotation.tsx support.type.primitive.tsx
+T 13 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.indexer.declaration.tsx meta.brace.square.tsx
+T 14 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 15 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.type.annotation.tsx
+T 18 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.type.annotation.tsx support.type.primitive.tsx
+T 19 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx punctuation.terminator.statement.tsx
+L 	}
+T 1 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx
+T 2 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx punctuation.definition.block.tsx
+L }
+T 1 source.tsx meta.namespace.declaration.tsx meta.block.tsx punctuation.definition.block.tsx
+L declare var React: any;
+T 7 source.tsx meta.var.expr.tsx storage.modifier.tsx
+T 8 source.tsx meta.var.expr.tsx
+T 11 source.tsx meta.var.expr.tsx storage.type.tsx
+T 12 source.tsx meta.var.expr.tsx
+T 17 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.readwrite.tsx
+T 18 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 19 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.type.annotation.tsx
+T 22 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.type.annotation.tsx support.type.primitive.tsx
+T 23 source.tsx punctuation.terminator.statement.tsx
+L 
+L <div>Dot goes here: &middot; &notAnEntity; </div>;
+T 1 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 4 source.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 5 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 20 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx
+T 21 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 27 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx
+T 28 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 29 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx
+T 30 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 41 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx
+T 42 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 43 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx
+T 45 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 48 source.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 49 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 50 source.tsx punctuation.terminator.statement.tsx
+L <div>Be careful of &quot;-ed strings!</div>;
+T 1 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 4 source.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 5 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 19 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx
+T 20 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 24 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx
+T 25 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 37 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx
+T 39 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 42 source.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 43 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 44 source.tsx punctuation.terminator.statement.tsx
+L <div>&#0123;&#123;braces&#x7d;&#x7D;</div>;
+T 1 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 4 source.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 5 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 6 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 11 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx
+T 12 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 13 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 17 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx
+T 18 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 24 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx
+T 25 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 29 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx
+T 30 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 31 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 35 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx
+T 36 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 38 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 41 source.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 42 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 43 source.tsx punctuation.terminator.statement.tsx
+L // Escapes do nothing
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 21 source.tsx comment.line.double-slash.tsx
+L <div>\n</div>;
+T 1 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 4 source.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 5 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 7 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx
+T 9 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 12 source.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 13 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 14 source.tsx punctuation.terminator.statement.tsx
+L 
+L // Also works in string literal attributes
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 42 source.tsx comment.line.double-slash.tsx
+L <div attr="&#0123;&hellip;&#x7D;\"></div>;
+T 1 source.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 4 source.tsx meta.tag.tsx entity.name.tag.tsx
+T 5 source.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 9 source.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 10 source.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 11 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 12 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 17 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx constant.character.entity.tsx
+T 18 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 19 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 25 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx constant.character.entity.tsx
+T 26 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 27 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 31 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx constant.character.entity.tsx
+T 32 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 33 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 34 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 35 source.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+T 37 source.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 40 source.tsx meta.tag.tsx entity.name.tag.tsx
+T 41 source.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+T 42 source.tsx punctuation.terminator.statement.tsx
+L // Does not happen for a string literal that happens to be inside an attribute (and escapes then work)
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 102 source.tsx comment.line.double-slash.tsx
+L <div attr={"&#0123;&hellip;&#x7D;\""}></div>;
+T 1 source.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 4 source.tsx meta.tag.tsx entity.name.tag.tsx
+T 5 source.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 9 source.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 10 source.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 11 source.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 12 source.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 33 source.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx
+T 35 source.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx constant.character.escape.tsx
+T 36 source.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 37 source.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+T 38 source.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+T 40 source.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 43 source.tsx meta.tag.tsx entity.name.tag.tsx
+T 44 source.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+T 45 source.tsx punctuation.terminator.statement.tsx
+L // Preserves single quotes
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 26 source.tsx comment.line.double-slash.tsx
+L <div attr='"'></div>;
+T 1 source.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 4 source.tsx meta.tag.tsx entity.name.tag.tsx
+T 5 source.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 9 source.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 10 source.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 11 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.single.tsx punctuation.definition.string.begin.tsx
+T 12 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.single.tsx
+T 13 source.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.single.tsx punctuation.definition.string.end.tsx
+T 14 source.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+T 16 source.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 19 source.tsx meta.tag.tsx entity.name.tag.tsx
+T 20 source.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+T 21 source.tsx punctuation.terminator.statement.tsx
+L // https://github.com/microsoft/TypeScript/issues/35732
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 55 source.tsx comment.line.double-slash.tsx
+L <div>&#x1F408;&#x1F415;&#128007;&#128017;</div>;
+T 1 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 4 source.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 5 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 6 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 13 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx
+T 14 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 15 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 22 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx
+T 23 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 24 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 31 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx
+T 32 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 33 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 40 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx
+T 41 source.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx constant.character.entity.tsx punctuation.definition.entity.tsx
+T 43 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 46 source.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 47 source.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 48 source.tsx punctuation.terminator.statement.tsx

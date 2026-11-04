@@ -25,7 +25,8 @@
 Each task adds inputs, and the fixes they expose, until the grammar is complete, then lists it complete.
 Each verifies the same way: the grammar's row reads complete in `tests/oracle/COVERAGE.md`, and the oracle test and the coverage check pass in CI.
 
-- [ ] 3.1 C#: `csharp`
+- [x] 3.1 C#: `csharp`
+  - 2026-11-04 UTC, [PR 261][pr261]: twenty-two C# inputs added; C# complete with twelve waivers, each with its probe. On `a1288bbe` the [oracle test][run-261-ci] and the [coverage check][run-261-cov] passed.
 - [ ] 3.2 Swift: `swift`
 - [ ] 3.3 Python: `python`
 - [ ] 3.4 Go: `go`
@@ -54,3 +55,6 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr259]: https://github.com/victor-software-house/nishiki-archive/pull/259
 [run-259-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41757301609
 [run-259-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41757301124
+[pr261]: https://github.com/victor-software-house/nishiki-archive/pull/261
+[run-261-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41764640336
+[run-261-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41764639889

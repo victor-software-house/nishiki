@@ -1,0 +1,71 @@
+L // @target: es6
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 15 source.tsx comment.line.double-slash.tsx
+L function * foo2() {
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 10 source.tsx meta.function.tsx keyword.generator.asterisk.tsx
+T 11 source.tsx meta.function.tsx
+T 15 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 16 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 17 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 18 source.tsx meta.function.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L     /*comment1*/ yield 1;
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx punctuation.definition.comment.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx punctuation.definition.comment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 25 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     yield /*comment2*/ 2;
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx punctuation.definition.comment.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx punctuation.definition.comment.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 25 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     yield 3 /*comment3*/
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx constant.numeric.decimal.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx punctuation.definition.comment.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx punctuation.definition.comment.tsx
+L     yield */*comment4*/ [4];
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx keyword.generator.asterisk.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx punctuation.definition.comment.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx punctuation.definition.comment.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx meta.array.literal.tsx
+T 25 source.tsx meta.function.tsx meta.block.tsx meta.array.literal.tsx meta.brace.square.tsx
+T 26 source.tsx meta.function.tsx meta.block.tsx meta.array.literal.tsx constant.numeric.decimal.tsx
+T 27 source.tsx meta.function.tsx meta.block.tsx meta.array.literal.tsx meta.brace.square.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L     yield /*comment5*/* [5];
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx punctuation.definition.comment.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx comment.block.tsx punctuation.definition.comment.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx keyword.generator.asterisk.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx meta.array.literal.tsx
+T 25 source.tsx meta.function.tsx meta.block.tsx meta.array.literal.tsx meta.brace.square.tsx
+T 26 source.tsx meta.function.tsx meta.block.tsx meta.array.literal.tsx constant.numeric.decimal.tsx
+T 27 source.tsx meta.function.tsx meta.block.tsx meta.array.literal.tsx meta.brace.square.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 

@@ -1,0 +1,194 @@
+L // @strict: true
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 16 source.js comment.line.double-slash.js
+L // @checkJs: true
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 17 source.js comment.line.double-slash.js
+L // @noEmit: true
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 16 source.js comment.line.double-slash.js
+L 
+L // @filename: index.js
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 22 source.js comment.line.double-slash.js
+L 
+L /**
+T 3 source.js comment.block.documentation.js punctuation.definition.comment.js
+L  * @typedef {{ [K in keyof B]: { fn: (a: A, b: B) => void; thing: B[K]; } }} Funcs
+T 3 source.js comment.block.documentation.js
+T 4 source.js comment.block.documentation.js storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 11 source.js comment.block.documentation.js storage.type.class.jsdoc
+T 12 source.js comment.block.documentation.js
+T 13 source.js comment.block.documentation.js entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.begin.jsdoc
+T 14 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 15 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 16 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 28 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 29 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 31 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 32 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 67 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 68 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 69 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 70 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 72 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 73 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 74 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 75 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 76 source.js comment.block.documentation.js entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.end.jsdoc
+T 77 source.js comment.block.documentation.js
+T 82 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+L  * @template A
+T 3 source.js comment.block.documentation.js
+T 4 source.js comment.block.documentation.js storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 12 source.js comment.block.documentation.js storage.type.class.jsdoc
+T 13 source.js comment.block.documentation.js
+T 14 source.js comment.block.documentation.js variable.other.jsdoc
+L  * @template {Record<string, unknown>} B
+T 3 source.js comment.block.documentation.js
+T 4 source.js comment.block.documentation.js storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 12 source.js comment.block.documentation.js storage.type.class.jsdoc
+T 13 source.js comment.block.documentation.js
+T 14 source.js comment.block.documentation.js entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.begin.jsdoc
+T 37 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 38 source.js comment.block.documentation.js entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.end.jsdoc
+T 39 source.js comment.block.documentation.js
+T 40 source.js comment.block.documentation.js variable.other.jsdoc
+L  */
+T 1 source.js comment.block.documentation.js
+T 3 source.js comment.block.documentation.js punctuation.definition.comment.js
+L 
+L /**
+T 3 source.js comment.block.documentation.js punctuation.definition.comment.js
+L  * @template A
+T 3 source.js comment.block.documentation.js
+T 4 source.js comment.block.documentation.js storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 12 source.js comment.block.documentation.js storage.type.class.jsdoc
+T 13 source.js comment.block.documentation.js
+T 14 source.js comment.block.documentation.js variable.other.jsdoc
+L  * @template {Record<string, unknown>} B
+T 3 source.js comment.block.documentation.js
+T 4 source.js comment.block.documentation.js storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 12 source.js comment.block.documentation.js storage.type.class.jsdoc
+T 13 source.js comment.block.documentation.js
+T 14 source.js comment.block.documentation.js entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.begin.jsdoc
+T 37 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 38 source.js comment.block.documentation.js entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.end.jsdoc
+T 39 source.js comment.block.documentation.js
+T 40 source.js comment.block.documentation.js variable.other.jsdoc
+L  * @param {Funcs<A, B>} fns
+T 3 source.js comment.block.documentation.js
+T 4 source.js comment.block.documentation.js storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 9 source.js comment.block.documentation.js storage.type.class.jsdoc
+T 10 source.js comment.block.documentation.js
+T 11 source.js comment.block.documentation.js entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.begin.jsdoc
+T 22 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 23 source.js comment.block.documentation.js entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.end.jsdoc
+T 24 source.js comment.block.documentation.js
+T 27 source.js comment.block.documentation.js variable.other.jsdoc
+L  * @returns {[A, B]}
+T 3 source.js comment.block.documentation.js
+T 4 source.js comment.block.documentation.js storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 11 source.js comment.block.documentation.js storage.type.class.jsdoc
+T 12 source.js comment.block.documentation.js
+T 13 source.js comment.block.documentation.js entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.begin.jsdoc
+T 14 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 18 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 19 source.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 20 source.js comment.block.documentation.js entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.end.jsdoc
+L  */
+T 1 source.js comment.block.documentation.js
+T 3 source.js comment.block.documentation.js punctuation.definition.comment.js
+L function foo(fns) {
+T 8 source.js meta.function.js storage.type.function.js
+T 9 source.js meta.function.js
+T 12 source.js meta.function.js meta.definition.function.js entity.name.function.js
+T 13 source.js meta.function.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 16 source.js meta.function.js meta.parameters.js variable.parameter.js
+T 17 source.js meta.function.js meta.parameters.js punctuation.definition.parameters.end.js
+T 18 source.js meta.function.js
+T 19 source.js meta.function.js meta.block.js punctuation.definition.block.js
+L   return /** @type {any} */ (null);
+T 2 source.js meta.function.js meta.block.js
+T 8 source.js meta.function.js meta.block.js keyword.control.flow.js
+T 9 source.js meta.function.js meta.block.js
+T 12 source.js meta.function.js meta.block.js comment.block.documentation.js punctuation.definition.comment.js
+T 13 source.js meta.function.js meta.block.js comment.block.documentation.js
+T 14 source.js meta.function.js meta.block.js comment.block.documentation.js storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 18 source.js meta.function.js meta.block.js comment.block.documentation.js storage.type.class.jsdoc
+T 19 source.js meta.function.js meta.block.js comment.block.documentation.js
+T 20 source.js meta.function.js meta.block.js comment.block.documentation.js entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.begin.jsdoc
+T 23 source.js meta.function.js meta.block.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 24 source.js meta.function.js meta.block.js comment.block.documentation.js entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.end.jsdoc
+T 25 source.js meta.function.js meta.block.js comment.block.documentation.js
+T 27 source.js meta.function.js meta.block.js comment.block.documentation.js punctuation.definition.comment.js
+T 28 source.js meta.function.js meta.block.js
+T 29 source.js meta.function.js meta.block.js meta.brace.round.js
+T 33 source.js meta.function.js meta.block.js constant.language.null.js
+T 34 source.js meta.function.js meta.block.js meta.brace.round.js
+T 35 source.js meta.function.js meta.block.js punctuation.terminator.statement.js
+L }
+T 1 source.js meta.function.js meta.block.js punctuation.definition.block.js
+L 
+L const result = foo({
+T 5 source.js meta.var.expr.js storage.type.js
+T 6 source.js meta.var.expr.js
+T 12 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 13 source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 14 source.js meta.var.expr.js keyword.operator.assignment.js
+T 15 source.js meta.var.expr.js
+T 18 source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.js meta.var.expr.js meta.brace.round.js
+T 20 source.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+L   bar: {
+T 2 source.js meta.var.expr.js meta.objectliteral.js
+T 5 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 6 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 7 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 8 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+L     fn:
+T 4 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 6 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 7 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+L       /** @param {string} a */
+T 6 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js
+T 9 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js comment.block.documentation.js punctuation.definition.comment.js
+T 10 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js comment.block.documentation.js
+T 11 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js comment.block.documentation.js storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 16 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js comment.block.documentation.js storage.type.class.jsdoc
+T 17 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js comment.block.documentation.js
+T 18 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js comment.block.documentation.js entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.begin.jsdoc
+T 24 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js comment.block.documentation.js entity.name.type.instance.jsdoc
+T 25 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js comment.block.documentation.js entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.end.jsdoc
+T 26 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js comment.block.documentation.js
+T 27 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js comment.block.documentation.js variable.other.jsdoc
+T 28 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js comment.block.documentation.js
+T 30 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js comment.block.documentation.js punctuation.definition.comment.js
+L       (a) => {},
+T 6 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.arrow.js
+T 7 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 8 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.parameters.js variable.parameter.js
+T 9 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 10 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.arrow.js
+T 12 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.arrow.js storage.type.function.arrow.js
+T 13 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.arrow.js
+T 14 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 15 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 16 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.separator.comma.js
+L     thing: "asd",
+T 4 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 9 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 10 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 11 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js
+T 12 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js string.quoted.double.js punctuation.definition.string.begin.js
+T 15 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js string.quoted.double.js
+T 16 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js string.quoted.double.js punctuation.definition.string.end.js
+T 17 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.separator.comma.js
+L   },
+T 2 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 3 source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 4 source.js meta.var.expr.js meta.objectliteral.js punctuation.separator.comma.js
+L });
+T 1 source.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+T 2 source.js meta.var.expr.js meta.brace.round.js
+T 3 source.js punctuation.terminator.statement.js

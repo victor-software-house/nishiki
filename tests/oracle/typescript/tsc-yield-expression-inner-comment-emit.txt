@@ -1,0 +1,71 @@
+L // @target: es6
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 15 source.ts comment.line.double-slash.ts
+L function * foo2() {
+T 8 source.ts meta.function.ts storage.type.function.ts
+T 9 source.ts meta.function.ts
+T 10 source.ts meta.function.ts keyword.generator.asterisk.ts
+T 11 source.ts meta.function.ts
+T 15 source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 16 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 17 source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 18 source.ts meta.function.ts
+T 19 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     /*comment1*/ yield 1;
+T 4 source.ts meta.function.ts meta.block.ts
+T 6 source.ts meta.function.ts meta.block.ts comment.block.ts punctuation.definition.comment.ts
+T 14 source.ts meta.function.ts meta.block.ts comment.block.ts
+T 16 source.ts meta.function.ts meta.block.ts comment.block.ts punctuation.definition.comment.ts
+T 17 source.ts meta.function.ts meta.block.ts
+T 22 source.ts meta.function.ts meta.block.ts keyword.control.flow.ts
+T 23 source.ts meta.function.ts meta.block.ts
+T 24 source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+T 25 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L     yield /*comment2*/ 2;
+T 4 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.control.flow.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 12 source.ts meta.function.ts meta.block.ts comment.block.ts punctuation.definition.comment.ts
+T 20 source.ts meta.function.ts meta.block.ts comment.block.ts
+T 22 source.ts meta.function.ts meta.block.ts comment.block.ts punctuation.definition.comment.ts
+T 23 source.ts meta.function.ts meta.block.ts
+T 24 source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+T 25 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L     yield 3 /*comment3*/
+T 4 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.control.flow.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+T 12 source.ts meta.function.ts meta.block.ts
+T 14 source.ts meta.function.ts meta.block.ts comment.block.ts punctuation.definition.comment.ts
+T 22 source.ts meta.function.ts meta.block.ts comment.block.ts
+T 24 source.ts meta.function.ts meta.block.ts comment.block.ts punctuation.definition.comment.ts
+L     yield */*comment4*/ [4];
+T 4 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.control.flow.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 11 source.ts meta.function.ts meta.block.ts keyword.generator.asterisk.ts
+T 13 source.ts meta.function.ts meta.block.ts comment.block.ts punctuation.definition.comment.ts
+T 21 source.ts meta.function.ts meta.block.ts comment.block.ts
+T 23 source.ts meta.function.ts meta.block.ts comment.block.ts punctuation.definition.comment.ts
+T 24 source.ts meta.function.ts meta.block.ts meta.array.literal.ts
+T 25 source.ts meta.function.ts meta.block.ts meta.array.literal.ts meta.brace.square.ts
+T 26 source.ts meta.function.ts meta.block.ts meta.array.literal.ts constant.numeric.decimal.ts
+T 27 source.ts meta.function.ts meta.block.ts meta.array.literal.ts meta.brace.square.ts
+T 28 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L     yield /*comment5*/* [5];
+T 4 source.ts meta.function.ts meta.block.ts
+T 9 source.ts meta.function.ts meta.block.ts keyword.control.flow.ts
+T 10 source.ts meta.function.ts meta.block.ts
+T 12 source.ts meta.function.ts meta.block.ts comment.block.ts punctuation.definition.comment.ts
+T 20 source.ts meta.function.ts meta.block.ts comment.block.ts
+T 22 source.ts meta.function.ts meta.block.ts comment.block.ts punctuation.definition.comment.ts
+T 23 source.ts meta.function.ts meta.block.ts keyword.generator.asterisk.ts
+T 24 source.ts meta.function.ts meta.block.ts meta.array.literal.ts
+T 25 source.ts meta.function.ts meta.block.ts meta.array.literal.ts meta.brace.square.ts
+T 26 source.ts meta.function.ts meta.block.ts meta.array.literal.ts constant.numeric.decimal.ts
+T 27 source.ts meta.function.ts meta.block.ts meta.array.literal.ts meta.brace.square.ts
+T 28 source.ts meta.function.ts meta.block.ts punctuation.terminator.statement.ts
+L }
+T 1 source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L 

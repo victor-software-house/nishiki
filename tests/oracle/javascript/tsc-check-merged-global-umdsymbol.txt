@@ -1,0 +1,87 @@
+L // @Filename: three.d.ts
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 24 source.js comment.line.double-slash.js
+L export namespace THREE {
+T 6 source.js meta.namespace.declaration.js keyword.control.export.js
+T 7 source.js meta.namespace.declaration.js
+T 16 source.js meta.namespace.declaration.js storage.type.namespace.js
+T 17 source.js meta.namespace.declaration.js
+T 22 source.js meta.namespace.declaration.js entity.name.type.module.js
+T 23 source.js meta.namespace.declaration.js
+T 24 source.js meta.namespace.declaration.js meta.block.js punctuation.definition.block.js
+L   export class Vector2 {}
+T 2 source.js meta.namespace.declaration.js meta.block.js
+T 8 source.js meta.namespace.declaration.js meta.block.js meta.class.js keyword.control.export.js
+T 9 source.js meta.namespace.declaration.js meta.block.js meta.class.js
+T 14 source.js meta.namespace.declaration.js meta.block.js meta.class.js storage.type.class.js
+T 15 source.js meta.namespace.declaration.js meta.block.js meta.class.js
+T 22 source.js meta.namespace.declaration.js meta.block.js meta.class.js entity.name.type.class.js
+T 23 source.js meta.namespace.declaration.js meta.block.js meta.class.js
+T 24 source.js meta.namespace.declaration.js meta.block.js meta.class.js punctuation.definition.block.js
+T 25 source.js meta.namespace.declaration.js meta.block.js meta.class.js punctuation.definition.block.js
+L }
+T 1 source.js meta.namespace.declaration.js meta.block.js punctuation.definition.block.js
+L 
+L // @Filename: global.d.ts
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 25 source.js comment.line.double-slash.js
+L import * as _three from './three';
+T 6 source.js meta.import.js keyword.control.import.js
+T 7 source.js meta.import.js
+T 8 source.js meta.import.js constant.language.import-export-all.js
+T 9 source.js meta.import.js
+T 11 source.js meta.import.js keyword.control.as.js
+T 12 source.js meta.import.js
+T 18 source.js meta.import.js variable.other.readwrite.alias.js
+T 19 source.js meta.import.js
+T 23 source.js meta.import.js keyword.control.from.js
+T 24 source.js meta.import.js
+T 25 source.js meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 32 source.js meta.import.js string.quoted.single.js
+T 33 source.js meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 34 source.js punctuation.terminator.statement.js
+L 
+L export as namespace THREE;
+T 6 source.js keyword.control.export.js
+T 7 source.js
+T 9 source.js keyword.control.as.js
+T 10 source.js
+T 19 source.js storage.type.namespace.js
+T 20 source.js
+T 25 source.js entity.name.type.module.js
+T 26 source.js punctuation.terminator.statement.js
+L 
+L declare global {
+T 7 source.js storage.modifier.js
+T 8 source.js
+T 14 source.js variable.other.readwrite.js
+T 15 source.js
+T 16 source.js meta.block.js punctuation.definition.block.js
+L   export const THREE: typeof _three;
+T 2 source.js meta.block.js
+T 8 source.js meta.block.js meta.var.expr.js keyword.control.export.js
+T 9 source.js meta.block.js meta.var.expr.js
+T 14 source.js meta.block.js meta.var.expr.js storage.type.js
+T 15 source.js meta.block.js meta.var.expr.js
+T 20 source.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 21 source.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 22 source.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 28 source.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.expression.typeof.js
+T 29 source.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 35 source.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js variable.other.readwrite.js
+T 36 source.js meta.block.js punctuation.terminator.statement.js
+L }
+T 1 source.js meta.block.js punctuation.definition.block.js
+L 
+L // @Filename: test.ts
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 21 source.js comment.line.double-slash.js
+L const m = THREE
+T 5 source.js meta.var.expr.js storage.type.js
+T 6 source.js meta.var.expr.js
+T 7 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 8 source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 9 source.js meta.var.expr.js keyword.operator.assignment.js
+T 10 source.js meta.var.expr.js
+T 15 source.js meta.var.expr.js variable.other.constant.js
+L 

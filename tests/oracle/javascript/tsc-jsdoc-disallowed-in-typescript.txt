@@ -1,0 +1,289 @@
+L // @strict: true
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 16 source.js comment.line.double-slash.js
+L 
+L // grammar error from checker
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 29 source.js comment.line.double-slash.js
+L var ara: Array.<number> = [1,2,3];
+T 3 source.js meta.var.expr.js storage.type.js
+T 4 source.js meta.var.expr.js
+T 7 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 8 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 9 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 14 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js entity.name.type.module.js
+T 15 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js punctuation.accessor.js
+T 16 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.parameters.js punctuation.definition.typeparameters.begin.js
+T 22 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.parameters.js support.type.primitive.js
+T 23 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.parameters.js punctuation.definition.typeparameters.end.js
+T 24 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 25 source.js meta.var.expr.js keyword.operator.assignment.js
+T 26 source.js meta.var.expr.js meta.array.literal.js
+T 27 source.js meta.var.expr.js meta.array.literal.js meta.brace.square.js
+T 28 source.js meta.var.expr.js meta.array.literal.js constant.numeric.decimal.js
+T 29 source.js meta.var.expr.js meta.array.literal.js punctuation.separator.comma.js
+T 30 source.js meta.var.expr.js meta.array.literal.js constant.numeric.decimal.js
+T 31 source.js meta.var.expr.js meta.array.literal.js punctuation.separator.comma.js
+T 32 source.js meta.var.expr.js meta.array.literal.js constant.numeric.decimal.js
+T 33 source.js meta.var.expr.js meta.array.literal.js meta.brace.square.js
+T 34 source.js punctuation.terminator.statement.js
+L 
+L function f(x: ?number, y: Array.<number>) {
+T 8 source.js meta.function.js storage.type.function.js
+T 9 source.js meta.function.js
+T 10 source.js meta.function.js meta.definition.function.js entity.name.function.js
+T 11 source.js meta.function.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 12 source.js meta.function.js meta.parameters.js variable.parameter.js
+T 13 source.js meta.function.js meta.parameters.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 14 source.js meta.function.js meta.parameters.js meta.type.annotation.js
+T 15 source.js meta.function.js meta.parameters.js meta.type.annotation.js keyword.operator.ternary.js
+T 21 source.js meta.function.js meta.parameters.js meta.type.annotation.js support.type.primitive.js
+T 22 source.js meta.function.js meta.parameters.js punctuation.separator.parameter.js
+T 23 source.js meta.function.js meta.parameters.js
+T 24 source.js meta.function.js meta.parameters.js variable.parameter.js
+T 25 source.js meta.function.js meta.parameters.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 26 source.js meta.function.js meta.parameters.js meta.type.annotation.js
+T 31 source.js meta.function.js meta.parameters.js meta.type.annotation.js entity.name.type.module.js
+T 32 source.js meta.function.js meta.parameters.js meta.type.annotation.js punctuation.accessor.js
+T 33 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.parameters.js punctuation.definition.typeparameters.begin.js
+T 39 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.parameters.js support.type.primitive.js
+T 40 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.parameters.js punctuation.definition.typeparameters.end.js
+T 41 source.js meta.function.js meta.parameters.js punctuation.definition.parameters.end.js
+T 42 source.js meta.function.js
+T 43 source.js meta.function.js meta.block.js punctuation.definition.block.js
+L     return x ? x + y[1] : y[0];
+T 4 source.js meta.function.js meta.block.js
+T 10 source.js meta.function.js meta.block.js keyword.control.flow.js
+T 11 source.js meta.function.js meta.block.js
+T 12 source.js meta.function.js meta.block.js variable.other.readwrite.js
+T 13 source.js meta.function.js meta.block.js
+T 14 source.js meta.function.js meta.block.js keyword.operator.ternary.js
+T 15 source.js meta.function.js meta.block.js
+T 16 source.js meta.function.js meta.block.js variable.other.readwrite.js
+T 17 source.js meta.function.js meta.block.js
+T 18 source.js meta.function.js meta.block.js keyword.operator.arithmetic.js
+T 19 source.js meta.function.js meta.block.js
+T 20 source.js meta.function.js meta.block.js variable.other.readwrite.js
+T 21 source.js meta.function.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 22 source.js meta.function.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 23 source.js meta.function.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 24 source.js meta.function.js meta.block.js
+T 25 source.js meta.function.js meta.block.js keyword.operator.ternary.js
+T 26 source.js meta.function.js meta.block.js
+T 27 source.js meta.function.js meta.block.js variable.other.readwrite.js
+T 28 source.js meta.function.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 29 source.js meta.function.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 30 source.js meta.function.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 31 source.js meta.function.js meta.block.js punctuation.terminator.statement.js
+L }
+T 1 source.js meta.function.js meta.block.js punctuation.definition.block.js
+L function hof(ctor: function(new: number, string)) {
+T 8 source.js meta.function.js storage.type.function.js
+T 9 source.js meta.function.js
+T 12 source.js meta.function.js meta.definition.function.js entity.name.function.js
+T 13 source.js meta.function.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 17 source.js meta.function.js meta.parameters.js variable.parameter.js
+T 18 source.js meta.function.js meta.parameters.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 19 source.js meta.function.js meta.parameters.js meta.type.annotation.js
+T 27 source.js meta.function.js meta.parameters.js meta.type.annotation.js entity.name.type.js
+T 28 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 31 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js variable.parameter.js
+T 32 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 33 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js meta.type.annotation.js
+T 39 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js meta.type.annotation.js support.type.primitive.js
+T 40 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js punctuation.separator.parameter.js
+T 41 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js
+T 47 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js variable.parameter.js
+T 48 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js punctuation.definition.parameters.end.js
+T 49 source.js meta.function.js meta.parameters.js punctuation.definition.parameters.end.js
+T 50 source.js meta.function.js
+T 51 source.js meta.function.js meta.block.js punctuation.definition.block.js
+L     return new ctor('hi');
+T 4 source.js meta.function.js meta.block.js
+T 10 source.js meta.function.js meta.block.js keyword.control.flow.js
+T 11 source.js meta.function.js meta.block.js
+T 14 source.js meta.function.js meta.block.js new.expr.js keyword.operator.new.js
+T 15 source.js meta.function.js meta.block.js new.expr.js
+T 19 source.js meta.function.js meta.block.js new.expr.js meta.function-call.js entity.name.function.js
+T 20 source.js meta.function.js meta.block.js new.expr.js meta.brace.round.js
+T 21 source.js meta.function.js meta.block.js new.expr.js string.quoted.single.js punctuation.definition.string.begin.js
+T 23 source.js meta.function.js meta.block.js new.expr.js string.quoted.single.js
+T 24 source.js meta.function.js meta.block.js new.expr.js string.quoted.single.js punctuation.definition.string.end.js
+T 25 source.js meta.function.js meta.block.js new.expr.js meta.brace.round.js
+T 26 source.js meta.function.js meta.block.js punctuation.terminator.statement.js
+L }
+T 1 source.js meta.function.js meta.block.js punctuation.definition.block.js
+L function hof2(f: function(this: number, string): string) {
+T 8 source.js meta.function.js storage.type.function.js
+T 9 source.js meta.function.js
+T 13 source.js meta.function.js meta.definition.function.js entity.name.function.js
+T 14 source.js meta.function.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 15 source.js meta.function.js meta.parameters.js variable.parameter.js
+T 16 source.js meta.function.js meta.parameters.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 17 source.js meta.function.js meta.parameters.js meta.type.annotation.js
+T 25 source.js meta.function.js meta.parameters.js meta.type.annotation.js entity.name.type.js
+T 26 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 30 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js variable.parameter.js variable.language.this.js
+T 31 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 32 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js meta.type.annotation.js
+T 38 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js meta.type.annotation.js support.type.primitive.js
+T 39 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js punctuation.separator.parameter.js
+T 40 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js
+T 46 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js variable.parameter.js
+T 47 source.js meta.function.js meta.parameters.js meta.type.annotation.js meta.type.function.js meta.parameters.js punctuation.definition.parameters.end.js
+T 48 source.js meta.function.js meta.parameters.js meta.type.annotation.js keyword.operator.ternary.js
+T 49 source.js meta.function.js meta.parameters.js meta.type.annotation.js
+T 55 source.js meta.function.js meta.parameters.js meta.type.annotation.js support.type.primitive.js
+T 56 source.js meta.function.js meta.parameters.js punctuation.definition.parameters.end.js
+T 57 source.js meta.function.js
+T 58 source.js meta.function.js meta.block.js punctuation.definition.block.js
+L     return f(12, 'hullo');
+T 4 source.js meta.function.js meta.block.js
+T 10 source.js meta.function.js meta.block.js keyword.control.flow.js
+T 11 source.js meta.function.js meta.block.js
+T 12 source.js meta.function.js meta.block.js meta.function-call.js entity.name.function.js
+T 13 source.js meta.function.js meta.block.js meta.brace.round.js
+T 15 source.js meta.function.js meta.block.js constant.numeric.decimal.js
+T 16 source.js meta.function.js meta.block.js punctuation.separator.comma.js
+T 17 source.js meta.function.js meta.block.js
+T 18 source.js meta.function.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 23 source.js meta.function.js meta.block.js string.quoted.single.js
+T 24 source.js meta.function.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 25 source.js meta.function.js meta.block.js meta.brace.round.js
+T 26 source.js meta.function.js meta.block.js punctuation.terminator.statement.js
+L }
+T 1 source.js meta.function.js meta.block.js punctuation.definition.block.js
+L var whatevs: * = 1001;
+T 3 source.js meta.var.expr.js storage.type.js
+T 4 source.js meta.var.expr.js
+T 11 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 12 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 15 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 16 source.js meta.var.expr.js keyword.operator.assignment.js
+T 17 source.js meta.var.expr.js
+T 21 source.js meta.var.expr.js constant.numeric.decimal.js
+T 22 source.js punctuation.terminator.statement.js
+L var ques: ? = 'what';
+T 3 source.js meta.var.expr.js storage.type.js
+T 4 source.js meta.var.expr.js
+T 8 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 9 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 10 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 11 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.ternary.js
+T 12 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 13 source.js meta.var.expr.js keyword.operator.assignment.js
+T 14 source.js meta.var.expr.js
+T 15 source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.begin.js
+T 19 source.js meta.var.expr.js string.quoted.single.js
+T 20 source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.end.js
+T 21 source.js punctuation.terminator.statement.js
+L var g: function(number, number): number = (n,m) => n + m;
+T 3 source.js meta.var.expr.js storage.type.js
+T 4 source.js meta.var.expr.js
+T 5 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js entity.name.function.js
+T 6 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 7 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 15 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js entity.name.type.js
+T 16 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.function.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 22 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.function.js meta.parameters.js variable.parameter.js
+T 23 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.function.js meta.parameters.js punctuation.separator.parameter.js
+T 24 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.function.js meta.parameters.js
+T 30 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.function.js meta.parameters.js variable.parameter.js
+T 31 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.function.js meta.parameters.js punctuation.definition.parameters.end.js
+T 32 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.ternary.js
+T 33 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 39 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js support.type.primitive.js
+T 40 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 41 source.js meta.var.expr.js keyword.operator.assignment.js
+T 42 source.js meta.var.expr.js meta.arrow.js
+T 43 source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 44 source.js meta.var.expr.js meta.arrow.js meta.parameters.js variable.parameter.js
+T 45 source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.separator.parameter.js
+T 46 source.js meta.var.expr.js meta.arrow.js meta.parameters.js variable.parameter.js
+T 47 source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 48 source.js meta.var.expr.js meta.arrow.js
+T 50 source.js meta.var.expr.js meta.arrow.js storage.type.function.arrow.js
+T 51 source.js meta.var.expr.js meta.arrow.js
+T 52 source.js meta.var.expr.js variable.other.readwrite.js
+T 53 source.js meta.var.expr.js
+T 54 source.js meta.var.expr.js keyword.operator.arithmetic.js
+T 55 source.js meta.var.expr.js
+T 56 source.js meta.var.expr.js variable.other.readwrite.js
+T 57 source.js punctuation.terminator.statement.js
+L var most: !string = 'definite';
+T 3 source.js meta.var.expr.js storage.type.js
+T 4 source.js meta.var.expr.js
+T 8 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 9 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 11 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 17 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js support.type.primitive.js
+T 18 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 19 source.js meta.var.expr.js keyword.operator.assignment.js
+T 20 source.js meta.var.expr.js
+T 21 source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.begin.js
+T 29 source.js meta.var.expr.js string.quoted.single.js
+T 30 source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.end.js
+T 31 source.js punctuation.terminator.statement.js
+L var postfixdef: number! = 101;
+T 3 source.js meta.var.expr.js storage.type.js
+T 4 source.js meta.var.expr.js
+T 14 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 15 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 16 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 22 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js support.type.primitive.js
+T 24 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 25 source.js meta.var.expr.js keyword.operator.assignment.js
+T 26 source.js meta.var.expr.js
+T 29 source.js meta.var.expr.js constant.numeric.decimal.js
+T 30 source.js punctuation.terminator.statement.js
+L var postfixopt: number? = undefined;
+T 3 source.js meta.var.expr.js storage.type.js
+T 4 source.js meta.var.expr.js
+T 14 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 15 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 16 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 22 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js support.type.primitive.js
+T 23 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.ternary.js
+T 24 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 25 source.js meta.var.expr.js keyword.operator.assignment.js
+T 26 source.js meta.var.expr.js
+T 35 source.js meta.var.expr.js constant.language.undefined.js
+T 36 source.js punctuation.terminator.statement.js
+L 
+L var nns: Array<?number>;
+T 3 source.js meta.var.expr.js storage.type.js
+T 4 source.js meta.var.expr.js
+T 7 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 8 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 9 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 14 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js entity.name.type.js
+T 15 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.parameters.js punctuation.definition.typeparameters.begin.js
+T 16 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.parameters.js keyword.operator.ternary.js
+T 22 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.parameters.js support.type.primitive.js
+T 23 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.parameters.js punctuation.definition.typeparameters.end.js
+T 24 source.js punctuation.terminator.statement.js
+L var dns: Array<!number>;
+T 3 source.js meta.var.expr.js storage.type.js
+T 4 source.js meta.var.expr.js
+T 7 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 8 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 9 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 14 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js entity.name.type.js
+T 15 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.parameters.js punctuation.definition.typeparameters.begin.js
+T 16 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.parameters.js
+T 22 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.parameters.js support.type.primitive.js
+T 23 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.parameters.js punctuation.definition.typeparameters.end.js
+T 24 source.js punctuation.terminator.statement.js
+L var anys: Array<*>;
+T 3 source.js meta.var.expr.js storage.type.js
+T 4 source.js meta.var.expr.js
+T 8 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 9 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 10 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 15 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js entity.name.type.js
+T 16 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.parameters.js punctuation.definition.typeparameters.begin.js
+T 17 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.parameters.js
+T 18 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js meta.type.parameters.js punctuation.definition.typeparameters.end.js
+T 19 source.js punctuation.terminator.statement.js
+L 
+L 

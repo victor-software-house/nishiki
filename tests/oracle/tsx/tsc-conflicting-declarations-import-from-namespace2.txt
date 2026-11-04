@@ -1,0 +1,223 @@
+L // @strict: true
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 16 source.tsx comment.line.double-slash.tsx
+L 
+L // @filename: node_modules/@types/lodash/object.d.ts
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 52 source.tsx comment.line.double-slash.tsx
+L import _ = require("./index");
+T 6 source.tsx meta.import-equals.external.tsx keyword.control.import.tsx
+T 7 source.tsx meta.import-equals.external.tsx
+T 8 source.tsx meta.import-equals.external.tsx variable.other.readwrite.alias.tsx
+T 9 source.tsx meta.import-equals.external.tsx
+T 10 source.tsx meta.import-equals.external.tsx keyword.operator.assignment.tsx
+T 11 source.tsx meta.import-equals.external.tsx
+T 18 source.tsx meta.import-equals.external.tsx keyword.control.require.tsx
+T 19 source.tsx meta.import-equals.external.tsx meta.brace.round.tsx
+T 20 source.tsx meta.import-equals.external.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 27 source.tsx meta.import-equals.external.tsx string.quoted.double.tsx
+T 28 source.tsx meta.import-equals.external.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 29 source.tsx meta.import-equals.external.tsx meta.brace.round.tsx
+T 30 source.tsx punctuation.terminator.statement.tsx
+L declare module "./index" {
+T 7 source.tsx meta.namespace.declaration.tsx storage.modifier.tsx
+T 8 source.tsx meta.namespace.declaration.tsx
+T 14 source.tsx meta.namespace.declaration.tsx storage.type.namespace.tsx
+T 15 source.tsx meta.namespace.declaration.tsx
+T 16 source.tsx meta.namespace.declaration.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 23 source.tsx meta.namespace.declaration.tsx string.quoted.double.tsx
+T 24 source.tsx meta.namespace.declaration.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 25 source.tsx meta.namespace.declaration.tsx
+T 26 source.tsx meta.namespace.declaration.tsx meta.block.tsx punctuation.definition.block.tsx
+L     interface LoDashStatic {
+T 4 source.tsx meta.namespace.declaration.tsx meta.block.tsx
+T 13 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx storage.type.interface.tsx
+T 14 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx
+T 26 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx entity.name.type.interface.tsx
+T 27 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx
+T 28 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx punctuation.definition.block.tsx
+L       pick: <T extends object, U extends keyof T>(
+T 6 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx
+T 10 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.definition.property.tsx entity.name.function.tsx
+T 11 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 12 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx
+T 13 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx punctuation.definition.typeparameters.begin.tsx
+T 14 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx entity.name.type.tsx
+T 15 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 22 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx storage.modifier.tsx
+T 23 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 29 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx support.type.builtin.tsx
+T 30 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx punctuation.separator.comma.tsx
+T 31 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 32 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx entity.name.type.tsx
+T 33 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 40 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx storage.modifier.tsx
+T 41 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 46 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx keyword.operator.expression.keyof.tsx
+T 47 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 48 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx entity.name.type.tsx
+T 49 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.parameters.tsx punctuation.definition.typeparameters.end.tsx
+T 50 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx meta.brace.round.tsx
+L         object: T,
+T 8 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx
+T 14 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx variable.parameter.tsx
+T 15 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 16 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx meta.type.annotation.tsx
+T 17 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 18 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx punctuation.separator.parameter.tsx
+L         ...props: Array<U>
+T 8 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx
+T 11 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx keyword.operator.rest.tsx
+T 16 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx variable.parameter.tsx
+T 17 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 18 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx meta.type.annotation.tsx
+T 23 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 24 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx meta.type.annotation.tsx meta.type.parameters.tsx punctuation.definition.typeparameters.begin.tsx
+T 25 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx meta.type.annotation.tsx meta.type.parameters.tsx entity.name.type.tsx
+T 26 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx meta.type.annotation.tsx meta.type.parameters.tsx punctuation.definition.typeparameters.end.tsx
+L       ) => Pick<T, U>;
+T 6 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx
+T 7 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.paren.cover.tsx meta.brace.round.tsx
+T 8 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx
+T 10 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.function.return.tsx storage.type.function.arrow.tsx
+T 11 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.function.return.tsx
+T 15 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.function.return.tsx entity.name.type.tsx
+T 16 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.function.return.tsx meta.type.parameters.tsx punctuation.definition.typeparameters.begin.tsx
+T 17 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.function.return.tsx meta.type.parameters.tsx entity.name.type.tsx
+T 18 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.function.return.tsx meta.type.parameters.tsx punctuation.separator.comma.tsx
+T 19 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.function.return.tsx meta.type.parameters.tsx
+T 20 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.function.return.tsx meta.type.parameters.tsx entity.name.type.tsx
+T 21 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx meta.field.declaration.tsx meta.type.annotation.tsx meta.type.function.return.tsx meta.type.parameters.tsx punctuation.definition.typeparameters.end.tsx
+T 22 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx punctuation.terminator.statement.tsx
+L     }
+T 4 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx
+T 5 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx punctuation.definition.block.tsx
+L }
+T 1 source.tsx meta.namespace.declaration.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L // @filename: node_modules/@types/lodash/pick.d.ts
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 50 source.tsx comment.line.double-slash.tsx
+L import { pick } from "./index";
+T 6 source.tsx meta.import.tsx keyword.control.import.tsx
+T 7 source.tsx meta.import.tsx
+T 8 source.tsx meta.import.tsx meta.block.tsx punctuation.definition.block.tsx
+T 9 source.tsx meta.import.tsx meta.block.tsx
+T 13 source.tsx meta.import.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 14 source.tsx meta.import.tsx meta.block.tsx
+T 15 source.tsx meta.import.tsx meta.block.tsx punctuation.definition.block.tsx
+T 16 source.tsx meta.import.tsx
+T 20 source.tsx meta.import.tsx keyword.control.from.tsx
+T 21 source.tsx meta.import.tsx
+T 22 source.tsx meta.import.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 29 source.tsx meta.import.tsx string.quoted.double.tsx
+T 30 source.tsx meta.import.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 31 source.tsx punctuation.terminator.statement.tsx
+L export = pick;
+T 6 source.tsx meta.export.default.tsx keyword.control.export.tsx
+T 7 source.tsx meta.export.default.tsx
+T 8 source.tsx meta.export.default.tsx keyword.operator.assignment.tsx
+T 9 source.tsx meta.export.default.tsx
+T 13 source.tsx meta.export.default.tsx variable.other.readwrite.tsx
+T 14 source.tsx punctuation.terminator.statement.tsx
+L 
+L // @filename: node_modules/@types/lodash/index.d.ts
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 51 source.tsx comment.line.double-slash.tsx
+L /// <reference path="./object.d.ts" />
+T 3 source.tsx comment.line.triple-slash.directive.tsx punctuation.definition.comment.tsx
+T 4 source.tsx comment.line.triple-slash.directive.tsx
+T 5 source.tsx comment.line.triple-slash.directive.tsx meta.tag.tsx punctuation.definition.tag.directive.tsx
+T 14 source.tsx comment.line.triple-slash.directive.tsx meta.tag.tsx entity.name.tag.directive.tsx
+T 15 source.tsx comment.line.triple-slash.directive.tsx meta.tag.tsx
+T 19 source.tsx comment.line.triple-slash.directive.tsx meta.tag.tsx entity.other.attribute-name.directive.tsx
+T 20 source.tsx comment.line.triple-slash.directive.tsx meta.tag.tsx keyword.operator.assignment.tsx
+T 21 source.tsx comment.line.triple-slash.directive.tsx meta.tag.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 34 source.tsx comment.line.triple-slash.directive.tsx meta.tag.tsx string.quoted.double.tsx
+T 35 source.tsx comment.line.triple-slash.directive.tsx meta.tag.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 36 source.tsx comment.line.triple-slash.directive.tsx meta.tag.tsx
+T 38 source.tsx comment.line.triple-slash.directive.tsx meta.tag.tsx punctuation.definition.tag.directive.tsx
+L export = _;
+T 6 source.tsx meta.export.default.tsx keyword.control.export.tsx
+T 7 source.tsx meta.export.default.tsx
+T 8 source.tsx meta.export.default.tsx keyword.operator.assignment.tsx
+T 9 source.tsx meta.export.default.tsx
+T 10 source.tsx meta.export.default.tsx variable.other.readwrite.tsx
+T 11 source.tsx punctuation.terminator.statement.tsx
+L export as namespace _;
+T 6 source.tsx keyword.control.export.tsx
+T 7 source.tsx
+T 9 source.tsx keyword.control.as.tsx
+T 10 source.tsx
+T 19 source.tsx storage.type.namespace.tsx
+T 20 source.tsx
+T 21 source.tsx entity.name.type.module.tsx
+T 22 source.tsx punctuation.terminator.statement.tsx
+L declare const _: _.LoDashStatic;
+T 7 source.tsx meta.var.expr.tsx storage.modifier.tsx
+T 8 source.tsx meta.var.expr.tsx
+T 13 source.tsx meta.var.expr.tsx storage.type.tsx
+T 14 source.tsx meta.var.expr.tsx
+T 15 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.constant.tsx
+T 16 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 17 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.type.annotation.tsx
+T 18 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 19 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 31 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 32 source.tsx punctuation.terminator.statement.tsx
+L declare namespace _ {
+T 7 source.tsx meta.namespace.declaration.tsx storage.modifier.tsx
+T 8 source.tsx meta.namespace.declaration.tsx
+T 17 source.tsx meta.namespace.declaration.tsx storage.type.namespace.tsx
+T 18 source.tsx meta.namespace.declaration.tsx
+T 19 source.tsx meta.namespace.declaration.tsx entity.name.type.module.tsx
+T 20 source.tsx meta.namespace.declaration.tsx
+T 21 source.tsx meta.namespace.declaration.tsx meta.block.tsx punctuation.definition.block.tsx
+L     interface LoDashStatic {}
+T 4 source.tsx meta.namespace.declaration.tsx meta.block.tsx
+T 13 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx storage.type.interface.tsx
+T 14 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx
+T 26 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx entity.name.type.interface.tsx
+T 27 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx
+T 28 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx punctuation.definition.block.tsx
+T 29 source.tsx meta.namespace.declaration.tsx meta.block.tsx meta.interface.tsx punctuation.definition.block.tsx
+L }
+T 1 source.tsx meta.namespace.declaration.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L // @filename: index.ts
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 22 source.tsx comment.line.double-slash.tsx
+L import * as pick from 'lodash/pick';
+T 6 source.tsx meta.import.tsx keyword.control.import.tsx
+T 7 source.tsx meta.import.tsx
+T 8 source.tsx meta.import.tsx constant.language.import-export-all.tsx
+T 9 source.tsx meta.import.tsx
+T 11 source.tsx meta.import.tsx keyword.control.as.tsx
+T 12 source.tsx meta.import.tsx
+T 16 source.tsx meta.import.tsx variable.other.readwrite.alias.tsx
+T 17 source.tsx meta.import.tsx
+T 21 source.tsx meta.import.tsx keyword.control.from.tsx
+T 22 source.tsx meta.import.tsx
+T 23 source.tsx meta.import.tsx string.quoted.single.tsx punctuation.definition.string.begin.tsx
+T 34 source.tsx meta.import.tsx string.quoted.single.tsx
+T 35 source.tsx meta.import.tsx string.quoted.single.tsx punctuation.definition.string.end.tsx
+T 36 source.tsx punctuation.terminator.statement.tsx
+L export const pick = () => pick();
+T 6 source.tsx meta.var.expr.tsx keyword.control.export.tsx
+T 7 source.tsx meta.var.expr.tsx
+T 12 source.tsx meta.var.expr.tsx storage.type.tsx
+T 13 source.tsx meta.var.expr.tsx
+T 17 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.constant.tsx entity.name.function.tsx
+T 18 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 19 source.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 20 source.tsx meta.var.expr.tsx meta.arrow.tsx
+T 21 source.tsx meta.var.expr.tsx meta.arrow.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 22 source.tsx meta.var.expr.tsx meta.arrow.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 23 source.tsx meta.var.expr.tsx meta.arrow.tsx
+T 25 source.tsx meta.var.expr.tsx meta.arrow.tsx storage.type.function.arrow.tsx
+T 26 source.tsx meta.var.expr.tsx meta.arrow.tsx
+T 30 source.tsx meta.var.expr.tsx meta.function-call.tsx entity.name.function.tsx
+T 31 source.tsx meta.var.expr.tsx meta.brace.round.tsx
+T 32 source.tsx meta.var.expr.tsx meta.brace.round.tsx
+T 33 source.tsx punctuation.terminator.statement.tsx
+L 

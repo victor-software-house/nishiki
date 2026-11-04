@@ -1,0 +1,123 @@
+L // @target: es5
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 15 source.js.jsx comment.line.double-slash.js.jsx
+L interface I<T> {
+T 9 source.js.jsx meta.interface.js.jsx storage.type.interface.js.jsx
+T 10 source.js.jsx meta.interface.js.jsx
+T 11 source.js.jsx meta.interface.js.jsx entity.name.type.interface.js.jsx
+T 12 source.js.jsx meta.interface.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 13 source.js.jsx meta.interface.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+T 14 source.js.jsx meta.interface.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 15 source.js.jsx meta.interface.js.jsx
+T 16 source.js.jsx meta.interface.js.jsx punctuation.definition.block.js.jsx
+L     [s: string]: T;
+T 4 source.js.jsx meta.interface.js.jsx meta.indexer.declaration.js.jsx
+T 5 source.js.jsx meta.interface.js.jsx meta.indexer.declaration.js.jsx meta.brace.square.js.jsx
+T 6 source.js.jsx meta.interface.js.jsx meta.indexer.declaration.js.jsx variable.parameter.js.jsx
+T 7 source.js.jsx meta.interface.js.jsx meta.indexer.declaration.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 8 source.js.jsx meta.interface.js.jsx meta.indexer.declaration.js.jsx meta.type.annotation.js.jsx
+T 14 source.js.jsx meta.interface.js.jsx meta.indexer.declaration.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+T 15 source.js.jsx meta.interface.js.jsx meta.indexer.declaration.js.jsx meta.brace.square.js.jsx
+T 16 source.js.jsx meta.interface.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 17 source.js.jsx meta.interface.js.jsx meta.type.annotation.js.jsx
+T 18 source.js.jsx meta.interface.js.jsx meta.type.annotation.js.jsx entity.name.type.js.jsx
+T 19 source.js.jsx meta.interface.js.jsx punctuation.terminator.statement.js.jsx
+L }
+T 1 source.js.jsx meta.interface.js.jsx punctuation.definition.block.js.jsx
+L 
+L declare function foo<T>(obj: I<T>): T
+T 7 source.js.jsx meta.function.js.jsx storage.modifier.js.jsx
+T 8 source.js.jsx meta.function.js.jsx
+T 16 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 17 source.js.jsx meta.function.js.jsx
+T 20 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 27 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx variable.parameter.js.jsx
+T 28 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 29 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 30 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx entity.name.type.js.jsx
+T 31 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 32 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+T 33 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 34 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 35 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx keyword.operator.type.annotation.js.jsx
+T 36 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx
+T 37 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx entity.name.type.js.jsx
+L 
+L foo({
+T 3 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 4 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 5 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+L     p: "",
+T 4 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 5 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx variable.object.property.js.jsx
+T 6 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.destructuring.js.jsx
+T 7 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 8 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 10 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.separator.comma.js.jsx
+L     0: () => { },
+T 4 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 5 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx constant.numeric.decimal.js.jsx
+T 6 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.destructuring.js.jsx
+T 7 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 8 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.brace.round.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.brace.round.js.jsx
+T 10 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 11 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx keyword.operator.assignment.js.jsx
+T 12 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx keyword.operator.relational.js.jsx
+T 13 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 14 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.objectliteral.js.jsx punctuation.definition.block.js.jsx
+T 15 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.objectliteral.js.jsx
+T 16 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.objectliteral.js.jsx punctuation.definition.block.js.jsx
+T 17 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.separator.comma.js.jsx
+L     ["hi" + "bye"]: true,
+T 4 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 5 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 6 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 8 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx string.quoted.double.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 10 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx
+T 11 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx keyword.operator.arithmetic.js.jsx
+T 12 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx
+T 13 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 16 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx string.quoted.double.js.jsx
+T 17 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 18 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 19 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.destructuring.js.jsx
+T 20 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx variable.parameter.js.jsx
+T 25 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.separator.comma.js.jsx
+L     [0 + 1]: 0,
+T 4 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 5 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 6 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx
+T 7 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx
+T 8 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx keyword.operator.arithmetic.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx
+T 10 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx
+T 11 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 12 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.destructuring.js.jsx
+T 13 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 14 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx constant.numeric.decimal.js.jsx
+T 15 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.separator.comma.js.jsx
+L     [+"hi"]: [0]
+T 4 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 5 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 6 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx keyword.operator.arithmetic.js.jsx
+T 7 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx string.quoted.double.js.jsx
+T 10 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 11 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 12 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.destructuring.js.jsx
+T 13 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 14 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.definition.binding-pattern.array.js.jsx
+T 15 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx constant.numeric.decimal.js.jsx
+T 16 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.definition.binding-pattern.array.js.jsx
+L });
+T 1 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 2 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 3 source.js.jsx punctuation.terminator.statement.js.jsx

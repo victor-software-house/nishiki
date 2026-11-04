@@ -1,0 +1,35 @@
+L // @target: esnext
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 18 source.ts comment.line.double-slash.ts
+L // @module: esnext
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 18 source.ts comment.line.double-slash.ts
+L // @lib: esnext
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 15 source.ts comment.line.double-slash.ts
+L // @noTypesAndSymbols: true
+T 2 source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 27 source.ts comment.line.double-slash.ts
+L 
+L export await using x = null;
+T 6 source.ts meta.var.expr.ts keyword.control.export.ts
+T 7 source.ts meta.var.expr.ts
+T 18 source.ts meta.var.expr.ts storage.type.ts
+T 19 source.ts meta.var.expr.ts
+T 20 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 21 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 22 source.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 23 source.ts meta.var.expr.ts
+T 27 source.ts meta.var.expr.ts constant.language.null.ts
+T 28 source.ts punctuation.terminator.statement.ts
+L declare await using y: null;
+T 7 source.ts meta.var.expr.ts storage.modifier.ts
+T 8 source.ts meta.var.expr.ts
+T 19 source.ts meta.var.expr.ts storage.type.ts
+T 20 source.ts meta.var.expr.ts
+T 21 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 22 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 23 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts
+T 27 source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts support.type.builtin.ts
+T 28 source.ts punctuation.terminator.statement.ts
+L 

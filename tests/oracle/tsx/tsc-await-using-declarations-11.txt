@@ -1,0 +1,35 @@
+L // @target: esnext
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 18 source.tsx comment.line.double-slash.tsx
+L // @module: esnext
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 18 source.tsx comment.line.double-slash.tsx
+L // @lib: esnext
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 15 source.tsx comment.line.double-slash.tsx
+L // @noTypesAndSymbols: true
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 27 source.tsx comment.line.double-slash.tsx
+L 
+L export await using x = null;
+T 6 source.tsx meta.var.expr.tsx keyword.control.export.tsx
+T 7 source.tsx meta.var.expr.tsx
+T 18 source.tsx meta.var.expr.tsx storage.type.tsx
+T 19 source.tsx meta.var.expr.tsx
+T 20 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.constant.tsx
+T 21 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 22 source.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 23 source.tsx meta.var.expr.tsx
+T 27 source.tsx meta.var.expr.tsx constant.language.null.tsx
+T 28 source.tsx punctuation.terminator.statement.tsx
+L declare await using y: null;
+T 7 source.tsx meta.var.expr.tsx storage.modifier.tsx
+T 8 source.tsx meta.var.expr.tsx
+T 19 source.tsx meta.var.expr.tsx storage.type.tsx
+T 20 source.tsx meta.var.expr.tsx
+T 21 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.constant.tsx
+T 22 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 23 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.type.annotation.tsx
+T 27 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.type.annotation.tsx support.type.builtin.tsx
+T 28 source.tsx punctuation.terminator.statement.tsx
+L 

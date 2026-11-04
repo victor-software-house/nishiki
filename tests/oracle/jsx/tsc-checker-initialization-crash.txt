@@ -1,0 +1,267 @@
+L // @module: esnext
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 18 source.js.jsx comment.line.double-slash.js.jsx
+L // @moduleResolution: node
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 26 source.js.jsx comment.line.double-slash.js.jsx
+L // @esModuleInterop: true
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 25 source.js.jsx comment.line.double-slash.js.jsx
+L 
+L // @Filename: /node_modules/@fullcalendar/react/index.d.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 58 source.js.jsx comment.line.double-slash.js.jsx
+L import * as react from 'react';
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 8 source.js.jsx meta.import.js.jsx constant.language.import-export-all.js.jsx
+T 9 source.js.jsx meta.import.js.jsx
+T 11 source.js.jsx meta.import.js.jsx keyword.control.as.js.jsx
+T 12 source.js.jsx meta.import.js.jsx
+T 17 source.js.jsx meta.import.js.jsx variable.other.readwrite.alias.js.jsx
+T 18 source.js.jsx meta.import.js.jsx
+T 22 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 23 source.js.jsx meta.import.js.jsx
+T 24 source.js.jsx meta.import.js.jsx string.quoted.single.js.jsx punctuation.definition.string.begin.js.jsx
+T 29 source.js.jsx meta.import.js.jsx string.quoted.single.js.jsx
+T 30 source.js.jsx meta.import.js.jsx string.quoted.single.js.jsx punctuation.definition.string.end.js.jsx
+T 31 source.js.jsx punctuation.terminator.statement.js.jsx
+L declare global {
+T 7 source.js.jsx storage.modifier.js.jsx
+T 8 source.js.jsx
+T 14 source.js.jsx variable.other.readwrite.js.jsx
+T 15 source.js.jsx
+T 16 source.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L   namespace FullCalendarVDom {
+T 2 source.js.jsx meta.block.js.jsx
+T 11 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx storage.type.namespace.js.jsx
+T 12 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx
+T 28 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx entity.name.type.module.js.jsx
+T 29 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx
+T 30 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L     export import VNode = react.ReactNode;
+T 4 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx
+T 10 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.import-equals.internal.js.jsx keyword.control.export.js.jsx
+T 11 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.import-equals.internal.js.jsx
+T 17 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.import-equals.internal.js.jsx keyword.control.import.js.jsx
+T 18 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.import-equals.internal.js.jsx
+T 23 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.import-equals.internal.js.jsx variable.other.readwrite.alias.js.jsx
+T 24 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.import-equals.internal.js.jsx
+T 25 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.import-equals.internal.js.jsx keyword.operator.assignment.js.jsx
+T 26 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.import-equals.internal.js.jsx
+T 31 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.import-equals.internal.js.jsx entity.name.type.module.js.jsx
+T 32 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.import-equals.internal.js.jsx punctuation.accessor.js.jsx
+T 41 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.import-equals.internal.js.jsx variable.other.readwrite.js.jsx
+T 42 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L   }
+T 2 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx
+T 3 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L }
+T 1 source.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L 
+L export default class FullCalendar {
+T 6 source.js.jsx meta.export.default.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.default.js.jsx
+T 14 source.js.jsx meta.export.default.js.jsx keyword.control.default.js.jsx
+T 15 source.js.jsx meta.export.default.js.jsx
+T 20 source.js.jsx meta.export.default.js.jsx meta.class.js.jsx storage.type.class.js.jsx
+T 21 source.js.jsx meta.export.default.js.jsx meta.class.js.jsx
+T 33 source.js.jsx meta.export.default.js.jsx meta.class.js.jsx entity.name.type.class.js.jsx
+T 34 source.js.jsx meta.export.default.js.jsx meta.class.js.jsx
+T 35 source.js.jsx meta.export.default.js.jsx meta.class.js.jsx punctuation.definition.block.js.jsx
+L }
+T 1 source.js.jsx meta.export.default.js.jsx meta.class.js.jsx punctuation.definition.block.js.jsx
+L 
+L // @Filename: /node_modules/@fullcalendar/core/index.d.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 57 source.js.jsx comment.line.double-slash.js.jsx
+L import * as preact from 'preact';
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 8 source.js.jsx meta.import.js.jsx constant.language.import-export-all.js.jsx
+T 9 source.js.jsx meta.import.js.jsx
+T 11 source.js.jsx meta.import.js.jsx keyword.control.as.js.jsx
+T 12 source.js.jsx meta.import.js.jsx
+T 18 source.js.jsx meta.import.js.jsx variable.other.readwrite.alias.js.jsx
+T 19 source.js.jsx meta.import.js.jsx
+T 23 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 24 source.js.jsx meta.import.js.jsx
+T 25 source.js.jsx meta.import.js.jsx string.quoted.single.js.jsx punctuation.definition.string.begin.js.jsx
+T 31 source.js.jsx meta.import.js.jsx string.quoted.single.js.jsx
+T 32 source.js.jsx meta.import.js.jsx string.quoted.single.js.jsx punctuation.definition.string.end.js.jsx
+T 33 source.js.jsx punctuation.terminator.statement.js.jsx
+L declare global {
+T 7 source.js.jsx storage.modifier.js.jsx
+T 8 source.js.jsx
+T 14 source.js.jsx variable.other.readwrite.js.jsx
+T 15 source.js.jsx
+T 16 source.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L   namespace FullCalendarVDom {
+T 2 source.js.jsx meta.block.js.jsx
+T 11 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx storage.type.namespace.js.jsx
+T 12 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx
+T 28 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx entity.name.type.module.js.jsx
+T 29 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx
+T 30 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L     type VNode = preact.VNode<any>;
+T 4 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx
+T 8 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 9 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx
+T 14 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 15 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx
+T 16 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 17 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx
+T 23 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx entity.name.type.module.js.jsx
+T 24 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx punctuation.accessor.js.jsx
+T 29 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx entity.name.type.js.jsx
+T 30 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 33 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx support.type.primitive.js.jsx
+T 34 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 35 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L   }
+T 2 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx
+T 3 source.js.jsx meta.block.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L }
+T 1 source.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L 
+L export type EventInput = any;
+T 6 source.js.jsx meta.type.declaration.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.type.declaration.js.jsx
+T 11 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 12 source.js.jsx meta.type.declaration.js.jsx
+T 22 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 23 source.js.jsx meta.type.declaration.js.jsx
+T 24 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 25 source.js.jsx meta.type.declaration.js.jsx
+T 28 source.js.jsx meta.type.declaration.js.jsx support.type.primitive.js.jsx
+T 29 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L // @Filename: /node_modules/@types/react/index.d.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 51 source.js.jsx comment.line.double-slash.js.jsx
+L export = React;
+T 6 source.js.jsx meta.export.default.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.default.js.jsx
+T 8 source.js.jsx meta.export.default.js.jsx keyword.operator.assignment.js.jsx
+T 9 source.js.jsx meta.export.default.js.jsx
+T 14 source.js.jsx meta.export.default.js.jsx variable.other.readwrite.js.jsx
+T 15 source.js.jsx punctuation.terminator.statement.js.jsx
+L export as namespace React;
+T 6 source.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx
+T 9 source.js.jsx keyword.control.as.js.jsx
+T 10 source.js.jsx
+T 19 source.js.jsx storage.type.namespace.js.jsx
+T 20 source.js.jsx
+T 25 source.js.jsx entity.name.type.module.js.jsx
+T 26 source.js.jsx punctuation.terminator.statement.js.jsx
+L declare namespace React {
+T 7 source.js.jsx meta.namespace.declaration.js.jsx storage.modifier.js.jsx
+T 8 source.js.jsx meta.namespace.declaration.js.jsx
+T 17 source.js.jsx meta.namespace.declaration.js.jsx storage.type.namespace.js.jsx
+T 18 source.js.jsx meta.namespace.declaration.js.jsx
+T 23 source.js.jsx meta.namespace.declaration.js.jsx entity.name.type.module.js.jsx
+T 24 source.js.jsx meta.namespace.declaration.js.jsx
+T 25 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L     type ReactNode = any;
+T 4 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx
+T 8 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 9 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx
+T 18 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 19 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx
+T 20 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 21 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx
+T 24 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.type.declaration.js.jsx support.type.primitive.js.jsx
+T 25 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L     function useMemo<T>(factory: () => T, deps: undefined): T;
+T 4 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx
+T 12 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 13 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx
+T 20 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 21 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 22 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+T 23 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 24 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 31 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx entity.name.function.js.jsx
+T 32 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 33 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 34 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 35 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 36 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 38 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 39 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx
+T 40 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx entity.name.type.js.jsx
+T 41 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.separator.parameter.js.jsx
+T 42 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx
+T 46 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx variable.parameter.js.jsx
+T 47 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 48 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 57 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx support.type.builtin.js.jsx
+T 58 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 59 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.return.type.js.jsx keyword.operator.type.annotation.js.jsx
+T 60 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.return.type.js.jsx
+T 61 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx meta.function.js.jsx meta.return.type.js.jsx entity.name.type.js.jsx
+T 62 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L }
+T 1 source.js.jsx meta.namespace.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L 
+L // @Filename: /node_modules/preact/index.d.ts
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 45 source.js.jsx comment.line.double-slash.js.jsx
+L export as namespace preact;
+T 6 source.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx
+T 9 source.js.jsx keyword.control.as.js.jsx
+T 10 source.js.jsx
+T 19 source.js.jsx storage.type.namespace.js.jsx
+T 20 source.js.jsx
+T 26 source.js.jsx entity.name.type.module.js.jsx
+T 27 source.js.jsx punctuation.terminator.statement.js.jsx
+L export interface VNode<P = {}> {}
+T 6 source.js.jsx meta.interface.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.interface.js.jsx
+T 16 source.js.jsx meta.interface.js.jsx storage.type.interface.js.jsx
+T 17 source.js.jsx meta.interface.js.jsx
+T 22 source.js.jsx meta.interface.js.jsx entity.name.type.interface.js.jsx
+T 23 source.js.jsx meta.interface.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 24 source.js.jsx meta.interface.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+T 25 source.js.jsx meta.interface.js.jsx meta.type.parameters.js.jsx
+T 26 source.js.jsx meta.interface.js.jsx meta.type.parameters.js.jsx keyword.operator.assignment.js.jsx
+T 27 source.js.jsx meta.interface.js.jsx meta.type.parameters.js.jsx
+T 28 source.js.jsx meta.interface.js.jsx meta.type.parameters.js.jsx meta.object.type.js.jsx punctuation.definition.block.js.jsx
+T 29 source.js.jsx meta.interface.js.jsx meta.type.parameters.js.jsx meta.object.type.js.jsx punctuation.definition.block.js.jsx
+T 30 source.js.jsx meta.interface.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 31 source.js.jsx meta.interface.js.jsx
+T 32 source.js.jsx meta.interface.js.jsx punctuation.definition.block.js.jsx
+T 33 source.js.jsx meta.interface.js.jsx punctuation.definition.block.js.jsx
+L 
+L // @Filename: /index.tsx
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 24 source.js.jsx comment.line.double-slash.js.jsx
+L import FullCalendar from "@fullcalendar/react";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 19 source.js.jsx meta.import.js.jsx variable.other.readwrite.alias.js.jsx
+T 20 source.js.jsx meta.import.js.jsx
+T 24 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 25 source.js.jsx meta.import.js.jsx
+T 26 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 45 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 46 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 47 source.js.jsx punctuation.terminator.statement.js.jsx
+L import { EventInput } from "@fullcalendar/core";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 8 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 19 source.js.jsx meta.import.js.jsx meta.block.js.jsx variable.other.readwrite.alias.js.jsx
+T 20 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 21 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 22 source.js.jsx meta.import.js.jsx
+T 26 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 27 source.js.jsx meta.import.js.jsx
+T 28 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 46 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 47 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 48 source.js.jsx punctuation.terminator.statement.js.jsx
+L 

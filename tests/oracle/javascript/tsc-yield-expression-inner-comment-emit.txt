@@ -1,0 +1,71 @@
+L // @target: es6
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 15 source.js comment.line.double-slash.js
+L function * foo2() {
+T 8 source.js meta.function.js storage.type.function.js
+T 9 source.js meta.function.js
+T 10 source.js meta.function.js keyword.generator.asterisk.js
+T 11 source.js meta.function.js
+T 15 source.js meta.function.js meta.definition.function.js entity.name.function.js
+T 16 source.js meta.function.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 17 source.js meta.function.js meta.parameters.js punctuation.definition.parameters.end.js
+T 18 source.js meta.function.js
+T 19 source.js meta.function.js meta.block.js punctuation.definition.block.js
+L     /*comment1*/ yield 1;
+T 4 source.js meta.function.js meta.block.js
+T 6 source.js meta.function.js meta.block.js comment.block.js punctuation.definition.comment.js
+T 14 source.js meta.function.js meta.block.js comment.block.js
+T 16 source.js meta.function.js meta.block.js comment.block.js punctuation.definition.comment.js
+T 17 source.js meta.function.js meta.block.js
+T 22 source.js meta.function.js meta.block.js keyword.control.flow.js
+T 23 source.js meta.function.js meta.block.js
+T 24 source.js meta.function.js meta.block.js constant.numeric.decimal.js
+T 25 source.js meta.function.js meta.block.js punctuation.terminator.statement.js
+L     yield /*comment2*/ 2;
+T 4 source.js meta.function.js meta.block.js
+T 9 source.js meta.function.js meta.block.js keyword.control.flow.js
+T 10 source.js meta.function.js meta.block.js
+T 12 source.js meta.function.js meta.block.js comment.block.js punctuation.definition.comment.js
+T 20 source.js meta.function.js meta.block.js comment.block.js
+T 22 source.js meta.function.js meta.block.js comment.block.js punctuation.definition.comment.js
+T 23 source.js meta.function.js meta.block.js
+T 24 source.js meta.function.js meta.block.js constant.numeric.decimal.js
+T 25 source.js meta.function.js meta.block.js punctuation.terminator.statement.js
+L     yield 3 /*comment3*/
+T 4 source.js meta.function.js meta.block.js
+T 9 source.js meta.function.js meta.block.js keyword.control.flow.js
+T 10 source.js meta.function.js meta.block.js
+T 11 source.js meta.function.js meta.block.js constant.numeric.decimal.js
+T 12 source.js meta.function.js meta.block.js
+T 14 source.js meta.function.js meta.block.js comment.block.js punctuation.definition.comment.js
+T 22 source.js meta.function.js meta.block.js comment.block.js
+T 24 source.js meta.function.js meta.block.js comment.block.js punctuation.definition.comment.js
+L     yield */*comment4*/ [4];
+T 4 source.js meta.function.js meta.block.js
+T 9 source.js meta.function.js meta.block.js keyword.control.flow.js
+T 10 source.js meta.function.js meta.block.js
+T 11 source.js meta.function.js meta.block.js keyword.generator.asterisk.js
+T 13 source.js meta.function.js meta.block.js comment.block.js punctuation.definition.comment.js
+T 21 source.js meta.function.js meta.block.js comment.block.js
+T 23 source.js meta.function.js meta.block.js comment.block.js punctuation.definition.comment.js
+T 24 source.js meta.function.js meta.block.js meta.array.literal.js
+T 25 source.js meta.function.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 26 source.js meta.function.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 27 source.js meta.function.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 28 source.js meta.function.js meta.block.js punctuation.terminator.statement.js
+L     yield /*comment5*/* [5];
+T 4 source.js meta.function.js meta.block.js
+T 9 source.js meta.function.js meta.block.js keyword.control.flow.js
+T 10 source.js meta.function.js meta.block.js
+T 12 source.js meta.function.js meta.block.js comment.block.js punctuation.definition.comment.js
+T 20 source.js meta.function.js meta.block.js comment.block.js
+T 22 source.js meta.function.js meta.block.js comment.block.js punctuation.definition.comment.js
+T 23 source.js meta.function.js meta.block.js keyword.generator.asterisk.js
+T 24 source.js meta.function.js meta.block.js meta.array.literal.js
+T 25 source.js meta.function.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 26 source.js meta.function.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 27 source.js meta.function.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 28 source.js meta.function.js meta.block.js punctuation.terminator.statement.js
+L }
+T 1 source.js meta.function.js meta.block.js punctuation.definition.block.js
+L 

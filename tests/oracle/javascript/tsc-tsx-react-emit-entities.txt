@@ -1,0 +1,208 @@
+L //@filename: file.tsx
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 21 source.js comment.line.double-slash.js
+L //@jsx: react
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 13 source.js comment.line.double-slash.js
+L declare module JSX {
+T 7 source.js meta.namespace.declaration.js storage.modifier.js
+T 8 source.js meta.namespace.declaration.js
+T 14 source.js meta.namespace.declaration.js storage.type.namespace.js
+T 15 source.js meta.namespace.declaration.js
+T 18 source.js meta.namespace.declaration.js entity.name.type.module.js
+T 19 source.js meta.namespace.declaration.js
+T 20 source.js meta.namespace.declaration.js meta.block.js punctuation.definition.block.js
+L 	interface Element { }
+T 1 source.js meta.namespace.declaration.js meta.block.js
+T 10 source.js meta.namespace.declaration.js meta.block.js meta.interface.js storage.type.interface.js
+T 11 source.js meta.namespace.declaration.js meta.block.js meta.interface.js
+T 18 source.js meta.namespace.declaration.js meta.block.js meta.interface.js entity.name.type.interface.js
+T 19 source.js meta.namespace.declaration.js meta.block.js meta.interface.js
+T 20 source.js meta.namespace.declaration.js meta.block.js meta.interface.js punctuation.definition.block.js
+T 21 source.js meta.namespace.declaration.js meta.block.js meta.interface.js
+T 22 source.js meta.namespace.declaration.js meta.block.js meta.interface.js punctuation.definition.block.js
+L 	interface IntrinsicElements {
+T 1 source.js meta.namespace.declaration.js meta.block.js
+T 10 source.js meta.namespace.declaration.js meta.block.js meta.interface.js storage.type.interface.js
+T 11 source.js meta.namespace.declaration.js meta.block.js meta.interface.js
+T 28 source.js meta.namespace.declaration.js meta.block.js meta.interface.js entity.name.type.interface.js
+T 29 source.js meta.namespace.declaration.js meta.block.js meta.interface.js
+T 30 source.js meta.namespace.declaration.js meta.block.js meta.interface.js punctuation.definition.block.js
+L 		[s: string]: any;
+T 2 source.js meta.namespace.declaration.js meta.block.js meta.interface.js meta.indexer.declaration.js
+T 3 source.js meta.namespace.declaration.js meta.block.js meta.interface.js meta.indexer.declaration.js meta.brace.square.js
+T 4 source.js meta.namespace.declaration.js meta.block.js meta.interface.js meta.indexer.declaration.js variable.parameter.js
+T 5 source.js meta.namespace.declaration.js meta.block.js meta.interface.js meta.indexer.declaration.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 6 source.js meta.namespace.declaration.js meta.block.js meta.interface.js meta.indexer.declaration.js meta.type.annotation.js
+T 12 source.js meta.namespace.declaration.js meta.block.js meta.interface.js meta.indexer.declaration.js meta.type.annotation.js support.type.primitive.js
+T 13 source.js meta.namespace.declaration.js meta.block.js meta.interface.js meta.indexer.declaration.js meta.brace.square.js
+T 14 source.js meta.namespace.declaration.js meta.block.js meta.interface.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 15 source.js meta.namespace.declaration.js meta.block.js meta.interface.js meta.type.annotation.js
+T 18 source.js meta.namespace.declaration.js meta.block.js meta.interface.js meta.type.annotation.js support.type.primitive.js
+T 19 source.js meta.namespace.declaration.js meta.block.js meta.interface.js punctuation.terminator.statement.js
+L 	}
+T 1 source.js meta.namespace.declaration.js meta.block.js meta.interface.js
+T 2 source.js meta.namespace.declaration.js meta.block.js meta.interface.js punctuation.definition.block.js
+L }
+T 1 source.js meta.namespace.declaration.js meta.block.js punctuation.definition.block.js
+L declare var React: any;
+T 7 source.js meta.var.expr.js storage.modifier.js
+T 8 source.js meta.var.expr.js
+T 11 source.js meta.var.expr.js storage.type.js
+T 12 source.js meta.var.expr.js
+T 17 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 18 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 19 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 22 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js support.type.primitive.js
+T 23 source.js punctuation.terminator.statement.js
+L 
+L <div>Dot goes here: &middot; &notAnEntity; </div>;
+T 1 source.js meta.tag.without-attributes.js punctuation.definition.tag.begin.js
+T 4 source.js meta.tag.without-attributes.js entity.name.tag.js
+T 5 source.js meta.tag.without-attributes.js punctuation.definition.tag.end.js
+T 20 source.js meta.tag.without-attributes.js meta.jsx.children.js
+T 21 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 27 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js
+T 28 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 29 source.js meta.tag.without-attributes.js meta.jsx.children.js
+T 30 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 41 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js
+T 42 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 43 source.js meta.tag.without-attributes.js meta.jsx.children.js
+T 45 source.js meta.tag.without-attributes.js punctuation.definition.tag.begin.js
+T 48 source.js meta.tag.without-attributes.js entity.name.tag.js
+T 49 source.js meta.tag.without-attributes.js punctuation.definition.tag.end.js
+T 50 source.js punctuation.terminator.statement.js
+L <div>Be careful of &quot;-ed strings!</div>;
+T 1 source.js meta.tag.without-attributes.js punctuation.definition.tag.begin.js
+T 4 source.js meta.tag.without-attributes.js entity.name.tag.js
+T 5 source.js meta.tag.without-attributes.js punctuation.definition.tag.end.js
+T 19 source.js meta.tag.without-attributes.js meta.jsx.children.js
+T 20 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 24 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js
+T 25 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 37 source.js meta.tag.without-attributes.js meta.jsx.children.js
+T 39 source.js meta.tag.without-attributes.js punctuation.definition.tag.begin.js
+T 42 source.js meta.tag.without-attributes.js entity.name.tag.js
+T 43 source.js meta.tag.without-attributes.js punctuation.definition.tag.end.js
+T 44 source.js punctuation.terminator.statement.js
+L <div>&#0123;&#123;braces&#x7d;&#x7D;</div>;
+T 1 source.js meta.tag.without-attributes.js punctuation.definition.tag.begin.js
+T 4 source.js meta.tag.without-attributes.js entity.name.tag.js
+T 5 source.js meta.tag.without-attributes.js punctuation.definition.tag.end.js
+T 6 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 11 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js
+T 12 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 13 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 17 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js
+T 18 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 24 source.js meta.tag.without-attributes.js meta.jsx.children.js
+T 25 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 29 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js
+T 30 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 31 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 35 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js
+T 36 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 38 source.js meta.tag.without-attributes.js punctuation.definition.tag.begin.js
+T 41 source.js meta.tag.without-attributes.js entity.name.tag.js
+T 42 source.js meta.tag.without-attributes.js punctuation.definition.tag.end.js
+T 43 source.js punctuation.terminator.statement.js
+L // Escapes do nothing
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 21 source.js comment.line.double-slash.js
+L <div>\n</div>;
+T 1 source.js meta.tag.without-attributes.js punctuation.definition.tag.begin.js
+T 4 source.js meta.tag.without-attributes.js entity.name.tag.js
+T 5 source.js meta.tag.without-attributes.js punctuation.definition.tag.end.js
+T 7 source.js meta.tag.without-attributes.js meta.jsx.children.js
+T 9 source.js meta.tag.without-attributes.js punctuation.definition.tag.begin.js
+T 12 source.js meta.tag.without-attributes.js entity.name.tag.js
+T 13 source.js meta.tag.without-attributes.js punctuation.definition.tag.end.js
+T 14 source.js punctuation.terminator.statement.js
+L 
+L // Also works in string literal attributes
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 42 source.js comment.line.double-slash.js
+L <div attr="&#0123;&hellip;&#x7D;\"></div>;
+T 1 source.js meta.tag.js punctuation.definition.tag.begin.js
+T 4 source.js meta.tag.js entity.name.tag.js
+T 5 source.js meta.tag.js meta.tag.attributes.js
+T 9 source.js meta.tag.js meta.tag.attributes.js entity.other.attribute-name.js
+T 10 source.js meta.tag.js meta.tag.attributes.js keyword.operator.assignment.js
+T 11 source.js meta.tag.js meta.tag.attributes.js string.quoted.double.js punctuation.definition.string.begin.js
+T 12 source.js meta.tag.js meta.tag.attributes.js string.quoted.double.js constant.character.entity.js punctuation.definition.entity.js
+T 17 source.js meta.tag.js meta.tag.attributes.js string.quoted.double.js constant.character.entity.js
+T 18 source.js meta.tag.js meta.tag.attributes.js string.quoted.double.js constant.character.entity.js punctuation.definition.entity.js
+T 19 source.js meta.tag.js meta.tag.attributes.js string.quoted.double.js constant.character.entity.js punctuation.definition.entity.js
+T 25 source.js meta.tag.js meta.tag.attributes.js string.quoted.double.js constant.character.entity.js
+T 26 source.js meta.tag.js meta.tag.attributes.js string.quoted.double.js constant.character.entity.js punctuation.definition.entity.js
+T 27 source.js meta.tag.js meta.tag.attributes.js string.quoted.double.js constant.character.entity.js punctuation.definition.entity.js
+T 31 source.js meta.tag.js meta.tag.attributes.js string.quoted.double.js constant.character.entity.js
+T 32 source.js meta.tag.js meta.tag.attributes.js string.quoted.double.js constant.character.entity.js punctuation.definition.entity.js
+T 33 source.js meta.tag.js meta.tag.attributes.js string.quoted.double.js
+T 34 source.js meta.tag.js meta.tag.attributes.js string.quoted.double.js punctuation.definition.string.end.js
+T 35 source.js meta.tag.js punctuation.definition.tag.end.js
+T 37 source.js meta.tag.js punctuation.definition.tag.begin.js
+T 40 source.js meta.tag.js entity.name.tag.js
+T 41 source.js meta.tag.js punctuation.definition.tag.end.js
+T 42 source.js punctuation.terminator.statement.js
+L // Does not happen for a string literal that happens to be inside an attribute (and escapes then work)
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 102 source.js comment.line.double-slash.js
+L <div attr={"&#0123;&hellip;&#x7D;\""}></div>;
+T 1 source.js meta.tag.js punctuation.definition.tag.begin.js
+T 4 source.js meta.tag.js entity.name.tag.js
+T 5 source.js meta.tag.js meta.tag.attributes.js
+T 9 source.js meta.tag.js meta.tag.attributes.js entity.other.attribute-name.js
+T 10 source.js meta.tag.js meta.tag.attributes.js keyword.operator.assignment.js
+T 11 source.js meta.tag.js meta.tag.attributes.js punctuation.section.embedded.begin.js
+T 12 source.js meta.tag.js meta.tag.attributes.js meta.embedded.expression.js string.quoted.double.js punctuation.definition.string.begin.js
+T 33 source.js meta.tag.js meta.tag.attributes.js meta.embedded.expression.js string.quoted.double.js
+T 35 source.js meta.tag.js meta.tag.attributes.js meta.embedded.expression.js string.quoted.double.js constant.character.escape.js
+T 36 source.js meta.tag.js meta.tag.attributes.js meta.embedded.expression.js string.quoted.double.js punctuation.definition.string.end.js
+T 37 source.js meta.tag.js meta.tag.attributes.js punctuation.section.embedded.end.js
+T 38 source.js meta.tag.js punctuation.definition.tag.end.js
+T 40 source.js meta.tag.js punctuation.definition.tag.begin.js
+T 43 source.js meta.tag.js entity.name.tag.js
+T 44 source.js meta.tag.js punctuation.definition.tag.end.js
+T 45 source.js punctuation.terminator.statement.js
+L // Preserves single quotes
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 26 source.js comment.line.double-slash.js
+L <div attr='"'></div>;
+T 1 source.js meta.tag.js punctuation.definition.tag.begin.js
+T 4 source.js meta.tag.js entity.name.tag.js
+T 5 source.js meta.tag.js meta.tag.attributes.js
+T 9 source.js meta.tag.js meta.tag.attributes.js entity.other.attribute-name.js
+T 10 source.js meta.tag.js meta.tag.attributes.js keyword.operator.assignment.js
+T 11 source.js meta.tag.js meta.tag.attributes.js string.quoted.single.js punctuation.definition.string.begin.js
+T 12 source.js meta.tag.js meta.tag.attributes.js string.quoted.single.js
+T 13 source.js meta.tag.js meta.tag.attributes.js string.quoted.single.js punctuation.definition.string.end.js
+T 14 source.js meta.tag.js punctuation.definition.tag.end.js
+T 16 source.js meta.tag.js punctuation.definition.tag.begin.js
+T 19 source.js meta.tag.js entity.name.tag.js
+T 20 source.js meta.tag.js punctuation.definition.tag.end.js
+T 21 source.js punctuation.terminator.statement.js
+L // https://github.com/microsoft/TypeScript/issues/35732
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 55 source.js comment.line.double-slash.js
+L <div>&#x1F408;&#x1F415;&#128007;&#128017;</div>;
+T 1 source.js meta.tag.without-attributes.js punctuation.definition.tag.begin.js
+T 4 source.js meta.tag.without-attributes.js entity.name.tag.js
+T 5 source.js meta.tag.without-attributes.js punctuation.definition.tag.end.js
+T 6 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 13 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js
+T 14 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 15 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 22 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js
+T 23 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 24 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 31 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js
+T 32 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 33 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 40 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js
+T 41 source.js meta.tag.without-attributes.js meta.jsx.children.js constant.character.entity.js punctuation.definition.entity.js
+T 43 source.js meta.tag.without-attributes.js punctuation.definition.tag.begin.js
+T 46 source.js meta.tag.without-attributes.js entity.name.tag.js
+T 47 source.js meta.tag.without-attributes.js punctuation.definition.tag.end.js
+T 48 source.js punctuation.terminator.statement.js

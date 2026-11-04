@@ -1,0 +1,35 @@
+L // @target: esnext
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 18 source.js comment.line.double-slash.js
+L // @module: esnext
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 18 source.js comment.line.double-slash.js
+L // @lib: esnext
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 15 source.js comment.line.double-slash.js
+L // @noTypesAndSymbols: true
+T 2 source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 27 source.js comment.line.double-slash.js
+L 
+L export await using x = null;
+T 6 source.js meta.var.expr.js keyword.control.export.js
+T 7 source.js meta.var.expr.js
+T 18 source.js meta.var.expr.js storage.type.js
+T 19 source.js meta.var.expr.js
+T 20 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 21 source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 22 source.js meta.var.expr.js keyword.operator.assignment.js
+T 23 source.js meta.var.expr.js
+T 27 source.js meta.var.expr.js constant.language.null.js
+T 28 source.js punctuation.terminator.statement.js
+L declare await using y: null;
+T 7 source.js meta.var.expr.js storage.modifier.js
+T 8 source.js meta.var.expr.js
+T 19 source.js meta.var.expr.js storage.type.js
+T 20 source.js meta.var.expr.js
+T 21 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 22 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 23 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js
+T 27 source.js meta.var.expr.js meta.var-single-variable.expr.js meta.type.annotation.js support.type.builtin.js
+T 28 source.js punctuation.terminator.statement.js
+L 

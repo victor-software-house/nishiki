@@ -1,0 +1,194 @@
+L // @strict: true
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 16 source.tsx comment.line.double-slash.tsx
+L // @checkJs: true
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 17 source.tsx comment.line.double-slash.tsx
+L // @noEmit: true
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 16 source.tsx comment.line.double-slash.tsx
+L 
+L // @filename: index.js
+T 2 source.tsx comment.line.double-slash.tsx punctuation.definition.comment.tsx
+T 22 source.tsx comment.line.double-slash.tsx
+L 
+L /**
+T 3 source.tsx comment.block.documentation.tsx punctuation.definition.comment.tsx
+L  * @typedef {{ [K in keyof B]: { fn: (a: A, b: B) => void; thing: B[K]; } }} Funcs
+T 3 source.tsx comment.block.documentation.tsx
+T 4 source.tsx comment.block.documentation.tsx storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 11 source.tsx comment.block.documentation.tsx storage.type.class.jsdoc
+T 12 source.tsx comment.block.documentation.tsx
+T 13 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.begin.jsdoc
+T 14 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 15 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 16 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 28 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 29 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 31 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 32 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 67 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 68 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 69 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 70 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 72 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 73 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 74 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 75 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 76 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.end.jsdoc
+T 77 source.tsx comment.block.documentation.tsx
+T 82 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+L  * @template A
+T 3 source.tsx comment.block.documentation.tsx
+T 4 source.tsx comment.block.documentation.tsx storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 12 source.tsx comment.block.documentation.tsx storage.type.class.jsdoc
+T 13 source.tsx comment.block.documentation.tsx
+T 14 source.tsx comment.block.documentation.tsx variable.other.jsdoc
+L  * @template {Record<string, unknown>} B
+T 3 source.tsx comment.block.documentation.tsx
+T 4 source.tsx comment.block.documentation.tsx storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 12 source.tsx comment.block.documentation.tsx storage.type.class.jsdoc
+T 13 source.tsx comment.block.documentation.tsx
+T 14 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.begin.jsdoc
+T 37 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 38 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.end.jsdoc
+T 39 source.tsx comment.block.documentation.tsx
+T 40 source.tsx comment.block.documentation.tsx variable.other.jsdoc
+L  */
+T 1 source.tsx comment.block.documentation.tsx
+T 3 source.tsx comment.block.documentation.tsx punctuation.definition.comment.tsx
+L 
+L /**
+T 3 source.tsx comment.block.documentation.tsx punctuation.definition.comment.tsx
+L  * @template A
+T 3 source.tsx comment.block.documentation.tsx
+T 4 source.tsx comment.block.documentation.tsx storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 12 source.tsx comment.block.documentation.tsx storage.type.class.jsdoc
+T 13 source.tsx comment.block.documentation.tsx
+T 14 source.tsx comment.block.documentation.tsx variable.other.jsdoc
+L  * @template {Record<string, unknown>} B
+T 3 source.tsx comment.block.documentation.tsx
+T 4 source.tsx comment.block.documentation.tsx storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 12 source.tsx comment.block.documentation.tsx storage.type.class.jsdoc
+T 13 source.tsx comment.block.documentation.tsx
+T 14 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.begin.jsdoc
+T 37 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 38 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.end.jsdoc
+T 39 source.tsx comment.block.documentation.tsx
+T 40 source.tsx comment.block.documentation.tsx variable.other.jsdoc
+L  * @param {Funcs<A, B>} fns
+T 3 source.tsx comment.block.documentation.tsx
+T 4 source.tsx comment.block.documentation.tsx storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 9 source.tsx comment.block.documentation.tsx storage.type.class.jsdoc
+T 10 source.tsx comment.block.documentation.tsx
+T 11 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.begin.jsdoc
+T 22 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 23 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.end.jsdoc
+T 24 source.tsx comment.block.documentation.tsx
+T 27 source.tsx comment.block.documentation.tsx variable.other.jsdoc
+L  * @returns {[A, B]}
+T 3 source.tsx comment.block.documentation.tsx
+T 4 source.tsx comment.block.documentation.tsx storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 11 source.tsx comment.block.documentation.tsx storage.type.class.jsdoc
+T 12 source.tsx comment.block.documentation.tsx
+T 13 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.begin.jsdoc
+T 14 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 18 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 19 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 20 source.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.end.jsdoc
+L  */
+T 1 source.tsx comment.block.documentation.tsx
+T 3 source.tsx comment.block.documentation.tsx punctuation.definition.comment.tsx
+L function foo(fns) {
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 12 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 13 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 16 source.tsx meta.function.tsx meta.parameters.tsx variable.parameter.tsx
+T 17 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 18 source.tsx meta.function.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return /** @type {any} */ (null);
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx comment.block.documentation.tsx punctuation.definition.comment.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx comment.block.documentation.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx comment.block.documentation.tsx storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 18 source.tsx meta.function.tsx meta.block.tsx comment.block.documentation.tsx storage.type.class.jsdoc
+T 19 source.tsx meta.function.tsx meta.block.tsx comment.block.documentation.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.begin.jsdoc
+T 23 source.tsx meta.function.tsx meta.block.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 24 source.tsx meta.function.tsx meta.block.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.end.jsdoc
+T 25 source.tsx meta.function.tsx meta.block.tsx comment.block.documentation.tsx
+T 27 source.tsx meta.function.tsx meta.block.tsx comment.block.documentation.tsx punctuation.definition.comment.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 33 source.tsx meta.function.tsx meta.block.tsx constant.language.null.tsx
+T 34 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 35 source.tsx meta.function.tsx meta.block.tsx punctuation.terminator.statement.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L const result = foo({
+T 5 source.tsx meta.var.expr.tsx storage.type.tsx
+T 6 source.tsx meta.var.expr.tsx
+T 12 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.constant.tsx
+T 13 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 14 source.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 15 source.tsx meta.var.expr.tsx
+T 18 source.tsx meta.var.expr.tsx meta.function-call.tsx entity.name.function.tsx
+T 19 source.tsx meta.var.expr.tsx meta.brace.round.tsx
+T 20 source.tsx meta.var.expr.tsx meta.objectliteral.tsx punctuation.definition.block.tsx
+L   bar: {
+T 2 source.tsx meta.var.expr.tsx meta.objectliteral.tsx
+T 5 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.object-literal.key.tsx
+T 6 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.object-literal.key.tsx punctuation.separator.key-value.tsx
+T 7 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx
+T 8 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx punctuation.definition.block.tsx
+L     fn:
+T 4 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx
+T 6 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx meta.object-literal.key.tsx
+T 7 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx meta.object-literal.key.tsx punctuation.separator.key-value.tsx
+L       /** @param {string} a */
+T 6 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx
+T 9 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx comment.block.documentation.tsx punctuation.definition.comment.tsx
+T 10 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx comment.block.documentation.tsx
+T 11 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx comment.block.documentation.tsx storage.type.class.jsdoc punctuation.definition.block.tag.jsdoc
+T 16 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx comment.block.documentation.tsx storage.type.class.jsdoc
+T 17 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx comment.block.documentation.tsx
+T 18 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.begin.jsdoc
+T 24 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc
+T 25 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx comment.block.documentation.tsx entity.name.type.instance.jsdoc punctuation.definition.bracket.curly.end.jsdoc
+T 26 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx comment.block.documentation.tsx
+T 27 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx comment.block.documentation.tsx variable.other.jsdoc
+T 28 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx comment.block.documentation.tsx
+T 30 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx comment.block.documentation.tsx punctuation.definition.comment.tsx
+L       (a) => {},
+T 6 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx meta.arrow.tsx
+T 7 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx meta.arrow.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 8 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx meta.arrow.tsx meta.parameters.tsx variable.parameter.tsx
+T 9 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx meta.arrow.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 10 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx meta.arrow.tsx
+T 12 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx meta.arrow.tsx storage.type.function.arrow.tsx
+T 13 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx meta.arrow.tsx
+T 14 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx meta.arrow.tsx meta.block.tsx punctuation.definition.block.tsx
+T 15 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx meta.arrow.tsx meta.block.tsx punctuation.definition.block.tsx
+T 16 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx punctuation.separator.comma.tsx
+L     thing: "asd",
+T 4 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx
+T 9 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx meta.object-literal.key.tsx
+T 10 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx meta.object-literal.key.tsx punctuation.separator.key-value.tsx
+T 11 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx
+T 12 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 15 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx string.quoted.double.tsx
+T 16 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx meta.object.member.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 17 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx punctuation.separator.comma.tsx
+L   },
+T 2 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx
+T 3 source.tsx meta.var.expr.tsx meta.objectliteral.tsx meta.object.member.tsx meta.objectliteral.tsx punctuation.definition.block.tsx
+T 4 source.tsx meta.var.expr.tsx meta.objectliteral.tsx punctuation.separator.comma.tsx
+L });
+T 1 source.tsx meta.var.expr.tsx meta.objectliteral.tsx punctuation.definition.block.tsx
+T 2 source.tsx meta.var.expr.tsx meta.brace.round.tsx
+T 3 source.tsx punctuation.terminator.statement.tsx
