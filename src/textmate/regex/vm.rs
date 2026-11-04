@@ -181,7 +181,8 @@ impl Machine<'_> {
                 | Inst::Mark(_)
                 | Inst::Progress { .. }
                 | Inst::Call { .. }
-                | Inst::GroupEnd { .. } => self.control(inst, pc, pos),
+                | Inst::GroupEnd { .. }
+                | Inst::ClassOr { .. } => self.control(inst, pc, pos),
             };
             match flow {
                 Flow::Go(next_pc, next_pos) => {
@@ -248,7 +249,8 @@ impl Machine<'_> {
             | Inst::BodyEnd
             | Inst::Call { .. }
             | Inst::GroupEnd { .. }
-            | Inst::Match => Flow::Fail,
+            | Inst::Match
+            | Inst::ClassOr { .. } => Flow::Fail,
         }
     }
 
@@ -265,6 +267,33 @@ impl Machine<'_> {
                     pos: as_u32(pos),
                 });
                 Flow::Go(as_usize(*primary), pos)
+            }
+            Inst::ClassOr {
+                class,
+                secondary,
+                lead,
+            } => {
+                let decoded = decode(self.text, pos);
+                let byte = self.text.get(pos).copied();
+                let next = || decoded.and_then(|(_, width)| self.text.get(pos + width).copied());
+                if self
+                    .program
+                    .leads
+                    .get(as_usize(*lead))
+                    .is_some_and(|lead| lead.admits(byte, next))
+                {
+                    self.scratch.stack.push(Entry::Branch {
+                        pc: *secondary,
+                        pos: as_u32(pos),
+                    });
+                }
+                let table = self.program.classes.get(as_usize(*class));
+                match decoded {
+                    Some((code, width)) if table.is_some_and(|t| t.matches(code)) => {
+                        Flow::Go(pc + 1, pos + width)
+                    }
+                    _ => Flow::Fail,
+                }
             }
             Inst::Jump(target) => Flow::Go(as_usize(*target), pos),
             Inst::Save(slot) => {
@@ -390,7 +419,8 @@ impl Machine<'_> {
             | Inst::Progress { .. }
             | Inst::Backref { .. }
             | Inst::Call { .. }
-            | Inst::GroupEnd { .. } => Flow::Fail,
+            | Inst::GroupEnd { .. }
+            | Inst::ClassOr { .. } => Flow::Fail,
         }
     }
 

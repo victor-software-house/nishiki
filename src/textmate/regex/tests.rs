@@ -1,3 +1,4 @@
+use super::folds::UNFOLD;
 use super::{Context, Regex, Scratch};
 
 /// The whole match and the groups of the first match in `text`, from `from`,
@@ -267,9 +268,10 @@ fn differential_against_oniguruma() {
     eprintln!("{} cases differ", differ.len());
 }
 
-/// Under `(?i)` a character matches the characters its simple case folds join
-/// it to, in and out of classes and back-references, as Oniguruma decides
-/// (tests/engine/case-folds, written by `oracle/case-fold-probe.ts`).
+/// Under `(?i)` a character matches the characters and strings its case folds
+/// join it to, in literal runs, classes, lookbehinds and back-references, as
+/// Oniguruma decides (tests/engine/case-folds, written by
+/// `oracle/case-fold-probe.ts`).
 #[test]
 fn case_insensitive_matching_answers_as_oniguruma() {
     let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/engine/case-folds");
@@ -280,6 +282,38 @@ fn case_insensitive_matching_answers_as_oniguruma() {
         differ.len(),
         differ.join("\n")
     );
+}
+
+/// The guards on a fold's branches never turn a fold string away: for every
+/// fold of more than one character, such as `ß` and `ss` or `ﬁ` and `fi`,
+/// the character that folds to it matches the string as a literal and as a
+/// class, and a class that also holds `\w`, whose first try takes only the
+/// string's first character, matches it through its fold strings.
+#[test]
+fn every_fold_string_passes_the_guards() {
+    for &(fold, chars) in UNFOLD {
+        let canonical: String = fold
+            .iter()
+            .filter_map(|&code| char::from_u32(code))
+            .collect();
+        let lower: String = canonical.chars().flat_map(char::to_lowercase).collect();
+        for c in chars.iter().filter_map(|&code| char::from_u32(code)) {
+            for text in [&canonical, &lower] {
+                let whole = Some((0, text.len()));
+                assert_eq!(find(&format!("(?i){c}"), text), whole, "{c:?} on {text:?}");
+                assert_eq!(
+                    find(&format!("(?i)[{c}]"), text),
+                    whole,
+                    "[{c:?}] on {text:?}"
+                );
+                assert_eq!(
+                    find(&format!("(?i)[\\w{c}]x"), &format!("{text}x")),
+                    Some((0, text.len() + 1)),
+                    "[\\w{c:?}]x on {text:?}x"
+                );
+            }
+        }
+    }
 }
 
 /// Every case of a directory of recorded answers whose match differs from

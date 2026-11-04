@@ -3,7 +3,8 @@
 use std::collections::HashMap;
 
 use super::ast::{
-    Anchor, Case, Class, Item, Kind, Node, Polarity, Prop, builtin, insensitive_char, prop_named,
+    Anchor, Case, Class, Item, Kind, Node, Polarity, Prop, builtin, insensitive_run, prop_named,
+    prune_repeated_folds,
 };
 
 /// A pattern that does not compile: what is wrong with it.
@@ -47,13 +48,15 @@ pub(super) fn parse(pattern: &str, dialect: Dialect) -> Result<Parsed> {
             extended: false,
         },
         isolated: false,
+        lookbehind: false,
         groups: 0,
         names: HashMap::new(),
     };
-    let root = parser.alternation()?;
+    let mut root = parser.alternation()?;
     if parser.at != parser.chars.len() {
         return err("unbalanced parenthesis");
     }
+    prune_repeated_folds(&mut root);
     Ok(Parsed {
         root,
         groups: parser.groups,
@@ -76,8 +79,17 @@ struct Parser {
     flags: Flags,
     /// Set when the atom just read was `(?i)` or another group of flags only.
     isolated: bool,
+    /// Set inside a lookbehind, where `(?i)` folds only one character to one.
+    lookbehind: bool,
     groups: usize,
     names: HashMap<String, usize>,
+}
+
+/// What `atom` reads: a literal character under `(?i)`, which joins the run
+/// of literals around it, or any other node.
+enum Atom {
+    Folded(char),
+    Node(Node),
 }
 
 impl Parser {
@@ -114,8 +126,12 @@ impl Parser {
 
     /// Flags with no colon hold to the end of the enclosing group, across its
     /// alternatives: `a(?i)b|c` is `a(?i:b|c)`.
+    ///
+    /// Literal characters under `(?i)` gather into a run that folds as a
+    /// whole when anything else comes; a quantified character folds alone.
     fn sequence(&mut self) -> Result<Node> {
         let mut items = Vec::new();
+        let mut run = Vec::new();
         while let Some(c) = self.peek() {
             if c == '|' || c == ')' {
                 break;
@@ -137,13 +153,30 @@ impl Parser {
             }
             let Some(atom) = self.atom()? else {
                 if std::mem::take(&mut self.isolated) {
+                    items.extend(insensitive_run(&std::mem::take(&mut run), self.lookbehind));
                     items.push(self.alternation()?);
                     break;
                 }
                 continue;
             };
-            items.push(self.quantified(atom)?);
+            match atom {
+                Atom::Folded(c) if !self.quantifier_follows() => run.push(c),
+                Atom::Folded(c) => {
+                    items.extend(insensitive_run(&std::mem::take(&mut run), self.lookbehind));
+                    let single = insensitive_run(&[c], self.lookbehind);
+                    let node = match <[Node; 1]>::try_from(single) {
+                        Ok([node]) => node,
+                        Err(nodes) => Node::Seq(nodes),
+                    };
+                    items.push(self.quantified(node)?);
+                }
+                Atom::Node(node) => {
+                    items.extend(insensitive_run(&std::mem::take(&mut run), self.lookbehind));
+                    items.push(self.quantified(node)?);
+                }
+            }
         }
+        items.extend(insensitive_run(&run, self.lookbehind));
         Ok(match items.len() {
             0 => Node::Empty,
             1 => items.pop().unwrap_or(Node::Empty),
@@ -224,38 +257,54 @@ impl Parser {
         None
     }
 
-    /// A character, as the flags read it.
-    fn char_node(&self, c: char) -> Node {
+    /// A literal character, as the flags read it: under `(?i)` it joins the
+    /// run of literals around it, which folds as a whole.
+    fn char_atom(&self, c: char) -> Atom {
         match self.flags.case {
-            Case::Sensitive => Node::Char(c),
-            Case::Insensitive => insensitive_char(c),
+            Case::Sensitive => Atom::Node(Node::Char(c)),
+            Case::Insensitive => Atom::Folded(c),
         }
     }
 
     /// A bracketed class, as the flags read it.
     fn class_node(&self, class: Class) -> Node {
-        Node::Class(Box::new(match self.flags.case {
-            Case::Sensitive => class,
-            Case::Insensitive => class.insensitive(),
-        }))
+        match self.flags.case {
+            Case::Sensitive => Node::Class(Box::new(class)),
+            Case::Insensitive => class.insensitive_node(),
+        }
     }
 
-    fn atom(&mut self) -> Result<Option<Node>> {
+    /// Whether a quantifier comes next, which takes only the character before
+    /// it out of a run of literals.
+    fn quantifier_follows(&mut self) -> bool {
+        match self.peek() {
+            Some('*' | '+' | '?') => true,
+            Some('{') => {
+                let save = self.at;
+                let found = self.braces().is_some();
+                self.at = save;
+                found
+            }
+            _ => false,
+        }
+    }
+
+    fn atom(&mut self) -> Result<Option<Atom>> {
         let Some(c) = self.peek() else {
             return Ok(None);
         };
         self.at += 1;
         Ok(Some(match c {
-            '(' => return self.group(),
+            '(' => return Ok(self.group()?.map(Atom::Node)),
             '[' => {
                 let class = self.class()?;
-                self.class_node(class)
+                Atom::Node(self.class_node(class))
             }
-            '.' => Node::Any(self.flags.dotall),
-            '^' => Node::Anchor(Anchor::Caret),
-            '$' => Node::Anchor(Anchor::Dollar),
+            '.' => Atom::Node(Node::Any(self.flags.dotall)),
+            '^' => Atom::Node(Node::Anchor(Anchor::Caret)),
+            '$' => Atom::Node(Node::Anchor(Anchor::Dollar)),
             '\\' => self.escape()?,
-            c => self.char_node(c),
+            c => self.char_atom(c),
         }))
     }
 
@@ -309,7 +358,10 @@ impl Parser {
                 Some('<') if matches!(self.chars.get(self.at + 1), Some('=' | '!')) => {
                     let negative = self.chars[self.at + 1] == '!';
                     self.at += 2;
-                    let inner = self.alternation()?;
+                    let outer_lookbehind = std::mem::replace(&mut self.lookbehind, true);
+                    let inner = self.alternation();
+                    self.lookbehind = outer_lookbehind;
+                    let inner = inner?;
                     self.expect_close()?;
                     Node::Look {
                         ahead: false,
@@ -394,7 +446,7 @@ impl Parser {
     ///
     /// A property escape outside brackets keeps its case under `(?i)`, as in
     /// Oniguruma: `(?i)\p{Lu}` refuses `a`, and `(?i)[\p{Lu}]` takes it.
-    fn escape(&mut self) -> Result<Node> {
+    fn escape(&mut self) -> Result<Atom> {
         let Some(c) = self.peek() else {
             return err("trailing backslash");
         };
@@ -406,7 +458,7 @@ impl Parser {
                 parts: vec![vec![Item::Prop(prop, polarity)]],
             }))
         };
-        Ok(match c {
+        Ok(Atom::Node(match c {
             'd' => prop_class(builtin("digit"), Polarity::Positive),
             'D' => prop_class(builtin("digit"), Polarity::Negated),
             'w' => prop_class(builtin("word"), Polarity::Positive),
@@ -479,9 +531,9 @@ impl Parser {
             ),
             _ => {
                 let c = self.simple_escape(c)?;
-                self.char_node(c)
+                return Ok(self.char_atom(c));
             }
-        })
+        }))
     }
 
     /// The character an escape such as `\n` or `\x41` stands for.

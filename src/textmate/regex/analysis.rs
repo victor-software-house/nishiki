@@ -32,7 +32,7 @@ pub(super) fn width(node: &Node) -> (usize, Option<usize>) {
             let (a, b) = width(item);
             (lo + a, hi.zip(b).map(|(x, y)| x + y))
         }),
-        Node::Alt(alts) => {
+        Node::Alt(alts) | Node::Folds(alts) => {
             let mut lo = usize::MAX;
             let mut hi = Some(0);
             for alt in alts {
@@ -116,7 +116,7 @@ pub(super) fn first_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
             }
             true
         }
-        Node::Alt(alts) => {
+        Node::Alt(alts) | Node::Folds(alts) => {
             let mut nullable = false;
             for alt in alts {
                 nullable |= first_bytes(alt, set);
@@ -125,6 +125,36 @@ pub(super) fn first_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
         }
         Node::Repeat { node, min, .. } => first_bytes(node, set) || *min == 0,
         Node::Group { node, .. } | Node::Atomic(node) => first_bytes(node, set),
+    }
+}
+
+/// Adds the lead bytes of the second character of every match of `node` to
+/// `set`, and says whether it could: only when each match starts with one
+/// character or class followed by something that consumes. A fold string
+/// such as `i` and a combining mark is told apart from the letter alone by
+/// that second character.
+pub(super) fn second_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
+    match node {
+        Node::Seq(items) => match items.split_first() {
+            Some((Node::Char(_) | Node::Class(_), rest)) => {
+                rest.iter().any(|item| !first_bytes(item, set))
+            }
+            _ => false,
+        },
+        Node::Alt(alts) | Node::Folds(alts) => alts.iter().all(|alt| second_bytes(alt, set)),
+        Node::Empty
+        | Node::Char(..)
+        | Node::Any(_)
+        | Node::Class(..)
+        | Node::Repeat { .. }
+        | Node::Group { .. }
+        | Node::Look { .. }
+        | Node::Atomic(_)
+        | Node::Backref(..)
+        | Node::NamedBackref(..)
+        | Node::Call(_)
+        | Node::NamedCall(_)
+        | Node::Anchor(_) => false,
     }
 }
 
@@ -145,7 +175,7 @@ pub(super) fn anchors(node: &Node) -> Option<Starts> {
         }),
         Node::Seq(items) => items.first().and_then(anchors),
         Node::Group { node, .. } | Node::Atomic(node) => anchors(node),
-        Node::Alt(alts) => {
+        Node::Alt(alts) | Node::Folds(alts) => {
             let mut all = Starts::default();
             for alt in alts {
                 let one = anchors(alt)?;
@@ -192,6 +222,7 @@ fn collect_prefix(node: &Node, out: &mut Vec<u8>) -> bool {
         Node::Any(_)
         | Node::Class(..)
         | Node::Alt(_)
+        | Node::Folds(_)
         | Node::Repeat { .. }
         | Node::Look { .. }
         | Node::Atomic(_)
@@ -224,7 +255,7 @@ pub(super) fn uses_context(node: &Node) -> bool {
         | Node::NamedBackref(..)
         | Node::Call(_)
         | Node::NamedCall(_) => false,
-        Node::Seq(items) | Node::Alt(items) => items.iter().any(uses_context),
+        Node::Seq(items) | Node::Alt(items) | Node::Folds(items) => items.iter().any(uses_context),
         Node::Repeat { node, .. }
         | Node::Group { node, .. }
         | Node::Look { node, .. }
@@ -272,6 +303,7 @@ fn collect_required(node: &Node, out: &mut Vec<u8>) {
         | Node::Any(_)
         | Node::Class(..)
         | Node::Alt(_)
+        | Node::Folds(_)
         | Node::Look { .. }
         | Node::Backref(..)
         | Node::NamedBackref(..)
@@ -301,7 +333,7 @@ fn wide_lead_bytes(class: &Class) -> Vec<(u8, u8)> {
 }
 
 /// The first byte of `c` in UTF-8.
-fn lead_byte(c: char) -> u8 {
+pub(super) fn lead_byte(c: char) -> u8 {
     let mut buffer = [0; 4];
     c.encode_utf8(&mut buffer);
     buffer[0]

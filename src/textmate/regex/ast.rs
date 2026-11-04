@@ -1,6 +1,7 @@
 //! The syntax tree of a pattern, and the character classes in it.
 
-use super::folds::{LARGEST_ORBIT, NEXT};
+use super::analysis::{first_bytes, lead_byte};
+use super::folds::{LARGEST_ORBIT, MULTI, NEXT, UNFOLD};
 
 /// A position the engine can test without consuming text.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -210,13 +211,272 @@ pub(super) fn orbit(c: char) -> Orbit {
 
 /// A character as `(?i)` reads it: itself when nothing folds with it, and
 /// otherwise the class of its orbit.
-pub(super) fn insensitive_char(c: char) -> Node {
+fn insensitive_char(c: char) -> Node {
     match orbit(c).members() {
         [_] => Node::Char(c),
-        members => Node::Class(Box::new(Class {
-            negated: false,
-            parts: vec![members.iter().map(|&m| Item::Range(m, m)).collect()],
-        })),
+        members => members_class(members.iter().copied()),
+    }
+}
+
+/// The class of exactly these characters.
+fn members_class(members: impl Iterator<Item = char>) -> Node {
+    Node::Class(Box::new(Class {
+        negated: false,
+        parts: vec![members.map(|m| Item::Range(m, m)).collect()],
+    }))
+}
+
+/// The smallest member of `c`'s orbit, the form folds are written in.
+fn canonical(c: char) -> char {
+    orbit(c).members().iter().copied().min().unwrap_or(c)
+}
+
+/// `c`'s fold when it is more than one character, in canonical form.
+fn multi_fold(c: char) -> Option<&'static [u32]> {
+    MULTI
+        .binary_search_by_key(&u32::from(c), |&(member, _)| member)
+        .ok()
+        .and_then(|at| MULTI.get(at))
+        .map(|&(_, fold)| fold)
+}
+
+/// The characters whose fold is `fold`, a canonical string.
+fn unfold(fold: &[u32]) -> Option<&'static [u32]> {
+    UNFOLD
+        .binary_search_by(|&(key, _)| key.cmp(fold))
+        .ok()
+        .and_then(|at| UNFOLD.get(at))
+        .map(|&(_, chars)| chars)
+}
+
+/// A fold string as `(?i)` reads it: its characters in turn, each in any case.
+fn fold_string(fold: &[u32]) -> Node {
+    Node::Seq(
+        fold.iter()
+            .filter_map(|&code| char::from_u32(code))
+            .map(insensitive_char)
+            .collect(),
+    )
+}
+
+/// A run of literal characters as `(?i)` reads it, as Oniguruma does.
+///
+/// At each place, the next three characters, and failing that the next two,
+/// whose simple folds spell the fold of other characters also match those
+/// characters, and the run goes on after them: `sss` takes `ßs` and refuses
+/// `sß`. A single character whose fold is longer also matches its fold in any
+/// case: `ß` takes `ss`, `SS` and `ſs`. In a lookbehind, which Oniguruma reads
+/// one character at a time, only the simple folds apply.
+pub(super) fn insensitive_run(run: &[char], lookbehind: bool) -> Vec<Node> {
+    if lookbehind {
+        return run.iter().map(|&c| insensitive_char(c)).collect();
+    }
+    let mut out = Vec::new();
+    let mut at = 0;
+    while let Some(&c) = run.get(at) {
+        let spelled = [3, 2].into_iter().find_map(|len| {
+            let slice = run.get(at..at + len)?;
+            let key: Vec<u32> = slice.iter().map(|&s| u32::from(canonical(s))).collect();
+            unfold(&key).map(|chars| (slice, chars))
+        });
+        if let Some((slice, chars)) = spelled {
+            out.push(Node::Folds(vec![
+                Node::Seq(slice.iter().map(|&s| insensitive_char(s)).collect()),
+                members_class(chars.iter().filter_map(|&code| char::from_u32(code))),
+            ]));
+            at += slice.len();
+            continue;
+        }
+        out.push(match multi_fold(c) {
+            Some(fold) => {
+                let mut members: Vec<char> = orbit(c).members().to_vec();
+                members.extend(
+                    unfold(fold)
+                        .unwrap_or(&[])
+                        .iter()
+                        .filter_map(|&code| char::from_u32(code)),
+                );
+                members.sort_unstable();
+                members.dedup();
+                Node::Folds(vec![members_class(members.into_iter()), fold_string(fold)])
+            }
+            None => insensitive_char(c),
+        });
+        at += 1;
+    }
+    out
+}
+
+/// A class widened by `(?i)`, tried first, then the fold strings of its
+/// members that `keep` accepts, as one trie.
+fn class_folds(class: Class, keep: impl Fn(&[u32]) -> bool) -> Node {
+    let mut strings: Vec<&[u32]> = Vec::new();
+    if !class.negated {
+        for &(member, fold) in MULTI {
+            if char::from_u32(member).is_some_and(|c| class.matches(c))
+                && !strings.contains(&fold)
+                && keep(fold)
+            {
+                strings.push(fold);
+            }
+        }
+    }
+    if strings.is_empty() {
+        return Node::Class(Box::new(class));
+    }
+    Node::Folds(vec![Node::Class(Box::new(class)), fold_trie(&strings)])
+}
+
+/// Leaves out the fold strings a repetition with no upper bound reaches
+/// without, throughout `node`.
+///
+/// In such a repetition of a class, alone or after negative lookaheads, a
+/// fold string adds nothing when the class matches each of its characters
+/// and no lookahead can start with one: the repetition reaches every end the
+/// string would, by the class alone and before the string's turn, and the
+/// lookaheads it checks between the string's characters all pass. So
+/// `(?i)[\w]+` and `(?i)(?:(?!--)[\w])*` match as before without trying
+/// `ss` at every character they backtrack over. A capturing group keeps its
+/// strings, since what it captures would differ.
+pub(super) fn prune_repeated_folds(node: &mut Node) {
+    match node {
+        Node::Repeat {
+            node: body,
+            max: None,
+            ..
+        } => {
+            prune_loop_body(body);
+            prune_repeated_folds(body);
+        }
+        Node::Repeat { node: inner, .. }
+        | Node::Group { node: inner, .. }
+        | Node::Look { node: inner, .. }
+        | Node::Atomic(inner) => prune_repeated_folds(inner),
+        Node::Seq(items) | Node::Alt(items) | Node::Folds(items) => {
+            items.iter_mut().for_each(prune_repeated_folds);
+        }
+        Node::Empty
+        | Node::Char(..)
+        | Node::Any(_)
+        | Node::Class(..)
+        | Node::Backref(..)
+        | Node::NamedBackref(..)
+        | Node::Call(_)
+        | Node::NamedCall(_)
+        | Node::Anchor(_) => {}
+    }
+}
+
+/// The body of a repetition with no upper bound: its class's fold strings
+/// pruned when the body is that class, alone or after negative lookaheads.
+fn prune_loop_body(body: &mut Node) {
+    match body {
+        Node::Group { index: None, node } => prune_loop_body(node),
+        Node::Folds(_) => prune_class_folds(body, &[]),
+        Node::Seq(items) => {
+            if let Some((last, looks)) = items.split_last_mut()
+                && looks.iter().all(|look| {
+                    matches!(
+                        look,
+                        Node::Look {
+                            ahead: true,
+                            negative: true,
+                            ..
+                        }
+                    )
+                })
+            {
+                prune_class_folds(last, looks);
+            }
+        }
+        Node::Empty
+        | Node::Char(_)
+        | Node::Any(_)
+        | Node::Class(_)
+        | Node::Alt(_)
+        | Node::Repeat { .. }
+        | Node::Group { .. }
+        | Node::Look { .. }
+        | Node::Atomic(_)
+        | Node::Backref(..)
+        | Node::NamedBackref(..)
+        | Node::Call(_)
+        | Node::NamedCall(_)
+        | Node::Anchor(_) => {}
+    }
+}
+
+/// A class and its fold strings, with the strings `looks` and the
+/// repetition make redundant left out; any other node as it is.
+fn prune_class_folds(node: &mut Node, looks: &[Node]) {
+    let Node::Folds(alts) = node else { return };
+    let Some(Node::Class(class)) = alts.first() else {
+        return;
+    };
+    let mut starts = [false; 256];
+    for look in looks {
+        if let Node::Look { node: body, .. } = look
+            && first_bytes(body, &mut starts)
+        {
+            return;
+        }
+    }
+    let class = (**class).clone();
+    let redundant = |fold: &[u32]| {
+        fold.iter().all(|&code| {
+            char::from_u32(code).is_some_and(|c| {
+                orbit(c)
+                    .members()
+                    .iter()
+                    .all(|&m| class.matches(m) && !starts[usize::from(lead_byte(m))])
+            })
+        })
+    };
+    let keep: Vec<&[u32]> = MULTI
+        .iter()
+        .map(|&(_, fold)| fold)
+        .filter(|fold| !redundant(fold))
+        .collect();
+    *node = class_folds(class, |fold| keep.contains(&fold));
+}
+
+/// The fold strings as one node that shares their prefixes: strings that
+/// start alike take one branch, in the order the first of them came, so the
+/// first string that matches is the one the plain alternation would take.
+fn fold_trie(strings: &[&[u32]]) -> Node {
+    let mut alts = Vec::new();
+    let mut taken = vec![false; strings.len()];
+    for (i, string) in strings.iter().enumerate() {
+        if taken.get(i).copied().unwrap_or(true) {
+            continue;
+        }
+        let Some((&first, _)) = string.split_first() else {
+            alts.push(Node::Empty);
+            continue;
+        };
+        let mut rests = Vec::new();
+        for (j, other) in strings.iter().enumerate().skip(i) {
+            if let Some((&head, rest)) = other.split_first()
+                && head == first
+                && let Some(slot) = taken.get_mut(j)
+                && !*slot
+            {
+                *slot = true;
+                rests.push(rest);
+            }
+        }
+        let head = char::from_u32(first).map_or(Node::Empty, insensitive_char);
+        let tail = fold_trie(&rests);
+        alts.push(if matches!(tail, Node::Empty) {
+            head
+        } else {
+            Node::Seq(vec![head, tail])
+        });
+    }
+    match alts.len() {
+        0 => Node::Empty,
+        1 => alts.pop().unwrap_or(Node::Empty),
+        _ => Node::Folds(alts),
     }
 }
 
@@ -245,6 +505,14 @@ impl Class {
         }
     }
 
+    /// The class as `(?i)` reads it, with the fold strings of its members
+    /// whose fold is longer: a class that is not negated tries itself first
+    /// and then those strings, as Oniguruma does, so `(?i)[\w]x` takes `ssx`
+    /// from its start while `(?i)[a-z]x` matches one character later.
+    pub(super) fn insensitive_node(self) -> Node {
+        class_folds(self.insensitive(), |_| true)
+    }
+
     /// The class as `(?i)` reads it, as Oniguruma does: the characters it
     /// holds before its negation take in the rest of their orbits, and the
     /// negation applies after, so `(?i)[^k]` refuses the Kelvin sign.
@@ -253,7 +521,7 @@ impl Class {
     /// which sort first in the table, so only those are tried. A union of
     /// ranges takes the added members as more ranges, so it stays a class the
     /// analysis and the scanner's automaton read exactly.
-    pub(super) fn insensitive(self) -> Class {
+    fn insensitive(self) -> Class {
         let negated = self.negated;
         let positive = Class {
             negated: false,
@@ -316,6 +584,11 @@ pub(super) enum Node {
     Seq(Vec<Node>),
     /// The nodes as alternatives, the first that matches taken.
     Alt(Vec<Node>),
+    /// The alternatives a case fold adds under `(?i)`, as [`Node::Alt`]
+    /// reads them. Each is compiled to a split that reads the next byte
+    /// first and tries only the alternatives that can start with it, so a
+    /// fold costs next to nothing where the text holds none.
+    Folds(Vec<Node>),
     /// A node repeated between `min` and `max` times.
     Repeat {
         node: Box<Node>,

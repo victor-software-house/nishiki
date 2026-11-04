@@ -6,8 +6,8 @@
 
 use std::collections::HashMap;
 
-use super::analysis::width;
-use super::ast::{Anchor, Case, Class, Kind, Node};
+use super::analysis::{first_bytes, second_bytes, width};
+use super::ast::{Anchor, Case, Class, Item, Kind, Node};
 use super::parse::{Error, Parsed};
 
 /// The most instructions a pattern may compile to, which bounds the cost of
@@ -55,6 +55,15 @@ pub(super) enum Inst {
     GroupEnd { group: u32 },
     /// The pattern matched.
     Match,
+    /// One character of the class at `class`, as [`Inst::Class`], after
+    /// leaving `secondary` to try on failure when the lead at `lead` says it
+    /// can start here: the alternatives a case fold adds, the first inline
+    /// and the rest out of line.
+    ClassOr {
+        class: u32,
+        secondary: u32,
+        lead: u32,
+    },
 }
 
 /// A character class with its answer for ASCII precomputed.
@@ -85,11 +94,153 @@ impl ClassTable {
     }
 }
 
+/// The bytes a branch can start with, and when it is known, the lead bytes
+/// of its second character.
+#[derive(Clone, Debug)]
+pub(super) struct Lead {
+    first: [u64; 4],
+    /// Whether the branch can match empty, and so start anywhere.
+    empty: bool,
+    second: Option<[u64; 4]>,
+}
+
+impl Lead {
+    /// The bytes `node` can start with, and the lead bytes of its second
+    /// character when [`second_bytes`] knows them.
+    fn of(node: &Node) -> Lead {
+        let mut first = [false; 256];
+        let empty = first_bytes(node, &mut first);
+        let mut second = [false; 256];
+        let known = second_bytes(node, &mut second);
+        Lead {
+            first: bits(&first),
+            empty,
+            second: known.then(|| bits(&second)),
+        }
+    }
+
+    /// The bytes either branch can start with.
+    fn union(&self, other: &Lead) -> Lead {
+        let or = |a: &[u64; 4], b: &[u64; 4]| std::array::from_fn(|i| a[i] | b[i]);
+        Lead {
+            first: or(&self.first, &other.first),
+            empty: self.empty || other.empty,
+            second: self.second.zip(other.second).map(|(a, b)| or(&a, &b)),
+        }
+    }
+
+    /// Whether the branch can start where the text holds `byte`, or at its
+    /// end when there is none; `next` gives the lead byte of the character
+    /// after, read only when the second character is known.
+    #[inline]
+    pub(super) fn admits(&self, byte: Option<u8>, next: impl FnOnce() -> Option<u8>) -> bool {
+        if self.empty {
+            return true;
+        }
+        byte.is_some_and(|byte| holds(&self.first, byte))
+            && self
+                .second
+                .is_none_or(|second| next().is_some_and(|next| holds(&second, next)))
+    }
+}
+
+/// The lead of each suffix of `alts`: the first covers them all, the last
+/// only the last.
+fn suffix_leads(alts: &[Node]) -> Vec<Lead> {
+    let mut leads: Vec<Lead> = Vec::with_capacity(alts.len());
+    for alt in alts.iter().rev() {
+        let lead = Lead::of(alt);
+        leads.push(match leads.last() {
+            Some(after) => lead.union(after),
+            None => lead,
+        });
+    }
+    leads.reverse();
+    leads
+}
+
+/// The class a branch starts with, as one character of it, and the nodes
+/// after it.
+fn leading_class(node: &Node) -> Option<(Class, &[Node])> {
+    let one = |node: &Node| match node {
+        Node::Class(class) => Some((**class).clone()),
+        Node::Char(c) => Some(Class {
+            negated: false,
+            parts: vec![vec![Item::Range(*c, *c)]],
+        }),
+        Node::Empty
+        | Node::Any(_)
+        | Node::Seq(_)
+        | Node::Alt(_)
+        | Node::Folds(_)
+        | Node::Repeat { .. }
+        | Node::Group { .. }
+        | Node::Look { .. }
+        | Node::Atomic(_)
+        | Node::Backref(..)
+        | Node::NamedBackref(..)
+        | Node::Call(_)
+        | Node::NamedCall(_)
+        | Node::Anchor(_) => None,
+    };
+    match node {
+        Node::Seq(items) => {
+            let (first, rest) = items.split_first()?;
+            one(first).map(|class| (class, rest))
+        }
+        Node::Empty
+        | Node::Char(_)
+        | Node::Any(_)
+        | Node::Class(_)
+        | Node::Alt(_)
+        | Node::Folds(_)
+        | Node::Repeat { .. }
+        | Node::Group { .. }
+        | Node::Look { .. }
+        | Node::Atomic(_)
+        | Node::Backref(..)
+        | Node::NamedBackref(..)
+        | Node::Call(_)
+        | Node::NamedCall(_)
+        | Node::Anchor(_) => one(node).map(|class| (class, &[][..])),
+    }
+}
+
+/// Alternatives a case fold adds that wait to be compiled after the program:
+/// they start at the `secondary` of the instruction at `at`, carry the lead
+/// of each of their suffixes, and go back to `back` when one matches.
+struct Deferred {
+    at: u32,
+    alts: Vec<Node>,
+    leads: Vec<Lead>,
+    back: u32,
+}
+
+/// A set of bytes as four words of bits.
+fn bits(set: &[bool; 256]) -> [u64; 4] {
+    let mut words = [0_u64; 4];
+    for (byte, _) in set.iter().enumerate().filter(|&(_, &member)| member) {
+        if let Some(word) = words.get_mut(byte >> 6) {
+            *word |= 1 << (byte & 63);
+        }
+    }
+    words
+}
+
+/// Whether `byte` is in the set.
+fn holds(words: &[u64; 4], byte: u8) -> bool {
+    words
+        .get(usize::from(byte >> 6))
+        .is_some_and(|word| word >> (byte & 63) & 1 == 1)
+}
+
 /// A compiled pattern.
 #[derive(Debug)]
 pub(super) struct Program {
     pub(super) insts: Vec<Inst>,
     pub(super) classes: Vec<ClassTable>,
+    /// The leads of the `ClassOr` instructions.
+    pub(super) leads: Vec<Lead>,
     /// How many capture groups the pattern has.
     pub(super) groups: usize,
     /// How many loop registers it needs.
@@ -103,6 +254,8 @@ pub(super) fn compile(parsed: &Parsed) -> Result<Program, Error> {
     let mut compiler = Compiler {
         insts: Vec::new(),
         classes: Vec::new(),
+        leads: Vec::new(),
+        deferred: Vec::new(),
         regs: 0,
         group_start: vec![0; parsed.groups + 1],
         names: &parsed.names,
@@ -111,9 +264,16 @@ pub(super) fn compile(parsed: &Parsed) -> Result<Program, Error> {
     };
     compiler.node(&parsed.root)?;
     compiler.push(Inst::Match)?;
+    while let Some(deferred) = compiler.deferred.pop() {
+        let start = compiler.pc();
+        compiler.patch(deferred.at, start);
+        compiler.fold_chain(&deferred.alts, &deferred.leads)?;
+        compiler.push(Inst::Jump(deferred.back))?;
+    }
     Ok(Program {
         insts: compiler.insts,
         classes: compiler.classes,
+        leads: compiler.leads,
         groups: parsed.groups,
         regs: compiler.regs,
         group_start: compiler.group_start,
@@ -124,7 +284,7 @@ pub(super) fn compile(parsed: &Parsed) -> Result<Program, Error> {
 fn has_calls(node: &Node) -> bool {
     match node {
         Node::Call(_) | Node::NamedCall(_) => true,
-        Node::Seq(items) | Node::Alt(items) => items.iter().any(has_calls),
+        Node::Seq(items) | Node::Alt(items) | Node::Folds(items) => items.iter().any(has_calls),
         Node::Repeat { node, .. }
         | Node::Look { node, .. }
         | Node::Group { node, .. }
@@ -148,6 +308,8 @@ fn nullable(node: &Node) -> bool {
 struct Compiler<'a> {
     insts: Vec<Inst>,
     classes: Vec<ClassTable>,
+    leads: Vec<Lead>,
+    deferred: Vec<Deferred>,
     regs: usize,
     group_start: Vec<u32>,
     names: &'a HashMap<String, usize>,
@@ -183,7 +345,9 @@ impl Compiler<'_> {
             return;
         };
         match inst {
-            Inst::Split { secondary, .. } => *secondary = target,
+            Inst::Split { secondary, .. } | Inst::ClassOr { secondary, .. } => {
+                *secondary = target;
+            }
             Inst::Jump(to) => *to = target,
             Inst::Progress { exit, .. } => *exit = target,
             Inst::Look { end, .. } | Inst::Atomic { end } => *end = target,
@@ -224,12 +388,12 @@ impl Compiler<'_> {
             Node::Char(..) => self.seq(std::slice::from_ref(node)),
             Node::Any(dotall) => self.push(Inst::Any(*dotall)).map(drop),
             Node::Class(class) => {
-                let id = u32::try_from(self.classes.len()).unwrap_or(u32::MAX);
-                self.classes.push(ClassTable::new((**class).clone()));
+                let id = self.class_table((**class).clone());
                 self.push(Inst::Class(id)).map(drop)
             }
             Node::Seq(items) => self.seq(items),
             Node::Alt(alts) => self.alt(alts),
+            Node::Folds(alts) => self.fold_chain(alts, &suffix_leads(alts)),
             Node::Repeat {
                 node,
                 min,
@@ -310,6 +474,48 @@ impl Compiler<'_> {
         if !literal.is_empty() {
             self.push(Inst::Lit(std::mem::take(literal).into_boxed_slice()))?;
         }
+        Ok(())
+    }
+
+    /// The index of a new table for `class`.
+    fn class_table(&mut self, class: Class) -> u32 {
+        let id = u32::try_from(self.classes.len()).unwrap_or(u32::MAX);
+        self.classes.push(ClassTable::new(class));
+        id
+    }
+
+    /// The alternatives a case fold adds, whose suffixes have the leads in
+    /// `leads`. The first starts with a [`Inst::ClassOr`] and runs inline;
+    /// the others are compiled after the program and entered only where
+    /// their lead admits the text, so a fold the text does not hold costs
+    /// nothing over the first alternative alone. A first alternative that
+    /// does not start with a class compiles as a plain alternation.
+    fn fold_chain(&mut self, alts: &[Node], leads: &[Lead]) -> Result<(), Error> {
+        let (Some((first, rest)), Some(rest_leads)) = (alts.split_first(), leads.get(1..)) else {
+            return Ok(());
+        };
+        let Some(lead) = rest_leads.first() else {
+            return self.node(first);
+        };
+        let Some((class, tail)) = leading_class(first) else {
+            return self.alt(alts);
+        };
+        let class = self.class_table(class);
+        let index = u32::try_from(self.leads.len()).unwrap_or(u32::MAX);
+        self.leads.push(lead.clone());
+        let at = self.push(Inst::ClassOr {
+            class,
+            secondary: 0,
+            lead: index,
+        })?;
+        self.seq(tail)?;
+        let back = self.pc();
+        self.deferred.push(Deferred {
+            at,
+            alts: rest.to_vec(),
+            leads: rest_leads.to_vec(),
+            back,
+        });
         Ok(())
     }
 

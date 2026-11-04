@@ -50,6 +50,7 @@ pub(super) fn widen(node: &Node) -> Node {
         | Node::Any(_)
         | Node::Class(..)
         | Node::Alt(_)
+        | Node::Folds(_)
         | Node::Repeat { .. }
         | Node::Look { .. }
         | Node::Backref(..)
@@ -81,7 +82,7 @@ fn print(node: &Node, out: &mut String) {
         Node::Any(false) => out.push_str("[^\\x{a}]"),
         Node::Class(class) => class_source(class, out),
         Node::Seq(items) => items.iter().for_each(|item| print(item, out)),
-        Node::Alt(alts) => {
+        Node::Alt(alts) | Node::Folds(alts) => {
             out.push_str("(?:");
             for (index, alt) in alts.iter().enumerate() {
                 if index > 0 {

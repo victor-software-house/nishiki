@@ -60,9 +60,44 @@ next.sort((a, b) => a[0] - b[0]);
 const orbits = new Set(orbitOf.values());
 const largest = Math.max(...[...orbits].map((orbit) => orbit.length));
 
+// A character's canonical form is the smallest member of its orbit.
+const canonical = (cp: number) => orbitOf.get(cp)?.[0] ?? cp;
+
+// The characters whose fold is a string: a candidate is a code point whose
+// case mapping is longer than itself, or a member of such a code point's
+// orbit, such as ẞ beside ß. Its fold is that mapping lowered, kept when
+// `(?i)` and the character match the whole of it.
+const foldsTo = (cp: number, fold: string) => {
+  const found = engine.createScanner([`(?i)\\x{${cp.toString(16)}}`]).findNextMatchSync(`${fold}\n`, 0);
+  return found?.captureIndices[0].start === 0 && found.captureIndices[0].end === fold.length;
+};
+const foldOf = new Map<number, string>();
+for (let cp = 0; cp <= 0x10ffff; cp++) {
+  if (cp >= 0xd800 && cp <= 0xdfff) continue;
+  const c = String.fromCodePoint(cp);
+  const fold = [c.toUpperCase().toLowerCase(), c.toLowerCase()].find((f) => [...f].length > 1);
+  if (fold !== undefined && foldsTo(cp, fold)) foldOf.set(cp, fold);
+}
+for (const [cp, fold] of [...foldOf]) {
+  for (const mate of orbitOf.get(cp) ?? []) if (!foldOf.has(mate) && foldsTo(mate, fold)) foldOf.set(mate, fold);
+}
+const multi: [number, number[]][] = [...foldOf]
+  .sort(([a], [b]) => a - b)
+  .map(([cp, fold]) => [cp, [...fold].map((f) => canonical(f.codePointAt(0)!))]);
+const unfold = new Map<string, number[]>();
+for (const [cp, fold] of multi) unfold.set(fold.join(","), [...(unfold.get(fold.join(",")) ?? []), cp]);
+const folds = [...unfold.entries()]
+  .map(([key, chars]) => [key.split(",").map(Number), chars.sort((a, b) => a - b)] as const)
+  .sort(([a], [b]) => {
+    for (let i = 0; i < Math.min(a.length, b.length); i++) if (a[i] !== b[i]) return a[i] - b[i];
+    return a.length - b.length;
+  });
+
 const hex = (n: number) => `0x${n.toString(16)}`;
-const source = `//! The characters \`(?i)\` takes as one, as cycles, measured on Oniguruma as
-//! Shiki bundles it by \`oracle/case-folds.ts\`. Do not edit: regenerate with
+const list = (xs: readonly number[]) => `&[${xs.map(hex).join(", ")}]`;
+const source = `//! The characters \`(?i)\` takes as one, and the folds of more than one
+//! character, measured on Oniguruma as Shiki bundles it by
+//! \`oracle/case-folds.ts\`. Do not edit: regenerate with
 //! \`bun oracle/case-folds.ts\`.
 
 #![cfg_attr(rustfmt, rustfmt::skip)]
@@ -74,6 +109,18 @@ pub(super) const LARGEST_ORBIT: usize = ${largest};
 /// orbit, by character: following \`next\` from a member visits its whole
 /// orbit and comes back.
 pub(super) static NEXT: &[(u32, u32)] = &[${next.map(([a, b]) => `(${hex(a)}, ${hex(b)})`).join(", ")}];
+
+/// Every character whose fold is more than one character, with that fold, by
+/// character. A fold's characters are canonical: each is the smallest member
+/// of its orbit.
+pub(super) static MULTI: &[(u32, &[u32])] = &[${multi.map(([cp, fold]) => `(${hex(cp)}, ${list(fold)})`).join(", ")}];
+
+/// Every fold of more than one character, with the characters that fold to
+/// it, by fold.
+pub(super) static UNFOLD: &[(&[u32], &[u32])] = &[${folds.map(([fold, chars]) => `(${list(fold)}, ${list(chars)})`).join(", ")}];
 `;
 writeFileSync(output, source);
-console.log(`${candidates.length} candidates, ${orbits.size} orbits, ${next.length} members, largest ${largest}`);
+console.log(
+  `${candidates.length} candidates, ${orbits.size} orbits, ${next.length} members, largest ${largest}; ` +
+    `${multi.length} multi-character folds, ${folds.length} distinct`,
+);
