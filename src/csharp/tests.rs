@@ -220,3 +220,16 @@ fn oracle_diff() {
         eprintln!("{count:5} want [{want}] got [{got}]\n        e.g. {example}");
     }
 }
+
+/// The engine keeps the indices of open `while` rules only when the flag is
+/// set. The flag must say whether any rule has a `while` pattern.
+#[test]
+fn the_while_flag_matches_the_rules() {
+    use crate::csharp::engine::CSharp;
+    use crate::csharp::grammar::Rule;
+    use crate::rules::Grammar;
+
+    let any = Rule::ALL.iter().any(|rule| rule.while_pat().is_some());
+    assert_eq!(Rule::HAS_WHILE, any);
+    assert_eq!(CSharp::WHILES, any);
+}

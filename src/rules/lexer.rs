@@ -39,6 +39,12 @@ struct Frame<G: Grammar> {
     state: u32,
     /// What the rule carries: the interned text its end pattern repeats.
     payload: u32,
+    /// The index of the next frame above with a `while` pattern.
+    /// It is 0 when there is none, and the root's names the first.
+    /// Only a grammar with [`Grammar::WHILES`] links them, at the end of a
+    /// line. An index fits in a `u32`, because frames outnumber arena states
+    /// only by the few kept or shared ones.
+    next_while: u32,
 }
 
 /// A cached `path`: the stack `base` with the scopes at `ptr` on top.
@@ -87,6 +93,10 @@ struct Flags {
     /// A rule closed without advancing, which keeps its begin scopes for the
     /// rest of the line.
     kept: bool,
+    /// A node limit denied a rule its own state, so it shares its parent's.
+    /// Only then do two open rules share a state at the end of a line.
+    /// The frames that [`Lexer::retokenise`] adds are gone by then.
+    shared: bool,
 }
 
 /// What a highlighter keeps from line to line, so that lexing a line
@@ -217,6 +227,14 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     /// little.
     scratch: &'a mut Scratch<G>,
     flags: Flags,
+    /// The lowest index the line pushed a frame at.
+    /// The frames below it are ones the line started with.
+    /// The line that left them already cleared their `enter` and `anchor`.
+    low: usize,
+    /// Whether the `while` links of the frames below `low` hold.
+    /// They hold when the line took over the last line's frames.
+    /// They also hold once a full `while` check has linked the frames.
+    linked: bool,
     /// The state the line starts in.
     state: u32,
     /// What the language's matchers remember about this line.
@@ -271,7 +289,8 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         let (s, start) = (text.bytes, text.start);
         let steps = Steps::new(limits, s.len());
         let mut frames = std::mem::take(&mut scratch.frames);
-        if scratch.resume == Some(state) {
+        let resumed = scratch.resume == Some(state);
+        if resumed {
             std::mem::swap(&mut frames, &mut scratch.resume_frames);
         } else {
             if frames.capacity() < scratch.resume_frames.capacity() {
@@ -312,6 +331,8 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             span_base: 0,
             scratch,
             flags: Flags::default(),
+            low: usize::MAX,
+            linked: resumed,
             state,
             x,
             halt: None,
@@ -407,6 +428,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                     content: frame.stack,
                     state,
                     payload: 0,
+                    next_while: 0,
                 });
                 continue;
             }
@@ -421,6 +443,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 content: frame.stack,
                 state: id,
                 payload: frame.payload,
+                next_while: 0,
             });
         }
     }
@@ -504,15 +527,15 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     #[inline(always)]
     fn finish(mut self) -> Finished {
         let state = self.top().state;
-        let exact = !self.flags.kept
-            && self
-                .frames
-                .windows(2)
-                .all(|pair| pair[0].state != pair[1].state);
+        let exact = !self.flags.kept && !self.flags.shared;
         self.scratch.resume = exact.then_some(state);
         if exact {
-            for frame in &mut self.frames {
+            let low = self.low.min(self.frames.len());
+            for frame in &mut self.frames[low..] {
                 (frame.enter, frame.anchor) = (None, None);
+            }
+            if G::WHILES && (!self.linked || low < self.frames.len()) {
+                self.link_whiles(low);
             }
             std::mem::swap(&mut self.frames, &mut self.scratch.resume_frames);
         }
@@ -984,6 +1007,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         anchor: Option<usize>,
         payload: u32,
     ) {
+        self.low = self.low.min(self.frames.len());
         let parent_state = self.top().state;
         let parent_scopes = self.top().content;
         let code = G::rule_code(rule);
@@ -1010,6 +1034,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 content: entry.content,
                 state: entry.state,
                 payload,
+                next_while: 0,
             });
             return;
         }
@@ -1026,6 +1051,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             .unwrap_or_else(|| {
                 self.report.record(Limit::Nodes);
                 self.flags.failed = true;
+                self.flags.shared = true;
                 parent_state
             });
         if !self.flags.failed {
@@ -1047,6 +1073,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             content,
             state,
             payload,
+            next_while: 0,
         });
     }
 
@@ -1256,6 +1283,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             content: node,
             state,
             payload: 0,
+            next_while: 0,
         });
         if let Some(text) = self.s.get(..end) {
             self.s = text;
@@ -1360,6 +1388,26 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     )]
     #[inline(always)]
     fn check_while(&mut self) {
+        if G::WHILES && self.linked {
+            let mut i = usize::try_from(self.frames[0].next_while).unwrap_or(0);
+            while i != 0 && i < self.frames.len() {
+                let frame = self.frames[i];
+                let Some(pat) = G::rule_while(frame.rule) else {
+                    return;
+                };
+                self.g = self.anchor == Some(self.pos);
+                let Some(end) = self.try_pat(pat, self.pos) else {
+                    self.frames.truncate(i);
+                    return;
+                };
+                self.emit_match(G::pat_captures(pat), frame.content, self.pos, end);
+                self.anchor = Some(end);
+                self.pos = end;
+                i = usize::try_from(frame.next_while).unwrap_or(0);
+            }
+            return;
+        }
+        let mut last = 0;
         for i in 1..self.frames.len() {
             let frame = self.frames[i];
             let Some(pat) = G::rule_while(frame.rule) else {
@@ -1368,12 +1416,50 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             self.g = self.anchor == Some(self.pos);
             let Some(end) = self.try_pat(pat, self.pos) else {
                 self.frames.truncate(i);
-                return;
+                break;
             };
             self.emit_match(G::pat_captures(pat), frame.content, self.pos, end);
             self.anchor = Some(end);
             self.pos = end;
+            if G::WHILES {
+                self.frames[last].next_while = u32::try_from(i).unwrap_or(0);
+                last = i;
+            }
         }
+        if G::WHILES {
+            self.frames[last].next_while = 0;
+            self.linked = true;
+        }
+    }
+
+    /// Links the frames with a `while` pattern for the next line.
+    /// The links run from the root up.
+    /// A link past the last frame is left for the next line to stop at, so a
+    /// line that only closed rules relinks nothing.
+    /// Where the links below `low`, the lowest frame the line pushed, hold,
+    /// the line keeps them and relinks from there.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: out of line, its `&mut self` made ERB build each Ruby lexer in memory, one memcpy a run"
+    )]
+    #[inline(always)]
+    fn link_whiles(&mut self, low: usize) {
+        let from = if self.linked { low.max(1) } else { 1 };
+        let mut last = 0;
+        if self.linked {
+            let mut next = usize::try_from(self.frames[0].next_while).unwrap_or(0);
+            while next != 0 && next < from {
+                last = next;
+                next = usize::try_from(self.frames[next].next_while).unwrap_or(0);
+            }
+        }
+        for i in from..self.frames.len() {
+            if G::rule_while(self.frames[i].rule).is_some() {
+                self.frames[last].next_while = u32::try_from(i).unwrap_or(0);
+                last = i;
+            }
+        }
+        self.frames[last].next_while = 0;
     }
 
     /// Tries `pat` at `p`, clearing what the last try left.

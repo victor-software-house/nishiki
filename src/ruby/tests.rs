@@ -213,3 +213,16 @@ fn a_call_whose_paren_a_heredoc_takes_stays_open() {
         .count();
     assert_eq!(open, calls);
 }
+
+/// The engine keeps the indices of open `while` rules only when the flag is
+/// set. The flag must say whether any rule has a `while` pattern.
+#[test]
+fn the_while_flag_matches_the_rules() {
+    use crate::ruby::engine::Ruby;
+    use crate::ruby::grammar::Rule;
+    use crate::rules::Grammar;
+
+    let any = Rule::ALL.iter().any(|rule| rule.while_pat().is_some());
+    assert_eq!(Rule::HAS_WHILE, any);
+    assert_eq!(Ruby::WHILES, any);
+}

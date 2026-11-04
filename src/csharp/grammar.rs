@@ -287,6 +287,9 @@ pub(crate) enum Rule {
 }
 
 impl Rule {
+    /// Whether a rule has a `while` pattern ([`Rule::while_pat`]).
+    pub(crate) const HAS_WHILE: bool = true;
+
     /// Every rule, in code order.
     pub(crate) const ALL: [Rule; 217] = [
         Rule::Root,

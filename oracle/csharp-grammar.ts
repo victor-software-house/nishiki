@@ -514,7 +514,7 @@ g += `        }\n    }\n}\n\n`;
 
 g += `/// A rule of the grammar that can be open at the end of a line.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u8)]\npub(crate) enum Rule {\n`;
 for (const r of ruleList) g += `    ${r.id},\n`;
-g += `}\n\nimpl Rule {\n    /// Every rule, in code order.\n    pub(crate) const ALL: [Rule; ${ruleList.length}] = [\n`;
+g += `}\n\nimpl Rule {\n    /// Whether a rule has a \`while\` pattern ([\`Rule::while_pat\`]).\n    pub(crate) const HAS_WHILE: bool = ${ruleList.some((r) => r.while)};\n\n    /// Every rule, in code order.\n    pub(crate) const ALL: [Rule; ${ruleList.length}] = [\n`;
 for (const r of ruleList) g += `        Rule::${r.id},\n`;
 g += `    ];\n\n${tooLong}    pub(crate) fn data(self) -> RuleData {\n        match self {\n`;
 g += arms(

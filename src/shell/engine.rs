@@ -148,9 +148,9 @@ struct Flags {
     /// A rule closed without advancing, which keeps its begin scopes for the
     /// rest of the line.
     kept: bool,
-    /// A node limit denied a rule a state of its own, so it shares its
-    /// parent's: the only way two open rules share a state once the line is
-    /// lexed, since the frames [`Lexer::retokenise`] adds are dropped by then.
+    /// A node limit denied a rule its own state, so it shares its parent's.
+    /// Only then do two open rules share a state at the end of a line.
+    /// The frames that [`Lexer::retokenise`] adds are gone by then.
     shared: bool,
 }
 
@@ -273,6 +273,10 @@ pub(crate) struct Lexer<'a> {
     paths: Vec<Option<PathEntry>>,
     pushes: Vec<Option<PushEntry>>,
     flags: Flags,
+    /// The lowest index the line pushed a frame at.
+    /// The frames below it are ones the line started with.
+    /// The line that left them already cleared their `enter` and `anchor`.
+    low: usize,
     /// The searches that scan ahead, one per kind of search.
     finds: Finds,
     /// The last run of function-name characters found: where it starts and
@@ -345,6 +349,7 @@ impl<'a> Lexer<'a> {
             paths: std::mem::take(&mut scratch.paths),
             pushes: std::mem::take(&mut scratch.pushes),
             flags: Flags::default(),
+            low: usize::MAX,
             finds: Finds::new(),
             function_name_run: Cell::new(NameRun {
                 start: 0,
@@ -437,7 +442,8 @@ impl<'a> Lexer<'a> {
         let exact = !self.flags.kept && !self.flags.shared;
         scratch.resume = exact.then_some(state);
         if exact {
-            for frame in &mut self.frames {
+            let low = self.low.min(self.frames.len());
+            for frame in &mut self.frames[low..] {
                 (frame.enter, frame.anchor) = (None, None);
             }
         }
@@ -722,6 +728,7 @@ impl<'a> Lexer<'a> {
         anchor: Option<usize>,
         payload: u32,
     ) {
+        self.low = self.low.min(self.frames.len());
         let parent_state = self.top().state;
         let parent_scopes = self.top().content;
         let code = rule.code();

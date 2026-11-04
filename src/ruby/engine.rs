@@ -79,6 +79,8 @@ impl Grammar for Ruby {
         rule.data().content
     }
 
+    const WHILES: bool = Rule::HAS_WHILE;
+
     fn rule_while(rule: Rule) -> Option<Pat> {
         rule.while_pat()
     }

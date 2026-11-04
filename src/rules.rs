@@ -122,6 +122,13 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn rule_while(_rule: Self::Rule) -> Option<Self::Pat> {
         None
     }
+    /// Whether a rule of the grammar has a `while` pattern
+    /// ([`Grammar::rule_while`]).
+    /// The engine then keeps the indices of the open ones between lines.
+    /// A line that continues the last tries only those frames.
+    /// Without the flag, a line visits every frame.
+    /// The flag only saves work: the tokens are the same either way.
+    const WHILES: bool = false;
     /// Whether a rule of the grammar embeds another language
     /// ([`Payload::Embed`]); the loop looks for one only then.
     const EMBEDS: bool = false;
