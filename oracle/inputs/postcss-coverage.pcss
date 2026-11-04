@@ -1,0 +1,26 @@
+/* Written for nishiki: PostCSS that reaches the grammar's rarer rules. */
+/* {{ comment-tag }} */
+@include grid-columns;
+@include button(primary);
+@mixin rounded
+@function double($n) {
+  @return $n * 2;
+}
+
+$size: 10px;
+$list...;
+
+%placeholder { color: red; }
+
+.item-#{$size} { width: #{$size * 2}; }
+
+a[href^="http"], a[data-x*='y'], a[class~="b"], a[lang$="en"] {
+  color: #abc;
+  background: #a1b2c3 url(image.png);
+  font: format(woff2);
+  content: "#{$size}";
+  content: '#{$size}';
+}
+
+/* An id rule ends before the space, so the import rule reads the path. */
+#a@import base/reset.css;

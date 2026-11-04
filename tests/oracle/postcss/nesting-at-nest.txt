@@ -1,0 +1,4202 @@
+L /* This entire file can be deleted after removing support for "@nest" */
+T 2 source.css.postcss comment.block.postcss
+T 70 source.css.postcss comment.block.postcss
+T 72 source.css.postcss comment.block.postcss
+L 
+L /* basic.css */
+T 2 source.css.postcss comment.block.postcss
+T 13 source.css.postcss comment.block.postcss
+T 15 source.css.postcss comment.block.postcss
+L a {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L 	order: 1;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 
+L 	@media screen, print {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 21 source.css.postcss keyword.control.at-rule.css.postcss
+T 22 source.css.postcss keyword.control.at-rule.css.postcss
+T 23 source.css.postcss
+L 		order: 2;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 
+L 		@media (min-width: 480px) {
+T 2 source.css.postcss
+T 3 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss keyword.control.at-rule.css.postcss
+T 10 source.css.postcss
+T 19 source.css.postcss support.type.property-name.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 28 source.css.postcss meta.property-list.css.postcss
+T 29 source.css.postcss
+L 			order: 3;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 
+L 		order: 4;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	order: 5;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 	order: 6;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 
+L 	& b {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 6 source.css.postcss
+L 		order: 7;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 
+L 		& c {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+T 5 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 7 source.css.postcss
+L 			order: 8;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 
+L 		order: 9;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	order: 10;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 
+L 	@nest body & {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 11 source.css.postcss entity.name.tag.css.postcss.symbol
+T 12 source.css.postcss
+T 13 source.css.postcss entity.name.tag.css.postcss.symbol
+T 15 source.css.postcss
+L 		order: 11;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 
+L 		@nest html & {
+T 2 source.css.postcss
+T 3 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 12 source.css.postcss entity.name.tag.css.postcss.symbol
+T 13 source.css.postcss
+T 14 source.css.postcss entity.name.tag.css.postcss.symbol
+T 16 source.css.postcss
+L 			order: 12;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 
+L 		order: 13;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	order: 14;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 
+L 	@media screen {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 15 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss
+L 		order: 15;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 
+L 		@media (min-width: 480px) {
+T 2 source.css.postcss
+T 3 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss keyword.control.at-rule.css.postcss
+T 10 source.css.postcss
+T 19 source.css.postcss support.type.property-name.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 28 source.css.postcss meta.property-list.css.postcss
+T 29 source.css.postcss
+L 			order: 16;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest body& {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 11 source.css.postcss entity.name.tag.css.postcss.symbol
+T 12 source.css.postcss entity.name.tag.css.postcss.symbol
+T 14 source.css.postcss
+L 		order: 17;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest html body& {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 11 source.css.postcss entity.name.tag.css.postcss.symbol
+T 12 source.css.postcss
+T 16 source.css.postcss entity.name.tag.css.postcss.symbol
+T 17 source.css.postcss entity.name.tag.css.postcss.symbol
+T 19 source.css.postcss
+L 		order: 18;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L a {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L 	@nest .foo& {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 14 source.css.postcss
+L 		order: 19;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest .foo .bar& {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 11 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss
+T 13 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 17 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 19 source.css.postcss
+L 		order: 20;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L a b {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss
+L 	@nest .foo& {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 14 source.css.postcss
+L 		order: 21;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest .foo .bar& {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 11 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss
+T 13 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 17 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 19 source.css.postcss
+L 		order: 22;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	&h1,
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss
+L 	&h2 {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 6 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L li {
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L 	&+& {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 6 source.css.postcss
+L 		background: red;
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 18 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	&:where(h1) {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 9 source.css.postcss
+T 11 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L 		background: red;
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 18 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L a {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L 	& b[a="a&b"] {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss entity.other.attribute-selector.postcss
+T 7 source.css.postcss entity.other.attribute-selector.postcss
+T 8 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 11 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 12 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 13 source.css.postcss entity.other.attribute-selector.postcss
+T 15 source.css.postcss
+L 		order: 31;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .a,
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 3 source.css.postcss
+L .b {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss
+L 	&.c,
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss
+L 	&.d {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 		&::before {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 11 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 13 source.css.postcss
+L 			order: 41;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .a:hover, .b:focus {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 10 source.css.postcss
+T 11 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 18 source.css.postcss entity.other.attribute-name.class.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 20 source.css.postcss
+L 	&::before, &::after {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 12 source.css.postcss
+T 13 source.css.postcss entity.name.tag.css.postcss.symbol
+T 20 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 22 source.css.postcss
+L 		order: 51;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* leading : root */
+T 2 source.css.postcss comment.block.postcss
+T 18 source.css.postcss comment.block.postcss
+T 20 source.css.postcss comment.block.postcss
+L .comments {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 9 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 11 source.css.postcss
+L 	/* leading : 1 */
+T 1 source.css.postcss
+T 3 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+T 18 source.css.postcss comment.block.postcss
+L 	order: 61;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	/* trailing: 2 */
+T 1 source.css.postcss
+T 3 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+T 18 source.css.postcss comment.block.postcss
+L 
+L 	& .comment {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 11 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss
+L 		order: 62;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	/* loose comment */
+T 1 source.css.postcss
+T 3 source.css.postcss comment.block.postcss
+T 18 source.css.postcss comment.block.postcss
+T 20 source.css.postcss comment.block.postcss
+L 	& .comment {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 11 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss
+L 		order: 63;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	/* leading : 4 */
+T 1 source.css.postcss
+T 3 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+T 18 source.css.postcss comment.block.postcss
+L 	order: 64;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	/* trailing: 5 */
+T 1 source.css.postcss
+T 3 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+T 18 source.css.postcss comment.block.postcss
+L 
+L 	& .comment {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 11 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss
+L 		/* nested deeper */
+T 2 source.css.postcss
+T 4 source.css.postcss comment.block.postcss
+T 19 source.css.postcss comment.block.postcss
+T 21 source.css.postcss comment.block.postcss
+L 
+L 		& .comment {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+T 5 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 14 source.css.postcss
+L 			order: 65;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .pseudo-element {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 15 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 17 source.css.postcss
+L 	@nest ::before& {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 15 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 16 source.css.postcss entity.name.tag.css.postcss.symbol
+T 18 source.css.postcss
+L 		order: 71;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest ::before & {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 15 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 16 source.css.postcss
+T 17 source.css.postcss entity.name.tag.css.postcss.symbol
+T 19 source.css.postcss
+L 		order: 71.1;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .pseudo-element {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 15 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 17 source.css.postcss
+L 	@nest :before& {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss entity.name.tag.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss
+T 17 source.css.postcss
+L 		order: 72;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest :before & {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss entity.name.tag.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss
+L 		order: 72.1;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .pseudo-element {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 15 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 17 source.css.postcss
+L 	@nest &::after {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 15 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 17 source.css.postcss
+L 		order: 73;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest & ::after {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+T 16 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 18 source.css.postcss
+L 		order: 73.1;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .pseudo-element {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 15 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 17 source.css.postcss
+L 	@nest &:after {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 14 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 16 source.css.postcss
+L 		order: 74;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest & :after {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss
+T 17 source.css.postcss
+L 		order: 74.1;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .has-semi-colons-on-the-last-decl {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 33 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 35 source.css.postcss
+L 	order: 73;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	/* a comment */
+T 1 source.css.postcss
+T 3 source.css.postcss comment.block.postcss
+T 14 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L 
+L 	& .foo {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 9 source.css.postcss
+L 		order: 73.1;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .has-semi-colons-on-the-last-decl {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 33 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 35 source.css.postcss
+L 	order: 74;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	/* a comment */
+T 1 source.css.postcss
+T 3 source.css.postcss comment.block.postcss
+T 14 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L 
+L 	@nest & .foo {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+T 10 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 15 source.css.postcss
+L 		order: 74.1;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .mixed-declarations-and-rules--a {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 32 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 34 source.css.postcss
+L 	& {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L 		nested: 1;
+T 2 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	declaration: 1;
+T 1 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 16 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .mixed-declarations-and-rules--b {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 32 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 34 source.css.postcss
+L 	declaration: 1;
+T 1 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 16 source.css.postcss
+L 
+L 	& {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L 		nested: 1;
+T 2 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	declaration: 2;
+T 1 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 16 source.css.postcss
+L 
+L 	@media screen {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 15 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss
+L 		nested: 2;
+T 2 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	declaration: 3;
+T 1 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 16 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .node-less-at-rule {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 18 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 20 source.css.postcss
+L 	declaration: 1;
+T 1 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 16 source.css.postcss
+L 
+L 	@layer foo;
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 11 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 
+L 	declaration: 2;
+T 1 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 16 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L 
+L /* at-rule.css */
+T 2 source.css.postcss comment.block.postcss
+T 15 source.css.postcss comment.block.postcss
+T 17 source.css.postcss comment.block.postcss
+L a {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L 	order: 1;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 
+L 	@nest b & {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol
+T 12 source.css.postcss
+L 		order: 2;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest c & {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 9 source.css.postcss
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol
+T 12 source.css.postcss
+L 		order: 3;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest d & {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 9 source.css.postcss
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol
+T 12 source.css.postcss
+L 		order: 4;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest e & {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 9 source.css.postcss
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol
+T 12 source.css.postcss
+L 		order: 5;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L a {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L 	order: 1;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 
+L 	@nest & b {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol
+T 12 source.css.postcss
+L 		order: 2;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest & c {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+T 10 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 		order: 3;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest & d {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+T 10 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 		order: 4;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest & e {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+T 10 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 		order: 5;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest &[foo="& ,\'"] {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss entity.other.attribute-selector.postcss
+T 13 source.css.postcss entity.other.attribute-selector.postcss
+T 14 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 19 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 20 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 21 source.css.postcss entity.other.attribute-selector.postcss
+T 23 source.css.postcss
+L 		order: 6;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest &[a="& ,\'"][b='& . \\a &'] {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss entity.other.attribute-selector.postcss
+T 11 source.css.postcss entity.other.attribute-selector.postcss
+T 12 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 17 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 18 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 19 source.css.postcss entity.other.attribute-selector.postcss
+T 20 source.css.postcss entity.other.attribute-selector.postcss
+T 22 source.css.postcss entity.other.attribute-selector.postcss
+T 23 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 32 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 33 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 34 source.css.postcss entity.other.attribute-selector.postcss
+T 36 source.css.postcss
+L 		order: 7;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest &\\foo {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 13 source.css.postcss entity.name.tag.css.postcss.symbol
+T 15 source.css.postcss
+L 		order: 8;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	@nest &h1 {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol
+T 12 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 
+L 	@nest &h1,
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol
+T 11 source.css.postcss
+L 	&h2 {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 6 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	@nest &.bar {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 14 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L 
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 
+L 	@nest &.bar,
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss
+L 	&.baz {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L h1 {
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L 	@nest .foo& {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 14 source.css.postcss
+L 		color: blue;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L h1 {
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L 	@nest .foo& .baz & {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss
+T 14 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 17 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 18 source.css.postcss
+T 19 source.css.postcss entity.name.tag.css.postcss.symbol
+T 21 source.css.postcss
+L 		color: blue;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L h1 {
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L 
+L 	@nest .foo&,
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss
+L 	.bar& {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss
+L 		color: blue;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L article {
+T 7 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+L 	color: blue;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 
+L 	@nest :where(&) {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss entity.name.tag.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* direct.css */
+T 2 source.css.postcss comment.block.postcss
+T 14 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L a,
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 2 source.css.postcss
+L b {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L 	order: 1;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 
+L 	& c,
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 5 source.css.postcss
+L 	& d {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 6 source.css.postcss
+L 		order: 2;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 
+L 		& e,
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+T 5 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 6 source.css.postcss
+L 		& f {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+T 5 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 7 source.css.postcss
+L 			order: 3;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 
+L 		order: 4;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	order: 5;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L a,
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 2 source.css.postcss
+L b {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L 	order: 1;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 
+L 	@nest & c,
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+T 10 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 11 source.css.postcss
+L 	& d {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 6 source.css.postcss
+L 		order: 2;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 
+L 		@nest & e,
+T 2 source.css.postcss
+T 3 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss
+T 11 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 		& f {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+T 5 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 7 source.css.postcss
+L 			order: 3;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 
+L 		order: 4;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	order: 5;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L a,
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 2 source.css.postcss
+L b {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L 	order: 1;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 
+L 	& c,
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 5 source.css.postcss
+L 	& d {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 6 source.css.postcss
+L 		order: 2;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 
+L 		& e,
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+T 5 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 6 source.css.postcss
+L 		& f {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+T 5 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 7 source.css.postcss
+L 			order: 3;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 
+L 		order: 4;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	order: 5;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .a,
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 3 source.css.postcss
+L .b {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss
+L 	order: 6;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 
+L 	@nest & .c,
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+T 10 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 11 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss
+L 	& .d {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss
+L 		order: 7;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 
+L 		@nest & .e,
+T 2 source.css.postcss
+T 3 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss
+T 11 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss
+L 		& .f {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+T 5 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss
+L 			order: 8;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 
+L 		order: 9;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	order: 10;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* empty.css */
+T 2 source.css.postcss comment.block.postcss
+T 13 source.css.postcss comment.block.postcss
+T 15 source.css.postcss comment.block.postcss
+L a {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L 	& b {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 6 source.css.postcss
+L 		& c {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+T 5 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 7 source.css.postcss
+L 			order: 1;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L d {
+T 1 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 3 source.css.postcss
+L 	order: 2;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 
+L 	& e {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 6 source.css.postcss
+L 		order: 3;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L f {
+T 1 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 3 source.css.postcss
+L 	& g {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 6 source.css.postcss
+L 		order: 4;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	order: 5;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L a {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L 	@nest & b {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol
+T 12 source.css.postcss
+L 		@nest & c {
+T 2 source.css.postcss
+T 3 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss
+T 11 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 			order: 1;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L d {
+T 1 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 3 source.css.postcss
+L 	order: 2;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 
+L 	@nest & e {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+T 10 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 		order: 3;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L f {
+T 1 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 3 source.css.postcss
+L 	@nest & g {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+T 10 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 		order: 4;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	order: 5;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* ignore.css */
+T 2 source.css.postcss comment.block.postcss
+T 14 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L a,
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 2 source.css.postcss
+L b {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L 	order: 1;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 
+L 	c,
+T 1 source.css.postcss
+T 2 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 3 source.css.postcss
+L 	d {
+T 1 source.css.postcss
+T 2 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 4 source.css.postcss
+L 		order: 2;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L & e {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 2 source.css.postcss
+T 3 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 5 source.css.postcss
+L 	order: 3;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L f {
+T 1 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 3 source.css.postcss
+L 	&g {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss
+L 		order: 5;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L a,
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 2 source.css.postcss
+L b {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L 	order: 1;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 
+L 	@nest c,
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 9 source.css.postcss
+L 	d {
+T 1 source.css.postcss
+T 2 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 4 source.css.postcss
+L 		order: 2;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @nest & e {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 5 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss entity.name.tag.css.postcss.symbol
+T 8 source.css.postcss
+T 9 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 11 source.css.postcss
+L 	order: 3;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L f {
+T 1 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 3 source.css.postcss
+L 	@nest &h {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss entity.name.tag.css.postcss.symbol
+T 11 source.css.postcss
+L 		order: 5;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@nest &|i {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol
+T 12 source.css.postcss
+L 		order: 6;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* invalid-selector.css */
+T 2 source.css.postcss comment.block.postcss
+T 24 source.css.postcss comment.block.postcss
+T 26 source.css.postcss comment.block.postcss
+L .foo : bar {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss
+T 6 source.css.postcss meta.property-list.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss
+L 	&.child {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 10 source.css.postcss
+L 		order: 1;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .foo : bar {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss
+T 6 source.css.postcss meta.property-list.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss
+L 	@nest &.child {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 14 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 16 source.css.postcss
+L 		order: 2;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	&.child : bar {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 9 source.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss
+L 		order: 3;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	@nest &.child : bar {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 14 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 15 source.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss
+L 		order: 4;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* media.css */
+T 2 source.css.postcss comment.block.postcss
+T 13 source.css.postcss comment.block.postcss
+T 15 source.css.postcss comment.block.postcss
+L a {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L 	order: 1;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 
+L 	@media (min-width: 100px) {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss
+T 18 source.css.postcss support.type.property-name.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 23 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 25 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 28 source.css.postcss
+L 		order: 2;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 
+L 		@media (max-width: 200px) {
+T 2 source.css.postcss
+T 3 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss keyword.control.at-rule.css.postcss
+T 10 source.css.postcss
+T 19 source.css.postcss support.type.property-name.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 28 source.css.postcss meta.property-list.css.postcss
+T 29 source.css.postcss
+L 			order: 3;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 
+L 		& b {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 			@media (max-width: 200px) {
+T 3 source.css.postcss
+T 4 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss keyword.control.at-rule.css.postcss
+T 10 source.css.postcss keyword.control.at-rule.css.postcss
+T 11 source.css.postcss
+T 20 source.css.postcss support.type.property-name.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss
+T 25 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 29 source.css.postcss meta.property-list.css.postcss
+T 30 source.css.postcss
+L 				order: 4;
+T 4 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L 			}
+T 4 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@media screen,
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 15 source.css.postcss keyword.control.at-rule.css.postcss
+L 	print and speech {
+T 1 source.css.postcss
+T 6 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 7 source.css.postcss
+T 10 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 11 source.css.postcss
+T 17 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 19 source.css.postcss
+L 
+L 		@media (max-width: 300px),
+T 2 source.css.postcss
+T 3 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss keyword.control.at-rule.css.postcss
+T 10 source.css.postcss
+T 19 source.css.postcss support.type.property-name.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 28 source.css.postcss
+L 		(min-aspect-ratio: 16/9) {
+T 3 source.css.postcss
+T 19 source.css.postcss support.type.property-name.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 23 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss keyword.operator.postcss
+T 25 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 28 source.css.postcss
+L 			order: 5;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 
+L 			& c {
+T 3 source.css.postcss
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss
+T 6 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 8 source.css.postcss
+L 				order: 6;
+T 4 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L 			}
+T 4 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L a {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L 	order: 1;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 10 source.css.postcss
+L 
+L 	@media (min-width: 100px) {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss
+T 18 source.css.postcss support.type.property-name.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 23 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 25 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 28 source.css.postcss
+L 		order: 2;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 
+L 		@media (max-width: 200px) {
+T 2 source.css.postcss
+T 3 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss keyword.control.at-rule.css.postcss
+T 10 source.css.postcss
+T 19 source.css.postcss support.type.property-name.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 28 source.css.postcss meta.property-list.css.postcss
+T 29 source.css.postcss
+L 			order: 3;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 
+L 		@nest & b {
+T 2 source.css.postcss
+T 3 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss
+T 11 source.css.postcss entity.name.tag.css.postcss.symbol
+T 13 source.css.postcss
+L 			@media (max-width: 200px) {
+T 3 source.css.postcss
+T 4 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss keyword.control.at-rule.css.postcss
+T 10 source.css.postcss keyword.control.at-rule.css.postcss
+T 11 source.css.postcss
+T 20 source.css.postcss support.type.property-name.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss
+T 25 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 29 source.css.postcss meta.property-list.css.postcss
+T 30 source.css.postcss
+L 				order: 4;
+T 4 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L 			}
+T 4 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	@media screen,
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 15 source.css.postcss keyword.control.at-rule.css.postcss
+L 	print and speech {
+T 1 source.css.postcss
+T 6 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 7 source.css.postcss
+T 10 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 11 source.css.postcss
+T 17 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 19 source.css.postcss
+L 
+L 		@media (max-width: 300px),
+T 2 source.css.postcss
+T 3 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss keyword.control.at-rule.css.postcss
+T 10 source.css.postcss
+T 19 source.css.postcss support.type.property-name.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 28 source.css.postcss
+L 		(min-aspect-ratio: 16/9) {
+T 3 source.css.postcss
+T 19 source.css.postcss support.type.property-name.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 23 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss keyword.operator.postcss
+T 25 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 28 source.css.postcss
+L 			order: 5;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 
+L 			@nest & c {
+T 3 source.css.postcss
+T 4 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss keyword.control.at-rule.css.postcss
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol
+T 11 source.css.postcss
+T 12 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L 				order: 6;
+T 4 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L 			}
+T 4 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* pseudo-element.css */
+T 2 source.css.postcss comment.block.postcss
+T 22 source.css.postcss comment.block.postcss
+T 24 source.css.postcss comment.block.postcss
+L ::before {
+T 8 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 10 source.css.postcss
+L 
+L 	@nest .foo&,
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss
+L 	&:focus {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 10 source.css.postcss
+L 		order: 1;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .a:hover,
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 9 source.css.postcss
+L .b:focus {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 10 source.css.postcss
+L 
+L 	&::before,
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 11 source.css.postcss
+L 	&::after {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 11 source.css.postcss
+L 		order: 2;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .a {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss
+L 	&::before {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 12 source.css.postcss
+L 		order: 3;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	&::after {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 11 source.css.postcss
+L 		order: 4;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .a {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss
+L 	&::before {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 12 source.css.postcss
+L 		order: 5;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 
+L 		&:focus {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 11 source.css.postcss
+L 			order: 6;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	&::after {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 11 source.css.postcss
+L 		order: 7;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 
+L 		&:hover {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 11 source.css.postcss
+L 			order: 8;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .anything::before {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 9 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 17 source.css.postcss entity.other.attribute-name.class.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 19 source.css.postcss
+L 	@nest .something_else>& {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 22 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 23 source.css.postcss keyword.operator.postcss
+T 24 source.css.postcss entity.name.tag.css.postcss.symbol
+T 26 source.css.postcss
+L 		order: 9;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* spec-examples.css */
+T 2 source.css.postcss comment.block.postcss
+T 21 source.css.postcss comment.block.postcss
+T 23 source.css.postcss comment.block.postcss
+L /* https://www.w3.org/TR/css-nesting-1/ */
+T 2 source.css.postcss comment.block.postcss
+T 40 source.css.postcss comment.block.postcss
+T 42 source.css.postcss comment.block.postcss
+L 
+L /* Example 2 */
+T 2 source.css.postcss comment.block.postcss
+T 13 source.css.postcss comment.block.postcss
+T 15 source.css.postcss comment.block.postcss
+L 
+L table.colortable {
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 6 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 16 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 18 source.css.postcss
+L 	& td {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		text-align: center;
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 21 source.css.postcss
+L 
+L 		&.c {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss
+L 			text-transform: uppercase
+T 3 source.css.postcss
+T 17 source.css.postcss support.type.property-name.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss
+T 28 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+L 		}
+T 3 source.css.postcss
+L 
+L 		&:first-child,
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 15 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 16 source.css.postcss
+L 		&:first-child+td {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 15 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 18 source.css.postcss entity.name.tag.css.postcss.symbol
+T 20 source.css.postcss
+L 			border: 1px solid black
+T 3 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	& th {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		text-align: center;
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 21 source.css.postcss
+L 		background: black;
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 20 source.css.postcss
+L 		color: white;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 15 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* Example 3 */
+T 2 source.css.postcss comment.block.postcss
+T 13 source.css.postcss comment.block.postcss
+T 15 source.css.postcss comment.block.postcss
+L /* & can be used on its own */
+T 2 source.css.postcss comment.block.postcss
+T 28 source.css.postcss comment.block.postcss
+T 30 source.css.postcss comment.block.postcss
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: blue;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 
+L 	&>.bar {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss keyword.operator.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 9 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   .foo { color: blue; }
+T 23 source.css.postcss comment.block.postcss
+L   .foo > .bar { color: red; }
+T 29 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L 
+L /* or in a compound selector,
+T 2 source.css.postcss comment.block.postcss
+T 29 source.css.postcss comment.block.postcss
+L    refining the parent’s selector */
+T 36 source.css.postcss comment.block.postcss
+T 38 source.css.postcss comment.block.postcss
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: blue;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 
+L 	&.bar {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   .foo { color: blue; }
+T 23 source.css.postcss comment.block.postcss
+L   .foo.bar { color: red; }
+T 26 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L /* multiple selectors in the list must all
+T 2 source.css.postcss comment.block.postcss
+T 42 source.css.postcss comment.block.postcss
+L    start with & */
+T 16 source.css.postcss comment.block.postcss
+T 18 source.css.postcss comment.block.postcss
+L .foo,
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss
+L .bar {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: blue;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 
+L 	&+.baz,
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss
+L 	&.qux {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   .foo, .bar { color: blue; }
+T 29 source.css.postcss comment.block.postcss
+L   :is(.foo, .bar) + .baz,
+T 25 source.css.postcss comment.block.postcss
+L   :is(.foo, .bar).qux { color: red; }
+T 37 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L /* & can be used multiple times in a single selector */
+T 2 source.css.postcss comment.block.postcss
+T 53 source.css.postcss comment.block.postcss
+T 55 source.css.postcss comment.block.postcss
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: blue;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 
+L 	& .bar & .baz & .qux {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss
+T 9 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss
+T 11 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 14 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 15 source.css.postcss
+T 16 source.css.postcss entity.name.tag.css.postcss.symbol
+T 17 source.css.postcss
+T 18 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 21 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 23 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   .foo { color: blue; }
+T 23 source.css.postcss comment.block.postcss
+L   .foo .bar .foo .baz .foo .qux { color: red; }
+T 47 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L /* Somewhat silly, but can be used all on its own, as well. */
+T 2 source.css.postcss comment.block.postcss
+T 60 source.css.postcss comment.block.postcss
+T 62 source.css.postcss comment.block.postcss
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: blue;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 
+L 	& {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L 		padding: 2ch;
+T 2 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 15 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   .foo { color: blue; }
+T 23 source.css.postcss comment.block.postcss
+L   .foo { padding: 2ch; }
+T 24 source.css.postcss comment.block.postcss
+L 
+L   // or
+T 7 source.css.postcss comment.block.postcss
+L 
+L   .foo {
+T 8 source.css.postcss comment.block.postcss
+L     color: blue;
+T 16 source.css.postcss comment.block.postcss
+L     padding: 2ch;
+T 17 source.css.postcss comment.block.postcss
+L   }
+T 3 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L /* Again, silly, but can even be doubled up. */
+T 2 source.css.postcss comment.block.postcss
+T 45 source.css.postcss comment.block.postcss
+T 47 source.css.postcss comment.block.postcss
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: blue;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 
+L 	&& {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss
+L 		padding: 2ch;
+T 2 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 15 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   .foo { color: blue; }
+T 23 source.css.postcss comment.block.postcss
+L   .foo.foo { padding: 2ch; }
+T 28 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L /* The parent selector can be arbitrarily complicated */
+T 2 source.css.postcss comment.block.postcss
+T 54 source.css.postcss comment.block.postcss
+T 56 source.css.postcss comment.block.postcss
+L .error,
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss
+L #404 {
+T 1 source.css.postcss entity.other.attribute-name.id.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.id.css.postcss
+T 6 source.css.postcss
+L 	&:hover>.baz {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 9 source.css.postcss keyword.operator.postcss
+T 10 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 15 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   :is(.error, #404):hover > .baz { color: red; }
+T 48 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L /* As can the nested selector */
+T 2 source.css.postcss comment.block.postcss
+T 30 source.css.postcss comment.block.postcss
+T 32 source.css.postcss comment.block.postcss
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	&:is(.bar, &.baz) {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 6 source.css.postcss
+T 7 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 10 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss
+T 13 source.css.postcss entity.name.tag.css.postcss.symbol
+T 14 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 17 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 20 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   .foo:is(.bar, .foo.baz) { color: red; }
+T 41 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L /* Multiple levels of nesting "stack up" the selectors */
+T 2 source.css.postcss comment.block.postcss
+T 55 source.css.postcss comment.block.postcss
+T 57 source.css.postcss comment.block.postcss
+L figure {
+T 6 source.css.postcss entity.name.tag.css.postcss.symbol
+T 8 source.css.postcss
+L 	margin: 0;
+T 1 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 
+L 	&>figcaption {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss keyword.operator.postcss
+T 13 source.css.postcss entity.name.tag.css.postcss.symbol
+T 15 source.css.postcss
+L 		background: hsl(0 0% 0% / 50%);
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 18 source.css.postcss meta.property-list.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 23 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 25 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss keyword.operator.postcss
+T 28 source.css.postcss meta.property-list.css.postcss
+T 30 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 31 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 32 source.css.postcss meta.property-list.css.postcss
+T 33 source.css.postcss
+L 
+L 		&>p {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss keyword.operator.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 			font-size: .9rem;
+T 3 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 20 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   figure { margin: 0; }
+T 23 source.css.postcss comment.block.postcss
+L   figure > figcaption { background: hsl(0 0% 0% / 50%); }
+T 57 source.css.postcss comment.block.postcss
+L   figure > figcaption > p { font-size: .9rem; }
+T 47 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L /* No concatenation */
+T 2 source.css.postcss comment.block.postcss
+T 20 source.css.postcss comment.block.postcss
+T 22 source.css.postcss comment.block.postcss
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: blue;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 
+L 	&__bar {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 9 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* No & at all */
+T 2 source.css.postcss comment.block.postcss
+T 15 source.css.postcss comment.block.postcss
+T 17 source.css.postcss comment.block.postcss
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: blue;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 
+L 	.bar {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* & isn’t the first simple selector */
+T 2 source.css.postcss comment.block.postcss
+T 39 source.css.postcss comment.block.postcss
+T 41 source.css.postcss comment.block.postcss
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: blue;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 
+L 	.bar& {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* & isn’t the first selector of every one in the list */
+T 2 source.css.postcss comment.block.postcss
+T 57 source.css.postcss comment.block.postcss
+T 59 source.css.postcss comment.block.postcss
+L .foo,
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss
+L .bar {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: blue;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 
+L 	&+.baz,
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss
+L 	.qux {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* Example 4 */
+T 2 source.css.postcss comment.block.postcss
+T 13 source.css.postcss comment.block.postcss
+T 15 source.css.postcss comment.block.postcss
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: red;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 
+L 	@nest &>.bar {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss keyword.operator.postcss
+T 10 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 15 source.css.postcss
+L 		color: blue;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   .foo { color: red; }
+T 22 source.css.postcss comment.block.postcss
+L   .foo > .bar { color: blue; }
+T 30 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: red;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 
+L 	@nest .parent & {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 14 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 15 source.css.postcss
+T 16 source.css.postcss entity.name.tag.css.postcss.symbol
+T 18 source.css.postcss
+L 		color: blue;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   .foo { color: red; }
+T 22 source.css.postcss comment.block.postcss
+L   .parent .foo { color: blue; }
+T 31 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: red;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 
+L 	@nest :not(&) {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss entity.name.tag.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss
+L 		color: blue;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   .foo { color: red; }
+T 22 source.css.postcss comment.block.postcss
+L   :not(.foo) { color: blue; }
+T 29 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: red;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 
+L 	@nest .bar {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 11 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss
+L 		color: blue;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* Invalid because there’s no nesting selector */
+T 2 source.css.postcss comment.block.postcss
+T 49 source.css.postcss comment.block.postcss
+T 51 source.css.postcss comment.block.postcss
+L 
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: red;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 
+L 	@nest & .bar,
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+T 10 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 14 source.css.postcss
+L 	.baz {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss
+L 		color: blue;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* Invalid because not all selectors in the list
+T 2 source.css.postcss comment.block.postcss
+T 48 source.css.postcss comment.block.postcss
+L   contain a nesting selector */
+T 29 source.css.postcss comment.block.postcss
+T 31 source.css.postcss comment.block.postcss
+L 
+L /* Example 5 */
+T 2 source.css.postcss comment.block.postcss
+T 13 source.css.postcss comment.block.postcss
+T 15 source.css.postcss comment.block.postcss
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: blue;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 
+L 	@nest .bar & {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 11 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss
+T 13 source.css.postcss entity.name.tag.css.postcss.symbol
+T 15 source.css.postcss
+L 		color: red;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L 
+L 		&.baz {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 9 source.css.postcss
+L 			color: green;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 16 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   .foo { color: blue; }
+T 23 source.css.postcss comment.block.postcss
+L   .bar .foo { color: red; }
+T 27 source.css.postcss comment.block.postcss
+L   .bar .foo.baz { color: green; }
+T 33 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L /* Example 6 */
+T 2 source.css.postcss comment.block.postcss
+T 13 source.css.postcss comment.block.postcss
+T 15 source.css.postcss comment.block.postcss
+L /* Properties can be directly used */
+T 2 source.css.postcss comment.block.postcss
+T 35 source.css.postcss comment.block.postcss
+T 37 source.css.postcss comment.block.postcss
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	display: grid;
+T 1 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 15 source.css.postcss
+L 
+L 	@media (orientation: landscape) {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss
+T 20 source.css.postcss support.type.property-name.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss
+T 31 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 33 source.css.postcss meta.property-list.css.postcss
+T 34 source.css.postcss
+L 		grid-auto-flow: column;
+T 2 source.css.postcss
+T 16 source.css.postcss support.type.property-name.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 25 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   .foo { display: grid; }
+T 25 source.css.postcss comment.block.postcss
+L 
+L   @media (orientation: landscape) {
+T 35 source.css.postcss comment.block.postcss
+L     & {
+T 7 source.css.postcss comment.block.postcss
+L       grid-auto-flow: column;
+T 29 source.css.postcss comment.block.postcss
+L     }
+T 5 source.css.postcss comment.block.postcss
+L   }
+T 3 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L /* finally equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 24 source.css.postcss comment.block.postcss
+L   .foo { display: grid; }
+T 25 source.css.postcss comment.block.postcss
+L 
+L   @media (orientation: landscape) {
+T 35 source.css.postcss comment.block.postcss
+L     .foo {
+T 10 source.css.postcss comment.block.postcss
+L       grid-auto-flow: column;
+T 29 source.css.postcss comment.block.postcss
+L     }
+T 5 source.css.postcss comment.block.postcss
+L   }
+T 3 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L /* Conditionals can be further nested */
+T 2 source.css.postcss comment.block.postcss
+T 38 source.css.postcss comment.block.postcss
+T 40 source.css.postcss comment.block.postcss
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	display: grid;
+T 1 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 15 source.css.postcss
+L 
+L 	@media (orientation: landscape) {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss
+T 20 source.css.postcss support.type.property-name.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss
+T 31 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 33 source.css.postcss meta.property-list.css.postcss
+T 34 source.css.postcss
+L 		grid-auto-flow: column;
+T 2 source.css.postcss
+T 16 source.css.postcss support.type.property-name.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 25 source.css.postcss
+L 
+L 		@media (min-inline-size > 1024px) {
+T 2 source.css.postcss
+T 3 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss keyword.control.at-rule.css.postcss
+T 10 source.css.postcss
+T 25 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 26 source.css.postcss
+T 27 source.css.postcss keyword.operator.postcss
+T 28 source.css.postcss
+T 32 source.css.postcss constant.numeric.css.postcss
+T 34 source.css.postcss keyword.other.unit.css.postcss
+T 37 source.css.postcss
+L 			max-inline-size: 1024px;
+T 3 source.css.postcss
+T 18 source.css.postcss support.type.property-name.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 27 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* equivalent to
+T 2 source.css.postcss comment.block.postcss
+T 16 source.css.postcss comment.block.postcss
+L   .foo { display: grid; }
+T 25 source.css.postcss comment.block.postcss
+L 
+L   @media (orientation: landscape) {
+T 35 source.css.postcss comment.block.postcss
+L     .foo {
+T 10 source.css.postcss comment.block.postcss
+L       grid-auto-flow: column;
+T 29 source.css.postcss comment.block.postcss
+L     }
+T 5 source.css.postcss comment.block.postcss
+L   }
+T 3 source.css.postcss comment.block.postcss
+L 
+L   @media (orientation: landscape) and (min-inline-size > 1024px) {
+T 66 source.css.postcss comment.block.postcss
+L     .foo {
+T 10 source.css.postcss comment.block.postcss
+L       max-inline-size: 1024px;
+T 30 source.css.postcss comment.block.postcss
+L     }
+T 5 source.css.postcss comment.block.postcss
+L   }
+T 3 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: red;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 
+L 	@media (min-width: 480px) {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss
+T 18 source.css.postcss support.type.property-name.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 23 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 25 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 28 source.css.postcss
+L 
+L 		& h1,
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+T 6 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		h2 {
+T 2 source.css.postcss
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 6 source.css.postcss
+L 			color: blue;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 15 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* Invalid because not all selectors in the list
+T 2 source.css.postcss comment.block.postcss
+T 48 source.css.postcss comment.block.postcss
+L   contain a nesting selector */
+T 29 source.css.postcss comment.block.postcss
+T 31 source.css.postcss comment.block.postcss
+L 
+L .foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	color: red;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 
+L 	@nest @media (min-width: 480px) {
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 13 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 15 source.css.postcss
+T 24 source.css.postcss support.type.property-name.css.postcss
+T 25 source.css.postcss meta.property-list.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss
+T 29 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 31 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 33 source.css.postcss meta.property-list.css.postcss
+T 34 source.css.postcss
+L 		& {
+T 2 source.css.postcss
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss
+L 			color: blue;
+T 3 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 15 source.css.postcss
+L 		}
+T 3 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* Invalid because @nest expects a selector prelude,
+T 2 source.css.postcss comment.block.postcss
+T 52 source.css.postcss comment.block.postcss
+L   instead a conditional group rule was provided */
+T 48 source.css.postcss comment.block.postcss
+T 50 source.css.postcss comment.block.postcss
+L 
+L /* Example 7 */
+T 2 source.css.postcss comment.block.postcss
+T 13 source.css.postcss comment.block.postcss
+T 15 source.css.postcss comment.block.postcss
+L article {
+T 7 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+L 	color: green;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L 
+L 	& {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L 		color: blue;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	/*
+T 1 source.css.postcss
+T 3 source.css.postcss comment.block.postcss
+L 		NOTE : We are more forgiving than the spec
+T 44 source.css.postcss comment.block.postcss
+L 		This declaration is preserved
+T 31 source.css.postcss comment.block.postcss
+L 	*/
+T 1 source.css.postcss comment.block.postcss
+T 3 source.css.postcss comment.block.postcss
+L 	color: red;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L article {
+T 7 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+L 	color: green;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L 
+L 	& {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L 		color: blue;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	/*
+T 1 source.css.postcss
+T 3 source.css.postcss comment.block.postcss
+L 		NOTE : We are more forgiving than the spec
+T 44 source.css.postcss comment.block.postcss
+L 		This declaration is preserved
+T 31 source.css.postcss comment.block.postcss
+L 	*/
+T 1 source.css.postcss comment.block.postcss
+T 3 source.css.postcss comment.block.postcss
+L 	color: red;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 12 source.css.postcss
+L 
+L 	&.foo {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss
+L 		color: yellow;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 16 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L 
+L 	/* valid! */
+T 1 source.css.postcss
+T 3 source.css.postcss comment.block.postcss
+T 11 source.css.postcss comment.block.postcss
+T 13 source.css.postcss comment.block.postcss
+L }
+T 1 source.css.postcss
+L 

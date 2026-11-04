@@ -1,0 +1,710 @@
+L @custom-media --mq-a (max-width: 30em), (max-height: 30em);
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 13 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 20 source.css.postcss variable.parameter.postcss
+T 22 source.css.postcss
+T 31 source.css.postcss support.type.property-name.css.postcss
+T 32 source.css.postcss meta.property-list.css.postcss
+T 33 source.css.postcss meta.property-list.css.postcss
+T 35 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 37 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 41 source.css.postcss
+T 51 source.css.postcss support.type.property-name.css.postcss
+T 52 source.css.postcss meta.property-list.css.postcss
+T 53 source.css.postcss meta.property-list.css.postcss
+T 55 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 57 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 58 source.css.postcss meta.property-list.css.postcss
+T 59 source.css.postcss
+L @custom-media --mq-b screen and (max-width: 30em);
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 13 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 20 source.css.postcss variable.parameter.postcss
+T 21 source.css.postcss
+T 27 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 28 source.css.postcss
+T 31 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 33 source.css.postcss
+T 42 source.css.postcss support.type.property-name.css.postcss
+T 43 source.css.postcss meta.property-list.css.postcss
+T 44 source.css.postcss meta.property-list.css.postcss
+T 46 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 48 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 49 source.css.postcss meta.property-list.css.postcss
+T 50 source.css.postcss
+L @custom-media --not-mq-a not all and (--mq-a);
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 13 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 24 source.css.postcss variable.parameter.postcss
+T 25 source.css.postcss
+T 28 source.css.postcss support.type.property-name.css.postcss
+T 29 source.css.postcss
+T 32 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 33 source.css.postcss
+T 36 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 38 source.css.postcss
+T 44 source.css.postcss variable.parameter.postcss
+T 46 source.css.postcss
+L 
+L @media (--mq-a) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+T 14 source.css.postcss variable.parameter.postcss
+T 17 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 1;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media (--mq-b) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+T 14 source.css.postcss variable.parameter.postcss
+T 17 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 2;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media (--mq-a), (--mq-a) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+T 14 source.css.postcss variable.parameter.postcss
+T 18 source.css.postcss
+T 24 source.css.postcss variable.parameter.postcss
+T 27 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 3;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media not all and (--mq-a) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 15 source.css.postcss keyword.control.at-rule.css.postcss
+T 18 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 20 source.css.postcss
+T 26 source.css.postcss variable.parameter.postcss
+T 29 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 4;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media (--not-mq-a) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+T 18 source.css.postcss variable.parameter.postcss
+T 21 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 5;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media not all and (--not-mq-a) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 15 source.css.postcss keyword.control.at-rule.css.postcss
+T 18 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 20 source.css.postcss
+T 30 source.css.postcss variable.parameter.postcss
+T 33 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 6;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @custom-media --circular-mq-a (--circular-mq-b);
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 13 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 29 source.css.postcss variable.parameter.postcss
+T 31 source.css.postcss
+T 46 source.css.postcss variable.parameter.postcss
+T 48 source.css.postcss
+L @custom-media --circular-mq-b (--circular-mq-a);
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 13 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 29 source.css.postcss variable.parameter.postcss
+T 31 source.css.postcss
+T 46 source.css.postcss variable.parameter.postcss
+T 48 source.css.postcss
+L 
+L @media (--circular-mq-a) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+T 23 source.css.postcss variable.parameter.postcss
+T 26 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 7;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media (--circular-mq-b) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+T 23 source.css.postcss variable.parameter.postcss
+T 26 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 8;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media (--unresolved-mq) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+T 23 source.css.postcss variable.parameter.postcss
+T 26 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 9;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @custom-media --min (min-width: 320px);
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 13 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 19 source.css.postcss variable.parameter.postcss
+T 21 source.css.postcss
+T 30 source.css.postcss support.type.property-name.css.postcss
+T 31 source.css.postcss meta.property-list.css.postcss
+T 32 source.css.postcss meta.property-list.css.postcss
+T 35 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 37 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 38 source.css.postcss meta.property-list.css.postcss
+T 39 source.css.postcss
+L @custom-media --max (max-width: 640px);
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 13 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 19 source.css.postcss variable.parameter.postcss
+T 21 source.css.postcss
+T 30 source.css.postcss support.type.property-name.css.postcss
+T 31 source.css.postcss meta.property-list.css.postcss
+T 32 source.css.postcss meta.property-list.css.postcss
+T 35 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 37 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 38 source.css.postcss meta.property-list.css.postcss
+T 39 source.css.postcss
+L 
+L @media (--min) and (--max) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+T 13 source.css.postcss variable.parameter.postcss
+T 15 source.css.postcss
+T 18 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 20 source.css.postcss
+T 25 source.css.postcss variable.parameter.postcss
+T 28 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 10;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @custom-media --concat (min-width: 320px) and (max-width: 640px);
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 13 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 22 source.css.postcss variable.parameter.postcss
+T 24 source.css.postcss
+T 33 source.css.postcss support.type.property-name.css.postcss
+T 34 source.css.postcss meta.property-list.css.postcss
+T 35 source.css.postcss meta.property-list.css.postcss
+T 38 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 40 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 42 source.css.postcss meta.property-list.css.postcss
+T 45 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 47 source.css.postcss
+T 56 source.css.postcss support.type.property-name.css.postcss
+T 57 source.css.postcss meta.property-list.css.postcss
+T 58 source.css.postcss meta.property-list.css.postcss
+T 61 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 63 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 64 source.css.postcss meta.property-list.css.postcss
+T 65 source.css.postcss
+L 
+L @media (--concat) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+T 16 source.css.postcss variable.parameter.postcss
+T 19 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 11;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media (--concat) and (min-aspect-ratio: 16/9) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+T 16 source.css.postcss variable.parameter.postcss
+T 18 source.css.postcss
+T 21 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 23 source.css.postcss
+T 39 source.css.postcss support.type.property-name.css.postcss
+T 40 source.css.postcss meta.property-list.css.postcss
+T 41 source.css.postcss meta.property-list.css.postcss
+T 43 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 44 source.css.postcss meta.property-list.css.postcss keyword.operator.postcss
+T 45 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 47 source.css.postcss meta.property-list.css.postcss
+T 48 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 12;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media ( --mq-a ) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss
+T 15 source.css.postcss variable.parameter.postcss
+T 19 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 1000;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media (	--mq-a	) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss
+T 15 source.css.postcss variable.parameter.postcss
+T 19 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 1001;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media ( --mq-a ), (   --mq-a    ) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss
+T 15 source.css.postcss variable.parameter.postcss
+T 23 source.css.postcss
+T 29 source.css.postcss variable.parameter.postcss
+T 36 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 1002;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media (	--mq-a	), (			--mq-a				) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss
+T 15 source.css.postcss variable.parameter.postcss
+T 23 source.css.postcss
+T 29 source.css.postcss variable.parameter.postcss
+T 36 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 1003;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media ( --mq-a   ), (   --mq-a           ) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss
+T 15 source.css.postcss variable.parameter.postcss
+T 25 source.css.postcss
+T 31 source.css.postcss variable.parameter.postcss
+T 45 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 1004;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media (
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+L 	--mq-a
+T 1 source.css.postcss
+T 7 source.css.postcss variable.parameter.postcss
+L ),
+T 2 source.css.postcss
+L (
+T 1 source.css.postcss
+L 	--mq-a
+T 1 source.css.postcss
+T 7 source.css.postcss variable.parameter.postcss
+L ) {
+T 3 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 1005;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @media (trailer--) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+T 17 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 20 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		order: 1006;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @custom-media trailer-- (min-width: 320px);
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 13 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 23 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 25 source.css.postcss
+T 34 source.css.postcss support.type.property-name.css.postcss
+T 35 source.css.postcss meta.property-list.css.postcss
+T 36 source.css.postcss meta.property-list.css.postcss
+T 39 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 41 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 42 source.css.postcss meta.property-list.css.postcss
+T 43 source.css.postcss
+L 
+L @media (--mq-a) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+T 14 source.css.postcss variable.parameter.postcss
+T 17 source.css.postcss
+L 	body {
+T 1 source.css.postcss
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L 		to-clone: 1;
+T 2 source.css.postcss
+T 10 source.css.postcss support.type.property-name.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @custom-media --foo (--does-not-exist-1);
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 13 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 19 source.css.postcss variable.parameter.postcss
+T 21 source.css.postcss
+T 39 source.css.postcss variable.parameter.postcss
+T 41 source.css.postcss
+L 
+L @custom-media --custom-bool-after-regular-bool screen;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 13 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 46 source.css.postcss variable.parameter.postcss
+T 47 source.css.postcss
+T 53 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 54 source.css.postcss
+L @media (color) and (--custom-bool-after-regular-bool) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+T 13 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 15 source.css.postcss
+T 18 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 20 source.css.postcss
+T 52 source.css.postcss variable.parameter.postcss
+T 55 source.css.postcss
+L 	.test5 {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 9 source.css.postcss
+L 		background: green;
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 20 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @custom-media --test5 print, screen;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 13 source.css.postcss keyword.control.at-rule.css.postcss
+T 14 source.css.postcss keyword.control.at-rule.css.postcss
+T 21 source.css.postcss variable.parameter.postcss
+T 22 source.css.postcss
+T 27 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 29 source.css.postcss
+T 35 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 36 source.css.postcss
+L @media (color) and (not (--test5)) {
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 6 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss
+T 13 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 15 source.css.postcss
+T 18 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 20 source.css.postcss
+T 23 source.css.postcss support.type.property-name.css.postcss
+T 25 source.css.postcss
+T 32 source.css.postcss variable.parameter.postcss
+T 36 source.css.postcss
+L 	.test5 {
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 9 source.css.postcss
+L 		background: red;
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 18 source.css.postcss
+L 	}
+T 2 source.css.postcss
+L }
+T 1 source.css.postcss
+L 

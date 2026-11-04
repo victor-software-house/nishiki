@@ -1,0 +1,626 @@
+L @custom-selector :--foo .bar, .baz;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 23 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 24 source.css.postcss
+T 25 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 28 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 30 source.css.postcss
+T 31 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 34 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 35 source.css.postcss
+L 
+L .foo:--foo {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 10 source.css.postcss entity.other.attribute-name.class.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 12 source.css.postcss
+L 	margin-top: 16px;
+T 1 source.css.postcss
+T 11 source.css.postcss support.type.property-name.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 18 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @custom-selector :--any-heading h1, h2, h3, h4, h5, h6;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 31 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 32 source.css.postcss
+T 34 source.css.postcss entity.name.tag.css.postcss.symbol
+T 36 source.css.postcss
+T 38 source.css.postcss entity.name.tag.css.postcss.symbol
+T 40 source.css.postcss
+T 42 source.css.postcss entity.name.tag.css.postcss.symbol
+T 44 source.css.postcss
+T 46 source.css.postcss entity.name.tag.css.postcss.symbol
+T 48 source.css.postcss
+T 50 source.css.postcss entity.name.tag.css.postcss.symbol
+T 52 source.css.postcss
+T 54 source.css.postcss entity.name.tag.css.postcss.symbol
+T 55 source.css.postcss
+L 
+L :--any-heading + p {}
+T 14 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 15 source.css.postcss
+T 16 source.css.postcss keyword.operator.postcss
+T 17 source.css.postcss
+T 18 source.css.postcss entity.name.tag.css.postcss.symbol
+T 21 source.css.postcss
+L 
+L @custom-selector :--foobar .foo, .bar;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 26 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 27 source.css.postcss
+T 28 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 31 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 33 source.css.postcss
+T 34 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 37 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 38 source.css.postcss
+L @custom-selector :--baz .baz;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 23 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 24 source.css.postcss
+T 25 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 28 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 29 source.css.postcss
+L @custom-selector :--fizzbuzz .fizz, .buzz;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 28 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 29 source.css.postcss
+T 30 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 34 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 36 source.css.postcss
+T 37 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 41 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 42 source.css.postcss
+L @custom-selector :--button-types
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 32 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+L 	.btn-primary,
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 14 source.css.postcss
+L 	.btn-success,
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 14 source.css.postcss
+L 	.btn-info,
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 10 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 11 source.css.postcss
+L 	.btn-warning,
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 14 source.css.postcss
+L 	.btn-danger;
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss
+L 
+L :--foobar > :--baz {}
+T 9 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 10 source.css.postcss
+T 11 source.css.postcss keyword.operator.postcss
+T 12 source.css.postcss
+T 18 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 21 source.css.postcss
+L :--fizzbuzz > :--foobar {}
+T 11 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 12 source.css.postcss
+T 13 source.css.postcss keyword.operator.postcss
+T 14 source.css.postcss
+T 23 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 26 source.css.postcss
+L :--button-types, :--button-types:active {}
+T 15 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 17 source.css.postcss
+T 39 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 42 source.css.postcss
+L 
+L @custom-selector :--commented-foo
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 33 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+L 	/* comment */
+T 1 source.css.postcss
+T 3 source.css.postcss comment.block.postcss
+T 12 source.css.postcss comment.block.postcss
+T 14 source.css.postcss comment.block.postcss
+L 	.foo,
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	.bar > .baz;
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+T 7 source.css.postcss keyword.operator.postcss
+T 8 source.css.postcss
+T 9 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss
+L 
+L :--commented-foo + p {
+T 16 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 17 source.css.postcss
+T 18 source.css.postcss keyword.operator.postcss
+T 19 source.css.postcss
+T 20 source.css.postcss entity.name.tag.css.postcss.symbol
+T 22 source.css.postcss
+L 	display: block;
+T 1 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 16 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @custom-selector :--pseudo ::before, ::after;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 26 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 27 source.css.postcss
+T 35 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 37 source.css.postcss
+T 44 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 45 source.css.postcss
+L 
+L .foo > a:--pseudo img {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss
+T 6 source.css.postcss keyword.operator.postcss
+T 7 source.css.postcss
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 17 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 18 source.css.postcss
+T 21 source.css.postcss entity.name.tag.css.postcss.symbol
+T 23 source.css.postcss
+L 	display: block;
+T 1 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 16 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @custom-selector :--foo .foo;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 23 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 24 source.css.postcss
+T 25 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 28 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 29 source.css.postcss
+L 
+L :--foo, :--foo.bar {
+T 6 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 8 source.css.postcss
+T 14 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 15 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 18 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 20 source.css.postcss
+L 	color: white;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L :--foo :--foo:hover {
+T 6 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 7 source.css.postcss
+T 19 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 21 source.css.postcss
+L 	color: white;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @custom-selector :--fo-----o h1, h2, h3;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 28 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 29 source.css.postcss
+T 31 source.css.postcss entity.name.tag.css.postcss.symbol
+T 33 source.css.postcss
+T 35 source.css.postcss entity.name.tag.css.postcss.symbol
+T 37 source.css.postcss
+T 39 source.css.postcss entity.name.tag.css.postcss.symbol
+T 40 source.css.postcss
+L @custom-selector :--ba-----r h4, h5, h6;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 28 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 29 source.css.postcss
+T 31 source.css.postcss entity.name.tag.css.postcss.symbol
+T 33 source.css.postcss
+T 35 source.css.postcss entity.name.tag.css.postcss.symbol
+T 37 source.css.postcss
+T 39 source.css.postcss entity.name.tag.css.postcss.symbol
+T 40 source.css.postcss
+L 
+L .fo--oo > :--fo-----o {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 7 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss
+T 9 source.css.postcss keyword.operator.postcss
+T 10 source.css.postcss
+T 21 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 23 source.css.postcss
+L 	margin: auto;
+T 1 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L :--ba-----r:hover .ba--z {
+T 17 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 18 source.css.postcss
+T 19 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 24 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 26 source.css.postcss
+L 	display: block;
+T 1 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 16 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* comment */
+T 2 source.css.postcss comment.block.postcss
+T 11 source.css.postcss comment.block.postcss
+T 13 source.css.postcss comment.block.postcss
+L 
+L article :--heading + p {
+T 7 source.css.postcss entity.name.tag.css.postcss.symbol
+T 8 source.css.postcss
+T 18 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 19 source.css.postcss
+T 20 source.css.postcss keyword.operator.postcss
+T 21 source.css.postcss
+T 22 source.css.postcss entity.name.tag.css.postcss.symbol
+T 24 source.css.postcss
+L 	margin-top: 0;
+T 1 source.css.postcss
+T 11 source.css.postcss support.type.property-name.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 15 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @custom-selector :--multiline
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 29 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+L 	.foo,
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+L 	.bar > .baz;
+T 1 source.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 5 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss
+T 7 source.css.postcss keyword.operator.postcss
+T 8 source.css.postcss
+T 9 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 13 source.css.postcss
+L 
+L :--multiline {
+T 12 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 14 source.css.postcss
+L 	display: block;
+T 1 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 16 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* should works with collapsed custom selectors */
+T 2 source.css.postcss comment.block.postcss
+T 48 source.css.postcss comment.block.postcss
+T 50 source.css.postcss comment.block.postcss
+L 
+L @custom-selector :--button button, .button;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 26 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 27 source.css.postcss
+T 33 source.css.postcss entity.name.tag.css.postcss.symbol
+T 35 source.css.postcss
+T 36 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 42 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 43 source.css.postcss
+L @custom-selector :--enter :hover, :focus;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 25 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 26 source.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 32 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 35 source.css.postcss meta.property-list.css.postcss
+T 40 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 41 source.css.postcss
+L 
+L :--button:--enter {}
+T 17 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 20 source.css.postcss
+L 
+L @custom-selector :--any-foobar .foo, .bar;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 30 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 31 source.css.postcss
+T 32 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 35 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 37 source.css.postcss
+T 38 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 41 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 42 source.css.postcss
+L 
+L :--any-foobar h1 {
+T 13 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 14 source.css.postcss
+T 16 source.css.postcss entity.name.tag.css.postcss.symbol
+T 18 source.css.postcss
+L 	margin-top: 16px;
+T 1 source.css.postcss
+T 11 source.css.postcss support.type.property-name.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 18 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L main :--foo + p {
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss
+T 11 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 12 source.css.postcss
+T 13 source.css.postcss keyword.operator.postcss
+T 14 source.css.postcss
+T 15 source.css.postcss entity.name.tag.css.postcss.symbol
+T 17 source.css.postcss
+L 	margin-top: 16px;
+T 1 source.css.postcss
+T 11 source.css.postcss support.type.property-name.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 18 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @custom-selector :--foobar .foo;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 26 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 27 source.css.postcss
+T 28 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 31 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 32 source.css.postcss
+L 
+L :--foobar {
+T 9 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 11 source.css.postcss
+L 	order: 1000;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L }
+T 1 source.css.postcss
+L a, :--foobar {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 14 source.css.postcss
+L 	order: 1001;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L }
+T 1 source.css.postcss
+L b,:--foobar {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 2 source.css.postcss
+T 11 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 13 source.css.postcss
+L 	order: 1002;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @custom-selector :--foobaz .foo.baz;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 26 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 27 source.css.postcss
+T 28 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 35 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 36 source.css.postcss
+L 
+L :--foobaz {
+T 9 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 11 source.css.postcss
+L 	order: 1010;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L }
+T 1 source.css.postcss
+L a, :--foobaz {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 14 source.css.postcss
+L 	order: 1011;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L }
+T 1 source.css.postcss
+L b,:--foobaz {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 2 source.css.postcss
+T 11 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 13 source.css.postcss
+L 	order: 1012;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @custom-selector :--foobazz .foo .baz;
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss keyword.control.at-rule.css.postcss
+T 17 source.css.postcss keyword.control.at-rule.css.postcss
+T 27 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 28 source.css.postcss
+T 29 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 32 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 33 source.css.postcss
+T 34 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 37 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 38 source.css.postcss
+L 
+L :--foobazz {
+T 10 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 12 source.css.postcss
+L 	order: 1020;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L }
+T 1 source.css.postcss
+L a, :--foobazz {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 13 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 15 source.css.postcss
+L 	order: 1021;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L }
+T 1 source.css.postcss
+L b,:--foobazz {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 2 source.css.postcss
+T 12 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 14 source.css.postcss
+L 	order: 1022;
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L b, :--foobazz {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+T 13 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 15 source.css.postcss
+L 	to-clone: 1;
+T 1 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L }
+T 1 source.css.postcss
+L 

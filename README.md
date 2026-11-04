@@ -93,6 +93,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | Pascal | `Language::Pascal` | `lang-pascal` | `textmate` | `pascal` |
 | Perl | `Language::Perl` | `lang-perl` | `textmate` | `perl` |
 | PHP | `Language::Php` | `lang-php` | `textmate` | `php` |
+| PostCSS | `Language::PostCss` | `lang-postcss` | `all` | `postcss` |
 | PowerShell | `Language::PowerShell` | `lang-powershell` | `all` | `powershell`, `ps`, `ps1`, `pwsh` |
 | Protobuf | `Language::Proto` | `lang-proto` | `all` | `proto`, `protobuf` |
 | Python | `Language::Python` | `lang-python` | `all` | `python`, `py` |

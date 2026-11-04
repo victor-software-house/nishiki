@@ -37,6 +37,7 @@ use std::fmt::Debug;
     feature = "lang-lua",
     feature = "lang-nix",
     feature = "lang-less",
+    feature = "lang-postcss",
     feature = "lang-powershell",
     feature = "lang-julia"
 ))]

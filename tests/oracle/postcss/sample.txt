@@ -1,0 +1,77 @@
+L {
+T 1 source.css.postcss
+L   "plugins": [
+T 2 source.css.postcss
+T 3 source.css.postcss string.quoted.double.css.postcss
+T 10 source.css.postcss string.quoted.double.css.postcss
+T 11 source.css.postcss string.quoted.double.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+L     "postcss-flexbugs-fixes",
+T 4 source.css.postcss
+T 5 source.css.postcss string.quoted.double.css.postcss
+T 27 source.css.postcss string.quoted.double.css.postcss
+T 28 source.css.postcss string.quoted.double.css.postcss
+T 29 source.css.postcss
+L     [
+T 4 source.css.postcss
+T 5 source.css.postcss entity.other.attribute-selector.postcss
+L       "postcss-preset-env",
+T 6 source.css.postcss entity.other.attribute-selector.postcss
+T 7 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 25 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 26 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 27 source.css.postcss entity.other.attribute-selector.postcss
+L       {
+T 7 source.css.postcss entity.other.attribute-selector.postcss
+L         "autoprefixer": {
+T 8 source.css.postcss entity.other.attribute-selector.postcss
+T 9 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 21 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 22 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 25 source.css.postcss entity.other.attribute-selector.postcss
+L           "flexbox": "no-2009"
+T 10 source.css.postcss entity.other.attribute-selector.postcss
+T 11 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 18 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 19 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 21 source.css.postcss entity.other.attribute-selector.postcss
+T 22 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 29 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 30 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+L         },
+T 10 source.css.postcss entity.other.attribute-selector.postcss
+L         "stage": 3,
+T 8 source.css.postcss entity.other.attribute-selector.postcss
+T 9 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 14 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 15 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 19 source.css.postcss entity.other.attribute-selector.postcss
+L         "features": {
+T 8 source.css.postcss entity.other.attribute-selector.postcss
+T 9 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 17 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 18 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 21 source.css.postcss entity.other.attribute-selector.postcss
+L           "custom-properties": false
+T 10 source.css.postcss entity.other.attribute-selector.postcss
+T 11 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 28 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 29 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 36 source.css.postcss entity.other.attribute-selector.postcss
+L         }
+T 9 source.css.postcss entity.other.attribute-selector.postcss
+L       }
+T 7 source.css.postcss entity.other.attribute-selector.postcss
+L     ]
+T 4 source.css.postcss entity.other.attribute-selector.postcss
+T 5 source.css.postcss entity.other.attribute-selector.postcss
+L   ]
+T 3 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L // From https://nextjs.org/docs/pages/building-your-application/configuring/post-css
+T 2 source.css.postcss comment.line.postcss
+T 84 source.css.postcss comment.line.postcss
+L 

@@ -66,6 +66,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["(", ")", "[", "]", "{", "}", "[*c]", "|", "||", ",", ".", ".*", ".?", ";", ":", "=", "==", "!=", "<", "<<", "<<%=", ">>=", "+%", "-%=", "*", "**", "++", "->", "!", "&", "?", "\"", "\\\"", "\\n", "\\x41", "\\u{1F600}", "\\q", "'a'", "'\\n'", "'\\123'", "'\\128'", "'\\x4'", "\\\\", "//", "///", "//!", "////"],
     heads: ["", "", " ", "    ", "// ", "/// ", "\\\\"],
   },
+  postcss: {
+    words: ["a", "abbr", "h1", "div", "header", "u", "x", "body", "color", "margin", "display", "block", "red", "inherit", "none", "auto", "true", "from", "to", "not", "in", "and", "screen", "print", "all", "only", "tv", "tty", "url", "format", "attr", "var", "calc", "rgba", "translate", "$x", "$gap-2", "--brand", "--x-y", "&", "&-item", "&_el", "%ph", "#id", ".card", "@media", "@import", "@include", "@mixin", "@function", "@define-mixin", "@custom-media", "@nest", "@apply", "@layer", "!important", "!default", "!global", "!optional", "#fff", "#a1b2c3", "#abcd", "1", "-1", ".5", "1.5", "10px", "2em", "1.5rem", "50%", "90deg", "1s", "3kHz", "é", "{{tag}}", "#{$x}"],
+    marks: ["{", "}", "(", ")", "[", "]", ":", "::", ";", ",", ".", "...", "+", " - ", " -$x", " -(", "(-$", "*", "/", ">", "~", "=", "^=", "$=", "*=", "|", "\"", "'", "\"a #{$b} c\"", "'#{1}'", "/*", "*/", "//", "#{", "}}", ":not(", ":hover", "::before", ":-:a", " and(", "),"],
+    heads: ["", "", " ", "  ", "// ", "/* ", "a { ", "@media ", ".a:"],
+  },
   proto: {
     words: ["syntax", "package", "import", "import weak", "import public", "option", "message", "enum", "service", "rpc", "returns", "stream", "oneof", "extend", "reserved", "to", "max", "optional", "repeated", "required", "map", "int32", "string", "bool", "bytes", ".a.B", "Foo", "x", "FOO_BAR", "é", "true", "1", "-1", "0x1F", "-0x1F", "1.5", "1.5x", ".5", "2e10", "(my.opt)", "(a.b).c", "deprecated"],
     marks: ["{", "}", "(", ")", "[", "]", "<", ">", "=", ";", ",", ":", ".", "\"proto3\"", "\"a.proto\"", "'x'", "\"a\\\"b\"", "/*", "*/", "//"],

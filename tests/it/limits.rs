@@ -50,6 +50,7 @@ mod pascal;
 mod perl;
 #[cfg(feature = "lang-php")]
 mod php;
+mod postcss;
 mod powershell;
 mod proto;
 mod python;

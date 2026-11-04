@@ -34,6 +34,7 @@ import markdownCoverage from "./inputs/markdown-coverage.md" with { type: "text"
 import nixCoverage from "./inputs/nix-coverage.nix" with { type: "text" };
 import perlEmbedded from "./inputs/perl-embedded.pl" with { type: "text" };
 import phpEmbedded from "./inputs/php-embedded.php" with { type: "text" };
+import postcssCoverage from "./inputs/postcss-coverage.pcss" with { type: "text" };
 import powershellCoverage from "./inputs/powershell-coverage.ps1" with { type: "text" };
 import protoCoverage from "./inputs/proto-coverage.proto" with { type: "text" };
 import pythonCoverage from "./inputs/python-coverage.py" with { type: "text" };
@@ -144,6 +145,8 @@ const composable =
   "https://raw.githubusercontent.com/pointfreeco/swift-composable-architecture/bb175b544d019c7f23a2e41ae29d8c70592aeb58";
 const coroutines =
   "https://raw.githubusercontent.com/Kotlin/kotlinx.coroutines/7e0d1b3e9ca83652427ae00dda7d1673f058a743";
+const csstools =
+  "https://raw.githubusercontent.com/csstools/postcss-plugins/1d146b524f7ef801e876f0fdcd4e5c572222b6fe";
 const dartCore =
   "https://raw.githubusercontent.com/dart-lang/core/36f57a994965785d641e436b7dd3aa8a18a26f62";
 const dartHttp =
@@ -1109,6 +1112,16 @@ export const inputs: Input[] = [
   { lang: "php", name: "laravel-postgres-grammar", url: `${laravel}/src/Illuminate/Database/Query/Grammars/PostgresGrammar.php` },
   { lang: "php", name: "laravel-router", url: `${laravel}/src/Illuminate/Routing/Router.php` },
   { lang: "php", name: "sample", url: `${samples}/php.sample` },
+  // PostCSS has a lexer of its own on the rule engine.
+  { lang: "postcss", name: "coverage", text: postcssCoverage },
+  { lang: "postcss", name: "custom-media-basic", url: `${csstools}/plugins/postcss-custom-media/test/basic.css` },
+  { lang: "postcss", name: "custom-selectors-basic", url: `${csstools}/plugins/postcss-custom-selectors/test/basic.css` },
+  { lang: "postcss", name: "mixins-arguments", url: `${csstools}/plugins/postcss-mixins/test/arguments.css` },
+  { lang: "postcss", name: "mixins-spaces", url: `${csstools}/plugins/postcss-mixins/test/spaces.css` },
+  { lang: "postcss", name: "nesting-at-nest", url: `${csstools}/plugins/postcss-nesting/test/at-nest.css` },
+  { lang: "postcss", name: "nesting-spec-examples", url: `${csstools}/plugins/postcss-nesting/test/spec-examples.css` },
+  { lang: "postcss", name: "sample", url: `${samples}/postcss.sample` },
+  { lang: "postcss", name: "tailwind-preflight", url: `${tailwind}/packages/tailwindcss/preflight.css` },
   { lang: "powershell", name: "coverage", text: powershellCoverage },
   { lang: "powershell", name: "dotnet-install", url: `${dotnetInstall}/src/dotnet-install.ps1` },
   { lang: "powershell", name: "install-powershell", url: `${powershell}/tools/install-powershell.ps1` },

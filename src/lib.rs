@@ -164,7 +164,7 @@
 //! |:--|:--|
 //! | `all` (the default) | Every language but the `textmate` tier |
 //! | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
-//! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, Vue |
+//! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, PostCSS, Vue |
 //! | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
 //! | `docs` | Markdown and `config` |
 //! | `textmate` | Mermaid, Haskell |
@@ -296,6 +296,8 @@ mod pascal;
 mod perl;
 #[cfg(feature = "lang-php")]
 mod php;
+#[cfg(feature = "lang-postcss")]
+mod postcss;
 #[cfg(feature = "lang-powershell")]
 mod powershell;
 #[cfg(feature = "lang-proto")]

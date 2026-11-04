@@ -122,6 +122,8 @@ tables! {
     MARKDOWN = markdown;
     #[cfg(feature = "lang-nix")]
     NIX = nix;
+    #[cfg(feature = "lang-postcss")]
+    POSTCSS = postcss;
     #[cfg(feature = "lang-powershell")]
     POWERSHELL = powershell;
     #[cfg(feature = "lang-proto")]

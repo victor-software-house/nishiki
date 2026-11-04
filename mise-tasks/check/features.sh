@@ -42,6 +42,7 @@ cargo check --locked --tests --no-default-features --features lang-markdown
 # One engine language alone, Objective-C, with no language that hands off.
 # The engine's hand-off code still builds, since any capture can reach it.
 cargo check --locked --tests --no-default-features --features lang-objective-c
+cargo check --locked --tests --no-default-features --features lang-postcss
 cargo check --locked --tests --no-default-features --features lang-powershell
 cargo check --locked --tests --no-default-features --features lang-python
 cargo check --locked --tests --no-default-features --features lang-ruby

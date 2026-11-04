@@ -1,0 +1,229 @@
+L @mixin --basic(--color) {
+T 6 source.css.postcss support.function.name.postcss.no-completions keyword.control.at-rule.css.postcss
+T 7 source.css.postcss support.function.name.postcss.no-completions
+T 14 source.css.postcss support.function.name.postcss.no-completions entity.name.function
+T 15 source.css.postcss
+T 22 source.css.postcss variable.parameter.postcss
+T 25 source.css.postcss
+L 	color: var(--color);
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss variable.parameter.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .a {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss
+L 	@apply --basic(green);
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 15 source.css.postcss variable.parameter.postcss
+T 16 source.css.postcss
+T 21 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 23 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @mixin --defaults(--color: blue, --background: red) {
+T 6 source.css.postcss support.function.name.postcss.no-completions keyword.control.at-rule.css.postcss
+T 7 source.css.postcss support.function.name.postcss.no-completions
+T 17 source.css.postcss support.function.name.postcss.no-completions entity.name.function
+T 18 source.css.postcss
+T 25 source.css.postcss variable.parameter.postcss
+T 26 source.css.postcss meta.property-list.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 31 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 33 source.css.postcss meta.property-list.css.postcss
+T 45 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 47 source.css.postcss meta.property-list.css.postcss
+T 50 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 52 source.css.postcss meta.property-list.css.postcss
+T 53 source.css.postcss
+L 	color: var(--color);
+T 1 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss variable.parameter.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss
+L 	background-color: var(--background);
+T 1 source.css.postcss
+T 17 source.css.postcss support.type.property-name.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 23 source.css.postcss meta.property-list.css.postcss
+T 35 source.css.postcss meta.property-list.css.postcss variable.parameter.postcss
+T 36 source.css.postcss meta.property-list.css.postcss
+T 37 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .b {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss
+L 	@apply --defaults;
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 18 source.css.postcss variable.parameter.postcss
+T 19 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .c {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss
+L 	@apply --defaults(red);
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 18 source.css.postcss variable.parameter.postcss
+T 19 source.css.postcss
+T 22 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 24 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @mixin --fallback(--color) {
+T 6 source.css.postcss support.function.name.postcss.no-completions keyword.control.at-rule.css.postcss
+T 7 source.css.postcss support.function.name.postcss.no-completions
+T 17 source.css.postcss support.function.name.postcss.no-completions entity.name.function
+T 18 source.css.postcss
+T 25 source.css.postcss variable.parameter.postcss
+T 28 source.css.postcss
+L 	outline-color: var(--color, navy);
+T 1 source.css.postcss
+T 14 source.css.postcss support.type.property-name.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 29 source.css.postcss meta.property-list.css.postcss
+T 33 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 34 source.css.postcss meta.property-list.css.postcss
+T 35 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .d {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss
+L 	@apply --fallback;
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 18 source.css.postcss variable.parameter.postcss
+T 19 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .e {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss
+L 	@apply --fallback(green);
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 18 source.css.postcss variable.parameter.postcss
+T 19 source.css.postcss
+T 24 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 26 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @mixin --braces(--list) {
+T 6 source.css.postcss support.function.name.postcss.no-completions keyword.control.at-rule.css.postcss
+T 7 source.css.postcss support.function.name.postcss.no-completions
+T 15 source.css.postcss support.function.name.postcss.no-completions entity.name.function
+T 16 source.css.postcss
+T 22 source.css.postcss variable.parameter.postcss
+T 25 source.css.postcss
+L 	transition-property: var(--list);
+T 1 source.css.postcss
+T 20 source.css.postcss support.type.property-name.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss
+T 25 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 26 source.css.postcss meta.property-list.css.postcss
+T 32 source.css.postcss meta.property-list.css.postcss variable.parameter.postcss
+T 33 source.css.postcss meta.property-list.css.postcss
+T 34 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .f {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss
+L 	@apply --braces({color, background});
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 16 source.css.postcss variable.parameter.postcss
+T 18 source.css.postcss
+T 23 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 25 source.css.postcss
+T 35 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 38 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L @mixin --no-parameter-list {
+T 6 source.css.postcss support.function.name.postcss.no-completions keyword.control.at-rule.css.postcss
+T 7 source.css.postcss support.function.name.postcss.no-completions
+T 26 source.css.postcss support.function.name.postcss.no-completions entity.name.function
+T 27 source.css.postcss support.function.name.postcss.no-completions
+T 28 source.css.postcss
+L 	border: 1px solid green;
+T 1 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 25 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L .g {
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 2 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 4 source.css.postcss
+L 	@apply --no-parameter-list;
+T 1 source.css.postcss
+T 2 source.css.postcss keyword.control.at-rule.css.postcss
+T 7 source.css.postcss keyword.control.at-rule.css.postcss
+T 8 source.css.postcss keyword.control.at-rule.css.postcss
+T 27 source.css.postcss variable.parameter.postcss
+T 28 source.css.postcss
+L }
+T 1 source.css.postcss
+L 

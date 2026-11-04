@@ -1033,6 +1033,22 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
+    /// PostCSS, with the scopes of Shiki's `postcss` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A property value takes two scopes, and the first keeps a comma: `meta.property-value.css.postcss,` and `support.constant.property-value.css.postcss`, as vscode-textmate splits the grammar's name at its space.
+    /// - An at-rule's name runs to the first blank, unless a media word such as `screen` or `only` and a comma or blank follow it: `@media screen and` names `@media screen`.
+    /// - The text inside `url(`, `format(` and `attr(` is a double-quoted string up to the first `)`.
+    /// - `//` starts a comment to the end of the line, as in Sass.
+    /// - A ` -` before `$` or `(` is an operator, even after a run of blanks.
+    /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
+    PostCss {
+        feature: "lang-postcss",
+        names: ["postcss"],
+        module: postcss,
+        halts: true,
+    }
 }
 
 impl Language {

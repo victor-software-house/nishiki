@@ -684,6 +684,13 @@ export const waivers: Waiver[] = [
     path: "#parent_selector_suffix.captures[2].patterns[2].match",
     reason: "it applies to group 2, which the expression does not have",
   },
+  { grammar: "postcss", path: "patterns[12].end", group: 0, reason: lookahead },
+  {
+    grammar: "postcss",
+    path: "patterns[13].end",
+    group: 0,
+    reason: "the end matches only the line feed or a lookahead, and the oracle compares no blank",
+  },
   { grammar: "python", path: "#docstring.patterns[2].end", group: 2, reason: lineFeed },
   { grammar: "python", path: "#docstring.patterns[3].end", group: 2, reason: lineFeed },
   {
@@ -1326,6 +1333,7 @@ export const complete: string[] = [
   "make",
   "markdown",
   "nix",
+  "postcss",
   "powershell",
   "proto",
   "python",

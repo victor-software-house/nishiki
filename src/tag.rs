@@ -111,6 +111,9 @@ tags! {
     /// Nix.
     #[cfg(feature = "lang-nix")]
     NIX = 0x3700,
+    /// PostCSS.
+    #[cfg(feature = "lang-postcss")]
+    POSTCSS = 0x3B00,
     /// PowerShell.
     #[cfg(feature = "lang-powershell")]
     POWERSHELL = 0x3100,

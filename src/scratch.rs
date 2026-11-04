@@ -76,6 +76,10 @@ pub(crate) struct Scratch {
     /// The PowerShell lexer's, for PowerShell documents and Markdown
     /// PowerShell fences.
     /// It is boxed and allocated by the first PowerShell line, as GraphQL's is.
+    /// The PostCSS lexer's, for PostCSS documents.
+    /// It is boxed and allocated by the first PostCSS line, as Protobuf's is.
+    #[cfg(feature = "lang-postcss")]
+    pub(crate) postcss: Option<Box<crate::postcss::Scratch>>,
     #[cfg(feature = "lang-powershell")]
     pub(crate) powershell: Option<Box<crate::powershell::Scratch>>,
     /// The Protobuf lexer's, for Protobuf documents.

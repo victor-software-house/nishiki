@@ -1,0 +1,1475 @@
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+T 109 source.css.postcss comment.block.postcss
+L   2. Remove default margins and padding
+T 39 source.css.postcss comment.block.postcss
+L   3. Reset all borders.
+T 23 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L *,
+T 1 source.css.postcss keyword.operator.postcss
+T 2 source.css.postcss
+L ::after,
+T 7 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 8 source.css.postcss
+L ::before,
+T 8 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 9 source.css.postcss
+L ::backdrop,
+T 10 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 11 source.css.postcss
+L ::file-selector-button {
+T 22 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 24 source.css.postcss
+L   box-sizing: border-box; /* 1 */
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 26 source.css.postcss
+T 28 source.css.postcss comment.block.postcss
+T 31 source.css.postcss comment.block.postcss
+T 33 source.css.postcss comment.block.postcss
+L   margin: 0; /* 2 */
+T 2 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+T 15 source.css.postcss comment.block.postcss
+T 18 source.css.postcss comment.block.postcss
+T 20 source.css.postcss comment.block.postcss
+L   padding: 0; /* 2 */
+T 2 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+T 16 source.css.postcss comment.block.postcss
+T 19 source.css.postcss comment.block.postcss
+T 21 source.css.postcss comment.block.postcss
+L   border: 0 solid; /* 3 */
+T 2 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 19 source.css.postcss
+T 21 source.css.postcss comment.block.postcss
+T 24 source.css.postcss comment.block.postcss
+T 26 source.css.postcss comment.block.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   1. Use a consistent sensible line-height in all browsers.
+T 59 source.css.postcss comment.block.postcss
+L   2. Prevent adjustments of font size after orientation changes in iOS.
+T 71 source.css.postcss comment.block.postcss
+L   3. Use a more readable tab size.
+T 34 source.css.postcss comment.block.postcss
+L   4. Use the user's configured `sans` font-family by default.
+T 61 source.css.postcss comment.block.postcss
+L   5. Use the user's configured `sans` font-feature-settings by default.
+T 71 source.css.postcss comment.block.postcss
+L   6. Use the user's configured `sans` font-variation-settings by default.
+T 73 source.css.postcss comment.block.postcss
+L   7. Disable tap highlights on iOS.
+T 35 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L html,
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss
+L :host {
+T 1 source.css.postcss meta.property-list.css.postcss
+T 5 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 6 source.css.postcss meta.property-list.css.postcss
+T 7 source.css.postcss
+L   line-height: 1.5; /* 1 */
+T 2 source.css.postcss
+T 13 source.css.postcss support.type.property-name.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 20 source.css.postcss
+T 22 source.css.postcss comment.block.postcss
+T 25 source.css.postcss comment.block.postcss
+T 27 source.css.postcss comment.block.postcss
+L   -webkit-text-size-adjust: 100%; /* 2 */
+T 2 source.css.postcss
+T 26 source.css.postcss support.type.property-name.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 28 source.css.postcss meta.property-list.css.postcss
+T 31 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 32 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 34 source.css.postcss
+T 36 source.css.postcss comment.block.postcss
+T 39 source.css.postcss comment.block.postcss
+T 41 source.css.postcss comment.block.postcss
+L   tab-size: 4; /* 3 */
+T 2 source.css.postcss
+T 10 source.css.postcss support.type.property-name.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 15 source.css.postcss
+T 17 source.css.postcss comment.block.postcss
+T 20 source.css.postcss comment.block.postcss
+T 22 source.css.postcss comment.block.postcss
+L   font-family: --theme(
+T 2 source.css.postcss
+T 13 source.css.postcss support.type.property-name.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 23 source.css.postcss meta.property-list.css.postcss
+L     --default-font-family,
+T 4 source.css.postcss
+T 25 source.css.postcss variable.parameter.postcss
+T 26 source.css.postcss
+L     -apple-system,
+T 4 source.css.postcss
+T 17 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 18 source.css.postcss
+L     BlinkMacSystemFont,
+T 4 source.css.postcss
+T 22 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 23 source.css.postcss
+L     'Segoe UI',
+T 4 source.css.postcss
+T 5 source.css.postcss string.quoted.single.css.postcss
+T 13 source.css.postcss string.quoted.single.css.postcss
+T 14 source.css.postcss string.quoted.single.css.postcss
+T 15 source.css.postcss
+L     Roboto,
+T 4 source.css.postcss
+T 10 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 11 source.css.postcss
+L     'Helvetica Neue',
+T 4 source.css.postcss
+T 5 source.css.postcss string.quoted.single.css.postcss
+T 19 source.css.postcss string.quoted.single.css.postcss
+T 20 source.css.postcss string.quoted.single.css.postcss
+T 21 source.css.postcss
+L     'Noto Sans',
+T 4 source.css.postcss
+T 5 source.css.postcss string.quoted.single.css.postcss
+T 14 source.css.postcss string.quoted.single.css.postcss
+T 15 source.css.postcss string.quoted.single.css.postcss
+T 16 source.css.postcss
+L     Arial,
+T 4 source.css.postcss
+T 9 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 10 source.css.postcss
+L     sans-serif,
+T 4 source.css.postcss
+T 14 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 15 source.css.postcss
+L     'Apple Color Emoji',
+T 4 source.css.postcss
+T 5 source.css.postcss string.quoted.single.css.postcss
+T 22 source.css.postcss string.quoted.single.css.postcss
+T 23 source.css.postcss string.quoted.single.css.postcss
+T 24 source.css.postcss
+L     'Segoe UI Emoji',
+T 4 source.css.postcss
+T 5 source.css.postcss string.quoted.single.css.postcss
+T 19 source.css.postcss string.quoted.single.css.postcss
+T 20 source.css.postcss string.quoted.single.css.postcss
+T 21 source.css.postcss
+L     'Segoe UI Symbol',
+T 4 source.css.postcss
+T 5 source.css.postcss string.quoted.single.css.postcss
+T 20 source.css.postcss string.quoted.single.css.postcss
+T 21 source.css.postcss string.quoted.single.css.postcss
+T 22 source.css.postcss
+L     'Noto Color Emoji'
+T 4 source.css.postcss
+T 5 source.css.postcss string.quoted.single.css.postcss
+T 21 source.css.postcss string.quoted.single.css.postcss
+T 22 source.css.postcss string.quoted.single.css.postcss
+L   ); /* 4 */
+T 5 source.css.postcss
+T 7 source.css.postcss comment.block.postcss
+T 10 source.css.postcss comment.block.postcss
+T 12 source.css.postcss comment.block.postcss
+L   font-feature-settings: --theme(--default-font-feature-settings, normal); /* 5 */
+T 2 source.css.postcss
+T 23 source.css.postcss support.type.property-name.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss
+T 25 source.css.postcss meta.property-list.css.postcss
+T 32 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 33 source.css.postcss meta.property-list.css.postcss
+T 64 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 66 source.css.postcss meta.property-list.css.postcss
+T 72 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 73 source.css.postcss meta.property-list.css.postcss
+T 75 source.css.postcss
+T 77 source.css.postcss comment.block.postcss
+T 80 source.css.postcss comment.block.postcss
+T 82 source.css.postcss comment.block.postcss
+L   font-variation-settings: --theme(--default-font-variation-settings, normal); /* 6 */
+T 2 source.css.postcss
+T 25 source.css.postcss support.type.property-name.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 34 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 35 source.css.postcss meta.property-list.css.postcss
+T 68 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 70 source.css.postcss meta.property-list.css.postcss
+T 76 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 77 source.css.postcss meta.property-list.css.postcss
+T 79 source.css.postcss
+T 81 source.css.postcss comment.block.postcss
+T 84 source.css.postcss comment.block.postcss
+T 86 source.css.postcss comment.block.postcss
+L   -webkit-tap-highlight-color: transparent; /* 7 */
+T 2 source.css.postcss
+T 29 source.css.postcss support.type.property-name.css.postcss
+T 30 source.css.postcss meta.property-list.css.postcss
+T 31 source.css.postcss meta.property-list.css.postcss
+T 42 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 44 source.css.postcss
+T 46 source.css.postcss comment.block.postcss
+T 49 source.css.postcss comment.block.postcss
+T 51 source.css.postcss comment.block.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   1. Add the correct height in Firefox.
+T 39 source.css.postcss comment.block.postcss
+L   2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
+T 110 source.css.postcss comment.block.postcss
+L   3. Reset the default border style to a 1px solid border.
+T 58 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L hr {
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L   height: 0; /* 1 */
+T 2 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+T 15 source.css.postcss comment.block.postcss
+T 18 source.css.postcss comment.block.postcss
+T 20 source.css.postcss comment.block.postcss
+L   color: inherit; /* 2 */
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 18 source.css.postcss
+T 20 source.css.postcss comment.block.postcss
+T 23 source.css.postcss comment.block.postcss
+T 25 source.css.postcss comment.block.postcss
+L   border-top-width: 1px; /* 3 */
+T 2 source.css.postcss
+T 18 source.css.postcss support.type.property-name.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 23 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 25 source.css.postcss
+T 27 source.css.postcss comment.block.postcss
+T 30 source.css.postcss comment.block.postcss
+T 32 source.css.postcss comment.block.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Add the correct text decoration in Chrome, Edge, and Safari.
+T 62 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L abbr:where([title]) {
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 11 source.css.postcss
+T 12 source.css.postcss entity.other.attribute-selector.postcss
+T 17 source.css.postcss entity.other.attribute-selector.postcss
+T 18 source.css.postcss entity.other.attribute-selector.postcss
+T 21 source.css.postcss
+L   -webkit-text-decoration: underline dotted;
+T 2 source.css.postcss
+T 25 source.css.postcss support.type.property-name.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 36 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 37 source.css.postcss meta.property-list.css.postcss
+T 43 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 44 source.css.postcss
+L   text-decoration: underline dotted;
+T 2 source.css.postcss
+T 17 source.css.postcss support.type.property-name.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss
+T 28 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 29 source.css.postcss meta.property-list.css.postcss
+T 35 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 36 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Remove the default font size and weight for headings.
+T 55 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L h1,
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L h2,
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L h3,
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L h4,
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L h5,
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L h6 {
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L   font-size: inherit;
+T 2 source.css.postcss
+T 11 source.css.postcss support.type.property-name.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 21 source.css.postcss
+L   font-weight: inherit;
+T 2 source.css.postcss
+T 13 source.css.postcss support.type.property-name.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 23 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Reset links to optimize for opt-in styling instead of opt-out.
+T 64 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L a {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L   color: inherit;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 17 source.css.postcss
+L   -webkit-text-decoration: inherit;
+T 2 source.css.postcss
+T 25 source.css.postcss support.type.property-name.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 34 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 35 source.css.postcss
+L   text-decoration: inherit;
+T 2 source.css.postcss
+T 17 source.css.postcss support.type.property-name.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 27 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Add the correct font weight in Edge and Safari.
+T 49 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L b,
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 2 source.css.postcss
+L strong {
+T 6 source.css.postcss entity.name.tag.css.postcss.symbol
+T 8 source.css.postcss
+L   font-weight: bolder;
+T 2 source.css.postcss
+T 13 source.css.postcss support.type.property-name.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 22 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   1. Use the user's configured `mono` font-family by default.
+T 61 source.css.postcss comment.block.postcss
+L   2. Use the user's configured `mono` font-feature-settings by default.
+T 71 source.css.postcss comment.block.postcss
+L   3. Use the user's configured `mono` font-variation-settings by default.
+T 73 source.css.postcss comment.block.postcss
+L   4. Correct the odd `em` font sizing in all browsers.
+T 54 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L code,
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss
+L kbd,
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L samp,
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss
+L pre {
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss
+L   font-family: --theme(
+T 2 source.css.postcss
+T 13 source.css.postcss support.type.property-name.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 23 source.css.postcss meta.property-list.css.postcss
+L     --default-mono-font-family,
+T 4 source.css.postcss
+T 30 source.css.postcss variable.parameter.postcss
+T 31 source.css.postcss
+L     ui-monospace,
+T 4 source.css.postcss
+T 16 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 17 source.css.postcss
+L     SFMono-Regular,
+T 4 source.css.postcss
+T 18 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 19 source.css.postcss
+L     Menlo,
+T 4 source.css.postcss
+T 9 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 10 source.css.postcss
+L     Monaco,
+T 4 source.css.postcss
+T 10 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 11 source.css.postcss
+L     Consolas,
+T 4 source.css.postcss
+T 12 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 13 source.css.postcss
+L     'Liberation Mono',
+T 4 source.css.postcss
+T 5 source.css.postcss string.quoted.single.css.postcss
+T 20 source.css.postcss string.quoted.single.css.postcss
+T 21 source.css.postcss string.quoted.single.css.postcss
+T 22 source.css.postcss
+L     'Courier New',
+T 4 source.css.postcss
+T 5 source.css.postcss string.quoted.single.css.postcss
+T 16 source.css.postcss string.quoted.single.css.postcss
+T 17 source.css.postcss string.quoted.single.css.postcss
+T 18 source.css.postcss
+L     monospace
+T 4 source.css.postcss
+T 13 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+L   ); /* 1 */
+T 5 source.css.postcss
+T 7 source.css.postcss comment.block.postcss
+T 10 source.css.postcss comment.block.postcss
+T 12 source.css.postcss comment.block.postcss
+L   font-feature-settings: --theme(--default-mono-font-feature-settings, normal); /* 2 */
+T 2 source.css.postcss
+T 23 source.css.postcss support.type.property-name.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss
+T 25 source.css.postcss meta.property-list.css.postcss
+T 32 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 33 source.css.postcss meta.property-list.css.postcss
+T 69 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 71 source.css.postcss meta.property-list.css.postcss
+T 77 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 78 source.css.postcss meta.property-list.css.postcss
+T 80 source.css.postcss
+T 82 source.css.postcss comment.block.postcss
+T 85 source.css.postcss comment.block.postcss
+T 87 source.css.postcss comment.block.postcss
+L   font-variation-settings: --theme(--default-mono-font-variation-settings, normal); /* 3 */
+T 2 source.css.postcss
+T 25 source.css.postcss support.type.property-name.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 34 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 35 source.css.postcss meta.property-list.css.postcss
+T 73 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 75 source.css.postcss meta.property-list.css.postcss
+T 81 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 82 source.css.postcss meta.property-list.css.postcss
+T 84 source.css.postcss
+T 86 source.css.postcss comment.block.postcss
+T 89 source.css.postcss comment.block.postcss
+T 91 source.css.postcss comment.block.postcss
+L   font-size: 1em; /* 4 */
+T 2 source.css.postcss
+T 11 source.css.postcss support.type.property-name.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 18 source.css.postcss
+T 20 source.css.postcss comment.block.postcss
+T 23 source.css.postcss comment.block.postcss
+T 25 source.css.postcss comment.block.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Add the correct font size in all browsers.
+T 44 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L small {
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L   font-size: 80%;
+T 2 source.css.postcss
+T 11 source.css.postcss support.type.property-name.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 17 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Prevent `sub` and `sup` elements from affecting the line height in all browsers.
+T 82 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L sub,
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L sup {
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss
+L   font-size: 75%;
+T 2 source.css.postcss
+T 11 source.css.postcss support.type.property-name.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 17 source.css.postcss
+L   line-height: 0;
+T 2 source.css.postcss
+T 13 source.css.postcss support.type.property-name.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 17 source.css.postcss
+L   position: relative;
+T 2 source.css.postcss
+T 10 source.css.postcss support.type.property-name.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 21 source.css.postcss
+L   vertical-align: baseline;
+T 2 source.css.postcss
+T 16 source.css.postcss support.type.property-name.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 27 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L sub {
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss
+L   bottom: -0.25em;
+T 2 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 18 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L sup {
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 5 source.css.postcss
+L   top: -0.5em;
+T 2 source.css.postcss
+T 5 source.css.postcss support.type.property-name.css.postcss
+T 6 source.css.postcss meta.property-list.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 14 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+T 181 source.css.postcss comment.block.postcss
+L   2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+T 180 source.css.postcss comment.block.postcss
+L   3. Remove gaps between table borders by default.
+T 50 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L table {
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L   text-indent: 0; /* 1 */
+T 2 source.css.postcss
+T 13 source.css.postcss support.type.property-name.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 18 source.css.postcss
+T 20 source.css.postcss comment.block.postcss
+T 23 source.css.postcss comment.block.postcss
+T 25 source.css.postcss comment.block.postcss
+L   border-color: inherit; /* 2 */
+T 2 source.css.postcss
+T 14 source.css.postcss support.type.property-name.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss
+T 23 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 25 source.css.postcss
+T 27 source.css.postcss comment.block.postcss
+T 30 source.css.postcss comment.block.postcss
+T 32 source.css.postcss comment.block.postcss
+L   border-collapse: collapse; /* 3 */
+T 2 source.css.postcss
+T 17 source.css.postcss support.type.property-name.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 29 source.css.postcss
+T 31 source.css.postcss comment.block.postcss
+T 34 source.css.postcss comment.block.postcss
+T 36 source.css.postcss comment.block.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Use the modern Firefox focus style for all focusable elements.
+T 64 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L :-moz-focusring:where(:not(iframe)) {
+T 21 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 22 source.css.postcss
+T 23 source.css.postcss meta.property-list.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 33 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 36 source.css.postcss meta.property-list.css.postcss
+T 37 source.css.postcss
+L   outline: auto;
+T 2 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 16 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Add the correct vertical alignment in Chrome and Firefox.
+T 59 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L progress {
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss
+L   vertical-align: baseline;
+T 2 source.css.postcss
+T 16 source.css.postcss support.type.property-name.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 27 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Add the correct display in Chrome and Safari.
+T 47 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L summary {
+T 7 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+L   display: list-item;
+T 2 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 21 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Make lists unstyled by default.
+T 33 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L ol,
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L ul,
+T 2 source.css.postcss entity.name.tag.css.postcss.symbol
+T 3 source.css.postcss
+L menu {
+T 4 source.css.postcss entity.name.tag.css.postcss.symbol
+T 6 source.css.postcss
+L   list-style: none;
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 19 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
+T 105 source.css.postcss comment.block.postcss
+L   2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
+T 161 source.css.postcss comment.block.postcss
+L       This can trigger a poorly considered lint error in some tools but is included by design.
+T 94 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L img,
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L svg,
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L video,
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 6 source.css.postcss
+L canvas,
+T 6 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L audio,
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 6 source.css.postcss
+L iframe,
+T 6 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L embed,
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 6 source.css.postcss
+L object {
+T 6 source.css.postcss entity.name.tag.css.postcss.symbol
+T 8 source.css.postcss
+L   display: block; /* 1 */
+T 2 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 18 source.css.postcss
+T 20 source.css.postcss comment.block.postcss
+T 23 source.css.postcss comment.block.postcss
+T 25 source.css.postcss comment.block.postcss
+L   vertical-align: middle; /* 2 */
+T 2 source.css.postcss
+T 16 source.css.postcss support.type.property-name.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 26 source.css.postcss
+T 28 source.css.postcss comment.block.postcss
+T 31 source.css.postcss comment.block.postcss
+T 33 source.css.postcss comment.block.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
+T 141 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L img,
+T 3 source.css.postcss entity.name.tag.css.postcss.symbol
+T 4 source.css.postcss
+L video {
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L   max-width: 100%;
+T 2 source.css.postcss
+T 11 source.css.postcss support.type.property-name.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 18 source.css.postcss
+L   height: auto;
+T 2 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 15 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   1. Inherit font styles in all browsers.
+T 41 source.css.postcss comment.block.postcss
+L   2. Remove border radius in all browsers.
+T 42 source.css.postcss comment.block.postcss
+L   3. Remove background color in all browsers.
+T 45 source.css.postcss comment.block.postcss
+L   4. Ensure consistent opacity for disabled states in all browsers.
+T 67 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L button,
+T 6 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L input,
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 6 source.css.postcss
+L select,
+T 6 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L optgroup,
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+L textarea,
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 9 source.css.postcss
+L ::file-selector-button {
+T 22 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 24 source.css.postcss
+L   font: inherit; /* 1 */
+T 2 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 17 source.css.postcss
+T 19 source.css.postcss comment.block.postcss
+T 22 source.css.postcss comment.block.postcss
+T 24 source.css.postcss comment.block.postcss
+L   font-feature-settings: inherit; /* 1 */
+T 2 source.css.postcss
+T 23 source.css.postcss support.type.property-name.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss
+T 25 source.css.postcss meta.property-list.css.postcss
+T 32 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 34 source.css.postcss
+T 36 source.css.postcss comment.block.postcss
+T 39 source.css.postcss comment.block.postcss
+T 41 source.css.postcss comment.block.postcss
+L   font-variation-settings: inherit; /* 1 */
+T 2 source.css.postcss
+T 25 source.css.postcss support.type.property-name.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 34 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 36 source.css.postcss
+T 38 source.css.postcss comment.block.postcss
+T 41 source.css.postcss comment.block.postcss
+T 43 source.css.postcss comment.block.postcss
+L   letter-spacing: inherit; /* 1 */
+T 2 source.css.postcss
+T 16 source.css.postcss support.type.property-name.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss
+T 25 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 27 source.css.postcss
+T 29 source.css.postcss comment.block.postcss
+T 32 source.css.postcss comment.block.postcss
+T 34 source.css.postcss comment.block.postcss
+L   color: inherit; /* 1 */
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 18 source.css.postcss
+T 20 source.css.postcss comment.block.postcss
+T 23 source.css.postcss comment.block.postcss
+T 25 source.css.postcss comment.block.postcss
+L   border-radius: 0; /* 2 */
+T 2 source.css.postcss
+T 15 source.css.postcss support.type.property-name.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 20 source.css.postcss
+T 22 source.css.postcss comment.block.postcss
+T 25 source.css.postcss comment.block.postcss
+T 27 source.css.postcss comment.block.postcss
+L   background-color: transparent; /* 3 */
+T 2 source.css.postcss
+T 18 source.css.postcss support.type.property-name.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 31 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 33 source.css.postcss
+T 35 source.css.postcss comment.block.postcss
+T 38 source.css.postcss comment.block.postcss
+T 40 source.css.postcss comment.block.postcss
+L   opacity: 1; /* 4 */
+T 2 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 14 source.css.postcss
+T 16 source.css.postcss comment.block.postcss
+T 19 source.css.postcss comment.block.postcss
+T 21 source.css.postcss comment.block.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Restore default font weight.
+T 30 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L :where(select:is([multiple], [size])) optgroup {
+T 1 source.css.postcss meta.property-list.css.postcss
+T 6 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 18 source.css.postcss meta.property-list.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 30 source.css.postcss meta.property-list.css.postcss
+T 34 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 38 source.css.postcss meta.property-list.css.postcss
+T 46 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 47 source.css.postcss meta.property-list.css.postcss
+T 48 source.css.postcss
+L   font-weight: bolder;
+T 2 source.css.postcss
+T 13 source.css.postcss support.type.property-name.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 22 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Restore indentation.
+T 22 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L :where(select:is([multiple], [size])) optgroup option {
+T 1 source.css.postcss meta.property-list.css.postcss
+T 6 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 18 source.css.postcss meta.property-list.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 30 source.css.postcss meta.property-list.css.postcss
+T 34 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 38 source.css.postcss meta.property-list.css.postcss
+T 46 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 47 source.css.postcss meta.property-list.css.postcss
+T 53 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 54 source.css.postcss meta.property-list.css.postcss
+T 55 source.css.postcss
+L   padding-inline-start: 20px;
+T 2 source.css.postcss
+T 22 source.css.postcss support.type.property-name.css.postcss
+T 23 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 28 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 29 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Restore space after button.
+T 29 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L ::file-selector-button {
+T 22 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 24 source.css.postcss
+L   margin-inline-end: 4px;
+T 2 source.css.postcss
+T 19 source.css.postcss support.type.property-name.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 25 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
+T 109 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L ::placeholder {
+T 13 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 15 source.css.postcss
+L   opacity: 1;
+T 2 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Set the default placeholder color to a semi-transparent version of the current text color in browsers that do not
+T 115 source.css.postcss comment.block.postcss
+L   crash when using `color-mix(…)` with `currentcolor`. (https://github.com/tailwindlabs/tailwindcss/issues/17194)
+T 115 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L @supports (not (-webkit-appearance: -apple-pay-button)) /* Not Safari */ or
+T 1 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss keyword.control.at-rule.css.postcss
+T 10 source.css.postcss keyword.control.at-rule.css.postcss
+T 11 source.css.postcss
+T 14 source.css.postcss support.type.property-name.css.postcss
+T 16 source.css.postcss
+T 34 source.css.postcss support.type.property-name.css.postcss
+T 35 source.css.postcss meta.property-list.css.postcss
+T 36 source.css.postcss meta.property-list.css.postcss
+T 53 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 56 source.css.postcss meta.property-list.css.postcss
+T 57 source.css.postcss meta.property-list.css.postcss keyword.operator.postcss
+T 58 source.css.postcss meta.property-list.css.postcss keyword.operator.postcss
+T 59 source.css.postcss meta.property-list.css.postcss
+T 62 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 63 source.css.postcss meta.property-list.css.postcss
+T 69 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 70 source.css.postcss meta.property-list.css.postcss
+T 71 source.css.postcss meta.property-list.css.postcss keyword.operator.postcss
+T 72 source.css.postcss meta.property-list.css.postcss keyword.operator.postcss
+T 73 source.css.postcss meta.property-list.css.postcss
+T 75 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+L   (contain-intrinsic-size: 1px) /* Safari 17+ */ {
+T 3 source.css.postcss
+T 25 source.css.postcss support.type.property-name.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss
+T 28 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 30 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 32 source.css.postcss meta.property-list.css.postcss
+T 33 source.css.postcss meta.property-list.css.postcss keyword.operator.postcss
+T 34 source.css.postcss meta.property-list.css.postcss keyword.operator.postcss
+T 35 source.css.postcss meta.property-list.css.postcss
+T 41 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 42 source.css.postcss meta.property-list.css.postcss
+T 44 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 45 source.css.postcss meta.property-list.css.postcss keyword.operator.postcss
+T 46 source.css.postcss meta.property-list.css.postcss
+T 47 source.css.postcss meta.property-list.css.postcss keyword.operator.postcss
+T 48 source.css.postcss meta.property-list.css.postcss keyword.operator.postcss
+T 49 source.css.postcss meta.property-list.css.postcss
+T 50 source.css.postcss
+L   ::placeholder {
+T 2 source.css.postcss
+T 15 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 17 source.css.postcss
+L     color: color-mix(in oklab, currentcolor 50%, transparent);
+T 4 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 23 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss
+T 29 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 31 source.css.postcss meta.property-list.css.postcss
+T 43 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 44 source.css.postcss meta.property-list.css.postcss
+T 46 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 47 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 49 source.css.postcss meta.property-list.css.postcss
+T 60 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 61 source.css.postcss meta.property-list.css.postcss
+T 62 source.css.postcss
+L   }
+T 3 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Prevent resizing textareas horizontally by default.
+T 53 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L textarea {
+T 8 source.css.postcss entity.name.tag.css.postcss.symbol
+T 10 source.css.postcss
+L   resize: vertical;
+T 2 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 19 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Remove the inner padding in Chrome and Safari on macOS.
+T 57 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L ::-webkit-search-decoration {
+T 27 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 29 source.css.postcss
+L   -webkit-appearance: none;
+T 2 source.css.postcss
+T 20 source.css.postcss support.type.property-name.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 27 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   1. Ensure date/time inputs have the same height when empty in iOS Safari.
+T 75 source.css.postcss comment.block.postcss
+L   2. Ensure text alignment can be changed on date/time inputs in iOS Safari.
+T 76 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L ::-webkit-date-and-time-value {
+T 29 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 31 source.css.postcss
+L   min-height: 1lh; /* 1 */
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 19 source.css.postcss
+T 21 source.css.postcss comment.block.postcss
+T 24 source.css.postcss comment.block.postcss
+T 26 source.css.postcss comment.block.postcss
+L   text-align: inherit; /* 2 */
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 23 source.css.postcss
+T 25 source.css.postcss comment.block.postcss
+T 28 source.css.postcss comment.block.postcss
+T 30 source.css.postcss comment.block.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Prevent height from changing on date/time inputs in macOS Safari when the input is set to `display: block`.
+T 109 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L ::-webkit-datetime-edit {
+T 23 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 25 source.css.postcss
+L   display: inline-flex;
+T 2 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 23 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Remove excess padding from pseudo-elements in date/time inputs to ensure consistent height across browsers.
+T 109 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L ::-webkit-datetime-edit-fields-wrapper {
+T 38 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 40 source.css.postcss
+L   padding: 0;
+T 2 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 13 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L ::-webkit-datetime-edit,
+T 23 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 24 source.css.postcss
+L ::-webkit-datetime-edit-year-field,
+T 34 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 35 source.css.postcss
+L ::-webkit-datetime-edit-month-field,
+T 35 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 36 source.css.postcss
+L ::-webkit-datetime-edit-day-field,
+T 33 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 34 source.css.postcss
+L ::-webkit-datetime-edit-hour-field,
+T 34 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 35 source.css.postcss
+L ::-webkit-datetime-edit-minute-field,
+T 36 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 37 source.css.postcss
+L ::-webkit-datetime-edit-second-field,
+T 36 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 37 source.css.postcss
+L ::-webkit-datetime-edit-millisecond-field,
+T 41 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 42 source.css.postcss
+L ::-webkit-datetime-edit-meridiem-field {
+T 38 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 40 source.css.postcss
+L   padding-block: 0;
+T 2 source.css.postcss
+T 15 source.css.postcss support.type.property-name.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss
+T 17 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 19 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Center dropdown marker shown on inputs with paired `<datalist>`s in Chrome. (https://github.com/tailwindlabs/tailwindcss/issues/18499)
+T 136 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L ::-webkit-calendar-picker-indicator {
+T 35 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 37 source.css.postcss
+L   line-height: 1;
+T 2 source.css.postcss
+T 13 source.css.postcss support.type.property-name.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 17 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
+T 175 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L :-moz-ui-invalid {
+T 16 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 18 source.css.postcss
+L   box-shadow: none;
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 18 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 19 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Correct the inability to style the border radius in iOS Safari.
+T 65 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L button,
+T 6 source.css.postcss entity.name.tag.css.postcss.symbol
+T 7 source.css.postcss
+L input:where([type='button'], [type='reset'], [type='submit']),
+T 5 source.css.postcss entity.name.tag.css.postcss.symbol
+T 11 source.css.postcss entity.name.tag.css.postcss.symbol entity.other.attribute-name.pseudo-class.css.postcss
+T 12 source.css.postcss
+T 13 source.css.postcss entity.other.attribute-selector.postcss
+T 18 source.css.postcss entity.other.attribute-selector.postcss
+T 19 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 25 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 26 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 27 source.css.postcss entity.other.attribute-selector.postcss
+T 29 source.css.postcss
+T 30 source.css.postcss entity.other.attribute-selector.postcss
+T 35 source.css.postcss entity.other.attribute-selector.postcss
+T 36 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 41 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 42 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 43 source.css.postcss entity.other.attribute-selector.postcss
+T 45 source.css.postcss
+T 46 source.css.postcss entity.other.attribute-selector.postcss
+T 51 source.css.postcss entity.other.attribute-selector.postcss
+T 52 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 58 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 59 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 60 source.css.postcss entity.other.attribute-selector.postcss
+T 62 source.css.postcss
+L ::file-selector-button {
+T 22 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 24 source.css.postcss
+L   appearance: button;
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 21 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Correct the cursor style of increment and decrement buttons in Safari.
+T 72 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L ::-webkit-inner-spin-button,
+T 27 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 28 source.css.postcss
+L ::-webkit-outer-spin-button {
+T 27 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 29 source.css.postcss
+L   height: auto;
+T 2 source.css.postcss
+T 8 source.css.postcss support.type.property-name.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 15 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /*
+T 2 source.css.postcss comment.block.postcss
+L   Make elements with the HTML hidden attribute stay hidden by default.
+T 70 source.css.postcss comment.block.postcss
+L */
+T 2 source.css.postcss comment.block.postcss
+L 
+L [hidden]:where(:not([hidden='until-found'])) {
+T 1 source.css.postcss entity.other.attribute-selector.postcss
+T 7 source.css.postcss entity.other.attribute-selector.postcss
+T 8 source.css.postcss entity.other.attribute-selector.postcss
+T 14 source.css.postcss entity.other.attribute-name.pseudo-class.css.postcss
+T 15 source.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss
+T 19 source.css.postcss meta.property-list.css.postcss support.function.name.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 27 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 28 source.css.postcss meta.property-list.css.postcss keyword.operator.postcss
+T 29 source.css.postcss meta.property-list.css.postcss string.quoted.single.css.postcss
+T 40 source.css.postcss meta.property-list.css.postcss string.quoted.single.css.postcss
+T 41 source.css.postcss meta.property-list.css.postcss string.quoted.single.css.postcss
+T 45 source.css.postcss meta.property-list.css.postcss
+T 46 source.css.postcss
+L   display: none !important;
+T 2 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 16 source.css.postcss meta.property-list.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss keyword.other.important.css.postcss
+T 27 source.css.postcss
+L }
+T 1 source.css.postcss
+L 

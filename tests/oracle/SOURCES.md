@@ -463,6 +463,14 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `php/laravel-postgres-grammar` | [`src/Illuminate/Database/Query/Grammars/PostgresGrammar.php`][laravel-postgres-grammar] in laravel/framework | [MIT][laravel-licence] |
 | `php/laravel-router` | [`src/Illuminate/Routing/Router.php`][laravel-router] in laravel/framework | [MIT][laravel-licence] |
 | `php/sample` | [`samples/php.sample`][php-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `postcss/custom-media-basic` | [`plugins/postcss-custom-media/test/basic.css`][csstools-custom-media-basic] in csstools/postcss-plugins | [MIT][csstools-custom-media-licence] |
+| `postcss/custom-selectors-basic` | [`plugins/postcss-custom-selectors/test/basic.css`][csstools-custom-selectors-basic] in csstools/postcss-plugins | [MIT][csstools-custom-selectors-licence] |
+| `postcss/mixins-arguments` | [`plugins/postcss-mixins/test/arguments.css`][csstools-mixins-arguments] in csstools/postcss-plugins | [MIT-0][csstools-mixins-licence] |
+| `postcss/mixins-spaces` | [`plugins/postcss-mixins/test/spaces.css`][csstools-mixins-spaces] in csstools/postcss-plugins | [MIT-0][csstools-mixins-licence] |
+| `postcss/nesting-at-nest` | [`plugins/postcss-nesting/test/at-nest.css`][csstools-nesting-at-nest] in csstools/postcss-plugins | [MIT-0][csstools-nesting-licence] |
+| `postcss/nesting-spec-examples` | [`plugins/postcss-nesting/test/spec-examples.css`][csstools-nesting-spec-examples] in csstools/postcss-plugins | [MIT-0][csstools-nesting-licence] |
+| `postcss/sample` | [`samples/postcss.sample`][postcss-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `postcss/tailwind-preflight` | [`packages/tailwindcss/preflight.css`][tailwind-preflight] in tailwindlabs/tailwindcss | [MIT][tailwind-licence] |
 | `powershell/coverage` | `oracle/inputs/powershell-coverage.ps1`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `powershell/dotnet-install` | [`src/dotnet-install.ps1`][dotnet-install] in dotnet/install-scripts | [MIT][dotnet-install-licence] |
 | `powershell/install-powershell` | [`tools/install-powershell.ps1`][install-powershell] in PowerShell/PowerShell | [MIT][powershell-licence] |
@@ -866,6 +874,10 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 The other `vue` inputs are held out, and `vue/coverage` was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 `markdown/vitepress-runtime-api` is the development input for `vue` fences in Markdown.
 
+`postcss/sample`, `postcss/custom-media-basic`, `postcss/mixins-spaces`, `postcss/nesting-spec-examples` and `postcss/tailwind-preflight` are the development inputs for PostCSS.
+`postcss/custom-selectors-basic`, `postcss/mixins-arguments` and `postcss/nesting-at-nest` are held out: they were added after the development inputs passed.
+`postcss/coverage` was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
+
 [abseil-licence]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/LICENSE
 [absl-any-invocable]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/functional/internal/any_invocable.h
 [absl-any-invocable-test]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/functional/any_invocable_test.h
@@ -1023,6 +1035,16 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [css-lessjs-media]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/media/media.css
 [css-lessjs-selectors]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/selectors/selectors.css
 [css-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/css.sample
+[csstools-custom-media-basic]: https://github.com/csstools/postcss-plugins/blob/1d146b524f7ef801e876f0fdcd4e5c572222b6fe/plugins/postcss-custom-media/test/basic.css
+[csstools-custom-media-licence]: https://github.com/csstools/postcss-plugins/blob/1d146b524f7ef801e876f0fdcd4e5c572222b6fe/plugins/postcss-custom-media/LICENSE.md
+[csstools-custom-selectors-basic]: https://github.com/csstools/postcss-plugins/blob/1d146b524f7ef801e876f0fdcd4e5c572222b6fe/plugins/postcss-custom-selectors/test/basic.css
+[csstools-custom-selectors-licence]: https://github.com/csstools/postcss-plugins/blob/1d146b524f7ef801e876f0fdcd4e5c572222b6fe/plugins/postcss-custom-selectors/LICENSE.md
+[csstools-mixins-arguments]: https://github.com/csstools/postcss-plugins/blob/1d146b524f7ef801e876f0fdcd4e5c572222b6fe/plugins/postcss-mixins/test/arguments.css
+[csstools-mixins-licence]: https://github.com/csstools/postcss-plugins/blob/1d146b524f7ef801e876f0fdcd4e5c572222b6fe/plugins/postcss-mixins/LICENSE.md
+[csstools-mixins-spaces]: https://github.com/csstools/postcss-plugins/blob/1d146b524f7ef801e876f0fdcd4e5c572222b6fe/plugins/postcss-mixins/test/spaces.css
+[csstools-nesting-at-nest]: https://github.com/csstools/postcss-plugins/blob/1d146b524f7ef801e876f0fdcd4e5c572222b6fe/plugins/postcss-nesting/test/at-nest.css
+[csstools-nesting-licence]: https://github.com/csstools/postcss-plugins/blob/1d146b524f7ef801e876f0fdcd4e5c572222b6fe/plugins/postcss-nesting/LICENSE.md
+[csstools-nesting-spec-examples]: https://github.com/csstools/postcss-plugins/blob/1d146b524f7ef801e876f0fdcd4e5c572222b6fe/plugins/postcss-nesting/test/spec-examples.css
 [dart-args-readme]: https://github.com/dart-lang/core/blob/36f57a994965785d641e436b7dd3aa8a18a26f62/pkgs/args/README.md
 [dart-collection-algorithms]: https://github.com/dart-lang/core/blob/36f57a994965785d641e436b7dd3aa8a18a26f62/pkgs/collection/lib/src/algorithms.dart
 [dart-core-licence]: https://github.com/dart-lang/core/blob/36f57a994965785d641e436b7dd3aa8a18a26f62/LICENSE
@@ -1346,6 +1368,7 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [poetry-faq]: https://github.com/python-poetry/poetry/blob/6ecadf5b71309b1da4f00949cc349a79884cff8f/docs/faq.md
 [poetry-licence]: https://github.com/python-poetry/poetry/blob/6ecadf5b71309b1da4f00949cc349a79884cff8f/LICENSE
 [poetry-pyproject]: https://github.com/python-poetry/poetry/blob/6ecadf5b71309b1da4f00949cc349a79884cff8f/pyproject.toml
+[postcss-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/postcss.sample
 [postgres-docker]: https://github.com/docker-library/postgres/blob/dfc76bb299b057785026eb2eea39556b6fe52983/18/bookworm/Dockerfile
 [postgres-docker-licence]: https://github.com/docker-library/postgres/blob/dfc76bb299b057785026eb2eea39556b6fe52983/LICENSE
 [postgres-licence]: https://github.com/postgres/postgres/blob/5681f0cfa5acfdc5146e2b74ff5b7e940df039f3/COPYRIGHT

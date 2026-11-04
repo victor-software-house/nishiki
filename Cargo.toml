@@ -57,6 +57,7 @@ all = [
   "lang-make",
   "lang-markdown",
   "lang-nix",
+  "lang-postcss",
   "lang-powershell",
   "lang-proto",
   "lang-python",
@@ -98,6 +99,7 @@ web = [
   "lang-json",
   "lang-jsx",
   "lang-less",
+  "lang-postcss",
   "lang-scss",
   "lang-tsx",
   "lang-typescript",
@@ -217,6 +219,7 @@ lang-php = [
   "lang-sql",
   "lang-xml",
 ]
+lang-postcss = ["_scope-table", "_rule-tables", "_classes"]
 lang-powershell = ["_scope-table", "_rule-tables", "_classes"]
 lang-proto = ["_scope-table", "_rule-tables", "_classes"]
 lang-python = ["_scope-table", "_rule-tables"]

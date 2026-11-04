@@ -1,0 +1,196 @@
+L /* Written for nishiki: PostCSS that reaches the grammar's rarer rules. */
+T 2 source.css.postcss comment.block.postcss
+T 72 source.css.postcss comment.block.postcss
+T 74 source.css.postcss comment.block.postcss
+L /* {{ comment-tag }} */
+T 2 source.css.postcss comment.block.postcss
+T 3 source.css.postcss comment.block.postcss
+T 5 source.css.postcss comment.block.postcss comment.tags.postcss
+T 6 source.css.postcss comment.block.postcss comment.tags.postcss
+T 17 source.css.postcss comment.block.postcss comment.tags.postcss comment.tag.postcss
+T 18 source.css.postcss comment.block.postcss comment.tags.postcss
+T 20 source.css.postcss comment.block.postcss comment.tags.postcss
+T 21 source.css.postcss comment.block.postcss
+T 23 source.css.postcss comment.block.postcss
+L @include grid-columns;
+T 8 source.css.postcss support.function.name.postcss.library keyword.control.at-rule.css.postcss
+T 21 source.css.postcss support.function.name.postcss.library
+T 22 source.css.postcss
+L @include button(primary);
+T 8 source.css.postcss support.function.name.postcss.library keyword.control.at-rule.css.postcss
+T 15 source.css.postcss support.function.name.postcss.library
+T 16 source.css.postcss
+T 23 source.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 25 source.css.postcss
+L @mixin rounded
+T 6 source.css.postcss support.function.name.postcss.no-completions keyword.control.at-rule.css.postcss
+T 7 source.css.postcss support.function.name.postcss.no-completions
+T 14 source.css.postcss support.function.name.postcss.no-completions entity.name.function
+L @function double($n) {
+T 9 source.css.postcss support.function.name.postcss.no-completions keyword.control.at-rule.css.postcss
+T 10 source.css.postcss support.function.name.postcss.no-completions
+T 16 source.css.postcss support.function.name.postcss.no-completions entity.name.function
+T 17 source.css.postcss
+T 19 source.css.postcss variable.parameter.postcss
+T 22 source.css.postcss
+L   @return $n * 2;
+T 2 source.css.postcss
+T 3 source.css.postcss keyword.control.at-rule.css.postcss
+T 9 source.css.postcss keyword.control.at-rule.css.postcss
+T 10 source.css.postcss keyword.control.at-rule.css.postcss
+T 12 source.css.postcss variable.parameter.postcss
+T 13 source.css.postcss
+T 14 source.css.postcss keyword.operator.postcss
+T 15 source.css.postcss
+T 16 source.css.postcss constant.numeric.css.postcss
+T 17 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L $size: 10px;
+T 5 source.css.postcss variable.parameter.postcss
+T 6 source.css.postcss meta.property-list.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss constant.numeric.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss keyword.other.unit.css.postcss
+T 12 source.css.postcss
+L $list...;
+T 5 source.css.postcss variable.parameter.postcss
+T 8 source.css.postcss variable.other
+T 9 source.css.postcss
+L 
+L %placeholder { color: red; }
+T 1 source.css.postcss entity.other.attribute-name.placeholder-selector.postcss
+T 12 source.css.postcss entity.other.attribute-name.placeholder-selector.postcss
+T 13 source.css.postcss entity.other.attribute-name.placeholder-selector.postcss
+T 15 source.css.postcss
+T 20 source.css.postcss support.type.property-name.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss
+T 25 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 28 source.css.postcss
+L 
+L .item-#{$size} { width: #{$size * 2}; }
+T 1 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 6 source.css.postcss entity.other.attribute-name.class.css.postcss
+T 8 source.css.postcss entity.other.attribute-name.class.css.postcss support.function.interpolation.postcss
+T 13 source.css.postcss entity.other.attribute-name.class.css.postcss support.function.interpolation.postcss variable.parameter.postcss
+T 14 source.css.postcss entity.other.attribute-name.class.css.postcss support.function.interpolation.postcss
+T 17 source.css.postcss
+T 22 source.css.postcss support.type.property-name.css.postcss
+T 23 source.css.postcss meta.property-list.css.postcss
+T 24 source.css.postcss meta.property-list.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss support.function.interpolation.postcss
+T 31 source.css.postcss meta.property-list.css.postcss support.function.interpolation.postcss variable.parameter.postcss
+T 32 source.css.postcss meta.property-list.css.postcss support.function.interpolation.postcss
+T 33 source.css.postcss meta.property-list.css.postcss support.function.interpolation.postcss keyword.operator.postcss
+T 34 source.css.postcss meta.property-list.css.postcss support.function.interpolation.postcss
+T 35 source.css.postcss meta.property-list.css.postcss support.function.interpolation.postcss constant.numeric.css.postcss
+T 36 source.css.postcss meta.property-list.css.postcss support.function.interpolation.postcss
+T 39 source.css.postcss
+L 
+L a[href^="http"], a[data-x*='y'], a[class~="b"], a[lang$="en"] {
+T 1 source.css.postcss entity.name.tag.css.postcss.symbol
+T 2 source.css.postcss entity.other.attribute-selector.postcss
+T 6 source.css.postcss entity.other.attribute-selector.postcss
+T 7 source.css.postcss entity.other.attribute-selector.postcss keyword.other.regex.postcss
+T 8 source.css.postcss entity.other.attribute-selector.postcss
+T 9 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 13 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 14 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 15 source.css.postcss entity.other.attribute-selector.postcss
+T 17 source.css.postcss
+T 18 source.css.postcss entity.name.tag.css.postcss.symbol
+T 19 source.css.postcss entity.other.attribute-selector.postcss
+T 25 source.css.postcss entity.other.attribute-selector.postcss
+T 26 source.css.postcss entity.other.attribute-selector.postcss keyword.other.regex.postcss
+T 27 source.css.postcss entity.other.attribute-selector.postcss
+T 28 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 29 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 30 source.css.postcss entity.other.attribute-selector.postcss string.quoted.single.css.postcss
+T 31 source.css.postcss entity.other.attribute-selector.postcss
+T 33 source.css.postcss
+T 34 source.css.postcss entity.name.tag.css.postcss.symbol
+T 35 source.css.postcss entity.other.attribute-selector.postcss
+T 40 source.css.postcss entity.other.attribute-selector.postcss
+T 41 source.css.postcss entity.other.attribute-selector.postcss keyword.other.regex.postcss
+T 42 source.css.postcss entity.other.attribute-selector.postcss
+T 43 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 44 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 45 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 46 source.css.postcss entity.other.attribute-selector.postcss
+T 48 source.css.postcss
+T 49 source.css.postcss entity.name.tag.css.postcss.symbol
+T 50 source.css.postcss entity.other.attribute-selector.postcss
+T 54 source.css.postcss entity.other.attribute-selector.postcss
+T 55 source.css.postcss entity.other.attribute-selector.postcss keyword.other.regex.postcss
+T 56 source.css.postcss entity.other.attribute-selector.postcss
+T 57 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 59 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 60 source.css.postcss entity.other.attribute-selector.postcss string.quoted.double.css.postcss
+T 61 source.css.postcss entity.other.attribute-selector.postcss
+T 63 source.css.postcss
+L   color: #abc;
+T 2 source.css.postcss
+T 7 source.css.postcss support.type.property-name.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 9 source.css.postcss meta.property-list.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss constant.other.color.rgb-value.css.postcss
+T 14 source.css.postcss
+L   background: #a1b2c3 url(image.png);
+T 2 source.css.postcss
+T 12 source.css.postcss support.type.property-name.css.postcss
+T 13 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss constant.other.color.rgb-value.css.postcss
+T 22 source.css.postcss meta.property-list.css.postcss
+T 25 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 26 source.css.postcss meta.property-list.css.postcss
+T 35 source.css.postcss meta.property-list.css.postcss string.quoted.double.css.postcss
+T 36 source.css.postcss meta.property-list.css.postcss
+T 37 source.css.postcss
+L   font: format(woff2);
+T 2 source.css.postcss
+T 6 source.css.postcss support.type.property-name.css.postcss
+T 7 source.css.postcss meta.property-list.css.postcss
+T 8 source.css.postcss meta.property-list.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss meta.property-value.css.postcss, support.constant.property-value.css.postcss
+T 15 source.css.postcss meta.property-list.css.postcss
+T 20 source.css.postcss meta.property-list.css.postcss string.quoted.double.css.postcss
+T 21 source.css.postcss meta.property-list.css.postcss
+T 22 source.css.postcss
+L   content: "#{$size}";
+T 2 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss string.quoted.double.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss string.quoted.double.css.postcss support.function.interpolation.postcss
+T 19 source.css.postcss meta.property-list.css.postcss string.quoted.double.css.postcss support.function.interpolation.postcss variable.parameter.postcss
+T 20 source.css.postcss meta.property-list.css.postcss string.quoted.double.css.postcss support.function.interpolation.postcss
+T 21 source.css.postcss meta.property-list.css.postcss string.quoted.double.css.postcss
+T 22 source.css.postcss
+L   content: '#{$size}';
+T 2 source.css.postcss
+T 9 source.css.postcss support.type.property-name.css.postcss
+T 10 source.css.postcss meta.property-list.css.postcss
+T 11 source.css.postcss meta.property-list.css.postcss
+T 12 source.css.postcss meta.property-list.css.postcss string.quoted.single.css.postcss
+T 14 source.css.postcss meta.property-list.css.postcss string.quoted.single.css.postcss support.function.interpolation.postcss
+T 19 source.css.postcss meta.property-list.css.postcss string.quoted.single.css.postcss support.function.interpolation.postcss variable.parameter.postcss
+T 20 source.css.postcss meta.property-list.css.postcss string.quoted.single.css.postcss support.function.interpolation.postcss
+T 21 source.css.postcss meta.property-list.css.postcss string.quoted.single.css.postcss
+T 22 source.css.postcss
+L }
+T 1 source.css.postcss
+L 
+L /* An id rule ends before the space, so the import rule reads the path. */
+T 2 source.css.postcss comment.block.postcss
+T 72 source.css.postcss comment.block.postcss
+T 74 source.css.postcss comment.block.postcss
+L #a@import base/reset.css;
+T 1 source.css.postcss entity.other.attribute-name.id.css.postcss
+T 9 source.css.postcss entity.other.attribute-name.id.css.postcss
+T 24 source.css.postcss string.quoted.double.css.postcss
+T 25 source.css.postcss
+L 

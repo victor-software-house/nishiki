@@ -43,6 +43,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Markdown | `markdown` | 225 of 311 | 72.3% | 286 of 373 | 76.7% | 173 | 0 | yes |
 | Markdown | `markdown-vue` | 2 of 2 | 100.0% | 3 of 4 | 75.0% | 0 | 0 |  |
 | Nix | `nix` | 155 of 157 | 98.7% | 47 of 49 | 95.9% | 4 | 0 | yes |
+| PostCSS | `postcss` | 53 of 53 | 100.0% | 2 of 4 | 50.0% | 2 | 0 | yes |
 | PowerShell | `powershell` | 96 of 96 | 100.0% | 130 of 136 | 95.6% | 6 | 0 | yes |
 | Protobuf | `proto` | 40 of 40 | 100.0% | 58 of 58 | 100.0% | 0 | 0 | yes |
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
@@ -658,6 +659,13 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 #attrset-or-function.patterns[3].patterns[3].patterns[1].begin  ,  waived: the enclosing rule's end, `(?=([]),;}]|\b(else|then)\b))`, matches before every `,`, and an end is tried before the patterns
 #attrset-or-function.patterns[3].patterns[3].patterns[1].end  (?=([]),;}]|\b(else|then)\b))  waived: the enclosing rule's end, `(?=([]),;}]|\b(else|then)\b))`, matches before every `,`, and an end is tried before the patterns
 #if.patterns[2].end  groups 0 (waived: the group is a lookahead, so it never holds text)
+```
+
+### `postcss`
+
+```text
+patterns[12].end  groups 0 (waived: the group is a lookahead, so it never holds text)
+patterns[13].end  groups 0 (waived: the end matches only the line feed or a lookahead, and the oracle compares no blank)
 ```
 
 ### `powershell`

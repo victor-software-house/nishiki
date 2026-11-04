@@ -12,7 +12,7 @@
 #
 # Changing a file, or adding or removing one, raises version: figures from
 # two versions are never compared.
-version = 2
+version = 3
 
 [[file]]
 language = "bat"
@@ -808,6 +808,28 @@ licence = "MIT"
 licence_source = "https://github.com/nix-darwin/nix-darwin/blob/ff0e21a414d4547183396da1b44a66f2577b65e9/LICENSE"
 bytes = 35013
 sha256 = "cdbf0d900eef1bfc828aa0399a77528a13f6041af7e55cf2761229838573bd49"
+
+[[file]]
+language = "postcss"
+tier = "small"
+origin = "neutral"
+path = "postcss/small/csstools-custom-media-layers.css"
+source = "https://raw.githubusercontent.com/csstools/postcss-plugins/1d146b524f7ef801e876f0fdcd4e5c572222b6fe/plugins/postcss-custom-media/test/cascade-layers.css"
+licence = "MIT"
+licence_source = "https://github.com/csstools/postcss-plugins/blob/1d146b524f7ef801e876f0fdcd4e5c572222b6fe/plugins/postcss-custom-media/LICENSE.md"
+bytes = 1316
+sha256 = "128e2f5801cd42a146893bc939635e7220cb2fbbb6d3c8994e0f2a4982bb9351"
+
+[[file]]
+language = "postcss"
+tier = "medium"
+origin = "neutral"
+path = "postcss/medium/tailwind-theme.css"
+source = "https://raw.githubusercontent.com/tailwindlabs/tailwindcss/2626ae6ceddf36069ab6d55c53a5857c1e2e360a/packages/tailwindcss/theme.css"
+licence = "MIT"
+licence_source = "https://github.com/tailwindlabs/tailwindcss/blob/2626ae6ceddf36069ab6d55c53a5857c1e2e360a/LICENSE"
+bytes = 19586
+sha256 = "443d7af364200f8ec8352dc78e39485a118a1840d498c97967bf0ae402b39167"
 
 [[file]]
 language = "powershell"
