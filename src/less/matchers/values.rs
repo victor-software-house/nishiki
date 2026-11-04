@@ -269,12 +269,13 @@ impl Lexer<'_> {
         Some(to)
     }
 
-    /// The unit of `units` at `p`, ignoring case, that `\b` follows.
+    /// The unit of `units` at `p` as `(?i)` reads it, that `\b` follows
+    /// ([`Lexer::folded_end`]).
     fn unit_after(&self, p: usize, units: &[&[u8]]) -> Option<(usize, usize)> {
         units
             .iter()
-            .find(|unit| self.starts_folded(p, unit) && self.boundary(p + unit.len()))
-            .map(|unit| (p, p + unit.len()))
+            .find_map(|unit| self.folded_end(p, unit).filter(|&end| self.boundary(end)))
+            .map(|end| (p, end))
     }
 
     /// `\b((?i:em|ex|ch|rem)|(?i:v(?:[hw]|min|max))|(?i:
@@ -440,8 +441,7 @@ impl Lexer<'_> {
         }
         [b"currentColor".as_slice(), b"transparent"]
             .into_iter()
-            .find(|word| self.starts_folded(p, word) && self.boundary(p + word.len()))
-            .map(|word| p + word.len())
+            .find_map(|word| self.folded_end(p, word).filter(|&end| self.boundary(end)))
     }
 
     /// `\b(sans-serif|serif|monospace|fantasy|cursive)\b(?=\s*[\n,;}])`.

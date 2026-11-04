@@ -328,6 +328,52 @@ T 61 source.css.less meta.property-list.less meta.property-value.less meta.funct
 T 81 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.constant.property-value.counter-style.less
 T 82 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
 T 83 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L   content: counter(item, SQUARE) counter(item, ſquare) counter(item, Katakana);
+T 2 source.css.less meta.property-list.less
+T 9 source.css.less meta.property-list.less support.type.property-name.less
+T 10 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 11 source.css.less meta.property-list.less meta.property-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.filter.less
+T 19 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less entity.other.counter-name.less
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 31 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.constant.property-value.counter-style.less
+T 32 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 33 source.css.less meta.property-list.less meta.property-value.less
+T 40 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.filter.less
+T 41 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 45 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less entity.other.counter-name.less
+T 46 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 47 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 54 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.constant.property-value.counter-style.less
+T 55 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 56 source.css.less meta.property-list.less meta.property-value.less
+T 63 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.filter.less
+T 64 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 68 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less entity.other.counter-name.less
+T 69 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 70 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 80 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.constant.property-value.counter-style.less
+T 81 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 82 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L   transition: opacity 1ſ;
+T 2 source.css.less meta.property-list.less
+T 12 source.css.less meta.property-list.less support.type.property-name.less
+T 13 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 14 source.css.less meta.property-list.less meta.property-value.less
+T 21 source.css.less meta.property-list.less meta.property-value.less support.constant.property-value.less
+T 22 source.css.less meta.property-list.less meta.property-value.less
+T 23 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 25 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 26 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L   color: tranſparent;
+T 2 source.css.less meta.property-list.less
+T 7 source.css.less meta.property-list.less support.type.property-name.less
+T 8 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 9 source.css.less meta.property-list.less meta.property-value.less
+T 21 source.css.less meta.property-list.less meta.property-value.less support.constant.color.w3c-special-color-keyword.less
+T 22 source.css.less meta.property-list.less punctuation.terminator.rule.less
 L   background-image: cross-fade(url(a.png), url(b.png), 50%);
 T 2 source.css.less meta.property-list.less
 T 18 source.css.less meta.property-list.less support.type.property-name.less

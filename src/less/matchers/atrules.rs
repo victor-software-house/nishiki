@@ -131,12 +131,12 @@ impl Lexer<'_> {
         let name = self.spaces_run(end)?;
         let keyword = [b"decimal".as_slice(), b"none"]
             .into_iter()
-            .find(|word| {
+            .find_map(|word| {
                 self.boundary(name)
-                    && self.starts_folded(name, word)
-                    && self.boundary(name + word.len())
+                    .then(|| self.folded_end(name, word))
+                    .flatten()
+                    .filter(|&end| self.boundary(end))
             })
-            .map(|word| name + word.len())
             .filter(|&stop| self.block_or_eol(self.spaces(stop)));
         let (group, stop) = if let Some(stop) = keyword {
             (3, stop)

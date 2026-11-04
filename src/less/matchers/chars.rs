@@ -2,6 +2,7 @@
 //! built from.
 
 use super::super::engine::Lexer;
+use crate::case_fold;
 use crate::rules::Chars;
 
 /// A character class of the grammar's names.
@@ -326,11 +327,10 @@ impl Lexer<'_> {
         set.contains(&self.at(end)).then_some(end)
     }
 
-    /// Whether the text from `p` starts with `text`, ignoring ASCII case.
-    pub(super) fn starts_folded(&self, p: usize, text: &[u8]) -> bool {
-        self.s
-            .get(p..p + text.len())
-            .is_some_and(|s| s.eq_ignore_ascii_case(text))
-            && p + text.len() <= self.lim()
+    /// The end of `word` at `p` as `(?i)` reads it: without regard to ASCII
+    /// case, a character above ASCII standing for the letters it folds to,
+    /// as `ſ` for `s` ([`case_fold::literal_end`]).
+    pub(super) fn folded_end(&self, p: usize, word: &[u8]) -> Option<usize> {
+        case_fold::literal_end(self.s.get(..self.lim())?, p, word)
     }
 }

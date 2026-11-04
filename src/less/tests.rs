@@ -76,3 +76,46 @@ fn a_keyframe_percentage_holds_its_percent_sign() {
         ]
     );
 }
+
+/// A counter style ignores case, and `(?i)` reads a character that folds
+/// to letters as them: `ſ` as `s` and the Kelvin sign as `k`. Each case is
+/// Shiki's answer on the line.
+#[test]
+fn a_counter_style_reads_a_case_fold_as_its_letters() {
+    for (line, token) in [
+        ("a{content:counter(x, SQUARE)}", "SQUARE"),
+        ("a{content:counter(x, \u{17f}quare)}", "\u{17f}quare"),
+        ("a{content:counter(x, \u{212a}atakana)}", "\u{212a}atakana"),
+    ] {
+        assert_eq!(
+            leaf_in(&lex(line), token),
+            "support.constant.property-value.counter-style.less",
+            "{line:?}"
+        );
+    }
+}
+
+/// A unit and the special colour keywords ignore case, and `(?i)` reads `ſ`
+/// as `s`. Each case is Shiki's answer on the line.
+#[test]
+fn a_unit_and_a_colour_keyword_read_a_case_fold_as_its_letters() {
+    for (line, token, scope) in [
+        (
+            "a{transition:opacity 1\u{17f}}",
+            "\u{17f}",
+            "keyword.other.unit.less",
+        ),
+        (
+            "a{color:tran\u{17f}parent}",
+            "tran\u{17f}parent",
+            "support.constant.color.w3c-special-color-keyword.less",
+        ),
+        (
+            "a{color:TRANSPARENT}",
+            "TRANSPARENT",
+            "support.constant.color.w3c-special-color-keyword.less",
+        ),
+    ] {
+        assert_eq!(leaf_in(&lex(line), token), scope, "{line:?}");
+    }
+}

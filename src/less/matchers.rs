@@ -20,6 +20,7 @@ use values::Spaces;
 use super::engine::Lexer;
 use super::grammar::Pat;
 use super::words;
+use crate::case_fold;
 use crate::rules::Chars;
 
 /// The longest word of any table in [`words`], in bytes; `oracle/less-words.ts`
@@ -977,7 +978,60 @@ impl Lexer<'_> {
             }
         }
         self.spend(run - p);
+        if !self.at(run).is_ascii()
+            && let Some((order, end)) = self.folded_table_word(p, run, table)
+            && best.is_none_or(|(best_order, _)| order < best_order)
+        {
+            best = Some((order, end));
+        }
         best.map(|(_, end)| end)
+    }
+
+    /// [`Lexer::table_word`] past `run`, where a character above ASCII
+    /// stands: of the words that ignore case, the one the alternation tries
+    /// first that a text through such characters spells. `(?i)` reads a
+    /// character that folds to letters as them, `ſ` as `s` and the Kelvin
+    /// sign as `k` ([`case_fold::lower_into`]), and any other ends the words.
+    /// Out of line, as such text is rare.
+    #[cold]
+    fn folded_table_word(&self, p: usize, run: usize, table: &[Word]) -> Option<(u16, usize)> {
+        let mut best: Option<(u16, usize)> = None;
+        let mut lower = [0_u8; LONGEST_WORD];
+        let mut end = run;
+        while end < self.lim() {
+            let byte = self.at(end);
+            end = if byte.is_ascii() {
+                if !(byte == b'-' || byte == b'.' || byte == b':' || byte.is_ascii_alphanumeric()) {
+                    break;
+                }
+                end + 1
+            } else {
+                let Some((c, next)) = self.char_at(end) else {
+                    break;
+                };
+                if case_fold::letters(c).is_none() {
+                    break;
+                }
+                next
+            };
+            if !self.boundary(end) {
+                continue;
+            }
+            let Some(len) = case_fold::lower_into(self.text(p, end), &mut lower) else {
+                break;
+            };
+            let (word, goes_on) = find(table, lower.get(..len).unwrap_or_default());
+            if let Some(word) = word.filter(|word| word.folded)
+                && best.is_none_or(|(order, _)| word.order < order)
+            {
+                best = Some((word.order, end));
+            }
+            if !goes_on {
+                break;
+            }
+        }
+        self.spend(end - run);
+        best
     }
 
     /// `\b(a|b|…)\b` at `p` for a short alternation: the first word, in the

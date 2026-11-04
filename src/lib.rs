@@ -201,7 +201,12 @@ mod arena;
 mod bat;
 #[cfg(feature = "lang-c")]
 mod c;
-#[cfg(any(feature = "lang-css", feature = "lang-markdown", feature = "lang-sql"))]
+#[cfg(any(
+    feature = "lang-css",
+    feature = "lang-less",
+    feature = "lang-markdown",
+    feature = "lang-sql"
+))]
 mod case_fold;
 #[cfg(feature = "_classes")]
 mod classes;

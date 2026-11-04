@@ -29,6 +29,9 @@
   counter-reset: item 1 section;
   counter-increment: item 2;
   content: counter(item, upper-roman) counters(section, ".", decimal-leading-zero);
+  content: counter(item, SQUARE) counter(item, ſquare) counter(item, Katakana);
+  transition: opacity 1ſ;
+  color: tranſparent;
   background-image: cross-fade(url(a.png), url(b.png), 50%);
   transition-timing-function: cubic-bezier(0.1, 0.7, 1, 0.1);
   animation-timing-function: steps(4, jump-start), steps(2, end);
