@@ -3,10 +3,9 @@
 //! gives scopes to.
 
 use super::caps::Caps;
-use super::fence;
+use super::fence::{self, Embed};
 use super::state::Fence;
 use super::text::Cx;
-use crate::Language;
 
 /// `(^|\G) {0,3}([-*_])( {0,2}\2){2,}[\t ]*$\n?`
 pub(crate) fn separator(cx: &Cx<'_>, p: usize) -> Option<usize> {
@@ -196,8 +195,8 @@ pub(crate) fn list_while(cx: &Cx<'_>, p: usize) -> Option<usize> {
 pub(crate) struct FenceOpen {
     pub(crate) end: usize,
     pub(crate) fence: Fence,
-    /// The language to embed, or none for a fence that only holds text.
-    pub(crate) lang: Option<Language>,
+    /// What the fence embeds, or none for a fence that only holds text.
+    pub(crate) embed: Option<Embed>,
 }
 
 /// The opening of a fence: leading whitespace, a run of three or more backticks
@@ -235,7 +234,7 @@ pub(crate) fn fence_open(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<Fence
         return Some(FenceOpen {
             end: cx.end,
             fence,
-            lang: Some(found.lang),
+            embed: Some(found.embed),
         });
     }
     if fence::has_backtick(cx, info) {
@@ -247,7 +246,7 @@ pub(crate) fn fence_open(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<Fence
     Some(FenceOpen {
         end: info,
         fence,
-        lang: None,
+        embed: None,
     })
 }
 

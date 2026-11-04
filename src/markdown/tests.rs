@@ -521,7 +521,7 @@ fn css_fences_embed_the_css_lexer_without_its_root() {
 
 #[test]
 fn xml_fences_embed_the_xml_lexer_without_its_root() {
-    for info in ["xml", "XSD", "jsp", "rss", "xsl", "xslt title=x"] {
+    for info in ["xml", "XSD", "jsp", "rss"] {
         let text = formatdoc! {r#"
             ```{info}
             <a b="c"/>
@@ -535,6 +535,73 @@ fn xml_fences_embed_the_xml_lexer_without_its_root() {
                 "meta.embedded.block.xml",
                 "meta.tag.xml",
                 "entity.name.tag.localname.xml",
+            ],
+            "{info}"
+        );
+    }
+}
+
+/// The `xsl` rule embeds the XSL grammar, which nishiki does not lex, so
+/// its fences are plain, as in Shiki without that grammar.
+#[test]
+fn xsl_fences_are_plain() {
+    for info in ["xsl", "XSLT title=x"] {
+        let text = formatdoc! {r#"
+            ```{info}
+            <a b="c"/>
+            ```
+        "#};
+        assert_eq!(
+            stack_of(&text, r#"<a b="c"/>"#),
+            ["text.html.markdown", "markup.fenced_code.block.markdown"],
+            "{info}"
+        );
+    }
+}
+
+/// The `php` rule includes `text.html.basic` and then `source.php`, so
+/// without a PHP grammar HTML takes the body, under the rule's own scope.
+#[test]
+fn php_fences_embed_html_under_the_php_scope() {
+    for info in ["php", "php3", "php4", "aw", "ctp", "PHTML title=x"] {
+        let text = formatdoc! {"
+            ```{info}
+            <b>x</b>
+            ```
+        "};
+        assert_eq!(
+            stack_of(&text, "b"),
+            [
+                "text.html.markdown",
+                "markup.fenced_code.block.markdown",
+                "meta.embedded.block.php",
+                "meta.tag.inline.b.start.html",
+                "entity.name.tag.html",
+            ],
+            "{info}"
+        );
+    }
+}
+
+/// Batch runs on the engine, whose `lex` takes the fence's body line by
+/// line while Markdown finds the closing fence.
+#[cfg(feature = "lang-bat")]
+#[test]
+fn batch_fences_embed_the_batch_lexer_without_its_root() {
+    for info in ["batch", "Bat x"] {
+        let text = formatdoc! {"
+            ```{info}
+            rem hi
+            ```
+        "};
+        assert_eq!(
+            stack_of(&text, "rem"),
+            [
+                "text.html.markdown",
+                "markup.fenced_code.block.markdown",
+                "meta.embedded.block.dosbatch",
+                "comment.line.rem.batchfile",
+                "keyword.command.rem.batchfile",
             ],
             "{info}"
         );

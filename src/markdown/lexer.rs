@@ -101,6 +101,10 @@ impl Starts {
                 }
             }
             Kind::Fence(_) | Kind::FencePlain | Kind::FrontMatter => Starts::Anchored,
+            #[cfg(feature = "lang-html")]
+            Kind::FencePhp => Starts::Anchored,
+            #[cfg(feature = "lang-html")]
+            Kind::BodyPhp => Starts::Nowhere,
             Kind::FrontMatterBody
             | Kind::RawBlock
             | Kind::HtmlRawBody
@@ -385,6 +389,10 @@ impl<'a> Lexer<'a> {
                 Kind::Body(_) => {
                     (cx.at_start(pos) && !block::is_fence_line(&cx, pos)).then_some(pos)
                 }
+                #[cfg(feature = "lang-html")]
+                Kind::BodyPhp => {
+                    (cx.at_start(pos) && !block::is_fence_line(&cx, pos)).then_some(pos)
+                }
                 Kind::RawBlock => block::raw_block(&cx, pos),
                 Kind::Table => block::table_while(&cx, pos).then_some(pos),
                 Kind::Paragraph => block::paragraph_while(&cx, pos),
@@ -394,6 +402,11 @@ impl<'a> Lexer<'a> {
                 Kind::HtmlBlock => html::block_while(&cx, pos),
                 #[cfg(not(feature = "lang-html-derivative"))]
                 Kind::HtmlRawBody | Kind::HtmlBlock => None,
+                #[cfg(feature = "lang-html")]
+                Kind::FencePhp => {
+                    index += 1;
+                    continue;
+                }
                 Kind::Base
                 | Kind::Fence(_)
                 | Kind::FencePlain
@@ -596,7 +609,7 @@ impl<'a> Lexer<'a> {
             P::Fence => {
                 let open = block::fence_open(&cx, start, &mut self.caps)?;
                 let end = open.end;
-                rule = if open.lang.is_none() {
+                rule = if open.embed.is_none() {
                     P::FencePlain
                 } else {
                     P::FenceLanguage
@@ -687,10 +700,12 @@ impl<'a> Lexer<'a> {
             P::Quote => Kind::Quote,
             P::Bullet => Kind::ListBullet,
             P::Ordered => Kind::ListOrdered,
-            P::FenceLanguage => Kind::Fence(self.opened.as_ref().and_then(|open| open.lang)?),
+            P::FenceLanguage => self.opened.as_ref().and_then(|open| open.embed)?.fence(),
             P::FencePlain => Kind::FencePlain,
             P::EmbedBegin => match self.frames.last()?.rule {
                 Rule::Open(Kind::Fence(lang)) => Kind::Body(lang),
+                #[cfg(feature = "lang-html")]
+                Rule::Open(Kind::FencePhp) => Kind::BodyPhp,
                 Rule::Open(_) | Rule::Capture(_) => return None,
             },
             P::RawBlock => Kind::RawBlock,
@@ -803,6 +818,10 @@ impl<'a> Lexer<'a> {
                 Kind::Body(lang) if lang != Language::Markdown => {
                     lang.start_embedded(self.arena, content)
                 }
+                #[cfg(feature = "lang-html")]
+                Kind::FencePhp => opened.map_or(0, |open| open.fence.payload()),
+                #[cfg(feature = "lang-html")]
+                Kind::BodyPhp => Language::Html.start_embedded(self.arena, content),
                 #[cfg(feature = "lang-yaml")]
                 Kind::FrontMatterBody => Language::Yaml.start_embedded(self.arena, content),
                 #[cfg(not(feature = "lang-yaml"))]
@@ -1195,6 +1214,8 @@ impl<'a> Lexer<'a> {
 fn embedded_language(rule: Rule) -> Option<Language> {
     match rule {
         Rule::Open(Kind::Body(lang)) => (lang != Language::Markdown).then_some(lang),
+        #[cfg(feature = "lang-html")]
+        Rule::Open(Kind::BodyPhp) => Some(Language::Html),
         #[cfg(feature = "lang-yaml")]
         Rule::Open(Kind::FrontMatterBody) => Some(Language::Yaml),
         #[cfg(feature = "lang-html-derivative")]
@@ -1218,7 +1239,9 @@ fn html_give_back(kind: Kind) -> Option<crate::html::GiveBack> {
         | Kind::ListOrdered
         | Kind::Fence(_)
         | Kind::FencePlain
+        | Kind::FencePhp
         | Kind::Body(_)
+        | Kind::BodyPhp
         | Kind::RawBlock
         | Kind::Table
         | Kind::Paragraph

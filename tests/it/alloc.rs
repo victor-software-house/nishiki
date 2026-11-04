@@ -111,3 +111,35 @@ fn switching_between_engine_grammars_again_allocates_nothing() {
         "allocations lexing the document a second time"
     );
 }
+
+/// A Markdown document with Batch and PowerShell fences: Batch's grammar is
+/// the engine's one with an injection, whose selectors the first switch to
+/// it parses and a second pass reuses.
+#[cfg(all(feature = "lang-bat", feature = "lang-powershell"))]
+#[test]
+fn switching_to_a_grammar_with_injections_again_allocates_nothing() {
+    let lines: Vec<String> = indoc::indoc! {r#"
+        ```bat
+        for %%f in (*.txt) do (echo %%f)
+        ```
+
+        ```powershell
+        Write-Output "between"
+        ```
+
+        ```batch
+        if exist out (del out) else (echo none)
+        ```
+    "#}
+    .lines()
+    .map(str::to_owned)
+    .collect();
+    let mut highlighter = Highlighter::new(Language::Markdown);
+    let mut tokens = Vec::new();
+    lex(&mut highlighter, &lines, &mut tokens);
+    let allocations = count(|| lex(&mut highlighter, &lines, &mut tokens));
+    assert_eq!(
+        allocations, 0,
+        "allocations lexing the document a second time"
+    );
+}

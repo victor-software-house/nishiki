@@ -4,10 +4,39 @@
 //! rule whose language grammar is not loaded, and then the fence is an
 //! ordinary one with no embedded scope. So a language is listed here only when
 //! nishiki lexes it. To add one, add its names to [`NAMES`] and its embedded
-//! scope to `rules::content_name`.
+//! scope to `rules::content_name`. A rule that embeds a language under another
+//! language's name, as `php` embeds HTML, is an [`Embed`] of its own, with
+//! fence and body kinds of its own.
 
+use super::state::Kind;
 use super::text::Cx;
 use crate::Language;
+
+/// What a fence rule embeds: the language whose lexer takes the body, under
+/// the rule's `contentName`.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum Embed {
+    /// A language, under the scope its own rule names.
+    Lang(Language),
+    /// The `php` rule, whose patterns include `text.html.basic` and then
+    /// `source.php`. nishiki lexes no PHP, so HTML takes the body under
+    /// `meta.embedded.block.php`, as in Shiki without its PHP grammar.
+    #[cfg(feature = "lang-html")]
+    Php,
+}
+
+impl Embed {
+    /// The container the fence opens. The rule is resolved here, once per
+    /// fence, so the kinds the lexer meets on every line stay keyed by a
+    /// [`Language`].
+    pub(crate) fn fence(self) -> Kind {
+        match self {
+            Embed::Lang(lang) => Kind::Fence(lang),
+            #[cfg(feature = "lang-html")]
+            Embed::Php => Kind::FencePhp,
+        }
+    }
+}
 
 /// How a fence's info string names a language, as the grammar spells it: each
 /// word, and each `{.word ...}` attribute form, matched without regard to
@@ -16,7 +45,7 @@ struct Name {
     words: &'static [&'static str],
     /// The text after `{.` in the attribute form, as in `{.rust .numberLines}`.
     brace: Option<&'static str>,
-    lang: Language,
+    embed: Embed,
 }
 
 const NAMES: &[Name] = &[
@@ -24,32 +53,32 @@ const NAMES: &[Name] = &[
     Name {
         words: &["rust", "rs"],
         brace: Some("rust"),
-        lang: Language::Rust,
+        embed: Embed::Lang(Language::Rust),
     },
     #[cfg(feature = "lang-typescript")]
     Name {
         words: &["typescript", "ts"],
         brace: None,
-        lang: Language::TypeScript,
+        embed: Embed::Lang(Language::TypeScript),
     },
     // The grammar sends `jsx` to the JavaScript grammar, not the JSX one.
     #[cfg(feature = "lang-javascript")]
     Name {
         words: &["javascript", "jsx", "js", "es6", "mjs", "cjs", "dataviewjs"],
         brace: Some("js"),
-        lang: Language::JavaScript,
+        embed: Embed::Lang(Language::JavaScript),
     },
     #[cfg(feature = "lang-tsx")]
     Name {
         words: &["tsx"],
         brace: None,
-        lang: Language::Tsx,
+        embed: Embed::Lang(Language::Tsx),
     },
     #[cfg(feature = "lang-markdown")]
     Name {
         words: &["markdown", "md"],
         brace: None,
-        lang: Language::Markdown,
+        embed: Embed::Lang(Language::Markdown),
     },
     // The grammar's `.textmate_init` has an unescaped dot, which matches any
     // character; it is matched here as a literal dot.
@@ -68,7 +97,7 @@ const NAMES: &[Name] = &[
             ".textmate_init",
         ],
         brace: Some("bash"),
-        lang: Language::Shell,
+        embed: Embed::Lang(Language::Shell),
     },
     #[cfg(feature = "lang-json")]
     Name {
@@ -85,19 +114,19 @@ const NAMES: &[Name] = &[
             "sublime-completions",
         ],
         brace: None,
-        lang: Language::Json,
+        embed: Embed::Lang(Language::Json),
     },
     #[cfg(feature = "lang-json")]
     Name {
         words: &["jsonc"],
         brace: None,
-        lang: Language::Jsonc,
+        embed: Embed::Lang(Language::Jsonc),
     },
     #[cfg(feature = "lang-json")]
     Name {
         words: &["jsonl", "jsonlines"],
         brace: None,
-        lang: Language::Jsonl,
+        embed: Embed::Lang(Language::Jsonl),
     },
     #[cfg(feature = "lang-python")]
     Name {
@@ -117,61 +146,61 @@ const NAMES: &[Name] = &[
             "gypi",
         ],
         brace: Some("python"),
-        lang: Language::Python,
+        embed: Embed::Lang(Language::Python),
     },
     #[cfg(feature = "lang-yaml")]
     Name {
         words: &["yaml", "yml"],
         brace: None,
-        lang: Language::Yaml,
+        embed: Embed::Lang(Language::Yaml),
     },
     #[cfg(feature = "lang-make")]
     Name {
         words: &["Makefile", "makefile", "GNUmakefile", "OCamlMakefile"],
         brace: None,
-        lang: Language::Make,
+        embed: Embed::Lang(Language::Make),
     },
     #[cfg(feature = "lang-diff")]
     Name {
         words: &["patch", "diff", "rej"],
         brace: None,
-        lang: Language::Diff,
+        embed: Embed::Lang(Language::Diff),
     },
     #[cfg(feature = "lang-dockerfile")]
     Name {
         words: &["dockerfile"],
         brace: None,
-        lang: Language::Dockerfile,
+        embed: Embed::Lang(Language::Dockerfile),
     },
     #[cfg(feature = "lang-java")]
     Name {
         words: &["java"],
         brace: None,
-        lang: Language::Java,
+        embed: Embed::Lang(Language::Java),
     },
     #[cfg(feature = "lang-c")]
     Name {
         words: &["c", "h"],
         brace: None,
-        lang: Language::C,
+        embed: Embed::Lang(Language::C),
     },
     #[cfg(feature = "lang-cpp")]
     Name {
         words: &["cpp", "c++", "cxx"],
         brace: None,
-        lang: Language::Cpp,
+        embed: Embed::Lang(Language::Cpp),
     },
     #[cfg(feature = "lang-sql")]
     Name {
         words: &["sql", "ddl", "dml"],
         brace: None,
-        lang: Language::Sql,
+        embed: Embed::Lang(Language::Sql),
     },
     #[cfg(feature = "lang-ini")]
     Name {
         words: &["ini", "conf"],
         brace: None,
-        lang: Language::Ini,
+        embed: Embed::Lang(Language::Ini),
     },
     // The grammar's `css(?:|.erb)` has an unescaped dot, which matches any
     // character; it is matched here as a literal dot.
@@ -179,13 +208,13 @@ const NAMES: &[Name] = &[
     Name {
         words: &["css", "css.erb"],
         brace: None,
-        lang: Language::Css,
+        embed: Embed::Lang(Language::Css),
     },
     #[cfg(feature = "lang-go")]
     Name {
         words: &["go", "golang"],
         brace: None,
-        lang: Language::Go,
+        embed: Embed::Lang(Language::Go),
     },
     // The grammar's `Berksfile.lock` has an unescaped dot, which matches any
     // character; it is matched here as a literal dot.
@@ -218,98 +247,204 @@ const NAMES: &[Name] = &[
             "Puppetfile",
         ],
         brace: None,
-        lang: Language::Ruby,
+        embed: Embed::Lang(Language::Ruby),
     },
     #[cfg(feature = "lang-csharp")]
     Name {
         words: &["cs", "csharp", "c#"],
         brace: None,
-        lang: Language::CSharp,
+        embed: Embed::Lang(Language::CSharp),
     },
-    // The grammar has two rules, `xml` and `xsl`, which embed the same grammar.
+    // The grammar's `xsl` rule embeds the XSL grammar, which nishiki does not
+    // lex, so an `xsl` or `xslt` fence is plain.
     #[cfg(feature = "lang-xml")]
     Name {
         words: &[
-            "xml", "xsd", "tld", "jsp", "pt", "cpt", "dtml", "rss", "opml", "xsl", "xslt",
+            "xml", "xsd", "tld", "jsp", "pt", "cpt", "dtml", "rss", "opml",
         ],
         brace: None,
-        lang: Language::Xml,
+        embed: Embed::Lang(Language::Xml),
     },
     #[cfg(feature = "lang-swift")]
     Name {
         words: &["swift"],
         brace: None,
-        lang: Language::Swift,
+        embed: Embed::Lang(Language::Swift),
     },
     #[cfg(feature = "lang-powershell")]
     Name {
         words: &["powershell", "ps1", "psm1", "psd1", "pwsh"],
         brace: None,
-        lang: Language::PowerShell,
+        embed: Embed::Lang(Language::PowerShell),
     },
     #[cfg(feature = "lang-scala")]
     Name {
         words: &["scala", "sbt"],
         brace: None,
-        lang: Language::Scala,
+        embed: Embed::Lang(Language::Scala),
     },
     // The grammar's `html?|shtml|xhtml|inc|tmpl|tpl`.
     #[cfg(feature = "lang-html")]
     Name {
         words: &["html", "htm", "shtml", "xhtml", "inc", "tmpl", "tpl"],
         brace: None,
-        lang: Language::Html,
+        embed: Embed::Lang(Language::Html),
     },
     #[cfg(feature = "lang-lua")]
     Name {
         words: &["lua"],
         brace: None,
-        lang: Language::Lua,
+        embed: Embed::Lang(Language::Lua),
     },
     #[cfg(feature = "lang-dart")]
     Name {
         words: &["dart"],
         brace: None,
-        lang: Language::Dart,
+        embed: Embed::Lang(Language::Dart),
     },
     #[cfg(feature = "lang-julia")]
     Name {
         words: &["julia"],
         brace: Some("julia"),
-        lang: Language::Julia,
+        embed: Embed::Lang(Language::Julia),
     },
     #[cfg(feature = "lang-scss")]
     Name {
         words: &["scss"],
         brace: None,
-        lang: Language::Scss,
+        embed: Embed::Lang(Language::Scss),
     },
     #[cfg(feature = "lang-less")]
     Name {
         words: &["less"],
         brace: None,
-        lang: Language::Less,
+        embed: Embed::Lang(Language::Less),
+    },
+    // The grammar's `bat(?:|ch)`.
+    #[cfg(feature = "lang-bat")]
+    Name {
+        words: &["bat", "batch"],
+        brace: None,
+        embed: Embed::Lang(Language::Bat),
+    },
+    // The grammar's `php3??|php4|php5|phpt|phtml|aw|ctp`.
+    #[cfg(feature = "lang-html")]
+    Name {
+        words: &["php", "php3", "php4", "php5", "phpt", "phtml", "aw", "ctp"],
+        brace: None,
+        embed: Embed::Php,
     },
 ];
 
 /// A language found in an info string.
 pub(crate) struct Found {
-    pub(crate) lang: Language,
+    pub(crate) embed: Embed,
     /// Where the language ends, which is where its attributes start.
     pub(crate) name_end: usize,
 }
 
+/// How many words [`NAMES`] holds.
+const WORDS: usize = {
+    let mut total = 0;
+    let mut n = 0;
+    while n < NAMES.len() {
+        total += NAMES[n].words.len();
+        n += 1;
+    }
+    total
+};
+
+/// The bucket of a word's first byte, lowercased: every word starts with an
+/// ASCII byte, so a word that does not fails the build.
+#[expect(
+    clippy::as_conversions,
+    reason = "`usize::from` is not const; a `u8` always fits a `usize`"
+)]
+const fn bucket(byte: u8) -> usize {
+    byte.to_ascii_lowercase() as usize
+}
+
+/// Where each first byte's words start in [`BY_FIRST`]: the words of byte `b`
+/// sit at `STARTS[b]..STARTS[b + 1]`.
+const STARTS: [usize; 129] = {
+    let mut starts = [0; 129];
+    let mut n = 0;
+    while n < NAMES.len() {
+        let mut w = 0;
+        while w < NAMES[n].words.len() {
+            starts[bucket(NAMES[n].words[w].as_bytes()[0]) + 1] += 1;
+            w += 1;
+        }
+        n += 1;
+    }
+    let mut b = 1;
+    while b < starts.len() {
+        starts[b] += starts[b - 1];
+        b += 1;
+    }
+    starts
+};
+
+/// Every word of [`NAMES`] as its name's position and its own, grouped by
+/// the word's first byte, lowercased, and in table order within a group, so
+/// the first match in a group is the first in the table.
+const BY_FIRST: [(usize, usize); WORDS] = {
+    let mut by_first = [(0, 0); WORDS];
+    let mut next = STARTS;
+    let mut n = 0;
+    while n < NAMES.len() {
+        let mut w = 0;
+        while w < NAMES[n].words.len() {
+            let b = bucket(NAMES[n].words[w].as_bytes()[0]);
+            by_first[next[b]] = (n, w);
+            next[b] += 1;
+            w += 1;
+        }
+        n += 1;
+    }
+    by_first
+};
+
 /// The language the info string at `i` names, when the attributes after it
 /// are allowed: nothing, or a space or one of `,:?{` and then no backtick.
+///
+/// An ASCII first byte other than `{` can only start a word of its own
+/// letter, as the folds that match more than ASCII case all start with a
+/// non-ASCII byte, so it tries only the words of its group in [`BY_FIRST`].
+/// Any other first byte tries the whole table.
 pub(crate) fn language(cx: &Cx<'_>, i: usize) -> Option<Found> {
     let backtick = last_backtick(cx, i);
+    if let Some(first) = cx.get(i)
+        && first.is_ascii()
+        && first != b'{'
+    {
+        let b = bucket(first);
+        let group = STARTS
+            .get(b)
+            .zip(STARTS.get(b + 1))
+            .and_then(|(&start, &end)| BY_FIRST.get(start..end))
+            .unwrap_or_default();
+        for &(n, w) in group {
+            if let Some(lang) = NAMES.get(n)
+                && let Some(word) = lang.words.get(w)
+                && let Some(end) = fold_end(cx, i, word.as_bytes())
+                && attributes_ok(cx, end, backtick)
+            {
+                return Some(Found {
+                    embed: lang.embed,
+                    name_end: end,
+                });
+            }
+        }
+        return None;
+    }
     for lang in NAMES {
         for word in lang.words {
             if let Some(end) = fold_end(cx, i, word.as_bytes())
                 && attributes_ok(cx, end, backtick)
             {
                 return Some(Found {
-                    lang: lang.lang,
+                    embed: lang.embed,
                     name_end: end,
                 });
             }
@@ -331,7 +466,7 @@ pub(crate) fn language(cx: &Cx<'_>, i: usize) -> Option<Found> {
             cx.spend(close - end);
             if let Some(close) = found {
                 return Some(Found {
-                    lang: lang.lang,
+                    embed: lang.embed,
                     name_end: close + 1,
                 });
             }

@@ -67,12 +67,22 @@ pub(crate) enum Kind {
     /// `(?=<[^>]*?>)` in emphasis up to `(?<=>)`, whose text html-derivative
     /// takes; the payload is its state.
     HtmlWrap,
+    /// A `php` fence up to the closing fence; the payload is the [`Fence`].
+    /// The grammar's `php` rule includes `text.html.basic` before
+    /// `source.php`, so without a PHP grammar HTML takes its body, as in
+    /// Shiki.
+    #[cfg(feature = "lang-html")]
+    FencePhp,
+    /// The lines inside a [`Kind::FencePhp`], which the HTML lexer takes
+    /// under `meta.embedded.block.php`; the payload is its state.
+    #[cfg(feature = "lang-html")]
+    BodyPhp,
 }
 
 impl Kind {
-    /// The kinds that name no language, in code order; a test checks that
-    /// [`Kind::code`] agrees.
-    const FIXED: [Kind; 20] = [
+    /// The kinds whose code is their own, not a language's, in code order; a
+    /// test checks that [`Kind::code`] agrees.
+    const FIXED: &[Kind] = &[
         Kind::Base,
         Kind::Quote,
         Kind::ListBullet,
@@ -93,6 +103,10 @@ impl Kind {
         Kind::HtmlBlock,
         Kind::HtmlInline,
         Kind::HtmlWrap,
+        #[cfg(feature = "lang-html")]
+        Kind::FencePhp,
+        #[cfg(feature = "lang-html")]
+        Kind::BodyPhp,
     ];
 
     /// The kind as a frame stores it: the Markdown tag in the high byte and,
@@ -121,6 +135,10 @@ impl Kind {
             Kind::HtmlBlock => 17,
             Kind::HtmlInline => 18,
             Kind::HtmlWrap => 19,
+            #[cfg(feature = "lang-html")]
+            Kind::FencePhp => 20,
+            #[cfg(feature = "lang-html")]
+            Kind::BodyPhp => 21,
             Kind::Fence(lang) => Kind::FIXED.len() + 2 * lang.index(),
             Kind::Body(lang) => Kind::FIXED.len() + 2 * lang.index() + 1,
         };
@@ -206,7 +224,7 @@ mod tests {
         let languages = Language::ALL
             .iter()
             .flat_map(|&lang| [Kind::Fence(lang), Kind::Body(lang)]);
-        let kinds: Vec<Kind> = Kind::FIXED.into_iter().chain(languages).collect();
+        let kinds: Vec<Kind> = Kind::FIXED.iter().copied().chain(languages).collect();
         for (index, kind) in kinds.iter().enumerate() {
             assert_eq!(usize::from(kind.code() & 0xff), index, "{kind:?}");
             assert_eq!(Kind::from_code(kind.code()), *kind);

@@ -214,6 +214,7 @@ languages! {
     ///   A code span gives back backticks,
     ///   but an escaped `>` does not end an angle-bracket destination.
     /// - A fence of more than 255 characters is never closed.
+    /// - With `lang-html`, a `php` fence is HTML under `meta.embedded.block.php`, since the grammar includes HTML there before PHP, which nishiki does not lex.
     Markdown { feature: "lang-markdown", names: ["markdown", "md"], module: markdown }
     /// `TypeScript`, with the scopes of Shiki's `typescript` grammar.
     ///

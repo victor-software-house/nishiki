@@ -372,6 +372,10 @@ const TABLE: &[P] = &[P::TablePipe, P::TableSeparator, P::TableCell];
 pub(crate) fn patterns(kind: Kind) -> &'static [P] {
     match kind {
         Kind::Fence(_) => &[P::EmbedBegin],
+        #[cfg(feature = "lang-html")]
+        Kind::FencePhp => &[P::EmbedBegin],
+        #[cfg(feature = "lang-html")]
+        Kind::BodyPhp => &[],
         Kind::FrontMatter => &[P::FrontMatterBegin],
         Kind::Base | Kind::Quote | Kind::ListBullet | Kind::ListOrdered => BLOCK,
         Kind::Body(language) => {
@@ -410,6 +414,10 @@ pub(crate) fn end(kind: Kind) -> Option<End> {
     match kind {
         Kind::FrontMatter => Some(End::FrontMatter),
         Kind::Fence(_) | Kind::FencePlain => Some(End::Fence),
+        #[cfg(feature = "lang-html")]
+        Kind::FencePhp => Some(End::Fence),
+        #[cfg(feature = "lang-html")]
+        Kind::BodyPhp => None,
         Kind::Comment => Some(End::Comment),
         Kind::BoldStar | Kind::BoldUnder => Some(End::Bold),
         Kind::ItalicStar | Kind::ItalicUnder => Some(End::Italic),
@@ -447,6 +455,10 @@ pub(crate) fn names(kind: Kind) -> &'static [S] {
         Kind::ListBullet => &[S::ListBullet],
         Kind::ListOrdered => &[S::ListOrdered],
         Kind::Fence(_) | Kind::FencePlain => &[S::Fence],
+        #[cfg(feature = "lang-html")]
+        Kind::FencePhp => &[S::Fence],
+        #[cfg(feature = "lang-html")]
+        Kind::BodyPhp => &[],
         Kind::RawBlock => &[S::Raw],
         Kind::Table => &[S::Table],
         Kind::Paragraph => &[S::Paragraph],
@@ -528,6 +540,8 @@ const EMBEDDED: &[(Language, &[S])] = &[
     (Language::Scss, &[S::EmbeddedScss]),
     #[cfg(feature = "lang-less")]
     (Language::Less, &[S::EmbeddedLess]),
+    #[cfg(feature = "lang-bat")]
+    (Language::Bat, &[S::EmbeddedDosbatch]),
 ];
 
 /// The scopes a container adds to the text between its opening and closing.
@@ -537,6 +551,10 @@ pub(crate) fn content_name(kind: Kind) -> &'static [S] {
             .iter()
             .find_map(|&(embedded, scopes)| (embedded == language).then_some(scopes))
             .unwrap_or_default(),
+        #[cfg(feature = "lang-html")]
+        Kind::BodyPhp => &[S::EmbeddedPhp],
+        #[cfg(feature = "lang-html")]
+        Kind::FencePhp => &[],
         Kind::FrontMatterBody => &[S::EmbeddedFrontMatter],
         Kind::Base
         | Kind::Quote
