@@ -1,0 +1,590 @@
+L using System;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.terminator.statement.cs
+L using System.Threading.Tasks;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.accessor.cs
+T 22 source.cs entity.name.type.namespace.cs
+T 23 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.type.namespace.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L 
+L public class Account
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 12 source.cs storage.type.class.cs
+T 13 source.cs
+T 20 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     // Use `object` in versions earlier than C# 13
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 50 source.cs comment.line.double-slash.cs
+L     private readonly System.Threading.Lock _balanceLock = new();
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 20 source.cs storage.modifier.readonly.cs
+T 21 source.cs
+T 27 source.cs entity.name.type.cs
+T 28 source.cs punctuation.accessor.cs
+T 37 source.cs entity.name.type.cs
+T 38 source.cs punctuation.accessor.cs
+T 42 source.cs entity.name.type.cs
+T 43 source.cs
+T 55 source.cs entity.name.variable.field.cs
+T 56 source.cs
+T 57 source.cs keyword.operator.assignment.cs
+T 58 source.cs
+T 61 source.cs keyword.operator.expression.new.cs
+T 62 source.cs punctuation.parenthesis.open.cs
+T 63 source.cs punctuation.parenthesis.close.cs
+T 64 source.cs punctuation.terminator.statement.cs
+L     private decimal _balance;
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 19 source.cs keyword.type.decimal.cs
+T 20 source.cs
+T 28 source.cs entity.name.variable.field.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L 
+L     public Account(decimal initialBalance) => _balance = initialBalance;
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 18 source.cs entity.name.function.cs
+T 19 source.cs punctuation.parenthesis.open.cs
+T 26 source.cs keyword.type.decimal.cs
+T 27 source.cs
+T 41 source.cs entity.name.variable.parameter.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs
+T 45 source.cs keyword.operator.arrow.cs
+T 46 source.cs
+T 54 source.cs variable.other.readwrite.cs
+T 55 source.cs
+T 56 source.cs keyword.operator.assignment.cs
+T 57 source.cs
+T 71 source.cs variable.other.readwrite.cs
+T 72 source.cs punctuation.terminator.statement.cs
+L 
+L     public decimal Debit(decimal amount)
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 18 source.cs keyword.type.decimal.cs
+T 19 source.cs
+T 24 source.cs entity.name.function.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs keyword.type.decimal.cs
+T 33 source.cs
+T 39 source.cs entity.name.variable.parameter.cs
+T 40 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         if (amount < 0)
+T 8 source.cs
+T 10 source.cs keyword.control.conditional.if.cs
+T 11 source.cs
+T 12 source.cs punctuation.parenthesis.open.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.relational.cs
+T 21 source.cs
+T 22 source.cs constant.numeric.decimal.cs
+T 23 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             throw new ArgumentOutOfRangeException(nameof(amount), "The debit amount cannot be negative.");
+T 12 source.cs
+T 17 source.cs keyword.control.flow.throw.cs
+T 18 source.cs
+T 21 source.cs keyword.operator.expression.new.cs
+T 22 source.cs
+T 49 source.cs entity.name.type.cs
+T 50 source.cs punctuation.parenthesis.open.cs
+T 56 source.cs keyword.operator.expression.nameof.cs
+T 57 source.cs punctuation.parenthesis.open.cs
+T 63 source.cs variable.other.readwrite.cs
+T 64 source.cs punctuation.parenthesis.close.cs
+T 65 source.cs punctuation.separator.comma.cs
+T 66 source.cs
+T 67 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 103 source.cs string.quoted.double.cs
+T 104 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 105 source.cs punctuation.parenthesis.close.cs
+T 106 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         decimal appliedAmount = 0;
+T 8 source.cs
+T 15 source.cs keyword.type.decimal.cs
+T 16 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs
+T 31 source.cs keyword.operator.assignment.cs
+T 32 source.cs
+T 33 source.cs constant.numeric.decimal.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L         lock (_balanceLock)
+T 8 source.cs
+T 12 source.cs keyword.control.context.lock.cs
+T 13 source.cs
+T 14 source.cs punctuation.parenthesis.open.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             if (_balance >= amount)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs variable.other.readwrite.cs
+T 25 source.cs
+T 27 source.cs keyword.operator.relational.cs
+T 28 source.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 _balance -= amount;
+T 16 source.cs
+T 24 source.cs variable.other.readwrite.cs
+T 25 source.cs
+T 27 source.cs keyword.operator.assignment.compound.cs
+T 28 source.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs punctuation.terminator.statement.cs
+L                 appliedAmount = amount;
+T 16 source.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs
+T 31 source.cs keyword.operator.assignment.cs
+T 32 source.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L         return appliedAmount;
+T 8 source.cs
+T 14 source.cs keyword.control.flow.return.cs
+T 15 source.cs
+T 28 source.cs variable.other.readwrite.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     public void Credit(decimal amount)
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 15 source.cs keyword.type.void.cs
+T 16 source.cs
+T 22 source.cs entity.name.function.cs
+T 23 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs keyword.type.decimal.cs
+T 31 source.cs
+T 37 source.cs entity.name.variable.parameter.cs
+T 38 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         if (amount < 0)
+T 8 source.cs
+T 10 source.cs keyword.control.conditional.if.cs
+T 11 source.cs
+T 12 source.cs punctuation.parenthesis.open.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.relational.cs
+T 21 source.cs
+T 22 source.cs constant.numeric.decimal.cs
+T 23 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             throw new ArgumentOutOfRangeException(nameof(amount), "The credit amount cannot be negative.");
+T 12 source.cs
+T 17 source.cs keyword.control.flow.throw.cs
+T 18 source.cs
+T 21 source.cs keyword.operator.expression.new.cs
+T 22 source.cs
+T 49 source.cs entity.name.type.cs
+T 50 source.cs punctuation.parenthesis.open.cs
+T 56 source.cs keyword.operator.expression.nameof.cs
+T 57 source.cs punctuation.parenthesis.open.cs
+T 63 source.cs variable.other.readwrite.cs
+T 64 source.cs punctuation.parenthesis.close.cs
+T 65 source.cs punctuation.separator.comma.cs
+T 66 source.cs
+T 67 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 104 source.cs string.quoted.double.cs
+T 105 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 106 source.cs punctuation.parenthesis.close.cs
+T 107 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         lock (_balanceLock)
+T 8 source.cs
+T 12 source.cs keyword.control.context.lock.cs
+T 13 source.cs
+T 14 source.cs punctuation.parenthesis.open.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             _balance += amount;
+T 12 source.cs
+T 20 source.cs variable.other.readwrite.cs
+T 21 source.cs
+T 23 source.cs keyword.operator.assignment.compound.cs
+T 24 source.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     public decimal GetBalance()
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 18 source.cs keyword.type.decimal.cs
+T 19 source.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         lock (_balanceLock)
+T 8 source.cs
+T 12 source.cs keyword.control.context.lock.cs
+T 13 source.cs
+T 14 source.cs punctuation.parenthesis.open.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             return _balance;
+T 12 source.cs
+T 18 source.cs keyword.control.flow.return.cs
+T 19 source.cs
+T 27 source.cs variable.other.readwrite.cs
+T 28 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 
+L class AccountTest
+T 5 source.cs storage.type.class.cs
+T 6 source.cs
+T 17 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     static async Task Main()
+T 4 source.cs
+T 10 source.cs storage.modifier.static.cs
+T 11 source.cs
+T 16 source.cs storage.modifier.async.cs
+T 17 source.cs
+T 21 source.cs entity.name.type.cs
+T 22 source.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         var account = new Account(1000);
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 19 source.cs entity.name.variable.local.cs
+T 20 source.cs
+T 21 source.cs keyword.operator.assignment.cs
+T 22 source.cs
+T 25 source.cs keyword.operator.expression.new.cs
+T 26 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs constant.numeric.decimal.cs
+T 39 source.cs punctuation.parenthesis.close.cs
+T 40 source.cs punctuation.terminator.statement.cs
+L         var tasks = new Task[100];
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 17 source.cs entity.name.variable.local.cs
+T 18 source.cs
+T 19 source.cs keyword.operator.assignment.cs
+T 20 source.cs
+T 23 source.cs keyword.operator.expression.new.cs
+T 24 source.cs
+T 28 source.cs entity.name.type.cs
+T 29 source.cs punctuation.squarebracket.open.cs
+T 32 source.cs constant.numeric.decimal.cs
+T 33 source.cs punctuation.squarebracket.close.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L         for (int i = 0; i < tasks.Length; i++)
+T 8 source.cs
+T 11 source.cs keyword.control.loop.for.cs
+T 12 source.cs
+T 13 source.cs punctuation.parenthesis.open.cs
+T 16 source.cs keyword.type.int.cs
+T 17 source.cs
+T 18 source.cs entity.name.variable.local.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 22 source.cs constant.numeric.decimal.cs
+T 23 source.cs punctuation.terminator.statement.cs
+T 24 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.relational.cs
+T 28 source.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 40 source.cs variable.other.object.property.cs
+T 41 source.cs punctuation.terminator.statement.cs
+T 42 source.cs
+T 43 source.cs variable.other.readwrite.cs
+T 45 source.cs keyword.operator.increment.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             tasks[i] = Task.Run(() => Update(account));
+T 12 source.cs
+T 17 source.cs variable.other.object.property.cs
+T 18 source.cs punctuation.squarebracket.open.cs
+T 19 source.cs variable.other.readwrite.cs
+T 20 source.cs punctuation.squarebracket.close.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.assignment.cs
+T 23 source.cs
+T 27 source.cs variable.other.object.cs
+T 28 source.cs punctuation.accessor.cs
+T 31 source.cs entity.name.function.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs punctuation.parenthesis.close.cs
+T 35 source.cs
+T 37 source.cs keyword.operator.arrow.cs
+T 38 source.cs
+T 44 source.cs entity.name.function.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 52 source.cs variable.other.readwrite.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs punctuation.parenthesis.close.cs
+T 55 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L         await Task.WhenAll(tasks);
+T 8 source.cs
+T 13 source.cs keyword.operator.expression.await.cs
+T 14 source.cs
+T 18 source.cs variable.other.object.cs
+T 19 source.cs punctuation.accessor.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs variable.other.readwrite.cs
+T 33 source.cs punctuation.parenthesis.close.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"Account's balance is {account.GetBalance()}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 49 source.cs string.quoted.double.cs
+T 50 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 58 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 68 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 69 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 70 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 71 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 72 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 73 source.cs punctuation.parenthesis.close.cs
+T 74 source.cs punctuation.terminator.statement.cs
+L         // Output:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L         // Account's balance is 2000
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 36 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     static void Update(Account account)
+T 4 source.cs
+T 10 source.cs storage.modifier.static.cs
+T 11 source.cs
+T 15 source.cs keyword.type.void.cs
+T 16 source.cs
+T 22 source.cs entity.name.function.cs
+T 23 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs entity.name.type.cs
+T 31 source.cs
+T 38 source.cs entity.name.variable.parameter.cs
+T 39 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         decimal[] amounts = [0, 2, -3, 6, -2, -1, 8, -5, 11, -6];
+T 8 source.cs
+T 15 source.cs keyword.type.decimal.cs
+T 16 source.cs punctuation.squarebracket.open.cs
+T 17 source.cs punctuation.squarebracket.close.cs
+T 18 source.cs
+T 25 source.cs entity.name.variable.local.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+T 28 source.cs
+T 29 source.cs punctuation.squarebracket.open.cs
+T 30 source.cs constant.numeric.decimal.cs
+T 31 source.cs punctuation.separator.comma.cs
+T 32 source.cs
+T 33 source.cs constant.numeric.decimal.cs
+T 34 source.cs punctuation.separator.comma.cs
+T 35 source.cs
+T 36 source.cs keyword.operator.arithmetic.cs
+T 37 source.cs constant.numeric.decimal.cs
+T 38 source.cs punctuation.separator.comma.cs
+T 39 source.cs
+T 40 source.cs constant.numeric.decimal.cs
+T 41 source.cs punctuation.separator.comma.cs
+T 42 source.cs
+T 43 source.cs keyword.operator.arithmetic.cs
+T 44 source.cs constant.numeric.decimal.cs
+T 45 source.cs punctuation.separator.comma.cs
+T 46 source.cs
+T 47 source.cs keyword.operator.arithmetic.cs
+T 48 source.cs constant.numeric.decimal.cs
+T 49 source.cs punctuation.separator.comma.cs
+T 50 source.cs
+T 51 source.cs constant.numeric.decimal.cs
+T 52 source.cs punctuation.separator.comma.cs
+T 53 source.cs
+T 54 source.cs keyword.operator.arithmetic.cs
+T 55 source.cs constant.numeric.decimal.cs
+T 56 source.cs punctuation.separator.comma.cs
+T 57 source.cs
+T 59 source.cs constant.numeric.decimal.cs
+T 60 source.cs punctuation.separator.comma.cs
+T 61 source.cs
+T 62 source.cs keyword.operator.arithmetic.cs
+T 63 source.cs constant.numeric.decimal.cs
+T 64 source.cs punctuation.squarebracket.close.cs
+T 65 source.cs punctuation.terminator.statement.cs
+L         foreach (var amount in amounts)
+T 8 source.cs
+T 15 source.cs keyword.control.loop.foreach.cs
+T 16 source.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs storage.type.var.cs
+T 21 source.cs
+T 27 source.cs entity.name.variable.local.cs
+T 28 source.cs
+T 30 source.cs keyword.control.loop.in.cs
+T 31 source.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             if (amount >= 0)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs
+T 25 source.cs keyword.operator.relational.cs
+T 26 source.cs
+T 27 source.cs constant.numeric.decimal.cs
+T 28 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 account.Credit(amount);
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 30 source.cs entity.name.function.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs variable.other.readwrite.cs
+T 38 source.cs punctuation.parenthesis.close.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             else
+T 12 source.cs
+T 16 source.cs keyword.control.conditional.else.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 account.Debit(Math.Abs(amount));
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs variable.other.object.cs
+T 35 source.cs punctuation.accessor.cs
+T 38 source.cs entity.name.function.cs
+T 39 source.cs punctuation.parenthesis.open.cs
+T 45 source.cs variable.other.readwrite.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+T 47 source.cs punctuation.parenthesis.close.cs
+T 48 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 

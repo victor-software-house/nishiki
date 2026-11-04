@@ -82,6 +82,8 @@ const dockerPostgres =
   "https://raw.githubusercontent.com/docker-library/postgres/dfc76bb299b057785026eb2eea39556b6fe52983";
 const dockerPython =
   "https://raw.githubusercontent.com/docker-library/python/f4c67ece208dead594e43628d22e3c6027dd97ab";
+const dotnetDocs =
+  "https://raw.githubusercontent.com/dotnet/docs/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference";
 const dotnetInstall =
   "https://raw.githubusercontent.com/dotnet/install-scripts/e5cf1dd2d1540ed05ac84f8eb8c5cdec2807621e";
 const dotnetRuntime =
@@ -362,6 +364,32 @@ export const inputs: Input[] = [
   { lang: "cpp", name: "rapidjson-reader", url: `${rapidjson}/include/rapidjson/reader.h` },
   { lang: "cpp", name: "sample", url: `${samples}/cpp.sample` },
   { lang: "cpp", name: "spdlog-logger", url: `${spdlog}/include/spdlog/logger.h` },
+  {
+    lang: "csharp",
+    name: "coverage",
+    url: new URL("inputs/csharp-coverage.cs", import.meta.url).href,
+  },
+  { lang: "csharp", name: "docs-async-wpf", url: `${dotnetDocs}/keywords/snippets/async/wpf/MainWindow.xaml.cs` },
+  { lang: "csharp", name: "docs-bitwise-shift", url: `${dotnetDocs}/operators/snippets/shared/BitwiseAndShiftOperators.cs` },
+  { lang: "csharp", name: "docs-closed-hierarchy-patterns", url: `${dotnetDocs}/operators/snippets/patterns/ClosedHierarchyPatterns.cs` },
+  { lang: "csharp", name: "docs-delegate-operator", url: `${dotnetDocs}/operators/snippets/shared/DelegateOperator.cs` },
+  { lang: "csharp", name: "docs-doc-comments", url: `${dotnetDocs}/xmldoc/snippets/xmldoc/DocComments.cs` },
+  { lang: "csharp", name: "docs-events", url: `${dotnetDocs}/keywords/snippets/events.cs` },
+  { lang: "csharp", name: "docs-exception-example", url: `${dotnetDocs}/statements/snippets/exception-handling-statements/ExampleClass.cs` },
+  { lang: "csharp", name: "docs-fixed", url: `${dotnetDocs}/snippets/unsafe-code/FixedKeywordExamples.cs` },
+  { lang: "csharp", name: "docs-generic-where", url: `${dotnetDocs}/keywords/snippets/GenericWhereConstraints.cs` },
+  { lang: "csharp", name: "docs-goto", url: `${dotnetDocs}/statements/snippets/jump-statements/GotoStatement.cs` },
+  { lang: "csharp", name: "docs-group", url: `${dotnetDocs}/keywords/snippets/group.cs` },
+  { lang: "csharp", name: "docs-keywords-contextual", url: `${dotnetDocs}/keywords/snippets/csrefKeywordsContextual.cs` },
+  { lang: "csharp", name: "docs-keywords-modifiers", url: `${dotnetDocs}/keywords/snippets/csrefKeywordsModifiers.cs` },
+  { lang: "csharp", name: "docs-lock", url: `${dotnetDocs}/statements/snippets/lock/Program.cs` },
+  { lang: "csharp", name: "docs-raw-string-literal", url: `${dotnetDocs}/tokens/snippets/raw-string-literal.cs` },
+  { lang: "csharp", name: "docs-record-type", url: `${dotnetDocs}/builtin-types/snippets/shared/RecordType.cs` },
+  { lang: "csharp", name: "docs-string-interpolation", url: `${dotnetDocs}/tokens/snippets/string-interpolation.cs` },
+  { lang: "csharp", name: "docs-union-body-members", url: `${dotnetDocs}/builtin-types/snippets/unions/BodyMembers.cs` },
+  { lang: "csharp", name: "docs-using-alias", url: `${dotnetDocs}/keywords/snippets/UsingAliasQualifier.cs` },
+  { lang: "csharp", name: "docs-value-tuples", url: `${dotnetDocs}/builtin-types/snippets/shared/ValueTuples.cs` },
+  { lang: "csharp", name: "docs-var-pattern", url: `${dotnetDocs}/operators/snippets/patterns/VarPattern.cs` },
   { lang: "csharp", name: "newtonsoft-json-convert", url: `${newtonsoft}/Src/Newtonsoft.Json/JsonConvert.cs` },
   { lang: "csharp", name: "roslyn-text-span", url: `${roslyn}/src/Compilers/Core/Portable/Text/TextSpan.cs` },
   { lang: "csharp", name: "runtime-linq-where", url: `${dotnetRuntime}/src/libraries/System.Linq/src/System/Linq/Where.cs` },

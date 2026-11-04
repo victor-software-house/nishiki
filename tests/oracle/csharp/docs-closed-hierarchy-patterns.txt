@@ -1,0 +1,773 @@
+L namespace Patterns.ClosedHierarchy;
+T 9 source.cs storage.type.namespace.cs
+T 10 source.cs
+T 18 source.cs entity.name.type.namespace.cs
+T 19 source.cs punctuation.accessor.cs
+T 34 source.cs entity.name.type.namespace.cs
+T 35 source.cs punctuation.terminator.statement.cs
+L 
+L // <PaymentMethodTypes>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 23 source.cs comment.line.double-slash.cs
+L public closed record class PaymentMethod;
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs variable.other.readwrite.cs
+T 14 source.cs
+T 20 source.cs storage.type.record.cs
+T 21 source.cs
+T 26 source.cs storage.type.class.cs
+T 27 source.cs
+T 40 source.cs entity.name.type.class.cs
+T 41 source.cs punctuation.terminator.statement.cs
+L public record class Cash : PaymentMethod;
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.type.record.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 24 source.cs entity.name.type.class.cs
+T 25 source.cs
+T 26 source.cs punctuation.separator.colon.cs
+T 27 source.cs
+T 40 source.cs entity.name.type.cs
+T 41 source.cs punctuation.terminator.statement.cs
+L public record class Card(string Last4) : PaymentMethod;
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.type.record.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 24 source.cs entity.name.type.class.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs keyword.type.string.cs
+T 32 source.cs
+T 37 source.cs entity.name.variable.parameter.cs
+T 38 source.cs punctuation.parenthesis.close.cs
+T 39 source.cs
+T 40 source.cs punctuation.separator.colon.cs
+T 41 source.cs
+T 54 source.cs entity.name.type.cs
+T 55 source.cs punctuation.terminator.statement.cs
+L public record class BankTransfer(string Iban) : PaymentMethod;
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.type.record.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 32 source.cs entity.name.type.class.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs keyword.type.string.cs
+T 40 source.cs
+T 44 source.cs entity.name.variable.parameter.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+T 46 source.cs
+T 47 source.cs punctuation.separator.colon.cs
+T 48 source.cs
+T 61 source.cs entity.name.type.cs
+T 62 source.cs punctuation.terminator.statement.cs
+L // </PaymentMethodTypes>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 24 source.cs comment.line.double-slash.cs
+L 
+L public static class PaymentMethodExamples
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.modifier.static.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 41 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     public static string Run(PaymentMethod method) => Describe(method);
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 24 source.cs keyword.type.string.cs
+T 25 source.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs entity.name.type.cs
+T 43 source.cs
+T 49 source.cs entity.name.variable.parameter.cs
+T 50 source.cs punctuation.parenthesis.close.cs
+T 51 source.cs
+T 53 source.cs keyword.operator.arrow.cs
+T 54 source.cs
+T 62 source.cs entity.name.function.cs
+T 63 source.cs punctuation.parenthesis.open.cs
+T 69 source.cs variable.other.readwrite.cs
+T 70 source.cs punctuation.parenthesis.close.cs
+T 71 source.cs punctuation.terminator.statement.cs
+L 
+L     // <DescribePaymentMethod>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 30 source.cs comment.line.double-slash.cs
+L     public static string Describe(PaymentMethod method) => method switch
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 24 source.cs keyword.type.string.cs
+T 25 source.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs
+T 54 source.cs entity.name.variable.parameter.cs
+T 55 source.cs punctuation.parenthesis.close.cs
+T 56 source.cs
+T 58 source.cs keyword.operator.arrow.cs
+T 59 source.cs
+T 65 source.cs variable.other.readwrite.cs
+T 66 source.cs
+T 72 source.cs keyword.control.conditional.switch.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         Cash => "cash",
+T 8 source.cs
+T 12 source.cs entity.name.type.cs
+T 13 source.cs
+T 15 source.cs keyword.operator.arrow.cs
+T 16 source.cs
+T 17 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 21 source.cs string.quoted.double.cs
+T 22 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 23 source.cs punctuation.separator.comma.cs
+L         Card(var last4) => $"card ending {last4}",
+T 8 source.cs
+T 12 source.cs entity.name.type.cs
+T 13 source.cs punctuation.parenthesis.open.cs
+T 16 source.cs storage.type.var.cs
+T 17 source.cs
+T 22 source.cs entity.name.variable.local.cs
+T 23 source.cs punctuation.parenthesis.close.cs
+T 24 source.cs
+T 26 source.cs keyword.operator.arrow.cs
+T 27 source.cs
+T 29 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 41 source.cs string.quoted.double.cs
+T 42 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 47 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 48 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 49 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 50 source.cs punctuation.separator.comma.cs
+L         BankTransfer(var iban) => $"bank transfer to {iban}",
+T 8 source.cs
+T 20 source.cs entity.name.type.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs storage.type.var.cs
+T 25 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs punctuation.parenthesis.close.cs
+T 31 source.cs
+T 33 source.cs keyword.operator.arrow.cs
+T 34 source.cs
+T 36 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 53 source.cs string.quoted.double.cs
+T 54 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 58 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 59 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 60 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 61 source.cs punctuation.separator.comma.cs
+L         // No warning: every direct descendant of 'PaymentMethod' is handled.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 77 source.cs comment.line.double-slash.cs
+L     };
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+T 6 source.cs punctuation.terminator.statement.cs
+L     // </DescribePaymentMethod>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 31 source.cs comment.line.double-slash.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 
+L // <ShapeTypes>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 15 source.cs comment.line.double-slash.cs
+L // Assembly 1
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 13 source.cs comment.line.double-slash.cs
+L public closed record class Shape;
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs variable.other.readwrite.cs
+T 14 source.cs
+T 20 source.cs storage.type.record.cs
+T 21 source.cs
+T 26 source.cs storage.type.class.cs
+T 27 source.cs
+T 32 source.cs entity.name.type.class.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L public record class Circle(double Radius) : Shape;
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.type.record.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 26 source.cs entity.name.type.class.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs keyword.type.double.cs
+T 34 source.cs
+T 40 source.cs entity.name.variable.parameter.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+T 42 source.cs
+T 43 source.cs punctuation.separator.colon.cs
+T 44 source.cs
+T 49 source.cs entity.name.type.cs
+T 50 source.cs punctuation.terminator.statement.cs
+L internal record class Triangle(double Base, double Height) : Shape;
+T 8 source.cs storage.modifier.internal.cs
+T 9 source.cs
+T 15 source.cs storage.type.record.cs
+T 16 source.cs
+T 21 source.cs storage.type.class.cs
+T 22 source.cs
+T 30 source.cs entity.name.type.class.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs keyword.type.double.cs
+T 38 source.cs
+T 42 source.cs entity.name.variable.parameter.cs
+T 43 source.cs punctuation.separator.comma.cs
+T 44 source.cs
+T 50 source.cs keyword.type.double.cs
+T 51 source.cs
+T 57 source.cs entity.name.variable.parameter.cs
+T 58 source.cs punctuation.parenthesis.close.cs
+T 59 source.cs
+T 60 source.cs punctuation.separator.colon.cs
+T 61 source.cs
+T 66 source.cs entity.name.type.cs
+T 67 source.cs punctuation.terminator.statement.cs
+L // </ShapeTypes>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 16 source.cs comment.line.double-slash.cs
+L 
+L public static class ShapeExamples
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.modifier.static.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 33 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     // <ShapeAreaSameAssembly>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 30 source.cs comment.line.double-slash.cs
+L     // Same assembly: 'Triangle' is visible, so the switch is exhaustive.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 73 source.cs comment.line.double-slash.cs
+L     internal static double Area(Shape shape) => shape switch
+T 4 source.cs
+T 12 source.cs storage.modifier.internal.cs
+T 13 source.cs
+T 19 source.cs storage.modifier.static.cs
+T 20 source.cs
+T 26 source.cs keyword.type.double.cs
+T 27 source.cs
+T 31 source.cs entity.name.function.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs entity.name.type.cs
+T 38 source.cs
+T 43 source.cs entity.name.variable.parameter.cs
+T 44 source.cs punctuation.parenthesis.close.cs
+T 45 source.cs
+T 47 source.cs keyword.operator.arrow.cs
+T 48 source.cs
+T 53 source.cs variable.other.readwrite.cs
+T 54 source.cs
+T 60 source.cs keyword.control.conditional.switch.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         Circle(var r) => Math.PI * r * r,
+T 8 source.cs
+T 14 source.cs entity.name.type.cs
+T 15 source.cs punctuation.parenthesis.open.cs
+T 18 source.cs storage.type.var.cs
+T 19 source.cs
+T 20 source.cs entity.name.variable.local.cs
+T 21 source.cs punctuation.parenthesis.close.cs
+T 22 source.cs
+T 24 source.cs keyword.operator.arrow.cs
+T 25 source.cs
+T 29 source.cs variable.other.object.cs
+T 30 source.cs punctuation.accessor.cs
+T 32 source.cs variable.other.object.property.cs
+T 33 source.cs
+T 34 source.cs keyword.operator.arithmetic.cs
+T 35 source.cs
+T 36 source.cs variable.other.readwrite.cs
+T 37 source.cs
+T 38 source.cs keyword.operator.arithmetic.cs
+T 39 source.cs
+T 40 source.cs variable.other.readwrite.cs
+T 41 source.cs punctuation.separator.comma.cs
+L         Triangle(var b, var h) => 0.5 * b * h,
+T 8 source.cs
+T 16 source.cs entity.name.type.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs storage.type.var.cs
+T 21 source.cs
+T 22 source.cs entity.name.variable.local.cs
+T 23 source.cs punctuation.separator.comma.cs
+T 24 source.cs
+T 27 source.cs storage.type.var.cs
+T 28 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs punctuation.parenthesis.close.cs
+T 31 source.cs
+T 33 source.cs keyword.operator.arrow.cs
+T 34 source.cs
+T 35 source.cs constant.numeric.decimal.cs
+T 36 source.cs constant.numeric.other.separator.decimals.cs
+T 37 source.cs constant.numeric.decimal.cs
+T 38 source.cs
+T 39 source.cs keyword.operator.arithmetic.cs
+T 40 source.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs
+T 43 source.cs keyword.operator.arithmetic.cs
+T 44 source.cs
+T 45 source.cs variable.other.readwrite.cs
+T 46 source.cs punctuation.separator.comma.cs
+L     };
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+T 6 source.cs punctuation.terminator.statement.cs
+L     // </ShapeAreaSameAssembly>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 31 source.cs comment.line.double-slash.cs
+L 
+L #pragma warning disable CS8509 // Demonstrates the cross-assembly warning by example.
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 7 source.cs meta.preprocessor.cs keyword.preprocessor.pragma.cs
+T 8 source.cs meta.preprocessor.cs
+T 15 source.cs meta.preprocessor.cs keyword.preprocessor.warning.cs
+T 16 source.cs meta.preprocessor.cs
+T 23 source.cs meta.preprocessor.cs keyword.preprocessor.disable.cs
+T 31 source.cs meta.preprocessor.cs
+T 33 source.cs meta.preprocessor.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 85 source.cs meta.preprocessor.cs comment.line.double-slash.cs
+L     // <ShapeNameCrossAssembly>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 31 source.cs comment.line.double-slash.cs
+L     // Assembly 2
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 17 source.cs comment.line.double-slash.cs
+L     public static string Name(Shape shape) => shape switch
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 24 source.cs keyword.type.string.cs
+T 25 source.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs entity.name.type.cs
+T 36 source.cs
+T 41 source.cs entity.name.variable.parameter.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs
+T 45 source.cs keyword.operator.arrow.cs
+T 46 source.cs
+T 51 source.cs variable.other.readwrite.cs
+T 52 source.cs
+T 58 source.cs keyword.control.conditional.switch.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         Circle => "circle",
+T 8 source.cs
+T 14 source.cs entity.name.type.cs
+T 15 source.cs
+T 17 source.cs keyword.operator.arrow.cs
+T 18 source.cs
+T 19 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 25 source.cs string.quoted.double.cs
+T 26 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 27 source.cs punctuation.separator.comma.cs
+L         // Warning CS8509: the switch expression doesn't handle all possible values.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 84 source.cs comment.line.double-slash.cs
+L         // 'Triangle' is a direct descendant of 'Shape' but isn't visible here.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 79 source.cs comment.line.double-slash.cs
+L     };
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+T 6 source.cs punctuation.terminator.statement.cs
+L     // </ShapeNameCrossAssembly>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 32 source.cs comment.line.double-slash.cs
+L #pragma warning restore CS8509
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 7 source.cs meta.preprocessor.cs keyword.preprocessor.pragma.cs
+T 8 source.cs meta.preprocessor.cs
+T 15 source.cs meta.preprocessor.cs keyword.preprocessor.warning.cs
+T 16 source.cs meta.preprocessor.cs
+T 23 source.cs meta.preprocessor.cs keyword.preprocessor.restore.cs
+T 30 source.cs meta.preprocessor.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 
+L // <VehicleTypes>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 17 source.cs comment.line.double-slash.cs
+L // Assembly 1
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 13 source.cs comment.line.double-slash.cs
+L public closed record class Vehicle;
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs variable.other.readwrite.cs
+T 14 source.cs
+T 20 source.cs storage.type.record.cs
+T 21 source.cs
+T 26 source.cs storage.type.class.cs
+T 27 source.cs
+T 34 source.cs entity.name.type.class.cs
+T 35 source.cs punctuation.terminator.statement.cs
+L public record class Car(int Doors) : Vehicle;
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.type.record.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 23 source.cs entity.name.type.class.cs
+T 24 source.cs punctuation.parenthesis.open.cs
+T 27 source.cs keyword.type.int.cs
+T 28 source.cs
+T 33 source.cs entity.name.variable.parameter.cs
+T 34 source.cs punctuation.parenthesis.close.cs
+T 35 source.cs
+T 36 source.cs punctuation.separator.colon.cs
+T 37 source.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs punctuation.terminator.statement.cs
+L public record class Truck(double PayloadTons) : Vehicle;
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.type.record.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 25 source.cs entity.name.type.class.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs keyword.type.double.cs
+T 33 source.cs
+T 44 source.cs entity.name.variable.parameter.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+T 46 source.cs
+T 47 source.cs punctuation.separator.colon.cs
+T 48 source.cs
+T 55 source.cs entity.name.type.cs
+T 56 source.cs punctuation.terminator.statement.cs
+L 
+L // Assembly 2
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 13 source.cs comment.line.double-slash.cs
+L public record class Sedan(int Doors) : Car(Doors);
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.type.record.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 25 source.cs entity.name.type.class.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 29 source.cs keyword.type.int.cs
+T 30 source.cs
+T 35 source.cs entity.name.variable.parameter.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+T 37 source.cs
+T 38 source.cs punctuation.separator.colon.cs
+T 39 source.cs
+T 42 source.cs entity.name.type.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 48 source.cs variable.other.readwrite.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+T 50 source.cs punctuation.terminator.statement.cs
+L // </VehicleTypes>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L 
+L public static class VehicleExamples
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.modifier.static.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 35 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     // <VehicleCategoryExhaustive>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 34 source.cs comment.line.double-slash.cs
+L     public static string Category(Vehicle v) => v switch
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 24 source.cs keyword.type.string.cs
+T 25 source.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs
+T 43 source.cs entity.name.variable.parameter.cs
+T 44 source.cs punctuation.parenthesis.close.cs
+T 45 source.cs
+T 47 source.cs keyword.operator.arrow.cs
+T 48 source.cs
+T 49 source.cs variable.other.readwrite.cs
+T 50 source.cs
+T 56 source.cs keyword.control.conditional.switch.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         Car => "car",
+T 8 source.cs
+T 11 source.cs entity.name.type.cs
+T 12 source.cs
+T 14 source.cs keyword.operator.arrow.cs
+T 15 source.cs
+T 16 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 19 source.cs string.quoted.double.cs
+T 20 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 21 source.cs punctuation.separator.comma.cs
+L         Truck => "truck",
+T 8 source.cs
+T 13 source.cs entity.name.type.cs
+T 14 source.cs
+T 16 source.cs keyword.operator.arrow.cs
+T 17 source.cs
+T 18 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 23 source.cs string.quoted.double.cs
+T 24 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 25 source.cs punctuation.separator.comma.cs
+L         // No warning. The 'Car' arm covers 'Sedan' through ordinary subtype matching.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 86 source.cs comment.line.double-slash.cs
+L     };
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+T 6 source.cs punctuation.terminator.statement.cs
+L     // </VehicleCategoryExhaustive>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 35 source.cs comment.line.double-slash.cs
+L 
+L     // <VehicleCategorySedanFirst>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 34 source.cs comment.line.double-slash.cs
+L     public static string CategorySedanFirst(Vehicle v) => v switch
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 24 source.cs keyword.type.string.cs
+T 25 source.cs
+T 43 source.cs entity.name.function.cs
+T 44 source.cs punctuation.parenthesis.open.cs
+T 51 source.cs entity.name.type.cs
+T 52 source.cs
+T 53 source.cs entity.name.variable.parameter.cs
+T 54 source.cs punctuation.parenthesis.close.cs
+T 55 source.cs
+T 57 source.cs keyword.operator.arrow.cs
+T 58 source.cs
+T 59 source.cs variable.other.readwrite.cs
+T 60 source.cs
+T 66 source.cs keyword.control.conditional.switch.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         Sedan => "sedan",
+T 8 source.cs
+T 13 source.cs entity.name.type.cs
+T 14 source.cs
+T 16 source.cs keyword.operator.arrow.cs
+T 17 source.cs
+T 18 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 23 source.cs string.quoted.double.cs
+T 24 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 25 source.cs punctuation.separator.comma.cs
+L         Car => "car",      // Reachable: 'Car' values that aren't 'Sedan'.
+T 8 source.cs
+T 11 source.cs entity.name.type.cs
+T 12 source.cs
+T 14 source.cs keyword.operator.arrow.cs
+T 15 source.cs
+T 16 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 19 source.cs string.quoted.double.cs
+T 20 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 21 source.cs punctuation.separator.comma.cs
+T 27 source.cs
+T 29 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 74 source.cs comment.line.double-slash.cs
+L         Truck => "truck",
+T 8 source.cs
+T 13 source.cs entity.name.type.cs
+T 14 source.cs
+T 16 source.cs keyword.operator.arrow.cs
+T 17 source.cs
+T 18 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 23 source.cs string.quoted.double.cs
+T 24 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 25 source.cs punctuation.separator.comma.cs
+L     };
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+T 6 source.cs punctuation.terminator.statement.cs
+L     // </VehicleCategorySedanFirst>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 35 source.cs comment.line.double-slash.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 
+L public static class TypeParamGoverningTypeExamples
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.modifier.static.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 50 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     // <TypeParamGoverningType>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 31 source.cs comment.line.double-slash.cs
+L     public static string Describe<X>(X method) where X : PaymentMethod => method switch
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 24 source.cs keyword.type.string.cs
+T 25 source.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 35 source.cs entity.name.type.type-parameter.cs
+T 36 source.cs punctuation.definition.typeparameters.end.cs
+T 37 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs entity.name.type.cs
+T 39 source.cs
+T 45 source.cs entity.name.variable.parameter.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+T 47 source.cs
+T 52 source.cs storage.modifier.where.cs
+T 53 source.cs
+T 54 source.cs entity.name.type.type-parameter.cs
+T 55 source.cs
+T 56 source.cs punctuation.separator.colon.cs
+T 57 source.cs
+T 70 source.cs entity.name.type.cs
+T 71 source.cs
+T 73 source.cs keyword.operator.arrow.cs
+T 74 source.cs
+T 80 source.cs variable.other.readwrite.cs
+T 81 source.cs
+T 87 source.cs keyword.control.conditional.switch.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         Cash => "cash",
+T 8 source.cs
+T 12 source.cs entity.name.type.cs
+T 13 source.cs
+T 15 source.cs keyword.operator.arrow.cs
+T 16 source.cs
+T 17 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 21 source.cs string.quoted.double.cs
+T 22 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 23 source.cs punctuation.separator.comma.cs
+L         Card(var last4) => $"card ending {last4}",
+T 8 source.cs
+T 12 source.cs entity.name.type.cs
+T 13 source.cs punctuation.parenthesis.open.cs
+T 16 source.cs storage.type.var.cs
+T 17 source.cs
+T 22 source.cs entity.name.variable.local.cs
+T 23 source.cs punctuation.parenthesis.close.cs
+T 24 source.cs
+T 26 source.cs keyword.operator.arrow.cs
+T 27 source.cs
+T 29 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 41 source.cs string.quoted.double.cs
+T 42 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 47 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 48 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 49 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 50 source.cs punctuation.separator.comma.cs
+L         BankTransfer(var iban) => $"bank transfer to {iban}",
+T 8 source.cs
+T 20 source.cs entity.name.type.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs storage.type.var.cs
+T 25 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs punctuation.parenthesis.close.cs
+T 31 source.cs
+T 33 source.cs keyword.operator.arrow.cs
+T 34 source.cs
+T 36 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 53 source.cs string.quoted.double.cs
+T 54 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 58 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 59 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 60 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 61 source.cs punctuation.separator.comma.cs
+L         // No warning: 'X' is constrained to the closed type 'PaymentMethod', so the
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 84 source.cs comment.line.double-slash.cs
+L         // compiler treats this switch as exhaustive because every direct descendant is handled.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 96 source.cs comment.line.double-slash.cs
+L     };
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+T 6 source.cs punctuation.terminator.statement.cs
+L     // </TypeParamGoverningType>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 32 source.cs comment.line.double-slash.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 

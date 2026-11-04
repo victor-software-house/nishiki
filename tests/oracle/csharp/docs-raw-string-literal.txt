@@ -1,0 +1,167 @@
+L 
+L using System;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.terminator.statement.cs
+L 
+L public static class RawStrings
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.modifier.static.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 30 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     internal static void Examples()
+T 4 source.cs
+T 12 source.cs storage.modifier.internal.cs
+T 13 source.cs
+T 19 source.cs storage.modifier.static.cs
+T 20 source.cs
+T 24 source.cs keyword.type.void.cs
+T 25 source.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <SingleLine>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 23 source.cs comment.line.double-slash.cs
+L         var singleLine = """This is a "raw string literal". It can contain characters like \, ' and ".""";
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 22 source.cs entity.name.variable.local.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.assignment.cs
+T 25 source.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 102 source.cs string.quoted.double.cs
+T 105 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 106 source.cs punctuation.terminator.statement.cs
+L         // </SingleLine>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 24 source.cs comment.line.double-slash.cs
+L         Console.WriteLine(singleLine);
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs variable.other.readwrite.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+T 38 source.cs punctuation.terminator.statement.cs
+L 
+L         // <MultiLine>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L         var xml = """
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 15 source.cs entity.name.variable.local.cs
+T 16 source.cs
+T 17 source.cs keyword.operator.assignment.cs
+T 18 source.cs
+T 21 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+L                 <element attr="content">
+T 40 source.cs string.quoted.double.cs
+L                     <body>
+T 26 source.cs string.quoted.double.cs
+L                     </body>
+T 27 source.cs string.quoted.double.cs
+L                 </element>
+T 26 source.cs string.quoted.double.cs
+L                 """;
+T 16 source.cs string.quoted.double.cs
+T 19 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 20 source.cs punctuation.terminator.statement.cs
+L         // </MultiLine>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 23 source.cs comment.line.double-slash.cs
+L         Console.WriteLine(xml);
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs punctuation.parenthesis.close.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L 
+L         // <MoarQuotes>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 23 source.cs comment.line.double-slash.cs
+L         var moreQuotes = """" As you can see,"""Raw string literals""" can start and end with more than three double-quotes when needed."""";
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 22 source.cs entity.name.variable.local.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.assignment.cs
+T 25 source.cs
+T 29 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 136 source.cs string.quoted.double.cs
+T 140 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 141 source.cs punctuation.terminator.statement.cs
+L         // </MoarQuotes>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 24 source.cs comment.line.double-slash.cs
+L         Console.WriteLine(moreQuotes);
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs variable.other.readwrite.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+T 38 source.cs punctuation.terminator.statement.cs
+L 
+L         // <InitialQuotes>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 26 source.cs comment.line.double-slash.cs
+L         var MultiLineQuotes = """"
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 27 source.cs entity.name.variable.local.cs
+T 28 source.cs
+T 29 source.cs keyword.operator.assignment.cs
+T 30 source.cs
+T 34 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+L                        """Raw string literals""" can start and end with more than three double-quotes when needed.
+T 114 source.cs string.quoted.double.cs
+L                        """";
+T 23 source.cs string.quoted.double.cs
+T 27 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 28 source.cs punctuation.terminator.statement.cs
+L         // </InitialQuotes>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 27 source.cs comment.line.double-slash.cs
+L         Console.WriteLine(MultiLineQuotes);
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs

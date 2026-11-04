@@ -1,0 +1,248 @@
+L namespace Events;   
+T 9 source.cs storage.type.namespace.cs
+T 10 source.cs
+T 16 source.cs entity.name.type.namespace.cs
+T 17 source.cs punctuation.terminator.statement.cs
+T 20 source.cs
+L    
+T 3 source.cs
+L //<EventExample>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 16 source.cs comment.line.double-slash.cs
+L public class SampleEventArgs
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 12 source.cs storage.type.class.cs
+T 13 source.cs
+T 28 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     public SampleEventArgs(string text) { Text = text; }
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs keyword.type.string.cs
+T 34 source.cs
+T 38 source.cs entity.name.variable.parameter.cs
+T 39 source.cs punctuation.parenthesis.close.cs
+T 40 source.cs
+T 41 source.cs punctuation.curlybrace.open.cs
+T 42 source.cs
+T 46 source.cs variable.other.readwrite.cs
+T 47 source.cs
+T 48 source.cs keyword.operator.assignment.cs
+T 49 source.cs
+T 53 source.cs variable.other.readwrite.cs
+T 54 source.cs punctuation.terminator.statement.cs
+T 55 source.cs
+T 56 source.cs punctuation.curlybrace.close.cs
+L     public string Text { get; } // readonly
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs keyword.type.string.cs
+T 18 source.cs
+T 22 source.cs entity.name.variable.property.cs
+T 23 source.cs
+T 24 source.cs punctuation.curlybrace.open.cs
+T 25 source.cs
+T 28 source.cs storage.type.accessor.get.cs
+T 29 source.cs punctuation.terminator.statement.cs
+T 30 source.cs
+T 31 source.cs punctuation.curlybrace.close.cs
+T 32 source.cs
+T 34 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 43 source.cs comment.line.double-slash.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 
+L public class Publisher
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 12 source.cs storage.type.class.cs
+T 13 source.cs
+T 22 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     // Declare the delegate (if using non-generic pattern).
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 59 source.cs comment.line.double-slash.cs
+L     public delegate void SampleEventHandler(object sender, SampleEventArgs e);
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 19 source.cs storage.type.delegate.cs
+T 20 source.cs
+T 24 source.cs keyword.type.void.cs
+T 25 source.cs
+T 43 source.cs entity.name.type.delegate.cs
+T 44 source.cs punctuation.parenthesis.open.cs
+T 50 source.cs keyword.type.object.cs
+T 51 source.cs
+T 57 source.cs entity.name.variable.parameter.cs
+T 58 source.cs punctuation.separator.comma.cs
+T 59 source.cs
+T 74 source.cs entity.name.type.cs
+T 75 source.cs
+T 76 source.cs entity.name.variable.parameter.cs
+T 77 source.cs punctuation.parenthesis.close.cs
+T 78 source.cs punctuation.terminator.statement.cs
+L 
+L     // Declare the event.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 25 source.cs comment.line.double-slash.cs
+L     public event SampleEventHandler SampleEvent;
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.event.cs
+T 17 source.cs
+T 35 source.cs entity.name.type.cs
+T 36 source.cs
+T 47 source.cs entity.name.variable.event.cs
+T 48 source.cs punctuation.terminator.statement.cs
+L 
+L     // Wrap the event in a protected virtual method
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 51 source.cs comment.line.double-slash.cs
+L     // to enable derived classes to raise the event.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 52 source.cs comment.line.double-slash.cs
+L     protected virtual void RaiseSampleEvent()
+T 4 source.cs
+T 13 source.cs storage.modifier.protected.cs
+T 14 source.cs
+T 21 source.cs storage.modifier.virtual.cs
+T 22 source.cs
+T 26 source.cs keyword.type.void.cs
+T 27 source.cs
+T 43 source.cs entity.name.function.cs
+T 44 source.cs punctuation.parenthesis.open.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // Raise the event in a thread-safe manner using the ?. operator.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 73 source.cs comment.line.double-slash.cs
+L         SampleEvent?.Invoke(this, new SampleEventArgs("Hello"));
+T 8 source.cs
+T 19 source.cs variable.other.object.cs
+T 20 source.cs keyword.operator.null-conditional.cs
+T 21 source.cs punctuation.accessor.cs
+T 27 source.cs entity.name.function.cs
+T 28 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs variable.language.this.cs
+T 33 source.cs punctuation.separator.comma.cs
+T 34 source.cs
+T 37 source.cs keyword.operator.expression.new.cs
+T 38 source.cs
+T 53 source.cs entity.name.type.cs
+T 54 source.cs punctuation.parenthesis.open.cs
+T 55 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 60 source.cs string.quoted.double.cs
+T 61 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 62 source.cs punctuation.parenthesis.close.cs
+T 63 source.cs punctuation.parenthesis.close.cs
+T 64 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L //</EventExample>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 17 source.cs comment.line.double-slash.cs
+L 
+L interface IDrawingObject
+T 9 source.cs storage.type.interface.cs
+T 10 source.cs
+T 24 source.cs entity.name.type.interface.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     event EventHandler OnDraw;
+T 4 source.cs
+T 9 source.cs storage.type.event.cs
+T 10 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 29 source.cs entity.name.variable.event.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 
+L //<AddHandler>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L class Events : IDrawingObject
+T 5 source.cs storage.type.class.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.class.cs
+T 13 source.cs
+T 14 source.cs punctuation.separator.colon.cs
+T 15 source.cs
+T 29 source.cs entity.name.type.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     event EventHandler PreDrawEvent;
+T 4 source.cs
+T 9 source.cs storage.type.event.cs
+T 10 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 35 source.cs entity.name.variable.event.cs
+T 36 source.cs punctuation.terminator.statement.cs
+L 
+L     event EventHandler IDrawingObject.OnDraw
+T 4 source.cs
+T 9 source.cs storage.type.event.cs
+T 10 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 37 source.cs entity.name.type.cs
+T 38 source.cs punctuation.accessor.cs
+T 44 source.cs entity.name.variable.event.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         add => PreDrawEvent += value;
+T 8 source.cs
+T 11 source.cs storage.type.accessor.add.cs
+T 12 source.cs
+T 14 source.cs keyword.operator.arrow.cs
+T 15 source.cs meta.accessor.setter.cs
+T 27 source.cs meta.accessor.setter.cs variable.other.readwrite.cs
+T 28 source.cs meta.accessor.setter.cs
+T 30 source.cs meta.accessor.setter.cs keyword.operator.assignment.compound.cs
+T 31 source.cs meta.accessor.setter.cs
+T 36 source.cs meta.accessor.setter.cs variable.other.value.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L         remove => PreDrawEvent -= value;
+T 8 source.cs
+T 14 source.cs storage.type.accessor.remove.cs
+T 15 source.cs
+T 17 source.cs keyword.operator.arrow.cs
+T 18 source.cs meta.accessor.setter.cs
+T 30 source.cs meta.accessor.setter.cs variable.other.readwrite.cs
+T 31 source.cs meta.accessor.setter.cs
+T 33 source.cs meta.accessor.setter.cs keyword.operator.assignment.compound.cs
+T 34 source.cs meta.accessor.setter.cs
+T 39 source.cs meta.accessor.setter.cs variable.other.value.cs
+T 40 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L //</AddHandler>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 15 source.cs comment.line.double-slash.cs
+L 
+L 

@@ -1,0 +1,2231 @@
+L using System;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.terminator.statement.cs
+L 
+L //-----------------------------------------------------------------------------
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 79 source.cs comment.line.double-slash.cs
+L namespace XmlTags
+T 9 source.cs storage.type.namespace.cs
+T 10 source.cs
+T 17 source.cs entity.name.type.namespace.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     //<ClassExample>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 20 source.cs comment.line.double-slash.cs
+L     /// <summary>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 17 source.cs comment.line.double-slash.cs
+L     /// Every class and member should have a one sentence
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 57 source.cs comment.line.double-slash.cs
+L     /// summary describing its purpose.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 39 source.cs comment.line.double-slash.cs
+L     /// </summary>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L     /// <remarks>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 17 source.cs comment.line.double-slash.cs
+L     /// You can expand on that one sentence summary to
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 54 source.cs comment.line.double-slash.cs
+L     /// provide more information for readers. In this case,
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 59 source.cs comment.line.double-slash.cs
+L     /// the <c>ExampleClass</c> provides different C#
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 53 source.cs comment.line.double-slash.cs
+L     /// elements to show how you would add documentation
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 56 source.cs comment.line.double-slash.cs
+L     ///comments for most elements in a typical class.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 53 source.cs comment.line.double-slash.cs
+L     /// <para>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L     /// The remarks can add multiple paragraphs, so you can
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 59 source.cs comment.line.double-slash.cs
+L     /// write detailed information for developers that use
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 58 source.cs comment.line.double-slash.cs
+L     /// your work. You should add everything needed for
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 55 source.cs comment.line.double-slash.cs
+L     /// readers to be successful. This class contains
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 53 source.cs comment.line.double-slash.cs
+L     /// examples for the following:
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 35 source.cs comment.line.double-slash.cs
+L     /// </para>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 15 source.cs comment.line.double-slash.cs
+L     /// <list type="table">
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 27 source.cs comment.line.double-slash.cs
+L     /// <item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L     /// <term>Summary</term>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 28 source.cs comment.line.double-slash.cs
+L     /// <description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L     /// This should provide a one sentence summary of the class or member.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 74 source.cs comment.line.double-slash.cs
+L     /// </description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L     /// </item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 15 source.cs comment.line.double-slash.cs
+L     /// <item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L     /// <term>Remarks</term>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 28 source.cs comment.line.double-slash.cs
+L     /// <description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L     /// This is typically a more detailed description of the class or member
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 76 source.cs comment.line.double-slash.cs
+L     /// </description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L     /// </item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 15 source.cs comment.line.double-slash.cs
+L     /// <item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L     /// <term>para</term>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 25 source.cs comment.line.double-slash.cs
+L     /// <description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L     /// The para tag separates a section into multiple paragraphs
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 65 source.cs comment.line.double-slash.cs
+L     /// </description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L     /// </item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 15 source.cs comment.line.double-slash.cs
+L     /// <item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L     /// <term>list</term>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 25 source.cs comment.line.double-slash.cs
+L     /// <description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L     /// Provides a list of terms or elements
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 44 source.cs comment.line.double-slash.cs
+L     /// </description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L     /// </item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 15 source.cs comment.line.double-slash.cs
+L     /// <item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L     /// <term>returns, param</term>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 35 source.cs comment.line.double-slash.cs
+L     /// <description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L     /// Used to describe parameters and return values
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 53 source.cs comment.line.double-slash.cs
+L     /// </description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L     /// </item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 15 source.cs comment.line.double-slash.cs
+L     /// <item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L     /// <term>value</term>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 26 source.cs comment.line.double-slash.cs
+L     /// <description>Used to describe properties</description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 62 source.cs comment.line.double-slash.cs
+L     /// </item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 15 source.cs comment.line.double-slash.cs
+L     /// <item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L     /// <term>exception</term>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 30 source.cs comment.line.double-slash.cs
+L     /// <description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L     /// Used to describe exceptions that may be thrown
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 54 source.cs comment.line.double-slash.cs
+L     /// </description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L     /// </item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 15 source.cs comment.line.double-slash.cs
+L     /// <item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L     /// <term>c, cref, see, seealso</term>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 42 source.cs comment.line.double-slash.cs
+L     /// <description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L     /// These provide code style and links to other
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 51 source.cs comment.line.double-slash.cs
+L     /// documentation elements
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 30 source.cs comment.line.double-slash.cs
+L     /// </description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L     /// </item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 15 source.cs comment.line.double-slash.cs
+L     /// <item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L     /// <term>example, code</term>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 34 source.cs comment.line.double-slash.cs
+L     /// <description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L     /// These are used for code examples
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 40 source.cs comment.line.double-slash.cs
+L     /// </description>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L     /// </item>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 15 source.cs comment.line.double-slash.cs
+L     /// </list>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 15 source.cs comment.line.double-slash.cs
+L     /// <para>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L     /// The list above uses the "table" style. You could
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 56 source.cs comment.line.double-slash.cs
+L     /// also use the "bullet" or "number" style. Neither
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 56 source.cs comment.line.double-slash.cs
+L     /// would typically use the "term" element.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 47 source.cs comment.line.double-slash.cs
+L     /// <br/>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 13 source.cs comment.line.double-slash.cs
+L     /// Note: paragraphs are double spaced. Use the *br*
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 56 source.cs comment.line.double-slash.cs
+L     /// tag for single spaced lines.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 36 source.cs comment.line.double-slash.cs
+L     /// </para>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 15 source.cs comment.line.double-slash.cs
+L     /// </remarks>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L     public class ExampleClass
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 29 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         /// <value>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// The <c>Label</c> property represents a label
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 16 source.cs comment.block.documentation.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 24 source.cs comment.block.documentation.cs
+T 26 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 56 source.cs comment.block.documentation.cs
+L         /// for this instance.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 30 source.cs comment.block.documentation.cs
+L         /// </value>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <remarks>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// The <see cref="Label"/> is a <see langword="string"/>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 16 source.cs comment.block.documentation.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs
+T 25 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 26 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 32 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 33 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 35 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 41 source.cs comment.block.documentation.cs
+T 42 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 45 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 46 source.cs comment.block.documentation.cs meta.tag.cs
+T 54 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 55 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 56 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 62 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 63 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 65 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// that you use for a label.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 37 source.cs comment.block.documentation.cs
+L         /// <para>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// Note that there isn't a way to provide a "cref" to
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 62 source.cs comment.block.documentation.cs
+L         /// each accessor, only to the property itself.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 55 source.cs comment.block.documentation.cs
+L         /// </para>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// </remarks>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         public string? Label
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs keyword.type.string.cs
+T 22 source.cs punctuation.separator.question-mark.cs
+T 23 source.cs
+T 28 source.cs entity.name.variable.property.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             get;
+T 12 source.cs
+T 15 source.cs storage.type.accessor.get.cs
+T 16 source.cs punctuation.terminator.statement.cs
+L             set;
+T 12 source.cs
+T 15 source.cs storage.type.accessor.set.cs
+T 16 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// Adds two integers and returns the result.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 53 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <returns>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// The sum of two integers.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 36 source.cs comment.block.documentation.cs
+L         /// </returns>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <param name="left">
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 25 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 30 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 31 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// The left operand of the addition.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 45 source.cs comment.block.documentation.cs
+L         /// </param>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <param name="right">
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 25 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 30 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 31 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 32 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// The right operand of the addition.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 46 source.cs comment.block.documentation.cs
+L         /// </param>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <example>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <code>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// int c = Math.Add(4, 5);
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 35 source.cs comment.block.documentation.cs
+L         /// if (c > 10)
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 23 source.cs comment.block.documentation.cs
+L         /// {
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 13 source.cs comment.block.documentation.cs
+L         ///     Console.WriteLine(c);
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 37 source.cs comment.block.documentation.cs
+L         /// }
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 13 source.cs comment.block.documentation.cs
+L         /// </code>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// </example>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <exception cref="System.OverflowException">
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 53 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 54 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 55 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// Thrown when one parameter is
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 40 source.cs comment.block.documentation.cs
+L         /// <see cref="Int32.MaxValue">MaxValue</see> and the other is
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 37 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 38 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 39 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 47 source.cs comment.block.documentation.cs
+T 49 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 52 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 53 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 70 source.cs comment.block.documentation.cs
+L         /// greater than 0.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 27 source.cs comment.block.documentation.cs
+L         /// Note that here you can also use
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 43 source.cs comment.block.documentation.cs
+L         /// <see href="https://learn.microsoft.com/dotnet/api/system.int32.maxvalue"/>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 83 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 84 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 86 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         ///  to point a web page instead.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 41 source.cs comment.block.documentation.cs
+L         /// </exception>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <see cref="ExampleClass"/> for a list of all
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 35 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 36 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 56 source.cs comment.block.documentation.cs
+L         /// the tags in these examples.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 39 source.cs comment.block.documentation.cs
+L         /// <seealso cref="ExampleClass.Label"/>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs
+T 25 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 26 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 45 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 46 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 48 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         public static int Add(int left, int right)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 25 source.cs keyword.type.int.cs
+T 26 source.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs keyword.type.int.cs
+T 34 source.cs
+T 38 source.cs entity.name.variable.parameter.cs
+T 39 source.cs punctuation.separator.comma.cs
+T 40 source.cs
+T 43 source.cs keyword.type.int.cs
+T 44 source.cs
+T 49 source.cs entity.name.variable.parameter.cs
+T 50 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             if ((left == int.MaxValue && right > 0) || (right == int.MaxValue && left > 0))
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs variable.other.readwrite.cs
+T 22 source.cs
+T 24 source.cs keyword.operator.comparison.cs
+T 25 source.cs
+T 28 source.cs keyword.type.int.cs
+T 29 source.cs punctuation.accessor.cs
+T 37 source.cs variable.other.object.property.cs
+T 38 source.cs
+T 40 source.cs keyword.operator.logical.cs
+T 41 source.cs
+T 46 source.cs variable.other.readwrite.cs
+T 47 source.cs
+T 48 source.cs keyword.operator.relational.cs
+T 49 source.cs
+T 50 source.cs constant.numeric.decimal.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs
+T 54 source.cs keyword.operator.logical.cs
+T 55 source.cs
+T 56 source.cs punctuation.parenthesis.open.cs
+T 61 source.cs variable.other.readwrite.cs
+T 62 source.cs
+T 64 source.cs keyword.operator.comparison.cs
+T 65 source.cs
+T 68 source.cs keyword.type.int.cs
+T 69 source.cs punctuation.accessor.cs
+T 77 source.cs variable.other.object.property.cs
+T 78 source.cs
+T 80 source.cs keyword.operator.logical.cs
+T 81 source.cs
+T 85 source.cs variable.other.readwrite.cs
+T 86 source.cs
+T 87 source.cs keyword.operator.relational.cs
+T 88 source.cs
+T 89 source.cs constant.numeric.decimal.cs
+T 90 source.cs punctuation.parenthesis.close.cs
+T 91 source.cs punctuation.parenthesis.close.cs
+L                 throw new System.OverflowException();
+T 16 source.cs
+T 21 source.cs keyword.control.flow.throw.cs
+T 22 source.cs
+T 25 source.cs keyword.operator.expression.new.cs
+T 26 source.cs
+T 32 source.cs entity.name.type.cs
+T 33 source.cs punctuation.accessor.cs
+T 50 source.cs entity.name.type.cs
+T 51 source.cs punctuation.parenthesis.open.cs
+T 52 source.cs punctuation.parenthesis.close.cs
+T 53 source.cs punctuation.terminator.statement.cs
+L 
+L             return left + right;
+T 12 source.cs
+T 18 source.cs keyword.control.flow.return.cs
+T 19 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.arithmetic.cs
+T 26 source.cs
+T 31 source.cs variable.other.readwrite.cs
+T 32 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     /// <summary>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// This is an example of a positional record.
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 50 source.cs comment.block.documentation.cs
+L     /// </summary>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 10 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// <remarks>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// There isn't a way to add XML comments for properties
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 60 source.cs comment.block.documentation.cs
+L     /// created for positional records, yet. The language
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 57 source.cs comment.block.documentation.cs
+L     /// design team is still considering what tags should
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 57 source.cs comment.block.documentation.cs
+L     /// be supported, and where. Currently, you can use
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 55 source.cs comment.block.documentation.cs
+L     /// the "param" tag to describe the parameters to the
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 57 source.cs comment.block.documentation.cs
+L     /// primary constructor.
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 28 source.cs comment.block.documentation.cs
+L     /// </remarks>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 10 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// <param name="FirstName">
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 15 source.cs comment.block.documentation.cs meta.tag.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 30 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 31 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 32 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// This tag will apply to the primary constructor parameter.
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 65 source.cs comment.block.documentation.cs
+L     /// </param>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 10 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 15 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// <param name="LastName">
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 15 source.cs comment.block.documentation.cs meta.tag.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 30 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 31 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// This tag will apply to the primary constructor parameter.
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 65 source.cs comment.block.documentation.cs
+L     /// </param>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 10 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 15 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     public record Person(string FirstName, string LastName);
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.type.record.cs
+T 18 source.cs
+T 24 source.cs entity.name.type.class.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs keyword.type.string.cs
+T 32 source.cs
+T 41 source.cs entity.name.variable.parameter.cs
+T 42 source.cs punctuation.separator.comma.cs
+T 43 source.cs
+T 49 source.cs keyword.type.string.cs
+T 50 source.cs
+T 58 source.cs entity.name.variable.parameter.cs
+T 59 source.cs punctuation.parenthesis.close.cs
+T 60 source.cs punctuation.terminator.statement.cs
+L     //</ClassExample>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 
+L namespace InheritDoc
+T 9 source.cs storage.type.namespace.cs
+T 10 source.cs
+T 20 source.cs entity.name.type.namespace.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     //<InheritDocTag>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L     /// <summary>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 17 source.cs comment.line.double-slash.cs
+L     /// A summary about this class.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 35 source.cs comment.line.double-slash.cs
+L     /// </summary>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L     /// <remarks>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 17 source.cs comment.line.double-slash.cs
+L     /// These remarks would explain more about this class.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 58 source.cs comment.line.double-slash.cs
+L     /// In this example, these comments also explain the
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 56 source.cs comment.line.double-slash.cs
+L     /// general information about the derived class.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 52 source.cs comment.line.double-slash.cs
+L     /// </remarks>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L     public class MainClass
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 26 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     ///<inheritdoc/>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     public class DerivedClass : MainClass
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 29 source.cs entity.name.type.class.cs
+T 30 source.cs
+T 31 source.cs punctuation.separator.colon.cs
+T 32 source.cs
+T 41 source.cs entity.name.type.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     /// <summary>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// This interface would describe all the methods in
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 56 source.cs comment.block.documentation.cs
+L     /// its contract.
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 21 source.cs comment.block.documentation.cs
+L     /// </summary>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 10 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// <remarks>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// While elided for brevity, each method or property
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 57 source.cs comment.block.documentation.cs
+L     /// in this interface would contain docs that you want
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 58 source.cs comment.block.documentation.cs
+L     /// to duplicate in each implementing class.
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 48 source.cs comment.block.documentation.cs
+L     /// </remarks>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 10 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     public interface ITestInterface
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 20 source.cs storage.type.interface.cs
+T 21 source.cs
+T 35 source.cs entity.name.type.interface.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// This method is part of the test interface.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 54 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <remarks>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// This content would be inherited by classes
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 54 source.cs comment.block.documentation.cs
+L         /// that implement this interface when the
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 50 source.cs comment.block.documentation.cs
+L         /// implementing class uses "inheritdoc"
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 48 source.cs comment.block.documentation.cs
+L         /// </remarks>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <returns>The value of <paramref name="arg" /> </returns>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 34 source.cs comment.block.documentation.cs
+T 35 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 43 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 44 source.cs comment.block.documentation.cs meta.tag.cs
+T 48 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 49 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 50 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 53 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 54 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 55 source.cs comment.block.documentation.cs meta.tag.cs
+T 57 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 58 source.cs comment.block.documentation.cs
+T 60 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 67 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 68 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <param name="arg">The argument to the method</param>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 25 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 30 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 56 source.cs comment.block.documentation.cs
+T 58 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 63 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 64 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         int Method(int arg);
+T 8 source.cs
+T 11 source.cs keyword.type.int.cs
+T 12 source.cs
+T 18 source.cs entity.name.function.cs
+T 19 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs keyword.type.int.cs
+T 23 source.cs
+T 26 source.cs entity.name.variable.parameter.cs
+T 27 source.cs punctuation.parenthesis.close.cs
+T 28 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     ///<inheritdoc cref="ITestInterface"/>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 25 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 39 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 40 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 42 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     public class ImplementingClass : ITestInterface
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 34 source.cs entity.name.type.class.cs
+T 35 source.cs
+T 36 source.cs punctuation.separator.colon.cs
+T 37 source.cs
+T 51 source.cs entity.name.type.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // doc comments are inherited here.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 43 source.cs comment.line.double-slash.cs
+L         public int Method(int arg) => arg;
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 18 source.cs keyword.type.int.cs
+T 19 source.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 29 source.cs keyword.type.int.cs
+T 30 source.cs
+T 33 source.cs entity.name.variable.parameter.cs
+T 34 source.cs punctuation.parenthesis.close.cs
+T 35 source.cs
+T 37 source.cs keyword.operator.arrow.cs
+T 38 source.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     /// <summary>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// This class shows hows you can "inherit" the doc
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 55 source.cs comment.block.documentation.cs
+L     /// comments from one method in another method.
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 51 source.cs comment.block.documentation.cs
+L     /// </summary>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 10 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// <remarks>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// You can inherit all comments, or only a specific tag,
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 61 source.cs comment.block.documentation.cs
+L     /// represented by an xpath expression.
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 43 source.cs comment.block.documentation.cs
+L     /// </remarks>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 10 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     public class InheritOnlyReturns
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 35 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// In this example, this summary is only visible for this method.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 74 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <returns>A boolean</returns>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 30 source.cs comment.block.documentation.cs
+T 32 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 39 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 40 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         public static bool MyParentMethod(bool x) { return x; }
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 26 source.cs keyword.type.bool.cs
+T 27 source.cs
+T 41 source.cs entity.name.function.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs keyword.type.bool.cs
+T 47 source.cs
+T 48 source.cs entity.name.variable.parameter.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+T 50 source.cs
+T 51 source.cs punctuation.curlybrace.open.cs
+T 52 source.cs
+T 58 source.cs keyword.control.flow.return.cs
+T 59 source.cs
+T 60 source.cs variable.other.readwrite.cs
+T 61 source.cs punctuation.terminator.statement.cs
+T 62 source.cs
+T 63 source.cs punctuation.curlybrace.close.cs
+L 
+L         /// <inheritdoc cref="MyParentMethod" path="/returns"/>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 30 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 44 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 45 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 46 source.cs comment.block.documentation.cs meta.tag.cs
+T 50 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 51 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 52 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 60 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 61 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 63 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         public static bool MyChildMethod() { return false; }
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 26 source.cs keyword.type.bool.cs
+T 27 source.cs
+T 40 source.cs entity.name.function.cs
+T 41 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs
+T 44 source.cs punctuation.curlybrace.open.cs
+T 45 source.cs
+T 51 source.cs keyword.control.flow.return.cs
+T 52 source.cs
+T 57 source.cs constant.language.boolean.false.cs
+T 58 source.cs punctuation.terminator.statement.cs
+T 59 source.cs
+T 60 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     /// <Summary>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// This class shows an example ofsharing comments across methods.
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 70 source.cs comment.block.documentation.cs
+L     /// </Summary>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 10 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     public class InheritAllButRemarks
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 37 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// In this example, this summary is visible on all the methods.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 72 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <remarks>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// The remarks can be inherited by other methods
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 57 source.cs comment.block.documentation.cs
+L         /// using the xpath expression.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 39 source.cs comment.block.documentation.cs
+L         /// </remarks>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <returns>A boolean</returns>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 30 source.cs comment.block.documentation.cs
+T 32 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 39 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 40 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         public static bool MyParentMethod(bool x) { return x; }
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 26 source.cs keyword.type.bool.cs
+T 27 source.cs
+T 41 source.cs entity.name.function.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs keyword.type.bool.cs
+T 47 source.cs
+T 48 source.cs entity.name.variable.parameter.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+T 50 source.cs
+T 51 source.cs punctuation.curlybrace.open.cs
+T 52 source.cs
+T 58 source.cs keyword.control.flow.return.cs
+T 59 source.cs
+T 60 source.cs variable.other.readwrite.cs
+T 61 source.cs punctuation.terminator.statement.cs
+T 62 source.cs
+T 63 source.cs punctuation.curlybrace.close.cs
+L 
+L         /// <inheritdoc cref="MyParentMethod" path="//*[not(self::remarks)]"/>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 30 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 44 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 45 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 46 source.cs comment.block.documentation.cs meta.tag.cs
+T 50 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 51 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 52 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 75 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 76 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 78 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         public static bool MyChildMethod() { return false; }
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 26 source.cs keyword.type.bool.cs
+T 27 source.cs
+T 40 source.cs entity.name.function.cs
+T 41 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs
+T 44 source.cs punctuation.curlybrace.open.cs
+T 45 source.cs
+T 51 source.cs keyword.control.flow.return.cs
+T 52 source.cs
+T 57 source.cs constant.language.boolean.false.cs
+T 58 source.cs punctuation.terminator.statement.cs
+T 59 source.cs
+T 60 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L     //</InheritDocTag>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L 
+L     //<IncludeTag>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L     /// <include file='xml_include_tag.xml' path='MyDocs/MyMembers[@name="test"]/*' />
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 86 source.cs comment.line.double-slash.cs
+L     class Test
+T 4 source.cs
+T 9 source.cs storage.type.class.cs
+T 10 source.cs
+T 14 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         static void Main()
+T 8 source.cs
+T 14 source.cs storage.modifier.static.cs
+T 15 source.cs
+T 19 source.cs keyword.type.void.cs
+T 20 source.cs
+T 24 source.cs entity.name.function.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 26 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     /// <include file='xml_include_tag.xml' path='MyDocs/MyMembers[@name="test2"]/*' />
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.single.cs punctuation.definition.string.begin.cs
+T 42 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.single.cs
+T 43 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.single.cs punctuation.definition.string.end.cs
+T 44 source.cs comment.block.documentation.cs meta.tag.cs
+T 48 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 49 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 50 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.single.cs punctuation.definition.string.begin.cs
+T 83 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.single.cs
+T 84 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.single.cs punctuation.definition.string.end.cs
+T 85 source.cs comment.block.documentation.cs meta.tag.cs
+T 87 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     class Test2
+T 4 source.cs
+T 9 source.cs storage.type.class.cs
+T 10 source.cs
+T 15 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public void Test()
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 19 source.cs keyword.type.void.cs
+T 20 source.cs
+T 24 source.cs entity.name.function.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 26 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L     //</IncludeTag>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 19 source.cs comment.line.double-slash.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 
+L //<GenericExample>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L /// <summary>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 13 source.cs comment.line.double-slash.cs
+L /// This is a generic class.
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 28 source.cs comment.line.double-slash.cs
+L /// </summary>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L /// <remarks>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 13 source.cs comment.line.double-slash.cs
+L /// This example shows how to specify the <see cref="GenericClass{T}"/>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 71 source.cs comment.line.double-slash.cs
+L /// type as a cref attribute.
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 29 source.cs comment.line.double-slash.cs
+L /// In generic classes and methods, you'll often want to reference the
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 70 source.cs comment.line.double-slash.cs
+L /// generic type, or the type parameter.
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 40 source.cs comment.line.double-slash.cs
+L /// </remarks>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L class GenericClass<T>
+T 5 source.cs storage.type.class.cs
+T 6 source.cs
+T 18 source.cs entity.name.type.class.cs
+T 19 source.cs punctuation.definition.typeparameters.begin.cs
+T 20 source.cs entity.name.type.type-parameter.cs
+T 21 source.cs punctuation.definition.typeparameters.end.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     // Fields and members.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 26 source.cs comment.line.double-slash.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 
+L /// <Summary>
+T 3 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 4 source.cs comment.block.documentation.cs
+T 5 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 12 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L /// This shows examples of typeparamref and typeparam tags
+T 3 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 58 source.cs comment.block.documentation.cs
+L /// </Summary>
+T 3 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 4 source.cs comment.block.documentation.cs
+T 6 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L public class ParamsAndParamRefs
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 12 source.cs storage.type.class.cs
+T 13 source.cs
+T 31 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     /// <summary>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// The GetGenericValue method.
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 35 source.cs comment.block.documentation.cs
+L     /// </summary>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 10 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// <remarks>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// This sample shows how to specify the <see cref="GetGenericValue"/>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 45 source.cs comment.block.documentation.cs
+T 46 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 49 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 50 source.cs comment.block.documentation.cs meta.tag.cs
+T 54 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 55 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 56 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 71 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 72 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 74 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// method as a cref attribute.
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 35 source.cs comment.block.documentation.cs
+L     /// The parameter and return value are both of an arbitrary type,
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 69 source.cs comment.block.documentation.cs
+L     /// <typeparamref name="T"/>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs
+T 26 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 30 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 32 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// </remarks>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 10 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     public static T GetGenericValue<T>(T para)
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 19 source.cs entity.name.type.cs
+T 20 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.definition.typeparameters.begin.cs
+T 37 source.cs entity.name.type.type-parameter.cs
+T 38 source.cs punctuation.definition.typeparameters.end.cs
+T 39 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs entity.name.type.cs
+T 41 source.cs
+T 45 source.cs entity.name.variable.parameter.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         return para;
+T 8 source.cs
+T 14 source.cs keyword.control.flow.return.cs
+T 15 source.cs
+T 19 source.cs variable.other.readwrite.cs
+T 20 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L //</GenericExample>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 19 source.cs comment.line.double-slash.cs
+L 
+L // <ExtensionExample>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L /// <summary>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 13 source.cs comment.line.double-slash.cs
+L /// This is an example of extension methods documentation.
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 58 source.cs comment.line.double-slash.cs
+L /// </summary>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L public static class Extensions
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.modifier.static.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 30 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     /// <summary>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// Defines extensions for generic enumerable sequences.
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 60 source.cs comment.block.documentation.cs
+L     /// </summary>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 10 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// <param name="sequence">The receiver sequence</param>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 15 source.cs comment.block.documentation.cs meta.tag.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 30 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 31 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 52 source.cs comment.block.documentation.cs
+T 54 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 59 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 60 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     /// <typeparam name="TSequence">The type of the items in the sequence.</typeparam>
+T 4 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 7 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 8 source.cs comment.block.documentation.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 25 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 34 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 35 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 36 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 74 source.cs comment.block.documentation.cs
+T 76 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 85 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 86 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L     extension<TSequence>(IEnumerable<TSequence> sequence)
+T 57 source.cs
+L     {
+T 5 source.cs
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// Returns an enumerable collection containing the elements of the sequence in reverse order.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 102 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <remarks>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// The returned sequence is evaluated lazily. Enumerating the result will consume all
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 94 source.cs comment.block.documentation.cs
+L         /// elements of the original sequence before yielding any items in reverse order.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 89 source.cs comment.block.documentation.cs
+L         /// </remarks>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <returns>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// An <see cref="IEnumerable{TSequence}"/> that enumerates the elements of the sequence from last to first.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 15 source.cs comment.block.documentation.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 25 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 26 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 48 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 49 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 51 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 116 source.cs comment.block.documentation.cs
+L         /// </returns>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         public IEnumerable<TSequence> ReverseSequence()
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 26 source.cs entity.name.type.cs
+T 27 source.cs punctuation.definition.typeparameters.begin.cs
+T 36 source.cs entity.name.type.cs
+T 37 source.cs punctuation.definition.typeparameters.end.cs
+T 38 source.cs
+T 53 source.cs entity.name.function.cs
+T 54 source.cs punctuation.parenthesis.open.cs
+T 55 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             var stack = new Stack<TSequence>();
+T 12 source.cs
+T 15 source.cs storage.type.var.cs
+T 16 source.cs
+T 21 source.cs entity.name.variable.local.cs
+T 22 source.cs
+T 23 source.cs keyword.operator.assignment.cs
+T 24 source.cs
+T 27 source.cs keyword.operator.expression.new.cs
+T 28 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 43 source.cs entity.name.type.cs
+T 44 source.cs punctuation.definition.typeparameters.end.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+T 47 source.cs punctuation.terminator.statement.cs
+L             foreach (var item in sequence)
+T 12 source.cs
+T 19 source.cs keyword.control.loop.foreach.cs
+T 20 source.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs storage.type.var.cs
+T 25 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs
+T 32 source.cs keyword.control.loop.in.cs
+T 33 source.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 stack.Push(item);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs variable.other.readwrite.cs
+T 32 source.cs punctuation.parenthesis.close.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             while (stack.Count > 0)
+T 12 source.cs
+T 17 source.cs keyword.control.loop.while.cs
+T 18 source.cs
+T 19 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs variable.other.object.cs
+T 25 source.cs punctuation.accessor.cs
+T 30 source.cs variable.other.object.property.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.relational.cs
+T 33 source.cs
+T 34 source.cs constant.numeric.decimal.cs
+T 35 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 yield return stack.Pop();
+T 16 source.cs
+T 21 source.cs keyword.control.flow.yield.cs
+T 22 source.cs
+T 28 source.cs keyword.control.flow.return.cs
+T 29 source.cs
+T 34 source.cs variable.other.object.cs
+T 35 source.cs punctuation.accessor.cs
+T 38 source.cs entity.name.function.cs
+T 39 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs punctuation.parenthesis.close.cs
+T 41 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// Generates a sequence of items using a generator function.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 69 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <param name="count">The number of items.</param>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 25 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 30 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 31 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 32 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 52 source.cs comment.block.documentation.cs
+T 54 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 59 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 60 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <param name="generator">The generator function.</param>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 25 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 34 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 35 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 36 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 59 source.cs comment.block.documentation.cs
+T 61 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 66 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 67 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <returns>A new sequence of <paramref name="count"/> items.</returns>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 39 source.cs comment.block.documentation.cs
+T 40 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 48 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 49 source.cs comment.block.documentation.cs meta.tag.cs
+T 53 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 54 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 55 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 60 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 61 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 63 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 70 source.cs comment.block.documentation.cs
+T 72 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 79 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 80 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         public static IEnumerable<TSequence> Generate(int count, Func<TSequence> generator)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 43 source.cs entity.name.type.cs
+T 44 source.cs punctuation.definition.typeparameters.end.cs
+T 45 source.cs
+T 53 source.cs entity.name.function.cs
+T 54 source.cs punctuation.parenthesis.open.cs
+T 57 source.cs keyword.type.int.cs
+T 58 source.cs
+T 63 source.cs entity.name.variable.parameter.cs
+T 64 source.cs punctuation.separator.comma.cs
+T 65 source.cs
+T 69 source.cs entity.name.type.cs
+T 70 source.cs punctuation.definition.typeparameters.begin.cs
+T 79 source.cs entity.name.type.cs
+T 80 source.cs punctuation.definition.typeparameters.end.cs
+T 81 source.cs
+T 90 source.cs entity.name.variable.parameter.cs
+T 91 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             for (int i = 0; i < count; i++)
+T 12 source.cs
+T 15 source.cs keyword.control.loop.for.cs
+T 16 source.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs keyword.type.int.cs
+T 21 source.cs
+T 22 source.cs entity.name.variable.local.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.assignment.cs
+T 25 source.cs
+T 26 source.cs constant.numeric.decimal.cs
+T 27 source.cs punctuation.terminator.statement.cs
+T 28 source.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs
+T 31 source.cs keyword.operator.relational.cs
+T 32 source.cs
+T 37 source.cs variable.other.readwrite.cs
+T 38 source.cs punctuation.terminator.statement.cs
+T 39 source.cs
+T 40 source.cs variable.other.readwrite.cs
+T 42 source.cs keyword.operator.increment.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 yield return generator();
+T 16 source.cs
+T 21 source.cs keyword.control.flow.yield.cs
+T 22 source.cs
+T 28 source.cs keyword.control.flow.return.cs
+T 29 source.cs
+T 38 source.cs entity.name.function.cs
+T 39 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs punctuation.parenthesis.close.cs
+T 41 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// Gets the element at the specified position in the sequence.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 71 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <param name="index">The zero-based position of the element to retrieve.</param>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 25 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 30 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 31 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 32 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 83 source.cs comment.block.documentation.cs
+T 85 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 90 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 91 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <value>The element at the specified position.</value>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 57 source.cs comment.block.documentation.cs
+T 59 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 64 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 65 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         public TSequence this[int index] => sequence.ElementAt(index);
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs
+T 29 source.cs variable.language.this.cs
+T 30 source.cs punctuation.squarebracket.open.cs
+T 33 source.cs keyword.type.int.cs
+T 34 source.cs
+T 39 source.cs entity.name.variable.parameter.cs
+T 40 source.cs punctuation.squarebracket.close.cs
+T 41 source.cs
+T 43 source.cs keyword.operator.arrow.cs
+T 44 source.cs meta.accessor.getter.cs
+T 52 source.cs meta.accessor.getter.cs variable.other.object.cs
+T 53 source.cs meta.accessor.getter.cs punctuation.accessor.cs
+T 62 source.cs meta.accessor.getter.cs entity.name.function.cs
+T 63 source.cs meta.accessor.getter.cs punctuation.parenthesis.open.cs
+T 68 source.cs meta.accessor.getter.cs variable.other.readwrite.cs
+T 69 source.cs meta.accessor.getter.cs punctuation.parenthesis.close.cs
+T 70 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs
+L // </ExtensionExample>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L 

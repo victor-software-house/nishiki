@@ -1,0 +1,2067 @@
+L namespace operators;
+T 9 source.cs storage.type.namespace.cs
+T 10 source.cs
+T 19 source.cs entity.name.type.namespace.cs
+T 20 source.cs punctuation.terminator.statement.cs
+L 
+L public static class BitwiseAndShiftOperators
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.modifier.static.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 44 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     public static void Examples()
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 22 source.cs keyword.type.void.cs
+T 23 source.cs
+T 31 source.cs entity.name.function.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         Console.WriteLine("==== ~, &, ^, and | operators");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 27 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 56 source.cs string.quoted.double.cs
+T 57 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 58 source.cs punctuation.parenthesis.close.cs
+T 59 source.cs punctuation.terminator.statement.cs
+L         BitwiseComplement();
+T 8 source.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 27 source.cs punctuation.parenthesis.close.cs
+T 28 source.cs punctuation.terminator.statement.cs
+L         BitwiseAnd();
+T 8 source.cs
+T 18 source.cs entity.name.function.cs
+T 19 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs punctuation.parenthesis.close.cs
+T 21 source.cs punctuation.terminator.statement.cs
+L         BitwiseXor();
+T 8 source.cs
+T 18 source.cs entity.name.function.cs
+T 19 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs punctuation.parenthesis.close.cs
+T 21 source.cs punctuation.terminator.statement.cs
+L         BitwiseOr();
+T 8 source.cs
+T 17 source.cs entity.name.function.cs
+T 18 source.cs punctuation.parenthesis.open.cs
+T 19 source.cs punctuation.parenthesis.close.cs
+T 20 source.cs punctuation.terminator.statement.cs
+L 
+L         Console.WriteLine("==== <<, >>, and >>> operators");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 27 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 57 source.cs string.quoted.double.cs
+T 58 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 59 source.cs punctuation.parenthesis.close.cs
+T 60 source.cs punctuation.terminator.statement.cs
+L         LeftShift();
+T 8 source.cs
+T 17 source.cs entity.name.function.cs
+T 18 source.cs punctuation.parenthesis.open.cs
+T 19 source.cs punctuation.parenthesis.close.cs
+T 20 source.cs punctuation.terminator.statement.cs
+L         RightShift();
+T 8 source.cs
+T 18 source.cs entity.name.function.cs
+T 19 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs punctuation.parenthesis.close.cs
+T 21 source.cs punctuation.terminator.statement.cs
+L         ShiftCount();
+T 8 source.cs
+T 18 source.cs entity.name.function.cs
+T 19 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs punctuation.parenthesis.close.cs
+T 21 source.cs punctuation.terminator.statement.cs
+L         UnsignedRightShift();
+T 8 source.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs punctuation.parenthesis.close.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L 
+L         Console.WriteLine("==== Additional examples");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 27 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs punctuation.terminator.statement.cs
+L         CompoundAssignment();
+T 8 source.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs punctuation.parenthesis.close.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L         CompoundAssignmentWithCast();
+T 8 source.cs
+T 34 source.cs entity.name.function.cs
+T 35 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L         Precedence();
+T 8 source.cs
+T 18 source.cs entity.name.function.cs
+T 19 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs punctuation.parenthesis.close.cs
+T 21 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     private static void BitwiseComplement()
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 18 source.cs storage.modifier.static.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 41 source.cs entity.name.function.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <SnippetBitwiseComplement>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 37 source.cs comment.line.double-slash.cs
+L         uint a = 0b_0000_1111_0000_1111_0000_1111_0000_1100;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 29 source.cs constant.numeric.binary.cs
+T 30 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 34 source.cs constant.numeric.binary.cs
+T 35 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 39 source.cs constant.numeric.binary.cs
+T 40 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 44 source.cs constant.numeric.binary.cs
+T 45 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 49 source.cs constant.numeric.binary.cs
+T 50 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 54 source.cs constant.numeric.binary.cs
+T 55 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 59 source.cs constant.numeric.binary.cs
+T 60 source.cs punctuation.terminator.statement.cs
+L         uint b = ~a;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 18 source.cs keyword.operator.bitwise.cs
+T 19 source.cs variable.other.readwrite.cs
+T 20 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine(Convert.ToString(b, toBase: 2));
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 42 source.cs entity.name.function.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.separator.comma.cs
+T 46 source.cs
+T 52 source.cs entity.name.variable.parameter.cs
+T 53 source.cs punctuation.separator.colon.cs
+T 54 source.cs
+T 55 source.cs constant.numeric.decimal.cs
+T 56 source.cs punctuation.parenthesis.close.cs
+T 57 source.cs punctuation.parenthesis.close.cs
+T 58 source.cs punctuation.terminator.statement.cs
+L         // Output:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L         // 11110000111100001111000011110011
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 43 source.cs comment.line.double-slash.cs
+L         // </SnippetBitwiseComplement>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 38 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     private static void BitwiseAnd()
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 18 source.cs storage.modifier.static.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 34 source.cs entity.name.function.cs
+T 35 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <SnippetBitwiseAnd>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 30 source.cs comment.line.double-slash.cs
+L         uint a = 0b_1111_1000;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 29 source.cs constant.numeric.binary.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L         uint b = 0b_1001_1101;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 29 source.cs constant.numeric.binary.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L         uint c = a & b;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.bitwise.cs
+T 21 source.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine(Convert.ToString(c, toBase: 2));
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 42 source.cs entity.name.function.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.separator.comma.cs
+T 46 source.cs
+T 52 source.cs entity.name.variable.parameter.cs
+T 53 source.cs punctuation.separator.colon.cs
+T 54 source.cs
+T 55 source.cs constant.numeric.decimal.cs
+T 56 source.cs punctuation.parenthesis.close.cs
+T 57 source.cs punctuation.parenthesis.close.cs
+T 58 source.cs punctuation.terminator.statement.cs
+L         // Output:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L         // 10011000
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 19 source.cs comment.line.double-slash.cs
+L         // </SnippetBitwiseAnd>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 31 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     private static void BitwiseXor()
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 18 source.cs storage.modifier.static.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 34 source.cs entity.name.function.cs
+T 35 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <SnippetBitwiseXor>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 30 source.cs comment.line.double-slash.cs
+L         uint a = 0b_1111_1000;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 29 source.cs constant.numeric.binary.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L         uint b = 0b_0001_1100;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 29 source.cs constant.numeric.binary.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L         uint c = a ^ b;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.bitwise.cs
+T 21 source.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine(Convert.ToString(c, toBase: 2));
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 42 source.cs entity.name.function.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.separator.comma.cs
+T 46 source.cs
+T 52 source.cs entity.name.variable.parameter.cs
+T 53 source.cs punctuation.separator.colon.cs
+T 54 source.cs
+T 55 source.cs constant.numeric.decimal.cs
+T 56 source.cs punctuation.parenthesis.close.cs
+T 57 source.cs punctuation.parenthesis.close.cs
+T 58 source.cs punctuation.terminator.statement.cs
+L         // Output:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L         // 11100100
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 19 source.cs comment.line.double-slash.cs
+L         // </SnippetBitwiseXor>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 31 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     private static void BitwiseOr()
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 18 source.cs storage.modifier.static.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <SnippetBitwiseOr>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 29 source.cs comment.line.double-slash.cs
+L         uint a = 0b_1010_0000;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 29 source.cs constant.numeric.binary.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L         uint b = 0b_1001_0001;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 29 source.cs constant.numeric.binary.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L         uint c = a | b;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.bitwise.cs
+T 21 source.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine(Convert.ToString(c, toBase: 2));
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 42 source.cs entity.name.function.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.separator.comma.cs
+T 46 source.cs
+T 52 source.cs entity.name.variable.parameter.cs
+T 53 source.cs punctuation.separator.colon.cs
+T 54 source.cs
+T 55 source.cs constant.numeric.decimal.cs
+T 56 source.cs punctuation.parenthesis.close.cs
+T 57 source.cs punctuation.parenthesis.close.cs
+T 58 source.cs punctuation.terminator.statement.cs
+L         // Output:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L         // 10110001
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 19 source.cs comment.line.double-slash.cs
+L         // </SnippetBitwiseOr>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 30 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     private static void LeftShift()
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 18 source.cs storage.modifier.static.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <SnippetLeftShift>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 29 source.cs comment.line.double-slash.cs
+L         uint x = 0b_1100_1001_0000_0000_0000_0000_0001_0001;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 29 source.cs constant.numeric.binary.cs
+T 30 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 34 source.cs constant.numeric.binary.cs
+T 35 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 39 source.cs constant.numeric.binary.cs
+T 40 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 44 source.cs constant.numeric.binary.cs
+T 45 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 49 source.cs constant.numeric.binary.cs
+T 50 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 54 source.cs constant.numeric.binary.cs
+T 55 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 59 source.cs constant.numeric.binary.cs
+T 60 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"Before: {Convert.ToString(x, toBase: 2)}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs string.quoted.double.cs
+T 37 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 44 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 45 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 54 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 63 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 64 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 65 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 66 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 67 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 68 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 69 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 70 source.cs punctuation.parenthesis.close.cs
+T 71 source.cs punctuation.terminator.statement.cs
+L 
+L         uint y = x << 4;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 21 source.cs keyword.operator.bitwise.shift.cs
+T 22 source.cs
+T 23 source.cs constant.numeric.decimal.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"After:  {Convert.ToString(y, toBase: 2)}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs string.quoted.double.cs
+T 37 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 44 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 45 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 54 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 63 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 64 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 65 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 66 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 67 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 68 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 69 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 70 source.cs punctuation.parenthesis.close.cs
+T 71 source.cs punctuation.terminator.statement.cs
+L         // Output:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L         // Before: 11001001000000000000000000010001
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 51 source.cs comment.line.double-slash.cs
+L         // After:  10010000000000000000000100010000
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 51 source.cs comment.line.double-slash.cs
+L         // </SnippetLeftShift>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 30 source.cs comment.line.double-slash.cs
+L 
+L         // <SnippetLeftShiftPromoted>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 37 source.cs comment.line.double-slash.cs
+L         byte a = 0b_1111_0001;
+T 8 source.cs
+T 12 source.cs keyword.type.byte.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 29 source.cs constant.numeric.binary.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L 
+L         var b = a << 8;
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 13 source.cs entity.name.variable.local.cs
+T 14 source.cs
+T 15 source.cs keyword.operator.assignment.cs
+T 16 source.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs
+T 20 source.cs keyword.operator.bitwise.shift.cs
+T 21 source.cs
+T 22 source.cs constant.numeric.decimal.cs
+T 23 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine(b.GetType());
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 27 source.cs variable.other.object.cs
+T 28 source.cs punctuation.accessor.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+T 38 source.cs punctuation.parenthesis.close.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"Shifted byte: {Convert.ToString(b, toBase: 2)}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 42 source.cs string.quoted.double.cs
+T 43 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 50 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 51 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 59 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 60 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 61 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 62 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 63 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 69 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 70 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 71 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 72 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 73 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 74 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 75 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 76 source.cs punctuation.parenthesis.close.cs
+T 77 source.cs punctuation.terminator.statement.cs
+L         // Output:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L         // System.Int32
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 23 source.cs comment.line.double-slash.cs
+L         // Shifted byte: 1111000100000000
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 41 source.cs comment.line.double-slash.cs
+L         // </SnippetLeftShiftPromoted>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 38 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     private static void RightShift()
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 18 source.cs storage.modifier.static.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 34 source.cs entity.name.function.cs
+T 35 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <SnippetRightShift>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 30 source.cs comment.line.double-slash.cs
+L         uint x = 0b_1001;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"Before: {Convert.ToString(x, toBase: 2), 4}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs string.quoted.double.cs
+T 37 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 44 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 45 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 54 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 63 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 64 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 65 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 66 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 67 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 69 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 70 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 71 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 72 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 73 source.cs punctuation.parenthesis.close.cs
+T 74 source.cs punctuation.terminator.statement.cs
+L 
+L         uint y = x >> 2;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 21 source.cs keyword.operator.bitwise.shift.cs
+T 22 source.cs
+T 23 source.cs constant.numeric.decimal.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"After:  {Convert.ToString(y, toBase: 2).PadLeft(4, '0'), 4}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs string.quoted.double.cs
+T 37 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 44 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 45 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 54 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 63 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 64 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 65 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 66 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 67 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 68 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 75 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 76 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 77 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 78 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 79 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 80 source.cs string.quoted.double.cs meta.embedded.interpolation.cs string.quoted.single.cs punctuation.definition.char.begin.cs
+T 81 source.cs string.quoted.double.cs meta.embedded.interpolation.cs string.quoted.single.cs
+T 82 source.cs string.quoted.double.cs meta.embedded.interpolation.cs string.quoted.single.cs punctuation.definition.char.end.cs
+T 83 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 85 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 86 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 87 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 88 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 89 source.cs punctuation.parenthesis.close.cs
+T 90 source.cs punctuation.terminator.statement.cs
+L         // Output:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L         // Before: 1001
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 23 source.cs comment.line.double-slash.cs
+L         // After:  0010
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 23 source.cs comment.line.double-slash.cs
+L         // </SnippetRightShift>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 31 source.cs comment.line.double-slash.cs
+L 
+L         // <SnippetArithmeticRightShift>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 40 source.cs comment.line.double-slash.cs
+L         int a = int.MinValue;
+T 8 source.cs
+T 11 source.cs keyword.type.int.cs
+T 12 source.cs
+T 13 source.cs entity.name.variable.local.cs
+T 14 source.cs
+T 15 source.cs keyword.operator.assignment.cs
+T 16 source.cs
+T 19 source.cs keyword.type.int.cs
+T 20 source.cs punctuation.accessor.cs
+T 28 source.cs variable.other.object.property.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"Before: {Convert.ToString(a, toBase: 2)}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs string.quoted.double.cs
+T 37 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 44 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 45 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 54 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 63 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 64 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 65 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 66 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 67 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 68 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 69 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 70 source.cs punctuation.parenthesis.close.cs
+T 71 source.cs punctuation.terminator.statement.cs
+L 
+L         int b = a >> 3;
+T 8 source.cs
+T 11 source.cs keyword.type.int.cs
+T 12 source.cs
+T 13 source.cs entity.name.variable.local.cs
+T 14 source.cs
+T 15 source.cs keyword.operator.assignment.cs
+T 16 source.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs
+T 20 source.cs keyword.operator.bitwise.shift.cs
+T 21 source.cs
+T 22 source.cs constant.numeric.decimal.cs
+T 23 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"After:  {Convert.ToString(b, toBase: 2)}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs string.quoted.double.cs
+T 37 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 44 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 45 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 54 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 63 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 64 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 65 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 66 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 67 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 68 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 69 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 70 source.cs punctuation.parenthesis.close.cs
+T 71 source.cs punctuation.terminator.statement.cs
+L         // Output:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L         // Before: 10000000000000000000000000000000
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 51 source.cs comment.line.double-slash.cs
+L         // After:  11110000000000000000000000000000
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 51 source.cs comment.line.double-slash.cs
+L         // </SnippetArithmeticRightShift>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 41 source.cs comment.line.double-slash.cs
+L 
+L         // <SnippetLogicalRightShift>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 37 source.cs comment.line.double-slash.cs
+L         uint c = 0b_1000_0000_0000_0000_0000_0000_0000_0000;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 29 source.cs constant.numeric.binary.cs
+T 30 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 34 source.cs constant.numeric.binary.cs
+T 35 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 39 source.cs constant.numeric.binary.cs
+T 40 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 44 source.cs constant.numeric.binary.cs
+T 45 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 49 source.cs constant.numeric.binary.cs
+T 50 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 54 source.cs constant.numeric.binary.cs
+T 55 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 59 source.cs constant.numeric.binary.cs
+T 60 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"Before: {Convert.ToString(c, toBase: 2), 32}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs string.quoted.double.cs
+T 37 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 44 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 45 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 54 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 63 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 64 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 65 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 66 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 67 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 69 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 71 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 72 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 73 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 74 source.cs punctuation.parenthesis.close.cs
+T 75 source.cs punctuation.terminator.statement.cs
+L 
+L         uint d = c >> 3;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 21 source.cs keyword.operator.bitwise.shift.cs
+T 22 source.cs
+T 23 source.cs constant.numeric.decimal.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"After:  {Convert.ToString(d, toBase: 2).PadLeft(32, '0'), 32}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs string.quoted.double.cs
+T 37 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 44 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 45 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 54 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 63 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 64 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 65 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 66 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 67 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 68 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 75 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 76 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 78 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 79 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 80 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 81 source.cs string.quoted.double.cs meta.embedded.interpolation.cs string.quoted.single.cs punctuation.definition.char.begin.cs
+T 82 source.cs string.quoted.double.cs meta.embedded.interpolation.cs string.quoted.single.cs
+T 83 source.cs string.quoted.double.cs meta.embedded.interpolation.cs string.quoted.single.cs punctuation.definition.char.end.cs
+T 84 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 86 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 88 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 89 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 90 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 91 source.cs punctuation.parenthesis.close.cs
+T 92 source.cs punctuation.terminator.statement.cs
+L         // Output:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L         // Before: 10000000000000000000000000000000
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 51 source.cs comment.line.double-slash.cs
+L         // After:  00010000000000000000000000000000
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 51 source.cs comment.line.double-slash.cs
+L         // </SnippetLogicalRightShift>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 38 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     private static void UnsignedRightShift()
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 18 source.cs storage.modifier.static.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 42 source.cs entity.name.function.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 44 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <SnippetUnsignedRightShift>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 38 source.cs comment.line.double-slash.cs
+L         int x = -8;
+T 8 source.cs
+T 11 source.cs keyword.type.int.cs
+T 12 source.cs
+T 13 source.cs entity.name.variable.local.cs
+T 14 source.cs
+T 15 source.cs keyword.operator.assignment.cs
+T 16 source.cs
+T 17 source.cs keyword.operator.arithmetic.cs
+T 18 source.cs constant.numeric.decimal.cs
+T 19 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"Before:    {x,11}, hex: {x,8:x}, binary: {Convert.ToString(x, toBase: 2), 32}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 39 source.cs string.quoted.double.cs
+T 40 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 41 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 42 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 44 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 45 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 52 source.cs string.quoted.double.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 54 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs keyword.operator.conditional.colon.cs
+T 58 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 59 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 69 source.cs string.quoted.double.cs
+T 70 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 77 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 78 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 86 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 87 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 88 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 89 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 90 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 96 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 97 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 98 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 99 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 100 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 102 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 104 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 105 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 106 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 107 source.cs punctuation.parenthesis.close.cs
+T 108 source.cs punctuation.terminator.statement.cs
+L 
+L         int y = x >> 2;
+T 8 source.cs
+T 11 source.cs keyword.type.int.cs
+T 12 source.cs
+T 13 source.cs entity.name.variable.local.cs
+T 14 source.cs
+T 15 source.cs keyword.operator.assignment.cs
+T 16 source.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs
+T 20 source.cs keyword.operator.bitwise.shift.cs
+T 21 source.cs
+T 22 source.cs constant.numeric.decimal.cs
+T 23 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"After  >>: {y,11}, hex: {y,8:x}, binary: {Convert.ToString(y, toBase: 2), 32}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 39 source.cs string.quoted.double.cs
+T 40 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 41 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 42 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 44 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 45 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 52 source.cs string.quoted.double.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 54 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs keyword.operator.conditional.colon.cs
+T 58 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 59 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 69 source.cs string.quoted.double.cs
+T 70 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 77 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 78 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 86 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 87 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 88 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 89 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 90 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 96 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 97 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 98 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 99 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 100 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 102 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 104 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 105 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 106 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 107 source.cs punctuation.parenthesis.close.cs
+T 108 source.cs punctuation.terminator.statement.cs
+L 
+L         int z = x >>> 2;
+T 8 source.cs
+T 11 source.cs keyword.type.int.cs
+T 12 source.cs
+T 13 source.cs entity.name.variable.local.cs
+T 14 source.cs
+T 15 source.cs keyword.operator.assignment.cs
+T 16 source.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs
+T 21 source.cs keyword.operator.bitwise.shift.cs
+T 22 source.cs
+T 23 source.cs constant.numeric.decimal.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"After >>>: {z,11}, hex: {z,8:x}, binary: {Convert.ToString(z, toBase: 2).PadLeft(32, '0'), 32}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 39 source.cs string.quoted.double.cs
+T 40 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 41 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 42 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 44 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 45 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 52 source.cs string.quoted.double.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 54 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs keyword.operator.conditional.colon.cs
+T 58 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 59 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 69 source.cs string.quoted.double.cs
+T 70 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 77 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 78 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 86 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 87 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 88 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 89 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 90 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 96 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 97 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 98 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 99 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 100 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 101 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 108 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 109 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 111 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 112 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 113 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 114 source.cs string.quoted.double.cs meta.embedded.interpolation.cs string.quoted.single.cs punctuation.definition.char.begin.cs
+T 115 source.cs string.quoted.double.cs meta.embedded.interpolation.cs string.quoted.single.cs
+T 116 source.cs string.quoted.double.cs meta.embedded.interpolation.cs string.quoted.single.cs punctuation.definition.char.end.cs
+T 117 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 119 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 121 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 122 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 123 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 124 source.cs punctuation.parenthesis.close.cs
+T 125 source.cs punctuation.terminator.statement.cs
+L         // Output:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L         // Before:             -8, hex: fffffff8, binary: 11111111111111111111111111111000
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 90 source.cs comment.line.double-slash.cs
+L         // After  >>:          -2, hex: fffffffe, binary: 11111111111111111111111111111110
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 90 source.cs comment.line.double-slash.cs
+L         // After >>>:  1073741822, hex: 3ffffffe, binary: 00111111111111111111111111111110
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 90 source.cs comment.line.double-slash.cs
+L         // </SnippetUnsignedRightShift>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 39 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     private static void ShiftCount()
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 18 source.cs storage.modifier.static.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 34 source.cs entity.name.function.cs
+T 35 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <SnippetShiftCount>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 30 source.cs comment.line.double-slash.cs
+L         int count1 = 0b_0000_0001;
+T 8 source.cs
+T 11 source.cs keyword.type.int.cs
+T 12 source.cs
+T 18 source.cs entity.name.variable.local.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 23 source.cs constant.numeric.other.preffix.binary.cs
+T 24 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 28 source.cs constant.numeric.binary.cs
+T 29 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 33 source.cs constant.numeric.binary.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L         int count2 = 0b_1110_0001;
+T 8 source.cs
+T 11 source.cs keyword.type.int.cs
+T 12 source.cs
+T 18 source.cs entity.name.variable.local.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 23 source.cs constant.numeric.other.preffix.binary.cs
+T 24 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 28 source.cs constant.numeric.binary.cs
+T 29 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 33 source.cs constant.numeric.binary.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L 
+L         int a = 0b_0001;
+T 8 source.cs
+T 11 source.cs keyword.type.int.cs
+T 12 source.cs
+T 13 source.cs entity.name.variable.local.cs
+T 14 source.cs
+T 15 source.cs keyword.operator.assignment.cs
+T 16 source.cs
+T 18 source.cs constant.numeric.other.preffix.binary.cs
+T 19 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 23 source.cs constant.numeric.binary.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"{a} << {count1} is {a << count1}; {a} << {count2} is {a << count2}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 29 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 30 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 31 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 35 source.cs string.quoted.double.cs
+T 36 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 42 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 43 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 47 source.cs string.quoted.double.cs
+T 48 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 49 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 50 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 52 source.cs string.quoted.double.cs meta.embedded.interpolation.cs keyword.operator.bitwise.shift.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 59 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 60 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 62 source.cs string.quoted.double.cs
+T 63 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 64 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 65 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 69 source.cs string.quoted.double.cs
+T 70 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 76 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 77 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 81 source.cs string.quoted.double.cs
+T 82 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 83 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 84 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 86 source.cs string.quoted.double.cs meta.embedded.interpolation.cs keyword.operator.bitwise.shift.cs
+T 87 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 93 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 94 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 95 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 96 source.cs punctuation.parenthesis.close.cs
+T 97 source.cs punctuation.terminator.statement.cs
+L         // Output:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L         // 1 << 1 is 2; 1 << 225 is 2
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 37 source.cs comment.line.double-slash.cs
+L 
+L         int b = 0b_0100;
+T 8 source.cs
+T 11 source.cs keyword.type.int.cs
+T 12 source.cs
+T 13 source.cs entity.name.variable.local.cs
+T 14 source.cs
+T 15 source.cs keyword.operator.assignment.cs
+T 16 source.cs
+T 18 source.cs constant.numeric.other.preffix.binary.cs
+T 19 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 23 source.cs constant.numeric.binary.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"{b} >> {count1} is {b >> count1}; {b} >> {count2} is {b >> count2}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 29 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 30 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 31 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 35 source.cs string.quoted.double.cs
+T 36 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 42 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 43 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 47 source.cs string.quoted.double.cs
+T 48 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 49 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 50 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 52 source.cs string.quoted.double.cs meta.embedded.interpolation.cs keyword.operator.bitwise.shift.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 59 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 60 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 62 source.cs string.quoted.double.cs
+T 63 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 64 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 65 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 69 source.cs string.quoted.double.cs
+T 70 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 76 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 77 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 81 source.cs string.quoted.double.cs
+T 82 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 83 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 84 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 86 source.cs string.quoted.double.cs meta.embedded.interpolation.cs keyword.operator.bitwise.shift.cs
+T 87 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 93 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 94 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 95 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 96 source.cs punctuation.parenthesis.close.cs
+T 97 source.cs punctuation.terminator.statement.cs
+L         // Output:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L         // 4 >> 1 is 2; 4 >> 225 is 2
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 37 source.cs comment.line.double-slash.cs
+L 
+L         int count = -31;
+T 8 source.cs
+T 11 source.cs keyword.type.int.cs
+T 12 source.cs
+T 17 source.cs entity.name.variable.local.cs
+T 18 source.cs
+T 19 source.cs keyword.operator.assignment.cs
+T 20 source.cs
+T 21 source.cs keyword.operator.arithmetic.cs
+T 23 source.cs constant.numeric.decimal.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L         int c = 0b_0001;
+T 8 source.cs
+T 11 source.cs keyword.type.int.cs
+T 12 source.cs
+T 13 source.cs entity.name.variable.local.cs
+T 14 source.cs
+T 15 source.cs keyword.operator.assignment.cs
+T 16 source.cs
+T 18 source.cs constant.numeric.other.preffix.binary.cs
+T 19 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 23 source.cs constant.numeric.binary.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"{c} << {count} is {c << count}");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 29 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 30 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 31 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 35 source.cs string.quoted.double.cs
+T 36 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 41 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 42 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 46 source.cs string.quoted.double.cs
+T 47 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 48 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 49 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 51 source.cs string.quoted.double.cs meta.embedded.interpolation.cs keyword.operator.bitwise.shift.cs
+T 52 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 58 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 59 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 60 source.cs punctuation.parenthesis.close.cs
+T 61 source.cs punctuation.terminator.statement.cs
+L         // Output:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L         // 1 << -31 is 2
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 24 source.cs comment.line.double-slash.cs
+L         // </SnippetShiftCount>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 31 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     private static void CompoundAssignment()
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 18 source.cs storage.modifier.static.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 42 source.cs entity.name.function.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 44 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <SnippetCompoundAssignment>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 38 source.cs comment.line.double-slash.cs
+L         uint INITIAL_VALUE = 0b_1111_1000;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 26 source.cs entity.name.variable.local.cs
+T 27 source.cs
+T 28 source.cs keyword.operator.assignment.cs
+T 29 source.cs
+T 31 source.cs constant.numeric.other.preffix.binary.cs
+T 32 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 36 source.cs constant.numeric.binary.cs
+T 37 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 41 source.cs constant.numeric.binary.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L         
+T 8 source.cs
+L         uint a = INITIAL_VALUE;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L         a &= 0b_1001_1101; 
+T 8 source.cs
+T 9 source.cs variable.other.readwrite.cs
+T 10 source.cs
+T 12 source.cs keyword.operator.assignment.compound.bitwise.cs
+T 13 source.cs
+T 15 source.cs constant.numeric.other.preffix.binary.cs
+T 16 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 20 source.cs constant.numeric.binary.cs
+T 21 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 25 source.cs constant.numeric.binary.cs
+T 26 source.cs punctuation.terminator.statement.cs
+T 27 source.cs
+L         Display(a);  // output: 10011000
+T 8 source.cs
+T 15 source.cs entity.name.function.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs punctuation.parenthesis.close.cs
+T 19 source.cs punctuation.terminator.statement.cs
+T 21 source.cs
+T 23 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 40 source.cs comment.line.double-slash.cs
+L 
+L         a = INITIAL_VALUE;
+T 8 source.cs
+T 9 source.cs variable.other.readwrite.cs
+T 10 source.cs
+T 11 source.cs keyword.operator.assignment.cs
+T 12 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs punctuation.terminator.statement.cs
+L         a |= 0b_0011_0001; 
+T 8 source.cs
+T 9 source.cs variable.other.readwrite.cs
+T 10 source.cs
+T 12 source.cs keyword.operator.assignment.compound.bitwise.cs
+T 13 source.cs
+T 15 source.cs constant.numeric.other.preffix.binary.cs
+T 16 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 20 source.cs constant.numeric.binary.cs
+T 21 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 25 source.cs constant.numeric.binary.cs
+T 26 source.cs punctuation.terminator.statement.cs
+T 27 source.cs
+L         Display(a);  // output: 11111001
+T 8 source.cs
+T 15 source.cs entity.name.function.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs punctuation.parenthesis.close.cs
+T 19 source.cs punctuation.terminator.statement.cs
+T 21 source.cs
+T 23 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 40 source.cs comment.line.double-slash.cs
+L 
+L         a = INITIAL_VALUE;
+T 8 source.cs
+T 9 source.cs variable.other.readwrite.cs
+T 10 source.cs
+T 11 source.cs keyword.operator.assignment.cs
+T 12 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs punctuation.terminator.statement.cs
+L         a ^= 0b_1000_0000;
+T 8 source.cs
+T 9 source.cs variable.other.readwrite.cs
+T 10 source.cs
+T 12 source.cs keyword.operator.assignment.compound.bitwise.cs
+T 13 source.cs
+T 15 source.cs constant.numeric.other.preffix.binary.cs
+T 16 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 20 source.cs constant.numeric.binary.cs
+T 21 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 25 source.cs constant.numeric.binary.cs
+T 26 source.cs punctuation.terminator.statement.cs
+L         Display(a);  // output: 01111000
+T 8 source.cs
+T 15 source.cs entity.name.function.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs punctuation.parenthesis.close.cs
+T 19 source.cs punctuation.terminator.statement.cs
+T 21 source.cs
+T 23 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 40 source.cs comment.line.double-slash.cs
+L 
+L         a = INITIAL_VALUE;
+T 8 source.cs
+T 9 source.cs variable.other.readwrite.cs
+T 10 source.cs
+T 11 source.cs keyword.operator.assignment.cs
+T 12 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs punctuation.terminator.statement.cs
+L         a <<= 2;
+T 8 source.cs
+T 9 source.cs variable.other.readwrite.cs
+T 10 source.cs
+T 13 source.cs keyword.operator.assignment.compound.bitwise.cs
+T 14 source.cs
+T 15 source.cs constant.numeric.decimal.cs
+T 16 source.cs punctuation.terminator.statement.cs
+L         Display(a);  // output: 1111100000
+T 8 source.cs
+T 15 source.cs entity.name.function.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs punctuation.parenthesis.close.cs
+T 19 source.cs punctuation.terminator.statement.cs
+T 21 source.cs
+T 23 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 42 source.cs comment.line.double-slash.cs
+L 
+L         a = INITIAL_VALUE;
+T 8 source.cs
+T 9 source.cs variable.other.readwrite.cs
+T 10 source.cs
+T 11 source.cs keyword.operator.assignment.cs
+T 12 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs punctuation.terminator.statement.cs
+L         a >>= 4;
+T 8 source.cs
+T 9 source.cs variable.other.readwrite.cs
+T 10 source.cs
+T 13 source.cs keyword.operator.assignment.compound.bitwise.cs
+T 14 source.cs
+T 15 source.cs constant.numeric.decimal.cs
+T 16 source.cs punctuation.terminator.statement.cs
+L         Display(a);  // output: 00001111
+T 8 source.cs
+T 15 source.cs entity.name.function.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs punctuation.parenthesis.close.cs
+T 19 source.cs punctuation.terminator.statement.cs
+T 21 source.cs
+T 23 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 40 source.cs comment.line.double-slash.cs
+L 
+L         a = INITIAL_VALUE;
+T 8 source.cs
+T 9 source.cs variable.other.readwrite.cs
+T 10 source.cs
+T 11 source.cs keyword.operator.assignment.cs
+T 12 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs punctuation.terminator.statement.cs
+L         a >>>= 4;
+T 8 source.cs
+T 9 source.cs variable.other.readwrite.cs
+T 10 source.cs
+T 14 source.cs keyword.operator.assignment.compound.bitwise.cs
+T 15 source.cs
+T 16 source.cs constant.numeric.decimal.cs
+T 17 source.cs punctuation.terminator.statement.cs
+L         Display(a);  // output: 00001111
+T 8 source.cs
+T 15 source.cs entity.name.function.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs punctuation.parenthesis.close.cs
+T 19 source.cs punctuation.terminator.statement.cs
+T 21 source.cs
+T 23 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 40 source.cs comment.line.double-slash.cs
+L 
+L         void Display(uint x) => Console.WriteLine($"{Convert.ToString(x, toBase: 2).PadLeft(8, '0'), 8}");
+T 8 source.cs
+T 12 source.cs keyword.type.void.cs
+T 13 source.cs
+T 20 source.cs entity.name.function.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 25 source.cs keyword.type.uint.cs
+T 26 source.cs
+T 27 source.cs entity.name.variable.parameter.cs
+T 28 source.cs punctuation.parenthesis.close.cs
+T 29 source.cs
+T 31 source.cs keyword.operator.arrow.cs
+T 32 source.cs
+T 39 source.cs variable.other.object.cs
+T 40 source.cs punctuation.accessor.cs
+T 49 source.cs entity.name.function.cs
+T 50 source.cs punctuation.parenthesis.open.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 60 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 61 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 69 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 70 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 71 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 72 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 73 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 79 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 80 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 81 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 82 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 83 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 84 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 91 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 92 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 93 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 94 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 95 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 96 source.cs string.quoted.double.cs meta.embedded.interpolation.cs string.quoted.single.cs punctuation.definition.char.begin.cs
+T 97 source.cs string.quoted.double.cs meta.embedded.interpolation.cs string.quoted.single.cs
+T 98 source.cs string.quoted.double.cs meta.embedded.interpolation.cs string.quoted.single.cs punctuation.definition.char.end.cs
+T 99 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 101 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 102 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 103 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 104 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 105 source.cs punctuation.parenthesis.close.cs
+T 106 source.cs punctuation.terminator.statement.cs
+L         // </SnippetCompoundAssignment>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 39 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     private static void CompoundAssignmentWithCast()
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 18 source.cs storage.modifier.static.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 50 source.cs entity.name.function.cs
+T 51 source.cs punctuation.parenthesis.open.cs
+T 52 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <SnippetCompoundAssignmentWithCast>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 46 source.cs comment.line.double-slash.cs
+L         byte x = 0b_1111_0001;
+T 8 source.cs
+T 12 source.cs keyword.type.byte.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 29 source.cs constant.numeric.binary.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L 
+L         int b = x << 8;
+T 8 source.cs
+T 11 source.cs keyword.type.int.cs
+T 12 source.cs
+T 13 source.cs entity.name.variable.local.cs
+T 14 source.cs
+T 15 source.cs keyword.operator.assignment.cs
+T 16 source.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs
+T 20 source.cs keyword.operator.bitwise.shift.cs
+T 21 source.cs
+T 22 source.cs constant.numeric.decimal.cs
+T 23 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine($"{Convert.ToString(b, toBase: 2)}");  // output: 1111000100000000
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 29 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 36 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 37 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 45 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 46 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 47 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 48 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 49 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 58 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 59 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 60 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 61 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 62 source.cs punctuation.parenthesis.close.cs
+T 63 source.cs punctuation.terminator.statement.cs
+T 65 source.cs
+T 67 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 92 source.cs comment.line.double-slash.cs
+L 
+L         x <<= 8;
+T 8 source.cs
+T 9 source.cs variable.other.readwrite.cs
+T 10 source.cs
+T 13 source.cs keyword.operator.assignment.compound.bitwise.cs
+T 14 source.cs
+T 15 source.cs constant.numeric.decimal.cs
+T 16 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine(x);  // output: 0
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 27 source.cs variable.other.readwrite.cs
+T 28 source.cs punctuation.parenthesis.close.cs
+T 29 source.cs punctuation.terminator.statement.cs
+T 31 source.cs
+T 33 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 43 source.cs comment.line.double-slash.cs
+L         // </SnippetCompoundAssignmentWithCast>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 47 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     private static void Precedence()
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 18 source.cs storage.modifier.static.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 34 source.cs entity.name.function.cs
+T 35 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <SnippetPrecedence>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 30 source.cs comment.line.double-slash.cs
+L         uint a = 0b_1101;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs punctuation.terminator.statement.cs
+L         uint b = 0b_1001;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs punctuation.terminator.statement.cs
+L         uint c = 0b_1010;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 19 source.cs constant.numeric.other.preffix.binary.cs
+T 20 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 24 source.cs constant.numeric.binary.cs
+T 25 source.cs punctuation.terminator.statement.cs
+L 
+L         uint d1 = a | b & c;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 15 source.cs entity.name.variable.local.cs
+T 16 source.cs
+T 17 source.cs keyword.operator.assignment.cs
+T 18 source.cs
+T 19 source.cs variable.other.readwrite.cs
+T 20 source.cs
+T 21 source.cs keyword.operator.bitwise.cs
+T 22 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.bitwise.cs
+T 26 source.cs
+T 27 source.cs variable.other.readwrite.cs
+T 28 source.cs punctuation.terminator.statement.cs
+L         Display(d1);  // output: 1101
+T 8 source.cs
+T 15 source.cs entity.name.function.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs punctuation.parenthesis.close.cs
+T 20 source.cs punctuation.terminator.statement.cs
+T 22 source.cs
+T 24 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 37 source.cs comment.line.double-slash.cs
+L 
+L         uint d2 = (a | b) & c;
+T 8 source.cs
+T 12 source.cs keyword.type.uint.cs
+T 13 source.cs
+T 15 source.cs entity.name.variable.local.cs
+T 16 source.cs
+T 17 source.cs keyword.operator.assignment.cs
+T 18 source.cs
+T 19 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs variable.other.readwrite.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.bitwise.cs
+T 23 source.cs
+T 24 source.cs variable.other.readwrite.cs
+T 25 source.cs punctuation.parenthesis.close.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.bitwise.cs
+T 28 source.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L         Display(d2);  // output: 1000
+T 8 source.cs
+T 15 source.cs entity.name.function.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs punctuation.parenthesis.close.cs
+T 20 source.cs punctuation.terminator.statement.cs
+T 22 source.cs
+T 24 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 37 source.cs comment.line.double-slash.cs
+L 
+L         void Display(uint x) => Console.WriteLine($"{Convert.ToString(x, toBase: 2), 4}");
+T 8 source.cs
+T 12 source.cs keyword.type.void.cs
+T 13 source.cs
+T 20 source.cs entity.name.function.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 25 source.cs keyword.type.uint.cs
+T 26 source.cs
+T 27 source.cs entity.name.variable.parameter.cs
+T 28 source.cs punctuation.parenthesis.close.cs
+T 29 source.cs
+T 31 source.cs keyword.operator.arrow.cs
+T 32 source.cs
+T 39 source.cs variable.other.object.cs
+T 40 source.cs punctuation.accessor.cs
+T 49 source.cs entity.name.function.cs
+T 50 source.cs punctuation.parenthesis.open.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 60 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 61 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 69 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.function.cs
+T 70 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.open.cs
+T 71 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 72 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.comma.cs
+T 73 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 79 source.cs string.quoted.double.cs meta.embedded.interpolation.cs entity.name.variable.parameter.cs
+T 80 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.separator.colon.cs
+T 81 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 82 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 83 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.parenthesis.close.cs
+T 85 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 86 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 87 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 88 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 89 source.cs punctuation.parenthesis.close.cs
+T 90 source.cs punctuation.terminator.statement.cs
+L         // </SnippetPrecedence>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 31 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 

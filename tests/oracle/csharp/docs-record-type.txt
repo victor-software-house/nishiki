@@ -1,0 +1,3974 @@
+L using System.Text;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.accessor.cs
+T 17 source.cs entity.name.type.namespace.cs
+T 18 source.cs punctuation.terminator.statement.cs
+L using System.Text.Json.Serialization;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.accessor.cs
+T 17 source.cs entity.name.type.namespace.cs
+T 18 source.cs punctuation.accessor.cs
+T 22 source.cs entity.name.type.namespace.cs
+T 23 source.cs punctuation.accessor.cs
+T 36 source.cs entity.name.type.namespace.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L 
+L namespace builtin_types
+T 9 source.cs storage.type.namespace.cs
+T 10 source.cs
+T 23 source.cs entity.name.type.namespace.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     public static class RecordType
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 23 source.cs storage.type.class.cs
+T 24 source.cs
+T 34 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static void Examples()
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 26 source.cs keyword.type.void.cs
+T 27 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             instantiatepositional.Example.Main();
+T 12 source.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 41 source.cs variable.other.object.property.cs
+T 42 source.cs punctuation.accessor.cs
+T 46 source.cs entity.name.function.cs
+T 47 source.cs punctuation.parenthesis.open.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs punctuation.terminator.statement.cs
+L             positionalwithmanualproperty.Example.Main();
+T 12 source.cs
+T 40 source.cs variable.other.object.cs
+T 41 source.cs punctuation.accessor.cs
+T 48 source.cs variable.other.object.property.cs
+T 49 source.cs punctuation.accessor.cs
+T 53 source.cs entity.name.function.cs
+T 54 source.cs punctuation.parenthesis.open.cs
+T 55 source.cs punctuation.parenthesis.close.cs
+T 56 source.cs punctuation.terminator.statement.cs
+L             shallowimmutability.Example.Main();
+T 12 source.cs
+T 31 source.cs variable.other.object.cs
+T 32 source.cs punctuation.accessor.cs
+T 39 source.cs variable.other.object.property.cs
+T 40 source.cs punctuation.accessor.cs
+T 44 source.cs entity.name.function.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+T 47 source.cs punctuation.terminator.statement.cs
+L             equality.Example.Main();
+T 12 source.cs
+T 20 source.cs variable.other.object.cs
+T 21 source.cs punctuation.accessor.cs
+T 28 source.cs variable.other.object.property.cs
+T 29 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs punctuation.parenthesis.close.cs
+T 36 source.cs punctuation.terminator.statement.cs
+L             withexpressions.Example.Main();
+T 12 source.cs
+T 27 source.cs variable.other.object.cs
+T 28 source.cs punctuation.accessor.cs
+T 35 source.cs variable.other.object.property.cs
+T 36 source.cs punctuation.accessor.cs
+T 40 source.cs entity.name.function.cs
+T 41 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L             recordinheritancetostringdefault.Example.Main();
+T 12 source.cs
+T 44 source.cs variable.other.object.cs
+T 45 source.cs punctuation.accessor.cs
+T 52 source.cs variable.other.object.property.cs
+T 53 source.cs punctuation.accessor.cs
+T 57 source.cs entity.name.function.cs
+T 58 source.cs punctuation.parenthesis.open.cs
+T 59 source.cs punctuation.parenthesis.close.cs
+T 60 source.cs punctuation.terminator.statement.cs
+L             recordinheritancepositional.Example.Main();
+T 12 source.cs
+T 39 source.cs variable.other.object.cs
+T 40 source.cs punctuation.accessor.cs
+T 47 source.cs variable.other.object.property.cs
+T 48 source.cs punctuation.accessor.cs
+T 52 source.cs entity.name.function.cs
+T 53 source.cs punctuation.parenthesis.open.cs
+T 54 source.cs punctuation.parenthesis.close.cs
+T 55 source.cs punctuation.terminator.statement.cs
+L             recordinheritanceequality.Example.Main();
+T 12 source.cs
+T 37 source.cs variable.other.object.cs
+T 38 source.cs punctuation.accessor.cs
+T 45 source.cs variable.other.object.property.cs
+T 46 source.cs punctuation.accessor.cs
+T 50 source.cs entity.name.function.cs
+T 51 source.cs punctuation.parenthesis.open.cs
+T 52 source.cs punctuation.parenthesis.close.cs
+T 53 source.cs punctuation.terminator.statement.cs
+L             recordinheritancewithexpression.Example.Main();
+T 12 source.cs
+T 43 source.cs variable.other.object.cs
+T 44 source.cs punctuation.accessor.cs
+T 51 source.cs variable.other.object.property.cs
+T 52 source.cs punctuation.accessor.cs
+T 56 source.cs entity.name.function.cs
+T 57 source.cs punctuation.parenthesis.open.cs
+T 58 source.cs punctuation.parenthesis.close.cs
+T 59 source.cs punctuation.terminator.statement.cs
+L             recordinheritancetostring.Example.Main();
+T 12 source.cs
+T 37 source.cs variable.other.object.cs
+T 38 source.cs punctuation.accessor.cs
+T 45 source.cs variable.other.object.property.cs
+T 46 source.cs punctuation.accessor.cs
+T 50 source.cs entity.name.function.cs
+T 51 source.cs punctuation.parenthesis.open.cs
+T 52 source.cs punctuation.parenthesis.close.cs
+T 53 source.cs punctuation.terminator.statement.cs
+L             recordinheritanceprintmembers.Example.Main();
+T 12 source.cs
+T 41 source.cs variable.other.object.cs
+T 42 source.cs punctuation.accessor.cs
+T 49 source.cs variable.other.object.property.cs
+T 50 source.cs punctuation.accessor.cs
+T 54 source.cs entity.name.function.cs
+T 55 source.cs punctuation.parenthesis.open.cs
+T 56 source.cs punctuation.parenthesis.close.cs
+T 57 source.cs punctuation.terminator.statement.cs
+L             recordinheritancedeconstructor.Example.Main();
+T 12 source.cs
+T 42 source.cs variable.other.object.cs
+T 43 source.cs punctuation.accessor.cs
+T 50 source.cs variable.other.object.property.cs
+T 51 source.cs punctuation.accessor.cs
+T 55 source.cs entity.name.function.cs
+T 56 source.cs punctuation.parenthesis.open.cs
+T 57 source.cs punctuation.parenthesis.close.cs
+T 58 source.cs punctuation.terminator.statement.cs
+L 
+L             var p = new Point();
+T 12 source.cs
+T 15 source.cs storage.type.var.cs
+T 16 source.cs
+T 17 source.cs entity.name.variable.local.cs
+T 18 source.cs
+T 19 source.cs keyword.operator.assignment.cs
+T 20 source.cs
+T 23 source.cs keyword.operator.expression.new.cs
+T 24 source.cs
+T 29 source.cs entity.name.type.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs punctuation.parenthesis.close.cs
+T 32 source.cs punctuation.terminator.statement.cs
+L             (double x, double y, double z) = p;
+T 12 source.cs
+T 13 source.cs punctuation.parenthesis.open.cs
+T 19 source.cs keyword.type.double.cs
+T 20 source.cs
+T 21 source.cs entity.name.variable.tuple-element.cs
+T 22 source.cs punctuation.separator.comma.cs
+T 23 source.cs
+T 29 source.cs keyword.type.double.cs
+T 30 source.cs
+T 31 source.cs entity.name.variable.tuple-element.cs
+T 32 source.cs punctuation.separator.comma.cs
+T 33 source.cs
+T 39 source.cs keyword.type.double.cs
+T 40 source.cs
+T 41 source.cs entity.name.variable.tuple-element.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs
+T 44 source.cs keyword.operator.assignment.cs
+T 45 source.cs
+T 46 source.cs variable.other.readwrite.cs
+T 47 source.cs punctuation.terminator.statement.cs
+L 
+L             Console.WriteLine("=================================================");
+T 12 source.cs
+T 19 source.cs variable.other.object.cs
+T 20 source.cs punctuation.accessor.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 80 source.cs string.quoted.double.cs
+T 81 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 82 source.cs punctuation.parenthesis.close.cs
+T 83 source.cs punctuation.terminator.statement.cs
+L             ComputedWither.ExampleUsage.Example();
+T 12 source.cs
+T 26 source.cs variable.other.object.cs
+T 27 source.cs punctuation.accessor.cs
+T 39 source.cs variable.other.object.property.cs
+T 40 source.cs punctuation.accessor.cs
+T 47 source.cs entity.name.function.cs
+T 48 source.cs punctuation.parenthesis.open.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+T 50 source.cs punctuation.terminator.statement.cs
+L 
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L         // <PositionalRecord>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 29 source.cs comment.line.double-slash.cs
+L         public record Person(string FirstName, string LastName);
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.type.record.cs
+T 22 source.cs
+T 28 source.cs entity.name.type.class.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs keyword.type.string.cs
+T 36 source.cs
+T 45 source.cs entity.name.variable.parameter.cs
+T 46 source.cs punctuation.separator.comma.cs
+T 47 source.cs
+T 53 source.cs keyword.type.string.cs
+T 54 source.cs
+T 62 source.cs entity.name.variable.parameter.cs
+T 63 source.cs punctuation.parenthesis.close.cs
+T 64 source.cs punctuation.terminator.statement.cs
+L         // </PositionalRecord>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 30 source.cs comment.line.double-slash.cs
+L 
+L         // <PositionalRecordStruct>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 35 source.cs comment.line.double-slash.cs
+L         public readonly record struct Point(double X, double Y, double Z);
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 23 source.cs storage.modifier.readonly.cs
+T 24 source.cs
+T 30 source.cs storage.type.record.cs
+T 31 source.cs
+T 37 source.cs storage.type.struct.cs
+T 38 source.cs
+T 43 source.cs entity.name.type.struct.cs
+T 44 source.cs punctuation.parenthesis.open.cs
+T 50 source.cs keyword.type.double.cs
+T 51 source.cs
+T 52 source.cs entity.name.variable.parameter.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 60 source.cs keyword.type.double.cs
+T 61 source.cs
+T 62 source.cs entity.name.variable.parameter.cs
+T 63 source.cs punctuation.separator.comma.cs
+T 64 source.cs
+T 70 source.cs keyword.type.double.cs
+T 71 source.cs
+T 72 source.cs entity.name.variable.parameter.cs
+T 73 source.cs punctuation.parenthesis.close.cs
+T 74 source.cs punctuation.terminator.statement.cs
+L         // </PositionalRecordStruct>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 36 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     public static class ImmutableRecordType
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 23 source.cs storage.type.class.cs
+T 24 source.cs
+T 43 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <ImmutableRecord>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 28 source.cs comment.line.double-slash.cs
+L         public record Person
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.type.record.cs
+T 22 source.cs
+T 28 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             public required string FirstName { get; init; }
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.required.cs
+T 28 source.cs
+T 34 source.cs keyword.type.string.cs
+T 35 source.cs
+T 44 source.cs entity.name.variable.property.cs
+T 45 source.cs
+T 46 source.cs punctuation.curlybrace.open.cs
+T 47 source.cs
+T 50 source.cs storage.type.accessor.get.cs
+T 51 source.cs punctuation.terminator.statement.cs
+T 52 source.cs
+T 56 source.cs storage.type.accessor.init.cs
+T 57 source.cs punctuation.terminator.statement.cs
+T 58 source.cs
+T 59 source.cs punctuation.curlybrace.close.cs
+L             public required string LastName { get; init; }
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.required.cs
+T 28 source.cs
+T 34 source.cs keyword.type.string.cs
+T 35 source.cs
+T 43 source.cs entity.name.variable.property.cs
+T 44 source.cs
+T 45 source.cs punctuation.curlybrace.open.cs
+T 46 source.cs
+T 49 source.cs storage.type.accessor.get.cs
+T 50 source.cs punctuation.terminator.statement.cs
+T 51 source.cs
+T 55 source.cs storage.type.accessor.init.cs
+T 56 source.cs punctuation.terminator.statement.cs
+T 57 source.cs
+T 58 source.cs punctuation.curlybrace.close.cs
+L         };
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+T 10 source.cs punctuation.terminator.statement.cs
+L         // </ImmutableRecord>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 29 source.cs comment.line.double-slash.cs
+L 
+L         // <ImmutableRecordStruct>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 34 source.cs comment.line.double-slash.cs
+L         public record struct Point
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.type.record.cs
+T 22 source.cs
+T 28 source.cs storage.type.struct.cs
+T 29 source.cs
+T 34 source.cs entity.name.type.struct.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             public double X { get; init; }
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs keyword.type.double.cs
+T 26 source.cs
+T 27 source.cs entity.name.variable.property.cs
+T 28 source.cs
+T 29 source.cs punctuation.curlybrace.open.cs
+T 30 source.cs
+T 33 source.cs storage.type.accessor.get.cs
+T 34 source.cs punctuation.terminator.statement.cs
+T 35 source.cs
+T 39 source.cs storage.type.accessor.init.cs
+T 40 source.cs punctuation.terminator.statement.cs
+T 41 source.cs
+T 42 source.cs punctuation.curlybrace.close.cs
+L             public double Y { get; init; }
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs keyword.type.double.cs
+T 26 source.cs
+T 27 source.cs entity.name.variable.property.cs
+T 28 source.cs
+T 29 source.cs punctuation.curlybrace.open.cs
+T 30 source.cs
+T 33 source.cs storage.type.accessor.get.cs
+T 34 source.cs punctuation.terminator.statement.cs
+T 35 source.cs
+T 39 source.cs storage.type.accessor.init.cs
+T 40 source.cs punctuation.terminator.statement.cs
+T 41 source.cs
+T 42 source.cs punctuation.curlybrace.close.cs
+L             public double Z { get; init; }
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs keyword.type.double.cs
+T 26 source.cs
+T 27 source.cs entity.name.variable.property.cs
+T 28 source.cs
+T 29 source.cs punctuation.curlybrace.open.cs
+T 30 source.cs
+T 33 source.cs storage.type.accessor.get.cs
+T 34 source.cs punctuation.terminator.statement.cs
+T 35 source.cs
+T 39 source.cs storage.type.accessor.init.cs
+T 40 source.cs punctuation.terminator.statement.cs
+T 41 source.cs
+T 42 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L         // </ImmutableRecordStruct>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 35 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     public static class MutableRecordType
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 23 source.cs storage.type.class.cs
+T 24 source.cs
+T 41 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <MutableRecord>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 26 source.cs comment.line.double-slash.cs
+L         public record Person
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.type.record.cs
+T 22 source.cs
+T 28 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             public required string FirstName { get; set; }
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.required.cs
+T 28 source.cs
+T 34 source.cs keyword.type.string.cs
+T 35 source.cs
+T 44 source.cs entity.name.variable.property.cs
+T 45 source.cs
+T 46 source.cs punctuation.curlybrace.open.cs
+T 47 source.cs
+T 50 source.cs storage.type.accessor.get.cs
+T 51 source.cs punctuation.terminator.statement.cs
+T 52 source.cs
+T 55 source.cs storage.type.accessor.set.cs
+T 56 source.cs punctuation.terminator.statement.cs
+T 57 source.cs
+T 58 source.cs punctuation.curlybrace.close.cs
+L             public required string LastName { get; set; }
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.required.cs
+T 28 source.cs
+T 34 source.cs keyword.type.string.cs
+T 35 source.cs
+T 43 source.cs entity.name.variable.property.cs
+T 44 source.cs
+T 45 source.cs punctuation.curlybrace.open.cs
+T 46 source.cs
+T 49 source.cs storage.type.accessor.get.cs
+T 50 source.cs punctuation.terminator.statement.cs
+T 51 source.cs
+T 54 source.cs storage.type.accessor.set.cs
+T 55 source.cs punctuation.terminator.statement.cs
+T 56 source.cs
+T 57 source.cs punctuation.curlybrace.close.cs
+L         };
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+T 10 source.cs punctuation.terminator.statement.cs
+L         // </MutableRecord>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 27 source.cs comment.line.double-slash.cs
+L 
+L         // <MutablePositionalRecordStruct>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 42 source.cs comment.line.double-slash.cs
+L         public record struct DataMeasurement(DateTime TakenAt, double Measurement);
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.type.record.cs
+T 22 source.cs
+T 28 source.cs storage.type.struct.cs
+T 29 source.cs
+T 44 source.cs entity.name.type.struct.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 53 source.cs entity.name.type.cs
+T 54 source.cs
+T 61 source.cs entity.name.variable.parameter.cs
+T 62 source.cs punctuation.separator.comma.cs
+T 63 source.cs
+T 69 source.cs keyword.type.double.cs
+T 70 source.cs
+T 81 source.cs entity.name.variable.parameter.cs
+T 82 source.cs punctuation.parenthesis.close.cs
+T 83 source.cs punctuation.terminator.statement.cs
+L         // </MutablePositionalRecordStruct>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 43 source.cs comment.line.double-slash.cs
+L 
+L 
+L         // <MutableRecordStruct>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 32 source.cs comment.line.double-slash.cs
+L         public record struct Point
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.type.record.cs
+T 22 source.cs
+T 28 source.cs storage.type.struct.cs
+T 29 source.cs
+T 34 source.cs entity.name.type.struct.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             public double X { get; set; }
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs keyword.type.double.cs
+T 26 source.cs
+T 27 source.cs entity.name.variable.property.cs
+T 28 source.cs
+T 29 source.cs punctuation.curlybrace.open.cs
+T 30 source.cs
+T 33 source.cs storage.type.accessor.get.cs
+T 34 source.cs punctuation.terminator.statement.cs
+T 35 source.cs
+T 38 source.cs storage.type.accessor.set.cs
+T 39 source.cs punctuation.terminator.statement.cs
+T 40 source.cs
+T 41 source.cs punctuation.curlybrace.close.cs
+L             public double Y { get; set; }
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs keyword.type.double.cs
+T 26 source.cs
+T 27 source.cs entity.name.variable.property.cs
+T 28 source.cs
+T 29 source.cs punctuation.curlybrace.open.cs
+T 30 source.cs
+T 33 source.cs storage.type.accessor.get.cs
+T 34 source.cs punctuation.terminator.statement.cs
+T 35 source.cs
+T 38 source.cs storage.type.accessor.set.cs
+T 39 source.cs punctuation.terminator.statement.cs
+T 40 source.cs
+T 41 source.cs punctuation.curlybrace.close.cs
+L             public double Z { get; set; }
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs keyword.type.double.cs
+T 26 source.cs
+T 27 source.cs entity.name.variable.property.cs
+T 28 source.cs
+T 29 source.cs punctuation.curlybrace.open.cs
+T 30 source.cs
+T 33 source.cs storage.type.accessor.get.cs
+T 34 source.cs punctuation.terminator.statement.cs
+T 35 source.cs
+T 38 source.cs storage.type.accessor.set.cs
+T 39 source.cs punctuation.terminator.statement.cs
+T 40 source.cs
+T 41 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L         // </MutableRecordStruct>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 33 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     public static class MixedSyntax
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 23 source.cs storage.type.class.cs
+T 24 source.cs
+T 35 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <MixedSyntax>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 24 source.cs comment.line.double-slash.cs
+L         public record Person(string FirstName, string LastName)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.type.record.cs
+T 22 source.cs
+T 28 source.cs entity.name.type.class.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs keyword.type.string.cs
+T 36 source.cs
+T 45 source.cs entity.name.variable.parameter.cs
+T 46 source.cs punctuation.separator.comma.cs
+T 47 source.cs
+T 53 source.cs keyword.type.string.cs
+T 54 source.cs
+T 62 source.cs entity.name.variable.parameter.cs
+T 63 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             public string[] PhoneNumbers { get; init; } = [];
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs keyword.type.string.cs
+T 26 source.cs punctuation.squarebracket.open.cs
+T 27 source.cs punctuation.squarebracket.close.cs
+T 28 source.cs
+T 40 source.cs entity.name.variable.property.cs
+T 41 source.cs
+T 42 source.cs punctuation.curlybrace.open.cs
+T 43 source.cs
+T 46 source.cs storage.type.accessor.get.cs
+T 47 source.cs punctuation.terminator.statement.cs
+T 48 source.cs
+T 52 source.cs storage.type.accessor.init.cs
+T 53 source.cs punctuation.terminator.statement.cs
+T 54 source.cs
+T 55 source.cs punctuation.curlybrace.close.cs
+T 56 source.cs
+T 57 source.cs keyword.operator.assignment.cs
+T 58 source.cs
+T 59 source.cs punctuation.squarebracket.open.cs
+T 60 source.cs punctuation.squarebracket.close.cs
+T 61 source.cs punctuation.terminator.statement.cs
+L         };
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+T 10 source.cs punctuation.terminator.statement.cs
+L         // </MixedSyntax>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 25 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     public static class PositionalAttributes
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 23 source.cs storage.type.class.cs
+T 24 source.cs
+T 44 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <PositionalAttributes>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 33 source.cs comment.line.double-slash.cs
+L         /// <summary>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L         /// Person record type
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 30 source.cs comment.line.double-slash.cs
+L         /// </summary>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L         /// <param name="FirstName">First Name</param>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 54 source.cs comment.line.double-slash.cs
+L         /// <param name="LastName">Last Name</param>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 52 source.cs comment.line.double-slash.cs
+L         /// <remarks>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L         /// The person type is a positional record containing the
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 65 source.cs comment.line.double-slash.cs
+L         /// properties for the first and last name. Those properties
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 68 source.cs comment.line.double-slash.cs
+L         /// map to the JSON elements "firstName" and "lastName" when
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 68 source.cs comment.line.double-slash.cs
+L         /// serialized or deserialized.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 39 source.cs comment.line.double-slash.cs
+L         /// </remarks>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L         public record Person([property: JsonPropertyName("firstName")] string FirstName,
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.type.record.cs
+T 22 source.cs
+T 28 source.cs entity.name.type.class.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs punctuation.squarebracket.open.cs
+T 38 source.cs keyword.other.attribute-specifier.cs
+T 39 source.cs punctuation.separator.colon.cs
+T 40 source.cs
+T 56 source.cs entity.name.type.cs
+T 57 source.cs punctuation.parenthesis.open.cs
+T 58 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 67 source.cs string.quoted.double.cs
+T 68 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 69 source.cs punctuation.parenthesis.close.cs
+T 70 source.cs punctuation.squarebracket.close.cs
+T 71 source.cs
+T 77 source.cs keyword.type.string.cs
+T 78 source.cs
+T 87 source.cs entity.name.variable.parameter.cs
+T 88 source.cs punctuation.separator.comma.cs
+L             [property: JsonPropertyName("lastName")] string LastName);
+T 12 source.cs
+T 13 source.cs punctuation.squarebracket.open.cs
+T 21 source.cs keyword.other.attribute-specifier.cs
+T 22 source.cs punctuation.separator.colon.cs
+T 23 source.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 49 source.cs string.quoted.double.cs
+T 50 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.squarebracket.close.cs
+T 53 source.cs
+T 59 source.cs keyword.type.string.cs
+T 60 source.cs
+T 68 source.cs entity.name.variable.parameter.cs
+T 69 source.cs punctuation.parenthesis.close.cs
+T 70 source.cs punctuation.terminator.statement.cs
+L         // </PositionalAttributes>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 34 source.cs comment.line.double-slash.cs
+L 
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     namespace instantiatepositional
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 35 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static class Example
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 27 source.cs storage.type.class.cs
+T 28 source.cs
+T 35 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             // <InstantiatePositional>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 38 source.cs comment.line.double-slash.cs
+L             public record Person(string FirstName, string LastName);
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 32 source.cs entity.name.type.class.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs keyword.type.string.cs
+T 40 source.cs
+T 49 source.cs entity.name.variable.parameter.cs
+T 50 source.cs punctuation.separator.comma.cs
+T 51 source.cs
+T 57 source.cs keyword.type.string.cs
+T 58 source.cs
+T 66 source.cs entity.name.variable.parameter.cs
+T 67 source.cs punctuation.parenthesis.close.cs
+T 68 source.cs punctuation.terminator.statement.cs
+L 
+L             public static void Main()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.modifier.static.cs
+T 26 source.cs
+T 30 source.cs keyword.type.void.cs
+T 31 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Person person = new("Nancy", "Davolio");
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs
+T 31 source.cs keyword.operator.assignment.cs
+T 32 source.cs
+T 35 source.cs keyword.operator.expression.new.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 42 source.cs string.quoted.double.cs
+T 43 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 44 source.cs punctuation.separator.comma.cs
+T 45 source.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 53 source.cs string.quoted.double.cs
+T 54 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 55 source.cs punctuation.parenthesis.close.cs
+T 56 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(person);
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs variable.other.readwrite.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L                 // output: Person { FirstName = Nancy, LastName = Davolio }
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 75 source.cs comment.line.double-slash.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             // </InstantiatePositional>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 39 source.cs comment.line.double-slash.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     namespace positionalwithmanualproperty
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 42 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static class Example
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 27 source.cs storage.type.class.cs
+T 28 source.cs
+T 35 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             // <PositionalWithManualProperty>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 45 source.cs comment.line.double-slash.cs
+L             public record Person(string FirstName, string LastName, string Id)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 32 source.cs entity.name.type.class.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs keyword.type.string.cs
+T 40 source.cs
+T 49 source.cs entity.name.variable.parameter.cs
+T 50 source.cs punctuation.separator.comma.cs
+T 51 source.cs
+T 57 source.cs keyword.type.string.cs
+T 58 source.cs
+T 66 source.cs entity.name.variable.parameter.cs
+T 67 source.cs punctuation.separator.comma.cs
+T 68 source.cs
+T 74 source.cs keyword.type.string.cs
+T 75 source.cs
+T 77 source.cs entity.name.variable.parameter.cs
+T 78 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 internal string Id { get; init; } = Id;
+T 16 source.cs
+T 24 source.cs storage.modifier.internal.cs
+T 25 source.cs
+T 31 source.cs keyword.type.string.cs
+T 32 source.cs
+T 34 source.cs entity.name.variable.property.cs
+T 35 source.cs
+T 36 source.cs punctuation.curlybrace.open.cs
+T 37 source.cs
+T 40 source.cs storage.type.accessor.get.cs
+T 41 source.cs punctuation.terminator.statement.cs
+T 42 source.cs
+T 46 source.cs storage.type.accessor.init.cs
+T 47 source.cs punctuation.terminator.statement.cs
+T 48 source.cs
+T 49 source.cs punctuation.curlybrace.close.cs
+T 50 source.cs
+T 51 source.cs keyword.operator.assignment.cs
+T 52 source.cs
+T 54 source.cs variable.other.readwrite.cs
+T 55 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             public static void Main()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.modifier.static.cs
+T 26 source.cs
+T 30 source.cs keyword.type.void.cs
+T 31 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Person person = new("Nancy", "Davolio", "12345");
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs
+T 31 source.cs keyword.operator.assignment.cs
+T 32 source.cs
+T 35 source.cs keyword.operator.expression.new.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 42 source.cs string.quoted.double.cs
+T 43 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 44 source.cs punctuation.separator.comma.cs
+T 45 source.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 53 source.cs string.quoted.double.cs
+T 54 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 55 source.cs punctuation.separator.comma.cs
+T 56 source.cs
+T 57 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 62 source.cs string.quoted.double.cs
+T 63 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 64 source.cs punctuation.parenthesis.close.cs
+T 65 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(person.FirstName); //output: Nancy
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs variable.other.object.cs
+T 41 source.cs punctuation.accessor.cs
+T 50 source.cs variable.other.object.property.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.terminator.statement.cs
+T 53 source.cs
+T 55 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 68 source.cs comment.line.double-slash.cs
+L 
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             // </PositionalWithManualProperty>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 46 source.cs comment.line.double-slash.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     namespace positionalwithmanualfield
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 39 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static class Example
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 27 source.cs storage.type.class.cs
+T 28 source.cs
+T 35 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             // <PositionalWithManualField>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 42 source.cs comment.line.double-slash.cs
+L             public record Person(string FirstName, string LastName, string Id)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 32 source.cs entity.name.type.class.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs keyword.type.string.cs
+T 40 source.cs
+T 49 source.cs entity.name.variable.parameter.cs
+T 50 source.cs punctuation.separator.comma.cs
+T 51 source.cs
+T 57 source.cs keyword.type.string.cs
+T 58 source.cs
+T 66 source.cs entity.name.variable.parameter.cs
+T 67 source.cs punctuation.separator.comma.cs
+T 68 source.cs
+T 74 source.cs keyword.type.string.cs
+T 75 source.cs
+T 77 source.cs entity.name.variable.parameter.cs
+T 78 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 internal readonly string Id = Id; // this.Id set to parameter Id
+T 16 source.cs
+T 24 source.cs storage.modifier.internal.cs
+T 25 source.cs
+T 33 source.cs storage.modifier.readonly.cs
+T 34 source.cs
+T 40 source.cs keyword.type.string.cs
+T 41 source.cs
+T 43 source.cs entity.name.variable.field.cs
+T 44 source.cs
+T 45 source.cs keyword.operator.assignment.cs
+T 46 source.cs
+T 48 source.cs variable.other.readwrite.cs
+T 49 source.cs punctuation.terminator.statement.cs
+T 50 source.cs
+T 52 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 80 source.cs comment.line.double-slash.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             public static void Main()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.modifier.static.cs
+T 26 source.cs
+T 30 source.cs keyword.type.void.cs
+T 31 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Person person = new("Nancy", "Davolio", "12345");
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs
+T 31 source.cs keyword.operator.assignment.cs
+T 32 source.cs
+T 35 source.cs keyword.operator.expression.new.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 42 source.cs string.quoted.double.cs
+T 43 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 44 source.cs punctuation.separator.comma.cs
+T 45 source.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 53 source.cs string.quoted.double.cs
+T 54 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 55 source.cs punctuation.separator.comma.cs
+T 56 source.cs
+T 57 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 62 source.cs string.quoted.double.cs
+T 63 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 64 source.cs punctuation.parenthesis.close.cs
+T 65 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(person.FirstName); //output: Nancy
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs variable.other.object.cs
+T 41 source.cs punctuation.accessor.cs
+T 50 source.cs variable.other.object.property.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.terminator.statement.cs
+T 53 source.cs
+T 55 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 68 source.cs comment.line.double-slash.cs
+L 
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             // </PositionalWithManualField>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 43 source.cs comment.line.double-slash.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     namespace shallowimmutability
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 33 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static class Example
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 27 source.cs storage.type.class.cs
+T 28 source.cs
+T 35 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             // <ShallowImmutability>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 36 source.cs comment.line.double-slash.cs
+L             public record Person(string FirstName, string LastName, string[] PhoneNumbers);
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 32 source.cs entity.name.type.class.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs keyword.type.string.cs
+T 40 source.cs
+T 49 source.cs entity.name.variable.parameter.cs
+T 50 source.cs punctuation.separator.comma.cs
+T 51 source.cs
+T 57 source.cs keyword.type.string.cs
+T 58 source.cs
+T 66 source.cs entity.name.variable.parameter.cs
+T 67 source.cs punctuation.separator.comma.cs
+T 68 source.cs
+T 74 source.cs keyword.type.string.cs
+T 75 source.cs punctuation.squarebracket.open.cs
+T 76 source.cs punctuation.squarebracket.close.cs
+T 77 source.cs
+T 89 source.cs entity.name.variable.parameter.cs
+T 90 source.cs punctuation.parenthesis.close.cs
+T 91 source.cs punctuation.terminator.statement.cs
+L 
+L             public static void Main()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.modifier.static.cs
+T 26 source.cs
+T 30 source.cs keyword.type.void.cs
+T 31 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Person person = new("Nancy", "Davolio", new string[1] { "555-1234" });
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs
+T 31 source.cs keyword.operator.assignment.cs
+T 32 source.cs
+T 35 source.cs keyword.operator.expression.new.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 42 source.cs string.quoted.double.cs
+T 43 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 44 source.cs punctuation.separator.comma.cs
+T 45 source.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 53 source.cs string.quoted.double.cs
+T 54 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 55 source.cs punctuation.separator.comma.cs
+T 56 source.cs
+T 59 source.cs keyword.operator.expression.new.cs
+T 60 source.cs
+T 66 source.cs keyword.type.string.cs
+T 67 source.cs punctuation.squarebracket.open.cs
+T 68 source.cs constant.numeric.decimal.cs
+T 69 source.cs punctuation.squarebracket.close.cs
+T 70 source.cs
+T 71 source.cs punctuation.curlybrace.open.cs
+T 72 source.cs
+T 73 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 81 source.cs string.quoted.double.cs
+T 82 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 83 source.cs
+T 84 source.cs punctuation.curlybrace.close.cs
+T 85 source.cs punctuation.parenthesis.close.cs
+T 86 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(person.PhoneNumbers[0]); // output: 555-1234
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs variable.other.object.cs
+T 41 source.cs punctuation.accessor.cs
+T 53 source.cs variable.other.object.property.cs
+T 54 source.cs punctuation.squarebracket.open.cs
+T 55 source.cs constant.numeric.decimal.cs
+T 56 source.cs punctuation.squarebracket.close.cs
+T 57 source.cs punctuation.parenthesis.close.cs
+T 58 source.cs punctuation.terminator.statement.cs
+T 59 source.cs
+T 61 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 78 source.cs comment.line.double-slash.cs
+L 
+L                 person.PhoneNumbers[0] = "555-6789";
+T 16 source.cs
+T 22 source.cs variable.other.object.cs
+T 23 source.cs punctuation.accessor.cs
+T 35 source.cs variable.other.object.property.cs
+T 36 source.cs punctuation.squarebracket.open.cs
+T 37 source.cs constant.numeric.decimal.cs
+T 38 source.cs punctuation.squarebracket.close.cs
+T 39 source.cs
+T 40 source.cs keyword.operator.assignment.cs
+T 41 source.cs
+T 42 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 50 source.cs string.quoted.double.cs
+T 51 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 52 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(person.PhoneNumbers[0]); // output: 555-6789
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs variable.other.object.cs
+T 41 source.cs punctuation.accessor.cs
+T 53 source.cs variable.other.object.property.cs
+T 54 source.cs punctuation.squarebracket.open.cs
+T 55 source.cs constant.numeric.decimal.cs
+T 56 source.cs punctuation.squarebracket.close.cs
+T 57 source.cs punctuation.parenthesis.close.cs
+T 58 source.cs punctuation.terminator.statement.cs
+T 59 source.cs
+T 61 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 78 source.cs comment.line.double-slash.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             // </ShallowImmutability>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 37 source.cs comment.line.double-slash.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L     namespace equality
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 22 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static class Example
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 27 source.cs storage.type.class.cs
+T 28 source.cs
+T 35 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             // <Equality>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 25 source.cs comment.line.double-slash.cs
+L             public record Person(string FirstName, string LastName, string[] PhoneNumbers);
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 32 source.cs entity.name.type.class.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs keyword.type.string.cs
+T 40 source.cs
+T 49 source.cs entity.name.variable.parameter.cs
+T 50 source.cs punctuation.separator.comma.cs
+T 51 source.cs
+T 57 source.cs keyword.type.string.cs
+T 58 source.cs
+T 66 source.cs entity.name.variable.parameter.cs
+T 67 source.cs punctuation.separator.comma.cs
+T 68 source.cs
+T 74 source.cs keyword.type.string.cs
+T 75 source.cs punctuation.squarebracket.open.cs
+T 76 source.cs punctuation.squarebracket.close.cs
+T 77 source.cs
+T 89 source.cs entity.name.variable.parameter.cs
+T 90 source.cs punctuation.parenthesis.close.cs
+T 91 source.cs punctuation.terminator.statement.cs
+L 
+L             public static void Main()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.modifier.static.cs
+T 26 source.cs
+T 30 source.cs keyword.type.void.cs
+T 31 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 var phoneNumbers = new string[2];
+T 16 source.cs
+T 19 source.cs storage.type.var.cs
+T 20 source.cs
+T 32 source.cs entity.name.variable.local.cs
+T 33 source.cs
+T 34 source.cs keyword.operator.assignment.cs
+T 35 source.cs
+T 38 source.cs keyword.operator.expression.new.cs
+T 39 source.cs
+T 45 source.cs keyword.type.string.cs
+T 46 source.cs punctuation.squarebracket.open.cs
+T 47 source.cs constant.numeric.decimal.cs
+T 48 source.cs punctuation.squarebracket.close.cs
+T 49 source.cs punctuation.terminator.statement.cs
+L                 Person person1 = new("Nancy", "Davolio", phoneNumbers);
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 36 source.cs keyword.operator.expression.new.cs
+T 37 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 43 source.cs string.quoted.double.cs
+T 44 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 45 source.cs punctuation.separator.comma.cs
+T 46 source.cs
+T 47 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 54 source.cs string.quoted.double.cs
+T 55 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 56 source.cs punctuation.separator.comma.cs
+T 57 source.cs
+T 69 source.cs variable.other.readwrite.cs
+T 70 source.cs punctuation.parenthesis.close.cs
+T 71 source.cs punctuation.terminator.statement.cs
+L                 Person person2 = new("Nancy", "Davolio", phoneNumbers);
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 36 source.cs keyword.operator.expression.new.cs
+T 37 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 43 source.cs string.quoted.double.cs
+T 44 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 45 source.cs punctuation.separator.comma.cs
+T 46 source.cs
+T 47 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 54 source.cs string.quoted.double.cs
+T 55 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 56 source.cs punctuation.separator.comma.cs
+T 57 source.cs
+T 69 source.cs variable.other.readwrite.cs
+T 70 source.cs punctuation.parenthesis.close.cs
+T 71 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(person1 == person2); // output: True
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs
+T 44 source.cs keyword.operator.comparison.cs
+T 45 source.cs
+T 52 source.cs variable.other.readwrite.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs punctuation.terminator.statement.cs
+T 55 source.cs
+T 57 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 70 source.cs comment.line.double-slash.cs
+L 
+L                 person1.PhoneNumbers[0] = "555-1234";
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 36 source.cs variable.other.object.property.cs
+T 37 source.cs punctuation.squarebracket.open.cs
+T 38 source.cs constant.numeric.decimal.cs
+T 39 source.cs punctuation.squarebracket.close.cs
+T 40 source.cs
+T 41 source.cs keyword.operator.assignment.cs
+T 42 source.cs
+T 43 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 53 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(person1 == person2); // output: True
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs
+T 44 source.cs keyword.operator.comparison.cs
+T 45 source.cs
+T 52 source.cs variable.other.readwrite.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs punctuation.terminator.statement.cs
+T 55 source.cs
+T 57 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 70 source.cs comment.line.double-slash.cs
+L 
+L                 Console.WriteLine(ReferenceEquals(person1, person2)); // output: False
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 49 source.cs entity.name.function.cs
+T 50 source.cs punctuation.parenthesis.open.cs
+T 57 source.cs variable.other.readwrite.cs
+T 58 source.cs punctuation.separator.comma.cs
+T 59 source.cs
+T 66 source.cs variable.other.readwrite.cs
+T 67 source.cs punctuation.parenthesis.close.cs
+T 68 source.cs punctuation.parenthesis.close.cs
+T 69 source.cs punctuation.terminator.statement.cs
+T 70 source.cs
+T 72 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 86 source.cs comment.line.double-slash.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             // </Equality>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 26 source.cs comment.line.double-slash.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     namespace withexpressions
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 29 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static class Example
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 27 source.cs storage.type.class.cs
+T 28 source.cs
+T 35 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             // <WithExpressions>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 32 source.cs comment.line.double-slash.cs
+L             public record Person(string FirstName, string LastName)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 32 source.cs entity.name.type.class.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs keyword.type.string.cs
+T 40 source.cs
+T 49 source.cs entity.name.variable.parameter.cs
+T 50 source.cs punctuation.separator.comma.cs
+T 51 source.cs
+T 57 source.cs keyword.type.string.cs
+T 58 source.cs
+T 66 source.cs entity.name.variable.parameter.cs
+T 67 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 public string[] PhoneNumbers { get; init; }
+T 16 source.cs
+T 22 source.cs storage.modifier.public.cs
+T 23 source.cs
+T 29 source.cs keyword.type.string.cs
+T 30 source.cs punctuation.squarebracket.open.cs
+T 31 source.cs punctuation.squarebracket.close.cs
+T 32 source.cs
+T 44 source.cs entity.name.variable.property.cs
+T 45 source.cs
+T 46 source.cs punctuation.curlybrace.open.cs
+T 47 source.cs
+T 50 source.cs storage.type.accessor.get.cs
+T 51 source.cs punctuation.terminator.statement.cs
+T 52 source.cs
+T 56 source.cs storage.type.accessor.init.cs
+T 57 source.cs punctuation.terminator.statement.cs
+T 58 source.cs
+T 59 source.cs punctuation.curlybrace.close.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             public static void Main()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.modifier.static.cs
+T 26 source.cs
+T 30 source.cs keyword.type.void.cs
+T 31 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Person person1 = new("Nancy", "Davolio") { PhoneNumbers = new string[1] };
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 36 source.cs keyword.operator.expression.new.cs
+T 37 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 43 source.cs string.quoted.double.cs
+T 44 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 45 source.cs punctuation.separator.comma.cs
+T 46 source.cs
+T 47 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 54 source.cs string.quoted.double.cs
+T 55 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 56 source.cs punctuation.parenthesis.close.cs
+T 57 source.cs
+T 58 source.cs punctuation.curlybrace.open.cs
+T 59 source.cs
+T 71 source.cs variable.other.readwrite.cs
+T 72 source.cs
+T 73 source.cs keyword.operator.assignment.cs
+T 74 source.cs
+T 77 source.cs keyword.operator.expression.new.cs
+T 78 source.cs
+T 84 source.cs keyword.type.string.cs
+T 85 source.cs punctuation.squarebracket.open.cs
+T 86 source.cs constant.numeric.decimal.cs
+T 87 source.cs punctuation.squarebracket.close.cs
+T 88 source.cs
+T 89 source.cs punctuation.curlybrace.close.cs
+T 90 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(person1);
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L                 // output: Person { FirstName = Nancy, LastName = Davolio, PhoneNumbers = System.String[] }
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 107 source.cs comment.line.double-slash.cs
+L 
+L                 Person person2 = person1 with { FirstName = "John" };
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 40 source.cs variable.other.readwrite.cs
+T 41 source.cs
+T 45 source.cs keyword.operator.expression.with.cs
+T 46 source.cs
+T 47 source.cs punctuation.curlybrace.open.cs
+T 48 source.cs
+T 57 source.cs variable.other.readwrite.cs
+T 58 source.cs
+T 59 source.cs keyword.operator.assignment.cs
+T 60 source.cs
+T 61 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 65 source.cs string.quoted.double.cs
+T 66 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 67 source.cs
+T 68 source.cs punctuation.curlybrace.close.cs
+T 69 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(person2);
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L                 // output: Person { FirstName = John, LastName = Davolio, PhoneNumbers = System.String[] }
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 106 source.cs comment.line.double-slash.cs
+L                 Console.WriteLine(person1 == person2); // output: False
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs
+T 44 source.cs keyword.operator.comparison.cs
+T 45 source.cs
+T 52 source.cs variable.other.readwrite.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs punctuation.terminator.statement.cs
+T 55 source.cs
+T 57 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 71 source.cs comment.line.double-slash.cs
+L 
+L                 person2 = person1 with { PhoneNumbers = new string[1] };
+T 16 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.assignment.cs
+T 26 source.cs
+T 33 source.cs variable.other.readwrite.cs
+T 34 source.cs
+T 38 source.cs keyword.operator.expression.with.cs
+T 39 source.cs
+T 40 source.cs punctuation.curlybrace.open.cs
+T 41 source.cs
+T 53 source.cs variable.other.readwrite.cs
+T 54 source.cs
+T 55 source.cs keyword.operator.assignment.cs
+T 56 source.cs
+T 59 source.cs keyword.operator.expression.new.cs
+T 60 source.cs
+T 66 source.cs keyword.type.string.cs
+T 67 source.cs punctuation.squarebracket.open.cs
+T 68 source.cs constant.numeric.decimal.cs
+T 69 source.cs punctuation.squarebracket.close.cs
+T 70 source.cs
+T 71 source.cs punctuation.curlybrace.close.cs
+T 72 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(person2);
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L                 // output: Person { FirstName = Nancy, LastName = Davolio, PhoneNumbers = System.String[] }
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 107 source.cs comment.line.double-slash.cs
+L                 Console.WriteLine(person1 == person2); // output: False
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs
+T 44 source.cs keyword.operator.comparison.cs
+T 45 source.cs
+T 52 source.cs variable.other.readwrite.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs punctuation.terminator.statement.cs
+T 55 source.cs
+T 57 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 71 source.cs comment.line.double-slash.cs
+L 
+L                 person2 = person1 with { };
+T 16 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.assignment.cs
+T 26 source.cs
+T 33 source.cs variable.other.readwrite.cs
+T 34 source.cs
+T 38 source.cs keyword.operator.expression.with.cs
+T 39 source.cs
+T 40 source.cs punctuation.curlybrace.open.cs
+T 41 source.cs
+T 42 source.cs punctuation.curlybrace.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(person1 == person2); // output: True
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs
+T 44 source.cs keyword.operator.comparison.cs
+T 45 source.cs
+T 52 source.cs variable.other.readwrite.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs punctuation.terminator.statement.cs
+T 55 source.cs
+T 57 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 70 source.cs comment.line.double-slash.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             // </WithExpressions>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 33 source.cs comment.line.double-slash.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     namespace recordinheritancepositional
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 41 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static class Example
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 27 source.cs storage.type.class.cs
+T 28 source.cs
+T 35 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             // <PositionalInheritance>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 38 source.cs comment.line.double-slash.cs
+L             public abstract record Person(string FirstName, string LastName);
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.abstract.cs
+T 28 source.cs
+T 34 source.cs storage.type.record.cs
+T 35 source.cs
+T 41 source.cs entity.name.type.class.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 48 source.cs keyword.type.string.cs
+T 49 source.cs
+T 58 source.cs entity.name.variable.parameter.cs
+T 59 source.cs punctuation.separator.comma.cs
+T 60 source.cs
+T 66 source.cs keyword.type.string.cs
+T 67 source.cs
+T 75 source.cs entity.name.variable.parameter.cs
+T 76 source.cs punctuation.parenthesis.close.cs
+T 77 source.cs punctuation.terminator.statement.cs
+L             public record Teacher(string FirstName, string LastName, int Grade)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 33 source.cs entity.name.type.class.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs keyword.type.string.cs
+T 41 source.cs
+T 50 source.cs entity.name.variable.parameter.cs
+T 51 source.cs punctuation.separator.comma.cs
+T 52 source.cs
+T 58 source.cs keyword.type.string.cs
+T 59 source.cs
+T 67 source.cs entity.name.variable.parameter.cs
+T 68 source.cs punctuation.separator.comma.cs
+T 69 source.cs
+T 72 source.cs keyword.type.int.cs
+T 73 source.cs
+T 78 source.cs entity.name.variable.parameter.cs
+T 79 source.cs punctuation.parenthesis.close.cs
+L                 : Person(FirstName, LastName);
+T 16 source.cs
+T 17 source.cs punctuation.separator.colon.cs
+T 18 source.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs punctuation.separator.comma.cs
+T 36 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+T 46 source.cs punctuation.terminator.statement.cs
+L             public static void Main()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.modifier.static.cs
+T 26 source.cs
+T 30 source.cs keyword.type.void.cs
+T 31 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Person teacher = new Teacher("Nancy", "Davolio", 3);
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 36 source.cs keyword.operator.expression.new.cs
+T 37 source.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 55 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 62 source.cs string.quoted.double.cs
+T 63 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 64 source.cs punctuation.separator.comma.cs
+T 65 source.cs
+T 66 source.cs constant.numeric.decimal.cs
+T 67 source.cs punctuation.parenthesis.close.cs
+T 68 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(teacher);
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L                 // output: Teacher { FirstName = Nancy, LastName = Davolio, Grade = 3 }
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 87 source.cs comment.line.double-slash.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             // </PositionalInheritance>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 39 source.cs comment.line.double-slash.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     namespace recordinheritanceequality
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 39 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static class Example
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 27 source.cs storage.type.class.cs
+T 28 source.cs
+T 35 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             // <InheritanceEquality>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 36 source.cs comment.line.double-slash.cs
+L             public abstract record Person(string FirstName, string LastName);
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.abstract.cs
+T 28 source.cs
+T 34 source.cs storage.type.record.cs
+T 35 source.cs
+T 41 source.cs entity.name.type.class.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 48 source.cs keyword.type.string.cs
+T 49 source.cs
+T 58 source.cs entity.name.variable.parameter.cs
+T 59 source.cs punctuation.separator.comma.cs
+T 60 source.cs
+T 66 source.cs keyword.type.string.cs
+T 67 source.cs
+T 75 source.cs entity.name.variable.parameter.cs
+T 76 source.cs punctuation.parenthesis.close.cs
+T 77 source.cs punctuation.terminator.statement.cs
+L             public record Teacher(string FirstName, string LastName, int Grade)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 33 source.cs entity.name.type.class.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs keyword.type.string.cs
+T 41 source.cs
+T 50 source.cs entity.name.variable.parameter.cs
+T 51 source.cs punctuation.separator.comma.cs
+T 52 source.cs
+T 58 source.cs keyword.type.string.cs
+T 59 source.cs
+T 67 source.cs entity.name.variable.parameter.cs
+T 68 source.cs punctuation.separator.comma.cs
+T 69 source.cs
+T 72 source.cs keyword.type.int.cs
+T 73 source.cs
+T 78 source.cs entity.name.variable.parameter.cs
+T 79 source.cs punctuation.parenthesis.close.cs
+L                 : Person(FirstName, LastName);
+T 16 source.cs
+T 17 source.cs punctuation.separator.colon.cs
+T 18 source.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs punctuation.separator.comma.cs
+T 36 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+T 46 source.cs punctuation.terminator.statement.cs
+L             public record Student(string FirstName, string LastName, int Grade)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 33 source.cs entity.name.type.class.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs keyword.type.string.cs
+T 41 source.cs
+T 50 source.cs entity.name.variable.parameter.cs
+T 51 source.cs punctuation.separator.comma.cs
+T 52 source.cs
+T 58 source.cs keyword.type.string.cs
+T 59 source.cs
+T 67 source.cs entity.name.variable.parameter.cs
+T 68 source.cs punctuation.separator.comma.cs
+T 69 source.cs
+T 72 source.cs keyword.type.int.cs
+T 73 source.cs
+T 78 source.cs entity.name.variable.parameter.cs
+T 79 source.cs punctuation.parenthesis.close.cs
+L                 : Person(FirstName, LastName);
+T 16 source.cs
+T 17 source.cs punctuation.separator.colon.cs
+T 18 source.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs punctuation.separator.comma.cs
+T 36 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+T 46 source.cs punctuation.terminator.statement.cs
+L             public static void Main()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.modifier.static.cs
+T 26 source.cs
+T 30 source.cs keyword.type.void.cs
+T 31 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Person teacher = new Teacher("Nancy", "Davolio", 3);
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 36 source.cs keyword.operator.expression.new.cs
+T 37 source.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 55 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 62 source.cs string.quoted.double.cs
+T 63 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 64 source.cs punctuation.separator.comma.cs
+T 65 source.cs
+T 66 source.cs constant.numeric.decimal.cs
+T 67 source.cs punctuation.parenthesis.close.cs
+T 68 source.cs punctuation.terminator.statement.cs
+L                 Person student = new Student("Nancy", "Davolio", 3);
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 36 source.cs keyword.operator.expression.new.cs
+T 37 source.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 55 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 62 source.cs string.quoted.double.cs
+T 63 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 64 source.cs punctuation.separator.comma.cs
+T 65 source.cs
+T 66 source.cs constant.numeric.decimal.cs
+T 67 source.cs punctuation.parenthesis.close.cs
+T 68 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(teacher == student); // output: False
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs
+T 44 source.cs keyword.operator.comparison.cs
+T 45 source.cs
+T 52 source.cs variable.other.readwrite.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs punctuation.terminator.statement.cs
+T 55 source.cs
+T 57 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 71 source.cs comment.line.double-slash.cs
+L 
+L                 Student student2 = new Student("Nancy", "Davolio", 3);
+T 16 source.cs
+T 23 source.cs entity.name.type.cs
+T 24 source.cs
+T 32 source.cs entity.name.variable.local.cs
+T 33 source.cs
+T 34 source.cs keyword.operator.assignment.cs
+T 35 source.cs
+T 38 source.cs keyword.operator.expression.new.cs
+T 39 source.cs
+T 46 source.cs entity.name.type.cs
+T 47 source.cs punctuation.parenthesis.open.cs
+T 48 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 53 source.cs string.quoted.double.cs
+T 54 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 55 source.cs punctuation.separator.comma.cs
+T 56 source.cs
+T 57 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 64 source.cs string.quoted.double.cs
+T 65 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 66 source.cs punctuation.separator.comma.cs
+T 67 source.cs
+T 68 source.cs constant.numeric.decimal.cs
+T 69 source.cs punctuation.parenthesis.close.cs
+T 70 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(student2 == student); // output: True
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs variable.other.readwrite.cs
+T 43 source.cs
+T 45 source.cs keyword.operator.comparison.cs
+T 46 source.cs
+T 53 source.cs variable.other.readwrite.cs
+T 54 source.cs punctuation.parenthesis.close.cs
+T 55 source.cs punctuation.terminator.statement.cs
+T 56 source.cs
+T 58 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 71 source.cs comment.line.double-slash.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             // </InheritanceEquality>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 37 source.cs comment.line.double-slash.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     namespace recordinheritancetostringdefault
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 46 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static class Example
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 27 source.cs storage.type.class.cs
+T 28 source.cs
+T 35 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             public abstract record Person(string FirstName, string LastName, string[] PhoneNumbers);
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.abstract.cs
+T 28 source.cs
+T 34 source.cs storage.type.record.cs
+T 35 source.cs
+T 41 source.cs entity.name.type.class.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 48 source.cs keyword.type.string.cs
+T 49 source.cs
+T 58 source.cs entity.name.variable.parameter.cs
+T 59 source.cs punctuation.separator.comma.cs
+T 60 source.cs
+T 66 source.cs keyword.type.string.cs
+T 67 source.cs
+T 75 source.cs entity.name.variable.parameter.cs
+T 76 source.cs punctuation.separator.comma.cs
+T 77 source.cs
+T 83 source.cs keyword.type.string.cs
+T 84 source.cs punctuation.squarebracket.open.cs
+T 85 source.cs punctuation.squarebracket.close.cs
+T 86 source.cs
+T 98 source.cs entity.name.variable.parameter.cs
+T 99 source.cs punctuation.parenthesis.close.cs
+T 100 source.cs punctuation.terminator.statement.cs
+L             public record Teacher(string FirstName, string LastName, string[] PhoneNumbers, int Grade)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 33 source.cs entity.name.type.class.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs keyword.type.string.cs
+T 41 source.cs
+T 50 source.cs entity.name.variable.parameter.cs
+T 51 source.cs punctuation.separator.comma.cs
+T 52 source.cs
+T 58 source.cs keyword.type.string.cs
+T 59 source.cs
+T 67 source.cs entity.name.variable.parameter.cs
+T 68 source.cs punctuation.separator.comma.cs
+T 69 source.cs
+T 75 source.cs keyword.type.string.cs
+T 76 source.cs punctuation.squarebracket.open.cs
+T 77 source.cs punctuation.squarebracket.close.cs
+T 78 source.cs
+T 90 source.cs entity.name.variable.parameter.cs
+T 91 source.cs punctuation.separator.comma.cs
+T 92 source.cs
+T 95 source.cs keyword.type.int.cs
+T 96 source.cs
+T 101 source.cs entity.name.variable.parameter.cs
+T 102 source.cs punctuation.parenthesis.close.cs
+L                 : Person(FirstName, LastName, PhoneNumbers)
+T 16 source.cs
+T 17 source.cs punctuation.separator.colon.cs
+T 18 source.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs punctuation.separator.comma.cs
+T 36 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.separator.comma.cs
+T 46 source.cs
+T 58 source.cs variable.other.readwrite.cs
+T 59 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 // <ToStringOverrideDefault>
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 44 source.cs comment.line.double-slash.cs
+L                 public override string ToString()
+T 16 source.cs
+T 22 source.cs storage.modifier.public.cs
+T 23 source.cs
+T 31 source.cs storage.modifier.override.cs
+T 32 source.cs
+T 38 source.cs keyword.type.string.cs
+T 39 source.cs
+T 47 source.cs entity.name.function.cs
+T 48 source.cs punctuation.parenthesis.open.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     StringBuilder stringBuilder = new StringBuilder();
+T 20 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs
+T 47 source.cs entity.name.variable.local.cs
+T 48 source.cs
+T 49 source.cs keyword.operator.assignment.cs
+T 50 source.cs
+T 53 source.cs keyword.operator.expression.new.cs
+T 54 source.cs
+T 67 source.cs entity.name.type.cs
+T 68 source.cs punctuation.parenthesis.open.cs
+T 69 source.cs punctuation.parenthesis.close.cs
+T 70 source.cs punctuation.terminator.statement.cs
+L                     stringBuilder.Append("Teacher"); // type name
+T 20 source.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 40 source.cs entity.name.function.cs
+T 41 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 49 source.cs string.quoted.double.cs
+T 50 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.terminator.statement.cs
+T 53 source.cs
+T 55 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 65 source.cs comment.line.double-slash.cs
+L                     stringBuilder.Append(" { ");
+T 20 source.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 40 source.cs entity.name.function.cs
+T 41 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 45 source.cs string.quoted.double.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 47 source.cs punctuation.parenthesis.close.cs
+T 48 source.cs punctuation.terminator.statement.cs
+L                     if (PrintMembers(stringBuilder))
+T 20 source.cs
+T 22 source.cs keyword.control.conditional.if.cs
+T 23 source.cs
+T 24 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs entity.name.function.cs
+T 37 source.cs punctuation.parenthesis.open.cs
+T 50 source.cs variable.other.readwrite.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.parenthesis.close.cs
+L                     {
+T 20 source.cs
+T 21 source.cs punctuation.curlybrace.open.cs
+L                         stringBuilder.Append(" ");
+T 24 source.cs
+T 37 source.cs variable.other.object.cs
+T 38 source.cs punctuation.accessor.cs
+T 44 source.cs entity.name.function.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 47 source.cs string.quoted.double.cs
+T 48 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+T 50 source.cs punctuation.terminator.statement.cs
+L                     }
+T 20 source.cs
+T 21 source.cs punctuation.curlybrace.close.cs
+L                     stringBuilder.Append("}");
+T 20 source.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 40 source.cs entity.name.function.cs
+T 41 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 43 source.cs string.quoted.double.cs
+T 44 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+T 46 source.cs punctuation.terminator.statement.cs
+L                     return stringBuilder.ToString();
+T 20 source.cs
+T 26 source.cs keyword.control.flow.return.cs
+T 27 source.cs
+T 40 source.cs variable.other.object.cs
+T 41 source.cs punctuation.accessor.cs
+T 49 source.cs entity.name.function.cs
+T 50 source.cs punctuation.parenthesis.open.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L                 // </ToStringOverrideDefault>
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 45 source.cs comment.line.double-slash.cs
+L             };
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+T 14 source.cs punctuation.terminator.statement.cs
+L 
+L             public static void Main()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.modifier.static.cs
+T 26 source.cs
+T 30 source.cs keyword.type.void.cs
+T 31 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Person teacher = new Teacher("Nancy", "Davolio", new string[2] { "555-1234", "555-6789" }, 3);
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 36 source.cs keyword.operator.expression.new.cs
+T 37 source.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 55 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 62 source.cs string.quoted.double.cs
+T 63 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 64 source.cs punctuation.separator.comma.cs
+T 65 source.cs
+T 68 source.cs keyword.operator.expression.new.cs
+T 69 source.cs
+T 75 source.cs keyword.type.string.cs
+T 76 source.cs punctuation.squarebracket.open.cs
+T 77 source.cs constant.numeric.decimal.cs
+T 78 source.cs punctuation.squarebracket.close.cs
+T 79 source.cs
+T 80 source.cs punctuation.curlybrace.open.cs
+T 81 source.cs
+T 82 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 90 source.cs string.quoted.double.cs
+T 91 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 92 source.cs punctuation.separator.comma.cs
+T 93 source.cs
+T 94 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 102 source.cs string.quoted.double.cs
+T 103 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 104 source.cs
+T 105 source.cs punctuation.curlybrace.close.cs
+T 106 source.cs punctuation.separator.comma.cs
+T 107 source.cs
+T 108 source.cs constant.numeric.decimal.cs
+T 109 source.cs punctuation.parenthesis.close.cs
+T 110 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(teacher);
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     namespace recordinheritanceprintmembers
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 43 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static class Example
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 27 source.cs storage.type.class.cs
+T 28 source.cs
+T 35 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             // <PrintMembersImplementation>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 43 source.cs comment.line.double-slash.cs
+L             public abstract record Person(string FirstName, string LastName, string[] PhoneNumbers)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.abstract.cs
+T 28 source.cs
+T 34 source.cs storage.type.record.cs
+T 35 source.cs
+T 41 source.cs entity.name.type.class.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 48 source.cs keyword.type.string.cs
+T 49 source.cs
+T 58 source.cs entity.name.variable.parameter.cs
+T 59 source.cs punctuation.separator.comma.cs
+T 60 source.cs
+T 66 source.cs keyword.type.string.cs
+T 67 source.cs
+T 75 source.cs entity.name.variable.parameter.cs
+T 76 source.cs punctuation.separator.comma.cs
+T 77 source.cs
+T 83 source.cs keyword.type.string.cs
+T 84 source.cs punctuation.squarebracket.open.cs
+T 85 source.cs punctuation.squarebracket.close.cs
+T 86 source.cs
+T 98 source.cs entity.name.variable.parameter.cs
+T 99 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 protected virtual bool PrintMembers(StringBuilder stringBuilder)
+T 16 source.cs
+T 25 source.cs storage.modifier.protected.cs
+T 26 source.cs
+T 33 source.cs storage.modifier.virtual.cs
+T 34 source.cs
+T 38 source.cs keyword.type.bool.cs
+T 39 source.cs
+T 51 source.cs entity.name.function.cs
+T 52 source.cs punctuation.parenthesis.open.cs
+T 65 source.cs entity.name.type.cs
+T 66 source.cs
+T 79 source.cs entity.name.variable.parameter.cs
+T 80 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     stringBuilder.Append($"FirstName = {FirstName}, LastName = {LastName}, ");
+T 20 source.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 40 source.cs entity.name.function.cs
+T 41 source.cs punctuation.parenthesis.open.cs
+T 43 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 55 source.cs string.quoted.double.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 65 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 66 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 79 source.cs string.quoted.double.cs
+T 80 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 88 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 89 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 91 source.cs string.quoted.double.cs
+T 92 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 93 source.cs punctuation.parenthesis.close.cs
+T 94 source.cs punctuation.terminator.statement.cs
+L                     stringBuilder.Append($"PhoneNumber1 = {PhoneNumbers[0]}, PhoneNumber2 = {PhoneNumbers[1]}");
+T 20 source.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 40 source.cs entity.name.function.cs
+T 41 source.cs punctuation.parenthesis.open.cs
+T 43 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 58 source.cs string.quoted.double.cs
+T 59 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 71 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.property.cs
+T 72 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.squarebracket.open.cs
+T 73 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 74 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.squarebracket.close.cs
+T 75 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 92 source.cs string.quoted.double.cs
+T 93 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 105 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.property.cs
+T 106 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.squarebracket.open.cs
+T 107 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 108 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.squarebracket.close.cs
+T 109 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 110 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 111 source.cs punctuation.parenthesis.close.cs
+T 112 source.cs punctuation.terminator.statement.cs
+L                     return true;
+T 20 source.cs
+T 26 source.cs keyword.control.flow.return.cs
+T 27 source.cs
+T 31 source.cs constant.language.boolean.true.cs
+T 32 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             public record Teacher(string FirstName, string LastName, string[] PhoneNumbers, int Grade)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 33 source.cs entity.name.type.class.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs keyword.type.string.cs
+T 41 source.cs
+T 50 source.cs entity.name.variable.parameter.cs
+T 51 source.cs punctuation.separator.comma.cs
+T 52 source.cs
+T 58 source.cs keyword.type.string.cs
+T 59 source.cs
+T 67 source.cs entity.name.variable.parameter.cs
+T 68 source.cs punctuation.separator.comma.cs
+T 69 source.cs
+T 75 source.cs keyword.type.string.cs
+T 76 source.cs punctuation.squarebracket.open.cs
+T 77 source.cs punctuation.squarebracket.close.cs
+T 78 source.cs
+T 90 source.cs entity.name.variable.parameter.cs
+T 91 source.cs punctuation.separator.comma.cs
+T 92 source.cs
+T 95 source.cs keyword.type.int.cs
+T 96 source.cs
+T 101 source.cs entity.name.variable.parameter.cs
+T 102 source.cs punctuation.parenthesis.close.cs
+L                 : Person(FirstName, LastName, PhoneNumbers)
+T 16 source.cs
+T 17 source.cs punctuation.separator.colon.cs
+T 18 source.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs punctuation.separator.comma.cs
+T 36 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.separator.comma.cs
+T 46 source.cs
+T 58 source.cs variable.other.readwrite.cs
+T 59 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 protected override bool PrintMembers(StringBuilder stringBuilder)
+T 16 source.cs
+T 25 source.cs storage.modifier.protected.cs
+T 26 source.cs
+T 34 source.cs storage.modifier.override.cs
+T 35 source.cs
+T 39 source.cs keyword.type.bool.cs
+T 40 source.cs
+T 52 source.cs entity.name.function.cs
+T 53 source.cs punctuation.parenthesis.open.cs
+T 66 source.cs entity.name.type.cs
+T 67 source.cs
+T 80 source.cs entity.name.variable.parameter.cs
+T 81 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     if (base.PrintMembers(stringBuilder))
+T 20 source.cs
+T 22 source.cs keyword.control.conditional.if.cs
+T 23 source.cs
+T 24 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs variable.language.base.cs
+T 29 source.cs punctuation.accessor.cs
+T 41 source.cs entity.name.function.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 55 source.cs variable.other.readwrite.cs
+T 56 source.cs punctuation.parenthesis.close.cs
+T 57 source.cs punctuation.parenthesis.close.cs
+L                     {
+T 20 source.cs
+T 21 source.cs punctuation.curlybrace.open.cs
+L                         stringBuilder.Append(", ");
+T 24 source.cs
+T 37 source.cs variable.other.object.cs
+T 38 source.cs punctuation.accessor.cs
+T 44 source.cs entity.name.function.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 48 source.cs string.quoted.double.cs
+T 49 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 50 source.cs punctuation.parenthesis.close.cs
+T 51 source.cs punctuation.terminator.statement.cs
+L                     }
+T 20 source.cs
+T 21 source.cs punctuation.curlybrace.close.cs
+L                     ;
+T 20 source.cs
+T 21 source.cs punctuation.terminator.statement.cs
+L                     stringBuilder.Append($"Grade = {Grade}");
+T 20 source.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 40 source.cs entity.name.function.cs
+T 41 source.cs punctuation.parenthesis.open.cs
+T 43 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 58 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 59 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 60 source.cs punctuation.parenthesis.close.cs
+T 61 source.cs punctuation.terminator.statement.cs
+L                     return true;
+T 20 source.cs
+T 26 source.cs keyword.control.flow.return.cs
+T 27 source.cs
+T 31 source.cs constant.language.boolean.true.cs
+T 32 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L             };
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+T 14 source.cs punctuation.terminator.statement.cs
+L 
+L             public static void Main()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.modifier.static.cs
+T 26 source.cs
+T 30 source.cs keyword.type.void.cs
+T 31 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Person teacher = new Teacher("Nancy", "Davolio", new string[2] { "555-1234", "555-6789" }, 3);
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 36 source.cs keyword.operator.expression.new.cs
+T 37 source.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 55 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 62 source.cs string.quoted.double.cs
+T 63 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 64 source.cs punctuation.separator.comma.cs
+T 65 source.cs
+T 68 source.cs keyword.operator.expression.new.cs
+T 69 source.cs
+T 75 source.cs keyword.type.string.cs
+T 76 source.cs punctuation.squarebracket.open.cs
+T 77 source.cs constant.numeric.decimal.cs
+T 78 source.cs punctuation.squarebracket.close.cs
+T 79 source.cs
+T 80 source.cs punctuation.curlybrace.open.cs
+T 81 source.cs
+T 82 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 90 source.cs string.quoted.double.cs
+T 91 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 92 source.cs punctuation.separator.comma.cs
+T 93 source.cs
+T 94 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 102 source.cs string.quoted.double.cs
+T 103 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 104 source.cs
+T 105 source.cs punctuation.curlybrace.close.cs
+T 106 source.cs punctuation.separator.comma.cs
+T 107 source.cs
+T 108 source.cs constant.numeric.decimal.cs
+T 109 source.cs punctuation.parenthesis.close.cs
+T 110 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(teacher);
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L                 // output: Teacher { FirstName = Nancy, LastName = Davolio, PhoneNumber1 = 555-1234, PhoneNumber2 = 555-6789, Grade = 3 }
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 137 source.cs comment.line.double-slash.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             // </PrintMembersImplementation>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 44 source.cs comment.line.double-slash.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     namespace recordinheritancetostring
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 39 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static class Example
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 27 source.cs storage.type.class.cs
+T 28 source.cs
+T 35 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             // <ToStringInheritance>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 36 source.cs comment.line.double-slash.cs
+L             public abstract record Person(string FirstName, string LastName);
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.abstract.cs
+T 28 source.cs
+T 34 source.cs storage.type.record.cs
+T 35 source.cs
+T 41 source.cs entity.name.type.class.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 48 source.cs keyword.type.string.cs
+T 49 source.cs
+T 58 source.cs entity.name.variable.parameter.cs
+T 59 source.cs punctuation.separator.comma.cs
+T 60 source.cs
+T 66 source.cs keyword.type.string.cs
+T 67 source.cs
+T 75 source.cs entity.name.variable.parameter.cs
+T 76 source.cs punctuation.parenthesis.close.cs
+T 77 source.cs punctuation.terminator.statement.cs
+L             public record Teacher(string FirstName, string LastName, int Grade)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 33 source.cs entity.name.type.class.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs keyword.type.string.cs
+T 41 source.cs
+T 50 source.cs entity.name.variable.parameter.cs
+T 51 source.cs punctuation.separator.comma.cs
+T 52 source.cs
+T 58 source.cs keyword.type.string.cs
+T 59 source.cs
+T 67 source.cs entity.name.variable.parameter.cs
+T 68 source.cs punctuation.separator.comma.cs
+T 69 source.cs
+T 72 source.cs keyword.type.int.cs
+T 73 source.cs
+T 78 source.cs entity.name.variable.parameter.cs
+T 79 source.cs punctuation.parenthesis.close.cs
+L                 : Person(FirstName, LastName);
+T 16 source.cs
+T 17 source.cs punctuation.separator.colon.cs
+T 18 source.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs punctuation.separator.comma.cs
+T 36 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+T 46 source.cs punctuation.terminator.statement.cs
+L             public record Student(string FirstName, string LastName, int Grade)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 33 source.cs entity.name.type.class.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs keyword.type.string.cs
+T 41 source.cs
+T 50 source.cs entity.name.variable.parameter.cs
+T 51 source.cs punctuation.separator.comma.cs
+T 52 source.cs
+T 58 source.cs keyword.type.string.cs
+T 59 source.cs
+T 67 source.cs entity.name.variable.parameter.cs
+T 68 source.cs punctuation.separator.comma.cs
+T 69 source.cs
+T 72 source.cs keyword.type.int.cs
+T 73 source.cs
+T 78 source.cs entity.name.variable.parameter.cs
+T 79 source.cs punctuation.parenthesis.close.cs
+L                 : Person(FirstName, LastName);
+T 16 source.cs
+T 17 source.cs punctuation.separator.colon.cs
+T 18 source.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs punctuation.separator.comma.cs
+T 36 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+T 46 source.cs punctuation.terminator.statement.cs
+L 
+L             public static void Main()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.modifier.static.cs
+T 26 source.cs
+T 30 source.cs keyword.type.void.cs
+T 31 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Person teacher = new Teacher("Nancy", "Davolio", 3);
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 36 source.cs keyword.operator.expression.new.cs
+T 37 source.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 55 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 62 source.cs string.quoted.double.cs
+T 63 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 64 source.cs punctuation.separator.comma.cs
+T 65 source.cs
+T 66 source.cs constant.numeric.decimal.cs
+T 67 source.cs punctuation.parenthesis.close.cs
+T 68 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(teacher);
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L                 // output: Teacher { FirstName = Nancy, LastName = Davolio, Grade = 3 }
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 87 source.cs comment.line.double-slash.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             // </ToStringInheritance>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 37 source.cs comment.line.double-slash.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     namespace recordinheritancedeconstructor
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 44 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static class Example
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 27 source.cs storage.type.class.cs
+T 28 source.cs
+T 35 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             // <DeconstructorInheritance>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 41 source.cs comment.line.double-slash.cs
+L             public abstract record Person(string FirstName, string LastName);
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.abstract.cs
+T 28 source.cs
+T 34 source.cs storage.type.record.cs
+T 35 source.cs
+T 41 source.cs entity.name.type.class.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 48 source.cs keyword.type.string.cs
+T 49 source.cs
+T 58 source.cs entity.name.variable.parameter.cs
+T 59 source.cs punctuation.separator.comma.cs
+T 60 source.cs
+T 66 source.cs keyword.type.string.cs
+T 67 source.cs
+T 75 source.cs entity.name.variable.parameter.cs
+T 76 source.cs punctuation.parenthesis.close.cs
+T 77 source.cs punctuation.terminator.statement.cs
+L             public record Teacher(string FirstName, string LastName, int Grade)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 33 source.cs entity.name.type.class.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs keyword.type.string.cs
+T 41 source.cs
+T 50 source.cs entity.name.variable.parameter.cs
+T 51 source.cs punctuation.separator.comma.cs
+T 52 source.cs
+T 58 source.cs keyword.type.string.cs
+T 59 source.cs
+T 67 source.cs entity.name.variable.parameter.cs
+T 68 source.cs punctuation.separator.comma.cs
+T 69 source.cs
+T 72 source.cs keyword.type.int.cs
+T 73 source.cs
+T 78 source.cs entity.name.variable.parameter.cs
+T 79 source.cs punctuation.parenthesis.close.cs
+L                 : Person(FirstName, LastName);
+T 16 source.cs
+T 17 source.cs punctuation.separator.colon.cs
+T 18 source.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs punctuation.separator.comma.cs
+T 36 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+T 46 source.cs punctuation.terminator.statement.cs
+L             public record Student(string FirstName, string LastName, int Grade)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 33 source.cs entity.name.type.class.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs keyword.type.string.cs
+T 41 source.cs
+T 50 source.cs entity.name.variable.parameter.cs
+T 51 source.cs punctuation.separator.comma.cs
+T 52 source.cs
+T 58 source.cs keyword.type.string.cs
+T 59 source.cs
+T 67 source.cs entity.name.variable.parameter.cs
+T 68 source.cs punctuation.separator.comma.cs
+T 69 source.cs
+T 72 source.cs keyword.type.int.cs
+T 73 source.cs
+T 78 source.cs entity.name.variable.parameter.cs
+T 79 source.cs punctuation.parenthesis.close.cs
+L                 : Person(FirstName, LastName);
+T 16 source.cs
+T 17 source.cs punctuation.separator.colon.cs
+T 18 source.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs punctuation.separator.comma.cs
+T 36 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+T 46 source.cs punctuation.terminator.statement.cs
+L 
+L             public static void Main()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.modifier.static.cs
+T 26 source.cs
+T 30 source.cs keyword.type.void.cs
+T 31 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Person teacher = new Teacher("Nancy", "Davolio", 3);
+T 16 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 36 source.cs keyword.operator.expression.new.cs
+T 37 source.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 55 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 62 source.cs string.quoted.double.cs
+T 63 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 64 source.cs punctuation.separator.comma.cs
+T 65 source.cs
+T 66 source.cs constant.numeric.decimal.cs
+T 67 source.cs punctuation.parenthesis.close.cs
+T 68 source.cs punctuation.terminator.statement.cs
+L                 var (firstName, lastName) = teacher; // Doesn't deconstruct Grade
+T 16 source.cs
+T 19 source.cs storage.type.var.cs
+T 20 source.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs entity.name.variable.tuple-element.cs
+T 31 source.cs punctuation.separator.comma.cs
+T 32 source.cs
+T 40 source.cs entity.name.variable.tuple-element.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+T 42 source.cs
+T 43 source.cs keyword.operator.assignment.cs
+T 44 source.cs
+T 51 source.cs variable.other.readwrite.cs
+T 52 source.cs punctuation.terminator.statement.cs
+T 53 source.cs
+T 55 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 81 source.cs comment.line.double-slash.cs
+L                 Console.WriteLine($"{firstName}, {lastName}");// output: Nancy, Davolio
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 37 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 46 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 47 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 49 source.cs string.quoted.double.cs
+T 50 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 58 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 59 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 60 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 61 source.cs punctuation.parenthesis.close.cs
+T 62 source.cs punctuation.terminator.statement.cs
+T 64 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 87 source.cs comment.line.double-slash.cs
+L 
+L                 var (fName, lName, grade) = (Teacher)teacher;
+T 16 source.cs
+T 19 source.cs storage.type.var.cs
+T 20 source.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 26 source.cs entity.name.variable.tuple-element.cs
+T 27 source.cs punctuation.separator.comma.cs
+T 28 source.cs
+T 33 source.cs entity.name.variable.tuple-element.cs
+T 34 source.cs punctuation.separator.comma.cs
+T 35 source.cs
+T 40 source.cs entity.name.variable.tuple-element.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+T 42 source.cs
+T 43 source.cs keyword.operator.assignment.cs
+T 44 source.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 52 source.cs entity.name.type.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 60 source.cs variable.other.readwrite.cs
+T 61 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine($"{fName}, {lName}, {grade}");// output: Nancy, Davolio, 3
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 37 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 42 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 43 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 45 source.cs string.quoted.double.cs
+T 46 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 51 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 52 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 54 source.cs string.quoted.double.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 60 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 61 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 62 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 63 source.cs punctuation.parenthesis.close.cs
+T 64 source.cs punctuation.terminator.statement.cs
+T 66 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 92 source.cs comment.line.double-slash.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             // </DeconstructorInheritance>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 42 source.cs comment.line.double-slash.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     namespace recordinheritancewithexpression
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 45 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static class Example
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 27 source.cs storage.type.class.cs
+T 28 source.cs
+T 35 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             // <WithExpressionInheritance>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 42 source.cs comment.line.double-slash.cs
+L             public record Point(int X, int Y)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 31 source.cs entity.name.type.class.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs keyword.type.int.cs
+T 36 source.cs
+T 37 source.cs entity.name.variable.parameter.cs
+T 38 source.cs punctuation.separator.comma.cs
+T 39 source.cs
+T 42 source.cs keyword.type.int.cs
+T 43 source.cs
+T 44 source.cs entity.name.variable.parameter.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 public int Zbase { get; set; }
+T 16 source.cs
+T 22 source.cs storage.modifier.public.cs
+T 23 source.cs
+T 26 source.cs keyword.type.int.cs
+T 27 source.cs
+T 32 source.cs entity.name.variable.property.cs
+T 33 source.cs
+T 34 source.cs punctuation.curlybrace.open.cs
+T 35 source.cs
+T 38 source.cs storage.type.accessor.get.cs
+T 39 source.cs punctuation.terminator.statement.cs
+T 40 source.cs
+T 43 source.cs storage.type.accessor.set.cs
+T 44 source.cs punctuation.terminator.statement.cs
+T 45 source.cs
+T 46 source.cs punctuation.curlybrace.close.cs
+L             };
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+T 14 source.cs punctuation.terminator.statement.cs
+L             public record NamedPoint(string Name, int X, int Y) : Point(X, Y)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.type.record.cs
+T 26 source.cs
+T 36 source.cs entity.name.type.class.cs
+T 37 source.cs punctuation.parenthesis.open.cs
+T 43 source.cs keyword.type.string.cs
+T 44 source.cs
+T 48 source.cs entity.name.variable.parameter.cs
+T 49 source.cs punctuation.separator.comma.cs
+T 50 source.cs
+T 53 source.cs keyword.type.int.cs
+T 54 source.cs
+T 55 source.cs entity.name.variable.parameter.cs
+T 56 source.cs punctuation.separator.comma.cs
+T 57 source.cs
+T 60 source.cs keyword.type.int.cs
+T 61 source.cs
+T 62 source.cs entity.name.variable.parameter.cs
+T 63 source.cs punctuation.parenthesis.close.cs
+T 64 source.cs
+T 65 source.cs punctuation.separator.colon.cs
+T 66 source.cs
+T 71 source.cs entity.name.type.cs
+T 72 source.cs punctuation.parenthesis.open.cs
+T 73 source.cs variable.other.readwrite.cs
+T 74 source.cs punctuation.separator.comma.cs
+T 75 source.cs
+T 76 source.cs variable.other.readwrite.cs
+T 77 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 public int Zderived { get; set; }
+T 16 source.cs
+T 22 source.cs storage.modifier.public.cs
+T 23 source.cs
+T 26 source.cs keyword.type.int.cs
+T 27 source.cs
+T 35 source.cs entity.name.variable.property.cs
+T 36 source.cs
+T 37 source.cs punctuation.curlybrace.open.cs
+T 38 source.cs
+T 41 source.cs storage.type.accessor.get.cs
+T 42 source.cs punctuation.terminator.statement.cs
+T 43 source.cs
+T 46 source.cs storage.type.accessor.set.cs
+T 47 source.cs punctuation.terminator.statement.cs
+T 48 source.cs
+T 49 source.cs punctuation.curlybrace.close.cs
+L             };
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+T 14 source.cs punctuation.terminator.statement.cs
+L 
+L             public static void Main()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.modifier.static.cs
+T 26 source.cs
+T 30 source.cs keyword.type.void.cs
+T 31 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Point p1 = new NamedPoint("A", 1, 2) { Zbase = 3, Zderived = 4 };
+T 16 source.cs
+T 21 source.cs entity.name.type.cs
+T 22 source.cs
+T 24 source.cs entity.name.variable.local.cs
+T 25 source.cs
+T 26 source.cs keyword.operator.assignment.cs
+T 27 source.cs
+T 30 source.cs keyword.operator.expression.new.cs
+T 31 source.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 43 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 44 source.cs string.quoted.double.cs
+T 45 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 46 source.cs punctuation.separator.comma.cs
+T 47 source.cs
+T 48 source.cs constant.numeric.decimal.cs
+T 49 source.cs punctuation.separator.comma.cs
+T 50 source.cs
+T 51 source.cs constant.numeric.decimal.cs
+T 52 source.cs punctuation.parenthesis.close.cs
+T 53 source.cs
+T 54 source.cs punctuation.curlybrace.open.cs
+T 55 source.cs
+T 60 source.cs variable.other.readwrite.cs
+T 61 source.cs
+T 62 source.cs keyword.operator.assignment.cs
+T 63 source.cs
+T 64 source.cs constant.numeric.decimal.cs
+T 65 source.cs punctuation.separator.comma.cs
+T 66 source.cs
+T 74 source.cs variable.other.readwrite.cs
+T 75 source.cs
+T 76 source.cs keyword.operator.assignment.cs
+T 77 source.cs
+T 78 source.cs constant.numeric.decimal.cs
+T 79 source.cs
+T 80 source.cs punctuation.curlybrace.close.cs
+T 81 source.cs punctuation.terminator.statement.cs
+L 
+L                 Point p2 = p1 with { X = 5, Y = 6, Zbase = 7 }; // Can't set Name or Zderived
+T 16 source.cs
+T 21 source.cs entity.name.type.cs
+T 22 source.cs
+T 24 source.cs entity.name.variable.local.cs
+T 25 source.cs
+T 26 source.cs keyword.operator.assignment.cs
+T 27 source.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs
+T 34 source.cs keyword.operator.expression.with.cs
+T 35 source.cs
+T 36 source.cs punctuation.curlybrace.open.cs
+T 37 source.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs
+T 40 source.cs keyword.operator.assignment.cs
+T 41 source.cs
+T 42 source.cs constant.numeric.decimal.cs
+T 43 source.cs punctuation.separator.comma.cs
+T 44 source.cs
+T 45 source.cs variable.other.readwrite.cs
+T 46 source.cs
+T 47 source.cs keyword.operator.assignment.cs
+T 48 source.cs
+T 49 source.cs constant.numeric.decimal.cs
+T 50 source.cs punctuation.separator.comma.cs
+T 51 source.cs
+T 56 source.cs variable.other.readwrite.cs
+T 57 source.cs
+T 58 source.cs keyword.operator.assignment.cs
+T 59 source.cs
+T 60 source.cs constant.numeric.decimal.cs
+T 61 source.cs
+T 62 source.cs punctuation.curlybrace.close.cs
+T 63 source.cs punctuation.terminator.statement.cs
+T 64 source.cs
+T 66 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 93 source.cs comment.line.double-slash.cs
+L                 Console.WriteLine(p2 is NamedPoint);  // output: True
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs variable.other.readwrite.cs
+T 37 source.cs
+T 39 source.cs keyword.operator.expression.pattern.is.cs
+T 40 source.cs
+T 50 source.cs entity.name.type.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.terminator.statement.cs
+T 54 source.cs
+T 56 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 69 source.cs comment.line.double-slash.cs
+L                 Console.WriteLine(p2);
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs variable.other.readwrite.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+T 38 source.cs punctuation.terminator.statement.cs
+L                 // output: NamedPoint { X = 5, Y = 6, Zbase = 7, Name = A, Zderived = 4 }
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 89 source.cs comment.line.double-slash.cs
+L 
+L                 Point p3 = (NamedPoint)p1 with { Name = "B", X = 5, Y = 6, Zbase = 7, Zderived = 8 };
+T 16 source.cs
+T 21 source.cs entity.name.type.cs
+T 22 source.cs
+T 24 source.cs entity.name.variable.local.cs
+T 25 source.cs
+T 26 source.cs keyword.operator.assignment.cs
+T 27 source.cs
+T 28 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs entity.name.type.cs
+T 39 source.cs punctuation.parenthesis.close.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs
+T 46 source.cs keyword.operator.expression.with.cs
+T 47 source.cs
+T 48 source.cs punctuation.curlybrace.open.cs
+T 49 source.cs
+T 53 source.cs variable.other.readwrite.cs
+T 54 source.cs
+T 55 source.cs keyword.operator.assignment.cs
+T 56 source.cs
+T 57 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 58 source.cs string.quoted.double.cs
+T 59 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 60 source.cs punctuation.separator.comma.cs
+T 61 source.cs
+T 62 source.cs variable.other.readwrite.cs
+T 63 source.cs
+T 64 source.cs keyword.operator.assignment.cs
+T 65 source.cs
+T 66 source.cs constant.numeric.decimal.cs
+T 67 source.cs punctuation.separator.comma.cs
+T 68 source.cs
+T 69 source.cs variable.other.readwrite.cs
+T 70 source.cs
+T 71 source.cs keyword.operator.assignment.cs
+T 72 source.cs
+T 73 source.cs constant.numeric.decimal.cs
+T 74 source.cs punctuation.separator.comma.cs
+T 75 source.cs
+T 80 source.cs variable.other.readwrite.cs
+T 81 source.cs
+T 82 source.cs keyword.operator.assignment.cs
+T 83 source.cs
+T 84 source.cs constant.numeric.decimal.cs
+T 85 source.cs punctuation.separator.comma.cs
+T 86 source.cs
+T 94 source.cs variable.other.readwrite.cs
+T 95 source.cs
+T 96 source.cs keyword.operator.assignment.cs
+T 97 source.cs
+T 98 source.cs constant.numeric.decimal.cs
+T 99 source.cs
+T 100 source.cs punctuation.curlybrace.close.cs
+T 101 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine(p3);
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs variable.other.readwrite.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+T 38 source.cs punctuation.terminator.statement.cs
+L                 // output: NamedPoint { X = 5, Y = 6, Zbase = 7, Name = B, Zderived = 8 }
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 89 source.cs comment.line.double-slash.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             // </WithExpressionInheritance>
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 43 source.cs comment.line.double-slash.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     namespace ComputedWither
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 28 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <WitherComputed>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 27 source.cs comment.line.double-slash.cs
+L         public record Point(int X, int Y)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.type.record.cs
+T 22 source.cs
+T 27 source.cs entity.name.type.class.cs
+T 28 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs keyword.type.int.cs
+T 32 source.cs
+T 33 source.cs entity.name.variable.parameter.cs
+T 34 source.cs punctuation.separator.comma.cs
+T 35 source.cs
+T 38 source.cs keyword.type.int.cs
+T 39 source.cs
+T 40 source.cs entity.name.variable.parameter.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             public double Distance => Math.Sqrt(X * X + Y * Y);
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs keyword.type.double.cs
+T 26 source.cs
+T 34 source.cs entity.name.variable.property.cs
+T 35 source.cs
+T 37 source.cs keyword.operator.arrow.cs
+T 38 source.cs meta.accessor.getter.cs
+T 42 source.cs meta.accessor.getter.cs variable.other.object.cs
+T 43 source.cs meta.accessor.getter.cs punctuation.accessor.cs
+T 47 source.cs meta.accessor.getter.cs entity.name.function.cs
+T 48 source.cs meta.accessor.getter.cs punctuation.parenthesis.open.cs
+T 49 source.cs meta.accessor.getter.cs variable.other.readwrite.cs
+T 50 source.cs meta.accessor.getter.cs
+T 51 source.cs meta.accessor.getter.cs keyword.operator.arithmetic.cs
+T 52 source.cs meta.accessor.getter.cs
+T 53 source.cs meta.accessor.getter.cs variable.other.readwrite.cs
+T 54 source.cs meta.accessor.getter.cs
+T 55 source.cs meta.accessor.getter.cs keyword.operator.arithmetic.cs
+T 56 source.cs meta.accessor.getter.cs
+T 57 source.cs meta.accessor.getter.cs variable.other.readwrite.cs
+T 58 source.cs meta.accessor.getter.cs
+T 59 source.cs meta.accessor.getter.cs keyword.operator.arithmetic.cs
+T 60 source.cs meta.accessor.getter.cs
+T 61 source.cs meta.accessor.getter.cs variable.other.readwrite.cs
+T 62 source.cs meta.accessor.getter.cs punctuation.parenthesis.close.cs
+T 63 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L         // </WitherComputed>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 28 source.cs comment.line.double-slash.cs
+L 
+L         // <WitherInit>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 23 source.cs comment.line.double-slash.cs
+L         public record PointInit(int X, int Y)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.type.record.cs
+T 22 source.cs
+T 31 source.cs entity.name.type.class.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs keyword.type.int.cs
+T 36 source.cs
+T 37 source.cs entity.name.variable.parameter.cs
+T 38 source.cs punctuation.separator.comma.cs
+T 39 source.cs
+T 42 source.cs keyword.type.int.cs
+T 43 source.cs
+T 44 source.cs entity.name.variable.parameter.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             public double Distance { get; } = Math.Sqrt(X * X + Y * Y);
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs keyword.type.double.cs
+T 26 source.cs
+T 34 source.cs entity.name.variable.property.cs
+T 35 source.cs
+T 36 source.cs punctuation.curlybrace.open.cs
+T 37 source.cs
+T 40 source.cs storage.type.accessor.get.cs
+T 41 source.cs punctuation.terminator.statement.cs
+T 42 source.cs
+T 43 source.cs punctuation.curlybrace.close.cs
+T 44 source.cs
+T 45 source.cs keyword.operator.assignment.cs
+T 46 source.cs
+T 50 source.cs variable.other.object.cs
+T 51 source.cs punctuation.accessor.cs
+T 55 source.cs entity.name.function.cs
+T 56 source.cs punctuation.parenthesis.open.cs
+T 57 source.cs variable.other.readwrite.cs
+T 58 source.cs
+T 59 source.cs keyword.operator.arithmetic.cs
+T 60 source.cs
+T 61 source.cs variable.other.readwrite.cs
+T 62 source.cs
+T 63 source.cs keyword.operator.arithmetic.cs
+T 64 source.cs
+T 65 source.cs variable.other.readwrite.cs
+T 66 source.cs
+T 67 source.cs keyword.operator.arithmetic.cs
+T 68 source.cs
+T 69 source.cs variable.other.readwrite.cs
+T 70 source.cs punctuation.parenthesis.close.cs
+T 71 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L         // </WitherInit>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 24 source.cs comment.line.double-slash.cs
+L 
+L         public static class ExampleUsage
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 27 source.cs storage.type.class.cs
+T 28 source.cs
+T 40 source.cs entity.name.type.class.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             public static void Example()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 25 source.cs storage.modifier.static.cs
+T 26 source.cs
+T 30 source.cs keyword.type.void.cs
+T 31 source.cs
+T 38 source.cs entity.name.function.cs
+T 39 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 // <WitherComputedUsage>
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 40 source.cs comment.line.double-slash.cs
+L                 Point p1 = new Point(3, 4);
+T 16 source.cs
+T 21 source.cs entity.name.type.cs
+T 22 source.cs
+T 24 source.cs entity.name.variable.local.cs
+T 25 source.cs
+T 26 source.cs keyword.operator.assignment.cs
+T 27 source.cs
+T 30 source.cs keyword.operator.expression.new.cs
+T 31 source.cs
+T 36 source.cs entity.name.type.cs
+T 37 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs constant.numeric.decimal.cs
+T 39 source.cs punctuation.separator.comma.cs
+T 40 source.cs
+T 41 source.cs constant.numeric.decimal.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine($"Original point: {p1}");
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 52 source.cs string.quoted.double.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 57 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 58 source.cs punctuation.parenthesis.close.cs
+T 59 source.cs punctuation.terminator.statement.cs
+L                 p1 = p1 with { Y = 8 };
+T 16 source.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs
+T 28 source.cs keyword.operator.expression.with.cs
+T 29 source.cs
+T 30 source.cs punctuation.curlybrace.open.cs
+T 31 source.cs
+T 32 source.cs variable.other.readwrite.cs
+T 33 source.cs
+T 34 source.cs keyword.operator.assignment.cs
+T 35 source.cs
+T 36 source.cs constant.numeric.decimal.cs
+T 37 source.cs
+T 38 source.cs punctuation.curlybrace.close.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine($"Modified point: {p1}");
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 52 source.cs string.quoted.double.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 55 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 57 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 58 source.cs punctuation.parenthesis.close.cs
+T 59 source.cs punctuation.terminator.statement.cs
+L                 // Output:
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 26 source.cs comment.line.double-slash.cs
+L                 // Original point: Point { X = 3, Y = 4, Distance = 5 }
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 71 source.cs comment.line.double-slash.cs
+L                 // Modified point: Point { X = 3, Y = 8, Distance = 8.54400374531753 }
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 86 source.cs comment.line.double-slash.cs
+L                 // </WitherComputedUsage>
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 41 source.cs comment.line.double-slash.cs
+L 
+L                 // <WitherInitUsage>
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 36 source.cs comment.line.double-slash.cs
+L                 PointInit pt1 = new PointInit(3, 4);
+T 16 source.cs
+T 25 source.cs entity.name.type.cs
+T 26 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs
+T 31 source.cs keyword.operator.assignment.cs
+T 32 source.cs
+T 35 source.cs keyword.operator.expression.new.cs
+T 36 source.cs
+T 45 source.cs entity.name.type.cs
+T 46 source.cs punctuation.parenthesis.open.cs
+T 47 source.cs constant.numeric.decimal.cs
+T 48 source.cs punctuation.separator.comma.cs
+T 49 source.cs
+T 50 source.cs constant.numeric.decimal.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine($"Original point: {pt1}");
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 52 source.cs string.quoted.double.cs
+T 53 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 56 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 57 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 58 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 59 source.cs punctuation.parenthesis.close.cs
+T 60 source.cs punctuation.terminator.statement.cs
+L                 pt1 = pt1 with { Y = 8 };
+T 16 source.cs
+T 19 source.cs variable.other.readwrite.cs
+T 20 source.cs
+T 21 source.cs keyword.operator.assignment.cs
+T 22 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 30 source.cs keyword.operator.expression.with.cs
+T 31 source.cs
+T 32 source.cs punctuation.curlybrace.open.cs
+T 33 source.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs
+T 36 source.cs keyword.operator.assignment.cs
+T 37 source.cs
+T 38 source.cs constant.numeric.decimal.cs
+T 39 source.cs
+T 40 source.cs punctuation.curlybrace.close.cs
+T 41 source.cs punctuation.terminator.statement.cs
+L                 Console.WriteLine($"Incorrect Modified point: {pt1}");
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 62 source.cs string.quoted.double.cs
+T 63 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 66 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 67 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 68 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 69 source.cs punctuation.parenthesis.close.cs
+T 70 source.cs punctuation.terminator.statement.cs
+L                 // Output:
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 26 source.cs comment.line.double-slash.cs
+L                 // Original point: PointInit { X = 3, Y = 4, Distance = 5 }
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 75 source.cs comment.line.double-slash.cs
+L                 // Modified point: PointInit { X = 3, Y = 8, Distance = 5 }
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 75 source.cs comment.line.double-slash.cs
+L                 // </WitherInitUsage>
+T 16 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 18 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 37 source.cs comment.line.double-slash.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 

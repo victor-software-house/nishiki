@@ -1,0 +1,704 @@
+L using System;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.terminator.statement.cs
+L using System.Collections;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.accessor.cs
+T 24 source.cs entity.name.type.namespace.cs
+T 25 source.cs punctuation.terminator.statement.cs
+L using System.Collections.Generic;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.accessor.cs
+T 24 source.cs entity.name.type.namespace.cs
+T 25 source.cs punctuation.accessor.cs
+T 32 source.cs entity.name.type.namespace.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L using System.Text;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.accessor.cs
+T 17 source.cs entity.name.type.namespace.cs
+T 18 source.cs punctuation.terminator.statement.cs
+L 
+L namespace Keywords
+T 9 source.cs storage.type.namespace.cs
+T 10 source.cs
+T 18 source.cs entity.name.type.namespace.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     // <Snippet1>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 17 source.cs comment.line.double-slash.cs
+L     public class AGenericClass<T> where T : IComparable<T> { }
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 30 source.cs entity.name.type.class.cs
+T 31 source.cs punctuation.definition.typeparameters.begin.cs
+T 32 source.cs entity.name.type.type-parameter.cs
+T 33 source.cs punctuation.definition.typeparameters.end.cs
+T 34 source.cs
+T 39 source.cs storage.modifier.where.cs
+T 40 source.cs
+T 41 source.cs entity.name.type.type-parameter.cs
+T 42 source.cs
+T 43 source.cs punctuation.separator.colon.cs
+T 44 source.cs
+T 55 source.cs entity.name.type.cs
+T 56 source.cs punctuation.definition.typeparameters.begin.cs
+T 57 source.cs entity.name.type.cs
+T 58 source.cs punctuation.definition.typeparameters.end.cs
+T 59 source.cs
+T 60 source.cs punctuation.curlybrace.open.cs
+T 61 source.cs
+T 62 source.cs punctuation.curlybrace.close.cs
+L     // </Snippet1>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L 
+L     // <SNippet2>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 17 source.cs comment.line.double-slash.cs
+L     public class UsingEnum<T> where T : System.Enum { }
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 26 source.cs entity.name.type.class.cs
+T 27 source.cs punctuation.definition.typeparameters.begin.cs
+T 28 source.cs entity.name.type.type-parameter.cs
+T 29 source.cs punctuation.definition.typeparameters.end.cs
+T 30 source.cs
+T 35 source.cs storage.modifier.where.cs
+T 36 source.cs
+T 37 source.cs entity.name.type.type-parameter.cs
+T 38 source.cs
+T 39 source.cs punctuation.separator.colon.cs
+T 40 source.cs
+T 46 source.cs entity.name.type.cs
+T 47 source.cs punctuation.accessor.cs
+T 51 source.cs entity.name.type.cs
+T 52 source.cs
+T 53 source.cs punctuation.curlybrace.open.cs
+T 54 source.cs
+T 55 source.cs punctuation.curlybrace.close.cs
+L 
+L     public class UsingDelegate<T> where T : System.Delegate { }
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 30 source.cs entity.name.type.class.cs
+T 31 source.cs punctuation.definition.typeparameters.begin.cs
+T 32 source.cs entity.name.type.type-parameter.cs
+T 33 source.cs punctuation.definition.typeparameters.end.cs
+T 34 source.cs
+T 39 source.cs storage.modifier.where.cs
+T 40 source.cs
+T 41 source.cs entity.name.type.type-parameter.cs
+T 42 source.cs
+T 43 source.cs punctuation.separator.colon.cs
+T 44 source.cs
+T 50 source.cs entity.name.type.cs
+T 51 source.cs punctuation.accessor.cs
+T 59 source.cs entity.name.type.cs
+T 60 source.cs
+T 61 source.cs punctuation.curlybrace.open.cs
+T 62 source.cs
+T 63 source.cs punctuation.curlybrace.close.cs
+L 
+L     public class Multicaster<T> where T : System.MulticastDelegate { }
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 28 source.cs entity.name.type.class.cs
+T 29 source.cs punctuation.definition.typeparameters.begin.cs
+T 30 source.cs entity.name.type.type-parameter.cs
+T 31 source.cs punctuation.definition.typeparameters.end.cs
+T 32 source.cs
+T 37 source.cs storage.modifier.where.cs
+T 38 source.cs
+T 39 source.cs entity.name.type.type-parameter.cs
+T 40 source.cs
+T 41 source.cs punctuation.separator.colon.cs
+T 42 source.cs
+T 48 source.cs entity.name.type.cs
+T 49 source.cs punctuation.accessor.cs
+T 66 source.cs entity.name.type.cs
+T 67 source.cs
+T 68 source.cs punctuation.curlybrace.open.cs
+T 69 source.cs
+T 70 source.cs punctuation.curlybrace.close.cs
+L     // </Snippet2>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L 
+L     // <Snippet3>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 17 source.cs comment.line.double-slash.cs
+L     class MyClass<T, U>
+T 4 source.cs
+T 9 source.cs storage.type.class.cs
+T 10 source.cs
+T 17 source.cs entity.name.type.class.cs
+T 18 source.cs punctuation.definition.typeparameters.begin.cs
+T 19 source.cs entity.name.type.type-parameter.cs
+T 20 source.cs punctuation.separator.comma.cs
+T 21 source.cs
+T 22 source.cs entity.name.type.type-parameter.cs
+T 23 source.cs punctuation.definition.typeparameters.end.cs
+L         where T : class
+T 8 source.cs
+T 13 source.cs storage.modifier.where.cs
+T 14 source.cs
+T 15 source.cs entity.name.type.type-parameter.cs
+T 16 source.cs
+T 17 source.cs punctuation.separator.colon.cs
+T 18 source.cs
+T 23 source.cs storage.type.class.cs
+L         where U : struct
+T 8 source.cs
+T 13 source.cs storage.modifier.where.cs
+T 14 source.cs
+T 15 source.cs entity.name.type.type-parameter.cs
+T 16 source.cs
+T 17 source.cs punctuation.separator.colon.cs
+T 18 source.cs
+T 24 source.cs storage.type.struct.cs
+L     { }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+T 6 source.cs
+T 7 source.cs punctuation.curlybrace.close.cs
+L     // </Snippet3>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L 
+L     // <Snippet4>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 17 source.cs comment.line.double-slash.cs
+L     class UnManagedWrapper<T>
+T 4 source.cs
+T 9 source.cs storage.type.class.cs
+T 10 source.cs
+T 26 source.cs entity.name.type.class.cs
+T 27 source.cs punctuation.definition.typeparameters.begin.cs
+T 28 source.cs entity.name.type.type-parameter.cs
+T 29 source.cs punctuation.definition.typeparameters.end.cs
+L         where T : unmanaged
+T 8 source.cs
+T 13 source.cs storage.modifier.where.cs
+T 14 source.cs
+T 15 source.cs entity.name.type.type-parameter.cs
+T 16 source.cs
+T 17 source.cs punctuation.separator.colon.cs
+T 18 source.cs
+T 27 source.cs keyword.other.constraint.unmanaged.cs
+L     { }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+T 6 source.cs
+T 7 source.cs punctuation.curlybrace.close.cs
+L     // </Snippet4>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L 
+L     // <SnippetNotNull>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 23 source.cs comment.line.double-slash.cs
+L #nullable enable
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 16 source.cs meta.preprocessor.cs
+L     class NotNullContainer<T>
+T 4 source.cs
+T 9 source.cs storage.type.class.cs
+T 10 source.cs
+T 26 source.cs entity.name.type.class.cs
+T 27 source.cs punctuation.definition.typeparameters.begin.cs
+T 28 source.cs entity.name.type.type-parameter.cs
+T 29 source.cs punctuation.definition.typeparameters.end.cs
+L         where T : notnull
+T 8 source.cs
+T 13 source.cs storage.modifier.where.cs
+T 14 source.cs
+T 15 source.cs entity.name.type.type-parameter.cs
+T 16 source.cs
+T 17 source.cs punctuation.separator.colon.cs
+T 18 source.cs
+T 25 source.cs keyword.other.constraint.notnull.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L #nullable restore
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 17 source.cs meta.preprocessor.cs
+L     // </SnippetNotNull>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 24 source.cs comment.line.double-slash.cs
+L 
+L     // <Snippet5>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 17 source.cs comment.line.double-slash.cs
+L     public class MyGenericClass<T> where T : IComparable<T>, new()
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 31 source.cs entity.name.type.class.cs
+T 32 source.cs punctuation.definition.typeparameters.begin.cs
+T 33 source.cs entity.name.type.type-parameter.cs
+T 34 source.cs punctuation.definition.typeparameters.end.cs
+T 35 source.cs
+T 40 source.cs storage.modifier.where.cs
+T 41 source.cs
+T 42 source.cs entity.name.type.type-parameter.cs
+T 43 source.cs
+T 44 source.cs punctuation.separator.colon.cs
+T 45 source.cs
+T 56 source.cs entity.name.type.cs
+T 57 source.cs punctuation.definition.typeparameters.begin.cs
+T 58 source.cs entity.name.type.cs
+T 59 source.cs punctuation.definition.typeparameters.end.cs
+T 60 source.cs punctuation.separator.comma.cs
+T 61 source.cs
+T 64 source.cs keyword.operator.expression.new.cs
+T 65 source.cs punctuation.parenthesis.open.cs
+T 66 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // The following line is not possible without new() constraint:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 71 source.cs comment.line.double-slash.cs
+L         T item = new T();
+T 8 source.cs
+T 9 source.cs entity.name.type.cs
+T 10 source.cs
+T 14 source.cs entity.name.variable.field.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 20 source.cs keyword.operator.expression.new.cs
+T 21 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs punctuation.parenthesis.close.cs
+T 25 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L     // </Snippet5>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L 
+L     // <SnippetRefStruct>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 25 source.cs comment.line.double-slash.cs
+L     public class GenericRefStruct<T> where T : allows ref struct
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 33 source.cs entity.name.type.class.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 35 source.cs entity.name.type.type-parameter.cs
+T 36 source.cs punctuation.definition.typeparameters.end.cs
+T 37 source.cs
+T 42 source.cs storage.modifier.where.cs
+T 43 source.cs
+T 44 source.cs entity.name.type.type-parameter.cs
+T 45 source.cs
+T 46 source.cs punctuation.separator.colon.cs
+T 47 source.cs
+T 53 source.cs entity.name.type.cs
+T 54 source.cs
+T 57 source.cs storage.modifier.ref.cs
+T 58 source.cs
+T 64 source.cs storage.type.struct.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // Scoped is allowed because T might be a ref struct
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 60 source.cs comment.line.double-slash.cs
+L         public void M(scoped T parm)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 19 source.cs keyword.type.void.cs
+T 20 source.cs
+T 21 source.cs entity.name.function.cs
+T 22 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs entity.name.type.cs
+T 29 source.cs
+T 30 source.cs entity.name.variable.parameter.cs
+T 35 source.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L 
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L     // </SnippetRefStruct>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 26 source.cs comment.line.double-slash.cs
+L 
+L     // <Snippet6>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 17 source.cs comment.line.double-slash.cs
+L     public interface IMyInterface { }
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 20 source.cs storage.type.interface.cs
+T 21 source.cs
+T 33 source.cs entity.name.type.interface.cs
+T 34 source.cs
+T 35 source.cs punctuation.curlybrace.open.cs
+T 36 source.cs
+T 37 source.cs punctuation.curlybrace.close.cs
+L 
+L     namespace CodeExample
+T 4 source.cs
+T 13 source.cs storage.type.namespace.cs
+T 14 source.cs
+T 25 source.cs entity.name.type.namespace.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         class Dictionary<TKey, TVal>
+T 8 source.cs
+T 13 source.cs storage.type.class.cs
+T 14 source.cs
+T 24 source.cs entity.name.type.class.cs
+T 25 source.cs punctuation.definition.typeparameters.begin.cs
+T 29 source.cs entity.name.type.type-parameter.cs
+T 30 source.cs punctuation.separator.comma.cs
+T 31 source.cs
+T 35 source.cs entity.name.type.type-parameter.cs
+T 36 source.cs punctuation.definition.typeparameters.end.cs
+L             where TKey : IComparable<TKey>
+T 12 source.cs
+T 17 source.cs storage.modifier.where.cs
+T 18 source.cs
+T 22 source.cs entity.name.type.type-parameter.cs
+T 23 source.cs
+T 24 source.cs punctuation.separator.colon.cs
+T 25 source.cs
+T 36 source.cs entity.name.type.cs
+T 37 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.definition.typeparameters.end.cs
+L             where TVal : IMyInterface
+T 12 source.cs
+T 17 source.cs storage.modifier.where.cs
+T 18 source.cs
+T 22 source.cs entity.name.type.type-parameter.cs
+T 23 source.cs
+T 24 source.cs punctuation.separator.colon.cs
+T 25 source.cs
+T 37 source.cs entity.name.type.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             public void Add(TKey key, TVal val) { }
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 27 source.cs entity.name.function.cs
+T 28 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs entity.name.type.cs
+T 33 source.cs
+T 36 source.cs entity.name.variable.parameter.cs
+T 37 source.cs punctuation.separator.comma.cs
+T 38 source.cs
+T 42 source.cs entity.name.type.cs
+T 43 source.cs
+T 46 source.cs entity.name.variable.parameter.cs
+T 47 source.cs punctuation.parenthesis.close.cs
+T 48 source.cs
+T 49 source.cs punctuation.curlybrace.open.cs
+T 50 source.cs
+T 51 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L     // </Snippet6>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L     public class Container
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 26 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <Snippet7>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L         public void MyMethod<T>(T t) where T : IMyInterface { }
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 19 source.cs keyword.type.void.cs
+T 20 source.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.definition.typeparameters.begin.cs
+T 30 source.cs entity.name.type.type-parameter.cs
+T 31 source.cs punctuation.definition.typeparameters.end.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs
+T 35 source.cs entity.name.variable.parameter.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+T 37 source.cs
+T 42 source.cs storage.modifier.where.cs
+T 43 source.cs
+T 44 source.cs entity.name.type.type-parameter.cs
+T 45 source.cs
+T 46 source.cs punctuation.separator.colon.cs
+T 47 source.cs
+T 59 source.cs entity.name.type.cs
+T 60 source.cs
+T 61 source.cs punctuation.curlybrace.open.cs
+T 62 source.cs
+T 63 source.cs punctuation.curlybrace.close.cs
+L         // </Snippet7>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L 
+L         // <Snippet8>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L         delegate T MyDelegate<T>() where T : new();
+T 8 source.cs
+T 16 source.cs storage.type.delegate.cs
+T 17 source.cs
+T 18 source.cs entity.name.type.cs
+T 19 source.cs
+T 29 source.cs entity.name.type.delegate.cs
+T 30 source.cs punctuation.definition.typeparameters.begin.cs
+T 31 source.cs entity.name.type.type-parameter.cs
+T 32 source.cs punctuation.definition.typeparameters.end.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs punctuation.parenthesis.close.cs
+T 35 source.cs
+T 40 source.cs storage.modifier.where.cs
+T 41 source.cs
+T 42 source.cs entity.name.type.type-parameter.cs
+T 43 source.cs
+T 44 source.cs punctuation.separator.colon.cs
+T 45 source.cs
+T 48 source.cs keyword.operator.expression.new.cs
+T 49 source.cs punctuation.parenthesis.open.cs
+T 50 source.cs punctuation.parenthesis.close.cs
+T 51 source.cs punctuation.terminator.statement.cs
+L         // </Snippet8>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L 
+L     public interface IEmployee
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 20 source.cs storage.type.interface.cs
+T 21 source.cs
+T 30 source.cs entity.name.type.interface.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     // <BaseClass>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 18 source.cs comment.line.double-slash.cs
+L     public abstract class B
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 19 source.cs storage.modifier.abstract.cs
+T 20 source.cs
+T 25 source.cs storage.type.class.cs
+T 26 source.cs
+T 27 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public void M<T>(T? item) where T : struct { }
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 19 source.cs keyword.type.void.cs
+T 20 source.cs
+T 21 source.cs entity.name.function.cs
+T 22 source.cs punctuation.definition.typeparameters.begin.cs
+T 23 source.cs entity.name.type.type-parameter.cs
+T 24 source.cs punctuation.definition.typeparameters.end.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 26 source.cs entity.name.type.cs
+T 27 source.cs punctuation.separator.question-mark.cs
+T 28 source.cs
+T 32 source.cs entity.name.variable.parameter.cs
+T 33 source.cs punctuation.parenthesis.close.cs
+T 34 source.cs
+T 39 source.cs storage.modifier.where.cs
+T 40 source.cs
+T 41 source.cs entity.name.type.type-parameter.cs
+T 42 source.cs
+T 43 source.cs punctuation.separator.colon.cs
+T 44 source.cs
+T 50 source.cs storage.type.struct.cs
+T 51 source.cs
+T 52 source.cs punctuation.curlybrace.open.cs
+T 53 source.cs
+T 54 source.cs punctuation.curlybrace.close.cs
+L         public abstract void M<T>(T? item);
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 23 source.cs storage.modifier.abstract.cs
+T 24 source.cs
+T 28 source.cs keyword.type.void.cs
+T 29 source.cs
+T 30 source.cs entity.name.function.cs
+T 31 source.cs punctuation.definition.typeparameters.begin.cs
+T 32 source.cs entity.name.type.type-parameter.cs
+T 33 source.cs punctuation.definition.typeparameters.end.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs entity.name.type.cs
+T 36 source.cs punctuation.separator.question-mark.cs
+T 37 source.cs
+T 41 source.cs entity.name.variable.parameter.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L 
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L     // </BaseClass>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 19 source.cs comment.line.double-slash.cs
+L 
+L     // <DerivedClass>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L     public class D : B
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 18 source.cs entity.name.type.class.cs
+T 19 source.cs
+T 20 source.cs punctuation.separator.colon.cs
+T 21 source.cs
+T 22 source.cs entity.name.type.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // Without the "default" constraint, the compiler tries to override the first method in B
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 97 source.cs comment.line.double-slash.cs
+L         public override void M<T>(T? item) where T : default { }
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 23 source.cs storage.modifier.override.cs
+T 24 source.cs
+T 28 source.cs keyword.type.void.cs
+T 29 source.cs
+T 30 source.cs entity.name.function.cs
+T 31 source.cs punctuation.definition.typeparameters.begin.cs
+T 32 source.cs entity.name.type.type-parameter.cs
+T 33 source.cs punctuation.definition.typeparameters.end.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs entity.name.type.cs
+T 36 source.cs punctuation.separator.question-mark.cs
+T 37 source.cs
+T 41 source.cs entity.name.variable.parameter.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs
+T 48 source.cs storage.modifier.where.cs
+T 49 source.cs
+T 50 source.cs entity.name.type.type-parameter.cs
+T 51 source.cs
+T 52 source.cs punctuation.separator.colon.cs
+T 53 source.cs
+T 60 source.cs keyword.other.constraint.default.cs
+T 61 source.cs
+T 62 source.cs punctuation.curlybrace.open.cs
+T 63 source.cs
+T 64 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L     // </DerivedClass>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 

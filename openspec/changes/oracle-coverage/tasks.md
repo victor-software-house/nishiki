@@ -32,7 +32,8 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 - [ ] 3.5 Java: `java`
 - [ ] 3.6 TypeScript: `typescript`, `javascript`, `jsx`, `tsx`
 - [ ] 3.7 C and C++: `c`, `cpp`, `cpp-macro`
-- [ ] 3.8 Rust: `rust`
+- [x] 3.8 Rust: `rust`
+  - 2026-11-04 UTC, [PR 259][pr259]: `rust/core-macros` and `rust/coverage` added; Rust complete with one waiver. On `b672f999` the [oracle test][run-259-ci] and the [coverage check][run-259-cov] passed.
 - [ ] 3.9 Ruby: `ruby`
 - [ ] 3.10 Kotlin: `kotlin`
 - [ ] 3.11 Lua: `lua`
@@ -50,3 +51,6 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr238]: https://github.com/victor-software-house/nishiki-archive/pull/238
 [pr252]: https://github.com/victor-software-house/nishiki-archive/pull/252
 [run-252]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41756482197
+[pr259]: https://github.com/victor-software-house/nishiki-archive/pull/259
+[run-259-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41757301609
+[run-259-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41757301124

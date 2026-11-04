@@ -1,0 +1,2039 @@
+L namespace Group;
+T 9 source.cs storage.type.namespace.cs
+T 10 source.cs
+T 15 source.cs entity.name.type.namespace.cs
+T 16 source.cs punctuation.terminator.statement.cs
+L 
+L using CommonTypes;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 17 source.cs entity.name.type.namespace.cs
+T 18 source.cs punctuation.terminator.statement.cs
+L // For the group clause topic, we only use bits and pieces of this class. The same
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 82 source.cs comment.line.double-slash.cs
+L // class is also used for  How To: Group Results in Various Ways HowTo and
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 74 source.cs comment.line.double-slash.cs
+L // How To: Enumerate Groups and Group Items
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 43 source.cs comment.line.double-slash.cs
+L 
+L // Code snippets not compilable samples
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 39 source.cs comment.line.double-slash.cs
+L class GroupCodeExcerpts : CommonTypes.Common
+T 5 source.cs storage.type.class.cs
+T 6 source.cs
+T 23 source.cs entity.name.type.class.cs
+T 24 source.cs
+T 25 source.cs punctuation.separator.colon.cs
+T 26 source.cs
+T 37 source.cs entity.name.type.cs
+T 38 source.cs punctuation.accessor.cs
+T 44 source.cs entity.name.type.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     List<Common.Student> students = CommonTypes.Common.GetStudents();
+T 4 source.cs
+T 8 source.cs entity.name.type.cs
+T 9 source.cs punctuation.definition.typeparameters.begin.cs
+T 15 source.cs entity.name.type.cs
+T 16 source.cs punctuation.accessor.cs
+T 23 source.cs entity.name.type.cs
+T 24 source.cs punctuation.definition.typeparameters.end.cs
+T 25 source.cs
+T 33 source.cs entity.name.variable.field.cs
+T 34 source.cs
+T 35 source.cs keyword.operator.assignment.cs
+T 36 source.cs
+T 47 source.cs variable.other.object.cs
+T 48 source.cs punctuation.accessor.cs
+T 54 source.cs variable.other.object.property.cs
+T 55 source.cs punctuation.accessor.cs
+T 66 source.cs entity.name.function.cs
+T 67 source.cs punctuation.parenthesis.open.cs
+T 68 source.cs punctuation.parenthesis.close.cs
+T 69 source.cs punctuation.terminator.statement.cs
+L     // Use a compound from to access the inner sequence within each element.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 76 source.cs comment.line.double-slash.cs
+L     // Note the similarity to a nested foreach statement.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 57 source.cs comment.line.double-slash.cs
+L     void SimpleGroups()
+T 4 source.cs
+T 8 source.cs keyword.type.void.cs
+T 9 source.cs
+T 21 source.cs entity.name.function.cs
+T 22 source.cs punctuation.parenthesis.open.cs
+T 23 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L 
+L         //<Snippet10>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L         // Query variable is an IEnumerable<IGrouping<char, Student>>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 69 source.cs comment.line.double-slash.cs
+L         var studentQuery1 =
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 25 source.cs entity.name.variable.local.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+L             from student in students
+T 12 source.cs
+T 16 source.cs keyword.operator.expression.query.from.cs
+T 17 source.cs
+T 24 source.cs entity.name.variable.range-variable.cs
+T 25 source.cs
+T 27 source.cs keyword.operator.expression.query.in.cs
+T 28 source.cs
+T 36 source.cs variable.other.readwrite.cs
+L             group student by student.Last[0];
+T 12 source.cs
+T 17 source.cs keyword.operator.expression.query.group.cs
+T 18 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 28 source.cs keyword.operator.expression.query.by.cs
+T 29 source.cs
+T 36 source.cs variable.other.object.cs
+T 37 source.cs punctuation.accessor.cs
+T 41 source.cs variable.other.object.property.cs
+T 42 source.cs punctuation.squarebracket.open.cs
+T 43 source.cs constant.numeric.decimal.cs
+T 44 source.cs punctuation.squarebracket.close.cs
+T 45 source.cs punctuation.terminator.statement.cs
+L         //</snippet10>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L 
+L         // This query could be easily modified to group by the entire last name.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 80 source.cs comment.line.double-slash.cs
+L         //<Snippet11>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L         // Group students by the first letter of their last name
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 64 source.cs comment.line.double-slash.cs
+L         // Query variable is an IEnumerable<IGrouping<char, Student>>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 69 source.cs comment.line.double-slash.cs
+L         var studentQuery2 =
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 25 source.cs entity.name.variable.local.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+L             from student in students
+T 12 source.cs
+T 16 source.cs keyword.operator.expression.query.from.cs
+T 17 source.cs
+T 24 source.cs entity.name.variable.range-variable.cs
+T 25 source.cs
+T 27 source.cs keyword.operator.expression.query.in.cs
+T 28 source.cs
+T 36 source.cs variable.other.readwrite.cs
+L             group student by student.Last[0] into g
+T 12 source.cs
+T 17 source.cs keyword.operator.expression.query.group.cs
+T 18 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 28 source.cs keyword.operator.expression.query.by.cs
+T 29 source.cs
+T 36 source.cs variable.other.object.cs
+T 37 source.cs punctuation.accessor.cs
+T 41 source.cs variable.other.object.property.cs
+T 42 source.cs punctuation.squarebracket.open.cs
+T 43 source.cs constant.numeric.decimal.cs
+T 44 source.cs punctuation.squarebracket.close.cs
+T 45 source.cs
+T 49 source.cs keyword.operator.expression.query.into.cs
+T 50 source.cs
+T 51 source.cs entity.name.variable.range-variable.cs
+L             orderby g.Key
+T 12 source.cs
+T 19 source.cs keyword.operator.expression.query.orderby.cs
+T 20 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 25 source.cs variable.other.object.property.cs
+L             select g;
+T 12 source.cs
+T 18 source.cs keyword.operator.expression.query.select.cs
+T 19 source.cs
+T 20 source.cs variable.other.readwrite.cs
+T 21 source.cs punctuation.terminator.statement.cs
+L         //</snippet11>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L         Console.WriteLine("The SimpleGroup method produces this output:\r\n");
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 27 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 71 source.cs string.quoted.double.cs
+T 73 source.cs string.quoted.double.cs constant.character.escape.cs
+T 75 source.cs string.quoted.double.cs constant.character.escape.cs
+T 76 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 77 source.cs punctuation.parenthesis.close.cs
+T 78 source.cs punctuation.terminator.statement.cs
+L 
+L        //<snippet12>
+T 7 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 9 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 20 source.cs comment.line.double-slash.cs
+L        // Iterate group items with a nested foreach. This IGrouping encapsulates
+T 7 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 9 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 80 source.cs comment.line.double-slash.cs
+L        // a sequence of Student objects, and a Key of type char.
+T 7 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 9 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 64 source.cs comment.line.double-slash.cs
+L        // For convenience, var can also be used in the foreach statement.
+T 7 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 9 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 73 source.cs comment.line.double-slash.cs
+L        foreach (IGrouping<char, Student> studentGroup in studentQuery2)
+T 7 source.cs
+T 14 source.cs keyword.control.loop.foreach.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 25 source.cs entity.name.type.cs
+T 26 source.cs punctuation.definition.typeparameters.begin.cs
+T 30 source.cs keyword.type.char.cs
+T 31 source.cs punctuation.separator.comma.cs
+T 32 source.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.definition.typeparameters.end.cs
+T 41 source.cs
+T 53 source.cs entity.name.variable.local.cs
+T 54 source.cs
+T 56 source.cs keyword.control.loop.in.cs
+T 57 source.cs
+T 70 source.cs variable.other.readwrite.cs
+T 71 source.cs punctuation.parenthesis.close.cs
+L        {
+T 7 source.cs
+T 8 source.cs punctuation.curlybrace.open.cs
+L             Console.WriteLine(studentGroup.Key);
+T 12 source.cs
+T 19 source.cs variable.other.object.cs
+T 20 source.cs punctuation.accessor.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs variable.other.object.cs
+T 43 source.cs punctuation.accessor.cs
+T 46 source.cs variable.other.object.property.cs
+T 47 source.cs punctuation.parenthesis.close.cs
+T 48 source.cs punctuation.terminator.statement.cs
+L             // Explicit type for student could also be used here.
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 65 source.cs comment.line.double-slash.cs
+L             foreach (var student in studentGroup)
+T 12 source.cs
+T 19 source.cs keyword.control.loop.foreach.cs
+T 20 source.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs storage.type.var.cs
+T 25 source.cs
+T 32 source.cs entity.name.variable.local.cs
+T 33 source.cs
+T 35 source.cs keyword.control.loop.in.cs
+T 36 source.cs
+T 48 source.cs variable.other.readwrite.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Console.WriteLine("   {0}, {1}", student.Last, student.First);
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 46 source.cs string.quoted.double.cs
+T 47 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 48 source.cs punctuation.separator.comma.cs
+T 49 source.cs
+T 56 source.cs variable.other.object.cs
+T 57 source.cs punctuation.accessor.cs
+T 61 source.cs variable.other.object.property.cs
+T 62 source.cs punctuation.separator.comma.cs
+T 63 source.cs
+T 70 source.cs variable.other.object.cs
+T 71 source.cs punctuation.accessor.cs
+T 76 source.cs variable.other.object.property.cs
+T 77 source.cs punctuation.parenthesis.close.cs
+T 78 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L         //</snippet12>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L 
+L         //<Snippet13>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 21 source.cs comment.line.double-slash.cs
+L         // Same as previous example except we use the entire last name as a key.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 80 source.cs comment.line.double-slash.cs
+L         // Query variable is an IEnumerable<IGrouping<string, Student>>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 71 source.cs comment.line.double-slash.cs
+L         var studentQuery3 =
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 25 source.cs entity.name.variable.local.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+L             from student in students
+T 12 source.cs
+T 16 source.cs keyword.operator.expression.query.from.cs
+T 17 source.cs
+T 24 source.cs entity.name.variable.range-variable.cs
+T 25 source.cs
+T 27 source.cs keyword.operator.expression.query.in.cs
+T 28 source.cs
+T 36 source.cs variable.other.readwrite.cs
+L             group student by student.Last;
+T 12 source.cs
+T 17 source.cs keyword.operator.expression.query.group.cs
+T 18 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 28 source.cs keyword.operator.expression.query.by.cs
+T 29 source.cs
+T 36 source.cs variable.other.object.cs
+T 37 source.cs punctuation.accessor.cs
+T 41 source.cs variable.other.object.property.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L         //</snippet13>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 22 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 
+L // The rest of the samples must run and produce output
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 54 source.cs comment.line.double-slash.cs
+L //<snippet14>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 13 source.cs comment.line.double-slash.cs
+L class GroupSample1
+T 5 source.cs storage.type.class.cs
+T 6 source.cs
+T 18 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     // The element type of the data source.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 43 source.cs comment.line.double-slash.cs
+L     public class Student
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 24 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public required string First { get; init; }
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 23 source.cs storage.modifier.required.cs
+T 24 source.cs
+T 30 source.cs keyword.type.string.cs
+T 31 source.cs
+T 36 source.cs entity.name.variable.property.cs
+T 37 source.cs
+T 38 source.cs punctuation.curlybrace.open.cs
+T 39 source.cs
+T 42 source.cs storage.type.accessor.get.cs
+T 43 source.cs punctuation.terminator.statement.cs
+T 44 source.cs
+T 48 source.cs storage.type.accessor.init.cs
+T 49 source.cs punctuation.terminator.statement.cs
+T 50 source.cs
+T 51 source.cs punctuation.curlybrace.close.cs
+L         public required string Last { get; init; }
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 23 source.cs storage.modifier.required.cs
+T 24 source.cs
+T 30 source.cs keyword.type.string.cs
+T 31 source.cs
+T 35 source.cs entity.name.variable.property.cs
+T 36 source.cs
+T 37 source.cs punctuation.curlybrace.open.cs
+T 38 source.cs
+T 41 source.cs storage.type.accessor.get.cs
+T 42 source.cs punctuation.terminator.statement.cs
+T 43 source.cs
+T 47 source.cs storage.type.accessor.init.cs
+T 48 source.cs punctuation.terminator.statement.cs
+T 49 source.cs
+T 50 source.cs punctuation.curlybrace.close.cs
+L         public required int ID { get; init; }
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 23 source.cs storage.modifier.required.cs
+T 24 source.cs
+T 27 source.cs keyword.type.int.cs
+T 28 source.cs
+T 30 source.cs entity.name.variable.property.cs
+T 31 source.cs
+T 32 source.cs punctuation.curlybrace.open.cs
+T 33 source.cs
+T 36 source.cs storage.type.accessor.get.cs
+T 37 source.cs punctuation.terminator.statement.cs
+T 38 source.cs
+T 42 source.cs storage.type.accessor.init.cs
+T 43 source.cs punctuation.terminator.statement.cs
+T 44 source.cs
+T 45 source.cs punctuation.curlybrace.close.cs
+L         public required List<int> Scores;
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 23 source.cs storage.modifier.required.cs
+T 24 source.cs
+T 28 source.cs entity.name.type.cs
+T 29 source.cs punctuation.definition.typeparameters.begin.cs
+T 32 source.cs keyword.type.int.cs
+T 33 source.cs punctuation.definition.typeparameters.end.cs
+T 34 source.cs
+T 40 source.cs entity.name.variable.field.cs
+T 41 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     public static List<Student> GetStudents()
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs punctuation.definition.typeparameters.begin.cs
+T 30 source.cs entity.name.type.cs
+T 31 source.cs punctuation.definition.typeparameters.end.cs
+T 32 source.cs
+T 43 source.cs entity.name.function.cs
+T 44 source.cs punctuation.parenthesis.open.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // Use a collection initializer to create the data source. Note that each element
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 89 source.cs comment.line.double-slash.cs
+L         //  in the list contains an inner sequence of scores.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 61 source.cs comment.line.double-slash.cs
+L         List<Student> students =
+T 8 source.cs
+T 12 source.cs entity.name.type.cs
+T 13 source.cs punctuation.definition.typeparameters.begin.cs
+T 20 source.cs entity.name.type.cs
+T 21 source.cs punctuation.definition.typeparameters.end.cs
+T 22 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+L         [
+T 8 source.cs
+T 9 source.cs punctuation.squarebracket.open.cs
+L            new Student {First="Svetlana", Last="Omelchenko", ID=111, Scores= [97, 72, 81, 60]},
+T 11 source.cs
+T 14 source.cs keyword.operator.expression.new.cs
+T 15 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 24 source.cs punctuation.curlybrace.open.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs keyword.operator.assignment.cs
+T 31 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 39 source.cs string.quoted.double.cs
+T 40 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 41 source.cs punctuation.separator.comma.cs
+T 42 source.cs
+T 46 source.cs variable.other.readwrite.cs
+T 47 source.cs keyword.operator.assignment.cs
+T 48 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 58 source.cs string.quoted.double.cs
+T 59 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 60 source.cs punctuation.separator.comma.cs
+T 61 source.cs
+T 63 source.cs variable.other.readwrite.cs
+T 64 source.cs keyword.operator.assignment.cs
+T 67 source.cs constant.numeric.decimal.cs
+T 68 source.cs punctuation.separator.comma.cs
+T 69 source.cs
+T 75 source.cs variable.other.readwrite.cs
+T 76 source.cs keyword.operator.assignment.cs
+T 77 source.cs
+T 78 source.cs punctuation.squarebracket.open.cs
+T 80 source.cs constant.numeric.decimal.cs
+T 81 source.cs punctuation.separator.comma.cs
+T 82 source.cs
+T 84 source.cs constant.numeric.decimal.cs
+T 85 source.cs punctuation.separator.comma.cs
+T 86 source.cs
+T 88 source.cs constant.numeric.decimal.cs
+T 89 source.cs punctuation.separator.comma.cs
+T 90 source.cs
+T 92 source.cs constant.numeric.decimal.cs
+T 93 source.cs punctuation.squarebracket.close.cs
+T 94 source.cs punctuation.curlybrace.close.cs
+T 95 source.cs punctuation.separator.comma.cs
+L            new Student {First="Claire", Last="O'Donnell", ID=112, Scores= [75, 84, 91, 39]},
+T 11 source.cs
+T 14 source.cs keyword.operator.expression.new.cs
+T 15 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 24 source.cs punctuation.curlybrace.open.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs keyword.operator.assignment.cs
+T 31 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 37 source.cs string.quoted.double.cs
+T 38 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 39 source.cs punctuation.separator.comma.cs
+T 40 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs keyword.operator.assignment.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 55 source.cs string.quoted.double.cs
+T 56 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 57 source.cs punctuation.separator.comma.cs
+T 58 source.cs
+T 60 source.cs variable.other.readwrite.cs
+T 61 source.cs keyword.operator.assignment.cs
+T 64 source.cs constant.numeric.decimal.cs
+T 65 source.cs punctuation.separator.comma.cs
+T 66 source.cs
+T 72 source.cs variable.other.readwrite.cs
+T 73 source.cs keyword.operator.assignment.cs
+T 74 source.cs
+T 75 source.cs punctuation.squarebracket.open.cs
+T 77 source.cs constant.numeric.decimal.cs
+T 78 source.cs punctuation.separator.comma.cs
+T 79 source.cs
+T 81 source.cs constant.numeric.decimal.cs
+T 82 source.cs punctuation.separator.comma.cs
+T 83 source.cs
+T 85 source.cs constant.numeric.decimal.cs
+T 86 source.cs punctuation.separator.comma.cs
+T 87 source.cs
+T 89 source.cs constant.numeric.decimal.cs
+T 90 source.cs punctuation.squarebracket.close.cs
+T 91 source.cs punctuation.curlybrace.close.cs
+T 92 source.cs punctuation.separator.comma.cs
+L            new Student {First="Sven", Last="Mortensen", ID=113, Scores= [99, 89, 91, 95]},
+T 11 source.cs
+T 14 source.cs keyword.operator.expression.new.cs
+T 15 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 24 source.cs punctuation.curlybrace.open.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs keyword.operator.assignment.cs
+T 31 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 35 source.cs string.quoted.double.cs
+T 36 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 37 source.cs punctuation.separator.comma.cs
+T 38 source.cs
+T 42 source.cs variable.other.readwrite.cs
+T 43 source.cs keyword.operator.assignment.cs
+T 44 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 53 source.cs string.quoted.double.cs
+T 54 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 55 source.cs punctuation.separator.comma.cs
+T 56 source.cs
+T 58 source.cs variable.other.readwrite.cs
+T 59 source.cs keyword.operator.assignment.cs
+T 62 source.cs constant.numeric.decimal.cs
+T 63 source.cs punctuation.separator.comma.cs
+T 64 source.cs
+T 70 source.cs variable.other.readwrite.cs
+T 71 source.cs keyword.operator.assignment.cs
+T 72 source.cs
+T 73 source.cs punctuation.squarebracket.open.cs
+T 75 source.cs constant.numeric.decimal.cs
+T 76 source.cs punctuation.separator.comma.cs
+T 77 source.cs
+T 79 source.cs constant.numeric.decimal.cs
+T 80 source.cs punctuation.separator.comma.cs
+T 81 source.cs
+T 83 source.cs constant.numeric.decimal.cs
+T 84 source.cs punctuation.separator.comma.cs
+T 85 source.cs
+T 87 source.cs constant.numeric.decimal.cs
+T 88 source.cs punctuation.squarebracket.close.cs
+T 89 source.cs punctuation.curlybrace.close.cs
+T 90 source.cs punctuation.separator.comma.cs
+L            new Student {First="Cesar", Last="Garcia", ID=114, Scores= [72, 81, 65, 84]},
+T 11 source.cs
+T 14 source.cs keyword.operator.expression.new.cs
+T 15 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 24 source.cs punctuation.curlybrace.open.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs keyword.operator.assignment.cs
+T 31 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs string.quoted.double.cs
+T 37 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs punctuation.separator.comma.cs
+T 39 source.cs
+T 43 source.cs variable.other.readwrite.cs
+T 44 source.cs keyword.operator.assignment.cs
+T 45 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 56 source.cs variable.other.readwrite.cs
+T 57 source.cs keyword.operator.assignment.cs
+T 60 source.cs constant.numeric.decimal.cs
+T 61 source.cs punctuation.separator.comma.cs
+T 62 source.cs
+T 68 source.cs variable.other.readwrite.cs
+T 69 source.cs keyword.operator.assignment.cs
+T 70 source.cs
+T 71 source.cs punctuation.squarebracket.open.cs
+T 73 source.cs constant.numeric.decimal.cs
+T 74 source.cs punctuation.separator.comma.cs
+T 75 source.cs
+T 77 source.cs constant.numeric.decimal.cs
+T 78 source.cs punctuation.separator.comma.cs
+T 79 source.cs
+T 81 source.cs constant.numeric.decimal.cs
+T 82 source.cs punctuation.separator.comma.cs
+T 83 source.cs
+T 85 source.cs constant.numeric.decimal.cs
+T 86 source.cs punctuation.squarebracket.close.cs
+T 87 source.cs punctuation.curlybrace.close.cs
+T 88 source.cs punctuation.separator.comma.cs
+L            new Student {First="Debra", Last="Garcia", ID=115, Scores= [97, 89, 85, 82]}
+T 11 source.cs
+T 14 source.cs keyword.operator.expression.new.cs
+T 15 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 24 source.cs punctuation.curlybrace.open.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs keyword.operator.assignment.cs
+T 31 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs string.quoted.double.cs
+T 37 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs punctuation.separator.comma.cs
+T 39 source.cs
+T 43 source.cs variable.other.readwrite.cs
+T 44 source.cs keyword.operator.assignment.cs
+T 45 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 56 source.cs variable.other.readwrite.cs
+T 57 source.cs keyword.operator.assignment.cs
+T 60 source.cs constant.numeric.decimal.cs
+T 61 source.cs punctuation.separator.comma.cs
+T 62 source.cs
+T 68 source.cs variable.other.readwrite.cs
+T 69 source.cs keyword.operator.assignment.cs
+T 70 source.cs
+T 71 source.cs punctuation.squarebracket.open.cs
+T 73 source.cs constant.numeric.decimal.cs
+T 74 source.cs punctuation.separator.comma.cs
+T 75 source.cs
+T 77 source.cs constant.numeric.decimal.cs
+T 78 source.cs punctuation.separator.comma.cs
+T 79 source.cs
+T 81 source.cs constant.numeric.decimal.cs
+T 82 source.cs punctuation.separator.comma.cs
+T 83 source.cs
+T 85 source.cs constant.numeric.decimal.cs
+T 86 source.cs punctuation.squarebracket.close.cs
+T 87 source.cs punctuation.curlybrace.close.cs
+L         ];
+T 8 source.cs
+T 9 source.cs punctuation.squarebracket.close.cs
+T 10 source.cs punctuation.terminator.statement.cs
+L 
+L         return students;
+T 8 source.cs
+T 14 source.cs keyword.control.flow.return.cs
+T 15 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     static void Main()
+T 4 source.cs
+T 10 source.cs storage.modifier.static.cs
+T 11 source.cs
+T 15 source.cs keyword.type.void.cs
+T 16 source.cs
+T 20 source.cs entity.name.function.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // Obtain the data source.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 34 source.cs comment.line.double-slash.cs
+L         List<Student> students = GetStudents();
+T 8 source.cs
+T 12 source.cs entity.name.type.cs
+T 13 source.cs punctuation.definition.typeparameters.begin.cs
+T 20 source.cs entity.name.type.cs
+T 21 source.cs punctuation.definition.typeparameters.end.cs
+T 22 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 44 source.cs entity.name.function.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+T 47 source.cs punctuation.terminator.statement.cs
+L 
+L         // Group by true or false.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 34 source.cs comment.line.double-slash.cs
+L         // Query variable is an IEnumerable<IGrouping<bool, Student>>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 69 source.cs comment.line.double-slash.cs
+L         var booleanGroupQuery =
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs
+T 31 source.cs keyword.operator.assignment.cs
+L             from student in students
+T 12 source.cs
+T 16 source.cs keyword.operator.expression.query.from.cs
+T 17 source.cs
+T 24 source.cs entity.name.variable.range-variable.cs
+T 25 source.cs
+T 27 source.cs keyword.operator.expression.query.in.cs
+T 28 source.cs
+T 36 source.cs variable.other.readwrite.cs
+L             group student by student.Scores.Average() >= 80; //pass or fail!
+T 12 source.cs
+T 17 source.cs keyword.operator.expression.query.group.cs
+T 18 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 28 source.cs keyword.operator.expression.query.by.cs
+T 29 source.cs
+T 36 source.cs variable.other.object.cs
+T 37 source.cs punctuation.accessor.cs
+T 43 source.cs variable.other.object.property.cs
+T 44 source.cs punctuation.accessor.cs
+T 51 source.cs entity.name.function.cs
+T 52 source.cs punctuation.parenthesis.open.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs
+T 56 source.cs keyword.operator.relational.cs
+T 57 source.cs
+T 59 source.cs constant.numeric.decimal.cs
+T 60 source.cs punctuation.terminator.statement.cs
+T 61 source.cs
+T 63 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 76 source.cs comment.line.double-slash.cs
+L 
+L         // Execute the query and access items in each group
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 59 source.cs comment.line.double-slash.cs
+L         foreach (var studentGroup in booleanGroupQuery)
+T 8 source.cs
+T 15 source.cs keyword.control.loop.foreach.cs
+T 16 source.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs storage.type.var.cs
+T 21 source.cs
+T 33 source.cs entity.name.variable.local.cs
+T 34 source.cs
+T 36 source.cs keyword.control.loop.in.cs
+T 37 source.cs
+T 54 source.cs variable.other.readwrite.cs
+T 55 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             Console.WriteLine(studentGroup.Key == true ? "High averages" : "Low averages");
+T 12 source.cs
+T 19 source.cs variable.other.object.cs
+T 20 source.cs punctuation.accessor.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs variable.other.object.cs
+T 43 source.cs punctuation.accessor.cs
+T 46 source.cs variable.other.object.property.cs
+T 47 source.cs
+T 49 source.cs keyword.operator.comparison.cs
+T 50 source.cs
+T 54 source.cs constant.language.boolean.true.cs
+T 55 source.cs
+T 56 source.cs keyword.operator.conditional.question-mark.cs
+T 57 source.cs
+T 58 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 71 source.cs string.quoted.double.cs
+T 72 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 73 source.cs
+T 74 source.cs keyword.operator.conditional.colon.cs
+T 75 source.cs
+T 76 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 88 source.cs string.quoted.double.cs
+T 89 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 90 source.cs punctuation.parenthesis.close.cs
+T 91 source.cs punctuation.terminator.statement.cs
+L             foreach (var student in studentGroup)
+T 12 source.cs
+T 19 source.cs keyword.control.loop.foreach.cs
+T 20 source.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs storage.type.var.cs
+T 25 source.cs
+T 32 source.cs entity.name.variable.local.cs
+T 33 source.cs
+T 35 source.cs keyword.control.loop.in.cs
+T 36 source.cs
+T 48 source.cs variable.other.readwrite.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Console.WriteLine("   {0}, {1}:{2}", student.Last, student.First, student.Scores.Average());
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 50 source.cs string.quoted.double.cs
+T 51 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 52 source.cs punctuation.separator.comma.cs
+T 53 source.cs
+T 60 source.cs variable.other.object.cs
+T 61 source.cs punctuation.accessor.cs
+T 65 source.cs variable.other.object.property.cs
+T 66 source.cs punctuation.separator.comma.cs
+T 67 source.cs
+T 74 source.cs variable.other.object.cs
+T 75 source.cs punctuation.accessor.cs
+T 80 source.cs variable.other.object.property.cs
+T 81 source.cs punctuation.separator.comma.cs
+T 82 source.cs
+T 89 source.cs variable.other.object.cs
+T 90 source.cs punctuation.accessor.cs
+T 96 source.cs variable.other.object.property.cs
+T 97 source.cs punctuation.accessor.cs
+T 104 source.cs entity.name.function.cs
+T 105 source.cs punctuation.parenthesis.open.cs
+T 106 source.cs punctuation.parenthesis.close.cs
+T 107 source.cs punctuation.parenthesis.close.cs
+T 108 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L /* Output:
+T 2 source.cs comment.block.cs punctuation.definition.comment.cs
+T 10 source.cs comment.block.cs
+L   Low averages
+T 14 source.cs comment.block.cs
+L    Omelchenko, Svetlana:77.5
+T 28 source.cs comment.block.cs
+L    O'Donnell, Claire:72.25
+T 26 source.cs comment.block.cs
+L    Garcia, Cesar:75.5
+T 21 source.cs comment.block.cs
+L   High averages
+T 15 source.cs comment.block.cs
+L    Mortensen, Sven:93.5
+T 23 source.cs comment.block.cs
+L    Garcia, Debra:88.25
+T 22 source.cs comment.block.cs
+L */
+T 2 source.cs comment.block.cs punctuation.definition.comment.cs
+L //</snippet14>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L 
+L //<snippet15>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 13 source.cs comment.line.double-slash.cs
+L class GroupSample2
+T 5 source.cs storage.type.class.cs
+T 6 source.cs
+T 18 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     // The element type of the data source.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 43 source.cs comment.line.double-slash.cs
+L     public class Student
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 24 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public required string First { get; init; }
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 23 source.cs storage.modifier.required.cs
+T 24 source.cs
+T 30 source.cs keyword.type.string.cs
+T 31 source.cs
+T 36 source.cs entity.name.variable.property.cs
+T 37 source.cs
+T 38 source.cs punctuation.curlybrace.open.cs
+T 39 source.cs
+T 42 source.cs storage.type.accessor.get.cs
+T 43 source.cs punctuation.terminator.statement.cs
+T 44 source.cs
+T 48 source.cs storage.type.accessor.init.cs
+T 49 source.cs punctuation.terminator.statement.cs
+T 50 source.cs
+T 51 source.cs punctuation.curlybrace.close.cs
+L         public required string Last { get; init; }
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 23 source.cs storage.modifier.required.cs
+T 24 source.cs
+T 30 source.cs keyword.type.string.cs
+T 31 source.cs
+T 35 source.cs entity.name.variable.property.cs
+T 36 source.cs
+T 37 source.cs punctuation.curlybrace.open.cs
+T 38 source.cs
+T 41 source.cs storage.type.accessor.get.cs
+T 42 source.cs punctuation.terminator.statement.cs
+T 43 source.cs
+T 47 source.cs storage.type.accessor.init.cs
+T 48 source.cs punctuation.terminator.statement.cs
+T 49 source.cs
+T 50 source.cs punctuation.curlybrace.close.cs
+L         public required int ID { get; init; }
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 23 source.cs storage.modifier.required.cs
+T 24 source.cs
+T 27 source.cs keyword.type.int.cs
+T 28 source.cs
+T 30 source.cs entity.name.variable.property.cs
+T 31 source.cs
+T 32 source.cs punctuation.curlybrace.open.cs
+T 33 source.cs
+T 36 source.cs storage.type.accessor.get.cs
+T 37 source.cs punctuation.terminator.statement.cs
+T 38 source.cs
+T 42 source.cs storage.type.accessor.init.cs
+T 43 source.cs punctuation.terminator.statement.cs
+T 44 source.cs
+T 45 source.cs punctuation.curlybrace.close.cs
+L         public required List<int> Scores;
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 23 source.cs storage.modifier.required.cs
+T 24 source.cs
+T 28 source.cs entity.name.type.cs
+T 29 source.cs punctuation.definition.typeparameters.begin.cs
+T 32 source.cs keyword.type.int.cs
+T 33 source.cs punctuation.definition.typeparameters.end.cs
+T 34 source.cs
+T 40 source.cs entity.name.variable.field.cs
+T 41 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     public static List<Student> GetStudents()
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs punctuation.definition.typeparameters.begin.cs
+T 30 source.cs entity.name.type.cs
+T 31 source.cs punctuation.definition.typeparameters.end.cs
+T 32 source.cs
+T 43 source.cs entity.name.function.cs
+T 44 source.cs punctuation.parenthesis.open.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // Use a collection initializer to create the data source. Note that each element
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 89 source.cs comment.line.double-slash.cs
+L         //  in the list contains an inner sequence of scores.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 61 source.cs comment.line.double-slash.cs
+L         List<Student> students =
+T 8 source.cs
+T 12 source.cs entity.name.type.cs
+T 13 source.cs punctuation.definition.typeparameters.begin.cs
+T 20 source.cs entity.name.type.cs
+T 21 source.cs punctuation.definition.typeparameters.end.cs
+T 22 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+L         [
+T 8 source.cs
+T 9 source.cs punctuation.squarebracket.open.cs
+L            new Student {First="Svetlana", Last="Omelchenko", ID=111, Scores= [97, 72, 81, 60]},
+T 11 source.cs
+T 14 source.cs keyword.operator.expression.new.cs
+T 15 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 24 source.cs punctuation.curlybrace.open.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs keyword.operator.assignment.cs
+T 31 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 39 source.cs string.quoted.double.cs
+T 40 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 41 source.cs punctuation.separator.comma.cs
+T 42 source.cs
+T 46 source.cs variable.other.readwrite.cs
+T 47 source.cs keyword.operator.assignment.cs
+T 48 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 58 source.cs string.quoted.double.cs
+T 59 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 60 source.cs punctuation.separator.comma.cs
+T 61 source.cs
+T 63 source.cs variable.other.readwrite.cs
+T 64 source.cs keyword.operator.assignment.cs
+T 67 source.cs constant.numeric.decimal.cs
+T 68 source.cs punctuation.separator.comma.cs
+T 69 source.cs
+T 75 source.cs variable.other.readwrite.cs
+T 76 source.cs keyword.operator.assignment.cs
+T 77 source.cs
+T 78 source.cs punctuation.squarebracket.open.cs
+T 80 source.cs constant.numeric.decimal.cs
+T 81 source.cs punctuation.separator.comma.cs
+T 82 source.cs
+T 84 source.cs constant.numeric.decimal.cs
+T 85 source.cs punctuation.separator.comma.cs
+T 86 source.cs
+T 88 source.cs constant.numeric.decimal.cs
+T 89 source.cs punctuation.separator.comma.cs
+T 90 source.cs
+T 92 source.cs constant.numeric.decimal.cs
+T 93 source.cs punctuation.squarebracket.close.cs
+T 94 source.cs punctuation.curlybrace.close.cs
+T 95 source.cs punctuation.separator.comma.cs
+L            new Student {First="Claire", Last="O'Donnell", ID=112, Scores= [75, 84, 91, 39]},
+T 11 source.cs
+T 14 source.cs keyword.operator.expression.new.cs
+T 15 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 24 source.cs punctuation.curlybrace.open.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs keyword.operator.assignment.cs
+T 31 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 37 source.cs string.quoted.double.cs
+T 38 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 39 source.cs punctuation.separator.comma.cs
+T 40 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs keyword.operator.assignment.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 55 source.cs string.quoted.double.cs
+T 56 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 57 source.cs punctuation.separator.comma.cs
+T 58 source.cs
+T 60 source.cs variable.other.readwrite.cs
+T 61 source.cs keyword.operator.assignment.cs
+T 64 source.cs constant.numeric.decimal.cs
+T 65 source.cs punctuation.separator.comma.cs
+T 66 source.cs
+T 72 source.cs variable.other.readwrite.cs
+T 73 source.cs keyword.operator.assignment.cs
+T 74 source.cs
+T 75 source.cs punctuation.squarebracket.open.cs
+T 77 source.cs constant.numeric.decimal.cs
+T 78 source.cs punctuation.separator.comma.cs
+T 79 source.cs
+T 81 source.cs constant.numeric.decimal.cs
+T 82 source.cs punctuation.separator.comma.cs
+T 83 source.cs
+T 85 source.cs constant.numeric.decimal.cs
+T 86 source.cs punctuation.separator.comma.cs
+T 87 source.cs
+T 89 source.cs constant.numeric.decimal.cs
+T 90 source.cs punctuation.squarebracket.close.cs
+T 91 source.cs punctuation.curlybrace.close.cs
+T 92 source.cs punctuation.separator.comma.cs
+L            new Student {First="Sven", Last="Mortensen", ID=113, Scores= [99, 89, 91, 95]},
+T 11 source.cs
+T 14 source.cs keyword.operator.expression.new.cs
+T 15 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 24 source.cs punctuation.curlybrace.open.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs keyword.operator.assignment.cs
+T 31 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 35 source.cs string.quoted.double.cs
+T 36 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 37 source.cs punctuation.separator.comma.cs
+T 38 source.cs
+T 42 source.cs variable.other.readwrite.cs
+T 43 source.cs keyword.operator.assignment.cs
+T 44 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 53 source.cs string.quoted.double.cs
+T 54 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 55 source.cs punctuation.separator.comma.cs
+T 56 source.cs
+T 58 source.cs variable.other.readwrite.cs
+T 59 source.cs keyword.operator.assignment.cs
+T 62 source.cs constant.numeric.decimal.cs
+T 63 source.cs punctuation.separator.comma.cs
+T 64 source.cs
+T 70 source.cs variable.other.readwrite.cs
+T 71 source.cs keyword.operator.assignment.cs
+T 72 source.cs
+T 73 source.cs punctuation.squarebracket.open.cs
+T 75 source.cs constant.numeric.decimal.cs
+T 76 source.cs punctuation.separator.comma.cs
+T 77 source.cs
+T 79 source.cs constant.numeric.decimal.cs
+T 80 source.cs punctuation.separator.comma.cs
+T 81 source.cs
+T 83 source.cs constant.numeric.decimal.cs
+T 84 source.cs punctuation.separator.comma.cs
+T 85 source.cs
+T 87 source.cs constant.numeric.decimal.cs
+T 88 source.cs punctuation.squarebracket.close.cs
+T 89 source.cs punctuation.curlybrace.close.cs
+T 90 source.cs punctuation.separator.comma.cs
+L            new Student {First="Cesar", Last="Garcia", ID=114, Scores= [72, 81, 65, 84]},
+T 11 source.cs
+T 14 source.cs keyword.operator.expression.new.cs
+T 15 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 24 source.cs punctuation.curlybrace.open.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs keyword.operator.assignment.cs
+T 31 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs string.quoted.double.cs
+T 37 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs punctuation.separator.comma.cs
+T 39 source.cs
+T 43 source.cs variable.other.readwrite.cs
+T 44 source.cs keyword.operator.assignment.cs
+T 45 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 56 source.cs variable.other.readwrite.cs
+T 57 source.cs keyword.operator.assignment.cs
+T 60 source.cs constant.numeric.decimal.cs
+T 61 source.cs punctuation.separator.comma.cs
+T 62 source.cs
+T 68 source.cs variable.other.readwrite.cs
+T 69 source.cs keyword.operator.assignment.cs
+T 70 source.cs
+T 71 source.cs punctuation.squarebracket.open.cs
+T 73 source.cs constant.numeric.decimal.cs
+T 74 source.cs punctuation.separator.comma.cs
+T 75 source.cs
+T 77 source.cs constant.numeric.decimal.cs
+T 78 source.cs punctuation.separator.comma.cs
+T 79 source.cs
+T 81 source.cs constant.numeric.decimal.cs
+T 82 source.cs punctuation.separator.comma.cs
+T 83 source.cs
+T 85 source.cs constant.numeric.decimal.cs
+T 86 source.cs punctuation.squarebracket.close.cs
+T 87 source.cs punctuation.curlybrace.close.cs
+T 88 source.cs punctuation.separator.comma.cs
+L            new Student {First="Debra", Last="Garcia", ID=115, Scores= [97, 89, 85, 82]}
+T 11 source.cs
+T 14 source.cs keyword.operator.expression.new.cs
+T 15 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 24 source.cs punctuation.curlybrace.open.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs keyword.operator.assignment.cs
+T 31 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs string.quoted.double.cs
+T 37 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs punctuation.separator.comma.cs
+T 39 source.cs
+T 43 source.cs variable.other.readwrite.cs
+T 44 source.cs keyword.operator.assignment.cs
+T 45 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 56 source.cs variable.other.readwrite.cs
+T 57 source.cs keyword.operator.assignment.cs
+T 60 source.cs constant.numeric.decimal.cs
+T 61 source.cs punctuation.separator.comma.cs
+T 62 source.cs
+T 68 source.cs variable.other.readwrite.cs
+T 69 source.cs keyword.operator.assignment.cs
+T 70 source.cs
+T 71 source.cs punctuation.squarebracket.open.cs
+T 73 source.cs constant.numeric.decimal.cs
+T 74 source.cs punctuation.separator.comma.cs
+T 75 source.cs
+T 77 source.cs constant.numeric.decimal.cs
+T 78 source.cs punctuation.separator.comma.cs
+T 79 source.cs
+T 81 source.cs constant.numeric.decimal.cs
+T 82 source.cs punctuation.separator.comma.cs
+T 83 source.cs
+T 85 source.cs constant.numeric.decimal.cs
+T 86 source.cs punctuation.squarebracket.close.cs
+T 87 source.cs punctuation.curlybrace.close.cs
+L         ];
+T 8 source.cs
+T 9 source.cs punctuation.squarebracket.close.cs
+T 10 source.cs punctuation.terminator.statement.cs
+L 
+L         return students;
+T 8 source.cs
+T 14 source.cs keyword.control.flow.return.cs
+T 15 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     // This method groups students into percentile ranges based on their
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 72 source.cs comment.line.double-slash.cs
+L     // grade average. The Average method returns a double, so to produce a whole
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 80 source.cs comment.line.double-slash.cs
+L     // number it is necessary to cast to int before dividing by 10.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 67 source.cs comment.line.double-slash.cs
+L     static void Main()
+T 4 source.cs
+T 10 source.cs storage.modifier.static.cs
+T 11 source.cs
+T 15 source.cs keyword.type.void.cs
+T 16 source.cs
+T 20 source.cs entity.name.function.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // Obtain the data source.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 34 source.cs comment.line.double-slash.cs
+L         List<Student> students = GetStudents();
+T 8 source.cs
+T 12 source.cs entity.name.type.cs
+T 13 source.cs punctuation.definition.typeparameters.begin.cs
+T 20 source.cs entity.name.type.cs
+T 21 source.cs punctuation.definition.typeparameters.end.cs
+T 22 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 44 source.cs entity.name.function.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+T 47 source.cs punctuation.terminator.statement.cs
+L 
+L         // Write the query.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 27 source.cs comment.line.double-slash.cs
+L         var studentQuery =
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 24 source.cs entity.name.variable.local.cs
+T 25 source.cs
+T 26 source.cs keyword.operator.assignment.cs
+L             from student in students
+T 12 source.cs
+T 16 source.cs keyword.operator.expression.query.from.cs
+T 17 source.cs
+T 24 source.cs entity.name.variable.range-variable.cs
+T 25 source.cs
+T 27 source.cs keyword.operator.expression.query.in.cs
+T 28 source.cs
+T 36 source.cs variable.other.readwrite.cs
+L             let avg = (int)student.Scores.Average()
+T 12 source.cs
+T 15 source.cs keyword.operator.expression.query.let.cs
+T 16 source.cs
+T 19 source.cs entity.name.variable.range-variable.cs
+T 20 source.cs
+T 21 source.cs keyword.operator.assignment.cs
+T 22 source.cs
+T 23 source.cs punctuation.parenthesis.open.cs
+T 26 source.cs keyword.type.int.cs
+T 27 source.cs punctuation.parenthesis.close.cs
+T 34 source.cs variable.other.object.cs
+T 35 source.cs punctuation.accessor.cs
+T 41 source.cs variable.other.object.property.cs
+T 42 source.cs punctuation.accessor.cs
+T 49 source.cs entity.name.function.cs
+T 50 source.cs punctuation.parenthesis.open.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+L             group student by (avg / 10) into g
+T 12 source.cs
+T 17 source.cs keyword.operator.expression.query.group.cs
+T 18 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 28 source.cs keyword.operator.expression.query.by.cs
+T 29 source.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs variable.other.readwrite.cs
+T 34 source.cs
+T 35 source.cs keyword.operator.arithmetic.cs
+T 36 source.cs
+T 38 source.cs constant.numeric.decimal.cs
+T 39 source.cs punctuation.parenthesis.close.cs
+T 40 source.cs
+T 44 source.cs keyword.operator.expression.query.into.cs
+T 45 source.cs
+T 46 source.cs entity.name.variable.range-variable.cs
+L             orderby g.Key
+T 12 source.cs
+T 19 source.cs keyword.operator.expression.query.orderby.cs
+T 20 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 25 source.cs variable.other.object.property.cs
+L             select g;
+T 12 source.cs
+T 18 source.cs keyword.operator.expression.query.select.cs
+T 19 source.cs
+T 20 source.cs variable.other.readwrite.cs
+T 21 source.cs punctuation.terminator.statement.cs
+L 
+L         // Execute the query.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 29 source.cs comment.line.double-slash.cs
+L         foreach (var studentGroup in studentQuery)
+T 8 source.cs
+T 15 source.cs keyword.control.loop.foreach.cs
+T 16 source.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs storage.type.var.cs
+T 21 source.cs
+T 33 source.cs entity.name.variable.local.cs
+T 34 source.cs
+T 36 source.cs keyword.control.loop.in.cs
+T 37 source.cs
+T 49 source.cs variable.other.readwrite.cs
+T 50 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             int temp = studentGroup.Key * 10;
+T 12 source.cs
+T 15 source.cs keyword.type.int.cs
+T 16 source.cs
+T 20 source.cs entity.name.variable.local.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.assignment.cs
+T 23 source.cs
+T 35 source.cs variable.other.object.cs
+T 36 source.cs punctuation.accessor.cs
+T 39 source.cs variable.other.object.property.cs
+T 40 source.cs
+T 41 source.cs keyword.operator.arithmetic.cs
+T 42 source.cs
+T 44 source.cs constant.numeric.decimal.cs
+T 45 source.cs punctuation.terminator.statement.cs
+L             Console.WriteLine($"Students with an average between {temp} and {temp + 10}");
+T 12 source.cs
+T 19 source.cs variable.other.object.cs
+T 20 source.cs punctuation.accessor.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 65 source.cs string.quoted.double.cs
+T 66 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 70 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 71 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 76 source.cs string.quoted.double.cs
+T 77 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 81 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 82 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 83 source.cs string.quoted.double.cs meta.embedded.interpolation.cs keyword.operator.arithmetic.cs
+T 84 source.cs string.quoted.double.cs meta.embedded.interpolation.cs
+T 86 source.cs string.quoted.double.cs meta.embedded.interpolation.cs constant.numeric.decimal.cs
+T 87 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 88 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 89 source.cs punctuation.parenthesis.close.cs
+T 90 source.cs punctuation.terminator.statement.cs
+L             foreach (var student in studentGroup)
+T 12 source.cs
+T 19 source.cs keyword.control.loop.foreach.cs
+T 20 source.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs storage.type.var.cs
+T 25 source.cs
+T 32 source.cs entity.name.variable.local.cs
+T 33 source.cs
+T 35 source.cs keyword.control.loop.in.cs
+T 36 source.cs
+T 48 source.cs variable.other.readwrite.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Console.WriteLine("   {0}, {1}:{2}", student.Last, student.First, student.Scores.Average());
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 50 source.cs string.quoted.double.cs
+T 51 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 52 source.cs punctuation.separator.comma.cs
+T 53 source.cs
+T 60 source.cs variable.other.object.cs
+T 61 source.cs punctuation.accessor.cs
+T 65 source.cs variable.other.object.property.cs
+T 66 source.cs punctuation.separator.comma.cs
+T 67 source.cs
+T 74 source.cs variable.other.object.cs
+T 75 source.cs punctuation.accessor.cs
+T 80 source.cs variable.other.object.property.cs
+T 81 source.cs punctuation.separator.comma.cs
+T 82 source.cs
+T 89 source.cs variable.other.object.cs
+T 90 source.cs punctuation.accessor.cs
+T 96 source.cs variable.other.object.property.cs
+T 97 source.cs punctuation.accessor.cs
+T 104 source.cs entity.name.function.cs
+T 105 source.cs punctuation.parenthesis.open.cs
+T 106 source.cs punctuation.parenthesis.close.cs
+T 107 source.cs punctuation.parenthesis.close.cs
+T 108 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L /* Output:
+T 2 source.cs comment.block.cs punctuation.definition.comment.cs
+T 10 source.cs comment.block.cs
+L      Students with an average between 70 and 80
+T 47 source.cs comment.block.cs
+L        Omelchenko, Svetlana:77.5
+T 32 source.cs comment.block.cs
+L        O'Donnell, Claire:72.25
+T 30 source.cs comment.block.cs
+L        Garcia, Cesar:75.5
+T 25 source.cs comment.block.cs
+L      Students with an average between 80 and 90
+T 47 source.cs comment.block.cs
+L        Garcia, Debra:88.25
+T 26 source.cs comment.block.cs
+L      Students with an average between 90 and 100
+T 48 source.cs comment.block.cs
+L        Mortensen, Sven:93.5
+T 27 source.cs comment.block.cs
+L  */
+T 1 source.cs comment.block.cs
+T 3 source.cs comment.block.cs punctuation.definition.comment.cs
+L //</snippet15>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L 
+L //<snippet16>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 13 source.cs comment.line.double-slash.cs
+L class GroupExample1
+T 5 source.cs storage.type.class.cs
+T 6 source.cs
+T 19 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     static void Main()
+T 4 source.cs
+T 10 source.cs storage.modifier.static.cs
+T 11 source.cs
+T 15 source.cs keyword.type.void.cs
+T 16 source.cs
+T 20 source.cs entity.name.function.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // Create a data source.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 32 source.cs comment.line.double-slash.cs
+L         string[] words = ["blueberry", "chimpanzee", "abacus", "banana", "apple", "cheese"];
+T 8 source.cs
+T 14 source.cs keyword.type.string.cs
+T 15 source.cs punctuation.squarebracket.open.cs
+T 16 source.cs punctuation.squarebracket.close.cs
+T 17 source.cs
+T 22 source.cs entity.name.variable.local.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.assignment.cs
+T 25 source.cs
+T 26 source.cs punctuation.squarebracket.open.cs
+T 27 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs string.quoted.double.cs
+T 37 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs punctuation.separator.comma.cs
+T 39 source.cs
+T 40 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 50 source.cs string.quoted.double.cs
+T 51 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 52 source.cs punctuation.separator.comma.cs
+T 53 source.cs
+T 54 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 60 source.cs string.quoted.double.cs
+T 61 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 62 source.cs punctuation.separator.comma.cs
+T 63 source.cs
+T 64 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 70 source.cs string.quoted.double.cs
+T 71 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 72 source.cs punctuation.separator.comma.cs
+T 73 source.cs
+T 74 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 79 source.cs string.quoted.double.cs
+T 80 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 81 source.cs punctuation.separator.comma.cs
+T 82 source.cs
+T 83 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 89 source.cs string.quoted.double.cs
+T 90 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 91 source.cs punctuation.squarebracket.close.cs
+T 92 source.cs punctuation.terminator.statement.cs
+L 
+L         // Create the query.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 28 source.cs comment.line.double-slash.cs
+L         var wordGroups =
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 22 source.cs entity.name.variable.local.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.assignment.cs
+L             from w in words
+T 12 source.cs
+T 16 source.cs keyword.operator.expression.query.from.cs
+T 17 source.cs
+T 18 source.cs entity.name.variable.range-variable.cs
+T 19 source.cs
+T 21 source.cs keyword.operator.expression.query.in.cs
+T 22 source.cs
+T 27 source.cs variable.other.readwrite.cs
+L             group w by w[0];
+T 12 source.cs
+T 17 source.cs keyword.operator.expression.query.group.cs
+T 18 source.cs
+T 19 source.cs variable.other.readwrite.cs
+T 20 source.cs
+T 22 source.cs keyword.operator.expression.query.by.cs
+T 23 source.cs
+T 24 source.cs variable.other.object.property.cs
+T 25 source.cs punctuation.squarebracket.open.cs
+T 26 source.cs constant.numeric.decimal.cs
+T 27 source.cs punctuation.squarebracket.close.cs
+T 28 source.cs punctuation.terminator.statement.cs
+L 
+L         // Execute the query.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 29 source.cs comment.line.double-slash.cs
+L         foreach (var wordGroup in wordGroups)
+T 8 source.cs
+T 15 source.cs keyword.control.loop.foreach.cs
+T 16 source.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs storage.type.var.cs
+T 21 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 33 source.cs keyword.control.loop.in.cs
+T 34 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             Console.WriteLine($"Words that start with the letter '{wordGroup.Key}':");
+T 12 source.cs
+T 19 source.cs variable.other.object.cs
+T 20 source.cs punctuation.accessor.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 66 source.cs string.quoted.double.cs
+T 67 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 76 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 77 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 80 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.property.cs
+T 81 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 83 source.cs string.quoted.double.cs
+T 84 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 85 source.cs punctuation.parenthesis.close.cs
+T 86 source.cs punctuation.terminator.statement.cs
+L             foreach (var word in wordGroup)
+T 12 source.cs
+T 19 source.cs keyword.control.loop.foreach.cs
+T 20 source.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs storage.type.var.cs
+T 25 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs
+T 32 source.cs keyword.control.loop.in.cs
+T 33 source.cs
+T 42 source.cs variable.other.readwrite.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Console.WriteLine(word);
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs punctuation.parenthesis.close.cs
+T 40 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L /* Output:
+T 2 source.cs comment.block.cs punctuation.definition.comment.cs
+T 10 source.cs comment.block.cs
+L       Words that start with the letter 'b':
+T 43 source.cs comment.block.cs
+L         blueberry
+T 17 source.cs comment.block.cs
+L         banana
+T 14 source.cs comment.block.cs
+L       Words that start with the letter 'c':
+T 43 source.cs comment.block.cs
+L         chimpanzee
+T 18 source.cs comment.block.cs
+L         cheese
+T 14 source.cs comment.block.cs
+L       Words that start with the letter 'a':
+T 43 source.cs comment.block.cs
+L         abacus
+T 14 source.cs comment.block.cs
+L         apple
+T 13 source.cs comment.block.cs
+L      */
+T 5 source.cs comment.block.cs
+T 7 source.cs comment.block.cs punctuation.definition.comment.cs
+L //</snippet16>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L 
+L //<snippet17>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 13 source.cs comment.line.double-slash.cs
+L class GroupClauseExample2
+T 5 source.cs storage.type.class.cs
+T 6 source.cs
+T 25 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     static void Main()
+T 4 source.cs
+T 10 source.cs storage.modifier.static.cs
+T 11 source.cs
+T 15 source.cs keyword.type.void.cs
+T 16 source.cs
+T 20 source.cs entity.name.function.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // Create the data source.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 34 source.cs comment.line.double-slash.cs
+L         string[] words2 = ["blueberry", "chimpanzee", "abacus", "banana", "apple", "cheese", "elephant", "umbrella", "anteater"];
+T 8 source.cs
+T 14 source.cs keyword.type.string.cs
+T 15 source.cs punctuation.squarebracket.open.cs
+T 16 source.cs punctuation.squarebracket.close.cs
+T 17 source.cs
+T 23 source.cs entity.name.variable.local.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.assignment.cs
+T 26 source.cs
+T 27 source.cs punctuation.squarebracket.open.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 37 source.cs string.quoted.double.cs
+T 38 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 39 source.cs punctuation.separator.comma.cs
+T 40 source.cs
+T 41 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 51 source.cs string.quoted.double.cs
+T 52 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 55 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 61 source.cs string.quoted.double.cs
+T 62 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 63 source.cs punctuation.separator.comma.cs
+T 64 source.cs
+T 65 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 71 source.cs string.quoted.double.cs
+T 72 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 73 source.cs punctuation.separator.comma.cs
+T 74 source.cs
+T 75 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 80 source.cs string.quoted.double.cs
+T 81 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 82 source.cs punctuation.separator.comma.cs
+T 83 source.cs
+T 84 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 90 source.cs string.quoted.double.cs
+T 91 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 92 source.cs punctuation.separator.comma.cs
+T 93 source.cs
+T 94 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 102 source.cs string.quoted.double.cs
+T 103 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 104 source.cs punctuation.separator.comma.cs
+T 105 source.cs
+T 106 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 114 source.cs string.quoted.double.cs
+T 115 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 116 source.cs punctuation.separator.comma.cs
+T 117 source.cs
+T 118 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 126 source.cs string.quoted.double.cs
+T 127 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 128 source.cs punctuation.squarebracket.close.cs
+T 129 source.cs punctuation.terminator.statement.cs
+L 
+L         // Create the query.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 28 source.cs comment.line.double-slash.cs
+L         var wordGroups2 =
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 23 source.cs entity.name.variable.local.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.assignment.cs
+L             from w in words2
+T 12 source.cs
+T 16 source.cs keyword.operator.expression.query.from.cs
+T 17 source.cs
+T 18 source.cs entity.name.variable.range-variable.cs
+T 19 source.cs
+T 21 source.cs keyword.operator.expression.query.in.cs
+T 22 source.cs
+T 28 source.cs variable.other.readwrite.cs
+L             group w by w[0] into grps
+T 12 source.cs
+T 17 source.cs keyword.operator.expression.query.group.cs
+T 18 source.cs
+T 19 source.cs variable.other.readwrite.cs
+T 20 source.cs
+T 22 source.cs keyword.operator.expression.query.by.cs
+T 23 source.cs
+T 24 source.cs variable.other.object.property.cs
+T 25 source.cs punctuation.squarebracket.open.cs
+T 26 source.cs constant.numeric.decimal.cs
+T 27 source.cs punctuation.squarebracket.close.cs
+T 28 source.cs
+T 32 source.cs keyword.operator.expression.query.into.cs
+T 33 source.cs
+T 37 source.cs entity.name.variable.range-variable.cs
+L             where (grps.Key == 'a' || grps.Key == 'e' || grps.Key == 'i'
+T 12 source.cs
+T 17 source.cs keyword.operator.expression.query.where.cs
+T 18 source.cs
+T 19 source.cs punctuation.parenthesis.open.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 27 source.cs variable.other.object.property.cs
+T 28 source.cs
+T 30 source.cs keyword.operator.comparison.cs
+T 31 source.cs
+T 32 source.cs string.quoted.single.cs punctuation.definition.char.begin.cs
+T 33 source.cs string.quoted.single.cs
+T 34 source.cs string.quoted.single.cs punctuation.definition.char.end.cs
+T 35 source.cs
+T 37 source.cs keyword.operator.logical.cs
+T 38 source.cs
+T 42 source.cs variable.other.object.cs
+T 43 source.cs punctuation.accessor.cs
+T 46 source.cs variable.other.object.property.cs
+T 47 source.cs
+T 49 source.cs keyword.operator.comparison.cs
+T 50 source.cs
+T 51 source.cs string.quoted.single.cs punctuation.definition.char.begin.cs
+T 52 source.cs string.quoted.single.cs
+T 53 source.cs string.quoted.single.cs punctuation.definition.char.end.cs
+T 54 source.cs
+T 56 source.cs keyword.operator.logical.cs
+T 57 source.cs
+T 61 source.cs variable.other.object.cs
+T 62 source.cs punctuation.accessor.cs
+T 65 source.cs variable.other.object.property.cs
+T 66 source.cs
+T 68 source.cs keyword.operator.comparison.cs
+T 69 source.cs
+T 70 source.cs string.quoted.single.cs punctuation.definition.char.begin.cs
+T 71 source.cs string.quoted.single.cs
+T 72 source.cs string.quoted.single.cs punctuation.definition.char.end.cs
+L                    || grps.Key == 'o' || grps.Key == 'u')
+T 19 source.cs
+T 21 source.cs keyword.operator.logical.cs
+T 22 source.cs
+T 26 source.cs variable.other.object.cs
+T 27 source.cs punctuation.accessor.cs
+T 30 source.cs variable.other.object.property.cs
+T 31 source.cs
+T 33 source.cs keyword.operator.comparison.cs
+T 34 source.cs
+T 35 source.cs string.quoted.single.cs punctuation.definition.char.begin.cs
+T 36 source.cs string.quoted.single.cs
+T 37 source.cs string.quoted.single.cs punctuation.definition.char.end.cs
+T 38 source.cs
+T 40 source.cs keyword.operator.logical.cs
+T 41 source.cs
+T 45 source.cs variable.other.object.cs
+T 46 source.cs punctuation.accessor.cs
+T 49 source.cs variable.other.object.property.cs
+T 50 source.cs
+T 52 source.cs keyword.operator.comparison.cs
+T 53 source.cs
+T 54 source.cs string.quoted.single.cs punctuation.definition.char.begin.cs
+T 55 source.cs string.quoted.single.cs
+T 56 source.cs string.quoted.single.cs punctuation.definition.char.end.cs
+T 57 source.cs punctuation.parenthesis.close.cs
+L             select grps;
+T 12 source.cs
+T 18 source.cs keyword.operator.expression.query.select.cs
+T 19 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L 
+L         // Execute the query.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 29 source.cs comment.line.double-slash.cs
+L         foreach (var wordGroup in wordGroups2)
+T 8 source.cs
+T 15 source.cs keyword.control.loop.foreach.cs
+T 16 source.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs storage.type.var.cs
+T 21 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 33 source.cs keyword.control.loop.in.cs
+T 34 source.cs
+T 45 source.cs variable.other.readwrite.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             Console.WriteLine($"Groups that start with a vowel: {wordGroup.Key}");
+T 12 source.cs
+T 19 source.cs variable.other.object.cs
+T 20 source.cs punctuation.accessor.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 64 source.cs string.quoted.double.cs
+T 65 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 74 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.cs
+T 75 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.accessor.cs
+T 78 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.object.property.cs
+T 79 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 80 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 81 source.cs punctuation.parenthesis.close.cs
+T 82 source.cs punctuation.terminator.statement.cs
+L             foreach (var word in wordGroup)
+T 12 source.cs
+T 19 source.cs keyword.control.loop.foreach.cs
+T 20 source.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs storage.type.var.cs
+T 25 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs
+T 32 source.cs keyword.control.loop.in.cs
+T 33 source.cs
+T 42 source.cs variable.other.readwrite.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Console.WriteLine($"   {word}");
+T 16 source.cs
+T 23 source.cs variable.other.object.cs
+T 24 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 39 source.cs string.quoted.double.cs
+T 40 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 44 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 45 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 46 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 47 source.cs punctuation.parenthesis.close.cs
+T 48 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L /* Output:
+T 2 source.cs comment.block.cs punctuation.definition.comment.cs
+T 10 source.cs comment.block.cs
+L     Groups that start with a vowel: a
+T 37 source.cs comment.block.cs
+L         abacus
+T 14 source.cs comment.block.cs
+L         apple
+T 13 source.cs comment.block.cs
+L         anteater
+T 16 source.cs comment.block.cs
+L     Groups that start with a vowel: e
+T 37 source.cs comment.block.cs
+L         elephant
+T 16 source.cs comment.block.cs
+L     Groups that start with a vowel: u
+T 37 source.cs comment.block.cs
+L         umbrella
+T 16 source.cs comment.block.cs
+L */
+T 2 source.cs comment.block.cs punctuation.definition.comment.cs
+L //</snippet17>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 14 source.cs comment.line.double-slash.cs
+L 

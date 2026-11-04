@@ -340,6 +340,28 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `csharp/runtime-stack` | [`Stack.cs`][runtime-stack] in dotnet/runtime | [MIT][dotnet-runtime-licence] |
 | `csharp/newtonsoft-json-convert` | [`JsonConvert.cs`][newtonsoft-json-convert] in JamesNK/Newtonsoft.Json | [MIT][newtonsoft-licence] |
 | `csharp/roslyn-text-span` | [`TextSpan.cs`][roslyn-text-span] in dotnet/roslyn | [MIT][roslyn-licence] |
+| `csharp/coverage` | `oracle/inputs/csharp-coverage.cs`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `csharp/docs-async-wpf` | [`MainWindow.xaml.cs`][csharp-docs-async-wpf] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-bitwise-shift` | [`BitwiseAndShiftOperators.cs`][csharp-docs-bitwise-shift] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-closed-hierarchy-patterns` | [`ClosedHierarchyPatterns.cs`][csharp-docs-closed-hierarchy-patterns] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-delegate-operator` | [`DelegateOperator.cs`][csharp-docs-delegate-operator] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-doc-comments` | [`DocComments.cs`][csharp-docs-doc-comments] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-events` | [`events.cs`][csharp-docs-events] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-exception-example` | [`ExampleClass.cs`][csharp-docs-exception-example] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-fixed` | [`FixedKeywordExamples.cs`][csharp-docs-fixed] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-generic-where` | [`GenericWhereConstraints.cs`][csharp-docs-generic-where] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-goto` | [`GotoStatement.cs`][csharp-docs-goto] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-group` | [`group.cs`][csharp-docs-group] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-keywords-contextual` | [`csrefKeywordsContextual.cs`][csharp-docs-keywords-contextual] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-keywords-modifiers` | [`csrefKeywordsModifiers.cs`][csharp-docs-keywords-modifiers] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-lock` | [`Program.cs`][csharp-docs-lock] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-raw-string-literal` | [`raw-string-literal.cs`][csharp-docs-raw-string-literal] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-record-type` | [`RecordType.cs`][csharp-docs-record-type] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-string-interpolation` | [`string-interpolation.cs`][csharp-docs-string-interpolation] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-union-body-members` | [`BodyMembers.cs`][csharp-docs-union-body-members] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-using-alias` | [`UsingAliasQualifier.cs`][csharp-docs-using-alias] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-value-tuples` | [`ValueTuples.cs`][csharp-docs-value-tuples] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-var-pattern` | [`VarPattern.cs`][csharp-docs-var-pattern] in dotnet/docs | [MIT][dotnet-docs-licence] |
 | `xml/sample` | [`samples/xml.sample`][xml-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `xml/ant-build` | [`build.xml`][ant-build] in apache/ant | [Apache-2.0][ant-licence] |
 | `xml/commons-lang-pom` | [`pom.xml`][commons-lang-pom] in apache/commons-lang | [Apache-2.0][commons-lang-licence] |
@@ -614,6 +636,27 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [cranelift-atomics]: https://github.com/rust-lang/rust/blob/ae36fe22c7e590df40ffd53ac25fea35597c3f3d/compiler/rustc_codegen_cranelift/patches/0027-stdlib-128bit-atomic-operations.patch
 [cranelift-sve]: https://github.com/rust-lang/rust/blob/ae36fe22c7e590df40ffd53ac25fea35597c3f3d/compiler/rustc_codegen_cranelift/patches/0001-stdarch-Disable-SVE.patch
 [cranelift-tests]: https://github.com/rust-lang/rust/blob/ae36fe22c7e590df40ffd53ac25fea35597c3f3d/compiler/rustc_codegen_cranelift/patches/0028-sysroot_tests-Disable-long-running-tests.patch
+[csharp-docs-async-wpf]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/keywords/snippets/async/wpf/MainWindow.xaml.cs
+[csharp-docs-bitwise-shift]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/operators/snippets/shared/BitwiseAndShiftOperators.cs
+[csharp-docs-closed-hierarchy-patterns]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/operators/snippets/patterns/ClosedHierarchyPatterns.cs
+[csharp-docs-delegate-operator]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/operators/snippets/shared/DelegateOperator.cs
+[csharp-docs-doc-comments]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/xmldoc/snippets/xmldoc/DocComments.cs
+[csharp-docs-events]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/keywords/snippets/events.cs
+[csharp-docs-exception-example]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/statements/snippets/exception-handling-statements/ExampleClass.cs
+[csharp-docs-fixed]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/snippets/unsafe-code/FixedKeywordExamples.cs
+[csharp-docs-generic-where]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/keywords/snippets/GenericWhereConstraints.cs
+[csharp-docs-goto]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/statements/snippets/jump-statements/GotoStatement.cs
+[csharp-docs-group]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/keywords/snippets/group.cs
+[csharp-docs-keywords-contextual]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/keywords/snippets/csrefKeywordsContextual.cs
+[csharp-docs-keywords-modifiers]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/keywords/snippets/csrefKeywordsModifiers.cs
+[csharp-docs-lock]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/statements/snippets/lock/Program.cs
+[csharp-docs-raw-string-literal]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/tokens/snippets/raw-string-literal.cs
+[csharp-docs-record-type]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/builtin-types/snippets/shared/RecordType.cs
+[csharp-docs-string-interpolation]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/tokens/snippets/string-interpolation.cs
+[csharp-docs-union-body-members]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/builtin-types/snippets/unions/BodyMembers.cs
+[csharp-docs-using-alias]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/keywords/snippets/UsingAliasQualifier.cs
+[csharp-docs-value-tuples]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/builtin-types/snippets/shared/ValueTuples.cs
+[csharp-docs-var-pattern]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/operators/snippets/patterns/VarPattern.cs
 [csharp-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/csharp.sample
 [css-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/css.sample
 [dart-args-readme]: https://github.com/dart-lang/core/blob/36f57a994965785d641e436b7dd3aa8a18a26f62/pkgs/args/README.md
@@ -649,6 +692,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [django-licence]: https://github.com/django/django/blob/b501b8493f31cf8cba31211d59b3b78642b8cb02/LICENSE
 [django-tox]: https://github.com/django/django/blob/b501b8493f31cf8cba31211d59b3b78642b8cb02/tox.ini
 [docker-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/docker.sample
+[dotnet-docs-licence]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/LICENSE-CODE
 [dotnet-install]: https://github.com/dotnet/install-scripts/blob/e5cf1dd2d1540ed05ac84f8eb8c5cdec2807621e/src/dotnet-install.ps1
 [dotnet-install-licence]: https://github.com/dotnet/install-scripts/blob/e5cf1dd2d1540ed05ac84f8eb8c5cdec2807621e/LICENSE.TXT
 [dotnet-runtime-licence]: https://github.com/dotnet/runtime/blob/6375d63af99b6812f11b4dd8c4a18d227e277d73/LICENSE.TXT

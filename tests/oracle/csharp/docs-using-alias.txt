@@ -1,0 +1,136 @@
+L 
+L // <UsingAliasQualifier>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 24 source.cs comment.line.double-slash.cs
+L using S = System.Net.Sockets;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 7 source.cs entity.name.type.alias.cs
+T 8 source.cs
+T 9 source.cs keyword.operator.assignment.cs
+T 10 source.cs
+T 16 source.cs entity.name.type.cs
+T 17 source.cs punctuation.accessor.cs
+T 20 source.cs entity.name.type.cs
+T 21 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.type.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L 
+L class A
+T 5 source.cs storage.type.class.cs
+T 6 source.cs
+T 7 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     public static int x;
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 21 source.cs keyword.type.int.cs
+T 22 source.cs
+T 23 source.cs entity.name.variable.field.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 
+L class C
+T 5 source.cs storage.type.class.cs
+T 6 source.cs
+T 7 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     public void F(int A, object S)
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 15 source.cs keyword.type.void.cs
+T 16 source.cs
+T 17 source.cs entity.name.function.cs
+T 18 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs keyword.type.int.cs
+T 22 source.cs
+T 23 source.cs entity.name.variable.parameter.cs
+T 24 source.cs punctuation.separator.comma.cs
+T 25 source.cs
+T 31 source.cs keyword.type.object.cs
+T 32 source.cs
+T 33 source.cs entity.name.variable.parameter.cs
+T 34 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // Use global::A.x instead of A.x
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 41 source.cs comment.line.double-slash.cs
+L         global::A.x += A;
+T 8 source.cs
+T 14 source.cs entity.name.label.cs
+T 15 source.cs punctuation.separator.colon.cs
+T 16 source.cs keyword.operator.conditional.colon.cs
+T 17 source.cs variable.other.object.cs
+T 18 source.cs punctuation.accessor.cs
+T 19 source.cs variable.other.object.property.cs
+T 20 source.cs
+T 22 source.cs keyword.operator.assignment.compound.cs
+T 23 source.cs
+T 24 source.cs variable.other.readwrite.cs
+T 25 source.cs punctuation.terminator.statement.cs
+L 
+L         // Using ::, S must resolve to a namespace alias:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 57 source.cs comment.line.double-slash.cs
+L         S::Socket s = S as S::Socket;
+T 8 source.cs
+T 9 source.cs entity.name.label.cs
+T 10 source.cs punctuation.separator.colon.cs
+T 11 source.cs keyword.operator.conditional.colon.cs
+T 17 source.cs entity.name.type.cs
+T 18 source.cs
+T 19 source.cs entity.name.variable.local.cs
+T 20 source.cs
+T 21 source.cs keyword.operator.assignment.cs
+T 22 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs
+T 26 source.cs keyword.operator.expression.as.cs
+T 27 source.cs
+T 28 source.cs entity.name.type.alias.cs
+T 30 source.cs punctuation.separator.coloncolon.cs
+T 36 source.cs entity.name.type.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L 
+L         // In this form, if S were a class, it would be a compile-time error:
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 77 source.cs comment.line.double-slash.cs
+L         S.Socket s1 = S as S.Socket;
+T 8 source.cs
+T 9 source.cs entity.name.type.cs
+T 10 source.cs punctuation.accessor.cs
+T 16 source.cs entity.name.type.cs
+T 17 source.cs
+T 19 source.cs entity.name.variable.local.cs
+T 20 source.cs
+T 21 source.cs keyword.operator.assignment.cs
+T 22 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs
+T 26 source.cs keyword.operator.expression.as.cs
+T 27 source.cs
+T 28 source.cs entity.name.type.cs
+T 29 source.cs punctuation.accessor.cs
+T 35 source.cs entity.name.type.cs
+T 36 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L // </UsingAliasQualifier>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 25 source.cs comment.line.double-slash.cs
+L 

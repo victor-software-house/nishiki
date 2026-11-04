@@ -1,0 +1,374 @@
+L public class ExampleClass
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 12 source.cs storage.type.class.cs
+T 13 source.cs
+T 25 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     string name;
+T 4 source.cs
+T 10 source.cs keyword.type.string.cs
+T 11 source.cs
+T 15 source.cs entity.name.variable.field.cs
+T 16 source.cs punctuation.terminator.statement.cs
+L 
+L     // <ThrowExpressionCoalescing>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 34 source.cs comment.line.double-slash.cs
+L     public string Name
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs keyword.type.string.cs
+T 18 source.cs
+T 22 source.cs entity.name.variable.property.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         get => name;
+T 8 source.cs
+T 11 source.cs storage.type.accessor.get.cs
+T 12 source.cs
+T 14 source.cs keyword.operator.arrow.cs
+T 15 source.cs meta.accessor.getter.cs
+T 19 source.cs meta.accessor.getter.cs variable.other.readwrite.cs
+T 20 source.cs punctuation.terminator.statement.cs
+L         set => name = value ??
+T 8 source.cs
+T 11 source.cs storage.type.accessor.set.cs
+T 12 source.cs
+T 14 source.cs keyword.operator.arrow.cs
+T 15 source.cs meta.accessor.setter.cs
+T 19 source.cs meta.accessor.setter.cs variable.other.readwrite.cs
+T 20 source.cs meta.accessor.setter.cs
+T 21 source.cs meta.accessor.setter.cs keyword.operator.assignment.cs
+T 22 source.cs meta.accessor.setter.cs
+T 27 source.cs meta.accessor.setter.cs variable.other.value.cs
+T 28 source.cs meta.accessor.setter.cs
+T 30 source.cs meta.accessor.setter.cs keyword.operator.null-coalescing.cs
+L             throw new ArgumentNullException(paramName: nameof(value), message: "Name cannot be null");
+T 12 source.cs meta.accessor.setter.cs
+T 17 source.cs meta.accessor.setter.cs keyword.control.flow.throw.cs
+T 18 source.cs meta.accessor.setter.cs
+T 21 source.cs meta.accessor.setter.cs keyword.operator.expression.new.cs
+T 22 source.cs meta.accessor.setter.cs
+T 43 source.cs meta.accessor.setter.cs entity.name.type.cs
+T 44 source.cs meta.accessor.setter.cs punctuation.parenthesis.open.cs
+T 53 source.cs meta.accessor.setter.cs entity.name.variable.parameter.cs
+T 54 source.cs meta.accessor.setter.cs punctuation.separator.colon.cs
+T 55 source.cs meta.accessor.setter.cs
+T 61 source.cs meta.accessor.setter.cs keyword.operator.expression.nameof.cs
+T 62 source.cs meta.accessor.setter.cs punctuation.parenthesis.open.cs
+T 67 source.cs meta.accessor.setter.cs variable.other.value.cs
+T 68 source.cs meta.accessor.setter.cs punctuation.parenthesis.close.cs
+T 69 source.cs meta.accessor.setter.cs punctuation.separator.comma.cs
+T 70 source.cs meta.accessor.setter.cs
+T 77 source.cs meta.accessor.setter.cs entity.name.variable.parameter.cs
+T 78 source.cs meta.accessor.setter.cs punctuation.separator.colon.cs
+T 79 source.cs meta.accessor.setter.cs
+T 80 source.cs meta.accessor.setter.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 99 source.cs meta.accessor.setter.cs string.quoted.double.cs
+T 100 source.cs meta.accessor.setter.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 101 source.cs meta.accessor.setter.cs punctuation.parenthesis.close.cs
+T 102 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L     // </ThrowExpressionCoalescing>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 35 source.cs comment.line.double-slash.cs
+L 
+L     public bool Busy { get; private set; }
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 15 source.cs keyword.type.bool.cs
+T 16 source.cs
+T 20 source.cs entity.name.variable.property.cs
+T 21 source.cs
+T 22 source.cs punctuation.curlybrace.open.cs
+T 23 source.cs
+T 26 source.cs storage.type.accessor.get.cs
+T 27 source.cs punctuation.terminator.statement.cs
+T 28 source.cs
+T 35 source.cs storage.modifier.private.cs
+T 36 source.cs
+T 39 source.cs storage.type.accessor.set.cs
+T 40 source.cs punctuation.terminator.statement.cs
+T 41 source.cs
+T 42 source.cs punctuation.curlybrace.close.cs
+L 
+L     // <TryFinally>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 19 source.cs comment.line.double-slash.cs
+L     public async Task HandleRequest(int itemId, CancellationToken ct)
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.modifier.async.cs
+T 17 source.cs
+T 21 source.cs entity.name.type.cs
+T 22 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs keyword.type.int.cs
+T 40 source.cs
+T 46 source.cs entity.name.variable.parameter.cs
+T 47 source.cs punctuation.separator.comma.cs
+T 48 source.cs
+T 65 source.cs entity.name.type.cs
+T 66 source.cs
+T 68 source.cs entity.name.variable.parameter.cs
+T 69 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         Busy = true;
+T 8 source.cs
+T 12 source.cs variable.other.readwrite.cs
+T 13 source.cs
+T 14 source.cs keyword.operator.assignment.cs
+T 15 source.cs
+T 19 source.cs constant.language.boolean.true.cs
+T 20 source.cs punctuation.terminator.statement.cs
+L 
+L         try
+T 8 source.cs
+T 11 source.cs keyword.control.exception.try.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             await ProcessAsync(itemId, ct);
+T 12 source.cs
+T 17 source.cs keyword.operator.expression.await.cs
+T 18 source.cs
+T 30 source.cs entity.name.function.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs variable.other.readwrite.cs
+T 38 source.cs punctuation.separator.comma.cs
+T 39 source.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L         finally
+T 8 source.cs
+T 15 source.cs keyword.control.exception.finally.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             Busy = false;
+T 12 source.cs
+T 16 source.cs variable.other.readwrite.cs
+T 17 source.cs
+T 18 source.cs keyword.operator.assignment.cs
+T 19 source.cs
+T 24 source.cs constant.language.boolean.false.cs
+T 25 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L     // </TryFinally>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 20 source.cs comment.line.double-slash.cs
+L 
+L     private async Task ProcessAsync(int itemId, CancellationToken ct)
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 17 source.cs storage.modifier.async.cs
+T 18 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs keyword.type.int.cs
+T 40 source.cs
+T 46 source.cs entity.name.variable.parameter.cs
+T 47 source.cs punctuation.separator.comma.cs
+T 48 source.cs
+T 65 source.cs entity.name.type.cs
+T 66 source.cs
+T 68 source.cs entity.name.variable.parameter.cs
+T 69 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         await Task.Delay(100);
+T 8 source.cs
+T 13 source.cs keyword.operator.expression.await.cs
+T 14 source.cs
+T 18 source.cs variable.other.object.cs
+T 19 source.cs punctuation.accessor.cs
+T 24 source.cs entity.name.function.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs constant.numeric.decimal.cs
+T 29 source.cs punctuation.parenthesis.close.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     // <TryCatchFinally>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 24 source.cs comment.line.double-slash.cs
+L     public async Task ProcessRequest(int itemId, CancellationToken ct)
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.modifier.async.cs
+T 17 source.cs
+T 21 source.cs entity.name.type.cs
+T 22 source.cs
+T 36 source.cs entity.name.function.cs
+T 37 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs keyword.type.int.cs
+T 41 source.cs
+T 47 source.cs entity.name.variable.parameter.cs
+T 48 source.cs punctuation.separator.comma.cs
+T 49 source.cs
+T 66 source.cs entity.name.type.cs
+T 67 source.cs
+T 69 source.cs entity.name.variable.parameter.cs
+T 70 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         Busy = true;
+T 8 source.cs
+T 12 source.cs variable.other.readwrite.cs
+T 13 source.cs
+T 14 source.cs keyword.operator.assignment.cs
+T 15 source.cs
+T 19 source.cs constant.language.boolean.true.cs
+T 20 source.cs punctuation.terminator.statement.cs
+L 
+L         try
+T 8 source.cs
+T 11 source.cs keyword.control.exception.try.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             await ProcessAsync(itemId, ct);
+T 12 source.cs
+T 17 source.cs keyword.operator.expression.await.cs
+T 18 source.cs
+T 30 source.cs entity.name.function.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs variable.other.readwrite.cs
+T 38 source.cs punctuation.separator.comma.cs
+T 39 source.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L         catch (Exception e) when (e is not OperationCanceledException)
+T 8 source.cs
+T 13 source.cs keyword.control.exception.catch.cs
+T 14 source.cs
+T 15 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs
+T 26 source.cs entity.name.variable.local.cs
+T 27 source.cs punctuation.parenthesis.close.cs
+T 28 source.cs
+T 32 source.cs keyword.control.exception.when.cs
+T 33 source.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs
+T 38 source.cs keyword.operator.expression.pattern.is.cs
+T 39 source.cs
+T 42 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 43 source.cs
+T 69 source.cs entity.name.type.cs
+T 70 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             LogError(e, $"Failed to process request for item ID {itemId}.");
+T 12 source.cs
+T 20 source.cs entity.name.function.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs punctuation.separator.comma.cs
+T 24 source.cs
+T 26 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 64 source.cs string.quoted.double.cs
+T 65 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 71 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 72 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 73 source.cs string.quoted.double.cs
+T 74 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 75 source.cs punctuation.parenthesis.close.cs
+T 76 source.cs punctuation.terminator.statement.cs
+L             throw;
+T 12 source.cs
+T 17 source.cs keyword.control.flow.throw.cs
+T 18 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L         finally
+T 8 source.cs
+T 15 source.cs keyword.control.exception.finally.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             Busy = false;
+T 12 source.cs
+T 16 source.cs variable.other.readwrite.cs
+T 17 source.cs
+T 18 source.cs keyword.operator.assignment.cs
+T 19 source.cs
+T 24 source.cs constant.language.boolean.false.cs
+T 25 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L     // </TryCatchFinally>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 25 source.cs comment.line.double-slash.cs
+L 
+L     private static void LogError(Exception e, string message) {}
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 18 source.cs storage.modifier.static.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 32 source.cs entity.name.function.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs entity.name.type.cs
+T 43 source.cs
+T 44 source.cs entity.name.variable.parameter.cs
+T 45 source.cs punctuation.separator.comma.cs
+T 46 source.cs
+T 52 source.cs keyword.type.string.cs
+T 53 source.cs
+T 60 source.cs entity.name.variable.parameter.cs
+T 61 source.cs punctuation.parenthesis.close.cs
+T 62 source.cs
+T 63 source.cs punctuation.curlybrace.open.cs
+T 64 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs

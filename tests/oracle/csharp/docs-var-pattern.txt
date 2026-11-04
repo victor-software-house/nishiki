@@ -1,0 +1,421 @@
+L namespace Patterns;
+T 9 source.cs storage.type.namespace.cs
+T 10 source.cs
+T 18 source.cs entity.name.type.namespace.cs
+T 19 source.cs punctuation.terminator.statement.cs
+L 
+L public static class VarPattern
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.modifier.static.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 30 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     public static void Examples()
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 22 source.cs keyword.type.void.cs
+T 23 source.cs
+T 31 source.cs entity.name.function.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         TestTransform();
+T 8 source.cs
+T 21 source.cs entity.name.function.cs
+T 22 source.cs punctuation.parenthesis.open.cs
+T 23 source.cs punctuation.parenthesis.close.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     private static void KeepInterimResult()
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 18 source.cs storage.modifier.static.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 41 source.cs entity.name.function.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         // <KeepInterimResult>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 30 source.cs comment.line.double-slash.cs
+L         static bool IsAcceptable(int id, int absLimit) =>
+T 8 source.cs
+T 14 source.cs storage.modifier.static.cs
+T 15 source.cs
+T 19 source.cs keyword.type.bool.cs
+T 20 source.cs
+T 32 source.cs entity.name.function.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs keyword.type.int.cs
+T 37 source.cs
+T 39 source.cs entity.name.variable.parameter.cs
+T 40 source.cs punctuation.separator.comma.cs
+T 41 source.cs
+T 44 source.cs keyword.type.int.cs
+T 45 source.cs
+T 53 source.cs entity.name.variable.parameter.cs
+T 54 source.cs punctuation.parenthesis.close.cs
+T 55 source.cs
+T 57 source.cs keyword.operator.arrow.cs
+L             SimulateDataFetch(id) is var results 
+T 12 source.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs variable.other.readwrite.cs
+T 33 source.cs punctuation.parenthesis.close.cs
+T 34 source.cs
+T 36 source.cs keyword.operator.expression.pattern.is.cs
+T 37 source.cs
+T 40 source.cs storage.type.var.cs
+T 41 source.cs
+T 48 source.cs entity.name.variable.local.cs
+T 49 source.cs
+L             && results.Min() >= -absLimit 
+T 12 source.cs
+T 14 source.cs keyword.operator.logical.cs
+T 15 source.cs
+T 22 source.cs variable.other.object.cs
+T 23 source.cs punctuation.accessor.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs punctuation.parenthesis.close.cs
+T 29 source.cs
+T 31 source.cs keyword.operator.relational.cs
+T 32 source.cs
+T 33 source.cs keyword.operator.arithmetic.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs
+L             && results.Max() <= absLimit;
+T 12 source.cs
+T 14 source.cs keyword.operator.logical.cs
+T 15 source.cs
+T 22 source.cs variable.other.object.cs
+T 23 source.cs punctuation.accessor.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs punctuation.parenthesis.close.cs
+T 29 source.cs
+T 31 source.cs keyword.operator.relational.cs
+T 32 source.cs
+T 40 source.cs variable.other.readwrite.cs
+T 41 source.cs punctuation.terminator.statement.cs
+L 
+L         static int[] SimulateDataFetch(int id)
+T 8 source.cs
+T 14 source.cs storage.modifier.static.cs
+T 15 source.cs
+T 18 source.cs keyword.type.int.cs
+T 19 source.cs punctuation.squarebracket.open.cs
+T 20 source.cs punctuation.squarebracket.close.cs
+T 21 source.cs
+T 38 source.cs entity.name.function.cs
+T 39 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs keyword.type.int.cs
+T 43 source.cs
+T 45 source.cs entity.name.variable.parameter.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             var rand = new Random();
+T 12 source.cs
+T 15 source.cs storage.type.var.cs
+T 16 source.cs
+T 20 source.cs entity.name.variable.local.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.assignment.cs
+T 23 source.cs
+T 26 source.cs keyword.operator.expression.new.cs
+T 27 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs punctuation.parenthesis.close.cs
+T 36 source.cs punctuation.terminator.statement.cs
+L             return Enumerable
+T 12 source.cs
+T 18 source.cs keyword.control.flow.return.cs
+T 19 source.cs
+T 29 source.cs variable.other.readwrite.cs
+L                        .Range(start: 0, count: 5)
+T 23 source.cs
+T 24 source.cs punctuation.accessor.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs entity.name.variable.parameter.cs
+T 36 source.cs punctuation.separator.colon.cs
+T 37 source.cs
+T 38 source.cs constant.numeric.decimal.cs
+T 39 source.cs punctuation.separator.comma.cs
+T 40 source.cs
+T 45 source.cs entity.name.variable.parameter.cs
+T 46 source.cs punctuation.separator.colon.cs
+T 47 source.cs
+T 48 source.cs constant.numeric.decimal.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+L                        .Select(s => rand.Next(minValue: -10, maxValue: 11))
+T 23 source.cs
+T 24 source.cs punctuation.accessor.cs
+T 30 source.cs entity.name.function.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs entity.name.variable.parameter.cs
+T 33 source.cs
+T 35 source.cs keyword.operator.arrow.cs
+T 36 source.cs
+T 40 source.cs variable.other.object.cs
+T 41 source.cs punctuation.accessor.cs
+T 45 source.cs entity.name.function.cs
+T 46 source.cs punctuation.parenthesis.open.cs
+T 54 source.cs entity.name.variable.parameter.cs
+T 55 source.cs punctuation.separator.colon.cs
+T 56 source.cs
+T 57 source.cs keyword.operator.arithmetic.cs
+T 59 source.cs constant.numeric.decimal.cs
+T 60 source.cs punctuation.separator.comma.cs
+T 61 source.cs
+T 69 source.cs entity.name.variable.parameter.cs
+T 70 source.cs punctuation.separator.colon.cs
+T 71 source.cs
+T 73 source.cs constant.numeric.decimal.cs
+T 74 source.cs punctuation.parenthesis.close.cs
+T 75 source.cs punctuation.parenthesis.close.cs
+L                        .ToArray();
+T 23 source.cs
+T 24 source.cs punctuation.accessor.cs
+T 31 source.cs entity.name.function.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs punctuation.parenthesis.close.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L         } 
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+T 10 source.cs
+L         // </KeepInterimResult>
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 31 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     // <WithCaseGuards>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 23 source.cs comment.line.double-slash.cs
+L     public record Point(int X, int Y);
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.type.record.cs
+T 18 source.cs
+T 23 source.cs entity.name.type.class.cs
+T 24 source.cs punctuation.parenthesis.open.cs
+T 27 source.cs keyword.type.int.cs
+T 28 source.cs
+T 29 source.cs entity.name.variable.parameter.cs
+T 30 source.cs punctuation.separator.comma.cs
+T 31 source.cs
+T 34 source.cs keyword.type.int.cs
+T 35 source.cs
+T 36 source.cs entity.name.variable.parameter.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+T 38 source.cs punctuation.terminator.statement.cs
+L 
+L     static Point Transform(Point point) => point switch
+T 4 source.cs
+T 10 source.cs storage.modifier.static.cs
+T 11 source.cs
+T 16 source.cs entity.name.type.cs
+T 17 source.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs entity.name.type.cs
+T 33 source.cs
+T 38 source.cs entity.name.variable.parameter.cs
+T 39 source.cs punctuation.parenthesis.close.cs
+T 40 source.cs
+T 42 source.cs keyword.operator.arrow.cs
+T 43 source.cs
+T 48 source.cs variable.other.readwrite.cs
+T 49 source.cs
+T 55 source.cs keyword.control.conditional.switch.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         var (x, y) when x < y => new Point(-x, y),
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 13 source.cs punctuation.parenthesis.open.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs punctuation.separator.comma.cs
+T 16 source.cs
+T 17 source.cs entity.name.variable.local.cs
+T 18 source.cs punctuation.parenthesis.close.cs
+T 19 source.cs
+T 23 source.cs keyword.control.conditional.when.cs
+T 24 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.relational.cs
+T 28 source.cs
+T 29 source.cs entity.name.variable.parameter.cs
+T 30 source.cs
+T 32 source.cs keyword.operator.arrow.cs
+T 33 source.cs
+T 36 source.cs keyword.operator.expression.new.cs
+T 37 source.cs
+T 42 source.cs entity.name.type.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 44 source.cs keyword.operator.arithmetic.cs
+T 45 source.cs variable.other.readwrite.cs
+T 46 source.cs punctuation.separator.comma.cs
+T 47 source.cs
+T 48 source.cs variable.other.readwrite.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+T 50 source.cs punctuation.separator.comma.cs
+L         var (x, y) when x > y => new Point(x, -y),
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 13 source.cs punctuation.parenthesis.open.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs punctuation.separator.comma.cs
+T 16 source.cs
+T 17 source.cs entity.name.variable.local.cs
+T 18 source.cs punctuation.parenthesis.close.cs
+T 19 source.cs
+T 23 source.cs keyword.control.conditional.when.cs
+T 24 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.relational.cs
+T 28 source.cs
+T 29 source.cs entity.name.variable.parameter.cs
+T 30 source.cs
+T 32 source.cs keyword.operator.arrow.cs
+T 33 source.cs
+T 36 source.cs keyword.operator.expression.new.cs
+T 37 source.cs
+T 42 source.cs entity.name.type.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.separator.comma.cs
+T 46 source.cs
+T 47 source.cs keyword.operator.arithmetic.cs
+T 48 source.cs variable.other.readwrite.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+T 50 source.cs punctuation.separator.comma.cs
+L         var (x, y) => new Point(x, y),
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 13 source.cs punctuation.parenthesis.open.cs
+T 14 source.cs entity.name.variable.local.cs
+T 15 source.cs punctuation.separator.comma.cs
+T 16 source.cs
+T 17 source.cs entity.name.variable.local.cs
+T 18 source.cs punctuation.parenthesis.close.cs
+T 19 source.cs
+T 21 source.cs keyword.operator.arrow.cs
+T 22 source.cs
+T 25 source.cs keyword.operator.expression.new.cs
+T 26 source.cs
+T 31 source.cs entity.name.type.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs variable.other.readwrite.cs
+T 34 source.cs punctuation.separator.comma.cs
+T 35 source.cs
+T 36 source.cs variable.other.readwrite.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+T 38 source.cs punctuation.separator.comma.cs
+L     };
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+T 6 source.cs punctuation.terminator.statement.cs
+L 
+L     static void TestTransform()
+T 4 source.cs
+T 10 source.cs storage.modifier.static.cs
+T 11 source.cs
+T 15 source.cs keyword.type.void.cs
+T 16 source.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         Console.WriteLine(Transform(new Point(1, 2)));  // output: Point { X = -1, Y = 2 }
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs keyword.operator.expression.new.cs
+T 40 source.cs
+T 45 source.cs entity.name.type.cs
+T 46 source.cs punctuation.parenthesis.open.cs
+T 47 source.cs constant.numeric.decimal.cs
+T 48 source.cs punctuation.separator.comma.cs
+T 49 source.cs
+T 50 source.cs constant.numeric.decimal.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.parenthesis.close.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs punctuation.terminator.statement.cs
+T 56 source.cs
+T 58 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 90 source.cs comment.line.double-slash.cs
+L         Console.WriteLine(Transform(new Point(5, 2)));  // output: Point { X = 5, Y = -2 }
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs keyword.operator.expression.new.cs
+T 40 source.cs
+T 45 source.cs entity.name.type.cs
+T 46 source.cs punctuation.parenthesis.open.cs
+T 47 source.cs constant.numeric.decimal.cs
+T 48 source.cs punctuation.separator.comma.cs
+T 49 source.cs
+T 50 source.cs constant.numeric.decimal.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.parenthesis.close.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs punctuation.terminator.statement.cs
+T 56 source.cs
+T 58 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 90 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L     // </WithCaseGuards>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 24 source.cs comment.line.double-slash.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 

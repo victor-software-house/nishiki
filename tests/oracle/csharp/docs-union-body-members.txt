@@ -1,0 +1,301 @@
+L // <BodyMembers>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 16 source.cs comment.line.double-slash.cs
+L public record class Meters(double Value);
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.type.record.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 26 source.cs entity.name.type.class.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs keyword.type.double.cs
+T 34 source.cs
+T 39 source.cs entity.name.variable.parameter.cs
+T 40 source.cs punctuation.parenthesis.close.cs
+T 41 source.cs punctuation.terminator.statement.cs
+L public record class Feet(double Value);
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.type.record.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 24 source.cs entity.name.type.class.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs keyword.type.double.cs
+T 32 source.cs
+T 37 source.cs entity.name.variable.parameter.cs
+T 38 source.cs punctuation.parenthesis.close.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L 
+L public union Length(Meters, Feet)
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 12 source.cs storage.type.union.cs
+T 13 source.cs
+T 19 source.cs entity.name.type.union.cs
+T 20 source.cs punctuation.parenthesis.open.cs
+T 26 source.cs entity.name.type.cs
+T 27 source.cs punctuation.separator.comma.cs
+T 28 source.cs
+T 32 source.cs entity.name.type.cs
+T 33 source.cs punctuation.parenthesis.close.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     public double TotalMeters => this switch
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs keyword.type.double.cs
+T 18 source.cs
+T 29 source.cs entity.name.variable.property.cs
+T 30 source.cs
+T 32 source.cs keyword.operator.arrow.cs
+T 33 source.cs meta.accessor.getter.cs
+T 37 source.cs meta.accessor.getter.cs variable.language.this.cs
+T 38 source.cs meta.accessor.getter.cs
+T 44 source.cs meta.accessor.getter.cs keyword.control.conditional.switch.cs
+L     {
+T 4 source.cs meta.accessor.getter.cs
+T 5 source.cs meta.accessor.getter.cs punctuation.curlybrace.open.cs
+L         Meters m => m.Value,
+T 8 source.cs meta.accessor.getter.cs
+T 14 source.cs meta.accessor.getter.cs entity.name.type.cs
+T 15 source.cs meta.accessor.getter.cs
+T 16 source.cs meta.accessor.getter.cs entity.name.variable.local.cs
+T 17 source.cs meta.accessor.getter.cs
+T 19 source.cs meta.accessor.getter.cs keyword.operator.arrow.cs
+T 20 source.cs meta.accessor.getter.cs
+T 21 source.cs meta.accessor.getter.cs variable.other.object.cs
+T 22 source.cs meta.accessor.getter.cs punctuation.accessor.cs
+T 27 source.cs meta.accessor.getter.cs variable.other.object.property.cs
+T 28 source.cs meta.accessor.getter.cs punctuation.separator.comma.cs
+L         Feet f => f.Value * 0.3048,
+T 8 source.cs meta.accessor.getter.cs
+T 12 source.cs meta.accessor.getter.cs entity.name.type.cs
+T 13 source.cs meta.accessor.getter.cs
+T 14 source.cs meta.accessor.getter.cs entity.name.variable.local.cs
+T 15 source.cs meta.accessor.getter.cs
+T 17 source.cs meta.accessor.getter.cs keyword.operator.arrow.cs
+T 18 source.cs meta.accessor.getter.cs
+T 19 source.cs meta.accessor.getter.cs variable.other.object.cs
+T 20 source.cs meta.accessor.getter.cs punctuation.accessor.cs
+T 25 source.cs meta.accessor.getter.cs variable.other.object.property.cs
+T 26 source.cs meta.accessor.getter.cs
+T 27 source.cs meta.accessor.getter.cs keyword.operator.arithmetic.cs
+T 28 source.cs meta.accessor.getter.cs
+T 29 source.cs meta.accessor.getter.cs constant.numeric.decimal.cs
+T 30 source.cs meta.accessor.getter.cs constant.numeric.other.separator.decimals.cs
+T 34 source.cs meta.accessor.getter.cs constant.numeric.decimal.cs
+T 35 source.cs meta.accessor.getter.cs punctuation.separator.comma.cs
+L         _ => throw new InvalidOperationException("The Length has no value."),
+T 8 source.cs meta.accessor.getter.cs
+T 9 source.cs meta.accessor.getter.cs variable.language.discard.cs
+T 10 source.cs meta.accessor.getter.cs
+T 12 source.cs meta.accessor.getter.cs keyword.operator.arrow.cs
+T 13 source.cs meta.accessor.getter.cs
+T 18 source.cs meta.accessor.getter.cs keyword.control.flow.throw.cs
+T 19 source.cs meta.accessor.getter.cs
+T 22 source.cs meta.accessor.getter.cs keyword.operator.expression.new.cs
+T 23 source.cs meta.accessor.getter.cs
+T 48 source.cs meta.accessor.getter.cs entity.name.type.cs
+T 49 source.cs meta.accessor.getter.cs punctuation.parenthesis.open.cs
+T 50 source.cs meta.accessor.getter.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 74 source.cs meta.accessor.getter.cs string.quoted.double.cs
+T 75 source.cs meta.accessor.getter.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 76 source.cs meta.accessor.getter.cs punctuation.parenthesis.close.cs
+T 77 source.cs meta.accessor.getter.cs punctuation.separator.comma.cs
+L     };
+T 4 source.cs meta.accessor.getter.cs
+T 5 source.cs meta.accessor.getter.cs punctuation.curlybrace.close.cs
+T 6 source.cs punctuation.terminator.statement.cs
+L 
+L     public Length Add(Length other) => new Meters(TotalMeters + other.TotalMeters);
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs entity.name.type.cs
+T 18 source.cs
+T 21 source.cs entity.name.function.cs
+T 22 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs entity.name.type.cs
+T 29 source.cs
+T 34 source.cs entity.name.variable.parameter.cs
+T 35 source.cs punctuation.parenthesis.close.cs
+T 36 source.cs
+T 38 source.cs keyword.operator.arrow.cs
+T 39 source.cs
+T 42 source.cs keyword.operator.expression.new.cs
+T 43 source.cs
+T 49 source.cs entity.name.type.cs
+T 50 source.cs punctuation.parenthesis.open.cs
+T 61 source.cs variable.other.readwrite.cs
+T 62 source.cs
+T 63 source.cs keyword.operator.arithmetic.cs
+T 64 source.cs
+T 69 source.cs variable.other.object.cs
+T 70 source.cs punctuation.accessor.cs
+T 81 source.cs variable.other.object.property.cs
+T 82 source.cs punctuation.parenthesis.close.cs
+T 83 source.cs punctuation.terminator.statement.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L // </BodyMembers>
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 17 source.cs comment.line.double-slash.cs
+L 
+L public static class BodyMembersScenario
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.modifier.static.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 39 source.cs entity.name.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     public static void Run()
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 22 source.cs keyword.type.void.cs
+T 23 source.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         BodyMembersExample();
+T 8 source.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs punctuation.parenthesis.close.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     // <BodyMembersExample>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 27 source.cs comment.line.double-slash.cs
+L     static void BodyMembersExample()
+T 4 source.cs
+T 10 source.cs storage.modifier.static.cs
+T 11 source.cs
+T 15 source.cs keyword.type.void.cs
+T 16 source.cs
+T 34 source.cs entity.name.function.cs
+T 35 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         Length distance = new Meters(10.0);
+T 8 source.cs
+T 14 source.cs entity.name.type.cs
+T 15 source.cs
+T 23 source.cs entity.name.variable.local.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.assignment.cs
+T 26 source.cs
+T 29 source.cs keyword.operator.expression.new.cs
+T 30 source.cs
+T 36 source.cs entity.name.type.cs
+T 37 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs constant.numeric.decimal.cs
+T 40 source.cs constant.numeric.other.separator.decimals.cs
+T 41 source.cs constant.numeric.decimal.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L         Length height = new Feet(3.0);
+T 8 source.cs
+T 14 source.cs entity.name.type.cs
+T 15 source.cs
+T 21 source.cs entity.name.variable.local.cs
+T 22 source.cs
+T 23 source.cs keyword.operator.assignment.cs
+T 24 source.cs
+T 27 source.cs keyword.operator.expression.new.cs
+T 28 source.cs
+T 32 source.cs entity.name.type.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs constant.numeric.decimal.cs
+T 35 source.cs constant.numeric.other.separator.decimals.cs
+T 36 source.cs constant.numeric.decimal.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+T 38 source.cs punctuation.terminator.statement.cs
+L 
+L         Console.WriteLine(distance.TotalMeters); // output: 10
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs variable.other.object.cs
+T 35 source.cs punctuation.accessor.cs
+T 46 source.cs variable.other.object.property.cs
+T 47 source.cs punctuation.parenthesis.close.cs
+T 48 source.cs punctuation.terminator.statement.cs
+T 49 source.cs
+T 51 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 62 source.cs comment.line.double-slash.cs
+L         Console.WriteLine(height.TotalMeters);   // output: 0.9144
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs variable.other.object.cs
+T 33 source.cs punctuation.accessor.cs
+T 44 source.cs variable.other.object.property.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+T 46 source.cs punctuation.terminator.statement.cs
+T 49 source.cs
+T 51 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 66 source.cs comment.line.double-slash.cs
+L 
+L         Length total = distance.Add(height);
+T 8 source.cs
+T 14 source.cs entity.name.type.cs
+T 15 source.cs
+T 20 source.cs entity.name.variable.local.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.assignment.cs
+T 23 source.cs
+T 31 source.cs variable.other.object.cs
+T 32 source.cs punctuation.accessor.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs variable.other.readwrite.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+T 44 source.cs punctuation.terminator.statement.cs
+L         Console.WriteLine(total.TotalMeters);    // output: 10.9144
+T 8 source.cs
+T 15 source.cs variable.other.object.cs
+T 16 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs variable.other.object.cs
+T 32 source.cs punctuation.accessor.cs
+T 43 source.cs variable.other.object.property.cs
+T 44 source.cs punctuation.parenthesis.close.cs
+T 45 source.cs punctuation.terminator.statement.cs
+T 49 source.cs
+T 51 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 67 source.cs comment.line.double-slash.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L     // </BodyMembersExample>
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 28 source.cs comment.line.double-slash.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 

@@ -1,0 +1,2070 @@
+L // C# that nishiki's other oracle inputs leave out, written to exercise the
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 75 source.cs comment.line.double-slash.cs
+L // rest of Shiki's `csharp` grammar.
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 36 source.cs comment.line.double-slash.cs
+L #:package Newtonsoft.Json@13.0.3
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 2 source.cs meta.preprocessor.cs punctuation.separator.colon.cs
+T 9 source.cs meta.preprocessor.cs keyword.preprocessor.package.cs
+T 10 source.cs meta.preprocessor.cs
+T 20 source.cs meta.preprocessor.cs entity.name.variable.preprocessor.symbol.cs
+T 21 source.cs meta.preprocessor.cs punctuation.dot.cs
+T 25 source.cs meta.preprocessor.cs entity.name.variable.preprocessor.symbol.cs
+T 26 source.cs meta.preprocessor.cs punctuation.separator.at.cs
+T 32 source.cs meta.preprocessor.cs string.unquoted.preprocessor.message.cs
+L #:sdk Microsoft.NET.Sdk.Web@9.0.0
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 2 source.cs meta.preprocessor.cs punctuation.separator.colon.cs
+T 5 source.cs meta.preprocessor.cs keyword.preprocessor.sdk.cs
+T 6 source.cs meta.preprocessor.cs
+T 15 source.cs meta.preprocessor.cs entity.name.variable.preprocessor.symbol.cs
+T 16 source.cs meta.preprocessor.cs punctuation.dot.cs
+T 19 source.cs meta.preprocessor.cs entity.name.variable.preprocessor.symbol.cs
+T 20 source.cs meta.preprocessor.cs punctuation.dot.cs
+T 23 source.cs meta.preprocessor.cs entity.name.variable.preprocessor.symbol.cs
+T 24 source.cs meta.preprocessor.cs punctuation.dot.cs
+T 27 source.cs meta.preprocessor.cs entity.name.variable.preprocessor.symbol.cs
+T 28 source.cs meta.preprocessor.cs punctuation.separator.at.cs
+T 33 source.cs meta.preprocessor.cs string.unquoted.preprocessor.message.cs
+L #:property LangVersion=preview
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 2 source.cs meta.preprocessor.cs punctuation.separator.colon.cs
+T 10 source.cs meta.preprocessor.cs keyword.preprocessor.property.cs
+T 11 source.cs meta.preprocessor.cs
+T 22 source.cs meta.preprocessor.cs entity.name.variable.preprocessor.symbol.cs
+T 23 source.cs meta.preprocessor.cs punctuation.separator.equals.cs
+T 30 source.cs meta.preprocessor.cs string.unquoted.preprocessor.message.cs
+L #:project ../Shared/Shared.csproj
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 2 source.cs meta.preprocessor.cs punctuation.separator.colon.cs
+T 9 source.cs meta.preprocessor.cs keyword.preprocessor.project.cs
+T 10 source.cs meta.preprocessor.cs
+T 33 source.cs meta.preprocessor.cs string.unquoted.preprocessor.message.cs
+L #:include Helpers/*.cs
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 2 source.cs meta.preprocessor.cs punctuation.separator.colon.cs
+T 9 source.cs meta.preprocessor.cs keyword.preprocessor.include.cs
+T 10 source.cs meta.preprocessor.cs
+T 22 source.cs meta.preprocessor.cs string.unquoted.preprocessor.message.cs
+L #:exclude Helpers/Old.cs
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 2 source.cs meta.preprocessor.cs punctuation.separator.colon.cs
+T 9 source.cs meta.preprocessor.cs keyword.preprocessor.exclude.cs
+T 10 source.cs meta.preprocessor.cs
+T 24 source.cs meta.preprocessor.cs string.unquoted.preprocessor.message.cs
+L #:ref Other.dll
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 2 source.cs meta.preprocessor.cs punctuation.separator.colon.cs
+T 5 source.cs meta.preprocessor.cs keyword.preprocessor.ref.cs
+T 6 source.cs meta.preprocessor.cs
+T 15 source.cs meta.preprocessor.cs string.unquoted.preprocessor.message.cs
+L #:custom anything here
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 2 source.cs meta.preprocessor.cs punctuation.separator.colon.cs
+T 22 source.cs meta.preprocessor.cs string.unquoted.preprocessor.message.cs
+L #r "System.Net.Http"
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 2 source.cs meta.preprocessor.cs keyword.preprocessor.r.cs
+T 3 source.cs meta.preprocessor.cs
+T 20 source.cs meta.preprocessor.cs string.quoted.double.cs
+L #load "helpers.csx"
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 5 source.cs meta.preprocessor.cs keyword.preprocessor.load.cs
+T 6 source.cs meta.preprocessor.cs
+T 19 source.cs meta.preprocessor.cs string.quoted.double.cs
+L #define TRACE_ON /* traced */
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 7 source.cs meta.preprocessor.cs keyword.preprocessor.define.cs
+T 8 source.cs meta.preprocessor.cs
+T 16 source.cs meta.preprocessor.cs entity.name.variable.preprocessor.symbol.cs
+T 17 source.cs meta.preprocessor.cs
+T 19 source.cs meta.preprocessor.cs comment.block.cs punctuation.definition.comment.cs
+T 27 source.cs meta.preprocessor.cs comment.block.cs
+T 29 source.cs meta.preprocessor.cs comment.block.cs punctuation.definition.comment.cs
+L #undef TRACE_OFF
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 6 source.cs meta.preprocessor.cs keyword.preprocessor.undef.cs
+T 7 source.cs meta.preprocessor.cs
+T 16 source.cs meta.preprocessor.cs entity.name.variable.preprocessor.symbol.cs
+L #if (TRACE_ON && !TRACE_OFF) || DEBUG == true
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 3 source.cs meta.preprocessor.cs keyword.preprocessor.if.cs
+T 4 source.cs meta.preprocessor.cs
+T 5 source.cs meta.preprocessor.cs punctuation.parenthesis.open.cs
+T 13 source.cs meta.preprocessor.cs entity.name.variable.preprocessor.symbol.cs
+T 14 source.cs meta.preprocessor.cs
+T 16 source.cs meta.preprocessor.cs keyword.operator.logical.cs
+T 17 source.cs meta.preprocessor.cs
+T 18 source.cs meta.preprocessor.cs keyword.operator.logical.cs
+T 27 source.cs meta.preprocessor.cs entity.name.variable.preprocessor.symbol.cs
+T 28 source.cs meta.preprocessor.cs punctuation.parenthesis.close.cs
+T 29 source.cs meta.preprocessor.cs
+T 31 source.cs meta.preprocessor.cs keyword.operator.logical.cs
+T 32 source.cs meta.preprocessor.cs
+T 37 source.cs meta.preprocessor.cs entity.name.variable.preprocessor.symbol.cs
+T 38 source.cs meta.preprocessor.cs
+T 40 source.cs meta.preprocessor.cs keyword.operator.comparison.cs
+T 41 source.cs meta.preprocessor.cs
+T 45 source.cs meta.preprocessor.cs constant.language.boolean.true.cs
+L #warning Tracing is on
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 8 source.cs meta.preprocessor.cs keyword.preprocessor.warning.cs
+T 9 source.cs meta.preprocessor.cs
+T 22 source.cs meta.preprocessor.cs string.unquoted.preprocessor.message.cs
+L #elif RELEASE != false
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 5 source.cs meta.preprocessor.cs keyword.preprocessor.elif.cs
+T 6 source.cs meta.preprocessor.cs
+T 13 source.cs meta.preprocessor.cs entity.name.variable.preprocessor.symbol.cs
+T 14 source.cs meta.preprocessor.cs
+T 16 source.cs meta.preprocessor.cs keyword.operator.comparison.cs
+T 17 source.cs meta.preprocessor.cs
+T 22 source.cs meta.preprocessor.cs constant.language.boolean.false.cs
+L #error Not a release
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 6 source.cs meta.preprocessor.cs keyword.preprocessor.error.cs
+T 7 source.cs meta.preprocessor.cs
+T 20 source.cs meta.preprocessor.cs string.unquoted.preprocessor.message.cs
+L #endif
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 6 source.cs meta.preprocessor.cs keyword.preprocessor.endif.cs
+L #line 200 "Generated.cs"
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 5 source.cs meta.preprocessor.cs keyword.preprocessor.line.cs
+T 6 source.cs meta.preprocessor.cs
+T 9 source.cs meta.preprocessor.cs constant.numeric.decimal.cs
+T 10 source.cs meta.preprocessor.cs
+T 24 source.cs meta.preprocessor.cs string.quoted.double.cs
+L #line default
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 5 source.cs meta.preprocessor.cs keyword.preprocessor.line.cs
+T 6 source.cs meta.preprocessor.cs
+T 13 source.cs meta.preprocessor.cs keyword.preprocessor.default.cs
+L #line hidden
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 5 source.cs meta.preprocessor.cs keyword.preprocessor.line.cs
+T 6 source.cs meta.preprocessor.cs
+T 12 source.cs meta.preprocessor.cs keyword.preprocessor.default.cs
+L #pragma warning disable CS0168, 0219
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 7 source.cs meta.preprocessor.cs keyword.preprocessor.pragma.cs
+T 8 source.cs meta.preprocessor.cs
+T 15 source.cs meta.preprocessor.cs keyword.preprocessor.warning.cs
+T 16 source.cs meta.preprocessor.cs
+T 23 source.cs meta.preprocessor.cs keyword.preprocessor.disable.cs
+T 36 source.cs meta.preprocessor.cs
+L #pragma warning restore 168, 219
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 7 source.cs meta.preprocessor.cs keyword.preprocessor.pragma.cs
+T 8 source.cs meta.preprocessor.cs
+T 15 source.cs meta.preprocessor.cs keyword.preprocessor.warning.cs
+T 16 source.cs meta.preprocessor.cs
+T 23 source.cs meta.preprocessor.cs keyword.preprocessor.restore.cs
+T 24 source.cs meta.preprocessor.cs
+T 27 source.cs meta.preprocessor.cs constant.numeric.decimal.cs
+T 28 source.cs meta.preprocessor.cs punctuation.separator.comma.cs
+T 29 source.cs meta.preprocessor.cs
+T 32 source.cs meta.preprocessor.cs constant.numeric.decimal.cs
+L #pragma checksum "file.cs" "{406ea660-64cf-4c82-b6f0-42d48172a799}" "ab007f1d23d9"
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 7 source.cs meta.preprocessor.cs keyword.preprocessor.pragma.cs
+T 8 source.cs meta.preprocessor.cs
+T 16 source.cs meta.preprocessor.cs keyword.preprocessor.checksum.cs
+T 17 source.cs meta.preprocessor.cs
+T 26 source.cs meta.preprocessor.cs string.quoted.double.cs
+T 27 source.cs meta.preprocessor.cs
+T 67 source.cs meta.preprocessor.cs string.quoted.double.cs
+T 68 source.cs meta.preprocessor.cs
+T 82 source.cs meta.preprocessor.cs string.quoted.double.cs
+L #region Setup /* a comment */
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 7 source.cs meta.preprocessor.cs keyword.preprocessor.region.cs
+T 8 source.cs meta.preprocessor.cs
+T 29 source.cs meta.preprocessor.cs string.unquoted.preprocessor.message.cs
+L #endregion
+T 1 source.cs meta.preprocessor.cs punctuation.separator.hash.cs
+T 10 source.cs meta.preprocessor.cs keyword.preprocessor.endregion.cs
+L extern alias GridV1;
+T 6 source.cs keyword.other.directive.extern.cs
+T 7 source.cs
+T 12 source.cs keyword.other.directive.alias.cs
+T 13 source.cs
+T 19 source.cs variable.other.alias.cs
+T 20 source.cs punctuation.terminator.statement.cs
+L global using System;
+T 6 source.cs keyword.other.directive.global.cs
+T 7 source.cs
+T 12 source.cs keyword.other.directive.using.cs
+T 13 source.cs
+T 19 source.cs entity.name.type.namespace.cs
+T 20 source.cs punctuation.terminator.statement.cs
+L global using static System.Math;
+T 6 source.cs keyword.other.directive.global.cs
+T 7 source.cs
+T 12 source.cs keyword.other.directive.using.cs
+T 13 source.cs
+T 19 source.cs keyword.other.directive.static.cs
+T 20 source.cs
+T 26 source.cs entity.name.type.cs
+T 27 source.cs punctuation.accessor.cs
+T 31 source.cs entity.name.type.cs
+T 32 source.cs punctuation.terminator.statement.cs
+L using static unsafe System.Buffer;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs keyword.other.directive.static.cs
+T 13 source.cs
+T 19 source.cs storage.modifier.unsafe.cs
+T 20 source.cs
+T 26 source.cs entity.name.type.cs
+T 27 source.cs punctuation.accessor.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L using global::System.Text;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 14 source.cs
+T 20 source.cs entity.name.type.namespace.cs
+T 21 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.type.namespace.cs
+T 26 source.cs punctuation.terminator.statement.cs
+L using Alias = System.Collections.Generic.List<int>;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 11 source.cs entity.name.type.alias.cs
+T 12 source.cs
+T 13 source.cs keyword.operator.assignment.cs
+T 14 source.cs
+T 20 source.cs entity.name.type.cs
+T 21 source.cs punctuation.accessor.cs
+T 32 source.cs entity.name.type.cs
+T 33 source.cs punctuation.accessor.cs
+T 40 source.cs entity.name.type.cs
+T 41 source.cs punctuation.accessor.cs
+T 45 source.cs entity.name.type.cs
+T 46 source.cs punctuation.definition.typeparameters.begin.cs
+T 49 source.cs keyword.type.int.cs
+T 50 source.cs punctuation.definition.typeparameters.end.cs
+T 51 source.cs punctuation.terminator.statement.cs
+L using unsafe IntPtrAlias = int*;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs storage.modifier.unsafe.cs
+T 13 source.cs
+T 24 source.cs entity.name.type.alias.cs
+T 25 source.cs
+T 26 source.cs keyword.operator.assignment.cs
+T 27 source.cs
+T 30 source.cs keyword.type.int.cs
+T 31 source.cs punctuation.separator.asterisk.cs
+T 32 source.cs punctuation.terminator.statement.cs
+L 
+L namespace Coverage;
+T 9 source.cs storage.type.namespace.cs
+T 10 source.cs
+T 18 source.cs entity.name.type.namespace.cs
+T 19 source.cs punctuation.terminator.statement.cs
+L 
+L public class Base(int n, string s);
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 12 source.cs storage.type.class.cs
+T 13 source.cs
+T 17 source.cs entity.name.type.class.cs
+T 18 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs keyword.type.int.cs
+T 22 source.cs
+T 23 source.cs entity.name.variable.parameter.cs
+T 24 source.cs punctuation.separator.comma.cs
+T 25 source.cs
+T 31 source.cs keyword.type.string.cs
+T 32 source.cs
+T 33 source.cs entity.name.variable.parameter.cs
+T 34 source.cs punctuation.parenthesis.close.cs
+T 35 source.cs punctuation.terminator.statement.cs
+L 
+L /// <summary>
+T 3 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 4 source.cs comment.block.documentation.cs
+T 5 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 12 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L /// A <c kind="x" xml:lang="en">class</c> <x:tag/> &amp; its <see cref="Base"/> &#169; &#xA9; & more.
+T 3 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 6 source.cs comment.block.documentation.cs
+T 7 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 8 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 9 source.cs comment.block.documentation.cs meta.tag.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 15 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 16 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 17 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.namespace.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs punctuation.separator.colon.cs
+T 26 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 30 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 31 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 32 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 37 source.cs comment.block.documentation.cs
+T 39 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 40 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 41 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 42 source.cs comment.block.documentation.cs
+T 43 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 44 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.namespace.cs
+T 45 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs punctuation.separator.colon.cs
+T 48 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 50 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 51 source.cs comment.block.documentation.cs
+T 52 source.cs comment.block.documentation.cs constant.character.entity.cs punctuation.definition.constant.cs
+T 55 source.cs comment.block.documentation.cs constant.character.entity.cs
+T 56 source.cs comment.block.documentation.cs constant.character.entity.cs punctuation.definition.constant.cs
+T 61 source.cs comment.block.documentation.cs
+T 62 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 65 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 66 source.cs comment.block.documentation.cs meta.tag.cs
+T 70 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 71 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 72 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 76 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 77 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 79 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 80 source.cs comment.block.documentation.cs
+T 81 source.cs comment.block.documentation.cs constant.character.entity.cs punctuation.definition.constant.cs
+T 85 source.cs comment.block.documentation.cs constant.character.entity.cs
+T 86 source.cs comment.block.documentation.cs constant.character.entity.cs punctuation.definition.constant.cs
+T 87 source.cs comment.block.documentation.cs
+T 88 source.cs comment.block.documentation.cs constant.character.entity.cs punctuation.definition.constant.cs
+T 92 source.cs comment.block.documentation.cs constant.character.entity.cs
+T 93 source.cs comment.block.documentation.cs constant.character.entity.cs punctuation.definition.constant.cs
+T 94 source.cs comment.block.documentation.cs
+T 95 source.cs comment.block.documentation.cs invalid.illegal.bad-ampersand.cs
+T 101 source.cs comment.block.documentation.cs
+L /// <![CDATA[ raw <text> ]]>
+T 3 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 4 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs string.unquoted.cdata.cs punctuation.definition.string.begin.cs
+T 25 source.cs comment.block.documentation.cs string.unquoted.cdata.cs
+T 28 source.cs comment.block.documentation.cs string.unquoted.cdata.cs punctuation.definition.string.end.cs
+L /// <!-- a comment -->
+T 3 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 4 source.cs comment.block.documentation.cs
+T 8 source.cs comment.block.documentation.cs comment.block.cs punctuation.definition.comment.cs
+T 19 source.cs comment.block.documentation.cs comment.block.cs
+T 22 source.cs comment.block.documentation.cs comment.block.cs punctuation.definition.comment.cs
+L /// </summary>
+T 3 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 4 source.cs comment.block.documentation.cs
+T 6 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L /** A block documentation comment. */
+T 3 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 35 source.cs comment.block.documentation.cs
+T 37 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+L /**
+T 3 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+L  * Spread over lines.
+T 1 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 2 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 21 source.cs comment.block.documentation.cs
+L  */
+T 1 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 3 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+L public sealed class Shapes<in TIn, out TOut>(int n) : Coverage.Base<int>(n, "x") where TIn : class
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 13 source.cs storage.modifier.sealed.cs
+T 14 source.cs
+T 19 source.cs storage.type.class.cs
+T 20 source.cs
+T 26 source.cs entity.name.type.class.cs
+T 27 source.cs punctuation.definition.typeparameters.begin.cs
+T 29 source.cs storage.modifier.in.cs
+T 30 source.cs
+T 33 source.cs entity.name.type.type-parameter.cs
+T 34 source.cs punctuation.separator.comma.cs
+T 35 source.cs
+T 38 source.cs storage.modifier.out.cs
+T 39 source.cs
+T 43 source.cs entity.name.type.type-parameter.cs
+T 44 source.cs punctuation.definition.typeparameters.end.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 48 source.cs keyword.type.int.cs
+T 49 source.cs
+T 50 source.cs entity.name.variable.parameter.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs
+T 53 source.cs punctuation.separator.colon.cs
+T 54 source.cs
+T 62 source.cs entity.name.type.cs
+T 63 source.cs punctuation.accessor.cs
+T 67 source.cs entity.name.type.cs
+T 68 source.cs punctuation.definition.typeparameters.begin.cs
+T 71 source.cs keyword.type.int.cs
+T 72 source.cs punctuation.definition.typeparameters.end.cs
+T 73 source.cs punctuation.parenthesis.open.cs
+T 74 source.cs variable.other.readwrite.cs
+T 75 source.cs punctuation.separator.comma.cs
+T 76 source.cs
+T 77 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 78 source.cs string.quoted.double.cs
+T 79 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 80 source.cs punctuation.parenthesis.close.cs
+T 81 source.cs
+T 86 source.cs storage.modifier.where.cs
+T 87 source.cs
+T 90 source.cs entity.name.type.type-parameter.cs
+T 91 source.cs
+T 92 source.cs punctuation.separator.colon.cs
+T 93 source.cs
+T 98 source.cs storage.type.class.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     private readonly int count = 0b_1010_1010;
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 20 source.cs storage.modifier.readonly.cs
+T 21 source.cs
+T 24 source.cs keyword.type.int.cs
+T 25 source.cs
+T 30 source.cs entity.name.variable.field.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 35 source.cs constant.numeric.other.preffix.binary.cs
+T 36 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 40 source.cs constant.numeric.binary.cs
+T 41 source.cs constant.numeric.binary.cs constant.numeric.other.separator.thousands.cs
+T 45 source.cs constant.numeric.binary.cs
+T 46 source.cs punctuation.terminator.statement.cs
+L     private const double Small = 1_000.000_5e-3_0d, Tiny = .5e+10f, Money = 1.5m;
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 17 source.cs storage.modifier.const.cs
+T 18 source.cs
+T 24 source.cs keyword.type.double.cs
+T 25 source.cs
+T 30 source.cs entity.name.variable.field.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 34 source.cs constant.numeric.decimal.cs
+T 35 source.cs constant.numeric.decimal.cs constant.numeric.other.separator.thousands.cs
+T 38 source.cs constant.numeric.decimal.cs
+T 39 source.cs constant.numeric.other.separator.decimals.cs
+T 42 source.cs constant.numeric.decimal.cs
+T 43 source.cs constant.numeric.decimal.cs constant.numeric.other.separator.thousands.cs
+T 44 source.cs constant.numeric.decimal.cs
+T 45 source.cs constant.numeric.other.exponent.cs
+T 46 source.cs keyword.operator.arithmetic.cs
+T 47 source.cs constant.numeric.decimal.cs
+T 48 source.cs constant.numeric.decimal.cs constant.numeric.other.separator.thousands.cs
+T 49 source.cs constant.numeric.decimal.cs
+T 50 source.cs constant.numeric.other.suffix.cs
+T 51 source.cs punctuation.separator.comma.cs
+T 52 source.cs
+T 56 source.cs entity.name.variable.field.cs
+T 57 source.cs
+T 58 source.cs keyword.operator.assignment.cs
+T 59 source.cs
+T 60 source.cs constant.numeric.other.separator.decimals.cs
+T 61 source.cs constant.numeric.decimal.cs
+T 62 source.cs constant.numeric.other.exponent.cs
+T 63 source.cs keyword.operator.arithmetic.cs
+T 65 source.cs constant.numeric.decimal.cs
+T 66 source.cs constant.numeric.other.suffix.cs
+T 67 source.cs punctuation.separator.comma.cs
+T 68 source.cs
+T 73 source.cs entity.name.variable.field.cs
+T 74 source.cs
+T 75 source.cs keyword.operator.assignment.cs
+T 76 source.cs
+T 77 source.cs constant.numeric.decimal.cs
+T 78 source.cs constant.numeric.other.separator.decimals.cs
+T 79 source.cs constant.numeric.decimal.cs
+T 80 source.cs constant.numeric.other.suffix.cs
+T 81 source.cs punctuation.terminator.statement.cs
+L     private const double Exp = 1e+1_0, Neg = 2E-5, Thousand = 1_000;
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 17 source.cs storage.modifier.const.cs
+T 18 source.cs
+T 24 source.cs keyword.type.double.cs
+T 25 source.cs
+T 28 source.cs entity.name.variable.field.cs
+T 29 source.cs
+T 30 source.cs keyword.operator.assignment.cs
+T 31 source.cs
+T 32 source.cs constant.numeric.decimal.cs
+T 33 source.cs constant.numeric.other.exponent.cs
+T 34 source.cs keyword.operator.arithmetic.cs
+T 35 source.cs constant.numeric.decimal.cs
+T 36 source.cs constant.numeric.decimal.cs constant.numeric.other.separator.thousands.cs
+T 37 source.cs constant.numeric.decimal.cs
+T 38 source.cs punctuation.separator.comma.cs
+T 39 source.cs
+T 42 source.cs entity.name.variable.field.cs
+T 43 source.cs
+T 44 source.cs keyword.operator.assignment.cs
+T 45 source.cs
+T 46 source.cs constant.numeric.decimal.cs
+T 47 source.cs constant.numeric.other.exponent.cs
+T 48 source.cs keyword.operator.arithmetic.cs
+T 49 source.cs constant.numeric.decimal.cs
+T 50 source.cs punctuation.separator.comma.cs
+T 51 source.cs
+T 59 source.cs entity.name.variable.field.cs
+T 60 source.cs
+T 61 source.cs keyword.operator.assignment.cs
+T 62 source.cs
+T 63 source.cs constant.numeric.decimal.cs
+T 64 source.cs constant.numeric.decimal.cs constant.numeric.other.separator.thousands.cs
+T 67 source.cs constant.numeric.decimal.cs
+T 68 source.cs punctuation.terminator.statement.cs
+L     private const ulong Big = 0xFF_FFul, Bin = 0b1010UL, Long = 3L, Hex = 0x1Fu, Wide = 10UL;
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 17 source.cs storage.modifier.const.cs
+T 18 source.cs
+T 23 source.cs keyword.type.ulong.cs
+T 24 source.cs
+T 27 source.cs entity.name.variable.field.cs
+T 28 source.cs
+T 29 source.cs keyword.operator.assignment.cs
+T 30 source.cs
+T 32 source.cs constant.numeric.other.preffix.hex.cs
+T 34 source.cs constant.numeric.hex.cs
+T 35 source.cs constant.numeric.hex.cs constant.numeric.other.separator.thousands.cs
+T 37 source.cs constant.numeric.hex.cs
+T 39 source.cs constant.numeric.other.suffix.cs
+T 40 source.cs punctuation.separator.comma.cs
+T 41 source.cs
+T 44 source.cs entity.name.variable.field.cs
+T 45 source.cs
+T 46 source.cs keyword.operator.assignment.cs
+T 47 source.cs
+T 49 source.cs constant.numeric.other.preffix.binary.cs
+T 53 source.cs constant.numeric.binary.cs
+T 55 source.cs constant.numeric.other.suffix.cs
+T 56 source.cs punctuation.separator.comma.cs
+T 57 source.cs
+T 61 source.cs entity.name.variable.field.cs
+T 62 source.cs
+T 63 source.cs keyword.operator.assignment.cs
+T 64 source.cs
+T 65 source.cs constant.numeric.decimal.cs
+T 66 source.cs constant.numeric.other.suffix.cs
+T 67 source.cs punctuation.separator.comma.cs
+T 68 source.cs
+T 71 source.cs entity.name.variable.field.cs
+T 72 source.cs
+T 73 source.cs keyword.operator.assignment.cs
+T 74 source.cs
+T 76 source.cs constant.numeric.other.preffix.hex.cs
+T 78 source.cs constant.numeric.hex.cs
+T 79 source.cs constant.numeric.other.suffix.cs
+T 80 source.cs punctuation.separator.comma.cs
+T 81 source.cs
+T 85 source.cs entity.name.variable.field.cs
+T 86 source.cs
+T 87 source.cs keyword.operator.assignment.cs
+T 88 source.cs
+T 90 source.cs constant.numeric.decimal.cs
+T 92 source.cs constant.numeric.other.suffix.cs
+T 93 source.cs punctuation.terminator.statement.cs
+L     private int bad = 12ab;
+T 4 source.cs
+T 11 source.cs storage.modifier.private.cs
+T 12 source.cs
+T 15 source.cs keyword.type.int.cs
+T 16 source.cs
+T 19 source.cs entity.name.variable.field.cs
+T 20 source.cs
+T 21 source.cs keyword.operator.assignment.cs
+T 22 source.cs
+T 26 source.cs invalid.illegal.constant.numeric.cs
+T 27 source.cs punctuation.terminator.statement.cs
+L     // An indented line comment.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 32 source.cs comment.line.double-slash.cs
+L     /// An indented documentation comment.
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 42 source.cs comment.line.double-slash.cs
+L     ~Shapes() { }
+T 4 source.cs
+T 5 source.cs punctuation.tilde.cs
+T 11 source.cs entity.name.function.cs
+T 12 source.cs punctuation.parenthesis.open.cs
+T 13 source.cs punctuation.parenthesis.close.cs
+T 14 source.cs
+T 15 source.cs punctuation.curlybrace.open.cs
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L     public event EventHandler Changed = delegate { }, Removed;
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.event.cs
+T 17 source.cs
+T 29 source.cs entity.name.type.cs
+T 30 source.cs
+T 37 source.cs entity.name.variable.event.cs
+T 38 source.cs
+T 39 source.cs keyword.operator.assignment.cs
+T 40 source.cs
+T 48 source.cs storage.type.delegate.cs
+T 49 source.cs
+T 50 source.cs punctuation.curlybrace.open.cs
+T 51 source.cs
+T 52 source.cs punctuation.curlybrace.close.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 61 source.cs entity.name.variable.event.cs
+T 62 source.cs punctuation.terminator.statement.cs
+L     public int this[int index, string key = "k"] => index;
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 14 source.cs keyword.type.int.cs
+T 15 source.cs
+T 19 source.cs variable.language.this.cs
+T 20 source.cs punctuation.squarebracket.open.cs
+T 23 source.cs keyword.type.int.cs
+T 24 source.cs
+T 29 source.cs entity.name.variable.parameter.cs
+T 30 source.cs punctuation.separator.comma.cs
+T 31 source.cs
+T 37 source.cs keyword.type.string.cs
+T 38 source.cs
+T 41 source.cs entity.name.variable.parameter.cs
+T 42 source.cs
+T 43 source.cs keyword.operator.assignment.cs
+T 44 source.cs
+T 45 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 46 source.cs string.quoted.double.cs
+T 47 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 48 source.cs punctuation.squarebracket.close.cs
+T 49 source.cs
+T 51 source.cs keyword.operator.arrow.cs
+T 52 source.cs meta.accessor.getter.cs
+T 57 source.cs meta.accessor.getter.cs variable.other.readwrite.cs
+T 58 source.cs punctuation.terminator.statement.cs
+L     public static implicit operator int(Shapes<TIn, TOut> s) => s.count;
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 26 source.cs storage.modifier.implicit.cs
+T 27 source.cs
+T 35 source.cs storage.type.operator.cs
+T 36 source.cs
+T 39 source.cs keyword.type.int.cs
+T 40 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs entity.name.type.cs
+T 47 source.cs punctuation.definition.typeparameters.begin.cs
+T 50 source.cs entity.name.type.cs
+T 51 source.cs punctuation.separator.comma.cs
+T 52 source.cs
+T 56 source.cs entity.name.type.cs
+T 57 source.cs punctuation.definition.typeparameters.end.cs
+T 58 source.cs
+T 59 source.cs entity.name.variable.parameter.cs
+T 60 source.cs punctuation.parenthesis.close.cs
+T 61 source.cs
+T 63 source.cs keyword.operator.arrow.cs
+T 64 source.cs
+T 65 source.cs variable.other.object.cs
+T 66 source.cs punctuation.accessor.cs
+T 71 source.cs variable.other.object.property.cs
+T 72 source.cs punctuation.terminator.statement.cs
+L     public static explicit operator Shapes<TIn, TOut>(int n) => new(n);
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 26 source.cs storage.modifier.explicit.cs
+T 27 source.cs
+T 35 source.cs storage.type.operator.cs
+T 36 source.cs
+T 42 source.cs entity.name.type.cs
+T 43 source.cs punctuation.definition.typeparameters.begin.cs
+T 46 source.cs entity.name.type.cs
+T 47 source.cs punctuation.separator.comma.cs
+T 48 source.cs
+T 52 source.cs entity.name.type.cs
+T 53 source.cs punctuation.definition.typeparameters.end.cs
+T 54 source.cs punctuation.parenthesis.open.cs
+T 57 source.cs keyword.type.int.cs
+T 58 source.cs
+T 59 source.cs entity.name.variable.parameter.cs
+T 60 source.cs punctuation.parenthesis.close.cs
+T 61 source.cs
+T 63 source.cs keyword.operator.arrow.cs
+T 64 source.cs
+T 67 source.cs keyword.operator.expression.new.cs
+T 68 source.cs punctuation.parenthesis.open.cs
+T 69 source.cs variable.other.readwrite.cs
+T 70 source.cs punctuation.parenthesis.close.cs
+T 71 source.cs punctuation.terminator.statement.cs
+L     public int Value { get; private set; }
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 14 source.cs keyword.type.int.cs
+T 15 source.cs
+T 20 source.cs entity.name.variable.property.cs
+T 21 source.cs
+T 22 source.cs punctuation.curlybrace.open.cs
+T 23 source.cs
+T 26 source.cs storage.type.accessor.get.cs
+T 27 source.cs punctuation.terminator.statement.cs
+T 28 source.cs
+T 35 source.cs storage.modifier.private.cs
+T 36 source.cs
+T 39 source.cs storage.type.accessor.set.cs
+T 40 source.cs punctuation.terminator.statement.cs
+T 41 source.cs
+T 42 source.cs punctuation.curlybrace.close.cs
+L     public int Fixed { readonly get => 1; }
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 14 source.cs keyword.type.int.cs
+T 15 source.cs
+T 20 source.cs entity.name.variable.property.cs
+T 21 source.cs
+T 22 source.cs punctuation.curlybrace.open.cs
+T 23 source.cs
+T 31 source.cs storage.modifier.readonly.cs
+T 32 source.cs
+T 35 source.cs storage.type.accessor.get.cs
+T 36 source.cs
+T 38 source.cs keyword.operator.arrow.cs
+T 39 source.cs meta.accessor.getter.cs
+T 40 source.cs meta.accessor.getter.cs constant.numeric.decimal.cs
+T 41 source.cs punctuation.terminator.statement.cs
+T 42 source.cs
+T 43 source.cs punctuation.curlybrace.close.cs
+L     int IList<int>.this[int i] { get => i; set { } }
+T 4 source.cs
+T 7 source.cs keyword.type.int.cs
+T 8 source.cs
+T 13 source.cs entity.name.type.cs
+T 14 source.cs punctuation.definition.typeparameters.begin.cs
+T 17 source.cs keyword.type.int.cs
+T 18 source.cs punctuation.definition.typeparameters.end.cs
+T 19 source.cs punctuation.accessor.cs
+T 23 source.cs variable.language.this.cs
+T 24 source.cs punctuation.squarebracket.open.cs
+T 27 source.cs keyword.type.int.cs
+T 28 source.cs
+T 29 source.cs entity.name.variable.parameter.cs
+T 30 source.cs punctuation.squarebracket.close.cs
+T 31 source.cs
+T 32 source.cs punctuation.curlybrace.open.cs
+T 33 source.cs
+T 36 source.cs storage.type.accessor.get.cs
+T 37 source.cs
+T 39 source.cs keyword.operator.arrow.cs
+T 40 source.cs meta.accessor.getter.cs
+T 41 source.cs meta.accessor.getter.cs variable.other.readwrite.cs
+T 42 source.cs punctuation.terminator.statement.cs
+T 43 source.cs
+T 46 source.cs storage.type.accessor.set.cs
+T 47 source.cs
+T 48 source.cs punctuation.curlybrace.open.cs
+T 49 source.cs meta.accessor.setter.cs
+T 50 source.cs punctuation.curlybrace.close.cs
+T 51 source.cs
+T 52 source.cs punctuation.curlybrace.close.cs
+L     public void Defaults(int x = 5, ref readonly int y) { }
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 15 source.cs keyword.type.void.cs
+T 16 source.cs
+T 24 source.cs entity.name.function.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs keyword.type.int.cs
+T 29 source.cs
+T 30 source.cs entity.name.variable.parameter.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 34 source.cs constant.numeric.decimal.cs
+T 35 source.cs punctuation.separator.comma.cs
+T 36 source.cs
+T 39 source.cs storage.modifier.ref.cs
+T 40 source.cs
+T 48 source.cs storage.modifier.readonly.cs
+T 49 source.cs
+T 52 source.cs entity.name.variable.parameter.cs
+T 54 source.cs
+T 55 source.cs punctuation.parenthesis.close.cs
+T 56 source.cs
+T 57 source.cs punctuation.curlybrace.open.cs
+T 58 source.cs
+T 59 source.cs punctuation.curlybrace.close.cs
+L 
+L     public IEnumerable<int> Numbers()
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs punctuation.definition.typeparameters.begin.cs
+T 26 source.cs keyword.type.int.cs
+T 27 source.cs punctuation.definition.typeparameters.end.cs
+T 28 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         do { count++; } while (count < 10);
+T 8 source.cs
+T 10 source.cs keyword.control.loop.do.cs
+T 11 source.cs
+T 12 source.cs punctuation.curlybrace.open.cs
+T 13 source.cs
+T 18 source.cs variable.other.readwrite.cs
+T 20 source.cs keyword.operator.increment.cs
+T 21 source.cs punctuation.terminator.statement.cs
+T 22 source.cs
+T 23 source.cs punctuation.curlybrace.close.cs
+T 24 source.cs
+T 29 source.cs keyword.control.loop.while.cs
+T 30 source.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs variable.other.readwrite.cs
+T 37 source.cs
+T 38 source.cs keyword.operator.relational.cs
+T 39 source.cs
+T 41 source.cs constant.numeric.decimal.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L         yield break;
+T 8 source.cs
+T 13 source.cs keyword.control.flow.yield.cs
+T 14 source.cs
+T 19 source.cs keyword.control.flow.break.cs
+T 20 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L 
+L     public string Describe(object shape, int[] values)
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs keyword.type.string.cs
+T 18 source.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs keyword.type.object.cs
+T 34 source.cs
+T 39 source.cs entity.name.variable.parameter.cs
+T 40 source.cs punctuation.separator.comma.cs
+T 41 source.cs
+T 44 source.cs keyword.type.int.cs
+T 45 source.cs punctuation.squarebracket.open.cs
+T 46 source.cs punctuation.squarebracket.close.cs
+T 47 source.cs
+T 53 source.cs entity.name.variable.parameter.cs
+T 54 source.cs punctuation.parenthesis.close.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         const int Limit = 3, Other = 4;
+T 8 source.cs
+T 13 source.cs storage.modifier.const.cs
+T 14 source.cs
+T 17 source.cs keyword.type.int.cs
+T 18 source.cs
+T 23 source.cs entity.name.variable.local.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.assignment.cs
+T 26 source.cs
+T 27 source.cs constant.numeric.decimal.cs
+T 28 source.cs punctuation.separator.comma.cs
+T 29 source.cs
+T 34 source.cs entity.name.variable.local.cs
+T 35 source.cs
+T 36 source.cs keyword.operator.assignment.cs
+T 37 source.cs
+T 38 source.cs constant.numeric.decimal.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L         (int a, int b) = (1, 2);
+T 8 source.cs
+T 9 source.cs punctuation.parenthesis.open.cs
+T 12 source.cs keyword.type.int.cs
+T 13 source.cs
+T 14 source.cs entity.name.variable.tuple-element.cs
+T 15 source.cs punctuation.separator.comma.cs
+T 16 source.cs
+T 19 source.cs keyword.type.int.cs
+T 20 source.cs
+T 21 source.cs entity.name.variable.tuple-element.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.assignment.cs
+T 25 source.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 27 source.cs constant.numeric.decimal.cs
+T 28 source.cs punctuation.separator.comma.cs
+T 29 source.cs
+T 30 source.cs constant.numeric.decimal.cs
+T 31 source.cs punctuation.parenthesis.close.cs
+T 32 source.cs punctuation.terminator.statement.cs
+L         var (x, y) = (a, b);
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 13 source.cs punctuation.parenthesis.open.cs
+T 14 source.cs entity.name.variable.tuple-element.cs
+T 15 source.cs punctuation.separator.comma.cs
+T 16 source.cs
+T 17 source.cs entity.name.variable.tuple-element.cs
+T 18 source.cs punctuation.parenthesis.close.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 22 source.cs punctuation.parenthesis.open.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs punctuation.separator.comma.cs
+T 25 source.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs punctuation.parenthesis.close.cs
+T 28 source.cs punctuation.terminator.statement.cs
+L         (a, b) = (b, a);
+T 8 source.cs
+T 9 source.cs punctuation.parenthesis.open.cs
+T 10 source.cs variable.other.readwrite.cs
+T 11 source.cs punctuation.separator.comma.cs
+T 12 source.cs
+T 13 source.cs variable.other.readwrite.cs
+T 14 source.cs punctuation.parenthesis.close.cs
+T 15 source.cs
+T 16 source.cs keyword.operator.assignment.cs
+T 17 source.cs
+T 18 source.cs punctuation.parenthesis.open.cs
+T 19 source.cs variable.other.readwrite.cs
+T 20 source.cs punctuation.separator.comma.cs
+T 21 source.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs punctuation.parenthesis.close.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L         var verbatim = $@"{a} ""quoted"" {b}";
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 20 source.cs entity.name.variable.local.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.assignment.cs
+T 23 source.cs
+T 26 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 27 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 28 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 29 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 30 source.cs string.quoted.double.cs
+T 32 source.cs string.quoted.double.cs constant.character.escape.cs
+T 38 source.cs string.quoted.double.cs
+T 40 source.cs string.quoted.double.cs constant.character.escape.cs
+T 41 source.cs string.quoted.double.cs
+T 42 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 43 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 44 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 45 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 46 source.cs punctuation.terminator.statement.cs
+L         var verbatim2 = @$"{a}";
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 21 source.cs entity.name.variable.local.cs
+T 22 source.cs
+T 23 source.cs keyword.operator.assignment.cs
+T 24 source.cs
+T 27 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 28 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 29 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 30 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 31 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 32 source.cs punctuation.terminator.statement.cs
+L         var path = @"C:\""dir""";
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 16 source.cs entity.name.variable.local.cs
+T 17 source.cs
+T 18 source.cs keyword.operator.assignment.cs
+T 19 source.cs
+T 21 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 24 source.cs string.quoted.double.cs
+T 26 source.cs string.quoted.double.cs constant.character.escape.cs
+T 29 source.cs string.quoted.double.cs
+T 31 source.cs string.quoted.double.cs constant.character.escape.cs
+T 32 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L         var raw4 = $""""{a}"""";
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 16 source.cs entity.name.variable.local.cs
+T 17 source.cs
+T 18 source.cs keyword.operator.assignment.cs
+T 19 source.cs
+T 24 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 25 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 26 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 27 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 31 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 32 source.cs punctuation.terminator.statement.cs
+L         var raw4d = $$""""{{a}}"""";
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 17 source.cs entity.name.variable.local.cs
+T 18 source.cs
+T 19 source.cs keyword.operator.assignment.cs
+T 20 source.cs
+T 26 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 28 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 29 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 31 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 35 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 36 source.cs punctuation.terminator.statement.cs
+L         var raw5 = $"""""{a}""""";
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 16 source.cs entity.name.variable.local.cs
+T 17 source.cs
+T 18 source.cs keyword.operator.assignment.cs
+T 19 source.cs
+T 25 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 28 source.cs string.quoted.double.cs
+T 33 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L         var raw3 = $$$"""{{{a}}}""";
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 16 source.cs entity.name.variable.local.cs
+T 17 source.cs
+T 18 source.cs keyword.operator.assignment.cs
+T 19 source.cs
+T 25 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 32 source.cs string.quoted.double.cs
+T 35 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 36 source.cs punctuation.terminator.statement.cs
+L         var plain5 = """""five quotes""""";
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 18 source.cs entity.name.variable.local.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 26 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 37 source.cs string.quoted.double.cs
+T 42 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L         var chars = values[^1..];
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 17 source.cs entity.name.variable.local.cs
+T 18 source.cs
+T 19 source.cs keyword.operator.assignment.cs
+T 20 source.cs
+T 26 source.cs variable.other.object.property.cs
+T 27 source.cs punctuation.squarebracket.open.cs
+T 28 source.cs keyword.operator.bitwise.cs
+T 29 source.cs constant.numeric.decimal.cs
+T 31 source.cs keyword.operator.range.cs
+T 32 source.cs punctuation.squarebracket.close.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L         var maybe = shape?.ToString()?.Length;
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 17 source.cs entity.name.variable.local.cs
+T 18 source.cs
+T 19 source.cs keyword.operator.assignment.cs
+T 20 source.cs
+T 25 source.cs variable.other.object.cs
+T 26 source.cs keyword.operator.null-conditional.cs
+T 27 source.cs punctuation.accessor.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+T 38 source.cs keyword.operator.null-conditional.cs
+T 39 source.cs punctuation.accessor.cs
+T 45 source.cs variable.other.object.property.cs
+T 46 source.cs punctuation.terminator.statement.cs
+L         var items = values?[0];
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 17 source.cs entity.name.variable.local.cs
+T 18 source.cs
+T 19 source.cs keyword.operator.assignment.cs
+T 20 source.cs
+T 26 source.cs variable.other.object.property.cs
+T 27 source.cs keyword.operator.null-conditional.cs
+T 28 source.cs punctuation.squarebracket.open.cs
+T 29 source.cs constant.numeric.decimal.cs
+T 30 source.cs punctuation.squarebracket.close.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L         var nested = this?.Names[0];
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 18 source.cs entity.name.variable.local.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 25 source.cs variable.language.this.cs
+T 26 source.cs keyword.operator.null-conditional.cs
+T 27 source.cs punctuation.accessor.cs
+T 32 source.cs variable.other.object.property.cs
+T 33 source.cs punctuation.squarebracket.open.cs
+T 34 source.cs constant.numeric.decimal.cs
+T 35 source.cs punctuation.squarebracket.close.cs
+T 36 source.cs punctuation.terminator.statement.cs
+L         var generic = Shapes<int, int>.Empty.Count;
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 19 source.cs entity.name.variable.local.cs
+T 20 source.cs
+T 21 source.cs keyword.operator.assignment.cs
+T 22 source.cs
+T 28 source.cs variable.other.object.cs
+T 29 source.cs punctuation.definition.typeparameters.begin.cs
+T 32 source.cs keyword.type.int.cs
+T 33 source.cs punctuation.separator.comma.cs
+T 34 source.cs
+T 37 source.cs keyword.type.int.cs
+T 38 source.cs punctuation.definition.typeparameters.end.cs
+T 39 source.cs punctuation.accessor.cs
+T 44 source.cs variable.other.object.property.cs
+T 45 source.cs punctuation.accessor.cs
+T 50 source.cs variable.other.object.property.cs
+T 51 source.cs punctuation.terminator.statement.cs
+L         int.TryParse("1", out var parsed);
+T 8 source.cs
+T 11 source.cs keyword.type.int.cs
+T 12 source.cs punctuation.accessor.cs
+T 20 source.cs entity.name.function.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 23 source.cs string.quoted.double.cs
+T 24 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 25 source.cs punctuation.separator.comma.cs
+T 26 source.cs
+T 29 source.cs storage.modifier.out.cs
+T 30 source.cs
+T 33 source.cs storage.type.var.cs
+T 34 source.cs
+T 40 source.cs entity.name.variable.local.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L         ref readonly var first = ref values[0];
+T 8 source.cs
+T 11 source.cs storage.modifier.ref.cs
+T 12 source.cs
+T 20 source.cs storage.modifier.readonly.cs
+T 21 source.cs
+T 24 source.cs storage.type.var.cs
+T 25 source.cs
+T 30 source.cs entity.name.variable.local.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 36 source.cs storage.modifier.ref.cs
+T 37 source.cs
+T 43 source.cs variable.other.object.property.cs
+T 44 source.cs punctuation.squarebracket.open.cs
+T 45 source.cs constant.numeric.decimal.cs
+T 46 source.cs punctuation.squarebracket.close.cs
+T 47 source.cs punctuation.terminator.statement.cs
+L         Func<int[], int> pick = arr => ref arr[0];
+T 8 source.cs
+T 12 source.cs entity.name.type.cs
+T 13 source.cs punctuation.definition.typeparameters.begin.cs
+T 16 source.cs keyword.type.int.cs
+T 17 source.cs punctuation.squarebracket.open.cs
+T 18 source.cs punctuation.squarebracket.close.cs
+T 19 source.cs punctuation.separator.comma.cs
+T 20 source.cs
+T 23 source.cs keyword.type.int.cs
+T 24 source.cs punctuation.definition.typeparameters.end.cs
+T 25 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs
+T 31 source.cs keyword.operator.assignment.cs
+T 32 source.cs
+T 35 source.cs entity.name.variable.parameter.cs
+T 36 source.cs
+T 38 source.cs keyword.operator.arrow.cs
+T 39 source.cs
+T 42 source.cs storage.modifier.ref.cs
+T 43 source.cs
+T 46 source.cs variable.other.object.property.cs
+T 47 source.cs punctuation.squarebracket.open.cs
+T 48 source.cs constant.numeric.decimal.cs
+T 49 source.cs punctuation.squarebracket.close.cs
+T 50 source.cs punctuation.terminator.statement.cs
+L         Func<int, int> twice = (ref int v) => v * 2;
+T 8 source.cs
+T 12 source.cs entity.name.type.cs
+T 13 source.cs punctuation.definition.typeparameters.begin.cs
+T 16 source.cs keyword.type.int.cs
+T 17 source.cs punctuation.separator.comma.cs
+T 18 source.cs
+T 21 source.cs keyword.type.int.cs
+T 22 source.cs punctuation.definition.typeparameters.end.cs
+T 23 source.cs
+T 28 source.cs entity.name.variable.local.cs
+T 29 source.cs
+T 30 source.cs keyword.operator.assignment.cs
+T 31 source.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs storage.modifier.ref.cs
+T 36 source.cs
+T 39 source.cs keyword.type.int.cs
+T 40 source.cs
+T 41 source.cs entity.name.variable.parameter.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+T 43 source.cs
+T 45 source.cs keyword.operator.arrow.cs
+T 46 source.cs
+T 47 source.cs variable.other.readwrite.cs
+T 48 source.cs
+T 49 source.cs keyword.operator.arithmetic.cs
+T 50 source.cs
+T 51 source.cs constant.numeric.decimal.cs
+T 52 source.cs punctuation.terminator.statement.cs
+L         T Id<T>(T t) => t;
+T 8 source.cs
+T 9 source.cs entity.name.type.cs
+T 10 source.cs
+T 12 source.cs entity.name.function.cs
+T 13 source.cs punctuation.definition.typeparameters.begin.cs
+T 14 source.cs entity.name.type.type-parameter.cs
+T 15 source.cs punctuation.definition.typeparameters.end.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs entity.name.type.cs
+T 18 source.cs
+T 19 source.cs entity.name.variable.parameter.cs
+T 20 source.cs punctuation.parenthesis.close.cs
+T 21 source.cs
+T 23 source.cs keyword.operator.arrow.cs
+T 24 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs punctuation.terminator.statement.cs
+L         var unterminated = "no end
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 24 source.cs entity.name.variable.local.cs
+T 25 source.cs
+T 26 source.cs keyword.operator.assignment.cs
+T 27 source.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 33 source.cs string.quoted.double.cs
+T 34 source.cs string.quoted.double.cs invalid.illegal.newline.cs
+L         var unterminatedChar = 'x
+T 8 source.cs
+T 11 source.cs variable.other.readwrite.cs
+T 12 source.cs
+T 28 source.cs variable.other.readwrite.cs
+T 29 source.cs
+T 30 source.cs keyword.operator.assignment.cs
+T 31 source.cs
+T 32 source.cs string.quoted.single.cs punctuation.definition.char.begin.cs
+T 33 source.cs string.quoted.single.cs invalid.illegal.newline.cs
+L         var unterminatedInterpolation = $"no end
+T 8 source.cs
+T 11 source.cs variable.other.readwrite.cs
+T 12 source.cs
+T 37 source.cs variable.other.readwrite.cs
+T 38 source.cs
+T 39 source.cs keyword.operator.assignment.cs
+T 40 source.cs
+T 42 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 47 source.cs string.quoted.double.cs
+T 48 source.cs string.quoted.double.cs invalid.illegal.newline.cs
+L         var escaped = $"{{{a}}}";
+T 8 source.cs
+T 11 source.cs variable.other.readwrite.cs
+T 12 source.cs
+T 19 source.cs variable.other.readwrite.cs
+T 20 source.cs
+T 21 source.cs keyword.operator.assignment.cs
+T 22 source.cs
+T 24 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 26 source.cs string.quoted.double.cs meta.embedded.interpolation.cs string.quoted.double.cs
+T 27 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 28 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 29 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 31 source.cs string.quoted.double.cs
+T 32 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L         var rawEscaped = $"""{{{a}}}""";
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 22 source.cs entity.name.variable.local.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.assignment.cs
+T 25 source.cs
+T 29 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 31 source.cs string.quoted.double.cs meta.embedded.interpolation.cs string.quoted.double.cs
+T 32 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.begin.cs
+T 33 source.cs string.quoted.double.cs meta.embedded.interpolation.cs variable.other.readwrite.cs
+T 34 source.cs string.quoted.double.cs meta.embedded.interpolation.cs punctuation.definition.interpolation.end.cs
+T 36 source.cs string.quoted.double.cs
+T 39 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 40 source.cs punctuation.terminator.statement.cs
+L         if (shape is < 0 or > 10) { }
+T 8 source.cs
+T 10 source.cs keyword.control.conditional.if.cs
+T 11 source.cs
+T 12 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs
+T 20 source.cs keyword.operator.expression.pattern.is.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.relational.cs
+T 23 source.cs
+T 24 source.cs constant.numeric.decimal.cs
+T 25 source.cs
+T 27 source.cs keyword.operator.expression.pattern.combinator.or.cs
+T 28 source.cs
+T 29 source.cs keyword.operator.relational.cs
+T 30 source.cs
+T 32 source.cs constant.numeric.decimal.cs
+T 33 source.cs punctuation.parenthesis.close.cs
+T 34 source.cs
+T 35 source.cs punctuation.curlybrace.open.cs
+T 36 source.cs
+T 37 source.cs punctuation.curlybrace.close.cs
+L         if (values is [1, .., var tail]) { }
+T 8 source.cs
+T 10 source.cs keyword.control.conditional.if.cs
+T 11 source.cs
+T 12 source.cs punctuation.parenthesis.open.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 21 source.cs keyword.operator.expression.pattern.is.cs
+T 22 source.cs
+T 23 source.cs punctuation.squarebracket.open.cs
+T 24 source.cs constant.numeric.decimal.cs
+T 25 source.cs punctuation.separator.comma.cs
+T 26 source.cs
+T 28 source.cs keyword.operator.range.cs
+T 29 source.cs punctuation.separator.comma.cs
+T 30 source.cs
+T 33 source.cs storage.type.var.cs
+T 34 source.cs
+T 38 source.cs entity.name.variable.local.cs
+T 39 source.cs punctuation.squarebracket.close.cs
+T 40 source.cs punctuation.parenthesis.close.cs
+T 41 source.cs
+T 42 source.cs punctuation.curlybrace.open.cs
+T 43 source.cs
+T 44 source.cs punctuation.curlybrace.close.cs
+L         if (shape is global::Coverage.Base b2) { }
+T 8 source.cs
+T 10 source.cs keyword.control.conditional.if.cs
+T 11 source.cs
+T 12 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs
+T 20 source.cs keyword.operator.expression.pattern.is.cs
+T 21 source.cs
+T 27 source.cs entity.name.type.alias.cs
+T 29 source.cs punctuation.separator.coloncolon.cs
+T 37 source.cs entity.name.type.cs
+T 38 source.cs punctuation.accessor.cs
+T 42 source.cs entity.name.type.cs
+T 43 source.cs
+T 45 source.cs entity.name.variable.local.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+T 47 source.cs
+T 48 source.cs punctuation.curlybrace.open.cs
+T 49 source.cs
+T 50 source.cs punctuation.curlybrace.close.cs
+L         if (shape is int? n2) { }
+T 8 source.cs
+T 10 source.cs keyword.control.conditional.if.cs
+T 11 source.cs
+T 12 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs
+T 20 source.cs keyword.operator.expression.pattern.is.cs
+T 21 source.cs
+T 24 source.cs keyword.type.int.cs
+T 25 source.cs punctuation.separator.question-mark.cs
+T 26 source.cs
+T 28 source.cs entity.name.variable.local.cs
+T 29 source.cs punctuation.parenthesis.close.cs
+T 30 source.cs
+T 31 source.cs punctuation.curlybrace.open.cs
+T 32 source.cs
+T 33 source.cs punctuation.curlybrace.close.cs
+L         var element = this[0, "k"];
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 19 source.cs entity.name.variable.local.cs
+T 20 source.cs
+T 21 source.cs keyword.operator.assignment.cs
+T 22 source.cs
+T 26 source.cs variable.language.this.cs
+T 27 source.cs punctuation.squarebracket.open.cs
+T 28 source.cs constant.numeric.decimal.cs
+T 29 source.cs punctuation.separator.comma.cs
+T 30 source.cs
+T 31 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 32 source.cs string.quoted.double.cs
+T 33 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 34 source.cs punctuation.squarebracket.close.cs
+T 35 source.cs punctuation.terminator.statement.cs
+L         var call = Describe<int>(shape, values);
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 16 source.cs entity.name.variable.local.cs
+T 17 source.cs
+T 18 source.cs keyword.operator.assignment.cs
+T 19 source.cs
+T 27 source.cs entity.name.function.cs
+T 28 source.cs punctuation.definition.typeparameters.begin.cs
+T 31 source.cs keyword.type.int.cs
+T 32 source.cs punctuation.definition.typeparameters.end.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs punctuation.separator.comma.cs
+T 40 source.cs
+T 46 source.cs variable.other.readwrite.cs
+T 47 source.cs punctuation.parenthesis.close.cs
+T 48 source.cs punctuation.terminator.statement.cs
+L         var member = shape.ToString().Length;
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 18 source.cs entity.name.variable.local.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 26 source.cs variable.other.object.cs
+T 27 source.cs punctuation.accessor.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+T 38 source.cs punctuation.accessor.cs
+T 44 source.cs variable.other.object.property.cs
+T 45 source.cs punctuation.terminator.statement.cs
+L         switch (shape)
+T 8 source.cs
+T 14 source.cs keyword.control.conditional.switch.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs variable.other.readwrite.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             case int i when i > 0:
+T 12 source.cs
+T 16 source.cs keyword.control.conditional.case.cs
+T 17 source.cs
+T 20 source.cs keyword.type.int.cs
+T 21 source.cs
+T 22 source.cs entity.name.variable.local.cs
+T 23 source.cs
+T 27 source.cs keyword.control.conditional.when.cs
+T 28 source.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs
+T 31 source.cs keyword.operator.relational.cs
+T 32 source.cs
+T 33 source.cs constant.numeric.decimal.cs
+T 34 source.cs punctuation.separator.colon.cs
+L                 goto default;
+T 16 source.cs
+T 20 source.cs keyword.control.flow.goto.cs
+T 21 source.cs
+T 28 source.cs keyword.control.conditional.default.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L             case (Base)Shapes:
+T 12 source.cs
+T 16 source.cs keyword.control.conditional.case.cs
+T 17 source.cs
+T 18 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs punctuation.parenthesis.close.cs
+T 29 source.cs variable.other.constant.cs
+T 30 source.cs punctuation.separator.colon.cs
+L                 break;
+T 16 source.cs
+T 21 source.cs keyword.control.flow.break.cs
+T 22 source.cs punctuation.terminator.statement.cs
+L             default:
+T 12 source.cs
+T 19 source.cs keyword.control.conditional.default.cs
+T 20 source.cs punctuation.separator.colon.cs
+L                 break;
+T 16 source.cs
+T 21 source.cs keyword.control.flow.break.cs
+T 22 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L         var answer = shape switch
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 18 source.cs entity.name.variable.local.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 33 source.cs keyword.control.conditional.switch.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             < 0 => "negative",
+T 12 source.cs
+T 13 source.cs keyword.operator.relational.cs
+T 14 source.cs
+T 15 source.cs constant.numeric.decimal.cs
+T 16 source.cs
+T 18 source.cs keyword.operator.arrow.cs
+T 19 source.cs
+T 20 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 28 source.cs string.quoted.double.cs
+T 29 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 30 source.cs punctuation.separator.comma.cs
+L             >= 10 and <= 20 => "teens",
+T 12 source.cs
+T 14 source.cs keyword.operator.relational.cs
+T 15 source.cs
+T 17 source.cs constant.numeric.decimal.cs
+T 18 source.cs
+T 21 source.cs keyword.operator.expression.pattern.combinator.and.cs
+T 22 source.cs
+T 24 source.cs keyword.operator.relational.cs
+T 25 source.cs
+T 27 source.cs constant.numeric.decimal.cs
+T 28 source.cs
+T 30 source.cs keyword.operator.arrow.cs
+T 31 source.cs
+T 32 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 37 source.cs string.quoted.double.cs
+T 38 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 39 source.cs punctuation.separator.comma.cs
+L             (int)Limit => "limit",
+T 12 source.cs
+T 13 source.cs punctuation.parenthesis.open.cs
+T 16 source.cs keyword.type.int.cs
+T 17 source.cs punctuation.parenthesis.close.cs
+T 22 source.cs variable.other.constant.cs
+T 23 source.cs
+T 25 source.cs keyword.operator.arrow.cs
+T 26 source.cs
+T 27 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 32 source.cs string.quoted.double.cs
+T 33 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 34 source.cs punctuation.separator.comma.cs
+L             (int)(Limit) => "nested",
+T 12 source.cs
+T 13 source.cs punctuation.parenthesis.open.cs
+T 16 source.cs keyword.type.int.cs
+T 17 source.cs punctuation.parenthesis.close.cs
+T 18 source.cs punctuation.parenthesis.open.cs
+T 23 source.cs
+T 24 source.cs punctuation.parenthesis.close.cs
+T 25 source.cs
+T 27 source.cs keyword.operator.arrow.cs
+T 28 source.cs
+T 29 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 35 source.cs string.quoted.double.cs
+T 36 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 37 source.cs punctuation.separator.comma.cs
+L             (int)global::Coverage.Shapes => "alias",
+T 12 source.cs
+T 13 source.cs punctuation.parenthesis.open.cs
+T 16 source.cs keyword.type.int.cs
+T 17 source.cs punctuation.parenthesis.close.cs
+T 23 source.cs entity.name.type.alias.cs
+T 25 source.cs punctuation.separator.coloncolon.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.accessor.cs
+T 40 source.cs variable.other.constant.cs
+T 41 source.cs
+T 43 source.cs keyword.operator.arrow.cs
+T 44 source.cs
+T 45 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 50 source.cs string.quoted.double.cs
+T 51 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 52 source.cs punctuation.separator.comma.cs
+L             (int)System.Int32.MaxValue => "max",
+T 12 source.cs
+T 13 source.cs punctuation.parenthesis.open.cs
+T 16 source.cs keyword.type.int.cs
+T 17 source.cs punctuation.parenthesis.close.cs
+T 23 source.cs entity.name.type.cs
+T 24 source.cs punctuation.accessor.cs
+T 29 source.cs entity.name.type.cs
+T 30 source.cs punctuation.accessor.cs
+T 38 source.cs variable.other.constant.cs
+T 39 source.cs
+T 41 source.cs keyword.operator.arrow.cs
+T 42 source.cs
+T 43 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 46 source.cs string.quoted.double.cs
+T 47 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 48 source.cs punctuation.separator.comma.cs
+L             System.String s => s,
+T 12 source.cs
+T 18 source.cs entity.name.type.cs
+T 19 source.cs punctuation.accessor.cs
+T 25 source.cs entity.name.type.cs
+T 26 source.cs
+T 27 source.cs entity.name.variable.local.cs
+T 28 source.cs
+T 30 source.cs keyword.operator.arrow.cs
+T 31 source.cs
+T 32 source.cs variable.other.readwrite.cs
+T 33 source.cs punctuation.separator.comma.cs
+L             int[] { Length: > 0 } list when list is [1, .., var last] => last.ToString(),
+T 12 source.cs
+T 15 source.cs keyword.type.int.cs
+T 16 source.cs punctuation.squarebracket.open.cs
+T 17 source.cs punctuation.squarebracket.close.cs
+T 18 source.cs
+T 19 source.cs punctuation.curlybrace.open.cs
+T 20 source.cs
+T 26 source.cs variable.other.object.property.cs
+T 27 source.cs punctuation.separator.colon.cs
+T 28 source.cs
+T 29 source.cs keyword.operator.relational.cs
+T 30 source.cs
+T 31 source.cs constant.numeric.decimal.cs
+T 32 source.cs
+T 33 source.cs punctuation.curlybrace.close.cs
+T 34 source.cs
+T 38 source.cs entity.name.variable.local.cs
+T 39 source.cs
+T 43 source.cs keyword.control.conditional.when.cs
+T 44 source.cs
+T 48 source.cs variable.other.readwrite.cs
+T 49 source.cs
+T 51 source.cs keyword.operator.expression.pattern.is.cs
+T 52 source.cs
+T 53 source.cs punctuation.squarebracket.open.cs
+T 54 source.cs constant.numeric.decimal.cs
+T 55 source.cs punctuation.separator.comma.cs
+T 56 source.cs
+T 58 source.cs keyword.operator.range.cs
+T 59 source.cs punctuation.separator.comma.cs
+T 60 source.cs
+T 63 source.cs storage.type.var.cs
+T 64 source.cs
+T 68 source.cs entity.name.variable.local.cs
+T 69 source.cs punctuation.squarebracket.close.cs
+T 70 source.cs
+T 72 source.cs keyword.operator.arrow.cs
+T 73 source.cs
+T 77 source.cs variable.other.object.cs
+T 78 source.cs punctuation.accessor.cs
+T 86 source.cs entity.name.function.cs
+T 87 source.cs punctuation.parenthesis.open.cs
+T 88 source.cs punctuation.parenthesis.close.cs
+T 89 source.cs punctuation.separator.comma.cs
+L             Base { } b? => "base",
+T 12 source.cs
+T 16 source.cs entity.name.type.cs
+T 17 source.cs
+T 18 source.cs punctuation.curlybrace.open.cs
+T 19 source.cs
+T 20 source.cs punctuation.curlybrace.close.cs
+T 21 source.cs
+T 22 source.cs entity.name.variable.local.cs
+T 24 source.cs
+T 26 source.cs keyword.operator.arrow.cs
+T 27 source.cs
+T 28 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 32 source.cs string.quoted.double.cs
+T 33 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 34 source.cs punctuation.separator.comma.cs
+L             _ => "other",
+T 12 source.cs
+T 13 source.cs variable.language.discard.cs
+T 14 source.cs
+T 16 source.cs keyword.operator.arrow.cs
+T 17 source.cs
+T 18 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 23 source.cs string.quoted.double.cs
+T 24 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 25 source.cs punctuation.separator.comma.cs
+L         };
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+T 10 source.cs punctuation.terminator.statement.cs
+L         Func<int, int> add = (int v) => v + 1;
+T 8 source.cs
+T 12 source.cs entity.name.type.cs
+T 13 source.cs punctuation.definition.typeparameters.begin.cs
+T 16 source.cs keyword.type.int.cs
+T 17 source.cs punctuation.separator.comma.cs
+T 18 source.cs
+T 21 source.cs keyword.type.int.cs
+T 22 source.cs punctuation.definition.typeparameters.end.cs
+T 23 source.cs
+T 26 source.cs entity.name.variable.local.cs
+T 27 source.cs
+T 28 source.cs keyword.operator.assignment.cs
+T 29 source.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs keyword.type.int.cs
+T 34 source.cs
+T 35 source.cs entity.name.variable.parameter.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+T 37 source.cs
+T 39 source.cs keyword.operator.arrow.cs
+T 40 source.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs
+T 43 source.cs keyword.operator.arithmetic.cs
+T 44 source.cs
+T 45 source.cs constant.numeric.decimal.cs
+T 46 source.cs punctuation.terminator.statement.cs
+L         foreach (var (key, item) in new Dictionary<int, string>()) { }
+T 8 source.cs
+T 15 source.cs keyword.control.loop.foreach.cs
+T 16 source.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs storage.type.var.cs
+T 21 source.cs
+T 22 source.cs punctuation.parenthesis.open.cs
+T 25 source.cs entity.name.variable.tuple-element.cs
+T 26 source.cs punctuation.separator.comma.cs
+T 27 source.cs
+T 31 source.cs entity.name.variable.tuple-element.cs
+T 32 source.cs punctuation.parenthesis.close.cs
+T 33 source.cs
+T 35 source.cs keyword.control.loop.in.cs
+T 36 source.cs
+T 39 source.cs keyword.operator.expression.new.cs
+T 40 source.cs
+T 50 source.cs entity.name.type.cs
+T 51 source.cs punctuation.definition.typeparameters.begin.cs
+T 54 source.cs keyword.type.int.cs
+T 55 source.cs punctuation.separator.comma.cs
+T 56 source.cs
+T 62 source.cs keyword.type.string.cs
+T 63 source.cs punctuation.definition.typeparameters.end.cs
+T 64 source.cs punctuation.parenthesis.open.cs
+T 65 source.cs punctuation.parenthesis.close.cs
+T 66 source.cs punctuation.parenthesis.close.cs
+T 67 source.cs
+T 68 source.cs punctuation.curlybrace.open.cs
+T 69 source.cs
+T 70 source.cs punctuation.curlybrace.close.cs
+L         foreach (ref var cell in values.AsSpan()) { }
+T 8 source.cs
+T 15 source.cs keyword.control.loop.foreach.cs
+T 16 source.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs storage.modifier.ref.cs
+T 21 source.cs
+T 24 source.cs storage.type.var.cs
+T 25 source.cs
+T 29 source.cs entity.name.variable.local.cs
+T 30 source.cs
+T 32 source.cs keyword.control.loop.in.cs
+T 33 source.cs
+T 39 source.cs variable.other.object.cs
+T 40 source.cs punctuation.accessor.cs
+T 46 source.cs entity.name.function.cs
+T 47 source.cs punctuation.parenthesis.open.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+T 50 source.cs
+T 51 source.cs punctuation.curlybrace.open.cs
+T 52 source.cs
+T 53 source.cs punctuation.curlybrace.close.cs
+L         var query = from int v in values
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 17 source.cs entity.name.variable.local.cs
+T 18 source.cs
+T 19 source.cs keyword.operator.assignment.cs
+T 20 source.cs
+T 24 source.cs keyword.operator.expression.query.from.cs
+T 25 source.cs
+T 28 source.cs keyword.type.int.cs
+T 29 source.cs
+T 30 source.cs entity.name.variable.range-variable.cs
+T 31 source.cs
+T 33 source.cs keyword.operator.expression.query.in.cs
+T 34 source.cs
+T 40 source.cs variable.other.readwrite.cs
+L                     join int w in values on v equals w into joined
+T 20 source.cs
+T 24 source.cs keyword.operator.expression.query.join.cs
+T 25 source.cs
+T 28 source.cs keyword.type.int.cs
+T 29 source.cs
+T 30 source.cs entity.name.variable.range-variable.cs
+T 31 source.cs
+T 33 source.cs keyword.operator.expression.query.in.cs
+T 34 source.cs
+T 40 source.cs variable.other.readwrite.cs
+T 41 source.cs
+T 43 source.cs keyword.operator.expression.query.on.cs
+T 44 source.cs
+T 45 source.cs variable.other.readwrite.cs
+T 46 source.cs
+T 52 source.cs keyword.operator.expression.query.equals.cs
+T 53 source.cs
+T 54 source.cs variable.other.readwrite.cs
+T 55 source.cs
+T 59 source.cs keyword.operator.expression.query.into.cs
+T 60 source.cs
+T 66 source.cs entity.name.variable.range-variable.cs
+L                     select v;
+T 20 source.cs
+T 26 source.cs keyword.operator.expression.query.select.cs
+T 27 source.cs
+T 28 source.cs variable.other.readwrite.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L         {(int e, string f) = (1, "x");}
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+T 10 source.cs punctuation.parenthesis.open.cs
+T 13 source.cs keyword.type.int.cs
+T 14 source.cs
+T 15 source.cs entity.name.variable.tuple-element.cs
+T 16 source.cs punctuation.separator.comma.cs
+T 17 source.cs
+T 23 source.cs keyword.type.string.cs
+T 24 source.cs
+T 25 source.cs entity.name.variable.tuple-element.cs
+T 26 source.cs punctuation.parenthesis.close.cs
+T 27 source.cs
+T 28 source.cs keyword.operator.assignment.cs
+T 29 source.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs constant.numeric.decimal.cs
+T 32 source.cs punctuation.separator.comma.cs
+T 33 source.cs
+T 34 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 35 source.cs string.quoted.double.cs
+T 36 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+T 38 source.cs punctuation.terminator.statement.cs
+T 39 source.cs punctuation.curlybrace.close.cs
+L         unsafe
+T 8 source.cs
+T 14 source.cs keyword.control.context.unsafe.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             var p = &e;
+T 12 source.cs
+T 15 source.cs storage.type.var.cs
+T 16 source.cs
+T 17 source.cs entity.name.variable.local.cs
+T 18 source.cs
+T 19 source.cs keyword.operator.assignment.cs
+T 20 source.cs
+T 21 source.cs keyword.operator.bitwise.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs punctuation.terminator.statement.cs
+L             p->X = 1;
+T 12 source.cs
+T 13 source.cs variable.other.object.cs
+T 15 source.cs punctuation.accessor.pointer.cs
+T 16 source.cs variable.other.object.property.cs
+T 17 source.cs
+T 18 source.cs keyword.operator.assignment.cs
+T 19 source.cs
+T 20 source.cs constant.numeric.decimal.cs
+T 21 source.cs punctuation.terminator.statement.cs
+L             p->M();
+T 12 source.cs
+T 13 source.cs variable.other.object.cs
+T 15 source.cs punctuation.accessor.pointer.cs
+T 16 source.cs entity.name.function.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 18 source.cs punctuation.parenthesis.close.cs
+T 19 source.cs punctuation.terminator.statement.cs
+L             p->arr[0] = 1;
+T 12 source.cs
+T 13 source.cs variable.other.object.cs
+T 15 source.cs punctuation.accessor.pointer.cs
+T 18 source.cs variable.other.object.property.cs
+T 19 source.cs punctuation.squarebracket.open.cs
+T 20 source.cs constant.numeric.decimal.cs
+T 21 source.cs punctuation.squarebracket.close.cs
+T 22 source.cs
+T 23 source.cs keyword.operator.assignment.cs
+T 24 source.cs
+T 25 source.cs constant.numeric.decimal.cs
+T 26 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L         var empty = Coverage.Shapes<int, int>.Empty;
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 17 source.cs entity.name.variable.local.cs
+T 18 source.cs
+T 19 source.cs keyword.operator.assignment.cs
+T 20 source.cs
+T 28 source.cs variable.other.object.cs
+T 29 source.cs punctuation.accessor.cs
+T 35 source.cs variable.other.object.cs
+T 36 source.cs punctuation.definition.typeparameters.begin.cs
+T 39 source.cs keyword.type.int.cs
+T 40 source.cs punctuation.separator.comma.cs
+T 41 source.cs
+T 44 source.cs keyword.type.int.cs
+T 45 source.cs punctuation.definition.typeparameters.end.cs
+T 46 source.cs punctuation.accessor.cs
+T 51 source.cs variable.other.object.property.cs
+T 52 source.cs punctuation.terminator.statement.cs
+L         var withDefaults = (int x = 5, int y = 6) => x + y;
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 24 source.cs entity.name.variable.local.cs
+T 25 source.cs
+T 26 source.cs keyword.operator.assignment.cs
+T 27 source.cs
+T 28 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs keyword.type.int.cs
+T 32 source.cs
+T 33 source.cs entity.name.variable.parameter.cs
+T 34 source.cs
+T 35 source.cs keyword.operator.assignment.cs
+T 36 source.cs
+T 37 source.cs constant.numeric.decimal.cs
+T 38 source.cs punctuation.separator.comma.cs
+T 39 source.cs
+T 42 source.cs keyword.type.int.cs
+T 43 source.cs
+T 44 source.cs entity.name.variable.parameter.cs
+T 45 source.cs
+T 46 source.cs keyword.operator.assignment.cs
+T 47 source.cs
+T 48 source.cs constant.numeric.decimal.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+T 50 source.cs
+T 52 source.cs keyword.operator.arrow.cs
+T 53 source.cs
+T 54 source.cs variable.other.readwrite.cs
+T 55 source.cs
+T 56 source.cs keyword.operator.arithmetic.cs
+T 57 source.cs
+T 58 source.cs variable.other.readwrite.cs
+T 59 source.cs punctuation.terminator.statement.cs
+L         var suffixed = 1e+1_0UL + 2E-5L + 1_000UL;
+T 8 source.cs
+T 11 source.cs storage.type.var.cs
+T 12 source.cs
+T 20 source.cs entity.name.variable.local.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.assignment.cs
+T 23 source.cs
+T 24 source.cs constant.numeric.decimal.cs
+T 25 source.cs constant.numeric.other.exponent.cs
+T 26 source.cs keyword.operator.arithmetic.cs
+T 27 source.cs constant.numeric.decimal.cs
+T 28 source.cs constant.numeric.decimal.cs constant.numeric.other.separator.thousands.cs
+T 29 source.cs constant.numeric.decimal.cs
+T 31 source.cs constant.numeric.other.suffix.cs
+T 32 source.cs
+T 33 source.cs keyword.operator.arithmetic.cs
+T 34 source.cs
+T 35 source.cs constant.numeric.decimal.cs
+T 36 source.cs constant.numeric.other.exponent.cs
+T 37 source.cs keyword.operator.arithmetic.cs
+T 38 source.cs constant.numeric.decimal.cs
+T 39 source.cs constant.numeric.other.suffix.cs
+T 40 source.cs
+T 41 source.cs keyword.operator.arithmetic.cs
+T 42 source.cs
+T 43 source.cs constant.numeric.decimal.cs
+T 44 source.cs constant.numeric.decimal.cs constant.numeric.other.separator.thousands.cs
+T 47 source.cs constant.numeric.decimal.cs
+T 49 source.cs constant.numeric.other.suffix.cs
+T 50 source.cs punctuation.terminator.statement.cs
+L         return answer;
+T 8 source.cs
+T 14 source.cs keyword.control.flow.return.cs
+T 15 source.cs
+T 21 source.cs variable.other.readwrite.cs
+T 22 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 
+L public enum Colors : byte
+T 6 source.cs storage.modifier.public.cs
+T 7 source.cs
+T 11 source.cs storage.type.enum.cs
+T 12 source.cs
+T 18 source.cs entity.name.type.enum.cs
+T 19 source.cs
+T 20 source.cs punctuation.separator.colon.cs
+T 21 source.cs
+T 25 source.cs keyword.type.byte.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     Red = 1,
+T 4 source.cs
+T 7 source.cs entity.name.variable.enum-member.cs
+T 8 source.cs
+T 9 source.cs keyword.operator.assignment.cs
+T 10 source.cs
+T 11 source.cs constant.numeric.decimal.cs
+T 12 source.cs punctuation.separator.comma.cs
+L     Green = 2,
+T 4 source.cs
+T 9 source.cs entity.name.variable.enum-member.cs
+T 10 source.cs
+T 11 source.cs keyword.operator.assignment.cs
+T 12 source.cs
+T 13 source.cs constant.numeric.decimal.cs
+T 14 source.cs punctuation.separator.comma.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 
