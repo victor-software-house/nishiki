@@ -681,15 +681,17 @@ languages! {
     ///   - the lines of a `"""` string after its opening line are `invalid.illegal.content-after-opening-delimiter`;
     ///   - a `}` that starts a line does not end an enum's case list, so the enum stays open after it.
     Swift { feature: "lang-swift", names: ["swift"], module: swift }
-    /// PowerShell, with the scopes of Shiki's `powershell` grammar, which
-    /// nishiki's `TextMate` engine runs.
-    PowerShell {
-        feature: "lang-powershell",
-        names: ["powershell", "ps", "ps1", "pwsh"],
-        engine: crate::powershell::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-    }
+    /// PowerShell, with the scopes of Shiki's `powershell` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A parameter such as `-Path` is a `-`, named `keyword.operator.assignment.powershell` as `+` and `=` are, and plain text after it.
+    /// - A number followed by a letter ends at its dot: `1.x` is the number `1.` and `x`.
+    /// - In a double-quoted string, `$a.Count` names `$a` only, and `.Count` is text.
+    ///   A `$(...)` substatement in the string holds code, members included.
+    /// - Keywords, commands and operators match without regard to case, and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
+    /// - `\w`, `\s`, `\d`, `\p{L}` and `\p{N}` for non-ASCII characters come from tables measured on Shiki's engine (`oracle/classes.ts`).
+    PowerShell { feature: "lang-powershell", names: ["powershell", "ps", "ps1", "pwsh"], module: powershell }
     /// Scala, with the scopes of Shiki's `scala` grammar, which nishiki's
     /// `TextMate` engine runs.
     Scala {

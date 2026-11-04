@@ -433,8 +433,6 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::objective_c::grammar::GRAMMAR, "objective-c"),
     #[cfg(feature = "lang-php")]
     (&crate::php::grammar::GRAMMAR, "php"),
-    #[cfg(feature = "lang-powershell")]
-    (&crate::powershell::grammar::GRAMMAR, "powershell"),
     #[cfg(feature = "lang-proto")]
     (&crate::proto::grammar::GRAMMAR, "proto"),
     #[cfg(feature = "lang-sass")]
@@ -1621,7 +1619,7 @@ fn every_listed_pattern_that_parses_compiles() {
 /// The engine hands regions to languages lexed by hand, on HAML's table and
 /// HTML's test table. Design section 14.4 of
 /// `openspec/changes/engine-handoff` describes the steps.
-#[cfg(all(feature = "lang-haml", feature = "lang-powershell"))]
+#[cfg(all(feature = "lang-haml", feature = "lang-julia"))]
 mod hand_offs {
     use indoc::indoc;
 
@@ -1782,15 +1780,15 @@ mod hand_offs {
     }
 
     #[test]
-    fn a_markdown_filter_lexes_a_powershell_fence_with_the_engine() {
+    fn a_markdown_filter_lexes_a_julia_fence_with_the_engine() {
         let rows = Document::new(&HAML).lex(indoc! {"
             :markdown
-              ```powershell
-              $a = 1
+              ```julia
+              a = 1
               ```
         "});
         assert!(
-            in_language(scope_of(&rows[2], "1"), "powershell"),
+            in_language(scope_of(&rows[2], "1"), "julia"),
             "{:?}",
             rows[2]
         );
@@ -1802,8 +1800,8 @@ mod hand_offs {
     fn lexing_a_nested_engine_fence_again_allocates_nothing() {
         let text = indoc! {"
             :markdown
-              ```powershell
-              $a = 1
+              ```julia
+              a = 1
               ```
             %p done
         "};
@@ -1820,7 +1818,7 @@ mod hand_offs {
     /// Three engine levels nest here, each on its own spare scratch. A
     /// `:ruby` filter hands its lines to Ruby. Ruby's `<<~HAML` hands its
     /// lines to HAML. That HAML's `:markdown` filter hands its lines to
-    /// Markdown, whose fence runs PowerShell on the engine. Lexing the
+    /// Markdown, whose fence runs Julia on the engine. Lexing the
     /// document again allocates nothing.
     #[test]
     fn lexing_three_nested_engine_levels_again_allocates_nothing() {
@@ -1828,8 +1826,8 @@ mod hand_offs {
             :ruby
               page = <<~HAML
                 :markdown
-                  ```powershell
-                  $a = 1
+                  ```julia
+                  a = 1
                   ```
               HAML
             %p done
@@ -1837,7 +1835,7 @@ mod hand_offs {
         let mut document = Document::new(&HAML);
         let first = document.lex(text);
         assert!(
-            in_language(scope_of(&first[4], "1"), "powershell"),
+            in_language(scope_of(&first[4], "1"), "julia"),
             "{:?}",
             first[4]
         );
@@ -1999,7 +1997,7 @@ mod hand_offs {
 
     /// With two steps left on the host line, a HAML line stops within them.
     /// The rule holds whichever language lexes the costly part: Ruby on a
-    /// line of code, JavaScript in a filter, or PowerShell in a Markdown
+    /// line of code, JavaScript in a filter, or Julia in a Markdown
     /// fence in a filter. Under the default limits each line spends more.
     #[test]
     fn a_hand_off_spends_only_what_the_host_line_has_left() {
@@ -2012,11 +2010,11 @@ mod hand_offs {
         };
         let ruby = format!("= {}", "a + b * c - d / e % f && g || h; ".repeat(40));
         let javascript = format!("  {}", "let a = b + c * d - e / f; ".repeat(40));
-        let powershell = format!("  {}", "$a = $b + $c * $d - $e / $f; ".repeat(40));
+        let julia = format!("  {}", "a = b + c * d - e / f; ".repeat(40));
         let documents = [
             vec![ruby.as_str()],
             vec![":javascript", javascript.as_str()],
-            vec![":markdown", "  ```powershell", powershell.as_str()],
+            vec![":markdown", "  ```julia", julia.as_str()],
         ];
         for lines in documents {
             let (free, _, _) = budgeted(&lines, &Limits::default());

@@ -58,6 +58,11 @@ pub(crate) struct Scratch {
     #[cfg(feature = "lang-markdown")]
     pub(crate) markdown: crate::markdown::Scratch,
     /// The Python lexer's, for Python documents and Markdown Python fences.
+    /// The PowerShell lexer's, for PowerShell documents and Markdown
+    /// PowerShell fences.
+    /// It is boxed and allocated by the first PowerShell line, as GraphQL's is.
+    #[cfg(feature = "lang-powershell")]
+    pub(crate) powershell: Option<Box<crate::powershell::Scratch>>,
     #[cfg(feature = "lang-python")]
     pub(crate) python: crate::python::Scratch,
     /// The Ruby lexer's, for Ruby documents.

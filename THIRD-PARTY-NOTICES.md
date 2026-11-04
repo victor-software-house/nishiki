@@ -909,7 +909,7 @@ express or implied warranty, and with no claim as to its
 suitability for any purpose.
 ```
 
-Its TextMate engine runs the PowerShell TextMate grammar in [PowerShell/EditorSyntax](https://github.com/PowerShell/EditorSyntax), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode), with its rules compiled into tables (`src/powershell/grammar.rs`).
+Its PowerShell lexer emits the scope names of the PowerShell TextMate grammar in [PowerShell/EditorSyntax](https://github.com/PowerShell/EditorSyntax), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode), and tries that grammar's rules in its order, from tables generated from it (`src/powershell/grammar.rs`).
 That grammar is licensed under the MIT License:
 
 ```text

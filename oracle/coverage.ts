@@ -75,6 +75,7 @@ const handLexed = new Map([
   ["lua", "Lua"],
   ["make", "Make"],
   ["markdown", "Markdown"],
+  ["powershell", "PowerShell"],
   ["python", "Python"],
   ["ruby", "Ruby"],
   ["rust", "Rust"],

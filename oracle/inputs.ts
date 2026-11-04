@@ -28,6 +28,7 @@ import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
 import makeCoverage from "./inputs/make-coverage.mk" with { type: "text" };
 import markdownCoverage from "./inputs/markdown-coverage.md" with { type: "text" };
 import phpEmbedded from "./inputs/php-embedded.php" with { type: "text" };
+import powershellCoverage from "./inputs/powershell-coverage.ps1" with { type: "text" };
 import pythonCoverage from "./inputs/python-coverage.py" with { type: "text" };
 import rubyCoverage from "./inputs/ruby-coverage.rb" with { type: "text" };
 import rubyCppLuaHeredocs from "./inputs/ruby-cpp-lua-heredocs.rb" with { type: "text" };
@@ -1036,7 +1037,7 @@ export const inputs: Input[] = [
   { lang: "php", name: "laravel-postgres-grammar", url: `${laravel}/src/Illuminate/Database/Query/Grammars/PostgresGrammar.php` },
   { lang: "php", name: "laravel-router", url: `${laravel}/src/Illuminate/Routing/Router.php` },
   { lang: "php", name: "sample", url: `${samples}/php.sample` },
-  // PowerShell runs on the TextMate engine.
+  { lang: "powershell", name: "coverage", text: powershellCoverage },
   { lang: "powershell", name: "dotnet-install", url: `${dotnetInstall}/src/dotnet-install.ps1` },
   { lang: "powershell", name: "install-powershell", url: `${powershell}/tools/install-powershell.ps1` },
   { lang: "powershell", name: "sample", url: `${samples}/powershell.sample` },

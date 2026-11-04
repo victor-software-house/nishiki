@@ -38,6 +38,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Lua | `lua` | 147 of 152 | 96.7% | 72 of 74 | 97.3% | 7 | 0 | yes |
 | Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
 | Markdown | `markdown` | 213 of 311 | 68.5% | 274 of 373 | 73.5% | 197 | 0 | yes |
+| PowerShell | `powershell` | 96 of 96 | 100.0% | 130 of 136 | 95.6% | 6 | 0 | yes |
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
 | Ruby | `ruby` | 328 of 336 | 97.6% | 284 of 293 | 96.9% | 17 | 0 | yes |
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
@@ -635,6 +636,17 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 #link-email.match  groups 4 (waived: the grammar names the group, but the expression has three groups)
 #list_paragraph.begin  (^|\G)(?=\S)(?![*->]\s|[0-9]+\.\s)  waived: `#paragraph`, which `#block` includes before it in both list rules, begins at every position this does
 #list_paragraph.while  (^|\G)(?!\s*$|#| {0,3}([-*>_] {2,}){3,}[\t ]*$\n?| {0,3}[*-…  waived: its begin never matches
+```
+
+### `powershell`
+
+```text
+#commentLine.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#variableNoProperty.patterns[1].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#variableNoProperty.patterns[2].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#variableNoProperty.patterns[3].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#variableNoProperty.patterns[4].match  groups 4 (waived: the grammar names the group, but the expression has three groups)
+#variableNoProperty.patterns[6].match  groups 4 (waived: the grammar names the group, but the expression has three groups)
 ```
 
 ### `python`

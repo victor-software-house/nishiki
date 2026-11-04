@@ -99,6 +99,9 @@ tags! {
     /// Markdown.
     #[cfg(feature = "lang-markdown")]
     MARKDOWN = 0x0200,
+    /// PowerShell.
+    #[cfg(feature = "lang-powershell")]
+    POWERSHELL = 0x3100,
     /// Python.
     #[cfg(feature = "lang-python")]
     PYTHON = 0x0600,

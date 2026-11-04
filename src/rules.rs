@@ -29,7 +29,8 @@ use std::fmt::Debug;
     feature = "lang-swift",
     feature = "lang-cpp",
     feature = "lang-lua",
-    feature = "lang-less"
+    feature = "lang-less",
+    feature = "lang-powershell"
 ))]
 pub(crate) use chars::Chars;
 use lexer::FIRST_LINE;

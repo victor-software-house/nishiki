@@ -114,6 +114,8 @@ tables! {
     MAKE = make;
     #[cfg(feature = "lang-markdown")]
     MARKDOWN = markdown;
+    #[cfg(feature = "lang-powershell")]
+    POWERSHELL = powershell;
     #[cfg(feature = "lang-python")]
     PYTHON = python;
     #[cfg(feature = "lang-ruby")]

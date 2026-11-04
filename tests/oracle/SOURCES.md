@@ -433,6 +433,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/argument-parser-declaring-arguments` | [`DeclaringArguments.md`][argument-parser-declaring-arguments] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
 | `markdown/kingfisher-common-tasks-cache` | [`CommonTasks_Cache.md`][kingfisher-common-tasks-cache] in onevcat/Kingfisher | [MIT][kingfisher-licence] |
 | `markdown/argument-parser-getting-started` | [`GettingStarted.md`][argument-parser-getting-started] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
+| `powershell/coverage` | `oracle/inputs/powershell-coverage.ps1`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `powershell/sample` | [`samples/powershell.sample`][powershell-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `powershell/install-powershell` | [`tools/install-powershell.ps1`][install-powershell] in PowerShell/PowerShell | [MIT][powershell-licence] |
 | `powershell/dotnet-install` | [`src/dotnet-install.ps1`][dotnet-install] in dotnet/install-scripts | [MIT][dotnet-install-licence] |
@@ -749,7 +750,7 @@ Two causes made them differ: `\G` holds at the start of every line in a fence, w
 `go/go-slices`, `go/go-json-decode`, `go/kubernetes-sets`, `go/zap-logger`, `go/viper-viper` and `go/prometheus-storage` are held out.
 `markdown/gin-readme` is the development input for `go` fences and `markdown/cobra-user-guide` is held out; `markdown/httparser-readme` has a `go` fence too.
 PowerShell runs on nishiki's TextMate engine, not on a hand-written lexer.
-`powershell/sample` and `powershell/install-powershell` are its development inputs, and `markdown/powershell-windows-build` is the development input for PowerShell fences.
+`powershell/sample`, `powershell/install-powershell` and `powershell/coverage` are its development inputs, and `markdown/powershell-windows-build` is the development input for PowerShell fences.
 `powershell/dotnet-install`, `powershell/set-release-tag` and `markdown/powershell-releasing` are held out.
 Scala runs on nishiki's TextMate engine as well.
 `scala/sample` and `scala/scala3-boundary` are its development inputs, and `markdown/scala3-givens` is the development input for Scala fences.

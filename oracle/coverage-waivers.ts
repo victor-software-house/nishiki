@@ -1078,6 +1078,23 @@ export const waivers: Waiver[] = [
     path: "#operators.patterns[3].match",
     reason: "`#operators.patterns[2]`, `(<<|>>>?|[\\&^|~])`, before it, matches at the start of every one of its operators",
   },
+  { grammar: "powershell", path: "#commentLine.end", group: 1, reason: missing(0) },
+  ...[1, 2, 3].map(
+    (index): Waiver => ({
+      grammar: "powershell",
+      path: `#variableNoProperty.patterns[${index}].match`,
+      group: 3,
+      reason: missing(2),
+    }),
+  ),
+  ...[4, 6].map(
+    (index): Waiver => ({
+      grammar: "powershell",
+      path: `#variableNoProperty.patterns[${index}].match`,
+      group: 4,
+      reason: missing(3),
+    }),
+  ),
   {
     grammar: "kotlin",
     path: "#operators.patterns[5].match",
@@ -1251,6 +1268,7 @@ export const complete: string[] = [
   "lua",
   "make",
   "markdown",
+  "powershell",
   "python",
   "ruby",
   "rust",

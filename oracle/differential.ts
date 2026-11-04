@@ -31,6 +31,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["(", ")", "[", "]", "{", "}", "<", ">", "<T>(", "<List<int>>(", ",", ".", "?.", "!", "?", ":", ";", "=", "==", "=>", "+", "-", "~/", ">>>=", "&&", "\"", "'", "\"\"\"", "'''", "r\"", "r'", "\"\${x}\"", "'\$x'", "\\n", "/*", "*/", "/**", "/**/", "//", "///", "```"],
     heads: ["", "", " ", "  ", " * ", "/// ", "///     ", "// ", "#!"],
   },
+  powershell: {
+    words: ["function", "filter", "param", "begin", "process", "end", "if", "elseif", "else", "foreach", "where", "switch", "return", "class", "hidden", "static", "using namespace", "Get-ChildItem", "Where-Object", "ForEach-Object", "Write-Host", "Microsoft.PowerShell.Utility\\Get-Date", "cmd.exe", "$x", "$_", "$PSItem", "$true", "$env:Path", "${env:Path}", "$global:a", "@args", "$Error.Count", "$a.b.c", "x", "Foo", "1", "1.5mb", "0x1Fl", "0b101", "1e3", "10kb", "[int]", "[Parameter(Mandatory)]", "[CmdletBinding()]", "-eq", "-notlike", "-cin", "-is", "-and", "-not", "-join", "-band", "-f", "-Path", "--%"],
+    marks: ["(", ")", "[", "]", "{", "}", "@{", "@(", "$(", "${", ",", ".", "..", ";", "|", "||", "&&", "&", "=", "+=", "!", "?", "%", "2>&1", ">>", "<", "`", "`n", "`u{1F600}", "`u{", "\"", "'", "''", "\"\"", "@\"", "\"@", "@'", "'@", "#", "<#", "#>", ".SYNOPSIS", ".PARAMETER Name x", "#requires -Version 7"],
+    heads: ["", "", " ", "    ", "# ", "function ", "@\"", "\"@", ".EXAMPLE"],
+  },
   swift: {
     words: ["func", "init", "class", "struct", "enum", "protocol", "extension", "actor", "typealias", "operator", "infix", "import", "let", "var", "if", "else", "guard", "switch", "case", "default", "for", "in", "while", "return", "throws", "try", "await", "async", "where", "is", "as?", "self", "Self", "nil", "true", "some", "any", "static", "public", "private", "@available", "@objc", "@MainActor", "#if", "#else", "#endif", "#available", "Int", "String", "Array", "Foo", "x", "_", "é", "$0", "print", "1", "0x1F", "1_000", "2e10", "`class`", "\\(x)", "\\.self", "swift(>=5.9)", "os(macOS)"],
     marks: ["(", ")", "[", "]", "{", "}", "<", ">", ",", ".", "...", "..<", "?", "!", "??", "?.", ":", ";", "=", "==", "+", "-", "*", "/", "&+", "->", "=>", "@", "#", "\\", "\"", "\"\"\"", "#\"", "\"#", "##\"", "\\(", "/*", "*/", "///", "//", "#/", "/#", "/a+/", "#/a|b/#", "(?i)", "|>"],

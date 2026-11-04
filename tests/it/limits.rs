@@ -41,7 +41,6 @@ mod nix;
 mod objective_c;
 #[cfg(feature = "lang-php")]
 mod php;
-#[cfg(feature = "lang-powershell")]
 mod powershell;
 #[cfg(feature = "lang-proto")]
 mod proto;
