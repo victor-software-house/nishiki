@@ -1,11 +1,13 @@
 //! The grammar's rules as hand-written matchers.
 //!
-//! Every rule of the grammar is one regular expression over a single line,
-//! and all but one start with `^`, so a line is the first rule that matches
-//! its start, in the grammar's order, and then only the one unanchored rule
-//! can match the rest of it. Each matcher below answers what the regular
-//! expression would, including where its backtracking lands, and the scopes
-//! of its capture groups.
+//! Every rule of the grammar is one regular expression over a single line.
+//! All but one start with `^`.
+//! A line therefore takes the first rule, in the grammar's order, that matches
+//! its start.
+//! Only the one unanchored rule can then match the rest of the line.
+//! Each matcher below answers what its regular expression would.
+//! That includes where its backtracking lands and the scopes of its capture
+//! groups.
 
 use memchr::memmem;
 
@@ -174,11 +176,14 @@ impl<'a> Line<'a> {
 
     /// `^(@@)\s*(.+?)\s*(@@)($\n?)?`
     ///
-    /// The first `\s*` is greedy and gives back one character only when the
-    /// closing `@@` follows it directly. The lazy group ends at the first
-    /// place where white space and then `@@` follow, which is the first `@@`
-    /// at least one character past the group's start, with the white space
-    /// before it left to the second `\s*`.
+    /// The first `\s*` is greedy.
+    /// It gives back one character only when the closing `@@` follows it
+    /// directly.
+    /// The lazy group ends at the first place where white space and then `@@`
+    /// follow.
+    /// That place is the first `@@` at least one character past the group's
+    /// start.
+    /// The white space before that `@@` is left to the second `\s*`.
     fn unified_range(&mut self) -> Option<Hit> {
         if !self.starts(b"@@") {
             return None;
@@ -269,9 +274,9 @@ impl<'a> Line<'a> {
             .then(|| Hit::whole(len, S::MetaToFile).with(0, 0, 3, S::PunctToFile))
     }
 
-    /// ` (-) .* (={4})$` from `from`: the grammar's one rule without `^`,
-    /// which matches from the first ` - ` that leaves room for ` ====` at the
-    /// end of the line.
+    /// ` (-) .* (={4})$` from `from`: the grammar's one rule without `^`.
+    /// It matches from the first ` - ` that leaves room for ` ====` at the end
+    /// of the line.
     pub(super) fn header_to_inline(&mut self, from: usize) -> Option<Hit> {
         let len = self.len();
         self.steps.spend(len.saturating_sub(from));
