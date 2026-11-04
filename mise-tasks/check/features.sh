@@ -18,6 +18,7 @@ cargo check --locked --tests --no-default-features --features docs
 # engine's hand-off code still builds, since any capture can reach it.
 cargo check --locked --tests --no-default-features --features lang-bat
 cargo check --locked --tests --no-default-features --features lang-c
+cargo check --locked --tests --no-default-features --features lang-cmake
 cargo check --locked --tests --no-default-features --features lang-cpp
 cargo check --locked --tests --no-default-features --features lang-csharp
 cargo check --locked --tests --no-default-features --features lang-css
@@ -39,6 +40,7 @@ cargo check --locked --tests --no-default-features --features lang-less
 cargo check --locked --tests --no-default-features --features lang-lua
 cargo check --locked --tests --no-default-features --features lang-make
 cargo check --locked --tests --no-default-features --features lang-markdown
+cargo check --locked --tests --no-default-features --features lang-powershell
 cargo check --locked --tests --no-default-features --features lang-python
 cargo check --locked --tests --no-default-features --features lang-ruby
 cargo check --locked --tests --no-default-features --features lang-rust

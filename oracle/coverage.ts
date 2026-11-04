@@ -51,6 +51,7 @@ if (picking && (pickGrammar === undefined || pickLang === undefined || pickPaths
  * lexer that follows each. */
 const handLexed = new Map([
   ["c", "C"],
+  ["cmake", "CMake"],
   ["cpp", "C++"],
   ["cpp-macro", "C++"],
   ["csharp", "C#"],

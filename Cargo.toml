@@ -32,6 +32,7 @@ rustdoc-args = ["--cap-lints", "warn"]
 default = ["all"]
 all = [
   "lang-c",
+  "lang-cmake",
   "lang-cpp",
   "lang-csharp",
   "lang-css",
@@ -108,7 +109,6 @@ systems = [
 docs = ["config", "lang-markdown"]
 textmate = [
   "lang-bat",
-  "lang-cmake",
   "lang-coffee",
   "lang-haml",
   "lang-haskell",
@@ -125,7 +125,7 @@ textmate = [
 # One feature per lexer module. A language that embeds another needs it.
 lang-bat = ["_textmate"]
 lang-c = ["_scope-table", "_rule-engine", "_classes", "_utf8"]
-lang-cmake = ["_textmate"]
+lang-cmake = ["_scope-table", "_rule-tables", "_classes"]
 lang-coffee = ["_textmate", "lang-javascript"]
 lang-cpp = ["_scope-table", "_rule-tables", "_classes"]
 lang-csharp = ["_scope-table", "_rule-tables", "_classes"]

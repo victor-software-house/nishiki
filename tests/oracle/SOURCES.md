@@ -21,6 +21,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `c/sample` | [`samples/c.sample`][c-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `c/zlib-inflate` | [`inflate.c`][zlib-inflate] in madler/zlib | [zlib][zlib-licence] |
 | `cmake/catch2-lists` | [`CMakeLists.txt`][catch2-cmake-lists] in catchorg/Catch2 | [BSL-1.0][catch2-licence] |
+| `cmake/coverage` | `oracle/inputs/cmake-coverage.cmake`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `cmake/googletest-utils` | [`googletest/cmake/internal_utils.cmake`][googletest-utils] in google/googletest | [BSD-3-Clause][googletest-licence] |
 | `cmake/json-lists` | [`CMakeLists.txt`][json-cmake-lists] in nlohmann/json | [MIT][nlohmann-json-licence] |
 | `cmake/sample` | [`samples/cmake.sample`][cmake-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
@@ -765,7 +766,7 @@ Zig runs on nishiki's TextMate engine.
 `zig/sample` and `zig/std-allocator` are its development inputs, and `zig/std-fmt`, `zig/zls-offsets` and `zig/zls-build` are held out.
 Shiki's Markdown grammar has no Zig fence, so no Markdown input embeds Zig.
 CMake runs on nishiki's TextMate engine as well.
-`cmake/sample` and `cmake/json-lists` are its development inputs, and `cmake/googletest-utils` and `cmake/catch2-lists` are held out.
+`cmake/sample`, `cmake/json-lists` and `cmake/coverage` are its development inputs, and `cmake/googletest-utils` and `cmake/catch2-lists` are held out.
 Shiki's Markdown grammar has no CMake fence, so no Markdown input embeds CMake.
 Protobuf runs on nishiki's TextMate engine as well.
 `proto/sample` and `proto/googleapis-http` are its development inputs, and `proto/googleapis-operations` and `proto/grpc-route-guide` are held out.

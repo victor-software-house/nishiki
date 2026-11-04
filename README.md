@@ -55,7 +55,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 |:--|:--|:--|:--|:--|
 | Batch | `Language::Bat` | `lang-bat` | `textmate` | `bat`, `batch`, `cmd` |
 | C | `Language::C` | `lang-c` | `all` | `c` |
-| CMake | `Language::CMake` | `lang-cmake` | `textmate` | `cmake` |
+| CMake | `Language::CMake` | `lang-cmake` | `all` | `cmake` |
 | CoffeeScript | `Language::CoffeeScript` | `lang-coffee` | `textmate` | `coffee`, `coffeescript` |
 | C++ | `Language::Cpp` | `lang-cpp` | `all` | `cpp`, `c++` |
 | C# | `Language::CSharp` | `lang-csharp` | `all` | `csharp`, `c#`, `cs` |

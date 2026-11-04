@@ -415,8 +415,6 @@ fn kept_frames_lex_as_rebuilt_ones() {
 static SHIPPED: &[(&Grammar, &str)] = &[
     #[cfg(feature = "lang-bat")]
     (&crate::bat::grammar::GRAMMAR, "bat"),
-    #[cfg(feature = "lang-cmake")]
-    (&crate::cmake::grammar::GRAMMAR, "cmake"),
     #[cfg(feature = "lang-coffee")]
     (&crate::coffee::grammar::GRAMMAR, "coffee"),
     #[cfg(feature = "lang-haml")]

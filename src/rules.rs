@@ -18,6 +18,7 @@ mod tables;
 use std::fmt::Debug;
 
 #[cfg(any(
+    feature = "lang-cmake",
     feature = "lang-python",
     feature = "lang-java",
     feature = "lang-css",

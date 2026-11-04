@@ -26,6 +26,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["(", ")", "[", "]", "{", "}", "<", ">", ",", ".", "?.", "::", ":", "?", "=", "==", "+", "-", "->", "\"", "\"\"\"", "'", "\"${x}\"", "$x", "/*", "*/", "/**", "//"],
     heads: ["", "", " ", "    ", " * ", "// "],
   },
+  cmake: {
+    words: ["cmake_minimum_required", "project", "add_executable", "add_library", "target_link_libraries", "set", "if", "elseif", "else", "endif", "foreach", "function", "macro", "VERSION", "PUBLIC", "PRIVATE", "AND", "OR", "NOT", "STREQUAL", "WIN32", "MSVC", "APPLE", "CMAKE_CXX_FLAGS", "CMAKE_BUILD_TYPE", "Foo_POSTFIX", "OUTPUT_NAME", "COMPILE_DEFINITIONS_<CONFIG>", "BUILD_NAME", "${x}", "$ENV{HOME}", "foo", "1", "TRUE", "on"],
+    marks: ["(", ")", "\"", "\\\"", "\\n", "\\", "#", "#[[", "#[=[", "[[", "[=[", "]]", "]=]", "${", "}", ";"],
+    heads: ["", "", "  ", "    ", "# "],
+  },
   dart: {
     words: ["import", "export", "library", "part of", "as", "show", "hide", "class", "extends", "extension type", "mixin", "with", "implements", "factory", "get", "set", "final", "const", "late", "var", "void", "int", "bool", "dynamic", "if", "else", "for", "in", "switch", "case", "when", "return", "async", "async*", "sync*", "await", "yield", "yield*", "try", "on", "catch", "throw", "new", "is", "is!", "this", "super", "true", "null", "Foo", "_Bar", "\$x", "x", "foo", "1", "1.5e3", "0x1F", "1.x", ".5", "@override", "[Foo]", "`code`", "extends"],
     marks: ["(", ")", "[", "]", "{", "}", "<", ">", "<T>(", "<List<int>>(", ",", ".", "?.", "!", "?", ":", ";", "=", "==", "=>", "+", "-", "~/", ">>>=", "&&", "\"", "'", "\"\"\"", "'''", "r\"", "r'", "\"\${x}\"", "'\$x'", "\\n", "/*", "*/", "/**", "/**/", "//", "///", "```"],

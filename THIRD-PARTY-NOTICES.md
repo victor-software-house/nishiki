@@ -122,7 +122,7 @@ SOFTWARE.
 
 ## CMake
 
-Its TextMate engine runs the CMake TextMate grammar in [twxs/vs.language.cmake](https://github.com/twxs/vs.language.cmake), which Shiki bundles as `cmake`, with its rules compiled into tables (`src/cmake/grammar.rs`).
+Its CMake lexer emits the scope names of the CMake TextMate grammar in [twxs/vs.language.cmake](https://github.com/twxs/vs.language.cmake), which Shiki bundles as `cmake`, and tries that grammar's rules in its order, from tables generated from it (`src/cmake/grammar.rs` and `src/cmake/words.rs`).
 That grammar is licensed under the MIT License:
 
 ```text

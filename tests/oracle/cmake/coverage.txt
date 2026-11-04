@@ -1,0 +1,44 @@
+L message(STATUS "Home is" $ENV{HOME})
+T 7 source.cmake keyword.cmake
+T 15 source.cmake
+T 16 source.cmake string.source.cmake
+T 23 source.cmake string.source.cmake
+T 24 source.cmake string.source.cmake
+T 25 source.cmake
+T 35 source.cmake storage.source.cmake
+T 36 source.cmake
+L #[[ A bracket comment, with an escape \] inside ]]
+T 3 source.cmake comment.source.cmake
+T 38 source.cmake comment.source.cmake
+T 40 source.cmake comment.source.cmake constant.character.escape
+T 48 source.cmake comment.source.cmake
+T 50 source.cmake comment.source.cmake
+L set(raw [=[ A bracket argument, with an escape \n inside ]=])
+T 3 source.cmake keyword.cmake
+T 8 source.cmake
+T 11 source.cmake argument.source.cmake
+T 47 source.cmake argument.source.cmake
+T 49 source.cmake argument.source.cmake constant.character.escape
+T 57 source.cmake argument.source.cmake
+T 60 source.cmake argument.source.cmake
+T 61 source.cmake
+L set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES extra.txt)
+T 24 source.cmake keyword.cmake
+T 36 source.cmake
+T 63 source.cmake entity.source.cmake
+T 74 source.cmake
+L message(\"an escaped string, with \t inside\")
+T 7 source.cmake keyword.cmake
+T 8 source.cmake
+T 10 source.cmake string.source.cmake
+T 34 source.cmake string.source.cmake
+T 36 source.cmake string.source.cmake constant.character.escape
+T 43 source.cmake string.source.cmake
+T 45 source.cmake string.source.cmake
+T 46 source.cmake
+L message(BUILD_NAME)
+T 7 source.cmake keyword.cmake
+T 8 source.cmake
+T 18 source.cmake invalid.deprecated.source.cmake
+T 19 source.cmake
+L 

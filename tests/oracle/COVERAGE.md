@@ -14,6 +14,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Lexer | Grammar | Expressions | Share | Captures | Share | Waived | Fuzz only | Complete |
 |:--|:--|--:|--:|--:|--:|--:|--:|:--|
 | C | `c` | 321 of 342 | 93.9% | 318 of 341 | 93.3% | 44 | 0 | yes |
+| CMake | `cmake` | 29 of 29 | 100.0% | 0 of 0 | - | 0 | 0 | yes |
 | C++ | `cpp` | 877 of 912 | 96.2% | 2480 of 2679 | 92.6% | 234 | 0 | yes |
 | C++ | `cpp-macro` | 593 of 611 | 97.1% | 1532 of 1645 | 93.1% | 131 | 0 | yes |
 | C# | `csharp` | 544 of 547 | 99.5% | 515 of 525 | 98.1% | 13 | 0 | yes |

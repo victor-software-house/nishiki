@@ -4,7 +4,6 @@
 #[cfg(feature = "lang-bat")]
 mod bat;
 mod c;
-#[cfg(feature = "lang-cmake")]
 mod cmake;
 #[cfg(feature = "lang-coffee")]
 mod coffee;

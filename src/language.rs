@@ -753,15 +753,15 @@ languages! {
     /// - A long string or comment closes only at a bracket with as many `=` signs as it opened with, across lines.
     /// - A Markdown fence names the language `lua`.
     Lua { feature: "lang-lua", names: ["lua"], module: lua, halts: true }
-    /// CMake, with the scopes of Shiki's `cmake` grammar, which nishiki's
-    /// `TextMate` engine runs.
-    CMake {
-        feature: "lang-cmake",
-        names: ["cmake"],
-        engine: crate::cmake::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-    }
+    /// CMake, with the scopes of Shiki's `cmake` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A `${…}` or `$ENV{…}` expansion inside a quoted string is string text; outside one it is `storage.source.cmake`.
+    /// - A command is named only at the start of a line, and the blanks before it are part of its token.
+    /// - Command names, keywords, variables and properties match without regard to case, and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
+    /// - `\w` for non-ASCII characters comes from the table measured for JSON (`oracle/classes.ts`).
+    CMake { feature: "lang-cmake", names: ["cmake"], module: cmake }
     /// Protobuf, with the scopes of Shiki's `proto` grammar, which nishiki's
     /// `TextMate` engine runs.
     Proto {

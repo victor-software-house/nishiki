@@ -48,6 +48,9 @@ tags! {
     /// C, with the next byte for its end-of-line flag.
     #[cfg(feature = "lang-c")]
     C = 0x0c00 mask 0xfe00,
+    /// CMake.
+    #[cfg(feature = "lang-cmake")]
+    CMAKE = 0x3300,
     /// C++, with the next byte for the number of its rule.
     #[cfg(feature = "lang-cpp")]
     CPP = 0x2400 mask 0xfe00,

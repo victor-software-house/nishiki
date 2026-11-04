@@ -80,6 +80,8 @@ macro_rules! tables {
 tables! {
     #[cfg(feature = "lang-c")]
     C = c;
+    #[cfg(feature = "lang-cmake")]
+    CMAKE = cmake;
     #[cfg(feature = "lang-cpp")]
     CPP = cpp;
     #[cfg(feature = "lang-csharp")]

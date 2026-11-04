@@ -1280,6 +1280,7 @@ export const waivers: Waiver[] = [
  * pull request that closes its last gap. */
 export const complete: string[] = [
   "c",
+  "cmake",
   "cpp",
   "cpp-macro",
   "csharp",

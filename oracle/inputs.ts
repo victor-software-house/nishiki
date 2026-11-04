@@ -4,6 +4,7 @@
 // Keep the two lists in step.
 
 import cCoverage from "./inputs/c-coverage.c" with { type: "text" };
+import cmakeCoverage from "./inputs/cmake-coverage.cmake" with { type: "text" };
 import cppCoverage from "./inputs/cpp-coverage.cpp" with { type: "text" };
 import csharpCoverage from "./inputs/csharp-coverage.cs" with { type: "text" };
 import cssCharsetNoSpace from "./inputs/css-charset-no-space.css" with { type: "text" };
@@ -445,9 +446,10 @@ export const inputs: Input[] = [
   { lang: "c", name: "lua-vm", url: `${lua}/lvm.c` },
   { lang: "c", name: "sample", url: `${samples}/c.sample` },
   { lang: "c", name: "zlib-inflate", url: `${zlib}/inflate.c` },
-  // CMake runs on the TextMate engine. Shiki's Markdown grammar has no CMake
-  // fence, so no Markdown input embeds it.
+  // Shiki's Markdown grammar has no CMake fence, so no Markdown input embeds
+  // CMake.
   { lang: "cmake", name: "catch2-lists", url: `${catch2}/CMakeLists.txt` },
+  { lang: "cmake", name: "coverage", text: cmakeCoverage },
   { lang: "cmake", name: "googletest-utils", url: `${googletest}/googletest/cmake/internal_utils.cmake` },
   { lang: "cmake", name: "json-lists", url: `${nlohmannJson}/CMakeLists.txt` },
   { lang: "cmake", name: "sample", url: `${samples}/cmake.sample` },

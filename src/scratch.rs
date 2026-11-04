@@ -13,6 +13,10 @@ pub(crate) struct Scratch {
     /// The C lexer's, for C documents and Markdown C fences.
     #[cfg(feature = "lang-c")]
     pub(crate) c: crate::c::Scratch,
+    /// The CMake lexer's, for CMake documents.
+    /// It is boxed and allocated by the first CMake line, as GraphQL's is.
+    #[cfg(feature = "lang-cmake")]
+    pub(crate) cmake: Option<Box<crate::cmake::Scratch>>,
     /// The C++ lexer's, for C++ documents and Markdown C++ fences.
     #[cfg(feature = "lang-cpp")]
     pub(crate) cpp: crate::cpp::Scratch,
