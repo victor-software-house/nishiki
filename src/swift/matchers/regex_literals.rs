@@ -1,8 +1,10 @@
 //! Matchers: `regex_literals`.
 //!
 //! The regex literals of Swift: `/…/` and `#/…/#`, and the regex syntax inside
-//! them. The two literal matchers (`At1` and `At2`) read a whole literal on
-//! one line, so they carry the memos that keep a hostile line linear.
+//! them.
+//! The two literal matchers, `At1` and `At2`, read a whole literal on one
+//! line.
+//! They carry the memos that keep a hostile line linear.
 
 use std::cell::{Cell, RefCell};
 
@@ -11,7 +13,8 @@ use crate::classes::is_space;
 use crate::rules::Chars;
 
 /// A scan for the first position at or after `from` that satisfies a test:
-/// `(key, from, found)`, which says that no position in `from..found` does.
+/// `(key, from, found)`.
+/// It says that no position in `from..found` satisfies the test.
 /// The key tells apart queries whose test differs, such as the `#` count.
 type Found = Cell<Option<(usize, usize, usize)>>;
 
@@ -33,8 +36,9 @@ pub(in crate::swift) struct Memo {
     hashes: Cell<(usize, usize)>,
     /// The last long scan of a literal's contents.
     scan: Cell<Option<Scan>>,
-    /// The states that scan passed through, in order. Its buffer is what
-    /// Swift keeps from line to line, so it is allocated once.
+    /// The states that scan passed through, in order.
+    /// Swift keeps its buffer from line to line.
+    /// It is therefore allocated once.
     path: RefCell<Vec<(usize, usize)>>,
 }
 
@@ -55,8 +59,9 @@ impl Memo {
 }
 
 /// The outcome of the last scan of a literal's contents that was long enough
-/// to remember: the key (the `#` count plus one), where it started and what
-/// it found.
+/// to remember.
+/// It holds the key, where the scan started, and what it found.
+/// The key is the `#` count plus one.
 #[derive(Clone, Copy, Debug)]
 struct Scan {
     key: usize,
@@ -98,7 +103,8 @@ enum Mode {
 enum Step {
     /// An item of the contents ends here.
     Item(usize),
-    /// A `(` opened a group; its contents start here.
+    /// A `(` opened a group.
+    /// Its contents start here.
     Open(usize),
     /// No item starts here.
     Stop,
@@ -152,8 +158,9 @@ const OPTIONS: [&[u8]; 16] = [
 ];
 
 impl Lexer<'_> {
-    /// The end of the run of `#` from `p`. Every start inside a run asks
-    /// about it, so the last run is kept.
+    /// The end of the run of `#` from `p`.
+    /// Every start inside a run asks about it.
+    /// The last run is therefore kept.
     fn hash_run_end(&self, p: usize) -> usize {
         let (start, end) = self.x.regex_literals.hashes.get();
         if start <= p && p < end {
@@ -170,8 +177,8 @@ impl Lexer<'_> {
 impl Lexer<'_> {
     /// `(#+)/\n`, for `LiteralsRegularExpressionLiteralAt0`.
     ///
-    /// The `/` must be the last character, so the match takes the line
-    /// feed.
+    /// The `/` must be the last character.
+    /// The match therefore takes the line feed.
     pub(in crate::swift) fn rx_literals_regular_expression_literal_at_0(
         &mut self,
         p: usize,
@@ -341,11 +348,13 @@ impl Lexer<'_> {
         Some(end)
     }
 
-    /// The three callouts: `(?C…)` with a number or a name that doubles its
-    /// closing delimiter, `(*name[tag]{args})`, and `(?{code}[tag]X)` whose
-    /// braces nest through the recursive group 20. The regex is the
-    /// `regular-expression-literal-callout` begin of the grammar, for
-    /// `LiteralsRegularExpressionLiteralCallout`.
+    /// The three callouts:
+    /// - `(?C…)`, with a number or a name that doubles its closing delimiter;
+    /// - `(*name[tag]{args})`;
+    /// - `(?{code}[tag]X)`, whose braces nest through the recursive group 20.
+    ///
+    /// The regex is the `regular-expression-literal-callout` begin of the
+    /// grammar, for `LiteralsRegularExpressionLiteralCallout`.
     pub(in crate::swift) fn rx_literals_regular_expression_literal_callout(
         &mut self,
         p: usize,
@@ -717,8 +726,8 @@ impl Lexer<'_> {
     /// :\\.|[^]\[\\])+])+])+])+]|\(\g<guts>?+\)|(?:(?!/)[^()\[\\])+)+))?+(?<!\
     /// s))(/)`, for `LiteralsRegularExpressionLiteralAt1`.
     ///
-    /// `\\\s(?=/)`: an escaped blank, which the contents cannot hold
-    /// because a literal may not end in one.
+    /// `\\\s(?=/)`: an escaped blank.
+    /// The contents cannot hold it, because a literal may not end in one.
     pub(in crate::swift) fn rx_literals_regular_expression_literal_at_1(
         &mut self,
         p: usize,
@@ -792,8 +801,10 @@ impl Lexer<'_> {
     }
 
     /// The first `i` at or after `from` where `hit` holds, or the end of the
-    /// line when none does. `memo` keeps the answer, so that a line of
-    /// many starts that all look for the same stop scans it once.
+    /// line when none does.
+    /// `memo` keeps the answer.
+    /// A line of many starts that all look for the same stop then scans it
+    /// once.
     fn find_from(
         &self,
         memo: &Found,
@@ -884,8 +895,9 @@ impl Lexer<'_> {
         (end > digits).then_some(end)
     }
 
-    /// `(?:([-+])(\d+))?` at `i`: notes the sign as group `group` and the
-    /// digits as the next, and returns the end, which is `i` for no match.
+    /// `(?:([-+])(\d+))?` at `i`.
+    /// It notes the sign as group `group` and the digits as the next group.
+    /// It returns the end, which is `i` for no match.
     fn offset(&self, i: usize, group: usize, spans: &mut Spans) -> usize {
         match self.offset_end(i) {
             Some(end) => {
@@ -1023,8 +1035,8 @@ impl Lexer<'_> {
     }
 
     /// The position of `close` after `^options`, `options` or
-    /// `options-options` from `i`, which are the three forms of a group's
-    /// option toggle.
+    /// `options-options` from `i`.
+    /// Those are the three forms of a group's option toggle.
     fn option_toggle(&self, i: usize, close: u8) -> Option<usize> {
         if self.at(i) == b'^' {
             let end = self.options_end(i + 1);
@@ -1251,9 +1263,9 @@ impl Lexer<'_> {
 
     /// The callout `(?{code}[tag]X)` at `p`.
     ///
-    /// The group calls itself for each `{` that opens the code, so the
-    /// code ends at the first run of as many `}`: the atomic group keeps
-    /// the first way the recursion found.
+    /// The group calls itself for each `{` that opens the code.
+    /// The code therefore ends at the first run of as many `}`.
+    /// The atomic group keeps the first way the recursion found.
     fn code_callout(&self, p: usize, spans: &mut Spans) -> Option<usize> {
         let open = p + 2;
         if self.at(open) != b'{' {
@@ -1443,15 +1455,17 @@ impl Lexer<'_> {
     }
 
     /// The end of the contents of a literal from `start`: the position after
-    /// the last item, where the closing delimiter must stand. `None` when an
-    /// unbalanced `(` makes the match fail.
+    /// the last item, where the closing delimiter must stand.
+    /// It is `None` when an unbalanced `(` makes the match fail.
     ///
-    /// The contents are items (an escape, a quote, a comment, a class, a
-    /// code block, a group or a run of plain characters) and the grammar
-    /// takes them possessively, so a position and the parenthesis depth
-    /// decide everything after them. A scan that passes through many items
-    /// leaves its path in the memo: a later start of the same literal kind
-    /// that lands on it ends the same way.
+    /// The contents are items: an escape, a quote, a comment, a class, a code
+    /// block, a group or a run of plain characters.
+    /// The grammar takes them possessively.
+    /// A position and the parenthesis depth therefore decide everything after
+    /// them.
+    /// A scan that passes through many items leaves its path in the memo.
+    /// A later start of the same literal kind that lands on that path ends
+    /// the same way.
     fn contents_end(&mut self, start: usize, key: usize, hashes: &[u8]) -> Option<usize> {
         if let Some(scan) = self.x.regex_literals.scan.get()
             && scan.key == key
@@ -1476,9 +1490,10 @@ impl Lexer<'_> {
     }
 
     /// Walks the contents from `start`, and returns where they end and how
-    /// many items they had. A recording walk notes each `(position, depth)`
-    /// in the memo's path. A merging walk that reaches a state of the
-    /// remembered path ends as that path did.
+    /// many items they had.
+    /// A recording walk notes each `(position, depth)` in the memo's path.
+    /// A merging walk that reaches a state of the remembered path ends as
+    /// that path did.
     fn scan_contents(&self, start: usize, hashes: &[u8], mode: Mode) -> (Option<usize>, usize) {
         let mut i = start;
         let mut depth = 0_usize;

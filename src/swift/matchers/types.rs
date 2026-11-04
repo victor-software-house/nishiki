@@ -11,8 +11,9 @@ use crate::rules::Chars;
 #[derive(Debug, Default)]
 pub(in crate::swift) struct Memo {
     /// The last run of blanks that a lookahead scanned: where it starts and
-    /// where it ends. A search that starts inside the run ends at the same
-    /// place, so a long run of blanks is read once.
+    /// where it ends.
+    /// A search that starts inside the run ends at the same place.
+    /// A long run of blanks is then read once.
     blanks: Cell<Option<(usize, usize)>>,
 }
 
@@ -51,13 +52,15 @@ impl Lexer<'_> {
         !self.at_g(p) && self.keyword(p, b"where").is_some()
     }
 
-    /// `(?=[={}]|(?!\G)\bwhere\b)`, which several clauses end on.
+    /// `(?=[={}]|(?!\G)\bwhere\b)`.
+    /// Several clauses end on it.
     fn clause_stop(&self, p: usize) -> bool {
         self.at_in(p, b"={}") || self.where_ahead(p)
     }
 
-    /// The end of the `\s*` from `p`. A lookahead asks it at every position
-    /// of a run of blanks, so the run is read once.
+    /// The end of the `\s*` from `p`.
+    /// A lookahead asks it at every position of a run of blanks.
+    /// The run is therefore read once.
     fn blanks_end(&self, p: usize) -> usize {
         let memo = &self.x.types.blanks;
         if let Some((from, to)) = memo.get()
@@ -72,10 +75,11 @@ impl Lexer<'_> {
         end
     }
 
-    /// `(?=\s*[SET])` where the set contains the line feed: `\s*` gives back
-    /// the line feed it took, so a run of blanks that takes the line feed
-    /// always matches. Past the line feed, or where none follows the text, the
-    /// run must end at a character of the set.
+    /// `(?=\s*[SET])` where the set contains the line feed.
+    /// `\s*` gives back the line feed it took.
+    /// A run of blanks that takes the line feed therefore always matches.
+    /// Past the line feed, or where none follows the text, the run must end
+    /// at a character of the set.
     fn blanks_then(&self, p: usize, set: &[u8]) -> bool {
         let end = self.blanks_end(p);
         (p..end).contains(&self.lim()) || self.at_in(end, set)
@@ -102,8 +106,9 @@ impl Lexer<'_> {
     }
 
     /// `\b(KEYWORD)SEP(name)BLANKS`, the shape of a declaration head, once the
-    /// keyword is known to end at `keyword_end`. Groups: 1 the keyword, 2 the
-    /// name, 3 and 4 its backticks.
+    /// keyword is known to end at `keyword_end`.
+    /// Group 1 is the keyword, group 2 the name, and groups 3 and 4 its
+    /// backticks.
     fn declaration(&mut self, p: usize, keyword_end: usize, gap: Gap, tail: Tail) -> Option<usize> {
         let name = self.space_end(keyword_end);
         if gap == Gap::Required && name == keyword_end {
@@ -144,8 +149,8 @@ impl Lexer<'_> {
     /// `` >|(?=[^\&,:<=>`\w\d\s]) ``, for
     /// `DeclarationsGenericParameterClauseEnd`.
     ///
-    /// The line feed is a `\s`, so the second branch never matches at the end
-    /// of the line.
+    /// The line feed is a `\s`.
+    /// The second branch therefore never matches at the end of the line.
     pub(in crate::swift) fn rx_declarations_generic_parameter_clause_end(
         &mut self,
         p: usize,
@@ -226,7 +231,8 @@ impl Lexer<'_> {
     /// k<q>)\s*: ``, for `DeclarationsTypedVariableDeclaration`.
     ///
     /// Without the `async` branch the keyword would have to start at `p`,
-    /// where `async` stands, so one path decides.
+    /// where `async` stands.
+    /// One path therefore decides.
     pub(in crate::swift) fn rx_declarations_typed_variable_declaration(
         &mut self,
         p: usize,
@@ -280,8 +286,8 @@ impl Lexer<'_> {
     /// `\b(?:BitwiseShift|Assignment|RangeFormation|Casting|Addition|NilCoalescing|Comparison|LogicalConjunction|LogicalDisjunction|Default|Ternary|Multiplication|FunctionArrow)Precedence\b`,
     /// for `DeclarationsTypesPrecedencegroupAt0`.
     ///
-    /// No name is a prefix of another, and `\b` ends the word, so the whole
-    /// word must be one of the names.
+    /// No name is a prefix of another, and `\b` ends the word.
+    /// The whole word must therefore be one of the names.
     pub(in crate::swift) fn rx_declarations_types_precedencegroup_at_0(
         &mut self,
         p: usize,
@@ -517,7 +523,8 @@ impl Lexer<'_> {
     }
 
     /// `(?!\G)(?!/[*/])(?=[^,\s])`: something other than a comma or a blank
-    /// follows. The line feed is a blank.
+    /// follows.
+    /// The line feed is a blank.
     fn case_continues(&self, p: usize) -> bool {
         !self.at_g(p)
             && !self.comment_at(p)
@@ -552,9 +559,9 @@ impl Lexer<'_> {
     /// p{L}][_\p{L}\p{N}\p{M}]*\k<q2>))\s*(:)
     /// ``, for `DeclarationsTypeEnumAssociatedValuesAt1`.
     ///
-    /// A lone `_` is the first branch. When it fails the second branch reads
-    /// the same text and fails too, so the identifier decides which group
-    /// holds the label.
+    /// A lone `_` is the first branch.
+    /// When it fails, the second branch reads the same text and fails too.
+    /// The identifier therefore decides which group holds the label.
     pub(in crate::swift) fn rx_declarations_type_enum_associated_values_at_1(
         &mut self,
         p: usize,
@@ -626,8 +633,9 @@ impl Lexer<'_> {
 
     /// `(?!\G)(?!/[*/])(?=[;}[^,\s]])`, for `DeclarationsTypeEnumMoreCasesEnd`.
     ///
-    /// The class is `;`, `}` or anything but a comma or a blank, and the first
-    /// two are the second's, so it is the case clause's lookahead.
+    /// The class is `;`, `}` or anything but a comma or a blank.
+    /// The third member already holds the first two.
+    /// The class is therefore the case clause's lookahead.
     pub(in crate::swift) fn rx_declarations_type_enum_more_cases_end(
         &mut self,
         p: usize,
@@ -762,7 +770,8 @@ impl Lexer<'_> {
     /// `\b((?!\d)\w[\w\d]*)\b`, for `DeclarationsGenericParameterClauseAt4`.
     ///
     /// Giving characters back would end the run inside a word, where `\b`
-    /// fails, so the whole run is the answer.
+    /// fails.
+    /// The whole run is therefore the answer.
     pub(in crate::swift) fn rx_declarations_generic_parameter_clause_at_4(
         &mut self,
         p: usize,

@@ -87,10 +87,12 @@ impl Lexer<'_> {
     /// Where the digits start after `(\B-|\b)` and, when `after` refuses a
     /// member access, the lookbehind `(?<![]()\[_{}\p{L}\p{N}\p{M}]\.)`.
     ///
-    /// A `-` that no word precedes is taken, and then neither alternative can
-    /// hold elsewhere. Anything else needs `\b`, and the lookbehind only
-    /// follows that alternative: it reads the two characters before `p`, and
-    /// after a `-` they are never a member access.
+    /// A `-` that no word precedes is taken.
+    /// Neither alternative can then hold elsewhere.
+    /// Anything else needs `\b`, and the lookbehind only follows that
+    /// alternative.
+    /// The lookbehind reads the two characters before `p`.
+    /// After a `-` they are never a member access.
     fn number_start(&self, p: usize, after: AfterMember) -> Option<usize> {
         if self.at(p) == b'-' && !self.word_before(p) {
             return Some(p + 1);
@@ -104,8 +106,9 @@ impl Lexer<'_> {
         self.at(i) == b'.' && self.at(i + 1).is_ascii_digit()
     }
 
-    /// The end of the run of `[.\w]` from `i`. Nothing follows it in the
-    /// regexes that use it, so giving back cannot matter.
+    /// The end of the run of `[.\w]` from `i`.
+    /// Nothing follows it in the regexes that use it.
+    /// Giving back therefore cannot matter.
     fn dot_word_end(&self, mut i: usize) -> usize {
         let from = i;
         loop {
@@ -141,16 +144,19 @@ impl Lexer<'_> {
             .then(|| self.skip(first + 1, is_digit_or_underscore))
     }
 
-    /// `[Ee][-+]?[0-9][0-9_]*` at `i`. Giving back digits cannot help the
-    /// callers, because `\b` fails between two word characters.
+    /// `[Ee][-+]?[0-9][0-9_]*` at `i`.
+    /// Giving back digits cannot help the callers, because `\b` fails between
+    /// two word characters.
     fn decimal_exponent(&self, i: usize) -> Option<usize> {
         matches!(self.at(i), b'E' | b'e')
             .then(|| self.decimal_exponent_digits(i + 1))
             .flatten()
     }
 
-    /// `prefix first rest*\b(?!\.[0-9])` after the number start. The run is
-    /// taken whole: inside it `\b` fails, so giving back cannot help.
+    /// `prefix first rest*\b(?!\.[0-9])` after the number start.
+    /// The run is taken whole.
+    /// Inside it `\b` fails.
+    /// Giving back therefore cannot help.
     fn radix_literal(
         &self,
         p: usize,
@@ -168,8 +174,10 @@ impl Lexer<'_> {
     }
 
     /// `(?:[EPep][-+]?\w+)?[.\w]+` at `q`, for a malformed literal such as
-    /// `0x_1p+5`: the exponent is tried first, with the longest `\w+` that
-    /// leaves `[.\w]` a character, then left out.
+    /// `0x_1p+5`.
+    /// The exponent is tried first, with the longest `\w+` that leaves
+    /// `[.\w]` a character.
+    /// Then it is left out.
     fn exponent_then_word(&self, q: usize) -> Option<usize> {
         if matches!(self.at(q), b'E' | b'P' | b'e' | b'p') {
             let k = q + 1;
@@ -201,8 +209,8 @@ impl Lexer<'_> {
     }
 
     /// `delimiter\s*\n`: a backslash that ends a line of a multi-line string.
-    /// Only the line feed at the end of the line can match `\n`, so the rest
-    /// of the line must be white space.
+    /// Only the line feed at the end of the line can match `\n`.
+    /// The rest of the line must therefore be white space.
     fn continuation(&self, p: usize, delimiter: &[u8]) -> Option<usize> {
         let from = self.lit(p, delimiter)?;
         let end = self.space_end(from);
@@ -266,8 +274,10 @@ impl Lexer<'_> {
 
     /// `\S((?!\\\().)*(?=""")`, or with `\\#(` for a raw string: a character
     /// that is not white space, then characters up to an interpolation, then
-    /// `"""`. The star gives back to the last `"""` before the interpolation.
-    /// Every start in a run asks about the same stop, so the search is kept.
+    /// `"""`.
+    /// The star gives back to the last `"""` before the interpolation.
+    /// Every start in a run asks about the same stop.
+    /// The search is therefore kept.
     fn string_text_before_triple(&self, p: usize, kind: StringKind) -> Option<usize> {
         let (c, start) = self.char_at(p).filter(|_| p < self.lim())?;
         if is_space(c) {
@@ -347,11 +357,12 @@ impl Lexer<'_> {
     /// `(\B-|\b)(?<![]()\[_{}\p{L}\p{N}\p{M}]\.)(0x\h[_\h]*)(?:\.\h[_\h]*)?
     /// [Pp][-+]?\w*\b(?!\.[0-9])`, for ``LiteralsNumericAt2``.
     ///
-    /// `\b` holds at the end of the word. When `(?!\.[0-9])`
-    /// fails there, `\w*` gives back down to nothing, and `\b`
-    /// holds between the sign and the word.
+    /// `\b` holds at the end of the word.
+    /// When `(?!\.[0-9])` fails there, `\w*` gives back down to nothing.
+    /// `\b` then holds between the sign and the word.
     ///
-    /// After the sign `\b` cannot hold, so the sign is left out.
+    /// After the sign `\b` cannot hold.
+    /// The sign is therefore left out.
     pub(in crate::swift) fn rx_literals_numeric_at_2(&mut self, p: usize) -> Option<usize> {
         let s = self.number_start(p, AfterMember::Refused)?;
         let mut q = self.hex_run(s)?;
@@ -401,9 +412,10 @@ impl Lexer<'_> {
     /// `(\B-|\b)0[box]_[_\h]*(?:[EPep][-+]?\w+)?[.\w]+`, for
     /// `LiteralsNumericAt5`.
     ///
-    /// `[_\h]*` gives back until the rest fits. Every position it gives
-    /// back holds a hex digit or an underscore, which `[.\w]+` takes, so
-    /// the second try always ends the search.
+    /// `[_\h]*` gives back until the rest fits.
+    /// Every position it gives back holds a hex digit or an underscore.
+    /// `[.\w]+` takes either.
+    /// The second try therefore always ends the search.
     pub(in crate::swift) fn rx_literals_numeric_at_5(&mut self, p: usize) -> Option<usize> {
         let s = self.number_start(p, AfterMember::Allowed)?;
         if self.at(s) != b'0'

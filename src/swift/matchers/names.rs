@@ -17,9 +17,10 @@ pub(in crate::swift) enum Dots {
 }
 
 /// What the matchers remember about identifiers on a line: the last run of
-/// identifier characters, as `(from, to)`. A scan that starts inside a run
-/// ends where the run ends, so a line of thousands of identifier characters
-/// is walked once, not from every start the engine tries.
+/// identifier characters, as `(from, to)`.
+/// A scan that starts inside a run ends where the run ends.
+/// A line of thousands of identifier characters is then walked once, not
+/// from every start the engine tries.
 #[derive(Debug, Default)]
 pub(in crate::swift) struct Memo {
     tail: Cell<(usize, usize)>,
@@ -28,8 +29,9 @@ pub(in crate::swift) struct Memo {
 /// The grammar's identifier at a position: its optional backticks, a letter or
 /// `_`, then letters, numbers and marks.
 ///
-/// The text from the start is the opening backtick when there is one, up to
-/// `body`; the closing backtick is `tail..end`.
+/// The text from the start up to `body` is the opening backtick, when there
+/// is one.
+/// The closing backtick is `tail..end`.
 #[derive(Clone, Copy, Debug)]
 pub(in crate::swift) struct Ident {
     /// Where the name itself starts.
@@ -94,8 +96,8 @@ pub(in crate::swift) fn is_op_ascii(b: u8) -> bool {
 }
 
 impl Lexer<'_> {
-    /// The end of the run of identifier characters from `from`. A start inside
-    /// the run last scanned reuses its end.
+    /// The end of the run of identifier characters from `from`.
+    /// A start inside the run last scanned reuses its end.
     pub(in crate::swift) fn ident_tail_end(&self, from: usize) -> usize {
         let (lo, hi) = self.x.names.tail.get();
         if lo <= from && from < hi {
@@ -113,9 +115,10 @@ impl Lexer<'_> {
     }
 
     /// The identifier at `i`: an optional backtick, a head character, the
-    /// tail, and the same backtick again. When the backtick is there but does
-    /// not close, giving it back leaves a backtick where the head belongs, so
-    /// there is no other way to match.
+    /// tail, and the same backtick again.
+    /// When the backtick is there but does not close, giving it back leaves a
+    /// backtick where the head belongs.
+    /// There is no other way to match.
     pub(in crate::swift) fn ident_at(&self, i: usize) -> Option<Ident> {
         let quote = usize::from(self.at(i) == b'`');
         let body = i + quote;

@@ -221,8 +221,9 @@ fn an_empty_line_keeps_the_state() {
     assert_eq!(first_leaf(&rows, 2), "comment.block.swift");
 }
 
-/// A capture lexed again has no line feed after it, so `\z` holds at its
-/// end: an operator there is postfix, and a prefix operator is not.
+/// A capture lexed again has no line feed after it.
+/// `\z` therefore holds at its end.
+/// An operator there is postfix, and a prefix operator is not.
 #[test]
 fn an_operator_that_ends_a_capture_lexed_again_is_postfix() {
     let rows = merge_by_leaf(lex(indoc! {r#"
@@ -351,12 +352,17 @@ mod probe {
     use crate::arena::Arena;
     use crate::swift::grammar::Pat;
 
-    /// Runs the matchers on the cases in the file that `PROBE_IN` names,
-    /// one JSON object per line (`rx`, the name of a pattern, `text`, `p`, the
-    /// byte it is tried at, `g`, whether `\G` holds there, and `nl`, whether
-    /// the line feed follows the text), and writes their answers to the file
-    /// `PROBE_OUT` names: `null` for no match, else the end and the capture
-    /// groups. `oracle/onig.ts` compares them with Oniguruma's.
+    /// Runs the matchers on the cases in the file that `PROBE_IN` names.
+    /// That file holds one JSON object per line, with these fields:
+    /// - `rx`, the name of a pattern;
+    /// - `text`;
+    /// - `p`, the byte it is tried at;
+    /// - `g`, whether `\G` holds there;
+    /// - `nl`, whether the line feed follows the text.
+    ///
+    /// It writes their answers to the file `PROBE_OUT` names.
+    /// An answer is `null` for no match, else the end and the capture groups.
+    /// `oracle/onig.ts` compares them with Oniguruma's.
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {

@@ -10,7 +10,8 @@ use crate::rules::Chars;
 /// What the matchers of this file remember about a line.
 ///
 /// Each field is the last run of a scan that the matchers repeat from many
-/// starts inside one run, so a hostile line stays linear.
+/// starts inside one run.
+/// A hostile line therefore stays linear.
 #[derive(Debug, Default)]
 pub(in crate::swift) struct Memo {
     /// A run of `\w` characters, `from..end`.
@@ -54,7 +55,8 @@ fn is_platform(word: &[u8]) -> bool {
 }
 
 /// Which `#if` a compiler-control head reads: any condition, or the literal
-/// `false`, which the grammar lexes as a disabled block.
+/// `false`.
+/// The grammar lexes `false` as a disabled block.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Condition {
     /// `^\s*(#)(if|elseif)\s+`.
@@ -116,10 +118,11 @@ impl Lexer<'_> {
         end
     }
 
-    /// The first `)` or `,` at or after `i` on the line, which is where
-    /// `.*?(?=[),])` stops.
+    /// The first `)` or `,` at or after `i` on the line.
+    /// That is where `.*?(?=[),])` stops.
     ///
-    /// `.` stops at the line feed, so a line without one has no answer.
+    /// `.` stops at the line feed.
+    /// A line without `)` or `,` therefore has no answer.
     fn close_from(&self, i: usize) -> Option<usize> {
         let memo = &self.x.expressions.close;
         let at = match memo.get() {
@@ -148,9 +151,10 @@ impl Lexer<'_> {
     /// The end of `[0-9]+(?:\.[0-9]+)*\b` at `i`, after the give-back the
     /// backtracking does.
     ///
-    /// The chain ends in a digit, so `\b` holds when no word character
-    /// follows. When one does, the only shorter end that helps is before the
-    /// last `.[0-9]+`, where a `.` follows.
+    /// The chain ends in a digit.
+    /// `\b` therefore holds when no word character follows.
+    /// When one does, the only shorter end that helps is before the last
+    /// `.[0-9]+`, where a `.` follows.
     pub(in crate::swift) fn version_end(&self, i: usize) -> Option<usize> {
         let memo = &self.x.expressions.version;
         let (full, last_dot) = match memo.get() {
@@ -296,16 +300,18 @@ impl Lexer<'_> {
     }
 
     /// What lets a postfix operator end: `[]),:;}\s]|\z`, with the line feed
-    /// counted as a space. `\z` holds at the end of a text that no line feed
-    /// follows, as in a capture lexed again.
+    /// counted as a space.
+    /// `\z` holds at the end of a text that no line feed follows, as in a
+    /// capture lexed again.
     fn before_close(&self, p: usize) -> bool {
         p >= self.lim()
             || matches!(self.at(p), b']' | b')' | b',' | b':' | b';' | b'}')
             || self.space_at(p) > 0
     }
 
-    /// The possessive run `(?:(?!//|/\*|\*/)[operator character])++` from `i`,
-    /// which never gives a character back, so one pass is the answer.
+    /// The possessive run `(?:(?!//|/\*|\*/)[operator character])++` from `i`.
+    /// It never gives a character back.
+    /// One pass is therefore the answer.
     fn operator_run(&self, i: usize, dots: Dots) -> Option<usize> {
         let mut end = i;
         while let Some((c, next)) = self.char_at(end)
@@ -319,8 +325,8 @@ impl Lexer<'_> {
     }
 
     /// `\G(lookbehind)(\.)?(operator run)++(lookahead)` with the spacing that
-    /// `spacing` names; when `dots` takes them the run follows a `.` and may
-    /// contain more.
+    /// `spacing` names.
+    /// When `dots` takes them, the run follows a `.` and may contain more.
     fn operator_at(&mut self, p: usize, dots: Dots, spacing: Spacing) -> Option<usize> {
         if !(self.g && p == self.pos) {
             return None;
@@ -580,8 +586,8 @@ impl Lexer<'_> {
     }
 
     /// `\b(introduced|deprecated|obsoleted)\s*(:)\s*`, for `AttributesAt0At1`.
-    /// The grammar spells the three words with a shared suffix; this is the
-    /// same language.
+    /// The grammar spells the three words with a shared suffix.
+    /// This matcher accepts the same words.
     pub(in crate::swift) fn rx_attributes_at_0_at_1(&mut self, p: usize) -> Option<usize> {
         if !self.boundary(p) {
             return None;

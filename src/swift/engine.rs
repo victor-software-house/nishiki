@@ -16,8 +16,8 @@ pub(crate) type Scratch = rules::Scratch<Swift>;
 pub(crate) struct Swift;
 
 /// What the Swift matchers remember about a line: one memo for each file of
-/// matchers, so that a lookahead that scans the rest of the line is asked
-/// once.
+/// matchers.
+/// A lookahead that scans the rest of the line is then asked once.
 #[derive(Debug, Default)]
 pub(crate) struct Extra {
     pub(super) declarations: matchers::declarations::Memo,

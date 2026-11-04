@@ -8,9 +8,10 @@ use crate::classes::{is_digit, is_letter, is_mark, is_number, is_space};
 use crate::rules::Chars;
 
 /// What the matchers of this file remember about a line: the last run of
-/// white space, as `(from, to)`. A scan that starts inside a run ends where
-/// the run ends, so a line of thousands of blanks is walked once, not from
-/// every start the engine tries.
+/// white space, as `(from, to)`.
+/// A scan that starts inside a run ends where the run ends.
+/// A line of thousands of blanks is then walked once, not from every start
+/// the engine tries.
 #[derive(Debug, Default)]
 pub(in crate::swift) struct Memo {
     blank: Cell<(usize, usize)>,
@@ -83,9 +84,10 @@ impl Lexer<'_> {
     }
 
     /// An operator run `(head (head|continue)*)` or `(. (head|continue|.)+)`
-    /// that ends where `after` accepts. The run is greedy and gives back one
-    /// character at a time, down to `min`, the end of its first element.
-    /// Returns where the operator ends and what `after` made of that end.
+    /// that ends where `after` accepts.
+    /// The run is greedy and gives back one character at a time, down to
+    /// `min`, the end of its first element.
+    /// It returns where the operator ends and what `after` made of that end.
     fn operator_then(
         &self,
         min: usize,
@@ -217,8 +219,10 @@ impl Lexer<'_> {
     }
 
     /// The rest of the operator declaration after its optional fixity word:
-    /// `\b(operator)\s+(name)\s*`. The name's repetition is possessive, so it
-    /// takes every operator character, dots included, and never gives one back.
+    /// `\b(operator)\s+(name)\s*`.
+    /// The name's repetition is possessive.
+    /// It takes every operator character, dots included, and never gives one
+    /// back.
     fn operator_rest(&mut self, p: usize, fix: Option<(usize, usize)>) -> Option<usize> {
         let word_end = self.keyword(p, b"operator")?;
         let name = self.blank_end(word_end);
@@ -256,12 +260,12 @@ impl Lexer<'_> {
     /// \b(func)\s+((?<q>`?)[_\p{L}][_\p{L}\p{N}\p{M}]*(\k<q>)|(?:((?<oph>[-!%\&*+/<-?^|~¡-§©«¬®°±¶»¿×÷‖‗†-‧‰-‾⁁-⁓⁕-⁞←-⏿─-❵➔-⯿⸀-⹿、。〃〈-〰])(\g<oph>|(?<opc>[̀-ͯ᷀-᷿⃐-⃿︀-️︠-︯\x{E0100}-\x{E01EF}]))*)|(\.(\g<oph>|\g<opc>|\.)+)))\s*(?=[(<])
     /// ```
     ///
-    /// No operator starts with an identifier character, so a failed
-    /// lookahead ends the match.
+    /// No operator starts with an identifier character.
+    /// A failed lookahead therefore ends the match.
     ///
-    /// An operator gives back one character at a time; before the end of the
-    /// run, only a `<` can follow it, since the next character is an
-    /// operator one.
+    /// An operator gives back one character at a time.
+    /// Before the end of the run, only a `<` can follow it, since the next
+    /// character is an operator one.
     pub(in crate::swift) fn rx_declarations_function(&mut self, p: usize) -> Option<usize> {
         let kw = self.keyword(p, b"func")?;
         self.cap(1, p, kw);
@@ -408,7 +412,8 @@ impl Lexer<'_> {
     /// :\s*(?!\s)
     /// ```
     ///
-    /// `\s*` takes every blank, so `(?!\s)` holds where it stops.
+    /// `\s*` takes every blank.
+    /// `(?!\s)` therefore holds where it stops.
     pub(in crate::swift) fn rx_declarations_parameter_list_at_2(
         &mut self,
         p: usize,

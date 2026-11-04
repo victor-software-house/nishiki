@@ -1736,9 +1736,10 @@ impl Lexer<'_> {
 }
 
 impl Lexer<'_> {
-    /// `\b` and then one of `list`, which is sorted, as the whole word.
-    /// Every word of a list is a run of word characters, so the word that
-    /// ends at a `\b` is the whole run.
+    /// `\b` and then one of `list`, as the whole word.
+    /// `list` is sorted.
+    /// Every word of a list is a run of word characters.
+    /// The word that ends at a `\b` is therefore the whole run.
     fn listed(&self, p: usize, list: &[&[u8]]) -> Option<usize> {
         if !self.boundary(p) {
             return None;
