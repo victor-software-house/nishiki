@@ -148,3 +148,25 @@ fn a_line_of_strikethroughs_spends_work_linear_in_its_length() {
         "spent {short} steps at 1,000 units and {long} at 2,000"
     );
 }
+
+/// The steps an emphasis look-ahead takes before it uses its memo.
+/// It is `PLAIN_STEPS` in `src/markdown/stops.rs`.
+const LOOK_AHEAD_PLAIN_STEPS: u32 = 128;
+
+/// The steps a line's last look-aheads miss.
+/// Look-aheads near the line's end take fewer plain steps than the rest.
+/// That shortfall is a fixed term per line, below the plain steps squared.
+const NEAR_END_SHORTFALL: u32 = LOOK_AHEAD_PLAIN_STEPS * LOOK_AHEAD_PLAIN_STEPS;
+
+/// A line of italic openers that never close spends work linear in its length.
+/// Doubling the line doubles the steps, less the fixed near-end shortfall.
+/// An opener that looks ahead to the end of the line from each `*` fails here.
+#[test]
+fn a_line_of_italic_openers_spends_work_linear_in_its_length() {
+    let short = steps_spent(Language::Markdown, &"*a ".repeat(1_000));
+    let long = steps_spent(Language::Markdown, &"*a ".repeat(2_000));
+    assert!(
+        long <= 2 * short + NEAR_END_SHORTFALL,
+        "spent {short} steps at 1,000 units and {long} at 2,000"
+    );
+}

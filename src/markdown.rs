@@ -81,6 +81,7 @@ mod rules;
 mod runs;
 mod scope;
 mod state;
+mod stops;
 mod text;
 
 pub(crate) use lexer::Scratch;

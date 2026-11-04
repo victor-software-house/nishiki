@@ -12,6 +12,8 @@
 //! When the first run of a length fails strikethrough's check, no run of that
 //! length closes.
 
+use super::stops::{Kind, Step, Stops};
+
 /// A delimiter whose runs open and close a span.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Delim {
@@ -90,6 +92,7 @@ impl Run {
 /// A span first scans ahead for a counting run as long as its widest opening.
 /// That scan is exact, and it costs only the bytes up to the closing run.
 /// A delimiter's table is built the first time such a scan misses on a line.
+/// The box also holds emphasis's memo of stops.
 ///
 /// The tables are boxed and allocated on the first miss.
 /// A highlighter that never needs them keeps an 8-byte field and allocates
@@ -99,11 +102,13 @@ pub(crate) struct Runs {
     held: Option<Box<Held>>,
 }
 
-/// Each delimiter's table and the line it describes.
+/// Each delimiter's table and the line it describes, and emphasis's memo of
+/// stops.
 #[derive(Debug, Default)]
 struct Held {
     backtick: Built,
     tilde: Built,
+    stops: Stops,
 }
 
 /// One delimiter's table and the line it describes.
@@ -126,12 +131,33 @@ impl Held {
 }
 
 impl Runs {
-    /// Forgets the runs of the last line.
+    /// Forgets the runs and the stops of the last line.
     pub(crate) fn reset(&mut self) {
         if let Some(held) = &mut self.held {
             held.backtick.line = None;
             held.tilde.line = None;
+            held.stops.forget();
         }
+    }
+
+    /// Where a long emphasis look-ahead that `step` takes stops, from `start`.
+    /// The memo of stops shares the tables' box, so one reset forgets both.
+    /// The memo leaves the box during the walk.
+    /// `step` then gets the runs, for the code spans it steps over.
+    /// None means the line ran out of work.
+    #[cold]
+    #[inline(never)]
+    pub(crate) fn walk_long(
+        &mut self,
+        text: (usize, usize, usize),
+        kind: Kind,
+        start: usize,
+        mut step: impl FnMut(&mut Runs, usize) -> Step,
+    ) -> Option<usize> {
+        let mut stops = std::mem::take(&mut self.held.get_or_insert_with(Box::default).stops);
+        let found = stops.walk(text, kind, start, |q| step(self, q));
+        self.held.get_or_insert_with(Box::default).stops = stops;
+        found
     }
 
     /// The span that opens at `open`.

@@ -8,6 +8,7 @@
 use super::caps::Caps;
 use super::limits::{MAX_BRACKET_DEPTH, MAX_PAREN_DEPTH};
 use super::runs::{Closer, Delim, Open, Runs, Span};
+use super::stops::{Kind, PLAIN_STEPS, Step};
 use super::text::Cx;
 
 /// `&(?!([0-9A-Za-z]+|#[0-9]+|#x\h+);)`: an `&` that starts no entity.
@@ -104,6 +105,8 @@ fn delimiter(cx: &Cx<'_>, p: usize, emphasis: Emphasis) -> Option<(u8, usize)> {
 /// The grammar looks ahead over everything that cannot close the span: tags,
 /// code spans, escapes and links count as units, and anything else is one
 /// character, except that italic skips a doubled delimiter whole.
+/// A look-ahead past [`PLAIN_STEPS`] steps goes through the line's memo of
+/// stops.
 pub(crate) fn emphasis_open(
     cx: &Cx<'_>,
     runs: &mut Runs,
@@ -111,26 +114,42 @@ pub(crate) fn emphasis_open(
     emphasis: Emphasis,
     caps: &mut Caps,
 ) -> Option<usize> {
+    emphasis_open_after(cx, runs, p, emphasis, caps, PLAIN_STEPS)
+}
+
+/// [`emphasis_open`], with the memo taking over after `plain_steps` steps.
+/// Tests pass a small number, so that short lines reach the memo.
+fn emphasis_open_after(
+    cx: &Cx<'_>,
+    runs: &mut Runs,
+    p: usize,
+    emphasis: Emphasis,
+    caps: &mut Caps,
+    plain_steps: usize,
+) -> Option<usize> {
     let (mark, len) = delimiter(cx, p, emphasis)?;
     let start = p + len;
     if !cx.non_space_at(start) {
         return None;
     }
     let mut q = start;
-    let mut atoms = 0;
-    loop {
-        let before = q;
-        q = emphasis_atom(cx, runs, q, mark, len, emphasis).unwrap_or(q);
-        if q == before {
-            break;
+    let mut taken = 0;
+    let q = loop {
+        let next = emphasis_atom(cx, runs, q, mark, len, emphasis).unwrap_or(q);
+        if next == q {
+            break q;
         }
-        atoms += 1;
-        cx.spend(q - before);
+        cx.spend(next - q);
         if cx.over() {
             return None;
         }
-    }
-    let closes = atoms > 0
+        q = next;
+        taken += 1;
+        if taken == plain_steps {
+            break long_look_ahead(cx, runs, q, mark, len, emphasis)?;
+        }
+    };
+    let closes = q > start
         && cx.non_space_before(q)
         && (0..len).all(|k| cx.get(q + k) == Some(mark))
         && (mark == b'*' || !cx.word_at(q + len));
@@ -141,8 +160,44 @@ pub(crate) fn emphasis_open(
     Some(start)
 }
 
+/// The rest of a long look-ahead from `q`, through the line's memo of stops.
+/// None means the line ran out of work.
+fn long_look_ahead(
+    cx: &Cx<'_>,
+    runs: &mut Runs,
+    q: usize,
+    mark: u8,
+    len: usize,
+    emphasis: Emphasis,
+) -> Option<usize> {
+    let kind = match (emphasis, mark) {
+        (Emphasis::Bold, b'*') => Kind::BoldStar,
+        (Emphasis::Bold, _) => Kind::BoldUnderscore,
+        (Emphasis::Italic, b'*') => Kind::ItalicStar,
+        (Emphasis::Italic, _) => Kind::ItalicUnderscore,
+    };
+    let text = (cx.line.as_ptr().addr(), cx.line.len(), cx.end);
+    runs.walk_long(text, kind, q, |runs, at| {
+        let next = emphasis_atom(cx, runs, at, mark, len, emphasis).unwrap_or(at);
+        if next == at {
+            return Step::Stop;
+        }
+        cx.spend(next - at);
+        if cx.over() {
+            Step::GiveUp
+        } else {
+            Step::Next(next)
+        }
+    })
+}
+
 /// One step of the look-ahead: the end of the unit at `q`, or none when the
 /// look-ahead stops there.
+#[expect(
+    clippy::inline_always,
+    reason = "measured at one codegen unit: called from the plain loop and the memo's walk, it stopped being inlined, at a call per step"
+)]
+#[inline(always)]
 fn emphasis_atom(
     cx: &Cx<'_>,
     runs: &mut Runs,
@@ -746,6 +801,108 @@ pub(crate) fn link_reference_shortcut(cx: &Cx<'_>, p: usize, caps: &mut Caps) ->
             b'\\' if matches!(cx.get(i + 1), Some(b'[' | b']')) => i += 2,
             b']' | b'[' | b'\\' => return None,
             _ => i += 1,
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{Emphasis, emphasis_atom, emphasis_open_after};
+    use crate::limits::{Limits, Steps};
+    use crate::markdown::caps::Caps;
+    use crate::markdown::runs::Runs;
+    use crate::markdown::text::Cx;
+
+    /// The opening delimiter's end at `p`, found by the walk without a memo.
+    fn walked(cx: &Cx<'_>, runs: &mut Runs, p: usize, emphasis: Emphasis) -> Option<usize> {
+        let (mark, len) = super::delimiter(cx, p, emphasis)?;
+        let start = p + len;
+        if !cx.non_space_at(start) {
+            return None;
+        }
+        let mut q = start;
+        while let Some(next) = emphasis_atom(cx, runs, q, mark, len, emphasis) {
+            if next == q {
+                break;
+            }
+            q = next;
+        }
+        let closes = q > start
+            && cx.non_space_before(q)
+            && (0..len).all(|k| cx.get(q + k) == Some(mark))
+            && (mark == b'*' || !cx.word_at(q + len));
+        closes.then_some(start)
+    }
+
+    /// The plain steps the memo test takes, few enough that six-byte lines
+    /// reach the memo.
+    const SHORT_PLAIN_STEPS: usize = 2;
+
+    /// The memo gives the answer the walk without it gives.
+    /// The test covers every line of up to six of `*_a \` and a backtick.
+    /// It tries each position, each end of the text, and bold and italic.
+    /// It uses a fresh memo, and one that the line's earlier openers filled.
+    #[test]
+    fn the_memo_opens_emphasis_where_the_walk_does() {
+        let alphabet = b"*_a `\\";
+        let mut lines = vec![Vec::new()];
+        let mut last = vec![Vec::new()];
+        for _ in 0..6 {
+            last = last
+                .iter()
+                .flat_map(|line: &Vec<u8>| {
+                    alphabet.iter().map(move |&b| {
+                        let mut longer = line.clone();
+                        longer.push(b);
+                        longer
+                    })
+                })
+                .collect();
+            lines.extend(last.iter().cloned());
+        }
+        let mut runs = Runs::default();
+        let mut fresh = Runs::default();
+        let mut kept = Runs::default();
+        for line in &lines {
+            let steps = Steps::new(&Limits::default(), line.len());
+            kept.reset();
+            for end in 1..=line.len() + 1 {
+                for p in 0..line.len().min(end) {
+                    for emphasis in [Emphasis::Bold, Emphasis::Italic] {
+                        let cx = Cx {
+                            line,
+                            end,
+                            anchor: None,
+                            steps: &steps,
+                        };
+                        let expected = walked(&cx, &mut runs, p, emphasis);
+                        let case = format!(
+                            "{:?} at {p}, ending at {end}, {emphasis:?}",
+                            String::from_utf8_lossy(line)
+                        );
+                        fresh.reset();
+                        let mut caps = Caps::new();
+                        let first = emphasis_open_after(
+                            &cx,
+                            &mut fresh,
+                            p,
+                            emphasis,
+                            &mut caps,
+                            SHORT_PLAIN_STEPS,
+                        );
+                        assert_eq!(first, expected, "fresh memo, {case}");
+                        let again = emphasis_open_after(
+                            &cx,
+                            &mut kept,
+                            p,
+                            emphasis,
+                            &mut caps,
+                            SHORT_PLAIN_STEPS,
+                        );
+                        assert_eq!(again, expected, "kept memo, {case}");
+                    }
+                }
+            }
         }
     }
 }
