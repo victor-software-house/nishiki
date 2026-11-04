@@ -123,6 +123,48 @@ fn the_scope_tables_are_sorted() {
     assert_sorted("src/scope.rs's tables", &tables);
 }
 
+/// Markdown's fence languages, in `EMBEDDED`, are sorted by variant.
+#[test]
+fn the_markdown_embedded_languages_are_sorted() {
+    let text = read("src/markdown/rules.rs");
+    let languages: Vec<String> = block(&text, "const EMBEDDED: &[(Language, &[S])] = &[", "];")
+        .into_iter()
+        .filter(|line| line.trim_start().starts_with("(Language::"))
+        .map(|line| between(line, "Language::", ",").to_ascii_lowercase())
+        .collect();
+    assert_sorted("src/markdown/rules.rs's EMBEDDED", &languages);
+}
+
+/// Markdown's fence scopes are sorted by name.
+/// Front matter's scope is not a fence's, and C++'s `SourceCpp` follows its
+/// fence scope.
+#[test]
+fn the_markdown_embedded_scopes_are_sorted() {
+    let text = read("src/markdown/scope.rs");
+    let scopes: Vec<String> = text
+        .lines()
+        .filter(|line| {
+            line.starts_with("    Embedded") && !line.starts_with("    EmbeddedFrontMatter")
+        })
+        .filter_map(|line| line.split_whitespace().next())
+        .map(str::to_ascii_lowercase)
+        .collect();
+    assert_sorted("src/markdown/scope.rs's fence scopes", &scopes);
+}
+
+/// THIRD-PARTY-NOTICES.md has one section per language, sorted by heading.
+/// `C\#` escapes its `#`, so the escape is not part of the key.
+#[test]
+fn the_third_party_notices_are_sorted() {
+    let text = read("THIRD-PARTY-NOTICES.md");
+    let headings: Vec<String> = text
+        .lines()
+        .filter_map(|line| line.strip_prefix("## "))
+        .map(|heading| heading.replace('\\', "").to_lowercase())
+        .collect();
+    assert_sorted("THIRD-PARTY-NOTICES.md's sections", &headings);
+}
+
 #[test]
 fn the_scratch_fields_are_sorted() {
     let text = read("src/scratch.rs");
@@ -156,15 +198,37 @@ fn the_oracle_inputs_are_sorted() {
     assert_sorted("oracle/inputs.ts's inputs", &keys);
 }
 
+/// Every fixture row sits in the one fixture table, and a blank line ends it.
+/// A row outside the table escapes this sort check, and GitHub renders it as
+/// part of a paragraph or of the next table.
 #[test]
 fn the_oracle_sources_are_sorted() {
     let text = read("tests/oracle/SOURCES.md");
-    let fixtures: Vec<(&str, &str)> = text
-        .lines()
-        .skip_while(|line| !line.starts_with("| Fixture |"))
-        .skip(2)
+    let after_header = || {
+        text.lines()
+            .skip_while(|line| !line.starts_with("| Fixture |"))
+            .skip(2)
+    };
+    let table: Vec<&str> = after_header()
         .take_while(|line| line.starts_with('|'))
-        .map(|row| {
+        .collect();
+    assert_eq!(
+        after_header().nth(table.len()),
+        Some(""),
+        "tests/oracle/SOURCES.md's fixture table needs a blank line after it"
+    );
+    let rows = text
+        .lines()
+        .filter(|line| line.starts_with("| `") && !line.starts_with("| `themes/"))
+        .count();
+    assert_eq!(
+        rows,
+        table.len(),
+        "tests/oracle/SOURCES.md has fixture rows outside its fixture table"
+    );
+    let fixtures: Vec<(&str, &str)> = table
+        .iter()
+        .map(|&row| {
             let fixture = between(row, "`", "`");
             fixture.split_once('/').expect("a language and a name")
         })

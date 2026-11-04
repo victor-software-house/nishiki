@@ -475,98 +475,109 @@ pub(crate) fn names(kind: Kind) -> &'static [S] {
     }
 }
 
-/// The scopes each embedded language's fence adds to its text.
+/// The scopes each embedded language's fence adds to its text, sorted by
+/// language.
 /// Each adds one, except C++, whose `contentName` also names `source.cpp`.
 /// Shiki's Markdown grammar has no rule that embeds TOML or GraphQL, so they
 /// have none.
 /// Neither has a language whose feature is off.
 const EMBEDDED: &[(Language, &[S])] = &[
-    #[cfg(feature = "lang-rust")]
-    (Language::Rust, &[S::EmbeddedRust]),
-    #[cfg(feature = "lang-typescript")]
-    (Language::TypeScript, &[S::EmbeddedTypeScript]),
+    #[cfg(feature = "lang-bat")]
+    (Language::Bat, &[S::EmbeddedDosbatch]),
+    #[cfg(feature = "lang-c")]
+    (Language::C, &[S::EmbeddedC]),
+    #[cfg(feature = "lang-coffee")]
+    (Language::CoffeeScript, &[S::EmbeddedCoffee]),
+    #[cfg(feature = "lang-cpp")]
+    (Language::Cpp, &[S::EmbeddedCpp, S::SourceCpp]),
+    #[cfg(feature = "lang-csharp")]
+    (Language::CSharp, &[S::EmbeddedCsharp]),
+    #[cfg(feature = "lang-css")]
+    (Language::Css, &[S::EmbeddedCss]),
+    #[cfg(feature = "lang-dart")]
+    (Language::Dart, &[S::EmbeddedDart]),
+    #[cfg(feature = "lang-diff")]
+    (Language::Diff, &[S::EmbeddedDiff]),
+    #[cfg(feature = "lang-dockerfile")]
+    (Language::Dockerfile, &[S::EmbeddedDockerfile]),
+    #[cfg(feature = "lang-go")]
+    (Language::Go, &[S::EmbeddedGo]),
+    #[cfg(feature = "lang-html")]
+    (Language::Html, &[S::EmbeddedHtml]),
+    #[cfg(feature = "lang-ini")]
+    (Language::Ini, &[S::EmbeddedIni]),
+    #[cfg(feature = "lang-java")]
+    (Language::Java, &[S::EmbeddedJava]),
     #[cfg(feature = "lang-javascript")]
     (Language::JavaScript, &[S::EmbeddedJavascript]),
-    #[cfg(feature = "lang-jsx")]
-    (Language::Jsx, &[S::EmbeddedJavascript]),
-    #[cfg(feature = "lang-tsx")]
-    (Language::Tsx, &[S::EmbeddedTypescriptreact]),
-    (Language::Markdown, &[S::EmbeddedMarkdown]),
-    #[cfg(feature = "lang-shell")]
-    (Language::Shell, &[S::EmbeddedShell]),
     #[cfg(feature = "lang-json")]
     (Language::Json, &[S::EmbeddedJson]),
     #[cfg(feature = "lang-json")]
     (Language::Jsonc, &[S::EmbeddedJsonc]),
     #[cfg(feature = "lang-json")]
     (Language::Jsonl, &[S::EmbeddedJsonl]),
-    #[cfg(feature = "lang-python")]
-    (Language::Python, &[S::EmbeddedPython]),
-    #[cfg(feature = "lang-yaml")]
-    (Language::Yaml, &[S::EmbeddedYaml]),
-    #[cfg(feature = "lang-make")]
-    (Language::Make, &[S::EmbeddedMake]),
-    #[cfg(feature = "lang-diff")]
-    (Language::Diff, &[S::EmbeddedDiff]),
-    #[cfg(feature = "lang-dockerfile")]
-    (Language::Dockerfile, &[S::EmbeddedDockerfile]),
-    #[cfg(feature = "lang-java")]
-    (Language::Java, &[S::EmbeddedJava]),
-    #[cfg(feature = "lang-c")]
-    (Language::C, &[S::EmbeddedC]),
-    #[cfg(feature = "lang-cpp")]
-    (Language::Cpp, &[S::EmbeddedCpp, S::SourceCpp]),
-    #[cfg(feature = "lang-sql")]
-    (Language::Sql, &[S::EmbeddedSql]),
-    #[cfg(feature = "lang-ini")]
-    (Language::Ini, &[S::EmbeddedIni]),
-    #[cfg(feature = "lang-css")]
-    (Language::Css, &[S::EmbeddedCss]),
-    #[cfg(feature = "lang-go")]
-    (Language::Go, &[S::EmbeddedGo]),
-    #[cfg(feature = "lang-ruby")]
-    (Language::Ruby, &[S::EmbeddedRuby]),
-    #[cfg(feature = "lang-csharp")]
-    (Language::CSharp, &[S::EmbeddedCsharp]),
-    #[cfg(feature = "lang-xml")]
-    (Language::Xml, &[S::EmbeddedXml]),
-    #[cfg(feature = "lang-swift")]
-    (Language::Swift, &[S::EmbeddedSwift]),
-    #[cfg(feature = "lang-powershell")]
-    (Language::PowerShell, &[S::EmbeddedPowershell]),
-    #[cfg(feature = "lang-scala")]
-    (Language::Scala, &[S::EmbeddedScala]),
-    #[cfg(feature = "lang-html")]
-    (Language::Html, &[S::EmbeddedHtml]),
-    #[cfg(feature = "lang-lua")]
-    (Language::Lua, &[S::EmbeddedLua]),
-    #[cfg(feature = "lang-dart")]
-    (Language::Dart, &[S::EmbeddedDart]),
+    #[cfg(feature = "lang-jsx")]
+    (Language::Jsx, &[S::EmbeddedJavascript]),
     #[cfg(feature = "lang-julia")]
     (Language::Julia, &[S::EmbeddedJulia]),
-    #[cfg(feature = "lang-scss")]
-    (Language::Scss, &[S::EmbeddedScss]),
     #[cfg(feature = "lang-less")]
     (Language::Less, &[S::EmbeddedLess]),
-    #[cfg(feature = "lang-bat")]
-    (Language::Bat, &[S::EmbeddedDosbatch]),
-    #[cfg(feature = "lang-coffee")]
-    (Language::CoffeeScript, &[S::EmbeddedCoffee]),
-    #[cfg(feature = "lang-php")]
-    (Language::Php, &[S::EmbeddedPhp]),
+    #[cfg(feature = "lang-lua")]
+    (Language::Lua, &[S::EmbeddedLua]),
+    #[cfg(feature = "lang-make")]
+    (Language::Make, &[S::EmbeddedMake]),
+    (Language::Markdown, &[S::EmbeddedMarkdown]),
     #[cfg(feature = "lang-objective-c")]
     (Language::ObjectiveC, &[S::EmbeddedObjc]),
     #[cfg(feature = "lang-perl")]
     (Language::Perl, &[S::EmbeddedPerl]),
+    #[cfg(feature = "lang-php")]
+    (Language::Php, &[S::EmbeddedPhp]),
+    #[cfg(feature = "lang-powershell")]
+    (Language::PowerShell, &[S::EmbeddedPowershell]),
+    #[cfg(feature = "lang-python")]
+    (Language::Python, &[S::EmbeddedPython]),
+    #[cfg(feature = "lang-ruby")]
+    (Language::Ruby, &[S::EmbeddedRuby]),
+    #[cfg(feature = "lang-rust")]
+    (Language::Rust, &[S::EmbeddedRust]),
+    #[cfg(feature = "lang-scala")]
+    (Language::Scala, &[S::EmbeddedScala]),
+    #[cfg(feature = "lang-scss")]
+    (Language::Scss, &[S::EmbeddedScss]),
+    #[cfg(feature = "lang-shell")]
+    (Language::Shell, &[S::EmbeddedShell]),
+    #[cfg(feature = "lang-sql")]
+    (Language::Sql, &[S::EmbeddedSql]),
+    #[cfg(feature = "lang-swift")]
+    (Language::Swift, &[S::EmbeddedSwift]),
+    #[cfg(feature = "lang-tsx")]
+    (Language::Tsx, &[S::EmbeddedTypescriptreact]),
+    #[cfg(feature = "lang-typescript")]
+    (Language::TypeScript, &[S::EmbeddedTypeScript]),
+    #[cfg(feature = "lang-xml")]
+    (Language::Xml, &[S::EmbeddedXml]),
+    #[cfg(feature = "lang-yaml")]
+    (Language::Yaml, &[S::EmbeddedYaml]),
 ];
+
+/// The scopes of [`EMBEDDED`], at each language's [`Language::index`].
+/// A language without a row gets none.
+const BY_LANGUAGE: [&[S]; Language::ALL.len()] = {
+    let mut table: [&[S]; Language::ALL.len()] = [&[]; Language::ALL.len()];
+    let mut row = 0;
+    while row < EMBEDDED.len() {
+        let (language, scopes) = EMBEDDED[row];
+        table[language.index()] = scopes;
+        row += 1;
+    }
+    table
+};
 
 /// The scopes a container adds to the text between its opening and closing.
 pub(crate) fn content_name(kind: Kind) -> &'static [S] {
     match kind {
-        Kind::Body(language) => EMBEDDED
-            .iter()
-            .find_map(|&(embedded, scopes)| (embedded == language).then_some(scopes))
-            .unwrap_or_default(),
+        Kind::Body(language) => BY_LANGUAGE[language.index()],
         #[cfg(feature = "lang-html")]
         Kind::BodyPhp => &[S::EmbeddedPhp],
         #[cfg(feature = "lang-html")]

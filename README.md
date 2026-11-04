@@ -48,62 +48,63 @@ The API docs are on [docs.rs](https://docs.rs/nishiki):
 ## Languages
 
 Each language is a cargo feature.
-All are on by default except the `textmate` tier: Zig, CMake, Protobuf, Batch, Nix, Julia, Mermaid, Haskell, HAML, Sass, CoffeeScript, PHP, Objective-C and Perl.
+The Tier column names the tier that turns each one on.
+The `all` tier is on by default, and the `textmate` tier is opt-in.
 
-| Language | Variant | Feature | Names `Language::from_name` takes |
-|:--|:--|:--|:--|
-| Batch | `Language::Bat` | `lang-bat` | `bat`, `batch`, `cmd` |
-| C | `Language::C` | `lang-c` | `c` |
-| CMake | `Language::CMake` | `lang-cmake` | `cmake` |
-| CoffeeScript | `Language::CoffeeScript` | `lang-coffee` | `coffee`, `coffeescript` |
-| C++ | `Language::Cpp` | `lang-cpp` | `cpp`, `c++` |
-| C# | `Language::CSharp` | `lang-csharp` | `csharp`, `c#`, `cs` |
-| CSS | `Language::Css` | `lang-css` | `css` |
-| Dart | `Language::Dart` | `lang-dart` | `dart` |
-| Diff | `Language::Diff` | `lang-diff` | `diff` |
-| Dockerfile | `Language::Dockerfile` | `lang-dockerfile` | `docker`, `dockerfile` |
-| ERB | `Language::Erb` | `lang-erb` | `erb` |
-| Go | `Language::Go` | `lang-go` | `go`, `golang` |
-| GraphQL | `Language::GraphQl` | `lang-graphql` | `graphql`, `gql` |
-| HAML | `Language::Haml` | `lang-haml` | `haml` |
-| Haskell | `Language::Haskell` | `lang-haskell` | `haskell`, `hs` |
-| HTML | `Language::Html` | `lang-html` | `html` |
-| HTML (Derivative) | `Language::HtmlDerivative` | `lang-html-derivative` | `html-derivative` |
-| INI | `Language::Ini` | `lang-ini` | `ini`, `properties` |
-| Java | `Language::Java` | `lang-java` | `java` |
-| JavaScript | `Language::JavaScript` | `lang-javascript` | `javascript`, `js`, `cjs`, `mjs` |
-| JSON | `Language::Json` | `lang-json` | `json` |
-| JSON with comments | `Language::Jsonc` | `lang-json` | `jsonc` |
-| JSON Lines | `Language::Jsonl` | `lang-json` | `jsonl` |
-| JSX | `Language::Jsx` | `lang-jsx` | `jsx` |
-| Julia | `Language::Julia` | `lang-julia` | `julia`, `jl` |
-| Kotlin | `Language::Kotlin` | `lang-kotlin` | `kotlin`, `kt`, `kts` |
-| Less | `Language::Less` | `lang-less` | `less` |
-| Lua | `Language::Lua` | `lang-lua` | `lua` |
-| Makefile | `Language::Make` | `lang-make` | `make`, `makefile` |
-| Markdown | `Language::Markdown` | `lang-markdown` | `markdown`, `md` |
-| Mermaid | `Language::Mermaid` | `lang-mermaid` | `mermaid`, `mmd` |
-| Nix | `Language::Nix` | `lang-nix` | `nix` |
-| Objective-C | `Language::ObjectiveC` | `lang-objective-c` | `objective-c`, `objc` |
-| Perl | `Language::Perl` | `lang-perl` | `perl` |
-| PHP | `Language::Php` | `lang-php` | `php` |
-| PowerShell | `Language::PowerShell` | `lang-powershell` | `powershell`, `ps`, `ps1`, `pwsh` |
-| Protobuf | `Language::Proto` | `lang-proto` | `proto`, `protobuf` |
-| Python | `Language::Python` | `lang-python` | `python`, `py` |
-| Ruby | `Language::Ruby` | `lang-ruby` | `ruby`, `rb` |
-| Rust | `Language::Rust` | `lang-rust` | `rust`, `rs` |
-| Sass | `Language::Sass` | `lang-sass` | `sass` |
-| Scala | `Language::Scala` | `lang-scala` | `scala` |
-| SCSS | `Language::Scss` | `lang-scss` | `scss` |
-| Shell | `Language::Shell` | `lang-shell` | `shellscript`, `bash`, `sh`, `shell`, `zsh` |
-| SQL | `Language::Sql` | `lang-sql` | `sql` |
-| Swift | `Language::Swift` | `lang-swift` | `swift` |
-| TOML | `Language::Toml` | `lang-toml` | `toml` |
-| TSX | `Language::Tsx` | `lang-tsx` | `tsx` |
-| TypeScript | `Language::TypeScript` | `lang-typescript` | `typescript`, `ts`, `cts`, `mts` |
-| XML | `Language::Xml` | `lang-xml` | `xml` |
-| YAML | `Language::Yaml` | `lang-yaml` | `yaml`, `yml` |
-| Zig | `Language::Zig` | `lang-zig` | `zig` |
+| Language | Variant | Feature | Tier | Names `Language::from_name` takes |
+|:--|:--|:--|:--|:--|
+| Batch | `Language::Bat` | `lang-bat` | `textmate` | `bat`, `batch`, `cmd` |
+| C | `Language::C` | `lang-c` | `all` | `c` |
+| CMake | `Language::CMake` | `lang-cmake` | `textmate` | `cmake` |
+| CoffeeScript | `Language::CoffeeScript` | `lang-coffee` | `textmate` | `coffee`, `coffeescript` |
+| C++ | `Language::Cpp` | `lang-cpp` | `all` | `cpp`, `c++` |
+| C# | `Language::CSharp` | `lang-csharp` | `all` | `csharp`, `c#`, `cs` |
+| CSS | `Language::Css` | `lang-css` | `all` | `css` |
+| Dart | `Language::Dart` | `lang-dart` | `all` | `dart` |
+| Diff | `Language::Diff` | `lang-diff` | `all` | `diff` |
+| Dockerfile | `Language::Dockerfile` | `lang-dockerfile` | `all` | `docker`, `dockerfile` |
+| ERB | `Language::Erb` | `lang-erb` | `all` | `erb` |
+| Go | `Language::Go` | `lang-go` | `all` | `go`, `golang` |
+| GraphQL | `Language::GraphQl` | `lang-graphql` | `all` | `graphql`, `gql` |
+| HAML | `Language::Haml` | `lang-haml` | `textmate` | `haml` |
+| Haskell | `Language::Haskell` | `lang-haskell` | `textmate` | `haskell`, `hs` |
+| HTML | `Language::Html` | `lang-html` | `all` | `html` |
+| HTML (Derivative) | `Language::HtmlDerivative` | `lang-html-derivative` | `all` | `html-derivative` |
+| INI | `Language::Ini` | `lang-ini` | `all` | `ini`, `properties` |
+| Java | `Language::Java` | `lang-java` | `all` | `java` |
+| JavaScript | `Language::JavaScript` | `lang-javascript` | `all` | `javascript`, `js`, `cjs`, `mjs` |
+| JSON | `Language::Json` | `lang-json` | `all` | `json` |
+| JSON with comments | `Language::Jsonc` | `lang-json` | `all` | `jsonc` |
+| JSON Lines | `Language::Jsonl` | `lang-json` | `all` | `jsonl` |
+| JSX | `Language::Jsx` | `lang-jsx` | `all` | `jsx` |
+| Julia | `Language::Julia` | `lang-julia` | `textmate` | `julia`, `jl` |
+| Kotlin | `Language::Kotlin` | `lang-kotlin` | `all` | `kotlin`, `kt`, `kts` |
+| Less | `Language::Less` | `lang-less` | `all` | `less` |
+| Lua | `Language::Lua` | `lang-lua` | `all` | `lua` |
+| Makefile | `Language::Make` | `lang-make` | `all` | `make`, `makefile` |
+| Markdown | `Language::Markdown` | `lang-markdown` | `all` | `markdown`, `md` |
+| Mermaid | `Language::Mermaid` | `lang-mermaid` | `textmate` | `mermaid`, `mmd` |
+| Nix | `Language::Nix` | `lang-nix` | `textmate` | `nix` |
+| Objective-C | `Language::ObjectiveC` | `lang-objective-c` | `textmate` | `objective-c`, `objc` |
+| Perl | `Language::Perl` | `lang-perl` | `textmate` | `perl` |
+| PHP | `Language::Php` | `lang-php` | `textmate` | `php` |
+| PowerShell | `Language::PowerShell` | `lang-powershell` | `all` | `powershell`, `ps`, `ps1`, `pwsh` |
+| Protobuf | `Language::Proto` | `lang-proto` | `textmate` | `proto`, `protobuf` |
+| Python | `Language::Python` | `lang-python` | `all` | `python`, `py` |
+| Ruby | `Language::Ruby` | `lang-ruby` | `all` | `ruby`, `rb` |
+| Rust | `Language::Rust` | `lang-rust` | `all` | `rust`, `rs` |
+| Sass | `Language::Sass` | `lang-sass` | `textmate` | `sass` |
+| Scala | `Language::Scala` | `lang-scala` | `all` | `scala` |
+| SCSS | `Language::Scss` | `lang-scss` | `all` | `scss` |
+| Shell | `Language::Shell` | `lang-shell` | `all` | `shellscript`, `bash`, `sh`, `shell`, `zsh` |
+| SQL | `Language::Sql` | `lang-sql` | `all` | `sql` |
+| Swift | `Language::Swift` | `lang-swift` | `all` | `swift` |
+| TOML | `Language::Toml` | `lang-toml` | `all` | `toml` |
+| TSX | `Language::Tsx` | `lang-tsx` | `all` | `tsx` |
+| TypeScript | `Language::TypeScript` | `lang-typescript` | `all` | `typescript`, `ts`, `cts`, `mts` |
+| XML | `Language::Xml` | `lang-xml` | `all` | `xml` |
+| YAML | `Language::Yaml` | `lang-yaml` | `all` | `yaml`, `yml` |
+| Zig | `Language::Zig` | `lang-zig` | `textmate` | `zig` |
 
 ## Status
 

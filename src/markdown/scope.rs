@@ -27,83 +27,83 @@ crate::scope::scope_table! {
     FenceLang "fenced_code.block.language.markdown"
     FenceAttrs "fenced_code.block.language.attributes.markdown"
     FenceInfo "fenced_code.block.language"
-    #[cfg(feature = "lang-rust")]
-    EmbeddedRust "meta.embedded.block.rust"
-    #[cfg(feature = "lang-typescript")]
-    EmbeddedTypeScript "meta.embedded.block.typescript"
+    #[cfg(feature = "lang-c")]
+    EmbeddedC "meta.embedded.block.c"
+    #[cfg(feature = "lang-coffee")]
+    EmbeddedCoffee "meta.embedded.block.coffee"
+    #[cfg(feature = "lang-cpp")]
+    EmbeddedCpp "meta.embedded.block.cpp"
+    #[cfg(feature = "lang-cpp")]
+    SourceCpp "source.cpp"
+    #[cfg(feature = "lang-csharp")]
+    EmbeddedCsharp "meta.embedded.block.csharp"
+    #[cfg(feature = "lang-css")]
+    EmbeddedCss "meta.embedded.block.css"
+    #[cfg(feature = "lang-dart")]
+    EmbeddedDart "meta.embedded.block.dart"
+    #[cfg(feature = "lang-diff")]
+    EmbeddedDiff "meta.embedded.block.diff"
+    #[cfg(feature = "lang-dockerfile")]
+    EmbeddedDockerfile "meta.embedded.block.dockerfile"
+    #[cfg(feature = "lang-bat")]
+    EmbeddedDosbatch "meta.embedded.block.dosbatch"
+    #[cfg(feature = "lang-go")]
+    EmbeddedGo "meta.embedded.block.go"
+    #[cfg(feature = "lang-html")]
+    EmbeddedHtml "meta.embedded.block.html"
+    #[cfg(feature = "lang-ini")]
+    EmbeddedIni "meta.embedded.block.ini"
+    #[cfg(feature = "lang-java")]
+    EmbeddedJava "meta.embedded.block.java"
     #[cfg(any(feature = "lang-javascript", feature = "lang-jsx"))]
     EmbeddedJavascript "meta.embedded.block.javascript"
-    #[cfg(feature = "lang-tsx")]
-    EmbeddedTypescriptreact "meta.embedded.block.typescriptreact"
-    EmbeddedMarkdown "meta.embedded.block.markdown"
-    #[cfg(feature = "lang-shell")]
-    EmbeddedShell "meta.embedded.block.shellscript"
     #[cfg(feature = "lang-json")]
     EmbeddedJson "meta.embedded.block.json"
     #[cfg(feature = "lang-json")]
     EmbeddedJsonc "meta.embedded.block.jsonc"
     #[cfg(feature = "lang-json")]
     EmbeddedJsonl "meta.embedded.block.jsonl"
-    #[cfg(feature = "lang-python")]
-    EmbeddedPython "meta.embedded.block.python"
-    #[cfg(feature = "lang-yaml")]
-    EmbeddedYaml "meta.embedded.block.yaml"
-    #[cfg(feature = "lang-make")]
-    EmbeddedMake "meta.embedded.block.makefile"
-    #[cfg(feature = "lang-diff")]
-    EmbeddedDiff "meta.embedded.block.diff"
-    #[cfg(feature = "lang-dockerfile")]
-    EmbeddedDockerfile "meta.embedded.block.dockerfile"
-    #[cfg(feature = "lang-java")]
-    EmbeddedJava "meta.embedded.block.java"
-    #[cfg(feature = "lang-c")]
-    EmbeddedC "meta.embedded.block.c"
-    #[cfg(feature = "lang-cpp")]
-    EmbeddedCpp "meta.embedded.block.cpp"
-    #[cfg(feature = "lang-cpp")]
-    SourceCpp "source.cpp"
-    #[cfg(feature = "lang-sql")]
-    EmbeddedSql "meta.embedded.block.sql"
-    #[cfg(feature = "lang-ini")]
-    EmbeddedIni "meta.embedded.block.ini"
-    #[cfg(feature = "lang-css")]
-    EmbeddedCss "meta.embedded.block.css"
-    #[cfg(feature = "lang-go")]
-    EmbeddedGo "meta.embedded.block.go"
-    #[cfg(feature = "lang-ruby")]
-    EmbeddedRuby "meta.embedded.block.ruby"
-    #[cfg(feature = "lang-csharp")]
-    EmbeddedCsharp "meta.embedded.block.csharp"
-    #[cfg(feature = "lang-xml")]
-    EmbeddedXml "meta.embedded.block.xml"
-    #[cfg(feature = "lang-swift")]
-    EmbeddedSwift "meta.embedded.block.swift"
-    #[cfg(feature = "lang-powershell")]
-    EmbeddedPowershell "meta.embedded.block.powershell"
-    #[cfg(feature = "lang-scala")]
-    EmbeddedScala "meta.embedded.block.scala"
-    #[cfg(feature = "lang-html")]
-    EmbeddedHtml "meta.embedded.block.html"
-    #[cfg(feature = "lang-lua")]
-    EmbeddedLua "meta.embedded.block.lua"
-    #[cfg(feature = "lang-dart")]
-    EmbeddedDart "meta.embedded.block.dart"
     #[cfg(feature = "lang-julia")]
     EmbeddedJulia "meta.embedded.block.julia"
-    #[cfg(feature = "lang-scss")]
-    EmbeddedScss "meta.embedded.block.scss"
     #[cfg(feature = "lang-less")]
     EmbeddedLess "meta.embedded.block.less"
-    #[cfg(feature = "lang-bat")]
-    EmbeddedDosbatch "meta.embedded.block.dosbatch"
-    #[cfg(feature = "lang-html")]
-    EmbeddedPhp "meta.embedded.block.php"
-    #[cfg(feature = "lang-coffee")]
-    EmbeddedCoffee "meta.embedded.block.coffee"
+    #[cfg(feature = "lang-lua")]
+    EmbeddedLua "meta.embedded.block.lua"
+    #[cfg(feature = "lang-make")]
+    EmbeddedMake "meta.embedded.block.makefile"
+    EmbeddedMarkdown "meta.embedded.block.markdown"
     #[cfg(feature = "lang-objective-c")]
     EmbeddedObjc "meta.embedded.block.objc"
     #[cfg(feature = "lang-perl")]
     EmbeddedPerl "meta.embedded.block.perl"
+    #[cfg(feature = "lang-html")]
+    EmbeddedPhp "meta.embedded.block.php"
+    #[cfg(feature = "lang-powershell")]
+    EmbeddedPowershell "meta.embedded.block.powershell"
+    #[cfg(feature = "lang-python")]
+    EmbeddedPython "meta.embedded.block.python"
+    #[cfg(feature = "lang-ruby")]
+    EmbeddedRuby "meta.embedded.block.ruby"
+    #[cfg(feature = "lang-rust")]
+    EmbeddedRust "meta.embedded.block.rust"
+    #[cfg(feature = "lang-scala")]
+    EmbeddedScala "meta.embedded.block.scala"
+    #[cfg(feature = "lang-scss")]
+    EmbeddedScss "meta.embedded.block.scss"
+    #[cfg(feature = "lang-shell")]
+    EmbeddedShell "meta.embedded.block.shellscript"
+    #[cfg(feature = "lang-sql")]
+    EmbeddedSql "meta.embedded.block.sql"
+    #[cfg(feature = "lang-swift")]
+    EmbeddedSwift "meta.embedded.block.swift"
+    #[cfg(feature = "lang-typescript")]
+    EmbeddedTypeScript "meta.embedded.block.typescript"
+    #[cfg(feature = "lang-tsx")]
+    EmbeddedTypescriptreact "meta.embedded.block.typescriptreact"
+    #[cfg(feature = "lang-xml")]
+    EmbeddedXml "meta.embedded.block.xml"
+    #[cfg(feature = "lang-yaml")]
+    EmbeddedYaml "meta.embedded.block.yaml"
     EmbeddedFrontMatter "meta.embedded.block.frontmatter"
     FrontMatterBegin "punctuation.definition.begin.frontmatter"
     FrontMatterComment "comment.frontmatter"

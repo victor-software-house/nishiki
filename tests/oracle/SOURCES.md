@@ -7,6 +7,10 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 
 | Fixture | Source | Licence |
 |:--|:--|:--|
+| `bat/gradlew` | [`gradlew.bat`][gradlew-bat] in gradle/gradle | [Apache-2.0][gradle-licence] |
+| `bat/sample` | [`samples/bat.sample`][bat-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `bat/tomcat-catalina` | [`bin/catalina.bat`][tomcat-catalina-bat] in apache/tomcat | [Apache-2.0][tomcat-licence] |
+| `bat/tomcat-setclasspath` | [`bin/setclasspath.bat`][tomcat-setclasspath] in apache/tomcat | [Apache-2.0][tomcat-licence] |
 | `c/cjson` | [`cJSON.c`][cjson] in DaveGamble/cJSON | [MIT][cjson-licence] |
 | `c/coverage` | `oracle/inputs/c-coverage.c`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `c/jq-print` | [`src/jv_print.c`][jq-print] in jqlang/jq | [MIT][jq-licence] |
@@ -16,6 +20,17 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `c/lua-vm` | [`lvm.c`][lua-vm] in lua/lua | [MIT][lua-licence] |
 | `c/sample` | [`samples/c.sample`][c-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `c/zlib-inflate` | [`inflate.c`][zlib-inflate] in madler/zlib | [zlib][zlib-licence] |
+| `cmake/catch2-lists` | [`CMakeLists.txt`][catch2-cmake-lists] in catchorg/Catch2 | [BSL-1.0][catch2-licence] |
+| `cmake/googletest-utils` | [`googletest/cmake/internal_utils.cmake`][googletest-utils] in google/googletest | [BSD-3-Clause][googletest-licence] |
+| `cmake/json-lists` | [`CMakeLists.txt`][json-cmake-lists] in nlohmann/json | [MIT][nlohmann-json-licence] |
+| `cmake/sample` | [`samples/cmake.sample`][cmake-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `coffee/coffeescript-browser` | [`src/browser.coffee`][coffeescript-browser] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
+| `coffee/coffeescript-cake` | [`src/cake.coffee`][coffeescript-cake] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
+| `coffee/coffeescript-helpers` | [`src/helpers.coffee`][coffeescript-helpers] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
+| `coffee/coffeescript-javascript-literals` | [`test/javascript_literals.coffee`][coffeescript-javascript-literals] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
+| `coffee/coffeescript-optparse` | [`src/optparse.coffee`][coffeescript-optparse] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
+| `coffee/coffeescript-repl` | [`src/repl.coffee`][coffeescript-repl] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
+| `coffee/sample` | [`samples/coffee.sample`][coffee-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `cpp/absl-any-invocable` | [`absl/functional/internal/any_invocable.h`][absl-any-invocable] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
 | `cpp/absl-any-invocable-test` | [`absl/functional/any_invocable_test.h`][absl-any-invocable-test] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
 | `cpp/absl-check-op` | [`absl/log/internal/check_op.h`][absl-check-op] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
@@ -45,6 +60,33 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `cpp/rapidjson-reader` | [`include/rapidjson/reader.h`][rapidjson-reader] in Tencent/rapidjson | [MIT][rapidjson-licence] |
 | `cpp/sample` | [`samples/cpp.sample`][cpp-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `cpp/spdlog-logger` | [`include/spdlog/logger.h`][spdlog-logger] in gabime/spdlog | [MIT][spdlog-licence] |
+| `csharp/coverage` | `oracle/inputs/csharp-coverage.cs`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `csharp/docs-async-wpf` | [`MainWindow.xaml.cs`][csharp-docs-async-wpf] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-bitwise-shift` | [`BitwiseAndShiftOperators.cs`][csharp-docs-bitwise-shift] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-closed-hierarchy-patterns` | [`ClosedHierarchyPatterns.cs`][csharp-docs-closed-hierarchy-patterns] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-delegate-operator` | [`DelegateOperator.cs`][csharp-docs-delegate-operator] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-doc-comments` | [`DocComments.cs`][csharp-docs-doc-comments] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-events` | [`events.cs`][csharp-docs-events] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-exception-example` | [`ExampleClass.cs`][csharp-docs-exception-example] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-fixed` | [`FixedKeywordExamples.cs`][csharp-docs-fixed] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-generic-where` | [`GenericWhereConstraints.cs`][csharp-docs-generic-where] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-goto` | [`GotoStatement.cs`][csharp-docs-goto] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-group` | [`group.cs`][csharp-docs-group] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-keywords-contextual` | [`csrefKeywordsContextual.cs`][csharp-docs-keywords-contextual] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-keywords-modifiers` | [`csrefKeywordsModifiers.cs`][csharp-docs-keywords-modifiers] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-lock` | [`Program.cs`][csharp-docs-lock] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-raw-string-literal` | [`raw-string-literal.cs`][csharp-docs-raw-string-literal] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-record-type` | [`RecordType.cs`][csharp-docs-record-type] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-string-interpolation` | [`string-interpolation.cs`][csharp-docs-string-interpolation] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-union-body-members` | [`BodyMembers.cs`][csharp-docs-union-body-members] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-using-alias` | [`UsingAliasQualifier.cs`][csharp-docs-using-alias] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-value-tuples` | [`ValueTuples.cs`][csharp-docs-value-tuples] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/docs-var-pattern` | [`VarPattern.cs`][csharp-docs-var-pattern] in dotnet/docs | [MIT][dotnet-docs-licence] |
+| `csharp/newtonsoft-json-convert` | [`JsonConvert.cs`][newtonsoft-json-convert] in JamesNK/Newtonsoft.Json | [MIT][newtonsoft-licence] |
+| `csharp/roslyn-text-span` | [`TextSpan.cs`][roslyn-text-span] in dotnet/roslyn | [MIT][roslyn-licence] |
+| `csharp/runtime-linq-where` | [`Where.cs`][runtime-linq-where] in dotnet/runtime | [MIT][dotnet-runtime-licence] |
+| `csharp/runtime-stack` | [`Stack.cs`][runtime-stack] in dotnet/runtime | [MIT][dotnet-runtime-licence] |
+| `csharp/sample` | [`samples/csharp.sample`][csharp-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `css/charset-no-space` | `oracle/inputs/css-charset-no-space.css`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `css/charset-unclosed` | `oracle/inputs/css-charset-unclosed.css`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `css/charset-unquoted` | `oracle/inputs/css-charset-unquoted.css`, written for nishiki | MIT or Apache-2.0, as nishiki |
@@ -61,6 +103,11 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `css/normalize` | [`normalize.css`][normalize-css] in necolas/normalize.css | [MIT][normalize-licence] |
 | `css/sample` | [`samples/css.sample`][css-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `css/tailwind-preflight` | [`packages/tailwindcss/preflight.css`][tailwind-preflight] in tailwindlabs/tailwindcss | [MIT][tailwind-licence] |
+| `dart/collection-algorithms` | [`pkgs/collection/lib/src/algorithms.dart`][dart-collection-algorithms] in dart-lang/core | [BSD-3-Clause][dart-core-licence] |
+| `dart/coverage` | `oracle/inputs/dart-coverage.dart`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `dart/http-base-request` | [`pkgs/http/lib/src/base_request.dart`][dart-http-base-request] in dart-lang/http | [BSD-3-Clause][dart-http-licence] |
+| `dart/http-client` | [`pkgs/http/lib/src/client.dart`][dart-http-client] in dart-lang/http | [BSD-3-Clause][dart-http-licence] |
+| `dart/sample` | [`samples/dart.sample`][dart-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `diff/coverage` | `oracle/inputs/diff-coverage.diff`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `diff/cranelift-stdarch-sve` | [`compiler/rustc_codegen_cranelift/patches/0001-stdarch-Disable-SVE.patch`][cranelift-sve] in rust-lang/rust | [MIT or Apache-2.0][rust-licence] |
 | `diff/cranelift-stdlib-atomics` | [`compiler/rustc_codegen_cranelift/patches/0027-stdlib-128bit-atomic-operations.patch`][cranelift-atomics] in rust-lang/rust | [MIT or Apache-2.0][rust-licence] |
@@ -69,6 +116,105 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `diff/mir-opt-gvn-slices` | [`tests/mir-opt/gvn.slices.GVN.panic-abort.diff`][mir-slices] in rust-lang/rust | [MIT or Apache-2.0][rust-licence] |
 | `diff/sample` | [`samples/diff.sample`][diff-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `diff/vscode-foundry-local-sdk` | [`build/npm/patches/foundry-local-sdk.patch`][vscode-foundry] in microsoft/vscode | [MIT][vscode-licence] |
+| `docker/buildx` | [`Dockerfile`][buildx-docker] in docker/buildx | [Apache-2.0][buildx-licence] |
+| `docker/coverage` | `oracle/inputs/docker-coverage.dockerfile`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `docker/moby` | [`Dockerfile`][moby-docker] in moby/moby | [Apache-2.0][moby-licence] |
+| `docker/next-with-docker` | [`examples/with-docker/Dockerfile`][next-docker] in vercel/next.js | [MIT][next-licence] |
+| `docker/postgres-bookworm` | [`18/bookworm/Dockerfile`][postgres-docker] in docker-library/postgres | [MIT][postgres-docker-licence] |
+| `docker/prometheus` | [`Dockerfile`][prometheus-docker] in prometheus/prometheus | [Apache-2.0][prometheus-make-licence] |
+| `docker/python-slim-bookworm` | [`3.13/slim-bookworm/Dockerfile`][python-docker] in docker-library/python | [MIT][python-docker-licence] |
+| `docker/sample` | [`samples/docker.sample`][docker-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `erb/coverage` | `oracle/inputs/erb-coverage.erb`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `erb/devise-confirmation-instructions` | [`app/views/devise/mailer/confirmation_instructions.html.erb`][devise-confirmation-instructions] in heartcombo/devise | [MIT][devise-licence] |
+| `erb/devise-error-messages` | [`app/views/devise/shared/_error_messages.html.erb`][devise-error-messages] in heartcombo/devise | [MIT][devise-licence] |
+| `erb/devise-registrations-edit` | [`app/views/devise/registrations/edit.html.erb`][devise-registrations-edit] in heartcombo/devise | [MIT][devise-licence] |
+| `erb/devise-sessions-new` | [`app/views/devise/sessions/new.html.erb`][devise-sessions-new] in heartcombo/devise | [MIT][devise-licence] |
+| `erb/devise-shared-links` | [`app/views/devise/shared/_links.html.erb`][devise-shared-links] in heartcombo/devise | [MIT][devise-licence] |
+| `erb/rails-app-layout` | [`railties/lib/rails/generators/rails/app/templates/app/views/layouts/application.html.erb.tt`][rails-app-layout] in rails/rails | [MIT][railties-licence] |
+| `erb/rails-info-notes` | [`railties/lib/rails/templates/rails/info/notes.html.erb`][rails-info-notes] in rails/rails | [MIT][railties-licence] |
+| `erb/rails-mailer-email` | [`railties/lib/rails/templates/rails/mailers/email.html.erb`][rails-mailer-email] in rails/rails | [MIT][railties-licence] |
+| `erb/rails-pwa-offline` | [`railties/lib/rails/generators/rails/app/templates/app/views/pwa/offline.html.erb`][rails-pwa-offline] in rails/rails | [MIT][railties-licence] |
+| `erb/rails-rescues-diagnostics` | [`actionpack/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb`][rails-rescues-diagnostics] in rails/rails | [MIT][actionpack-licence] |
+| `erb/rails-rescues-source` | [`actionpack/lib/action_dispatch/middleware/templates/rescues/_source.html.erb`][rails-rescues-source] in rails/rails | [MIT][actionpack-licence] |
+| `erb/rails-routes-table` | [`actionpack/lib/action_dispatch/middleware/templates/routes/_table.html.erb`][rails-routes-table] in rails/rails | [MIT][actionpack-licence] |
+| `erb/rails-scaffold-form` | [`railties/lib/rails/generators/erb/scaffold/templates/_form.html.erb.tt`][rails-scaffold-form] in rails/rails | [MIT][railties-licence] |
+| `erb/rails-welcome` | [`railties/lib/rails/templates/rails/welcome/index.html.erb`][rails-welcome] in rails/rails | [MIT][railties-licence] |
+| `erb/sample` | [`samples/erb.sample`][erb-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `go/cobra-command` | [`command.go`][cobra-command] in spf13/cobra | [Apache-2.0][cobra-licence] |
+| `go/coverage` | `oracle/inputs/go-coverage.go`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `go/gin-context` | [`context.go`][gin-context] in gin-gonic/gin | [MIT][gin-licence] |
+| `go/go-json-decode` | [`src/encoding/json/decode.go`][go-json-decode] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/go-printer-declarations` | [`src/go/printer/testdata/declarations.golden`][go-printer-declarations] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/go-printer-go2numbers` | [`src/go/printer/testdata/go2numbers.golden`][go-printer-go2numbers] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/go-slices` | [`src/slices/slices.go`][go-slices] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/go-sort` | [`src/sort/sort.go`][go-sort] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/go-test-bug141` | [`test/fixedbugs/bug141.go`][go-test-bug141] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/go-test-issue15528` | [`test/fixedbugs/issue15528.go`][go-test-issue15528] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/go-types-typeinst1` | [`src/internal/types/testdata/check/typeinst1.go`][go-types-typeinst1] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/go-types-typeparams` | [`src/internal/types/testdata/check/typeparams.go`][go-types-typeparams] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/kubernetes-sets` | [`staging/src/k8s.io/apimachinery/pkg/util/sets/set.go`][kubernetes-sets] in kubernetes/kubernetes | [Apache-2.0][kubernetes-licence] |
+| `go/prometheus-storage` | [`storage/interface.go`][prometheus-storage] in prometheus/prometheus | [Apache-2.0][prometheus-licence] |
+| `go/sample` | [`samples/go.sample`][go-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `go/testify-assertions` | [`assert/assertions.go`][testify-assertions] in stretchr/testify | [MIT][testify-licence] |
+| `go/viper-viper` | [`viper.go`][viper-viper] in spf13/viper | [MIT][viper-licence] |
+| `go/zap-logger` | [`logger.go`][zap-logger] in uber-go/zap | [MIT][zap-licence] |
+| `graphql/codegen-apollo-tooling` | [`dev-test/apollo-tooling/schema.graphql`][codegen-apollo] in dotansimha/graphql-code-generator | [MIT][codegen-licence] |
+| `graphql/coverage` | `oracle/inputs/graphql-coverage.graphql`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `graphql/graphiql-kitchen-sink` | [`packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql`][graphiql-kitchen-sink] in graphql/graphiql | [MIT][graphiql-licence] |
+| `graphql/graphiql-merged-query` | [`packages/graphiql-toolkit/src/graphql-helpers/__tests__/__queries__/mergedQueryWithSchema.graphql`][graphiql-merged-query] in graphql/graphiql | [MIT][graphiql-licence] |
+| `graphql/graphiql-schema-kitchen-sink` | [`packages/codemirror-graphql/src/__tests__/schema-kitchen-sink.graphql`][graphiql-schema-kitchen-sink] in graphql/graphiql | [MIT][graphiql-licence] |
+| `graphql/graphiql-star-wars` | [`packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql`][graphiql-star-wars] in graphql/graphiql | [MIT][graphiql-licence] |
+| `graphql/graphql-js-kitchen-sink` | [`benchmark/kitchen-sink.graphql`][graphql-js-kitchen-sink] in graphql/graphql-js | [MIT][graphql-js-licence] |
+| `graphql/sample` | [`samples/graphql.sample`][graphql-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `haml/filters` | `oracle/inputs/haml-filters.haml`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `haml/haml-helpers` | [`test/haml/templates/helpers.haml`][haml-helpers] in haml/haml | [MIT][haml-licence] |
+| `haml/haml-just-stuff` | [`test/haml/templates/just_stuff.haml`][haml-just-stuff] in haml/haml | [MIT][haml-licence] |
+| `haml/haml-real-sample` | [`benchmark/etc/real_sample.haml`][haml-real-sample] in haml/haml | [MIT][haml-licence] |
+| `haml/haml-silent-script` | [`test/haml/templates/silent_script.haml`][haml-silent-script] in haml/haml | [MIT][haml-licence] |
+| `haml/haml-standard` | [`test/haml/templates/standard.haml`][haml-standard] in haml/haml | [MIT][haml-licence] |
+| `haml/haml-whitespace` | [`test/haml/templates/whitespace_handling.haml`][haml-whitespace] in haml/haml | [MIT][haml-licence] |
+| `haml/sample` | [`samples/haml.sample`][haml-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `haskell/aeson-builder` | [`src/Data/Aeson/Encoding/Builder.hs`][aeson-builder] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
+| `haskell/aeson-decoding-text` | [`src/Data/Aeson/Decoding/Text.hs`][aeson-decoding-text] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
+| `haskell/aeson-github` | [`examples/src/GitHub.hs`][aeson-github] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
+| `haskell/sample` | [`samples/haskell.sample`][haskell-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `html/bootstrap3-visual-modal` | [`js/tests/visual/modal.html`][bootstrap3-visual-modal] in twbs/bootstrap | [MIT][bootstrap3-licence] |
+| `html/h5bp-404` | [`src/404.html`][h5bp-404] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
+| `html/h5bp-index` | [`src/index.html`][h5bp-index] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
+| `html/jquery-delegatetest` | [`test/delegatetest.html`][jquery-delegatetest] in jquery/jquery | [MIT][jquery-licence] |
+| `html/jquery-qunit-fixture` | [`test/data/qunit-fixture.html`][jquery-qunit-fixture] in jquery/jquery | [MIT][jquery-licence] |
+| `html/mathjax-mml-chtml` | [`page/mml-chtml.html`][mathjax-mml-chtml] in mathjax/MathJax-demos-web | [Apache-2.0][mathjax-demos-licence] |
+| `html/mathjax-tex-mml` | [`page/tex-mml.html`][mathjax-tex-mml] in mathjax/MathJax-demos-web | [Apache-2.0][mathjax-demos-licence] |
+| `html/sample` | [`samples/html.sample`][html-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `html/three-animation-keyframes` | [`examples/webgl_animation_keyframes.html`][three-animation-keyframes] in mrdoob/three.js | [MIT][three-licence] |
+| `html/three-css3d-periodictable` | [`examples/css3d_periodictable.html`][three-css3d-periodictable] in mrdoob/three.js | [MIT][three-licence] |
+| `html/three-geometry-colors` | [`examples/webgl_geometry_colors.html`][three-geometry-colors] in mrdoob/three.js | [MIT][three-licence] |
+| `html/three-loader-gltf` | [`examples/webgl_loader_gltf.html`][three-loader-gltf] in mrdoob/three.js | [MIT][three-licence] |
+| `html/todomvc-backbone` | [`examples/backbone/index.html`][todomvc-backbone] in tastejs/todomvc | [MIT][todomvc-licence] |
+| `html/todomvc-jquery` | [`examples/jquery/index.html`][todomvc-jquery] in tastejs/todomvc | [MIT][todomvc-licence] |
+| `html/todomvc-knockoutjs` | [`examples/knockoutjs/index.html`][todomvc-knockoutjs] in tastejs/todomvc | [MIT][todomvc-licence] |
+| `html/todomvc-lit` | [`examples/lit/index.html`][todomvc-lit] in tastejs/todomvc | [MIT][todomvc-licence] |
+| `html/todomvc-polymer` | [`examples/polymer/index.html`][todomvc-polymer] in tastejs/todomvc | [BSD-3-Clause][todomvc-polymer-licence] |
+| `html-derivative/vue-classic-grid` | [`packages/vue/examples/classic/grid.html`][derivative-vue-classic-grid] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-classic-todomvc` | [`packages/vue/examples/classic/todomvc.html`][derivative-vue-classic-todomvc] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-commits` | [`packages/vue/examples/composition/commits.html`][derivative-vue-commits] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-grid` | [`packages/vue/examples/composition/grid.html`][derivative-vue-grid] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-hydration-visible` | [`packages/vue/__tests__/e2e/hydration-strat-visible.html`][derivative-vue-hydration-visible] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-markdown` | [`packages/vue/examples/composition/markdown.html`][derivative-vue-markdown] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-modal` | [`packages/vue/examples/transition/modal.html`][derivative-vue-modal] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-svg` | [`packages/vue/examples/composition/svg.html`][derivative-vue-svg] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-todomvc` | [`packages/vue/examples/composition/todomvc.html`][derivative-vue-todomvc] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-transition-list` | [`packages/vue/examples/transition/list.html`][derivative-vue-transition-list] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-tree` | [`packages/vue/examples/composition/tree.html`][derivative-vue-tree] in vuejs/core | [MIT][vue-licence] |
+| `ini/black-tox` | [`tox.ini`][black-tox] in psf/black | [MIT][black-licence] |
+| `ini/coverage` | `oracle/inputs/ini-coverage.ini`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `ini/django-tox` | [`tox.ini`][django-tox] in django/django | [BSD-3-Clause][django-licence] |
+| `ini/kafka-consumer` | [`config/consumer.properties`][kafka-consumer] in apache/kafka | [Apache-2.0][kafka-licence] |
+| `ini/kafka-server` | [`config/server.properties`][kafka-server] in apache/kafka | [Apache-2.0][kafka-licence] |
+| `ini/pytest-tox` | [`tox.ini`][pytest-tox] in pytest-dev/pytest | [MIT][pytest-licence] |
+| `ini/sample` | [`samples/ini.sample`][ini-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `ini/sqlalchemy-tox` | [`tox.ini`][sqlalchemy-tox] in sqlalchemy/sqlalchemy | [MIT][sqlalchemy-licence] |
+| `ini/tomcat-catalina` | [`conf/catalina.properties`][tomcat-catalina] in apache/tomcat | [Apache-2.0][tomcat-licence] |
 | `java/commons-lang-range` | [`Range.java`][commons-lang-range] in apache/commons-lang | [Apache-2.0][commons-lang-licence] |
 | `java/commons-lang-validate` | [`Validate.java`][commons-lang-validate] in apache/commons-lang | [Apache-2.0][commons-lang-licence] |
 | `java/coverage` | `oracle/inputs/java-coverage.java`, written for nishiki | MIT or Apache-2.0, as nishiki |
@@ -137,13 +283,22 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `jsx/tsc-source-map-validation-statements` | [`sourceMapValidationStatements.ts`][tsc-source-map-validation-statements] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
 | `jsx/tsc-tsx-react-emit-entities` | [`tsxReactEmitEntities.tsx`][tsc-tsx-react-emit-entities] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
 | `jsx/tsc-yield-expression-inner-comment-emit` | [`yieldExpressionInnerCommentEmit.ts`][tsc-yield-expression-inner-comment-emit] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `julia/base-abstractset` | [`base/abstractset.jl`][julia-base-abstractset] in JuliaLang/julia | [MIT][julia-licence] |
+| `julia/base-sort` | [`base/sort.jl`][julia-base-sort] in JuliaLang/julia | [MIT][julia-licence] |
+| `julia/sample` | [`samples/julia.sample`][julia-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `julia/strings-util` | [`base/strings/util.jl`][julia-strings-util] in JuliaLang/julia | [MIT][julia-licence] |
 | `kotlin/coroutines-produce` | [`Produce.kt`][coroutines-produce] in Kotlin/kotlinx.coroutines | [Apache-2.0][coroutines-licence] |
 | `kotlin/coroutines-state-flow` | [`StateFlow.kt`][coroutines-state-flow] in Kotlin/kotlinx.coroutines | [Apache-2.0][coroutines-licence] |
 | `kotlin/coverage` | `oracle/inputs/kotlin-coverage.kt`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `kotlin/exposed-op` | [`Op.kt`][exposed-op] in JetBrains/Exposed | [Apache-2.0][exposed-licence] |
+| `kotlin/ktor-logging` | [`Logging.kt`][ktor-logging] in ktorio/ktor | [Apache-2.0][ktor-licence] |
+| `kotlin/moshi-util` | [`Util.kt`][moshi-util] in square/moshi | [Apache-2.0][moshi-licence] |
+| `kotlin/okhttp-build` | [`okhttp/build.gradle.kts`][okhttp-build] in square/okhttp | [Apache-2.0][okhttp-licence] |
 | `kotlin/okhttp-cookie` | [`Cookie.kt`][okhttp-cookie] in square/okhttp | [Apache-2.0][okhttp-licence] |
+| `kotlin/okhttp-request` | [`Request.kt`][okhttp-request] in square/okhttp | [Apache-2.0][okhttp-licence] |
 | `kotlin/sample` | [`samples/kotlin.sample`][kotlin-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `kotlin/serialization-json` | [`Json.kt`][serialization-json] in Kotlin/kotlinx.serialization | [Apache-2.0][kotlinx-serialization-licence] |
+| `kotlin/turbine-flow-test` | [`FlowTest.kt`][turbine-flow-test] in cashapp/turbine | [Apache-2.0][turbine-licence] |
 | `less/antd-button-mixin` | [`components/button/style/mixin.less`][less-antd-button-mixin] in ant-design/ant-design | [MIT][antd-licence] |
 | `less/antd-color-palette` | [`components/style/color/colorPalette.less`][less-antd-color-palette] in ant-design/ant-design | [MIT][antd-licence] |
 | `less/antd-compact-item` | [`components/style/mixins/compact-item.less`][less-antd-compact-item] in ant-design/ant-design | [MIT][antd-licence] |
@@ -169,6 +324,18 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `less/lessjs-sourcemaps-comprehensive` | [`comprehensive.less`][less-lessjs-sourcemaps-comprehensive] in less/less.js | [Apache-2.0][lessjs-licence] |
 | `less/lessjs-urls` | [`urls.less`][less-lessjs-urls] in less/less.js | [Apache-2.0][lessjs-licence] |
 | `less/sample` | [`samples/less.sample`][less-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `lua/coverage` | `oracle/inputs/lua-coverage.lua`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `lua/inspect` | [`inspect.lua`][inspect-lua] in kikito/inspect.lua | [MIT][inspect-lua-licence] |
+| `lua/json` | [`json.lua`][json-lua] in rxi/json.lua | [MIT][json-lua-licence] |
+| `lua/lua-literals` | [`testes/literals.lua`][lua-literals] in lua/lua | [MIT][lua-licence] |
+| `lua/lua-locals` | [`testes/locals.lua`][lua-locals] in lua/lua | [MIT][lua-licence] |
+| `lua/luals-basic` | [`meta/template/basic.lua`][luals-basic] in LuaLS/lua-language-server | [MIT][luals-licence] |
+| `lua/luals-string` | [`meta/template/string.lua`][luals-string] in LuaLS/lua-language-server | [MIT][luals-licence] |
+| `lua/luals-table` | [`meta/template/table.lua`][luals-table] in LuaLS/lua-language-server | [MIT][luals-licence] |
+| `lua/luarocks-util` | [`src/luarocks/core/util.lua`][luarocks-util] in luarocks/luarocks | [MIT][luarocks-licence] |
+| `lua/lume` | [`lume.lua`][lume] in rxi/lume | [MIT][lume-licence] |
+| `lua/penlight-stringx` | [`lua/pl/stringx.lua`][penlight-stringx] in lunarmodules/Penlight | [MIT][penlight-licence] |
+| `lua/sample` | [`samples/lua.sample`][lua-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `make/cjson` | [`Makefile`][cjson-make] in DaveGamble/cJSON | [MIT][cjson-licence] |
 | `make/coverage` | `oracle/inputs/make-coverage.mk`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `make/helm` | [`Makefile`][helm-make] in helm/helm | [Apache-2.0][helm-licence] |
@@ -179,7 +346,10 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `make/prometheus-common` | [`Makefile.common`][prometheus-make] in prometheus/prometheus | [Apache-2.0][prometheus-make-licence] |
 | `make/sample` | [`samples/make.sample`][make-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `make/zlib` | [`Makefile.in`][zlib-make] in madler/zlib | [zlib][zlib-licence] |
+| `markdown/argument-parser-declaring-arguments` | [`DeclaringArguments.md`][argument-parser-declaring-arguments] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
+| `markdown/argument-parser-getting-started` | [`GettingStarted.md`][argument-parser-getting-started] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
 | `markdown/benchmark-user-guide` | [`docs/user_guide.md`][benchmark-user-guide] in google/benchmark | [Apache-2.0][benchmark-licence] |
+| `markdown/black-other-tools` | [`docs/guides/using_black_with_other_tools.md`][black-other-tools] in psf/black | [MIT][black-licence] |
 | `markdown/book-ownership` | [`src/ch04-01-what-is-ownership.md`][book-ownership] in rust-lang/book | [MIT or Apache-2.0][book-licence] |
 | `markdown/book-strings` | [`src/ch08-02-strings.md`][book-strings] in rust-lang/book | [MIT or Apache-2.0][book-licence] |
 | `markdown/cargo-release` | [`doc/contrib/src/process/release.md`][cargo-release] in rust-lang/cargo | [MIT or Apache-2.0][cargo-licence] |
@@ -187,28 +357,47 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/cjson-readme` | [`README.md`][cjson-readme] in DaveGamble/cJSON | [MIT][cjson-licence] |
 | `markdown/clap-readme` | [`README.md`][clap-readme] in clap-rs/clap | [MIT or Apache-2.0][clap-licence] |
 | `markdown/click-man-readme` | [`README.md`][click-man-readme] in click-contrib/click-man | [MIT][click-man-licence] |
+| `markdown/cobra-user-guide` | [`site/content/user_guide.md`][cobra-user-guide] in spf13/cobra | [Apache-2.0][cobra-licence] |
+| `markdown/coffeescript-classes` | [`documentation/sections/breaking_changes_classes.md`][coffeescript-classes] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
+| `markdown/coffeescript-super-this` | [`documentation/sections/breaking_changes_super_this.md`][coffeescript-super-this] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
 | `markdown/coverage` | `oracle/inputs/markdown-coverage.md`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `markdown/dart-args-readme` | [`pkgs/args/README.md`][dart-args-readme] in dart-lang/core | [BSD-3-Clause][dart-core-licence] |
+| `markdown/dart-http-readme` | [`pkgs/http/README.md`][dart-http-readme] in dart-lang/http | [BSD-3-Clause][dart-http-licence] |
 | `markdown/device-virtual-readme` | [`README.md`][device-virtual-readme] in edgexfoundry/device-virtual-go | [Apache-2.0][device-virtual-licence] |
+| `markdown/devise-readme` | [`README.md`][devise-readme] in heartcombo/devise | [MIT][devise-licence] |
 | `markdown/eslint-mcp` | [`docs/src/use/mcp.md`][eslint-mcp] in eslint/eslint | [MIT][eslint-licence] |
 | `markdown/eslint-no-restricted-imports` | [`docs/src/rules/no-restricted-imports.md`][eslint-imports] in eslint/eslint | [MIT][eslint-licence] |
+| `markdown/fastapi-docker` | [`docs/en/docs/deployment/docker.md`][fastapi-docker] in tiangolo/fastapi | [MIT][fastapi-licence] |
 | `markdown/fastapi-readme` | [`README.md`][fastapi-readme] in tiangolo/fastapi | [MIT][fastapi-licence] |
+| `markdown/gin-readme` | [`README.md`][gin-readme] in gin-gonic/gin | [MIT][gin-licence] |
 | `markdown/gson-user-guide` | [`UserGuide.md`][gson-user-guide] in google/gson | [Apache-2.0][gson-licence] |
 | `markdown/highlightjs-readme` | [`README.md`][highlightjs-readme] in highlightjs/highlight.js | [BSD-3-Clause][highlightjs-licence] |
 | `markdown/httparser-readme` | [`README.md`][httparser-readme] in antlabs/httparser | [Apache-2.0][httparser-licence] |
 | `markdown/javapoet-readme` | [`README.md`][javapoet-readme] in square/javapoet | [Apache-2.0][javapoet-licence] |
 | `markdown/jekyll-front-matter` | [`docs/_docs/front-matter.md`][jekyll-front-matter] in jekyll/jekyll | [MIT][jekyll-licence] |
+| `markdown/julia-functions` | [`doc/src/manual/functions.md`][julia-manual-functions] in JuliaLang/julia | [MIT][julia-licence] |
+| `markdown/julia-strings` | [`doc/src/manual/strings.md`][julia-manual-strings] in JuliaLang/julia | [MIT][julia-licence] |
+| `markdown/kingfisher-common-tasks-cache` | [`CommonTasks_Cache.md`][kingfisher-common-tasks-cache] in onevcat/Kingfisher | [MIT][kingfisher-licence] |
 | `markdown/knex-schema-builder` | [`docs/src/guide/schema-builder.md`][knex-schema] in knex/knex | [MIT][knex-licence] |
 | `markdown/ky-readme` | [`readme.md`][ky-readme] in sindresorhus/ky | [MIT][ky-licence] |
 | `markdown/latexrun-readme` | [`README.md`][latexrun-readme] in aclements/latexrun | [MIT][latexrun-licence] |
 | `markdown/markdownlint-blanks-around-headings-arrays` | [`blanks-around-headings-arrays.md`][markdown-markdownlint-blanks-around-headings-arrays] in DavidAnson/markdownlint | [MIT][markdownlint-licence] |
 | `markdown/markdownlint-link-style-autolink-only` | [`link-style-autolink-only.md`][markdown-markdownlint-link-style-autolink-only] in DavidAnson/markdownlint | [MIT][markdownlint-licence] |
+| `markdown/next-with-docker-export-readme` | [`examples/with-docker-export-output/README.md`][next-docker-export-readme] in vercel/next.js | [MIT][next-licence] |
+| `markdown/next-with-docker-readme` | [`examples/with-docker/README.md`][next-docker-readme] in vercel/next.js | [MIT][next-licence] |
 | `markdown/nvm-readme` | [`README.md`][nvm-readme] in nvm-sh/nvm | [MIT][nvm-licence] |
 | `markdown/pgvector-readme` | [`README.md`][pgvector-readme] in pgvector/pgvector | [PostgreSQL][pgvector-licence] |
+| `markdown/poetry-faq` | [`docs/faq.md`][poetry-faq] in python-poetry/poetry | [MIT][poetry-licence] |
+| `markdown/powershell-releasing` | [`docs/maintainers/releasing.md`][powershell-releasing] in PowerShell/PowerShell | [MIT][powershell-licence] |
+| `markdown/powershell-windows-build` | [`docs/building/windows-core.md`][powershell-windows-build] in PowerShell/PowerShell | [MIT][powershell-licence] |
 | `markdown/preact-readme` | [`README.md`][preact-readme] in preactjs/preact | [MIT][preact-licence] |
 | `markdown/prettier-plugins` | [`docs/plugins.md`][prettier-plugins] in prettier/prettier | [MIT][prettier-licence] |
 | `markdown/pyenv-readme` | [`README.md`][pyenv-readme] in pyenv/pyenv | [MIT][pyenv-licence] |
+| `markdown/rack-readme` | [`README.md`][rack-readme] in rack/rack | [MIT][rack-licence] |
 | `markdown/rich-readme` | [`README.md`][rich-readme] in Textualize/rich | [MIT][rich-licence] |
 | `markdown/sample` | [`samples/markdown.sample`][markdown-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `markdown/scala3-enums` | [`docs/_docs/reference/enums/enums.md`][scala3-enums] in scala/scala3 | [Apache-2.0][scala3-licence] |
+| `markdown/scala3-givens` | [`docs/_docs/reference/contextual/givens.md`][scala3-givens] in scala/scala3 | [Apache-2.0][scala3-licence] |
 | `markdown/serde-readme` | [`README.md`][serde-readme] in serde-rs/serde | [MIT or Apache-2.0][serde-licence] |
 | `markdown/shadcn-data-table` | [`apps/v4/content/docs/components/radix/data-table.mdx`][shadcn-data-table] in shadcn-ui/ui | [MIT][shadcn-licence] |
 | `markdown/shadcn-message-scroller` | [`apps/v4/content/docs/components/radix/message-scroller.mdx`][shadcn-message-scroller] in shadcn-ui/ui | [MIT][shadcn-licence] |
@@ -223,6 +412,37 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/vitest-migration-jest` | [`docs/guide/migration/jest.md`][vitest-jest] in vitest-dev/vitest | [MIT][vitest-licence] |
 | `markdown/zod-api` | [`packages/docs/content/api.mdx`][zod-api] in colinhacks/zod | [MIT][zod-licence] |
 | `markdown/zod-readme` | [`packages/zod/README.md`][zod-readme] in colinhacks/zod | [MIT][zod-licence] |
+| `mermaid/api-sequence` | [`docs/diagrams/mermaid-api-sequence.mmd`][mermaid-api-sequence] in mermaid-js/mermaid | [MIT][mermaid-licence] |
+| `mermaid/flowchart-code-flow` | [`docs/diagrams/flowchart-code-flow.mmd`][mermaid-flowchart-code-flow] in mermaid-js/mermaid | [MIT][mermaid-licence] |
+| `mermaid/mindmap-sequence` | [`docs/diagrams/mindmap-implementation-sequence.mmd`][mermaid-mindmap-sequence] in mermaid-js/mermaid | [MIT][mermaid-licence] |
+| `mermaid/sample` | [`samples/mermaid.sample`][mermaid-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `nix/home-manager-flake` | [`flake.nix`][home-manager-flake] in nix-community/home-manager | [MIT][home-manager-licence] |
+| `nix/home-manager-tmux` | [`modules/programs/tmux.nix`][home-manager-tmux] in nix-community/home-manager | [MIT][home-manager-licence] |
+| `nix/nixpkgs-lists` | [`lib/lists.nix`][nixpkgs-lists] in NixOS/nixpkgs | [MIT][nixpkgs-licence] |
+| `nix/nixpkgs-ripgrep` | [`pkgs/by-name/ri/ripgrep/package.nix`][nixpkgs-ripgrep] in NixOS/nixpkgs | [MIT][nixpkgs-licence] |
+| `nix/sample` | [`samples/nix.sample`][nix-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `objective-c/afnetworking-http-session-manager` | [`AFNetworking/AFHTTPSessionManager.h`][afnetworking-http-session-manager] in AFNetworking/AFNetworking | [MIT][afnetworking-licence] |
+| `objective-c/afnetworking-url-session-manager` | [`AFNetworking/AFURLSessionManager.m`][afnetworking-url-session-manager] in AFNetworking/AFNetworking | [MIT][afnetworking-licence] |
+| `objective-c/sample` | [`samples/objective-c.sample`][objective-c-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `objective-c/sdwebimage-image-cache` | [`SDWebImage/Core/SDImageCache.h`][sdwebimage-image-cache] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
+| `objective-c/sdwebimage-manager` | [`SDWebImage/Core/SDWebImageManager.m`][sdwebimage-manager] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
+| `perl/embedded` | `oracle/inputs/perl-embedded.pl`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `perl/sample` | [`samples/perl.sample`][perl-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `perl/sqitch-engine-pg` | [`lib/App/Sqitch/Engine/pg.pm`][sqitch-engine-pg] in sqitchers/sqitch | [MIT][sqitch-licence] |
+| `perl/sqitch-engine-sqlite` | [`lib/App/Sqitch/Engine/sqlite.pm`][sqitch-engine-sqlite] in sqitchers/sqitch | [MIT][sqitch-licence] |
+| `php/embedded` | `oracle/inputs/php-embedded.php`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `php/laravel-postgres-grammar` | [`src/Illuminate/Database/Query/Grammars/PostgresGrammar.php`][laravel-postgres-grammar] in laravel/framework | [MIT][laravel-licence] |
+| `php/laravel-router` | [`src/Illuminate/Routing/Router.php`][laravel-router] in laravel/framework | [MIT][laravel-licence] |
+| `php/sample` | [`samples/php.sample`][php-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `powershell/coverage` | `oracle/inputs/powershell-coverage.ps1`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `powershell/dotnet-install` | [`src/dotnet-install.ps1`][dotnet-install] in dotnet/install-scripts | [MIT][dotnet-install-licence] |
+| `powershell/install-powershell` | [`tools/install-powershell.ps1`][install-powershell] in PowerShell/PowerShell | [MIT][powershell-licence] |
+| `powershell/sample` | [`samples/powershell.sample`][powershell-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `powershell/set-release-tag` | [`tools/releaseBuild/setReleaseTag.ps1`][set-release-tag] in PowerShell/PowerShell | [MIT][powershell-licence] |
+| `proto/googleapis-http` | [`google/api/http.proto`][googleapis-http] in googleapis/googleapis | [Apache-2.0][googleapis-licence] |
+| `proto/googleapis-operations` | [`google/longrunning/operations.proto`][googleapis-operations] in googleapis/googleapis | [Apache-2.0][googleapis-licence] |
+| `proto/grpc-route-guide` | [`examples/protos/route_guide.proto`][grpc-route-guide] in grpc/grpc | [Apache-2.0][grpc-licence] |
+| `proto/sample` | [`samples/proto.sample`][proto-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `python/black-attribute-access-on-number-literals` | [`attribute_access_on_number_literals.py`][python-black-attribute-access-on-number-literals] in psf/black | [MIT][black-licence] |
 | `python/black-bytes-docstring` | [`bytes_docstring.py`][python-black-bytes-docstring] in psf/black | [MIT][black-licence] |
 | `python/black-fmtonoff` | [`fmtonoff.py`][python-black-fmtonoff] in psf/black | [MIT][black-licence] |
@@ -239,11 +459,53 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `python/rich-console` | [`rich/console.py`][rich-console] in Textualize/rich | [MIT][rich-licence] |
 | `python/ruff-class` | [`class.py`][python-ruff-class] in astral-sh/ruff | [MIT][ruff-licence] |
 | `python/sample` | [`samples/python.sample`][python-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `ruby/coverage` | `oracle/inputs/ruby-coverage.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `ruby/cpp-lua-heredocs` | `oracle/inputs/ruby-cpp-lua-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `ruby/devise` | [`lib/devise.rb`][devise] in heartcombo/devise | [MIT][devise-licence] |
+| `ruby/end-html` | `oracle/inputs/ruby-end-html.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `ruby/heredocs` | `oracle/inputs/ruby-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `ruby/html-heredocs` | `oracle/inputs/ruby-html-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `ruby/jekyll-site` | [`lib/jekyll/site.rb`][jekyll-site] in jekyll/jekyll | [MIT][jekyll-licence] |
+| `ruby/js-heredocs` | `oracle/inputs/ruby-js-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `ruby/puma-server` | [`lib/puma/server.rb`][puma-server] in puma/puma | [BSD-3-Clause][puma-licence] |
+| `ruby/rack-request` | [`lib/rack/request.rb`][rack-request] in rack/rack | [MIT][rack-licence] |
+| `ruby/rack-response` | [`lib/rack/response.rb`][rack-response] in rack/rack | [MIT][rack-licence] |
+| `ruby/rack-spec-headers` | [`test/spec_headers.rb`][rack-spec-headers] in rack/rack | [MIT][rack-licence] |
+| `ruby/rack-spec-lint` | [`test/spec_lint.rb`][rack-spec-lint] in rack/rack | [MIT][rack-licence] |
+| `ruby/rails-callbacks` | [`activesupport/lib/active_support/callbacks.rb`][rails-callbacks] in rails/rails | [MIT][rails-licence] |
+| `ruby/rails-inflector` | [`activesupport/lib/active_support/inflector/methods.rb`][rails-inflector] in rails/rails | [MIT][rails-licence] |
+| `ruby/rake-reduce-compat-test` | [`test/test_rake_reduce_compat.rb`][rake-reduce-compat-test] in ruby/rake | [MIT][rake-licence] |
+| `ruby/rake-task` | [`lib/rake/task.rb`][rake-task] in ruby/rake | [MIT][rake-licence] |
+| `ruby/rspec-example` | [`lib/rspec/core/example.rb`][rspec-example] in rspec/rspec-core | [MIT][rspec-core-licence] |
+| `ruby/rubocop-cop-base` | [`lib/rubocop/cop/base.rb`][rubocop-cop-base] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-duplicated-gem` | [`lib/rubocop/cop/bundler/duplicated_gem.rb`][rubocop-duplicated-gem] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-line-length-spec` | [`spec/rubocop/cop/layout/line_length_spec.rb`][rubocop-line-length-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-percent-literal-delimiters-spec` | [`spec/rubocop/cop/style/percent_literal_delimiters_spec.rb`][rubocop-percent-literal-delimiters-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-quoted-symbols-spec` | [`spec/rubocop/cop/style/quoted_symbols_spec.rb`][rubocop-quoted-symbols-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-redundant-percent-q-spec` | [`spec/rubocop/cop/style/redundant_percent_q_spec.rb`][rubocop-redundant-percent-q-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-regexp-literal-spec` | [`spec/rubocop/cop/style/regexp_literal_spec.rb`][rubocop-regexp-literal-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-symbol-array-spec` | [`spec/rubocop/cop/style/symbol_array_spec.rb`][rubocop-symbol-array-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-useless-assignment-spec` | [`spec/rubocop/cop/lint/useless_assignment_spec.rb`][rubocop-useless-assignment-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/sample` | [`samples/ruby.sample`][ruby-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `ruby/thor` | [`lib/thor.rb`][thor] in rails/thor | [MIT][thor-licence] |
+| `ruby/xml-heredocs` | `oracle/inputs/ruby-xml-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `ruby/yaml-heredocs` | `oracle/inputs/ruby-yaml-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `rust/core-macros` | [`library/core/src/macros/mod.rs`][rust-core-macros] in rust-lang/rust | [MIT or Apache-2.0][rust-licence] |
 | `rust/coverage` | `oracle/inputs/rust-coverage.rs`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `rust/ripgrep-searcher` | [`crates/searcher/src/searcher/mod.rs`][ripgrep-searcher] in BurntSushi/ripgrep | [Unlicense or MIT][ripgrep-licence] |
 | `rust/sample` | [`samples/rust.sample`][rust-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `rust/serde-de` | [`serde_core/src/de/mod.rs`][serde-de] in serde-rs/serde | [MIT or Apache-2.0][serde-licence] |
+| `sass/bulma-functions` | [`sass/utilities/functions.sass`][sass-bulma-functions] in jgthms/bulma | [MIT][bulma-sass-licence] |
+| `sass/bulma-generic` | [`sass/base/generic.sass`][sass-bulma-generic] in jgthms/bulma | [MIT][bulma-sass-licence] |
+| `sass/bulma-mixins` | [`sass/utilities/mixins.sass`][sass-bulma-mixins] in jgthms/bulma | [MIT][bulma-sass-licence] |
+| `sass/bulma-navbar` | [`sass/components/navbar.sass`][sass-bulma-navbar] in jgthms/bulma | [MIT][bulma-sass-licence] |
+| `sass/sample` | [`samples/sass.sample`][sass-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `scala/circe-build` | [`build.sbt`][circe-build] in circe/circe | [Apache-2.0][circe-licence] |
+| `scala/circe-json` | [`modules/core/shared/src/main/scala/io/circe/Json.scala`][circe-json] in circe/circe | [Apache-2.0][circe-licence] |
+| `scala/coverage` | `oracle/inputs/scala-coverage.scala`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `scala/sample` | [`samples/scala.sample`][scala-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `scala/scala3-boundary` | [`library/src/scala/util/boundary.scala`][scala3-boundary] in scala/scala3 | [Apache-2.0][scala3-licence] |
+| `scala/scala3-source-position` | [`compiler/src/dotty/tools/dotc/util/SourcePosition.scala`][scala3-source-position] in scala/scala3 | [Apache-2.0][scala3-licence] |
 | `scss/angular-menu` | [`menu.scss`][scss-angular-menu] in angular/components | [MIT][angular-components-licence] |
 | `scss/bootstrap-button` | [`scss/buttons/_button.scss`][scss-bootstrap-button] in twbs/bootstrap | [MIT][bootstrap-licence] |
 | `scss/bootstrap-functions` | [`scss/_functions.scss`][scss-bootstrap-functions] in twbs/bootstrap | [MIT][bootstrap-licence] |
@@ -275,6 +537,34 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `sql/postgres-with` | [`src/test/regress/sql/with.sql`][pg-with] in postgres/postgres | [PostgreSQL][postgres-licence] |
 | `sql/sample` | [`samples/sql.sample`][sql-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `sql/ssms-create-table` | [`samples/features/ssms-templates/Sql/Table/Create Table.sql`][ssms-create] in microsoft/sql-server-samples | [MIT][sqlserver-licence] |
+| `swift/alamofire-af-error` | [`AFError.swift`][alamofire-af-error] in Alamofire/Alamofire | [MIT][alamofire-licence] |
+| `swift/algorithms-chunked` | [`Chunked.swift`][algorithms-chunked] in apple/swift-algorithms | [Apache-2.0][algorithms-licence] |
+| `swift/argument-parser-argument` | [`Argument.swift`][argument-parser-argument] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
+| `swift/argument-parser-command-parser` | [`CommandParser.swift`][argument-parser-command-parser] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
+| `swift/composable-store` | [`Store.swift`][composable-store] in pointfreeco/swift-composable-architecture | [MIT][composable-licence] |
+| `swift/coverage` | `oracle/inputs/swift-coverage.swift`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `swift/kingfisher-image-processor` | [`ImageProcessor.swift`][kingfisher-image-processor] in onevcat/Kingfisher | [MIT][kingfisher-licence] |
+| `swift/nio-codec` | [`Codec.swift`][nio-codec] in apple/swift-nio | [Apache-2.0][nio-licence] |
+| `swift/sample` | [`samples/swift.sample`][swift-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `swift/snapshot-assert-snapshot` | [`AssertSnapshot.swift`][snapshot-assert-snapshot] in pointfreeco/swift-snapshot-testing | [MIT][snapshot-testing-licence] |
+| `swift/string-processing-algorithms-tests` | [`AlgorithmsTests.swift`][string-processing-algorithms-tests] in swiftlang/swift-experimental-string-processing | [Apache-2.0][string-processing-licence] |
+| `swift/string-processing-custom-tests` | [`CustomTests.swift`][string-processing-custom-tests] in swiftlang/swift-experimental-string-processing | [Apache-2.0][string-processing-licence] |
+| `swift/swift-test-decl-func-keyword-argument-labels` | [`test/decl/func/keyword-argument-labels.swift`][swift-test-decl-func-keyword-argument-labels] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-decl-func-rethrows` | [`test/decl/func/rethrows.swift`][swift-test-decl-func-rethrows] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-decl-import-import` | [`test/decl/import/import.swift`][swift-test-decl-import-import] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-decl-protocol-protocol-enum-witness` | [`test/decl/protocol/protocol_enum_witness.swift`][swift-test-decl-protocol-protocol-enum-witness] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-decl-protocol-protocols` | [`test/decl/protocol/protocols.swift`][swift-test-decl-protocol-protocols] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-expr-expressions` | [`test/expr/expressions.swift`][swift-test-expr-expressions] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-expr-primary-selector-selector` | [`test/expr/primary/selector/selector.swift`][swift-test-expr-primary-selector-selector] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-expr-unary-async-await` | [`test/expr/unary/async_await.swift`][swift-test-expr-unary-async-await] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-parse-conditionalcompilation-basicparseerrors` | [`test/Parse/ConditionalCompilation/basicParseErrors.swift`][swift-test-parse-conditionalcompilation-basicparseerrors] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-parse-escaped-identifiers` | [`test/Parse/escaped_identifiers.swift`][swift-test-parse-escaped-identifiers] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-parse-operator-decl` | [`test/Parse/operator_decl.swift`][swift-test-parse-operator-decl] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-parse-raw-string` | [`test/Parse/raw_string.swift`][swift-test-parse-raw-string] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-parse-raw-string-errors` | [`test/Parse/raw_string_errors.swift`][swift-test-parse-raw-string-errors] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-parse-trailing-comma` | [`test/Parse/trailing-comma.swift`][swift-test-parse-trailing-comma] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-parse-type-expr` | [`test/Parse/type_expr.swift`][swift-test-parse-type-expr] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/testing-runner-tests` | [`RunnerTests.swift`][testing-runner-tests] in swiftlang/swift-testing | [Apache-2.0][swift-testing-licence] |
 | `toml/burntsushi-example` | [`_example/example.toml`][burntsushi-example] in BurntSushi/toml | [MIT][burntsushi-toml-licence] |
 | `toml/cargo-manifest` | [`Cargo.toml`][cargo-manifest] in rust-lang/cargo | [MIT or Apache-2.0][cargo-licence] |
 | `toml/clap-manifest` | [`Cargo.toml`][clap-manifest] in clap-rs/clap | [MIT or Apache-2.0][clap-licence] |
@@ -330,6 +620,24 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `typescript/vue-api-create-app` | [`packages/runtime-core/src/apiCreateApp.ts`][vue-app] in vuejs/core | [MIT][vue-licence] |
 | `typescript/vue-effect` | [`packages/reactivity/src/effect.ts`][vue-effect] in vuejs/core | [MIT][vue-licence] |
 | `typescript/zod-classic-schemas` | [`packages/zod/src/v4/classic/schemas.ts`][zod-schemas] in colinhacks/zod | [MIT][zod-licence] |
+| `xml/ant-build` | [`build.xml`][ant-build] in apache/ant | [Apache-2.0][ant-licence] |
+| `xml/ant-checkstyle-frames` | [`src/etc/checkstyle/checkstyle-frames.xsl`][ant-checkstyle-frames] in apache/ant | [Apache-2.0][ant-licence] |
+| `xml/ant-junit-frames` | [`src/etc/junit-frames.xsl`][ant-junit-frames] in apache/ant | [Apache-2.0][ant-licence] |
+| `xml/ant-junit-noframes` | [`src/etc/junit-noframes.xsl`][ant-junit-noframes] in apache/ant | [Apache-2.0][ant-licence] |
+| `xml/bootstrap-logo` | [`bootstrap-logo.svg`][bootstrap-logo] in twbs/bootstrap | [MIT][bootstrap-licence] |
+| `xml/commons-lang-pom` | [`pom.xml`][commons-lang-pom] in apache/commons-lang | [Apache-2.0][commons-lang-licence] |
+| `xml/coverage` | `oracle/inputs/xml-coverage.xml`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `xml/coverage-jsp-comment` | `oracle/inputs/xml-coverage-jsp-comment.xml`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `xml/foundation-keyed-archive` | [`NSKeyedUnarchiver-ConcreteValueTest.plist`][foundation-keyed-archive] in apple/swift-corelibs-foundation | [Apache-2.0][foundation-licence] |
+| `xml/rome-at` | [`xml/at.xml`][rome-at] in rometools/rome | [Apache-2.0][rome-licence] |
+| `xml/rome-slashdot` | [`xml/slashdot.xml`][rome-slashdot] in rometools/rome | [Apache-2.0][rome-licence] |
+| `xml/rome-yahoo-top-songs` | [`data/YahooTopSongs.xml`][rome-yahoo-top-songs] in rometools/rome | [Apache-2.0][rome-licence] |
+| `xml/sample` | [`samples/xml.sample`][xml-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `xml/views-activity-entrance` | [`activity_entrance.xml`][views-activity-entrance] in android/views-widgets-samples | [Apache-2.0][views-licence] |
+| `xml/views-lots-of-cards` | [`lots_of_cards.xml`][views-lots-of-cards] in android/views-widgets-samples | [Apache-2.0][views-licence] |
+| `xml/xerces-design` | [`design/xml/design.xml`][xerces-design] in apache/xerces2-j | [Apache-2.0][xerces-licence] |
+| `xml/xerces-schedule` | [`design/xml/schedule.xml`][xerces-schedule] in apache/xerces2-j | [Apache-2.0][xerces-licence] |
+| `xml/xerces-xni-config` | [`docs/xni-config.xml`][xerces-xni-config] in apache/xerces2-j | [Apache-2.0][xerces-licence] |
 | `yaml/airflow-compose` | [`airflow-core/docs/howto/docker-compose/docker-compose.yaml`][airflow-compose] in apache/airflow | [Apache-2.0][airflow-licence] |
 | `yaml/checkout-test` | [`.github/workflows/test.yml`][checkout-test] in actions/checkout | [MIT][checkout-licence] |
 | `yaml/coverage` | `oracle/inputs/yaml-coverage.yaml`, written for nishiki | MIT or Apache-2.0, as nishiki |
@@ -340,202 +648,14 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `yaml/yaml-test-suite-c4hz` | [`C4HZ/in.yaml`][yaml-test-suite-c4hz] in yaml/yaml-test-suite, data branch | [MIT][yaml-test-suite-licence] |
 | `yaml/yaml-test-suite-kk5p` | [`KK5P/in.yaml`][yaml-test-suite-kk5p] in yaml/yaml-test-suite, data branch | [MIT][yaml-test-suite-licence] |
 | `yaml/yaml-test-suite-w4tn` | [`W4TN/in.yaml`][yaml-test-suite-w4tn] in yaml/yaml-test-suite, data branch | [MIT][yaml-test-suite-licence] |
-`ruby/sample`, `ruby/rack-request`, `ruby/rubocop-cop-base`, `ruby/rails-callbacks`, `ruby/rails-inflector`, `ruby/heredocs`, `ruby/js-heredocs`, `ruby/cpp-lua-heredocs`, `ruby/html-heredocs`, `ruby/xml-heredocs`, `ruby/yaml-heredocs` and `ruby/end-html` are the development inputs for Ruby, and `markdown/rack-readme` is the development input for Ruby fences.
-`ruby/jekyll-site`, `ruby/devise`, `ruby/puma-server`, `ruby/rspec-example`, `ruby/thor`, `ruby/rake-task` and `markdown/devise-readme` are held out.
-| `kotlin/okhttp-request` | [`Request.kt`][okhttp-request] in square/okhttp | [Apache-2.0][okhttp-licence] |
-| `kotlin/moshi-util` | [`Util.kt`][moshi-util] in square/moshi | [Apache-2.0][moshi-licence] |
-| `kotlin/turbine-flow-test` | [`FlowTest.kt`][turbine-flow-test] in cashapp/turbine | [Apache-2.0][turbine-licence] |
-| `kotlin/ktor-logging` | [`Logging.kt`][ktor-logging] in ktorio/ktor | [Apache-2.0][ktor-licence] |
-| `kotlin/okhttp-build` | [`okhttp/build.gradle.kts`][okhttp-build] in square/okhttp | [Apache-2.0][okhttp-licence] |
-| `go/sample` | [`samples/go.sample`][go-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `go/go-sort` | [`src/sort/sort.go`][go-sort] in golang/go | [BSD-3-Clause][golang-licence] |
-| `go/cobra-command` | [`command.go`][cobra-command] in spf13/cobra | [Apache-2.0][cobra-licence] |
-| `go/gin-context` | [`context.go`][gin-context] in gin-gonic/gin | [MIT][gin-licence] |
-| `go/testify-assertions` | [`assert/assertions.go`][testify-assertions] in stretchr/testify | [MIT][testify-licence] |
-| `go/go-slices` | [`src/slices/slices.go`][go-slices] in golang/go | [BSD-3-Clause][golang-licence] |
-| `go/go-json-decode` | [`src/encoding/json/decode.go`][go-json-decode] in golang/go | [BSD-3-Clause][golang-licence] |
-| `go/kubernetes-sets` | [`staging/src/k8s.io/apimachinery/pkg/util/sets/set.go`][kubernetes-sets] in kubernetes/kubernetes | [Apache-2.0][kubernetes-licence] |
-| `go/zap-logger` | [`logger.go`][zap-logger] in uber-go/zap | [MIT][zap-licence] |
-| `go/viper-viper` | [`viper.go`][viper-viper] in spf13/viper | [MIT][viper-licence] |
-| `go/prometheus-storage` | [`storage/interface.go`][prometheus-storage] in prometheus/prometheus | [Apache-2.0][prometheus-licence] |
-| `go/go-printer-declarations` | [`src/go/printer/testdata/declarations.golden`][go-printer-declarations] in golang/go | [BSD-3-Clause][golang-licence] |
-| `go/go-printer-go2numbers` | [`src/go/printer/testdata/go2numbers.golden`][go-printer-go2numbers] in golang/go | [BSD-3-Clause][golang-licence] |
-| `go/go-test-bug141` | [`test/fixedbugs/bug141.go`][go-test-bug141] in golang/go | [BSD-3-Clause][golang-licence] |
-| `go/go-test-issue15528` | [`test/fixedbugs/issue15528.go`][go-test-issue15528] in golang/go | [BSD-3-Clause][golang-licence] |
-| `go/go-types-typeinst1` | [`src/internal/types/testdata/check/typeinst1.go`][go-types-typeinst1] in golang/go | [BSD-3-Clause][golang-licence] |
-| `go/go-types-typeparams` | [`src/internal/types/testdata/check/typeparams.go`][go-types-typeparams] in golang/go | [BSD-3-Clause][golang-licence] |
-| `go/coverage` | `oracle/inputs/go-coverage.go`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `markdown/gin-readme` | [`README.md`][gin-readme] in gin-gonic/gin | [MIT][gin-licence] |
-| `markdown/cobra-user-guide` | [`site/content/user_guide.md`][cobra-user-guide] in spf13/cobra | [Apache-2.0][cobra-licence] |
-| `markdown/coffeescript-classes` | [`documentation/sections/breaking_changes_classes.md`][coffeescript-classes] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
-| `markdown/coffeescript-super-this` | [`documentation/sections/breaking_changes_super_this.md`][coffeescript-super-this] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
-| `ruby/sample` | [`samples/ruby.sample`][ruby-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `ruby/rack-request` | [`lib/rack/request.rb`][rack-request] in rack/rack | [MIT][rack-licence] |
-| `ruby/rubocop-cop-base` | [`lib/rubocop/cop/base.rb`][rubocop-cop-base] in rubocop/rubocop | [MIT][rubocop-licence] |
-| `ruby/rails-callbacks` | [`activesupport/lib/active_support/callbacks.rb`][rails-callbacks] in rails/rails | [MIT][rails-licence] |
-| `ruby/rails-inflector` | [`activesupport/lib/active_support/inflector/methods.rb`][rails-inflector] in rails/rails | [MIT][rails-licence] |
-| `ruby/jekyll-site` | [`lib/jekyll/site.rb`][jekyll-site] in jekyll/jekyll | [MIT][jekyll-licence] |
-| `ruby/devise` | [`lib/devise.rb`][devise] in heartcombo/devise | [MIT][devise-licence] |
-| `ruby/puma-server` | [`lib/puma/server.rb`][puma-server] in puma/puma | [BSD-3-Clause][puma-licence] |
-| `ruby/rspec-example` | [`lib/rspec/core/example.rb`][rspec-example] in rspec/rspec-core | [MIT][rspec-core-licence] |
-| `ruby/thor` | [`lib/thor.rb`][thor] in rails/thor | [MIT][thor-licence] |
-| `ruby/rake-task` | [`lib/rake/task.rb`][rake-task] in ruby/rake | [MIT][rake-licence] |
-| `ruby/rack-response` | [`lib/rack/response.rb`][rack-response] in rack/rack | [MIT][rack-licence] |
-| `ruby/rack-spec-headers` | [`test/spec_headers.rb`][rack-spec-headers] in rack/rack | [MIT][rack-licence] |
-| `ruby/rack-spec-lint` | [`test/spec_lint.rb`][rack-spec-lint] in rack/rack | [MIT][rack-licence] |
-| `ruby/rake-reduce-compat-test` | [`test/test_rake_reduce_compat.rb`][rake-reduce-compat-test] in ruby/rake | [MIT][rake-licence] |
-| `ruby/rubocop-duplicated-gem` | [`lib/rubocop/cop/bundler/duplicated_gem.rb`][rubocop-duplicated-gem] in rubocop/rubocop | [MIT][rubocop-licence] |
-| `ruby/rubocop-line-length-spec` | [`spec/rubocop/cop/layout/line_length_spec.rb`][rubocop-line-length-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
-| `ruby/rubocop-percent-literal-delimiters-spec` | [`spec/rubocop/cop/style/percent_literal_delimiters_spec.rb`][rubocop-percent-literal-delimiters-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
-| `ruby/rubocop-quoted-symbols-spec` | [`spec/rubocop/cop/style/quoted_symbols_spec.rb`][rubocop-quoted-symbols-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
-| `ruby/rubocop-redundant-percent-q-spec` | [`spec/rubocop/cop/style/redundant_percent_q_spec.rb`][rubocop-redundant-percent-q-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
-| `ruby/rubocop-regexp-literal-spec` | [`spec/rubocop/cop/style/regexp_literal_spec.rb`][rubocop-regexp-literal-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
-| `ruby/rubocop-symbol-array-spec` | [`spec/rubocop/cop/style/symbol_array_spec.rb`][rubocop-symbol-array-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
-| `ruby/rubocop-useless-assignment-spec` | [`spec/rubocop/cop/lint/useless_assignment_spec.rb`][rubocop-useless-assignment-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
-| `ruby/heredocs` | `oracle/inputs/ruby-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `ruby/js-heredocs` | `oracle/inputs/ruby-js-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `ruby/cpp-lua-heredocs` | `oracle/inputs/ruby-cpp-lua-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `ruby/html-heredocs` | `oracle/inputs/ruby-html-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `ruby/xml-heredocs` | `oracle/inputs/ruby-xml-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `ruby/yaml-heredocs` | `oracle/inputs/ruby-yaml-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `ruby/end-html` | `oracle/inputs/ruby-end-html.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `ruby/coverage` | `oracle/inputs/ruby-coverage.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `markdown/rack-readme` | [`README.md`][rack-readme] in rack/rack | [MIT][rack-licence] |
-| `markdown/devise-readme` | [`README.md`][devise-readme] in heartcombo/devise | [MIT][devise-licence] |
-| `swift/sample` | [`samples/swift.sample`][swift-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `swift/argument-parser-argument` | [`Argument.swift`][argument-parser-argument] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
-| `swift/algorithms-chunked` | [`Chunked.swift`][algorithms-chunked] in apple/swift-algorithms | [Apache-2.0][algorithms-licence] |
-| `swift/alamofire-af-error` | [`AFError.swift`][alamofire-af-error] in Alamofire/Alamofire | [MIT][alamofire-licence] |
-| `swift/composable-store` | [`Store.swift`][composable-store] in pointfreeco/swift-composable-architecture | [MIT][composable-licence] |
-| `swift/string-processing-algorithms-tests` | [`AlgorithmsTests.swift`][string-processing-algorithms-tests] in swiftlang/swift-experimental-string-processing | [Apache-2.0][string-processing-licence] |
-| `swift/argument-parser-command-parser` | [`CommandParser.swift`][argument-parser-command-parser] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
-| `swift/nio-codec` | [`Codec.swift`][nio-codec] in apple/swift-nio | [Apache-2.0][nio-licence] |
-| `swift/string-processing-custom-tests` | [`CustomTests.swift`][string-processing-custom-tests] in swiftlang/swift-experimental-string-processing | [Apache-2.0][string-processing-licence] |
-| `swift/testing-runner-tests` | [`RunnerTests.swift`][testing-runner-tests] in swiftlang/swift-testing | [Apache-2.0][swift-testing-licence] |
-| `swift/kingfisher-image-processor` | [`ImageProcessor.swift`][kingfisher-image-processor] in onevcat/Kingfisher | [MIT][kingfisher-licence] |
-| `swift/snapshot-assert-snapshot` | [`AssertSnapshot.swift`][snapshot-assert-snapshot] in pointfreeco/swift-snapshot-testing | [MIT][snapshot-testing-licence] |
-| `swift/coverage` | `oracle/inputs/swift-coverage.swift`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `swift/swift-test-decl-func-keyword-argument-labels` | [`test/decl/func/keyword-argument-labels.swift`][swift-test-decl-func-keyword-argument-labels] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `swift/swift-test-decl-func-rethrows` | [`test/decl/func/rethrows.swift`][swift-test-decl-func-rethrows] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `swift/swift-test-decl-import-import` | [`test/decl/import/import.swift`][swift-test-decl-import-import] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `swift/swift-test-decl-protocol-protocol-enum-witness` | [`test/decl/protocol/protocol_enum_witness.swift`][swift-test-decl-protocol-protocol-enum-witness] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `swift/swift-test-decl-protocol-protocols` | [`test/decl/protocol/protocols.swift`][swift-test-decl-protocol-protocols] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `swift/swift-test-expr-expressions` | [`test/expr/expressions.swift`][swift-test-expr-expressions] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `swift/swift-test-expr-primary-selector-selector` | [`test/expr/primary/selector/selector.swift`][swift-test-expr-primary-selector-selector] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `swift/swift-test-expr-unary-async-await` | [`test/expr/unary/async_await.swift`][swift-test-expr-unary-async-await] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `swift/swift-test-parse-conditionalcompilation-basicparseerrors` | [`test/Parse/ConditionalCompilation/basicParseErrors.swift`][swift-test-parse-conditionalcompilation-basicparseerrors] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `swift/swift-test-parse-escaped-identifiers` | [`test/Parse/escaped_identifiers.swift`][swift-test-parse-escaped-identifiers] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `swift/swift-test-parse-operator-decl` | [`test/Parse/operator_decl.swift`][swift-test-parse-operator-decl] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `swift/swift-test-parse-raw-string` | [`test/Parse/raw_string.swift`][swift-test-parse-raw-string] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `swift/swift-test-parse-raw-string-errors` | [`test/Parse/raw_string_errors.swift`][swift-test-parse-raw-string-errors] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `swift/swift-test-parse-trailing-comma` | [`test/Parse/trailing-comma.swift`][swift-test-parse-trailing-comma] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `swift/swift-test-parse-type-expr` | [`test/Parse/type_expr.swift`][swift-test-parse-type-expr] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
-| `markdown/argument-parser-declaring-arguments` | [`DeclaringArguments.md`][argument-parser-declaring-arguments] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
-| `markdown/kingfisher-common-tasks-cache` | [`CommonTasks_Cache.md`][kingfisher-common-tasks-cache] in onevcat/Kingfisher | [MIT][kingfisher-licence] |
-| `markdown/argument-parser-getting-started` | [`GettingStarted.md`][argument-parser-getting-started] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
-| `powershell/coverage` | `oracle/inputs/powershell-coverage.ps1`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `powershell/sample` | [`samples/powershell.sample`][powershell-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `powershell/install-powershell` | [`tools/install-powershell.ps1`][install-powershell] in PowerShell/PowerShell | [MIT][powershell-licence] |
-| `powershell/dotnet-install` | [`src/dotnet-install.ps1`][dotnet-install] in dotnet/install-scripts | [MIT][dotnet-install-licence] |
-| `powershell/set-release-tag` | [`tools/releaseBuild/setReleaseTag.ps1`][set-release-tag] in PowerShell/PowerShell | [MIT][powershell-licence] |
-| `markdown/powershell-windows-build` | [`docs/building/windows-core.md`][powershell-windows-build] in PowerShell/PowerShell | [MIT][powershell-licence] |
-| `markdown/powershell-releasing` | [`docs/maintainers/releasing.md`][powershell-releasing] in PowerShell/PowerShell | [MIT][powershell-licence] |
-| `scala/sample` | [`samples/scala.sample`][scala-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `scala/scala3-boundary` | [`library/src/scala/util/boundary.scala`][scala3-boundary] in scala/scala3 | [Apache-2.0][scala3-licence] |
-| `scala/scala3-source-position` | [`compiler/src/dotty/tools/dotc/util/SourcePosition.scala`][scala3-source-position] in scala/scala3 | [Apache-2.0][scala3-licence] |
-| `scala/circe-json` | [`modules/core/shared/src/main/scala/io/circe/Json.scala`][circe-json] in circe/circe | [Apache-2.0][circe-licence] |
-| `scala/circe-build` | [`build.sbt`][circe-build] in circe/circe | [Apache-2.0][circe-licence] |
-| `scala/coverage` | `oracle/inputs/scala-coverage.scala`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `markdown/scala3-givens` | [`docs/_docs/reference/contextual/givens.md`][scala3-givens] in scala/scala3 | [Apache-2.0][scala3-licence] |
-| `markdown/scala3-enums` | [`docs/_docs/reference/enums/enums.md`][scala3-enums] in scala/scala3 | [Apache-2.0][scala3-licence] |
 | `zig/sample` | [`samples/zig.sample`][zig-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `zig/std-allocator` | [`lib/std/mem/Allocator.zig`][zig-std-allocator] in ziglang/zig | [MIT][zig-licence] |
 | `zig/std-fmt` | [`lib/std/fmt.zig`][zig-std-fmt] in ziglang/zig | [MIT][zig-licence] |
-| `zig/zls-offsets` | [`src/offsets.zig`][zls-offsets] in zigtools/zls | [MIT][zls-licence] |
 | `zig/zls-build` | [`build.zig`][zls-build] in zigtools/zls | [MIT][zls-licence] |
-| `lua/sample` | [`samples/lua.sample`][lua-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `lua/inspect` | [`inspect.lua`][inspect-lua] in kikito/inspect.lua | [MIT][inspect-lua-licence] |
-| `lua/lume` | [`lume.lua`][lume] in rxi/lume | [MIT][lume-licence] |
-| `lua/json` | [`json.lua`][json-lua] in rxi/json.lua | [MIT][json-lua-licence] |
-| `lua/penlight-stringx` | [`lua/pl/stringx.lua`][penlight-stringx] in lunarmodules/Penlight | [MIT][penlight-licence] |
-| `lua/luarocks-util` | [`src/luarocks/core/util.lua`][luarocks-util] in luarocks/luarocks | [MIT][luarocks-licence] |
-| `lua/luals-string` | [`meta/template/string.lua`][luals-string] in LuaLS/lua-language-server | [MIT][luals-licence] |
-| `lua/luals-table` | [`meta/template/table.lua`][luals-table] in LuaLS/lua-language-server | [MIT][luals-licence] |
-| `lua/lua-literals` | [`testes/literals.lua`][lua-literals] in lua/lua | [MIT][lua-licence] |
-| `lua/coverage` | `oracle/inputs/lua-coverage.lua`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `lua/lua-locals` | [`testes/locals.lua`][lua-locals] in lua/lua | [MIT][lua-licence] |
-| `lua/luals-basic` | [`meta/template/basic.lua`][luals-basic] in LuaLS/lua-language-server | [MIT][luals-licence] |
-| `cmake/sample` | [`samples/cmake.sample`][cmake-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `cmake/json-lists` | [`CMakeLists.txt`][json-cmake-lists] in nlohmann/json | [MIT][nlohmann-json-licence] |
-| `cmake/googletest-utils` | [`googletest/cmake/internal_utils.cmake`][googletest-utils] in google/googletest | [BSD-3-Clause][googletest-licence] |
-| `cmake/catch2-lists` | [`CMakeLists.txt`][catch2-cmake-lists] in catchorg/Catch2 | [BSL-1.0][catch2-licence] |
-| `proto/sample` | [`samples/proto.sample`][proto-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `proto/googleapis-http` | [`google/api/http.proto`][googleapis-http] in googleapis/googleapis | [Apache-2.0][googleapis-licence] |
-| `proto/googleapis-operations` | [`google/longrunning/operations.proto`][googleapis-operations] in googleapis/googleapis | [Apache-2.0][googleapis-licence] |
-| `proto/grpc-route-guide` | [`examples/protos/route_guide.proto`][grpc-route-guide] in grpc/grpc | [Apache-2.0][grpc-licence] |
-| `bat/sample` | [`samples/bat.sample`][bat-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `bat/gradlew` | [`gradlew.bat`][gradlew-bat] in gradle/gradle | [Apache-2.0][gradle-licence] |
-| `bat/tomcat-catalina` | [`bin/catalina.bat`][tomcat-catalina-bat] in apache/tomcat | [Apache-2.0][tomcat-licence] |
-| `bat/tomcat-setclasspath` | [`bin/setclasspath.bat`][tomcat-setclasspath] in apache/tomcat | [Apache-2.0][tomcat-licence] |
-| `nix/sample` | [`samples/nix.sample`][nix-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `nix/nixpkgs-ripgrep` | [`pkgs/by-name/ri/ripgrep/package.nix`][nixpkgs-ripgrep] in NixOS/nixpkgs | [MIT][nixpkgs-licence] |
-| `nix/nixpkgs-lists` | [`lib/lists.nix`][nixpkgs-lists] in NixOS/nixpkgs | [MIT][nixpkgs-licence] |
-| `nix/home-manager-tmux` | [`modules/programs/tmux.nix`][home-manager-tmux] in nix-community/home-manager | [MIT][home-manager-licence] |
-| `nix/home-manager-flake` | [`flake.nix`][home-manager-flake] in nix-community/home-manager | [MIT][home-manager-licence] |
-| `dart/coverage` | `oracle/inputs/dart-coverage.dart`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `dart/sample` | [`samples/dart.sample`][dart-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `dart/http-client` | [`pkgs/http/lib/src/client.dart`][dart-http-client] in dart-lang/http | [BSD-3-Clause][dart-http-licence] |
-| `dart/http-base-request` | [`pkgs/http/lib/src/base_request.dart`][dart-http-base-request] in dart-lang/http | [BSD-3-Clause][dart-http-licence] |
-| `dart/collection-algorithms` | [`pkgs/collection/lib/src/algorithms.dart`][dart-collection-algorithms] in dart-lang/core | [BSD-3-Clause][dart-core-licence] |
-| `markdown/dart-http-readme` | [`pkgs/http/README.md`][dart-http-readme] in dart-lang/http | [BSD-3-Clause][dart-http-licence] |
-| `markdown/dart-args-readme` | [`pkgs/args/README.md`][dart-args-readme] in dart-lang/core | [BSD-3-Clause][dart-core-licence] |
-| `julia/sample` | [`samples/julia.sample`][julia-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `julia/base-abstractset` | [`base/abstractset.jl`][julia-base-abstractset] in JuliaLang/julia | [MIT][julia-licence] |
-| `julia/base-sort` | [`base/sort.jl`][julia-base-sort] in JuliaLang/julia | [MIT][julia-licence] |
-| `julia/strings-util` | [`base/strings/util.jl`][julia-strings-util] in JuliaLang/julia | [MIT][julia-licence] |
-| `markdown/julia-functions` | [`doc/src/manual/functions.md`][julia-manual-functions] in JuliaLang/julia | [MIT][julia-licence] |
-| `markdown/julia-strings` | [`doc/src/manual/strings.md`][julia-manual-strings] in JuliaLang/julia | [MIT][julia-licence] |
-| `mermaid/sample` | [`samples/mermaid.sample`][mermaid-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `mermaid/flowchart-code-flow` | [`docs/diagrams/flowchart-code-flow.mmd`][mermaid-flowchart-code-flow] in mermaid-js/mermaid | [MIT][mermaid-licence] |
-| `mermaid/api-sequence` | [`docs/diagrams/mermaid-api-sequence.mmd`][mermaid-api-sequence] in mermaid-js/mermaid | [MIT][mermaid-licence] |
-| `mermaid/mindmap-sequence` | [`docs/diagrams/mindmap-implementation-sequence.mmd`][mermaid-mindmap-sequence] in mermaid-js/mermaid | [MIT][mermaid-licence] |
-| `haskell/sample` | [`samples/haskell.sample`][haskell-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `haskell/aeson-github` | [`examples/src/GitHub.hs`][aeson-github] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
-| `haskell/aeson-builder` | [`src/Data/Aeson/Encoding/Builder.hs`][aeson-builder] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
-| `haskell/aeson-decoding-text` | [`src/Data/Aeson/Decoding/Text.hs`][aeson-decoding-text] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
-| `haml/sample` | [`samples/haml.sample`][haml-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `haml/filters` | `oracle/inputs/haml-filters.haml`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `haml/haml-helpers` | [`test/haml/templates/helpers.haml`][haml-helpers] in haml/haml | [MIT][haml-licence] |
-| `haml/haml-just-stuff` | [`test/haml/templates/just_stuff.haml`][haml-just-stuff] in haml/haml | [MIT][haml-licence] |
-| `haml/haml-real-sample` | [`benchmark/etc/real_sample.haml`][haml-real-sample] in haml/haml | [MIT][haml-licence] |
-| `haml/haml-silent-script` | [`test/haml/templates/silent_script.haml`][haml-silent-script] in haml/haml | [MIT][haml-licence] |
-| `haml/haml-standard` | [`test/haml/templates/standard.haml`][haml-standard] in haml/haml | [MIT][haml-licence] |
-| `haml/haml-whitespace` | [`test/haml/templates/whitespace_handling.haml`][haml-whitespace] in haml/haml | [MIT][haml-licence] |
-| `sass/sample` | [`samples/sass.sample`][sass-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `sass/bulma-functions` | [`sass/utilities/functions.sass`][sass-bulma-functions] in jgthms/bulma | [MIT][bulma-sass-licence] |
-| `sass/bulma-generic` | [`sass/base/generic.sass`][sass-bulma-generic] in jgthms/bulma | [MIT][bulma-sass-licence] |
-| `sass/bulma-mixins` | [`sass/utilities/mixins.sass`][sass-bulma-mixins] in jgthms/bulma | [MIT][bulma-sass-licence] |
-| `sass/bulma-navbar` | [`sass/components/navbar.sass`][sass-bulma-navbar] in jgthms/bulma | [MIT][bulma-sass-licence] |
-| `coffee/sample` | [`samples/coffee.sample`][coffee-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `coffee/coffeescript-browser` | [`src/browser.coffee`][coffeescript-browser] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
-| `coffee/coffeescript-cake` | [`src/cake.coffee`][coffeescript-cake] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
-| `coffee/coffeescript-helpers` | [`src/helpers.coffee`][coffeescript-helpers] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
-| `coffee/coffeescript-javascript-literals` | [`test/javascript_literals.coffee`][coffeescript-javascript-literals] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
-| `coffee/coffeescript-optparse` | [`src/optparse.coffee`][coffeescript-optparse] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
-| `coffee/coffeescript-repl` | [`src/repl.coffee`][coffeescript-repl] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
-| `php/sample` | [`samples/php.sample`][php-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `php/embedded` | `oracle/inputs/php-embedded.php`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `php/laravel-postgres-grammar` | [`src/Illuminate/Database/Query/Grammars/PostgresGrammar.php`][laravel-postgres-grammar] in laravel/framework | [MIT][laravel-licence] |
-| `php/laravel-router` | [`src/Illuminate/Routing/Router.php`][laravel-router] in laravel/framework | [MIT][laravel-licence] |
-| `objective-c/sample` | [`samples/objective-c.sample`][objective-c-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `objective-c/afnetworking-http-session-manager` | [`AFNetworking/AFHTTPSessionManager.h`][afnetworking-http-session-manager] in AFNetworking/AFNetworking | [MIT][afnetworking-licence] |
-| `objective-c/afnetworking-url-session-manager` | [`AFNetworking/AFURLSessionManager.m`][afnetworking-url-session-manager] in AFNetworking/AFNetworking | [MIT][afnetworking-licence] |
-| `objective-c/sdwebimage-image-cache` | [`SDWebImage/Core/SDImageCache.h`][sdwebimage-image-cache] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
-| `objective-c/sdwebimage-manager` | [`SDWebImage/Core/SDWebImageManager.m`][sdwebimage-manager] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
-| `perl/sample` | [`samples/perl.sample`][perl-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `perl/embedded` | `oracle/inputs/perl-embedded.pl`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `perl/sqitch-engine-pg` | [`lib/App/Sqitch/Engine/pg.pm`][sqitch-engine-pg] in sqitchers/sqitch | [MIT][sqitch-licence] |
-| `perl/sqitch-engine-sqlite` | [`lib/App/Sqitch/Engine/sqlite.pm`][sqitch-engine-sqlite] in sqitchers/sqitch | [MIT][sqitch-licence] |
+| `zig/zls-offsets` | [`src/offsets.zig`][zls-offsets] in zigtools/zls | [MIT][zls-licence] |
+
+`ruby/sample`, `ruby/rack-request`, `ruby/rubocop-cop-base`, `ruby/rails-callbacks`, `ruby/rails-inflector`, `ruby/heredocs`, `ruby/js-heredocs`, `ruby/cpp-lua-heredocs`, `ruby/html-heredocs`, `ruby/xml-heredocs`, `ruby/yaml-heredocs` and `ruby/end-html` are the development inputs for Ruby, and `markdown/rack-readme` is the development input for Ruby fences.
+`ruby/jekyll-site`, `ruby/devise`, `ruby/puma-server`, `ruby/rspec-example`, `ruby/thor`, `ruby/rake-task` and `markdown/devise-readme` are held out.
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -544,125 +664,6 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `themes/github-dark` | [primer/github-vscode-theme][github-theme], through `@shikijs/themes` 4.6.0 | [MIT][github-theme-licence] |
 | `themes/one-light` | [akamud/vscode-theme-onelight][one-light], through `@shikijs/themes` 4.6.0 | [MIT][one-light-licence] |
 | `themes/catppuccin-mocha` | [catppuccin/vscode][catppuccin], through `@shikijs/themes` 4.6.0 | [MIT][catppuccin-licence] |
-| `docker/sample` | [`samples/docker.sample`][docker-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `docker/python-slim-bookworm` | [`3.13/slim-bookworm/Dockerfile`][python-docker] in docker-library/python | [MIT][python-docker-licence] |
-| `docker/next-with-docker` | [`examples/with-docker/Dockerfile`][next-docker] in vercel/next.js | [MIT][next-licence] |
-| `docker/prometheus` | [`Dockerfile`][prometheus-docker] in prometheus/prometheus | [Apache-2.0][prometheus-make-licence] |
-| `docker/moby` | [`Dockerfile`][moby-docker] in moby/moby | [Apache-2.0][moby-licence] |
-| `docker/postgres-bookworm` | [`18/bookworm/Dockerfile`][postgres-docker] in docker-library/postgres | [MIT][postgres-docker-licence] |
-| `docker/buildx` | [`Dockerfile`][buildx-docker] in docker/buildx | [Apache-2.0][buildx-licence] |
-| `docker/coverage` | `oracle/inputs/docker-coverage.dockerfile`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `markdown/fastapi-docker` | [`docs/en/docs/deployment/docker.md`][fastapi-docker] in tiangolo/fastapi | [MIT][fastapi-licence] |
-| `markdown/next-with-docker-readme` | [`examples/with-docker/README.md`][next-docker-readme] in vercel/next.js | [MIT][next-licence] |
-| `markdown/next-with-docker-export-readme` | [`examples/with-docker-export-output/README.md`][next-docker-export-readme] in vercel/next.js | [MIT][next-licence] |
-| `ini/sample` | [`samples/ini.sample`][ini-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `ini/pytest-tox` | [`tox.ini`][pytest-tox] in pytest-dev/pytest | [MIT][pytest-licence] |
-| `ini/kafka-server` | [`config/server.properties`][kafka-server] in apache/kafka | [Apache-2.0][kafka-licence] |
-| `ini/black-tox` | [`tox.ini`][black-tox] in psf/black | [MIT][black-licence] |
-| `ini/django-tox` | [`tox.ini`][django-tox] in django/django | [BSD-3-Clause][django-licence] |
-| `ini/sqlalchemy-tox` | [`tox.ini`][sqlalchemy-tox] in sqlalchemy/sqlalchemy | [MIT][sqlalchemy-licence] |
-| `ini/tomcat-catalina` | [`conf/catalina.properties`][tomcat-catalina] in apache/tomcat | [Apache-2.0][tomcat-licence] |
-| `ini/kafka-consumer` | [`config/consumer.properties`][kafka-consumer] in apache/kafka | [Apache-2.0][kafka-licence] |
-| `ini/coverage` | `oracle/inputs/ini-coverage.ini`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `markdown/black-other-tools` | [`docs/guides/using_black_with_other_tools.md`][black-other-tools] in psf/black | [MIT][black-licence] |
-| `markdown/poetry-faq` | [`docs/faq.md`][poetry-faq] in python-poetry/poetry | [MIT][poetry-licence] |
-| `graphql/sample` | [`samples/graphql.sample`][graphql-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `graphql/graphql-js-kitchen-sink` | [`benchmark/kitchen-sink.graphql`][graphql-js-kitchen-sink] in graphql/graphql-js | [MIT][graphql-js-licence] |
-| `graphql/graphiql-schema-kitchen-sink` | [`packages/codemirror-graphql/src/__tests__/schema-kitchen-sink.graphql`][graphiql-schema-kitchen-sink] in graphql/graphiql | [MIT][graphiql-licence] |
-| `graphql/codegen-apollo-tooling` | [`dev-test/apollo-tooling/schema.graphql`][codegen-apollo] in dotansimha/graphql-code-generator | [MIT][codegen-licence] |
-| `graphql/graphiql-kitchen-sink` | [`packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql`][graphiql-kitchen-sink] in graphql/graphiql | [MIT][graphiql-licence] |
-| `graphql/graphiql-star-wars` | [`packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql`][graphiql-star-wars] in graphql/graphiql | [MIT][graphiql-licence] |
-| `graphql/graphiql-merged-query` | [`packages/graphiql-toolkit/src/graphql-helpers/__tests__/__queries__/mergedQueryWithSchema.graphql`][graphiql-merged-query] in graphql/graphiql | [MIT][graphiql-licence] |
-| `graphql/coverage` | `oracle/inputs/graphql-coverage.graphql`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `csharp/sample` | [`samples/csharp.sample`][csharp-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `csharp/runtime-linq-where` | [`Where.cs`][runtime-linq-where] in dotnet/runtime | [MIT][dotnet-runtime-licence] |
-| `csharp/runtime-stack` | [`Stack.cs`][runtime-stack] in dotnet/runtime | [MIT][dotnet-runtime-licence] |
-| `csharp/newtonsoft-json-convert` | [`JsonConvert.cs`][newtonsoft-json-convert] in JamesNK/Newtonsoft.Json | [MIT][newtonsoft-licence] |
-| `csharp/roslyn-text-span` | [`TextSpan.cs`][roslyn-text-span] in dotnet/roslyn | [MIT][roslyn-licence] |
-| `csharp/coverage` | `oracle/inputs/csharp-coverage.cs`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `csharp/docs-async-wpf` | [`MainWindow.xaml.cs`][csharp-docs-async-wpf] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-bitwise-shift` | [`BitwiseAndShiftOperators.cs`][csharp-docs-bitwise-shift] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-closed-hierarchy-patterns` | [`ClosedHierarchyPatterns.cs`][csharp-docs-closed-hierarchy-patterns] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-delegate-operator` | [`DelegateOperator.cs`][csharp-docs-delegate-operator] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-doc-comments` | [`DocComments.cs`][csharp-docs-doc-comments] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-events` | [`events.cs`][csharp-docs-events] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-exception-example` | [`ExampleClass.cs`][csharp-docs-exception-example] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-fixed` | [`FixedKeywordExamples.cs`][csharp-docs-fixed] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-generic-where` | [`GenericWhereConstraints.cs`][csharp-docs-generic-where] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-goto` | [`GotoStatement.cs`][csharp-docs-goto] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-group` | [`group.cs`][csharp-docs-group] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-keywords-contextual` | [`csrefKeywordsContextual.cs`][csharp-docs-keywords-contextual] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-keywords-modifiers` | [`csrefKeywordsModifiers.cs`][csharp-docs-keywords-modifiers] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-lock` | [`Program.cs`][csharp-docs-lock] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-raw-string-literal` | [`raw-string-literal.cs`][csharp-docs-raw-string-literal] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-record-type` | [`RecordType.cs`][csharp-docs-record-type] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-string-interpolation` | [`string-interpolation.cs`][csharp-docs-string-interpolation] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-union-body-members` | [`BodyMembers.cs`][csharp-docs-union-body-members] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-using-alias` | [`UsingAliasQualifier.cs`][csharp-docs-using-alias] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-value-tuples` | [`ValueTuples.cs`][csharp-docs-value-tuples] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `csharp/docs-var-pattern` | [`VarPattern.cs`][csharp-docs-var-pattern] in dotnet/docs | [MIT][dotnet-docs-licence] |
-| `xml/sample` | [`samples/xml.sample`][xml-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `xml/ant-build` | [`build.xml`][ant-build] in apache/ant | [Apache-2.0][ant-licence] |
-| `xml/commons-lang-pom` | [`pom.xml`][commons-lang-pom] in apache/commons-lang | [Apache-2.0][commons-lang-licence] |
-| `xml/views-lots-of-cards` | [`lots_of_cards.xml`][views-lots-of-cards] in android/views-widgets-samples | [Apache-2.0][views-licence] |
-| `xml/ant-junit-frames` | [`src/etc/junit-frames.xsl`][ant-junit-frames] in apache/ant | [Apache-2.0][ant-licence] |
-| `xml/rome-slashdot` | [`xml/slashdot.xml`][rome-slashdot] in rometools/rome | [Apache-2.0][rome-licence] |
-| `xml/xerces-design` | [`design/xml/design.xml`][xerces-design] in apache/xerces2-j | [Apache-2.0][xerces-licence] |
-| `xml/xerces-xni-config` | [`docs/xni-config.xml`][xerces-xni-config] in apache/xerces2-j | [Apache-2.0][xerces-licence] |
-| `xml/foundation-keyed-archive` | [`NSKeyedUnarchiver-ConcreteValueTest.plist`][foundation-keyed-archive] in apple/swift-corelibs-foundation | [Apache-2.0][foundation-licence] |
-| `xml/bootstrap-logo` | [`bootstrap-logo.svg`][bootstrap-logo] in twbs/bootstrap | [MIT][bootstrap-licence] |
-| `xml/xerces-schedule` | [`design/xml/schedule.xml`][xerces-schedule] in apache/xerces2-j | [Apache-2.0][xerces-licence] |
-| `xml/ant-checkstyle-frames` | [`src/etc/checkstyle/checkstyle-frames.xsl`][ant-checkstyle-frames] in apache/ant | [Apache-2.0][ant-licence] |
-| `xml/rome-at` | [`xml/at.xml`][rome-at] in rometools/rome | [Apache-2.0][rome-licence] |
-| `xml/rome-yahoo-top-songs` | [`data/YahooTopSongs.xml`][rome-yahoo-top-songs] in rometools/rome | [Apache-2.0][rome-licence] |
-| `xml/ant-junit-noframes` | [`src/etc/junit-noframes.xsl`][ant-junit-noframes] in apache/ant | [Apache-2.0][ant-licence] |
-| `xml/views-activity-entrance` | [`activity_entrance.xml`][views-activity-entrance] in android/views-widgets-samples | [Apache-2.0][views-licence] |
-| `xml/coverage` | `oracle/inputs/xml-coverage.xml`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `xml/coverage-jsp-comment` | `oracle/inputs/xml-coverage-jsp-comment.xml`, written for nishiki | MIT or Apache-2.0, as nishiki |
-| `html/sample` | [`samples/html.sample`][html-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `html/h5bp-index` | [`src/index.html`][h5bp-index] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
-| `html/todomvc-backbone` | [`examples/backbone/index.html`][todomvc-backbone] in tastejs/todomvc | [MIT][todomvc-licence] |
-| `html/three-animation-keyframes` | [`examples/webgl_animation_keyframes.html`][three-animation-keyframes] in mrdoob/three.js | [MIT][three-licence] |
-| `html/mathjax-mml-chtml` | [`page/mml-chtml.html`][mathjax-mml-chtml] in mathjax/MathJax-demos-web | [Apache-2.0][mathjax-demos-licence] |
-| `html/three-css3d-periodictable` | [`examples/css3d_periodictable.html`][three-css3d-periodictable] in mrdoob/three.js | [MIT][three-licence] |
-| `html/jquery-qunit-fixture` | [`test/data/qunit-fixture.html`][jquery-qunit-fixture] in jquery/jquery | [MIT][jquery-licence] |
-| `html/todomvc-polymer` | [`examples/polymer/index.html`][todomvc-polymer] in tastejs/todomvc | [BSD-3-Clause][todomvc-polymer-licence] |
-| `html/h5bp-404` | [`src/404.html`][h5bp-404] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
-| `html/todomvc-lit` | [`examples/lit/index.html`][todomvc-lit] in tastejs/todomvc | [MIT][todomvc-licence] |
-| `html/three-geometry-colors` | [`examples/webgl_geometry_colors.html`][three-geometry-colors] in mrdoob/three.js | [MIT][three-licence] |
-| `html/mathjax-tex-mml` | [`page/tex-mml.html`][mathjax-tex-mml] in mathjax/MathJax-demos-web | [Apache-2.0][mathjax-demos-licence] |
-| `html/three-loader-gltf` | [`examples/webgl_loader_gltf.html`][three-loader-gltf] in mrdoob/three.js | [MIT][three-licence] |
-| `html/bootstrap3-visual-modal` | [`js/tests/visual/modal.html`][bootstrap3-visual-modal] in twbs/bootstrap | [MIT][bootstrap3-licence] |
-| `html/jquery-delegatetest` | [`test/delegatetest.html`][jquery-delegatetest] in jquery/jquery | [MIT][jquery-licence] |
-| `html/todomvc-knockoutjs` | [`examples/knockoutjs/index.html`][todomvc-knockoutjs] in tastejs/todomvc | [MIT][todomvc-licence] |
-| `html/todomvc-jquery` | [`examples/jquery/index.html`][todomvc-jquery] in tastejs/todomvc | [MIT][todomvc-licence] |
-| `html-derivative/vue-classic-grid` | [`packages/vue/examples/classic/grid.html`][derivative-vue-classic-grid] in vuejs/core | [MIT][vue-licence] |
-| `html-derivative/vue-classic-todomvc` | [`packages/vue/examples/classic/todomvc.html`][derivative-vue-classic-todomvc] in vuejs/core | [MIT][vue-licence] |
-| `html-derivative/vue-commits` | [`packages/vue/examples/composition/commits.html`][derivative-vue-commits] in vuejs/core | [MIT][vue-licence] |
-| `html-derivative/vue-grid` | [`packages/vue/examples/composition/grid.html`][derivative-vue-grid] in vuejs/core | [MIT][vue-licence] |
-| `html-derivative/vue-hydration-visible` | [`packages/vue/__tests__/e2e/hydration-strat-visible.html`][derivative-vue-hydration-visible] in vuejs/core | [MIT][vue-licence] |
-| `html-derivative/vue-markdown` | [`packages/vue/examples/composition/markdown.html`][derivative-vue-markdown] in vuejs/core | [MIT][vue-licence] |
-| `html-derivative/vue-modal` | [`packages/vue/examples/transition/modal.html`][derivative-vue-modal] in vuejs/core | [MIT][vue-licence] |
-| `html-derivative/vue-svg` | [`packages/vue/examples/composition/svg.html`][derivative-vue-svg] in vuejs/core | [MIT][vue-licence] |
-| `html-derivative/vue-todomvc` | [`packages/vue/examples/composition/todomvc.html`][derivative-vue-todomvc] in vuejs/core | [MIT][vue-licence] |
-| `html-derivative/vue-transition-list` | [`packages/vue/examples/transition/list.html`][derivative-vue-transition-list] in vuejs/core | [MIT][vue-licence] |
-| `html-derivative/vue-tree` | [`packages/vue/examples/composition/tree.html`][derivative-vue-tree] in vuejs/core | [MIT][vue-licence] |
-| `erb/sample` | [`samples/erb.sample`][erb-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
-| `erb/rails-welcome` | [`railties/lib/rails/templates/rails/welcome/index.html.erb`][rails-welcome] in rails/rails | [MIT][railties-licence] |
-| `erb/rails-routes-table` | [`actionpack/lib/action_dispatch/middleware/templates/routes/_table.html.erb`][rails-routes-table] in rails/rails | [MIT][actionpack-licence] |
-| `erb/rails-rescues-source` | [`actionpack/lib/action_dispatch/middleware/templates/rescues/_source.html.erb`][rails-rescues-source] in rails/rails | [MIT][actionpack-licence] |
-| `erb/devise-registrations-edit` | [`app/views/devise/registrations/edit.html.erb`][devise-registrations-edit] in heartcombo/devise | [MIT][devise-licence] |
-| `erb/rails-scaffold-form` | [`railties/lib/rails/generators/erb/scaffold/templates/_form.html.erb.tt`][rails-scaffold-form] in rails/rails | [MIT][railties-licence] |
-| `erb/rails-mailer-email` | [`railties/lib/rails/templates/rails/mailers/email.html.erb`][rails-mailer-email] in rails/rails | [MIT][railties-licence] |
-| `erb/rails-rescues-diagnostics` | [`actionpack/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb`][rails-rescues-diagnostics] in rails/rails | [MIT][actionpack-licence] |
-| `erb/rails-info-notes` | [`railties/lib/rails/templates/rails/info/notes.html.erb`][rails-info-notes] in rails/rails | [MIT][railties-licence] |
-| `erb/rails-app-layout` | [`railties/lib/rails/generators/rails/app/templates/app/views/layouts/application.html.erb.tt`][rails-app-layout] in rails/rails | [MIT][railties-licence] |
-| `erb/rails-pwa-offline` | [`railties/lib/rails/generators/rails/app/templates/app/views/pwa/offline.html.erb`][rails-pwa-offline] in rails/rails | [MIT][railties-licence] |
-| `erb/devise-shared-links` | [`app/views/devise/shared/_links.html.erb`][devise-shared-links] in heartcombo/devise | [MIT][devise-licence] |
-| `erb/devise-confirmation-instructions` | [`app/views/devise/mailer/confirmation_instructions.html.erb`][devise-confirmation-instructions] in heartcombo/devise | [MIT][devise-licence] |
-| `erb/devise-sessions-new` | [`app/views/devise/sessions/new.html.erb`][devise-sessions-new] in heartcombo/devise | [MIT][devise-licence] |
-| `erb/devise-error-messages` | [`app/views/devise/shared/_error_messages.html.erb`][devise-error-messages] in heartcombo/devise | [MIT][devise-licence] |
-| `erb/coverage` | `oracle/inputs/erb-coverage.erb`, written for nishiki | MIT or Apache-2.0, as nishiki |
 
 `ripgrep-searcher` and `serde-de` are held out: they were not among the inputs the Rust lexer was written against.
 `core-macros` and `coverage` are held out too: they were added to exercise the rest of the `rust` grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
