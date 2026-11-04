@@ -324,3 +324,16 @@ fn no_unit_holds_letters_a_fold_of_their_length_spells() {
         }
     }
 }
+
+/// Two escapes of a class name keep their own scopes.
+/// Both put a one-scope slice built on the stack on the same base, so a cache
+/// keyed by the slice's address gave the second the first one's stack.
+#[test]
+fn neighbouring_escapes_keep_their_own_scopes() {
+    let row = lex(r".a\41\x { }");
+    assert_eq!(
+        leaf_in(&row, r"\41"),
+        "constant.character.escape.codepoint.css"
+    );
+    assert_eq!(leaf_in(&row, r"\x"), "constant.character.escape.css");
+}

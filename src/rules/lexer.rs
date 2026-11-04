@@ -47,13 +47,74 @@ struct Frame<G: Grammar> {
     next_while: u32,
 }
 
-/// A cached `path`: the stack `base` with the scopes at `ptr` on top.
+/// A cached `path`: the stack `node` that the scope with the id `first` and
+/// the scopes with the ids `rest[..rest_len]` make on `base`.
+///
+/// An entry is found by the scopes' own ids, not by the slice's address.
+/// An address moves when another language's tables change, and a slice built
+/// on the stack can hold other scopes at the same address on the next call.
 #[derive(Clone, Copy, Debug)]
 struct PathEntry {
     base: u32,
-    ptr: usize,
-    len: usize,
+    first: u32,
+    rest_len: u32,
+    rest: [u32; PATH_SCOPES - 1],
     node: u32,
+}
+
+impl PathEntry {
+    /// The entry of `first` and `rest` on `base`, which make `node`.
+    /// `None` when the path puts more than [`PATH_SCOPES`] scopes on its base,
+    /// or a scope of `rest` is named from a capture group.
+    fn new<G: Grammar>(base: u32, first: u32, rest: &[G::Scope], node: u32) -> Option<Self> {
+        let rest_len = u32::try_from(rest.len()).ok()?;
+        if rest.len() >= PATH_SCOPES {
+            return None;
+        }
+        let mut ids = [0; PATH_SCOPES - 1];
+        for (id, &scope) in ids.iter_mut().zip(rest) {
+            *id = fixed_id::<G>(scope)?;
+        }
+        Some(PathEntry {
+            base,
+            first,
+            rest_len,
+            rest: ids,
+            node,
+        })
+    }
+
+    /// Whether the entry is the path of `first` and `rest` on `base`.
+    /// The length is compared before the ids after the first.
+    /// No entry holds more than [`PATH_SCOPES`] scopes, so equal lengths
+    /// leave none of `rest` uncompared.
+    fn holds<G: Grammar>(&self, base: u32, first: u32, rest: &[G::Scope]) -> bool {
+        self.base == base
+            && self.first == first
+            && usize::try_from(self.rest_len).is_ok_and(|len| len == rest.len())
+            && (rest.is_empty()
+                || self
+                    .rest
+                    .iter()
+                    .zip(rest)
+                    .all(|(&id, &scope)| fixed_id::<G>(scope) == Some(id)))
+    }
+}
+
+/// The id of `scope`, or `None` when it is named from a capture group, which
+/// depends on the match.
+fn fixed_id<G: Grammar>(scope: G::Scope) -> Option<u32> {
+    match G::scope(scope) {
+        ScopeName::Fixed(fixed) => Some(fixed.id()),
+        ScopeName::Capture { .. } => None,
+    }
+}
+
+/// The slot of a path in the cache: the top bits of a multiplicative hash of
+/// its base and the id of its first scope.
+fn path_slot(base: u32, first: u32) -> usize {
+    let hash = (base ^ first.rotate_left(16)).wrapping_mul(PATH_HASH);
+    usize::try_from(hash >> PATH_SHIFT).unwrap_or(0)
 }
 
 /// A cached `push_frame`: what opening `code` with `payload` on `parent`,
@@ -82,6 +143,17 @@ const NEST: usize = 12;
 const STALLED_OPENS: usize = 4096;
 
 const PATH_ENTRIES: usize = 512;
+/// The shift that leaves the top nine bits of a `u32`: a slot of the
+/// [`PATH_ENTRIES`] in the cache.
+const PATH_SHIFT: u32 = 23;
+/// The multiplier of the cache's hash, the 32-bit golden ratio.
+const PATH_HASH: u32 = 0x9e37_79b9;
+/// The most scopes a cached `path` puts on its base.
+/// Every slice the grammars pass holds at most three; four makes an entry
+/// 28 bytes, so a slot of the cache is 32 and is indexed with a shift.
+const PATH_SCOPES: usize = 4;
+const _: () = assert!(PATH_ENTRIES == 1 << (u32::BITS - PATH_SHIFT));
+const _: () = assert!(size_of::<Option<PathEntry>>() == 32);
 const PUSH_ENTRIES: usize = 256;
 
 /// Two things that happen while a line is lexed.
@@ -869,31 +941,34 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// The stack `base` with `scopes` on top. A scope the node limit keeps
-    /// from being made is left out. The path is cached by the slice's
-    /// address unless a scope of it is named from a capture group, which
-    /// depends on the match.
+    /// from being made is left out. The path is cached by its base and the
+    /// ids of its scopes ([`PathEntry`]).
     pub(crate) fn path(&mut self, base: u32, scopes: &[G::Scope]) -> u32 {
-        if scopes.is_empty() {
+        let Some((&first, rest)) = scopes.split_first() else {
             return base;
-        }
-        let ptr = scopes.as_ptr().addr();
-        let slot =
-            (usize::try_from(base).unwrap_or(0).wrapping_mul(0x9e37) ^ (ptr >> 3)) % PATH_ENTRIES;
-        if let Some(entry) = self.scratch.paths[slot]
-            && entry.base == base
-            && entry.ptr == ptr
-            && entry.len == scopes.len()
+        };
+        let first_id = fixed_id::<G>(first);
+        if let Some(first_id) = first_id
+            && let Some(entry) = &self.scratch.paths[path_slot(base, first_id)]
+            && entry.holds::<G>(base, first_id, rest)
         {
             return entry.node;
         }
+        self.path_miss(base, scopes, first_id)
+    }
+
+    /// A [`path`](Self::path) the cache does not hold: makes the stack, and
+    /// caches it when `first_id` names a fixed first scope.
+    ///
+    /// Out of line, so a hit saves no registers for the walk.
+    #[inline(never)]
+    fn path_miss(&mut self, base: u32, scopes: &[G::Scope], first_id: Option<u32>) -> u32 {
         let mut stack = base;
         let mut whole = true;
-        let mut fixed = true;
         for &scope in scopes {
             let fixed_scope = match G::scope(scope) {
                 ScopeName::Fixed(fixed_scope) => fixed_scope,
                 ScopeName::Capture { .. } => {
-                    fixed = false;
                     stack = self.path_one(stack, scope);
                     continue;
                 }
@@ -906,13 +981,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             };
             stack = child;
         }
-        if whole && fixed {
-            self.scratch.paths[slot] = Some(PathEntry {
-                base,
-                ptr,
-                len: scopes.len(),
-                node: stack,
-            });
+        let rest = scopes.get(1..).unwrap_or_default();
+        if whole
+            && let Some(first_id) = first_id
+            && let Some(entry) = PathEntry::new::<G>(base, first_id, rest, stack)
+        {
+            self.scratch.paths[path_slot(base, first_id)] = Some(entry);
         }
         stack
     }

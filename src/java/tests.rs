@@ -255,3 +255,16 @@ fn embedded_java_halts_after_the_rules_of_earlier_lines_close() {
     assert_eq!(rows[1].0, None);
     assert_eq!(rows[2].0, Some(2));
 }
+
+/// The generic names of two records keep their own scopes.
+/// Both put a one-scope slice built on the stack on the same base, so a cache
+/// keyed by the slice's address gave the second the first one's stack.
+#[test]
+fn the_generic_names_of_two_records_keep_their_own_scopes() {
+    let text = indoc! {"
+        record A<extends>() {}
+        record B<super>() {}
+    "};
+    assert_eq!(leaf(text, "extends"), "storage.modifier.extends.java");
+    assert_eq!(leaf(text, "super"), "storage.modifier.super.java");
+}
