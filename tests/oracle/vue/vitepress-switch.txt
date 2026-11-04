@@ -1,0 +1,445 @@
+L <template>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 9 text.html.vue entity.name.tag.template.html.vue
+T 10 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L   <button class="VPSwitch" type="button" role="switch">
+T 2 text.html.vue text.html.derivative
+T 3 text.html.vue text.html.derivative meta.tag.structure.button.start.html punctuation.definition.tag.begin.html
+T 9 text.html.vue text.html.derivative meta.tag.structure.button.start.html entity.name.tag.html
+T 10 text.html.vue text.html.derivative meta.tag.structure.button.start.html
+T 15 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 16 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 17 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 25 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.class.html string.quoted.double.html
+T 26 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 27 text.html.vue text.html.derivative meta.tag.structure.button.start.html
+T 31 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.type.html entity.other.attribute-name.html
+T 32 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.type.html punctuation.separator.key-value.html
+T 33 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 39 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.type.html string.quoted.double.html
+T 40 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 41 text.html.vue text.html.derivative meta.tag.structure.button.start.html
+T 45 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.unrecognized.role.html entity.other.attribute-name.html
+T 46 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.unrecognized.role.html punctuation.separator.key-value.html
+T 47 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.unrecognized.role.html string.quoted.double.html punctuation.definition.string.begin.html
+T 53 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.unrecognized.role.html string.quoted.double.html
+T 54 text.html.vue text.html.derivative meta.tag.structure.button.start.html meta.attribute.unrecognized.role.html string.quoted.double.html punctuation.definition.string.end.html
+T 55 text.html.vue text.html.derivative meta.tag.structure.button.start.html punctuation.definition.tag.end.html
+L     <span class="check">
+T 4 text.html.vue text.html.derivative
+T 5 text.html.vue text.html.derivative meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 9 text.html.vue text.html.derivative meta.tag.inline.span.start.html entity.name.tag.html
+T 10 text.html.vue text.html.derivative meta.tag.inline.span.start.html
+T 15 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 16 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 17 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 22 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 23 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 24 text.html.vue text.html.derivative meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+L       <span class="icon" v-if="$slots.default">
+T 6 text.html.vue text.html.derivative
+T 7 text.html.vue text.html.derivative meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 11 text.html.vue text.html.derivative meta.tag.inline.span.start.html entity.name.tag.html
+T 12 text.html.vue text.html.derivative meta.tag.inline.span.start.html
+T 17 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 18 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 19 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 23 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 24 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 25 text.html.vue text.html.derivative meta.tag.inline.span.start.html
+T 29 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.v-if.html entity.other.attribute-name.html
+T 30 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.v-if.html punctuation.separator.key-value.html
+T 31 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.v-if.html string.quoted.double.html punctuation.definition.string.begin.html
+T 45 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.v-if.html string.quoted.double.html
+T 46 text.html.vue text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.v-if.html string.quoted.double.html punctuation.definition.string.end.html
+T 47 text.html.vue text.html.derivative meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+L         <slot />
+T 8 text.html.vue text.html.derivative
+T 9 text.html.vue text.html.derivative meta.tag.structure.slot.start.html punctuation.definition.tag.begin.html
+T 13 text.html.vue text.html.derivative meta.tag.structure.slot.start.html entity.name.tag.html
+T 14 text.html.vue text.html.derivative meta.tag.structure.slot.start.html
+T 15 text.html.vue text.html.derivative meta.tag.structure.slot.start.html invalid.illegal.character-not-allowed-here.html
+T 16 text.html.vue text.html.derivative meta.tag.structure.slot.start.html punctuation.definition.tag.end.html
+L       </span>
+T 6 text.html.vue text.html.derivative
+T 8 text.html.vue text.html.derivative meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 12 text.html.vue text.html.derivative meta.tag.inline.span.end.html entity.name.tag.html
+T 13 text.html.vue text.html.derivative meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+L     </span>
+T 4 text.html.vue text.html.derivative
+T 6 text.html.vue text.html.derivative meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 10 text.html.vue text.html.derivative meta.tag.inline.span.end.html entity.name.tag.html
+T 11 text.html.vue text.html.derivative meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+L   </button>
+T 2 text.html.vue text.html.derivative
+T 4 text.html.vue text.html.derivative meta.tag.structure.button.end.html punctuation.definition.tag.begin.html
+T 10 text.html.vue text.html.derivative meta.tag.structure.button.end.html entity.name.tag.html
+T 11 text.html.vue text.html.derivative meta.tag.structure.button.end.html punctuation.definition.tag.end.html
+L </template>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 10 text.html.vue entity.name.tag.template.html.vue
+T 11 text.html.vue punctuation.definition.tag.end.html.vue
+L 
+L <style scoped>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.style.html.vue
+T 7 text.html.vue meta.tag-stuff
+T 13 text.html.vue meta.tag-stuff meta.attribute.unrecognized.scoped.html entity.other.attribute-name.html
+T 14 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L .VPSwitch {
+T 1 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 text.html.vue source.css
+T 11 text.html.vue source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   position: relative;
+T 2 text.html.vue source.css meta.property-list.css
+T 10 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 text.html.vue source.css meta.property-list.css
+T 20 text.html.vue source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 21 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   border-radius: 0.6875rem;
+T 2 text.html.vue source.css meta.property-list.css
+T 15 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 text.html.vue source.css meta.property-list.css
+T 23 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 26 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.rem.css
+T 27 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   display: block;
+T 2 text.html.vue source.css meta.property-list.css
+T 9 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 text.html.vue source.css meta.property-list.css
+T 16 text.html.vue source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 17 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   width: 2.5rem;
+T 2 text.html.vue source.css meta.property-list.css
+T 7 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 text.html.vue source.css meta.property-list.css
+T 12 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 15 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.rem.css
+T 16 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   height: 1.375rem;
+T 2 text.html.vue source.css meta.property-list.css
+T 8 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 text.html.vue source.css meta.property-list.css
+T 15 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 18 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.rem.css
+T 19 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   flex-shrink: 0;
+T 2 text.html.vue source.css meta.property-list.css
+T 13 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 text.html.vue source.css meta.property-list.css
+T 16 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   border: 1px solid var(--vp-input-border-color);
+T 2 text.html.vue source.css meta.property-list.css
+T 8 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 text.html.vue source.css meta.property-list.css
+T 11 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 14 text.html.vue source.css meta.property-list.css meta.property-value.css
+T 19 text.html.vue source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 20 text.html.vue source.css meta.property-list.css meta.property-value.css
+T 23 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 24 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 47 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 48 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 49 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   background-color: var(--vp-input-switch-bg-color);
+T 2 text.html.vue source.css meta.property-list.css
+T 18 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 19 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 20 text.html.vue source.css meta.property-list.css
+T 23 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 24 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 50 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 51 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 52 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   transition: border-color 0.25s !important;
+T 2 text.html.vue source.css meta.property-list.css
+T 12 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 text.html.vue source.css meta.property-list.css
+T 27 text.html.vue source.css meta.property-list.css meta.property-value.css
+T 31 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 32 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.s.css
+T 33 text.html.vue source.css meta.property-list.css meta.property-value.css
+T 43 text.html.vue source.css meta.property-list.css meta.property-value.css keyword.other.important.css
+T 44 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 text.html.vue source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .VPSwitch:hover {
+T 1 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 text.html.vue source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 15 text.html.vue source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 16 text.html.vue source.css
+T 17 text.html.vue source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   border-color: var(--vp-c-brand-1);
+T 2 text.html.vue source.css meta.property-list.css
+T 14 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 16 text.html.vue source.css meta.property-list.css
+T 19 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 20 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 34 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 35 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 36 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 text.html.vue source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .check {
+T 1 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 6 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css
+T 7 text.html.vue source.css
+T 8 text.html.vue source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   position: absolute;
+T 2 text.html.vue source.css meta.property-list.css
+T 10 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 text.html.vue source.css meta.property-list.css
+T 20 text.html.vue source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 21 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   top: 1px;
+T 2 text.html.vue source.css meta.property-list.css
+T 5 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 6 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 7 text.html.vue source.css meta.property-list.css
+T 8 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 10 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 11 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   inset-inline-start: 1px;
+T 2 text.html.vue source.css meta.property-list.css
+T 20 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 21 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 22 text.html.vue source.css meta.property-list.css
+T 23 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 25 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 26 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   width: 1.125rem;
+T 2 text.html.vue source.css meta.property-list.css
+T 7 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 text.html.vue source.css meta.property-list.css
+T 14 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.rem.css
+T 18 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   height: 1.125rem;
+T 2 text.html.vue source.css meta.property-list.css
+T 8 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 text.html.vue source.css meta.property-list.css
+T 15 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 18 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.rem.css
+T 19 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   border-radius: 50%;
+T 2 text.html.vue source.css meta.property-list.css
+T 15 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 text.html.vue source.css meta.property-list.css
+T 19 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 20 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 21 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   background-color: var(--vp-c-neutral-inverse);
+T 2 text.html.vue source.css meta.property-list.css
+T 18 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 19 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 20 text.html.vue source.css meta.property-list.css
+T 23 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 24 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 46 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 47 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 48 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   box-shadow: var(--vp-shadow-1);
+T 2 text.html.vue source.css meta.property-list.css
+T 12 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 text.html.vue source.css meta.property-list.css
+T 17 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 18 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 31 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 32 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 33 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   transition: transform 0.25s !important;
+T 2 text.html.vue source.css meta.property-list.css
+T 12 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 text.html.vue source.css meta.property-list.css
+T 24 text.html.vue source.css meta.property-list.css meta.property-value.css
+T 28 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 29 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.s.css
+T 30 text.html.vue source.css meta.property-list.css meta.property-value.css
+T 40 text.html.vue source.css meta.property-list.css meta.property-value.css keyword.other.important.css
+T 41 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 text.html.vue source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .icon {
+T 1 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 5 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css
+T 6 text.html.vue source.css
+T 7 text.html.vue source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   position: relative;
+T 2 text.html.vue source.css meta.property-list.css
+T 10 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 text.html.vue source.css meta.property-list.css
+T 20 text.html.vue source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 21 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   display: block;
+T 2 text.html.vue source.css meta.property-list.css
+T 9 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 text.html.vue source.css meta.property-list.css
+T 16 text.html.vue source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 17 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   width: 1.125rem;
+T 2 text.html.vue source.css meta.property-list.css
+T 7 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 text.html.vue source.css meta.property-list.css
+T 14 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.rem.css
+T 18 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   height: 1.125rem;
+T 2 text.html.vue source.css meta.property-list.css
+T 8 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 text.html.vue source.css meta.property-list.css
+T 15 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 18 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.rem.css
+T 19 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   border-radius: 50%;
+T 2 text.html.vue source.css meta.property-list.css
+T 15 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 text.html.vue source.css meta.property-list.css
+T 19 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 20 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 21 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   overflow: hidden;
+T 2 text.html.vue source.css meta.property-list.css
+T 10 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 text.html.vue source.css meta.property-list.css
+T 18 text.html.vue source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 19 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 text.html.vue source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .icon :deep([class^='vpi-']) {
+T 1 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 5 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 text.html.vue source.css meta.selector.css
+T 13 text.html.vue source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 18 text.html.vue source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 20 text.html.vue source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 21 text.html.vue source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css punctuation.definition.string.begin.css
+T 25 text.html.vue source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css
+T 26 text.html.vue source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css punctuation.definition.string.end.css
+T 27 text.html.vue source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 29 text.html.vue source.css
+T 30 text.html.vue source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   position: absolute;
+T 2 text.html.vue source.css meta.property-list.css
+T 10 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 text.html.vue source.css meta.property-list.css
+T 20 text.html.vue source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 21 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   top: 0.1875rem;
+T 2 text.html.vue source.css meta.property-list.css
+T 5 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 6 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 7 text.html.vue source.css meta.property-list.css
+T 13 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.rem.css
+T 17 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   inset-inline-start: 0.1875rem;
+T 2 text.html.vue source.css meta.property-list.css
+T 20 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 21 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 22 text.html.vue source.css meta.property-list.css
+T 28 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 31 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.rem.css
+T 32 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   width: 0.75rem;
+T 2 text.html.vue source.css meta.property-list.css
+T 7 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 text.html.vue source.css meta.property-list.css
+T 13 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.rem.css
+T 17 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   height: 0.75rem;
+T 2 text.html.vue source.css meta.property-list.css
+T 8 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 text.html.vue source.css meta.property-list.css
+T 14 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.rem.css
+T 18 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   color: var(--vp-c-text-2);
+T 2 text.html.vue source.css meta.property-list.css
+T 7 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 text.html.vue source.css meta.property-list.css
+T 12 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 13 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 26 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 27 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 28 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 text.html.vue source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .dark .icon :deep([class^='vpi-']) {
+T 1 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 5 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css
+T 6 text.html.vue source.css meta.selector.css
+T 7 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css
+T 18 text.html.vue source.css meta.selector.css
+T 19 text.html.vue source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 24 text.html.vue source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 26 text.html.vue source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 27 text.html.vue source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css punctuation.definition.string.begin.css
+T 31 text.html.vue source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css
+T 32 text.html.vue source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css punctuation.definition.string.end.css
+T 33 text.html.vue source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 35 text.html.vue source.css
+T 36 text.html.vue source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: var(--vp-c-text-1);
+T 2 text.html.vue source.css meta.property-list.css
+T 7 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 text.html.vue source.css meta.property-list.css
+T 12 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 13 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 26 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 27 text.html.vue source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 28 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L   transition: opacity 0.25s !important;
+T 2 text.html.vue source.css meta.property-list.css
+T 12 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 text.html.vue source.css meta.property-list.css
+T 22 text.html.vue source.css meta.property-list.css meta.property-value.css
+T 26 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 27 text.html.vue source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.s.css
+T 28 text.html.vue source.css meta.property-list.css meta.property-value.css
+T 38 text.html.vue source.css meta.property-list.css meta.property-value.css keyword.other.important.css
+T 39 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 text.html.vue source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L </style>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.style.html.vue
+T 8 text.html.vue punctuation.definition.tag.end.html.vue
+L 

@@ -1,0 +1,1281 @@
+L ---
+T 3 text.html.markdown punctuation.definition.begin.frontmatter
+L description: Reference of VitePress runtime APIs including composables, helper functions, and built-in components.
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 13 text.html.markdown meta.embedded.block.frontmatter
+T 14 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 114 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+L ---
+T 3 text.html.markdown punctuation.definition.end.frontmatter
+L 
+L # Runtime API
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 13 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L VitePress offers several built-in APIs to let you access app data. VitePress also comes with a few built-in components that can be used globally.
+T 145 text.html.markdown meta.paragraph.markdown
+L 
+L The helper methods are globally importable from `vitepress` and are typically used in custom theme Vue components. However, they are also usable inside `.md` pages because markdown files are compiled into Vue [Single-File Components](https://vuejs.org/guide/scaling-up/sfc.html).
+T 48 text.html.markdown meta.paragraph.markdown
+T 49 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 58 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 152 text.html.markdown meta.paragraph.markdown
+T 153 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 156 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 157 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 209 text.html.markdown meta.paragraph.markdown
+T 210 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 232 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 233 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 234 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 277 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 278 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 279 text.html.markdown meta.paragraph.markdown
+L 
+L Methods that start with `use*` indicates that it is a [Vue 3 Composition API](https://vuejs.org/guide/introduction.html#composition-api) function ("Composable") that can only be used inside `setup()` or `<script setup>`.
+T 24 text.html.markdown meta.paragraph.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 54 text.html.markdown meta.paragraph.markdown
+T 55 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 76 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 77 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 78 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 135 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 136 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 190 text.html.markdown meta.paragraph.markdown
+T 191 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 198 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 199 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 203 text.html.markdown meta.paragraph.markdown
+T 204 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 218 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 219 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 220 text.html.markdown meta.paragraph.markdown
+L 
+L ## `useData` <Badge type="info" text="composable" />
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 4 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 11 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 12 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 13 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+T 14 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 19 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 20 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 24 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html entity.other.attribute-name.html
+T 25 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html punctuation.separator.key-value.html
+T 26 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 30 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html
+T 31 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 32 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 36 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html entity.other.attribute-name.html
+T 37 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html punctuation.separator.key-value.html
+T 38 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.begin.html
+T 48 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html
+T 49 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.end.html
+T 52 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L 
+L Returns page-specific data. The returned object has the following type:
+T 71 text.html.markdown meta.paragraph.markdown
+L 
+L ```ts
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L interface VitePressData<T = any> {
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts storage.type.interface.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts entity.name.type.interface.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.type.parameters.ts entity.name.type.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.type.parameters.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.type.parameters.ts keyword.operator.assignment.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.type.parameters.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.type.parameters.ts support.type.primitive.ts
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts punctuation.definition.block.ts
+L   /**
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L    * Site-level metadata
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+L    */
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L   site: Ref<SiteData<T>>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts entity.name.type.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.parameters.ts entity.name.type.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   /**
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L    * themeConfig from .vitepress/config.js
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+L    */
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L   theme: Ref<T>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts entity.name.type.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   /**
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L    * Page-level metadata
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+L    */
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L   page: Ref<PageData>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts entity.name.type.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   /**
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L    * Page frontmatter
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+L    */
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L   frontmatter: Ref<PageData['frontmatter']>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts entity.name.type.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.tuple.ts meta.brace.square.ts
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.tuple.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.tuple.ts string.quoted.single.ts
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.tuple.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.tuple.ts meta.brace.square.ts
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   /**
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L    * Dynamic route params
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+L    */
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L   params: Ref<PageData['params']>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts entity.name.type.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.tuple.ts meta.brace.square.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.tuple.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.tuple.ts string.quoted.single.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.tuple.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.tuple.ts meta.brace.square.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   title: Ref<string>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts support.type.primitive.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   description: Ref<string>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts support.type.primitive.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   lang: Ref<string>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts support.type.primitive.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   isDark: Ref<boolean>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts support.type.primitive.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   dir: Ref<'ltr' | 'rtl' | 'auto'>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts string.quoted.single.ts
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts keyword.operator.type.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts string.quoted.single.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts keyword.operator.type.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts string.quoted.single.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   localeIndex: Ref<string>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts support.type.primitive.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   /**
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L    * Current location hash
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+L    */
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L   hash: Ref<string>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts support.type.primitive.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts punctuation.definition.block.ts
+L 
+L interface PageData {
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts storage.type.interface.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts entity.name.type.interface.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts punctuation.definition.block.ts
+L   title: string
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.primitive.ts
+L   titleTemplate?: string | boolean
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts keyword.operator.optional.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.primitive.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.primitive.ts
+L   description: string
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.primitive.ts
+L   relativePath: string
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.primitive.ts
+L   filePath: string
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.primitive.ts
+L   headers: Header[]
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.tuple.ts meta.brace.square.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.tuple.ts meta.brace.square.ts
+L   frontmatter: Record<string, any>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts support.type.primitive.ts
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.separator.comma.ts
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts support.type.primitive.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   params?: Record<string, any>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts keyword.operator.optional.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts support.type.primitive.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.separator.comma.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts support.type.primitive.ts
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   isNotFound?: boolean
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts keyword.operator.optional.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.primitive.ts
+L   lastUpdated?: number
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts keyword.operator.optional.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.primitive.ts
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts punctuation.definition.block.ts
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L `page.headers` is populated only when [`markdown.headers`](./site-config#markdown) is enabled. Without that option, it remains an empty array. The default theme outline reads rendered headings from the page content, so it can still appear when `page.headers` is empty.
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 38 text.html.markdown meta.paragraph.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 56 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 57 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 58 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 59 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 81 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 82 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 244 text.html.markdown meta.paragraph.markdown
+T 245 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 257 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 258 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 268 text.html.markdown meta.paragraph.markdown
+L 
+L **Example:**
+T 2 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 10 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+L 
+L ```vue
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L <script setup>
+T 1 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 7 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.script.html.vue
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.unrecognized.setup.html entity.other.attribute-name.html
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff punctuation.definition.tag.end.html.vue
+L import { useData } from 'vitepress'
+T 6 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js
+T 16 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 17 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js
+T 18 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js punctuation.definition.block.js
+T 19 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js
+T 23 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js keyword.control.from.js
+T 24 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js
+T 25 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 34 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js string.quoted.single.js
+T 35 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+L 
+L const { theme } = useData()
+T 5 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js storage.type.js
+T 6 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js
+T 7 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.object-binding-pattern-variable.js punctuation.definition.binding-pattern.object.js
+T 8 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.object-binding-pattern-variable.js
+T 13 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.object-binding-pattern-variable.js meta.definition.variable.js variable.other.constant.js
+T 14 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.object-binding-pattern-variable.js
+T 15 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.object-binding-pattern-variable.js punctuation.definition.binding-pattern.object.js
+T 16 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.object-binding-pattern-variable.js
+T 17 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js keyword.operator.assignment.js
+T 18 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js
+T 25 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 26 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.brace.round.js
+T 27 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.brace.round.js
+L </script>
+T 2 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 8 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.script.html.vue
+T 9 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.end.html.vue
+L 
+L <template>
+T 1 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 9 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.template.html.vue
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff punctuation.definition.tag.end.html.vue
+L   <h1>{{ theme.footer.copyright }}</h1>
+T 2 text.html.markdown markup.fenced_code.block.markdown text.html.derivative
+T 3 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.h1.start.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.h1.start.html entity.name.tag.html
+T 6 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.h1.start.html punctuation.definition.tag.end.html
+T 34 text.html.markdown markup.fenced_code.block.markdown text.html.derivative
+T 36 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.h1.end.html punctuation.definition.tag.begin.html
+T 38 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.h1.end.html entity.name.tag.html
+T 39 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.h1.end.html punctuation.definition.tag.end.html
+L </template>
+T 2 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 10 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.template.html.vue
+T 11 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.end.html.vue
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## `useRoute` <Badge type="info" text="composable" />
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 4 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 12 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 13 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 14 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+T 15 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 20 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 21 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 25 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html entity.other.attribute-name.html
+T 26 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html punctuation.separator.key-value.html
+T 27 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 31 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html
+T 32 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 33 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 37 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html entity.other.attribute-name.html
+T 38 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html punctuation.separator.key-value.html
+T 39 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.begin.html
+T 49 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html
+T 50 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.end.html
+T 53 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L 
+L Returns the current route object with the following type:
+T 57 text.html.markdown meta.paragraph.markdown
+L 
+L ```ts
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L interface Route {
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts storage.type.interface.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts entity.name.type.interface.ts
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts punctuation.definition.block.ts
+L   path: string
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.primitive.ts
+L   data: PageData
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+L   component: Component | null
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.builtin.ts
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts punctuation.definition.block.ts
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## `useRouter` <Badge type="info" text="composable" />
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 4 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 13 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 14 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 15 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+T 16 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 21 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 22 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 26 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html entity.other.attribute-name.html
+T 27 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html punctuation.separator.key-value.html
+T 28 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 32 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html
+T 33 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 34 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 38 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html entity.other.attribute-name.html
+T 39 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html punctuation.separator.key-value.html
+T 40 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.begin.html
+T 50 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html
+T 51 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.end.html
+T 54 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L 
+L Returns the VitePress router instance so you can programmatically navigate to another page.
+T 91 text.html.markdown meta.paragraph.markdown
+L 
+L ```ts
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L interface Router {
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts storage.type.interface.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts entity.name.type.interface.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts punctuation.definition.block.ts
+L   /**
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L    * Current route.
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+L    */
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L   route: Route
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+L   /**
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L    * Navigate to a new URL.
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+L    */
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L   go: (to?: string) => Promise<void>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts entity.name.function.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts variable.parameter.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts keyword.operator.optional.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts storage.type.function.arrow.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts entity.name.type.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts support.type.primitive.ts
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   /**
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L    * Called before the route changes. Return `false` to cancel the navigation.
+T 78 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+L    */
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L   onBeforeRouteChange?: (to: string) => Awaitable<void | boolean>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts entity.name.function.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts keyword.operator.optional.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts variable.parameter.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts storage.type.function.arrow.ts
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts entity.name.type.ts
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts support.type.primitive.ts
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts keyword.operator.type.ts
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts support.type.primitive.ts
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   /**
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L    * Called before the page component is loaded (after the history state is updated).
+T 85 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+L    * Return `false` to cancel the navigation.
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+L    */
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L   onBeforePageLoad?: (to: string) => Awaitable<void | boolean>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts entity.name.function.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts keyword.operator.optional.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts variable.parameter.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts storage.type.function.arrow.ts
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts entity.name.type.ts
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts support.type.primitive.ts
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts keyword.operator.type.ts
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts support.type.primitive.ts
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   /**
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L    * Called after the page component is loaded (before the page component is updated).
+T 86 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+L    */
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L   onAfterPageLoad?: (to: string) => Awaitable<void>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts entity.name.function.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts keyword.operator.optional.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts variable.parameter.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts storage.type.function.arrow.ts
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts entity.name.type.ts
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts support.type.primitive.ts
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L   /**
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L    * Called after the route changes.
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+L    */
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts comment.block.documentation.ts punctuation.definition.comment.ts
+L   onAfterRouteChange?: (to: string) => Awaitable<void>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.definition.property.ts entity.name.function.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts keyword.operator.optional.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts variable.parameter.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts storage.type.function.arrow.ts
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts entity.name.type.ts
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts support.type.primitive.ts
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts meta.type.function.return.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.interface.ts punctuation.definition.block.ts
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Assign route-change handlers on the router instance:
+T 52 text.html.markdown meta.paragraph.markdown
+L 
+L ```ts
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L const router = useRouter()
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts storage.type.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts keyword.operator.assignment.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.function-call.ts entity.name.function.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.brace.round.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.brace.round.ts
+L 
+L router.onBeforeRouteChange = (to) => {
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript variable.other.object.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript punctuation.accessor.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript entity.name.function.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript keyword.operator.assignment.ts
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.parameters.ts variable.parameter.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts storage.type.function.arrow.ts
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts punctuation.definition.block.ts
+L   console.log('navigating to', to)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts meta.function-call.ts variable.other.object.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts meta.function-call.ts punctuation.accessor.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts meta.function-call.ts entity.name.function.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts meta.brace.round.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts string.quoted.single.ts
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts punctuation.separator.comma.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts meta.brace.round.ts
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts punctuation.definition.block.ts
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L For custom themes, the same router is available from [`enhanceApp`](../guide/custom-theme#theme-interface).
+T 53 text.html.markdown meta.paragraph.markdown
+T 54 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 55 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 65 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 66 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 67 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 68 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 105 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 106 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 107 text.html.markdown meta.paragraph.markdown
+L 
+L ## `useIcon` <Badge type="info" text="composable" />
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 4 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 11 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 12 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 13 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+T 14 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 19 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 20 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 24 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html entity.other.attribute-name.html
+T 25 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html punctuation.separator.key-value.html
+T 26 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 30 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html
+T 31 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 32 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 36 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html entity.other.attribute-name.html
+T 37 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html punctuation.separator.key-value.html
+T 38 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.begin.html
+T 48 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html
+T 49 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.end.html
+T 52 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L 
+L - **Type**: `(icon: MaybeRefOrGetter<string | { svg: string } | undefined>, el?: MaybeRefOrGetter<HTMLElement | null>) => ComputedRef<string | undefined>`
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 4 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 8 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.bold.markdown
+T 10 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 12 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 13 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 153 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 154 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L 
+L Renders an [iconify](https://iconify.design/) icon through VitePress's icon pipeline. Takes a fully qualified `collection:name` (resolved against the `@iconify-json/*` packages in your project's dependencies) and returns the class to put on the element — `vpi-<collection>-<name>`.
+T 11 text.html.markdown meta.paragraph.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 19 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 20 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 21 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 44 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 45 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 110 text.html.markdown meta.paragraph.markdown
+T 111 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 126 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 127 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 150 text.html.markdown meta.paragraph.markdown
+T 151 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 166 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 167 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 257 text.html.markdown meta.paragraph.markdown
+T 258 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 281 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 282 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 283 text.html.markdown meta.paragraph.markdown
+L 
+L During SSR the name is registered on the page's [`SSGContext`](./site-config#postrender), so the build emits the icon's styles into the generated stylesheet; in dev, icons are served on demand by the dev server from the locally installed collections. No icon is ever fetched from an external service.
+T 48 text.html.markdown meta.paragraph.markdown
+T 49 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 50 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 61 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 62 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 63 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 87 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 88 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 300 text.html.markdown meta.paragraph.markdown
+L 
+L ```vue
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L <script setup>
+T 1 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 7 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.script.html.vue
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.unrecognized.setup.html entity.other.attribute-name.html
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff punctuation.definition.tag.end.html.vue
+L import { useIcon } from 'vitepress'
+T 6 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js
+T 16 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 17 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js
+T 18 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js punctuation.definition.block.js
+T 19 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js
+T 23 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js keyword.control.from.js
+T 24 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js
+T 25 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 34 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js string.quoted.single.js
+T 35 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+L import { useTemplateRef } from 'vue'
+T 6 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js
+T 23 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 24 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js
+T 25 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js meta.block.js punctuation.definition.block.js
+T 26 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js
+T 30 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js keyword.control.from.js
+T 31 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js
+T 32 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 35 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js string.quoted.single.js
+T 36 text.html.markdown markup.fenced_code.block.markdown source.js meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+L 
+L const el = useTemplateRef('el')
+T 5 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js storage.type.js
+T 6 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js
+T 8 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 9 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 10 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js keyword.operator.assignment.js
+T 11 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js
+T 25 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 26 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.brace.round.js
+T 27 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.begin.js
+T 29 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js string.quoted.single.js
+T 30 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.end.js
+T 31 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.brace.round.js
+L const iconClass = useIcon('lucide:rocket', el)
+T 5 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js storage.type.js
+T 6 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js
+T 15 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 16 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 17 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js keyword.operator.assignment.js
+T 18 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js
+T 25 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 26 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.brace.round.js
+T 27 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.begin.js
+T 40 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js string.quoted.single.js
+T 41 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.end.js
+T 42 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js punctuation.separator.comma.js
+T 43 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js
+T 45 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js variable.other.readwrite.js
+T 46 text.html.markdown markup.fenced_code.block.markdown source.js meta.var.expr.js meta.brace.round.js
+L </script>
+T 2 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 8 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.script.html.vue
+T 9 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.end.html.vue
+L 
+L <template>
+T 1 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 9 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.template.html.vue
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff punctuation.definition.tag.end.html.vue
+L   <span ref="el" :class="iconClass" />
+T 2 text.html.markdown markup.fenced_code.block.markdown text.html.derivative
+T 3 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 7 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html entity.name.tag.html
+T 8 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html
+T 11 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.ref.html entity.other.attribute-name.html
+T 12 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.ref.html punctuation.separator.key-value.html
+T 13 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.ref.html string.quoted.double.html punctuation.definition.string.begin.html
+T 15 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.ref.html string.quoted.double.html
+T 16 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.ref.html string.quoted.double.html punctuation.definition.string.end.html
+T 17 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html
+T 23 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.:class.html entity.other.attribute-name.html
+T 24 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.:class.html punctuation.separator.key-value.html
+T 25 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.:class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 34 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.:class.html string.quoted.double.html
+T 35 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html meta.attribute.unrecognized.:class.html string.quoted.double.html punctuation.definition.string.end.html
+T 36 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html
+T 37 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html invalid.illegal.character-not-allowed-here.html
+T 38 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+L </template>
+T 2 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 10 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.template.html.vue
+T 11 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.end.html.vue
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Pass the template ref of the element carrying the class so dev mode can resolve the icon on it. The element needs the mask rules the default theme ships; in a custom theme without them, dev applies an inline equivalent and the generated stylesheet includes zero-specificity base rules for production.
+T 300 text.html.markdown meta.paragraph.markdown
+L 
+L When using the default theme, the `VPIcon` component from `vitepress/theme` wraps this composable (and also accepts a raw `{ svg }` string):
+T 34 text.html.markdown meta.paragraph.markdown
+T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 58 text.html.markdown meta.paragraph.markdown
+T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 74 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 75 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 122 text.html.markdown meta.paragraph.markdown
+T 123 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 130 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 131 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 140 text.html.markdown meta.paragraph.markdown
+L 
+L ```vue-html
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 11 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L <VPIcon icon="lucide:rocket" />
+T 31 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Icons rendered only on the client (e.g. inside `<ClientOnly />`) can't be collected during the build — list them in [`icons.include`](./site-config#icons) instead.
+T 47 text.html.markdown meta.paragraph.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 63 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 118 text.html.markdown meta.paragraph.markdown
+T 119 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 120 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 133 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 134 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 135 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 136 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 155 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 156 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 165 text.html.markdown meta.paragraph.markdown
+L 
+L ## `withBase` <Badge type="info" text="helper" />
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 4 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 12 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 13 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 14 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+T 15 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 20 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 21 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 25 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html entity.other.attribute-name.html
+T 26 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html punctuation.separator.key-value.html
+T 27 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 31 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html
+T 32 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 33 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 37 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html entity.other.attribute-name.html
+T 38 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html punctuation.separator.key-value.html
+T 39 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.begin.html
+T 45 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html
+T 46 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.end.html
+T 49 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L 
+L - **Type**: `(path: string) => string`
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 4 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 8 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.bold.markdown
+T 10 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 12 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 13 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 37 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 38 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L 
+L Prepends the configured [`base`](./site-config#base) to a given URL path. Also see [Base URL](../guide/asset-handling#base-url).
+T 24 text.html.markdown meta.paragraph.markdown
+T 25 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 26 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 30 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 31 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 32 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 33 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 51 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 52 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 83 text.html.markdown meta.paragraph.markdown
+T 84 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 92 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 93 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 94 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 126 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 127 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 128 text.html.markdown meta.paragraph.markdown
+L 
+L ## `<Content />` <Badge type="info" text="component" />
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 4 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 15 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 16 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 17 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+T 18 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 23 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 24 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 28 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html entity.other.attribute-name.html
+T 29 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html punctuation.separator.key-value.html
+T 30 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 34 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html
+T 35 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 36 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 40 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html entity.other.attribute-name.html
+T 41 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html punctuation.separator.key-value.html
+T 42 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.begin.html
+T 51 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html
+T 52 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.end.html
+T 55 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L 
+L The `<Content />` component displays the rendered markdown contents. Useful [when creating your own theme](../guide/custom-theme).
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 76 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 105 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 106 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 107 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 128 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 129 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 130 text.html.markdown meta.paragraph.markdown
+L 
+L ```vue
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L <template>
+T 1 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 9 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.template.html.vue
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff punctuation.definition.tag.end.html.vue
+L   <h1>Custom Layout!</h1>
+T 2 text.html.markdown markup.fenced_code.block.markdown text.html.derivative
+T 3 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.h1.start.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.h1.start.html entity.name.tag.html
+T 6 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.h1.start.html punctuation.definition.tag.end.html
+T 20 text.html.markdown markup.fenced_code.block.markdown text.html.derivative
+T 22 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.h1.end.html punctuation.definition.tag.begin.html
+T 24 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.h1.end.html entity.name.tag.html
+T 25 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.h1.end.html punctuation.definition.tag.end.html
+L   <Content />
+T 2 text.html.markdown markup.fenced_code.block.markdown text.html.derivative
+T 3 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.Content.start.html.vue punctuation.definition.tag.begin.html.vue
+T 10 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.Content.start.html.vue entity.name.tag.html.vue
+T 11 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.Content.start.html.vue
+T 13 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.Content.start.html.vue punctuation.definition.tag.end.html.vue
+L </template>
+T 2 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 10 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.template.html.vue
+T 11 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.end.html.vue
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## `<ClientOnly />` <Badge type="info" text="component" />
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 4 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 18 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 19 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 20 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+T 21 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 26 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 27 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 31 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html entity.other.attribute-name.html
+T 32 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html punctuation.separator.key-value.html
+T 33 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 37 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html
+T 38 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 39 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 43 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html entity.other.attribute-name.html
+T 44 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html punctuation.separator.key-value.html
+T 45 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.begin.html
+T 54 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html
+T 55 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.end.html
+T 58 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L 
+L The `<ClientOnly />` component renders its slot only at client side.
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 19 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 68 text.html.markdown meta.paragraph.markdown
+L 
+L Because VitePress applications are server-rendered in Node.js when generating static builds, any Vue usage must conform to the universal code requirements. In short, make sure to only access Browser / DOM APIs in beforeMount or mounted hooks.
+T 242 text.html.markdown meta.paragraph.markdown
+L 
+L If you are using or demoing components that are not SSR-friendly (for example, contain custom directives), you can wrap them inside the `ClientOnly` component.
+T 136 text.html.markdown meta.paragraph.markdown
+T 137 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 147 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 148 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 159 text.html.markdown meta.paragraph.markdown
+L 
+L ```vue-html
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 11 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L <ClientOnly>
+T 12 text.html.markdown markup.fenced_code.block.markdown
+L   <NonSSRFriendlyComponent />
+T 29 text.html.markdown markup.fenced_code.block.markdown
+L </ClientOnly>
+T 13 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L - Related: [SSR Compatibility](../guide/ssr-compat)
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 11 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 12 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 29 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 30 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 31 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 50 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 51 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L 
+L ## `$frontmatter` <Badge type="info" text="template global" />
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 4 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 16 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 17 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 18 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+T 19 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 24 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 25 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 29 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html entity.other.attribute-name.html
+T 30 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html punctuation.separator.key-value.html
+T 31 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 35 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html
+T 36 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 37 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 41 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html entity.other.attribute-name.html
+T 42 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html punctuation.separator.key-value.html
+T 43 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.begin.html
+T 58 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html
+T 59 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.end.html
+T 62 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L 
+L Directly access current page's [frontmatter](../guide/frontmatter) data in Vue expressions.
+T 31 text.html.markdown meta.paragraph.markdown
+T 32 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 43 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 44 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 45 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 65 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 66 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 91 text.html.markdown meta.paragraph.markdown
+L 
+L ```md
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L ---
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.markdown meta.separator.markdown
+L title: Hello
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.markdown meta.paragraph.markdown
+L ---
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.markdown meta.paragraph.markdown markup.heading.setext.2.markdown
+L 
+L # {{ $frontmatter.title }}
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.markdown markup.heading.markdown heading.1.markdown
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## `$params` <Badge type="info" text="template global" />
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 4 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 11 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 12 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 13 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+T 14 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 19 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 20 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 24 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html entity.other.attribute-name.html
+T 25 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html punctuation.separator.key-value.html
+T 26 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 30 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html
+T 31 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 32 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative
+T 36 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html entity.other.attribute-name.html
+T 37 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html punctuation.separator.key-value.html
+T 38 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.begin.html
+T 53 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html
+T 54 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.text.html string.quoted.double.html punctuation.definition.string.end.html
+T 57 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L 
+L Directly access current page's [dynamic route params](../guide/routing#dynamic-routes) in Vue expressions.
+T 31 text.html.markdown meta.paragraph.markdown
+T 32 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 52 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 53 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 54 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 85 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 86 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 106 text.html.markdown meta.paragraph.markdown
+L 
+L ```md
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L - package name: {{ $params.pkg }}
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.markdown markup.list.unnumbered.markdown
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - version: {{ $params.version }}
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.markdown markup.list.unnumbered.markdown
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 

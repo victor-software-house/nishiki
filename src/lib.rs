@@ -164,7 +164,7 @@
 //! |:--|:--|
 //! | `all` (the default) | Every language but the `textmate` tier |
 //! | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
-//! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less |
+//! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, Vue |
 //! | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
 //! | `docs` | Markdown and `config` |
 //! | `textmate` | Protobuf, Julia, Mermaid, Haskell |
@@ -336,6 +336,8 @@ mod toml;
 mod typescript;
 #[cfg(feature = "_utf8")]
 mod utf8;
+#[cfg(feature = "lang-vue")]
+mod vue;
 #[cfg(feature = "lang-xml")]
 mod xml;
 #[cfg(feature = "lang-yaml")]

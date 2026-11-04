@@ -2,12 +2,14 @@
 //! end and patterns, in the grammar's order, and the candidate positions
 //! the search visits.
 
-use memchr::{memchr, memchr2};
+use memchr::{memchr, memchr2, memchr3};
 
 use super::engine::{Document, Hit, Lexer, Pat};
 use super::state::{
     AttributeKind, Category, ElementInfo, Flavor, Namespace, Rule, TagInfo, TagKind,
 };
+#[cfg(feature = "lang-vue")]
+use super::vue;
 use super::words;
 use crate::case_fold;
 use crate::classes::{is_space, is_word};
@@ -206,6 +208,10 @@ impl Lexer<'_> {
     /// match decides there: the end, the `=`, or no match this line. Inside a
     /// run of blanks nothing can match, because the end needs a character
     /// before it that is not blank.
+    #[expect(
+        clippy::too_many_lines,
+        reason = "one arm per rule, in the order of the grammar"
+    )]
     pub(super) fn candidate(&self, rule: Rule, p: usize, cut: usize) -> Option<usize> {
         let rest = self.s.get(p..cut.min(self.lim)).unwrap_or(&[]);
         let find = |found: Option<usize>| {
@@ -219,7 +225,7 @@ impl Lexer<'_> {
         };
         let quote = u8::try_from(self.top().payload).unwrap_or(b'"');
         match rule {
-            Rule::Root | Rule::BodyTemplate => {
+            Rule::Root | Rule::BodyTemplate | Rule::VueTemplateBody => {
                 if p == 0 && matches!(self.at(0), b' ' | b'\t') {
                     return Some(0);
                 }
@@ -238,7 +244,11 @@ impl Lexer<'_> {
             | Rule::OpenScript
             | Rule::ScriptAttributes
             | Rule::ElementStart
-            | Rule::Region => {
+            | Rule::Region
+            | Rule::VueTagStuff
+            | Rule::VueScriptTagStuff
+            | Rule::VueStyleTagStuff
+            | Rule::VueCapitalizedAttrs => {
                 let q = self.skip_ascii_ws(p);
                 (q <= self.end_pos()).then_some(q)
             }
@@ -279,8 +289,17 @@ impl Lexer<'_> {
             | Rule::WrapJs
             | Rule::StringJs
             | Rule::BodyCss
-            | Rule::BodyJs => Some(p),
-            Rule::ScriptTag => earliest(find(memchr(b'/', rest))),
+            | Rule::BodyJs
+            | Rule::VueBlock
+            | Rule::VueElement
+            | Rule::VueScriptStuff
+            | Rule::VueStyleStuff
+            | Rule::VueLangGroup
+            | Rule::VueBody
+            | Rule::VueDirective
+            | Rule::VueExprString
+            | Rule::VueExprBare => Some(p),
+            Rule::ScriptTag | Rule::VueSelfClosing => earliest(find(memchr(b'/', rest))),
             Rule::ScriptJsOuter => earliest(find(memchr(b'<', rest))),
             Rule::Element => earliest(find(memchr2(b'<', b'/', rest))),
             Rule::StringPlain | Rule::StringCss => find(memchr2(quote, b'&', rest)),
@@ -296,7 +315,30 @@ impl Lexer<'_> {
             Rule::JsBlockComment => find(memchr2(quote, b'*', rest)),
             Rule::ErbCommentWrap | Rule::ErbTagWrap => (p <= self.end_pos()).then_some(p),
             Rule::ErbComment => find(memchr(b'%', rest)),
-            Rule::ErbBlock | Rule::ErbLine => None,
+            Rule::ErbBlock | Rule::ErbLine | Rule::VueBodyWhile | Rule::VueExpr => None,
+            Rule::VueComment | Rule::VueCommentKv => {
+                if cfg!(feature = "lang-vue") {
+                    find(memchr(b'-', rest))
+                } else {
+                    None
+                }
+            }
+            Rule::VueTemplateTag | Rule::VueCapitalized => {
+                if cfg!(feature = "lang-vue") {
+                    earliest(find(memchr2(b'/', b'>', rest)))
+                } else {
+                    None
+                }
+            }
+            Rule::VueTemplateTagEnd => {
+                if !cfg!(feature = "lang-vue") {
+                    return None;
+                }
+                if p == 0 && matches!(self.at(0), b' ' | b'\t') {
+                    return Some(0);
+                }
+                earliest(find(memchr3(b'<', b'&', b'/', rest)))
+            }
         }
     }
 
@@ -426,6 +468,28 @@ impl Lexer<'_> {
             }
             Rule::ErbCommentWrap | Rule::ErbTagWrap => self.erb_wrap_end(p),
             Rule::ErbComment => self.starts(p, b"%>").then(|| one(2)),
+            Rule::VueComment
+            | Rule::VueCommentKv
+            | Rule::VueSelfClosing
+            | Rule::VueBlock
+            | Rule::VueElement
+            | Rule::VueTagStuff
+            | Rule::VueScriptTagStuff
+            | Rule::VueStyleTagStuff
+            | Rule::VueScriptStuff
+            | Rule::VueStyleStuff
+            | Rule::VueLangGroup
+            | Rule::VueTemplateBody
+            | Rule::VueTemplateTag
+            | Rule::VueTemplateTagEnd
+            | Rule::VueCapitalized
+            | Rule::VueCapitalizedAttrs
+            | Rule::VueDirective
+            | Rule::VueExprString
+            | Rule::VueExprBare
+            | Rule::VueBody
+            | Rule::VueBodyWhile
+            | Rule::VueExpr => self.vue_end_at(rule, p),
         }
     }
 
@@ -501,7 +565,19 @@ impl Lexer<'_> {
     fn patterns_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let b = self.at(p);
         match rule {
-            Rule::Root | Rule::BodyTemplate => self.root_patterns(p),
+            Rule::Root
+            | Rule::BodyTemplate
+            | Rule::VueElement
+            | Rule::VueTemplateBody
+            | Rule::VueTemplateTagEnd => {
+                #[cfg(feature = "lang-vue")]
+                if self.document == Document::Vue
+                    && let vue::Template::Done(found) = self.vue_template_patterns(rule, p)
+                {
+                    return found;
+                }
+                self.root_patterns(p)
+            }
             Rule::Comment => self.comment_patterns(p),
             Rule::Doctype => {
                 if self.g(p)
@@ -529,7 +605,7 @@ impl Lexer<'_> {
                 let kind = TagInfo::from_bits(super::state::info(self.top().payload)).kind;
                 let which = match (kind, self.document) {
                     (TagKind::Unrecognized, Document::Html | Document::Erb) => Attributes::Math,
-                    (TagKind::Unrecognized, Document::Derivative)
+                    (TagKind::Unrecognized, Document::Derivative | Document::Vue)
                     | (
                         TagKind::Start
                         | TagKind::End
@@ -537,7 +613,7 @@ impl Lexer<'_> {
                         | TagKind::CustomStart
                         | TagKind::CustomEnd
                         | TagKind::Derivative,
-                        Document::Html | Document::Derivative | Document::Erb,
+                        Document::Html | Document::Derivative | Document::Erb | Document::Vue,
                     ) => Attributes::Html,
                 };
                 self.attribute_patterns(p, which)
@@ -663,6 +739,25 @@ impl Lexer<'_> {
                 .map(|end| Hit::new(Pat::Erb(super::erb::Erb::Comment), p, end)),
             Rule::ErbTagWrap => super::erb::code_begin(&self.s[..self.lim], p)
                 .map(|(kind, end)| Hit::new(Pat::Erb(kind), p, end)),
+            Rule::VueComment
+            | Rule::VueCommentKv
+            | Rule::VueSelfClosing
+            | Rule::VueBlock
+            | Rule::VueTagStuff
+            | Rule::VueScriptTagStuff
+            | Rule::VueStyleTagStuff
+            | Rule::VueScriptStuff
+            | Rule::VueStyleStuff
+            | Rule::VueLangGroup
+            | Rule::VueBody
+            | Rule::VueBodyWhile
+            | Rule::VueTemplateTag
+            | Rule::VueCapitalized
+            | Rule::VueCapitalizedAttrs
+            | Rule::VueDirective
+            | Rule::VueExprString
+            | Rule::VueExprBare
+            | Rule::VueExpr => self.vue_patterns_at(rule, p),
         }
     }
 
@@ -823,7 +918,7 @@ impl Lexer<'_> {
     }
 
     /// The patterns of the root.
-    fn root_patterns(&self, p: usize) -> Option<Hit> {
+    pub(super) fn root_patterns(&self, p: usize) -> Option<Hit> {
         let b = self.at(p);
         if p == 0 && matches!(b, b' ' | b'\t') {
             let mut q = 0;
@@ -1106,7 +1201,15 @@ impl Lexer<'_> {
     /// rule before it takes, tried at the root of a derivative document only,
     /// where it comes before the HTML grammar's rule for invalid tags.
     fn derivative_tag(&self, p: usize) -> Option<Hit> {
-        if !matches!(self.document, Document::Derivative) || self.top().rule != Rule::Root {
+        let applies = match self.document {
+            Document::Derivative => self.top().rule == Rule::Root,
+            Document::Vue => matches!(
+                self.top().rule,
+                Rule::VueTemplateBody | Rule::VueElement | Rule::VueTemplateTagEnd
+            ),
+            Document::Html | Document::Erb => false,
+        };
+        if !applies {
             return None;
         }
         self.invalid_tag(p, TagKind::Derivative)
@@ -1390,6 +1493,11 @@ impl Lexer<'_> {
         }
         self.spend((q - p) / 8);
         Some(Hit::new(Pat::AttributeIllegal, p, q.min(self.lim)))
+    }
+
+    /// The HTML attribute rules at `p`, with HTML's attribute list.
+    pub(super) fn html_attribute(&self, p: usize) -> Option<Hit> {
+        self.attribute_patterns(p, Attributes::Html)
     }
 
     /// The class of a character of an unrecognized attribute's name.

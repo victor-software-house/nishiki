@@ -1956,3 +1956,215 @@ fn an_event_handler_that_spends_the_budget_stops_the_markdown_line() {
         "the handler spent the {base} steps the short line needs"
     );
 }
+
+/// A `vue` fence closes at its closing fence when Vue is outside every rule.
+#[cfg(feature = "lang-vue")]
+#[test]
+fn a_vue_fence_closes_where_vue_is_outside_every_rule() {
+    let text = indoc! {"
+        ```vue
+        <template><b>x</b></template>
+        ```
+        after"};
+    assert_eq!(scope_of(text, "vue"), "fenced_code.block.language.markdown");
+    assert_eq!(
+        stack_of(text, "after"),
+        ["text.html.markdown", "meta.paragraph.markdown"]
+    );
+}
+
+/// A Vue rule left open hides the closing fence, which is Vue's text then.
+#[cfg(feature = "lang-vue")]
+#[test]
+fn an_open_vue_rule_keeps_the_vue_fence_open() {
+    let text = indoc! {"
+        ```vue
+        <template>
+        ```
+        inside"};
+    let lines = lex(text);
+    let derivative = [
+        "text.html.markdown",
+        "markup.fenced_code.block.markdown",
+        "text.html.derivative",
+    ];
+    assert_eq!(
+        lines[2],
+        [("```".to_owned(), derivative.map(String::from).to_vec())]
+    );
+    assert_eq!(stack_of(text, "inside"), derivative);
+}
+
+/// Vue's rule takes no tilde after its name, so the fence is a plain one.
+#[cfg(feature = "lang-vue")]
+#[test]
+fn a_tilde_after_vue_makes_a_plain_fence() {
+    let text = indoc! {"
+        ```vue ~x
+        <b>
+        ```
+        after"};
+    assert_eq!(scope_of(text, "vue ~x"), "fenced_code.block.language");
+    assert_eq!(
+        stack_of(text, "<b>"),
+        ["text.html.markdown", "markup.fenced_code.block.markdown"]
+    );
+    assert_eq!(
+        stack_of(text, "after"),
+        ["text.html.markdown", "meta.paragraph.markdown"]
+    );
+}
+
+/// A `vue` fence opens inside Vue's rules too, on the scopes of the
+/// innermost one, and Vue goes on after it closes.
+#[cfg(feature = "lang-vue")]
+#[test]
+fn a_vue_fence_opens_inside_vue_rules() {
+    let text = indoc! {"
+        ```vue
+        <x>
+          ```vue
+        <!-- c -->
+          ```
+        y"};
+    let lines = lex(text);
+    let (fence, punctuation) = &lines[2][1];
+    assert_eq!(fence, "```");
+    assert_eq!(
+        *punctuation,
+        [
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "text",
+            "markup.fenced_code.block.markdown",
+            "punctuation.definition.markdown",
+        ]
+    );
+    assert_eq!(
+        lines[3][0].1,
+        [
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "text",
+            "markup.fenced_code.block.markdown",
+            "comment.block.vue",
+            "punctuation.definition.comment.vue",
+        ]
+    );
+    assert_eq!(
+        stack_of(text, "y"),
+        [
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "text"
+        ]
+    );
+}
+
+/// A `vue` fence has no `while` rule, so its lines have `\G` at their start
+/// only after a quote's `>`.
+/// There a `pug` block, which keeps only its tag's rules, opens its tag again.
+#[cfg(feature = "lang-vue")]
+#[test]
+fn a_vue_fence_line_is_anchored_only_after_a_quote() {
+    let bare = indoc! {r#"
+        ```vue
+        <x lang="pug">
+        a b"#};
+    assert_eq!(
+        stack_of(bare, "a b"),
+        ["text.html.markdown", "markup.fenced_code.block.markdown"]
+    );
+    let quoted = indoc! {r#"
+        > ```vue
+        > <x lang="pug">
+        > a b"#};
+    assert_eq!(
+        stack_of(quoted, "a"),
+        [
+            "text.html.markdown",
+            "markup.quote.markdown",
+            "markup.fenced_code.block.markdown",
+            "meta.tag-stuff",
+            "meta.attribute.unrecognized.a.html",
+            "entity.other.attribute-name.html",
+        ]
+    );
+}
+
+/// A `vue` fence nested in a TypeScript body closes with that body.
+/// The body's `while` rule fails at `</script>`, under the nested fence.
+#[cfg(feature = "lang-vue")]
+#[test]
+fn a_vue_fence_in_a_script_body_closes_with_the_body() {
+    let text = indoc! {r#"
+        ```vue
+        <script lang="ts">
+          ```vue
+        x
+        </script>
+        y"#};
+    assert_eq!(
+        stack_of(text, "x"),
+        [
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "source.ts",
+            "markup.fenced_code.block.markdown",
+        ]
+    );
+    let (closing, stack) = &lex(text)[4][1];
+    assert_eq!(closing, "script");
+    assert_eq!(
+        *stack,
+        [
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "entity.name.tag.script.html.vue",
+        ]
+    );
+    assert_eq!(
+        stack_of(text, "y"),
+        ["text.html.markdown", "markup.fenced_code.block.markdown"]
+    );
+}
+
+/// A line that starts with a `vue` fence's own rule on top has `\G` at its
+/// start, since the fence's begin took the line feed.
+/// Under a nested fence, an indented `</script>` fails the script body's
+/// `while` rule, and the `\G` then opens the tag's attributes again.
+/// Without the nested fence, the same line closes the script.
+#[cfg(feature = "lang-vue")]
+#[test]
+fn a_vue_fence_anchors_the_lines_its_own_rule_starts() {
+    let nested = indoc! {r#"
+        ```vue
+        <script lang="ts">
+          ```vue
+        x
+          </script>
+        y"#};
+    assert_eq!(
+        stack_of(nested, "</script"),
+        [
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "meta.tag-stuff",
+            "invalid.illegal.character-not-allowed-here.html",
+        ]
+    );
+    let plain = indoc! {r#"
+        ```vue
+        <script lang="ts">
+        x
+          </script>
+        y"#};
+    assert_eq!(
+        stack_of(plain, "</"),
+        [
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "punctuation.definition.tag.begin.html.vue",
+        ]
+    );
+}

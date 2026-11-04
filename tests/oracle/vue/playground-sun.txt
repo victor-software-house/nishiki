@@ -1,0 +1,220 @@
+L <template>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 9 text.html.vue entity.name.tag.template.html.vue
+T 10 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+T 2 text.html.vue text.html.derivative
+T 3 text.html.vue text.html.derivative meta.element.structure.svg.html meta.tag.structure.svg.start.html punctuation.definition.tag.begin.html
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.tag.structure.svg.start.html entity.name.tag.html
+T 7 text.html.vue text.html.derivative meta.element.structure.svg.html
+T 12 text.html.vue text.html.derivative meta.element.structure.svg.html meta.attribute.unrecognized.xmlns.html entity.other.attribute-name.html
+T 13 text.html.vue text.html.derivative meta.element.structure.svg.html meta.attribute.unrecognized.xmlns.html punctuation.separator.key-value.html
+T 14 text.html.vue text.html.derivative meta.element.structure.svg.html meta.attribute.unrecognized.xmlns.html string.quoted.double.html punctuation.definition.string.begin.html
+T 40 text.html.vue text.html.derivative meta.element.structure.svg.html meta.attribute.unrecognized.xmlns.html string.quoted.double.html
+T 41 text.html.vue text.html.derivative meta.element.structure.svg.html meta.attribute.unrecognized.xmlns.html string.quoted.double.html punctuation.definition.string.end.html
+T 42 text.html.vue text.html.derivative meta.element.structure.svg.html
+T 49 text.html.vue text.html.derivative meta.element.structure.svg.html meta.attribute.viewBox.html entity.other.attribute-name.html
+T 50 text.html.vue text.html.derivative meta.element.structure.svg.html meta.attribute.viewBox.html punctuation.separator.key-value.html
+T 51 text.html.vue text.html.derivative meta.element.structure.svg.html meta.attribute.viewBox.html string.quoted.double.html punctuation.definition.string.begin.html
+T 60 text.html.vue text.html.derivative meta.element.structure.svg.html meta.attribute.viewBox.html string.quoted.double.html
+T 61 text.html.vue text.html.derivative meta.element.structure.svg.html meta.attribute.viewBox.html string.quoted.double.html punctuation.definition.string.end.html
+T 62 text.html.vue text.html.derivative meta.element.structure.svg.html meta.tag.structure.svg.start.html punctuation.definition.tag.end.html
+L     <path
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html
+T 5 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html punctuation.definition.tag.begin.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html entity.name.tag.html
+L       fill="currentColor"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 10 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html entity.other.attribute-name.html
+T 11 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html punctuation.separator.key-value.html
+T 12 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html
+T 25 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.end.html
+L       d="M12,18c-3.3,0-6-2.7-6-6s2.7-6,6-6s6,2.7,6,6S15.3,18,12,18zM12,8c-2.2,0-4,1.8-4,4c0,2.2,1.8,4,4,4c2.2,0,4-1.8,4-4C16,9.8,14.2,8,12,8z"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 7 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html entity.other.attribute-name.html
+T 8 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html punctuation.separator.key-value.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.begin.html
+T 141 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html
+T 142 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.end.html
+L     />
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg..end.html punctuation.definition.tag.end.html
+L     <path
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html
+T 5 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html punctuation.definition.tag.begin.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html entity.name.tag.html
+L       fill="currentColor"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 10 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html entity.other.attribute-name.html
+T 11 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html punctuation.separator.key-value.html
+T 12 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html
+T 25 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.end.html
+L       d="M12,4c-0.6,0-1-0.4-1-1V1c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,3.6,12.6,4,12,4z"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 7 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html entity.other.attribute-name.html
+T 8 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html punctuation.separator.key-value.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.begin.html
+T 81 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html
+T 82 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.end.html
+L     />
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg..end.html punctuation.definition.tag.end.html
+L     <path
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html
+T 5 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html punctuation.definition.tag.begin.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html entity.name.tag.html
+L       fill="currentColor"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 10 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html entity.other.attribute-name.html
+T 11 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html punctuation.separator.key-value.html
+T 12 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html
+T 25 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.end.html
+L       d="M12,24c-0.6,0-1-0.4-1-1v-2c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,23.6,12.6,24,12,24z"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 7 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html entity.other.attribute-name.html
+T 8 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html punctuation.separator.key-value.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.begin.html
+T 86 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html
+T 87 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.end.html
+L     />
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg..end.html punctuation.definition.tag.end.html
+L     <path
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html
+T 5 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html punctuation.definition.tag.begin.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html entity.name.tag.html
+L       fill="currentColor"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 10 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html entity.other.attribute-name.html
+T 11 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html punctuation.separator.key-value.html
+T 12 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html
+T 25 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.end.html
+L       d="M5.6,6.6c-0.3,0-0.5-0.1-0.7-0.3L3.5,4.9c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C6.2,6.5,5.9,6.6,5.6,6.6z"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 7 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html entity.other.attribute-name.html
+T 8 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html punctuation.separator.key-value.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.begin.html
+T 134 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html
+T 135 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.end.html
+L     />
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg..end.html punctuation.definition.tag.end.html
+L     <path
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html
+T 5 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html punctuation.definition.tag.begin.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html entity.name.tag.html
+L       fill="currentColor"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 10 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html entity.other.attribute-name.html
+T 11 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html punctuation.separator.key-value.html
+T 12 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html
+T 25 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.end.html
+L       d="M19.8,20.8c-0.3,0-0.5-0.1-0.7-0.3l-1.4-1.4c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C20.3,20.7,20,20.8,19.8,20.8z"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 7 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html entity.other.attribute-name.html
+T 8 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html punctuation.separator.key-value.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.begin.html
+T 141 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html
+T 142 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.end.html
+L     />
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg..end.html punctuation.definition.tag.end.html
+L     <path
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html
+T 5 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html punctuation.definition.tag.begin.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html entity.name.tag.html
+L       fill="currentColor"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 10 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html entity.other.attribute-name.html
+T 11 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html punctuation.separator.key-value.html
+T 12 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html
+T 25 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.end.html
+L       d="M3,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S3.6,13,3,13z"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 7 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html entity.other.attribute-name.html
+T 8 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html punctuation.separator.key-value.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.begin.html
+T 74 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html
+T 75 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.end.html
+L     />
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg..end.html punctuation.definition.tag.end.html
+L     <path
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html
+T 5 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html punctuation.definition.tag.begin.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html entity.name.tag.html
+L       fill="currentColor"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 10 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html entity.other.attribute-name.html
+T 11 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html punctuation.separator.key-value.html
+T 12 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html
+T 25 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.end.html
+L       d="M23,13h-2c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S23.6,13,23,13z"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 7 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html entity.other.attribute-name.html
+T 8 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html punctuation.separator.key-value.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.begin.html
+T 78 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html
+T 79 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.end.html
+L     />
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg..end.html punctuation.definition.tag.end.html
+L     <path
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html
+T 5 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html punctuation.definition.tag.begin.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html entity.name.tag.html
+L       fill="currentColor"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 10 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html entity.other.attribute-name.html
+T 11 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html punctuation.separator.key-value.html
+T 12 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html
+T 25 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.end.html
+L       d="M4.2,20.8c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C4.7,20.7,4.5,20.8,4.2,20.8z"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 7 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html entity.other.attribute-name.html
+T 8 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html punctuation.separator.key-value.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.begin.html
+T 139 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html
+T 140 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.end.html
+L     />
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg..end.html punctuation.definition.tag.end.html
+L     <path
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html
+T 5 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html punctuation.definition.tag.begin.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg.path.start.html entity.name.tag.html
+L       fill="currentColor"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 10 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html entity.other.attribute-name.html
+T 11 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html punctuation.separator.key-value.html
+T 12 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html
+T 25 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.fill.html string.quoted.double.html punctuation.definition.string.end.html
+L       d="M18.4,6.6c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C18.9,6.5,18.6,6.6,18.4,6.6z"
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 7 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html entity.other.attribute-name.html
+T 8 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html punctuation.separator.key-value.html
+T 9 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.begin.html
+T 139 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html
+T 140 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html meta.attribute.d.html string.quoted.double.html punctuation.definition.string.end.html
+L     />
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.start.html
+T 6 text.html.vue text.html.derivative meta.element.structure.svg.html meta.element.object.svg.path.html meta.tag.object.svg..end.html punctuation.definition.tag.end.html
+L   </svg>
+T 2 text.html.vue text.html.derivative meta.element.structure.svg.html
+T 4 text.html.vue text.html.derivative meta.element.structure.svg.html meta.tag.structure.svg.end.html punctuation.definition.tag.begin.html
+T 7 text.html.vue text.html.derivative meta.element.structure.svg.html meta.tag.structure.svg.end.html entity.name.tag.html
+T 8 text.html.vue text.html.derivative meta.element.structure.svg.html meta.tag.structure.svg.end.html punctuation.definition.tag.end.html
+L </template>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 10 text.html.vue entity.name.tag.template.html.vue
+T 11 text.html.vue punctuation.definition.tag.end.html.vue
+L 

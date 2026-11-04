@@ -92,6 +92,8 @@ impl Starts {
     fn of(kind: Kind) -> Starts {
         match kind {
             Kind::Base | Kind::Quote | Kind::ListBullet | Kind::ListOrdered => Starts::Block,
+            #[cfg(feature = "lang-vue")]
+            Kind::Body(Language::Vue) => Starts::Anchored,
             Kind::Body(language) => {
                 if language == Language::Markdown {
                     Starts::Block
@@ -402,6 +404,21 @@ impl<'a> Lexer<'a> {
                     block::front_matter_close(&cx, pos, dashes, &mut caps)
                         .is_none()
                         .then_some(pos)
+                }
+                #[cfg(feature = "lang-vue")]
+                Kind::Body(Language::Vue) => {
+                    if vue_body_line(
+                        &cx,
+                        self.arena,
+                        &mut self.frames,
+                        &mut self.anchor,
+                        index,
+                        pos,
+                    ) {
+                        index += 1;
+                        continue;
+                    }
+                    None
                 }
                 Kind::Body(_) => {
                     (cx.at_start(pos) && !block::is_fence_line(&cx, pos)).then_some(pos)
@@ -1164,6 +1181,35 @@ impl<'a> Lexer<'a> {
         self.emit(name_end + 1, end_stack);
     }
 
+    /// Whether a `vue` fence opens at the cursor inside a Vue body.
+    /// Vue then leaves the line to [`Self::find`], whose fence rule opens it.
+    ///
+    /// Vue's `markdown-vue` grammar adds its fence as an injection.
+    /// The injection applies in every rule of the document, Vue's own included.
+    /// It wins over the rule's patterns that match at the same place.
+    ///
+    /// The new fence sits on the scopes of the innermost text.
+    /// Inside a block that another language lexes, that language's scopes hold
+    /// it. So the body's content is set to them here.
+    /// The body has no content scope, so `check_whiles` sets it back to the
+    /// body's name on the next line.
+    #[cfg(feature = "lang-vue")]
+    #[cold]
+    #[inline(never)]
+    fn vue_fence_ahead(&mut self) -> bool {
+        let Some(body) = self.frames.len().checked_sub(1) else {
+            return false;
+        };
+        let mut caps = Caps::new();
+        let cx = cx!(self);
+        if block::vue_fence_open(&cx, self.pos, &mut caps).is_none() {
+            return false;
+        }
+        self.frames[body].content =
+            crate::vue::innermost_stack(self.arena, self.frames[body].payload);
+        true
+    }
+
     /// Takes the rest of the line, or of the capture group, for the language
     /// of the open container, from the cursor or, when the containers took
     /// the line feed too, from the line's end. The next line resumes from
@@ -1171,6 +1217,11 @@ impl<'a> Lexer<'a> {
     ///
     /// html-derivative in a paragraph, a heading or emphasis gives the line
     /// back after its construct, which closes the container.
+    ///
+    /// A fence's `while` rule puts `\G` at the start of each of its lines.
+    /// A `vue` fence has no `while` rule.
+    /// Its lines have `\G` there only where `self.anchor` is
+    /// (`vue_body_line`).
     fn embedded(&mut self) {
         let start = self.pos;
         let Some(frame) = self.frames.last().copied() else {
@@ -1179,6 +1230,12 @@ impl<'a> Lexer<'a> {
         let (Rule::Open(kind), Some(lang)) = (frame.rule, embedded_language(frame.rule)) else {
             return;
         };
+        #[cfg(feature = "lang-vue")]
+        let vue = matches!(lang, Language::Vue);
+        #[cfg(feature = "lang-vue")]
+        if vue && self.vue_fence_ahead() {
+            return;
+        }
         let end = self.limit.min(self.line.len());
         if start >= end && !lang.reads_line_feed() {
             return;
@@ -1195,10 +1252,14 @@ impl<'a> Lexer<'a> {
             out: &mut *self.out,
             report: &mut *self.report,
         };
+        #[cfg(feature = "lang-vue")]
+        let anchored = !vue || self.anchor == Some(start);
+        #[cfg(not(feature = "lang-vue"))]
+        let anchored = true;
         let line = Line {
             text: &self.line[..end],
             start,
-            embedded: true,
+            embedded: anchored,
         };
         #[cfg(feature = "lang-html-derivative")]
         let (state, back) = match html_give_back(kind) {
@@ -1301,6 +1362,64 @@ fn html_give_back(kind: Kind) -> Option<crate::html::GiveBack<'static>> {
         | Kind::HtmlRawBody
         | Kind::HtmlBlock => None,
     }
+}
+
+/// Whether the Vue body at `index` of `frames` goes on at `pos`.
+/// When it does not, the fence's closing rule matches there.
+/// It sets `anchor` to `pos` when `\G` is there.
+///
+/// - The body's content goes back to its name. A nested fence may have set it
+///   to the scopes of the innermost text (`Lexer::vue_fence_ahead`).
+/// - The fence's begin ends in a run of anything but a backtick or a tilde,
+///   which takes the line feed. vscode-textmate then puts `\G` at the start of
+///   a line that starts with the fence's rule on top, where Vue is outside
+///   every rule. The `while` rules of the containers outside move it.
+/// - With a container open inside the body, only the `while` rule of a Vue
+///   script body can end it, and the containers inside close with it.
+/// - Otherwise the fence's closing rule ends the body where Vue is outside
+///   every rule.
+///
+/// It takes the fields it changes, not the lexer.
+/// So `check_whiles`, which calls it in a loop, keeps the lexer's other fields
+/// in registers around the call.
+#[cfg(feature = "lang-vue")]
+#[cold]
+#[inline(never)]
+fn vue_body_line(
+    cx: &Cx<'_>,
+    arena: &Arena,
+    frames: &mut Vec<Frame>,
+    anchor: &mut Option<usize>,
+    index: usize,
+    pos: usize,
+) -> bool {
+    let Some(body) = frames.get_mut(index) else {
+        return true;
+    };
+    body.content = body.name;
+    let payload = body.payload;
+    let anchored = frames.last().is_some_and(|top| {
+        matches!(top.rule, Rule::Open(Kind::Body(Language::Vue)))
+            && crate::vue::at_root(arena, top.payload)
+    });
+    if anchored && anchor.is_none() {
+        *anchor = Some(pos);
+    }
+    if index + 1 < frames.len() {
+        if !crate::vue::while_holds(arena, payload, cx.line, pos) {
+            frames.truncate(index + 1);
+        }
+        return true;
+    }
+    if !crate::vue::at_root(arena, payload) {
+        return true;
+    }
+    let fence = index
+        .checked_sub(1)
+        .and_then(|outer| frames.get(outer))
+        .map_or(0, |outer| outer.payload);
+    let mut caps = Caps::new();
+    block::fence_close(cx, pos, Fence::from_payload(fence), &mut caps).is_none()
 }
 
 /// `(^|\G)(\s*)(.*)`, the rule that starts the lines of an embedded

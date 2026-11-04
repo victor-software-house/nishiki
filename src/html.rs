@@ -25,6 +25,7 @@ mod matchers;
 mod rules;
 mod scope;
 mod state;
+mod vue;
 mod words;
 
 #[cfg(all(feature = "lang-html-derivative", feature = "lang-markdown"))]
@@ -182,6 +183,58 @@ pub(crate) fn lex_erb(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finis
         return Finished::unspent(state);
     }
     engine::Lexer::new(cx, line, state, engine::Document::Erb).run()
+}
+
+/// The state at the start of a Vue component whose scopes sit on the stack
+/// `base`: the HTML root rule with `text.html.vue` on top of it.
+#[cfg(feature = "lang-vue")]
+pub(crate) fn start_vue(arena: &mut Arena, base: u32) -> u32 {
+    let stack = arena.child(base, S::TextHtmlVue.scope()).unwrap_or(base);
+    arena
+        .push(ROOT, Rule::Root.code(), 0, stack)
+        .unwrap_or(ROOT)
+}
+
+/// Whether `state` is outside every rule.
+#[cfg(all(feature = "lang-vue", feature = "lang-markdown"))]
+pub(crate) fn at_root(arena: &Arena, state: u32) -> bool {
+    arena.frame(state).kind == Rule::Root.code()
+}
+
+/// Whether the `while` rule of a Vue body on top of `state` holds at `p` of
+/// `s`: `^(?!\s*</script[>\s])`.
+/// A state with no such body on top has no `while` rule to fail.
+#[cfg(all(feature = "lang-vue", feature = "lang-markdown"))]
+pub(crate) fn vue_while_holds(arena: &Arena, state: u32, s: &[u8], p: usize) -> bool {
+    Rule::from_code(arena.frame(state).kind) != Rule::VueBodyWhile
+        || (p == 0 && !vue::script_end(s, vue::blanks_end(s, 0)))
+}
+
+/// The scope stack of the innermost text in `state`.
+/// Where the innermost rule embeds another language, that language's state
+/// holds it.
+#[cfg(all(feature = "lang-vue", feature = "lang-markdown"))]
+pub(crate) fn innermost_stack(arena: &Arena, state: u32) -> u32 {
+    let frame = arena.frame(state);
+    let embeds = matches!(
+        Rule::from_code(frame.kind),
+        Rule::BodyCss | Rule::BodyJs | Rule::VueBody | Rule::VueBodyWhile | Rule::VueExpr
+    );
+    if embeds && frame.payload != 0 {
+        arena.frame(frame.payload).stack
+    } else {
+        frame.stack
+    }
+}
+
+/// Lexes a line of a Vue component like [`lex`], with Vue's rules at the
+/// root.
+#[cfg(feature = "lang-vue")]
+pub(crate) fn lex_vue(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
+    if line.text.len() <= line.start {
+        return Finished::unspent(state);
+    }
+    engine::Lexer::new(cx, line, state, engine::Document::Vue).run()
 }
 
 #[cfg(test)]

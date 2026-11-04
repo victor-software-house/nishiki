@@ -1,0 +1,309 @@
+L <script setup lang="ts">
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.script.html.vue
+T 8 text.html.vue meta.tag-stuff
+T 13 text.html.vue meta.tag-stuff meta.attribute.unrecognized.setup.html entity.other.attribute-name.html
+T 14 text.html.vue meta.tag-stuff
+T 18 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 19 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 20 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 22 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 23 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 24 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L import { withBase } from 'vitepress'
+T 6 text.html.vue source.ts meta.import.ts keyword.control.import.ts
+T 7 text.html.vue source.ts meta.import.ts
+T 8 text.html.vue source.ts meta.import.ts meta.block.ts punctuation.definition.block.ts
+T 9 text.html.vue source.ts meta.import.ts meta.block.ts
+T 17 text.html.vue source.ts meta.import.ts meta.block.ts variable.other.readwrite.alias.ts
+T 18 text.html.vue source.ts meta.import.ts meta.block.ts
+T 19 text.html.vue source.ts meta.import.ts meta.block.ts punctuation.definition.block.ts
+T 20 text.html.vue source.ts meta.import.ts
+T 24 text.html.vue source.ts meta.import.ts keyword.control.from.ts
+T 25 text.html.vue source.ts meta.import.ts
+T 26 text.html.vue source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 35 text.html.vue source.ts meta.import.ts string.quoted.single.ts
+T 36 text.html.vue source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.end.ts
+L import type { DefaultTheme } from 'vitepress/theme'
+T 6 text.html.vue source.ts meta.import.ts keyword.control.import.ts
+T 7 text.html.vue source.ts meta.import.ts
+T 11 text.html.vue source.ts meta.import.ts keyword.control.type.ts
+T 12 text.html.vue source.ts meta.import.ts
+T 13 text.html.vue source.ts meta.import.ts meta.block.ts punctuation.definition.block.ts
+T 14 text.html.vue source.ts meta.import.ts meta.block.ts
+T 26 text.html.vue source.ts meta.import.ts meta.block.ts variable.other.readwrite.alias.ts
+T 27 text.html.vue source.ts meta.import.ts meta.block.ts
+T 28 text.html.vue source.ts meta.import.ts meta.block.ts punctuation.definition.block.ts
+T 29 text.html.vue source.ts meta.import.ts
+T 33 text.html.vue source.ts meta.import.ts keyword.control.from.ts
+T 34 text.html.vue source.ts meta.import.ts
+T 35 text.html.vue source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 50 text.html.vue source.ts meta.import.ts string.quoted.single.ts
+T 51 text.html.vue source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.end.ts
+L 
+L defineProps<{
+T 11 text.html.vue source.ts meta.function-call.ts entity.name.function.ts
+T 12 text.html.vue source.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 13 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts punctuation.definition.block.ts
+L   image: DefaultTheme.ThemeableImage
+T 2 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts
+T 7 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 8 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 9 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.type.annotation.ts
+T 21 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.module.ts
+T 22 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.type.annotation.ts punctuation.accessor.ts
+T 36 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+L   alt?: string
+T 2 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts
+T 5 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 6 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts keyword.operator.optional.ts
+T 7 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 8 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.type.annotation.ts
+T 14 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.type.annotation.ts support.type.primitive.ts
+L }>()
+T 1 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts punctuation.definition.block.ts
+T 2 text.html.vue source.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+T 3 text.html.vue source.ts meta.brace.round.ts
+T 4 text.html.vue source.ts meta.brace.round.ts
+L 
+L defineOptions({ inheritAttrs: false })
+T 13 text.html.vue source.ts meta.function-call.ts entity.name.function.ts
+T 14 text.html.vue source.ts meta.brace.round.ts
+T 15 text.html.vue source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 16 text.html.vue source.ts meta.objectliteral.ts
+T 28 text.html.vue source.ts meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts
+T 29 text.html.vue source.ts meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts punctuation.separator.key-value.ts
+T 30 text.html.vue source.ts meta.objectliteral.ts meta.object.member.ts
+T 35 text.html.vue source.ts meta.objectliteral.ts meta.object.member.ts constant.language.boolean.false.ts
+T 36 text.html.vue source.ts meta.objectliteral.ts meta.object.member.ts
+T 37 text.html.vue source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 38 text.html.vue source.ts meta.brace.round.ts
+L </script>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 8 text.html.vue entity.name.tag.script.html.vue
+T 9 text.html.vue punctuation.definition.tag.end.html.vue
+L 
+L <template>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 9 text.html.vue entity.name.tag.template.html.vue
+T 10 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L   <template v-if="image">
+T 2 text.html.vue text.html.derivative
+T 3 text.html.vue text.html.derivative meta.template-tag.start punctuation.definition.tag.begin.html.vue
+T 11 text.html.vue text.html.derivative meta.template-tag.start entity.name.tag.template.html.vue
+T 12 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag-stuff
+T 16 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag-stuff meta.attribute.directive.control.vue keyword.control.conditional.vue
+T 17 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag-stuff meta.attribute.directive.control.vue punctuation.separator.key-value.html.vue
+T 18 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag-stuff meta.attribute.directive.control.vue punctuation.definition.string.begin.html.vue
+T 23 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag-stuff meta.attribute.directive.control.vue source.ts.embedded.html.vue variable.other.readwrite.ts
+T 24 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag-stuff meta.attribute.directive.control.vue punctuation.definition.string.end.html.vue
+T 25 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag-stuff punctuation.definition.tag.end.html.vue
+L     <img
+T 4 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end
+T 5 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html punctuation.definition.tag.begin.html
+T 8 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html entity.name.tag.html
+L       v-if="typeof image === 'string' || 'src' in image"
+T 6 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html
+T 10 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.v-if.html entity.other.attribute-name.html
+T 11 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.v-if.html punctuation.separator.key-value.html
+T 12 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.v-if.html string.quoted.double.html punctuation.definition.string.begin.html
+T 55 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.v-if.html string.quoted.double.html
+T 56 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.v-if.html string.quoted.double.html punctuation.definition.string.end.html
+L       class="VPImage"
+T 6 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html
+T 11 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.class.html entity.other.attribute-name.html
+T 12 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.class.html punctuation.separator.key-value.html
+T 13 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html
+T 21 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+L       v-bind="typeof image === 'string' ? $attrs : { ...image, ...$attrs }"
+T 6 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html
+T 12 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.v-bind.html entity.other.attribute-name.html
+T 13 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.v-bind.html punctuation.separator.key-value.html
+T 14 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.v-bind.html string.quoted.double.html punctuation.definition.string.begin.html
+T 74 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.v-bind.html string.quoted.double.html
+T 75 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.v-bind.html string.quoted.double.html punctuation.definition.string.end.html
+L       :src="withBase(typeof image === 'string' ? image : image.src)"
+T 6 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html
+T 10 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.:src.html entity.other.attribute-name.html
+T 11 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.:src.html punctuation.separator.key-value.html
+T 12 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.:src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 67 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.:src.html string.quoted.double.html
+T 68 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.:src.html string.quoted.double.html punctuation.definition.string.end.html
+L       :alt="alt ?? (typeof image === 'string' ? '' : image.alt || '')"
+T 6 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html
+T 10 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.:alt.html entity.other.attribute-name.html
+T 11 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.:alt.html punctuation.separator.key-value.html
+T 12 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.:alt.html string.quoted.double.html punctuation.definition.string.begin.html
+T 69 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.:alt.html string.quoted.double.html
+T 70 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html meta.attribute.unrecognized.:alt.html string.quoted.double.html punctuation.definition.string.end.html
+L     />
+T 4 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html
+T 6 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.object.img.void.html punctuation.definition.tag.end.html
+L     <template v-else>
+T 4 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end
+T 5 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start punctuation.definition.tag.begin.html.vue
+T 13 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start entity.name.tag.template.html.vue
+T 14 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag-stuff
+T 20 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag-stuff meta.attribute.directive.control.vue keyword.control.conditional.vue
+T 21 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag-stuff punctuation.definition.tag.end.html.vue
+L       <VPImage
+T 6 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end
+T 7 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue punctuation.definition.tag.begin.html.vue
+T 14 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue entity.name.tag.html.vue
+L         class="dark"
+T 8 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue
+T 13 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.class.html entity.other.attribute-name.html
+T 14 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.class.html punctuation.separator.key-value.html
+T 15 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 19 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.class.html string.quoted.double.html
+T 20 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+L         :image="image.dark"
+T 8 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue
+T 9 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.attribute-shorthand.bind.html.vue
+T 14 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue entity.other.attribute-name.html.vue
+T 15 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 16 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.definition.string.begin.html.vue
+T 21 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.object.ts
+T 22 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue punctuation.accessor.ts
+T 26 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.property.ts
+T 27 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.definition.string.end.html.vue
+L         :alt="alt ?? image.alt"
+T 8 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue
+T 9 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.attribute-shorthand.bind.html.vue
+T 12 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue entity.other.attribute-name.html.vue
+T 13 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 14 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.definition.string.begin.html.vue
+T 17 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.readwrite.ts
+T 18 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue
+T 20 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue keyword.operator.logical.ts
+T 21 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue
+T 26 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.object.ts
+T 27 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue punctuation.accessor.ts
+T 30 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.property.ts
+T 31 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.definition.string.end.html.vue
+L         v-bind="$attrs"
+T 8 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue
+T 14 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue entity.other.attribute-name.html.vue
+T 15 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 16 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.definition.string.begin.html.vue
+T 22 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.readwrite.ts
+T 23 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.definition.string.end.html.vue
+L       />
+T 6 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue
+T 8 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue punctuation.definition.tag.end.html.vue
+L       <VPImage
+T 6 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end
+T 7 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue punctuation.definition.tag.begin.html.vue
+T 14 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue entity.name.tag.html.vue
+L         class="light"
+T 8 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue
+T 13 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.class.html entity.other.attribute-name.html
+T 14 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.class.html punctuation.separator.key-value.html
+T 15 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.class.html string.quoted.double.html
+T 21 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+L         :image="image.light"
+T 8 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue
+T 9 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.attribute-shorthand.bind.html.vue
+T 14 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue entity.other.attribute-name.html.vue
+T 15 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 16 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.definition.string.begin.html.vue
+T 21 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.object.ts
+T 22 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue punctuation.accessor.ts
+T 27 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.property.ts
+T 28 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.definition.string.end.html.vue
+L         :alt="alt ?? image.alt"
+T 8 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue
+T 9 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.attribute-shorthand.bind.html.vue
+T 12 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue entity.other.attribute-name.html.vue
+T 13 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 14 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.definition.string.begin.html.vue
+T 17 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.readwrite.ts
+T 18 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue
+T 20 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue keyword.operator.logical.ts
+T 21 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue
+T 26 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.object.ts
+T 27 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue punctuation.accessor.ts
+T 30 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.property.ts
+T 31 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.definition.string.end.html.vue
+L         v-bind="$attrs"
+T 8 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue
+T 14 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue entity.other.attribute-name.html.vue
+T 15 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 16 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.definition.string.begin.html.vue
+T 22 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.readwrite.ts
+T 23 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue meta.attribute.directive.vue punctuation.definition.string.end.html.vue
+L       />
+T 6 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue
+T 8 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end meta.tag.structure.VPImage.start.html.vue punctuation.definition.tag.end.html.vue
+L     </template>
+T 4 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end
+T 6 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end punctuation.definition.tag.begin.html.vue
+T 14 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start meta.template-tag.end entity.name.tag.template.html.vue
+T 15 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.template-tag.start punctuation.definition.tag.end.html.vue
+L   </template>
+T 2 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end
+T 4 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end punctuation.definition.tag.begin.html.vue
+T 12 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end entity.name.tag.template.html.vue
+T 13 text.html.vue text.html.derivative meta.template-tag.start punctuation.definition.tag.end.html.vue
+L </template>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 10 text.html.vue entity.name.tag.template.html.vue
+T 11 text.html.vue punctuation.definition.tag.end.html.vue
+L 
+L <style scoped>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.style.html.vue
+T 7 text.html.vue meta.tag-stuff
+T 13 text.html.vue meta.tag-stuff meta.attribute.unrecognized.scoped.html entity.other.attribute-name.html
+T 14 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L html:not(.dark) .VPImage.dark {
+T 4 text.html.vue source.css meta.selector.css entity.name.tag.css
+T 5 text.html.vue source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 8 text.html.vue source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 9 text.html.vue source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 10 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 text.html.vue source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 16 text.html.vue source.css meta.selector.css
+T 17 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 24 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css
+T 25 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 29 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css
+T 30 text.html.vue source.css
+T 31 text.html.vue source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   display: none;
+T 2 text.html.vue source.css meta.property-list.css
+T 9 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 text.html.vue source.css meta.property-list.css
+T 15 text.html.vue source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 16 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 text.html.vue source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L html.dark .VPImage.light {
+T 4 text.html.vue source.css meta.selector.css entity.name.tag.css
+T 5 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 text.html.vue source.css meta.selector.css
+T 11 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 18 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css
+T 19 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 24 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css
+T 25 text.html.vue source.css
+T 26 text.html.vue source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   display: none;
+T 2 text.html.vue source.css meta.property-list.css
+T 9 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 text.html.vue source.css meta.property-list.css
+T 15 text.html.vue source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 16 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 text.html.vue source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L </style>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.style.html.vue
+T 8 text.html.vue punctuation.definition.tag.end.html.vue
+L 

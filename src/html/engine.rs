@@ -22,6 +22,9 @@ use memchr::memchr;
 use super::erb::{self, Erb};
 use super::scope::S;
 use super::state::{self, ErbInjection, ROOT_EMBEDDED, Rule};
+#[cfg(feature = "lang-vue")]
+use super::vue as vue_rules;
+use super::vue::VuePat;
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
@@ -112,6 +115,8 @@ pub(super) enum Pat {
     Erb(Erb),
     /// ERB: `(#).*?(?=-?%>)` in code, a comment up to the code's end.
     ErbHash,
+    /// A pattern of Vue's rules.
+    Vue(VuePat),
 }
 
 /// The grammar a document is lexed with.
@@ -132,6 +137,13 @@ pub(super) enum Document {
         expect(dead_code, reason = "only the ERB language lexes ERB")
     )]
     Erb,
+    /// Vue: a single-file component, whose template is html-derivative with
+    /// Vue's own tag rules. No injection applies.
+    #[cfg_attr(
+        not(feature = "lang-vue"),
+        expect(dead_code, reason = "only the Vue language lexes Vue")
+    )]
+    Vue,
 }
 
 /// Where HTML, lexed inside a rule of another grammar that includes the
@@ -356,7 +368,16 @@ impl<'a> Lexer<'a> {
 
     /// Lexes the line and returns the state after it, with the position
     /// where the line went back to the including grammar, if it did.
+    ///
+    /// A Vue body's `while` rule, `^(?!\s*</script[>\s])`, is checked first.
+    /// Its `^` fails where a Markdown quote or list took the line's start.
+    /// The check sits here, not in `tokenize`: before its loop, LLVM copied
+    /// the loop's first block and gave `give_back_at` a second call.
     pub(super) fn run_until(mut self) -> (Finished, Option<usize>) {
+        #[cfg(feature = "lang-vue")]
+        if self.document == Document::Vue && self.top().rule == Rule::VueBodyWhile {
+            self.vue_while();
+        }
         self.tokenize();
         let state = self.top().state;
         self.scratch.html.frames = std::mem::take(&mut self.frames);
@@ -545,6 +566,10 @@ impl<'a> Lexer<'a> {
     /// Takes matches until nothing matches at or after the position, as
     /// `TextMate` does, or a guard against a loop that does not advance stops
     /// the line.
+    #[expect(
+        clippy::too_many_lines,
+        reason = "the loop dispatches on every rule; out of it, LLVM gave give_back_at a second call"
+    )]
     fn tokenize(&mut self) {
         let mut stalled = 0_u32;
         loop {
@@ -564,6 +589,7 @@ impl<'a> Lexer<'a> {
             let found = match self.top().rule {
                 Rule::BodyCss | Rule::BodyJs => self.embedded(),
                 Rule::ErbBlock | Rule::ErbLine => self.ruby(),
+                Rule::VueBody | Rule::VueBodyWhile | Rule::VueExpr => self.vue_embedded(),
                 Rule::Root
                 | Rule::Comment
                 | Rule::Cdata
@@ -600,7 +626,26 @@ impl<'a> Lexer<'a> {
                 | Rule::Region
                 | Rule::ErbCommentWrap
                 | Rule::ErbTagWrap
-                | Rule::ErbComment => self.search(),
+                | Rule::ErbComment
+                | Rule::VueComment
+                | Rule::VueCommentKv
+                | Rule::VueSelfClosing
+                | Rule::VueBlock
+                | Rule::VueElement
+                | Rule::VueTagStuff
+                | Rule::VueScriptTagStuff
+                | Rule::VueStyleTagStuff
+                | Rule::VueScriptStuff
+                | Rule::VueStyleStuff
+                | Rule::VueLangGroup
+                | Rule::VueTemplateBody
+                | Rule::VueTemplateTag
+                | Rule::VueTemplateTagEnd
+                | Rule::VueCapitalized
+                | Rule::VueCapitalizedAttrs
+                | Rule::VueDirective
+                | Rule::VueExprString
+                | Rule::VueExprBare => self.search(),
             };
             if let Some(at) = self.give_back_at(found.as_ref()) {
                 let content = self.top().content;
@@ -635,6 +680,17 @@ impl<'a> Lexer<'a> {
                     return;
                 }
             }
+        }
+    }
+
+    /// The `while` rule of a Vue body, `^(?!\s*</script[>\s])`, at the start
+    /// of the line: the body closes where it fails.
+    #[cfg(feature = "lang-vue")]
+    #[cold]
+    #[inline(never)]
+    fn vue_while(&mut self) {
+        if self.pos != 0 || vue_rules::script_end(self.s, self.skip_ascii_ws(0)) {
+            self.frames.pop();
         }
     }
 
@@ -692,6 +748,7 @@ impl<'a> Lexer<'a> {
             Document::Erb => self.find_erb(self.pos),
             Document::Html | Document::Derivative if self.top().no_inject => None,
             Document::Html | Document::Derivative => self.find_lt(self.pos),
+            Document::Vue => None,
         };
         let cut = inject.map_or(self.lim, |at| at + 1);
         let mut p = self.pos;
@@ -726,6 +783,7 @@ impl<'a> Lexer<'a> {
         match self.document {
             Document::Erb => self.erb_hit(at),
             Document::Html | Document::Derivative => Some(Hit::new(Pat::Inject, at, at + 1)),
+            Document::Vue => None,
         }
     }
 
@@ -762,7 +820,7 @@ impl<'a> Lexer<'a> {
             embedded: false,
         };
         let in_erb = match self.document {
-            Document::Html | Document::Derivative => false,
+            Document::Html | Document::Derivative | Document::Vue => false,
             Document::Erb => true,
         };
         let (next, halt) = if css {
@@ -782,6 +840,71 @@ impl<'a> Lexer<'a> {
         }
         self.keep_inner(next);
         self.erb_hit(at)
+    }
+
+    /// The text of a Vue body or directive value: the rest of the line up to
+    /// where its rule ends, which its language's lexer reads.
+    /// A body in a language that nishiki does not lex is plain text.
+    #[cfg(feature = "lang-vue")]
+    #[cold]
+    #[inline(never)]
+    fn vue_embedded(&mut self) -> Option<Hit> {
+        let top = *self.top();
+        let parent = self
+            .frames
+            .get(self.frames.len().saturating_sub(2))
+            .copied()
+            .unwrap_or(top);
+        let pos = self.pos;
+        self.tok(top.content, pos);
+        let (lexed, halt) = vue_rules::target(top.rule, parent.rule, parent.payload);
+        let end = halt.unwrap_or(vue_rules::never);
+        let Some(lexed) = lexed else {
+            let at = vue_rules::halt_at(&self.s[..self.lim], pos, end);
+            self.spend(at.unwrap_or(self.lim).saturating_sub(pos) / 16 + 1);
+            let Some(at) = at else {
+                self.finish();
+                self.pos = self.lim;
+                return None;
+            };
+            self.tok(top.content, at);
+            self.pos = at;
+            return Some(Hit::new(Pat::End, at, at));
+        };
+        let mut inner = self.arena.frame(top.state).payload;
+        if inner == 0 {
+            inner = vue_start(self.arena, lexed, top.content);
+        }
+        if pos >= self.lim {
+            return None;
+        }
+        let lent = self.steps.lend(self.limits);
+        let mut cx = Context {
+            scratch: &mut *self.scratch,
+            arena: &mut *self.arena,
+            limits: &lent,
+            out: &mut *self.out,
+            report: &mut *self.report,
+        };
+        let line = Line {
+            text: self.text,
+            start: pos,
+            embedded: false,
+        };
+        let (next, halted) = vue_lex(&mut cx, lexed, line, inner, end);
+        let next = self.steps.take_back(next);
+        self.advance_to(pos, halted);
+        let Some(at) = halted else {
+            self.keep_inner(next);
+            return None;
+        };
+        Some(Hit::new(Pat::End, at, at))
+    }
+
+    /// Without Vue, no frame is a Vue body.
+    #[cfg(not(feature = "lang-vue"))]
+    fn vue_embedded(&mut self) -> Option<Hit> {
+        self.search()
     }
 
     /// Moves past the text that an embedded lexer took from `pos`: up to its
@@ -923,7 +1046,8 @@ impl<'a> Lexer<'a> {
             | Pat::UnquotedCss
             | Pat::UnquotedJs
             | Pat::JsText
-            | Pat::ErbHash => self.match_rule(&hit),
+            | Pat::ErbHash
+            | Pat::Vue(VuePat::Modifier) => self.match_rule(&hit),
             Pat::Zero(_)
             | Pat::Processing
             | Pat::Comment
@@ -942,7 +1066,22 @@ impl<'a> Lexer<'a> {
             | Pat::DoctypeQuote
             | Pat::JsLine
             | Pat::JsBlock
-            | Pat::Erb(_) => self.open(&hit),
+            | Pat::Erb(_)
+            | Pat::Vue(
+                VuePat::CommentKv
+                | VuePat::Comment
+                | VuePat::SelfClosing
+                | VuePat::Block
+                | VuePat::Element
+                | VuePat::LangGroup
+                | VuePat::TemplateTag
+                | VuePat::TemplateTagEnd
+                | VuePat::Capitalized
+                | VuePat::DirectiveControl
+                | VuePat::DirectiveOriginal
+                | VuePat::ExprString
+                | VuePat::ExprBare,
+            ) => self.open(&hit),
         }
     }
 
@@ -982,6 +1121,7 @@ impl<'a> Lexer<'a> {
     /// limit keeps from opening leaves its text plain, and since a rule that
     /// matched nothing would match again where it did, the search goes on
     /// after one character.
+    /// At the end of the line no character is left, so the line stops.
     /// A pattern that names no rule leaves its text plain, and a rule that
     /// opens again where it opened without advancing stops the line.
     fn open(&mut self, hit: &Hit) -> bool {
@@ -1002,7 +1142,10 @@ impl<'a> Lexer<'a> {
             };
             let next = next.min(self.lim);
             self.tok(top.content, next);
-            self.pos = self.pos.max(next);
+            if next <= self.pos {
+                return true;
+            }
+            self.pos = next;
             return false;
         }
         let advanced = hit.end > self.pos;
@@ -1027,7 +1170,7 @@ impl<'a> Lexer<'a> {
         let top = *self.top();
         let base = self.inner_base(&top);
         let name = self.name_stack(base, rule, payload);
-        let content = self.content_stack(name, rule);
+        let content = self.content_stack(name, rule, payload);
         let state = self
             .arena
             .push(top.state, rule.code(), payload, content)
@@ -1169,6 +1312,86 @@ impl<'a> Lexer<'a> {
         self.steps.take_back(finished);
         self.last = self.last.max(to);
     }
+}
+
+/// The start state of `lexed` for a Vue body or directive value whose text
+/// sits on `base`.
+#[cfg(feature = "lang-vue")]
+fn vue_start(arena: &mut Arena, lexed: vue_rules::Lexed, base: u32) -> u32 {
+    use vue_rules::Lexed;
+    match lexed {
+        Lexed::Css => crate::css::start_embedded(arena, base),
+        Lexed::Scss => crate::scss::start_embedded(arena, base),
+        Lexed::Less => crate::less::start_embedded(arena, base),
+        Lexed::Script(
+            crate::typescript::Dialect::JavaScript
+            | crate::typescript::Dialect::TypeScript
+            | crate::typescript::Dialect::Jsx
+            | crate::typescript::Dialect::Tsx,
+        ) => crate::typescript::start_embedded(arena, base),
+        Lexed::Yaml => crate::yaml::start_embedded(arena, base),
+        Lexed::Graphql => crate::graphql::start_embedded(arena, base),
+        #[cfg(feature = "lang-sass")]
+        Lexed::Sass => crate::Language::Sass.start_embedded(arena, base),
+        #[cfg(feature = "lang-coffee")]
+        Lexed::Coffee => crate::Language::CoffeeScript.start_embedded(arena, base),
+        Lexed::Expression => crate::typescript::start_expression(arena, base),
+    }
+}
+
+/// Lexes the text of a Vue body or directive value with `lexed`, from
+/// `state`, up to where `end` holds while the lexer has no rule open.
+#[cfg(feature = "lang-vue")]
+fn vue_lex(
+    cx: &mut Context<'_>,
+    lexed: vue_rules::Lexed,
+    line: Line<'_>,
+    state: u32,
+    end: vue_rules::VueHalt,
+) -> (Finished, Option<usize>) {
+    use vue_rules::Lexed;
+    match lexed {
+        Lexed::Css => crate::css::lex_until(cx, line, state, &end, None),
+        Lexed::Scss => crate::scss::lex_until(cx, line, state, &end, None),
+        Lexed::Less => crate::less::lex_until(cx, line, state, &end, None),
+        Lexed::Script(dialect) => {
+            crate::typescript::lex_until(cx, dialect, line, state, &end, None)
+        }
+        Lexed::Expression => crate::typescript::lex_until(
+            cx,
+            crate::typescript::Dialect::TypeScript,
+            line,
+            state,
+            &end,
+            None,
+        ),
+        Lexed::Yaml => crate::yaml::lex_until(cx, line, state, &end, None),
+        Lexed::Graphql => crate::graphql::lex_until(cx, line, state, &end, None),
+        #[cfg(feature = "lang-sass")]
+        Lexed::Sass => engine_until(cx, crate::Language::Sass, line, state, &end),
+        #[cfg(feature = "lang-coffee")]
+        Lexed::Coffee => engine_until(cx, crate::Language::CoffeeScript, line, state, &end),
+    }
+}
+
+/// Lexes a Vue body in `language`, a language on nishiki's `TextMate`
+/// engine, like [`vue_lex`].
+/// A language that cannot halt lexes the whole line, as `rules::lex_until`
+/// does.
+#[cfg(all(
+    feature = "lang-vue",
+    any(feature = "lang-sass", feature = "lang-coffee")
+))]
+fn engine_until(
+    cx: &mut Context<'_>,
+    language: crate::Language,
+    line: Line<'_>,
+    state: u32,
+    end: &dyn Halt,
+) -> (Finished, Option<usize>) {
+    language
+        .lex_until(cx, line, state, end, None)
+        .unwrap_or_else(|| (language.lex_embedded(cx, line, state), None))
 }
 
 /// The end of a `<style>` element's CSS: `</style`, in any case.

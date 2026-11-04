@@ -416,6 +416,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/vite-api-plugin` | [`docs/guide/api-plugin.md`][vite-api-plugin] in vitejs/vite | [MIT][vite-licence] |
 | `markdown/vite-features` | [`docs/guide/features.md`][vite-features] in vitejs/vite | [MIT][vite-licence] |
 | `markdown/vite-ssr` | [`docs/guide/ssr.md`][vite-ssr] in vitejs/vite | [MIT][vite-licence] |
+| `markdown/vitepress-runtime-api` | [`docs/en/reference/runtime-api.md`][vitepress-runtime-api] in vuejs/vitepress | [MIT][vitepress-licence] |
 | `markdown/vitest-migration-jest` | [`docs/guide/migration/jest.md`][vitest-jest] in vitest-dev/vitest | [MIT][vitest-licence] |
 | `markdown/zod-api` | [`packages/docs/content/api.mdx`][zod-api] in colinhacks/zod | [MIT][zod-licence] |
 | `markdown/zod-readme` | [`packages/zod/README.md`][zod-readme] in colinhacks/zod | [MIT][zod-licence] |
@@ -628,6 +629,22 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `typescript/vue-api-create-app` | [`packages/runtime-core/src/apiCreateApp.ts`][vue-app] in vuejs/core | [MIT][vue-licence] |
 | `typescript/vue-effect` | [`packages/reactivity/src/effect.ts`][vue-effect] in vuejs/core | [MIT][vue-licence] |
 | `typescript/zod-classic-schemas` | [`packages/zod/src/v4/classic/schemas.ts`][zod-schemas] in colinhacks/zod | [MIT][zod-licence] |
+| `vue/coverage` | `oracle/inputs/vue-coverage.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `vue/playground-app` | [`packages-private/sfc-playground/src/App.vue`][vue-playground-app] in vuejs/core | [MIT][vue-licence] |
+| `vue/playground-header` | [`packages-private/sfc-playground/src/Header.vue`][vue-playground-header] in vuejs/core | [MIT][vue-licence] |
+| `vue/playground-sun` | [`packages-private/sfc-playground/src/icons/Sun.vue`][vue-playground-sun] in vuejs/core | [MIT][vue-licence] |
+| `vue/playground-version-select` | [`packages-private/sfc-playground/src/VersionSelect.vue`][vue-playground-version-select] in vuejs/core | [MIT][vue-licence] |
+| `vue/sample` | [`samples/vue.sample`][vue-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `vue/vitepress-badge` | [`src/client/theme-default/components/VPBadge.vue`][vitepress-badge] in vuejs/vitepress | [MIT][vitepress-licence] |
+| `vue/vitepress-carbon-ads` | [`src/client/theme-default/components/VPCarbonAds.vue`][vitepress-carbon-ads] in vuejs/vitepress | [MIT][vitepress-licence] |
+| `vue/vitepress-image` | [`src/client/theme-default/components/VPImage.vue`][vitepress-image] in vuejs/vitepress | [MIT][vitepress-licence] |
+| `vue/vitepress-layout` | [`src/client/theme-default/Layout.vue`][vitepress-layout] in vuejs/vitepress | [MIT][vitepress-licence] |
+| `vue/vitepress-local-search-box` | [`src/client/theme-default/components/VPLocalSearchBox.vue`][vitepress-local-search-box] in vuejs/vitepress | [MIT][vitepress-licence] |
+| `vue/vitepress-modal-demo` | [`docs/components/ModalDemo.vue`][vitepress-modal-demo] in vuejs/vitepress | [MIT][vitepress-licence] |
+| `vue/vitepress-nav-bar-hamburger` | [`src/client/theme-default/components/VPNavBarHamburger.vue`][vitepress-nav-bar-hamburger] in vuejs/vitepress | [MIT][vitepress-licence] |
+| `vue/vitepress-nav-menu-group` | [`src/client/theme-default/components/VPNavMenuGroup.vue`][vitepress-nav-menu-group] in vuejs/vitepress | [MIT][vitepress-licence] |
+| `vue/vitepress-not-found` | [`src/client/theme-default/NotFound.vue`][vitepress-not-found] in vuejs/vitepress | [MIT][vitepress-licence] |
+| `vue/vitepress-switch` | [`src/client/theme-default/components/VPSwitch.vue`][vitepress-switch] in vuejs/vitepress | [MIT][vitepress-licence] |
 | `xml/ant-build` | [`build.xml`][ant-build] in apache/ant | [Apache-2.0][ant-licence] |
 | `xml/ant-checkstyle-frames` | [`src/etc/checkstyle/checkstyle-frames.xsl`][ant-checkstyle-frames] in apache/ant | [Apache-2.0][ant-licence] |
 | `xml/ant-junit-frames` | [`src/etc/junit-frames.xsl`][ant-junit-frames] in apache/ant | [Apache-2.0][ant-licence] |
@@ -819,6 +836,10 @@ The three `css/charset-*` inputs are one line each, because the grammar's `@char
 `html-derivative/vue-todomvc`, `html-derivative/vue-grid`, `html-derivative/vue-svg`, `html-derivative/vue-modal` and `html-derivative/vue-tree` are the development inputs for html-derivative.
 `html-derivative/vue-classic-todomvc`, `html-derivative/vue-classic-grid`, `html-derivative/vue-transition-list`, `html-derivative/vue-commits`, `html-derivative/vue-markdown` and `html-derivative/vue-hydration-visible` are held out.
 They are Vue's examples: HTML with custom elements and components at the top level, and templates in `<script type="text/x-template">` blocks, which the HTML grammar reads as `text.html.basic`.
+
+`vue/sample`, `vue/playground-app`, `vue/playground-header`, `vue/vitepress-badge`, `vue/vitepress-nav-menu-group` and `vue/vitepress-switch` are the development inputs for Vue.
+The other `vue` inputs are held out, and `vue/coverage` was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
+`markdown/vitepress-runtime-api` is the development input for `vue` fences in Markdown.
 
 [abseil-licence]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/LICENSE
 [absl-any-invocable]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/functional/internal/any_invocable.h
@@ -1541,6 +1562,18 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [vite-features]: https://github.com/vitejs/vite/blob/b3cb0575aff63004a71301a1ec798aeea2aa05d7/docs/guide/features.md
 [vite-licence]: https://github.com/vitejs/vite/blob/b3cb0575aff63004a71301a1ec798aeea2aa05d7/LICENSE
 [vite-ssr]: https://github.com/vitejs/vite/blob/b3cb0575aff63004a71301a1ec798aeea2aa05d7/docs/guide/ssr.md
+[vitepress-badge]: https://github.com/vuejs/vitepress/blob/00c9d790543790e054b145db4e00e009f25c15f3/src/client/theme-default/components/VPBadge.vue
+[vitepress-carbon-ads]: https://github.com/vuejs/vitepress/blob/00c9d790543790e054b145db4e00e009f25c15f3/src/client/theme-default/components/VPCarbonAds.vue
+[vitepress-image]: https://github.com/vuejs/vitepress/blob/00c9d790543790e054b145db4e00e009f25c15f3/src/client/theme-default/components/VPImage.vue
+[vitepress-layout]: https://github.com/vuejs/vitepress/blob/00c9d790543790e054b145db4e00e009f25c15f3/src/client/theme-default/Layout.vue
+[vitepress-licence]: https://github.com/vuejs/vitepress/blob/00c9d790543790e054b145db4e00e009f25c15f3/LICENSE
+[vitepress-local-search-box]: https://github.com/vuejs/vitepress/blob/00c9d790543790e054b145db4e00e009f25c15f3/src/client/theme-default/components/VPLocalSearchBox.vue
+[vitepress-modal-demo]: https://github.com/vuejs/vitepress/blob/00c9d790543790e054b145db4e00e009f25c15f3/docs/components/ModalDemo.vue
+[vitepress-nav-bar-hamburger]: https://github.com/vuejs/vitepress/blob/00c9d790543790e054b145db4e00e009f25c15f3/src/client/theme-default/components/VPNavBarHamburger.vue
+[vitepress-nav-menu-group]: https://github.com/vuejs/vitepress/blob/00c9d790543790e054b145db4e00e009f25c15f3/src/client/theme-default/components/VPNavMenuGroup.vue
+[vitepress-not-found]: https://github.com/vuejs/vitepress/blob/00c9d790543790e054b145db4e00e009f25c15f3/src/client/theme-default/NotFound.vue
+[vitepress-runtime-api]: https://github.com/vuejs/vitepress/blob/00c9d790543790e054b145db4e00e009f25c15f3/docs/en/reference/runtime-api.md
+[vitepress-switch]: https://github.com/vuejs/vitepress/blob/00c9d790543790e054b145db4e00e009f25c15f3/src/client/theme-default/components/VPSwitch.vue
 [vitest-jest]: https://github.com/vitest-dev/vitest/blob/7a3844954d8753fc0d5bed76a96ffd3a21716c22/docs/guide/migration/jest.md
 [vitest-licence]: https://github.com/vitest-dev/vitest/blob/7a3844954d8753fc0d5bed76a96ffd3a21716c22/LICENSE
 [vscode-foundry]: https://github.com/microsoft/vscode/blob/a4e689ae13ef7a1fe9b515656b51c9be7c274294/build/npm/patches/foundry-local-sdk.patch
@@ -1551,6 +1584,11 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [vue-effect]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/reactivity/src/effect.ts
 [vue-licence]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/LICENSE
 [vue-package]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/package.json
+[vue-playground-app]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages-private/sfc-playground/src/App.vue
+[vue-playground-header]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages-private/sfc-playground/src/Header.vue
+[vue-playground-sun]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages-private/sfc-playground/src/icons/Sun.vue
+[vue-playground-version-select]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages-private/sfc-playground/src/VersionSelect.vue
+[vue-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/vue.sample
 [xerces-design]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/design/xml/design.xml
 [xerces-licence]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/LICENSE
 [xerces-schedule]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/design/xml/schedule.xml

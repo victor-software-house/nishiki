@@ -19,6 +19,8 @@ pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
+#[cfg(feature = "lang-vue")]
+use crate::language::Halt;
 use crate::language::{Context, Line};
 use crate::limits::Finished;
 use crate::rules;
@@ -38,6 +40,20 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 #[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     rules::lex::<Less>(cx, line, state, |scratch| &mut scratch.less)
+}
+
+/// Lexes `line` like [`lex`], for Less that another language embeds, up to
+/// where `end` or `after` halts it (see [`rules::lex_until`]).
+#[cfg(feature = "lang-vue")]
+#[inline]
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
+) -> (Finished, Option<usize>) {
+    rules::lex_until::<Less>(cx, line, state, |scratch| &mut scratch.less, end, after)
 }
 
 #[cfg(test)]

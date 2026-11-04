@@ -43,6 +43,7 @@ kinds! {
     Top [] [];
     Started [] [];
     Script [] [];
+    Expression [] [];
     Block [S::MetaBlock] [];
     ObjLit [S::MetaObjectliteral] [];
     ArrLit [S::MetaArrayLiteral] [];

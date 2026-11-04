@@ -385,6 +385,8 @@ pub(crate) fn patterns(kind: Kind) -> &'static [P] {
         Kind::BodyPhp => &[],
         Kind::FrontMatter => &[P::FrontMatterBegin],
         Kind::Base | Kind::Quote | Kind::ListBullet | Kind::ListOrdered => BLOCK,
+        #[cfg(feature = "lang-vue")]
+        Kind::Body(Language::Vue) => &[P::Fence],
         Kind::Body(language) => {
             if language == Language::Markdown {
                 BLOCK

@@ -10,8 +10,9 @@ import { inputs } from "./inputs.ts";
  * grammar would pull it in. */
 const inputLangs = new Set(inputs.map((input) => input.lang));
 /** Grammars that nishiki lexes as part of the input language that embeds
- * them: the C++ lexer covers `cpp-macro`, the grammar of a `#define`'s body. */
-const partOf: Record<string, string> = { "cpp-macro": "cpp" };
+ * them: the C++ lexer covers `cpp-macro`, the grammar of a `#define`'s body,
+ * and the Markdown lexer covers `markdown-vue`, Vue's fence in Markdown. */
+const partOf: Record<string, string> = { "cpp-macro": "cpp", "markdown-vue": "vue" };
 const loaded = (
   await Promise.all([...inputLangs].map(async (lang) => (await bundledLanguages[lang]()).default))
 ).flat();

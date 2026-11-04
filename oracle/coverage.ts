@@ -77,6 +77,7 @@ const handLexed = new Map([
   ["lua", "Lua"],
   ["make", "Make"],
   ["markdown", "Markdown"],
+  ["markdown-vue", "Markdown"],
   ["nix", "Nix"],
   ["powershell", "PowerShell"],
   ["python", "Python"],
@@ -90,6 +91,7 @@ const handLexed = new Map([
   ["toml", "TOML"],
   ["tsx", "TypeScript"],
   ["typescript", "TypeScript"],
+  ["vue", "Vue"],
   ["xml", "XML"],
   ["yaml", "YAML"],
   ["zig", "Zig"],
@@ -112,7 +114,15 @@ type Rule = {
   injections?: Record<string, Rule>;
 };
 type Captures = Record<string, Rule>;
-type Grammar = Rule & { name: string; scopeName: string };
+/** A grammar. An injection grammar, such as `markdown-vue`, has an
+ * `injectionSelector`, and its root patterns are the injection. */
+type Grammar = Rule & { name: string; scopeName: string; injectionSelector?: string };
+/** Whether `grammar` is only an injection grammar.
+ * Mermaid's grammar is an injection grammar and an input language too.
+ * Its root patterns are then also scanned as a rule list.
+ * So only a grammar that is not an input language counts as an injection. */
+const injectionOnly = (grammar: Grammar) =>
+  grammar.injectionSelector !== undefined && !inputs.some((input) => input.lang === grammar.name);
 
 /** An expression of a hand-lexed grammar, and the groups of it that count. */
 type Expression = { grammar: string; path: string; groups: number[] };
@@ -226,14 +236,16 @@ function resolve(include: string, from: Place): Rule | undefined {
   return name === undefined ? grammar : grammar?.repository?.[name];
 }
 
-/** The units a root reaches: each input language's grammar, and every loaded
- * grammar's injections, through patterns, captures and includes. */
+/** The units a root reaches: each input language's grammar, every loaded
+ * grammar's injections, and every grammar that is only an injection,
+ * through patterns, captures and includes. */
 const reachable = new Set<number>();
 const seen = new Set<Rule>();
 const todo: Rule[] = loaded.filter((grammar) =>
   inputs.some((input) => input.lang === grammar.name),
 );
 for (const grammar of loaded) todo.push(...Object.values(grammar.injections ?? {}));
+todo.push(...loaded.filter(injectionOnly));
 while (todo.length > 0) {
   const rule = todo.pop() as Rule;
   if (seen.has(rule)) continue;
@@ -259,6 +271,11 @@ for (const grammar of loaded) {
   for (const [selector, injection] of Object.entries(grammar.injections ?? {})) {
     const sentinel: Rule = { match: `(?#i${priorities.length})(?!)` };
     injection.patterns = [sentinel, ...(injection.patterns ?? [])];
+    priorities.push(selector.startsWith("L:") ? -1 : selector.startsWith("R:") ? 1 : 0);
+  }
+  const selector = grammar.injectionSelector;
+  if (selector !== undefined && injectionOnly(grammar)) {
+    grammar.patterns = [{ match: `(?#i${priorities.length})(?!)` }, ...(grammar.patterns ?? [])];
     priorities.push(selector.startsWith("L:") ? -1 : selector.startsWith("R:") ? 1 : 0);
   }
 }

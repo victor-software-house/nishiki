@@ -274,7 +274,10 @@ impl<'a, const D: u8> Lexer<'a, D> {
             return false;
         };
         if p > self.len
-            || !matches!(self.top(), Kind::Top | Kind::Started | Kind::Script)
+            || !matches!(
+                self.top(),
+                Kind::Top | Kind::Started | Kind::Script | Kind::Expression
+            )
             || !test.holds(self.bytes, p)
         {
             return false;

@@ -206,26 +206,7 @@ pub(crate) struct FenceOpen {
 ///
 /// Group 3 is the fence, 4 the language, 5 its attributes.
 pub(crate) fn fence_open(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<FenceOpen> {
-    if !cx.at_start(p) {
-        return None;
-    }
-    let fence_start = cx.skip_space(p);
-    let delim = cx.get(fence_start).filter(|b| matches!(b, b'`' | b'~'))?;
-    let fence_end = cx.skip(fence_start, |b| b == delim);
-    let len = fence_end - fence_start;
-    if len < 3 {
-        return None;
-    }
-    let indent = &cx.line[p.min(cx.line.len())..fence_start.min(cx.line.len())];
-    let fence = Fence {
-        delim,
-        len: u8::try_from(len).unwrap_or(u8::MAX),
-        indent: if indent.iter().all(|&b| b == b' ') {
-            u8::try_from(indent.len()).map_or(Fence::MIXED, |n| n.min(Fence::MIXED - 1))
-        } else {
-            Fence::MIXED
-        },
-    };
+    let (fence, fence_start, fence_end) = fence_run(cx, p)?;
     caps.set(3, fence_start, fence_end);
     let info = cx.skip_space(fence_end);
     if let Some(found) = fence::language(cx, info) {
@@ -250,8 +231,80 @@ pub(crate) fn fence_open(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<Fence
     })
 }
 
+/// `(^|\G)(\s*)(``{3,}|~{3,})` at `p`: the fence a line opens, where its run
+/// starts and where it ends.
+#[expect(
+    clippy::inline_always,
+    reason = "measured at one codegen unit: with `vue_fence_open` a second caller, it stopped being inlined, at a call once a fence line"
+)]
+#[inline(always)]
+fn fence_run(cx: &Cx<'_>, p: usize) -> Option<(Fence, usize, usize)> {
+    if !cx.at_start(p) {
+        return None;
+    }
+    let fence_start = cx.skip_space(p);
+    let delim = cx.get(fence_start).filter(|b| matches!(b, b'`' | b'~'))?;
+    let fence_end = cx.skip(fence_start, |b| b == delim);
+    let len = fence_end - fence_start;
+    if len < 3 {
+        return None;
+    }
+    let indent = &cx.line[p.min(cx.line.len())..fence_start.min(cx.line.len())];
+    let fence = Fence {
+        delim,
+        len: u8::try_from(len).unwrap_or(u8::MAX),
+        indent: if indent.iter().all(|&b| b == b' ') {
+            u8::try_from(indent.len()).map_or(Fence::MIXED, |n| n.min(Fence::MIXED - 1))
+        } else {
+            Fence::MIXED
+        },
+    };
+    Some((fence, fence_start, fence_end))
+}
+
+/// The opening of Vue's own fence, the rule that the `markdown-vue` grammar
+/// injects:
+/// `(^|\G)(\s*)(``{3,}|~{3,})\s*(?i:(vue)((\s+|[,:?{])[^``~]*)?$)`.
+/// A `vue` fence inside Vue's rules opens through it.
+///
+/// Group 3 is the fence, 4 the language, 5 its attributes.
+#[cfg(feature = "lang-vue")]
+pub(crate) fn vue_fence_open(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<FenceOpen> {
+    let (fence, fence_start, fence_end) = fence_run(cx, p)?;
+    let text = cx.line.get(..cx.end.min(cx.line.len()))?;
+    let info = cx.skip_space(fence_end);
+    let name_end = info + 3;
+    if !text.get(info..name_end)?.eq_ignore_ascii_case(b"vue") {
+        return None;
+    }
+    let attributes = text.get(name_end..)?;
+    let allowed = match attributes.first() {
+        None | Some(b'\n') => true,
+        Some(&b) => {
+            (cx.space_at(name_end) > 0 || matches!(b, b',' | b':' | b'?' | b'{'))
+                && !attributes.iter().any(|&c| c == b'`' || c == b'~')
+        }
+    };
+    if !allowed {
+        return None;
+    }
+    caps.set(3, fence_start, fence_end);
+    caps.set(4, info, name_end);
+    caps.set(5, name_end, cx.end);
+    Some(FenceOpen {
+        end: cx.end,
+        fence,
+        embed: Some(Embed::Lang(crate::Language::Vue)),
+    })
+}
+
 /// `(^|\G)(\2|\s{0,3})(\3)\s*$`, which closes the fence: the opening fence's
 /// own run of characters, indented as the opening one or by at most three.
+#[expect(
+    clippy::inline_always,
+    reason = "measured at one codegen unit: with `vue_body_line` a second caller, it stopped being inlined, at a call once a fence line"
+)]
+#[inline(always)]
 pub(crate) fn fence_close(cx: &Cx<'_>, p: usize, fence: Fence, caps: &mut Caps) -> Option<usize> {
     if !cx.at_start(p) {
         return None;

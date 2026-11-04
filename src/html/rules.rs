@@ -7,6 +7,7 @@ use super::scope::S;
 use super::state::{
     AttributeKind, Category, ElementInfo, Flavor, Namespace, Rule, TagInfo, TagKind, info, name,
 };
+use super::vue::{self, TemplateTag, VuePat, VueRule};
 
 impl Lexer<'_> {
     /// The scopes of a rule's begin and end text and everything inside it,
@@ -152,12 +153,56 @@ impl Lexer<'_> {
             }
             Rule::JsLineComment => self.path(base, &[S::CommentLineJs]),
             Rule::JsBlockComment => self.path(base, &[S::CommentBlockJs]),
+            Rule::VueComment
+            | Rule::VueCommentKv
+            | Rule::VueSelfClosing
+            | Rule::VueBlock
+            | Rule::VueElement
+            | Rule::VueTagStuff
+            | Rule::VueScriptTagStuff
+            | Rule::VueStyleTagStuff
+            | Rule::VueScriptStuff
+            | Rule::VueStyleStuff
+            | Rule::VueLangGroup
+            | Rule::VueBody
+            | Rule::VueBodyWhile
+            | Rule::VueTemplateBody
+            | Rule::VueTemplateTag
+            | Rule::VueTemplateTagEnd
+            | Rule::VueCapitalized
+            | Rule::VueCapitalizedAttrs
+            | Rule::VueDirective
+            | Rule::VueExprString
+            | Rule::VueExprBare
+            | Rule::VueExpr => self.vue_name_stack(base, rule, payload),
         }
     }
 
     /// The scopes of a rule's content only, on its name's stack.
-    pub(super) fn content_stack(&mut self, name: u32, rule: Rule) -> u32 {
+    pub(super) fn content_stack(&mut self, name: u32, rule: Rule, payload: u32) -> u32 {
         match rule {
+            Rule::VueComment
+            | Rule::VueCommentKv
+            | Rule::VueSelfClosing
+            | Rule::VueBlock
+            | Rule::VueElement
+            | Rule::VueTagStuff
+            | Rule::VueScriptTagStuff
+            | Rule::VueStyleTagStuff
+            | Rule::VueScriptStuff
+            | Rule::VueStyleStuff
+            | Rule::VueLangGroup
+            | Rule::VueBody
+            | Rule::VueBodyWhile
+            | Rule::VueTemplateBody
+            | Rule::VueTemplateTag
+            | Rule::VueTemplateTagEnd
+            | Rule::VueCapitalized
+            | Rule::VueCapitalizedAttrs
+            | Rule::VueDirective
+            | Rule::VueExprString
+            | Rule::VueExprBare
+            | Rule::VueExpr => self.vue_content_stack(name, rule, payload),
             Rule::Cdata => self.path(name, &[S::InlineData]),
             Rule::StringCss => self.path(name, &[S::SourceCss]),
             Rule::StringJs => self.path(name, &[S::SourceJs]),
@@ -229,6 +274,7 @@ impl Lexer<'_> {
             Pat::JsLine => (Rule::JsLineComment, top.payload),
             Pat::JsBlock => (Rule::JsBlockComment, top.payload),
             Pat::Erb(kind) => (erb_rule(kind), 0),
+            Pat::Vue(pat) => return self.vue_opens(pat, hit),
             Pat::End
             | Pat::Inject
             | Pat::ElementVoid
@@ -335,6 +381,7 @@ impl Lexer<'_> {
                 };
                 self.cap(base, start, end, &[scope]);
             }
+            Pat::Vue(pat) => self.vue_begin_captures(hit, pat, frame),
             Pat::End
             | Pat::Inject
             | Pat::Zero(_)
@@ -354,6 +401,243 @@ impl Lexer<'_> {
             | Pat::UnquotedJs
             | Pat::JsText
             | Pat::ErbHash => {}
+        }
+    }
+
+    /// The scopes of a Vue rule's name on `base`, as [`Self::name_stack`] gives
+    /// them.
+    #[cold]
+    #[inline(never)]
+    fn vue_name_stack(&mut self, base: u32, rule: Rule, payload: u32) -> u32 {
+        let Some(rule) = rule.vue() else {
+            return base;
+        };
+        match rule {
+            VueRule::Block
+            | VueRule::Element
+            | VueRule::ScriptStuff
+            | VueRule::StyleStuff
+            | VueRule::LangGroup
+            | VueRule::CapitalizedAttrs
+            | VueRule::ExprString
+            | VueRule::ExprBare => base,
+            VueRule::Comment | VueRule::CommentKv => self.path(base, &[S::VueComment]),
+            VueRule::SelfClosing => self.path(base, &[S::SelfClosingTag]),
+            VueRule::TagStuff | VueRule::ScriptTagStuff | VueRule::StyleTagStuff => {
+                self.path(base, &[S::TagStuff])
+            }
+            VueRule::Body | VueRule::BodyWhile => {
+                let parent = *self.top();
+                let scope =
+                    vue::body_lang(parent.rule, parent.payload).map_or(S::Text, vue::lang_scope);
+                self.path(base, &[scope])
+            }
+            VueRule::TemplateBody => self.path(base, &[S::TextHtmlDerivative]),
+            VueRule::TemplateTag => self.path(base, &[S::TemplateTagStart]),
+            VueRule::TemplateTagEnd => self.path(base, &[S::TemplateTagEnd]),
+            VueRule::Capitalized => self.dynamic(
+                base,
+                &[
+                    Part::Lit("meta.tag.structure."),
+                    Part::Name(payload),
+                    Part::Lit(".start.html.vue"),
+                ],
+            ),
+            VueRule::Directive => {
+                let scope = if payload == 1 {
+                    S::DirectiveControl
+                } else {
+                    S::DirectiveVue
+                };
+                self.path(base, &[scope])
+            }
+            VueRule::Expr => self.path(base, &[S::TsEmbedded]),
+        }
+    }
+
+    /// The scopes of a Vue rule's content on `name`: an html block holds
+    /// html-derivative.
+    #[cold]
+    #[inline(never)]
+    fn vue_content_stack(&mut self, name: u32, rule: Rule, payload: u32) -> u32 {
+        if rule.vue() == Some(VueRule::Element)
+            && vue::Block::from_bits(info(payload)) == vue::Block::Lang(vue::Lang::Html)
+        {
+            return self.path(name, &[S::TextHtmlDerivative]);
+        }
+        name
+    }
+
+    /// The end captures of a Vue rule, as [`Self::end_captures`] emits them.
+    #[cold]
+    #[inline(never)]
+    fn vue_end_captures(&mut self, top: &super::engine::Frame, hit: &Hit) {
+        let base = top.name;
+        let (start, end) = (hit.start, hit.end);
+        let Some(rule) = top.rule.vue() else {
+            return;
+        };
+        match rule {
+            VueRule::Comment | VueRule::CommentKv => {
+                self.cap(base, start, end, &[S::VueCommentPunctuation]);
+            }
+            VueRule::SelfClosing
+            | VueRule::Block
+            | VueRule::TagStuff
+            | VueRule::ScriptTagStuff
+            | VueRule::StyleTagStuff
+            | VueRule::TemplateTag
+            | VueRule::Capitalized => self.cap(base, start, end, &[S::VueTagEnd]),
+            VueRule::Element => {
+                let [name_start, name_end, ..] = hit.at;
+                self.cap(base, start, start + 2, &[S::VueTagBegin]);
+                let stack = self.vue_tag_name(base, name(top.payload));
+                self.cap_stack(base, name_start, name_end, stack);
+            }
+            VueRule::TemplateTagEnd if end > start => {
+                self.cap(base, start, start + 2, &[S::VueTagBegin]);
+                let stack = self.dynamic(base, &[Part::Lit("entity.name.tag.template.html.vue")]);
+                self.cap_stack(base, start + 2, end, stack);
+            }
+            VueRule::ExprString => self.cap(base, start, end, &[S::VueStringEnd]),
+            VueRule::TemplateTagEnd
+            | VueRule::ScriptStuff
+            | VueRule::StyleStuff
+            | VueRule::LangGroup
+            | VueRule::Body
+            | VueRule::BodyWhile
+            | VueRule::TemplateBody
+            | VueRule::CapitalizedAttrs
+            | VueRule::Directive
+            | VueRule::ExprBare
+            | VueRule::Expr => {}
+        }
+    }
+
+    /// The rule a begin match of one of Vue's patterns opens, as
+    /// [`Self::opens`] gives it.
+    /// Without the `lang-vue` feature it opens none, and its code folds away.
+    #[cold]
+    #[inline(never)]
+    fn vue_opens(&mut self, pat: VuePat, hit: &Hit) -> Option<(Rule, u32)> {
+        if !cfg!(feature = "lang-vue") {
+            return None;
+        }
+        let [from, to, ..] = hit.at;
+        Some(match pat {
+            VuePat::CommentKv => (Rule::VueCommentKv, 0),
+            VuePat::Comment => (Rule::VueComment, 0),
+            VuePat::SelfClosing => (Rule::VueSelfClosing, 0),
+            VuePat::Block => (Rule::VueBlock, 0),
+            VuePat::Element => {
+                let word = self.intern(from, to);
+                (Rule::VueElement, packed(hit.info, word))
+            }
+            VuePat::LangGroup => (Rule::VueLangGroup, hit.info),
+            VuePat::TemplateTag => (Rule::VueTemplateTag, hit.info),
+            VuePat::TemplateTagEnd => (Rule::VueTemplateTagEnd, hit.info),
+            VuePat::Capitalized => (Rule::VueCapitalized, self.intern(from, to)),
+            VuePat::DirectiveControl => (Rule::VueDirective, 1),
+            VuePat::DirectiveOriginal => (Rule::VueDirective, 0),
+            VuePat::ExprString => (Rule::VueExprString, hit.info),
+            VuePat::ExprBare => (Rule::VueExprBare, 0),
+            VuePat::Modifier => return None,
+        })
+    }
+
+    /// The scope `entity.name.tag.NAME.html.vue` of a Vue block's tag name
+    /// on `base`, for the interned `word`.
+    #[inline(never)]
+    fn vue_tag_name(&mut self, base: u32, word: u32) -> u32 {
+        self.dynamic(
+            base,
+            &[
+                Part::Lit("entity.name.tag."),
+                Part::Name(word),
+                Part::Lit(".html.vue"),
+            ],
+        )
+    }
+
+    /// Emits the capture groups of a begin match of one of Vue's patterns.
+    /// Without the `lang-vue` feature it emits none, and its code folds away.
+    #[cold]
+    #[inline(never)]
+    fn vue_begin_captures(&mut self, hit: &Hit, pat: VuePat, frame: &super::engine::Frame) {
+        if !cfg!(feature = "lang-vue") {
+            return;
+        }
+        let base = frame.name;
+        let (start, end) = (hit.start, hit.end);
+        let at = hit.at;
+        match pat {
+            VuePat::CommentKv => {
+                self.cap(base, start, start + 4, &[S::VueCommentPunctuation]);
+                self.cap(base, at[0], at[1], &[S::VueBlockTag]);
+                self.cap(base, at[1], end, &[S::VueStorageClass]);
+            }
+            VuePat::Comment => self.cap(base, start, end, &[S::VueCommentPunctuation]),
+            VuePat::SelfClosing => {
+                self.cap(base, start, start + 1, &[S::VueTagBegin]);
+                let word = self.intern(at[0], at[1]);
+                let stack = self.vue_tag_name(base, word);
+                self.cap_stack(base, at[0], at[1], stack);
+            }
+            VuePat::Block => self.cap(base, start, end, &[S::VueTagBegin]),
+            VuePat::Element => {
+                let stack = self.vue_tag_name(base, name(frame.payload));
+                self.cap_stack(base, start, end, stack);
+            }
+            VuePat::TemplateTag => {
+                let tag = TemplateTag::from_bits(hit.info);
+                self.cap(base, start, start + 1, &[S::VueTagBegin]);
+                let stack = self.dynamic(base, &[Part::Lit("entity.name.tag.template.html.vue")]);
+                self.cap_stack(base, start + 1, start + 9, stack);
+                if tag == TemplateTag::Bare {
+                    self.cap(base, start + 9, end, &[S::VueTagEnd]);
+                }
+            }
+            VuePat::Capitalized => {
+                self.cap(base, start, start + 1, &[S::VueTagBegin]);
+                self.cap(base, at[0], at[1], &[S::VueNameTag]);
+            }
+            VuePat::DirectiveControl => {
+                let scope = if hit.info == 1 {
+                    S::LoopVue
+                } else {
+                    S::ConditionalVue
+                };
+                self.cap(base, start, end, &[scope]);
+            }
+            VuePat::DirectiveOriginal => {
+                let [name_end, colon_end, argument_start, argument_end, argument] = at;
+                match u8::try_from(hit.info).unwrap_or(b'v') {
+                    b'.' | b':' => self.cap(base, start, name_end, &[S::ShorthandBind]),
+                    b'@' => self.cap(base, start, name_end, &[S::ShorthandEvent]),
+                    b'#' => self.cap(base, start, name_end, &[S::ShorthandSlot]),
+                    _ => {
+                        self.cap(base, start, name_end, &[S::VueAttributeName]);
+                        self.cap(base, name_end, colon_end, &[S::VueKeyValue]);
+                    }
+                }
+                match vue::Argument::from_code(argument) {
+                    vue::Argument::Bracketed => {
+                        self.cap(base, argument_start, argument_start + 1, &[S::VueKeyValue]);
+                        self.cap(base, argument_start + 1, argument_end, &[S::TsEmbedded]);
+                        self.cap(base, argument_end, argument_end + 1, &[S::VueKeyValue]);
+                    }
+                    vue::Argument::Plain => {
+                        self.cap(base, argument_start, argument_end, &[S::VueAttributeName]);
+                    }
+                    vue::Argument::Absent => {}
+                }
+            }
+            VuePat::ExprString => {
+                self.cap(base, start, start + 1, &[S::VueKeyValue]);
+                self.cap(base, at[0], end, &[S::VueStringBegin]);
+            }
+            VuePat::ExprBare => self.cap(base, start, end, &[S::VueKeyValue]),
+            VuePat::LangGroup | VuePat::TemplateTagEnd | VuePat::Modifier => {}
         }
     }
 
@@ -420,6 +704,10 @@ impl Lexer<'_> {
                 self.cap_stack(base, start, start + 1, punctuation);
                 self.cap_stack(base, start + 1, end, stack);
             }
+            Pat::Vue(VuePat::Modifier) => {
+                self.cap(base, start, start + 1, &[S::VueKeyValue]);
+                self.cap(base, start + 1, end, &[S::VueAttributeName]);
+            }
             Pat::End
             | Pat::Inject
             | Pat::Zero(_)
@@ -441,11 +729,30 @@ impl Lexer<'_> {
             | Pat::DoctypeQuote
             | Pat::JsLine
             | Pat::JsBlock
-            | Pat::Erb(_) => {}
+            | Pat::Erb(_)
+            | Pat::Vue(
+                VuePat::CommentKv
+                | VuePat::Comment
+                | VuePat::SelfClosing
+                | VuePat::Block
+                | VuePat::Element
+                | VuePat::LangGroup
+                | VuePat::TemplateTag
+                | VuePat::TemplateTagEnd
+                | VuePat::Capitalized
+                | VuePat::DirectiveControl
+                | VuePat::DirectiveOriginal
+                | VuePat::ExprString
+                | VuePat::ExprBare,
+            ) => {}
         }
     }
 
     /// Emits the capture groups of an end match, on the rule's name stack.
+    #[expect(
+        clippy::too_many_lines,
+        reason = "one arm per rule, in the order of the grammar"
+    )]
     pub(super) fn end_captures(&mut self, top: &super::engine::Frame, hit: &Hit) {
         let base = top.name;
         let (start, end) = (hit.start, hit.end);
@@ -516,6 +823,28 @@ impl Lexer<'_> {
                 self.cap(base, start, gt, &[S::ErbEnd, S::SourceRuby]);
                 self.cap(base, gt, end, &[S::ErbEnd]);
             }
+            Rule::VueComment
+            | Rule::VueCommentKv
+            | Rule::VueSelfClosing
+            | Rule::VueBlock
+            | Rule::VueElement
+            | Rule::VueTagStuff
+            | Rule::VueScriptTagStuff
+            | Rule::VueStyleTagStuff
+            | Rule::VueScriptStuff
+            | Rule::VueStyleStuff
+            | Rule::VueLangGroup
+            | Rule::VueBody
+            | Rule::VueBodyWhile
+            | Rule::VueTemplateBody
+            | Rule::VueTemplateTag
+            | Rule::VueTemplateTagEnd
+            | Rule::VueCapitalized
+            | Rule::VueCapitalizedAttrs
+            | Rule::VueDirective
+            | Rule::VueExprString
+            | Rule::VueExprBare
+            | Rule::VueExpr => self.vue_end_captures(top, hit),
             Rule::JsBlockComment
             | Rule::Root
             | Rule::DoctypeString
@@ -720,7 +1049,29 @@ fn string_rule(rule: Rule) -> Rule {
         | Rule::ErbTagWrap
         | Rule::ErbComment
         | Rule::ErbBlock
-        | Rule::ErbLine => Rule::StringPlain,
+        | Rule::ErbLine
+        | Rule::VueComment
+        | Rule::VueCommentKv
+        | Rule::VueSelfClosing
+        | Rule::VueBlock
+        | Rule::VueElement
+        | Rule::VueTagStuff
+        | Rule::VueScriptTagStuff
+        | Rule::VueStyleTagStuff
+        | Rule::VueScriptStuff
+        | Rule::VueStyleStuff
+        | Rule::VueLangGroup
+        | Rule::VueBody
+        | Rule::VueBodyWhile
+        | Rule::VueTemplateBody
+        | Rule::VueTemplateTag
+        | Rule::VueTemplateTagEnd
+        | Rule::VueCapitalized
+        | Rule::VueCapitalizedAttrs
+        | Rule::VueDirective
+        | Rule::VueExprString
+        | Rule::VueExprBare
+        | Rule::VueExpr => Rule::StringPlain,
     }
 }
 

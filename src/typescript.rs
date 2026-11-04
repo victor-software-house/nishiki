@@ -173,6 +173,17 @@ pub(crate) fn start_script(arena: &mut Arena, base: u32) -> u32 {
         .unwrap_or(ROOT)
 }
 
+/// The state at the start of a TypeScript expression that another grammar
+/// embeds, as Vue's directive values include `source.ts#expression`.
+/// Its text sits on `base`, which holds the embedding's own scope.
+/// The context runs the `expression` patterns only, with no statements.
+#[cfg(feature = "lang-vue")]
+pub(crate) fn start_expression(arena: &mut Arena, base: u32) -> u32 {
+    arena
+        .push(ROOT, Kind::Expression.code(), 0, base)
+        .unwrap_or(ROOT)
+}
+
 /// Lexes the text of `line` from byte `from` and `state`, appending its
 /// tokens with ends counted from the start of `line`, and returns the state
 /// after it and where `halts` stopped it. The bytes before `from` belong to

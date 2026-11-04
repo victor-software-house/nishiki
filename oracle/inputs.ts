@@ -52,6 +52,7 @@ import sqlCoverage from "./inputs/sql-coverage.sql" with { type: "text" };
 import swiftCoverage from "./inputs/swift-coverage.swift" with { type: "text" };
 import tomlCoverage from "./inputs/toml-coverage.toml" with { type: "text" };
 import typescriptCoverage from "./inputs/typescript-coverage.ts" with { type: "text" };
+import vueCoverage from "./inputs/vue-coverage.vue" with { type: "text" };
 import xmlCoverage from "./inputs/xml-coverage.xml" with { type: "text" };
 import xmlCoverageJspComment from "./inputs/xml-coverage-jsp-comment.xml" with { type: "text" };
 import yamlCoverage from "./inputs/yaml-coverage.yaml" with { type: "text" };
@@ -416,6 +417,8 @@ const viper =
   "https://raw.githubusercontent.com/spf13/viper/528f7416c4b56a4948673984b190bf8713f0c3c4";
 const vite =
   "https://raw.githubusercontent.com/vitejs/vite/b3cb0575aff63004a71301a1ec798aeea2aa05d7";
+const vitepress =
+  "https://raw.githubusercontent.com/vuejs/vitepress/00c9d790543790e054b145db4e00e009f25c15f3";
 const vitest =
   "https://raw.githubusercontent.com/vitest-dev/vitest/7a3844954d8753fc0d5bed76a96ffd3a21716c22";
 const vscode =
@@ -1017,6 +1020,7 @@ export const inputs: Input[] = [
     url: `${vite}/docs/guide/features.md`,
   },
   { lang: "markdown", name: "vite-ssr", url: `${vite}/docs/guide/ssr.md` },
+  { lang: "markdown", name: "vitepress-runtime-api", url: `${vitepress}/docs/en/reference/runtime-api.md` },
   {
     lang: "markdown",
     name: "vitest-migration-jest",
@@ -1329,6 +1333,22 @@ export const inputs: Input[] = [
     name: "zod-classic-schemas",
     url: `${zod}/packages/zod/src/v4/classic/schemas.ts`,
   },
+  { lang: "vue", name: "coverage", text: vueCoverage },
+  { lang: "vue", name: "playground-app", url: `${vue}/packages-private/sfc-playground/src/App.vue` },
+  { lang: "vue", name: "playground-header", url: `${vue}/packages-private/sfc-playground/src/Header.vue` },
+  { lang: "vue", name: "playground-sun", url: `${vue}/packages-private/sfc-playground/src/icons/Sun.vue` },
+  { lang: "vue", name: "playground-version-select", url: `${vue}/packages-private/sfc-playground/src/VersionSelect.vue` },
+  { lang: "vue", name: "sample", url: `${samples}/vue.sample` },
+  { lang: "vue", name: "vitepress-badge", url: `${vitepress}/src/client/theme-default/components/VPBadge.vue` },
+  { lang: "vue", name: "vitepress-carbon-ads", url: `${vitepress}/src/client/theme-default/components/VPCarbonAds.vue` },
+  { lang: "vue", name: "vitepress-image", url: `${vitepress}/src/client/theme-default/components/VPImage.vue` },
+  { lang: "vue", name: "vitepress-layout", url: `${vitepress}/src/client/theme-default/Layout.vue` },
+  { lang: "vue", name: "vitepress-local-search-box", url: `${vitepress}/src/client/theme-default/components/VPLocalSearchBox.vue` },
+  { lang: "vue", name: "vitepress-modal-demo", url: `${vitepress}/docs/components/ModalDemo.vue` },
+  { lang: "vue", name: "vitepress-nav-bar-hamburger", url: `${vitepress}/src/client/theme-default/components/VPNavBarHamburger.vue` },
+  { lang: "vue", name: "vitepress-nav-menu-group", url: `${vitepress}/src/client/theme-default/components/VPNavMenuGroup.vue` },
+  { lang: "vue", name: "vitepress-not-found", url: `${vitepress}/src/client/theme-default/NotFound.vue` },
+  { lang: "vue", name: "vitepress-switch", url: `${vitepress}/src/client/theme-default/components/VPSwitch.vue` },
   { lang: "xml", name: "ant-build", url: `${ant}/build.xml` },
   { lang: "xml", name: "ant-checkstyle-frames", url: `${ant}/src/etc/checkstyle/checkstyle-frames.xsl` },
   { lang: "xml", name: "ant-junit-frames", url: `${ant}/src/etc/junit-frames.xsl` },

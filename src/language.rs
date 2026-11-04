@@ -964,6 +964,31 @@ languages! {
         halts: true,
         hands_off: true,
     }
+    /// Vue, with the scopes of Shiki's `vue` grammar: single-file components
+    /// whose blocks hold a template, scripts and styles.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - The HTML lexer runs Vue.
+    ///   Its root holds Vue's comments, block tags, and tags that their line closes with `/>`.
+    /// - A block's `lang` attribute picks the lexer of its body: CSS, SCSS, Less, JavaScript, TypeScript, JSX, TSX, YAML or GraphQL.
+    /// - A block in a language that nishiki does not lex, such as Pug, JSON or Markdown, is plain text under that language's scope.
+    /// - A `<template>` holds html-derivative, with Vue's rules for a nested `<template>` and for a tag whose name starts with a capital.
+    /// - Directives such as `v-if`, `:prop` and `@event` count only in Vue's own tags.
+    ///   On an HTML tag they read as HTML attributes, and `{{ x }}` is text, because Shiki does not apply Vue's injection grammars.
+    /// - A directive's value is a TypeScript expression, which the TypeScript lexer reads.
+    /// - A dynamic argument such as `:[key]` is `source.ts.embedded.html.vue` with no tokens inside it.
+    /// - In Vue's tags, `generic` and `style` read as HTML attributes.
+    /// - A Markdown fence names the language `vue`, through the `markdown-vue` grammar that Vue injects into Markdown.
+    ///   Its info string may hold no tilde after `vue`.
+    /// - A `vue` fence has no `while` rule.
+    ///   It closes only where Vue is outside every rule, so a block left open runs past the closing fence.
+    /// - A `vue` fence also opens at the start of a line inside Vue's rules, on their scopes.
+    ///   Elsewhere it opens only where Markdown's own fences open.
+    ///   Shiki's injection also opens it in another language's fence or in a raw block.
+    /// - A `vue` fence opens only at the start of a line, or after a quote's or list's prefix.
+    ///   Shiki's injection also opens one where an inner rule's match ended, at its `\G`, such as after a JSX tag's `>`.
+    Vue { feature: "lang-vue", names: ["vue"], module: vue }
 }
 
 impl Language {

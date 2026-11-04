@@ -37,7 +37,8 @@ impl<const D: u8> Lexer<'_, D> {
             Kind::JsxStrDouble | Kind::JsxStrSingle => self.jsx_string_rules(p),
             Kind::Block | Kind::CaseBlock => self.statements(p),
             Kind::ObjLit => self.object_member(p),
-            Kind::JsxEval
+            Kind::Expression
+            | Kind::JsxEval
             | Kind::ArrLit
             | Kind::ParenExpr
             | Kind::SwitchExpr

@@ -59,6 +59,7 @@ mod sql;
 mod swift;
 mod toml;
 mod typescript;
+mod vue;
 mod xml;
 mod yaml;
 mod zig;

@@ -16,6 +16,7 @@
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { createHighlighter } from "shiki@4.6.0";
 import { fixture } from "./fixture.ts";
+import { grammars } from "./grammars.ts";
 
 type Extras = { pieces?: string[]; mutations?: string[]; fences?: string[] };
 
@@ -131,7 +132,9 @@ function markdown(): string {
 mkdirSync(outdir, { recursive: true });
 const md = mode.startsWith("md");
 const docLang = md ? "markdown" : lang;
-const highlighter = await createHighlighter({ langs: [docLang, lang], themes: ["github-dark"] });
+// Every input language is loaded, as for the fixtures.
+// A Vue block in TSX or SCSS, for one, stays plain without that grammar.
+const highlighter = await createHighlighter({ langs: grammars, themes: ["github-dark"] });
 for (let n = 0; n < Number(countArg); n++) {
   const text = md ? markdown() : mode === "gen" ? generated() : window();
   const name = `${mode}${seedArg}-${String(n).padStart(5, "0")}.${md ? "md" : lang}.txt`;

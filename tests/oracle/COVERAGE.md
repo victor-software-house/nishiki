@@ -26,7 +26,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | ERB | `erb` | 12 of 12 | 100.0% | 10 of 14 | 71.4% | 4 | 0 | yes |
 | Go | `go` | 317 of 336 | 94.3% | 240 of 250 | 96.0% | 29 | 0 | yes |
 | GraphQL | `graphql` | 84 of 88 | 95.5% | 90 of 113 | 79.6% | 27 | 0 | yes |
-| HTML | `html` | 131 of 227 | 57.7% | 162 of 368 | 44.0% | 0 | 2 |  |
+| HTML | `html` | 136 of 227 | 59.9% | 167 of 368 | 45.4% | 0 | 2 |  |
 | HTML | `html-derivative` | 2 of 3 | 66.7% | 3 of 3 | 100.0% | 0 | 1 |  |
 | INI | `ini` | 15 of 15 | 100.0% | 10 of 12 | 83.3% | 2 | 0 | yes |
 | Java | `java` | 214 of 214 | 100.0% | 133 of 134 | 99.3% | 1 | 0 | yes |
@@ -40,6 +40,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Lua | `lua` | 147 of 152 | 96.7% | 72 of 74 | 97.3% | 7 | 0 | yes |
 | Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
 | Markdown | `markdown` | 221 of 311 | 71.1% | 282 of 373 | 75.6% | 181 | 0 | yes |
+| Markdown | `markdown-vue` | 2 of 2 | 100.0% | 3 of 4 | 75.0% | 0 | 0 |  |
 | Nix | `nix` | 155 of 157 | 98.7% | 47 of 49 | 95.9% | 4 | 0 | yes |
 | PowerShell | `powershell` | 96 of 96 | 100.0% | 130 of 136 | 95.6% | 6 | 0 | yes |
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
@@ -53,6 +54,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | TOML | `toml` | 54 of 54 | 100.0% | 39 of 53 | 73.6% | 14 | 0 | yes |
 | TypeScript | `tsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | TypeScript | `typescript` | 513 of 515 | 99.6% | 571 of 576 | 99.1% | 7 | 0 | yes |
+| Vue | `vue` | 130 of 197 | 66.0% | 88 of 128 | 68.8% | 0 | 0 |  |
 | XML | `xml` | 32 of 32 | 100.0% | 55 of 66 | 83.3% | 11 | 0 | yes |
 | YAML | `yaml` | 60 of 62 | 96.8% | 51 of 55 | 92.7% | 6 | 0 | yes |
 | Zig | `zig` | 54 of 56 | 96.4% | 5 of 5 | 100.0% | 2 | 0 | yes |
@@ -382,7 +384,6 @@ injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | c
 #math.repository.#tags.patterns[9].patterns[0].end  (?=/>)|>
 #svg.patterns[0].patterns[0].begin  (?<!>)\G
 #svg.patterns[0].patterns[0].end  >
-#svg.repository.#attribute.patterns[1].end  (?=\s*+[^=\s])
 #svg.repository.#attribute.patterns[2].match  [^>\s]+
 #svg.repository.#tags.patterns[2].match  (?i)(<)(color-profile|desc|metadata|script|style|title)(?=\…
 #svg.repository.#tags.patterns[3].begin  (?i)(<)(color-profile|desc|metadata|script|style|title)(?=\…
@@ -400,10 +401,9 @@ injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | c
 #svg.repository.#tags.patterns[7].patterns[0].begin  (?<!>)\G
 #svg.repository.#tags.patterns[7].patterns[0].end  (?=/>)|>
 #svg.repository.#tags.patterns[8].match  (?i)(<)(circle|ellipse|feImage|foreignObject|image|line|pat…
-#svg.repository.#tags.patterns[9].begin  (?i)(<)(a|circle|ellipse|feImage|foreignObject|image|line|p…
-#svg.repository.#tags.patterns[9].end  (?i)(</)(\2)\s*(>)|(/>)|(?=</\w+)
-#svg.repository.#tags.patterns[9].patterns[0].begin  (?<!>)\G
-#svg.repository.#tags.patterns[9].patterns[0].end  (?=/>)|>
+#svg.repository.#tags.patterns[9].begin  groups 3, 5
+#svg.repository.#tags.patterns[9].end  groups 1, 2, 3
+#svg.repository.#tags.patterns[9].patterns[0].end  groups 0
 #svg.repository.#tags.patterns[10].match  (?i)(<)((altGlyph|altGlyphDef|altGlyphItem|animateColor|ani…
 #svg.repository.#tags.patterns[11].begin  (?i)(<)((altGlyph|altGlyphDef|altGlyphItem|animateColor|ani…
 #svg.repository.#tags.patterns[11].end  (?i)(</)((\2))\s*(>)|(/>)|(?=</\w+)
@@ -639,6 +639,12 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 #link-email.match  groups 4 (waived: the grammar names the group, but the expression has three groups)
 #list_paragraph.begin  (^|\G)(?=\S)(?![*->]\s|[0-9]+\.\s)  waived: `#paragraph`, which `#block` includes before it in both list rules, begins at every position this does
 #list_paragraph.while  (^|\G)(?!\s*$|#| {0,3}([-*>_] {2,}){3,}[\t ]*$\n?| {0,3}[*-…  waived: its begin never matches
+```
+
+### `markdown-vue`
+
+```text
+#vue-code-block.begin  groups 5
 ```
 
 ### `nix`
@@ -881,6 +887,79 @@ patterns[88].patterns[0].end  (?=not)impossible  waived: the rule that holds it 
 #support-objects.patterns[4].match  groups 4 (waived: the group sits inside the negative lookahead after the property names, so it never holds text; the constant names are group 53)
 #template.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
 #template-type.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
+```
+
+### `vue`
+
+```text
+patterns[2].patterns[0].begin  ([-0-:A-Za-z]+)\b(?=[^>]*\blang\s*=\s*(["']?)md\b\2)
+patterns[2].patterns[0].end  (</)(\1)\s*(?=>)
+patterns[2].patterns[0].patterns[1].begin  (?<=>)
+patterns[2].patterns[0].patterns[1].end  (?=</)
+patterns[2].patterns[2].patterns[1].begin  (?<=>)
+patterns[2].patterns[2].patterns[1].end  (?=</)
+patterns[2].patterns[3].patterns[1].begin  (?<=>)
+patterns[2].patterns[3].patterns[1].end  (?=</)
+patterns[2].patterns[4].patterns[1].begin  (?<=>)
+patterns[2].patterns[4].patterns[1].end  (?=</)
+patterns[2].patterns[12].end  (</)(\1)\s*(?=>)
+patterns[2].patterns[12].patterns[1].end  (?=</script[>\s])
+patterns[2].patterns[12].patterns[2].begin  (?<=>)
+patterns[2].patterns[12].patterns[2].while  ^(?!\s*</script[>\s])
+patterns[2].patterns[14].begin  ([-0-:A-Za-z]+)\b(?=[^>]*\blang\s*=\s*(["']?)json\b\2)
+patterns[2].patterns[14].end  (</)(\1)\s*(?=>)
+patterns[2].patterns[14].patterns[1].begin  (?<=>)
+patterns[2].patterns[14].patterns[1].end  (?=</)
+patterns[2].patterns[15].begin  ([-0-:A-Za-z]+)\b(?=[^>]*\blang\s*=\s*(["']?)jsonc\b\2)
+patterns[2].patterns[15].end  (</)(\1)\s*(?=>)
+patterns[2].patterns[15].patterns[1].begin  (?<=>)
+patterns[2].patterns[15].patterns[1].end  (?=</)
+patterns[2].patterns[16].patterns[1].begin  (?<=>)
+patterns[2].patterns[16].patterns[1].end  (?=</)
+patterns[2].patterns[18].begin  ([-0-:A-Za-z]+)\b(?=[^>]*\blang\s*=\s*(["']?)toml\b\2)
+patterns[2].patterns[18].end  (</)(\1)\s*(?=>)
+patterns[2].patterns[18].patterns[1].begin  (?<=>)
+patterns[2].patterns[18].patterns[1].end  (?=</)
+patterns[2].patterns[20].begin  ([-0-:A-Za-z]+)\b(?=[^>]*\blang\s*=\s*(["']?)vue\b\2)
+patterns[2].patterns[20].end  (</)(\1)\s*(?=>)
+patterns[2].patterns[20].patterns[1].begin  (?<=>)
+patterns[2].patterns[20].patterns[1].end  (?=</)
+#multi-line-script-tag-stuff.patterns[1].patterns[1].begin  (?<=>)(?=[^\n]*</script[>\s])
+#multi-line-script-tag-stuff.patterns[1].patterns[1].end  (?=</script[>\s])
+#multi-line-script-tag-stuff.patterns[2].patterns[1].begin  (?<=>)(?=[^\n]*</script[>\s])
+#multi-line-script-tag-stuff.patterns[2].patterns[1].end  (?=</script[>\s])
+#multi-line-style-tag-stuff.patterns[1].begin  (?=\blang\s*=\s*["']?scss\b)
+#multi-line-style-tag-stuff.patterns[1].end  (?=</style[>\s])
+#multi-line-style-tag-stuff.patterns[1].patterns[1].begin  (?<=>)
+#multi-line-style-tag-stuff.patterns[1].patterns[1].end  (?=</style[>\s])
+#multi-line-style-tag-stuff.patterns[2].patterns[1].begin  (?<=>)
+#multi-line-style-tag-stuff.patterns[2].patterns[1].end  (?=</style[>\s])
+#multi-line-style-tag-stuff.patterns[4].patterns[1].begin  (?<=>)
+#multi-line-style-tag-stuff.patterns[4].patterns[1].end  (?=</style[>\s])
+#template-tag-1.begin  (<)(template)\b(>)
+#template-tag-1.end  (/?>)
+#template-tag-1.patterns[0].begin  \G
+#template-tag-1.patterns[0].end  (?=/>)|((</)(template)(?=[>\s]))
+#vue-comments-key-value.begin  (<!--)\s*(@)([$\w]+)(?=\s)
+#vue-comments-key-value.end  (-->)
+#vue-directives-generic-attr.begin  \b(generic)\s*(=)
+#vue-directives-generic-attr.end  (?<=["'])
+#vue-directives-generic-attr.patterns[0].begin  (["'])
+#vue-directives-generic-attr.patterns[0].end  (\1)
+#vue-directives-generic-attr.patterns[0].patterns[1].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(extends|in|out)(?…
+#vue-directives-generic-attr.patterns[0].patterns[4].match  (=)(?!>)
+#vue-directives-original.begin  groups 6, 7, 8
+#vue-directives-original.patterns[0].match  (\.)([-\w]*)
+#vue-directives-style-attr.begin  \b(style)\s*(=)
+#vue-directives-style-attr.end  (?<=["'])
+#vue-directives-style-attr.patterns[0].begin  (["'])
+#vue-directives-style-attr.patterns[0].end  (\1)
+#vue-directives-style-attr.patterns[0].patterns[3].match  (?<![-\w])--[-A-Z_a-z[^\x00-\x7F]](?:[-0-9A-Z_a-z[^\x00-\x7…
+#vue-directives-style-attr.patterns[0].patterns[4].begin  (?<![-A-Za-z])(?=[-A-Za-z])
+#vue-directives-style-attr.patterns[0].patterns[4].end  $|(?![-A-Za-z])
+#vue-directives-style-attr.patterns[0].patterns[5].begin  (:)\s*
+#vue-directives-style-attr.patterns[0].patterns[5].end  \s*(;)|\s*(?=["'])
+#vue-directives-style-attr.patterns[0].patterns[6].match  ;
 ```
 
 ### `xml`
@@ -1193,4 +1272,13 @@ Neither an input language's grammar nor an injection reaches these, so they are 
 #simple_options.match
 #simple_options.captures[0].patterns[0].match
 #start_of_command.match
+```
+
+### `vue`
+
+```text
+#vue-interpolations.patterns[0].begin
+#vue-interpolations.patterns[0].end
+#vue-interpolations.patterns[0].patterns[0].begin
+#vue-interpolations.patterns[0].patterns[0].end
 ```

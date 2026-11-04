@@ -98,11 +98,66 @@ pub(crate) enum Rule {
     ErbBlock,
     /// ERB: code, up to `%>`. The payload is the Ruby lexer's state.
     ErbLine,
+    /// Vue: `<!--` up to `-->`.
+    VueComment,
+    /// Vue: `<!-- @name` up to `-->`.
+    VueCommentKv,
+    /// Vue: a tag that its line closes with `/>`, up to `/>`.
+    VueSelfClosing,
+    /// Vue: the `<` of a block up to its `>`.
+    VueBlock,
+    /// Vue: a block from its tag name to its end tag. The payload packs a
+    /// [`Block`](super::vue::Block) and the interned name.
+    VueElement,
+    /// Vue: `meta.tag-stuff`, a start tag's attributes up to `>`.
+    VueTagStuff,
+    /// Vue: a multi-line `<script>` block's attributes up to `>` or a `lang`
+    /// of its own.
+    VueScriptTagStuff,
+    /// Vue: a multi-line `<style>` block's attributes up to `>` or a `lang` of
+    /// its own.
+    VueStyleTagStuff,
+    /// Vue: a `<script>` block's rules after its tag name.
+    VueScriptStuff,
+    /// Vue: a `<style>` block's rules after its tag name.
+    VueStyleStuff,
+    /// Vue: the rule that a `lang` opens in a multi-line block. The payload is
+    /// the [`Lang`](super::vue::Lang).
+    VueLangGroup,
+    /// Vue: a block's body, which its language's lexer reads. The payload is
+    /// that lexer's state.
+    VueBody,
+    /// Vue: a TypeScript body that runs while no line starts with `</script`.
+    /// The payload is the lexer's state.
+    VueBodyWhile,
+    /// Vue: a template's HTML.
+    VueTemplateBody,
+    /// Vue: a nested `<template>` up to its start tag's end. The payload is
+    /// its [`TemplateTag`](super::vue::TemplateTag).
+    VueTemplateTag,
+    /// Vue: a nested template's inside up to `</template`. The payload is its
+    /// [`TemplateTag`](super::vue::TemplateTag).
+    VueTemplateTagEnd,
+    /// Vue: a tag whose name starts with a capital, up to `/?>`. The payload
+    /// is the interned name.
+    VueCapitalized,
+    /// Vue: the attributes of such a tag.
+    VueCapitalizedAttrs,
+    /// Vue: a directive and its value. The payload is 1 for a control
+    /// directive.
+    VueDirective,
+    /// Vue: a directive's quoted value. The payload is the quote.
+    VueExprString,
+    /// Vue: a directive's value that no quote opened.
+    VueExprBare,
+    /// Vue: the TypeScript of a directive's value. The payload is the lexer's
+    /// state.
+    VueExpr,
 }
 
 impl Rule {
     /// The rules in code order, which [`Rule::code`] numbers.
-    const ALL: [Rule; 41] = [
+    const ALL: [Rule; 63] = [
         Rule::Root,
         Rule::Comment,
         Rule::Cdata,
@@ -144,6 +199,28 @@ impl Rule {
         Rule::ErbComment,
         Rule::ErbBlock,
         Rule::ErbLine,
+        Rule::VueComment,
+        Rule::VueCommentKv,
+        Rule::VueSelfClosing,
+        Rule::VueBlock,
+        Rule::VueElement,
+        Rule::VueTagStuff,
+        Rule::VueScriptTagStuff,
+        Rule::VueStyleTagStuff,
+        Rule::VueScriptStuff,
+        Rule::VueStyleStuff,
+        Rule::VueLangGroup,
+        Rule::VueBody,
+        Rule::VueBodyWhile,
+        Rule::VueTemplateBody,
+        Rule::VueTemplateTag,
+        Rule::VueTemplateTagEnd,
+        Rule::VueCapitalized,
+        Rule::VueCapitalizedAttrs,
+        Rule::VueDirective,
+        Rule::VueExprString,
+        Rule::VueExprBare,
+        Rule::VueExpr,
     ];
 
     /// The rule as a frame stores it: the HTML tag in the high byte, the
@@ -173,7 +250,13 @@ impl Rule {
     pub(crate) fn shuts_out_injection(self) -> bool {
         matches!(
             self,
-            Rule::Comment | Rule::StyleTag | Rule::ScriptTag | Rule::WrapCss | Rule::WrapJs
+            Rule::Comment
+                | Rule::StyleTag
+                | Rule::ScriptTag
+                | Rule::WrapCss
+                | Rule::WrapJs
+                | Rule::VueComment
+                | Rule::VueCommentKv
         )
     }
 
@@ -181,9 +264,12 @@ impl Rule {
     /// applies as `parent` says: not under a `comment` scope.
     pub(crate) fn erb_injection(self, parent: ErbInjection) -> ErbInjection {
         match self {
-            Rule::Comment | Rule::ErbComment | Rule::JsLineComment | Rule::JsBlockComment => {
-                ErbInjection::ShutOut
-            }
+            Rule::Comment
+            | Rule::ErbComment
+            | Rule::JsLineComment
+            | Rule::JsBlockComment
+            | Rule::VueComment
+            | Rule::VueCommentKv => ErbInjection::ShutOut,
             Rule::Root
             | Rule::Cdata
             | Rule::Doctype
@@ -220,7 +306,27 @@ impl Rule {
             | Rule::ErbCommentWrap
             | Rule::ErbTagWrap
             | Rule::ErbBlock
-            | Rule::ErbLine => parent,
+            | Rule::ErbLine
+            | Rule::VueSelfClosing
+            | Rule::VueBlock
+            | Rule::VueElement
+            | Rule::VueTagStuff
+            | Rule::VueScriptTagStuff
+            | Rule::VueStyleTagStuff
+            | Rule::VueScriptStuff
+            | Rule::VueStyleStuff
+            | Rule::VueLangGroup
+            | Rule::VueBody
+            | Rule::VueBodyWhile
+            | Rule::VueTemplateBody
+            | Rule::VueTemplateTag
+            | Rule::VueTemplateTagEnd
+            | Rule::VueCapitalized
+            | Rule::VueCapitalizedAttrs
+            | Rule::VueDirective
+            | Rule::VueExprString
+            | Rule::VueExprBare
+            | Rule::VueExpr => parent,
         }
     }
 }

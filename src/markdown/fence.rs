@@ -377,6 +377,16 @@ const NAMES: &[Name] = &[
         brace: None,
         embed: Embed::Lang(Language::CoffeeScript),
     },
+    // Vue's `markdown-vue` grammar adds this rule as an injection.
+    // Its attributes stop at a tilde as well as at a backtick
+    // (`vue_attributes_ok`). Its body ends only where Vue is outside every rule
+    // (`lexer::vue_body_line`).
+    #[cfg(feature = "lang-vue")]
+    Name {
+        words: &["vue"],
+        brace: None,
+        embed: Embed::Lang(Language::Vue),
+    },
 ];
 
 /// A language found in an info string.
@@ -566,6 +576,7 @@ pub(crate) fn language(cx: &Cx<'_>, i: usize) -> Option<Found> {
                     Spelling::Dotted => word_end(cx, i, word.as_bytes()),
                 }
                 && attributes_ok(cx, end, backtick)
+                && vue_attributes_ok(cx, lang.embed, end)
             {
                 return Some(Found {
                     embed: lang.embed,
@@ -579,6 +590,7 @@ pub(crate) fn language(cx: &Cx<'_>, i: usize) -> Option<Found> {
         for word in lang.words {
             if let Some(end) = word_end(cx, i, word.as_bytes())
                 && attributes_ok(cx, end, backtick)
+                && vue_attributes_ok(cx, lang.embed, end)
             {
                 return Some(Found {
                     embed: lang.embed,
@@ -694,6 +706,25 @@ fn attributes_ok(cx: &Cx<'_>, i: usize, backtick: Option<usize>) -> bool {
         }
         Some(_) => false,
     }
+}
+
+/// Whether the attributes at `i` allow a fence of `embed`.
+/// Only Vue's rule has more to check: its attributes hold no tilde.
+#[cfg(feature = "lang-vue")]
+fn vue_attributes_ok(cx: &Cx<'_>, embed: Embed, i: usize) -> bool {
+    let line_end = cx.end.min(cx.line.len());
+    !matches!(embed, Embed::Lang(Language::Vue))
+        || cx
+            .line
+            .get(i..line_end)
+            .is_none_or(|rest| memchr::memchr(b'~', rest).is_none())
+}
+
+/// Whether the attributes at `i` allow a fence of `embed`: always, with no
+/// Vue rule.
+#[cfg(not(feature = "lang-vue"))]
+const fn vue_attributes_ok(_: &Cx<'_>, _: Embed, _: usize) -> bool {
+    true
 }
 
 /// The last backtick in the text from `i`, found once per info string so
