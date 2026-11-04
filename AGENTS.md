@@ -162,6 +162,7 @@ The rules are in [oracle/AGENTS.md](oracle/AGENTS.md) and [tests/AGENTS.md](test
    - theme styling, and the whole path from text to colours.
 
    `mise run bench lex/python` runs only the benchmarks whose name holds the filter.
+   `mise run bench:latency` gives the cost of each streamed line: steady p50, p99 and maximum, and the first contact.
 2. It is not part of `verify`, because timings depend on the machine.
    [bench/README.md](bench/README.md) says what each figure answers; `bench/AGENTS.md` says where a run counts and how it is recorded.
 

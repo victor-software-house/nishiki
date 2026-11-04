@@ -11,11 +11,12 @@ The rules for measuring are in [AGENTS.md](AGENTS.md); the reasons are in the `b
 | What does creating a highlighter cost? | time per `Highlighter::new` | `mise run bench new/` |
 | How fast does it style tokens? | time per token, github-dark | `mise run bench style/` |
 | How fast does it colour a document? | MiB/s from text to colours | `mise run bench colour/` |
+| What does one streamed line cost? | µs per line: steady p50, p99 and maximum, and the first-contact maximum | `mise run bench:latency` |
 | Did a change make lexing slower? | instructions, head over base | `mise run callgrind`, in CI on a pull request labelled `bench` |
 | How much memory does a document take? | allocations, bytes and peak | printed below the callgrind table |
 
-Per-line latency, cold start, the worst line under the default limits and the comparison with other highlighters come in later steps of the change.
-Until then, `examples/bench.rs` still gives per-line latency and a first-line time.
+Cold start, the worst line under the default limits and the comparison with other highlighters come in later steps of the change.
+Until then, `examples/bench.rs` still gives a first-line time.
 
 ## Where things are
 
