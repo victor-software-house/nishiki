@@ -11,7 +11,7 @@ use super::grammar::{Folding, Grammar, NONE, RuleKind};
 use super::regex::{self, Context, LineKind, Regex, Sketch};
 use super::tokenizer::{self, Scratch, Text};
 use crate::arena::Arena;
-use crate::limits::{Limits, LineReport};
+use crate::limits::{Limit, Limits, LineReport};
 
 #[cfg(all(feature = "lang-javascript", feature = "lang-css"))]
 #[path = "../../tests/engine/html.rs"]
@@ -1360,6 +1360,104 @@ fn a_group_far_into_a_pattern_is_named() {
         .collect();
     assert_eq!(scopes.len(), 2, "{scopes:?}");
     assert_eq!(scopes[1], ["keyword.test", "source.test"]);
+}
+
+/// A grammar of one rule, `(<)(.*)`, whose second group runs the root's
+/// rules again.
+/// A line of `<` nests one group per `<`, as Perl's heredoc openers do with
+/// the rest of their line.
+mod nested_captures {
+    use std::sync::OnceLock;
+
+    use super::super::grammar::{Cap, Grammar, List, NONE, Pattern, Rule, RuleKind};
+
+    static PATTERNS: [Pattern; 1] = [Pattern::new("(<)(.*)")];
+    static LISTS: [List; 2] = [List::new(&[1]), List::new(&[])];
+    static RULES: [Rule; 2] = [
+        Rule {
+            kind: RuleKind::Container,
+            name: &[],
+            content_name: &[],
+            begin: NONE,
+            end: NONE,
+            until: NONE,
+            captures: &[],
+            end_captures: &[],
+            list: 0,
+            apply_end_last: false,
+        },
+        Rule {
+            kind: RuleKind::Match,
+            name: &[],
+            content_name: &[],
+            begin: 0,
+            end: NONE,
+            until: NONE,
+            captures: &[
+                Cap {
+                    index: 1,
+                    name: &[0],
+                    content_name: &[],
+                    retokenize: NONE,
+                },
+                Cap {
+                    index: 2,
+                    name: &[],
+                    content_name: &[],
+                    retokenize: 0,
+                },
+            ],
+            end_captures: &[],
+            list: 1,
+            apply_end_last: false,
+        },
+    ];
+    pub(super) static GRAMMAR: Grammar = Grammar {
+        scope: "source.test",
+        names: &["punctuation.test"],
+        rules: &RULES,
+        lists: &LISTS,
+        injections: &[],
+        patterns: &PATTERNS,
+        root: 0,
+        hand_offs: &[],
+        list_hand_offs: &[],
+        handing_captures: &[],
+        cells: OnceLock::new(),
+        full_cells: OnceLock::new(),
+    };
+}
+
+/// Nested capture groups stop at the engine's bound, below the depth limit.
+/// Each level is a nested call, and a debug build on a test thread's 2 MiB
+/// stack overflowed on this line of 1,000 levels.
+/// A much longer line runs out of work before it nests that deep.
+/// The line still ends with a token, and reports the depth limit.
+#[test]
+fn nested_captures_stop_at_their_bound() {
+    let grammar: &'static Grammar = &nested_captures::GRAMMAR;
+    let mut arena = Arena::new(None);
+    let mut scratch = Scratch::default();
+    let state = tokenizer::start(&mut arena, grammar, crate::arena::ROOT);
+    let line = "<".repeat(1_000);
+    let mut out = Vec::new();
+    let mut report = LineReport::default();
+    tokenizer::line(
+        &mut scratch,
+        &mut arena,
+        &Limits::default(),
+        Text {
+            grammar,
+            bytes: line.as_bytes(),
+            start: 0,
+            anchored: false,
+        },
+        state,
+        &mut out,
+        &mut report,
+    );
+    assert!(report.limits().any(|limit| limit == Limit::Depth));
+    assert_eq!(out.last().map(|token| token.end), Some(line.len()));
 }
 
 /// A tab that a capture brings into a filled scope name stays inside that

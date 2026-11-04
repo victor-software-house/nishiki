@@ -52,6 +52,17 @@ const NO_MATCH: u32 = u32::MAX;
 /// lexer, and one decision of the engine is some dozens of the machine's
 /// instructions. Chosen so that no oracle line spends half its default budget.
 const STEP: u64 = 32;
+/// How many capture groups may hand their text to rules inside one another
+/// on a line.
+///
+/// Each such group runs its rules in a nested call.
+/// A debug build spends kilobytes of stack per level, so the depth limit's
+/// default of 4,096 contexts overflows a 2 MiB thread.
+/// Past this bound, a group gets its own scopes only, as past the depth
+/// limit, and the line reports [`Limit::Depth`].
+/// Shiki has no such bound.
+/// Every oracle fixture lexes the same with this bound.
+const MAX_NESTED_CAPTURES: usize = 256;
 
 /// The span of each group of a match.
 type Caps = [Option<(usize, usize)>];
@@ -686,6 +697,7 @@ pub(crate) fn line_until<H: Halting>(
         stopped: false,
         cells,
         hand: None,
+        nested: 0,
     };
     let halted = match tokenizer.tokenize_string(
         line.len() + 1,
@@ -766,6 +778,7 @@ pub(crate) fn line_handing(
             whole: &mut *whole,
             line,
         }),
+        nested: 0,
     };
     let halted = match tokenizer.tokenize_string(
         len + 1,
@@ -1000,6 +1013,9 @@ struct Tokenizer<'a> {
     /// What a hand-off lends its language, on a line of a grammar that hands
     /// off.
     hand: Option<Hand<'a>>,
+    /// How many capture groups are running their rules inside one another,
+    /// bounded by [`MAX_NESTED_CAPTURES`].
+    nested: usize,
 }
 
 impl Tokenizer<'_> {
@@ -2014,8 +2030,9 @@ impl Tokenizer<'_> {
     /// it names. `index` is the frame whose scopes the groups sit inside.
     ///
     /// Handing text to rules opens a frame for them, and those rules' captures
-    /// can do the same, so the depth limit bounds how deep it goes: past it,
-    /// the group's text gets the group's scopes only.
+    /// can do the same.
+    /// The depth limit and [`MAX_NESTED_CAPTURES`] bound how deep it goes.
+    /// Past either, the group's text gets the group's scopes only.
     ///
     /// The frame goes on top of `frames`, and `frames` get back their length
     /// after the group. A capture's rule has no end, so nothing below it is
@@ -2061,13 +2078,14 @@ impl Tokenizer<'_> {
             self.produce(inside, s);
             if capture.retokenize != NONE {
                 let named = self.push_names(base, capture.name, caps);
-                if self.limits.depth_reached(frames.len()) {
+                if self.limits.depth_reached(frames.len()) || self.nested >= MAX_NESTED_CAPTURES {
                     self.report.record(Limit::Depth);
                     self.produce(named, e);
                     continue;
                 }
                 let content = self.push_names(named, capture.content_name, caps);
                 let depth = frames.len();
+                self.nested += 1;
                 frames.push(Frame {
                     rule: capture.retokenize,
                     state: NEW,
@@ -2102,6 +2120,7 @@ impl Tokenizer<'_> {
                 } else {
                     self.tokenize_string(e.min(end), first, s, frames, Entry::Capture, Whole);
                 }
+                self.nested -= 1;
                 frames.truncate(depth);
                 continue;
             }
