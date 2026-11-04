@@ -886,98 +886,106 @@ fn allowed(flags: usize, p: P) -> bool {
     flags & kind::NO_OBJECT == 0 || !object_only(p)
 }
 
-/// For each context, kind of position and first byte, the patterns that can
-/// start there, in the order the context tries them.
-pub(super) struct Tables {
-    /// For each context, the class of each byte, and the end of text.
-    class_of: Vec<u8>,
-    /// How many classes a context has at most.
-    stride: usize,
-    /// For each context, kind and class, the list that applies.
+/// One context's patterns by kind of position and first byte, in the order
+/// the context tries them.
+pub(super) struct Table {
+    /// The class of each byte, and of the end of text.
+    class_of: [u8; EOT + 1],
+    /// How many classes the context has.
+    classes: usize,
+    /// For each kind and class, the list that applies.
     ids: Vec<u16>,
     lists: Vec<Vec<P>>,
 }
 
-impl Tables {
-    /// The tables, built once. Bytes that start the same patterns of a
-    /// context share a class, so a context's row has a column per class.
-    /// A class index fits a `u8` and a list index a `u16`, which
+impl Table {
+    /// The table of context `r`, built the first time a line reaches `r`,
+    /// so a line pays only for the contexts it opens. Bytes that start the
+    /// same patterns share a class, so each kind has a column per class. A
+    /// class index fits a `u8` and a list index a `u16`, which
     /// `tables_fit_their_indices` checks, so the fallbacks never apply.
-    pub(super) fn get() -> &'static Tables {
-        static TABLES: OnceLock<Tables> = OnceLock::new();
-        TABLES.get_or_init(|| {
-            let mut lists: Vec<Vec<P>> = Vec::new();
-            let mut seen: HashMap<Vec<P>, u16> = HashMap::new();
-            let mut class_of = Vec::new();
-            let mut rows: Vec<Vec<Vec<u16>>> = Vec::new();
-            for &r in R::ALL {
-                let mut flat = Vec::new();
-                for list in r.items() {
-                    flatten(list, &mut flat);
-                }
-                let mut classes: Vec<Vec<bool>> = Vec::new();
-                for byte in 0..=EOT {
-                    let signature: Vec<bool> = flat
-                        .iter()
-                        .map(|&p| u8::try_from(byte).map_or(true, |b| starts(p, b)))
-                        .collect();
-                    let class = classes.iter().position(|known| *known == signature);
-                    class_of.push(
-                        u8::try_from(class.unwrap_or_else(|| {
-                            classes.push(signature);
-                            classes.len() - 1
-                        }))
-                        .unwrap_or(u8::MAX),
-                    );
-                }
-                let mut row = Vec::with_capacity(KINDS);
-                for flags in 0..KINDS {
-                    let allowed = |p: P| allowed(flags, p);
-                    row.push(
-                        classes
-                            .iter()
-                            .map(|signature| {
-                                let list: Vec<P> = flat
-                                    .iter()
-                                    .zip(signature)
-                                    .filter(|&(&p, &starts)| starts && allowed(p))
-                                    .map(|(&p, _)| p)
-                                    .collect();
-                                *seen.entry(list.clone()).or_insert_with(|| {
-                                    lists.push(list);
-                                    u16::try_from(lists.len() - 1).unwrap_or(0)
-                                })
-                            })
-                            .collect(),
-                    );
-                }
-                rows.push(row);
-            }
-            let stride = rows.iter().flatten().map(Vec::len).max().unwrap_or(1);
-            let mut ids = vec![0; rows.len() * KINDS * stride];
-            for (rule, row) in rows.iter().enumerate() {
-                for (flags, classes) in row.iter().enumerate() {
-                    let base = (rule * KINDS + flags) * stride;
-                    ids[base..base + classes.len()].copy_from_slice(classes);
-                }
-            }
-            Tables {
-                class_of,
-                stride,
-                ids,
-                lists,
-            }
-        })
+    /// `None` only for an `r` outside [`R::ALL`], which has no such value.
+    pub(super) fn of(r: R) -> Option<&'static Table> {
+        static TABLES: [OnceLock<Table>; R::ALL.len()] = [const { OnceLock::new() }; R::ALL.len()];
+        TABLES
+            .get(r.index())
+            .map(|table| table.get_or_init(move || Table::build(r)))
     }
 
-    pub(super) fn candidates(&self, r: R, kind: usize, index: usize) -> &[P] {
+    /// Builds the table over sets of the context's patterns, one bit per
+    /// pattern in the order the context tries them: a class is the set of
+    /// patterns a byte can start, a kind the set it allows, and a list is
+    /// made only for a set not seen before.
+    fn build(r: R) -> Table {
+        let mut flat = Vec::new();
+        for list in r.items() {
+            flatten(list, &mut flat);
+        }
+        let words = flat.len().div_ceil(64).max(1);
+        let set = |keep: &dyn Fn(P) -> bool| {
+            let mut bits = vec![0_u64; words];
+            for (i, &p) in flat.iter().enumerate() {
+                if keep(p) {
+                    bits[i / 64] |= 1 << (i % 64);
+                }
+            }
+            bits
+        };
+        let mut signatures: Vec<Vec<u64>> = Vec::new();
+        let mut class_of = [0; EOT + 1];
+        for (byte, class) in class_of.iter_mut().enumerate() {
+            let signature = set(&|p| u8::try_from(byte).map_or(true, |b| starts(p, b)));
+            let index = signatures
+                .iter()
+                .position(|known| *known == signature)
+                .unwrap_or_else(|| {
+                    signatures.push(signature);
+                    signatures.len() - 1
+                });
+            *class = u8::try_from(index).unwrap_or(u8::MAX);
+        }
+        let mut lists: Vec<Vec<P>> = Vec::new();
+        let mut seen: HashMap<Vec<u64>, u16> = HashMap::new();
+        let mut ids = Vec::with_capacity(KINDS * signatures.len());
+        let mut key = vec![0_u64; words];
+        for flags in 0..KINDS {
+            let allows = set(&|p| allowed(flags, p));
+            for signature in &signatures {
+                for ((bits, starts), allows) in key.iter_mut().zip(signature).zip(&allows) {
+                    *bits = starts & allows;
+                }
+                let id = if let Some(&id) = seen.get(key.as_slice()) {
+                    id
+                } else {
+                    let list = flat
+                        .iter()
+                        .enumerate()
+                        .filter(|&(i, _)| key[i / 64] & (1 << (i % 64)) != 0)
+                        .map(|(_, &p)| p)
+                        .collect();
+                    lists.push(list);
+                    let id = u16::try_from(lists.len() - 1).unwrap_or(0);
+                    seen.insert(key.clone(), id);
+                    id
+                };
+                ids.push(id);
+            }
+        }
+        Table {
+            class_of,
+            classes: signatures.len(),
+            ids,
+            lists,
+        }
+    }
+
+    pub(super) fn candidates(&self, kind: usize, index: usize) -> &[P] {
         let class = self
             .class_of
-            .get(r.index() * (EOT + 1) + index)
+            .get(index)
             .map_or(0, |&class| usize::from(class));
-        let slot = (r.index() * KINDS + kind) * self.stride + class;
         self.ids
-            .get(slot)
+            .get(kind * self.classes + class)
             .and_then(|&id| self.lists.get(usize::from(id)))
             .map_or(&[], Vec::as_slice)
     }
@@ -994,16 +1002,18 @@ fn flatten(list: &[Item], out: &mut Vec<P>) {
 
 #[cfg(test)]
 mod tests {
-    use super::Tables;
+    use super::{R, Table};
 
     #[test]
     fn tables_fit_their_indices() {
-        let tables = Tables::get();
-        assert!(tables.stride <= 1 << 8, "{} classes", tables.stride);
-        assert!(
-            tables.lists.len() <= 1 << 16,
-            "{} lists",
-            tables.lists.len()
-        );
+        for &r in R::ALL {
+            let table = Table::of(r).unwrap_or_else(|| panic!("no table for {r:?}"));
+            assert!(table.classes <= 1 << 8, "{r:?}: {} classes", table.classes);
+            assert!(
+                table.lists.len() <= 1 << 16,
+                "{r:?}: {} lists",
+                table.lists.len()
+            );
+        }
     }
 }

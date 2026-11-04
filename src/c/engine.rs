@@ -9,7 +9,7 @@
 
 use std::cell::Cell;
 
-use super::lists::{EOT, P, Tables, blank_run_live, kind};
+use super::lists::{EOT, P, Table, blank_run_live, kind};
 use super::scope::S;
 use super::state::R;
 use crate::language::Halt;
@@ -247,7 +247,7 @@ impl Lexer<'_> {
     ) -> Option<(usize, P, usize)> {
         self.fresh();
         let rule = self.top_rule();
-        let tables = Tables::get();
+        let table = Table::of(rule)?;
         let full = self.at_depth_limit();
         let from = self.pos;
         let top = self.len_all();
@@ -309,7 +309,7 @@ impl Lexer<'_> {
                 }
                 flags
             };
-            for &pat in tables.candidates(rule, kind, index) {
+            for &pat in table.candidates(kind, index) {
                 self.clear_spans();
                 if !self.match_pat(pat, p) {
                     continue;
