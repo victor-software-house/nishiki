@@ -4,6 +4,7 @@ use super::bytes::{ANY, BLANK, Bytes, MEMBER_START, STRING_START};
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use crate::classes;
 
 /// The captures of a method's modifiers, kept inline: a prefix holds at most
 /// the four modifiers the grammar lists, and the lookahead builds one at every
@@ -751,25 +752,26 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// The key forms before a `:`.
     ///
-    /// `(?![$_[:alpha:]])(\d+)\s*(?=comments*:)`.
+    /// `(?![$_[:alpha:]])(\d+)\s*(?=comments*:)`, where `\d` takes every
+    /// digit Shiki's engine does, such as `٤٢`.
     ///
     /// The value is a function.
     fn object_member_key(&mut self, p: usize) -> Option<usize> {
-        if self.byte(p).is_ascii_digit() {
-            let mut e = p;
-            while self.byte(e).is_ascii_digit() {
-                e += 1;
-            }
+        let mut e = p;
+        while let width @ 1.. = classes::digit_width(self.bytes, e) {
+            e += width;
+        }
+        if e > p {
             let j = self.ws(e);
             if self.byte(self.ws_comments(j)) == b':' {
                 self.flush(p);
-                self.capture(Kind::ObjMember, p, j, &[S::MetaObjectLiteralKey]);
                 self.capture(
                     Kind::ObjMember,
                     p,
                     e,
                     &[S::MetaObjectLiteralKey, S::ConstantNumericDecimal],
                 );
+                self.capture(Kind::ObjMember, e, j, &[S::MetaObjectLiteralKey]);
                 return Some(j);
             }
         }

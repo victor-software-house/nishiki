@@ -949,3 +949,35 @@ fn lookaheads_match_the_grammars_sets() {
         "{lines:?}"
     );
 }
+
+/// `(\d+)\s*(?=…:)`: Shiki's `\d` takes the Arabic-Indic digits.
+#[test]
+fn an_object_key_of_digits_reads_every_unicode_digit() {
+    let text = indoc! {"
+        const o = {
+          ٤٢: 1,
+        };
+    "};
+    assert_eq!(
+        stack_of(text, "٤٢"),
+        [
+            "source.ts",
+            "meta.var.expr.ts",
+            "meta.objectliteral.ts",
+            "meta.object.member.ts",
+            "meta.object-literal.key.ts",
+            "constant.numeric.decimal.ts",
+        ]
+    );
+    assert_eq!(
+        stack_of(text, ":"),
+        [
+            "source.ts",
+            "meta.var.expr.ts",
+            "meta.objectliteral.ts",
+            "meta.object.member.ts",
+            "meta.object-literal.key.ts",
+            "punctuation.separator.key-value.ts",
+        ]
+    );
+}
