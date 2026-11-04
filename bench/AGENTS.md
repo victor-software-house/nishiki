@@ -34,6 +34,4 @@ Rules for measuring nishiki, beside the root guide's invariants.
     The Callgrind job prints a note, never a failure, when a language's head runs more than 3% more instructions at sixteen units than at one: the sign this rule was missed.
 14. A port onto `crate::rules` passes when identity is clean, its own instructions at one codegen unit (rule 12) are at parity with the lexer it replaces or better, and every other rule language stays within ±0.3% there.
     The pull request also records the instructions at sixteen units and the wall time in the default profile, but they do not decide: they follow layout across codegen units, and rule 13 is how a port closes that gap.
-15. A TextMate-engine grammar pull request leaves the default language list in `mise-tasks/callgrind.sh` alone, and engine languages join it in batched `ci:` pull requests.
-    The list is one line, and engine grammars land as a stack, so each adding itself would collide with the next.
-    A hand-written lexer lands alone and may add itself to the list in its own pull request.
+15. `mise run callgrind` counts every language with oracle fixtures, read from the directories under `tests/oracle/`, so a new language is counted without editing any list.

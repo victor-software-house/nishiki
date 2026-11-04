@@ -1,13 +1,13 @@
 name: Callgrind
 
 # On a pull request labelled `bench`: instruction counts of lexing every
-# oracle fixture of the rule-engine and TextMate-engine languages and
-# Markdown, at the base and the head (mise run callgrind), as a table in the
-# job summary. The gate builds both sides with one codegen unit, so the counts
-# move only with the code, not with how it falls across units, and fails when
-# a language rises more than 0.5%. Columns at the default sixteen units, what
-# users build, are for information only. valgrind comes from the bench mise
-# profile (mise.bench.toml, conda-forge), which only this job loads, with
+# oracle fixture of every language, at the base and the head (mise run
+# callgrind), as a table in the job summary. The gate builds both sides with
+# one codegen unit, so the counts move only with the code, not with how it
+# falls across units, and fails when a language rises more than 0.5%.
+# Columns at the default sixteen units, what users build, are for
+# information only. valgrind comes from the bench mise profile
+# (mise.bench.toml, conda-forge), which only this job loads, with
 # MISE_ENV=ci,bench. It lives apart from ci.yml, which the template renders.
 
 on:

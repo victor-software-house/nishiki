@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #MISE description="Instruction counts of lexing the oracle fixtures, against another commit"
 # `mise run callgrind [base] [languages...]`, base `origin/main` by default,
-# languages the rule-engine and TextMate-engine ones and Markdown by default,
-# built with the `textmate` tier. Both commits run examples/lex.rs under
-# callgrind, whose counts do not depend on the machine's load, over the same
-# files: this tree's fixtures that the base has too. A language the base has
-# no fixtures for is listed as new.
+# languages every one with oracle fixtures by default, built with the
+# `textmate` tier. Both commits run examples/lex.rs under callgrind, whose
+# counts do not depend on the machine's load, over the same files: this
+# tree's fixtures that the base has too. A language the base has no fixtures
+# for is listed as new. The runs go in parallel, one valgrind per core.
 #
 # The gate builds both with one codegen unit, so a change that only moves
 # code between units, which shifts counts by up to a few percent, does not
@@ -23,8 +23,15 @@ set -euo pipefail
 base="${1:-origin/main}"
 shift || true
 languages=("$@")
+# Every directory of fixtures is a language, named as `Language::from_name`
+# reads it; `themes/` holds no fixtures.
 if [ "${#languages[@]}" -eq 0 ]; then
-  languages=(bat c cmake cpp csharp css dart go haskell java julia kotlin less lua make markdown mermaid nix powershell proto python ruby scala scss sql swift zig)
+  for language_dir in tests/oracle/*/; do
+    language=$(basename "$language_dir")
+    if compgen -G "$language_dir*.txt" >/dev/null; then
+      languages+=("$language")
+    fi
+  done
 fi
 tolerance="${CALLGRIND_TOLERANCE_PCT:-0.5}"
 dir=target/callgrind
@@ -60,11 +67,24 @@ for units in 1 16; do
   CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$dir/target-head-$units" \
     cargo build --quiet --release --locked "${head_features[@]}" --example lex
 done
+# Counts one build (base-1, head-1, base-16 or head-16) on one language into
+# counts/<build>.<language>. valgrind runs one thread, so the runs go in
+# parallel, one per core; callgrind's counts do not depend on the load.
+counts="$dir/counts"
+rm -rf "$counts"
+mkdir -p "$counts"
 count() {
   valgrind --tool=callgrind --callgrind-out-file=/dev/null --collect-atstart=no \
-    --toggle-collect='*lex::measured*' "$1" "$fixtures" "$2" 2>&1 |
-    sed -n 's/.*Collected : *\([0-9]*\).*/\1/p'
+    --toggle-collect='*lex::measured*' "$dir/target-$1/release/examples/lex" "$fixtures" "$2" 2>&1 |
+    sed -n 's/.*Collected : *\([0-9]*\).*/\1/p' >"$counts/$1.$2"
 }
+export -f count
+export dir fixtures counts
+for language in "${languages[@]}"; do
+  if [ -n "$(ls -A "$fixtures/$language")" ]; then
+    printf '%s %s\n' base-1 "$language" head-1 "$language" base-16 "$language" head-16 "$language"
+  fi
+done | xargs -P "$(nproc)" -n 2 bash -c 'count "$1" "$2"' _
 echo "| language | base (M) | head (M) | head/base | base, 16 units (M) | head, 16 units (M) | head/base, 16 units (not gated) |"
 echo "|:--|--:|--:|--:|--:|--:|--:|"
 failed=()
@@ -74,10 +94,10 @@ for language in "${languages[@]}"; do
     echo "| $language | new | | | | | |"
     continue
   fi
-  b=$(count "$dir/target-base-1/release/examples/lex" "$language")
-  h=$(count "$dir/target-head-1/release/examples/lex" "$language")
-  b16=$(count "$dir/target-base-16/release/examples/lex" "$language")
-  h16=$(count "$dir/target-head-16/release/examples/lex" "$language")
+  b=$(cat "$counts/base-1.$language")
+  h=$(cat "$counts/head-1.$language")
+  b16=$(cat "$counts/base-16.$language")
+  h16=$(cat "$counts/head-16.$language")
   if [ "${b:-0}" = 0 ] || [ "${h:-0}" = 0 ] || [ "${b16:-0}" = 0 ] || [ "${h16:-0}" = 0 ]; then
     echo "callgrind counted nothing for $language: lex::measured was not found" >&2
     exit 1

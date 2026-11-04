@@ -177,14 +177,3 @@ fn the_oracle_sources_are_sorted() {
         .collect();
     assert_sorted("tests/oracle/SOURCES.md's links", &labels);
 }
-
-#[test]
-fn the_callgrind_languages_are_sorted() {
-    let text = read("mise-tasks/callgrind.sh");
-    let line = text
-        .lines()
-        .find(|line| line.starts_with("  languages=("))
-        .expect("the default languages");
-    let languages: Vec<&str> = between(line, "(", ")").split(' ').collect();
-    assert_sorted("callgrind.sh's languages", &languages);
-}
