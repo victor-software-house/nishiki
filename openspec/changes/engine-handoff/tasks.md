@@ -7,6 +7,8 @@ Order of work (lead, 2026-11-04):
 3. HAML on the hand-off: Ruby, JavaScript, CSS and Markdown go to their hand lexers; Sass and CoffeeScript are engine rows of their own in the `textmate` tier, each after its licence is read at its source.
 4. Ruby's `<<~HAML` heredoc embeds HAML.
 
+Items 2 to 4 landed on 2026-11-04 (UTC): the tables in [#365][pr365], the tokenizer in [#366][pr366] and [#368][pr368], HAML with its heredoc in [#376][pr376], the limits test in [#377][pr377], Sass in [#381][pr381] and CoffeeScript in [#388][pr388].
+
 Sections 1.5, 2 and 3 are deferred: `Halts`, `Grammar::rule_halts` and entries replace the two halt arguments in a cross-language PR of their own, and the engine's logic does not change when they do.
 
 ## 1. Agreement
@@ -39,21 +41,45 @@ Sections 1.5, 2 and 3 are deferred: `Halts`, `Grammar::rule_halts` and entries r
 
 - [x] 4.0 core-fix's shared line budget, `Context { steps }`, with depth per language (design section 9), has landed → verify: its PR cited here
   - nishiki-archive#228, merged on 2026-11-04 as 2102df71: `Steps::lend` and `Finished`, with depth per language.
-- [ ] 4.1 The generator's list of hand-lexed grammars, a spec's `>` languages, and each list's hand-off (design section 14.3) → verify: regenerating every other engine table adds only `hand_offs: &[]`, and HAML's test table splits each list at its hand-off (`a_hand_off_splits_its_list_in_two`)
-- [ ] 4.2 The hand-off frame and the resume at a halt (design section 14.4) → verify: on HAML's test table, a filter goes to its language a line at a time.
+- [x] 4.1 The generator's list of hand-lexed grammars, a spec's `>` languages, and each list's hand-off (design section 14.3) → verify: regenerating every other engine table adds only `hand_offs: &[]`, and HAML's test table splits each list at its hand-off (`a_hand_off_splits_its_list_in_two`)
+  - [#365][pr365], merged on 2026-11-04 as f4ac6d41.
+    Regenerating the 11 shipped tables and the 9 other test tables added one line to each, `hand_offs: &[]`.
+    `a_hand_off_splits_its_list_in_two` runs on every table and passed in [CI][ci365].
+- [x] 4.2 The hand-off frame and the resume at a halt (design section 14.4) → verify: on HAML's test table, a filter goes to its language a line at a time.
   JavaScript in an HTML test table's `<script>` halts at `</script>` inside a line.
   The state carries across lines.
   A PowerShell fence inside a `:markdown` filter allocates nothing after the first line.
   `size -A` at one codegen unit measures the textmate tier's `.text` change.
   Callgrind keeps every engine language at or under 1.000.
   Julia's `py"""` and `sql"""` follow in 5.1.
-- [ ] 4.3 Limits through the hand-off → verify: hostile lines inside an embedded region end at the work limit
+  - [#366][pr366], merged on 2026-11-04 as 49ff1aac, and [#368][pr368], merged as 410335fe.
+  - The tests passed in [CI][ci366]:
+    - a filter goes to its language a line at a time: `a_ruby_filter_hands_its_lines_to_ruby_and_takes_the_line_back_after`;
+    - the `<script>` halt inside a line: `a_script_hands_javascript_its_text_up_to_the_end_tag`;
+    - the state across lines: `a_style_hands_css_its_lines_across_the_document`;
+    - no allocation after the first line: `lexing_a_nested_engine_fence_again_allocates_nothing`.
+  - `size -A` at one codegen unit: `.text` grew 1,120 bytes in nishiki-archive#366.
+    The `Handing` loop entered the binary with HAML, and nishiki-archive#376 measured it.
+  - Callgrind at one codegen unit, rule 20 on a box:
+    - nishiki-archive#366 read Haskell 1.0010, Julia 1.0008 and Mermaid 1.0018, the excess in libc `memcmp` on the arena maps;
+    - nishiki-archive#368 then read them 0.9986, 0.9922 and 0.9948;
+    - every engine language's product of the two rows is under 1.000.
+    No single run measured nishiki-archive#368's head against nishiki-archive#366's base.
+    CI's Callgrind gate passed on [#366][cg366] and [#368][cg368].
+- [x] 4.3 Limits through the hand-off → verify: hostile lines inside an embedded region end at the work limit
+  - [#377][pr377], merged on 2026-11-04 as fddcbdd0.
+    `a_hand_off_spends_only_what_the_host_line_has_left` lexes three HAML documents as an embedded language.
+    Their last lines hand off to Ruby, to JavaScript, and to PowerShell inside a Markdown fence.
+    Each last line gets two steps of work, records the work limit and spends at most two steps.
+    The test passed in [CI][ci377].
 
 ## 5. Follow-ups
 
 - [ ] 5.1 Julia's table without engine copies → verify: its compiled size before and after
 - [ ] 5.2 ERB's any-depth injection (xml-html)
 - [ ] 5.3 Perl, Elixir, Objective-C, PHP, Vue and Svelte, each its own PR
+- [ ] 5.4 A capture whose rule includes a hand-lexed grammar hands its text off, as CoffeeScript's backticks do → verify: the `coffee/coffeescript-javascript-literals` fixture matches Shiki
+  - [#417][pr417] opened on 2026-11-04.
 
 ## 6. The engine as an embedded language
 
@@ -61,8 +87,24 @@ Sections 1.5, 2 and 3 are deferred: `Halts`, `Grammar::rule_halts` and entries r
   - [#325][pr325], merged on 2026-11-04 as 45d62854: the halt and budget tests pass in [CI][ci325], and [Callgrind][cg325] at one codegen unit reads every engine language at or under 1.000, with Nix at 0.9912.
     ERB, which does not run the engine, read 1.0011 on that run.
     It was judged noise by reruns of the same binaries on one machine: base 14,695,552 to 14,701,102 instructions, head 14,694,314 to 14,707,830, with no nishiki function's self cost or call count changed beyond the arena's hash maps.
-- [ ] 6.2 Ruby's `<<~HAML` heredoc embeds HAML through it → verify: a Ruby fixture with a HAML heredoc matches Shiki
+- [x] 6.2 Ruby's `<<~HAML` heredoc embeds HAML through it → verify: a Ruby fixture with a HAML heredoc matches Shiki
+  - [#376][pr376], merged on 2026-11-04 as 3cdfc138.
+    In `ruby/coverage.txt`, three lines of the `<<~HAML` heredoc take HAML's scopes, and the oracle check passed in [CI][ci376].
 
 [pr325]: https://github.com/victor-software-house/nishiki-archive/pull/325
+[pr365]: https://github.com/victor-software-house/nishiki-archive/pull/365
+[pr366]: https://github.com/victor-software-house/nishiki-archive/pull/366
+[pr368]: https://github.com/victor-software-house/nishiki-archive/pull/368
+[pr376]: https://github.com/victor-software-house/nishiki-archive/pull/376
+[pr377]: https://github.com/victor-software-house/nishiki-archive/pull/377
+[pr381]: https://github.com/victor-software-house/nishiki-archive/pull/381
+[pr388]: https://github.com/victor-software-house/nishiki-archive/pull/388
+[pr417]: https://github.com/victor-software-house/nishiki-archive/pull/417
+[ci365]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41837615709
+[ci366]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41837614919
+[ci376]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41837829593
+[ci377]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41841244689
+[cg366]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41837614186
+[cg368]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41837615905
 [ci325]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41800032873
 [cg325]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41800032455
