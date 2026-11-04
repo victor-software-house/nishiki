@@ -7,8 +7,9 @@
 // tests/oracle/themes/<theme>.json and, per input, Shiki's colours to
 // `<name>.<theme>.colors`: one line per source line, each token as
 // `<byte end>:<colour>:<font style bits>`.
-import { bundledLanguages, bundledThemes, createHighlighter } from "shiki@4.6.0";
+import { bundledThemes, createHighlighter } from "shiki@4.6.0";
 import { fixture } from "./fixture.ts";
+import { grammars } from "./grammars.ts";
 import { inputs, type Input } from "./inputs.ts";
 
 const root = new URL("..", import.meta.url).pathname;
@@ -30,35 +31,10 @@ const themes = ["github-dark", "one-light", "catppuccin-mocha"] as const;
 // `ORACLE_LANG=<id>` writes the fixtures of one language only.
 const only = Bun.env["ORACLE_LANG"];
 const selected = only === undefined ? inputs : inputs.filter((input) => input.lang === only);
-/** Each input language's grammar, and the grammars it embeds that are input
- * languages too or that nishiki lexes as part of one. A grammar for a
- * language nishiki does not lex is left out, so a fence or embedding in that
- * language stays plain, as nishiki leaves it, whichever input language's
- * grammar would pull it in. Every input language is loaded, also under
- * `ORACLE_LANG`, so one language's fixtures come out as a full run writes
- * them. */
-const inputLangs = new Set(inputs.map((input) => input.lang));
-/** Grammars that nishiki lexes as part of the input language that embeds
- * them: the C++ lexer covers `cpp-macro`, the grammar of a `#define`'s body. */
-const partOf: Record<string, string> = { "cpp-macro": "cpp" };
-const loaded = (
-  await Promise.all([...inputLangs].map(async (lang) => (await bundledLanguages[lang]()).default))
-).flat();
-const lexed = loaded.filter(
-  (grammar) =>
-    inputLangs.has(grammar.name) ||
-    grammar.aliases?.some((alias) => inputLangs.has(alias)) ||
-    inputLangs.has(partOf[grammar.name] ?? ""),
-);
-const lexedNames = new Set(lexed.map((grammar) => grammar.name));
-const languages = [...new Map(lexed.map((grammar) => [grammar.name, grammar])).values()].map(
-  (grammar) => ({
-    ...grammar,
-    embeddedLangs: grammar.embeddedLangs?.filter((name) => lexedNames.has(name)),
-  }),
-);
+// Every input language is loaded, also under `ORACLE_LANG`, so one
+// language's fixtures come out as a full run writes them.
 const highlighter = await createHighlighter({
-  langs: languages,
+  langs: grammars,
   themes: [...themes],
 });
 const encoder = new TextEncoder();
