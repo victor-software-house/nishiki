@@ -2,7 +2,9 @@
 //! `oracle/engine-tables.ts`. Do not edit: regenerate with `bun
 //! oracle/engine-tables.ts`.
 
-use crate::textmate::grammar::{Cap, Grammar, Injection, List, PatternSlot, Rule, RuleKind};
+use std::sync::OnceLock;
+
+use crate::textmate::grammar::{Cap, Grammar, Injection, List, Pattern, Rule, RuleKind};
 
 static NAMES: &[&str] = &[
     "comment.block.proto",
@@ -28,45 +30,43 @@ static NAMES: &[&str] = &[
     "entity.name.function",
 ];
 
-static PATTERNS: [PatternSlot; 32] = [
-    PatternSlot::new("/\\*"),
-    PatternSlot::new("\\*/"),
-    PatternSlot::new("//"),
-    PatternSlot::new("$\\n?"),
-    PatternSlot::new("\\s*(syntax)\\s*(=)\\s*(\"proto[23]\")\\s*(;)"),
-    PatternSlot::new("\\s*(package)\\s+([.\\w]+)\\s*(;)"),
-    PatternSlot::new("\\s*(import)\\s+(weak|public)?\\s*(\"[^\"]+\")\\s*(;)"),
-    PatternSlot::new("(option)\\s+(\\w+|\\(\\w+(\\.\\w+)*\\))(\\.\\w+)*\\s*(=)"),
-    PatternSlot::new("(;)"),
-    PatternSlot::new("\\b(true|false|max|[A-Z_]+)\\b"),
-    PatternSlot::new(
-        "\\b((0([Xx])\\h*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))(([Ee])([-+])?[0-9]+)?)\\b",
-    ),
-    PatternSlot::new("([\"'])(?:\\\\.|[^\\\\])*?\\1"),
-    PatternSlot::new("\\{"),
-    PatternSlot::new("}"),
-    PatternSlot::new("(\\w+)\\s*(:)"),
-    PatternSlot::new("(;)|,|(?=[/A-Z_a-z}])"),
-    PatternSlot::new("(message|extend)(\\s+)([A-Z_a-z][.0-9A-Z_a-z]*)(\\s*)(\\{)?"),
-    PatternSlot::new("(reserved)\\s+"),
-    PatternSlot::new("(\\d+)(\\s+(to)\\s+(\\d+))?"),
-    PatternSlot::new("(enum)(\\s+)([A-Za-z][0-9A-Z_a-z]*)(\\s*)(\\{)?"),
-    PatternSlot::new("([A-Za-z][0-9A-Z_a-z]*)\\s*(=)\\s*(-?0[Xx]\\h+|-?[0-9]+)"),
-    PatternSlot::new("\\["),
-    PatternSlot::new("]"),
-    PatternSlot::new("(\\w+|\\(\\w+(\\.\\w+)*\\))(\\.\\w+)*"),
-    PatternSlot::new("(oneof)\\s+([A-Za-z][0-9A-Z_a-z]*)\\s*\\{?"),
-    PatternSlot::new(
+static PATTERNS: [Pattern; 32] = [
+    Pattern::new("/\\*"),
+    Pattern::new("\\*/"),
+    Pattern::new("//"),
+    Pattern::new("$\\n?"),
+    Pattern::new("\\s*(syntax)\\s*(=)\\s*(\"proto[23]\")\\s*(;)"),
+    Pattern::new("\\s*(package)\\s+([.\\w]+)\\s*(;)"),
+    Pattern::new("\\s*(import)\\s+(weak|public)?\\s*(\"[^\"]+\")\\s*(;)"),
+    Pattern::new("(option)\\s+(\\w+|\\(\\w+(\\.\\w+)*\\))(\\.\\w+)*\\s*(=)"),
+    Pattern::new("(;)"),
+    Pattern::new("\\b(true|false|max|[A-Z_]+)\\b"),
+    Pattern::new("\\b((0([Xx])\\h*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))(([Ee])([-+])?[0-9]+)?)\\b"),
+    Pattern::new("([\"'])(?:\\\\.|[^\\\\])*?\\1"),
+    Pattern::new("\\{"),
+    Pattern::new("}"),
+    Pattern::new("(\\w+)\\s*(:)"),
+    Pattern::new("(;)|,|(?=[/A-Z_a-z}])"),
+    Pattern::new("(message|extend)(\\s+)([A-Z_a-z][.0-9A-Z_a-z]*)(\\s*)(\\{)?"),
+    Pattern::new("(reserved)\\s+"),
+    Pattern::new("(\\d+)(\\s+(to)\\s+(\\d+))?"),
+    Pattern::new("(enum)(\\s+)([A-Za-z][0-9A-Z_a-z]*)(\\s*)(\\{)?"),
+    Pattern::new("([A-Za-z][0-9A-Z_a-z]*)\\s*(=)\\s*(-?0[Xx]\\h+|-?[0-9]+)"),
+    Pattern::new("\\["),
+    Pattern::new("]"),
+    Pattern::new("(\\w+|\\(\\w+(\\.\\w+)*\\))(\\.\\w+)*"),
+    Pattern::new("(oneof)\\s+([A-Za-z][0-9A-Z_a-z]*)\\s*\\{?"),
+    Pattern::new(
         "\\s*(optional|repeated|required)?\\s*(\\.?[.\\w]+)\\s+(\\w+)\\s*(=)\\s*(0[Xx]\\h+|[0-9]+)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "\\s*(map)\\s*(<)\\s*(\\.?[.\\w]+)\\s*,\\s*(\\.?[.\\w]+)\\s*(>)\\s+(\\w+)\\s*(=)\\s*(\\d+)",
     ),
-    PatternSlot::new("(service)\\s+([A-Za-z][.0-9A-Z_a-z]*)\\s*\\{?"),
-    PatternSlot::new("(rpc)\\s+([A-Za-z][0-9A-Z_a-z]*)"),
-    PatternSlot::new("}|(;)"),
-    PatternSlot::new("\\b(stream|returns)\\b"),
-    PatternSlot::new("\\.?[A-Za-z][.0-9A-Z_a-z]*"),
+    Pattern::new("(service)\\s+([A-Za-z][.0-9A-Z_a-z]*)\\s*\\{?"),
+    Pattern::new("(rpc)\\s+([A-Za-z][0-9A-Z_a-z]*)"),
+    Pattern::new("}|(;)"),
+    Pattern::new("\\b(stream|returns)\\b"),
+    Pattern::new("\\.?[A-Za-z][.0-9A-Z_a-z]*"),
 ];
 
 static LISTS: [List; 13] = [
@@ -778,4 +778,5 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     injections: INJECTIONS,
     patterns: &PATTERNS,
     root: 0,
+    cells: OnceLock::new(),
 };

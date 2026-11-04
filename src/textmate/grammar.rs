@@ -3,6 +3,15 @@
 //!
 //! Nothing is parsed at run time. A pattern's text is compiled to a regular
 //! expression the first time a search needs it.
+//!
+//! The tables keep what never changes apart from what a search fills in: a
+//! pattern's text and a list's rules are read-only data, while the compiled
+//! patterns and the lists' scanners sit in cells. Each grammar allocates its
+//! cells once per process, on first use.
+//!
+//! The blocks are on the heap, not in static arrays, because an empty
+//! `OnceLock` is not all-zero bytes: `std`'s `Once` starts at a non-zero
+//! state, so a static array of cells would sit in the shipped file's data.
 
 use std::sync::OnceLock;
 
@@ -70,30 +79,27 @@ pub(crate) struct Rule {
     pub(crate) apply_end_last: bool,
 }
 
-/// An ordered list of rules that can start at one place, and the scanner
-/// that finds the next of them in a line.
+/// An ordered list of rules that can start at one place. Its scanner, which
+/// finds the next of them in a line, is kept in [`Cells::scanners`].
 #[derive(Debug)]
 pub(crate) struct List {
     /// The rules, in the order of the grammar.
     pub(crate) rules: &'static [usize],
-    scanner: OnceLock<Scanner>,
 }
 
 impl List {
     /// A list of `rules`.
     pub(crate) const fn new(rules: &'static [usize]) -> List {
-        List {
-            rules,
-            scanner: OnceLock::new(),
-        }
-    }
-
-    /// The list's scanner, built when first needed.
-    pub(crate) fn scanner(&self, grammar: &Grammar) -> &Scanner {
-        self.scanner
-            .get_or_init(|| Scanner::build(grammar, self.rules))
+        List { rules }
     }
 }
+
+/// Where a pattern's compiled form is kept once a search needs it: `None`
+/// inside for text the engine cannot compile, which never matches.
+pub(crate) type RegexCell = OnceLock<Option<Regex>>;
+
+/// Where a list's scanner is kept once a search needs it.
+pub(crate) type ScannerCell = OnceLock<Scanner>;
 
 /// Rules that apply wherever a scope selector matches the scopes at the
 /// cursor, besides the rules of the open rule.
@@ -122,32 +128,22 @@ const fn has_backrefs(source: &str) -> bool {
     false
 }
 
-/// A pattern's text and, once a search needs it, its compiled form.
+/// A pattern's text. Its compiled form is kept in [`Cells::regexes`].
 #[derive(Debug)]
-pub(crate) struct PatternSlot {
+pub(crate) struct Pattern {
     /// The pattern as the grammar spells it.
     pub(crate) source: &'static str,
     /// Whether it holds `\1`..`\9`, so an `end` pattern is built per match.
     pub(crate) backrefs: bool,
-    regex: OnceLock<Option<Regex>>,
 }
 
-impl PatternSlot {
-    /// A slot for `source`.
-    pub(crate) const fn new(source: &'static str) -> PatternSlot {
-        PatternSlot {
+impl Pattern {
+    /// The pattern `source`.
+    pub(crate) const fn new(source: &'static str) -> Pattern {
+        Pattern {
             source,
             backrefs: has_backrefs(source),
-            regex: OnceLock::new(),
         }
-    }
-
-    /// The compiled pattern, or `None` for text the engine cannot compile,
-    /// which never matches.
-    pub(crate) fn regex(&self) -> Option<&Regex> {
-        self.regex
-            .get_or_init(|| Regex::for_grammar(self.source).ok())
-            .as_ref()
     }
 }
 
@@ -165,7 +161,59 @@ pub(crate) struct Grammar {
     /// The grammar's injections.
     pub(crate) injections: &'static [Injection],
     /// The patterns.
-    pub(crate) patterns: &'static [PatternSlot],
+    pub(crate) patterns: &'static [Pattern],
     /// The rule of the whole grammar.
     pub(crate) root: usize,
+    /// The cells a search fills: see [`Grammar::cells`].
+    pub(crate) cells: OnceLock<Cells>,
+}
+
+/// The cells of a grammar that searches fill.
+#[derive(Debug)]
+pub(crate) struct Cells {
+    /// The grammar whose cells these are, read only to fill a cell.
+    pub(crate) grammar: &'static Grammar,
+    /// The cell of each pattern's compiled form, by the pattern's index.
+    pub(crate) regexes: Box<[RegexCell]>,
+    /// The cell of each list's scanner, by the list's index.
+    pub(crate) scanners: Box<[ScannerCell]>,
+}
+
+impl Grammar {
+    /// The grammar's cells, allocated on first use.
+    pub(crate) fn cells(&'static self) -> &'static Cells {
+        self.cells.get_or_init(move || Cells {
+            grammar: self,
+            regexes: self.patterns.iter().map(|_| RegexCell::new()).collect(),
+            scanners: self.lists.iter().map(|_| ScannerCell::new()).collect(),
+        })
+    }
+}
+
+impl Cells {
+    /// The compiled pattern at `index`, compiled on first use, or `None` for
+    /// text the engine cannot compile, which never matches.
+    #[inline]
+    pub(crate) fn regex(&self, index: usize) -> Option<&Regex> {
+        self.regexes
+            .get(index)?
+            .get_or_init(move || {
+                self.grammar
+                    .patterns
+                    .get(index)
+                    .and_then(|pattern| Regex::for_grammar(pattern.source).ok())
+            })
+            .as_ref()
+    }
+
+    /// The scanner of the list at `index`, built on first use, or `None`
+    /// when the grammar has no list there.
+    pub(crate) fn scanner(&self, index: usize) -> Option<&Scanner> {
+        let rules = self.grammar.lists.get(index)?.rules;
+        Some(
+            self.scanners
+                .get(index)?
+                .get_or_init(move || Scanner::build(self, rules)),
+        )
+    }
 }

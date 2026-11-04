@@ -2,7 +2,9 @@
 //! `oracle/engine-tables.ts`. Do not edit: regenerate with `bun
 //! oracle/engine-tables.ts`.
 
-use crate::textmate::grammar::{Cap, Grammar, Injection, List, PatternSlot, Rule, RuleKind};
+use std::sync::OnceLock;
+
+use crate::textmate::grammar::{Cap, Grammar, Injection, List, Pattern, Rule, RuleKind};
 
 static NAMES: &[&str] = &[
     "block.liquidhaskell.haskell",
@@ -147,262 +149,256 @@ static NAMES: &[&str] = &[
     "variable.other.member.haskell",
 ];
 
-static PATTERNS: [PatternSlot; 157] = [
-    PatternSlot::new("\\{-@"),
-    PatternSlot::new("@-}"),
-    PatternSlot::new("^(#).*$"),
-    PatternSlot::new("\\{-#"),
-    PatternSlot::new("#-}"),
-    PatternSlot::new("(?i)\\b(?<!')(LANGUAGE)\\b(?!')"),
-    PatternSlot::new("(?=#-})"),
-    PatternSlot::new(
+static PATTERNS: [Pattern; 157] = [
+    Pattern::new("\\{-@"),
+    Pattern::new("@-}"),
+    Pattern::new("^(#).*$"),
+    Pattern::new("\\{-#"),
+    Pattern::new("#-}"),
+    Pattern::new("(?i)\\b(?<!')(LANGUAGE)\\b(?!')"),
+    Pattern::new("(?=#-})"),
+    Pattern::new(
         "(?:No)?(?:AutoDeriveTypeable|DatatypeContexts|DoRec|IncoherentInstances|MonadFailDesugaring|MonoPatBinds|NullaryTypeClasses|OverlappingInstances|PatternSignatures|RecordPuns|RelaxedPolyRec)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "((?:No)?(?:AllowAmbiguousTypes|AlternativeLayoutRule|AlternativeLayoutRuleTransitional|Arrows|BangPatterns|BinaryLiterals|CApiFFI|CPP|CUSKs|ConstrainedClassMethods|ConstraintKinds|DataKinds|DefaultSignatures|DeriveAnyClass|DeriveDataTypeable|DeriveFoldable|DeriveFunctor|DeriveGeneric|DeriveLift|DeriveTraversable|DerivingStrategies|DerivingVia|DisambiguateRecordFields|DoAndIfThenElse|BlockArguments|DuplicateRecordFields|EmptyCase|EmptyDataDecls|EmptyDataDeriving|ExistentialQuantification|ExplicitForAll|ExplicitNamespaces|ExtendedDefaultRules|FlexibleContexts|FlexibleInstances|ForeignFunctionInterface|FunctionalDependencies|GADTSyntax|GADTs|GHCForeignImportPrim|Generali[sz]edNewtypeDeriving|ImplicitParams|ImplicitPrelude|ImportQualifiedPost|ImpredicativeTypes|TypeFamilyDependencies|InstanceSigs|ApplicativeDo|InterruptibleFFI|JavaScriptFFI|KindSignatures|LambdaCase|LiberalTypeSynonyms|MagicHash|MonadComprehensions|MonoLocalBinds|MonomorphismRestriction|MultiParamTypeClasses|MultiWayIf|NumericUnderscores|NPlusKPatterns|NamedFieldPuns|NamedWildCards|NegativeLiterals|HexFloatLiterals|NondecreasingIndentation|NumDecimals|OverloadedLabels|OverloadedLists|OverloadedStrings|PackageImports|ParallelArrays|ParallelListComp|PartialTypeSignatures|PatternGuards|PatternSynonyms|PolyKinds|PolymorphicComponents|QuantifiedConstraints|PostfixOperators|QuasiQuotes|Rank2Types|RankNTypes|RebindableSyntax|RecordWildCards|RecursiveDo|RelaxedLayout|RoleAnnotations|ScopedTypeVariables|StandaloneDeriving|StarIsType|StaticPointers|Strict|StrictData|TemplateHaskell|TemplateHaskellQuotes|StandaloneKindSignatures|TraditionalRecordSyntax|TransformListComp|TupleSections|TypeApplications|TypeInType|TypeFamilies|TypeOperators|TypeSynonymInstances|UnboxedTuples|UnboxedSums|UndecidableInstances|UndecidableSuperClasses|UnicodeSyntax|UnliftedFFITypes|UnliftedNewtypes|ViewPatterns))",
     ),
-    PatternSlot::new(","),
-    PatternSlot::new(
-        "(?i)\\b(?<!')(SPECIALI[SZ]E)(?:\\s*(\\[[^]\\[]*])?\\s*|\\s+)(instance)\\b(?!')",
-    ),
-    PatternSlot::new("\\["),
-    PatternSlot::new("]"),
-    PatternSlot::new("~"),
-    PatternSlot::new(
+    Pattern::new(","),
+    Pattern::new("(?i)\\b(?<!')(SPECIALI[SZ]E)(?:\\s*(\\[[^]\\[]*])?\\s*|\\s+)(instance)\\b(?!')"),
+    Pattern::new("\\["),
+    Pattern::new("]"),
+    Pattern::new("~"),
+    Pattern::new(
         "\\b(?<!')(?:([0-9][0-9_]*)|(0[Xx]_*\\h[_\\h]*)|(0[Oo]_*[0-7][0-7_]*)|(0[Bb]_*[01][01_]*))\\b(?!')",
     ),
-    PatternSlot::new("\\w*"),
-    PatternSlot::new("(')?(\\()\\s*(\\))"),
-    PatternSlot::new("(\\()(#)\\s*(#)(\\))"),
-    PatternSlot::new("(')?(\\()\\s*,[,\\s]*(\\))"),
-    PatternSlot::new("(\\()(#)\\s*,[,\\s]*(#)(\\))"),
-    PatternSlot::new("(')?(\\[)\\s*(])"),
-    PatternSlot::new("(::|∷)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])"),
-    PatternSlot::new("\\b(?<!')(forall|∀)\\b(?!')"),
-    PatternSlot::new("(\\.)|(->|→)"),
-    PatternSlot::new(
-        "\\b(?<!')(?!(?:forall|deriving)\\b(?!'))[_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*",
-    ),
-    PatternSlot::new("=>|⇒"),
-    PatternSlot::new("\""),
-    PatternSlot::new(
+    Pattern::new("\\w*"),
+    Pattern::new("(')?(\\()\\s*(\\))"),
+    Pattern::new("(\\()(#)\\s*(#)(\\))"),
+    Pattern::new("(')?(\\()\\s*,[,\\s]*(\\))"),
+    Pattern::new("(\\()(#)\\s*,[,\\s]*(#)(\\))"),
+    Pattern::new("(')?(\\[)\\s*(])"),
+    Pattern::new("(::|∷)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])"),
+    Pattern::new("\\b(?<!')(forall|∀)\\b(?!')"),
+    Pattern::new("(\\.)|(->|→)"),
+    Pattern::new("\\b(?<!')(?!(?:forall|deriving)\\b(?!'))[_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*"),
+    Pattern::new("=>|⇒"),
+    Pattern::new("\""),
+    Pattern::new(
         "\\\\(NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE|DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS|US|SP|DEL|[\"\\&'\\\\abfnrtv])",
     ),
-    PatternSlot::new("\\\\(?:o[0-7]+|x\\h+|[0-9]+)"),
-    PatternSlot::new("\\\\\\^[@-_]"),
-    PatternSlot::new("\\\\\\s"),
-    PatternSlot::new("\\\\"),
-    PatternSlot::new("\\S+"),
-    PatternSlot::new("'[^']'"),
-    PatternSlot::new("(?<=[]\",;\\[{}\\s])(@)(')?(\\()"),
-    PatternSlot::new("\\)"),
-    PatternSlot::new("(?<=[]\",;\\[{}\\s])(@)(')?(\\[)"),
-    PatternSlot::new("(?<=[]\",;\\[{}\\s])(@)(?=\")"),
-    PatternSlot::new("(?<=\")"),
-    PatternSlot::new("(?<=[]\",;\\[{}\\s])(@)(?=['_\\p{Ll}\\p{Lu}\\p{Lt}\\d])"),
-    PatternSlot::new("(?!['_\\p{Ll}\\p{Lu}\\p{Lt}\\d])"),
-    PatternSlot::new(
+    Pattern::new("\\\\(?:o[0-7]+|x\\h+|[0-9]+)"),
+    Pattern::new("\\\\\\^[@-_]"),
+    Pattern::new("\\\\\\s"),
+    Pattern::new("\\\\"),
+    Pattern::new("\\S+"),
+    Pattern::new("'[^']'"),
+    Pattern::new("(?<=[]\",;\\[{}\\s])(@)(')?(\\()"),
+    Pattern::new("\\)"),
+    Pattern::new("(?<=[]\",;\\[{}\\s])(@)(')?(\\[)"),
+    Pattern::new("(?<=[]\",;\\[{}\\s])(@)(?=\")"),
+    Pattern::new("(?<=\")"),
+    Pattern::new("(?<=[]\",;\\[{}\\s])(@)(?=['_\\p{Ll}\\p{Lu}\\p{Lt}\\d])"),
+    Pattern::new("(?!['_\\p{Ll}\\p{Lu}\\p{Lt}\\d])"),
+    Pattern::new(
         "(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:(\\.\\.)|(:)|(=)|(\\\\)|(\\|)|(<-|←)|(->|→)|(-<|↢)|(-<<|⤛)|(>-|⤚)|(>>-|⤜)|(∀))(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<=[[_\\p{Ll}\\p{Lu}\\p{Lt}\\d\\p{S}\\p{P}]&&[^#,;\\[`{]])(#+)(?![[_\\p{Ll}\\p{Lu}\\p{Lt}\\d\\p{S}\\p{P}]&&[^]),;`}]])",
     ),
-    PatternSlot::new("(?<=[])_}\\p{Ll}\\p{Lu}\\p{Lt}\\d])(@)(?=[(\\[_{\\p{Ll}\\p{Lu}\\p{Lt}\\d])"),
-    PatternSlot::new(
+    Pattern::new("(?<=[])_}\\p{Ll}\\p{Lu}\\p{Lt}\\d])(@)(?=[(\\[_{\\p{Ll}\\p{Lu}\\p{Lt}\\d])"),
+    Pattern::new(
         "(?<![[_\\p{Ll}\\p{Lu}\\p{Lt}\\d\\p{S}\\p{P}]&&[^(,;\\[`{]])(?:(~)|(!)|(-)|(\\$)|(\\$\\$))(?=[(\\[_{\\p{Ll}\\p{Lu}\\p{Lt}\\d])",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?:(?<!')('))?((?:\\b[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)(?![#@]?-})(#+|[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+(?<!#))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(')?(`)((?:[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)([\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)(`)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(')?((?:\\b[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)\\b([\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(')?(\\()\\s*((?:[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)([[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+)\\s*(\\))",
     ),
-    PatternSlot::new("(\\()(#)"),
-    PatternSlot::new("(#)(\\))"),
-    PatternSlot::new("(')?(\\()"),
-    PatternSlot::new("(\\))"),
-    PatternSlot::new("(')?(\\[)"),
-    PatternSlot::new("(])"),
-    PatternSlot::new(
+    Pattern::new("(\\()(#)"),
+    Pattern::new("(#)(\\))"),
+    Pattern::new("(')?(\\()"),
+    Pattern::new("(\\))"),
+    Pattern::new("(')?(\\[)"),
+    Pattern::new("(])"),
+    Pattern::new(
         "(?i)\\b(?<!')(SPECIALI[SZ]E)\\b(?!')(?:\\s+(INLINE)\\b(?!'))?\\s*(\\[[^]\\[]*])?\\s*",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?i)\\b(?<!')(LANGUAGE|OPTIONS_GHC|INCLUDE|MINIMAL|UNPACK|OVERLAPS|INCOHERENT|NOUNPACK|SOURCE|OVERLAPPING|OVERLAPPABLE|INLINE|NOINLINE|INLINE?ABLE|CONLIKE|LINE|COLUMN|RULES|COMPLETE)\\b(?!')",
     ),
-    PatternSlot::new("(?i)\\b(DEPRECATED|WARNING)\\b"),
-    PatternSlot::new("^(\\s*)(--\\s[$|])"),
-    PatternSlot::new("(?=^(?!\\1--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])))"),
-    PatternSlot::new("(^[\\t ]+)?(--\\s[*^])"),
-    PatternSlot::new("\\n"),
-    PatternSlot::new("\\{-\\s?[$*^|]"),
-    PatternSlot::new("-}"),
-    PatternSlot::new("\\{-"),
-    PatternSlot::new("(^[\\t ]+)?(?=--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]))"),
-    PatternSlot::new("(?!\\G)"),
-    PatternSlot::new("--"),
-    PatternSlot::new(
+    Pattern::new("(?i)\\b(DEPRECATED|WARNING)\\b"),
+    Pattern::new("^(\\s*)(--\\s[$|])"),
+    Pattern::new("(?=^(?!\\1--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])))"),
+    Pattern::new("(^[\\t ]+)?(--\\s[*^])"),
+    Pattern::new("\\n"),
+    Pattern::new("\\{-\\s?[$*^|]"),
+    Pattern::new("-}"),
+    Pattern::new("\\{-"),
+    Pattern::new("(^[\\t ]+)?(?=--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]))"),
+    Pattern::new("(?!\\G)"),
+    Pattern::new("--"),
+    Pattern::new(
         "\\b(?<!')(?:([0-9][0-9_]*\\.[0-9][0-9_]*(?:[Ee][-+]?[0-9][0-9_]*)?|[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*)|(0(?:[Xx]_*\\h[_\\h]*\\.\\h[_\\h]*(?:[Pp][-+]?[0-9][0-9_]*)?|[Xx]_*\\h[_\\h]*[Pp][-+]?[0-9][0-9_]*)))\\b(?!')",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<!['_\\p{Ll}\\p{Lu}\\p{Lt}\\d])(')(?:[ -\\[\\]-~]|(\\\\(?:NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE|DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS|US|SP|DEL|[\"\\&'\\\\abfnrtv]))|(\\\\o[0-7]+)|(\\\\x\\h+)|(\\\\\\^[@-_]))(')",
     ),
-    PatternSlot::new("(?<![#@])-}"),
-    PatternSlot::new("(\\()\\s*(\\))"),
-    PatternSlot::new("(\\()\\s*,[,\\s]*(\\))"),
-    PatternSlot::new("(\\[)\\s*(])"),
-    PatternSlot::new("(\\b(?<!')(module)|^(signature))\\b((?!'))"),
-    PatternSlot::new("(?=\\b(?<!')where\\b(?!'))"),
-    PatternSlot::new("(?<conid>[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*(\\.\\g<conid>)?)"),
-    PatternSlot::new("\\("),
-    PatternSlot::new("\\b(?<!')(module)\\b(?!')"),
-    PatternSlot::new("\\b(?<!')(pattern)\\b(?!')"),
-    PatternSlot::new(
+    Pattern::new("(?<![#@])-}"),
+    Pattern::new("(\\()\\s*(\\))"),
+    Pattern::new("(\\()\\s*,[,\\s]*(\\))"),
+    Pattern::new("(\\[)\\s*(])"),
+    Pattern::new("(\\b(?<!')(module)|^(signature))\\b((?!'))"),
+    Pattern::new("(?=\\b(?<!')where\\b(?!'))"),
+    Pattern::new("(?<conid>[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*(\\.\\g<conid>)?)"),
+    Pattern::new("\\("),
+    Pattern::new("\\b(?<!')(module)\\b(?!')"),
+    Pattern::new("\\b(?<!')(pattern)\\b(?!')"),
+    Pattern::new(
         "([\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)|(\\()\\s*(:[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+)\\s*(\\))",
     ),
-    PatternSlot::new("\\b(?<!')(type)\\b(?!')"),
-    PatternSlot::new(
+    Pattern::new("\\b(?<!')(type)\\b(?!')"),
+    Pattern::new(
         "([\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)|(\\()\\s*([[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+)\\s*(\\))",
     ),
-    PatternSlot::new("(?<!')\\b[_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*"),
-    PatternSlot::new("(?<!')\\b[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*"),
-    PatternSlot::new(
+    Pattern::new("(?<!')\\b[_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*"),
+    Pattern::new("(?<!')\\b[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*"),
+    Pattern::new(
         "(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(\\.\\.)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(\\()\\s*(?!(?:--+|\\.\\.)\\))(#+|[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+(?<!#))\\s*(\\))",
     ),
-    PatternSlot::new("[a-z]+"),
-    PatternSlot::new("^(\\s*)(foreign)\\s+((?:im|ex)port)\\s+"),
-    PatternSlot::new(
+    Pattern::new("[a-z]+"),
+    Pattern::new("^(\\s*)(foreign)\\s+((?:im|ex)port)\\s+"),
+    Pattern::new(
         "(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))",
     ),
-    PatternSlot::new("\\b(?<!')(ccall|cplusplus|dotnet|jvm|stdcall|prim|capi)\\s+"),
-    PatternSlot::new("(?=\")|(?=\\b(?<!')([_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)\\b(?!'))"),
-    PatternSlot::new("(?=(::|∷)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]))"),
-    PatternSlot::new(
+    Pattern::new("\\b(?<!')(ccall|cplusplus|dotnet|jvm|stdcall|prim|capi)\\s+"),
+    Pattern::new("(?=\")|(?=\\b(?<!')([_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)\\b(?!'))"),
+    Pattern::new("(?=(::|∷)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]))"),
+    Pattern::new(
         "\\b(?<!')(safe|unsafe|interruptible)\\b(?!')\\s*(\"(?:\\\\\"|[^\"])*\")?\\s*(?:\\b(?<!'')([_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)\\b(?!')|\\(\\s*(?!--+\\))([[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+)\\s*\\))",
     ),
-    PatternSlot::new(
-        "\\b(?<!')(safe|unsafe|interruptible)\\b(?!')\\s*(\"(?:\\\\\"|[^\"])*\")?\\s*$",
-    ),
-    PatternSlot::new("\"(?:\\\\\"|[^\"])*\""),
-    PatternSlot::new(
+    Pattern::new("\\b(?<!')(safe|unsafe|interruptible)\\b(?!')\\s*(\"(?:\\\\\"|[^\"])*\")?\\s*$"),
+    Pattern::new("\"(?:\\\\\"|[^\"])*\""),
+    Pattern::new(
         "\\b(?<!'')([_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)\\b(?!')|(\\()\\s*(?!--+\\))([[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+)\\s*(\\))",
     ),
-    PatternSlot::new("\\s*(::|∷)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])\\s*"),
-    PatternSlot::new("^(\\s*)(class)\\b((?!'))"),
-    PatternSlot::new(
+    Pattern::new("\\s*(::|∷)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])\\s*"),
+    Pattern::new("^(\\s*)(class)\\b((?!'))"),
+    Pattern::new(
         "(?=(?<!')\\bwhere\\b(?!'))|(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))",
     ),
-    PatternSlot::new("(?<!')\\b(where)\\s*(\\{)(?!-)"),
-    PatternSlot::new("(})"),
-    PatternSlot::new(";"),
-    PatternSlot::new("\\b(?<!')(where)\\b(?!')"),
-    PatternSlot::new(
+    Pattern::new("(?<!')\\b(where)\\s*(\\{)(?!-)"),
+    Pattern::new("(})"),
+    Pattern::new(";"),
+    Pattern::new("\\b(?<!')(where)\\b(?!')"),
+    Pattern::new(
         "^(\\s*)(data|newtype)(?:\\s+(instance))?\\s+((?:(?!(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:=|--+)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])|\\b(?<!')(?:where|deriving)\\b(?!')|\\{-).)*)(?=\\b(?<!'')where\\b(?!''))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=(?<!')\\bderiving\\b(?!'))|(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "^(\\s*)(?:\\b((?<!')[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)|(\\()\\s*(:[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]*)\\s*(\\)))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=\\b(?<!'')deriving\\b(?!'))|(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))",
     ),
-    PatternSlot::new("^(\\s*)(deriving)\\s+(?:(via|stock|newtype|anyclass)\\s+)?"),
-    PatternSlot::new("(?<!')\\b(instance)\\b(?!')"),
-    PatternSlot::new("(?<!')\\b(via|stock|newtype|anyclass)\\b(?!')"),
-    PatternSlot::new("(deriving)(?:\\s+(stock|newtype|anyclass))?\\s*(\\()"),
-    PatternSlot::new(
+    Pattern::new("^(\\s*)(deriving)\\s+(?:(via|stock|newtype|anyclass)\\s+)?"),
+    Pattern::new("(?<!')\\b(instance)\\b(?!')"),
+    Pattern::new("(?<!')\\b(via|stock|newtype|anyclass)\\b(?!')"),
+    Pattern::new("(deriving)(?:\\s+(stock|newtype|anyclass))?\\s*(\\()"),
+    Pattern::new(
         "(deriving)(?:\\s+(stock|newtype|anyclass))?\\s+([\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)(\\s+(via)\\s+(.*)$)?",
     ),
-    PatternSlot::new("(?<!')\\b(via)\\b(?!')"),
-    PatternSlot::new("(\\{)(?!-)"),
-    PatternSlot::new("(?<!-)(})"),
-    PatternSlot::new(
+    Pattern::new("(?<!')\\b(via)\\b(?!')"),
+    Pattern::new("(\\{)(?!-)"),
+    Pattern::new("(?<!-)(})"),
+    Pattern::new(
         "([_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)|(\\()\\s*([[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+)\\s*(\\))",
     ),
-    PatternSlot::new("(,)|(?=})"),
-    PatternSlot::new(
+    Pattern::new("(,)|(?=})"),
+    Pattern::new(
         "\\b((?<!')[\\p{Lu}\\p{Lt}][_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)|(\\()\\s*(:[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]*)\\s*(\\))",
     ),
-    PatternSlot::new("$"),
-    PatternSlot::new("^(\\s*)(type)\\s+(role)\\b(?!')"),
-    PatternSlot::new("\\b(?<!')(nominal|representational|phantom)\\b(?!')"),
-    PatternSlot::new("^(\\s*)(pattern)\\s+(.*?)\\s+(::|∷)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])"),
-    PatternSlot::new("\\b(?<!')[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*(?!['.\\w])"),
-    PatternSlot::new("^\\s*(pattern)\\b(?!')"),
-    PatternSlot::new(
+    Pattern::new("$"),
+    Pattern::new("^(\\s*)(type)\\s+(role)\\b(?!')"),
+    Pattern::new("\\b(?<!')(nominal|representational|phantom)\\b(?!')"),
+    Pattern::new("^(\\s*)(pattern)\\s+(.*?)\\s+(::|∷)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])"),
+    Pattern::new("\\b(?<!')[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*(?!['.\\w])"),
+    Pattern::new("^\\s*(pattern)\\b(?!')"),
+    Pattern::new(
         "^(\\s*)(data|newtype)(?:\\s+(family|instance))?\\s+(((?!(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:=|--+)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])|\\b(?<!')(?:where|deriving)\\b(?!')|\\{-).)*)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:(=)|(\\|))(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?:\\G|^)\\s*(?:(?<!')\\b(['._\\p{Ll}\\p{Lu}\\p{Lt}\\d]+)|('?(?<paren>\\((?:[^()]?|\\g<paren>)*\\)))|('?(?<brac>\\((?:[^]\\[]?|\\g<brac>)*])))\\s*(?:(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(:[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]*)|(`)([\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)(`))|(?<!')\\b([\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)|(\\()\\s*(:[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]*)\\s*(\\))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(.*)(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(=>|⇒)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "^(\\s*)(type)\\s+(family)\\b(?!')(((?!(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:=|--+)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])|\\b(?<!')where\\b(?!')|\\{-).)*)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "^(\\s*)(type)(?:\\s+(instance))?\\s+(((?!(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:=|--+|::|∷)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])|\\{-).)*)",
     ),
-    PatternSlot::new("^(\\s*)(instance)\\b((?!'))"),
-    PatternSlot::new(
+    Pattern::new("^(\\s*)(instance)\\b((?!'))"),
+    Pattern::new(
         "(?=\\b(?<!')(where)\\b(?!'))|(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))",
     ),
-    PatternSlot::new("^(\\s*)(import)\\b((?!'))"),
-    PatternSlot::new("(qualified|as|hiding)"),
-    PatternSlot::new("(?<!')\\b(?:(where|let|m?do)|(of))\\s*(\\{)(?!-)"),
-    PatternSlot::new(
+    Pattern::new("^(\\s*)(import)\\b((?!'))"),
+    Pattern::new("(qualified|as|hiding)"),
+    Pattern::new("(?<!')\\b(?:(where|let|m?do)|(of))\\s*(\\{)(?!-)"),
+    Pattern::new(
         "\\b(?<!')(?:(where|let|in|default)|(m?do|if|then|else|case|of|proc|rec))\\b(?!')",
     ),
-    PatternSlot::new("^\\s*(infix[lr]?)\\s+(.*)"),
-    PatternSlot::new(
+    Pattern::new("^\\s*(infix[lr]?)\\s+(.*)"),
+    Pattern::new(
         "((?:(?<!'')('')?[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)(#+|[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+(?<!#))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(`)((?:[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)([_\\p{Ll}\\p{Lu}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)(`)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![[_\\p{Ll}\\p{Lu}\\p{Lt}\\d\\p{S}\\p{P}]&&[^(,;\\[`{]])(#)(?:(\"(?:\\\\\"|[^\"])*\")|['._\\p{Ll}\\p{Lu}\\p{Lt}\\d]+)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "^(\\s*)(?<fn>(?:[_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*#*|\\(\\s*(?!--+\\))[[\\p{S}\\p{P}]&&[^]\"'(),:;\\[_`{}]][[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]*\\s*\\))(?:\\s*,\\s*\\g<fn>)?)\\s*(?<![[\\p{S}\\p{P}]&&[^]\"'),;_`}]])(::|∷)(?![[\\p{S}\\p{P}]&&[^\"'(,;\\[_`{]])",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])((<-|←)|(=)|(-<|↢)|(-<<|⤛))([]\"'(),;\\[_`{}[^\\p{S}\\p{P}]]))|(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))",
     ),
-    PatternSlot::new("\\b(?<!')[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\."),
-    PatternSlot::new("^(\\s*)(::|∷)(?![[\\p{S}\\p{P}]&&[^\"'(,;\\[_`{]])\\s*"),
-    PatternSlot::new(
+    Pattern::new("\\b(?<!')[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\."),
+    Pattern::new("^(\\s*)(::|∷)(?![[\\p{S}\\p{P}]&&[^\"'(,;\\[_`{]])\\s*"),
+    Pattern::new(
         "(?=#?\\)|[],]|(?<!')\\b(in|then|else|of)\\b(?!')|(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:([\\\\λ])|(<-|←)|(=)|(-<|↢)|(-<<|⤛))([]\"'(),;\\[_`{}[^\\p{S}\\p{P}]])|([#@])-}|(?=[;}])|^(?!\\1\\s*\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$)))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![[\\p{S}\\p{P}]&&[^\"'(,;\\[_`{]])(::|∷)(?![[\\p{S}\\p{P}]&&[^\"'(,;\\[_`{]])",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=#?\\)|[],]|\\b(?<!')(in|then|else|of)\\b(?!')|([#@])-}|(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:([\\\\λ])|(<-|←)|(=)|(-<|↢)|(-<<|⤛))([]\"'(),;\\[_`{}[^\\p{S}\\p{P}]])|(?=[;}])|$)",
     ),
-    PatternSlot::new("(\\()(#)\\s"),
-    PatternSlot::new("(\\()"),
-    PatternSlot::new("(\\[)([dep])?(\\|\\|?)"),
-    PatternSlot::new("\\3]"),
-    PatternSlot::new("(\\[)(t)(\\|\\|?)"),
-    PatternSlot::new("(\\[)(?:(\\$\\$)|(\\$))?(['._[^\\s\\p{S}\\p{P}]]*)(\\|\\|?)"),
-    PatternSlot::new("\\5]"),
-    PatternSlot::new("(\\[)"),
-    PatternSlot::new(
+    Pattern::new("(\\()(#)\\s"),
+    Pattern::new("(\\()"),
+    Pattern::new("(\\[)([dep])?(\\|\\|?)"),
+    Pattern::new("\\3]"),
+    Pattern::new("(\\[)(t)(\\|\\|?)"),
+    Pattern::new("(\\[)(?:(\\$\\$)|(\\$))?(['._[^\\s\\p{S}\\p{P}]]*)(\\|\\|?)"),
+    Pattern::new("\\5]"),
+    Pattern::new("(\\[)"),
+    Pattern::new(
         "([_\\p{Ll}\\p{Lu}]['._\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)|(\\()\\s*([[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+)\\s*(\\))",
     ),
 ];
@@ -4354,4 +4350,5 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     injections: INJECTIONS,
     patterns: &PATTERNS,
     root: 0,
+    cells: OnceLock::new(),
 };

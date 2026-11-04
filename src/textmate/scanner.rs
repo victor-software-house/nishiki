@@ -13,12 +13,14 @@ use std::sync::Mutex;
 use regex_automata::meta::{self, Cache};
 use regex_automata::{Input, MatchKind};
 
-use super::grammar::Grammar;
+use super::grammar::Cells;
 use super::regex::Regex;
 
 /// What the automaton covers of one list of rules.
 #[derive(Debug)]
 pub(crate) struct Scanner {
+    /// The list's rules, in the order of the grammar.
+    pub(crate) rules: &'static [usize],
     meta: Option<meta::Regex>,
     /// The position in the list of each pattern of the automaton.
     set: Vec<usize>,
@@ -49,20 +51,21 @@ fn compile(sources: &[&str]) -> Result<meta::Regex, Box<meta::BuildError>> {
 }
 
 impl Scanner {
-    /// The scanner of the rules `list` of `grammar`.
+    /// The scanner of the list `rules` of the grammar of `cells`, from the
+    /// patterns in them.
     ///
     /// A pattern the engine cannot compile never matches, so it is left out;
     /// when the automaton refuses the patterns together, each is tried alone
     /// and the ones it refuses are searched alone.
-    pub(crate) fn build(grammar: &Grammar, list: &[usize]) -> Scanner {
+    pub(crate) fn build(cells: &Cells, rules: &'static [usize]) -> Scanner {
         let mut widened: Vec<(usize, &str, &Regex)> = Vec::new();
         let mut residual = Vec::new();
-        for (position, &rule) in list.iter().enumerate() {
-            let regex = grammar
+        for (position, &rule) in rules.iter().enumerate() {
+            let regex = cells
+                .grammar
                 .rules
                 .get(rule)
-                .and_then(|rule| grammar.patterns.get(rule.begin))
-                .and_then(|slot| slot.regex());
+                .and_then(|rule| cells.regex(rule.begin));
             let Some(regex) = regex else { continue };
             match regex.relaxed() {
                 Some(source) => widened.push((position, source, regex)),
@@ -98,6 +101,7 @@ impl Scanner {
             })
             .collect();
         Scanner {
+            rules,
             meta,
             set: widened.iter().map(|w| w.0).collect(),
             residual,

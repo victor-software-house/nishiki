@@ -493,10 +493,12 @@ fn work_per_line() {
 /// may.
 #[cfg(feature = "json")]
 mod survey {
+    use std::sync::OnceLock;
+
     use serde_json::Value;
 
     use super::{Grammar, Scanners, fixtures_in, parse, run};
-    use crate::textmate::grammar::{Cap, Injection, List, PatternSlot, Rule, RuleKind};
+    use crate::textmate::grammar::{Cap, Injection, List, Pattern, Rule, RuleKind};
 
     fn leak<T>(items: Vec<T>) -> &'static [T] {
         Box::leak(items.into_boxed_slice())
@@ -574,17 +576,17 @@ mod survey {
                 apply_end_last: r["applyEndLast"].as_bool().unwrap_or(false),
             })
             .collect();
-        let lists = v["lists"]
+        let lists: Vec<List> = v["lists"]
             .as_array()
             .unwrap()
             .iter()
             .map(|l| List::new(leak(numbers(l))))
             .collect();
-        let patterns = v["patterns"]
+        let patterns: Vec<Pattern> = v["patterns"]
             .as_array()
             .unwrap()
             .iter()
-            .map(|p| PatternSlot::new(text(&p["source"])))
+            .map(|p| Pattern::new(text(&p["source"])))
             .collect();
         let injections = v["injections"]
             .as_array()
@@ -607,6 +609,7 @@ mod survey {
             injections: leak(injections),
             patterns: leak(patterns),
             root: index(&v["root"]),
+            cells: OnceLock::new(),
         }))
     }
 
@@ -681,9 +684,11 @@ fn fixtures_in(dir: &Path) -> Vec<PathBuf> {
 /// A grammar of one rule that names its forty-second group, as C++'s
 /// function definitions name a group far into their pattern.
 mod many_groups {
-    use super::super::grammar::{Cap, Grammar, List, PatternSlot, Rule, RuleKind};
+    use std::sync::OnceLock;
 
-    static PATTERNS: [PatternSlot; 1] = [PatternSlot::new(
+    use super::super::grammar::{Cap, Grammar, List, Pattern, Rule, RuleKind};
+
+    static PATTERNS: [Pattern; 1] = [Pattern::new(
         "()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()(x)",
     )];
     static LISTS: [List; 2] = [List::new(&[1]), List::new(&[])];
@@ -726,6 +731,7 @@ mod many_groups {
         injections: &[],
         patterns: &PATTERNS,
         root: 0,
+        cells: OnceLock::new(),
     };
 }
 

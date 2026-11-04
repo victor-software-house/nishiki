@@ -2,7 +2,9 @@
 //! `oracle/engine-tables.ts`. Do not edit: regenerate with `bun
 //! oracle/engine-tables.ts`.
 
-use crate::textmate::grammar::{Cap, Grammar, Injection, List, PatternSlot, Rule, RuleKind};
+use std::sync::OnceLock;
+
+use crate::textmate::grammar::{Cap, Grammar, Injection, List, Pattern, Rule, RuleKind};
 
 static NAMES: &[&str] = &[
     "punctuation.whitespace.comment.leading.makefile",
@@ -33,68 +35,68 @@ static NAMES: &[&str] = &[
     "meta.scope.prerequisites.makefile",
 ];
 
-static PATTERNS: [PatternSlot; 51] = [
-    PatternSlot::new("(^ +)?((?<!\\\\)(\\\\\\\\)*)(?=#)"),
-    PatternSlot::new("(?!\\G)"),
-    PatternSlot::new("#"),
-    PatternSlot::new("(?=[^\\\\])$"),
-    PatternSlot::new("\\\\\\n"),
-    PatternSlot::new("\\$[^(){}]"),
-    PatternSlot::new("\\$\\("),
-    PatternSlot::new("\\)|((?<!\\\\)\\n)"),
-    PatternSlot::new(
+static PATTERNS: [Pattern; 51] = [
+    Pattern::new("(^ +)?((?<!\\\\)(\\\\\\\\)*)(?=#)"),
+    Pattern::new("(?!\\G)"),
+    Pattern::new("#"),
+    Pattern::new("(?=[^\\\\])$"),
+    Pattern::new("\\\\\\n"),
+    Pattern::new("\\$[^(){}]"),
+    Pattern::new("\\$\\("),
+    Pattern::new("\\)|((?<!\\\\)\\n)"),
+    Pattern::new(
         "(?<=\\()(MAKEFILES|VPATH|SHELL|MAKESHELL|MAKE|MAKELEVEL|MAKEFLAGS|MAKECMDGOALS|CURDIR|SUFFIXES|\\.LIBPATTERNS)(?=\\s*\\))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<=\\()(subst|patsubst|strip|findstring|filter(-out)?|sort|word(list)?|firstword|lastword|dir|notdir|suffix|basename|addsuffix|addprefix|join|wildcard|realpath|abspath|info|error|warning|shell|foreach|if|or|and|call|eval|value|file|guile)\\s",
     ),
-    PatternSlot::new("(?=\\)|((?<!\\\\)\\n))"),
-    PatternSlot::new(","),
-    PatternSlot::new("\\("),
-    PatternSlot::new("\\)"),
-    PatternSlot::new("\\{"),
-    PatternSlot::new("}"),
-    PatternSlot::new("[%*]"),
-    PatternSlot::new("(?<=\\()(origin|flavor)\\s(?=[^)\\s]+\\s*\\))"),
-    PatternSlot::new("(?=\\))"),
-    PatternSlot::new("(?<=\\()(?!\\))"),
-    PatternSlot::new("\\$\\{"),
-    PatternSlot::new("}|((?<!\\\\)\\n)"),
-    PatternSlot::new(
+    Pattern::new("(?=\\)|((?<!\\\\)\\n))"),
+    Pattern::new(","),
+    Pattern::new("\\("),
+    Pattern::new("\\)"),
+    Pattern::new("\\{"),
+    Pattern::new("}"),
+    Pattern::new("[%*]"),
+    Pattern::new("(?<=\\()(origin|flavor)\\s(?=[^)\\s]+\\s*\\))"),
+    Pattern::new("(?=\\))"),
+    Pattern::new("(?<=\\()(?!\\))"),
+    Pattern::new("\\$\\{"),
+    Pattern::new("}|((?<!\\\\)\\n)"),
+    Pattern::new(
         "(?<=\\{)(MAKEFILES|VPATH|SHELL|MAKESHELL|MAKE|MAKELEVEL|MAKEFLAGS|MAKECMDGOALS|CURDIR|SUFFIXES|\\.LIBPATTERNS)(?=\\s*})",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<=\\{)(subst|patsubst|strip|findstring|filter(-out)?|sort|word(list)?|firstword|lastword|dir|notdir|suffix|basename|addsuffix|addprefix|join|wildcard|realpath|abspath|info|error|warning|shell|foreach|if|or|and|call|eval|value|file|guile)\\s",
     ),
-    PatternSlot::new("(?=}|((?<!\\\\)\\n))"),
-    PatternSlot::new("(?<=\\{)(origin|flavor)\\s(?=[^}\\s]+\\s*})"),
-    PatternSlot::new("(?=})"),
-    PatternSlot::new("(?<=\\{)(?!})"),
-    PatternSlot::new("(^ *|\\G\\s*)([^#:=\\s]+)\\s*((?:(?<![!+:?])|[!+:?])=)"),
-    PatternSlot::new("\\n"),
-    PatternSlot::new("^ *([-s]?include)\\b"),
-    PatternSlot::new("^"),
-    PatternSlot::new("%"),
-    PatternSlot::new("^ *(vpath)\\b"),
-    PatternSlot::new("^\\s*(?:(override)\\s*)?(define)\\s*(\\S+)\\s*([+:?]??=)?(?=\\s)"),
-    PatternSlot::new("^\\s*(endef)\\b"),
-    PatternSlot::new("\\G(?!\\n)"),
-    PatternSlot::new("^ *(export)\\b"),
-    PatternSlot::new("\\S+"),
-    PatternSlot::new("^ *(override|private)\\b"),
-    PatternSlot::new("^ *(un(?:export|define))\\b"),
-    PatternSlot::new("^\\s*(ifn??(?:eq|def))(?=\\s)"),
-    PatternSlot::new("^\\s*(endif)\\b"),
-    PatternSlot::new("\\G"),
-    PatternSlot::new("^\\s*else(?=\\s)\\s*(ifn??(?:eq|def))*(?=\\s)"),
-    PatternSlot::new("^\\t([-+@]*)"),
-    PatternSlot::new("[^\\\\]$"),
-    PatternSlot::new("^(?!\\t)([^:]*)(:)(?!=)"),
-    PatternSlot::new(
+    Pattern::new("(?=}|((?<!\\\\)\\n))"),
+    Pattern::new("(?<=\\{)(origin|flavor)\\s(?=[^}\\s]+\\s*})"),
+    Pattern::new("(?=})"),
+    Pattern::new("(?<=\\{)(?!})"),
+    Pattern::new("(^ *|\\G\\s*)([^#:=\\s]+)\\s*((?:(?<![!+:?])|[!+:?])=)"),
+    Pattern::new("\\n"),
+    Pattern::new("^ *([-s]?include)\\b"),
+    Pattern::new("^"),
+    Pattern::new("%"),
+    Pattern::new("^ *(vpath)\\b"),
+    Pattern::new("^\\s*(?:(override)\\s*)?(define)\\s*(\\S+)\\s*([+:?]??=)?(?=\\s)"),
+    Pattern::new("^\\s*(endef)\\b"),
+    Pattern::new("\\G(?!\\n)"),
+    Pattern::new("^ *(export)\\b"),
+    Pattern::new("\\S+"),
+    Pattern::new("^ *(override|private)\\b"),
+    Pattern::new("^ *(un(?:export|define))\\b"),
+    Pattern::new("^\\s*(ifn??(?:eq|def))(?=\\s)"),
+    Pattern::new("^\\s*(endif)\\b"),
+    Pattern::new("\\G"),
+    Pattern::new("^\\s*else(?=\\s)\\s*(ifn??(?:eq|def))*(?=\\s)"),
+    Pattern::new("^\\t([-+@]*)"),
+    Pattern::new("[^\\\\]$"),
+    Pattern::new("^(?!\\t)([^:]*)(:)(?!=)"),
+    Pattern::new(
         "^\\s*(\\.(PHONY|SUFFIXES|DEFAULT|PRECIOUS|INTERMEDIATE|SECONDARY|SECONDEXPANSION|DELETE_ON_ERROR|IGNORE|LOW_RESOLUTION_TIME|SILENT|EXPORT_ALL_VARIABLES|NOTPARALLEL|ONESHELL|POSIX))\\s*$",
     ),
-    PatternSlot::new("(?=\\S)"),
-    PatternSlot::new("(?=\\s|$)"),
+    Pattern::new("(?=\\S)"),
+    Pattern::new("(?=\\s|$)"),
 ];
 
 static LISTS: [List; 40] = [
@@ -1110,4 +1112,5 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     injections: INJECTIONS,
     patterns: &PATTERNS,
     root: 0,
+    cells: OnceLock::new(),
 };

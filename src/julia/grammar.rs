@@ -2,7 +2,9 @@
 //! `oracle/engine-tables.ts`. Do not edit: regenerate with `bun
 //! oracle/engine-tables.ts`.
 
-use crate::textmate::grammar::{Cap, Grammar, Injection, List, PatternSlot, Rule, RuleKind};
+use std::sync::OnceLock;
+
+use crate::textmate::grammar::{Cap, Grammar, Injection, List, Pattern, Rule, RuleKind};
 
 static NAMES: &[&str] = &[
     "keyword.operator.arrow.julia",
@@ -610,1198 +612,1192 @@ static NAMES: &[&str] = &[
     "punctuation.separator.semicolon.julia",
 ];
 
-static PATTERNS: [PatternSlot; 721] = [
-    PatternSlot::new(
+static PATTERNS: [Pattern; 721] = [
+    Pattern::new(
         "\\.?(?:<-->|->|-->|<--|[←→↔↚-↞↠↢↣↤↦↩-↬↮↶↷↺-↽⇀⇁⇄⇆⇇⇉⇋-⇐⇒⇔⇚-⇝⇠⇢⇴⇶-⇿⟵⟶⟷⟹-⟿⤀-⤇⤌-⤑⤔-⤘⤝-⤠⥄-⥈⥊⥋⥎⥐⥒⥓⥖⥗⥚⥛⥞⥟⥢⥤⥦-⥭⥰⥷⥺⧴⬰-⭄⭇-⭌￩￫]|=>)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         ":=|\\+=|-=|\\*=|//=|/=|\\.//=|\\./=|\\.\\*=|\\\\=|\\.\\\\=|\\^=|\\.\\^=|%=|\\.%=|÷=|\\.÷=|\\|=|&=|\\.&=|⊻=|\\.⊻=|\\$=|<<=|>>=|>>>=|=(?!=)",
     ),
-    PatternSlot::new("<<|>>>?|\\.>>>?|\\.<<"),
-    PatternSlot::new(
+    Pattern::new("<<|>>>?|\\.>>>?|\\.<<"),
+    Pattern::new(
         "\\s*([:<>]:)\\s*((?:Union)?\\([^)]*\\)|[$_∇[:alpha:]][!.′⁺-ₜ[:word:]]*(?:\\{(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*})*})*}|\".+?(?<!\\\\)\")?)(?:\\.\\.\\.)?(\\.?'*)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(\\.?((?<!<)<=|(?<!>)>=|[<>≤≥]|===?|≡|!=|≠|!==|[∈-∍∝∥∦∷∺∻∽∾≁-≎≐-≓≖-≟≢≣≦-⊋⊏-⊒⊜⊢⊣⊩⊬⊮⊰-⊷⋍⋐⋑⋕-⋭⋲-⋿⟂⟈⟉⟒⦷⧀⧁⧡⧣⧤⧥⩦⩧⩪-⩳⩵-⫙⫪⫫⫷-⫺]|<:|>:))",
     ),
-    PatternSlot::new("(?<=\\s)\\?(?=\\s)"),
-    PatternSlot::new("(?<=\\s):(?=\\s)"),
-    PatternSlot::new(
+    Pattern::new("(?<=\\s)\\?(?=\\s)"),
+    Pattern::new("(?<=\\s):(?=\\s)"),
+    Pattern::new(
         "\\|\\||&&|(?<![!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]])!",
     ),
-    PatternSlot::new("(?<=[]!)}′⁺-ₜ∇[:word:]]):"),
-    PatternSlot::new("\\|>"),
-    PatternSlot::new("\\||\\.\\||&|\\.&|[~¬]|\\.~|⊻|\\.⊻"),
-    PatternSlot::new(
+    Pattern::new("(?<=[]!)}′⁺-ₜ∇[:word:]]):"),
+    Pattern::new("\\|>"),
+    Pattern::new("\\||\\.\\||&|\\.&|[~¬]|\\.~|⊻|\\.⊻"),
+    Pattern::new(
         "\\.?(?:\\+\\+|--|[-*+|¦±−∓∔∨∪∸≏⊎⊔⊕⊖⊞⊟⊻⊽⋎⋓⟇⧺⧻⨈⨢-⨮⨹⨺⩁⩂⩅⩊⩌⩏⩐⩒⩔⩖⩗⩛⩝⩡⩢⩣]|//?|[%\\&\\\\^±·×÷\u{387}⅋↑↓⇵∓∗-∜∤∧∩≀⊍⊓⊗-⊛⊠⊡⊼⋄-⋇⋉-⋌⋏⋒⌿▷⟑⟕⟖⟗⟰⟱⤈-⤋⤒⤓⥉⥌⥍⥏⥑⥔⥕⥘⥙⥜⥝⥠⥡⥣⥥⥮⥯⦸⦼⦾⦿⧶⧷⨇⨝⨟⨰-⨸⨻⨼⨽⩀⩃⩄⩋⩍⩎⩑⩓⩕⩘⩚⩜⩞⩟⩠⫛￪￬])",
     ),
-    PatternSlot::new("∘"),
-    PatternSlot::new("::|(?<=\\s)isa(?=\\s)"),
-    PatternSlot::new("(?<=\\s)in(?=\\s)"),
-    PatternSlot::new("\\.(?=[@_\\p{L}])|\\.\\.+|[…⁝⋮-⋱]"),
-    PatternSlot::new("\\$(?=.+)"),
-    PatternSlot::new(
+    Pattern::new("∘"),
+    Pattern::new("::|(?<=\\s)isa(?=\\s)"),
+    Pattern::new("(?<=\\s)in(?=\\s)"),
+    Pattern::new("\\.(?=[@_\\p{L}])|\\.\\.+|[…⁝⋮-⋱]"),
+    Pattern::new("\\$(?=.+)"),
+    Pattern::new(
         "([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)(('|(\\.'))*\\.?')",
     ),
-    PatternSlot::new("(])((?:\\.??')*\\.?')"),
-    PatternSlot::new("(\\))((?:\\.??')*\\.?')"),
-    PatternSlot::new("\\["),
-    PatternSlot::new("(])(\\.?'*)"),
-    PatternSlot::new("\\bbegin\\b"),
-    PatternSlot::new("\\bend\\b"),
-    PatternSlot::new("(@doc)\\s((?:doc)?\"\"\")|(doc\"\"\")"),
-    PatternSlot::new("(\"\"\") ?(->)?"),
-    PatternSlot::new("\\\\(\\\\|[0-3]\\d{0,2}|[4-7]\\d?|x\\h{0,2}|u\\h{0,4}|U\\h{0,8}|.)"),
-    PatternSlot::new(
+    Pattern::new("(])((?:\\.??')*\\.?')"),
+    Pattern::new("(\\))((?:\\.??')*\\.?')"),
+    Pattern::new("\\["),
+    Pattern::new("(])(\\.?'*)"),
+    Pattern::new("\\bbegin\\b"),
+    Pattern::new("\\bend\\b"),
+    Pattern::new("(@doc)\\s((?:doc)?\"\"\")|(doc\"\"\")"),
+    Pattern::new("(\"\"\") ?(->)?"),
+    Pattern::new("\\\\(\\\\|[0-3]\\d{0,2}|[4-7]\\d?|x\\h{0,2}|u\\h{0,4}|U\\h{0,8}|.)"),
+    Pattern::new(
         "\\$[_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}[^←-⇿\\P{So}][^$\\P{Sc}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}][^$\\P{Sc}]]*",
     ),
-    PatternSlot::new("\\$(\\()"),
-    PatternSlot::new("\\)"),
-    PatternSlot::new("(i?cxx)(\"\"\")"),
-    PatternSlot::new("\"\"\""),
-    PatternSlot::new("(py)(\"\"\")"),
-    PatternSlot::new("([\\s\\w]*)(\"\"\")"),
-    PatternSlot::new("\\b(?<!\\.)(from)\\b(?=.+import)"),
-    PatternSlot::new("$|(?=import)"),
-    PatternSlot::new("\\.+"),
-    PatternSlot::new("#\\s*(type:)\\s*+(?!$|#)"),
-    PatternSlot::new("$|(?=#)"),
-    PatternSlot::new("\\Gignore(?=\\s*(?:$|#))"),
-    PatternSlot::new(
+    Pattern::new("\\$(\\()"),
+    Pattern::new("\\)"),
+    Pattern::new("(i?cxx)(\"\"\")"),
+    Pattern::new("\"\"\""),
+    Pattern::new("(py)(\"\"\")"),
+    Pattern::new("([\\s\\w]*)(\"\"\")"),
+    Pattern::new("\\b(?<!\\.)(from)\\b(?=.+import)"),
+    Pattern::new("$|(?=import)"),
+    Pattern::new("\\.+"),
+    Pattern::new("#\\s*(type:)\\s*+(?!$|#)"),
+    Pattern::new("$|(?=#)"),
+    Pattern::new("\\Gignore(?=\\s*(?:$|#))"),
+    Pattern::new(
         "(?<!\\.)\\b(bool|bytes|float|int|object|str|List|Dict|Iterable|Sequence|Set|FrozenSet|Callable|Union|Tuple|Any|None)\\b",
     ),
-    PatternSlot::new("([]()*,.=\\[]|(->))"),
-    PatternSlot::new("([_[:alpha:]]\\w*)"),
-    PatternSlot::new("(#)"),
-    PatternSlot::new("$()"),
-    PatternSlot::new("\\b(NOTE|XXX|HACK|FIXME|BUG|TODO)\\b"),
-    PatternSlot::new("`"),
-    PatternSlot::new("`|(?<!\\\\)(\\n)"),
-    PatternSlot::new("->"),
-    PatternSlot::new("\\b(True|False|None|NotImplemented|Ellipsis)\\b"),
-    PatternSlot::new(
+    Pattern::new("([]()*,.=\\[]|(->))"),
+    Pattern::new("([_[:alpha:]]\\w*)"),
+    Pattern::new("(#)"),
+    Pattern::new("$()"),
+    Pattern::new("\\b(NOTE|XXX|HACK|FIXME|BUG|TODO)\\b"),
+    Pattern::new("`"),
+    Pattern::new("`|(?<!\\\\)(\\n)"),
+    Pattern::new("->"),
+    Pattern::new("\\b(True|False|None|NotImplemented|Ellipsis)\\b"),
+    Pattern::new(
         "(?<!\\w)(?:(?:\\.[0-9](?:_?[0-9])*|[0-9](?:_?[0-9])*\\.[0-9](?:_?[0-9])*|[0-9](?:_?[0-9])*\\.)(?:[Ee][-+]?[0-9](?:_?[0-9])*)?|[0-9](?:_?[0-9])*[Ee][-+]?[0-9](?:_?[0-9])*)([Jj])?\\b",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![.\\w])(?:[1-9](?:_?[0-9])*|0+|[0-9](?:_?[0-9])*([Jj])|0([0-9]+)(?![.Ee]))\\b",
     ),
-    PatternSlot::new("(?<![.\\w])(0[Xx])(_?\\h)+\\b"),
-    PatternSlot::new("(?<![.\\w])(0[Oo])(_?[0-7])+\\b"),
-    PatternSlot::new("(?<![.\\w])(0[Bb])(_?[01])+\\b"),
-    PatternSlot::new("(?<![.\\w])([1-9][0-9]*|0)([Ll])\\b"),
-    PatternSlot::new("\\b[0-9]+\\w+"),
-    PatternSlot::new("\\b(([Uu]r)|([Bb]r)|(r[Bb]?))(''')"),
-    PatternSlot::new("(''')"),
-    PatternSlot::new("\\{(\\d+|\\d+,(\\d+)?|,\\d+)}"),
-    PatternSlot::new("\\."),
-    PatternSlot::new("\\^"),
-    PatternSlot::new("\\$"),
-    PatternSlot::new("[*+?]\\??"),
-    PatternSlot::new("\\|"),
-    PatternSlot::new("\\\\([ABDSWZbdsw])"),
-    PatternSlot::new("\\\\(x\\h{2}|0[0-7]{1,2}|[0-7]{3})"),
-    PatternSlot::new("\\\\(u\\h{4}|U\\h{8})"),
-    PatternSlot::new("(\\\\[1-9]\\d?)"),
-    PatternSlot::new("\\\\(.|\\n)"),
-    PatternSlot::new("\\[\\^?](?!.*?])"),
-    PatternSlot::new("(\\[)(\\^)?(])?"),
-    PatternSlot::new("(]|(?='''))"),
-    PatternSlot::new("\\\\[\\\\abfnrtv]"),
-    PatternSlot::new("\\\\([0-7]{1,3})"),
-    PatternSlot::new("\\N"),
-    PatternSlot::new("\\(\\?#"),
-    PatternSlot::new("(\\)|(?='''))"),
-    PatternSlot::new("\\(\\?[Laimsux]+\\)"),
-    PatternSlot::new("(\\()(\\?P<\\w+(?:\\s+\\p{alnum}+)?>)"),
-    PatternSlot::new("($|(?='''))"),
-    PatternSlot::new("(\\()(\\?P=\\w+(?:\\s+\\p{alnum}+)?)(\\))"),
-    PatternSlot::new("(\\()\\?="),
-    PatternSlot::new("(\\()\\?!"),
-    PatternSlot::new("(\\()\\?<="),
-    PatternSlot::new("(\\()\\?<!"),
-    PatternSlot::new("(\\()\\?\\((\\w+(?:\\s+\\p{alnum}+)?|\\d+)\\)"),
-    PatternSlot::new("\\(\\?:"),
-    PatternSlot::new("\\("),
-    PatternSlot::new("\\b(([Uu]r)|([Bb]r)|(r[Bb]?))(\"\"\")"),
-    PatternSlot::new("(\"\"\")"),
-    PatternSlot::new("(]|(?=\"\"\"))"),
-    PatternSlot::new("(\\)|(?=\"\"\"))"),
-    PatternSlot::new("($|(?=\"\"\"))"),
-    PatternSlot::new("\\b(([Uu]r)|([Bb]r)|(r[Bb]?))(')"),
-    PatternSlot::new("(')|(?<!\\\\)(\\n)"),
-    PatternSlot::new("(]|(?='))|((?=(?<!\\\\)\\n))"),
-    PatternSlot::new("(\\)|(?='))|((?=(?<!\\\\)\\n))"),
-    PatternSlot::new("\\b(([Uu]r)|([Bb]r)|(r[Bb]?))(\")"),
-    PatternSlot::new("(\")|(?<!\\\\)(\\n)"),
-    PatternSlot::new("(]|(?=\"))|((?=(?<!\\\\)\\n))"),
-    PatternSlot::new("(\\)|(?=\"))|((?=(?<!\\\\)\\n))"),
-    PatternSlot::new("(?:\\b([Rr])(?=[Uu]))?([Uu])?('''|\"\"\")"),
-    PatternSlot::new("(\\3)"),
-    PatternSlot::new("(?=\\{%(.*?(?!'''|\"\"\"))%})"),
-    PatternSlot::new("(?='''|\"\"\")"),
-    PatternSlot::new("\\\\(u\\h{4}|U\\h{8}|N\\{[\\w\\s]+?})"),
-    PatternSlot::new("\\\\(x\\h{2}|[0-7]{1,3}|[\"'\\\\abfnrtv])"),
-    PatternSlot::new("\\\\$"),
-    PatternSlot::new("(?!\\{\\{)(?=\\{(\\w*?(?!'''|\"\"\")[^!.:\\[}\\w]).*?(?!'''|\"\"\")})"),
-    PatternSlot::new(
+    Pattern::new("(?<![.\\w])(0[Xx])(_?\\h)+\\b"),
+    Pattern::new("(?<![.\\w])(0[Oo])(_?[0-7])+\\b"),
+    Pattern::new("(?<![.\\w])(0[Bb])(_?[01])+\\b"),
+    Pattern::new("(?<![.\\w])([1-9][0-9]*|0)([Ll])\\b"),
+    Pattern::new("\\b[0-9]+\\w+"),
+    Pattern::new("\\b(([Uu]r)|([Bb]r)|(r[Bb]?))(''')"),
+    Pattern::new("(''')"),
+    Pattern::new("\\{(\\d+|\\d+,(\\d+)?|,\\d+)}"),
+    Pattern::new("\\."),
+    Pattern::new("\\^"),
+    Pattern::new("\\$"),
+    Pattern::new("[*+?]\\??"),
+    Pattern::new("\\|"),
+    Pattern::new("\\\\([ABDSWZbdsw])"),
+    Pattern::new("\\\\(x\\h{2}|0[0-7]{1,2}|[0-7]{3})"),
+    Pattern::new("\\\\(u\\h{4}|U\\h{8})"),
+    Pattern::new("(\\\\[1-9]\\d?)"),
+    Pattern::new("\\\\(.|\\n)"),
+    Pattern::new("\\[\\^?](?!.*?])"),
+    Pattern::new("(\\[)(\\^)?(])?"),
+    Pattern::new("(]|(?='''))"),
+    Pattern::new("\\\\[\\\\abfnrtv]"),
+    Pattern::new("\\\\([0-7]{1,3})"),
+    Pattern::new("\\N"),
+    Pattern::new("\\(\\?#"),
+    Pattern::new("(\\)|(?='''))"),
+    Pattern::new("\\(\\?[Laimsux]+\\)"),
+    Pattern::new("(\\()(\\?P<\\w+(?:\\s+\\p{alnum}+)?>)"),
+    Pattern::new("($|(?='''))"),
+    Pattern::new("(\\()(\\?P=\\w+(?:\\s+\\p{alnum}+)?)(\\))"),
+    Pattern::new("(\\()\\?="),
+    Pattern::new("(\\()\\?!"),
+    Pattern::new("(\\()\\?<="),
+    Pattern::new("(\\()\\?<!"),
+    Pattern::new("(\\()\\?\\((\\w+(?:\\s+\\p{alnum}+)?|\\d+)\\)"),
+    Pattern::new("\\(\\?:"),
+    Pattern::new("\\("),
+    Pattern::new("\\b(([Uu]r)|([Bb]r)|(r[Bb]?))(\"\"\")"),
+    Pattern::new("(\"\"\")"),
+    Pattern::new("(]|(?=\"\"\"))"),
+    Pattern::new("(\\)|(?=\"\"\"))"),
+    Pattern::new("($|(?=\"\"\"))"),
+    Pattern::new("\\b(([Uu]r)|([Bb]r)|(r[Bb]?))(')"),
+    Pattern::new("(')|(?<!\\\\)(\\n)"),
+    Pattern::new("(]|(?='))|((?=(?<!\\\\)\\n))"),
+    Pattern::new("(\\)|(?='))|((?=(?<!\\\\)\\n))"),
+    Pattern::new("\\b(([Uu]r)|([Bb]r)|(r[Bb]?))(\")"),
+    Pattern::new("(\")|(?<!\\\\)(\\n)"),
+    Pattern::new("(]|(?=\"))|((?=(?<!\\\\)\\n))"),
+    Pattern::new("(\\)|(?=\"))|((?=(?<!\\\\)\\n))"),
+    Pattern::new("(?:\\b([Rr])(?=[Uu]))?([Uu])?('''|\"\"\")"),
+    Pattern::new("(\\3)"),
+    Pattern::new("(?=\\{%(.*?(?!'''|\"\"\"))%})"),
+    Pattern::new("(?='''|\"\"\")"),
+    Pattern::new("\\\\(u\\h{4}|U\\h{8}|N\\{[\\w\\s]+?})"),
+    Pattern::new("\\\\(x\\h{2}|[0-7]{1,3}|[\"'\\\\abfnrtv])"),
+    Pattern::new("\\\\$"),
+    Pattern::new("(?!\\{\\{)(?=\\{(\\w*?(?!'''|\"\"\")[^!.:\\[}\\w]).*?(?!'''|\"\"\")})"),
+    Pattern::new(
         "(%(\\([\\w\\s]*\\))?[- #+0]*(\\d+|\\*)?(\\.(\\d+|\\*))?([Lhl])?[%EFGXa-giorsux])",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(\\{\\{|}}|\\{\\w*(\\.[_[:alpha:]]\\w*|\\[[^]\"']+])*(![ars])?(:\\w?[<=>^]?[- +]?#?\\d*,?(\\.\\d+)?[%EFGXb-gnosx]?)?})",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(\\{\\w*(\\.[_[:alpha:]]\\w*|\\[[^]\"']+])*(![ars])?(:)[^\\n\"'{}]*(?:\\{[^\\n\"'}]*?}[^\\n\"'{}]*)*})",
     ),
-    PatternSlot::new("(?:\\b([Rr])(?=[Uu]))?([Uu])?(([\"']))"),
-    PatternSlot::new("(\\3)|((?<!\\\\)\\n)"),
-    PatternSlot::new("(?=\\{%(.*?(?!([\"'])|((?<!\\\\)\\n)))%})"),
-    PatternSlot::new("(?=([\"'])|((?<!\\\\)\\n))"),
-    PatternSlot::new(
+    Pattern::new("(?:\\b([Rr])(?=[Uu]))?([Uu])?(([\"']))"),
+    Pattern::new("(\\3)|((?<!\\\\)\\n)"),
+    Pattern::new("(?=\\{%(.*?(?!([\"'])|((?<!\\\\)\\n)))%})"),
+    Pattern::new("(?=([\"'])|((?<!\\\\)\\n))"),
+    Pattern::new(
         "(?!\\{\\{)(?=\\{(\\w*?(?!([\"'])|((?<!\\\\)\\n))[^!.:\\[}\\w]).*?(?!([\"'])|((?<!\\\\)\\n))})",
     ),
-    PatternSlot::new("\\b([Bb])('''|\"\"\")"),
-    PatternSlot::new("(\\2)"),
-    PatternSlot::new("\\b([Bb])(([\"']))"),
-    PatternSlot::new("(\\2)|((?<!\\\\)\\n)"),
-    PatternSlot::new("\\b(([Uu]R)|(R))('''|\"\"\")"),
-    PatternSlot::new("(\\4)"),
-    PatternSlot::new("\\\\[\\n\"'\\\\]"),
-    PatternSlot::new("\\b(([Uu]R)|(R))(([\"']))"),
-    PatternSlot::new("(\\4)|((?<!\\\\)\\n)"),
-    PatternSlot::new("\\b(R[Bb]|[Bb]R)('''|\"\"\")"),
-    PatternSlot::new("\\b(R[Bb]|[Bb]R)(([\"']))"),
-    PatternSlot::new("\\b([Ff])([BUbu])?('''|\"\"\")"),
-    PatternSlot::new("(\\{)(\\s*?)(})"),
-    PatternSlot::new("(\\{\\{|}})"),
-    PatternSlot::new("(}(?!}))"),
-    PatternSlot::new("$.^"),
-    PatternSlot::new("(\\{)"),
-    PatternSlot::new("(})"),
-    PatternSlot::new("(=(![ars])?)(?=})"),
-    PatternSlot::new("(=?![ars])(?=})"),
-    PatternSlot::new("(=?(?:![ars])?)(:\\w?[<=>^]?[- +]?#?\\d*,?(\\.\\d+)?[%EFGXb-gnosx]?)(?=})"),
-    PatternSlot::new("(=?(?:![ars])?)(:)(?=.*?\\{)"),
-    PatternSlot::new("(?=})"),
-    PatternSlot::new("([%EFGXb-gnosx])(?=})"),
-    PatternSlot::new("(\\.\\d+)"),
-    PatternSlot::new("(,)"),
-    PatternSlot::new("(\\d+)"),
-    PatternSlot::new("([- +])"),
-    PatternSlot::new("([<=>^])"),
-    PatternSlot::new("(\\w)"),
-    PatternSlot::new("(\\.)\\s*(?!\\.)"),
-    PatternSlot::new("(?<=\\S)(?=\\W)|(^|(?<=\\s))(?=[^\\\\\\w\\s])|$"),
-    PatternSlot::new("\\b(?=([_[:alpha:]]\\w*)\\s*(\\())"),
-    PatternSlot::new("(\\))"),
-    PatternSlot::new("\\b(?<!\\.)(?:(self)|(cls))\\b"),
-    PatternSlot::new(
+    Pattern::new("\\b([Bb])('''|\"\"\")"),
+    Pattern::new("(\\2)"),
+    Pattern::new("\\b([Bb])(([\"']))"),
+    Pattern::new("(\\2)|((?<!\\\\)\\n)"),
+    Pattern::new("\\b(([Uu]R)|(R))('''|\"\"\")"),
+    Pattern::new("(\\4)"),
+    Pattern::new("\\\\[\\n\"'\\\\]"),
+    Pattern::new("\\b(([Uu]R)|(R))(([\"']))"),
+    Pattern::new("(\\4)|((?<!\\\\)\\n)"),
+    Pattern::new("\\b(R[Bb]|[Bb]R)('''|\"\"\")"),
+    Pattern::new("\\b(R[Bb]|[Bb]R)(([\"']))"),
+    Pattern::new("\\b([Ff])([BUbu])?('''|\"\"\")"),
+    Pattern::new("(\\{)(\\s*?)(})"),
+    Pattern::new("(\\{\\{|}})"),
+    Pattern::new("(}(?!}))"),
+    Pattern::new("$.^"),
+    Pattern::new("(\\{)"),
+    Pattern::new("(})"),
+    Pattern::new("(=(![ars])?)(?=})"),
+    Pattern::new("(=?![ars])(?=})"),
+    Pattern::new("(=?(?:![ars])?)(:\\w?[<=>^]?[- +]?#?\\d*,?(\\.\\d+)?[%EFGXb-gnosx]?)(?=})"),
+    Pattern::new("(=?(?:![ars])?)(:)(?=.*?\\{)"),
+    Pattern::new("(?=})"),
+    Pattern::new("([%EFGXb-gnosx])(?=})"),
+    Pattern::new("(\\.\\d+)"),
+    Pattern::new("(,)"),
+    Pattern::new("(\\d+)"),
+    Pattern::new("([- +])"),
+    Pattern::new("([<=>^])"),
+    Pattern::new("(\\w)"),
+    Pattern::new("(\\.)\\s*(?!\\.)"),
+    Pattern::new("(?<=\\S)(?=\\W)|(^|(?<=\\s))(?=[^\\\\\\w\\s])|$"),
+    Pattern::new("\\b(?=([_[:alpha:]]\\w*)\\s*(\\())"),
+    Pattern::new("(\\))"),
+    Pattern::new("\\b(?<!\\.)(?:(self)|(cls))\\b"),
+    Pattern::new(
         "\\b(?:(and|assert|async|await|break|class|continue|def|del|elif|else|except|finally|for|from|global|if|in|is|(?<=\\.)lambda|lambda(?=\\s*[.=])|nonlocal|not|or|pass|raise|return|try|while|with|yield)|(as|import))\\b",
     ),
-    PatternSlot::new("\\b(True|False|None)\\b"),
-    PatternSlot::new(
+    Pattern::new("\\b(True|False|None)\\b"),
+    Pattern::new(
         "(?<!\\.)\\b((Arithmetic|Assertion|Attribute|Buffer|BlockingIO|BrokenPipe|ChildProcess|(Connection(Aborted|Refused|Reset)?)|EOF|Environment|FileExists|FileNotFound|FloatingPoint|IO|Import|Indentation|Index|Interrupted|IsADirectory|NotADirectory|Permission|ProcessLookup|Timeout|Key|Lookup|Memory|Name|NotImplemented|OS|Overflow|Reference|Runtime|Recursion|Syntax|System|Tab|Type|UnboundLocal|Unicode(Encode|Decode|Translate)?|Value|Windows|ZeroDivision|ModuleNotFound)Error|((Pending)?Deprecation|Runtime|Syntax|User|Future|Import|Unicode|Bytes|Resource)?Warning|SystemExit|Stop(Async)?Iteration|KeyboardInterrupt|GeneratorExit|(Base)?Exception)\\b",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<!\\.)\\b(__import__|abs|aiter|all|any|anext|ascii|bin|breakpoint|callable|chr|compile|copyright|credits|delattr|dir|divmod|enumerate|eval|exec|exit|filter|format|getattr|globals|hasattr|hash|help|hex|id|input|isinstance|issubclass|iter|len|license|locals|map|max|memoryview|min|next|oct|open|ord|pow|print|quit|range|reload|repr|reversed|round|setattr|sorted|sum|vars|zip)\\b",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<!\\.)\\b(file|reduce|intern|raw_input|unicode|cmp|basestring|execfile|long|xrange)\\b",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<!\\.)\\b(bool|bytearray|bytes|classmethod|complex|dict|float|frozenset|int|list|object|property|set|slice|staticmethod|str|tuple|type|super)\\b",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "\\b(__(?:abs|add|aenter|aexit|aiter|and|anext|await|bool|call|ceil|class_getitem|cmp|coerce|complex|contains|copy|deepcopy|del|delattr|delete|delitem|delslice|dir|div|divmod|enter|eq|exit|float|floor|floordiv|format|get??|getattr|getattribute|getinitargs|getitem|getnewargs|getslice|getstate|gt|hash|hex|iadd|iand|idiv|ifloordiv||ilshift|imod|imul|index|init|instancecheck|int|invert|ior|ipow|irshift|isub|iter|itruediv|ixor|len??|long|lshift|lt|missing|mod|mul|neg??|new|next|nonzero|oct|or|pos|pow|radd|rand|rdiv|rdivmod|reduce|reduce_ex|repr|reversed|rfloordiv||rlshift|rmod|rmul|ror|round|rpow|rrshift|rshift|rsub|rtruediv|rxor|set|setattr|setitem|set_name|setslice|setstate|sizeof|str|sub|subclasscheck|truediv|trunc|unicode|xor|matmul|rmatmul|imatmul|init_subclass|set_name|fspath|bytes|prepare|length_hint)__)\\b",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "\\b(__(?:all|annotations|bases|builtins|class|closure|code|debug|defaults|dict|doc|file|func|globals|kwdefaults|match_args|members|metaclass|methods|module|mro|mro_entries|name|qualname|post_init|self|signature|slots|subclasses|version|weakref|wrapped|classcell|spec|path|package|future|traceback)__)\\b",
     ),
-    PatternSlot::new("\\b([_[:alpha:]]\\w*)\\b"),
-    PatternSlot::new("(\\()"),
-    PatternSlot::new("(?=\\))(?!\\)\\s*\\()"),
-    PatternSlot::new("(?:(?<=[(,])|^)\\s*(\\*{1,2})"),
-    PatternSlot::new("\\blambda(?=\\s*[),])"),
-    PatternSlot::new("\\b([_[:alpha:]]\\w*)\\s*(=)(?!=)"),
-    PatternSlot::new("=(?!=)"),
-    PatternSlot::new("\\s*(\\))\\s*(\\()"),
-    PatternSlot::new("\\b(_*\\p{upper}[_\\d]*\\p{upper})[[:upper:]\\d]*(_\\w*)?\\b"),
-    PatternSlot::new("(\\\\)\\s*(\\S.*$\\n?)"),
-    PatternSlot::new("(\\\\)\\s*$\\n?"),
-    PatternSlot::new("(?=^\\s*$)|(?!(\\s*[Rr]?('''|\"\"\"|[\"']))|\\G()$)"),
-    PatternSlot::new("\\b(?=[_[:alpha:]]\\w*\\s*\\[)"),
-    PatternSlot::new("(])"),
-    PatternSlot::new("(\\[)"),
-    PatternSlot::new("(?=])"),
-    PatternSlot::new(":"),
-    PatternSlot::new("(.+?)($(\\n?)|(?=[\\\\{}]|'''|\"\"\"))|\\n"),
-    PatternSlot::new("\\b([Ff])([BUbu])?(([\"']))"),
-    PatternSlot::new("(\\{)(?=[^\\n}]*$\\n?)"),
-    PatternSlot::new("(})|(?=\\n)"),
-    PatternSlot::new("(?=})|(?=\\n)"),
-    PatternSlot::new("(.+?)($(\\n?)|(?=[\\\\{}]|([\"'])|((?<!\\\\)\\n)))|\\n"),
-    PatternSlot::new("\\b([BUbu])([Ff])('''|\"\"\")"),
-    PatternSlot::new("\\b([BUbu])([Ff])(([\"']))"),
-    PatternSlot::new("\\b([Rr][Ff]|[Ff][Rr])('''|\"\"\")"),
-    PatternSlot::new("\\b([Rr][Ff]|[Ff][Rr])(([\"']))"),
-    PatternSlot::new("((?<=\\.)lambda|lambda(?=\\s*[.=]))"),
-    PatternSlot::new("\\b(lambda)\\s*?(?=[\\n,]|$)"),
-    PatternSlot::new("\\b(lambda)\\b"),
-    PatternSlot::new("(:)|(\\n)"),
-    PatternSlot::new("/"),
-    PatternSlot::new("(\\*\\*?)"),
-    PatternSlot::new("\\blambda(?=\\s*[),:])"),
-    PatternSlot::new("([_[:alpha:]]\\w*)\\s*(?:(,)|(?=:|$))"),
-    PatternSlot::new("\\b([_[:alpha:]]\\w*)\\s*(=)"),
-    PatternSlot::new("(,)|(?=:|$)"),
-    PatternSlot::new("&&|\\|\\||--|\\+\\+"),
-    PatternSlot::new("[$?]"),
-    PatternSlot::new("!\\b"),
-    PatternSlot::new("\\bfor\\b"),
-    PatternSlot::new("\\bin\\b"),
-    PatternSlot::new(
+    Pattern::new("\\b([_[:alpha:]]\\w*)\\b"),
+    Pattern::new("(\\()"),
+    Pattern::new("(?=\\))(?!\\)\\s*\\()"),
+    Pattern::new("(?:(?<=[(,])|^)\\s*(\\*{1,2})"),
+    Pattern::new("\\blambda(?=\\s*[),])"),
+    Pattern::new("\\b([_[:alpha:]]\\w*)\\s*(=)(?!=)"),
+    Pattern::new("=(?!=)"),
+    Pattern::new("\\s*(\\))\\s*(\\()"),
+    Pattern::new("\\b(_*\\p{upper}[_\\d]*\\p{upper})[[:upper:]\\d]*(_\\w*)?\\b"),
+    Pattern::new("(\\\\)\\s*(\\S.*$\\n?)"),
+    Pattern::new("(\\\\)\\s*$\\n?"),
+    Pattern::new("(?=^\\s*$)|(?!(\\s*[Rr]?('''|\"\"\"|[\"']))|\\G()$)"),
+    Pattern::new("\\b(?=[_[:alpha:]]\\w*\\s*\\[)"),
+    Pattern::new("(])"),
+    Pattern::new("(\\[)"),
+    Pattern::new("(?=])"),
+    Pattern::new(":"),
+    Pattern::new("(.+?)($(\\n?)|(?=[\\\\{}]|'''|\"\"\"))|\\n"),
+    Pattern::new("\\b([Ff])([BUbu])?(([\"']))"),
+    Pattern::new("(\\{)(?=[^\\n}]*$\\n?)"),
+    Pattern::new("(})|(?=\\n)"),
+    Pattern::new("(?=})|(?=\\n)"),
+    Pattern::new("(.+?)($(\\n?)|(?=[\\\\{}]|([\"'])|((?<!\\\\)\\n)))|\\n"),
+    Pattern::new("\\b([BUbu])([Ff])('''|\"\"\")"),
+    Pattern::new("\\b([BUbu])([Ff])(([\"']))"),
+    Pattern::new("\\b([Rr][Ff]|[Ff][Rr])('''|\"\"\")"),
+    Pattern::new("\\b([Rr][Ff]|[Ff][Rr])(([\"']))"),
+    Pattern::new("((?<=\\.)lambda|lambda(?=\\s*[.=]))"),
+    Pattern::new("\\b(lambda)\\s*?(?=[\\n,]|$)"),
+    Pattern::new("\\b(lambda)\\b"),
+    Pattern::new("(:)|(\\n)"),
+    Pattern::new("/"),
+    Pattern::new("(\\*\\*?)"),
+    Pattern::new("\\blambda(?=\\s*[),:])"),
+    Pattern::new("([_[:alpha:]]\\w*)\\s*(?:(,)|(?=:|$))"),
+    Pattern::new("\\b([_[:alpha:]]\\w*)\\s*(=)"),
+    Pattern::new("(,)|(?=:|$)"),
+    Pattern::new("&&|\\|\\||--|\\+\\+"),
+    Pattern::new("[$?]"),
+    Pattern::new("!\\b"),
+    Pattern::new("\\bfor\\b"),
+    Pattern::new("\\bin\\b"),
+    Pattern::new(
         "\\b(?<!\\.)(?:(and|or|not|in|is)|(for|if|else|await|yield(?:\\s+from)?))(?!\\s*:)\\b|(<<|>>|[\\&^|~])|(\\*\\*|[-%*+]|//|[/@])|(!=|==|>=|<=|[<>])|(:=)",
     ),
-    PatternSlot::new("\\{"),
-    PatternSlot::new("}"),
-    PatternSlot::new("]"),
-    PatternSlot::new("(?<=[])])\\s*(?=\\()"),
-    PatternSlot::new("\\.\\.\\."),
-    PatternSlot::new(","),
-    PatternSlot::new("\\b(?<!\\.)(import)\\b"),
-    PatternSlot::new("$"),
-    PatternSlot::new("\\b(?<!\\.)as\\b"),
-    PatternSlot::new("\\s*(class)\\s+(?=[_[:alpha:]]\\w*\\s*([(:]))"),
-    PatternSlot::new("(:)"),
-    PatternSlot::new("\\bmetaclass\\b"),
-    PatternSlot::new("(?<=\\S)(?=\\W)|$"),
-    PatternSlot::new("\\s*(?:\\b(async)\\s+)?\\b(def)\\s+(?=[_[:alpha:]]\\p{word}*\\s*\\()"),
-    PatternSlot::new("(:|(?=[\\n\"#']))"),
-    PatternSlot::new("\\b((self)|(cls))\\b\\s*(?:(,)|(?=\\)))"),
-    PatternSlot::new("([_[:alpha:]]\\w*)\\s*(?:(,)|(?=[\\n#)=]))"),
-    PatternSlot::new("(=)"),
-    PatternSlot::new("(,)|(?=\\))"),
-    PatternSlot::new("\\b([_[:alpha:]]\\w*)\\s*(:)"),
-    PatternSlot::new("(->)"),
-    PatternSlot::new("(?=:)"),
-    PatternSlot::new("\\b((async\\s+)?\\s*def)\\b"),
-    PatternSlot::new("\\b(?<!\\.)as\\b(?=.*[:\\\\])"),
-    PatternSlot::new(
+    Pattern::new("\\{"),
+    Pattern::new("}"),
+    Pattern::new("]"),
+    Pattern::new("(?<=[])])\\s*(?=\\()"),
+    Pattern::new("\\.\\.\\."),
+    Pattern::new(","),
+    Pattern::new("\\b(?<!\\.)(import)\\b"),
+    Pattern::new("$"),
+    Pattern::new("\\b(?<!\\.)as\\b"),
+    Pattern::new("\\s*(class)\\s+(?=[_[:alpha:]]\\w*\\s*([(:]))"),
+    Pattern::new("(:)"),
+    Pattern::new("\\bmetaclass\\b"),
+    Pattern::new("(?<=\\S)(?=\\W)|$"),
+    Pattern::new("\\s*(?:\\b(async)\\s+)?\\b(def)\\s+(?=[_[:alpha:]]\\p{word}*\\s*\\()"),
+    Pattern::new("(:|(?=[\\n\"#']))"),
+    Pattern::new("\\b((self)|(cls))\\b\\s*(?:(,)|(?=\\)))"),
+    Pattern::new("([_[:alpha:]]\\w*)\\s*(?:(,)|(?=[\\n#)=]))"),
+    Pattern::new("(=)"),
+    Pattern::new("(,)|(?=\\))"),
+    Pattern::new("\\b([_[:alpha:]]\\w*)\\s*(:)"),
+    Pattern::new("(->)"),
+    Pattern::new("(?=:)"),
+    Pattern::new("\\b((async\\s+)?\\s*def)\\b"),
+    Pattern::new("\\b(?<!\\.)as\\b(?=.*[:\\\\])"),
+    Pattern::new(
         "\\b(?<!\\.)(async|continue|del|assert|break|finally|for|from|elif|else|if|except|pass|raise|return|try|while|with)\\b",
     ),
-    PatternSlot::new("\\b(?<!\\.)(global|nonlocal)\\b"),
-    PatternSlot::new("\\b(?<!\\.)(class)\\b"),
-    PatternSlot::new("^\\s*(case|match)(?=\\s*([-\"#'(+:\\[{\\w\\d]|$))\\b"),
-    PatternSlot::new("<<=|>>=|//=|\\*\\*=|\\+=|-=|/=|@=|\\*=|%=|~=|\\^=|&=|\\|=|=(?!=)"),
-    PatternSlot::new("^\\s*((@))\\s*(?=[_[:alpha:]]\\w*)"),
-    PatternSlot::new("(\\))(.*?)(?=\\s*(?:#|$))|(?=[\\n#])"),
-    PatternSlot::new("([_[:alpha:]]\\w*)|(\\.)"),
-    PatternSlot::new("\\s*([^#(.\\\\_[:alpha:]\\s].*?)(?=#|$)"),
-    PatternSlot::new("^(?=\\s*[Rr]?('''|\"\"\"|[\"']))"),
-    PatternSlot::new("((?<=\\1)|^)(?!\\s*[Rr]?('''|\"\"\"|[\"']))"),
-    PatternSlot::new("('''|\"\"\")"),
-    PatternSlot::new("(\\1)"),
-    PatternSlot::new("(?:^|\\G)\\s*((?:>>>|\\.\\.\\.)\\s)(?=\\s*\\S)"),
-    PatternSlot::new("([Rr])('''|\"\"\")"),
-    PatternSlot::new("([\"'])"),
-    PatternSlot::new("(\\1)|(\\n)"),
-    PatternSlot::new("([Rr])([\"'])"),
-    PatternSlot::new("(\\2)|(\\n)"),
-    PatternSlot::new(";$"),
-    PatternSlot::new("(js)(\"\"\")"),
-    PatternSlot::new(
+    Pattern::new("\\b(?<!\\.)(global|nonlocal)\\b"),
+    Pattern::new("\\b(?<!\\.)(class)\\b"),
+    Pattern::new("^\\s*(case|match)(?=\\s*([-\"#'(+:\\[{\\w\\d]|$))\\b"),
+    Pattern::new("<<=|>>=|//=|\\*\\*=|\\+=|-=|/=|@=|\\*=|%=|~=|\\^=|&=|\\|=|=(?!=)"),
+    Pattern::new("^\\s*((@))\\s*(?=[_[:alpha:]]\\w*)"),
+    Pattern::new("(\\))(.*?)(?=\\s*(?:#|$))|(?=[\\n#])"),
+    Pattern::new("([_[:alpha:]]\\w*)|(\\.)"),
+    Pattern::new("\\s*([^#(.\\\\_[:alpha:]\\s].*?)(?=#|$)"),
+    Pattern::new("^(?=\\s*[Rr]?('''|\"\"\"|[\"']))"),
+    Pattern::new("((?<=\\1)|^)(?!\\s*[Rr]?('''|\"\"\"|[\"']))"),
+    Pattern::new("('''|\"\"\")"),
+    Pattern::new("(\\1)"),
+    Pattern::new("(?:^|\\G)\\s*((?:>>>|\\.\\.\\.)\\s)(?=\\s*\\S)"),
+    Pattern::new("([Rr])('''|\"\"\")"),
+    Pattern::new("([\"'])"),
+    Pattern::new("(\\1)|(\\n)"),
+    Pattern::new("([Rr])([\"'])"),
+    Pattern::new("(\\2)|(\\n)"),
+    Pattern::new(";$"),
+    Pattern::new("(js)(\"\"\")"),
+    Pattern::new(
         "^(///)\\s*(?=<(reference|amd-dependency|amd-module)(\\s+(path|types|no-default-lib|lib|name|resolution-mode)\\s*=\\s*(('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`)))+\\s*/>\\s*$)",
     ),
-    PatternSlot::new("(?=$)"),
-    PatternSlot::new("(<)(reference|amd-dependency|amd-module)"),
-    PatternSlot::new("/>"),
-    PatternSlot::new("path|types|no-default-lib|lib|name|resolution-mode"),
-    PatternSlot::new("="),
-    PatternSlot::new("'"),
-    PatternSlot::new("(')|([^\\n\\\\])$"),
-    PatternSlot::new(
+    Pattern::new("(?=$)"),
+    Pattern::new("(<)(reference|amd-dependency|amd-module)"),
+    Pattern::new("/>"),
+    Pattern::new("path|types|no-default-lib|lib|name|resolution-mode"),
+    Pattern::new("="),
+    Pattern::new("'"),
+    Pattern::new("(')|([^\\n\\\\])$"),
+    Pattern::new(
         "\\\\(x\\h{2}|u\\h{4}|u\\{\\h+}|[012][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.|$)",
     ),
-    PatternSlot::new("\""),
-    PatternSlot::new("(\")|([^\\n\\\\])$"),
-    PatternSlot::new(
+    Pattern::new("\""),
+    Pattern::new("(\")|([^\\n\\\\])$"),
+    Pattern::new(
         "(?=(([$_[:alpha:]][$_[:alnum:]]*\\s*\\??\\.\\s*)*|(\\??\\.\\s*)?)([$_[:alpha:]][$_[:alnum:]]*)(<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>|<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))(([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>|<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>)*(?<!=)>))*(?<!=)>)*(?<!=)>\\s*)?`)",
     ),
-    PatternSlot::new("(?=`)"),
-    PatternSlot::new(
+    Pattern::new("(?=`)"),
+    Pattern::new(
         "(?=(([$_[:alpha:]][$_[:alnum:]]*\\s*\\??\\.\\s*)*|(\\??\\.\\s*)?)([$_[:alpha:]][$_[:alnum:]]*))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=(<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>|<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))(([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>|<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>)*(?<!=)>))*(?<!=)>)*(?<!=)>\\s*)?`)",
     ),
-    PatternSlot::new("\\b(?<!\\$)0[Xx]\\h[_\\h]*(n)?\\b(?!\\$)"),
-    PatternSlot::new("\\b(?<!\\$)0[Bb][01][01_]*(n)?\\b(?!\\$)"),
-    PatternSlot::new("\\b(?<!\\$)0[Oo]?[0-7][0-7_]*(n)?\\b(?!\\$)"),
-    PatternSlot::new(
+    Pattern::new("\\b(?<!\\$)0[Xx]\\h[_\\h]*(n)?\\b(?!\\$)"),
+    Pattern::new("\\b(?<!\\$)0[Bb][01][01_]*(n)?\\b(?!\\$)"),
+    Pattern::new("\\b(?<!\\$)0[Oo]?[0-7][0-7_]*(n)?\\b(?!\\$)"),
+    Pattern::new(
         "(?<!\\$)(?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\B(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)(n)?\\B|\\B(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(n)?\\b(?!\\.))(?!\\$)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))true(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))false(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))null(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))undefined(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))NaN(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))Infinity(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new("\\s*(\\[)"),
-    PatternSlot::new(
+    Pattern::new("\\s*(\\[)"),
+    Pattern::new(
         "(?<!\\+\\+|--)(?<=[(*,:=>?\\[{]|&&|\\|\\||\\?|\\*/|^await|[^$._[:alnum:]]await|^return|[^$._[:alnum:]]return|^default|[^$._[:alnum:]]default|^yield|[^$._[:alnum:]]yield|^)\\s*(?=(<)\\s*(?:([$_[:alpha:]][-$._[:alnum:]]*)(?<![-.])(:))?((?:[a-z][0-9a-z]*|([$_[:alpha:]][-$._[:alnum:]]*))(?<![-.]))?\\s*(>))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?!(<)\\s*(?:([$_[:alpha:]][-$._[:alnum:]]*)(?<![-.])(:))?((?:[a-z][0-9a-z]*|([$_[:alpha:]][-$._[:alnum:]]*))(?<![-.]))?\\s*(>))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(<)\\s*(?:([$_[:alpha:]][-$._[:alnum:]]*)(?<![-.])(:))?((?:[a-z][0-9a-z]*|([$_[:alpha:]][-$._[:alnum:]]*))(?<![-.]))?\\s*(>)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(</)\\s*(?:([$_[:alpha:]][-$._[:alnum:]]*)(?<![-.])(:))?((?:[a-z][0-9a-z]*|([$_[:alpha:]][-$._[:alnum:]]*))(?<![-.]))?\\s*(>)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=(<)\\s*(?:([$_[:alpha:]][-$._[:alnum:]]*)(?<![-.])(:))?((?:[a-z][0-9a-z]*|([$_[:alpha:]][-$._[:alnum:]]*))(?<![-.]))(?=((<\\s*)|(\\s+))(?!\\?)|/?>))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(/>)|(</)\\s*(?:([$_[:alpha:]][-$._[:alnum:]]*)(?<![-.])(:))?((?:[a-z][0-9a-z]*|([$_[:alpha:]][-$._[:alnum:]]*))(?<![-.]))?\\s*(>)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(<)\\s*(?:([$_[:alpha:]][-$._[:alnum:]]*)(?<![-.])(:))?((?:[a-z][0-9a-z]*|([$_[:alpha:]][-$._[:alnum:]]*))(?<![-.]))(?=((<\\s*)|(\\s+))(?!\\?)|/?>)",
     ),
-    PatternSlot::new("(?=/?>)"),
-    PatternSlot::new("/\\*\\*(?!/)"),
-    PatternSlot::new("\\*/"),
-    PatternSlot::new("((@)a(?:ccess|pi))\\s+(p(?:rivate|rotected|ublic))\\b"),
-    PatternSlot::new("((@)author)\\s+([^*/<>@\\s](?:[^*/<>@]|\\*[^/])*)(?:\\s*(<)([^>\\s]+)(>))?"),
-    PatternSlot::new(
-        "((@)borrows)\\s+((?:[^*/@\\s]|\\*[^/])+)\\s+(as)\\s+((?:[^*/@\\s]|\\*[^/])+)",
-    ),
-    PatternSlot::new("((@)example)\\s+"),
-    PatternSlot::new("(?=@|\\*/)"),
-    PatternSlot::new("^\\s\\*\\s+"),
-    PatternSlot::new("\\G(<)caption(>)"),
-    PatternSlot::new("(</)caption(>)|(?=\\*/)"),
-    PatternSlot::new("[^*@\\s](?:[^*]|\\*[^/])*"),
-    PatternSlot::new(
+    Pattern::new("(?=/?>)"),
+    Pattern::new("/\\*\\*(?!/)"),
+    Pattern::new("\\*/"),
+    Pattern::new("((@)a(?:ccess|pi))\\s+(p(?:rivate|rotected|ublic))\\b"),
+    Pattern::new("((@)author)\\s+([^*/<>@\\s](?:[^*/<>@]|\\*[^/])*)(?:\\s*(<)([^>\\s]+)(>))?"),
+    Pattern::new("((@)borrows)\\s+((?:[^*/@\\s]|\\*[^/])+)\\s+(as)\\s+((?:[^*/@\\s]|\\*[^/])+)"),
+    Pattern::new("((@)example)\\s+"),
+    Pattern::new("(?=@|\\*/)"),
+    Pattern::new("^\\s\\*\\s+"),
+    Pattern::new("\\G(<)caption(>)"),
+    Pattern::new("(</)caption(>)|(?=\\*/)"),
+    Pattern::new("[^*@\\s](?:[^*]|\\*[^/])*"),
+    Pattern::new(
         "((@)kind)\\s+(class|constant|event|external|file|function|member|mixin|module|namespace|typedef)\\b",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "((@)see)\\s+(?:((?=https?://)(?:[^*\\s]|\\*[^/])+)|((?!https?://|(?:\\[[^]\\[]*])?\\{@(?:link|linkcode|linkplain|tutorial)\\b)(?:[^*/@\\s]|\\*[^/])+))",
     ),
-    PatternSlot::new(
-        "((@)template)\\s+([$A-Z_a-z][]$.\\[\\w]*(?:\\s*,\\s*[$A-Z_a-z][]$.\\[\\w]*)*)",
-    ),
-    PatternSlot::new("((@)template)\\s+(?=\\{)"),
-    PatternSlot::new("(?=\\s|\\*/|[^]$A-\\[_a-{}])"),
-    PatternSlot::new("\\G(\\{)"),
-    PatternSlot::new("((}))\\s*|(?=\\*/)"),
-    PatternSlot::new("}|(?=\\*/)"),
-    PatternSlot::new("]|(?=\\*/)"),
-    PatternSlot::new("([$A-Z_a-z][]$.\\[\\w]*)"),
-    PatternSlot::new(
+    Pattern::new("((@)template)\\s+([$A-Z_a-z][]$.\\[\\w]*(?:\\s*,\\s*[$A-Z_a-z][]$.\\[\\w]*)*)"),
+    Pattern::new("((@)template)\\s+(?=\\{)"),
+    Pattern::new("(?=\\s|\\*/|[^]$A-\\[_a-{}])"),
+    Pattern::new("\\G(\\{)"),
+    Pattern::new("((}))\\s*|(?=\\*/)"),
+    Pattern::new("}|(?=\\*/)"),
+    Pattern::new("]|(?=\\*/)"),
+    Pattern::new("([$A-Z_a-z][]$.\\[\\w]*)"),
+    Pattern::new(
         "((@)(?:arg|argument|const|constant|member|namespace|param|var))\\s+([$A-Z_a-z][]$.\\[\\w]*)",
     ),
-    PatternSlot::new("((@)typedef)\\s+(?=\\{)"),
-    PatternSlot::new("(?:[^*/@\\s]|\\*[^/])+"),
-    PatternSlot::new(
+    Pattern::new("((@)typedef)\\s+(?=\\{)"),
+    Pattern::new("(?:[^*/@\\s]|\\*[^/])+"),
+    Pattern::new(
         "((@)(?:arg|argument|const|constant|member|namespace|param|prop|property|var))\\s+(?=\\{)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(\\[)\\s*[$\\w]+(?:(?:\\[])?\\.[$\\w]+)*(?:\\s*(=)\\s*((?>\"(?:\\*(?!/)|\\\\(?!\")|[^*\\\\])*?\"|'(?:\\*(?!/)|\\\\(?!')|[^*\\\\])*?'|\\[(?:\\*(?!/)|[^*])*?]|(?:\\*(?!/)|\\s(?!\\s*])|\\[.*?(?:]|(?=\\*/))|[^]*\\[\\s])*)*))?\\s*(?:(])((?:[^*\\s]|\\*[^/\\s])+)?|(?=\\*/))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "((@)(?:define|enum|exception|export|extends|lends|implements|modifies|namespace|private|protected|returns?|satisfies|suppress|this|throws|type|yields?))\\s+(?=\\{)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "((@)(?:alias|augments|callback|constructs|emits|event|fires|exports?|extends|external|function|func|host|lends|listens|interface|memberof!?|method|module|mixes|mixin|name|requires|see|this|typedef|uses))\\s+((?:[^*@{}\\s]|\\*[^/])+)",
     ),
-    PatternSlot::new("((@)(?:default(?:value)?|license|version))\\s+(([\"']))"),
-    PatternSlot::new("(\\3)|(?=$|\\*/)"),
-    PatternSlot::new("((@)(?:default(?:value)?|license|tutorial|variation|version))\\s+([^*\\s]+)"),
-    PatternSlot::new(
+    Pattern::new("((@)(?:default(?:value)?|license|version))\\s+(([\"']))"),
+    Pattern::new("(\\3)|(?=$|\\*/)"),
+    Pattern::new("((@)(?:default(?:value)?|license|tutorial|variation|version))\\s+([^*\\s]+)"),
+    Pattern::new(
         "(@)(?:abstract|access|alias|api|arg|argument|async|attribute|augments|author|beta|borrows|bubbles|callback|chainable|class|classdesc|code|config|const|constant|constructor|constructs|copyright|default|defaultvalue|define|deprecated|desc|description|dict|emits|enum|event|example|exception|exports?|extends|extension(?:_?for)?|external|externs|file|fileoverview|final|fires|for|func|function|generator|global|hideconstructor|host|ignore|implements|implicitCast|inherit[Dd]oc|inner|instance|interface|internal|kind|lends|license|listens|main|member|memberof!?|method|mixes|mixins?|modifies|module|name|namespace|noalias|nocollapse|nocompile|nosideeffects|override|overview|package|param|polymer(?:Behavior)?|preserve|private|prop|property|protected|public|read[Oo]nly|record|require[ds]|returns?|see|since|static|struct|submodule|summary|suppress|template|this|throws|todo|tutorial|type|typedef|unrestricted|uses|var|variation|version|virtual|writeOnce|yields?)\\b",
     ),
-    PatternSlot::new("(\\[)[^]]+(])(?=\\{@(?:link|linkcode|linkplain|tutorial))"),
-    PatternSlot::new("(\\{)((@)(?:link(?:code|plain)?|tutorial))\\s*"),
-    PatternSlot::new("\\G((?=https?://)(?:[^*|}\\s]|\\*/)+)(\\|)?"),
-    PatternSlot::new("\\G((?:[^*@{|}\\s]|\\*[^/])+)(\\|)?"),
-    PatternSlot::new("((@)[$_[:alpha:]][$_[:alnum:]]*)(?=\\s+)"),
-    PatternSlot::new("(/\\*)(?:\\s*((@)internal)(?=\\s|(\\*/)))?"),
-    PatternSlot::new("(^[\\t ]+)?((//)(?:\\s*((@)internal)(?=\\s|$))?)"),
-    PatternSlot::new("<"),
-    PatternSlot::new(">"),
-    PatternSlot::new(
+    Pattern::new("(\\[)[^]]+(])(?=\\{@(?:link|linkcode|linkplain|tutorial))"),
+    Pattern::new("(\\{)((@)(?:link(?:code|plain)?|tutorial))\\s*"),
+    Pattern::new("\\G((?=https?://)(?:[^*|}\\s]|\\*/)+)(\\|)?"),
+    Pattern::new("\\G((?:[^*@{|}\\s]|\\*[^/])+)(\\|)?"),
+    Pattern::new("((@)[$_[:alpha:]][$_[:alnum:]]*)(?=\\s+)"),
+    Pattern::new("(/\\*)(?:\\s*((@)internal)(?=\\s|(\\*/)))?"),
+    Pattern::new("(^[\\t ]+)?((//)(?:\\s*((@)internal)(?=\\s|$))?)"),
+    Pattern::new("<"),
+    Pattern::new(">"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(_)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new("([$_[:alpha:]][$_[:alnum:]]*)?(`)"),
-    PatternSlot::new("\\$\\{"),
-    PatternSlot::new(
+    Pattern::new("([$_[:alpha:]][$_[:alnum:]]*)?(`)"),
+    Pattern::new("\\$\\{"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(string|number|bigint|boolean|symbol|any|void|never|unknown)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(this|true|false|undefined|null|object)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new("(<)"),
-    PatternSlot::new("(>)"),
-    PatternSlot::new(
+    Pattern::new("(<)"),
+    Pattern::new("(>)"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(extends|in|out|const)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new("(=)(?!>)"),
-    PatternSlot::new(
+    Pattern::new("(=)(?!>)"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))([$_[:alpha:]][$_[:alnum:]]*)\\s*(\\?)?\\s*(:)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(override)\\s+)?(?:\\b(p(?:ublic|rivate|rotected))\\s+)?(?:\\b(abstract)\\s+)?(?:\\b(async)\\s+)?\\s*\\b(constructor)\\b(?!:)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new("(?=[,;}]|$)|(?<=})"),
-    PatternSlot::new(
+    Pattern::new("(?=[,;}]|$)|(?<=})"),
+    Pattern::new(
         "(?=(\\b((?<!\\$)0[Xx]\\h[_\\h]*(n)?\\b(?!\\$))|\\b((?<!\\$)0[Bb][01][01_]*(n)?\\b(?!\\$))|\\b((?<!\\$)0[Oo]?[0-7][0-7_]*(n)?\\b(?!\\$))|((?<!\\$)(?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\B(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)(n)?\\B|\\B(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(n)?\\b(?!\\.))(?!\\$))|([$_[:alpha:]][$_[:alnum:]]*)|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`)|(\\[([^]\\[]|\\[[^]\\[]*])+]))\\s*(\\??)\\s*[(<])",
     ),
-    PatternSlot::new("(?=[(<])"),
-    PatternSlot::new("[$_[:alpha:]][$_[:alnum:]]*"),
-    PatternSlot::new("\\?"),
-    PatternSlot::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))@"),
-    PatternSlot::new("(?=\\s)"),
-    PatternSlot::new("(?<![:=])\\s*(?:(\\.\\.\\.)\\s*)?(\\{)"),
-    PatternSlot::new(
+    Pattern::new("(?=[(<])"),
+    Pattern::new("[$_[:alpha:]][$_[:alnum:]]*"),
+    Pattern::new("\\?"),
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))@"),
+    Pattern::new("(?=\\s)"),
+    Pattern::new("(?<![:=])\\s*(?:(\\.\\.\\.)\\s*)?(\\{)"),
+    Pattern::new(
         "(?=(\\b((?<!\\$)0[Xx]\\h[_\\h]*(n)?\\b(?!\\$))|\\b((?<!\\$)0[Bb][01][01_]*(n)?\\b(?!\\$))|\\b((?<!\\$)0[Oo]?[0-7][0-7_]*(n)?\\b(?!\\$))|((?<!\\$)(?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\B(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)(n)?\\B|\\B(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(n)?\\b(?!\\.))(?!\\$))|([$_[:alpha:]][$_[:alnum:]]*)|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`)|(\\[([^]\\[]|\\[[^]\\[]*])+]))\\s*(:))",
     ),
-    PatternSlot::new("(?=[,}])"),
-    PatternSlot::new("([$_[:alpha:]][$_[:alnum:]]*)"),
-    PatternSlot::new(
+    Pattern::new("(?=[,}])"),
+    Pattern::new("([$_[:alpha:]][$_[:alnum:]]*)"),
+    Pattern::new(
         "(?<!\\+\\+|--|})(?<=[!(+,:=?\\[]|^return|[^$._[:alnum:]]return|^case|[^$._[:alnum:]]case|=>|&&|\\|\\||\\*/)\\s*(/)(?![*/])(?=(?:[^()/\\[\\\\]|\\\\.|\\[([^]\\\\]|\\\\.)+]|\\(([^)\\\\]|\\\\.)+\\))+/([dgimsuvy]+|(?![*/])|(?=/\\*))(?!\\s*[$0-9A-Z_a-z]))",
     ),
-    PatternSlot::new("(/)([dgimsuvy]*)"),
-    PatternSlot::new("\\\\[Bb]|[$^]"),
-    PatternSlot::new("\\\\(?:[1-9]\\d*|k<([$A-Z_a-z][$\\w]*)>)"),
-    PatternSlot::new("[*+?]|\\{(\\d+,\\d+|\\d+,|,\\d+|\\d+)}\\??"),
-    PatternSlot::new("(\\()((\\?=)|(\\?!)|(\\?<=)|(\\?<!))"),
-    PatternSlot::new("\\((?:(\\?:)|\\?<([$A-Z_a-z][$\\w]*)>)?"),
-    PatternSlot::new("(\\[)(\\^)?"),
-    PatternSlot::new(
+    Pattern::new("(/)([dgimsuvy]*)"),
+    Pattern::new("\\\\[Bb]|[$^]"),
+    Pattern::new("\\\\(?:[1-9]\\d*|k<([$A-Z_a-z][$\\w]*)>)"),
+    Pattern::new("[*+?]|\\{(\\d+,\\d+|\\d+,|,\\d+|\\d+)}\\??"),
+    Pattern::new("(\\()((\\?=)|(\\?!)|(\\?<=)|(\\?<!))"),
+    Pattern::new("\\((?:(\\?:)|\\?<([$A-Z_a-z][$\\w]*)>)?"),
+    Pattern::new("(\\[)(\\^)?"),
+    Pattern::new(
         "(?:.|(\\\\(?:[0-7]{3}|x\\h{2}|u\\h{4}))|(\\\\c[A-Z])|(\\\\.))-(?:[^]\\\\]|(\\\\(?:[0-7]{3}|x\\h{2}|u\\h{4}))|(\\\\c[A-Z])|(\\\\.))",
     ),
-    PatternSlot::new("\\\\[DSWdfnrstvw]|\\."),
-    PatternSlot::new("\\\\([0-7]{3}|x\\h{2}|u\\h{4})"),
-    PatternSlot::new("\\\\c[A-Z]"),
-    PatternSlot::new("\\\\."),
-    PatternSlot::new(
+    Pattern::new("\\\\[DSWdfnrstvw]|\\."),
+    Pattern::new("\\\\([0-7]{3}|x\\h{2}|u\\h{4})"),
+    Pattern::new("\\\\c[A-Z]"),
+    Pattern::new("\\\\."),
+    Pattern::new(
         "((?<![]$)_[:alnum:]]|\\+\\+|--|}|\\*/)|((?<=^return|[^$._[:alnum:]]return|^case|[^$._[:alnum:]]case))\\s*)/(?![*/])(?=(?:[^/\\[\\\\]|\\\\.|\\[([^]\\\\]|\\\\.)*])+/([dgimsuvy]+|(?![*/])|(?=/\\*))(?!\\s*[$0-9A-Z_a-z]))",
     ),
-    PatternSlot::new("(?:(\\.\\.\\.)\\s*)?(\\{)"),
-    PatternSlot::new("(?:(\\.\\.\\.)\\s*)?(\\[)"),
-    PatternSlot::new("(?:(\\.\\.\\.)\\s*)?([$_[:alpha:]][$_[:alnum:]]*)"),
-    PatternSlot::new("(?<![!=])(=)(?!=)(?=\\s*\\S)(?!\\s*.*=>\\s*$)"),
-    PatternSlot::new("(?=$|^|[]),;}]|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+))"),
-    PatternSlot::new("(?<![!=])(=)(?!=)"),
-    PatternSlot::new(
+    Pattern::new("(?:(\\.\\.\\.)\\s*)?(\\{)"),
+    Pattern::new("(?:(\\.\\.\\.)\\s*)?(\\[)"),
+    Pattern::new("(?:(\\.\\.\\.)\\s*)?([$_[:alpha:]][$_[:alnum:]]*)"),
+    Pattern::new("(?<![!=])(=)(?!=)(?=\\s*\\S)(?!\\s*.*=>\\s*$)"),
+    Pattern::new("(?=$|^|[]),;}]|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+))"),
+    Pattern::new("(?<![!=])(=)(?!=)"),
+    Pattern::new(
         "(?=[]),;}]|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+))|(?=^\\s*$)|(?<![-\\&*+/|])(?<=\\S)(?<!=)(?=\\s*$)",
     ),
-    PatternSlot::new("(?<![:=])\\s*(?:(\\.\\.\\.)\\s*)?(\\[)"),
-    PatternSlot::new(
+    Pattern::new("(?<![:=])\\s*(?:(\\.\\.\\.)\\s*)?(\\[)"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(override|public|protected|private|readonly)\\s+(?=(override|public|protected|private|readonly)\\s+)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?:(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(override|public|private|protected|readonly)\\s+)?(?:(\\.\\.\\.)\\s*)?(?<![:=])(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(this)|([$_[:alpha:]][$_[:alnum:]]*))(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))\\s*(\\??)(?=\\s*(=\\s*(((async\\s+)?((function\\s*[(*<])|(function\\s+)|([$_[:alpha:]][$_[:alnum:]]*\\s*=>)))|((async\\s*)?(((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*))))))|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*((\\)\\s*:)|((\\.\\.\\.\\s*)?[$_[:alpha:]][$_[:alnum:]]*\\s*:)))|(<\\s*[$_[:alpha:]][$_[:alnum:]]*\\s+extends\\s*[^=>])|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*(([$_[:alpha:]]|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|(\\.\\.\\.\\s*[$_[:alpha:]]))([^\"'()`]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))*)?\\)(\\s*:\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+)?\\s*=>)))))|(:\\s*((<)|(\\(\\s*((\\))|(\\.\\.\\.)|([$_[:alnum:]]+\\s*(([,:=?])|(\\)\\s*=>)))))))|(:\\s*(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))Function(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))|(:\\s*((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))))))|(:\\s*(=>|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(<[^<>]*>)|[^(),<=>])+=\\s*(((async\\s+)?((function\\s*[(*<])|(function\\s+)|([$_[:alpha:]][$_[:alnum:]]*\\s*=>)))|((async\\s*)?(((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*))))))|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*((\\)\\s*:)|((\\.\\.\\.\\s*)?[$_[:alpha:]][$_[:alnum:]]*\\s*:)))|(<\\s*[$_[:alpha:]][$_[:alnum:]]*\\s+extends\\s*[^=>])|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*(([$_[:alpha:]]|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|(\\.\\.\\.\\s*[$_[:alpha:]]))([^\"'()`]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))*)?\\)(\\s*:\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+)?\\s*=>))))))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?:(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(override|public|private|protected|readonly)\\s+)?(?:(\\.\\.\\.)\\s*)?(?<![:=])(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(this)|([$_[:alpha:]][$_[:alnum:]]*))(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))\\s*(\\??)",
     ),
-    PatternSlot::new("(?=[),])|(?==[^>])"),
-    PatternSlot::new("(?<=\\))\\s*(:)(?=\\s*\\S)"),
-    PatternSlot::new("(?<![\\&:|])(?=$|^|[,;{}]|//)"),
-    PatternSlot::new("(?<=[\\&:|])(?=\\s*\\{)"),
-    PatternSlot::new("(?<=})"),
-    PatternSlot::new(
+    Pattern::new("(?=[),])|(?==[^>])"),
+    Pattern::new("(?<=\\))\\s*(:)(?=\\s*\\S)"),
+    Pattern::new("(?<![\\&:|])(?=$|^|[,;{}]|//)"),
+    Pattern::new("(?<=[\\&:|])(?=\\s*\\{)"),
+    Pattern::new("(?<=})"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(asserts)\\s+)?(?!asserts)(?:(this)|([$_[:alpha:]][$_[:alnum:]]*))\\s(is)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(asserts)\\s+(?!is)(?:(this)|([$_[:alpha:]][$_[:alnum:]]*))(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))asserts(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))is(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new("(?<=\\))\\s*(:)"),
-    PatternSlot::new("(?<![\\&:|])((?=[,;{}]|//|^\\s*$)|((?<=\\S)(?=\\s*$)))"),
-    PatternSlot::new("(=>)(?=\\s*\\S)"),
-    PatternSlot::new("(?<!=>)(?<![\\&|])(?=[]),:;=>?{}]|//|$)"),
-    PatternSlot::new("(?<==>)(?=\\s*\\{)"),
-    PatternSlot::new("=>"),
-    PatternSlot::new("(?<!=>)(?<![\\&|])((?=[]),:;=>?{}]|//|^\\s*$)|((?<=\\S)(?=\\s*$)))"),
-    PatternSlot::new(
+    Pattern::new("(?<=\\))\\s*(:)"),
+    Pattern::new("(?<![\\&:|])((?=[,;{}]|//|^\\s*$)|((?<=\\S)(?=\\s*$)))"),
+    Pattern::new("(=>)(?=\\s*\\S)"),
+    Pattern::new("(?<!=>)(?<![\\&|])(?=[]),:;=>?{}]|//|$)"),
+    Pattern::new("(?<==>)(?=\\s*\\{)"),
+    Pattern::new("=>"),
+    Pattern::new("(?<!=>)(?<![\\&|])((?=[]),:;=>?{}]|//|^\\s*$)|((?<=\\S)(?=\\s*$)))"),
+    Pattern::new(
         "(?=(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b(var|let)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?!(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b(var|let)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))((?=^|[;}]|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+)|;|^\\s*$|^\\s*(?:abstract|async|\\bawait\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b\\b|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b|var|while)\\b)|((?<!^let|[^$._[:alnum:]]let|^var|[^$._[:alnum:]]var)(?=\\s*$)))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b(var|let)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))\\s*",
     ),
-    PatternSlot::new("(?=\\S)"),
-    PatternSlot::new("(?<![:=]|^of|[^$._[:alnum:]]of|^in|[^$._[:alnum:]]in)\\s*(?=\\{)"),
-    PatternSlot::new("(?=$|^|[,;=}]|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+))"),
-    PatternSlot::new("(:)(?=\\s*\\S)"),
-    PatternSlot::new(
+    Pattern::new("(?=\\S)"),
+    Pattern::new("(?<![:=]|^of|[^$._[:alnum:]]of|^in|[^$._[:alnum:]]in)\\s*(?=\\{)"),
+    Pattern::new("(?=$|^|[,;=}]|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+))"),
+    Pattern::new("(:)(?=\\s*\\S)"),
+    Pattern::new(
         "(?<![\\&:|])(?!\\s*[\\&|]\\s+)((?=^|[]),;}]|//)|(?==[^>])|((?<=[]$)>_}[:alpha:]])\\s*(?=\\{)))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![\\&:|])((?=[]),;}]|//)|(?==[^>])|(?=^\\s*$)|((?<=[]$)>_}[:alpha:]])\\s*(?=\\{)))",
     ),
-    PatternSlot::new("(?<![:=]|^of|[^$._[:alnum:]]of|^in|[^$._[:alnum:]]in)\\s*(?=\\[)"),
-    PatternSlot::new(
+    Pattern::new("(?<![:=]|^of|[^$._[:alnum:]]of|^in|[^$._[:alnum:]]in)\\s*(?=\\[)"),
+    Pattern::new(
         "([$_[:alpha:]][$_[:alnum:]]*)(!)?(?=\\s*(=\\s*(((async\\s+)?((function\\s*[(*<])|(function\\s+)|([$_[:alpha:]][$_[:alnum:]]*\\s*=>)))|((async\\s*)?(((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*))))))|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*((\\)\\s*:)|((\\.\\.\\.\\s*)?[$_[:alpha:]][$_[:alnum:]]*\\s*:)))|(<\\s*[$_[:alpha:]][$_[:alnum:]]*\\s+extends\\s*[^=>])|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*(([$_[:alpha:]]|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|(\\.\\.\\.\\s*[$_[:alpha:]]))([^\"'()`]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))*)?\\)(\\s*:\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+)?\\s*=>)))))|(:\\s*((<)|(\\(\\s*((\\))|(\\.\\.\\.)|([$_[:alnum:]]+\\s*(([,:=?])|(\\)\\s*=>)))))))|(:\\s*(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))Function(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))|(:\\s*((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))))))|(:\\s*(=>|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(<[^<>]*>)|[^(),<=>])+=\\s*(((async\\s+)?((function\\s*[(*<])|(function\\s+)|([$_[:alpha:]][$_[:alnum:]]*\\s*=>)))|((async\\s*)?(((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*))))))|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*((\\)\\s*:)|((\\.\\.\\.\\s*)?[$_[:alpha:]][$_[:alnum:]]*\\s*:)))|(<\\s*[$_[:alpha:]][$_[:alnum:]]*\\s+extends\\s*[^=>])|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*(([$_[:alpha:]]|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|(\\.\\.\\.\\s*[$_[:alpha:]]))([^\"'()`]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))*)?\\)(\\s*:\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+)?\\s*=>))))))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=$|^|[,;=}]|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+)|(;|^\\s*$|^\\s*(?:abstract|async|\\bawait\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b\\b|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b|var|while)\\b))",
     ),
-    PatternSlot::new("(\\p{upper}[$_\\d[:upper:]]*)(?![$_[:alnum:]])(!)?"),
-    PatternSlot::new("([$_[:alpha:]][$_[:alnum:]]*)(!)?"),
-    PatternSlot::new("(,)\\s*(?=$|//)"),
-    PatternSlot::new(
+    Pattern::new("(\\p{upper}[$_\\d[:upper:]]*)(?![$_[:alnum:]])(!)?"),
+    Pattern::new("([$_[:alpha:]][$_[:alnum:]]*)(!)?"),
+    Pattern::new("(,)\\s*(?=$|//)"),
+    Pattern::new(
         "(?<!,)(((?=[;=}]|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+)|^\\s*$))|((?<=\\S)(?=\\s*$)))",
     ),
-    PatternSlot::new("(?=^)"),
-    PatternSlot::new(
+    Pattern::new("(?=^)"),
+    Pattern::new(
         "(?=(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b(const(?!\\s+enum\\b))(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?!(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b(const(?!\\s+enum\\b))(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))((?=^|[;}]|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+)|;|^\\s*$|^\\s*(?:abstract|async|\\bawait\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b\\b|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b|var|while)\\b)|((?<!(?:^|[^$._[:alnum:]])const)(?=\\s*$)))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b(const(?!\\s+enum\\b))(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))\\s*",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "([$_[:alpha:]][$_[:alnum:]]*)(?=\\s*(=\\s*(((async\\s+)?((function\\s*[(*<])|(function\\s+)|([$_[:alpha:]][$_[:alnum:]]*\\s*=>)))|((async\\s*)?(((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*))))))|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*((\\)\\s*:)|((\\.\\.\\.\\s*)?[$_[:alpha:]][$_[:alnum:]]*\\s*:)))|(<\\s*[$_[:alpha:]][$_[:alnum:]]*\\s+extends\\s*[^=>])|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*(([$_[:alpha:]]|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|(\\.\\.\\.\\s*[$_[:alpha:]]))([^\"'()`]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))*)?\\)(\\s*:\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+)?\\s*=>)))))|(:\\s*((<)|(\\(\\s*((\\))|(\\.\\.\\.)|([$_[:alnum:]]+\\s*(([,:=?])|(\\)\\s*=>)))))))|(:\\s*(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))Function(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))|(:\\s*((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))))))|(:\\s*(=>|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(<[^<>]*>)|[^(),<=>])+=\\s*(((async\\s+)?((function\\s*[(*<])|(function\\s+)|([$_[:alpha:]][$_[:alnum:]]*\\s*=>)))|((async\\s*)?(((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*))))))|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*((\\)\\s*:)|((\\.\\.\\.\\s*)?[$_[:alpha:]][$_[:alnum:]]*\\s*:)))|(<\\s*[$_[:alpha:]][$_[:alnum:]]*\\s+extends\\s*[^=>])|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*(([$_[:alpha:]]|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|(\\.\\.\\.\\s*[$_[:alpha:]]))([^\"'()`]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))*)?\\)(\\s*:\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+)?\\s*=>))))))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b\\b(using(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])|await\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b)\\b(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?!(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b\\b(using(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])|await\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b)\\b(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))((?=[;}]|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+)|;|^\\s*$|^\\s*(?:abstract|async|\\bawait\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b\\b|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b|var|while)\\b)|((?<!(?:^|[^$._[:alnum:]]|^await\\s+|[^$._[:alnum:]]await\\s+)using)(?=\\s*$)))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b\\b(using(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])|await\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b)\\b(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))\\s*",
     ),
-    PatternSlot::new("(,)\\s*((?!\\S)|(?=//))"),
-    PatternSlot::new(
+    Pattern::new("(,)\\s*((?!\\S)|(?=//))"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?(?:(async)\\s+)?(function)\\b(?:\\s*(\\*))?(?:(?:\\s+|(?<=\\*))([$_[:alpha:]][$_[:alnum:]]*))?\\s*",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=;|^\\s*$|^\\s*(?:abstract|async|\\bawait\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b\\b|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b|var|while)\\b)|(?<=})",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b(?:(abstract)\\s+)?\\b(class)\\b(?=\\s+|/[*/])",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))\\b(extends|implements)\\b(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new("(?=\\{)"),
-    PatternSlot::new(
+    Pattern::new("(?=\\{)"),
+    Pattern::new(
         "([$_[:alpha:]][$_[:alnum:]]*)\\s*(?:(\\.)|(\\?\\.(?!\\s*\\d)))(?=\\s*[$_[:alpha:]][$_[:alnum:]]*(\\s*\\??\\.\\s*[$_[:alpha:]][$_[:alnum:]]*)*\\s*)",
     ),
-    PatternSlot::new("(\\.)|(\\?\\.(?!\\s*\\d))"),
-    PatternSlot::new("(?<=:)\\s*"),
-    PatternSlot::new(
+    Pattern::new("(\\.)|(\\?\\.(?!\\s*\\d))"),
+    Pattern::new("(?<=:)\\s*"),
+    Pattern::new(
         "(?=[-\\])+,:;}\\s]|^\\s*$|^\\s*(?:abstract|async|\\bawait\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b\\b|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b|var|while)\\b)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?:(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(readonly)\\s*)?\\s*(\\[)\\s*([$_[:alpha:]][$_[:alnum:]]*)\\s*(?=:)",
     ),
-    PatternSlot::new("(])\\s*(\\?\\s*)?|$"),
-    PatternSlot::new(
+    Pattern::new("(])\\s*(\\?\\s*)?|$"),
+    Pattern::new(
         "(?<!\\()(?:(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(readonly)\\s+)?(?=\\s*(\\b((?<!\\$)0[Xx]\\h[_\\h]*(n)?\\b(?!\\$))|\\b((?<!\\$)0[Bb][01][01_]*(n)?\\b(?!\\$))|\\b((?<!\\$)0[Oo]?[0-7][0-7_]*(n)?\\b(?!\\$))|((?<!\\$)(?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\B(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)(n)?\\B|\\B(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(n)?\\b(?!\\.))(?!\\$))|(#?[$_[:alpha:]][$_[:alnum:]]*)|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`)|(\\[([^]\\[]|\\[[^]\\[]*])+]))\\s*(?:(?:(\\?)|(!))\\s*)?([,:;=}]|$))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=[,;}]|$|^((?!\\s*(\\b((?<!\\$)0[Xx]\\h[_\\h]*(n)?\\b(?!\\$))|\\b((?<!\\$)0[Bb][01][01_]*(n)?\\b(?!\\$))|\\b((?<!\\$)0[Oo]?[0-7][0-7_]*(n)?\\b(?!\\$))|((?<!\\$)(?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\B(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)(n)?\\B|\\B(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(n)?\\b(?!\\.))(?!\\$))|(#?[$_[:alpha:]][$_[:alnum:]]*)|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`)|(\\[([^]\\[]|\\[[^]\\[]*])+]))\\s*(?:(?:(\\?)|(!))\\s*)?([,:;=]|$))))|(?<=})",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(#?[$_[:alpha:]][$_[:alnum:]]*)(?:(\\?)|(!))?(?=\\s*\\s*(=\\s*(((async\\s+)?((function\\s*[(*<])|(function\\s+)|([$_[:alpha:]][$_[:alnum:]]*\\s*=>)))|((async\\s*)?(((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*))))))|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*((\\)\\s*:)|((\\.\\.\\.\\s*)?[$_[:alpha:]][$_[:alnum:]]*\\s*:)))|(<\\s*[$_[:alpha:]][$_[:alnum:]]*\\s+extends\\s*[^=>])|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*(([$_[:alpha:]]|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|(\\.\\.\\.\\s*[$_[:alpha:]]))([^\"'()`]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))*)?\\)(\\s*:\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+)?\\s*=>)))))|(:\\s*((<)|(\\(\\s*((\\))|(\\.\\.\\.)|([$_[:alnum:]]+\\s*(([,:=?])|(\\)\\s*=>)))))))|(:\\s*(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))Function(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))|(:\\s*((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))))))|(:\\s*(=>|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(<[^<>]*>)|[^(),<=>])+=\\s*(((async\\s+)?((function\\s*[(*<])|(function\\s+)|([$_[:alpha:]][$_[:alnum:]]*\\s*=>)))|((async\\s*)?(((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*))))))|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*((\\)\\s*:)|((\\.\\.\\.\\s*)?[$_[:alpha:]][$_[:alnum:]]*\\s*:)))|(<\\s*[$_[:alpha:]][$_[:alnum:]]*\\s+extends\\s*[^=>])|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*(([$_[:alpha:]]|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|(\\.\\.\\.\\s*[$_[:alpha:]]))([^\"'()`]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))*)?\\)(\\s*:\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+)?\\s*=>))))))",
     ),
-    PatternSlot::new("#?[$_[:alpha:]][$_[:alnum:]]*"),
-    PatternSlot::new("!"),
-    PatternSlot::new(
+    Pattern::new("#?[$_[:alpha:]][$_[:alnum:]]*"),
+    Pattern::new("!"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(abstract|declare|override|public|protected|private|readonly|static)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(accessor|get|set)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(async)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<!\\+\\+|--)(?<=[!(+,:=>?\\[]|^await|[^$._[:alnum:]]await|^return|[^$._[:alnum:]]return|^yield|[^$._[:alnum:]]yield|^throw|[^$._[:alnum:]]throw|^in|[^$._[:alnum:]]in|^of|[^$._[:alnum:]]of|^typeof|[^$._[:alnum:]]typeof|&&|\\|\\||\\*)\\s*(\\{)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(async)\\s+)?(?:\\b([gs]et)\\s+)?(?:(\\*)\\s*)?(?=\\s*((\\b((?<!\\$)0[Xx]\\h[_\\h]*(n)?\\b(?!\\$))|\\b((?<!\\$)0[Bb][01][01_]*(n)?\\b(?!\\$))|\\b((?<!\\$)0[Oo]?[0-7][0-7_]*(n)?\\b(?!\\$))|((?<!\\$)(?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\B(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)(n)?\\B|\\B(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(n)?\\b(?!\\.))(?!\\$))|([$_[:alpha:]][$_[:alnum:]]*)|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`)|(\\[([^]\\[]|\\[[^]\\[]*])+]))\\s*(\\??))\\s*((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*))?\\()",
     ),
-    PatternSlot::new("(?=[,;}])|(?<=})"),
-    PatternSlot::new("(?=\\[)"),
-    PatternSlot::new("(?=:)|((?<=])(?=\\s*[(<]))"),
-    PatternSlot::new("(?=[\"'`])"),
-    PatternSlot::new("(?=:)|((?<=[\"'`])(?=((\\s*[(,<}])|(\\s+(as|satisifies)\\s+))))"),
-    PatternSlot::new(
+    Pattern::new("(?=[,;}])|(?<=})"),
+    Pattern::new("(?=\\[)"),
+    Pattern::new("(?=:)|((?<=])(?=\\s*[(<]))"),
+    Pattern::new("(?=[\"'`])"),
+    Pattern::new("(?=:)|((?<=[\"'`])(?=((\\s*[(,<}])|(\\s+(as|satisifies)\\s+))))"),
+    Pattern::new(
         "(?=\\b((?<!\\$)0[Xx]\\h[_\\h]*(n)?\\b(?!\\$))|\\b((?<!\\$)0[Bb][01][01_]*(n)?\\b(?!\\$))|\\b((?<!\\$)0[Oo]?[0-7][0-7_]*(n)?\\b(?!\\$))|((?<!\\$)(?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\B(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)(n)?\\B|\\B(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(n)?\\b(?!\\.))(?!\\$)))",
     ),
-    PatternSlot::new("(?=:)|(?=\\s*([(,<}])|(\\s+as|satisifies\\s+))"),
-    PatternSlot::new("(?<=[]\"'`])(?=\\s*[(<])"),
-    PatternSlot::new("(?![$_[:alpha:]])(\\d+)\\s*(?=(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*:)"),
-    PatternSlot::new(
+    Pattern::new("(?=:)|(?=\\s*([(,<}])|(\\s+as|satisifies\\s+))"),
+    Pattern::new("(?<=[]\"'`])(?=\\s*[(<])"),
+    Pattern::new("(?![$_[:alpha:]])(\\d+)\\s*(?=(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*:)"),
+    Pattern::new(
         "([$_[:alpha:]][$_[:alnum:]]*)\\s*(?=(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*:(\\s*/\\*([^*]|(\\*[^/]))*\\*/)*\\s*(((async\\s+)?((function\\s*[(*<])|(function\\s+)|([$_[:alpha:]][$_[:alnum:]]*\\s*=>)))|((async\\s*)?(((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*))))))|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*((\\)\\s*:)|((\\.\\.\\.\\s*)?[$_[:alpha:]][$_[:alnum:]]*\\s*:)))|(<\\s*[$_[:alpha:]][$_[:alnum:]]*\\s+extends\\s*[^=>])|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*(([$_[:alpha:]]|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|(\\.\\.\\.\\s*[$_[:alpha:]]))([^\"'()`]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))*)?\\)(\\s*:\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+)?\\s*=>)))))",
     ),
-    PatternSlot::new("[$_[:alpha:]][$_[:alnum:]]*\\s*(?=(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*:)"),
-    PatternSlot::new("([$_[:alpha:]][$_[:alnum:]]*)\\s*(?=[,}]|$|//|/\\*)"),
-    PatternSlot::new(
-        "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(as)\\s+(const)(?=\\s*([,}]|$))",
-    ),
-    PatternSlot::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(as)|(satisfies))\\s+"),
-    PatternSlot::new(
+    Pattern::new("[$_[:alpha:]][$_[:alnum:]]*\\s*(?=(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*:)"),
+    Pattern::new("([$_[:alpha:]][$_[:alnum:]]*)\\s*(?=[,}]|$|//|/\\*)"),
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(as)\\s+(const)(?=\\s*([,}]|$))"),
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(as)|(satisfies))\\s+"),
+    Pattern::new(
         "(?=[-\\])+,:;>?}]|\\|\\||&&|!==|$|^|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(as|satisifies)\\s+))",
     ),
-    PatternSlot::new("(?=[$_[:alpha:]][$_[:alnum:]]*\\s*=)"),
-    PatternSlot::new("(?=[,}]|$|//|/\\*)"),
-    PatternSlot::new(
+    Pattern::new("(?=[$_[:alpha:]][$_[:alnum:]]*\\s*=)"),
+    Pattern::new("(?=[,}]|$|//|/\\*)"),
+    Pattern::new(
         "(?<=:)\\s*(async)?(?=\\s*(<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))))",
     ),
-    PatternSlot::new("(?<=\\))"),
-    PatternSlot::new(
+    Pattern::new("(?<=\\))"),
+    Pattern::new(
         "(?:(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(override|public|private|protected|readonly)\\s+)?(?:(\\.\\.\\.)\\s*)?(?<![:=])(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(this)|([$_[:alpha:]][$_[:alnum:]]*))(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))\\s*(\\??)(?=\\s*[,:]|$)",
     ),
-    PatternSlot::new("([$_[:alpha:]][$_[:alnum:]]*)(?=\\s*\\??\\.\\s*prototype\\b(?!\\$))"),
-    PatternSlot::new(
+    Pattern::new("([$_[:alpha:]][$_[:alnum:]]*)(?=\\s*\\??\\.\\s*prototype\\b(?!\\$))"),
+    Pattern::new(
         "(?:(\\.)|(\\?\\.(?!\\s*\\d)))\\s*(?:(#?\\p{upper}[$_\\d[:upper:]]*)|(#?[$_[:alpha:]][$_[:alnum:]]*))(?=\\s*\\??\\.\\s*#?[$_[:alpha:]][$_[:alnum:]]*)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?:(\\p{upper}[$_\\d[:upper:]]*)|([$_[:alpha:]][$_[:alnum:]]*))(?=\\s*\\??\\.\\s*#?[$_[:alpha:]][$_[:alnum:]]*)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?:(?:(\\.)|(\\?\\.(?!\\s*\\d)))\\s*)?([$_[:alpha:]][$_[:alnum:]]*)(?=\\s*=\\s*(((async\\s+)?((function\\s*[(*<])|(function\\s+)|([$_[:alpha:]][$_[:alnum:]]*\\s*=>)))|((async\\s*)?(((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*))))))|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*((\\)\\s*:)|((\\.\\.\\.\\s*)?[$_[:alpha:]][$_[:alnum:]]*\\s*:)))|(<\\s*[$_[:alpha:]][$_[:alnum:]]*\\s+extends\\s*[^=>])|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*(([$_[:alpha:]]|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|(\\.\\.\\.\\s*[$_[:alpha:]]))([^\"'()`]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))*)?\\)(\\s*:\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+)?\\s*=>)))))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?:(\\.)|(\\?\\.(?!\\s*\\d)))\\s*(#?\\p{upper}[$_\\d[:upper:]]*)(?![$_[:alnum:]])",
     ),
-    PatternSlot::new("(?:(\\.)|(\\?\\.(?!\\s*\\d)))\\s*(#?[$_[:alpha:]][$_[:alnum:]]*)"),
-    PatternSlot::new("(\\p{upper}[$_\\d[:upper:]]*)(?![$_[:alnum:]])"),
-    PatternSlot::new(
+    Pattern::new("(?:(\\.)|(\\?\\.(?!\\s*\\d)))\\s*(#?[$_[:alpha:]][$_[:alnum:]]*)"),
+    Pattern::new("(\\p{upper}[$_\\d[:upper:]]*)(?![$_[:alnum:]])"),
+    Pattern::new(
         "(?<=:)\\s*(async)?\\s*(\\()(?=\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))))",
     ),
-    PatternSlot::new("(?<=:)\\s*(async)?\\s*(?=<\\s*$)"),
-    PatternSlot::new("(?<=>)"),
-    PatternSlot::new(
+    Pattern::new("(?<=:)\\s*(async)?\\s*(?=<\\s*$)"),
+    Pattern::new("(?<=>)"),
+    Pattern::new(
         "(?<=>)\\s*(\\()(?=\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<=\\)|^)\\s*(:)(?=\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*=>)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?==>|\\{|^(\\s*(export|function|class|interface|let|var|\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b|\\bawait\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b\\b|const|import|enum|namespace|module|type|abstract|declare)\\s+))",
     ),
-    PatternSlot::new("(?<=:)(?=\\s*\\{)"),
-    PatternSlot::new(";"),
-    PatternSlot::new(
+    Pattern::new("(?<=:)(?=\\s*\\{)"),
+    Pattern::new(";"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b(?:(abstract)\\s+)?\\b(interface)\\b(?=\\s+|/[*/])",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?(?:\\b(const)\\s+)?\\b(enum)\\s+([$_[:alpha:]][$_[:alnum:]]*)",
     ),
-    PatternSlot::new("(?=[,}]|$)"),
-    PatternSlot::new(
+    Pattern::new("(?=[,}]|$)"),
+    Pattern::new(
         "(?=(('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`)|(\\[([^]\\[]|\\[[^]\\[]*])+])))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b(namespace|module)\\s+(?=[\"$'_`[:alpha:]])",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<=})|(?=;|^\\s*$|^\\s*(?:abstract|async|\\bawait\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b\\b|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b|var|while)\\b)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b(type)\\b\\s+([$_[:alpha:]][$_[:alnum:]]*)\\s*",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=[;}]|^\\s*$|^\\s*(?:abstract|async|\\bawait\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b\\b|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b|var|while)\\b)",
     ),
-    PatternSlot::new("(=)\\s*(intrinsic)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"),
-    PatternSlot::new("(=)\\s*"),
-    PatternSlot::new(
+    Pattern::new("(=)\\s*(intrinsic)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"),
+    Pattern::new("(=)\\s*"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b(import)(?:\\s+(type))?\\s+([$_[:alpha:]][$_[:alnum:]]*)\\s*(=)\\s*(require)\\s*(\\()",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b(import)(?:\\s+(type))?\\s+([$_[:alpha:]][$_[:alnum:]]*)\\s*(=)\\s*(?!require\\b)",
     ),
-    PatternSlot::new("(?=;|$|^)"),
-    PatternSlot::new("([$_[:alpha:]][$_[:alnum:]]*)\\s*(?:(\\.)|(\\?\\.(?!\\s*\\d)))"),
-    PatternSlot::new(
+    Pattern::new("(?=;|$|^)"),
+    Pattern::new("([$_[:alpha:]][$_[:alnum:]]*)\\s*(?:(\\.)|(\\?\\.(?!\\s*\\d)))"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(export)\\s+)?(?:\\b(declare)\\s+)?\\b(import)(?:\\s+(type)(?!\\s+from))?(?!\\s*[(:])(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new("(?<!(?:^|[^$._[:alnum:]])import)(?=;|$|^)"),
-    PatternSlot::new("(?<=(?:^|[^$._[:alnum:]])import)(?!\\s*[\"'])"),
-    PatternSlot::new("\\bfrom\\b"),
-    PatternSlot::new(
+    Pattern::new("(?<!(?:^|[^$._[:alnum:]])import)(?=;|$|^)"),
+    Pattern::new("(?<=(?:^|[^$._[:alnum:]])import)(?!\\s*[\"'])"),
+    Pattern::new("\\bfrom\\b"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(type)\\s+)?(?:\\b(default)|(\\*)|\\b([$_[:alpha:]][$_[:alnum:]]*)|(('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`)))\\s+(as)\\s+(?:(default(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))|([$_[:alpha:]][$_[:alnum:]]*)|(('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`)))",
     ),
-    PatternSlot::new("\\*"),
-    PatternSlot::new("\\b(default)\\b"),
-    PatternSlot::new(
+    Pattern::new("\\*"),
+    Pattern::new("\\b(default)\\b"),
+    Pattern::new(
         "(?:\\b(type)\\s+)?(?:([$_[:alpha:]][$_[:alnum:]]*)|(('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`)))",
     ),
-    PatternSlot::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(with)|(assert))\\s*(\\{)"),
-    PatternSlot::new(
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(with)|(assert))\\s*(\\{)"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(export)\\s+(as)\\s+(namespace)\\s+([$_[:alpha:]][$_[:alnum:]]*)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(export)(?:\\s+(type))?(?:\\s*(=)|\\s+(default)(?=\\s+))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=$|;|^\\s*$|^\\s*(?:abstract|async|\\bawait\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b\\b|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b|var|while)\\b)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(export)(?:\\s+(type))?\\b(?!(\\$)|(\\s*:))((?=\\s*[*{])|((?=\\s*[$_[:alpha:]][$_[:alnum:]]*([,\\s]))(?!\\s*(?:abstract|async|\\bawait\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b\\b|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b|var|while)\\b)))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(declare|export)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?=\\bswitch\\s*\\()"),
-    PatternSlot::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(switch)\\s*(\\()"),
-    PatternSlot::new(
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?=\\bswitch\\s*\\()"),
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(switch)\\s*(\\()"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(case|default(?=:))(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new("(:)\\s*(\\{)"),
-    PatternSlot::new(
+    Pattern::new("(:)\\s*(\\{)"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))for(?=((\\s+|(\\s*/\\*([^*]|(\\*[^/]))*\\*/\\s*))await)?\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)?(\\())",
     ),
-    PatternSlot::new("await"),
-    PatternSlot::new(
+    Pattern::new("await"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(catch|finally|throw|try)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(break|continue|goto)\\s+([$_[:alpha:]][$_[:alnum:]]*)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(break|continue|do|goto|while)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(return)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=[;}]|$|;|^\\s*$|^\\s*(?:abstract|async|\\bawait\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b\\b|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b|var|while)\\b)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(case|default|switch)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?=\\bif\\s*(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))\\s*(?!\\{))",
     ),
-    PatternSlot::new("(?=;|$|})"),
-    PatternSlot::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(if)\\s*(\\()"),
-    PatternSlot::new(
+    Pattern::new("(?=;|$|})"),
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(if)\\s*(\\()"),
+    Pattern::new(
         "(?<=\\))\\s*/(?![*/])(?=(?:[^/\\[\\\\]|\\\\.|\\[([^]\\\\]|\\\\.)*])+/([dgimsuvy]+|(?![*/])|(?=/\\*))(?!\\s*[$0-9A-Z_a-z]))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(else|if)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(with)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(package)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(debugger)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new("([$_[:alpha:]][$_[:alnum:]]*)\\s*(:)(?=\\s*\\{)"),
-    PatternSlot::new("([$_[:alpha:]][$_[:alnum:]]*)\\s*(:)"),
-    PatternSlot::new(
+    Pattern::new("([$_[:alpha:]][$_[:alnum:]]*)\\s*(:)(?=\\s*\\{)"),
+    Pattern::new("([$_[:alpha:]][$_[:alnum:]]*)\\s*(:)"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(override)\\s+)?(?:\\b(p(?:ublic|rivate|rotected))\\s+)?(?:\\b(abstract)\\s+)?(?:\\b(async)\\s+)?(?:\\s*\\b(new)\\b(?!:)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))|(?:(\\*)\\s*)?)(?=\\s*((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*))?\\()",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:\\b(override)\\s+)?(?:\\b(p(?:ublic|rivate|rotected))\\s+)?(?:\\b(abstract)\\s+)?(?:\\b(async)\\s+)?(?:\\b([gs]et)\\s+)?(?:(\\*)\\s*)?(?=\\s*((\\b((?<!\\$)0[Xx]\\h[_\\h]*(n)?\\b(?!\\$))|\\b((?<!\\$)0[Bb][01][01_]*(n)?\\b(?!\\$))|\\b((?<!\\$)0[Oo]?[0-7][0-7_]*(n)?\\b(?!\\$))|((?<!\\$)(?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\B(\\.)[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(\\.)(n)?\\B|\\B(\\.)[0-9][0-9_]*(n)?\\b|\\b[0-9][0-9_]*(n)?\\b(?!\\.))(?!\\$))|([$_[:alpha:]][$_[:alnum:]]*)|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`)|(\\[([^]\\[]|\\[[^]\\[]*])+]))\\s*(\\??))\\s*((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*))?\\()",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?:(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))([-+])?(readonly)\\s*)?\\s*(\\[)\\s*([$_[:alpha:]][$_[:alnum:]]*)\\s+(in)\\s+",
     ),
-    PatternSlot::new("(])([-+])?\\s*(\\?\\s*)?|$"),
-    PatternSlot::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(as)\\s+"),
-    PatternSlot::new(
+    Pattern::new("(])([-+])?\\s*(\\?\\s*)?|$"),
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(as)\\s+"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))typeof(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=[]\\&),:;=>?{|}]|(extends\\s+)|$|;|^\\s*$|^\\s*(?:abstract|async|\\bawait\\s+\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b\\b|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[$_[:alpha:]])\\b|var|while)\\b)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(infer)\\s+([$_[:alpha:]][$_[:alnum:]]*)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))(?:\\s+(extends)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))?",
     ),
-    PatternSlot::new("([\\&|])(?=\\s*\\{)"),
-    PatternSlot::new("[\\&|]"),
-    PatternSlot::new(
+    Pattern::new("([\\&|])(?=\\s*\\{)"),
+    Pattern::new("[\\&|]"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))keyof(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new("([:?])"),
-    PatternSlot::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))import(?=\\s*\\()"),
-    PatternSlot::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(extends)\\s+"),
-    PatternSlot::new("(?<=:)"),
-    PatternSlot::new(
+    Pattern::new("([:?])"),
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))import(?=\\s*\\()"),
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(extends)\\s+"),
+    Pattern::new("(?<=:)"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(abstract)\\s+)?(new)\\b(?=\\s*<)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(abstract)\\s+)?(new)\\b\\s*(?=\\()",
     ),
-    PatternSlot::new("((?=\\(\\s*((\\))|(\\.\\.\\.)|([$_[:alnum:]]+\\s*(([,:=?])|(\\)\\s*=>))))))"),
-    PatternSlot::new(
+    Pattern::new("((?=\\(\\s*((\\))|(\\.\\.\\.)|([$_[:alnum:]]+\\s*(([,:=?])|(\\)\\s*=>))))))"),
+    Pattern::new(
         "(?:(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(public|private|protected|readonly)\\s+)?(?:(\\.\\.\\.)\\s*)?(?<![:=])(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(this)|([$_[:alpha:]][$_[:alnum:]]*))\\s*(\\??)(?=\\s*(:\\s*((<)|(\\(\\s*((\\))|(\\.\\.\\.)|([$_[:alnum:]]+\\s*(([,:=?])|(\\)\\s*=>)))))))|(:\\s*(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))Function(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))|(:\\s*((<\\s*)$|(\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*))))))))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?:(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(public|private|protected|readonly)\\s+)?(?:(\\.\\.\\.)\\s*)?(?<![:=])(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(this)|([$_[:alpha:]][$_[:alnum:]]*))\\s*(\\??)(?=:)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(readonly)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))\\s*",
     ),
-    PatternSlot::new("([$_[:alpha:]][$_[:alnum:]]*)\\s*(?:(\\.)|(\\?\\.(?!\\s*\\d)))\\s*(<)"),
-    PatternSlot::new("([$_[:alpha:]][$_[:alnum:]]*)\\s*(<)"),
-    PatternSlot::new("\\s+"),
-    PatternSlot::new(
+    Pattern::new("([$_[:alpha:]][$_[:alnum:]]*)\\s*(?:(\\.)|(\\?\\.(?!\\s*\\d)))\\s*(<)"),
+    Pattern::new("([$_[:alpha:]][$_[:alnum:]]*)\\s*(<)"),
+    Pattern::new("\\s+"),
+    Pattern::new(
         "\\s*(?:([$_[:alpha:]][-$._[:alnum:]]*)(:))?([$_[:alpha:]][-$_[:alnum:]]*)(?=[=\\s]|/?>|/\\*|//)",
     ),
-    PatternSlot::new("=(?=\\s*(?:[\"'{]|/\\*|//|\\n))"),
-    PatternSlot::new("(&)([0-9A-Za-z]+|#[0-9]+|#x\\h+)(;)"),
-    PatternSlot::new("\\S+"),
-    PatternSlot::new("(?=</)"),
-    PatternSlot::new(
+    Pattern::new("=(?=\\s*(?:[\"'{]|/\\*|//|\\n))"),
+    Pattern::new("(&)([0-9A-Za-z]+|#[0-9]+|#x\\h+)(;)"),
+    Pattern::new("\\S+"),
+    Pattern::new("(?=</)"),
+    Pattern::new(
         "(?<!\\+\\+|--)(?<=[(*,:=>?\\[{]|&&|\\|\\||\\?|\\*/|^await|[^$._[:alnum:]]await|^return|[^$._[:alnum:]]return|^default|[^$._[:alnum:]]default|^yield|[^$._[:alnum:]]yield|^)\\s*(?!<\\s*[$_[:alpha:]][$_[:alnum:]]*((\\s+extends\\s+[^=>])|,))(?=(<)\\s*(?:([$_[:alpha:]][-$._[:alnum:]]*)(?<![-.])(:))?((?:[a-z][0-9a-z]*|([$_[:alpha:]][-$._[:alnum:]]*))(?<![-.]))(?=((<\\s*)|(\\s+))(?!\\?)|/?>))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?!(<)\\s*(?:([$_[:alpha:]][-$._[:alnum:]]*)(?<![-.])(:))?((?:[a-z][0-9a-z]*|([$_[:alpha:]][-$._[:alnum:]]*))(?<![-.]))(?=((<\\s*)|(\\s+))(?!\\?)|/?>))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(async)\\s+)?(function)\\b(?:\\s*(\\*))?(?:(?:\\s+|(?<=\\*))([$_[:alpha:]][$_[:alnum:]]*))?\\s*",
     ),
-    PatternSlot::new("(?=;)|(?<=})"),
-    PatternSlot::new(
+    Pattern::new("(?=;)|(?<=})"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(abstract)\\s+)?(class)\\b(?=\\s+|[<{]|/[*/])",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?:(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))\\b(async)\\s+)?([$_[:alpha:]][$_[:alnum:]]*)\\s*(?==>)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?:(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))\\b(async))?((?<![]!)}])\\s*(?=((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*((\\)\\s*:)|((\\.\\.\\.\\s*)?[$_[:alpha:]][$_[:alnum:]]*\\s*:)))|(<\\s*[$_[:alpha:]][$_[:alnum:]]*\\s+extends\\s*[^=>])|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\(\\s*(/\\*([^*]|(\\*[^/]))*\\*/\\s*)*(([$_[:alpha:]]|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|(\\.\\.\\.\\s*[$_[:alpha:]]))([^\"'()`]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))*)?\\)(\\s*:\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+)?\\s*=>)))",
     ),
-    PatternSlot::new("((?<=[}\\S])(?<!=>)|((?!\\{)(?=\\S)))(?!/[*/])"),
-    PatternSlot::new(
+    Pattern::new("((?<=[}\\S])(?<!=>)|((?!\\{)(?=\\S)))(?!/[*/])"),
+    Pattern::new(
         "(?<=[(,=])\\s*(async)?(?=\\s*((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*))?\\(\\s*((([\\[{]\\s*)?)$|((\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})\\s*((:\\s*\\{?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))|((\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])\\s*((:\\s*\\[?)$|((\\s*([^()<>{}]|<([^<>]|<([^<>]|<[^<>]+>)+>)+>|\\([^()]+\\)|\\{[^{}]+})+\\s*)?=\\s*)))))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<=[(,=]|=>|^return|[^$._[:alnum:]]return)\\s*(async)?(?=\\s*((((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*))?\\()|(<)|((<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)))\\s*$)",
     ),
-    PatternSlot::new("(?!\\?\\.\\s*\\D)(\\?)(?!\\?)"),
-    PatternSlot::new("\\s*(:)"),
-    PatternSlot::new(
+    Pattern::new("(?!\\?\\.\\s*\\D)(\\?)(?!\\?)"),
+    Pattern::new("\\s*(:)"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(new)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<=\\))|(?=[-\\])+,:;>?}]|\\|\\||&&|!==|$|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))new(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))function((\\s+[$_[:alpha:]][$_[:alnum:]]*)|(\\s*\\())))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(instanceof)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<=\\))|(?=[-\\])+,:;>?}]|\\|\\||&&|!==|$|([!=]==?)|(([\\&^|~]\\s*)?[$_[:alpha:]][$_[:alnum:]]*\\s+instanceof(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))function((\\s+[$_[:alpha:]][$_[:alnum:]]*)|(\\s*\\())))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(await)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(yield)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))(?=\\s*/\\*([^*]|(\\*[^/]))*\\*/\\s*\\*)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(yield)(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))(?:\\s*(\\*))?",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))delete(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))in(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))(?!\\()",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))of(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))(?!\\()",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))instanceof(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))new(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))void(?![$_[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(as)\\s+(const)(?=\\s*($|[]),:;}]))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=^|[-\\])+,:;>?}]|\\|\\||&&|!==|$|((?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(as|satisfies)\\s+)|(\\s+<))",
     ),
-    PatternSlot::new("(?:\\*|(?<!\\()/|[-%+])="),
-    PatternSlot::new("(?:[\\&^]|<<|>>>??|\\|)="),
-    PatternSlot::new("<<|>>>?"),
-    PatternSlot::new("[!=]==?"),
-    PatternSlot::new("<=|>=|<>|[<>]"),
-    PatternSlot::new("(?<=[$_[:alnum:]])(!)\\s*(?:(/=)|(/)(?![*/]))"),
-    PatternSlot::new("!|&&|\\|\\||\\?\\?"),
-    PatternSlot::new("[\\&^|~]"),
-    PatternSlot::new("--"),
-    PatternSlot::new("\\+\\+"),
-    PatternSlot::new("[-%*+/]"),
-    PatternSlot::new(
+    Pattern::new("(?:\\*|(?<!\\()/|[-%+])="),
+    Pattern::new("(?:[\\&^]|<<|>>>??|\\|)="),
+    Pattern::new("<<|>>>?"),
+    Pattern::new("[!=]==?"),
+    Pattern::new("<=|>=|<>|[<>]"),
+    Pattern::new("(?<=[$_[:alnum:]])(!)\\s*(?:(/=)|(/)(?![*/]))"),
+    Pattern::new("!|&&|\\|\\||\\?\\?"),
+    Pattern::new("[\\&^|~]"),
+    Pattern::new("--"),
+    Pattern::new("\\+\\+"),
+    Pattern::new("[-%*+/]"),
+    Pattern::new(
         "(?<=[]$)_[:alnum:]])\\s*(?=(/\\*([^*]|(\\*[^/]))*\\*/\\s*)+(?:(/=)|(/)(?![*/])))",
     ),
-    PatternSlot::new("(/=)|(/)(?!\\*([^*]|(\\*[^/]))*\\*/)"),
-    PatternSlot::new("(?<=[]$)_[:alnum:]])\\s*(?:(/=)|(/)(?![*/]))"),
-    PatternSlot::new(
+    Pattern::new("(/=)|(/)(?!\\*([^*]|(\\*[^/]))*\\*/)"),
+    Pattern::new("(?<=[]$)_[:alnum:]])\\s*(?:(/=)|(/)(?![*/]))"),
+    Pattern::new(
         "(?=(((([$_[:alpha:]][$_[:alnum:]]*)(\\s*\\??\\.\\s*(#?[$_[:alpha:]][$_[:alnum:]]*))*)|(\\??\\.\\s*#?[$_[:alpha:]][$_[:alnum:]]*))|(?<=\\)))\\s*(?:(\\?\\.\\s*)|(!))?((<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>|<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))(([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>|<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>)*(?<!=)>))*(?<!=)>)*(?<!=)>\\s*)?\\())",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<=\\))(?!(((([$_[:alpha:]][$_[:alnum:]]*)(\\s*\\??\\.\\s*(#?[$_[:alpha:]][$_[:alnum:]]*))*)|(\\??\\.\\s*#?[$_[:alpha:]][$_[:alnum:]]*))|(?<=\\)))\\s*(?:(\\?\\.\\s*)|(!))?((<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>|<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))(([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>|<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>)*(?<!=)>))*(?<!=)>)*(?<!=)>\\s*)?\\())",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=(([$_[:alpha:]][$_[:alnum:]]*)(\\s*\\??\\.\\s*(#?[$_[:alpha:]][$_[:alnum:]]*))*)|(\\??\\.\\s*#?[$_[:alpha:]][$_[:alnum:]]*))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?=\\s*(?:(\\?\\.\\s*)|(!))?((<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>|<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))(([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>|<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>)*(?<!=)>))*(?<!=)>)*(?<!=)>\\s*)?\\())",
     ),
-    PatternSlot::new("(#?[$_[:alpha:]][$_[:alnum:]]*)"),
-    PatternSlot::new("\\?\\."),
-    PatternSlot::new(
+    Pattern::new("(#?[$_[:alpha:]][$_[:alnum:]]*)"),
+    Pattern::new("\\?\\."),
+    Pattern::new(
         "(?=(((([$_[:alpha:]][$_[:alnum:]]*)(\\s*\\??\\.\\s*(#?[$_[:alpha:]][$_[:alnum:]]*))*)|(\\??\\.\\s*#?[$_[:alpha:]][$_[:alnum:]]*))|(?<=\\)))(<\\s*[(\\[{]\\s*)$)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<=>)(?!(((([$_[:alpha:]][$_[:alnum:]]*)(\\s*\\??\\.\\s*(#?[$_[:alpha:]][$_[:alnum:]]*))*)|(\\??\\.\\s*#?[$_[:alpha:]][$_[:alnum:]]*))|(?<=\\)))(<\\s*[(\\[{]\\s*)$)",
     ),
-    PatternSlot::new("(?=(<\\s*[(\\[{]\\s*)$)"),
-    PatternSlot::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(arguments)\\b(?!\\$)"),
-    PatternSlot::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(Promise)\\b(?!\\$)"),
-    PatternSlot::new(
+    Pattern::new("(?=(<\\s*[(\\[{]\\s*)$)"),
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(arguments)\\b(?!\\$)"),
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(Promise)\\b(?!\\$)"),
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(import)\\s*(?:(\\.)|(\\?\\.(?!\\s*\\d)))\\s*(meta)\\b(?!\\$)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(new)\\s*(?:(\\.)|(\\?\\.(?!\\s*\\d)))\\s*(target)\\b(?!\\$)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?:(\\.)|(\\?\\.(?!\\s*\\d)))\\s*(?:(constructor|length|prototype|__proto__)\\b(?!\\$|\\s*(<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<]|<\\s*(((const\\s+)?[$_[:alpha:]])|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*]))([^<=>]|=[^<])*>)*>)*>\\s*)?\\()|(EPSILON|MAX_SAFE_INTEGER|MAX_VALUE|MIN_SAFE_INTEGER|MIN_VALUE|NEGATIVE_INFINITY|POSITIVE_INFINITY)\\b(?!\\$))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(exports)|(module)(?:(?:(\\.)|(\\?\\.(?!\\s*\\d)))(exports|id|filename|loaded|parent|children))?)\\b(?!\\$)",
     ),
-    PatternSlot::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))this\\b(?!\\$)"),
-    PatternSlot::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))super\\b(?!\\$)"),
-    PatternSlot::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))import(?=\\s*\\(\\s*[\"'`])"),
-    PatternSlot::new(
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))this\\b(?!\\$)"),
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))super\\b(?!\\$)"),
+    Pattern::new("(?<![$_[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))import(?=\\s*\\(\\s*[\"'`])"),
+    Pattern::new(
         "([$_[:alpha:]][$_[:alnum:]]*)?\\s*(?=(<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>|<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))(([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>|<\\s*(((keyof|infer|typeof|readonly)\\s+)|(([$_[:alpha:]][$_[:alnum:]]*|(\\{([^{}]|(\\{([^{}]|\\{[^{}]*})*}))*})|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(\\[([^]\\[]|(\\[([^]\\[]|\\[[^]\\[]*])*]))*])|('([^'\\\\]|\\\\.)*')|(\"([^\"\\\\]|\\\\.)*\")|(`([^\\\\`]|\\\\.)*`))(?=\\s*([,.<>\\[]|=>|&(?!&)|\\|(?!\\|)))))([^(<>]|(\\(([^()]|(\\(([^()]|\\([^()]*\\))*\\)))*\\))|(?<==)>)*(?<!=)>))*(?<!=)>)*(?<!=)>\\s*)`)",
     ),
-    PatternSlot::new("\\A(#!).*(?=$)"),
-    PatternSlot::new("(R)(\"\"\")"),
-    PatternSlot::new("(raw)(\"\"\")"),
-    PatternSlot::new("(\\\\\\\\)*\\\\\""),
-    PatternSlot::new("(\\\\\\\\)+(?=\")"),
-    PatternSlot::new("(raw)(\")"),
-    PatternSlot::new("(sql)(\"\"\")"),
-    PatternSlot::new("((?<!@)@)\\b(\\w+)\\b"),
-    PatternSlot::new("\\[|]]"),
-    PatternSlot::new("(^[\\t ]+)?(?=--)"),
-    PatternSlot::new("(?!\\G)"),
-    PatternSlot::new("\\n"),
-    PatternSlot::new("(^[\\t ]+)?(?=#)"),
-    PatternSlot::new("/\\*"),
-    PatternSlot::new(
+    Pattern::new("\\A(#!).*(?=$)"),
+    Pattern::new("(R)(\"\"\")"),
+    Pattern::new("(raw)(\"\"\")"),
+    Pattern::new("(\\\\\\\\)*\\\\\""),
+    Pattern::new("(\\\\\\\\)+(?=\")"),
+    Pattern::new("(raw)(\")"),
+    Pattern::new("(sql)(\"\"\")"),
+    Pattern::new("((?<!@)@)\\b(\\w+)\\b"),
+    Pattern::new("\\[|]]"),
+    Pattern::new("(^[\\t ]+)?(?=--)"),
+    Pattern::new("(?!\\G)"),
+    Pattern::new("\\n"),
+    Pattern::new("(^[\\t ]+)?(?=#)"),
+    Pattern::new("/\\*"),
+    Pattern::new(
         "(?i:^\\s*(create(?:\\s+or\\s+replace)?)\\s+(aggregate|conversion|database|domain|function|group|(unique\\s+)?index|language|operator class|operator|rule|schema|sequence|table|tablespace|trigger|type|user|view)\\s+)([\"'`]?)(\\w+)\\4",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?i:^\\s*(drop)\\s+(aggregate|conversion|database|domain|function|group|index|language|operator class|operator|rule|schema|sequence|table|tablespace|trigger|type|user|view))",
     ),
-    PatternSlot::new("(?i:\\s*(drop)\\s+(table)\\s+(\\w+)(\\s+cascade)?\\b)"),
-    PatternSlot::new(
+    Pattern::new("(?i:\\s*(drop)\\s+(table)\\s+(\\w+)(\\s+cascade)?\\b)"),
+    Pattern::new(
         "(?i:^\\s*(alter)\\s+(aggregate|conversion|database|domain|function|group|index|language|operator class|operator|proc(edure)?|rule|schema|sequence|table|tablespace|trigger|type|user|view)\\s+)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?i)\\b(bigint|bigserial|bit|boolean|box|bytea|cidr|circle|date|double\\sprecision|inet|int|integer|line|lseg|macaddr|money|oid|path|point|polygon|real|serial|smallint|sysdate|text)\\b|\\b(bit\\svarying|character\\s(?:varying)?|tinyint|var\\schar|float|interval)\\((\\d+)\\)|\\b(char|number|varchar\\d?)\\b(?:\\((\\d+)\\))?|\\b(numeric|decimal)\\b(?:\\((\\d+),(\\d+)\\))?|\\b(times?)\\b(?:\\((\\d+)\\))?(\\swith(?:out)?\\stime\\szone\\b)?|\\b(timestamp)(s|tz)?\\b(?:\\((\\d+)\\))?(\\s(with(?:|out))\\stime\\szone\\b)?",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?i:\\b((?:primary|foreign)\\s+key|references|on\\s+(delete|update)(\\s+cascade)?|nocheck|check|constraint|collate|default)\\b)",
     ),
-    PatternSlot::new("\\b\\d+\\b"),
-    PatternSlot::new(
+    Pattern::new("\\b\\d+\\b"),
+    Pattern::new(
         "(?i:\\b(select(\\s+(all|distinct))?|insert\\s+(ignore\\s+)?into|update|delete|from|set|where|group\\s+by|or|like|and|union(\\s+all)?|having|order\\s+by|limit|cross\\s+join|join|straight_join|(inner|(left|right|full)(\\s+outer)?)\\s+join|natural(\\s+(inner|(left|right|full)(\\s+outer)?))?\\s+join)\\b)",
     ),
-    PatternSlot::new("(?i:\\b(on|off|((is\\s+)?not\\s+)?null)\\b)"),
-    PatternSlot::new("(?i:\\bvalues\\b)"),
-    PatternSlot::new(
+    Pattern::new("(?i:\\b(on|off|((is\\s+)?not\\s+)?null)\\b)"),
+    Pattern::new("(?i:\\bvalues\\b)"),
+    Pattern::new(
         "(?i:\\b(begin(\\s+work)?|start\\s+transaction|commit(\\s+work)?|rollback(\\s+work)?)\\b)",
     ),
-    PatternSlot::new("(?i:\\b(grant(\\swith\\sgrant\\soption)?|revoke)\\b)"),
-    PatternSlot::new("(?i:\\bin\\b)"),
-    PatternSlot::new(
+    Pattern::new("(?i:\\b(grant(\\swith\\sgrant\\soption)?|revoke)\\b)"),
+    Pattern::new("(?i:\\bin\\b)"),
+    Pattern::new(
         "(?i:^\\s*(comment\\s+on\\s+(table|column|aggregate|constraint|database|domain|function|index|operator|rule|schema|sequence|trigger|type|view))\\s+)",
     ),
-    PatternSlot::new("(?i)\\bAS\\b"),
-    PatternSlot::new("(?i)\\b(DESC|ASC)\\b"),
-    PatternSlot::new("[!<>]?=|<>|[<>]"),
-    PatternSlot::new("[-+/]"),
-    PatternSlot::new("\\|\\|"),
-    PatternSlot::new(
+    Pattern::new("(?i)\\bAS\\b"),
+    Pattern::new("(?i)\\b(DESC|ASC)\\b"),
+    Pattern::new("[!<>]?=|<>|[<>]"),
+    Pattern::new("[-+/]"),
+    Pattern::new("\\|\\|"),
+    Pattern::new(
         "(?i)\\b(approx_count_distinct|approx_percentile_cont|approx_percentile_disc|avg|checksum_agg|count|count_big|group|grouping|grouping_id|max|min|sum|stdevp??|varp??)\\b\\s*\\(",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?i)\\b(cume_dist|first_value|lag|last_value|lead|percent_rank|percentile_cont|percentile_disc)\\b\\s*\\(",
     ),
-    PatternSlot::new("(?i)\\b((?:bit_coun|get_bi|left_shif|right_shif|set_bi)t)\\b\\s*\\("),
-    PatternSlot::new("(?i)\\b(cast|convert|parse|try_cast|try_convert|try_parse)\\b\\s*\\("),
-    PatternSlot::new("(?i)\\b(collationproperty|tertiary_weights)\\b\\s*\\("),
-    PatternSlot::new(
+    Pattern::new("(?i)\\b((?:bit_coun|get_bi|left_shif|right_shif|set_bi)t)\\b\\s*\\("),
+    Pattern::new("(?i)\\b(cast|convert|parse|try_cast|try_convert|try_parse)\\b\\s*\\("),
+    Pattern::new("(?i)\\b(collationproperty|tertiary_weights)\\b\\s*\\("),
+    Pattern::new(
         "(?i)\\b(asymkey_id|asymkeyproperty|certproperty|cert_id|crypt_gen_random|decryptbyasymkey|decryptbycert|decryptbykey|decryptbykeyautoasymkey|decryptbykeyautocert|decryptbypassphrase|encryptbyasymkey|encryptbycert|encryptbykey|encryptbypassphrase|hashbytes|is_objectsigned|key_guid|key_id|key_name|signbyasymkey|signbycert|symkeyproperty|verifysignedbycert|verifysignedbyasymkey)\\b\\s*\\(",
     ),
-    PatternSlot::new("(?i)\\b(cursor_status)\\b\\s*\\("),
-    PatternSlot::new(
+    Pattern::new("(?i)\\b(cursor_status)\\b\\s*\\("),
+    Pattern::new(
         "(?i)\\b(sysdatetime|sysdatetimeoffset|sysutcdatetime|current_time(stamp)?|getdate|getutcdate|datename|datepart|day|month|year|datefromparts|datetime2fromparts|datetimefromparts|datetimeoffsetfromparts|smalldatetimefromparts|timefromparts|datediff|dateadd|datetrunc|eomonth|switchoffset|todatetimeoffset|isdate|date_bucket)\\b\\s*\\(",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?i)\\b(datalength|ident_current|ident_incr|ident_seed|identity|sql_variant_property)\\b\\s*\\(",
     ),
-    PatternSlot::new("(?i)\\b(coalesce|nullif)\\b\\s*\\("),
-    PatternSlot::new(
+    Pattern::new("(?i)\\b(coalesce|nullif)\\b\\s*\\("),
+    Pattern::new(
         "(?<!@)@@(?i)\\b(cursor_rows|connections|cpu_busy|datefirst|dbts|error|fetch_status|identity|idle|io_busy|langid|language|lock_timeout|max_connections|max_precision|nestlevel|options|packet_errors|pack_received|pack_sent|procid|remserver|rowcount|servername|servicename|spid|textsize|timeticks|total_errors|total_read|total_write|trancount|version)\\b\\s*\\(",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?i)\\b(json|isjson|json_object|json_array|json_value|json_query|json_modify|json_path_exists)\\b\\s*\\(",
     ),
-    PatternSlot::new("(?i)\\b(choose|iif|greatest|least)\\b\\s*\\("),
-    PatternSlot::new(
+    Pattern::new("(?i)\\b(choose|iif|greatest|least)\\b\\s*\\("),
+    Pattern::new(
         "(?i)\\b(abs|acos|asin|atan|atn2|ceiling|cos|cot|degrees|exp|floor|log|log10|pi|power|radians|rand|round|sign|sin|sqrt|square|tan)\\b\\s*\\(",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?i)\\b(app_name|applock_mode|applock_test|assemblyproperty|col_length|col_name|columnproperty|database_principal_id|databasepropertyex|db_id|db_name|file_id|file_idex|file_name|filegroup_id|filegroup_name|filegroupproperty|fileproperty|fulltextcatalogproperty|fulltextserviceproperty|index_col|indexkey_property|indexproperty|object_definition|object_id|object_name|object_schema_name|objectproperty|objectpropertyex|original_db_name|parsename|schema_id|schema_name|scope_identity|serverproperty|stats_date|type_id|type_name|typeproperty)\\b\\s*\\(",
     ),
-    PatternSlot::new("(?i)\\b(rank|dense_rank|ntile|row_number)\\b\\s*\\("),
-    PatternSlot::new(
+    Pattern::new("(?i)\\b(rank|dense_rank|ntile|row_number)\\b\\s*\\("),
+    Pattern::new(
         "(?i)\\b(generate_series|opendatasource|openjson|openrowset|openquery|openxml|predict|string_split)\\b\\s*\\(",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?i)\\b(certencoded|certprivatekey|current_user|database_principal_id|has_perms_by_name|is_member|is_rolemember|is_srvrolemember|original_login|permissions|pwdcompare|pwdencrypt|schema_id|schema_name|session_user|suser_id|suser_sid|suser_sname|system_user|suser_name|user_id|user_name)\\b\\s*\\(",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?i)\\b(ascii|char|charindex|concat|difference|format|left|len|lower|ltrim|nchar|nodes|patindex|quotename|replace|replicate|reverse|right|rtrim|soundex|space|str|string_agg|string_escape|string_split|stuff|substring|translate|trim|unicode|upper)\\b\\s*\\(",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?i)\\b(binary_checksum|checksum|compress|connectionproperty|context_info|current_request_id|current_transaction_id|decompress|error_line|error_message|error_number|error_procedure|error_severity|error_state|formatmessage|get_filestream_transaction_context|getansinull|host_id|host_name|isnull|isnumeric|min_active_rowversion|newid|newsequentialid|rowcount_big|session_context|session_id|xact_state)\\b\\s*\\(",
     ),
-    PatternSlot::new("(?i)\\b(patindex|textptr|textvalid)\\b\\s*\\("),
-    PatternSlot::new("(?i)\\b(vector_(?:distance|norm|normalize))\\b\\s*\\("),
-    PatternSlot::new("(\\w+?)\\.(\\w+)"),
-    PatternSlot::new("(?:(?<![0-9A-Z_a-z])(N))?(')[^']*(')"),
-    PatternSlot::new("(`)[^\\\\`]*(`)"),
-    PatternSlot::new("(\")[^\"#]*(\")"),
-    PatternSlot::new("(#\\{)([^}]*)(})"),
-    PatternSlot::new("%\\{"),
-    PatternSlot::new("/(?=\\S.*/)"),
-    PatternSlot::new("\\\\/"),
-    PatternSlot::new("%r\\{"),
-    PatternSlot::new(
+    Pattern::new("(?i)\\b(patindex|textptr|textvalid)\\b\\s*\\("),
+    Pattern::new("(?i)\\b(vector_(?:distance|norm|normalize))\\b\\s*\\("),
+    Pattern::new("(\\w+?)\\.(\\w+)"),
+    Pattern::new("(?:(?<![0-9A-Z_a-z])(N))?(')[^']*(')"),
+    Pattern::new("(`)[^\\\\`]*(`)"),
+    Pattern::new("(\")[^\"#]*(\")"),
+    Pattern::new("(#\\{)([^}]*)(})"),
+    Pattern::new("%\\{"),
+    Pattern::new("/(?=\\S.*/)"),
+    Pattern::new("\\\\/"),
+    Pattern::new("%r\\{"),
+    Pattern::new(
         "\\b(?i)(abort|abort_after_wait|absent|absolute|accent_sensitivity|acceptable_cursopt|acp|action|activation|add|address|admin|aes_128|aes_192|aes_256|affinity|after|aggregate|algorithm|all_constraints|all_errormsgs|all_indexes|all_levels|all_results|allow_connections|allow_dup_row|allow_encrypted_value_modifications|allow_page_locks|allow_row_locks|allow_snapshot_isolation|alter|altercolumn|always|anonymous|ansi_defaults|ansi_null_default|ansi_null_dflt_off|ansi_null_dflt_on|ansi_nulls|ansi_padding|ansi_warnings|appdomain|append|application|apply|arithabort|arithignore|array|assembly|asymmetric|asynchronous_commit|at|atan2|atomic|attach|attach_force_rebuild_log|attach_rebuild_log|audit|auth_realm|authentication|auto|auto_cleanup|auto_close|auto_create_statistics|auto_drop|auto_shrink|auto_update_statistics|auto_update_statistics_async|automated_backup_preference|automatic|autopilot|availability|availability_mode|backup|backup_priority|base64|basic|batches|batchsize|before|between|bigint|binary|binding|bit|block|blockers|blocksize|bmk|both|break|broker|broker_instance|bucket_count|buffer|buffercount|bulk_logged|by|call|caller|card|case|catalog|catch|cert|certificate|change_retention|change_tracking|change_tracking_context|changes|char|character|character_set|check_expiration|check_policy|checkconstraints|checkindex|checkpoint|checksum|cleanup_policy|clear|clear_port|close|clustered|codepage|collection|column_encryption_key|column_master_key|columnstore|columnstore_archive|colv_80_to_100|colv_100_to_80|commit_differential_base|committed|compatibility_level|compress_all_row_groups|compression|compression_delay|concat_null_yields_null|concatenate|configuration|connect|connection|containment|continue|continue_after_error|contract|contract_name|control|conversation|conversation_group_id|conversation_handle|copy|copy_only|count_rows|counter|create(\\\\s+or\\\\s+alter)?|credential|cross|cryptographic|cryptographic_provider|cube|cursor|cursor_close_on_commit|cursor_default|data|data_compression|data_flush_interval_seconds|data_mirroring|data_purity|data_source|database|database_name|database_snapshot|datafiletype|date_correlation_optimization|date|datefirst|dateformat|date_format|datetime2??|datetimeoffset|day(s)?|db_chaining|dbid|dbidexec|dbo_only|deadlock_priority|deallocate|dec|decimal|declare|decrypt|decrypt_a|decryption|default_database|default_fulltext_language|default_language|default_logon_domain|default_schema|definition|delay|delayed_durability|delimitedtext|density_vector|dependent|des|description|desired_state|desx|differential|digest|disable|disable_broker|disable_def_cnst_chk|disabled|disk|distinct|distributed|distribution|drop|drop_existing|dts_buffers|dump|durability|dynamic|edition|elements|else|emergency|empty|enable|enable_broker|enabled|encoding|encrypted|encrypted_value|encryption|encryption_type|end|endpoint|endpoint_url|enhancedintegrity|entry|error_broker_conversations|errorfile|estimateonly|event|except|exec|executable|execute|exists|expand|expiredate|expiry_date|explicit|external|external_access|failover|failover_mode|failure_condition_level|fast|fast_forward|fastfirstrow|federated_service_account|fetch|field_terminator|fieldterminator|file|filelistonly|filegroup|filegrowth|filename|filestream|filestream_log|filestream_on|filetable|file_format|filter|first_row|fips_flagger|fire_triggers|first|firstrow|float|flush_interval_seconds|fmtonly|following|for|force|force_failover_allow_data_loss|force_service_allow_data_loss|forced|forceplan|formatfile|format_options|format_type|formsof|forward_only|free_cursors|free_exec_context|fullscan|fulltext|fulltextall|fulltextkey|function|generated|get|geography|geometry|global|go|goto|governor|guid|hadoop|hardening|hash|hashed|header_limit|headeronly|health_check_timeout|hidden|hierarchyid|histogram|histogram_steps|hits_cursors|hits_exec_context|hour(s)?|http|identity|identity_value|if|ifnull|ignore|ignore_constraints|ignore_dup_key|ignore_dup_row|ignore_triggers|image|immediate|implicit_transactions|include|include_null_values|incremental|index|inflectional|init|initiator|insensitive|insert|instead|int|integer|integrated|intersect|intermediate|interval_length_minutes|into|inuse_cursors|inuse_exec_context|io|is|isabout|iso_week|isolation|job_tracker_location|json|keep|keep_nulls|keep_replication|keepdefaults|keepfixed|keepidentity|keepnulls|kerberos|key|key_path|key_source|key_store_provider_name|keyset|kill|kilobytes_per_batch|labelonly|langid|language|last|lastrow|leading|legacy_cardinality_estimation|length|level|lifetime|lineage_80_to_100|lineage_100_to_80|listener_ip|listener_port|load|loadhistory|lob_compaction|local|local_service_name|locate|location|lock_escalation|lock_timeout|lockres|log|login|login_type|loop|manual|mark_in_use_for_removal|masked|master|match|matched|max_queue_readers|max_duration|max_outstanding_io_per_volume|maxdop|maxerrors|maxlength|maxtransfersize|max_plans_per_query|max_storage_size_mb|mediadescription|medianame|mediapassword|memogroup|memory_optimized|merge|message|message_forward_size|message_forwarding|microsecond|millisecond|minute(s)?|mirror_address|misses_cursors|misses_exec_context|mixed|modify|money|month|move|multi_user|must_change|name|namespace|nanosecond|native|native_compilation|nchar|ncharacter|nested_triggers|never|new_account|new_broker|newname|next|no|no_browsetable|no_checksum|no_compression|no_infomsgs|no_triggers|no_truncate|nocount|noexec|noexpand|noformat|noinit|nolock|nonatomic|nonclustered|nondurable|none|norecompute|norecovery|noreset|norewind|noskip|not|notification|nounload|now|nowait|ntext|ntlm|nulls|numeric|numeric_roundabort|nvarchar|object|objid|oem|offline|old_account|online|operation_mode|open|openjson|optimistic|option|orc|out|outer|output|over|override|owner|ownership|pad_index|page|page_checksum|page_verify|pagecount|paglock|param|parameter_sniffing|parameter_type_expansion|parameterization|parquet|parseonly|partial|partition|partner|password|path|pause|percentage|permission_set|persisted|period|physical_only|plan_forcing_mode|policy|pool|population|ports|preceding|precision|predicate|presume_abort|primary|primary_role|print|prior|priority |priority_level|private|proc(edure)?|procedure_name|profile|provider|quarter|query_capture_mode|query_governor_cost_limit|query_optimizer_hotfixes|query_store|queue|quoted_identifier|raiserror|range|raw|rcfile|rc2|rc4|rc4_128|rdbms|read_committed_snapshot|read|read_only|read_write|readcommitted|readcommittedlock|readonly|readpast|readuncommitted|readwrite|real|rebuild|receive|recmodel_70backcomp|recompile|reconfigure|recovery|recursive|recursive_triggers|redo_queue|reject_sample_value|reject_type|reject_value|relative|remote|remote_data_archive|remote_proc_transactions|remote_service_name|remove|removed_cursors|removed_exec_context|reorganize|repeat|repeatable|repeatableread|replace|replica|replicated|replnick_100_to_80|replnickarray_80_to_100|replnickarray_100_to_80|required|required_cursopt|resample|reset|resource|resource_manager_location|respect|restart|restore|restricted_user|resume|retaindays|retention|return|revert|rewind|rewindonly|returns|robust|role|rollup|root|round_robin|route|row|rowdump|rowguidcol|rowlock|row_terminator|rows|rows_per_batch|rowsets_only|rowterminator|rowversion|rsa_1024|rsa_2048|rsa_3072|rsa_4096|rsa_512|safe|safety|sample|save|scalar|schema|schemabinding|scoped|scroll|scroll_locks|sddl|second|secexpr|seconds|secondary|secondary_only|secondary_role|secret|security|securityaudit|selective|self|send|sent|sequence|serde_method|serializable|server|service|service_broker|service_name|service_objective|session_timeout|sessions??|seterror|setopts|sets|shard_map_manager|shard_map_name|sharded|shared_memory|shortest_path|show_statistics|showplan_all|showplan_text|showplan_xml|showplan_xml_with_recompile|shrinkdb|shutdown|sid|signature|simple|single_blob|single_clob|single_nclob|single_user|singleton|site|size|size_based_cleanup_mode|skip|smalldatetime|smallint|smallmoney|snapshot|snapshot_import|snapshotrestorephase|soap|softnuma|sort_in_tempdb|sorted_data|sorted_data_reorg|spatial|sql|sql_bigint|sql_binary|sql_bit|sql_char|sql_date|sql_decimal|sql_double|sql_float|sql_guid|sql_handle|sql_longvarbinary|sql_longvarchar|sql_numeric|sql_real|sql_smallint|sql_time|sql_timestamp|sql_tinyint|sql_tsi_day|sql_tsi_frac_second|sql_tsi_hour|sql_tsi_minute|sql_tsi_month|sql_tsi_quarter|sql_tsi_second|sql_tsi_week|sql_tsi_year|sql_type_date|sql_type_time|sql_type_timestamp|sql_varbinary|sql_varchar|sql_variant|sql_wchar|sql_wlongvarchar|ssl|ssl_port|standard|standby|start|start_date|started|stat_header|state|statement|static|statistics|statistics_incremental|statistics_norecompute|statistics_only|statman|stats|stats_stream|status|stop|stop_on_error|stopat|stopatmark|stopbeforemark|stoplist|stopped|string_delimiter|subject|supplemental_logging|supported|suspend|symmetric|synchronous_commit|synonym|sysname|system|system_time|system_versioning|table|tableresults|tablockx??|take|tape|target|target_index|target_partition|target_recovery_time|tcp|temporal_history_retention|text|textimage_on|then|thesaurus|throw|time|timeout|timestamp|tinyint|top??|torn_page_detection|track_columns_updated|trailing|tran|transaction|transfer|transform_noise_words|triple_des|triple_des_3key|truncate|trustworthy|try|tsql|two_digit_year_cutoff|type|type_desc|type_warning|tzoffset|uid|unbounded|uncommitted|unique|uniqueidentifier|unlimited|unload|unlock|unsafe|updlock|url|use|useplan|useroptions|use_type_default|using|utcdatetime|valid_xml|validation|values??|varbinary|varchar|vector|verbose|verifyonly|version|view_metadata|virtual_device|visiblity|wait_at_low_priority|waitfor|webmethod|week|weekday|weight|well_formed_xml|when|while|widechar|widechar_ansi|widenative|windows??|with|within|within group|witness|without|without_array_wrapper|workload|wsdl|xact_abort|xlock|xml|xmlschema|xquery|xsinil|year|zone)\\b",
     ),
-    PatternSlot::new("(\\()(\\))"),
-    PatternSlot::new("var\"\"\""),
-    PatternSlot::new("var\""),
-    PatternSlot::new("^\\s?(doc)?(\"\"\")\\s?$"),
-    PatternSlot::new("'(?!')"),
-    PatternSlot::new("\"(?!\"\")"),
-    PatternSlot::new("r\"\"\""),
-    PatternSlot::new("(\"\"\")([imsx]{0,4})?"),
-    PatternSlot::new("r\""),
-    PatternSlot::new("(\")([imsx]{0,4})?"),
-    PatternSlot::new(
+    Pattern::new("(\\()(\\))"),
+    Pattern::new("var\"\"\""),
+    Pattern::new("var\""),
+    Pattern::new("^\\s?(doc)?(\"\"\")\\s?$"),
+    Pattern::new("'(?!')"),
+    Pattern::new("\"(?!\"\")"),
+    Pattern::new("r\"\"\""),
+    Pattern::new("(\"\"\")([imsx]{0,4})?"),
+    Pattern::new("r\""),
+    Pattern::new("(\")([imsx]{0,4})?"),
+    Pattern::new(
         "(?<!\")([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)\"\"\"",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(\"\"\")([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)?",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<!\")([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)\"",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![^\\\\]\\\\)(\")([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)?",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<!`)([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)?```",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(```)([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)?",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<!`)([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)?`",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![^\\\\]\\\\)(`)([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)?",
     ),
-    PatternSlot::new("(\\))(\\.?'*)"),
-    PatternSlot::new("(})(\\.?'*)"),
-    PatternSlot::new(
+    Pattern::new("(\\))(\\.?'*)"),
+    Pattern::new("(})(\\.?'*)"),
+    Pattern::new(
         "([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)(\\{(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*})*})*})?(?=\\([^#]*\\)(::\\S+)?(\\s*\\bwhere\\b\\s+.+?)?\\s*?=(?![=>]))",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "\\b(function|macro)(?:\\s+(?:[_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*(\\.))?([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)(\\{(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*})*})*})?|\\s*)(?=\\()",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)(\\{(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*})*})*})?\\.?(\\()",
     ),
-    PatternSlot::new("\\)(('|(\\.'))*\\.?')?"),
-    PatternSlot::new(
+    Pattern::new("\\)(('|(\\.'))*\\.?')?"),
+    Pattern::new(
         "\\b(?<![.:_])(?:function|mutable\\s+struct|struct|macro|quote|abstract\\s+type|primitive\\s+type|typegroup|module|baremodule|where)\\b",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "\\b(?<![:_])(?:if|else|elseif|for|while|begin|let|do|try|catch|finally|return|break|continue)\\b",
     ),
-    PatternSlot::new("\\b(?<![:_])end\\b"),
-    PatternSlot::new("\\b(?<![:_])(?:global|local|const)\\b"),
-    PatternSlot::new("\\b(?<![:_])export\\b"),
-    PatternSlot::new("^public\\b"),
-    PatternSlot::new("\\b(?<![:_])import\\b"),
-    PatternSlot::new("\\b(?<![:_])using\\b"),
-    PatternSlot::new("(?<=\\S\\s+)\\b(as)\\b(?=\\s+\\S)"),
-    PatternSlot::new(
+    Pattern::new("\\b(?<![:_])end\\b"),
+    Pattern::new("\\b(?<![:_])(?:global|local|const)\\b"),
+    Pattern::new("\\b(?<![:_])export\\b"),
+    Pattern::new("^public\\b"),
+    Pattern::new("\\b(?<![:_])import\\b"),
+    Pattern::new("\\b(?<![:_])using\\b"),
+    Pattern::new("(?<=\\S\\s+)\\b(as)\\b(?=\\s+\\S)"),
+    Pattern::new(
         "@(\\.|[_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*|[[\\p{S}\\p{P}]&&[^@\\s]]+)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "((?<![!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]])\\b(?:0[Xx]\\h(?:_?\\h)*|0o[0-7](?:_?[0-7])*|0b[01](?:_?[01])*|(?:[0-9](?:_?[0-9])*\\.?(?!\\.)[0-9_]*|\\.[0-9](?:_?[0-9])*)(?:[Eef][-+]?[0-9](?:_?[0-9])*)?(?:(?:im|Inf(?:16|32|64)?|NaN(?:16|32|64)?|π|pi|ℯ)\\b)?|[0-9]+|Inf(?:16|32|64)?\\b|NaN(?:16|32|64)?\\b|π\\b|pi\\b|ℯ\\b))('*)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "\\b(?:ARGS|C_NULL|DEPOT_PATH|ENDIAN_BOM|ENV|LOAD_PATH|PROGRAM_FILE|stdin|stdout|stderr|VERSION|devnull)\\b",
     ),
-    PatternSlot::new("\\b(?:true|false|nothing|missing)\\b"),
-    PatternSlot::new("#="),
-    PatternSlot::new("=#"),
-    PatternSlot::new("\\bTODO\\b"),
-    PatternSlot::new("\\bFIXME\\b"),
-    PatternSlot::new("\\bCHANGED\\b"),
-    PatternSlot::new("\\bXXX\\b"),
-    PatternSlot::new("#"),
-    PatternSlot::new(
+    Pattern::new("\\b(?:true|false|nothing|missing)\\b"),
+    Pattern::new("#="),
+    Pattern::new("=#"),
+    Pattern::new("\\bTODO\\b"),
+    Pattern::new("\\bFIXME\\b"),
+    Pattern::new("\\bCHANGED\\b"),
+    Pattern::new("\\bXXX\\b"),
+    Pattern::new("#"),
+    Pattern::new(
         "!:_(?:struct|mutable\\s+struct|abstract\\s+type|primitive\\s+type)\\s+([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)(\\s*(<:)\\s*[_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*(?:\\{.*})?)?",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<![]!)}′⁺-ₜ∇[:word:]]):[_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*(?![!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]])(?![\"`])",
     ),
-    PatternSlot::new("\\b(for)\\b"),
-    PatternSlot::new("(?<![,\\s])(\\s*\\n)"),
-    PatternSlot::new("\\bouter\\b"),
+    Pattern::new("\\b(for)\\b"),
+    Pattern::new("(?<![,\\s])(\\s*\\n)"),
+    Pattern::new("\\bouter\\b"),
 ];
 
 static LISTS: [List; 305] = [
@@ -20255,4 +20251,5 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     injections: INJECTIONS,
     patterns: &PATTERNS,
     root: 0,
+    cells: OnceLock::new(),
 };

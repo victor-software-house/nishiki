@@ -13,9 +13,11 @@
 //! and whether the rule opened at the end of its line into the frame's
 //! payload; its scope stack is the stack of text inside the rule.
 
+use std::sync::OnceLock;
+
 use regex_automata::meta::Cache;
 
-use super::grammar::{Cap, DYNAMIC_NAME, Grammar, List, NONE, Rule, RuleKind};
+use super::grammar::{Cap, Cells, DYNAMIC_NAME, Grammar, NONE, Rule, RuleKind};
 use super::regex::{self, Context, Regex};
 use super::scanner::Scanner;
 use super::selector::{self, Expr};
@@ -123,9 +125,13 @@ impl Scratch {
         };
         for (index, slot) in self.meta_caches.iter_mut().enumerate() {
             if let Some(cache) = slot.take()
-                && let Some(list) = grammar.lists.get(index)
+                && let Some(scanner) = grammar
+                    .cells
+                    .get()
+                    .and_then(|cells| cells.scanners.get(index))
+                    .and_then(OnceLock::get)
             {
-                list.scanner(grammar).give_cache(cache);
+                scanner.give_cache(cache);
             }
         }
     }
@@ -320,6 +326,7 @@ pub(crate) fn line(
         steps,
         out_start,
         stopped: false,
+        cells: grammar.cells(),
     };
     tokenizer.tokenize_string(
         line.len() + 1,
@@ -490,6 +497,8 @@ struct Tokenizer<'a> {
     out_start: usize,
     /// Whether the work limit ended the line.
     stopped: bool,
+    /// The grammar's [`Grammar::cells`], read once per line.
+    cells: &'static Cells,
 }
 
 impl Tokenizer<'_> {
@@ -578,12 +587,7 @@ impl Tokenizer<'_> {
         let slot = match pat {
             Pat::Table(index)
                 if end == self.s.text.len()
-                    && self
-                        .grammar
-                        .patterns
-                        .get(index)
-                        .and_then(|p| p.regex())
-                        .is_some_and(Regex::context_free) =>
+                    && self.cells.regex(index).is_some_and(Regex::context_free) =>
             {
                 Some(index)
             }
@@ -676,7 +680,7 @@ impl Tokenizer<'_> {
         allow_a: DocStart,
     ) -> bool {
         let regex = match pat {
-            Pat::Table(index) => self.grammar.patterns.get(index).and_then(|p| p.regex()),
+            Pat::Table(index) => self.cells.regex(index),
             Pat::Built(index) => self.s.dynamic.get(index).and_then(Option::as_ref),
         };
         let Some(regex) = regex else { return false };
@@ -757,11 +761,13 @@ impl Tokenizer<'_> {
         (tier, base): (u8, usize),
         best: &mut Option<Best>,
     ) {
-        let list: &'static List = &self.grammar.lists[list_id];
         let decided = |best: &Option<Best>, order: usize| {
             best.is_some_and(|b| b.start == pos && (b.tier, b.order) < (tier, base + order))
         };
         if self.s.no_scanner {
+            let Some(list) = self.grammar.lists.get(list_id) else {
+                return;
+            };
             for (index, &id) in list.rules.iter().enumerate() {
                 if self.stopped || decided(best, index + 1) {
                     return;
@@ -772,12 +778,14 @@ impl Tokenizer<'_> {
             }
             return;
         }
-        let scanner = list.scanner(self.grammar);
+        let Some(scanner) = self.cells.scanner(list_id) else {
+            return;
+        };
         for &index in &scanner.residual {
             if self.stopped || decided(best, index + 1) {
                 break;
             }
-            let id = list.rules[index];
+            let id = scanner.rules[index];
             let pat = Pat::Table(self.grammar.rules[id].begin);
             let probed = self.probe(pat, pos, end, anchor, allow_a);
             self.consider(probed, Some(id), (pat, tier, base + index + 1), best);
@@ -785,9 +793,9 @@ impl Tokenizer<'_> {
         if self.stopped || decided(best, 1) {
             return;
         }
-        let (found, fresh) = self.winner(list_id, list, scanner, pos, end);
+        let (found, fresh) = self.winner(list_id, scanner, pos, end);
         if let Some((start, index)) = found {
-            let id = list.rules[index];
+            let id = scanner.rules[index];
             let pat = Pat::Table(self.grammar.rules[id].begin);
             self.consider(
                 (Some(start), fresh),
@@ -805,7 +813,6 @@ impl Tokenizer<'_> {
     fn winner(
         &mut self,
         list_id: usize,
-        list: &'static List,
         scanner: &'static Scanner,
         from: usize,
         end: usize,
@@ -824,7 +831,7 @@ impl Tokenizer<'_> {
                 return (Some((start, index)), false);
             }
         }
-        let found = self.scan(list_id, list, scanner, from, end);
+        let found = self.scan(list_id, scanner, from, end);
         if cacheable
             && !self.stopped
             && let Some(entry) = self.s.list_found.get_mut(list_id)
@@ -852,7 +859,6 @@ impl Tokenizer<'_> {
     fn scan(
         &mut self,
         list_id: usize,
-        list: &'static List,
         scanner: &'static Scanner,
         from: usize,
         end: usize,
@@ -884,7 +890,7 @@ impl Tokenizer<'_> {
                 break;
             };
             for index in scanner.starting_with(byte, first) {
-                let pat = Pat::Table(self.grammar.rules[list.rules[index]].begin);
+                let pat = Pat::Table(self.grammar.rules[scanner.rules[index]].begin);
                 if self.match_at(pat, start, end) {
                     found = Some((start, index));
                     break;
@@ -918,7 +924,7 @@ impl Tokenizer<'_> {
     /// matches exactly at `at`, leaving its groups in `cur`.
     fn match_at(&mut self, pat: Pat, at: usize, end: usize) -> bool {
         let regex = match pat {
-            Pat::Table(index) => self.grammar.patterns.get(index).and_then(|p| p.regex()),
+            Pat::Table(index) => self.cells.regex(index),
             Pat::Built(index) => self.s.dynamic.get(index).and_then(Option::as_ref),
         };
         let Some(regex) = regex else { return false };

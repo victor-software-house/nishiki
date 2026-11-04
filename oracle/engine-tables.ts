@@ -28,7 +28,9 @@
 // The tables hold what the engine needs and nothing it can work out later: the
 // rules with their includes already followed, the patterns as text (compiled on
 // first use), and the scope names interned. A rule whose patterns all include a
-// grammar that is not loaded is dropped, as vscode-textmate drops it.
+// grammar that is not loaded is dropped, as vscode-textmate drops it. The
+// compiled patterns and the lists' scanners go in cells each grammar allocates
+// on first use.
 //
 // Every grammar the Rust tables hold needs its licence in `oracle/licences.ts`;
 // the run fails, naming the grammar, when one is missing, or when a table the
@@ -415,7 +417,7 @@ for (const id of ids) {
     .join("\n");
   const listSource = () => lists.map((l) => `    List::new(&[${l.join(", ")}]),`).join("\n");
   const patterns = builder.patterns
-    .map((p) => `    PatternSlot::new(${rustString(p)}),`)
+    .map((p) => `    Pattern::new(${rustString(p)}),`)
     .join("\n");
   const names = builder.names.map((n) => `    ${rustString(n)},`).join("\n");
   if (asJson) {
@@ -452,9 +454,19 @@ for (const id of ids) {
   }
   // A grammar with no capture names no \`Cap\`, and an unused import fails the build.
   const capturing = builder.rules.some((r) => r.captures.length > 0 || r.endCaptures.length > 0);
-  const imports = [...(capturing ? ["Cap"] : []), "Grammar", "Injection", "List", "PatternSlot", "Rule", "RuleKind"];
+  const imports = [
+    ...(capturing ? ["Cap"] : []),
+    "Grammar",
+    "Injection",
+    "List",
+    "Pattern",
+    "Rule",
+    "RuleKind",
+  ];
   const source = `//! The tables of Shiki 4.6.0's \`${id}\` grammar, made by \`oracle/engine-tables.ts\`.
 //! Do not edit: regenerate with \`bun oracle/engine-tables.ts\`.
+
+use std::sync::OnceLock;
 
 use crate::textmate::grammar::{${imports.join(", ")}};
 
@@ -462,7 +474,7 @@ static NAMES: &[&str] = &[
 ${names}
 ];
 
-static PATTERNS: [PatternSlot; ${builder.patterns.length}] = [
+static PATTERNS: [Pattern; ${builder.patterns.length}] = [
 ${patterns}
 ];
 
@@ -487,6 +499,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     injections: INJECTIONS,
     patterns: &PATTERNS,
     root: ${root},
+    cells: OnceLock::new(),
 };
 `;
   writeFileSync(`${outDir}/${shipped ? "grammar" : base(id)}.rs`, source);

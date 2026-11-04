@@ -2,7 +2,9 @@
 //! `oracle/engine-tables.ts`. Do not edit: regenerate with `bun
 //! oracle/engine-tables.ts`.
 
-use crate::textmate::grammar::{Cap, Grammar, Injection, List, PatternSlot, Rule, RuleKind};
+use std::sync::OnceLock;
+
+use crate::textmate::grammar::{Cap, Grammar, Injection, List, Pattern, Rule, RuleKind};
 
 static NAMES: &[&str] = &[
     "comment.line.documentation.zig",
@@ -57,68 +59,66 @@ static NAMES: &[&str] = &[
     "variable.string.zig",
 ];
 
-static PATTERNS: [PatternSlot; 51] = [
-    PatternSlot::new("//[!/](?=[^/])"),
-    PatternSlot::new("$"),
-    PatternSlot::new("\\b(TODO|FIXME|XXX|NOTE)\\b:?"),
-    PatternSlot::new("//"),
-    PatternSlot::new("\""),
-    PatternSlot::new("\\\\([\"'\\\\nrt]|(x\\h{2})|(u\\{\\h+}))"),
-    PatternSlot::new("\\\\."),
-    PatternSlot::new("\\\\\\\\"),
-    PatternSlot::new(
-        "'([^'\\\\]|\\\\(x\\h{2}|[012][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.))'",
-    ),
-    PatternSlot::new("\\binline\\b(?!\\s*\\bfn\\b)"),
-    PatternSlot::new("\\b(while|for)\\b"),
-    PatternSlot::new(
+static PATTERNS: [Pattern; 51] = [
+    Pattern::new("//[!/](?=[^/])"),
+    Pattern::new("$"),
+    Pattern::new("\\b(TODO|FIXME|XXX|NOTE)\\b:?"),
+    Pattern::new("//"),
+    Pattern::new("\""),
+    Pattern::new("\\\\([\"'\\\\nrt]|(x\\h{2})|(u\\{\\h+}))"),
+    Pattern::new("\\\\."),
+    Pattern::new("\\\\\\\\"),
+    Pattern::new("'([^'\\\\]|\\\\(x\\h{2}|[012][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.))'"),
+    Pattern::new("\\binline\\b(?!\\s*\\bfn\\b)"),
+    Pattern::new("\\b(while|for)\\b"),
+    Pattern::new(
         "\\b(extern|packed|export|pub|noalias|inline|comptime|volatile|align|linksection|threadlocal|allowzero|noinline|callconv)\\b",
     ),
-    PatternSlot::new("\\b(struct|enum|union|opaque)\\b"),
-    PatternSlot::new("\\b(asm|unreachable)\\b"),
-    PatternSlot::new("\\b(break|return|continue|defer|errdefer)\\b"),
-    PatternSlot::new("\\b(resume|suspend|nosuspend)\\b"),
-    PatternSlot::new("\\b(try|catch)\\b"),
-    PatternSlot::new("\\b(if|else|switch|orelse)\\b"),
-    PatternSlot::new("\\b(null|undefined)\\b"),
-    PatternSlot::new("\\b(true|false)\\b"),
-    PatternSlot::new("\\b(test|and|or)\\b"),
-    PatternSlot::new("\\b(bool|void|noreturn|type|error|anyerror|anyframe|anytype|anyopaque)\\b"),
-    PatternSlot::new(
+    Pattern::new("\\b(struct|enum|union|opaque)\\b"),
+    Pattern::new("\\b(asm|unreachable)\\b"),
+    Pattern::new("\\b(break|return|continue|defer|errdefer)\\b"),
+    Pattern::new("\\b(resume|suspend|nosuspend)\\b"),
+    Pattern::new("\\b(try|catch)\\b"),
+    Pattern::new("\\b(if|else|switch|orelse)\\b"),
+    Pattern::new("\\b(null|undefined)\\b"),
+    Pattern::new("\\b(true|false)\\b"),
+    Pattern::new("\\b(test|and|or)\\b"),
+    Pattern::new("\\b(bool|void|noreturn|type|error|anyerror|anyframe|anytype|anyopaque)\\b"),
+    Pattern::new(
         "\\b(f16|f32|f64|f80|f128|u\\d+|i\\d+|isize|usize|comptime_int|comptime_float)\\b",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "\\b(c_(?:char|short|ushort|int|uint|long|ulong|longlong|ulonglong|longdouble))\\b",
     ),
-    PatternSlot::new("(?<=\\[)\\*c(?=])"),
-    PatternSlot::new("\\b((and|or))\\b|(==|!=|<=|>=|[<>])"),
-    PatternSlot::new("(-%?|\\+%?|\\*%?|[%/])=?"),
-    PatternSlot::new("(<<%?|>>|[!\\&^|~])=?"),
-    PatternSlot::new("(==|\\+\\+|\\*\\*|->)"),
-    PatternSlot::new("="),
-    PatternSlot::new("\\?"),
-    PatternSlot::new("\\."),
-    PatternSlot::new(","),
-    PatternSlot::new(":"),
-    PatternSlot::new(";"),
-    PatternSlot::new("\\b0x\\h[_\\h]*(\\.\\h[_\\h]*)?([Pp][-+]?[_\\h]+)?\\b"),
-    PatternSlot::new("\\b[0-9][0-9_]*(\\.[0-9][0-9_]*)?([Ee][-+]?[0-9_]+)?\\b"),
-    PatternSlot::new("\\b[0-9][0-9_]*\\b"),
-    PatternSlot::new("\\b0x[_\\h]+\\b"),
-    PatternSlot::new("\\b0o[0-7_]+\\b"),
-    PatternSlot::new("\\b0b[01_]+\\b"),
-    PatternSlot::new(
+    Pattern::new("(?<=\\[)\\*c(?=])"),
+    Pattern::new("\\b((and|or))\\b|(==|!=|<=|>=|[<>])"),
+    Pattern::new("(-%?|\\+%?|\\*%?|[%/])=?"),
+    Pattern::new("(<<%?|>>|[!\\&^|~])=?"),
+    Pattern::new("(==|\\+\\+|\\*\\*|->)"),
+    Pattern::new("="),
+    Pattern::new("\\?"),
+    Pattern::new("\\."),
+    Pattern::new(","),
+    Pattern::new(":"),
+    Pattern::new(";"),
+    Pattern::new("\\b0x\\h[_\\h]*(\\.\\h[_\\h]*)?([Pp][-+]?[_\\h]+)?\\b"),
+    Pattern::new("\\b[0-9][0-9_]*(\\.[0-9][0-9_]*)?([Ee][-+]?[0-9_]+)?\\b"),
+    Pattern::new("\\b[0-9][0-9_]*\\b"),
+    Pattern::new("\\b0x[_\\h]+\\b"),
+    Pattern::new("\\b0o[0-7_]+\\b"),
+    Pattern::new("\\b0b[01_]+\\b"),
+    Pattern::new(
         "\\b[0-9](([EPep][-+])|[0-9A-Z_a-z])*(\\.(([EPep][-+])|[0-9A-Z_a-z])*)?([EPep][-+])?[0-9A-Z_a-z]*\\b",
     ),
-    PatternSlot::new("@[A-Z_a-z][0-9A-Z_a-z]*"),
-    PatternSlot::new("\\b(fn)\\s+([A-Z][0-9A-Za-z]*)\\b"),
-    PatternSlot::new("\\b(fn)\\s+([A-Z_a-z][0-9A-Z_a-z]*)\\b"),
-    PatternSlot::new("\\b(fn)\\s+@\""),
-    PatternSlot::new("\\b(const|var|fn)\\b"),
-    PatternSlot::new("([A-Z][0-9A-Za-z]*)(?=\\s*\\()"),
-    PatternSlot::new("([A-Z_a-z][0-9A-Z_a-z]*)(?=\\s*\\()"),
-    PatternSlot::new("\\b[A-Z_a-z][0-9A-Z_a-z]*\\b"),
-    PatternSlot::new("@\""),
+    Pattern::new("@[A-Z_a-z][0-9A-Z_a-z]*"),
+    Pattern::new("\\b(fn)\\s+([A-Z][0-9A-Za-z]*)\\b"),
+    Pattern::new("\\b(fn)\\s+([A-Z_a-z][0-9A-Z_a-z]*)\\b"),
+    Pattern::new("\\b(fn)\\s+@\""),
+    Pattern::new("\\b(const|var|fn)\\b"),
+    Pattern::new("([A-Z][0-9A-Za-z]*)(?=\\s*\\()"),
+    Pattern::new("([A-Z_a-z][0-9A-Z_a-z]*)(?=\\s*\\()"),
+    Pattern::new("\\b[A-Z_a-z][0-9A-Z_a-z]*\\b"),
+    Pattern::new("@\""),
 ];
 
 static LISTS: [List; 15] = [
@@ -956,4 +956,5 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     injections: INJECTIONS,
     patterns: &PATTERNS,
     root: 0,
+    cells: OnceLock::new(),
 };

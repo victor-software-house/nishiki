@@ -2,7 +2,9 @@
 //! `oracle/engine-tables.ts`. Do not edit: regenerate with `bun
 //! oracle/engine-tables.ts`.
 
-use crate::textmate::grammar::{Cap, Grammar, Injection, List, PatternSlot, Rule, RuleKind};
+use std::sync::OnceLock;
+
+use crate::textmate::grammar::{Cap, Grammar, Injection, List, Pattern, Rule, RuleKind};
 
 static NAMES: &[&str] = &[
     "comment.block.powershell",
@@ -84,137 +86,135 @@ static NAMES: &[&str] = &[
     "keyword.operator.range.powershell",
 ];
 
-static PATTERNS: [PatternSlot; 88] = [
-    PatternSlot::new("<#"),
-    PatternSlot::new("#>"),
-    PatternSlot::new(
+static PATTERNS: [Pattern; 88] = [
+    Pattern::new("<#"),
+    Pattern::new("#>"),
+    Pattern::new(
         "(?:^|\\G)(?i:\\s*(\\.)(COMPONENT|DESCRIPTION|EXAMPLE|FUNCTIONALITY|INPUTS|LINK|NOTES|OUTPUTS|ROLE|SYNOPSIS))\\s*$",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?:^|\\G)(?i:\\s*(\\.)(EXTERNALHELP|FORWARDHELP(?:CATEGORY|TARGETNAME)|PARAMETER|REMOTEHELPRUNSPACE))\\s+(.+?)\\s*$",
     ),
-    PatternSlot::new("[2-6]>&1|>>?|<<|[<>]|>\\||[1-6]>|[1-6]>>"),
-    PatternSlot::new(
+    Pattern::new("[2-6]>&1|>>?|<<|[<>]|>\\||[1-6]>|[1-6]>>"),
+    Pattern::new(
         "(?:([-:\\\\_\\p{L}\\d])*\\\\)?\\b(?i:Add|Approve|Assert|Backup|Block|Build|Checkpoint|Clear|Close|Compare|Complete|Compress|Confirm|Connect|Convert|ConvertFrom|ConvertTo|Copy|Debug|Deny|Deploy|Disable|Disconnect|Dismount|Edit|Enable|Enter|Exit|Expand|Export|Find|Format|Get|Grant|Group|Hide|Import|Initialize|Install|Invoke|Join|Limit|Lock|Measure|Merge|Mount|Move|New|Open|Optimize|Out|Ping|Pop|Protect|Publish|Push|Read|Receive|Redo|Register|Remove|Rename|Repair|Request|Reset|Resize|Resolve|Restart|Restore|Resume|Revoke|Save|Search|Select|Send|Set|Show|Skip|Split|Start|Step|Stop|Submit|Suspend|Switch|Sync|Test|Trace|Unblock|Undo|Uninstall|Unlock|Unprotect|Unpublish|Unregister|Update|Use|Wait|Watch|Write)-.+?(?:\\.(?i:exe|cmd|bat|ps1))?\\b",
     ),
-    PatternSlot::new("(?<!\\w)(?i:foreach-object)(?!\\w)"),
-    PatternSlot::new("(?<!\\w)(?i:where-object)(?!\\w)"),
-    PatternSlot::new("(?<!\\w)(?i:sort-object)(?!\\w)"),
-    PatternSlot::new("(?<!\\w)(?i:tee-object)(?!\\w)"),
-    PatternSlot::new("(?<![-\\\\`])(#)#*"),
-    PatternSlot::new("$\\n?"),
-    PatternSlot::new("(?<=#)(?i:(requires))\\s"),
-    PatternSlot::new("$"),
-    PatternSlot::new(
-        "-(?i:Modules|PSSnapin|RunAsAdministrator|ShellId|Version|Assembly|PSEdition)",
-    ),
-    PatternSlot::new("(?<!-)\\b\\p{L}+|\\d+(?:\\.\\d+)*"),
-    PatternSlot::new("(@)(\\{)"),
-    PatternSlot::new("(})"),
-    PatternSlot::new("\\b([\"']?)(\\w+)([\"']?)\\s+{0,1}(=)\\s+{0,1}"),
-    PatternSlot::new("\\{"),
-    PatternSlot::new("}"),
-    PatternSlot::new("(\\$)(?i:(False|Null|True))\\b"),
-    PatternSlot::new(
+    Pattern::new("(?<!\\w)(?i:foreach-object)(?!\\w)"),
+    Pattern::new("(?<!\\w)(?i:where-object)(?!\\w)"),
+    Pattern::new("(?<!\\w)(?i:sort-object)(?!\\w)"),
+    Pattern::new("(?<!\\w)(?i:tee-object)(?!\\w)"),
+    Pattern::new("(?<![-\\\\`])(#)#*"),
+    Pattern::new("$\\n?"),
+    Pattern::new("(?<=#)(?i:(requires))\\s"),
+    Pattern::new("$"),
+    Pattern::new("-(?i:Modules|PSSnapin|RunAsAdministrator|ShellId|Version|Assembly|PSEdition)"),
+    Pattern::new("(?<!-)\\b\\p{L}+|\\d+(?:\\.\\d+)*"),
+    Pattern::new("(@)(\\{)"),
+    Pattern::new("(})"),
+    Pattern::new("\\b([\"']?)(\\w+)([\"']?)\\s+{0,1}(=)\\s+{0,1}"),
+    Pattern::new("\\{"),
+    Pattern::new("}"),
+    Pattern::new("(\\$)(?i:(False|Null|True))\\b"),
+    Pattern::new(
         "(\\$)(?i:(Error|ExecutionContext|Host|Home|PID|PsHome|PsVersionTable|ShellID))((?:\\.[_\\p{L}\\d]+)*\\b)?\\b",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(\\$)([$?^]|(?i:_|Args|ConsoleFileName|Event|EventArgs|EventSubscriber|ForEach|Input|LastExitCode|Matches|MyInvocation|NestedPromptLevel|Profile|PSBoundParameters|PsCmdlet|PsCulture|PSDebugContext|PSItem|PSCommandPath|PSScriptRoot|PsUICulture|Pwd|Sender|SourceArgs|SourceEventArgs|StackTrace|Switch|This)\\b)((?:\\.[_\\p{L}\\d]+)*\\b)?",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(\\$)(?i:(ConfirmPreference|DebugPreference|ErrorActionPreference|ErrorView|FormatEnumerationLimit|InformationPreference|LogCommandHealthEvent|LogCommandLifecycleEvent|LogEngineHealthEvent|LogEngineLifecycleEvent|LogProviderHealthEvent|LogProviderLifecycleEvent|MaximumAliasCount|MaximumDriveCount|MaximumErrorCount|MaximumFunctionCount|MaximumHistoryCount|MaximumVariableCount|OFS|OutputEncoding|PSCulture|PSDebugContext|PSDefaultParameterValues|PSEmailServer|PSItem|PSModuleAutoLoadingPreference|PSModuleAutoloadingPreference|PSSenderInfo|PSSessionApplicationName|PSSessionConfigurationName|PSSessionOption|ProgressPreference|VerbosePreference|WarningPreference|WhatIfPreference))((?:\\.[_\\p{L}\\d]+)*\\b)?\\b",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?i:([$@])(global|local|private|script|using|workflow):([_\\p{L}\\d]+))((?:\\.[_\\p{L}\\d]+)*\\b)?",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?i:(\\$)(\\{)(global|local|private|script|using|workflow):([^}]*[^`}])(}))((?:\\.[_\\p{L}\\d]+)*\\b)?",
     ),
-    PatternSlot::new("(?i:([$@])([_\\p{L}\\d]+:)?([_\\p{L}\\d]+))((?:\\.[_\\p{L}\\d]+)*\\b)?"),
-    PatternSlot::new("(?i:(\\$)(\\{)([_\\p{L}\\d]+:)?([^}]*[^`}])(}))((?:\\.[_\\p{L}\\d]+)*\\b)?"),
-    PatternSlot::new("\\("),
-    PatternSlot::new("\\)"),
-    PatternSlot::new(
+    Pattern::new("(?i:([$@])([_\\p{L}\\d]+:)?([_\\p{L}\\d]+))((?:\\.[_\\p{L}\\d]+)*\\b)?"),
+    Pattern::new("(?i:(\\$)(\\{)([_\\p{L}\\d]+:)?([^}]*[^`}])(}))((?:\\.[_\\p{L}\\d]+)*\\b)?"),
+    Pattern::new("\\("),
+    Pattern::new("\\)"),
+    Pattern::new(
         "^\\s*+(?i)(function|filter|configuration|workflow)\\s+(?:(global|local|script|private):)?([-._\\p{L}\\d]+)",
     ),
-    PatternSlot::new("(?=[({])"),
-    PatternSlot::new(
+    Pattern::new("(?=[({])"),
+    Pattern::new(
         "(\\[)\\s*\\b(?i)(cmdletbinding|alias|outputtype|parameter|validatenotnull|validatenotnullorempty|validatecount|validateset|allownull|allowemptycollection|allowemptystring|validatescript|validaterange|validatepattern|validatelength|supportswildcards)\\b",
     ),
-    PatternSlot::new("(])"),
-    PatternSlot::new(
+    Pattern::new("(])"),
+    Pattern::new(
         "(?i)\\b(mandatory|valuefrompipeline|valuefrompipelinebypropertyname|valuefromremainingarguments|position|parametersetname|defaultparametersetname|supportsshouldprocess|supportspaging|positionalbinding|helpuri|confirmimpact|helpmessage)\\b\\s+{0,1}(=)?",
     ),
-    PatternSlot::new("(?<!\\w)(?i:(using))\\s+(?i:(namespace|module))\\s+(?i:((?:\\w+\\.?)+))"),
-    PatternSlot::new("\\["),
-    PatternSlot::new("]"),
-    PatternSlot::new("(?!\\d+|\\.)[.\\p{L}\\p{N}]+"),
-    PatternSlot::new("[\"“”„]"),
-    PatternSlot::new("(?i)\\b[-%+.0-9A-Z_]+@[-.0-9A-Z]+\\.[A-Z]{2,64}\\b"),
-    PatternSlot::new(
+    Pattern::new("(?<!\\w)(?i:(using))\\s+(?i:(namespace|module))\\s+(?i:((?:\\w+\\.?)+))"),
+    Pattern::new("\\["),
+    Pattern::new("]"),
+    Pattern::new("(?!\\d+|\\.)[.\\p{L}\\p{N}]+"),
+    Pattern::new("[\"“”„]"),
+    Pattern::new("(?i)\\b[-%+.0-9A-Z_]+@[-.0-9A-Z]+\\.[A-Z]{2,64}\\b"),
+    Pattern::new(
         "(\\$)(?i:(Error|ExecutionContext|Host|Home|PID|PsHome|PsVersionTable|ShellID))\\b",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(\\$)([$?^]|(?i:_|Args|ConsoleFileName|Event|EventArgs|EventSubscriber|ForEach|Input|LastExitCode|Matches|MyInvocation|NestedPromptLevel|Profile|PSBoundParameters|PsCmdlet|PsCulture|PSDebugContext|PSItem|PSCommandPath|PSScriptRoot|PsUICulture|Pwd|Sender|SourceArgs|SourceEventArgs|StackTrace|Switch|This)\\b)",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(\\$)(?i:(ConfirmPreference|DebugPreference|ErrorActionPreference|ErrorView|FormatEnumerationLimit|InformationPreference|LogCommandHealthEvent|LogCommandLifecycleEvent|LogEngineHealthEvent|LogEngineLifecycleEvent|LogProviderHealthEvent|LogProviderLifecycleEvent|MaximumAliasCount|MaximumDriveCount|MaximumErrorCount|MaximumFunctionCount|MaximumHistoryCount|MaximumVariableCount|OFS|OutputEncoding|PSCulture|PSDebugContext|PSDefaultParameterValues|PSEmailServer|PSItem|PSModuleAutoLoadingPreference|PSModuleAutoloadingPreference|PSSenderInfo|PSSessionApplicationName|PSSessionConfigurationName|PSSessionOption|ProgressPreference|VerbosePreference|WarningPreference|WhatIfPreference))\\b",
     ),
-    PatternSlot::new("(?i:(\\$)(global|local|private|script|using|workflow):([_\\p{L}\\d]+))"),
-    PatternSlot::new("(?i:(\\$)(\\{)(global|local|private|script|using|workflow):([^}]*[^`}])(}))"),
-    PatternSlot::new("(?i:(\\$)([_\\p{L}\\d]+:)?([_\\p{L}\\d]+))"),
-    PatternSlot::new("(?i:(\\$)(\\{)([_\\p{L}\\d]+:)?([^}]*[^`}])(}))"),
-    PatternSlot::new("`[\"$'0`abefnrtv‘-„]"),
-    PatternSlot::new("`u\\{(?:(?:10)?(\\h){1,4}|0?\\g<1>{1,5})}"),
-    PatternSlot::new("`u(?:\\{\\h{0,6}.)?"),
-    PatternSlot::new("[\"“”„]{2}"),
-    PatternSlot::new("(((\\$)))((\\())"),
-    PatternSlot::new("(\\))"),
-    PatternSlot::new("`\\s*$"),
-    PatternSlot::new("['‘-‛]"),
-    PatternSlot::new("['‘-‛]{2}"),
-    PatternSlot::new("(@[\"“”„])\\s*$"),
-    PatternSlot::new("^[\"“”„]@"),
-    PatternSlot::new("(@['‘-‛])\\s*$"),
-    PatternSlot::new("^['‘-‛]@"),
-    PatternSlot::new(
+    Pattern::new("(?i:(\\$)(global|local|private|script|using|workflow):([_\\p{L}\\d]+))"),
+    Pattern::new("(?i:(\\$)(\\{)(global|local|private|script|using|workflow):([^}]*[^`}])(}))"),
+    Pattern::new("(?i:(\\$)([_\\p{L}\\d]+:)?([_\\p{L}\\d]+))"),
+    Pattern::new("(?i:(\\$)(\\{)([_\\p{L}\\d]+:)?([^}]*[^`}])(}))"),
+    Pattern::new("`[\"$'0`abefnrtv‘-„]"),
+    Pattern::new("`u\\{(?:(?:10)?(\\h){1,4}|0?\\g<1>{1,5})}"),
+    Pattern::new("`u(?:\\{\\h{0,6}.)?"),
+    Pattern::new("[\"“”„]{2}"),
+    Pattern::new("(((\\$)))((\\())"),
+    Pattern::new("(\\))"),
+    Pattern::new("`\\s*$"),
+    Pattern::new("['‘-‛]"),
+    Pattern::new("['‘-‛]{2}"),
+    Pattern::new("(@[\"“”„])\\s*$"),
+    Pattern::new("^[\"“”„]@"),
+    Pattern::new("(@['‘-‛])\\s*$"),
+    Pattern::new("^['‘-‛]@"),
+    Pattern::new(
         "(?<!\\w)([-+]?0[Xx][_\\h]+(?:[LUlu]|UL|Ul|uL|ul|LU|Lu|lU|lu)?)((?i:[gkmpt]b)?)\\b",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<!\\w)([-+]?[0-9_]+{0,1}\\.[0-9_]+(?:[Ee][0-9]+)?[DFMdfm]?)((?i:[gkmpt]b)?)\\b",
     ),
-    PatternSlot::new(
+    Pattern::new(
         "(?<!\\w)([-+]?0[Bb][01_]+(?:[LUlu]|UL|Ul|uL|ul|LU|Lu|lU|lu)?)((?i:[gkmpt]b)?)\\b",
     ),
-    PatternSlot::new("(?<!\\w)([-+]?[0-9_]+[Ee][0-9_]?+[DFMdfm]?)((?i:[gkmpt]b)?)\\b"),
-    PatternSlot::new("(?<!\\w)([-+]?[0-9_]+\\.[Ee][0-9_]?+[DFMdfm]?)((?i:[gkmpt]b)?)\\b"),
-    PatternSlot::new("(?<!\\w)([-+]?[0-9_]+\\.?[DFMdfm])((?i:[gkmpt]b)?)\\b"),
-    PatternSlot::new(
+    Pattern::new("(?<!\\w)([-+]?[0-9_]+[Ee][0-9_]?+[DFMdfm]?)((?i:[gkmpt]b)?)\\b"),
+    Pattern::new("(?<!\\w)([-+]?[0-9_]+\\.[Ee][0-9_]?+[DFMdfm]?)((?i:[gkmpt]b)?)\\b"),
+    Pattern::new("(?<!\\w)([-+]?[0-9_]+\\.?[DFMdfm])((?i:[gkmpt]b)?)\\b"),
+    Pattern::new(
         "(?<!\\w)([-+]?[0-9_]+\\.?(?:[LUlu]|UL|Ul|uL|ul|LU|Lu|lU|lu)?)((?i:[gkmpt]b)?)\\b",
     ),
-    PatternSlot::new("(@)(\\()"),
-    PatternSlot::new("((\\$))(\\()"),
-    PatternSlot::new("\\b((([-.0-9A-Z_a-z]+)\\.(?i:exe|com|cmd|bat)))\\b"),
-    PatternSlot::new(
+    Pattern::new("(@)(\\()"),
+    Pattern::new("((\\$))(\\()"),
+    Pattern::new("\\b((([-.0-9A-Z_a-z]+)\\.(?i:exe|com|cmd|bat)))\\b"),
+    Pattern::new(
         "(?<![-.\\w])((?i:begin|break|catch|clean|continue|data|default|define|do|dynamicparam|else|elseif|end|exit|finally|for|from|if|in|inlinescript|parallel|param|process|return|sequence|switch|throw|trap|try|until|var|while)|[%?])(?!\\w)",
     ),
-    PatternSlot::new("(?<![-\\w]|[^)]\\.)((?i:(foreach|where)(?!-object))|[%?])(?!\\w)"),
-    PatternSlot::new("(?<!\\w)(--%)(?!\\w)"),
-    PatternSlot::new(".+"),
-    PatternSlot::new("(?<!\\w)((?i:hidden|static))(?!\\w)"),
-    PatternSlot::new("(?<![-\\w])((?i:class)|[%?])\\s+([-_\\p{L}\\d]?{1,})\\b"),
-    PatternSlot::new("(?<!\\w)-(?i:is(?:not)?|as)\\b"),
-    PatternSlot::new(
+    Pattern::new("(?<![-\\w]|[^)]\\.)((?i:(foreach|where)(?!-object))|[%?])(?!\\w)"),
+    Pattern::new("(?<!\\w)(--%)(?!\\w)"),
+    Pattern::new(".+"),
+    Pattern::new("(?<!\\w)((?i:hidden|static))(?!\\w)"),
+    Pattern::new("(?<![-\\w])((?i:class)|[%?])\\s+([-_\\p{L}\\d]?{1,})\\b"),
+    Pattern::new("(?<!\\w)-(?i:is(?:not)?|as)\\b"),
+    Pattern::new(
         "(?<!\\w)-(?i:[ci]?(?:eq|ne|[gl][et]|(?:not)?(?:like|match|contains|in)|replace))(?!\\p{L})",
     ),
-    PatternSlot::new("(?<!\\w)-(?i:join|split)(?!\\p{L})|!"),
-    PatternSlot::new("(?<!\\w)-(?i:and|or|not|xor)(?!\\p{L})|!"),
-    PatternSlot::new("(?<!\\w)-(?i:band|bor|bnot|bxor|shl|shr)(?!\\p{L})"),
-    PatternSlot::new("(?<!\\w)-(?i:f)(?!\\p{L})"),
-    PatternSlot::new("[-%*+/]?=|[-%*+/]"),
-    PatternSlot::new("\\|{2}|&{2}|;"),
-    PatternSlot::new("&|(?<!\\w)\\.(?= )|[,`|]"),
-    PatternSlot::new("(?<!\\s|^)\\.\\.(?=-?\\d|[$(])"),
+    Pattern::new("(?<!\\w)-(?i:join|split)(?!\\p{L})|!"),
+    Pattern::new("(?<!\\w)-(?i:and|or|not|xor)(?!\\p{L})|!"),
+    Pattern::new("(?<!\\w)-(?i:band|bor|bnot|bxor|shl|shr)(?!\\p{L})"),
+    Pattern::new("(?<!\\w)-(?i:f)(?!\\p{L})"),
+    Pattern::new("[-%*+/]?=|[-%*+/]"),
+    Pattern::new("\\|{2}|&{2}|;"),
+    Pattern::new("&|(?<!\\w)\\.(?= )|[,`|]"),
+    Pattern::new("(?<!\\s|^)\\.\\.(?=-?\\d|[$(])"),
 ];
 
 static LISTS: [List; 20] = [
@@ -2128,4 +2128,5 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     injections: INJECTIONS,
     patterns: &PATTERNS,
     root: 0,
+    cells: OnceLock::new(),
 };

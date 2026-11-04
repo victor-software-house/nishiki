@@ -146,6 +146,11 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 - A cost accepted to land a change, such as a language over the Callgrind gate, is temporary.
   The same pull request names the follow-up that removes it, and that follow-up is planned work.
 
+### 2.5 A lazy cell's closure captures by value
+
+- On a hot path, the closure given to `get_or_init` is `move` and captures only `Copy` values, such as an index or a shared reference.
+  A closure that borrows its captures builds their environment on the stack before the cell's initialized test, on every call, though it runs only once.
+
 ## 3. Code
 
 ### 3.1 Module layout

@@ -2,7 +2,9 @@
 //! `oracle/engine-tables.ts`. Do not edit: regenerate with `bun
 //! oracle/engine-tables.ts`.
 
-use crate::textmate::grammar::{Cap, Grammar, Injection, List, PatternSlot, Rule, RuleKind};
+use std::sync::OnceLock;
+
+use crate::textmate::grammar::{Cap, Grammar, Injection, List, Pattern, Rule, RuleKind};
 
 static NAMES: &[&str] = &[
     "punctuation.whitespace.comment.leading.toml",
@@ -45,57 +47,57 @@ static NAMES: &[&str] = &[
     "punctuation.separator.variable.toml",
 ];
 
-static PATTERNS: [PatternSlot; 44] = [
-    PatternSlot::new("(^[\\t ]+)?(?=#)"),
-    PatternSlot::new("(?!\\G)"),
-    PatternSlot::new("#"),
-    PatternSlot::new("\\n"),
-    PatternSlot::new("^\\s*(\\[)([^]\\[]*)(])"),
-    PatternSlot::new("[^.\\s]+"),
-    PatternSlot::new("^\\s*(\\[\\[)([^]\\[]*)(]])"),
-    PatternSlot::new("([-0-9A-Z_a-z]+)\\s*(=)\\s*"),
-    PatternSlot::new("(?<=\\S)(?<!=)|$"),
-    PatternSlot::new("\\G\"\"\""),
-    PatternSlot::new("\"{3,5}"),
-    PatternSlot::new("\\\\([\"\\\\bfnrt]|u\\h{4}|U\\h{8})"),
-    PatternSlot::new("\\\\[^\\n\"\\\\bfnrt]"),
-    PatternSlot::new("\\G\""),
-    PatternSlot::new("\""),
-    PatternSlot::new("\\\\[^\"\\\\bfnrt]"),
-    PatternSlot::new("\\G'''"),
-    PatternSlot::new("'{3,5}"),
-    PatternSlot::new("\\G'"),
-    PatternSlot::new("'"),
-    PatternSlot::new(
+static PATTERNS: [Pattern; 44] = [
+    Pattern::new("(^[\\t ]+)?(?=#)"),
+    Pattern::new("(?!\\G)"),
+    Pattern::new("#"),
+    Pattern::new("\\n"),
+    Pattern::new("^\\s*(\\[)([^]\\[]*)(])"),
+    Pattern::new("[^.\\s]+"),
+    Pattern::new("^\\s*(\\[\\[)([^]\\[]*)(]])"),
+    Pattern::new("([-0-9A-Z_a-z]+)\\s*(=)\\s*"),
+    Pattern::new("(?<=\\S)(?<!=)|$"),
+    Pattern::new("\\G\"\"\""),
+    Pattern::new("\"{3,5}"),
+    Pattern::new("\\\\([\"\\\\bfnrt]|u\\h{4}|U\\h{8})"),
+    Pattern::new("\\\\[^\\n\"\\\\bfnrt]"),
+    Pattern::new("\\G\""),
+    Pattern::new("\""),
+    Pattern::new("\\\\[^\"\\\\bfnrt]"),
+    Pattern::new("\\G'''"),
+    Pattern::new("'{3,5}"),
+    Pattern::new("\\G'"),
+    Pattern::new("'"),
+    Pattern::new(
         "\\G[0-9]{4}-(0[1-9]|1[012])-(?!00|3[2-9])[0-3][0-9]([ Tt](?!2[5-9])[012][0-9]:[0-5][0-9]:(?!6[1-9])[0-6][0-9](\\.[0-9]+)?(Z|[-+](?!2[5-9])[012][0-9]:[0-5][0-9])?)?",
     ),
-    PatternSlot::new("\\G(?!2[5-9])[012][0-9]:[0-5][0-9]:(?!6[1-9])[0-6][0-9](\\.[0-9]+)?"),
-    PatternSlot::new("\\G(true|false)"),
-    PatternSlot::new("\\G0x\\h(_??\\h)*"),
-    PatternSlot::new("\\G0o[0-7]([0-7]|_[0-7])*"),
-    PatternSlot::new("\\G0b[01]([01]|_[01])*"),
-    PatternSlot::new("\\G[-+]?(inf|nan)"),
-    PatternSlot::new(
+    Pattern::new("\\G(?!2[5-9])[012][0-9]:[0-5][0-9]:(?!6[1-9])[0-6][0-9](\\.[0-9]+)?"),
+    Pattern::new("\\G(true|false)"),
+    Pattern::new("\\G0x\\h(_??\\h)*"),
+    Pattern::new("\\G0o[0-7]([0-7]|_[0-7])*"),
+    Pattern::new("\\G0b[01]([01]|_[01])*"),
+    Pattern::new("\\G[-+]?(inf|nan)"),
+    Pattern::new(
         "\\G([-+]?(0|([1-9](([0-9]|_[0-9])+)?)))(?=[.Ee])(\\.([0-9](([0-9]|_[0-9])+)?))?([Ee]([-+]?[0-9](([0-9]|_[0-9])+)?))?",
     ),
-    PatternSlot::new("\\G([-+]?(0|([1-9](([0-9]|_[0-9])+)?)))"),
-    PatternSlot::new("\\G\\["),
-    PatternSlot::new("]"),
-    PatternSlot::new("(?=[\"']|[-+]?[0-9]|[-+]?(inf|nan)|true|false|[\\[{])"),
-    PatternSlot::new(",|(?=])"),
-    PatternSlot::new("\\S+(\\s*(?=\\S))?"),
-    PatternSlot::new("\\G\\{"),
-    PatternSlot::new("}"),
-    PatternSlot::new("(?=\\S)"),
-    PatternSlot::new(",|(?=})"),
-    PatternSlot::new("((\")(.*?)(\"))\\s*(=)\\s*"),
-    PatternSlot::new("((')([^']*)('))\\s*(=)\\s*"),
-    PatternSlot::new(
+    Pattern::new("\\G([-+]?(0|([1-9](([0-9]|_[0-9])+)?)))"),
+    Pattern::new("\\G\\["),
+    Pattern::new("]"),
+    Pattern::new("(?=[\"']|[-+]?[0-9]|[-+]?(inf|nan)|true|false|[\\[{])"),
+    Pattern::new(",|(?=])"),
+    Pattern::new("\\S+(\\s*(?=\\S))?"),
+    Pattern::new("\\G\\{"),
+    Pattern::new("}"),
+    Pattern::new("(?=\\S)"),
+    Pattern::new(",|(?=})"),
+    Pattern::new("((\")(.*?)(\"))\\s*(=)\\s*"),
+    Pattern::new("((')([^']*)('))\\s*(=)\\s*"),
+    Pattern::new(
         "(((?:[-0-9A-Z_a-z]+|\"(?:[^\"\\\\]|\\\\.)*\"|'[^']*')(?:\\s*\\.\\s*|(?=\\s*=))){2,})\\s*(=)\\s*",
     ),
-    PatternSlot::new("\\."),
-    PatternSlot::new("(\")((?:[^\"\\\\]|\\\\.)*)(\")"),
-    PatternSlot::new("(')[^']*(')"),
+    Pattern::new("\\."),
+    Pattern::new("(\")((?:[^\"\\\\]|\\\\.)*)(\")"),
+    Pattern::new("(')[^']*(')"),
 ];
 
 static LISTS: [List; 19] = [
@@ -1202,4 +1204,5 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     injections: INJECTIONS,
     patterns: &PATTERNS,
     root: 0,
+    cells: OnceLock::new(),
 };
