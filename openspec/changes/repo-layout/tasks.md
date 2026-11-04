@@ -36,4 +36,6 @@
   - 2026-11-04 UTC: the 31 sections, 226 lines, moved to their variants' docs in the `languages!` rows of `src/language.rs`; a check of each line found it there before two edits: "the JSON table above" became "the table measured for JSON", and `KDoc` and `SassDoc` took backticks for clippy. The README no longer has the section.
     The macro passes every `#[doc]` line of a row to its `#[cfg(feature = …)]` variant, as Markdown's two-line doc already showed; the docs job builds them with every feature, as docs.rs does.
     JavaScript, JSX and TSX link to `Language::TypeScript`, and JSONC and JSON Lines to `Language::Json`.
-- [ ] 4.3 Cut the README to the GitHub page: what nishiki is, how to add it, one example, the language table and links → verify: the README holds no API reference and its example runs as a doctest
+- [x] 4.3 Cut the README to the GitHub page: what nishiki is, how to add it, one example, the language table and links → verify: the README holds no API reference and its example runs as a doctest
+  - 2026-11-04 UTC: the README holds what nishiki is, `cargo add`, one example, a docs.rs link, the language table, the status and the licence; its file links are docs.rs source URLs.
+    `ReadmeDoctests` in `src/lib.rs` still includes it, so `test:doc` runs the example in the pull request's CI; `AGENTS.md` Documentation rule 2 records the README's scope.

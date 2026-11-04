@@ -318,7 +318,7 @@ pub use limits::{Budget, Limit, Limits, LineReport, Work};
 pub use theme::ThemeError;
 pub use theme::{Color, FontStyle, RuleScope, Style, Theme, ThemeKind, ThemeRule, ThemeSource};
 
-/// The README's examples, compiled and run as doctests.
+/// The README's example, compiled and run as a doctest.
 #[cfg(doctest)]
 #[doc = include_str!("../README.md")]
 struct ReadmeDoctests;

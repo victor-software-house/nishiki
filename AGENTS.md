@@ -106,9 +106,11 @@ The decisions that created nishiki live in a private planning repository:
 1. The crate-root docs in `src/lib.rs` are the docs.rs landing page.
    - They hold the quick start, the themes, the limits, the cargo features and Markdown fences.
    - They link items with intra-doc links.
-   - Their Rust examples run as doctests, and so do the README's (`ReadmeDoctests` in `src/lib.rs`).
+   - Their Rust examples run as doctests, and so does the README's one example (`ReadmeDoctests` in `src/lib.rs`).
    - rustfmt's `wrap_comments` reflows a list item in a doc comment, so its lines break where rustfmt puts them.
-2. The README links to files through docs.rs source URLs, because the repository is private.
+2. The README is the GitHub page: what nishiki is, `cargo add`, one example, a docs.rs link, the language table, the status and the licence.
+   - It holds no API reference; the crate docs do.
+   - It links to files through docs.rs source URLs, because the repository is private.
 3. Every document, from guides to research notes, is written to be scanned (operator, 2026-11-02 and 2026-11-03):
    - short sentences, one idea each, with Semantic Line Breaks;
    - a list for a set of items, a table for a comparison, a heading per topic;

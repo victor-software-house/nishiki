@@ -17,8 +17,7 @@ the multi-colour Japanese woodblock prints of the 1760s.
 cargo add nishiki
 ```
 
-A `Highlighter` lexes one language, one line at a time.
-Each line gives tokens with Shiki's scope stacks, and a state the next line starts from.
+Print each token of a line of Rust with its scopes:
 
 ```rust
 use nishiki::{Highlighter, Language, State};
@@ -39,15 +38,17 @@ for token in &tokens {
 }
 ```
 
-The [crate docs](https://docs.rs/nishiki) cover the API:
+## Documentation
 
-- a quick start;
-- themes;
-- limits;
-- cargo features and tiers;
-- Markdown fences.
+The API docs are on [docs.rs](https://docs.rs/nishiki):
+
+- the quick start, themes, limits and cargo features, on the crate page;
+- each language's quirks, on its `Language` variant.
 
 ## Languages
+
+Each language is a cargo feature.
+All are on by default except the `textmate` tier: PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix, Dart, Julia, Mermaid and Haskell.
 
 | Language | Variant | Feature | Names `Language::from_name` takes |
 |:--|:--|:--|:--|
@@ -102,7 +103,6 @@ The [crate docs](https://docs.rs/nishiki) cover the API:
 
 - The API is unstable while the version is `0.x`.
 - The scopes match Shiki's, quirks included.
-  Each `Language` variant on [docs.rs](https://docs.rs/nishiki/latest/nishiki/enum.Language.html) lists the quirks of its language.
 
 ## Licence
 
