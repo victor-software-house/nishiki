@@ -262,6 +262,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `shellscript/ruby-build` | [`bin/ruby-build`][ruby-build] in rbenv/ruby-build | [MIT][ruby-build-licence] |
 | `shellscript/sample` | [`samples/shellscript.sample`][shell-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `shellscript/unicode-words` | `oracle/inputs/shellscript-unicode-words.sh`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `sql/coverage` | `oracle/inputs/sql-coverage.sql`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `sql/northwind-pubs` | [`samples/databases/northwind-pubs/instpubs.sql`][pubs] in microsoft/sql-server-samples | [MIT][sqlserver-licence] |
 | `sql/postgres-create-table` | [`src/test/regress/sql/create_table.sql`][pg-create] in postgres/postgres | [PostgreSQL][postgres-licence] |
 | `sql/postgres-select` | [`src/test/regress/sql/select.sql`][pg-select] in postgres/postgres | [PostgreSQL][postgres-licence] |
@@ -660,6 +661,7 @@ The `markdownlint-*` and `coverage` inputs of `markdown` are held out: they were
 No input has a `jsonc` or `jsonl` fence, so those two spellings are covered by unit tests only.
 `sql/sample`, `sql/postgres-select`, `sql/postgres-create-table` and `sql/ssms-create-table` are the development inputs for SQL.
 `sql/postgres-with` and `sql/northwind-pubs` are held out.
+`sql/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 `markdown/pgvector-readme` is the development input for `sql` fences, and `markdown/typeorm-indexes` and `markdown/knex-schema-builder` are held out.
 The YAML lexer was written from the YAML 1.2 specification and from Shiki's output alone, as invariant 2 allows for a grammar with no licence, and it was checked against a local set of YAML files and fuzzed against Shiki before these inputs were added.
 `yaml/sample`, `yaml/checkout-test` and `yaml/petstore-openapi` are its development inputs, and `markdown/jekyll-front-matter` is the development input for front matter and YAML fences.

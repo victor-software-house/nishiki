@@ -36,6 +36,7 @@ import rubyYamlHeredocs from "./inputs/ruby-yaml-heredocs.rb" with { type: "text
 import rustCoverage from "./inputs/rust-coverage.rs" with { type: "text" };
 import scssCoverage from "./inputs/scss-coverage.scss" with { type: "text" };
 import shellscriptUnicodeWords from "./inputs/shellscript-unicode-words.sh" with { type: "text" };
+import sqlCoverage from "./inputs/sql-coverage.sql" with { type: "text" };
 import swiftCoverage from "./inputs/swift-coverage.swift" with { type: "text" };
 import tomlCoverage from "./inputs/toml-coverage.toml" with { type: "text" };
 import typescriptCoverage from "./inputs/typescript-coverage.ts" with { type: "text" };
@@ -1102,6 +1103,7 @@ export const inputs: Input[] = [
   { lang: "shellscript", name: "ruby-build", url: `${rubyBuild}/bin/ruby-build` },
   { lang: "shellscript", name: "sample", url: `${samples}/shellscript.sample` },
   { lang: "shellscript", name: "unicode-words", text: shellscriptUnicodeWords },
+  { lang: "sql", name: "coverage", text: sqlCoverage },
   {
     lang: "sql",
     name: "northwind-pubs",

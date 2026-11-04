@@ -1080,6 +1080,33 @@ export const waivers: Waiver[] = [
     path: "#type-parameter.patterns[1].match",
     reason: "`#type-parameter.patterns[0]`, `\\b\\w+\\b`, before it, matches every word this does",
   },
+  {
+    grammar: "sql",
+    path: "#comments.patterns[0].begin",
+    group: 1,
+    reason: blanks,
+  },
+  {
+    grammar: "sql",
+    path: "#comments.patterns[1].begin",
+    group: 1,
+    reason: blanks,
+  },
+  {
+    grammar: "sql",
+    path: "#regexps.patterns[0].begin",
+    reason: "`patterns[21]`, `[-+/]`, before `#regexps` in the only list that holds it, matches every `/`",
+  },
+  {
+    grammar: "sql",
+    path: "#regexps.patterns[0].end",
+    reason: "its begin never matches",
+  },
+  {
+    grammar: "sql",
+    path: "#regexps.patterns[0].patterns[1].match",
+    reason: "its rule's begin never matches",
+  },
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -1109,6 +1136,7 @@ export const complete: string[] = [
   "ruby",
   "rust",
   "scss",
+  "sql",
   "swift",
   "toml",
   "tsx",

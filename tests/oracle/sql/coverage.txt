@@ -1,0 +1,238 @@
+L   -- Written for nishiki: what the sql grammar's other inputs leave out.
+T 2 source.sql punctuation.whitespace.comment.leading.sql
+T 4 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 72 source.sql comment.line.double-dash.sql
+L   # A hash line.
+T 2 source.sql punctuation.whitespace.comment.leading.sql
+T 3 source.sql
+T 6 source.sql
+T 10 source.sql keyword.other.sql
+T 11 source.sql
+T 15 source.sql storage.type.sql
+T 16 source.sql
+L CREATE TABLE events (
+T 6 source.sql meta.create.sql keyword.other.create.sql
+T 7 source.sql meta.create.sql
+T 12 source.sql meta.create.sql keyword.other.sql
+T 13 source.sql meta.create.sql
+T 19 source.sql meta.create.sql entity.name.function.sql
+T 21 source.sql
+L   id int,
+T 5 source.sql
+T 8 source.sql storage.type.sql
+T 9 source.sql
+L   ratio float(10),
+T 8 source.sql
+T 13 source.sql storage.type.sql
+T 14 source.sql
+T 16 source.sql constant.numeric.sql
+T 17 source.sql
+T 18 source.sql
+L   starts time(3) with time zone,
+T 9 source.sql
+T 13 source.sql storage.type.sql
+T 14 source.sql
+T 15 source.sql constant.numeric.sql
+T 16 source.sql
+T 31 source.sql storage.type.sql
+T 32 source.sql
+L   ends timestamptz(6) without time zone,
+T 7 source.sql
+T 16 source.sql storage.type.sql
+T 18 source.sql storage.type.sql
+T 19 source.sql
+T 20 source.sql constant.numeric.sql
+T 21 source.sql
+T 39 source.sql storage.type.sql
+T 40 source.sql
+L   label [name]]part],
+T 8 source.sql
+T 9 source.sql text.bracketed punctuation.definition.bracket.begin.sql
+T 13 source.sql text.bracketed
+T 15 source.sql text.bracketed constant.character.bracket.sql
+T 19 source.sql text.bracketed
+T 20 source.sql text.bracketed punctuation.definition.bracket.end.sql
+T 21 source.sql
+L   note [outer[inner]
+T 7 source.sql
+T 8 source.sql text.bracketed punctuation.definition.bracket.begin.sql
+T 13 source.sql text.bracketed
+T 14 source.sql text.bracketed constant.character.bracket.sql
+T 19 source.sql text.bracketed
+T 20 source.sql text.bracketed punctuation.definition.bracket.end.sql
+L );
+T 2 source.sql
+L SELECT 1; DROP TABLE events CASCADE;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql constant.numeric.sql
+T 9 source.sql
+T 10 source.sql meta.drop.sql
+T 14 source.sql meta.drop.sql keyword.other.create.sql
+T 15 source.sql meta.drop.sql
+T 20 source.sql meta.drop.sql keyword.other.table.sql
+T 21 source.sql meta.drop.sql
+T 27 source.sql meta.drop.sql entity.name.function.sql
+T 35 source.sql meta.drop.sql keyword.other.cascade.sql
+T 36 source.sql
+L GRANT SELECT ON events TO reader;
+T 5 source.sql keyword.other.authorization.sql
+T 6 source.sql
+T 12 source.sql keyword.other.DML.sql
+T 13 source.sql
+T 15 source.sql keyword.other.DDL.create.II.sql
+T 23 source.sql
+T 25 source.sql keyword.other.sql
+T 33 source.sql
+L REVOKE SELECT ON events FROM reader;
+T 6 source.sql keyword.other.authorization.sql
+T 7 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 14 source.sql
+T 16 source.sql keyword.other.DDL.create.II.sql
+T 24 source.sql
+T 28 source.sql keyword.other.DML.sql
+T 36 source.sql
+L SELECT cume_dist() OVER (ORDER BY id), bit_count(id), collationproperty('Latin1_General_CI_AS', 'CodePage');
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 16 source.sql support.function.analytic.sql
+T 17 source.sql
+T 19 source.sql
+T 23 source.sql keyword.other.sql
+T 25 source.sql
+T 33 source.sql keyword.other.DML.sql
+T 39 source.sql
+T 48 source.sql support.function.bitmanipulation.sql
+T 49 source.sql
+T 54 source.sql
+T 71 source.sql support.function.collation.sql
+T 72 source.sql
+T 73 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 93 source.sql string.quoted.single.sql
+T 94 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 96 source.sql
+T 97 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 105 source.sql string.quoted.single.sql
+T 106 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 108 source.sql
+L SELECT hashbytes('SHA2_256', 'x'), cursor_status('global', 'c'), @@error(), json_value('{}', '$.a');
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 16 source.sql support.function.cryptographic.sql
+T 17 source.sql
+T 18 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 26 source.sql string.quoted.single.sql
+T 27 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 29 source.sql
+T 30 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 31 source.sql string.quoted.single.sql
+T 32 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 35 source.sql
+T 48 source.sql support.function.cursor.sql
+T 49 source.sql
+T 50 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 56 source.sql string.quoted.single.sql
+T 57 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 59 source.sql
+T 60 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 61 source.sql string.quoted.single.sql
+T 62 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 65 source.sql
+T 67 source.sql
+T 72 source.sql support.function.globalvar.sql
+T 73 source.sql
+T 76 source.sql
+T 86 source.sql support.function.json.sql
+T 87 source.sql
+T 88 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 90 source.sql string.quoted.single.sql
+T 91 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 93 source.sql
+T 94 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 97 source.sql string.quoted.single.sql
+T 98 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 100 source.sql
+L SELECT iif(1 > 0, 'yes', 'no'), user_name(), newid(), textptr(note), vector_distance('cosine', a, b);
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 10 source.sql support.function.logical.sql
+T 11 source.sql
+T 12 source.sql constant.numeric.sql
+T 13 source.sql
+T 14 source.sql keyword.operator.comparison.sql
+T 15 source.sql
+T 16 source.sql constant.numeric.sql
+T 18 source.sql
+T 19 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 22 source.sql string.quoted.single.sql
+T 23 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 25 source.sql
+T 26 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 28 source.sql string.quoted.single.sql
+T 29 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 32 source.sql
+T 41 source.sql support.function.security.sql
+T 42 source.sql
+T 45 source.sql
+T 50 source.sql support.function.system.sql
+T 51 source.sql
+T 54 source.sql
+T 61 source.sql support.function.textimage.sql
+T 62 source.sql
+T 69 source.sql
+T 84 source.sql support.function.vector.sql
+T 85 source.sql
+T 86 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 92 source.sql string.quoted.single.sql
+T 93 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 101 source.sql
+L SELECT `plain`, `a\`b`, "a#{b}c", %{text}, %r{ab#{c}d} FROM events;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql string.quoted.other.backtick.sql punctuation.definition.string.begin.sql
+T 13 source.sql string.quoted.other.backtick.sql
+T 14 source.sql string.quoted.other.backtick.sql punctuation.definition.string.end.sql
+T 16 source.sql
+T 17 source.sql string.quoted.other.backtick.sql punctuation.definition.string.begin.sql
+T 18 source.sql string.quoted.other.backtick.sql
+T 20 source.sql string.quoted.other.backtick.sql constant.character.escape.sql
+T 21 source.sql string.quoted.other.backtick.sql
+T 22 source.sql string.quoted.other.backtick.sql punctuation.definition.string.end.sql
+T 24 source.sql
+T 25 source.sql string.quoted.double.sql punctuation.definition.string.begin.sql
+T 26 source.sql string.quoted.double.sql
+T 28 source.sql string.quoted.double.sql string.interpolated.sql punctuation.definition.string.begin.sql
+T 29 source.sql string.quoted.double.sql string.interpolated.sql
+T 30 source.sql string.quoted.double.sql string.interpolated.sql punctuation.definition.string.end.sql
+T 31 source.sql string.quoted.double.sql
+T 32 source.sql string.quoted.double.sql punctuation.definition.string.end.sql
+T 34 source.sql
+T 36 source.sql string.other.quoted.brackets.sql punctuation.definition.string.begin.sql
+T 40 source.sql string.other.quoted.brackets.sql
+T 41 source.sql string.other.quoted.brackets.sql punctuation.definition.string.end.sql
+T 43 source.sql
+T 46 source.sql string.regexp.modr.sql punctuation.definition.string.begin.sql
+T 48 source.sql string.regexp.modr.sql
+T 50 source.sql string.regexp.modr.sql string.interpolated.sql punctuation.definition.string.begin.sql
+T 51 source.sql string.regexp.modr.sql string.interpolated.sql
+T 52 source.sql string.regexp.modr.sql string.interpolated.sql punctuation.definition.string.end.sql
+T 53 source.sql string.regexp.modr.sql
+T 54 source.sql string.regexp.modr.sql punctuation.definition.string.end.sql
+T 55 source.sql
+T 59 source.sql keyword.other.DML.sql
+T 67 source.sql
+L SELECT 4 / 2 / 1;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql constant.numeric.sql
+T 9 source.sql
+T 10 source.sql keyword.operator.math.sql
+T 11 source.sql
+T 12 source.sql constant.numeric.sql
+T 13 source.sql
+T 14 source.sql keyword.operator.math.sql
+T 15 source.sql
+T 16 source.sql constant.numeric.sql
+T 17 source.sql
+L 

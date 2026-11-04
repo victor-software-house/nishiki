@@ -19,3 +19,5 @@ extend-exclude = [
 # Unicode general-category codes, such as Nd, which are not words.
 [default.extend-words]
 nd = "nd"
+# SQL Server's `iif` function, which the sql grammar names.
+iif = "iif"

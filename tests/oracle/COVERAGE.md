@@ -42,7 +42,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
 | SCSS | `scss` | 161 of 168 | 95.8% | 136 of 179 | 76.0% | 50 | 0 | yes |
 | shell | `shellscript` | 119 of 174 | 68.4% | 106 of 199 | 53.3% | 0 | 10 |  |
-| SQL | `sql` | 47 of 75 | 62.7% | 42 of 79 | 53.2% | 0 | 4 |  |
+| SQL | `sql` | 72 of 75 | 96.0% | 75 of 79 | 94.9% | 7 | 0 | yes |
 | Swift | `swift` | 425 of 448 | 94.9% | 441 of 448 | 98.4% | 30 | 0 | yes |
 | TOML | `toml` | 54 of 54 | 100.0% | 39 of 53 | 73.6% | 14 | 0 | yes |
 | TypeScript | `tsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
@@ -838,38 +838,11 @@ patterns[88].patterns[0].end  (?=not)impossible  waived: the rule that holds it 
 ### `sql`
 
 ```text
-patterns[1].patterns[0].match  \[|]]
-patterns[5].match  groups 4
-patterns[7].match  groups 2, 3, 9, 10, 11, 13, 14, 15
-patterns[14].match  (?i:\b(grant(\swith\sgrant\soption)?|revoke)\b)
-patterns[24].match  (?i)\b(cume_dist|first_value|lag|last_value|lead|percent_ra…
-patterns[25].match  (?i)\b((?:bit_coun|get_bi|left_shif|right_shif|set_bi)t)\b\…
-patterns[27].match  (?i)\b(collationproperty|tertiary_weights)\b\s*\(
-patterns[28].match  (?i)\b(asymkey_id|asymkeyproperty|certproperty|cert_id|cryp…
-patterns[29].match  (?i)\b(cursor_status)\b\s*\(
-patterns[33].match  (?<!@)@@(?i)\b(cursor_rows|connections|cpu_busy|datefirst|d…
-patterns[34].match  (?i)\b(json|isjson|json_object|json_array|json_value|json_q…
-patterns[35].match  (?i)\b(choose|iif|greatest|least)\b\s*\(
-patterns[40].match  (?i)\b(certencoded|certprivatekey|current_user|database_pri…
-patterns[42].match  (?i)\b(binary_checksum|checksum|compress|connectionproperty…
-patterns[43].match  (?i)\b(patindex|textptr|textvalid)\b\s*\(
-patterns[44].match  (?i)\b(vector_(?:distance|norm|normalize))\b\s*\(
-#comments.patterns[0].begin  groups 1
-#comments.patterns[1].begin  groups 1
-#regexps.patterns[0].begin  /(?=\S.*/)
-#regexps.patterns[0].end  /
-#regexps.patterns[0].patterns[1].match  \\/
-#regexps.patterns[1].begin  %r\{
-#regexps.patterns[1].end  }
-#string_escape.match  \\.
-#string_interpolation.match  (#\{)([^}]*)(})
-#strings.patterns[2].match  (`)[^\\`]*(`)
-#strings.patterns[3].begin  `  fuzz
-#strings.patterns[3].end  `
-#strings.patterns[5].begin  "  fuzz
-#strings.patterns[5].end  "
-#strings.patterns[6].begin  %\{
-#strings.patterns[6].end  }
+#comments.patterns[0].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#comments.patterns[1].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#regexps.patterns[0].begin  /(?=\S.*/)  waived: `patterns[21]`, `[-+/]`, before `#regexps` in the only list that holds it, matches every `/`
+#regexps.patterns[0].end  /  waived: its begin never matches
+#regexps.patterns[0].patterns[1].match  \\/  waived: its rule's begin never matches
 ```
 
 ### `swift`
