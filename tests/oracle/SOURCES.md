@@ -420,6 +420,9 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `lua/luals-string` | [`meta/template/string.lua`][luals-string] in LuaLS/lua-language-server | [MIT][luals-licence] |
 | `lua/luals-table` | [`meta/template/table.lua`][luals-table] in LuaLS/lua-language-server | [MIT][luals-licence] |
 | `lua/lua-literals` | [`testes/literals.lua`][lua-literals] in lua/lua | [MIT][lua-licence] |
+| `lua/coverage` | `oracle/inputs/lua-coverage.lua`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `lua/lua-locals` | [`testes/locals.lua`][lua-locals] in lua/lua | [MIT][lua-licence] |
+| `lua/luals-basic` | [`meta/template/basic.lua`][luals-basic] in LuaLS/lua-language-server | [MIT][luals-licence] |
 | `cmake/sample` | [`samples/cmake.sample`][cmake-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `cmake/json-lists` | [`CMakeLists.txt`][json-cmake-lists] in nlohmann/json | [MIT][nlohmann-json-licence] |
 | `cmake/googletest-utils` | [`googletest/cmake/internal_utils.cmake`][googletest-utils] in google/googletest | [BSD-3-Clause][googletest-licence] |
@@ -704,6 +707,7 @@ Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railtie
 
 `lua/sample`, `lua/inspect`, `lua/lume`, `lua/luals-string` and `lua/lua-literals` are the development inputs for Lua; `lua/lua-literals` holds long strings and a long comment at several levels, across lines.
 `lua/json`, `lua/penlight-stringx`, `lua/luarocks-util` and `lua/luals-table` are held out.
+The `coverage`, `lua-locals` and `luals-basic` inputs of `lua` are held out too: they were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it, `luals-basic` for its annotations.
 `less/sample`, `less/bootstrap3-variables`, `less/bootstrap3-mixins-buttons`, `less/bootstrap3-mixins-grid-framework`, `less/antd-button-mixin` and `less/antd-customize` are the development inputs for Less.
 `less/bootstrap3-forms`, `less/bootstrap3-navbar`, `less/bootstrap3-mixins-gradients`, `less/antd-compact-item` and `less/antd-color-palette` are held out; `less/antd-color-palette` holds JavaScript in backticks.
 
@@ -1045,8 +1049,10 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [linenoise-licence]: https://github.com/antirez/linenoise/blob/a473823d74b93eab2ba83480df16ed37617493f2/LICENSE
 [lua-licence]: https://github.com/lua/lua/blob/8cb93bada561977eb370819e39d7d644e5fd0a3f/lua.h
 [lua-literals]: https://github.com/lua/lua/blob/8cb93bada561977eb370819e39d7d644e5fd0a3f/testes/literals.lua
+[lua-locals]: https://github.com/lua/lua/blob/8cb93bada561977eb370819e39d7d644e5fd0a3f/testes/locals.lua
 [lua-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/lua.sample
 [lua-vm]: https://github.com/lua/lua/blob/8cb93bada561977eb370819e39d7d644e5fd0a3f/lvm.c
+[luals-basic]: https://github.com/LuaLS/lua-language-server/blob/a58fc7b01e1746c46275c71b0e61bfed40a6296d/meta/template/basic.lua
 [luals-licence]: https://github.com/LuaLS/lua-language-server/blob/a58fc7b01e1746c46275c71b0e61bfed40a6296d/LICENSE
 [luals-string]: https://github.com/LuaLS/lua-language-server/blob/a58fc7b01e1746c46275c71b0e61bfed40a6296d/meta/template/string.lua
 [luals-table]: https://github.com/LuaLS/lua-language-server/blob/a58fc7b01e1746c46275c71b0e61bfed40a6296d/meta/template/table.lua

@@ -34,7 +34,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | TypeScript | `jsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | Kotlin | `kotlin` | 57 of 65 | 87.7% | 25 of 35 | 71.4% | 0 | 0 |  |
 | Less | `less` | 581 of 590 | 98.5% | 417 of 437 | 95.4% | 29 | 0 | yes |
-| Lua | `lua` | 81 of 152 | 53.3% | 32 of 74 | 43.2% | 0 | 3 |  |
+| Lua | `lua` | 147 of 152 | 96.7% | 72 of 74 | 97.3% | 7 | 0 | ready |
 | Make | `make` | 58 of 75 | 77.3% | 23 of 32 | 71.9% | 0 | 0 |  |
 | Markdown | `markdown` | 205 of 311 | 65.9% | 266 of 373 | 71.3% | 213 | 0 | yes |
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
@@ -759,79 +759,13 @@ patterns[1].patterns[4].match  \b(?<!\$)(abstract|assert|boolean|break|byte|case
 ### `lua`
 
 ```text
-patterns[0].patterns[1].patterns[1].match  (\.{3})\s*([A-Z_a-z][0-9A-Z_a-z]*)
-patterns[0].patterns[1].patterns[4].begin  :
-patterns[0].patterns[1].patterns[4].end  (?=[),])
-patterns[2].match  (?<![.\w\d])0[Xx]\.\h+([Ee]-?\d*)?([Pp][-+]\d+)?
-patterns[3].match  (?<![.\w\d])0[Xx]\h+(?![.0-9EPep])
-patterns[6].match  (?<![.\w\d])\d+(?![.0-9EPep])
-patterns[8].match  \A(#!).*$\n?
-patterns[10].match  \b(goto)\s+([A-Z_a-z][0-9A-Z_a-z]*)
-patterns[11].match  (::)\s*[A-Z_a-z][0-9A-Z_a-z]*\s*(::)
-patterns[13].match  <[*A-Z_a-z][-*.0-9A-Z_a-z]*>
-patterns[17].match  \b(function)\b(?![,:])
-patterns[21].match  (?<![^.]\.|:)\b(async)\b(?!\s*=(?!=))
-patterns[23].match  \b(\|\||&&|!)\b
-#comment.patterns[0].begin  groups 1
-#comment.patterns[0].end  groups 1
-#comment.patterns[0].patterns[0].begin  --\[(=*)\[@@@
-#comment.patterns[0].patterns[0].end  (--)?]\1]
-#comment.patterns[1].begin  /\*
-#comment.patterns[1].end  \*/
-#emmydoc.patterns[0].patterns[1].match  [,:]
-#emmydoc.patterns[1].begin  (?<=---)[\t ]*@enum
-#emmydoc.patterns[1].end  (?=[\n#@])
-#emmydoc.patterns[1].patterns[0].begin  \b([*A-Z_a-z][-*.0-9A-Z_a-z]*)
-#emmydoc.patterns[1].patterns[0].end  (?=\n)
-#emmydoc.patterns[2].begin  (?<=---)[\t ]*@type
-#emmydoc.patterns[2].end  (?=[\n#@])
-#emmydoc.patterns[3].begin  (?<=---)[\t ]*@alias
-#emmydoc.patterns[3].end  (?=[\n#@])
-#emmydoc.patterns[3].patterns[0].begin  \b([*A-Z_a-z][-*.0-9A-Z_a-z]*)
-#emmydoc.patterns[3].patterns[0].end  (?=[\n#])
-#emmydoc.patterns[4].begin  (?<=---)[\t ]*(@operator)\s*(\b[a-z]+)?
-#emmydoc.patterns[4].end  (?=[\n#@])
-#emmydoc.patterns[5].begin  (?<=---)[\t ]*@cast
-#emmydoc.patterns[5].end  (?=[\n#@])
-#emmydoc.patterns[5].patterns[0].begin  \b([*A-Z_a-z][-*.0-9A-Z_a-z]*)
-#emmydoc.patterns[5].patterns[0].end  (?=\n)
-#emmydoc.patterns[5].patterns[0].patterns[1].match  ([+-|])
-#emmydoc.patterns[7].patterns[0].match  \?
-#emmydoc.patterns[8].begin  (?<=---)[\t ]*@field
-#emmydoc.patterns[8].end  (?=[\n#@])
-#emmydoc.patterns[8].patterns[0].begin  (\b([A-Z_a-z][0-9A-Z_a-z]*)\b|(\[))(\??)
-#emmydoc.patterns[8].patterns[0].end  (?=[\n#])
-#emmydoc.patterns[8].patterns[0].patterns[2].match  ]
-#emmydoc.patterns[9].patterns[0].patterns[0].match  :
-#emmydoc.patterns[10].begin  (?<=---)[\t ]*@vararg
-#emmydoc.patterns[10].end  (?=[\n#@])
-#emmydoc.patterns[14].begin  (?<=---)[\t ]*@private
-#emmydoc.patterns[14].end  (?=[\n#@])
-#emmydoc.patterns[15].begin  (?<=---)[\t ]*@protected
-#emmydoc.patterns[15].end  (?=[\n#@])
-#emmydoc.patterns[16].begin  (?<=---)[\t ]*@package
-#emmydoc.patterns[16].end  (?=[\n#@])
-#emmydoc.patterns[18].begin  (?<=---)[\t ]*@see
-#emmydoc.patterns[18].end  (?=[\n#@])
-#emmydoc.patterns[18].patterns[0].match  \b([*A-Z_a-z][-*.0-9A-Z_a-z]*)
-#emmydoc.patterns[18].patterns[1].match  #
-#emmydoc.patterns[19].begin  (?<=---)[\t ]*@diagnostic
-#emmydoc.patterns[19].end  (?=[\n#@])
-#emmydoc.patterns[19].patterns[0].begin  ([-0-9A-Z_a-z]+)[\t ]*(:)?
-#emmydoc.patterns[19].patterns[0].end  (?=\n)
-#emmydoc.patterns[19].patterns[0].patterns[0].match  \b([*A-Z_a-z][-0-9A-Z_a-z]*)
-#emmydoc.patterns[19].patterns[0].patterns[1].match  ,
-#emmydoc.patterns[20].begin  (?<=---)[\t ]*@module
-#emmydoc.patterns[20].end  (?=[\n#@])
-#emmydoc.patterns[22].begin  (?<=---)\|\s*[+>]?
-#emmydoc.patterns[22].end  (?=[\n#@])
-#emmydoc.type.patterns[1].match  <[*A-Z_a-z][-*.0-9A-Z_a-z]*>
-#emmydoc.type.patterns[4].patterns[1].match  (\.\.\.)[\t ]*
-#escaped_char.patterns[5].match  \\.
-#string.patterns[2].begin  `  fuzz
-#string.patterns[2].end  `[\t ]*|(?=\n)  fuzz
-#string.patterns[3].begin  (?<=\.cdef)\s*(\[(=*)\[)
-#string.patterns[3].end  (]\2])[\t ]*
+patterns[3].match  (?<![.\w\d])0[Xx]\h+(?![.0-9EPep])  waived: `patterns[1]`, the hexadecimal float before it, matches every hexadecimal integer this does
+patterns[6].match  (?<![.\w\d])\d+(?![.0-9EPep])  waived: `patterns[4]`, the decimal float before it, matches every integer this does
+patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function rule before it, begins with `(function)` under the same lookahead, so it matches wherever this does
+#comment.patterns[0].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#comment.patterns[0].end  groups 1 (waived: the group holds only blanks and the line feed, and the oracle compares no blank)
+#emmydoc.patterns[18].patterns[1].match  #  waived: the `@see` rule's end, `(?=[\n#@])`, matches at every `#` and is tried first
+#emmydoc.type.patterns[4].patterns[1].match  (\.\.\.)[\t ]*  waived: `[-\]*,.0-9<>A-\[_a-z]+`, the pattern before it, takes every `.` of a `...`
 ```
 
 ### `make`

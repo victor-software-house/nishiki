@@ -936,6 +936,28 @@ export const waivers: Waiver[] = [
       return groups === null ? [waiver] : groups.map((group) => ({ ...waiver, group }));
     }),
   ),
+  { grammar: "lua", path: "patterns[3].match", reason: "`patterns[1]`, the hexadecimal float before it, matches every hexadecimal integer this does", probe: "RootAt3" },
+  { grammar: "lua", path: "patterns[6].match", reason: "`patterns[4]`, the decimal float before it, matches every integer this does", probe: "RootAt6" },
+  {
+    grammar: "lua",
+    path: "patterns[17].match",
+    reason: "`patterns[0]`, the function rule before it, begins with `(function)` under the same lookahead, so it matches wherever this does",
+    probe: "RootAt17",
+  },
+  { grammar: "lua", path: "#comment.patterns[0].begin", group: 1, reason: blanks, probe: "CommentAt0" },
+  { grammar: "lua", path: "#comment.patterns[0].end", group: 1, reason: "the group holds only blanks and the line feed, and the oracle compares no blank", probe: "CommentAt0End" },
+  {
+    grammar: "lua",
+    path: "#emmydoc.patterns[18].patterns[1].match",
+    reason: "the `@see` rule's end, `(?=[\\n#@])`, matches at every `#` and is tried first",
+    probe: "EmmydocAt18At1",
+  },
+  {
+    grammar: "lua",
+    path: "#emmydoc.type.patterns[4].patterns[1].match",
+    reason: "`[-\\]*,.0-9<>A-\\[_a-z]+`, the pattern before it, takes every `.` of a `...`",
+    probe: "EmmydocTypeAt4At1",
+  },
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the

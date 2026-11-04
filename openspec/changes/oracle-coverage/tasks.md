@@ -27,7 +27,8 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 
 - [x] 3.1 C#: `csharp`
   - 2026-11-04 UTC, [PR 261][pr261]: twenty-two C# inputs added; C# complete with twelve waivers, each with its probe. On `a1288bbe` the [oracle test][run-261-ci] and the [coverage check][run-261-cov] passed.
-- [ ] 3.2 Swift: `swift`
+- [x] 3.2 Swift: `swift`
+  - 2026-11-04 UTC, [PR 309][pr309]: fifteen swiftlang/swift parser tests and a written input added; Swift complete with 30 waived units, 18 of them operator patterns inside captures that start with `\G`. On `0d6097a5` the [oracle test][run-309-ci] and the [coverage check][run-309-cov] passed.
 - [x] 3.3 Python: `python`
   - 2026-11-04 UTC, [PR 288][pr288] and [PR 289][pr289]: seven black test cases, one ruff parser fixture and a written input added, and a docstring line-feed close fixed in the lexer; Python complete with 62 waived units. On `18e2a261` the [oracle test][run-289-ci] and the [coverage check][run-289-cov] passed.
 - [ ] 3.4 Go: `go`
@@ -49,7 +50,8 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 - [ ] 3.15 HTML, html-derivative and XML: `html`, `html-derivative`, `xml`
 - [ ] 3.16 ERB: `erb`
 - [ ] 3.17 JSON: `json`, `jsonc`, `jsonl`
-- [ ] 3.18 YAML and TOML: `yaml`, `toml`
+- [x] 3.18 YAML and TOML: `yaml`, `toml`
+  - 2026-11-04 UTC, [PR 306][pr306] and [PR 307][pr307]: toml-test and YAML test suite files and a written input per language added, and a YAML directive's name read without a copy; TOML and YAML complete with 14 and 6 waived units. On `bf5e8ec5` the [oracle test][run-307-ci] and the [coverage check][run-307-cov] passed.
 - [ ] 3.19 SQL: `sql`
 - [ ] 3.20 GraphQL: `graphql`
 - [ ] 3.21 diff, Dockerfile, INI and Make: `diff`, `docker`, `ini`, `make`
@@ -83,3 +85,10 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr313]: https://github.com/victor-software-house/nishiki-archive/pull/313
 [run-299-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41789909151
 [run-299-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41789908503
+[pr306]: https://github.com/victor-software-house/nishiki-archive/pull/306
+[pr307]: https://github.com/victor-software-house/nishiki-archive/pull/307
+[run-307-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41790993527
+[run-307-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41790992884
+[pr309]: https://github.com/victor-software-house/nishiki-archive/pull/309
+[run-309-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41793809745
+[run-309-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41793809258
