@@ -1,5 +1,6 @@
-//! What the compiler learns about a pattern before it runs: where a match can
-//! start and how long text it needs, so that a search can skip ahead.
+//! What the compiler learns about a pattern before it runs.
+//! It learns where a match can start and how much text a match needs.
+//! A search uses both to skip ahead.
 
 use super::ast::{Anchor, Class, Item, Node};
 
@@ -58,13 +59,16 @@ pub(super) fn width(node: &Node) -> (usize, Option<usize>) {
     }
 }
 
-/// Adds the bytes a match of `node` can start with to `set`; true when the
-/// node can match without consuming anything, so what follows counts too.
+/// Adds the bytes a match of `node` can start with to `set`.
+/// Returns true when the node can match without consuming anything.
+/// Then the bytes of what follows count too.
 ///
-/// A class that is a union of ranges adds the lead bytes of its ranges; any
-/// other class may hold any non-ASCII member, so every non-ASCII lead byte may
-/// start one. A lookahead that needs a character limits the start to the
-/// characters it can begin with.
+/// A class that is a union of ranges adds the lead bytes of its ranges.
+/// Any other class may hold any non-ASCII member.
+/// For such a class, every non-ASCII lead byte may start a match.
+///
+/// A lookahead that needs a character limits the start to the characters it
+/// can begin with.
 pub(super) fn first_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
     let all = |set: &mut [bool; 256]| set.iter_mut().for_each(|b| *b = true);
     match node {
@@ -129,10 +133,13 @@ pub(super) fn first_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
 }
 
 /// Adds the lead bytes of the second character of every match of `node` to
-/// `set`, and says whether it could: only when each match starts with one
-/// character or class followed by something that consumes. A fold string
-/// such as `i` and a combining mark is told apart from the letter alone by
-/// that second character.
+/// `set`.
+/// Returns whether it could.
+/// It can only when each match starts with one character or class, followed
+/// by something that consumes.
+///
+/// The second character tells a fold string from the letter alone.
+/// An example is `i` followed by a combining mark.
 pub(super) fn second_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
     match node {
         Node::Seq(items) => match items.split_first() {
@@ -207,8 +214,8 @@ pub(super) fn literal_prefix(node: &Node) -> Vec<u8> {
     out
 }
 
-/// Appends the leading literal of `node`; false once something that is not
-/// a literal ends the run.
+/// Appends the leading literal of `node`.
+/// Returns false once something that is not a literal ends the run.
 fn collect_prefix(node: &Node, out: &mut Vec<u8>) -> bool {
     match node {
         Node::Char(c) => {
@@ -263,9 +270,9 @@ pub(super) fn uses_context(node: &Node) -> bool {
     }
 }
 
-/// A byte every match of `node` has somewhere at or after where it starts:
-/// the rarest ASCII character the pattern needs, so that a search can give up
-/// on text without it.
+/// A byte every match of `node` holds at or after its start.
+/// It is the rarest ASCII character the pattern needs.
+/// A search can give up on text without it.
 pub(super) fn required_byte(node: &Node) -> Option<u8> {
     let mut found = Vec::new();
     collect_required(node, &mut found);
@@ -314,9 +321,14 @@ fn collect_required(node: &Node, out: &mut Vec<u8>) {
 }
 
 /// The lead bytes a non-ASCII member of `class` can start with, as inclusive
-/// runs. For a union of ranges each range gives the run from its first lead
-/// byte to its last, since a lead byte never falls as the code point rises;
-/// any other class may hold any non-ASCII character.
+/// runs.
+///
+/// For a union of ranges, each range gives the run from its first lead byte
+/// to its last.
+/// A lead byte never falls as the code point rises.
+/// The run therefore covers every lead byte of the range.
+///
+/// Any other class may hold any non-ASCII character.
 fn wide_lead_bytes(class: &Class) -> Vec<(u8, u8)> {
     let Some(ranges) = class.ranges() else {
         return vec![(0xc0, 0xff)];

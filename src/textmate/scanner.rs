@@ -1,12 +1,16 @@
 //! The fast path of a list of rules: one automaton that finds where any of
 //! them can start in a line.
 //!
-//! Each rule's pattern is widened to a plain expression (see `regex::relax`)
-//! and the lot is compiled into one `regex-automata` searcher. It reports the
-//! first position where some pattern may match, and the exact machine then
-//! tries the patterns that can start with the byte there. A pattern that
-//! depends on the document, or that matches nothing as a plain expression,
-//! stays out of it and is searched alone.
+//! Each rule's pattern is widened to a plain expression (see `regex::relax`).
+//! The patterns are compiled together into one `regex-automata` searcher.
+//! The searcher reports the first position where some pattern may match.
+//! The exact machine then tries the patterns that can start with the byte
+//! there.
+//!
+//! Two kinds of pattern stay out of the searcher and are searched alone:
+//!
+//! - a pattern that depends on the document;
+//! - a pattern that matches nothing as a plain expression.
 
 use std::sync::Mutex;
 
@@ -32,9 +36,11 @@ pub(crate) struct Scanner {
     /// Per byte, the numbers of the automaton's patterns that can start with
     /// it, ascending.
     starts: Vec<Vec<usize>>,
-    /// Caches that highlighters have finished with, whose lazily built states
-    /// the next highlighter starts from. Boxed, because a cache is about a
-    /// kilobyte and a highlighter keeps a slot for one per list.
+    /// Caches that highlighters have finished with.
+    /// The next highlighter starts from their lazily built states.
+    /// Each cache is boxed.
+    /// A cache is about a kilobyte, and a highlighter keeps a slot for one
+    /// cache per list.
     #[expect(
         clippy::vec_box,
         reason = "a cache moves between this pool and a highlighter's slots as a box, without a copy or an allocation"
@@ -198,9 +204,11 @@ impl Scanner {
         }
     }
 
-    /// The first position at or after `from` in `text` where a pattern of the
-    /// automaton may match, the number of the first such pattern, and where
-    /// its widened match ends; or `None`.
+    /// Where a pattern of the automaton may first match in `text`, at or after
+    /// `from`.
+    /// Returns the position, the number of the first such pattern, and where
+    /// its widened match ends.
+    /// Returns `None` when no pattern may match.
     ///
     /// Inlined across codegen units.
     /// At 16 units it stayed a call from the tokenizer.

@@ -1,13 +1,16 @@
-//! A pattern as a plain regular expression that matches everything the
-//! pattern matches, and perhaps more, for an automaton that finds where a
-//! match can start.
+//! A pattern as a plain regular expression.
+//! The expression matches everything the pattern matches, and perhaps more.
+//! An automaton uses it to find where a match can start.
 //!
-//! What a plain expression cannot say is dropped or widened: lookaround,
-//! `\A`, `\G` and `\b` become nothing, a back-reference or call matches any
-//! text, an atomic group or possessive repeat is an ordinary one, and a class
-//! keeps its ASCII members and takes every other character. A position the
-//! automaton reports is then a position a match may start at, and the exact
-//! machine decides.
+//! What a plain expression cannot say is dropped or widened:
+//!
+//! - lookaround, `\A`, `\G` and `\b` become nothing;
+//! - a back-reference or a call matches any text;
+//! - an atomic group or a possessive repeat becomes an ordinary one;
+//! - a class keeps its ASCII members and takes every other character.
+//!
+//! A position the automaton reports is then a position a match may start at.
+//! The exact machine decides.
 
 use regex_syntax::hir::{self, ClassUnicode, ClassUnicodeRange, Dot, Hir, Look, Repetition};
 

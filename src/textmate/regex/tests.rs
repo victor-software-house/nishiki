@@ -249,9 +249,11 @@ fn survey_every_bundled_pattern() {
     eprintln!("{} of {total} patterns refused", refused.len());
 }
 
-/// Per language, how many patterns the machine refuses, from a file of
-/// `id<TAB>hex` lines (`NISHIKI_BYLANG`); patterns with back-references are
-/// left out, since they compile at run time.
+/// Per language, how many patterns the machine refuses.
+/// The patterns come from a file of `id<TAB>hex` lines that `NISHIKI_BYLANG`
+/// names.
+/// Patterns with back-references are left out.
+/// They compile at run time.
 #[test]
 #[ignore = "a survey over a scratch file"]
 fn survey_refusals_by_language() {
@@ -292,9 +294,10 @@ fn debug_ruby_lookahead() {
     assert_eq!(find("(?![(,|\\s])", " *picks"), Some((1, 1)));
 }
 
-/// Compares the machine with Oniguruma's recorded answers (`NISHIKI_DIFF`
-/// names a directory with `patterns.hex`, `lines.hex`, `cases.tsv` and
-/// `expected.tsv`; see the scratch script that writes them).
+/// Compares the machine with Oniguruma's recorded answers.
+/// `NISHIKI_DIFF` names a directory with `patterns.hex`, `lines.hex`,
+/// `cases.tsv` and `expected.tsv`.
+/// A scratch script writes them.
 #[test]
 #[ignore = "a survey over a scratch directory"]
 fn differential_against_oniguruma() {
@@ -308,11 +311,15 @@ fn differential_against_oniguruma() {
     eprintln!("{} cases differ", differ.len());
 }
 
-/// Under `(?i)` a character matches the characters and strings its case folds
-/// join it to, in literal runs, classes, lookbehinds and back-references, as
-/// Oniguruma decides (tests/engine/case-folds, written by
-/// `oracle/case-fold-probe.ts`). A line of [`LineKind::Lean`] answers so
-/// through both programs, the lean one the engine runs there included.
+/// Under `(?i)`, a character matches the characters and strings its case
+/// folds join it to.
+/// This holds in literal runs, classes, lookbehinds and back-references, as
+/// Oniguruma decides.
+/// The cases are in tests/engine/case-folds, written by
+/// `oracle/case-fold-probe.ts`.
+///
+/// A line of [`LineKind::Lean`] is checked through both programs.
+/// One of them is the lean program the engine runs on that line.
 #[test]
 fn case_insensitive_matching_answers_as_oniguruma() {
     let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/engine/case-folds");
@@ -358,12 +365,15 @@ fn every_fold_string_passes_the_guards() {
 }
 
 /// Every case of a directory of recorded answers whose match differs from
-/// Oniguruma's, each naming its pattern, line, recorded answer and the
-/// machine's.
+/// Oniguruma's.
+/// Each names its pattern, its line, the recorded answer and the machine's.
 ///
-/// Oniguruma reports as many groups as the pattern has, so those are the
-/// groups compared. A case also differs when the scanner's automaton finds
-/// nothing where Oniguruma matches, since the scanner skips such text.
+/// Oniguruma reports as many groups as the pattern has.
+/// Those are the groups compared.
+///
+/// A case also differs when the scanner's automaton finds nothing where
+/// Oniguruma matches.
+/// The scanner skips such text.
 fn differential(dir: &std::path::Path) -> Vec<String> {
     let read = |name: &str| std::fs::read_to_string(dir.join(name)).unwrap();
     let unhex = |hex: &str| -> String {
@@ -517,11 +527,16 @@ fn every_lead_byte_classifies() {
     }
 }
 
-/// A line is full exactly when it holds a character beyond ASCII in the orbit
-/// of a character that folds to a string, or of a character of such a string,
-/// as `MULTI` lists them. Every character beyond ASCII is checked alone, so
-/// the table of first bytes and the bytes after them stands for that set: `é`
-/// shares `ß`'s first byte and stays lean.
+/// A line is full exactly when it holds a character beyond ASCII from one of
+/// two kinds of orbit, as `MULTI` lists them:
+///
+/// - the orbit of a character that folds to a string;
+/// - the orbit of a character of such a string.
+///
+/// Every character beyond ASCII is checked alone.
+/// The check shows that the table of first bytes, and of the bytes after
+/// them, stands for that set.
+/// For example, `é` shares `ß`'s first byte and stays lean.
 #[test]
 fn a_line_is_full_exactly_when_it_holds_a_wide_fold_character() {
     let wide = wide_characters();

@@ -1,12 +1,23 @@
-//! Scope selectors, the expressions a grammar's injections name where they
-//! apply: `L:(meta.script.svelte | meta.style.svelte) - (meta source)`.
+//! Scope selectors: the expressions that say where a grammar's injections
+//! apply.
+//! An example: `L:(meta.script.svelte | meta.style.svelte) - (meta source)`.
 //!
-//! A selector holds scope paths, `a b`, which match a stack that has a scope
-//! named `a` and, further in, one named `b`; groups in parentheses; `|` or `,`
-//! between alternatives; and `-` before an operand it excludes. A scope name
-//! matches a selector name that is the same or a leading part of it up to a
-//! dot. A `L:` or `R:` in front puts the injection before or after the
-//! grammar's own rules when they match at the same place.
+//! A selector holds these parts:
+//!
+//! - scope paths, such as `a b`;
+//! - groups in parentheses;
+//! - `|` or `,` between alternatives;
+//! - `-` before an operand it excludes.
+//!
+//! The path `a b` matches a stack that holds a scope named `a`.
+//! Further in, the stack must hold a scope named `b`.
+//!
+//! A selector name matches a scope name equal to it.
+//! It also matches a scope name that starts with it followed by a dot.
+//!
+//! A `L:` or `R:` in front orders the injection against the grammar's own
+//! rules when both match at the same place.
+//! `L:` puts the injection first, and `R:` puts it after.
 
 /// A condition on a stack of scope names.
 #[derive(Debug)]

@@ -30,7 +30,8 @@ pub(super) struct Parsed {
 /// Which reading of a pattern applies.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) enum Dialect {
-    /// Oniguruma's own, which only the tests read.
+    /// Oniguruma's own.
+    /// Only the tests read it.
     #[cfg(test)]
     Oniguruma,
     /// A grammar's pattern as Shiki runs it, where `\z` never matches.
@@ -86,8 +87,9 @@ struct Parser {
     names: HashMap<String, usize>,
 }
 
-/// What `atom` reads: a literal character under `(?i)`, which joins the run
-/// of literals around it, or any other node.
+/// What `atom` reads.
+/// A literal character under `(?i)` joins the run of literals around it.
+/// Any other node stands alone.
 enum Atom {
     Folded(char),
     Node(Node),
@@ -126,10 +128,12 @@ impl Parser {
     }
 
     /// Flags with no colon hold to the end of the enclosing group, across its
-    /// alternatives: `a(?i)b|c` is `a(?i:b|c)`.
+    /// alternatives.
+    /// For example, `a(?i)b|c` is `a(?i:b|c)`.
     ///
-    /// Literal characters under `(?i)` gather into a run that folds as a
-    /// whole when anything else comes; a quantified character folds alone.
+    /// Literal characters under `(?i)` gather into a run.
+    /// The run folds as a whole when anything else comes.
+    /// A quantified character folds alone.
     fn sequence(&mut self) -> Result<Node> {
         let mut items = Vec::new();
         let mut run = Vec::new();
@@ -223,7 +227,8 @@ impl Parser {
         }
     }
 
-    /// `{n}`, `{n,}`, `{,m}` and `{n,m}`; none when the brace is a literal.
+    /// `{n}`, `{n,}`, `{,m}` and `{n,m}`.
+    /// `None` when the brace is a literal.
     fn braces(&mut self) -> Option<(u32, Option<u32>)> {
         let save = self.at;
         self.at += 1;
@@ -258,8 +263,9 @@ impl Parser {
         None
     }
 
-    /// A literal character, as the flags read it: under `(?i)` it joins the
-    /// run of literals around it, which folds as a whole.
+    /// A literal character, as the flags read it.
+    /// Under `(?i)`, it joins the run of literals around it.
+    /// The run folds as a whole.
     fn char_atom(&self, c: char) -> Atom {
         match self.flags.case {
             Case::Sensitive => Atom::Node(Node::Char(c)),
@@ -275,8 +281,9 @@ impl Parser {
         }
     }
 
-    /// Whether a quantifier comes next, which takes only the character before
-    /// it out of a run of literals.
+    /// Whether a quantifier comes next.
+    /// A quantifier takes only the character before it out of a run of
+    /// literals.
     fn quantifier_follows(&mut self) -> bool {
         match self.peek() {
             Some('*' | '+' | '?') => true,
@@ -441,12 +448,14 @@ impl Parser {
         })
     }
 
-    /// In a grammar's pattern, as Shiki runs it, `\z` never matches, not even
-    /// after a line's newline, so a rule that ends at `\z` stays open from line
-    /// to line.
+    /// In a grammar's pattern, as Shiki runs it, `\z` never matches.
+    /// It does not match even after a line's newline.
+    /// A rule that ends at `\z` therefore stays open from line to line.
     ///
     /// A property escape outside brackets keeps its case under `(?i)`, as in
-    /// Oniguruma: `(?i)\p{Lu}` refuses `a`, and `(?i)[\p{Lu}]` takes it.
+    /// Oniguruma.
+    /// For example, `(?i)\p{Lu}` refuses `a`.
+    /// `(?i)[\p{Lu}]` takes it.
     fn escape(&mut self) -> Result<Atom> {
         let Some(c) = self.peek() else {
             return err("trailing backslash");

@@ -24,10 +24,10 @@ pub(super) enum Anchor {
     NotWordBoundary,
 }
 
-/// Whether letters match only in the case the pattern spells them, as
-/// Oniguruma's `(?i)` flag decides. Characters and classes take it in when
-/// the pattern parses; a back-reference, which compares two pieces of the
-/// text, keeps it.
+/// Whether letters match only in the case the pattern spells them.
+/// Oniguruma's `(?i)` flag decides it.
+/// Characters and classes take it in when the pattern parses.
+/// A back-reference keeps it, because it compares two pieces of the text.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) enum Case {
     /// Only in the pattern's case.
@@ -241,8 +241,9 @@ pub(super) fn orbit(c: char) -> Orbit {
     orbit
 }
 
-/// A character as `(?i)` reads it: itself when nothing folds with it, and
-/// otherwise the class of its orbit.
+/// A character as `(?i)` reads it.
+/// It is the character itself when nothing folds with it.
+/// Otherwise it is the class of its orbit.
 fn insensitive_char(c: char) -> Node {
     match orbit(c).members() {
         [_] => Node::Char(c),
@@ -293,12 +294,19 @@ fn fold_string(fold: &[u32]) -> Node {
 
 /// A run of literal characters as `(?i)` reads it, as Oniguruma does.
 ///
-/// At each place, the next three characters, and failing that the next two,
-/// whose simple folds spell the fold of other characters also match those
-/// characters, and the run goes on after them: `sss` takes `ßs` and refuses
-/// `sß`. A single character whose fold is longer also matches its fold in any
-/// case: `ß` takes `ss`, `SS` and `ſs`. In a lookbehind, which Oniguruma reads
-/// one character at a time, only the simple folds apply.
+/// At each place, the run looks at the next three characters, and failing
+/// that at the next two.
+/// When their simple folds spell the fold of other characters, they also
+/// match those characters.
+/// The run then goes on after them.
+/// For example, `sss` takes `ßs` and refuses `sß`.
+///
+/// A single character whose fold is longer also matches its fold in any
+/// case.
+/// For example, `ß` takes `ss`, `SS` and `ſs`.
+///
+/// In a lookbehind, only the simple folds apply.
+/// Oniguruma reads a lookbehind one character at a time.
 pub(super) fn insensitive_run(run: &[char], lookbehind: bool) -> Vec<Node> {
     if lookbehind {
         return run.iter().map(|&c| insensitive_char(c)).collect();
@@ -359,17 +367,23 @@ fn class_folds(class: Class, keep: impl Fn(&[u32]) -> bool) -> Node {
     Node::Folds(vec![Node::Class(Box::new(class)), fold_trie(&strings)])
 }
 
-/// Leaves out the fold strings a repetition with no upper bound reaches
-/// without, throughout `node`.
+/// Leaves out, throughout `node`, the fold strings that a repetition with no
+/// upper bound does not need.
 ///
-/// In such a repetition of a class, alone or after negative lookaheads, a
-/// fold string adds nothing when the class matches each of its characters
-/// and no lookahead can start with one: the repetition reaches every end the
-/// string would, by the class alone and before the string's turn, and the
-/// lookaheads it checks between the string's characters all pass. So
-/// `(?i)[\w]+` and `(?i)(?:(?!--)[\w])*` match as before without trying
-/// `ss` at every character they backtrack over. A capturing group keeps its
-/// strings, since what it captures would differ.
+/// Take such a repetition of a class, alone or after negative lookaheads.
+/// A fold string adds nothing there when two conditions hold:
+///
+/// - the class matches each of the string's characters;
+/// - no lookahead can start with one of those characters.
+///
+/// The repetition then reaches every end the string would, by the class
+/// alone and before the string's turn.
+/// The lookaheads checked between the string's characters all pass.
+/// For example, `(?i)[\w]+` and `(?i)(?:(?!--)[\w])*` match as before.
+/// They no longer try `ss` at every character they backtrack over.
+///
+/// A capturing group keeps its strings.
+/// Without them, what it captures would differ.
 pub(super) fn prune_repeated_folds(node: &mut Node) {
     match node {
         Node::Repeat {
@@ -438,8 +452,9 @@ fn prune_loop_body(body: &mut Node) {
     }
 }
 
-/// A class and its fold strings, with the strings `looks` and the
-/// repetition make redundant left out; any other node as it is.
+/// Leaves out the fold strings of a class that `looks` and the repetition
+/// make redundant.
+/// Any other node stays as it is.
 fn prune_class_folds(node: &mut Node, looks: &[Node]) {
     let Node::Folds(alts) = node else { return };
     let Some(Node::Class(class)) = alts.first() else {
@@ -472,14 +487,17 @@ fn prune_class_folds(node: &mut Node, looks: &[Node]) {
     *node = class_folds(class, |fold| keep.contains(&fold));
 }
 
-/// `node` for a line that holds no character beyond ASCII that a fold of
-/// more than one character involves: each alternative a fold adds that
-/// matches no text of ASCII alone left out, or `None` when no fold has one.
+/// `node` for a line with no character beyond ASCII that a fold of more than
+/// one character involves.
+/// Each alternative a fold adds that matches no ASCII-only text is left out.
+/// Returns `None` when no fold has such an alternative.
 ///
-/// Such an alternative needs one of those characters, so on that line the
-/// tree matches what `node` matches, without trying `ß`, the ligatures or the
-/// combining marks at every place they could start. A fold none of whose
-/// alternatives matches ASCII text keeps them all.
+/// Such an alternative needs one of those characters.
+/// On that line, the returned tree matches what `node` matches.
+/// It does not try `ß`, the ligatures or the combining marks at every place
+/// they could start.
+///
+/// A fold none of whose alternatives matches ASCII text keeps them all.
 pub(super) fn lean(node: &Node) -> Option<Node> {
     if !has_wide_folds(node) {
         return None;
@@ -489,9 +507,11 @@ pub(super) fn lean(node: &Node) -> Option<Node> {
     changed.then_some(lean)
 }
 
-/// Whether some fold in `node` has an alternative that matches no text of
-/// ASCII alone beside one that does: a walk that copies nothing, so a
-/// pattern with no such fold, as most are, compiles without a second tree.
+/// Whether some fold in `node` has both an alternative that matches no
+/// ASCII-only text and one that does.
+/// The walk copies nothing.
+/// A pattern with no such fold, as most are, then compiles without a second
+/// tree.
 fn has_wide_folds(node: &Node) -> bool {
     match node {
         Node::Folds(alts) => {
@@ -579,8 +599,8 @@ fn strip_wide_folds(node: &Node, changed: &mut bool) -> Node {
     }
 }
 
-/// Whether `node` can match some text of ASCII alone; true where that cannot
-/// be told, such as inside a lookaround or a call.
+/// Whether `node` can match some ASCII-only text.
+/// True where that cannot be told, such as inside a lookaround or a call.
 fn reaches_ascii(node: &Node) -> bool {
     match node {
         Node::Char(c) => c.is_ascii(),
@@ -600,9 +620,11 @@ fn reaches_ascii(node: &Node) -> bool {
     }
 }
 
-/// The fold strings as one node that shares their prefixes: strings that
-/// start alike take one branch, in the order the first of them came, so the
-/// first string that matches is the one the plain alternation would take.
+/// The fold strings as one node that shares their prefixes.
+/// Strings that start alike take one branch, in the order the first of them
+/// came.
+/// The first string that matches is then the one the plain alternation would
+/// take.
 fn fold_trie(strings: &[&[u32]]) -> Node {
     let mut alts = Vec::new();
     let mut taken = vec![false; strings.len()];
@@ -676,21 +698,29 @@ impl Class {
     }
 
     /// The class as `(?i)` reads it, with the fold strings of its members
-    /// whose fold is longer: a class that is not negated tries itself first
-    /// and then those strings, as Oniguruma does, so `(?i)[\w]x` takes `ssx`
-    /// from its start while `(?i)[a-z]x` matches one character later.
+    /// whose fold is longer.
+    ///
+    /// A class that is not negated tries itself first and then those strings,
+    /// as Oniguruma does.
+    /// For example, `(?i)[\w]x` takes `ssx` from its start.
+    /// `(?i)[a-z]x` matches one character later.
     pub(super) fn insensitive_node(self) -> Node {
         class_folds(self.insensitive(), |_| true)
     }
 
-    /// The class as `(?i)` reads it, as Oniguruma does: the characters it
-    /// holds before its negation take in the rest of their orbits, and the
-    /// negation applies after, so `(?i)[^k]` refuses the Kelvin sign.
+    /// The class as `(?i)` reads it, as Oniguruma does.
+    /// The characters it holds before its negation take in the rest of their
+    /// orbits.
+    /// The negation applies after.
+    /// For example, `(?i)[^k]` refuses the Kelvin sign.
     ///
-    /// A class of ASCII ranges meets only the orbits of ASCII characters,
-    /// which sort first in the table, so only those are tried. A union of
-    /// ranges takes the added members as more ranges, so it stays a class the
-    /// analysis and the scanner's automaton read exactly.
+    /// A class of ASCII ranges meets only the orbits of ASCII characters.
+    /// Only those orbits are tried.
+    /// They sort first in the table.
+    ///
+    /// A union of ranges takes the added members as more ranges.
+    /// It stays a class that the analysis and the scanner's automaton read
+    /// exactly.
     fn insensitive(self) -> Class {
         let negated = self.negated;
         let positive = Class {
@@ -742,22 +772,25 @@ impl Class {
 pub(super) enum Node {
     /// Nothing: an empty pattern or alternative.
     Empty,
-    /// A character. Under `(?i)` the parser writes a character that folds
-    /// with others as the class of its orbit.
+    /// A character.
+    /// Under `(?i)`, the parser writes a character that folds with others as
+    /// the class of its orbit.
     Char(char),
     /// `.`, matching a newline when the flag is set.
     Any(bool),
-    /// A class. Under `(?i)` the parser has already widened it to the orbits
-    /// of its members.
+    /// A class.
+    /// Under `(?i)`, the parser has already widened it to the orbits of its
+    /// members.
     Class(Box<Class>),
     /// The nodes in order.
     Seq(Vec<Node>),
     /// The nodes as alternatives, the first that matches taken.
     Alt(Vec<Node>),
     /// The alternatives a case fold adds under `(?i)`, as [`Node::Alt`]
-    /// reads them. Each is compiled to a split that reads the next byte
-    /// first and tries only the alternatives that can start with it, so a
-    /// fold costs next to nothing where the text holds none.
+    /// reads them.
+    /// Each is compiled to a split that reads the next byte first.
+    /// The split tries only the alternatives that can start with that byte.
+    /// A fold therefore costs next to nothing where the text holds none.
     Folds(Vec<Node>),
     /// A node repeated between `min` and `max` times.
     Repeat {

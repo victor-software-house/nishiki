@@ -129,9 +129,9 @@ const wideSecond = leads.map((lead) =>
 const hex = (n: number) => `0x${n.toString(16)}`;
 const list = (xs: readonly number[]) => `&[${xs.map(hex).join(", ")}]`;
 const source = `//! The characters \`(?i)\` takes as one, and the folds of more than one
-//! character, measured on Oniguruma as Shiki bundles it by
-//! \`oracle/case-folds.ts\`. Do not edit: regenerate with
-//! \`bun oracle/case-folds.ts\`.
+//! character.
+//! \`oracle/case-folds.ts\` measures them on Oniguruma as Shiki bundles it.
+//! Do not edit: regenerate with \`bun oracle/case-folds.ts\`.
 
 #![cfg_attr(rustfmt, rustfmt::skip)]
 
@@ -139,22 +139,25 @@ const source = `//! The characters \`(?i)\` takes as one, and the folds of more 
 pub(super) const LARGEST_ORBIT: usize = ${largest};
 
 /// Every character that \`(?i)\` takes as another, and the next member of its
-/// orbit, by character: following \`next\` from a member visits its whole
-/// orbit and comes back.
+/// orbit, by character.
+/// Following \`next\` from a member visits its whole orbit and comes back.
 pub(super) static NEXT: &[(u32, u32)] = &[${next.map(([a, b]) => `(${hex(a)}, ${hex(b)})`).join(", ")}];
 
 /// Every character whose fold is more than one character, with that fold, by
-/// character. A fold's characters are canonical: each is the smallest member
-/// of its orbit.
+/// character.
+/// A fold's characters are canonical.
+/// Each is the smallest member of its orbit.
 pub(super) static MULTI: &[(u32, &[u32])] = &[${multi.map(([cp, fold]) => `(${hex(cp)}, ${list(fold)})`).join(", ")}];
 
 /// Every fold of more than one character, with the characters that fold to
 /// it, by fold.
 pub(super) static UNFOLD: &[(&[u32], &[u32])] = &[${folds.map(([fold, chars]) => `(${list(fold)}, ${list(chars)})`).join(", ")}];
 
-/// Per byte, for the first byte of the UTF-8 form of a character beyond ASCII
-/// that a fold of more than one character involves, one more than the index
-/// of its group in [\`WIDE_TAILS\`]; 0 for every other byte.
+/// A value per byte.
+/// Some bytes start the UTF-8 form of a character beyond ASCII that a fold of
+/// more than one character involves.
+/// Such a byte holds one more than the index of its group in [\`WIDE_TAILS\`].
+/// Every other byte holds 0.
 pub(super) static WIDE_LEAD: [u8; 256] = [${wideLead.join(", ")}];
 
 /// Per first byte of [\`WIDE_LEAD\`], the second bytes its characters can

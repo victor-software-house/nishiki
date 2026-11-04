@@ -71,9 +71,9 @@ for (const p of posix) tables.push([`posix_${p}`, ranges(`[[:${p}:]]`)]);
 tables.push(["ascii", [[0, 0x7f]]]);
 
 const ident = (key: string) => `SET_${key.toUpperCase()}`;
-let source = `//! Character sets, measured on Oniguruma as Shiki bundles it by
-//! \`oracle/unicode-tables.ts\`. Do not edit: regenerate with
-//! \`bun oracle/unicode-tables.ts\`.
+let source = `//! Character sets.
+//! \`oracle/unicode-tables.ts\` measures them on Oniguruma as Shiki bundles it.
+//! Do not edit: regenerate with \`bun oracle/unicode-tables.ts\`.
 
 #![cfg_attr(rustfmt, rustfmt::skip)]
 #![expect(clippy::unreadable_literal, reason = "generated tables of code points")]
@@ -83,8 +83,9 @@ for (const [key, list] of tables) {
   source += `static ${ident(key)}: &[(u32, u32)] = &[${list.map(([a, b]) => `(0x${a.toString(16)}, 0x${b.toString(16)})`).join(", ")}];\n`;
 }
 source += `
-/// The set a normalized name stands for: lower case, without \`_\`, \`-\` or
-/// spaces. \`None\` for a name this table lacks.
+/// The set a normalized name stands for.
+/// A normalized name is lower case, without \`_\`, \`-\` or spaces.
+/// Returns \`None\` for a name this table lacks.
 pub(super) fn lookup(name: &str) -> Option<&'static [(u32, u32)]> {
     Some(match name {
 ${tables
