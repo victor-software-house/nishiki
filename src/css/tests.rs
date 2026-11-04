@@ -148,6 +148,84 @@ fn the_long_s_is_an_s_where_the_grammar_ignores_case() {
     assert_eq!(leaf_in(&row, "\u{17f}"), "entity.name.tag.css");
 }
 
+/// `Onig` folds `ß` and `ẞ` to `ss`, and each Latin ligature to its letters,
+/// so under `(?i)` one character matches two or three letters of a word of
+/// the grammar's lists. Each case is Shiki's answer on the line.
+#[test]
+fn a_multi_letter_case_fold_stands_for_its_letters() {
+    for (line, token, scope) in [
+        ("\u{fb01}eldset {}", "\u{fb01}eldset", "entity.name.tag.css"),
+        ("PROGRE\u{1e9e} {}", "PROGRE\u{1e9e}", "entity.name.tag.css"),
+        (
+            "a:ho\u{fb06} {}",
+            "ho\u{fb06}",
+            "entity.other.attribute-name.pseudo-class.css",
+        ),
+        (
+            "a:nth-la\u{fb06}-child(2) {}",
+            "nth-la\u{fb06}-child",
+            "entity.other.attribute-name.pseudo-class.css",
+        ),
+        (
+            "a::\u{fb01}rst-letter {}",
+            "\u{fb01}rst-letter",
+            "entity.other.attribute-name.pseudo-element.css",
+        ),
+        (
+            "a{color:corn\u{fb02}owerblue}",
+            "corn\u{fb02}owerblue",
+            "support.constant.color.w3c-extended-color-name.css",
+        ),
+        (
+            "a{su\u{fb03}x:1}",
+            "su\u{fb03}x",
+            "support.type.property-name.css",
+        ),
+        (
+            "a{b:di\u{fb00}erence}",
+            "di\u{fb00}erence",
+            "support.constant.property-value.css",
+        ),
+        (
+            "a{b:\u{fb05}atic}",
+            "\u{fb05}atic",
+            "support.constant.property-value.css",
+        ),
+        (
+            "a{font-family:sy\u{fb06}em-ui}",
+            "sy\u{fb06}em-ui",
+            "support.constant.font-name.css",
+        ),
+        (
+            "@media embo\u{df}ed {}",
+            "embo\u{df}ed",
+            "invalid.deprecated.constant.media.css",
+        ),
+        (
+            "a{b:\u{fb06}eps(1)}",
+            "\u{fb06}eps",
+            "support.function.timing-function.css",
+        ),
+        (
+            "@counter-\u{fb06}yle x {}",
+            "counter-\u{fb06}yle",
+            "keyword.control.at-rule.counter-style.css",
+        ),
+    ] {
+        assert_eq!(leaf_in(&lex(line), token), scope, "{line:?}");
+    }
+    for (line, token) in [
+        ("a{b:di\u{fb03}erence}", "di\u{fb03}erence"),
+        ("a{b:foo\u{fb01}}", "foo\u{fb01}"),
+    ] {
+        assert_eq!(
+            leaf_in(&lex(line), token),
+            "meta.property-value.css",
+            "{line:?}: the fold's letters must all match"
+        );
+    }
+}
+
 #[test]
 fn a_custom_property_name_is_a_variable() {
     let row = lex("a { --x: 1px }");

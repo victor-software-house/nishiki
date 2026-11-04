@@ -96,3 +96,24 @@ fn a_line_comment_runs_to_the_end_of_the_line() {
     let row = lex("// c");
     assert_eq!(leaf_in(&row, " c"), "comment.line.scss");
 }
+
+/// The CSS matchers SCSS shares read a character that folds to several
+/// letters as those letters, as Shiki does in SCSS too.
+#[test]
+fn a_multi_letter_case_fold_stands_for_its_letters() {
+    for (line, token, scope) in [
+        ("\u{fb01}eldset {}", "\u{fb01}eldset", "entity.name.tag.css"),
+        (
+            "a:ho\u{fb06} {}",
+            "ho\u{fb06}",
+            "entity.other.attribute-name.pseudo-class.css",
+        ),
+        (
+            "a{color:corn\u{fb02}owerblue}",
+            "corn\u{fb02}owerblue",
+            "support.constant.color.w3c-extended-color-name.css",
+        ),
+    ] {
+        assert_eq!(leaf_in(&lex(line), token), scope, "{line:?}");
+    }
+}

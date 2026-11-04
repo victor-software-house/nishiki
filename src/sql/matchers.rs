@@ -114,27 +114,8 @@ impl Lexer<'_> {
     /// The end of the ASCII word `word` at `i`, matched without regard to
     /// case, as `(?i)` reads it: a character above ASCII stands for the
     /// letters it folds to, such as `ſ` for `s` and `ß` for `ss`.
-    ///
-    /// An ASCII byte is compared as it is, so only a character above ASCII
-    /// goes through [`case_fold::literal_at`].
     pub(super) fn lit(&self, i: usize, word: &str) -> Option<usize> {
-        let mut at = i;
-        let mut rest = word.as_bytes();
-        while let [expected, tail @ ..] = rest {
-            let &byte = self.s.get(at)?;
-            if byte.is_ascii() {
-                if !byte.eq_ignore_ascii_case(expected) {
-                    return None;
-                }
-                at += 1;
-                rest = tail;
-            } else {
-                let (width, read) = case_fold::literal_at(self.s, at, rest)?;
-                at += width;
-                rest = rest.get(read..)?;
-            }
-        }
-        Some(at)
+        case_fold::literal_end(self.s, i, word.as_bytes())
     }
 
     /// The regex `\b` after a word that ends at `i`.
@@ -159,21 +140,7 @@ impl Lexer<'_> {
         j: usize,
         buf: &'b mut [u8; LONGEST],
     ) -> Option<&'b [u8]> {
-        let text = std::str::from_utf8(self.s.get(i..j)?).ok()?;
-        let mut len = 0;
-        for c in text.chars() {
-            if let Ok(byte) = u8::try_from(c)
-                && byte.is_ascii()
-            {
-                *buf.get_mut(len)? = byte.to_ascii_lowercase();
-                len += 1;
-                continue;
-            }
-            for &letter in case_fold::letters(c)? {
-                *buf.get_mut(len)? = letter;
-                len += 1;
-            }
-        }
+        let len = case_fold::lower_into(self.s.get(i..j)?, buf)?;
         buf.get(..len)
     }
 

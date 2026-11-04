@@ -3,8 +3,8 @@
 
 use super::super::ahead::Find;
 use super::super::engine::CssLike;
-use crate::classes;
 use crate::rules::{Chars, Lexer};
+use crate::{case_fold, classes};
 
 /// The longest word of the generated lists, in bytes.
 const LONGEST: usize = 48;
@@ -20,11 +20,13 @@ pub(in crate::css) enum Letters {
 
 impl<G: CssLike> Lexer<'_, G> {
     /// The end of the run of `letters` from `p`: `[a-z]*` or `[-a-z]*` under
-    /// `(?i)`, where the long s and the Kelvin sign are letters too.
+    /// `(?i)`, where a character that folds to one letter, such as the long
+    /// s, is a letter too.
     pub(in crate::css) fn letters_ci(&self, mut p: usize, letters: Letters) -> usize {
         while let Some((c, end)) = self.char_at(p) {
             let dash = letters == Letters::Dashed && c == '-';
-            if !(c.is_ascii_alphabetic() || c == '\u{17f}' || c == '\u{212a}' || dash) {
+            let one_letter = || case_fold::letters(c).is_some_and(|fold| fold.len() == 1);
+            if !(c.is_ascii_alphabetic() || dash || one_letter()) {
                 break;
             }
             p = end;
@@ -185,63 +187,35 @@ impl<G: CssLike> Lexer<'_, G> {
         Some(self.ident_run(first))
     }
 
-    /// The text `from..to` folded to lower case as `(?i)` reads it, into
-    /// `buf`: the long s is an `s` and the Kelvin sign a `k`. `None` when a
-    /// character cannot be in a word of the lists, or the text is too long.
-    fn fold(&self, from: usize, to: usize, buf: &mut [u8; LONGEST]) -> Option<usize> {
-        let mut n = 0;
-        let mut i = from;
-        while i < to {
-            let (c, end) = self.char_at(i)?;
-            let folded = match c {
-                '\u{17f}' => b's',
-                '\u{212a}' => b'k',
-                c if c.is_ascii() => u8::try_from(c).ok()?.to_ascii_lowercase(),
-                _ => return None,
-            };
-            *buf.get_mut(n)? = folded;
-            n += 1;
-            i = end;
-        }
-        Some(n)
-    }
-
-    /// Whether the text `from..to`, folded to lower case, is one of `words`,
-    /// which are lower case and sorted.
+    /// Whether the text `from..to`, folded to lower case as `(?i)` reads it
+    /// ([`case_fold::lower_into`]), is one of `words`, which are lower case
+    /// and sorted.
     pub(in crate::css) fn in_list(&self, from: usize, to: usize, words: &[&str]) -> bool {
         debug_assert!(words.is_sorted(), "word list not sorted: {words:?}");
         let mut buf = [0; LONGEST];
-        self.fold(from, to, &mut buf).is_some_and(|n| {
-            words
-                .binary_search_by(|word| word.as_bytes().cmp(&buf[..n]))
-                .is_ok()
-        })
+        self.s
+            .get(from..to)
+            .and_then(|text| case_fold::lower_into(text, &mut buf))
+            .is_some_and(|n| {
+                words
+                    .binary_search_by(|word| word.as_bytes().cmp(&buf[..n]))
+                    .is_ok()
+            })
     }
 
     /// Whether the text `from..to`, folded to lower case, is `word`.
     pub(in crate::css) fn is_word_ci(&self, from: usize, to: usize, word: &str) -> bool {
         let mut buf = [0; LONGEST];
-        self.fold(from, to, &mut buf)
+        self.s
+            .get(from..to)
+            .and_then(|text| case_fold::lower_into(text, &mut buf))
             .is_some_and(|n| &buf[..n] == word.as_bytes())
     }
 
-    /// `word` at `p`, without regard to case, and its end.
+    /// `word` at `p` without regard to case, a character above ASCII standing
+    /// for the letters it folds to, such as `ß` for `ss`, and its end.
     pub(in crate::css) fn lit_ci(&self, p: usize, word: &str) -> Option<usize> {
-        let mut i = p;
-        for &want in word.as_bytes() {
-            let (c, end) = self.char_at(i)?;
-            let same = match c {
-                '\u{17f}' => want == b's',
-                '\u{212a}' => want == b'k',
-                c if c.is_ascii() => u8::try_from(c).ok()?.to_ascii_lowercase() == want,
-                _ => false,
-            };
-            if !same {
-                return None;
-            }
-            i = end;
-        }
-        Some(i)
+        case_fold::literal_end(self.s, p, word.as_bytes())
     }
 
     /// The end of a run of `[-\w]` characters from `p` that is one of `words`

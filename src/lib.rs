@@ -56,7 +56,7 @@ mod arena;
 mod bat;
 #[cfg(feature = "lang-c")]
 mod c;
-#[cfg(feature = "lang-sql")]
+#[cfg(any(feature = "lang-css", feature = "lang-sql"))]
 mod case_fold;
 #[cfg(feature = "_classes")]
 mod classes;
