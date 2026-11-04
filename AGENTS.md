@@ -105,6 +105,8 @@ The decisions that created nishiki live in a private planning repository:
    - `mise x -- cargo $RUSTFMT_TOOLCHAIN fmt --all` applies it.
 7. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file.
    It also runs `check:layout` (every browsable directory has its README and guide) and `check:literals`.
+   It runs `check:tiers` too.
+   That check fails when a README row's Tier differs from the `all` or `textmate` list in `Cargo.toml`.
 
 ### Documentation
 
