@@ -1,9 +1,10 @@
 //! The patterns each rule tries, in the grammar's order.
 //!
-//! A grammar rule that can never win is left out. The grammar lists a
-//! docstring rule and a `#` rule after its comment rule, but the comment
-//! rule's `"""` and `#` begins match at the same place and come first, so
-//! those two never match.
+//! A grammar rule that can never win is left out.
+//! The grammar lists a docstring rule and a `#` rule after its comment rule.
+//! The comment rule's `"""` and `#` begins match at the same place and come
+//! first.
+//! Those two rules therefore never match.
 
 use super::scope::S;
 use super::state::Rule;

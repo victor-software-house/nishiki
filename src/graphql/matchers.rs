@@ -1,9 +1,10 @@
 //! The grammar's regular expressions as hand-written matchers.
 //!
 //! Each matcher answers whether its expression matches starting at a given
-//! position, and with which capture groups, including where backtracking
-//! lands. The text ends with a line feed that is not in the line: `\s`
-//! matches it and `.` does not.
+//! position.
+//! It also gives the capture groups, including where backtracking lands.
+//! The text ends with a line feed that is not in the line.
+//! `\s` matches that line feed, and `.` does not.
 
 use super::engine::{Hit, Lexer};
 use super::rules::Pat;
@@ -541,6 +542,8 @@ impl Lexer<'_> {
     }
 
     /// `\s*\b(?:(extends?)?\b\s*\b(type)|(interface)|(input))\b\s*(name)?`
+    ///
+    /// `(extends?)?` takes `extends` or `extend` when it can.
     fn begin_type(&self, p: usize) -> Option<Hit> {
         let i = self.ws(p);
         let after = |keyword_end: usize, hit: Hit| {
@@ -554,7 +557,6 @@ impl Lexer<'_> {
             })
         };
         if self.boundary(i) {
-            // `(extends?)?` takes `extends` or `extend` when it can.
             let extend = if self.lit(i, b"extends") {
                 Some(i + 7)
             } else if self.lit(i, b"extend") {
@@ -674,8 +676,9 @@ impl Lexer<'_> {
     }
 
     /// `(?=\s*((name)\s*([(:])|(stop)))|\s*(,)`, where a variable's name may
-    /// start with `$`: a lookahead at a field or the closing token, or a comma
-    /// that ends the rule.
+    /// start with `$`.
+    /// It is a lookahead at a field or the closing token, or a comma that ends
+    /// the rule.
     fn separator_end(&self, p: usize, stop: impl Fn(usize) -> bool, dollar: bool) -> Option<Hit> {
         let i = self.ws(p);
         let from = i + usize::from(dollar && self.at(i) == b'$');
