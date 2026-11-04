@@ -175,6 +175,106 @@ A state is still one integer, and two lines that reach the same embedded state r
 
 1. An embedded language the crate runs on the engine rather than by hand, such as Scala inside another grammar, stays an include compiled into the embedding table.
 
+## 14. The engine's hand-off on main (approved by the lead, 2026-11-04)
+
+Sections 1, 2, 8 and 9, made concrete for main after nishiki-archive#228 and nishiki-archive#325, with HAML as the first user.
+Sections 2 and 3 of the tasks (`Halts`, entries) stay deferred; this needs neither.
+
+### 14.1 What HAML asks for
+
+HAML's includes of hand-lexed grammars fall into two shapes (Shiki's `haml` grammar, 4.4.3):
+
+| Shape | Rules | Where the embedding rule's end can match |
+|:--|:--|:--|
+| Filters | `:ruby`, `:javascript`, `:css`, `:markdown` (`^(\s*):name`, end `^(?!\1\s+\|$\n*)`) | only at a line's start |
+| Inline | `rubyline` (`= expr`, end `…$\|$`), `#{…}` through `nest_curly_and_self` | anywhere on the line |
+
+1. A filter's end needs the indentation its begin captured, so the halt is a back-referenced pattern filled when the rule opens.
+   A `fn(&[u8], usize) -> bool` cannot hold it.
+2. A filter's end and its `before` patterns can match only at a line's start.
+   The engine tries them there itself and hands over the rest of the line whole, so the target needs no halting entry: `Language::lex_embedded` serves, Markdown included.
+3. An inline hand-off halts mid-line, so its target needs `lex_until`: Ruby gets `halts: true` on its row (its `lex_until` exists), and JavaScript and CSS have theirs.
+4. Sass and CoffeeScript have no hand lexer; they stay includes compiled into HAML's table and become engine rows of their own (13.1).
+
+### 14.2 A halt that carries its context
+
+`Halt` becomes a trait object instead of a function pointer:
+
+```rust
+pub(crate) trait Halt {
+    /// The first place in `from..=to` where the halt holds, in `s`.
+    fn first(&self, s: &[u8], from: usize, to: usize) -> Option<usize>;
+
+    /// Whether the halt holds at `p`.
+    fn holds(&self, s: &[u8], p: usize) -> bool {
+        self.first(s, p, p) == Some(p)
+    }
+}
+
+impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
+```
+
+1. Lexers take `&dyn Halt` where they take `Halt` today; `halt_before` calls `first`, and a lexer that tests one place, as YAML does, calls `holds`.
+2. Today's halts are `fn` items, which keep working through the blanket impl: one indirect call per place, as now.
+3. The engine's halt holds the filled end pattern and its `before` list, and answers `first` with one forward search instead of a test per place.
+   It keeps the next match it found in a `Cell`, so a later call inside that span costs a comparison; the answer stays a pure function of the bytes and the place (4, rule 1).
+4. csharp's Lua halt, which needs the `]=*]` level its begin read, is the same shape: a struct holding the level.
+   One change of `Halt` serves both: csharp makes it in its Lua cdef PR, with the `]=*]` halt as its first stateful user, and the engine builds on it (lead, 2026-11-04).
+   The blanket impl stays, so today's halts compile unchanged, and no `&dyn` call lands on the plain path of a lexer that does not halt; Callgrind on the hand lexers checks it.
+5. Section 4's `before`, `after` and `any` become three `Option<&dyn Halt>` when `Halts` lands; nothing here depends on the struct.
+
+### 14.3 The table
+
+1. `RuleKind::HandOff` stands where the include stood in its list.
+   Its `begin` is an index into a new `Grammar::hand_offs: &'static [HandOff]`, so `Rule` gains no field:
+
+   ```rust
+   pub(crate) struct HandOff {
+       /// The language that lexes the region.
+       pub(crate) language: Language,
+       /// Whether the embedding rule's end and `before` match only at a
+       /// line's start, so the region is handed over a line at a time.
+       pub(crate) whole_lines: bool,
+       /// The rules listed before the include, and the end unless
+       /// `applyEndLast`: a list of the grammar, with its scanner.
+       pub(crate) before: usize,
+       /// The rules listed after it, and the end with `applyEndLast`.
+       pub(crate) after: usize,
+   }
+   ```
+
+2. `oracle/hand-lexed.ts`, beside `oracle/licences.ts`, lists the hand-lexed grammars: scope name, `Language` variant, and whether it offers a halting entry.
+   An include of one becomes a `HandOff`; an include of a repository rule of one is compiled into the table as today (1.3).
+3. `whole_lines` is true when every pattern in `before` and `after`, and the end, starts with `^` outside a group, which the generator reads from the pattern text.
+4. One `HandOff` per list: the generator fails on a second, and drops Vue's redundant second include first (2).
+5. A language whose table holds a hand-off needs its target's feature: `lang-haml` turns on `lang-ruby`, `lang-javascript`, `lang-css` and `lang-markdown`.
+
+### 14.4 The tokenizer
+
+1. When the scan's best candidate is a `HandOff`, the engine pushes a hand-off frame (8) and calls the target:
+   - `whole_lines`: `lex_embedded` on the rest of the line; the hand-off ends only when the end matches at a later line's start.
+   - otherwise `lex_until` with the engine's halt (14.2) as `end`, and the `after` list as `after`.
+2. At a halt the engine runs its own step at that place: the end pops the rule with the hand-off frame, and a `before` rule matches and applies, after which the region resumes from the entry's state.
+3. A target needs the whole crate `Scratch`, which the engine borrows only as `scratch.textmate` today.
+   `line_until` takes the `Context`, and before a hand-off the engine moves its line's own buffers (text, frames, captures) out of `scratch.textmate` and back after, so an engine fence inside a hand-lexed region, as Nix in Markdown in HAML, reuses the scratch without overwriting the outer line.
+   The move is `mem::take` and back, which allocates nothing; an allocation test on a nested engine fence checks it.
+4. The plain path pays nothing: a grammar with no `HandOff` never reaches the branch, and the check sits after the scan, where `apply` already matches on the rule's kind.
+   The Callgrind gate is every engine language at or under 1.000.
+
+### 14.5 State and limits
+
+1. The hand-off frame is section 8's: `kind` `tag::TEXTMATE | 1`, `payload` the target's state, `stack` the embedding rule's content stack, `parent` the embedding rule's frame.
+   The target is the one `HandOff` in the parent rule's list, so the frame stores no index.
+2. Work: the engine lends what its line has left, in steps of the work limit, and charges what the target returns in `Finished`, times `STEP`.
+3. Depth stays per language (9.1); the target's limits go to the same `cx.report` (9.3).
+
+### 14.6 Order
+
+1. `Halt` as a trait object, in csharp's Lua cdef PR, with every lexer's `lex_until` taking `&dyn Halt`, and fixtures unchanged.
+2. The generator's hand-lexed list and `RuleKind::HandOff`, with tables unchanged for every grammar that includes no hand-lexed one.
+3. The tokenizer's hand-off, the frame and the resume, tested on a test grammar that hands off to JavaScript inline and to Markdown by whole lines.
+4. HAML on it, with Sass and CoffeeScript as engine rows, each after its licence is read at the source.
+
 [language]: https://github.com/victor-software-house/nishiki-archive/blob/8f346d8e/src/language.rs
 [bench]: https://github.com/victor-software-house/nishiki-archive/blob/8f346d8e/bench/AGENTS.md
 [pr159]: https://github.com/victor-software-house/nishiki-archive/pull/159

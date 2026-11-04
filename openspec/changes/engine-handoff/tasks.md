@@ -40,7 +40,7 @@ Sections 1.5, 2 and 3 are deferred: `Halts`, `Grammar::rule_halts` and entries r
 - [x] 4.0 core-fix's shared line budget, `Context { steps }`, with depth per language (design section 9), has landed → verify: its PR cited here
   - nishiki-archive#228, merged on 2026-11-04 as 2102df71: `Steps::lend` and `Finished`, with depth per language.
 - [ ] 4.1 `RuleKind::HandOff` and the generator's list of hand-lexed grammars and entries → verify: regenerating every engine table changes only tables that include a hand-lexed grammar
-- [ ] 4.2 The hand-off frame and the resume at a halt → verify: Julia's oracle fixtures and a new input with `py"""` and `sql"""` match Shiki
+- [ ] 4.2 The hand-off frame and the resume at a halt (design section 14) → verify: Julia's oracle fixtures and a new input with `py"""` and `sql"""` match Shiki, and an allocation test on an engine fence nested in a hand-lexed region allocates nothing per line
 - [ ] 4.3 Limits through the hand-off → verify: hostile lines inside an embedded region end at the work limit
 
 ## 5. Follow-ups
@@ -51,5 +51,12 @@ Sections 1.5, 2 and 3 are deferred: `Halts`, `Grammar::rule_halts` and entries r
 
 ## 6. The engine as an embedded language
 
-- [ ] 6.1 `textmate::lex_until` and `Language::lex_until` for every engine row: the line halts where `end` holds with only the root rule open, before the root's patterns, or where `after` holds and none of them match, plain lexing keeps no halt test (a type parameter compiles it out), and an embedded engine line, through `lex_until` or `lex_embedded`, starts from the work its limits lend and returns what it spent in `Finished` → verify: the halt and budget tests in `src/textmate/tests.rs`, and Callgrind at one codegen unit with every engine language at or under 1.000
+- [x] 6.1 `textmate::lex_until` and `Language::lex_until` for every engine row: the line halts where `end` holds with only the root rule open, before the root's patterns, or where `after` holds and none of them match, plain lexing keeps no halt test (a type parameter compiles it out), and an embedded engine line, through `lex_until` or `lex_embedded`, starts from the work its limits lend and returns what it spent in `Finished` → verify: the halt and budget tests in `src/textmate/tests.rs`, and Callgrind at one codegen unit with every engine language at or under 1.000
+  - [#325][pr325], merged on 2026-11-04 as 45d62854: the halt and budget tests pass in [CI][ci325], and [Callgrind][cg325] at one codegen unit reads every engine language at or under 1.000, with Nix at 0.9912.
+    ERB, which does not run the engine, read 1.0011 on that run.
+    It was judged noise by reruns of the same binaries on one machine: base 14,695,552 to 14,701,102 instructions, head 14,694,314 to 14,707,830, with no nishiki function's self cost or call count changed beyond the arena's hash maps.
 - [ ] 6.2 Ruby's `<<~HAML` heredoc embeds HAML through it → verify: a Ruby fixture with a HAML heredoc matches Shiki
+
+[pr325]: https://github.com/victor-software-house/nishiki-archive/pull/325
+[ci325]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41800032873
+[cg325]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41800032455
