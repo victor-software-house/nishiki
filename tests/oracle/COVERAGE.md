@@ -22,7 +22,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Dockerfile | `docker` | 8 of 9 | 88.9% | 6 of 13 | 46.2% | 8 | 0 | yes |
 | ERB | `erb` | 12 of 12 | 100.0% | 10 of 14 | 71.4% | 4 | 0 | yes |
 | Go | `go` | 317 of 336 | 94.3% | 240 of 250 | 96.0% | 29 | 0 | yes |
-| GraphQL | `graphql` | 76 of 88 | 86.4% | 83 of 113 | 73.5% | 0 | 7 |  |
+| GraphQL | `graphql` | 84 of 88 | 95.5% | 90 of 113 | 79.6% | 27 | 0 | yes |
 | HTML | `html` | 131 of 227 | 57.7% | 162 of 368 | 44.0% | 0 | 2 |  |
 | HTML | `html-derivative` | 2 of 3 | 66.7% | 3 of 3 | 100.0% | 0 | 1 |  |
 | INI | `ini` | 15 of 15 | 100.0% | 10 of 12 | 83.3% | 2 | 0 | yes |
@@ -297,29 +297,19 @@ injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | c
 ### `graphql`
 
 ```text
-#graphql-comma.match  \s*(,)  fuzz
-#graphql-comment.patterns[0].match  groups 1
-#graphql-comment.patterns[1].begin  (""")  fuzz
-#graphql-comment.patterns[1].end  (""")  fuzz
-#graphql-description-docstring.begin  """
-#graphql-description-docstring.end  """
-#graphql-description-singleline.match  #(?=([^"]*"[^"]*")*[^"]*$).*$
-#graphql-directive-definition.begin  groups 3, 4
-#graphql-fragment-definition.end  groups 1, 2, 3, 4
-#graphql-fragment-spread.end  groups 1, 2
-#graphql-inline-fragment.end  groups 1, 2, 3
-#graphql-input-types.patterns[2].begin  groups 2
-#graphql-null-value.match  \s*\b(null)\b  fuzz
-#graphql-schema.patterns[0].patterns[0].end  groups 5
-#graphql-string-content.patterns[0].match  \\["'/\\bfnrt]
-#graphql-string-content.patterns[1].match  \\u(\h{4})
-#graphql-string-value.end  groups 3
-#graphql-type-definition.end  groups 5
-#graphql-type-interface.end  (?=.)
-#graphql-union.end  groups 1, 2
-#graphql-union.patterns[0].end  groups 1, 2
-#native-interpolation.begin  \s*(\$\{)
-#native-interpolation.end  (})
+#graphql-comment.patterns[0].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#graphql-description-docstring.begin  """  waived: `#graphql-comment`, before it in every list that holds it, opens `(""")` at every `"""`
+#graphql-description-docstring.end  """  waived: its begin never matches
+#graphql-description-singleline.match  #(?=([^"]*"[^"]*")*[^"]*$).*$  waived: `#graphql-comment`, before it in every list that holds it, matches `(\s*)(#).*` at or before every `#`
+#graphql-directive-definition.begin  groups 3 (waived: `beginCaptures` name the groups of the `on` rule inside it, and the grammar names the group, but the expression has two groups), 4 (waived: `beginCaptures` name the groups of the `on` rule inside it, and the grammar names the group, but the expression has two groups)
+#graphql-fragment-definition.end  groups 1 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 2 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 3 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 4 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups)
+#graphql-fragment-spread.end  groups 1 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 2 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups)
+#graphql-inline-fragment.end  groups 1 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 2 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 3 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups)
+#graphql-input-types.patterns[2].begin  groups 2 (waived: the rule's `captures` name its end's `!` group for its begin too, and the grammar names the group, but the expression has one group)
+#graphql-string-value.end  groups 3 (waived: the possessive `\s*+` before it takes the line feed, so `(\n)` never matches)
+#graphql-type-interface.end  (?=.)  waived: the rule's last pattern, `#graphql-ignore-spaces`, matches `\s*` at every place, and the rule tries its end after its patterns
+#graphql-union.end  groups 1 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 2 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups)
+#graphql-union.patterns[0].end  groups 1 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 2 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups)
 ```
 
 ### `html`

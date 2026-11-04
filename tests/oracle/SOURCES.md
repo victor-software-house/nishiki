@@ -557,6 +557,7 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `graphql/graphiql-kitchen-sink` | [`packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql`][graphiql-kitchen-sink] in graphql/graphiql | [MIT][graphiql-licence] |
 | `graphql/graphiql-star-wars` | [`packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql`][graphiql-star-wars] in graphql/graphiql | [MIT][graphiql-licence] |
 | `graphql/graphiql-merged-query` | [`packages/graphiql-toolkit/src/graphql-helpers/__tests__/__queries__/mergedQueryWithSchema.graphql`][graphiql-merged-query] in graphql/graphiql | [MIT][graphiql-licence] |
+| `graphql/coverage` | `oracle/inputs/graphql-coverage.graphql`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `csharp/sample` | [`samples/csharp.sample`][csharp-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `csharp/runtime-linq-where` | [`Where.cs`][runtime-linq-where] in dotnet/runtime | [MIT][dotnet-runtime-licence] |
 | `csharp/runtime-stack` | [`Stack.cs`][runtime-stack] in dotnet/runtime | [MIT][dotnet-runtime-licence] |
@@ -689,6 +690,7 @@ Their first scores, before any fix, were 100% for the three YAML files and 64 of
 `markdown/vitest-migration-jest` is the development input for diff fences, and `markdown/vite-ssr` and `markdown/prettier-plugins` are held out.
 `graphql/sample`, `graphql/graphql-js-kitchen-sink`, `graphql/graphiql-schema-kitchen-sink` and `graphql/codegen-apollo-tooling` are the development inputs for GraphQL.
 `graphql/graphiql-kitchen-sink`, `graphql/graphiql-star-wars` and `graphql/graphiql-merged-query` are held out.
+`graphql/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 Their first scores, before any fix, were 351 of 709, 6,316 of 6,338 and 12 of 708 bytes different, all from one cause, a `\s*\n` rule that matched nothing at the end of the text and so closed the rule it sat in.
 `docker/sample`, `docker/python-slim-bookworm`, `docker/next-with-docker` and `docker/prometheus` are the development inputs for Dockerfiles.
 `docker/moby`, `docker/postgres-bookworm` and `docker/buildx` are held out.

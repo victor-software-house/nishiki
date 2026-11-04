@@ -14,6 +14,7 @@ import diffCoverage from "./inputs/diff-coverage.diff" with { type: "text" };
 import dockerCoverage from "./inputs/docker-coverage.dockerfile" with { type: "text" };
 import erbCoverage from "./inputs/erb-coverage.erb" with { type: "text" };
 import goCoverage from "./inputs/go-coverage.go" with { type: "text" };
+import graphqlCoverage from "./inputs/graphql-coverage.graphql" with { type: "text" };
 import hamlFilters from "./inputs/haml-filters.haml" with { type: "text" };
 import iniCoverage from "./inputs/ini-coverage.ini" with { type: "text" };
 import javaCoverage from "./inputs/java-coverage.java" with { type: "text" };
@@ -598,6 +599,7 @@ export const inputs: Input[] = [
   { lang: "go", name: "viper-viper", url: `${viper}/viper.go` },
   { lang: "go", name: "zap-logger", url: `${zap}/logger.go` },
   { lang: "graphql", name: "codegen-apollo-tooling", url: `${codegen}/dev-test/apollo-tooling/schema.graphql` },
+  { lang: "graphql", name: "coverage", text: graphqlCoverage },
   { lang: "graphql", name: "graphiql-kitchen-sink", url: `${graphiql}/packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql` },
   { lang: "graphql", name: "graphiql-merged-query", url: `${graphiql}/packages/graphiql-toolkit/src/graphql-helpers/__tests__/__queries__/mergedQueryWithSchema.graphql` },
   { lang: "graphql", name: "graphiql-schema-kitchen-sink", url: `${graphiql}/packages/codemirror-graphql/src/__tests__/schema-kitchen-sink.graphql` },

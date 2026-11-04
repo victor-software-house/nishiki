@@ -370,6 +370,10 @@ const cFamily: [reason: string, rows: CRow[]][] = [
 const goLeadingPoint =
   "the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\\.(?!\\.\\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow";
 
+/** Why a GraphQL end lacks the groups its rule names: the rule gives one
+ * `captures` for its begin and its end. */
+const graphqlSharedCaptures = "the rule's `captures` name the begin's groups for its end too";
+
 export const waivers: Waiver[] = [
   {
     grammar: "rust",
@@ -1109,6 +1113,54 @@ export const waivers: Waiver[] = [
       }),
     ),
   ),
+  { grammar: "graphql", path: "#graphql-comment.patterns[0].match", group: 1, reason: blanks },
+  {
+    grammar: "graphql",
+    path: "#graphql-description-docstring.begin",
+    reason: "`#graphql-comment`, before it in every list that holds it, opens `(\"\"\")` at every `\"\"\"`",
+  },
+  {
+    grammar: "graphql",
+    path: "#graphql-description-docstring.end",
+    reason: "its begin never matches",
+  },
+  {
+    grammar: "graphql",
+    path: "#graphql-description-singleline.match",
+    reason: "`#graphql-comment`, before it in every list that holds it, matches `(\\s*)(#).*` at or before every `#`",
+  },
+  ...[
+    {
+      path: "#graphql-directive-definition.begin",
+      groups: [3, 4],
+      why: "`beginCaptures` name the groups of the `on` rule inside it",
+      has: 2,
+    },
+    { path: "#graphql-fragment-definition.end", groups: [1, 2, 3, 4], why: graphqlSharedCaptures, has: 0 },
+    { path: "#graphql-fragment-spread.end", groups: [1, 2], why: graphqlSharedCaptures, has: 0 },
+    { path: "#graphql-inline-fragment.end", groups: [1, 2, 3], why: graphqlSharedCaptures, has: 0 },
+    {
+      path: "#graphql-input-types.patterns[2].begin",
+      groups: [2],
+      why: "the rule's `captures` name its end's `!` group for its begin too",
+      has: 1,
+    },
+    { path: "#graphql-union.end", groups: [1, 2], why: graphqlSharedCaptures, has: 0 },
+    { path: "#graphql-union.patterns[0].end", groups: [1, 2], why: graphqlSharedCaptures, has: 0 },
+  ].flatMap(({ path, groups, why, has }) =>
+    groups.map((group): Waiver => ({ grammar: "graphql", path, group, reason: `${why}, and ${missing(has)}` })),
+  ),
+  {
+    grammar: "graphql",
+    path: "#graphql-string-value.end",
+    group: 3,
+    reason: "the possessive `\\s*+` before it takes the line feed, so `(\\n)` never matches",
+  },
+  {
+    grammar: "graphql",
+    path: "#graphql-type-interface.end",
+    reason: "the rule's last pattern, `#graphql-ignore-spaces`, matches `\\s*` at every place, and the rule tries its end after its patterns",
+  },
   {
     grammar: "sql",
     path: "#comments.patterns[0].begin",
@@ -1181,6 +1233,7 @@ export const complete: string[] = [
   "docker",
   "erb",
   "go",
+  "graphql",
   "ini",
   "java",
   "javascript",

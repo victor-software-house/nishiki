@@ -1,0 +1,17 @@
+# Written for nishiki: what the graphql grammar's other inputs leave out.
+"""
+A description.
+"""
+schema { query: Query, mutation: Mutation }
+type Query { a: Int, b: [Int!]!, c: [Int, String] }
+type Point = Other
+query Embed { user { ${fields} } }
+query Find($id: ID = null) {
+  node(id: $id, tags: ["a", "b"]) {
+    ... on User { name, email }
+    ...Fields @include(if: true)
+    text(value: "say \"hi\" \u00e9 \n")
+  }
+}
+# A string with no closing quote takes the rest of the document, so it comes last.
+query Broken { a(value: "no end
