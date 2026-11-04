@@ -2,7 +2,8 @@
 
 use super::super::ahead::Find;
 use super::super::engine::CssLike;
-use super::super::words;
+use super::super::words::List;
+use super::chars::Words;
 use super::selectors::Tail;
 use crate::rules::{Chars, Lexer};
 
@@ -19,7 +20,7 @@ enum SharedList {
 impl<G: CssLike> Lexer<'_, G> {
     /// `(?<![-\w])(name)(\()` for the names in `list`: the name is group 1 and
     /// the parenthesis group 2.
-    fn function_begin(&mut self, p: usize, list: &[&str]) -> Option<usize> {
+    fn function_begin(&mut self, p: usize, list: Words) -> Option<usize> {
         if self.wordish_before(p) {
             return None;
         }
@@ -50,7 +51,7 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// `(?i)(?<![-\w])(calc)(\()`
     pub(in crate::css) fn functions_at0(&mut self, p: usize) -> Option<usize> {
-        self.function_begin(p, &["calc"])
+        self.function_begin(p, Words::Spelled(&["calc"]))
     }
 
     /// `[*/]|(?<=\s|^)[-+](?=\s|$)`
@@ -68,34 +69,34 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// `(?i)(?<![-\w])(rgba?|hsla?|hwb|lab|oklab|lch|oklch|color)(\()`
     pub(in crate::css) fn functions_at1(&mut self, p: usize) -> Option<usize> {
-        self.function_begin(p, words::FUNCTION_COLORS)
+        self.function_begin(p, Words::Table(List::FunctionColors))
     }
 
     /// The gradient functions.
     pub(in crate::css) fn functions_at2(&mut self, p: usize) -> Option<usize> {
-        self.function_begin(p, words::FUNCTION_GRADIENTS)
+        self.function_begin(p, Words::Table(List::FunctionGradients))
     }
 
     /// `(?i)(?<![-\w])(from|to|at|in|hue)(?![-\w])`
     pub(in crate::css) fn functions_at2_at0(&mut self, p: usize) -> Option<usize> {
-        let end = self.standalone_word(p, &["at", "from", "hue", "in", "to"])?;
+        let end = self.standalone_word(p, Words::Spelled(&["at", "from", "hue", "in", "to"]))?;
         self.cap(1, p, end);
         Some(end)
     }
 
     /// `(?i)(?<![-\w])(-webkit-gradient)(\()`
     pub(in crate::css) fn functions_at3(&mut self, p: usize) -> Option<usize> {
-        self.function_begin(p, &["-webkit-gradient"])
+        self.function_begin(p, Words::Spelled(&["-webkit-gradient"]))
     }
 
     /// `(?i)(?<![-\w])(from|to|color-stop)(\()`
     pub(in crate::css) fn functions_at3_at0(&mut self, p: usize) -> Option<usize> {
-        self.function_begin(p, &["color-stop", "from", "to"])
+        self.function_begin(p, Words::Spelled(&["color-stop", "from", "to"]))
     }
 
     /// The functions of the grammar's long list, followed by a parenthesis.
     pub(in crate::css) fn functions_at4(&mut self, p: usize) -> Option<usize> {
-        self.function_begin(p, words::FUNCTIONS)
+        self.function_begin(p, Words::Table(List::Functions))
     }
 
     /// `(?i)(?<=[",\s]|\*/|^)\d+x(?=["'),\s]|/\*|$)`
@@ -138,7 +139,10 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// `(?i)(?<![-\w])(circle|ellipse|inset|polygon|rect)(\()`
     pub(in crate::css) fn functions_at5(&mut self, p: usize) -> Option<usize> {
-        self.function_begin(p, &["circle", "ellipse", "inset", "polygon", "rect"])
+        self.function_begin(
+            p,
+            Words::Spelled(&["circle", "ellipse", "inset", "polygon", "rect"]),
+        )
     }
 
     /// `(?i)(?<=\s|^|\*/)(at|round)(?=\s|/\*|$)`
@@ -158,7 +162,7 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// `(?i)(?<![-\w])(cubic-bezier|steps)(\()`
     pub(in crate::css) fn functions_at6(&mut self, p: usize) -> Option<usize> {
-        self.function_begin(p, &["cubic-bezier", "steps"])
+        self.function_begin(p, Words::Spelled(&["cubic-bezier", "steps"]))
     }
 
     /// `(?i)(?<![-\w])(start|end)(?=\s*\)|$)`
@@ -177,7 +181,7 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// The transform functions.
     pub(in crate::css) fn functions_at7(&mut self, p: usize) -> Option<usize> {
-        self.function_begin(p, words::FUNCTION_TRANSFORMS)
+        self.function_begin(p, Words::Table(List::FunctionTransforms))
     }
 
     /// `(?i)(?<![-@\w])(url)(\()`
@@ -185,7 +189,7 @@ impl<G: CssLike> Lexer<'_, G> {
         if self.char_before(p) == Some('@') {
             return None;
         }
-        self.function_begin(p, &["url"])
+        self.function_begin(p, Words::Spelled(&["url"]))
     }
 
     /// `[^"')\s]+`
@@ -216,7 +220,7 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// `(?i)(?<![-\w])(var)(\()`
     pub(in crate::css) fn functions_at10(&mut self, p: usize) -> Option<usize> {
-        self.function_begin(p, &["var"])
+        self.function_begin(p, Words::Spelled(&["var"]))
     }
 
     /// `--[-A-Z_a-z[^\x00-\x7F]](?:...)*`
@@ -234,14 +238,14 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// The keywords of the grammar's first list.
     pub(in crate::css) fn property_keywords_at0(&mut self, p: usize) -> Option<usize> {
-        let end = self.standalone_word(p, words::PROPERTY_KEYWORDS)?;
+        let end = self.standalone_word(p, Words::Table(List::PropertyKeywords))?;
         self.cap(1, p, end);
         Some(end)
     }
 
     /// The list styles.
     pub(in crate::css) fn property_keywords_at1(&mut self, p: usize) -> Option<usize> {
-        let end = self.standalone_word(p, words::LIST_STYLES)?;
+        let end = self.standalone_word(p, Words::Table(List::CounterStyles))?;
         self.cap(1, p, end);
         Some(end)
     }
@@ -256,36 +260,36 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// The font families.
     pub(in crate::css) fn property_keywords_at3(&mut self, p: usize) -> Option<usize> {
-        self.standalone_word(p, words::FONT_FAMILIES)
+        self.standalone_word(p, Words::Table(List::FontFamilies))
     }
 
     /// `(?i)(?<![-\w])(?:accent-color|...)(?![-\w])`
     pub(in crate::css) fn property_names_at0(&mut self, p: usize) -> Option<usize> {
-        self.standalone_word(p, words::PROPERTY_NAMES)
+        self.standalone_word(p, Words::Table(List::PropertyNames))
     }
 
     /// The W3C standard colour names.
     pub(in crate::css) fn color_keywords_at0(&mut self, p: usize) -> Option<usize> {
-        let end = self.standalone_word(p, words::COLORS_STANDARD)?;
+        let end = self.standalone_word(p, Words::Table(List::ColorsStandard))?;
         self.cap(1, p, end);
         Some(end)
     }
 
     /// The extended colour names.
     pub(in crate::css) fn color_keywords_at1(&mut self, p: usize) -> Option<usize> {
-        let end = self.standalone_word(p, words::COLORS_EXTENDED)?;
+        let end = self.standalone_word(p, Words::Table(List::ColorsExtended))?;
         self.cap(1, p, end);
         Some(end)
     }
 
     /// `(?i)(?<![-\w])currentColor(?![-\w])`
     pub(in crate::css) fn color_keywords_at2(&mut self, p: usize) -> Option<usize> {
-        self.standalone_word(p, &["currentcolor"])
+        self.standalone_word(p, Words::Spelled(&["currentcolor"]))
     }
 
     /// The system colour names.
     pub(in crate::css) fn color_keywords_at3(&mut self, p: usize) -> Option<usize> {
-        let end = self.standalone_word(p, words::COLORS_SYSTEM)?;
+        let end = self.standalone_word(p, Words::Table(List::ColorsSystem))?;
         self.cap(1, p, end);
         Some(end)
     }

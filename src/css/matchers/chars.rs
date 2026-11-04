@@ -3,11 +3,49 @@
 
 use super::super::ahead::Find;
 use super::super::engine::CssLike;
+use super::super::words::{List, WORDS};
 use crate::rules::{Chars, Lexer};
 use crate::{case_fold, classes};
 
 /// The longest word of the generated lists, in bytes.
 const LONGEST: usize = 48;
+
+/// The bucket of a word's first byte: every word of [`WORDS`] starts with an
+/// ASCII byte, so a word that does not fails the build.
+#[expect(
+    clippy::as_conversions,
+    reason = "`usize::from` is not const; a `u8` always fits a `usize`"
+)]
+const fn bucket(byte: u8) -> usize {
+    byte as usize
+}
+
+/// Where each first byte's words start in [`WORDS`], which is sorted: the
+/// words of byte `b` sit at `STARTS[b]..STARTS[b + 1]`, so a lookup searches
+/// only them.
+const STARTS: [usize; 129] = {
+    let mut starts = [0; 129];
+    let mut i = 0;
+    while i < WORDS.len() {
+        starts[bucket(WORDS[i].0.as_bytes()[0]) + 1] += 1;
+        i += 1;
+    }
+    let mut b = 1;
+    while b < starts.len() {
+        starts[b] += starts[b - 1];
+        b += 1;
+    }
+    starts
+};
+
+/// The words a matcher accepts.
+#[derive(Clone, Copy, Debug)]
+pub(in crate::css) enum Words {
+    /// A list of the grammar's table, [`WORDS`].
+    Table(List),
+    /// A few words spelled out in the matcher, lower case and sorted.
+    Spelled(&'static [&'static str]),
+}
 
 /// Which characters [`Lexer::letters_ci`] runs over.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -188,19 +226,56 @@ impl<G: CssLike> Lexer<'_, G> {
     }
 
     /// Whether the text `from..to`, folded to lower case as `(?i)` reads it
-    /// ([`case_fold::lower_into`]), is one of `words`, which are lower case
-    /// and sorted.
-    pub(in crate::css) fn in_list(&self, from: usize, to: usize, words: &[&str]) -> bool {
-        debug_assert!(words.is_sorted(), "word list not sorted: {words:?}");
+    /// ([`case_fold::lower_into`]), is one of `words`.
+    pub(in crate::css) fn in_list(&self, from: usize, to: usize, words: Words) -> bool {
+        match words {
+            Words::Table(list) => self.lists_of(from, to) & list.bit() != 0,
+            Words::Spelled(words) => {
+                debug_assert!(words.is_sorted(), "word list not sorted: {words:?}");
+                let mut buf = [0; LONGEST];
+                self.s
+                    .get(from..to)
+                    .and_then(|text| case_fold::lower_into(text, &mut buf))
+                    .is_some_and(|n| {
+                        words
+                            .binary_search_by(|word| word.as_bytes().cmp(&buf[..n]))
+                            .is_ok()
+                    })
+            }
+        }
+    }
+
+    /// The bits of the lists of [`WORDS`] that hold the text `from..to`,
+    /// folded to lower case. The patterns tried at one place ask about the
+    /// same word, each for its own list, so the word is looked up once, among
+    /// the words of its first byte ([`STARTS`]), and the answer kept until
+    /// another is asked for.
+    fn lists_of(&self, from: usize, to: usize) -> u32 {
+        let extra = G::css_extra(&self.x);
+        let (start, end, bits) = extra.listed.get();
+        if (start, end) == (from, to) {
+            return bits;
+        }
         let mut buf = [0; LONGEST];
-        self.s
+        let bits = self
+            .s
             .get(from..to)
             .and_then(|text| case_fold::lower_into(text, &mut buf))
-            .is_some_and(|n| {
-                words
-                    .binary_search_by(|word| word.as_bytes().cmp(&buf[..n]))
-                    .is_ok()
+            .and_then(|n| buf.get(..n))
+            .and_then(|word| {
+                let b = usize::from(*word.first()?);
+                let group = STARTS
+                    .get(b)
+                    .zip(STARTS.get(b + 1))
+                    .and_then(|(&start, &end)| WORDS.get(start..end))?;
+                let index = group
+                    .binary_search_by(|&(entry, _)| entry.as_bytes().cmp(word))
+                    .ok()?;
+                group.get(index)
             })
+            .map_or(0, |&(_, bits)| bits);
+        extra.listed.set((from, to, bits));
+        bits
     }
 
     /// Whether the text `from..to`, folded to lower case, is `word`.
@@ -219,9 +294,9 @@ impl<G: CssLike> Lexer<'_, G> {
     }
 
     /// The end of a run of `[-\w]` characters from `p` that is one of `words`
-    /// (lower case, sorted) and has no `[-\w]` character around it: the
-    /// grammar's `(?<![-\w])(?:word|word|...)(?![-\w])`.
-    pub(in crate::css) fn standalone_word(&self, p: usize, words: &[&str]) -> Option<usize> {
+    /// and has no `[-\w]` character around it: the grammar's
+    /// `(?<![-\w])(?:word|word|...)(?![-\w])`.
+    pub(in crate::css) fn standalone_word(&self, p: usize, words: Words) -> Option<usize> {
         if self.wordish_before(p) {
             return None;
         }

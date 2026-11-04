@@ -1,7 +1,7 @@
 //! Media queries, feature queries and layer names.
 
 use super::super::engine::CssLike;
-use super::chars::Letters;
+use super::chars::{Letters, Words};
 use crate::rules::{Chars, Lexer};
 
 /// The words of the grammar's media features, without a `min-` or `max-`.
@@ -108,7 +108,7 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// `(?i)(?<![-\w])(layer)(?![-\w])`
     pub(in crate::css) fn layer_import_at1(&mut self, p: usize) -> Option<usize> {
-        let end = self.standalone_word(p, &["layer"])?;
+        let end = self.standalone_word(p, Words::Spelled(&["layer"]))?;
         self.cap(1, p, end);
         Some(end)
     }
@@ -141,12 +141,16 @@ impl<G: CssLike> Lexer<'_, G> {
         if end == p {
             return None;
         }
-        let group = if self.in_list(p, end, &["all", "print", "screen", "speech"]) {
+        let group = if self.in_list(
+            p,
+            end,
+            Words::Spelled(&["all", "print", "screen", "speech"]),
+        ) {
             1
         } else if self.in_list(
             p,
             end,
-            &[
+            Words::Spelled(&[
                 "aural",
                 "braille",
                 "embossed",
@@ -154,7 +158,7 @@ impl<G: CssLike> Lexer<'_, G> {
                 "projection",
                 "tty",
                 "tv",
-            ],
+            ]),
         ) {
             2
         } else {
@@ -228,14 +232,14 @@ impl<G: CssLike> Lexer<'_, G> {
             (false, p)
         };
         if run > p {
-            if self.in_list(p, run, PLAIN_FEATURES)
-                || self.in_list(p, run, FEATURES)
-                || (min_max && self.in_list(rest, run, FEATURES))
+            if self.in_list(p, run, Words::Spelled(PLAIN_FEATURES))
+                || self.in_list(p, run, Words::Spelled(FEATURES))
+                || (min_max && self.in_list(rest, run, Words::Spelled(FEATURES)))
             {
                 return Some((1, run));
             }
-            if self.in_list(p, run, DEVICE_FEATURES)
-                || (min_max && self.in_list(rest, run, DEVICE_FEATURES))
+            if self.in_list(p, run, Words::Spelled(DEVICE_FEATURES))
+                || (min_max && self.in_list(rest, run, Words::Spelled(DEVICE_FEATURES)))
             {
                 return Some((2, run));
             }
@@ -249,10 +253,10 @@ impl<G: CssLike> Lexer<'_, G> {
             self.in_list(
                 start,
                 letters,
-                &[
+                Words::Spelled(&[
                     "ah", "apple", "atsc", "epub", "hp", "khtml", "moz", "ms", "o", "rim", "ro",
                     "tc", "wap", "webkit", "xv",
-                ],
+                ]),
             )
         } else {
             self.is_word_ci(start, letters, "mso") || self.is_word_ci(start, letters, "prince")
@@ -297,7 +301,7 @@ impl<G: CssLike> Lexer<'_, G> {
         let end = self.wordish_run(p);
         let ahead =
             self.at(end) == b')' && end < self.lim() || self.space_at(end) > 0 || self.at_eol(end);
-        (end > p && self.in_list(p, end, FEATURE_KEYWORDS) && ahead).then_some(end)
+        (end > p && self.in_list(p, end, Words::Spelled(FEATURE_KEYWORDS)) && ahead).then_some(end)
     }
 
     /// `:`

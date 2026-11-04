@@ -1,11 +1,12 @@
 name: Generated tables
 
-# Regenerates a table that a script measures on Oniguruma, as Shiki bundles
-# it, and fails when the committed table differs: src/textmate/regex/folds.rs
-# from oracle/case-folds.ts (`mise run check:case-folds`). Bun fetches Shiki
-# from npm, so the check sits outside the offline verify in ci.yml, which the
-# template renders, and runs only on a pull request that touches a table or
-# its script.
+# Regenerates a table that a script writes from Shiki, and fails when the
+# committed table differs: src/textmate/regex/folds.rs, measured on Oniguruma
+# by oracle/case-folds.ts (`mise run check:case-folds`), and src/css/words.rs,
+# from the css grammar by oracle/css-words.ts (`mise run check:css-words`).
+# Bun fetches Shiki from npm, so the checks sit outside the offline verify in
+# ci.yml, which the template renders, and run only on a pull request that
+# touches a table or its script.
 
 on:
   pull_request:
@@ -14,6 +15,10 @@ on:
       - oracle/case-folds.ts
       - src/textmate/regex/folds.rs
       - mise-tasks/check/case-folds.sh
+      - oracle/alternation.ts
+      - oracle/css-words.ts
+      - src/css/words.rs
+      - mise-tasks/check/css-words.sh
 
 permissions:
   contents: read
@@ -52,3 +57,28 @@ jobs:
       - name: Compare the fold table with what its script measures
         timeout-minutes: 3
         run: mise run check:case-folds
+
+  css-words:
+    name: CSS words
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: nscloud-ubuntu-24.04-amd64-2x4
+    timeout-minutes: 8
+    steps:
+      - name: Check out repository
+        timeout-minutes: 3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install mise
+        timeout-minutes: 3
+        uses: jdx/mise-action@6612f0ef07ed2a736cd1e00a94a065522dd41195 # v5.2.5
+        with:
+          version: 2026.10.25
+          install: false
+          cache: false
+      - name: Install bun
+        timeout-minutes: 3
+        run: mise install --locked bun@1.4.4
+      - name: Compare the CSS word table with what its script writes
+        timeout-minutes: 3
+        run: mise run check:css-words

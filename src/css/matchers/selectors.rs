@@ -3,8 +3,8 @@
 
 use super::super::ahead::Find;
 use super::super::engine::CssLike;
-use super::super::words;
-use super::chars::Letters;
+use super::super::words::List;
+use super::chars::{Letters, Words};
 use crate::rules::{Chars, Lexer};
 
 /// The characters that end a name in a selector: `[#\&)+,.:>\[{|~\s]`.
@@ -196,8 +196,10 @@ impl<G: CssLike> Lexer<'_, G> {
             return None;
         }
         let end = self.wordish_run(p);
-        (end > p && self.in_list(p, end, words::TAG_NAMES) && self.selector_stop_ahead(end))
-            .then_some(end)
+        (end > p
+            && self.in_list(p, end, Words::Table(List::TagNames))
+            && self.selector_stop_ahead(end))
+        .then_some(end)
     }
 
     /// `&`
@@ -476,7 +478,7 @@ impl<G: CssLike> Lexer<'_, G> {
         let end = self.wordish_run(word);
         let after = self.spaces(end);
         if end == word
-            || !self.in_list(word, end, words::PSEUDO_CLASSES)
+            || !self.in_list(word, end, Words::Table(List::PseudoClasses))
             || matches!(self.at(after), b';' | b'}') && after < self.lim()
         {
             return None;
@@ -499,12 +501,15 @@ impl<G: CssLike> Lexer<'_, G> {
         let colons = if double { 2 } else { 1 };
         let word = p + colons;
         let run = self.wordish_run(word);
-        let plain = run > word && self.in_list(word, run, words::PSEUDO_ELEMENTS);
+        let plain = run > word && self.in_list(word, run, Words::Table(List::PseudoElements));
         let end = if plain {
             run
         } else if let Some(end) = self.vendor_prefixed(word, Tail::Folded) {
             end
-        } else if double && run > word && self.in_list(word, run, words::PSEUDO_ELEMENTS_DOUBLE) {
+        } else if double
+            && run > word
+            && self.in_list(word, run, Words::Table(List::PseudoElementsDouble))
+        {
             let after = self.spaces(run);
             if matches!(self.at(after), b';' | b'}') && after < self.lim() {
                 return None;
@@ -529,7 +534,7 @@ impl<G: CssLike> Lexer<'_, G> {
         let start = if dash { p + 1 } else { p };
         let letters = self.letters_ci(start, Letters::Plain);
         let vendor_ok = if dash {
-            self.in_list(start, letters, words::VENDORS)
+            self.in_list(start, letters, Words::Table(List::Vendors))
         } else {
             self.is_word_ci(start, letters, "mso") || self.is_word_ci(start, letters, "prince")
         };
@@ -544,7 +549,7 @@ impl<G: CssLike> Lexer<'_, G> {
     }
 
     /// `(?i)((:)word)(\()`: a functional pseudo-class named by one of `list`.
-    fn functional_pseudo(&mut self, p: usize, list: &[&str]) -> Option<usize> {
+    fn functional_pseudo(&mut self, p: usize, list: Words) -> Option<usize> {
         self.lit(p, b":")?;
         let name = self.wordish_run(p + 1);
         let ok = name > p + 1
@@ -561,7 +566,7 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// `(?i)((:)dir)(\()`
     pub(in crate::css) fn functional_pseudo_classes_at0(&mut self, p: usize) -> Option<usize> {
-        self.functional_pseudo(p, &["dir"])
+        self.functional_pseudo(p, Words::Spelled(&["dir"]))
     }
 
     /// `\)`
@@ -571,14 +576,14 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// `(?i)(?<![-\w])(ltr|rtl)(?![-\w])`
     pub(in crate::css) fn functional_pseudo_classes_at0_at2(&mut self, p: usize) -> Option<usize> {
-        let end = self.standalone_word(p, &["ltr", "rtl"])?;
+        let end = self.standalone_word(p, Words::Spelled(&["ltr", "rtl"]))?;
         self.cap(1, p, end);
         Some(end)
     }
 
     /// `(?i)((:)lang)(\()`
     pub(in crate::css) fn functional_pseudo_classes_at1(&mut self, p: usize) -> Option<usize> {
-        self.functional_pseudo(p, &["lang"])
+        self.functional_pseudo(p, Words::Spelled(&["lang"]))
     }
 
     /// `(?<=[(,\s])[A-Za-z]+(-[0-9A-Za-z]*|\\(?:\h{1,6}|.))*(?=[),\s])`
@@ -658,19 +663,19 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// `(?i)((:)(?:not|has|matches|where|is))(\()`
     pub(in crate::css) fn functional_pseudo_classes_at2(&mut self, p: usize) -> Option<usize> {
-        self.functional_pseudo(p, &["has", "is", "matches", "not", "where"])
+        self.functional_pseudo(p, Words::Spelled(&["has", "is", "matches", "not", "where"]))
     }
 
     /// `(?i)((:)nth-(?:last-)?(?:child|of-type))(\()`
     pub(in crate::css) fn functional_pseudo_classes_at3(&mut self, p: usize) -> Option<usize> {
         self.functional_pseudo(
             p,
-            &[
+            Words::Spelled(&[
                 "nth-child",
                 "nth-last-child",
                 "nth-last-of-type",
                 "nth-of-type",
-            ],
+            ]),
         )
     }
 

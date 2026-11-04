@@ -52,6 +52,9 @@ pub(crate) struct Extra {
     /// The last number found: where the search started, and where the number
     /// ends, so the patterns of its units ask once.
     pub(crate) number: Cell<(usize, Option<usize>)>,
+    /// The last word looked up in the word table: where it starts and ends,
+    /// and the bits of the lists that hold it.
+    pub(crate) listed: Cell<(usize, usize, u32)>,
     /// Where the bytes the lookaheads search for are.
     pub(crate) ahead: Ahead,
 }
@@ -63,6 +66,7 @@ impl Default for Extra {
             ident_run: Cell::new((usize::MAX, 0)),
             space_run: Cell::new((usize::MAX, 0)),
             number: Cell::new((usize::MAX, None)),
+            listed: Cell::new((usize::MAX, 0, 0)),
             ahead: Ahead::default(),
         }
     }

@@ -2,7 +2,7 @@
 
 use super::super::ahead::Find;
 use super::super::engine::CssLike;
-use super::chars::Letters;
+use super::chars::{Letters, Words};
 use crate::rules::{Chars, Lexer};
 
 impl<G: CssLike> Lexer<'_, G> {
@@ -55,8 +55,11 @@ impl<G: CssLike> Lexer<'_, G> {
         let start = p + 1;
         if self.at(start) == b'-' {
             let letters = self.letters_ci(start + 1, Letters::Plain);
-            if self.in_list(start + 1, letters, &["moz", "ms", "o", "webkit"])
-                && self.at(letters) == b'-'
+            if self.in_list(
+                start + 1,
+                letters,
+                Words::Spelled(&["moz", "ms", "o", "webkit"]),
+            ) && self.at(letters) == b'-'
                 && let Some(end) = self.lit_ci(letters + 1, "keyframes")
             {
                 return Some(end);
@@ -359,7 +362,7 @@ impl<G: CssLike> Lexer<'_, G> {
         let name = self.wordish_run(p);
         let ok = self.at(name) == b'('
             && name < self.lim()
-            && self.in_list(p, name, &["domain", "regexp", "url-prefix"]);
+            && self.in_list(p, name, Words::Spelled(&["domain", "regexp", "url-prefix"]));
         ok.then(|| {
             self.cap(1, p, name);
             self.cap(2, name, name + 1);
@@ -385,7 +388,7 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// `(?i)(?<![-\w])(from|to)(?![-\w])|([-+]?(?:\d+(?:\.\d+)?|\.\d+)%)`
     pub(in crate::css) fn at_rules_at7_at1_at2(&mut self, p: usize) -> Option<usize> {
-        if let Some(end) = self.standalone_word(p, &["from", "to"]) {
+        if let Some(end) = self.standalone_word(p, Words::Spelled(&["from", "to"])) {
             self.cap(1, p, end);
             return Some(end);
         }
@@ -447,7 +450,9 @@ impl<G: CssLike> Lexer<'_, G> {
         let mut end = None;
         if self.at(p + 1) == b'-' {
             let letters = self.letters_ci(p + 2, Letters::Plain);
-            if self.in_list(p + 2, letters, &["ms", "o"]) && self.at(letters) == b'-' {
+            if self.in_list(p + 2, letters, Words::Spelled(&["ms", "o"]))
+                && self.at(letters) == b'-'
+            {
                 end = self.lit_ci(letters + 1, "viewport");
             }
         }
