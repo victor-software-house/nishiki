@@ -119,7 +119,7 @@ pub(crate) fn leaf_in(row: &LeafRow, token: &str) -> String {
 /// from a state up to where `end` or `after` halts it, and returns the state
 /// and where it halted.
 type LexUntil =
-    fn(&mut Context<'_>, Line<'_>, u32, Halt, Option<Halt>) -> (Finished, Option<usize>);
+    fn(&mut Context<'_>, Line<'_>, u32, &dyn Halt, Option<&dyn Halt>) -> (Finished, Option<usize>);
 
 /// How a language lexes the lines another language embeds: its start over a
 /// base stack, its whole-line lexer, and its `lex_until`.
@@ -132,7 +132,8 @@ pub(crate) struct Embedded {
 
 /// The halts of a Ruby here document: its interpolation, tried before the
 /// embedded language's patterns, and its escapes, tried after them.
-pub(crate) const RUBY_HALTS: (Halt, Option<Halt>) = (ruby_interpolation, Some(ruby_escape));
+pub(crate) const RUBY_HALTS: (&dyn Halt, Option<&dyn Halt>) =
+    (&ruby_interpolation, Some(&ruby_escape));
 
 /// A Ruby interpolation, as a Ruby here document's patterns start it.
 fn ruby_interpolation(bytes: &[u8], p: usize) -> bool {
@@ -152,7 +153,7 @@ pub(crate) fn lex_embedded(
     language: Embedded,
     base: &[&str],
     lines: &[&str],
-    halts: Option<(Halt, Option<Halt>)>,
+    halts: Option<(&dyn Halt, Option<&dyn Halt>)>,
 ) -> Vec<(Option<usize>, Row)> {
     let mut arena = Arena::new(None);
     let mut stack = ROOT;

@@ -5,7 +5,7 @@
 use super::rules::{Pat, patterns};
 use super::scope::S;
 use super::state::Rule;
-use crate::language::Halt;
+use crate::language::{Halts, NO_HALTS};
 use crate::rules::{self, Act, Captures, DynName, Grammar, ScopeName};
 use crate::utf8::char_len;
 
@@ -188,9 +188,9 @@ impl Grammar for Make {
 
     /// The first match from the position (see [`scan`]).
     fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
-        match lexer.root_halt() {
-            Some(halt) => scan::<true>(lexer, halt),
-            None => scan::<false>(lexer, |_, _| false),
+        match lexer.root_halts() {
+            Some(halts) => scan::<true>(lexer, halts),
+            None => scan::<false>(lexer, &NO_HALTS),
         }
     }
 
@@ -209,12 +209,15 @@ impl Grammar for Make {
 /// would match again where it did, the search goes on one character later.
 /// The halt test is compiled in only when `HALTING`, so a Makefile that no
 /// other grammar embeds pays nothing for it.
-fn scan<const HALTING: bool>(lexer: &mut Lexer<'_>, halt: Halt) -> Option<(usize, Pat, usize)> {
+fn scan<const HALTING: bool>(
+    lexer: &mut Lexer<'_>,
+    halts: &Halts<'_>,
+) -> Option<(usize, Pat, usize)> {
     let rule = lexer.top_rule();
     let end = lexer.lim() + usize::from(lexer.nl);
     let mut p = lexer.pos;
     'search: while p <= end {
-        if HALTING && halt(lexer.s, p) {
+        if HALTING && halts.0.holds(lexer.s, p) {
             lexer.halt_here(p);
             return None;
         }

@@ -80,14 +80,15 @@ pub(crate) fn lex_until(
     cx: &mut Context<'_>,
     line: Line<'_>,
     state: u32,
-    end: Halt,
-    after: Option<Halt>,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
 ) -> (Finished, Option<usize>) {
     if line.text.len() <= line.start {
         return (Finished::unspent(state), None);
     }
+    let halts = (end, after);
     let mut lexer = engine::Lexer::new(cx, line, state, engine::Document::Html);
-    lexer.give_back = Some(engine::GiveBack::Halts { end, after });
+    lexer.give_back = Some(engine::GiveBack::Halts(&halts));
     let (finished, halt) = lexer.run_until();
     (finished, halt)
 }
@@ -136,7 +137,7 @@ pub(crate) fn lex_derivative_until(
     line: Line<'_>,
     state: u32,
     span: Span,
-    give_back: Option<engine::GiveBack>,
+    give_back: Option<engine::GiveBack<'_>>,
 ) -> (Finished, Option<usize>) {
     if line.text.len() <= line.start {
         return (Finished::unspent(state), None);

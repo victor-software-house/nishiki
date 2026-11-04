@@ -1274,7 +1274,7 @@ fn embedded_language(rule: Rule) -> Option<Language> {
 /// Where html-derivative gives the line back inside a container of `kind`:
 /// none where it takes whole lines.
 #[cfg(feature = "lang-html-derivative")]
-fn html_give_back(kind: Kind) -> Option<crate::html::GiveBack> {
+fn html_give_back(kind: Kind) -> Option<crate::html::GiveBack<'static>> {
     match kind {
         Kind::HtmlInline => Some(crate::html::GiveBack::AtRoot),
         Kind::HtmlWrap => Some(crate::html::GiveBack::AfterTag),

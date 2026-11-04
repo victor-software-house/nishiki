@@ -13,7 +13,7 @@ use super::rules::{Pat, next_start, patterns};
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Halt, Line};
+use crate::language::{Context, Halts, Line};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scratch::Scratch;
 use crate::{Stack, Token, java};
@@ -141,7 +141,7 @@ pub(super) struct Lexer<'a> {
     /// Where the language that embeds XML takes the line back, while only the
     /// root is open: `end` before the root's patterns at a place, and `after`
     /// where none of them matches (see [`Halt`]).
-    pub(super) halts: Option<(Halt, Option<Halt>)>,
+    pub(super) halts: Option<&'a Halts<'a>>,
     /// Where the line went back to the embedding language.
     halted: Option<usize>,
 }
@@ -329,7 +329,7 @@ impl<'a> Lexer<'a> {
     /// out of `tokenize`, the test costs a document one branch per match.
     #[cold]
     fn halt_before(&self, found: Option<&Found>) -> Option<usize> {
-        let (end, after) = self.halts?;
+        let &(end, after) = self.halts?;
         if self.frames.len() != 1 || self.over_budget() {
             return None;
         }
@@ -456,8 +456,17 @@ impl<'a> Lexer<'a> {
             start: from,
             embedded: false,
         };
-        let (finished, at) = java::lex_until(&mut cx, line, state, jsp_end);
+        let (finished, at) = Self::lex_jsp(&mut cx, line, state);
         (self.steps.take_back(finished), at)
+    }
+
+    /// Lexes Java up to the `%>` that ends JSP code.
+    /// It stays out of line, so `tokenize` never builds the `&dyn Halt` it
+    /// passes. Inlined, that value cost every XML line a store.
+    #[cold]
+    #[inline(never)]
+    fn lex_jsp(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> (Finished, Option<usize>) {
+        java::lex_until(cx, line, state, &jsp_end)
     }
 
     /// Applies an end match.

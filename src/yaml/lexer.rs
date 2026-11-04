@@ -41,8 +41,8 @@ pub(crate) struct Lexer<'a> {
 pub(crate) struct Halts<'a> {
     pub(crate) line: &'a [u8],
     pub(crate) start: usize,
-    pub(crate) end: Halt,
-    pub(crate) after: Option<Halt>,
+    pub(crate) end: &'a dyn Halt,
+    pub(crate) after: Option<&'a dyn Halt>,
 }
 
 /// Where the text a YAML lexer reads starts in its line.
@@ -667,10 +667,10 @@ impl<'a> Lexer<'a> {
             return false;
         }
         let at = halts.start + p;
-        if (halts.end)(halts.line, at) {
+        if halts.end.holds(halts.line, at) {
             return !(p > 0 && self.comment_at(p));
         }
-        halts.after.is_some_and(|after| after(halts.line, at)) && self.bare_at(p)
+        halts.after.is_some_and(|after| after.holds(halts.line, at)) && self.bare_at(p)
     }
 
     /// Whether the block step at `p` emits text with no scope of its own: a

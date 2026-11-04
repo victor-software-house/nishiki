@@ -92,8 +92,8 @@ pub(crate) fn lex_until(
     cx: &mut crate::language::Context<'_>,
     line: crate::language::Line<'_>,
     state: u32,
-    end: crate::language::Halt,
-    after: Option<crate::language::Halt>,
+    end: &dyn crate::language::Halt,
+    after: Option<&dyn crate::language::Halt>,
 ) -> (Finished, Option<usize>) {
     if line.text.len() <= line.start {
         return (Finished::unspent(state), None);
@@ -103,10 +103,11 @@ pub(crate) fn lex_until(
         start: line.start,
         anchored: line.embedded,
     };
+    let halts = (end, after);
     let (parts, scratch) = cx.parts();
     let scratch = &mut scratch.shell;
     let (finished, halt) = engine::Lexer::new(parts, text, state, scratch)
-        .halting(end, after)
+        .halting(&halts)
         .run_halting(scratch);
     (finished, halt)
 }

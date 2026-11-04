@@ -71,14 +71,15 @@ pub(crate) fn lex_until(
     cx: &mut Context<'_>,
     line: Line<'_>,
     state: u32,
-    end: Halt,
-    after: Option<Halt>,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
 ) -> (Finished, Option<usize>) {
     if line.text.len() <= line.start {
         return (Finished::unspent(state), None);
     }
+    let halts = (end, after);
     let (finished, halt) = engine::Lexer::new(cx, line, state)
-        .halting(end, after)
+        .halting(&halts)
         .run_halting();
     (finished, halt)
 }

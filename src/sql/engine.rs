@@ -10,7 +10,7 @@ use std::cell::Cell;
 use super::rules::{Pat, patterns};
 use super::scope::S;
 use super::state::Rule;
-use crate::language::Halt;
+use crate::language::{Halts, NO_HALTS};
 use crate::rules::{self, Act, Captures, Grammar, ScopeName};
 use crate::utf8::{char_len, is_continuation};
 
@@ -205,12 +205,9 @@ impl Grammar for Sql {
 
     /// The first match from the position: see `search`.
     fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
-        match lexer.root_halt() {
-            Some(halt) => {
-                let after = lexer.root_after();
-                lexer.search::<true>(halt, after)
-            }
-            None => lexer.search::<false>(|_, _| false, None),
+        match lexer.root_halts() {
+            Some(halts) => lexer.search::<true>(halts),
+            None => lexer.search::<false>(&NO_HALTS),
         }
     }
 
@@ -234,11 +231,7 @@ impl Lexer<'_> {
     /// `halt` holds before the patterns at a place or `after` holds once they
     /// fail there; only the root is open then. Without it the tests compile
     /// out, so SQL that nothing embeds pays nothing for them.
-    fn search<const HALTING: bool>(
-        &mut self,
-        halt: Halt,
-        after: Option<Halt>,
-    ) -> Option<(usize, Pat, usize)> {
+    fn search<const HALTING: bool>(&mut self, halts: &Halts<'_>) -> Option<(usize, Pat, usize)> {
         let rule = self.top_rule();
         let end = self.lim() + usize::from(self.nl);
         let mut p = self.pos;
@@ -248,7 +241,7 @@ impl Lexer<'_> {
                 return None;
             }
             p = if HALTING {
-                self.root_skip::<true>(p, halt, after)
+                self.root_skip::<true>(p, halts)
             } else {
                 self.skip_to(rule, p)
             };
@@ -256,7 +249,7 @@ impl Lexer<'_> {
                 break;
             }
             let boundary = p >= self.lim() || !is_continuation(self.s[p]);
-            if HALTING && boundary && halt(self.s, p) {
+            if HALTING && boundary && halts.0.holds(self.s, p) {
                 self.halt_here(p);
                 return None;
             }
@@ -275,7 +268,7 @@ impl Lexer<'_> {
                 }
                 return Some((self.x.start, pat, hit_end));
             }
-            if HALTING && boundary && after.is_some_and(|after| after(self.s, p)) {
+            if HALTING && boundary && halts.1.is_some_and(|after| after.holds(self.s, p)) {
                 self.halt_here(p);
                 return None;
             }

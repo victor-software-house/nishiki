@@ -17,7 +17,7 @@ use super::rules::{Pat, patterns};
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Halt, Line};
+use crate::language::{Context, Halts, Line};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::utf8::char_len;
 use crate::{Stack, Token, typescript};
@@ -131,7 +131,7 @@ pub(super) struct Lexer<'a> {
     /// Where the language that embeds GraphQL takes the text back, while
     /// only the root is open: before GraphQL's patterns at a place, and
     /// after they fail there (see [`Halt`]).
-    halts: Option<(Halt, Option<Halt>)>,
+    halts: Option<&'a Halts<'a>>,
     /// Where the line halted.
     halted: Cell<Option<usize>>,
 }
@@ -200,8 +200,8 @@ impl<'a> Lexer<'a> {
     /// Ends the line at the first place where `end` holds before GraphQL's
     /// patterns, or `after` holds once they fail, while only the root is
     /// open.
-    pub(super) fn halting(mut self, end: Halt, after: Option<Halt>) -> Self {
-        self.halts = Some((end, after));
+    pub(super) fn halting(mut self, halts: &'a Halts<'a>) -> Self {
+        self.halts = Some(halts);
         self
     }
 
@@ -217,7 +217,7 @@ impl<'a> Lexer<'a> {
     /// The halts a scan tests at each place: the line's, while only the root
     /// is open, and `None` otherwise. A scan does not open or close rules,
     /// so it asks once.
-    fn root_halts(&self) -> Option<(Halt, Option<Halt>)> {
+    fn root_halts(&self) -> Option<&'a Halts<'a>> {
         self.halts.filter(|_| self.frames.len() == 1)
     }
 
@@ -356,8 +356,8 @@ impl<'a> Lexer<'a> {
                 return None;
             }
             if p >= self.lim || self.s[p] & 0xc0 != 0x80 {
-                if let Some((halt, _)) = halts
-                    && halt(self.s, p)
+                if let Some(&(halt, _)) = halts
+                    && halt.holds(self.s, p)
                 {
                     self.halted.set(Some(p));
                     return None;
@@ -373,8 +373,8 @@ impl<'a> Lexer<'a> {
                 if end_last && let Some(hit) = self.end_at(rule, p) {
                     return Some(Found::End(hit));
                 }
-                if let Some((_, Some(after))) = halts
-                    && after(self.s, p)
+                if let Some(&(_, Some(after))) = halts
+                    && after.holds(self.s, p)
                 {
                     self.halted.set(Some(p));
                     return None;
@@ -415,7 +415,7 @@ impl<'a> Lexer<'a> {
             typescript::Dialect::JavaScript,
             line,
             js,
-            closing_brace,
+            &closing_brace,
             None,
         );
         let next = self.steps.take_back(next);

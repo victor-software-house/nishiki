@@ -1066,7 +1066,11 @@ mod halts {
     /// Each line of `lines`, lexed in turn by the Rust test grammar as an
     /// embedded language that halts where `end` or `after` say: where it
     /// halted, and the ends of its tokens.
-    fn halting(lines: &[&str], end: Halt, after: Option<Halt>) -> Vec<(Option<usize>, Vec<usize>)> {
+    fn halting(
+        lines: &[&str],
+        end: &dyn Halt,
+        after: Option<&dyn Halt>,
+    ) -> Vec<(Option<usize>, Vec<usize>)> {
         let grammar = &rust_tables::GRAMMAR;
         let mut arena = Arena::new(None);
         let mut scratch = Scratch::default();
@@ -1098,7 +1102,11 @@ mod halts {
     }
 
     /// One line, lexed as [`halting`] lexes each.
-    fn halting_one(line: &str, end: Halt, after: Option<Halt>) -> (Option<usize>, Vec<usize>) {
+    fn halting_one(
+        line: &str,
+        end: &dyn Halt,
+        after: Option<&dyn Halt>,
+    ) -> (Option<usize>, Vec<usize>) {
         halting(&[line], end, after)
             .into_iter()
             .next()
@@ -1107,7 +1115,7 @@ mod halts {
 
     #[test]
     fn an_end_halt_takes_the_line_back_at_the_root() {
-        let (halted, ends) = halting_one("let x = 1 %> rest", at_erb_close, None);
+        let (halted, ends) = halting_one("let x = 1 %> rest", &at_erb_close, None);
         assert_eq!(halted, Some(10));
         assert_eq!(ends.last(), Some(&10), "{ends:?}");
     }
@@ -1117,7 +1125,7 @@ mod halts {
     /// starts earlier keeps its token.
     #[test]
     fn an_end_halt_beats_a_match_at_its_place_but_not_an_earlier_one() {
-        let (halted, ends) = halting_one("x%>", at_erb_close, None);
+        let (halted, ends) = halting_one("x%>", &at_erb_close, None);
         assert_eq!(halted, Some(1));
         assert_eq!(ends, [1]);
     }
@@ -1125,13 +1133,13 @@ mod halts {
     #[test]
     fn an_end_halt_waits_while_a_rule_is_open() {
         let line = r#"let s = "a %> b"; %>"#;
-        let (halted, _) = halting_one(line, at_erb_close, None);
+        let (halted, _) = halting_one(line, &at_erb_close, None);
         assert_eq!(halted, line.rfind("%>"));
     }
 
     #[test]
     fn a_halt_holds_at_the_lines_start() {
-        let (halted, ends) = halting_one("%> x", at_erb_close, None);
+        let (halted, ends) = halting_one("%> x", &at_erb_close, None);
         assert_eq!(halted, Some(0));
         assert!(ends.is_empty(), "{ends:?}");
     }
@@ -1139,9 +1147,9 @@ mod halts {
     #[test]
     fn an_after_halt_holds_only_where_no_pattern_matches() {
         let line = "let a = 1 ` b";
-        let (halted, _) = halting_one(line, never, Some(at_backtick));
+        let (halted, _) = halting_one(line, &never, Some(&at_backtick));
         assert_eq!(halted, line.find('`'));
-        let (halted, _) = halting_one("a = b", never, Some(at_equals));
+        let (halted, _) = halting_one("a = b", &never, Some(&at_equals));
         assert_eq!(halted, None);
     }
 
@@ -1150,7 +1158,7 @@ mod halts {
     #[test]
     fn the_state_carries_across_lines() {
         let lines = ["/* open %>", "still %> */ x %>", "let y = 2;"];
-        let halts: Vec<Option<usize>> = halting(&lines, at_erb_close, None)
+        let halts: Vec<Option<usize>> = halting(&lines, &at_erb_close, None)
             .into_iter()
             .map(|(halted, _)| halted)
             .collect();
@@ -1183,7 +1191,7 @@ mod halts {
             start: 0,
             embedded: false,
         };
-        let (finished, _) = crate::textmate::lex_until(&mut cx, grammar, text, state, never, None);
+        let (finished, _) = crate::textmate::lex_until(&mut cx, grammar, text, state, &never, None);
         steps.take_back(finished);
         (
             steps.into_spent(),

@@ -166,7 +166,7 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     }
     /// The first pattern of the innermost rule that matches at or after the
     /// cursor, with where its match starts and ends. At the first place where
-    /// [`Lexer::root_halt`] holds it calls [`Lexer::halt_here`] and returns
+    /// [`Lexer::root_halts`] holds it calls [`Lexer::halt_here`] and returns
     /// `None`. A language that keeps the candidate tables of [`Tabled`] calls
     /// [`table_scan`].
     fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, Self::Pat, usize)>;
@@ -249,8 +249,8 @@ pub(crate) fn lex_until<G: Grammar>(
     line: Line<'_>,
     state: u32,
     scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
-    end: Halt,
-    after: Option<Halt>,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
 ) -> (Finished, Option<usize>) {
     if line.text.len() <= line.start {
         return (Finished::unspent(state), None);
@@ -260,10 +260,10 @@ pub(crate) fn lex_until<G: Grammar>(
         start: line.start,
         anchored: line.embedded,
     };
+    let halts = (end, after);
     let (parts, buffers) = cx.parts();
     let (finished, halt) = Lexer::new(parts, text, state, scratch(buffers))
-        .halting_at(end)
-        .halting_after(after)
+        .halting(&halts)
         .run_halting();
     (finished, halt)
 }
@@ -281,8 +281,8 @@ pub(crate) fn lex_embedding<G: Grammar>(
     line: Line<'_>,
     state: u32,
     scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
-    end: Halt,
-    after: Option<Halt>,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
 ) -> Finished {
     if line.text.is_empty() {
         return Finished::unspent(state);
@@ -312,7 +312,7 @@ fn hand_over<G: Grammar>(
     cx: &mut Context<'_>,
     line: Line<'_>,
     scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
-    (end, after): (Halt, Option<Halt>),
+    (end, after): (&dyn Halt, Option<&dyn Halt>),
     first: Finished,
     mut embedding: Embedding,
 ) -> Finished {

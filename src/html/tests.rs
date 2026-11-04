@@ -183,7 +183,7 @@ fn ruby_halts(lines: &[&str]) -> Vec<Option<usize>> {
 }
 
 /// Where each line halts under `end` and `after`.
-fn halts(lines: &[&str], end: Halt, after: Option<Halt>) -> Vec<Option<usize>> {
+fn halts(lines: &[&str], end: &dyn Halt, after: Option<&dyn Halt>) -> Vec<Option<usize>> {
     test_support::lex_embedded(EMBEDDED, &RUBY_HEREDOC, lines, Some((end, after)))
         .into_iter()
         .map(|(halt, _)| halt)
@@ -228,8 +228,8 @@ fn an_html_end_halt_beats_a_tag_at_its_place_and_holds_at_the_end() {
     fn at_end(bytes: &[u8], p: usize) -> bool {
         p == bytes.len()
     }
-    assert_eq!(halts(&["x <b>y"], at_lt, None), [Some(2)]);
-    assert_eq!(halts(&["x <b>y</b>"], at_end, None), [Some(10)]);
+    assert_eq!(halts(&["x <b>y"], &at_lt, None), [Some(2)]);
+    assert_eq!(halts(&["x <b>y</b>"], &at_end, None), [Some(10)]);
 }
 
 /// `after` is tried only where no root pattern matches: not at a tag's `<`,
@@ -239,7 +239,7 @@ fn an_html_after_halt_yields_to_a_root_match_at_its_place() {
     fn never(_: &[u8], _: usize) -> bool {
         false
     }
-    assert_eq!(halts(&["x <b>y</b> < z"], never, Some(at_lt)), [Some(11)]);
+    assert_eq!(halts(&["x <b>y</b> < z"], &never, Some(&at_lt)), [Some(11)]);
 }
 
 /// Asserts each case's scopes below the root, Shiki's answer for its token

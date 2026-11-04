@@ -15,7 +15,7 @@ use std::cell::Cell;
 use super::lists::{EOT, P, Table, blank_run_live, kind};
 use super::scope::S;
 use super::state::R;
-use crate::language::Halt;
+use crate::language::{Halts, NO_HALTS};
 use crate::rules::{self, Act, Captures, Grammar, ScopeName};
 
 /// The C lexer for one line.
@@ -223,12 +223,9 @@ impl Lexer<'_> {
     /// The first match from the cursor on: see `find_from`. A language that
     /// embeds C has the search test its halts while only the root is open.
     pub(super) fn find(&mut self) -> Option<(usize, P, usize)> {
-        match self.root_halt() {
-            Some(halt) => {
-                let after = self.root_after();
-                self.find_from::<true>(halt, after)
-            }
-            None => self.find_from::<false>(|_, _| false, None),
+        match self.root_halts() {
+            Some(halts) => self.find_from::<true>(halts),
+            None => self.find_from::<false>(&NO_HALTS),
         }
     }
 
@@ -240,8 +237,8 @@ impl Lexer<'_> {
     /// It is `None` when nothing matches or when the work runs out.
     /// When `HALTING`, it is also `None` where a language that embeds C takes
     /// the text back.
-    /// That language takes it back where `halt` holds before the patterns at
-    /// a place, or where `after` holds once they fail there.
+    /// That language takes it back where the first of `halts` holds before
+    /// the patterns at a place, or where the second holds once they fail there.
     /// Without `HALTING` the tests compile out.
     ///
     /// A begin of a rule the depth limit keeps closed is tried only to record
@@ -256,11 +253,7 @@ impl Lexer<'_> {
     /// It calls the matchers itself, not through the engine's `try_pat`.
     /// C's matchers read no capture groups.
     /// A try then clears only the spans the last one left.
-    fn find_from<const HALTING: bool>(
-        &mut self,
-        halt: Halt,
-        after: Option<Halt>,
-    ) -> Option<(usize, P, usize)> {
+    fn find_from<const HALTING: bool>(&mut self, halts: &Halts<'_>) -> Option<(usize, P, usize)> {
         self.fresh();
         let rule = self.top_rule();
         let table = Table::of(rule)?;
@@ -278,7 +271,7 @@ impl Lexer<'_> {
             if self.over_budget() {
                 return None;
             }
-            if HALTING && halt(self.s, p) {
+            if HALTING && halts.0.holds(self.s, p) {
                 self.halt_here(p);
                 return None;
             }
@@ -336,7 +329,7 @@ impl Lexer<'_> {
                 }
                 return Some((self.x.start, pat, self.x.end));
             }
-            if HALTING && after.is_some_and(|after| after(self.s, p)) {
+            if HALTING && halts.1.is_some_and(|after| after.holds(self.s, p)) {
                 self.halt_here(p);
                 return None;
             }

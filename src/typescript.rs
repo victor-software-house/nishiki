@@ -188,7 +188,7 @@ fn line(
     line: &str,
     from: usize,
     state: u32,
-    halts: Option<Halts>,
+    halts: Option<Halts<'_>>,
 ) -> (Finished, Option<usize>) {
     if line.len() <= from {
         return (Finished::unspent(state), None);
@@ -212,7 +212,7 @@ fn run<const D: u8>(
     line: &str,
     from: usize,
     state: u32,
-    halts: Option<Halts>,
+    halts: Option<Halts<'_>>,
 ) -> (Finished, Option<usize>) {
     let mut lexer = lexer::Lexer::<D>::new(cx, line, from, state, halts);
     lexer.run();
@@ -276,8 +276,8 @@ pub(crate) fn lex_until(
     dialect: Dialect,
     line: crate::language::Line<'_>,
     state: u32,
-    end: Halt,
-    after: Option<Halt>,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
 ) -> (Finished, Option<usize>) {
     let halts = Halts { end, after };
     self::line(cx, dialect, line.text, line.start, state, Some(halts))

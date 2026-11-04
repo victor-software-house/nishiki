@@ -70,8 +70,8 @@ pub(crate) fn lex_until(
     grammar: &'static Grammar,
     line: Line<'_>,
     state: u32,
-    end: Halt,
-    after: Option<Halt>,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
 ) -> (Finished, Option<usize>) {
     let (next, halted) = tokenizer::line_until(
         &mut cx.scratch.textmate,

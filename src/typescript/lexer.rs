@@ -50,7 +50,7 @@ pub(crate) struct Lexer<'a, const D: u8> {
     stuck: bool,
     /// Where the language that embeds this one takes the line back, if it
     /// does.
-    pub(crate) halts: Option<Halts>,
+    pub(crate) halts: Option<Halts<'a>>,
     /// Where `halts` stopped the line.
     halt: Option<usize>,
     /// Set when a context was refused for depth; recorded at the line's end.
@@ -73,9 +73,9 @@ pub(crate) struct Lexer<'a, const D: u8> {
 /// before this grammar's rules and `after` where none matches (see
 /// [`lex_until`](super::lex_until)).
 #[derive(Clone, Copy)]
-pub(crate) struct Halts {
-    pub(crate) end: Halt,
-    pub(crate) after: Option<Halt>,
+pub(crate) struct Halts<'a> {
+    pub(crate) end: &'a dyn Halt,
+    pub(crate) after: Option<&'a dyn Halt>,
 }
 
 /// A context opened on the current line, which `TextMate` remembers to
@@ -119,7 +119,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
         src: &'a str,
         from: usize,
         state: u32,
-        halts: Option<Halts>,
+        halts: Option<Halts<'a>>,
     ) -> Self {
         let frame = cx.arena.frame(state);
         let limits = cx.limits;
@@ -269,13 +269,13 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// Stops the line at `p` when `test`, one of the embedding language's,
     /// holds there while no context of the code is open beyond the one the
     /// embedding started.
-    pub(crate) fn halt_if(&mut self, p: usize, test: Option<Halt>) -> bool {
+    pub(crate) fn halt_if(&mut self, p: usize, test: Option<&dyn Halt>) -> bool {
         let Some(test) = test else {
             return false;
         };
         if p > self.len
             || !matches!(self.top(), Kind::Top | Kind::Started | Kind::Script)
-            || !test(self.bytes, p)
+            || !test.holds(self.bytes, p)
         {
             return false;
         }

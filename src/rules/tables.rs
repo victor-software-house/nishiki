@@ -128,9 +128,8 @@ fn candidate_lists(starts: &[Start]) -> (Vec<usize>, Vec<(usize, usize)>) {
 ///
 /// The text a pattern sees ends after the line feed, where `$` and
 /// lookaheads can still match, and the search stops at a halt
-/// ([`Lexer::root_halt`]), to which a match starting there would lose, or
-/// where no pattern matches and the halt after them holds
-/// ([`Lexer::root_after`]). A
+/// ([`Lexer::root_halts`]), to which a match starting there would lose, or
+/// where no pattern matches and the halt after them holds. A
 /// begin pattern of a rule the depth limit keeps closed is tried only to
 /// record the limit, and its text stays plain.
 /// A pattern that fails at a blank fails at the blanks after it, since the
@@ -138,22 +137,20 @@ fn candidate_lists(starts: &[Start]) -> (Vec<usize>, Vec<(usize, usize)>) {
 /// boundary holds between two of them; so the search skips a run of blanks
 /// at once.
 pub(crate) fn table_scan<G: Tabled>(lexer: &mut Lexer<'_, G>) -> Option<(usize, G::Pat, usize)> {
-    match lexer.root_halt() {
-        Some(halt) => {
-            let after = lexer.root_after();
-            scan::<G, true>(lexer, halt, after)
-        }
-        None => scan::<G, false>(lexer, |_, _| false, None),
+    match lexer.root_halts() {
+        Some(&(end, after)) => scan::<G, true>(lexer, end, after),
+        None => scan::<G, false>(lexer, &|_: &[u8], _: usize| false, None),
     }
 }
 
-/// [`table_scan`], with the halt tests compiled in only when `HALTING`, so a
-/// grammar that no other embeds pays nothing for them: `halt` before the
-/// patterns at each place, and `after` where none of them matched.
+/// [`table_scan`], with the halt tests compiled in only when `HALTING`.
+/// A line that no other language embeds pays nothing for them.
+/// `end` is tested before the patterns at each place.
+/// `after` is tested where none of them matched.
 fn scan<G: Tabled, const HALTING: bool>(
     lexer: &mut Lexer<'_, G>,
-    halt: Halt,
-    after: Option<Halt>,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
 ) -> Option<(usize, G::Pat, usize)> {
     let tables = G::tables(lexer.top_rule());
     let full = lexer.at_depth_limit();
@@ -166,7 +163,7 @@ fn scan<G: Tabled, const HALTING: bool>(
         if p > lim + nl {
             break None;
         }
-        if HALTING && halt(s, p) {
+        if HALTING && end.holds(s, p) {
             lexer.halt_here(p);
             break None;
         }
@@ -211,7 +208,7 @@ fn scan<G: Tabled, const HALTING: bool>(
         if hit.is_some() {
             break hit;
         }
-        if HALTING && after.is_some_and(|after| after(s, p)) {
+        if HALTING && after.is_some_and(|after| after.holds(s, p)) {
             lexer.halt_here(p);
             break None;
         }

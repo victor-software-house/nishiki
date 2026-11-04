@@ -625,8 +625,8 @@ fn until(
     base: &[&str],
     start: fn(&mut Arena, u32) -> u32,
     lines: &[&str],
-    end: Halt,
-    after: Option<Halt>,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
 ) -> Vec<(Option<usize>, Row)> {
     use crate::language::{Context, Line};
     use crate::scratch::Scratch;
@@ -694,7 +694,7 @@ fn closing_brace(bytes: &[u8], p: usize) -> bool {
 
 /// Where each line of an interpolation halts.
 fn interpolation(lines: &[&str]) -> Vec<Option<usize>> {
-    until(&[], super::start_embedded, lines, closing_brace, None)
+    until(&[], super::start_embedded, lines, &closing_brace, None)
         .into_iter()
         .map(|(halt, _)| halt)
         .collect()
@@ -737,7 +737,7 @@ fn script(lines: &[&str]) -> Vec<(Option<usize>, Row)> {
         &["text.html.basic", "meta.embedded.block.html"],
         super::start_script,
         lines,
-        script_close,
+        &script_close,
         None,
     )
 }
@@ -828,7 +828,7 @@ fn an_embedding_end_halts_where_a_rule_of_the_root_would_start() {
     }
     // The name `abc` is one match, which covers its `c`; the `c` in the
     // call's parentheses is inside a context.
-    let rows = until(&[], super::start_embedded, &["abc + f(c) c"], at_c, None);
+    let rows = until(&[], super::start_embedded, &["abc + f(c) c"], &at_c, None);
     assert_eq!(rows[0].0, Some(11));
 }
 
@@ -842,8 +842,8 @@ fn an_embedding_after_halts_only_where_no_rule_matches() {
         &[],
         super::start_embedded,
         &["1 + \\ 2"],
-        |_, _| false,
-        Some(digit_or_backslash),
+        &|_: &[u8], _: usize| false,
+        Some(&digit_or_backslash),
     );
     assert_eq!(rows[0].0, Some(4));
 }

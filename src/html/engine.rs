@@ -137,7 +137,7 @@ pub(super) enum Document {
 /// Where HTML, lexed inside a rule of another grammar that includes the
 /// grammar's root patterns, gives the line back to that rule.
 #[derive(Clone, Copy, Debug)]
-pub(crate) enum GiveBack {
+pub(crate) enum GiveBack<'a> {
     /// Back at the root after one root-level construct, because the
     /// rule's own patterns compete at every position: a Markdown paragraph
     /// or heading.
@@ -150,7 +150,7 @@ pub(crate) enum GiveBack {
     /// or `after` holds where none of them matches: the embedding rule's
     /// patterns listed before and after the grammar (see [`Halt`]), such as
     /// the interpolation and escapes of a Ruby here document.
-    Halts { end: Halt, after: Option<Halt> },
+    Halts(&'a crate::language::Halts<'a>),
 }
 
 /// A match: the bytes `start..end`, and the positions and bits that the
@@ -259,7 +259,7 @@ pub(super) struct Lexer<'a> {
     next_erb: Cell<(usize, Option<usize>)>,
     /// Where the line goes back to the grammar that includes this one; none
     /// for a document or a body that takes whole lines.
-    pub(super) give_back: Option<GiveBack>,
+    pub(super) give_back: Option<GiveBack<'a>>,
     /// Whether a match has been applied on this line.
     applied: bool,
     /// Where the line went back to the including grammar.
@@ -648,7 +648,7 @@ impl<'a> Lexer<'a> {
         match give_back {
             GiveBack::AtRoot => None,
             GiveBack::AfterTag => self.after_tag(found),
-            GiveBack::Halts { end, after } => self.halt_before(found, end, after),
+            GiveBack::Halts(&(end, after)) => self.halt_before(found, end, after),
         }
     }
 
@@ -665,7 +665,12 @@ impl<'a> Lexer<'a> {
 
     /// Where [`GiveBack::Halts`] takes the line back before `found`, the root's
     /// next match (see [`crate::language::halt_before`]).
-    fn halt_before(&self, found: Option<&Hit>, end: Halt, after: Option<Halt>) -> Option<usize> {
+    fn halt_before(
+        &self,
+        found: Option<&Hit>,
+        end: &dyn Halt,
+        after: Option<&dyn Halt>,
+    ) -> Option<usize> {
         if self.over_budget() {
             return None;
         }
@@ -756,27 +761,14 @@ impl<'a> Lexer<'a> {
             start: pos,
             embedded: false,
         };
-        let (next, halt) = match (css, self.document) {
-            (true, Document::Html | Document::Derivative) => {
-                crate::css::lex_until(&mut cx, line, inner, style_end, None)
-            }
-            (true, Document::Erb) => {
-                crate::css::lex_until(&mut cx, line, inner, style_end_or_erb, None)
-            }
-            (false, document) => {
-                let after: Option<crate::language::Halt> = match document {
-                    Document::Html | Document::Derivative => None,
-                    Document::Erb => Some(erb::begins),
-                };
-                crate::typescript::lex_until(
-                    &mut cx,
-                    crate::typescript::Dialect::JavaScript,
-                    line,
-                    inner,
-                    script_end,
-                    after,
-                )
-            }
+        let in_erb = match self.document {
+            Document::Html | Document::Derivative => false,
+            Document::Erb => true,
+        };
+        let (next, halt) = if css {
+            Self::lex_style(&mut cx, line, inner, in_erb)
+        } else {
+            Self::lex_script(&mut cx, line, inner, in_erb)
         };
         let next = self.steps.take_back(next);
         self.advance_to(pos, halt);
@@ -819,6 +811,54 @@ impl<'a> Lexer<'a> {
         self.frames[last].state = state;
     }
 
+    /// Lexes CSS up to `</style>`, and in an ERB document up to ERB code too.
+    /// It stays out of line, so `tokenize` never builds the `&dyn Halt` it
+    /// passes. Inlined, that value cost every HTML line a store.
+    #[cold]
+    #[inline(never)]
+    fn lex_style(
+        cx: &mut Context<'_>,
+        line: Line<'_>,
+        state: u32,
+        in_erb: bool,
+    ) -> (Finished, Option<usize>) {
+        if in_erb {
+            crate::css::lex_until(cx, line, state, &style_end_or_erb, None)
+        } else {
+            crate::css::lex_until(cx, line, state, &style_end, None)
+        }
+    }
+
+    /// Lexes JavaScript up to `</script>`.
+    /// In an ERB document it also stops where ERB code begins.
+    /// It stays out of line, as [`Lexer::lex_style`] does.
+    #[cold]
+    #[inline(never)]
+    fn lex_script(
+        cx: &mut Context<'_>,
+        line: Line<'_>,
+        state: u32,
+        in_erb: bool,
+    ) -> (Finished, Option<usize>) {
+        let after: Option<&dyn Halt> = if in_erb { Some(&erb::begins) } else { None };
+        crate::typescript::lex_until(
+            cx,
+            crate::typescript::Dialect::JavaScript,
+            line,
+            state,
+            &script_end,
+            after,
+        )
+    }
+
+    /// Lexes the Ruby of ERB code up to the code's end.
+    /// It stays out of line, as [`Lexer::lex_style`] does.
+    #[cold]
+    #[inline(never)]
+    fn lex_erb_ruby(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> (Finished, Option<usize>) {
+        erb::lex_ruby(cx, line, state, &erb::ruby_halt)
+    }
+
     /// The Ruby of ERB code: the rest of the line up to the code's end, or up
     /// to the comment pattern that the code tries before Ruby's patterns,
     /// both of which halt the Ruby lexer.
@@ -846,7 +886,7 @@ impl<'a> Lexer<'a> {
             start: pos,
             embedded: false,
         };
-        let (next, halt) = erb::lex_ruby(&mut cx, line, inner, erb::ruby_halt);
+        let (next, halt) = Self::lex_erb_ruby(&mut cx, line, inner);
         let next = self.steps.take_back(next);
         self.advance_to(pos, halt);
         let text = &self.s[..self.lim];

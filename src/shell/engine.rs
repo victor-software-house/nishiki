@@ -15,7 +15,7 @@ use super::rules::{Act, Pat, rule_info};
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
-use crate::language::{Halt, Parts};
+use crate::language::{Halt, Halts, Parts};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::utf8::char_len;
 use crate::{Stack, Token};
@@ -290,7 +290,7 @@ pub(crate) struct Lexer<'a> {
     /// Where the language that embeds shell takes the text back, while only
     /// the root is open: before shell's patterns at a place, and after they
     /// fail there (see [`Halt`]).
-    halts: Option<(Halt, Option<Halt>)>,
+    halts: Option<&'a Halts<'a>>,
     /// Where the line halted.
     halted: Option<usize>,
 }
@@ -409,15 +409,15 @@ impl<'a> Lexer<'a> {
 
     /// Ends the line at the first place where `end` holds before shell's
     /// patterns, or `after` holds once they fail, while only the root is open.
-    pub(crate) fn halting(mut self, end: Halt, after: Option<Halt>) -> Self {
-        self.halts = Some((end, after));
+    pub(crate) fn halting(mut self, halts: &'a Halts<'a>) -> Self {
+        self.halts = Some(halts);
         self
     }
 
     /// The halts a scan tests at each place: the line's, while only the root
     /// is open, and `None` otherwise. A scan does not open or close rules,
     /// so it asks once.
-    fn root_halts(&self) -> Option<(Halt, Option<Halt>)> {
+    fn root_halts(&self) -> Option<&'a Halts<'a>> {
         self.halts.filter(|_| self.frames.len() == 1)
     }
 
@@ -1063,8 +1063,8 @@ impl<'a> Lexer<'a> {
     fn scan(&mut self) -> Option<(usize, Pat, usize)> {
         let mut visited = 0;
         let found = match self.root_halts() {
-            Some((halt, after)) => self.scan_positions::<true>(&mut visited, halt, after),
-            None => self.scan_positions::<false>(&mut visited, |_, _| false, None),
+            Some(&(halt, after)) => self.scan_positions::<true>(&mut visited, halt, after),
+            None => self.scan_positions::<false>(&mut visited, &|_: &[u8], _: usize| false, None),
         };
         self.spend(visited);
         found
@@ -1088,15 +1088,15 @@ impl<'a> Lexer<'a> {
     fn scan_positions<const HALTING: bool>(
         &mut self,
         visited: &mut usize,
-        halt: Halt,
-        after: Option<Halt>,
+        halt: &dyn Halt,
+        after: Option<&dyn Halt>,
     ) -> Option<(usize, Pat, usize)> {
         let info = rule_info(self.top().rule);
         let full = self.at_depth_limit();
         let mut p = self.pos;
         while p <= self.lim {
             *visited += 1;
-            if HALTING && halt(self.s, p) {
+            if HALTING && halt.holds(self.s, p) {
                 self.halted = Some(p);
                 return None;
             }
@@ -1118,7 +1118,7 @@ impl<'a> Lexer<'a> {
                     return Some((p, pat, end));
                 }
             }
-            if HALTING && after.is_some_and(|after| after(self.s, p)) {
+            if HALTING && after.is_some_and(|after| after.holds(self.s, p)) {
                 self.halted = Some(p);
                 return None;
             }

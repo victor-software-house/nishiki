@@ -194,8 +194,8 @@ macro_rules! languages {
                 cx: &mut Context<'_>,
                 line: Line<'_>,
                 state: u32,
-                end: Halt,
-                after: Option<Halt>,
+                end: &dyn Halt,
+                after: Option<&dyn Halt>,
             ) -> Option<(Finished, Option<usize>)> {
                 match self {
                     $(#[cfg(feature = $feature)] Language::$variant => languages!(@until [$($halts)?] [$($module)?] [$($grammar)?] [$($dialect)?] cx line state end after),)*
@@ -820,7 +820,66 @@ pub(crate) struct Parts<'a> {
 /// match that starts before it still wins and one that starts at it loses.
 /// It never holds at a space or tab, because the rule engine's scan skips
 /// runs of them.
-pub(crate) type Halt = fn(&[u8], usize) -> bool;
+///
+/// Within one call of a lexer's `lex_until`, `s` is the whole line.
+/// It holds the same bytes on every call.
+/// Places count from the line's start.
+/// A halt may keep context, such as the level of a long bracket.
+/// Its answer still depends only on the bytes and the place.
+/// A function `fn(&[u8], usize) -> bool` is a halt without context.
+pub(crate) trait Halt {
+    /// The first character start in `from..=to` where the halt holds.
+    fn first(&self, s: &[u8], from: usize, to: usize) -> Option<usize>;
+
+    /// Whether the halt holds at `p`.
+    fn holds(&self, s: &[u8], p: usize) -> bool {
+        self.first(s, p, p) == Some(p)
+    }
+}
+
+/// The halts of a line that another language embeds.
+/// The first is the embedding rule's end.
+/// A lexer tries it before the embedded patterns at each place.
+/// The second stands for the patterns the embedding rule lists after the
+/// embedded grammar. A lexer tries it where none of the embedded patterns
+/// match. A lexer keeps one reference to the caller's pair.
+pub(crate) type Halts<'a> = (&'a dyn Halt, Option<&'a dyn Halt>);
+
+/// The halts of a scan compiled without halts.
+/// They never hold.
+pub(crate) const NO_HALTS: Halts<'static> = (&never, None);
+
+/// A halt that never holds.
+fn never(_: &[u8], _: usize) -> bool {
+    false
+}
+
+impl std::fmt::Debug for dyn Halt + '_ {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("Halt")
+    }
+}
+
+impl<F: Fn(&[u8], usize) -> bool> Halt for F {
+    fn first(&self, s: &[u8], from: usize, to: usize) -> Option<usize> {
+        let mut p = from;
+        while p <= to {
+            if self(s, p) {
+                return Some(p);
+            }
+            p += 1;
+            while p < to && s.get(p).is_some_and(|&b| b & 0xc0 == 0x80) {
+                p += 1;
+            }
+        }
+        None
+    }
+
+    #[inline]
+    fn holds(&self, s: &[u8], p: usize) -> bool {
+        self(s, p)
+    }
+}
 
 /// The first character start of `s` from `from` where a language that
 /// embeds another takes the line back before the embedded language's next
@@ -839,23 +898,26 @@ pub(crate) fn halt_before(
     from: usize,
     to: usize,
     lim: usize,
-    end: Halt,
-    after: Option<Halt>,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
 ) -> (Option<usize>, usize) {
-    let mut p = from;
-    let halted = loop {
-        if p > to {
-            break None;
-        }
-        if end(s, p) || (p < to && after.is_some_and(|after| after(s, p))) {
-            break Some(p);
-        }
-        if p >= lim {
-            break None;
-        }
-        p += crate::utf8::char_len(s[p]);
+    if from > to {
+        return (None, 0);
+    }
+    let at_end = end.first(s, from, to);
+    let at_after = after
+        .and_then(|after| after.first(s, from, at_end.unwrap_or(to)))
+        .filter(|&p| p < to);
+    let halted = match (at_end, at_after) {
+        (Some(a), Some(b)) => Some(a.min(b)),
+        (one, None) | (None, one) => one,
     };
-    (halted, p.saturating_sub(from))
+    let passed = match halted {
+        Some(p) => p,
+        None if to < lim => to + crate::utf8::char_len(s[to]),
+        None => lim,
+    };
+    (halted, passed - from)
 }
 
 /// The line a lexer reads: all of it, and the byte where its own text starts,
@@ -899,5 +961,50 @@ impl Context<'_> {
             }
         }
         next
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::Halt;
+
+    /// A halt with context.
+    /// It finds the close of a long bracket with `level` `=` signs, as Lua's
+    /// `]==]` is.
+    struct Close {
+        level: usize,
+    }
+
+    impl Halt for Close {
+        fn first(&self, s: &[u8], from: usize, to: usize) -> Option<usize> {
+            (from..=to).find(|&p| {
+                s.get(p) == Some(&b']')
+                    && s.get(p + 1..p + 1 + self.level)
+                        .is_some_and(|run| run.iter().all(|&b| b == b'='))
+                    && s.get(p + 1 + self.level) == Some(&b']')
+            })
+        }
+    }
+
+    /// A halt without context.
+    /// It holds at a `<`.
+    fn at_lt(s: &[u8], p: usize) -> bool {
+        s.get(p) == Some(&b'<')
+    }
+
+    /// Where `halt` first holds in `s`.
+    /// Both kinds of halt pass through this one `&dyn Halt` parameter.
+    fn first_of(halt: &dyn Halt, s: &[u8]) -> Option<usize> {
+        halt.first(s, 0, s.len())
+    }
+
+    #[test]
+    fn a_function_and_a_halt_with_context_pass_as_one_type() {
+        let s = b"a[b[1]] < ]=] ]]";
+        assert_eq!(first_of(&at_lt, s), Some(8));
+        assert_eq!(first_of(&Close { level: 1 }, s), Some(10));
+        assert_eq!(first_of(&Close { level: 0 }, s), Some(5));
+        assert!(Close { level: 1 }.holds(s, 10));
+        assert!(!at_lt.holds(s, 0));
     }
 }

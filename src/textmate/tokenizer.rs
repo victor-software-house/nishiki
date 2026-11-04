@@ -101,12 +101,12 @@ impl Halting for Whole {
 /// root rule open, tried before the root's patterns, or where `after` holds
 /// and none of them match (see [`Halt`]).
 #[derive(Clone, Copy, Debug)]
-pub(crate) struct Embedded {
-    pub(crate) end: Halt,
-    pub(crate) after: Option<Halt>,
+pub(crate) struct Embedded<'a> {
+    pub(crate) end: &'a dyn Halt,
+    pub(crate) after: Option<&'a dyn Halt>,
 }
 
-impl Halting for Embedded {
+impl Halting for Embedded<'_> {
     const HALTS: bool = true;
 
     #[inline]

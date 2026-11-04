@@ -44,8 +44,8 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished 
         line,
         state,
         |scratch| &mut scratch.ruby,
-        interpolation,
-        Some(escape),
+        &interpolation,
+        Some(&escape),
     )
 }
 
@@ -86,7 +86,7 @@ pub(crate) fn lex_until(
     cx: &mut Context<'_>,
     line: Line<'_>,
     state: u32,
-    end: crate::language::Halt,
+    end: &dyn crate::language::Halt,
 ) -> (Finished, Option<usize>) {
     rules::lex_until::<Ruby>(cx, line, state, |scratch| &mut scratch.ruby, end, None)
 }

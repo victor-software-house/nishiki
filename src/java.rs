@@ -46,7 +46,7 @@ pub(crate) fn lex_until(
     cx: &mut Context<'_>,
     line: Line<'_>,
     state: u32,
-    end: crate::language::Halt,
+    end: &dyn crate::language::Halt,
 ) -> (Finished, Option<usize>) {
     rules::lex_until::<Java>(cx, line, state, |scratch| &mut scratch.java, end, None)
 }

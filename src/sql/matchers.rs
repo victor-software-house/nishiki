@@ -14,7 +14,7 @@ use super::state::Rule;
 use super::words::{FUNCTIONS, GLOBALS, KEYWORDS};
 use crate::case_fold;
 use crate::classes::{digit_width, is_ascii_space, space_width, word_before, word_width};
-use crate::language::Halt;
+use crate::language::{Halts, NO_HALTS};
 use crate::utf8::{char_len, char_start};
 
 /// The length of the longest word of the keyword, function and global
@@ -164,7 +164,7 @@ impl Lexer<'_> {
             Rule::StrBrace | Rule::StrModr => memchr2(b'}', b'#', text),
             Rule::Bracket => memchr2(b'[', b']', text),
             Rule::BlockComment => memchr2(b'/', b'*', text),
-            Rule::Root => return self.root_skip::<false>(p, |_, _| false, None),
+            Rule::Root => return self.root_skip::<false>(p, &NO_HALTS),
             Rule::CommentDash | Rule::CommentHash => return p,
         };
         let skipped = found.unwrap_or(text.len());
@@ -177,16 +177,13 @@ impl Lexer<'_> {
     /// When `HALTING`, for SQL that another language embeds, it also stops
     /// where `halt`, or `after`, holds, so the search asks there; without it
     /// the tests compile out.
-    pub(super) fn root_skip<const HALTING: bool>(
-        &self,
-        mut p: usize,
-        halt: Halt,
-        after: Option<Halt>,
-    ) -> usize {
+    pub(super) fn root_skip<const HALTING: bool>(&self, mut p: usize, halts: &Halts<'_>) -> usize {
         let from = p;
         while p < self.lim()
             && !self.root_start(p)
-            && !(HALTING && (halt(self.s, p) || after.is_some_and(|after| after(self.s, p))))
+            && !(HALTING
+                && (halts.0.holds(self.s, p)
+                    || halts.1.is_some_and(|after| after.holds(self.s, p))))
         {
             p += char_len(self.s[p]);
         }

@@ -52,8 +52,8 @@ pub(crate) fn lex_until(
     cx: &mut Context<'_>,
     line: Line<'_>,
     state: u32,
-    end: Halt,
-    after: Option<Halt>,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
 ) -> (Finished, Option<usize>) {
     rules::lex_until::<Cpp>(cx, line, state, |scratch| &mut scratch.cpp, end, after)
 }

@@ -57,8 +57,8 @@ pub(crate) fn lex_until(
     cx: &mut Context<'_>,
     line: Line<'_>,
     state: u32,
-    end: Halt,
-    after: Option<Halt>,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
 ) -> (Finished, Option<usize>) {
     crate::rules::lex_until::<engine::Sql>(cx, line, state, |scratch| &mut scratch.sql, end, after)
 }

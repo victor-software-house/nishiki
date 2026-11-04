@@ -17,7 +17,7 @@ use std::borrow::Cow;
 use super::Embedding;
 use super::{Act, Captures, DynName, Grammar, NameCase, Payload, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
-use crate::language::{Halt, Parts};
+use crate::language::{Halts, Parts};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::{Language, Stack, Token};
 
@@ -201,11 +201,6 @@ pub(crate) struct Scratch<G: Grammar> {
     pushes: Vec<Option<PushEntry>>,
     /// What the matchers kept from the last line ([`Grammar::Kept`]).
     kept: G::Kept,
-    /// The test for the patterns the embedding rule lists after the grammar,
-    /// for a line that another language embeds (see
-    /// [`Lexer::halting_after`]). Kept here, not in the lexer, so a lexer
-    /// costs a grammar that nothing embeds nothing more.
-    after: Option<Halt>,
 }
 
 impl<G: Grammar> Default for Scratch<G> {
@@ -223,7 +218,6 @@ impl<G: Grammar> Default for Scratch<G> {
             paths: Vec::new(),
             pushes: Vec::new(),
             kept: G::Kept::default(),
-            after: None,
         }
     }
 }
@@ -312,9 +306,10 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     state: u32,
     /// What the language's matchers remember about this line.
     pub(crate) x: G::Extra,
-    /// The end of the rule that embeds the grammar, for a grammar that
-    /// another one embeds (see [`Halt`]).
-    halt: Option<Halt>,
+    /// The halts of a line that another language embeds (see [`Halts`]).
+    /// The field is one reference to the caller's pair.
+    /// It is as wide as the function pointer it replaced.
+    halt: Option<&'a Halts<'a>>,
     /// Where the line halted.
     halted: Option<usize>,
     /// Whether the line runs through [`Lexer::run_embedding`], which hands
@@ -428,21 +423,13 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         }
     }
 
-    /// Ends the line before the first place where `halt` holds that the
-    /// scan reaches while only the root rule is open. The patterns still see
-    /// the whole line, so a lookahead reads past the halt as the grammar's
-    /// does.
-    pub(crate) fn halting_at(mut self, halt: Halt) -> Self {
-        self.halt = Some(halt);
-        self
-    }
-
-    /// Also ends the line at the first place where `after` holds and no
-    /// pattern matches, while only the root rule is open: the embedding
-    /// rule's patterns after the grammar, which a match of the grammar at
-    /// the same place beats.
-    pub(crate) fn halting_after(self, after: Option<Halt>) -> Self {
-        self.scratch.after = after;
+    /// Ends the line where the first of `halts` holds before the patterns.
+    /// It also ends the line where the second holds and no pattern matches.
+    /// Both apply only while the root rule alone is open.
+    /// The patterns still see the whole line.
+    /// A lookahead reads past the halt, as the grammar's does.
+    pub(crate) fn halting(mut self, halts: &'a Halts<'a>) -> Self {
+        self.halt = Some(halts);
         self
     }
 
@@ -656,25 +643,16 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.s.len()
     }
 
-    /// The halt a scan tests at each place before it tries the patterns
-    /// there: the line's halt while only the root rule is open, and `None`
-    /// otherwise. A scan does not open or close rules, so it asks once.
-    pub(crate) fn root_halt(&self) -> Option<Halt> {
+    /// The line's halts while only the root rule is open, and `None` otherwise.
+    /// A scan opens and closes no rules.
+    /// It asks once.
+    pub(crate) fn root_halts(&self) -> Option<&'a Halts<'a>> {
         self.halt.filter(|_| self.frames.len() == 1)
     }
 
     /// Records that the scan stopped at the halt at `p`, where the line ends.
     pub(crate) fn halt_here(&mut self, p: usize) {
         self.halted = Some(p);
-    }
-
-    /// The halt a scan tests at each place where no pattern matched: the
-    /// line's `after` halt while only the root rule is open, and `None`
-    /// otherwise.
-    pub(crate) fn root_after(&self) -> Option<Halt> {
-        self.halt
-            .and(self.scratch.after)
-            .filter(|_| self.frames.len() == 1)
     }
 
     /// Whether `\G` matches at `p`.
