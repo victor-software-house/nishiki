@@ -17,7 +17,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | C++ | `cpp` | 312 of 912 | 34.2% | 373 of 2679 | 13.9% | 0 | 288 |  |
 | C++ | `cpp-macro` | 22 of 611 | 3.6% | 22 of 1645 | 1.3% | 0 | 68 |  |
 | C# | `csharp` | 544 of 547 | 99.5% | 515 of 525 | 98.1% | 13 | 0 | yes |
-| CSS | `css` | 102 of 222 | 45.9% | 76 of 184 | 41.3% | 0 | 17 |  |
+| CSS | `css` | 219 of 222 | 98.6% | 181 of 184 | 98.4% | 6 | 0 | yes |
 | diff | `diff` | 10 of 16 | 62.5% | 10 of 23 | 43.5% | 0 | 1 |  |
 | Dockerfile | `docker` | 8 of 9 | 88.9% | 5 of 13 | 38.5% | 0 | 0 |  |
 | ERB | `erb` | 6 of 12 | 50.0% | 6 of 14 | 42.9% | 0 | 8 |  |
@@ -33,14 +33,14 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | JSON | `jsonl` | 13 of 23 | 56.5% | 11 of 15 | 73.3% | 0 | 6 |  |
 | TypeScript | `jsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | Kotlin | `kotlin` | 57 of 65 | 87.7% | 25 of 35 | 71.4% | 0 | 0 |  |
-| Less | `less` | 167 of 590 | 28.3% | 121 of 437 | 27.7% | 0 | 8 |  |
+| Less | `less` | 581 of 590 | 98.5% | 417 of 437 | 95.4% | 29 | 0 | yes |
 | Lua | `lua` | 81 of 152 | 53.3% | 32 of 74 | 43.2% | 0 | 3 |  |
 | Make | `make` | 58 of 75 | 77.3% | 23 of 32 | 71.9% | 0 | 0 |  |
 | Markdown | `markdown` | 145 of 311 | 46.6% | 158 of 373 | 42.4% | 0 | 8 |  |
 | Python | `python` | 163 of 350 | 46.6% | 125 of 372 | 33.6% | 0 | 27 |  |
 | Ruby | `ruby` | 168 of 336 | 50.0% | 139 of 293 | 47.4% | 0 | 8 |  |
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
-| SCSS | `scss` | 90 of 168 | 53.6% | 81 of 179 | 45.3% | 0 | 10 |  |
+| SCSS | `scss` | 161 of 168 | 95.8% | 136 of 179 | 76.0% | 50 | 0 | yes |
 | shell | `shellscript` | 119 of 174 | 68.4% | 106 of 199 | 53.3% | 0 | 10 |  |
 | SQL | `sql` | 47 of 75 | 62.7% | 42 of 79 | 53.2% | 0 | 4 |  |
 | Swift | `swift` | 267 of 448 | 59.6% | 183 of 448 | 40.8% | 0 | 11 |  |
@@ -1569,129 +1569,11 @@ The groups of an unexercised expression count as unexercised and are not listed.
 ### `css`
 
 ```text
-#at-rules.patterns[0].begin  \A\uFEFF?(?i:(?=\s*@charset\b))
-#at-rules.patterns[0].end  ;|(?=$)
-#at-rules.patterns[0].patterns[0].match  \G((?!@charset)@\w+)|\G(\s+)|(@charset\S[^;]*)|(?<=@charset…
-#at-rules.patterns[0].patterns[1].match  ((@)charset)(?=\s)
-#at-rules.patterns[0].patterns[2].begin  "
-#at-rules.patterns[0].patterns[2].end  "|$
-#at-rules.patterns[0].patterns[2].patterns[0].begin  (?:\G|^)(?=[^"]+$)
-#at-rules.patterns[0].patterns[2].patterns[0].end  $
-#at-rules.patterns[1].begin  (?i)((@)import)(?:\s+|$|(?=["']|/\*))
-#at-rules.patterns[1].end  ;
-#at-rules.patterns[1].patterns[0].begin  \G\s*(?=/\*)
-#at-rules.patterns[1].patterns[0].end  (?<=\*/)\s*
-#at-rules.patterns[1].patterns[3].match  \s+
-#at-rules.patterns[2].begin  (?i)((@)font-face)(?=\s*|\{|/\*|$)
-#at-rules.patterns[2].end  (?!\G)
-#at-rules.patterns[3].begin  (?i)(@)page(?=[:{\s]|/\*|$)
-#at-rules.patterns[3].end  (?=\s*($|[:;{]))
-#at-rules.patterns[5].begin  (?i)(?=@counter-style(["';{\s]|/\*|$))
-#at-rules.patterns[5].end  (?<=})(?!\G)
-#at-rules.patterns[5].patterns[0].begin  (?i)\G(@)counter-style
-#at-rules.patterns[5].patterns[0].end  (?=\s*\{)
-#at-rules.patterns[5].patterns[0].patterns[2].match  [-A-Z_a-z[^\x00-\x7F]](?:[-0-9A-Z_a-z[^\x00-\x7F]]|\\(?:\h{…
-#at-rules.patterns[5].patterns[1].begin  \{
-#at-rules.patterns[5].patterns[1].end  }
-#at-rules.patterns[6].begin  (?i)(?=@document(["';{\s]|/\*|$))
-#at-rules.patterns[6].end  (?<=})(?!\G)
-#at-rules.patterns[6].patterns[0].begin  (?i)\G(@)document
-#at-rules.patterns[6].patterns[0].end  (?=\s*[;{])
-#at-rules.patterns[6].patterns[0].patterns[0].begin  (?i)(?<![-\w])(url-prefix|domain|regexp)(\()
-#at-rules.patterns[6].patterns[0].patterns[0].end  \)
-#at-rules.patterns[6].patterns[0].patterns[0].patterns[3].match  [^"')\s]+
-#at-rules.patterns[6].patterns[1].begin  \{
-#at-rules.patterns[6].patterns[1].end  }
-#at-rules.patterns[7].begin  (?i)(?=@(?:-(?:webkit|moz|o|ms)-)?keyframes(["';{\s]|/\*|$))
-#at-rules.patterns[7].end  (?<=})(?!\G)
-#at-rules.patterns[7].patterns[0].begin  (?i)\G(@)(?:-(?:webkit|moz|o|ms)-)?keyframes
-#at-rules.patterns[7].patterns[0].end  (?=\s*\{)
-#at-rules.patterns[7].patterns[0].patterns[2].match  [-A-Z_a-z[^\x00-\x7F]](?:[-0-9A-Z_a-z[^\x00-\x7F]]|\\(?:\h{…
-#at-rules.patterns[7].patterns[1].begin  \{
-#at-rules.patterns[7].patterns[1].end  }
-#at-rules.patterns[7].patterns[1].patterns[2].match  (?i)(?<![-\w])(from|to)(?![-\w])|([-+]?(?:\d+(?:\.\d+)?|\.\…
-#at-rules.patterns[9].begin  (?i)(?=@layer(?:[;{\s]|/\*|$))
-#at-rules.patterns[9].end  (?<=})(?!\G)|;
-#at-rules.patterns[9].patterns[0].begin  (?i)\G(@)layer
-#at-rules.patterns[9].patterns[0].end  (?=\s*[;{])
-#at-rules.patterns[9].patterns[1].begin  \{
-#at-rules.patterns[9].patterns[1].end  }
-#at-rules.patterns[10].begin  (?i)((@)(-(ms|o)-)?viewport)(?=["';{\s]|/\*|$)
-#at-rules.patterns[10].end  (?=\s*[;@{])
-#at-rules.patterns[11].begin  (?i)((@)font-feature-values)(?=["';{\s]|/\*|$)\s*
-#at-rules.patterns[11].end  (?=\s*[;@{])
-#at-rules.patterns[13].begin  (?i)((@)namespace)(?=["';\s]|/\*|$)
-#at-rules.patterns[13].end  ;|(?=[@{])
-#at-rules.patterns[13].patterns[1].match  (?i)(?:\G|^|(?<=\s))(?=(?<=\s|^)[-A-Z_a-z[^\x00-\x7F]]|\s*/…
-#at-rules.patterns[14].begin  (?i)(?=@[-\w]+[^;]+;s*$)
-#at-rules.patterns[14].end  (?<=;)(?!\G)
-#at-rules.patterns[14].patterns[0].begin  (?i)\G(@)[-\w]+
-#at-rules.patterns[14].patterns[0].end  ;
-#at-rules.patterns[15].begin  (?i)(?=@[-\w]+([({\s]|/\*|$))  fuzz
-#at-rules.patterns[15].end  (?<=})(?!\G)  fuzz
-#at-rules.patterns[15].patterns[0].begin  (?i)\G(@)[-\w]+  fuzz
-#at-rules.patterns[15].patterns[0].end  (?=\s*[;{])  fuzz
-#at-rules.patterns[15].patterns[1].begin  \{  fuzz
-#at-rules.patterns[15].patterns[1].end  }  fuzz
-#color-keywords.patterns[1].match  (?i)(?<![-\w])(aliceblue|antiquewhite|aquamarine|azure|beig…
-#combinator-invalid.match  /deep/|>>>
-#escapes.patterns[1].begin  \\$\s*  fuzz
-#escapes.patterns[1].end  ^(?<!\G)
-#escapes.patterns[2].match  \\.  fuzz
-#font-features.begin  (?i)((@)(annotation|character-variant|ornaments|styleset|st…
-#font-features.end  (?<=})
-#font-features.patterns[0].begin  \{
-#font-features.patterns[0].end  }
-#font-features.patterns[0].patterns[0].match  [-A-Z_a-z[^\x00-\x7F]](?:[-0-9A-Z_a-z[^\x00-\x7F]]|\\(?:\h{…
-#function-nesting.begin  \(
-#function-nesting.end  \)
-#functional-pseudo-classes.patterns[1].begin  (?i)((:)lang)(\()
-#functional-pseudo-classes.patterns[1].end  \)
-#functional-pseudo-classes.patterns[1].patterns[0].match  (?<=[(,\s])[A-Za-z]+(-[0-9A-Za-z]*|\\(?:\h{1,6}|.))*(?=[),\…
-#functional-pseudo-classes.patterns[1].patterns[1].begin  "
-#functional-pseudo-classes.patterns[1].patterns[1].end  "
-#functional-pseudo-classes.patterns[1].patterns[1].patterns[1].match  (?<=["\s])[*A-Za-z]+(-[*0-9A-Za-z]*)*(?=["\s])
-#functional-pseudo-classes.patterns[1].patterns[2].begin  '
-#functional-pseudo-classes.patterns[1].patterns[2].end  '
-#functional-pseudo-classes.patterns[1].patterns[2].patterns[1].match  (?<=['\s])[*A-Za-z]+(-[*0-9A-Za-z]*)*(?=['\s])
-#functions.patterns[2].begin  (?i)(?<![-\w])((?:-(?:webkit-|moz-|o-))?(?:repeating-)?(?:l…
-#functions.patterns[2].end  \)
-#functions.patterns[2].patterns[0].match  (?i)(?<![-\w])(from|to|at|in|hue)(?![-\w])
-#functions.patterns[3].begin  (?i)(?<![-\w])(-webkit-gradient)(\()
-#functions.patterns[3].end  \)
-#functions.patterns[3].patterns[0].begin  (?i)(?<![-\w])(from|to|color-stop)(\()
-#functions.patterns[3].patterns[0].end  \)
-#functions.patterns[4].patterns[0].match  (?i)(?<=[",\s]|\*/|^)\d+x(?=["'),\s]|/\*|$)
-#functions.patterns[5].begin  (?i)(?<![-\w])(circle|ellipse|inset|polygon|rect)(\()
-#functions.patterns[5].end  \)
-#functions.patterns[5].patterns[0].match  (?i)(?<=\s|^|\*/)(at|round)(?=\s|/\*|$)
-#functions.patterns[6].patterns[0].match  (?i)(?<![-\w])(start|end)(?=\s*\)|$)
-#layer-import.patterns[0].begin  (?i)(?<![-\w])(layer)(\()
-#layer-import.patterns[0].end  \)
-#layer-import.patterns[1].match  (?i)(?<![-\w])(layer)(?![-\w])
-#layer-name-list.patterns[1].match  ,
-#layer-name-list.patterns[2].match  \.
-#layer-name-list.patterns[3].match  [-A-Z_a-z[^\x00-\x7F]](?:[-0-9A-Z_a-z[^\x00-\x7F]]|\\(?:\h{…
-#media-feature-keywords.match  (?i)(?<=^|[:\s]|\*/)(?:portrait|landscape|progressive|inter…
-#media-features.match  groups 2, 3
-#media-query.patterns[5].match  ,(?:(?:\s*,)+|(?=\s*[);{]))
-#media-query.patterns[7].patterns[3].match  >=|<=|[<=>]
-#media-query.patterns[7].patterns[4].match  (\d+)\s*(/)\s*(\d+)
-#media-types.match  groups 2
-#pseudo-classes.match  groups 2
-#selector-innards.patterns[4].match  (?:^|(?<=[(,;}\s]))(?![-*\w]+\|(?![-#\&*.:A-\[_a-z[^\x00-\x…
-#selector-innards.patterns[6].match  &
-#selector-innards.patterns[8].match  (?<![-@\w])([#.])((?:-?[0-9]|-(?=$|[#\&)+,.:>\[{|~\s]|/\*)|…  fuzz
-#selector-innards.patterns[11].patterns[2].match  (?<=["'\s]|^|\*/)\s*([Ii])\s*(?=[]\s]|/\*|$)
-#selector-innards.patterns[11].patterns[6].match  \|
-#selector-innards.patterns[11].patterns[7].match  (-?(?!\d)(?:[-\w[^\x00-\x7F]]|\\(?:\h{1,6}|.))+|\*)(?=\|(?!…
-#shared-names.patterns[1].begin  (?i)(?<=^|(^|[^:])\s|[{}]|\*/|\\(?:\h{1,6}|.))(?=(?:content…
-#shared-names.patterns[1].end  (?i)(?=\s|/\*|[,{]|$)
-#string.patterns[0].patterns[0].begin  (?:\G|^)(?=(?:[^"\\]|\\.)+$)
-#string.patterns[0].patterns[0].end  $
-#string.patterns[1].patterns[0].begin  (?:\G|^)(?=(?:[^'\\]|\\.)+$)  fuzz
-#string.patterns[1].patterns[0].end  $  fuzz
-#unicode-range.match  (?<![-\w])[Uu]\+[?\h]{1,6}(?:(-)\h{1,6})?(?![-\w])
+#at-rules.patterns[0].patterns[0].match  groups 2 (waived: the group matches only blanks, and the oracle compares no blank), 4 (waived: the group matches only blanks, and the oracle compares no blank)
+#at-rules.patterns[0].patterns[2].patterns[0].begin  (?:\G|^)(?=[^"]+$)  waived: group 6 of `#at-rules.patterns[0].patterns[0]`, earlier in the `@charset` rule, takes an unclosed string from the same `"`, and a closed one fails the lookahead
+#at-rules.patterns[0].patterns[2].patterns[0].end  $  waived: its begin never matches
+#at-rules.patterns[3].end  groups 0 (waived: the expression is a lookahead, so the match holds no text)
+#escapes.patterns[1].end  ^(?<!\G)  waived: the begin, `\\$\s*`, takes the line feed, so `\G` stands at the start of the next line and `^(?<!\G)` never holds
 ```
 
 ### `diff`
@@ -2180,445 +2062,33 @@ patterns[1].patterns[4].match  \b(?<!\$)(abstract|assert|boolean|break|byte|case
 ### `less`
 
 ```text
-#at-charset.begin  \s*((@)charset)\b\s*
-#at-charset.end  \s*((?=;|$))
-#at-container.end  \s*(})
-#at-container.patterns[0].begin  groups 3
-#at-container.patterns[0].end  (?=\{)
-#at-container.patterns[0].patterns[0].patterns[1].patterns[0].match  \b(aspect-ratio|block-size|height|inline-size|orientation|w…
-#at-container.patterns[0].patterns[0].patterns[1].patterns[2].match  :
-#at-container.patterns[0].patterns[0].patterns[1].patterns[3].match  portrait|landscape
-#at-container.patterns[0].patterns[0].patterns[1].patterns[5].match  /
-#at-container.patterns[1].begin  \s*(\{)
-#at-container.patterns[1].end  (?=})
-#at-counter-style.begin  \s*((@)counter-style)\b\s+(?:(?i:\b(decimal|none)\b)|(-?(?:…
-#at-counter-style.end  \s*(})
-#at-custom-media.begin  (?=\s*@custom-media\b)
-#at-custom-media.end  \s*(?=;)
-#at-custom-media.patterns[0].match  \s*;
-#at-custom-media.patterns[1].match  \s*((@)custom-media)(?=.*?)
-#at-font-face.begin  \s*((@)font-face)\s*(?=\{|$)
-#at-font-face.end  \s*(})
-#at-import.patterns[2].begin  (?<=(["'])|(["']\)))\s*
-#at-import.patterns[2].end  \s*(?=;)
-#at-import.patterns[3].begin  \(
-#at-import.patterns[3].end  \)
-#at-import.patterns[3].patterns[0].match  reference|inline|less|css|once|multiple|optional
-#at-keyframes.begin  \s*((@)keyframes)(?=.*?\{)
-#at-keyframes.end  \s*(})
-#at-keyframes.patterns[0].begin  \s*(\{)
-#at-keyframes.patterns[0].end  (?=})
-#at-keyframes.patterns[0].patterns[0].match  \s*(?:(from|to)|((?:\.[0-9]+|[0-9]+(?:\.[0-9]*)?)(%)))\s*,?…
-#at-keyframes.patterns[1].begin  \s*(?=[^;{])
-#at-keyframes.patterns[1].end  \s*(?=\{)
-#at-media.patterns[0].begin  groups 3
-#at-namespace.begin  \s*((@)namespace)\s+
-#at-namespace.end  ;
-#at-namespace.patterns[2].match  (-?(?:[A-Z_a-z[^\x00-\x7F]]|\\(?:\h{1,6}[\t\n\f\s]?|[^\n\f\…
-#at-page.match  \s*((@)page)\s*(?:(:)(first|left|right))?\s*(?=\{|$)
-#at-supports.begin  (?=\s*@supports\b)
-#at-supports.end  (?=\s*)(})
-#at-supports.patterns[0].begin  \s*((@)supports)
-#at-supports.patterns[0].end  \s*(?=\{)
-#at-supports.patterns[1].begin  \s*(\{)
-#at-supports.patterns[1].end  (?=})
-#at-supports-operators.match  \b(?:and|or|not)\b
-#at-supports-parens.begin  \(
-#at-supports-parens.end  \)
-#attr-function.begin  \b(attr)(?=\()
-#attr-function.end  \)
-#attr-function.patterns[0].begin  \(
-#attr-function.patterns[0].end  (?=\))
-#attr-function.patterns[0].patterns[2].begin  (-?(?:[A-Z_a-z[^\x00-\x7F]]|\\(?:\h{1,6}[\t\n\f\s]?|[^\n\f\…
-#attr-function.patterns[0].patterns[2].end  (?=\))
-#attr-function.patterns[0].patterns[2].patterns[0].match  \b((?i:em|ex|ch|rem)|(?i:v(?:[hw]|min|max))|(?i:cm|mm|q|in|…
-#calc-function.begin  \b(calc)(?=\()
-#calc-function.end  \)
-#calc-function.patterns[0].begin  \(
-#calc-function.patterns[0].end  (?=\))
-#color-functions.patterns[1].begin  \b(hsla?|hwb|oklab|oklch|lab|lch)(?=\()
-#color-functions.patterns[1].end  \)
-#color-functions.patterns[1].patterns[0].begin  \(
-#color-functions.patterns[1].patterns[0].end  (?=\))
-#color-functions.patterns[2].begin  \b(light-dark)(?=\()
-#color-functions.patterns[2].end  \)
-#color-functions.patterns[2].patterns[0].begin  \(
-#color-functions.patterns[2].patterns[0].end  (?=\))
-#counter-functions.patterns[0].begin  \b(counter)(?=\()
-#counter-functions.patterns[0].end  \)
-#counter-functions.patterns[0].patterns[0].begin  \(
-#counter-functions.patterns[0].patterns[0].end  (?=\))
-#counter-functions.patterns[0].patterns[0].patterns[3].match  --(?:[-\w[^\x00-\x7F]]|\\(?:\h{1,6}[\t\n\f\s]?|[^\n\f\h]))+…
-#counter-functions.patterns[0].patterns[0].patterns[4].begin  (?=,)
-#counter-functions.patterns[0].patterns[0].patterns[4].end  (?=\))
-#counter-functions.patterns[0].patterns[0].patterns[4].patterns[1].match  \b((?i:arabic-indic|armenian|bengali|cambodian|circle|cjk-d…
-#counter-functions.patterns[1].begin  \b(counters)(?=\()
-#counter-functions.patterns[1].end  \)
-#counter-functions.patterns[1].patterns[0].begin  \(
-#counter-functions.patterns[1].patterns[0].end  (?=\))
-#counter-functions.patterns[1].patterns[0].patterns[0].match  (-?(?:[A-Z_a-z[^\x00-\x7F]]|\\(?:\h{1,6}[\t\n\f\s]?|[^\n\f\…
-#counter-functions.patterns[1].patterns[0].patterns[1].begin  (?=,)
-#counter-functions.patterns[1].patterns[0].patterns[1].end  (?=\))
-#counter-functions.patterns[1].patterns[0].patterns[1].patterns[5].match  \b((?i:arabic-indic|armenian|bengali|cambodian|circle|cjk-d…
-#cross-fade-function.patterns[0].begin  \b(cross-fade)(?=\()
-#cross-fade-function.patterns[0].end  \)
-#cross-fade-function.patterns[0].patterns[0].begin  \(
-#cross-fade-function.patterns[0].patterns[0].end  (?=\))
-#cubic-bezier-function.begin  \b(cubic-bezier)(\()
-#cubic-bezier-function.end  \)
-#custom-property-name.match  \s*(--)((?:[-\w[^\x00-\x7F]]|\\(?:\h{1,6}[\t\n\f\s]?|[^\n\f…
-#filter-function.begin  \b(filter)(?=\()
-#filter-function.end  \)
-#filter-function.patterns[0].begin  \(
-#filter-function.patterns[0].end  (?=\))
-#filter-functions.patterns[1].begin  \b(blur)(?=\()
-#filter-functions.patterns[1].end  \)
-#filter-functions.patterns[1].patterns[0].begin  \(
-#filter-functions.patterns[1].patterns[0].end  (?=\))
-#filter-functions.patterns[2].begin  \b(brightness|contrast|grayscale|invert|opacity|saturate|se…
-#filter-functions.patterns[2].end  \)
-#filter-functions.patterns[2].patterns[0].begin  \(
-#filter-functions.patterns[2].patterns[0].end  (?=\))
-#filter-functions.patterns[3].begin  \b(drop-shadow)(?=\()
-#filter-functions.patterns[3].end  \)
-#filter-functions.patterns[3].patterns[0].begin  \(
-#filter-functions.patterns[3].patterns[0].end  (?=\))
-#filter-functions.patterns[4].begin  \b(hue-rotate)(?=\()
-#filter-functions.patterns[4].end  \)
-#filter-functions.patterns[4].patterns[0].begin  \(
-#filter-functions.patterns[4].patterns[0].end  (?=\))
-#fit-content-function.begin  \b(fit-content)(?=\()
-#fit-content-function.end  \)
-#fit-content-function.patterns[0].begin  \(
-#fit-content-function.patterns[0].end  (?=\))
-#format-function.patterns[0].begin  \b(format)(?=\()
-#format-function.patterns[0].end  \)
-#format-function.patterns[0].patterns[0].begin  \(
-#format-function.patterns[0].patterns[0].end  (?=\))
-#frequency-type.match  (?i:[-+]?(?:\d*\.\d+(?:[Ee][-+]?\d+)*|[-+]?\d+)(k??Hz))\b
-#gradient-functions.patterns[1].patterns[0].patterns[7].match  \b(top|right|bottom|left|center|((?:farth|clos)est)-(corner…
-#grid-repeat-function.begin  \b(repeat)(?=\()
-#grid-repeat-function.end  \)
-#grid-repeat-function.patterns[0].begin  \(
-#grid-repeat-function.patterns[0].end  (?=\))
-#grid-repeat-function.patterns[0].patterns[6].match  \b(auto-(fi(?:ll|t)))\b
-#grid-repeat-function.patterns[0].patterns[7].match  \b(((m(?:ax|in))-content)|auto)\b
-#image-function.begin  \b(image)(?=\()
-#image-function.end  \)
-#image-function.patterns[0].begin  \(
-#image-function.patterns[0].end  (?=\))
-#integer-type.match  [-+]?\d+
-#keyframe-name.begin  \s*(-?(?:[_a-z[^\x00-\x7F]]|(?:(:?\\[0-9a-f]{1,6}(\r\n|[\t\…
-#keyframe-name.end  \s*(?:(,)|(?=[;{]))
-#less-boolean-function.begin  \b(boolean)(?=\()
-#less-boolean-function.end  \)
-#less-boolean-function.patterns[0].begin  \(
-#less-boolean-function.patterns[0].end  (?=\))
-#less-color-blend-functions.patterns[0].begin  \b(multiply|screen|overlay|(soft|hard)light|difference|excl…
-#less-color-blend-functions.patterns[0].end  \)
-#less-color-blend-functions.patterns[0].patterns[0].begin  \(
-#less-color-blend-functions.patterns[0].patterns[0].end  (?=\))
-#less-color-channel-functions.patterns[0].begin  \b(hue|saturation|lightness|hsv(hue|saturation|value)|red|g…
-#less-color-channel-functions.patterns[0].end  \)
-#less-color-channel-functions.patterns[0].patterns[0].begin  \(
-#less-color-channel-functions.patterns[0].patterns[0].end  (?=\))
-#less-color-definition-functions.patterns[1].begin  \b(hsva?)(?=\()
-#less-color-definition-functions.patterns[1].end  \)
-#less-color-definition-functions.patterns[1].patterns[0].begin  \(
-#less-color-definition-functions.patterns[1].patterns[0].end  (?=\))
-#less-color-operation-functions.patterns[0].begin  \b(fade|shade|tint)(?=\()
-#less-color-operation-functions.patterns[0].end  \)
-#less-color-operation-functions.patterns[0].patterns[0].begin  \(
-#less-color-operation-functions.patterns[0].patterns[0].end  (?=\))
-#less-color-operation-functions.patterns[1].begin  \b(spin)(?=\()
-#less-color-operation-functions.patterns[1].end  \)
-#less-color-operation-functions.patterns[1].patterns[0].begin  \(
-#less-color-operation-functions.patterns[1].patterns[0].end  (?=\))
-#less-color-operation-functions.patterns[2].patterns[0].patterns[3].match  \brelative\b
-#less-color-operation-functions.patterns[3].begin  \b(contrast)(?=\()
-#less-color-operation-functions.patterns[3].end  \)
-#less-color-operation-functions.patterns[3].patterns[0].begin  \(
-#less-color-operation-functions.patterns[3].patterns[0].end  (?=\))
-#less-color-operation-functions.patterns[4].begin  \b(greyscale)(?=\()
-#less-color-operation-functions.patterns[4].end  \)
-#less-color-operation-functions.patterns[4].patterns[0].begin  \(
-#less-color-operation-functions.patterns[4].patterns[0].end  (?=\))
-#less-color-operation-functions.patterns[5].begin  \b(mix)(?=\()
-#less-color-operation-functions.patterns[5].end  \)
-#less-color-operation-functions.patterns[5].patterns[0].begin  \(
-#less-color-operation-functions.patterns[5].patterns[0].end  (?=\))
-#less-if-function.begin  \b(if)(?=\()
-#less-if-function.end  \)
-#less-if-function.patterns[0].begin  \(
-#less-if-function.patterns[0].end  (?=\))
-#less-list-functions.patterns[0].begin  \b(length)(?=\()\b
-#less-list-functions.patterns[0].end  \)
-#less-list-functions.patterns[0].patterns[0].begin  \(
-#less-list-functions.patterns[0].patterns[0].end  (?=\))
-#less-list-functions.patterns[1].begin  \b(extract)(?=\()\b
-#less-list-functions.patterns[1].end  \)
-#less-list-functions.patterns[1].patterns[0].begin  \(
-#less-list-functions.patterns[1].patterns[0].end  (?=\))
-#less-list-functions.patterns[2].begin  \b(range)(?=\()\b
-#less-list-functions.patterns[2].end  \)
-#less-list-functions.patterns[2].patterns[0].begin  \(
-#less-list-functions.patterns[2].patterns[0].end  (?=\))
-#less-logical-comparisons.patterns[0].match  \s*(=|(([<>])=?))\s*
-#less-logical-comparisons.patterns[1].begin  \(
-#less-logical-comparisons.patterns[1].end  \)
-#less-logical-comparisons.patterns[2].match  \btrue|false\b
-#less-logical-comparisons.patterns[3].match  ,
-#less-math-functions.patterns[1].match  ((pi)(\()(\)))
-#less-misc-functions.patterns[0].begin  \b(color)(?=\()
-#less-misc-functions.patterns[0].end  \)
-#less-misc-functions.patterns[0].patterns[0].begin  \(
-#less-misc-functions.patterns[0].patterns[0].end  (?=\))
-#less-misc-functions.patterns[1].begin  \b(image-(size|width|height))(?=\()
-#less-misc-functions.patterns[1].end  \)
-#less-misc-functions.patterns[1].patterns[0].begin  \(
-#less-misc-functions.patterns[1].patterns[0].end  (?=\))
-#less-misc-functions.patterns[2].begin  \b(convert|unit)(?=\()
-#less-misc-functions.patterns[2].end  \)
-#less-misc-functions.patterns[2].patterns[0].begin  \(
-#less-misc-functions.patterns[2].patterns[0].end  (?=\))
-#less-misc-functions.patterns[2].patterns[0].patterns[4].match  (([cm])?m|in|p([ctx])|m?s|g?rad|deg|turn|%|r?em|ex|ch)
-#less-misc-functions.patterns[3].begin  \b(data-uri)(?=\()
-#less-misc-functions.patterns[3].end  \)
-#less-misc-functions.patterns[3].patterns[0].begin  \(
-#less-misc-functions.patterns[3].patterns[0].end  (?=\))
-#less-misc-functions.patterns[3].patterns[0].patterns[2].match  \s*(,)
-#less-misc-functions.patterns[4].match  \b(default(\()(\)))\b
-#less-misc-functions.patterns[5].begin  \b(get-unit)(?=\()
-#less-misc-functions.patterns[5].end  \)
-#less-misc-functions.patterns[5].patterns[0].begin  \(
-#less-misc-functions.patterns[5].patterns[0].end  (?=\))
-#less-misc-functions.patterns[6].begin  \b(svg-gradient)(?=\()
-#less-misc-functions.patterns[6].end  \)
-#less-misc-functions.patterns[6].patterns[0].begin  \(
-#less-misc-functions.patterns[6].patterns[0].end  (?=\))
-#less-misc-functions.patterns[6].patterns[0].patterns[5].match  \bto\b
-#less-misc-functions.patterns[6].patterns[0].patterns[6].match  \b(top|right|bottom|left|center)\b
-#less-misc-functions.patterns[6].patterns[0].patterns[7].match  \b(at|circle|ellipse)\b
-#less-mixin-guards.patterns[0].patterns[0].patterns[1].match  default((\()(\)))
-#less-namespace-accessors.patterns[0].end  groups 1
-#less-namespace-accessors.patterns[0].patterns[0].match  groups 2
-#less-namespace-accessors.patterns[0].patterns[3].begin  \s*(\{)
-#less-namespace-accessors.patterns[0].patterns[3].end  (?=})
-#less-namespace-accessors.patterns[1].end  groups 2
-#less-string-functions.patterns[1].begin  \s*(%)(?=\()\s*  fuzz
-#less-string-functions.patterns[1].end  \)  fuzz
-#less-string-functions.patterns[1].patterns[0].begin  \(  fuzz
-#less-string-functions.patterns[1].patterns[0].end  (?=\))  fuzz
-#less-string-functions.patterns[2].begin  \b(replace)(?=\()\b
-#less-string-functions.patterns[2].end  \)
-#less-string-functions.patterns[2].patterns[0].begin  \(
-#less-string-functions.patterns[2].patterns[0].end  (?=\))
-#less-strings.patterns[0].end  groups 2
-#less-type-functions.patterns[0].begin  \b(is(number|string|color|keyword|url|pixel|em|percentage|r…
-#less-type-functions.patterns[0].end  \)
-#less-type-functions.patterns[0].patterns[0].begin  \(
-#less-type-functions.patterns[0].patterns[0].end  (?=\))
-#less-type-functions.patterns[1].begin  \b(isunit)(?=\()
-#less-type-functions.patterns[1].end  \)
-#less-type-functions.patterns[1].patterns[0].begin  \(
-#less-type-functions.patterns[1].patterns[0].end  (?=\))
-#less-type-functions.patterns[1].patterns[0].patterns[2].match  \b((?i:em|ex|ch|rem)|(?i:v(?:[hw]|min|max))|(?i:cm|mm|q|in|…
-#less-type-functions.patterns[2].begin  \b(isdefined)(?=\()
-#less-type-functions.patterns[2].end  \)
-#less-type-functions.patterns[2].patterns[0].begin  \(
-#less-type-functions.patterns[2].patterns[0].end  (?=\))
-#less-variable-assignment.patterns[0].end  groups 2
-#less-variable-assignment.patterns[0].patterns[0].match  groups 4
-#less-variable-comparison.patterns[0].end  groups 1
-#less-variable-comparison.patterns[0].patterns[1].match  \btrue\b
-#less-variable-comparison.patterns[0].patterns[5].match  ,
-#literal-string.patterns[0].end  groups 2
-#literal-string.patterns[1].end  groups 2
-#local-function.begin  \b(local)(?=\()
-#local-function.end  \)
-#local-function.patterns[0].begin  \(
-#local-function.patterns[0].end  (?=\))
-#media-query.begin  groups 1
-#media-query.end  groups 1
-#media-query.patterns[2].patterns[1].match  \b(portrait|landscape|progressive|interlace)
-#media-query.patterns[2].patterns[2].match  \s*(\d+)(/)(\d+)
-#minmax-function.begin  \b(minmax)(?=\()
-#minmax-function.end  \)
-#minmax-function.patterns[0].begin  \(
-#minmax-function.patterns[0].end  (?=\))
-#minmax-function.patterns[0].patterns[4].match  \b(m(?:ax|in)-content)\b
-#property-value-constants.patterns[0].match  \b(flex-start|flex-end|start|end|space-between|space-around…
-#property-value-constants.patterns[5].match  \b(?:replace|add|accumulate)\b
-#property-value-constants.patterns[7].match  \b(?:forwards|backwards|both)\b
-#property-value-constants.patterns[8].match  \binfinite\b
-#property-value-constants.patterns[9].match  \b(?:running|paused)\b
-#property-value-constants.patterns[10].match  \be(?:ntry|xit)(?:-crossing|)\b
-#property-value-constants.patterns[11].match  \b(linear|ease-in-out|ease-in|ease-out|ease|step-start|step…
-#pseudo-selectors.patterns[0].begin  (:)(dir)(?=\()
-#pseudo-selectors.patterns[0].end  \)
-#pseudo-selectors.patterns[0].patterns[0].begin  \(
-#pseudo-selectors.patterns[0].patterns[0].end  (?=\))
-#pseudo-selectors.patterns[0].patterns[0].patterns[0].match  ltr|rtl
-#pseudo-selectors.patterns[1].begin  (:)(lang)(?=\()
-#pseudo-selectors.patterns[1].end  \)
-#pseudo-selectors.patterns[1].patterns[0].begin  \(
-#pseudo-selectors.patterns[1].patterns[0].end  (?=\))
-#pseudo-selectors.patterns[3].begin  (:)(nth(-last)?-(child|of-type))(?=\()
-#pseudo-selectors.patterns[3].end  \)
-#pseudo-selectors.patterns[3].patterns[0].begin  \(
-#pseudo-selectors.patterns[3].patterns[0].end  (?=\))
-#pseudo-selectors.patterns[3].patterns[0].patterns[0].match  \b(even|odd)\b
-#pseudo-selectors.patterns[3].patterns[0].patterns[1].match  ([-+])?\d+{0,1}(n)(\s*([-+])\s*\d+)?|[-+]?\s*\d+
-#pseudo-selectors.patterns[4].begin  (:)(host-context|host|has|is|not|where)(?=\()
-#pseudo-selectors.patterns[4].end  \)
-#pseudo-selectors.patterns[4].patterns[0].begin  \(
-#pseudo-selectors.patterns[4].patterns[0].end  (?=\))
-#pseudo-selectors.patterns[6].begin  (::?)(highlight|part|state)(?=\s*(\())
-#pseudo-selectors.patterns[6].end  \)
-#pseudo-selectors.patterns[6].patterns[0].begin  \(
-#pseudo-selectors.patterns[6].patterns[0].end  (?=\))
-#pseudo-selectors.patterns[6].patterns[0].patterns[0].match  --|-?(?:[A-Z_a-z·À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\x{EFFFF…
-#pseudo-selectors.patterns[7].begin  (::?)slotted(?=\s*(\())
-#pseudo-selectors.patterns[7].end  \)
-#pseudo-selectors.patterns[7].patterns[0].begin  \(
-#pseudo-selectors.patterns[7].patterns[0].end  (?=\))
-#qualified-name.match  (?:(-?(?:[-\w[^\x00-\x7F]]|\\(?:\h{1,6}[\t\n\f\s]?|[^\n\f\h…
-#regexp-function.begin  \b(regexp)(?=\()
-#regexp-function.end  \)
-#regexp-function.patterns[0].begin  \(
-#regexp-function.patterns[0].end  (?=\))
-#relative-color.patterns[0].match  from
-#relative-color.patterns[1].match  \b[abchlsw]\b  fuzz
-#rule-list-body.patterns[4].begin  (?=[-\w]*?@\{.*}[-\w]*?\s*:[^(;{]*(?=[);}]))
-#rule-list-body.patterns[4].end  (?=\s*(;)|(?=[)}]))
-#rule-list-body.patterns[4].patterns[0].begin  (?=[^:\s])
-#rule-list-body.patterns[4].patterns[0].end  (?=(((\+_?)?):)[\t\s]*)
-#rule-list-body.patterns[4].patterns[1].begin  (((\+_?)?):)(?=[\t\s]*)
-#rule-list-body.patterns[4].patterns[1].end  (?=\s*(;)|(?=[)}]))
-#rule-list-body.patterns[5].patterns[1].patterns[0].patterns[1].match  [-\w]+
-#rule-list-body.patterns[5].patterns[4].match  \b(var-)(-?(?:[-\w[^\x00-\x{9F}]]|\\(?:\h{1,6}[\t\n\f\s]?|[…
-#rule-list-body.patterns[5].patterns[5].begin  \bfont(-family)?(?!-)\b
-#rule-list-body.patterns[5].patterns[5].end  \s*(;)|(?=[)}])
-#rule-list-body.patterns[5].patterns[5].patterns[0].match  (((\+_?)?):)([\t\s]*)
-#rule-list-body.patterns[5].patterns[5].patterns[2].match  -?(?:[A-Z_a-z[^\x00-\x{9F}]]|\\(?:\h{1,6}[\t\n\f\s]?|[^\n\f…
-#rule-list-body.patterns[5].patterns[5].patterns[3].match  ,
-#rule-list-body.patterns[5].patterns[6].begin  \banimation-timeline\b
-#rule-list-body.patterns[5].patterns[6].end  \s*(;)|(?=[)}])
-#rule-list-body.patterns[5].patterns[6].patterns[0].begin  (((\+_?)?):)(?=[\t\s]*)
-#rule-list-body.patterns[5].patterns[6].patterns[0].end  (?=\s*(;)|(?=[)}]))
-#rule-list-body.patterns[5].patterns[7].begin  \banimation(?:-name)?(?=(?:\+_?)?:)\b
-#rule-list-body.patterns[5].patterns[7].end  \s*(;)|(?=[)}])
-#rule-list-body.patterns[5].patterns[7].patterns[0].begin  (((\+_?)?):)(?=[\t\s]*)
-#rule-list-body.patterns[5].patterns[7].patterns[0].end  (?=\s*(;)|(?=[)}]))
-#rule-list-body.patterns[5].patterns[7].patterns[0].patterns[6].match  -?(?:[A-Z_a-z[^\x00-\x7F]]|(?:(:?\\[0-9a-f]{1,6}(\r\n|[\t\n…
-#rule-list-body.patterns[5].patterns[9].end  groups 1
-#rule-list-body.patterns[5].patterns[9].patterns[0].match  groups 4
-#rule-list-body.patterns[5].patterns[9].patterns[1].match  \b(inherit|initial|unset|none)\b
-#rule-list-body.patterns[5].patterns[10].begin  \bwill-change\b
-#rule-list-body.patterns[5].patterns[10].end  \s*(;)|(?=[)}])
-#rule-list-body.patterns[5].patterns[10].patterns[0].match  (((\+_?)?):)([\t\s]*)
-#rule-list-body.patterns[5].patterns[10].patterns[1].match  unset|initial|inherit|will-change|auto|scroll-position|cont…
-#rule-list-body.patterns[5].patterns[10].patterns[2].match  -?(?:[-\w[^\x00-\x{9F}]]|\\(?:\h{1,6}[\t\n\f\s]?|[^\n\f\h])…
-#rule-list-body.patterns[5].patterns[11].begin  \bcounter-(increment|(re)?set)\b
-#rule-list-body.patterns[5].patterns[11].end  \s*(;)|(?=[)}])
-#rule-list-body.patterns[5].patterns[11].patterns[0].match  (((\+_?)?):)([\t\s]*)
-#rule-list-body.patterns[5].patterns[11].patterns[1].match  -?(?:[-\w[^\x00-\x{9F}]]|\\(?:\h{1,6}[\t\n\f\s]?|[^\n\f\h])…
-#rule-list-body.patterns[5].patterns[11].patterns[3].match  unset|initial|inherit|auto
-#rule-list-body.patterns[5].patterns[12].begin  \bcontainer(?:-name)?(?=\s*?:)
-#rule-list-body.patterns[5].patterns[12].end  \s*(;)|(?=[)}])
-#rule-list-body.patterns[5].patterns[12].patterns[0].begin  (((\+_?)?):)(?=[\t\s]*)
-#rule-list-body.patterns[5].patterns[12].patterns[0].end  (?=\s*(;)|(?=[)}]))
-#rule-list-body.patterns[5].patterns[12].patterns[0].patterns[0].match  \bdefault\b
-#rule-list-body.patterns[5].patterns[12].patterns[0].patterns[3].match  --|-?(?:[A-Z_a-z·À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\x{EFFFF…
-#rule-list-body.patterns[5].patterns[14].match  \b(((contain-intrinsic|max|min)-)?(block|inline)?-size)\b
-#rule-list-body.patterns[6].begin  groups 2
-#scroll-function.begin  \b(scroll)(\()
-#scroll-function.end  \)
-#scroll-function.patterns[0].match  root|nearest|self
-#scroll-function.patterns[1].match  block|inline|[xy]
-#selectors.patterns[8].match  (>{1,3}|[+~]){2,}
-#selectors.patterns[9].match  /deep/
-#selectors.patterns[10].patterns[3].patterns[1].match  [^]"'\[\s]
-#selectors.patterns[10].patterns[3].patterns[3].match  (?:\s+([Ii]))?
-#selectors.patterns[10].patterns[3].patterns[4].match  ]
-#shape-functions.patterns[0].begin  \b(rect)(?=\()
-#shape-functions.patterns[0].end  \)
-#shape-functions.patterns[0].patterns[0].begin  \(
-#shape-functions.patterns[0].patterns[0].end  (?=\))
-#shape-functions.patterns[0].patterns[0].patterns[0].match  \bauto\b
-#shape-functions.patterns[1].begin  \b(inset)(?=\()
-#shape-functions.patterns[1].end  \)
-#shape-functions.patterns[1].patterns[0].begin  \(
-#shape-functions.patterns[1].patterns[0].end  (?=\))
-#shape-functions.patterns[1].patterns[0].patterns[0].match  \bround\b
-#shape-functions.patterns[2].begin  \b(circle|ellipse)(?=\()
-#shape-functions.patterns[2].end  \)
-#shape-functions.patterns[2].patterns[0].begin  \(
-#shape-functions.patterns[2].patterns[0].end  (?=\))
-#shape-functions.patterns[2].patterns[0].patterns[0].match  \bat\b
-#shape-functions.patterns[2].patterns[0].patterns[1].match  \b(top|right|bottom|left|center|closest-side|farthest-side)…
-#shape-functions.patterns[3].begin  \b(polygon)(?=\()
-#shape-functions.patterns[3].end  \)
-#shape-functions.patterns[3].patterns[0].begin  \(
-#shape-functions.patterns[3].patterns[0].end  (?=\))
-#shape-functions.patterns[3].patterns[0].patterns[0].match  \b(nonzero|evenodd)\b
-#steps-function.begin  \b(steps)(\()
-#steps-function.end  \)
-#steps-function.patterns[0].match  jump-start|jump-end|jump-none|jump-both|start|end
-#string-content.patterns[1].match  \\\s*\n
-#string-content.patterns[2].match  \\(\h{1,6}|.)
-#style-function.begin  \b(style)(?=\()
-#style-function.end  \)
-#style-function.patterns[0].begin  \(
-#style-function.patterns[0].end  (?=\))
-#symbols-function.begin  \b(symbols)(?=\()
-#symbols-function.end  \)
-#symbols-function.patterns[0].begin  \(
-#symbols-function.patterns[0].end  (?=\))
-#symbols-function.patterns[0].patterns[0].match  \b(cyclic|numeric|alphabetic|symbolic|fixed)\b
-#transform-functions.patterns[0].begin  \b((?:matrix|scale)(?:3d|))(?=\()
-#transform-functions.patterns[0].end  \)
-#transform-functions.patterns[0].patterns[0].begin  \(
-#transform-functions.patterns[0].patterns[0].end  (?=\))
-#transform-functions.patterns[1].begin  \b(translate(3d)?)(?=\()
-#transform-functions.patterns[1].end  \)
-#transform-functions.patterns[1].patterns[0].begin  \(
-#transform-functions.patterns[1].patterns[0].end  (?=\))
-#transform-functions.patterns[2].begin  \b(translate[XY])(?=\()
-#transform-functions.patterns[2].end  \)
-#transform-functions.patterns[2].patterns[0].begin  \(
-#transform-functions.patterns[2].patterns[0].end  (?=\))
-#transform-functions.patterns[3].begin  \b(rotate[XYZ]?|skew[XY])(?=\()
-#transform-functions.patterns[3].end  \)
-#transform-functions.patterns[3].patterns[0].begin  \(
-#transform-functions.patterns[3].patterns[0].end  (?=\))
-#transform-functions.patterns[4].begin  \b(skew)(?=\()
-#transform-functions.patterns[4].end  \)
-#transform-functions.patterns[4].patterns[0].begin  \(
-#transform-functions.patterns[4].patterns[0].end  (?=\))
-#transform-functions.patterns[5].begin  \b(translateZ|perspective)(?=\()
-#transform-functions.patterns[5].end  \)
-#transform-functions.patterns[5].patterns[0].begin  \(
-#transform-functions.patterns[5].patterns[0].end  (?=\))
-#transform-functions.patterns[6].begin  \b(rotate3d)(?=\()
-#transform-functions.patterns[6].end  \)
-#transform-functions.patterns[6].patterns[0].begin  \(
-#transform-functions.patterns[6].patterns[0].end  (?=\))
-#transform-functions.patterns[7].begin  \b(scale[XYZ])(?=\()
-#transform-functions.patterns[7].end  \)
-#transform-functions.patterns[7].patterns[0].begin  \(
-#transform-functions.patterns[7].patterns[0].end  (?=\))
-#unicode-range.match  (?i)(u\+)([0-9?a-f]{1,6}(?:(-)[0-9a-f]{1,6})?)
-#value-separator.match  \s*(/)\s*
-#var-function.begin  \b(var)(?=\()
-#var-function.end  \)
-#var-function.patterns[0].begin  \(
-#var-function.patterns[0].end  (?=\))
-#view-function.begin  \b(view)(?=\()
-#view-function.end  \)
-#view-function.patterns[0].begin  \(
-#view-function.patterns[0].end  (?=\))
-#view-function.patterns[0].patterns[0].match  block|inline|[xy]|auto
+#at-container.patterns[0].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#at-container.patterns[0].patterns[0].patterns[1].patterns[5].match  /  waived: `(([<>])=?)|[/=]`, earlier in the same list, matches every `/`
+#at-custom-media.patterns[0].match  \s*;  waived: the rule's end, `\s*(?=;)`, matches at the same position first
+#at-custom-media.patterns[1].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#at-keyframes.begin  groups 4 (waived: the grammar names the group, but the expression has two groups)
+#at-media.patterns[0].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#at-supports.patterns[0].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#less-namespace-accessors.patterns[0].patterns[0].match  groups 2 (waived: the grammar names the group, but the expression has one group)
+#less-namespace-accessors.patterns[0].patterns[3].begin  \s*(\{)  waived: the rule's end, `\s*(?:(,)|(?=[;{]))`, matches at the same position first
+#less-namespace-accessors.patterns[0].patterns[3].end  (?=})  waived: its begin never matches
+#less-namespace-accessors.patterns[1].end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#less-strings.patterns[0].end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#less-variable-assignment.patterns[0].patterns[0].match  groups 4 (waived: the group matches only blanks, and the oracle compares no blank)
+#less-variable-comparison.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#less-variable-comparison.patterns[0].patterns[5].match  ,  waived: `#unquoted-string`, earlier in the same list, matches every `,`
+#literal-string.patterns[0].end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#literal-string.patterns[1].end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#media-query.patterns[2].patterns[1].match  \b(portrait|landscape|progressive|interlace)  waived: the media-feature name, the begin before it in the same list, matches every word this does
+#rule-list-body.patterns[5].patterns[5].patterns[0].match  groups 4 (waived: the group matches only blanks, and the oracle compares no blank)
+#rule-list-body.patterns[5].patterns[5].patterns[3].match  ,  waived: `#property-values`, earlier in the same list, takes every `,` through `#comma-delimiter`
+#rule-list-body.patterns[5].patterns[9].patterns[0].match  groups 4 (waived: the group matches only blanks, and the oracle compares no blank)
+#rule-list-body.patterns[5].patterns[10].patterns[0].match  groups 4 (waived: the group matches only blanks, and the oracle compares no blank)
+#rule-list-body.patterns[5].patterns[11].patterns[0].match  groups 4 (waived: the group matches only blanks, and the oracle compares no blank)
+#rule-list-body.patterns[5].patterns[11].patterns[3].match  unset|initial|inherit|auto  waived: the name pattern, earlier in the same list, matches every word this does
+#rule-list-body.patterns[6].begin  groups 2 (waived: the group matches only blanks, and the oracle compares no blank)
+#selectors.patterns[10].patterns[3].patterns[3].match  groups 1 (waived: the enclosing rule's end, `(?=([]\s]))`, matches at the blank before the flag first)
+#selectors.patterns[10].patterns[3].patterns[4].match  ]  waived: the enclosing rule's end, `(?=([]\s]))`, matches at every `]` first
 ```
 
 ### `lua`
@@ -3329,98 +2799,32 @@ patterns[104].end  ^\2$
 ### `scss`
 
 ```text
-#at_rule_at_root.begin  \s*((@)(at-root))(\s+|$)
-#at_rule_at_root.end  \s*(?=\{)
-#at_rule_charset.begin  \s*((@)charset)\b\s*
-#at_rule_charset.end  \s*((?=;|$))
-#at_rule_content.end  groups 1
-#at_rule_each.end  groups 1, 2
-#at_rule_else.end  groups 1, 2
-#at_rule_extend.end  groups 1, 2
-#at_rule_fontface.patterns[0].begin  ^\s*((@)font-face)\b
-#at_rule_fontface.patterns[0].end  \s*(?=\{)
-#at_rule_for.end  groups 1, 2
-#at_rule_forward.end  groups 1, 2
-#at_rule_forward.patterns[1].match  \b([-\w]+)(\*)
-#at_rule_function.patterns[0].begin  groups 3
-#at_rule_function.patterns[0].end  groups 1, 2, 3
-#at_rule_function.patterns[1].match  \s*((@)function)\b\s*
-#at_rule_if.end  groups 1, 2
-#at_rule_import.begin  \s*((@)import)\b\s*
-#at_rule_import.end  \s*((?=;)|(?=}))
-#at_rule_include.patterns[1].match  (?<=@include)\s+(?:([-\w]+)\s*(\.))?([-\w]+)
-#at_rule_keyframes.begin  (?<=^|\s)(@)(?:-(?:webkit|moz)-)?keyframes\b
-#at_rule_keyframes.end  (?<=})
-#at_rule_keyframes.patterns[0].match  (?<=@keyframes)\s+((?:[A-Z_a-z][-\w]|-[A-Z_a-z])[-\w]*)
-#at_rule_keyframes.patterns[1].begin  (?<=@keyframes)\s+(")
-#at_rule_keyframes.patterns[1].end  "
-#at_rule_keyframes.patterns[1].patterns[0].match  \\(\h{1,6}|.)
-#at_rule_keyframes.patterns[2].begin  (?<=@keyframes)\s+(')
-#at_rule_keyframes.patterns[2].end  '
-#at_rule_keyframes.patterns[2].patterns[0].match  \\(\h{1,6}|.)
-#at_rule_keyframes.patterns[3].begin  \{
-#at_rule_keyframes.patterns[3].end  }
-#at_rule_keyframes.patterns[3].patterns[0].match  \b(?:(?:100|[1-9]\d|\d)%|from|to)(?=\s*\{)
-#at_rule_media.patterns[0].patterns[3].match  \b(only)\b
-#at_rule_media.patterns[0].patterns[4].patterns[1].end  groups 1
-#at_rule_namespace.patterns[0].begin  (?<=@namespace)\s+(?=url)
-#at_rule_namespace.patterns[0].end  (?=;|$)
-#at_rule_namespace.patterns[1].begin  (?<=@namespace)\s+([-\w]*)
-#at_rule_namespace.patterns[1].end  (?=;|$)
-#at_rule_namespace.patterns[2].match  ((@)namespace)\b
-#at_rule_option.match  ^\s*((@)option)\b\s*
-#at_rule_page.patterns[0].begin  ^\s*((@)page)(?=[:\s])\s*([-:\w]*)
-#at_rule_page.patterns[0].end  \s*(?=\{)
-#at_rule_return.end  groups 1, 2
-#at_rule_supports.begin  (?<=^|\s)(@)supports\b
-#at_rule_supports.end  (?=\{)|$
-#at_rule_supports.patterns[2].match  \(
-#at_rule_supports.patterns[3].match  \)
-#at_rule_use.end  groups 1, 2
-#at_rule_use.patterns[7].begin  \(
-#at_rule_use.patterns[7].end  \)
-#at_rule_warn.end  groups 1, 2
-#at_rule_while.begin  \s*((@)while)\b\s*
-#at_rule_while.end  \s*(?=})
-#comment_block.begin  /\*  fuzz
-#comment_block.end  \*/
-#comment_docblock.begin  ///
-#comment_docblock.end  (?=$)
-#constant_optional.match  !optional
-#constant_sass_functions.begin  (headings|stylesheet-url|rgba?|hsla?|ie-hex-str|red|green|b…
-#constant_sass_functions.end  (\))
-#function_attributes.patterns[3].match  [;=?@{}]  fuzz
-#functions.patterns[0].begin  ([-\w]+)(\()\s*
-#functions.patterns[0].end  (\))
-#functions.patterns[1].match  ([-\w]+)
-#map.patterns[3].match  \b([-\w]+)\s*(:)
-#parent_selector_suffix.match  (?<=&)((?:[-0-9A-Z_a-z[^\x00-\x7F]]|\\(?:\h{1,6}|.)|#\{|[$}…
-#parent_selector_suffix.captures[2].patterns[1].match  \\(\h{1,6}|.)
-#parent_selector_suffix.captures[2].patterns[2].match  [$}]
-#selector_attribute.match  groups 4, 9, 10, 11, 12
-#selector_attribute.captures[2].patterns[1].match  \\(\h{1,6}|.)
-#selector_attribute.captures[2].patterns[2].match  [$}]
-#selector_attribute.captures[4].patterns[1].match  \\(\h{1,6}|.)
-#selector_attribute.captures[4].patterns[2].match  [$}]
-#selector_attribute.captures[7].patterns[1].match  \\(\h{1,6}|.)
-#selector_attribute.captures[7].patterns[2].match  [$}]
-#selector_attribute.captures[11].patterns[1].match  \\(\h{1,6}|.)
-#selector_attribute.captures[11].patterns[2].match  [$}]
-#selector_class.captures[2].patterns[1].match  \\(\h{1,6}|.)
-#selector_class.captures[2].patterns[2].match  [$}]
-#selector_custom.match  \b([0-9A-Za-z]+(-[0-9A-Za-z]+)+)(?=\.|\s++[^:]|\s*[,\[{]|:(…  fuzz
-#selector_id.match  (#)((?:[-0-9A-Z_a-z[^\x00-\x7F]]|\\(?:\h{1,6}|.)|#\{|\.?\$|…  fuzz
-#selector_id.captures[2].patterns[1].match  \\(\h{1,6}|.)
-#selector_id.captures[2].patterns[2].match  [$}]
-#selector_placeholder.captures[2].patterns[1].match  \\(\h{1,6}|.)
-#selector_placeholder.captures[2].patterns[2].match  [$}]
-#selector_pseudo_class.patterns[0].patterns[2].match  (?:(?<=\d)n|\b(n|even|odd))\b
-#selector_pseudo_class.patterns[0].patterns[3].match  \w+
-#string_double.patterns[0].match  \\(\h{1,6}|.)
-#string_single.begin  '  fuzz
-#string_single.end  '
-#string_single.patterns[0].match  \\(\h{1,6}|.)
-#variable_setting.patterns[1].patterns[6].match  ,  fuzz
+#at_rule_charset.end  groups 1 (waived: the group is a lookahead, so it never holds text), 2 (waived: the grammar names the group, but the expression has one group)
+#at_rule_content.end  groups 1 (waived: the group is a lookahead, so it never holds text)
+#at_rule_each.end  groups 1 (waived: the group is a lookahead, so it never holds text), 2 (waived: the grammar names the group, but the expression has one group)
+#at_rule_else.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#at_rule_extend.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#at_rule_for.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#at_rule_forward.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#at_rule_function.patterns[0].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#at_rule_function.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups), 3 (waived: the grammar names the group, but the expression has no groups)
+#at_rule_function.patterns[1].match  \s*((@)function)\b\s*  waived: `#at_rule_function.patterns[0]`, before it, begins with the same expression
+#at_rule_if.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#at_rule_import.end  groups 1 (waived: the group is a lookahead, so it never holds text), 2 (waived: the grammar names the group, but the expression has one group)
+#at_rule_namespace.patterns[1].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#at_rule_page.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups), 3 (waived: the grammar names the group, but the expression has no groups)
+#at_rule_return.end  groups 1 (waived: the group is a lookahead, so it never holds text), 2 (waived: the grammar names the group, but the expression has one group)
+#at_rule_supports.end  groups 0 (waived: the expression is a lookahead or the end of the line, so the match holds no text), 1 (waived: the grammar names the group, but the expression has no groups)
+#at_rule_use.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#at_rule_warn.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#at_rule_while.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#comment_docblock.begin  ///  waived: the rule's only pattern includes `source.sassdoc`, which Shiki does not load, so vscode-textmate drops the rule
+#comment_docblock.end  (?=$)  waived: the rule's only pattern includes `source.sassdoc`, which Shiki does not load, so vscode-textmate drops the rule
+#constant_sass_functions.begin  (headings|stylesheet-url|rgba?|hsla?|ie-hex-str|red|green|b…  waived: `#constant_functions`, before it in `#property_values`, the only rule that includes it, matches every `name(` this does
+#constant_sass_functions.end  (\))  waived: its begin never matches
+#parent_selector_suffix.match  groups 2 (waived: the grammar names the group, but the expression has one group)
+#parent_selector_suffix.captures[2].patterns[1].match  \\(\h{1,6}|.)  waived: it applies to group 2, which the expression does not have
+#parent_selector_suffix.captures[2].patterns[2].match  [$}]  waived: it applies to group 2, which the expression does not have
 ```
 
 ### `shellscript`

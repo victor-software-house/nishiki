@@ -1,0 +1,107 @@
+@container sidebar (min-width: 400px) and (aspect-ratio > 1/2) {
+  .card { padding: 1rem; }
+}
+@counter-style thumbs {
+  system: cyclic;
+  symbols: "👍";
+}
+@counter-style decimal {
+  system: numeric;
+}
+@custom-media --narrow (max-width: 30em);
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fade-in, slide-in {
+  0% { opacity: 0; }
+}
+@media screen and (orientation: portrait) and (aspect-ratio: 16/9) {
+  .wide { display: none; }
+}
+@supports (display: grid) and (not (display: inline-grid)) {
+  .grid { display: grid; }
+}
+
+.functions {
+  content: attr(data-size px, "x");
+  color: light-dark(#fff, #000);
+  counter-reset: item 1 section;
+  counter-increment: item 2;
+  content: counter(item, upper-roman) counters(section, ".", decimal-leading-zero);
+  background-image: cross-fade(url(a.png), url(b.png), 50%);
+  transition-timing-function: cubic-bezier(0.1, 0.7, 1, 0.1);
+  animation-timing-function: steps(4, jump-start), steps(2, end);
+  filter: blur(2px) brightness(1.2) contrast(110%) drop-shadow(1px 1px 2px #000) hue-rotate(90deg);
+  backdrop-filter: grayscale(50%) invert(1) opacity(0.5) saturate(2) sepia(1);
+  background: filter(url(photo.jpg), blur(2px));
+  width: fit-content(20em);
+  speak-rate: 44kHz;
+  pitch: 2Hz;
+  background: radial-gradient(circle farthest-corner at top left, red, blue);
+  grid-template-columns: repeat(auto-fill, minmax(min-content, 1fr)) repeat(auto-fit, max-content) repeat(2, auto);
+  background-image: image("icon.png");
+  color: multiply(#f00, #00f) screen(#f00, #00f) softlight(#f00, #00f) average(#f00, #00f);
+  color: spin(#f00, 10) greyscale(#f00);
+  width: get-unit(10px);
+  shape-outside: circle(50% at center) ellipse(25% 40% at left) inset(10px round 5px) polygon(evenodd, 0 0, 100% 0, 50% 100%) rect(0 auto 10px 0);
+  clip-path: circle(closest-side at right) polygon(nonzero, 0 0, 1px 1px);
+  animation-play-state: paused, running;
+  animation-range: entry 10% exit-crossing 90%;
+  animation-timeline: scroll(root block), scroll(nearest x), view(inline auto), view(y);
+  list-style: symbols(cyclic "*" "†");
+  transform: translateZ(10px) perspective(500px) rotate3d(1, 1, 0, 45deg);
+  will-change: transform, scroll-position;
+  will-change: auto;
+  counter-reset: unset;
+  inline-size: 10px;
+  min-block-size: 5px;
+  contain-intrinsic-size: auto 100px;
+  var-color : red;
+  width: pi();
+  width: default()px;
+  background: svg-gradient(ellipse at center, red, blue);
+  color: from;
+  width: calc(from + 1px);
+  animation: fade 1s ease;
+  animation-fill-mode: forwards, both;
+  font-family: Arial, sans-serif;
+  filter: none;
+  container: default / inline-size;
+  margin+: 1px;
+  margin+_: 2px;
+  @r: { color: red; };
+}
+
+.mixin(@a; @b: 2) when (isunit(@a, px)) and (isdefined(@b)) { width: @a; }
+.mixin(@a) when (default()) { width: @a; }
+.guard when (@mode = dark), (@mode = dim) { color: white; }
+.flagged(@on) when (@on = true) { color: white; }
+.cmp(@a) when (@a > 1, @a < 10) { width: @a; }
+@detached: {
+  background: red;
+};
+.call {
+  @detached();
+  #ns.mixin() when (@a) { color: red; }
+  #ns > .mixin();
+  value: #ns.mixin()[@result];
+}
+.regex {
+  @r: regexp("a+", "g");
+}
+.box:dir(rtl), .box:dir(ltr) { color: red; }
+::highlight(mark), ::part(label), :state(open) { color: red; }
+::slotted(span) { color: red; }
+a[href$=".pdf" i] { color: red; }
+a >+ b { color: red; }
+.a /deep/ .b { color: red; }
+@flag: boolean(@a > 1, true);
+.eq(@a) when (@a = 1, 2) { width: @a; }
+@import "a.css" screen;
+@media screen, print { .p { color: red; } }
+.u { width: unit(5, px); content: "line \
+continues"; content: 'single
+; content: "double
+; }
+a[x=y[z] { color: red; }

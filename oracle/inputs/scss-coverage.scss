@@ -1,0 +1,92 @@
+@charset "UTF-8";
+@option compress: true;
+@namespace url(http://www.w3.org/1999/xhtml);
+@namespace svg url(http://www.w3.org/2000/svg);
+@use "sass:math" as m;
+@use "config" with ($primary: blue, $gap: 4px);
+@forward "src/list" hide list-reset;
+@forward "src/map" as map-*;
+@import url("a.css");
+
+/// Returns the square of a number.
+/// @param {Number} $n
+@function square($n) {
+  @return $n * $n;
+}
+
+@mixin theme($dark: false) {
+  @content;
+}
+
+@keyframes "fade\66" {
+  from { opacity: 0; }
+}
+@keyframes 'slide\27' {
+  to { opacity: 1; }
+}
+
+@media only screen and (min-width: 10px;) {
+  .wide { display: none; }
+}
+
+@font-face {
+  font-family: "Body";
+  src: url("body.woff2") format("woff2");
+}
+
+@page :first {
+  margin: 1in;
+}
+
+@supports (display: grid) {
+  .grid { display: grid; }
+}
+
+.button {
+  @extend .base !optional;
+  @include theme(true);
+  @warn "careful";
+  @if $a == 1 {
+    color: red;
+  } @else if $a == 2 {
+    color: blue;
+  } @else {
+    color: green;
+  }
+  @each $name in a, b {
+    .icon-#{$name} { content: ""; }
+  }
+  @for $i from 1 through 3 {
+    .item-#{$i} { width: 10px * $i; }
+  }
+  $i: 3;
+  @while $i > 0 {
+    .w-#{$i} { width: $i; }
+    $i: $i - 1;
+  }
+  content: 'it\'s';
+  quotes: "a\"b";
+  /// Inside a rule.
+  /* A block comment. */
+  @include theme(1; 2);
+}
+
+$breakpoints: (
+  /// The small one.
+  small: 576px,
+  /* The large one. */
+  large: 992px
+);
+$stack: Helvetica, Arial;
+
+.after {
+  color: red;
+}
+
+#id\31 x, #a$b, .x$y, %p$q, %place\@, .a\:b { color: red; }
+[data-a\:b="c\:d"], [data-x=v\:w], [data-y='e\:f'], [a$b=c$d], [e="g$h"], [i='j$k'] { color: red; }
+.p {
+  &-x\:y { color: red; }
+  &-x$y { color: red; }
+}
+li:nth-child(foo), li:nth-child(2n+1), li:nth-child(odd) { color: red; }

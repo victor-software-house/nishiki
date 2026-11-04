@@ -1,0 +1,539 @@
+L // Merge functionality tests
+T 2 source.css.less comment.line.double-slash.less punctuation.definition.comment.less
+T 28 source.css.less comment.line.double-slash.less
+L .first-transform() {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 16 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 17 source.css.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 18 source.css.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 19 source.css.less meta.selector.less
+T 20 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L   transform+: rotate(90deg), skew(30deg);
+T 2 source.css.less meta.property-list.less
+T 11 source.css.less meta.property-list.less support.type.property-name.less
+T 13 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 14 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.transform.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less constant.numeric.less
+T 26 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less constant.numeric.less keyword.other.unit.less
+T 27 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 28 source.css.less meta.property-list.less meta.property-value.less punctuation.separator.less
+T 29 source.css.less meta.property-list.less meta.property-value.less
+T 33 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.transform.less
+T 34 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 36 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less constant.numeric.less
+T 39 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less constant.numeric.less keyword.other.unit.less
+T 40 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 41 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L .second-transform() {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 17 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 18 source.css.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 19 source.css.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 20 source.css.less meta.selector.less
+T 21 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L   transform+: scale(2,4);
+T 2 source.css.less meta.property-list.less
+T 11 source.css.less meta.property-list.less support.type.property-name.less
+T 13 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 14 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.transform.less
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less constant.numeric.less
+T 22 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less constant.numeric.less
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 25 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L .third-transform() {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 16 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 17 source.css.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 18 source.css.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 19 source.css.less meta.selector.less
+T 20 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L   transform: scaleX(45deg);
+T 2 source.css.less meta.property-list.less
+T 11 source.css.less meta.property-list.less support.type.property-name.less
+T 12 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 13 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.transform.less
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 22 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less constant.numeric.less
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 26 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 27 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L .fourth-transform() {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 17 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 18 source.css.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 19 source.css.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 20 source.css.less meta.selector.less
+T 21 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L   transform+: scaleX(45deg);
+T 2 source.css.less meta.property-list.less
+T 11 source.css.less meta.property-list.less support.type.property-name.less
+T 13 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 14 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.transform.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less constant.numeric.less
+T 26 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 27 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 28 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L .fifth-transform() {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 16 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 17 source.css.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 18 source.css.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 19 source.css.less meta.selector.less
+T 20 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L   transform+: scale(2,4) !important;
+T 2 source.css.less meta.property-list.less
+T 11 source.css.less meta.property-list.less support.type.property-name.less
+T 13 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 14 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.transform.less
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less constant.numeric.less
+T 22 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less constant.numeric.less
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 25 source.css.less meta.property-list.less meta.property-value.less
+T 26 source.css.less meta.property-list.less meta.property-value.less keyword.other.important.less punctuation.separator.less
+T 35 source.css.less meta.property-list.less meta.property-value.less keyword.other.important.less
+T 36 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L .first-background() {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 17 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 18 source.css.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 19 source.css.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 20 source.css.less meta.selector.less
+T 21 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L   background+: url(data://img1.png);
+T 2 source.css.less meta.property-list.less
+T 12 source.css.less meta.property-list.less support.type.property-name.less
+T 14 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 15 source.css.less meta.property-list.less meta.property-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 19 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 22 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 26 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 27 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 28 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 29 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 30 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 31 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 32 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 33 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 34 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 35 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 36 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L .second-background() {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 18 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 19 source.css.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 20 source.css.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 21 source.css.less meta.selector.less
+T 22 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L   background+: url(data://img2.png);
+T 2 source.css.less meta.property-list.less
+T 12 source.css.less meta.property-list.less support.type.property-name.less
+T 14 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 15 source.css.less meta.property-list.less meta.property-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 19 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 20 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 21 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 22 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 23 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 24 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 25 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 26 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 27 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 28 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 29 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 30 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 31 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 32 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 33 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 34 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 35 source.css.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 36 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L 
+L .test-rule1 {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 11 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 12 source.css.less meta.selector.less
+T 13 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L   // Can merge values
+T 2 source.css.less meta.property-list.less
+T 4 source.css.less meta.property-list.less comment.line.double-slash.less punctuation.definition.comment.less
+T 21 source.css.less meta.property-list.less comment.line.double-slash.less
+L   .first-transform();
+T 2 source.css.less meta.property-list.less
+T 3 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 18 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 19 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 20 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 21 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L   .second-transform();
+T 2 source.css.less meta.property-list.less
+T 3 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 19 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 20 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 21 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 22 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L .test-rule2 {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 11 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 12 source.css.less meta.selector.less
+T 13 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L   // Won't merge values without +: merge directive, for backwards compatibility with css
+T 2 source.css.less meta.property-list.less
+T 4 source.css.less meta.property-list.less comment.line.double-slash.less punctuation.definition.comment.less
+T 88 source.css.less meta.property-list.less comment.line.double-slash.less
+L   .first-transform();
+T 2 source.css.less meta.property-list.less
+T 3 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 18 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 19 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 20 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 21 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L   .third-transform();
+T 2 source.css.less meta.property-list.less
+T 3 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 18 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 19 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 20 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 21 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L .test-rule3 {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 11 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 12 source.css.less meta.selector.less
+T 13 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L   // Won't merge values from two sources with different properties
+T 2 source.css.less meta.property-list.less
+T 4 source.css.less meta.property-list.less comment.line.double-slash.less punctuation.definition.comment.less
+T 66 source.css.less meta.property-list.less comment.line.double-slash.less
+L   .fourth-transform();
+T 2 source.css.less meta.property-list.less
+T 3 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 19 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 20 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 21 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 22 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L   .first-background();
+T 2 source.css.less meta.property-list.less
+T 3 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 19 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 20 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 21 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 22 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L .test-rule4 {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 11 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 12 source.css.less meta.selector.less
+T 13 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L   .first-transform();
+T 2 source.css.less meta.property-list.less
+T 3 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 18 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 19 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 20 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 21 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L   .fifth-transform();
+T 2 source.css.less meta.property-list.less
+T 3 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 18 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 19 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 20 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 21 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L .test-rule5 {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 11 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 12 source.css.less meta.selector.less
+T 13 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L   .first-transform();
+T 2 source.css.less meta.property-list.less
+T 3 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 18 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 19 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 20 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 21 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L   .second-transform() !important;
+T 2 source.css.less meta.property-list.less
+T 3 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 19 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 20 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 21 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 22 source.css.less meta.property-list.less meta.selector.less
+T 23 source.css.less meta.property-list.less meta.selector.less keyword.other.important.less punctuation.separator.less
+T 32 source.css.less meta.property-list.less meta.selector.less keyword.other.important.less
+T 33 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L .test-rule6 {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 11 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 12 source.css.less meta.selector.less
+T 13 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L   .second-transform();
+T 2 source.css.less meta.property-list.less
+T 3 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 19 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 20 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 21 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 22 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L .test-rule7 {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 11 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 12 source.css.less meta.selector.less
+T 13 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L   // inherit !important from merged subrules
+T 2 source.css.less meta.property-list.less
+T 4 source.css.less meta.property-list.less comment.line.double-slash.less punctuation.definition.comment.less
+T 44 source.css.less meta.property-list.less comment.line.double-slash.less
+L   .second-transform();
+T 2 source.css.less meta.property-list.less
+T 3 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 19 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 20 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 21 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 22 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L   .second-transform() !important;
+T 2 source.css.less meta.property-list.less
+T 3 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 19 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 20 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 21 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 22 source.css.less meta.property-list.less meta.selector.less
+T 23 source.css.less meta.property-list.less meta.selector.less keyword.other.important.less punctuation.separator.less
+T 32 source.css.less meta.property-list.less meta.selector.less keyword.other.important.less
+T 33 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L   .second-transform();
+T 2 source.css.less meta.property-list.less
+T 3 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 19 source.css.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 20 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 21 source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 22 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L 
+L .test-rule-interleaved {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 22 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 23 source.css.less meta.selector.less
+T 24 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L     transform+:  t1;
+T 4 source.css.less meta.property-list.less
+T 13 source.css.less meta.property-list.less support.type.property-name.less
+T 15 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 17 source.css.less meta.property-list.less meta.property-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 20 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     background+: b1;
+T 4 source.css.less meta.property-list.less
+T 14 source.css.less meta.property-list.less support.type.property-name.less
+T 16 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 17 source.css.less meta.property-list.less meta.property-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 20 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     transform+:  t2;
+T 4 source.css.less meta.property-list.less
+T 13 source.css.less meta.property-list.less support.type.property-name.less
+T 15 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 17 source.css.less meta.property-list.less meta.property-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 20 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     background+: b2, b3;
+T 4 source.css.less meta.property-list.less
+T 14 source.css.less meta.property-list.less support.type.property-name.less
+T 16 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 17 source.css.less meta.property-list.less meta.property-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 20 source.css.less meta.property-list.less meta.property-value.less punctuation.separator.less
+T 21 source.css.less meta.property-list.less meta.property-value.less
+T 22 source.css.less meta.property-list.less meta.property-value.less
+T 23 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 24 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     transform+:  t3;
+T 4 source.css.less meta.property-list.less
+T 13 source.css.less meta.property-list.less support.type.property-name.less
+T 15 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 17 source.css.less meta.property-list.less meta.property-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 20 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L 
+L .test-rule-spaced {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 17 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 18 source.css.less meta.selector.less
+T 19 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L     transform+_:  t1;
+T 4 source.css.less meta.property-list.less
+T 13 source.css.less meta.property-list.less support.type.property-name.less
+T 16 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 21 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     background+_: b1;
+T 4 source.css.less meta.property-list.less
+T 14 source.css.less meta.property-list.less support.type.property-name.less
+T 17 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 21 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     transform+_:  t2;
+T 4 source.css.less meta.property-list.less
+T 13 source.css.less meta.property-list.less support.type.property-name.less
+T 16 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 21 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     background+_: b2, b3;
+T 4 source.css.less meta.property-list.less
+T 14 source.css.less meta.property-list.less support.type.property-name.less
+T 17 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 21 source.css.less meta.property-list.less meta.property-value.less punctuation.separator.less
+T 22 source.css.less meta.property-list.less meta.property-value.less
+T 23 source.css.less meta.property-list.less meta.property-value.less
+T 24 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 25 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     transform+_:  t3;
+T 4 source.css.less meta.property-list.less
+T 13 source.css.less meta.property-list.less support.type.property-name.less
+T 16 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 21 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L 
+L .test-rule-interleaved-with-spaced {
+T 1 source.css.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 34 source.css.less meta.selector.less entity.other.attribute-name.class.less
+T 35 source.css.less meta.selector.less
+T 36 source.css.less meta.property-list.less punctuation.definition.block.begin.less
+L     transform+_:  t1s;
+T 4 source.css.less meta.property-list.less
+T 13 source.css.less meta.property-list.less support.type.property-name.less
+T 16 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 21 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 22 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     transform+:   t2;
+T 4 source.css.less meta.property-list.less
+T 13 source.css.less meta.property-list.less support.type.property-name.less
+T 15 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 21 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     background+:  b1;
+T 4 source.css.less meta.property-list.less
+T 14 source.css.less meta.property-list.less support.type.property-name.less
+T 16 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 21 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     transform+_:  t3s;
+T 4 source.css.less meta.property-list.less
+T 13 source.css.less meta.property-list.less support.type.property-name.less
+T 16 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 21 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 22 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     transform+:   t4 t5s;
+T 4 source.css.less meta.property-list.less
+T 13 source.css.less meta.property-list.less support.type.property-name.less
+T 15 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 22 source.css.less meta.property-list.less meta.property-value.less
+T 23 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 24 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 25 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     background+_: b2s, b3;
+T 4 source.css.less meta.property-list.less
+T 14 source.css.less meta.property-list.less support.type.property-name.less
+T 17 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 21 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 22 source.css.less meta.property-list.less meta.property-value.less punctuation.separator.less
+T 23 source.css.less meta.property-list.less meta.property-value.less
+T 24 source.css.less meta.property-list.less meta.property-value.less
+T 25 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 26 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     transform+_:  t6s;
+T 4 source.css.less meta.property-list.less
+T 13 source.css.less meta.property-list.less support.type.property-name.less
+T 16 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 21 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 22 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L     background+:  b4;
+T 4 source.css.less meta.property-list.less
+T 14 source.css.less meta.property-list.less support.type.property-name.less
+T 16 source.css.less meta.property-list.less punctuation.separator.key-value.less
+T 18 source.css.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 21 source.css.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less punctuation.definition.block.end.less
+L 

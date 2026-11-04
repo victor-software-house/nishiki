@@ -21,9 +21,18 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `cpp/rapidjson-reader` | [`include/rapidjson/reader.h`][rapidjson-reader] in Tencent/rapidjson | [MIT][rapidjson-licence] |
 | `cpp/sample` | [`samples/cpp.sample`][cpp-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `cpp/spdlog-logger` | [`include/spdlog/logger.h`][spdlog-logger] in gabime/spdlog | [MIT][spdlog-licence] |
+| `css/charset-no-space` | `oracle/inputs/css-charset-no-space.css`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `css/charset-unclosed` | `oracle/inputs/css-charset-unclosed.css`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `css/charset-unquoted` | `oracle/inputs/css-charset-unquoted.css`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `css/coverage` | `oracle/inputs/css-coverage.css`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `css/github-markdown` | [`github-markdown.css`][github-markdown-css] in sindresorhus/github-markdown-css | [MIT][github-markdown-css-licence] |
 | `css/highlightjs-atom-one-dark` | [`src/styles/atom-one-dark.css`][highlightjs-atom-one-dark] in highlightjs/highlight.js | [BSD-3-Clause][highlightjs-licence] |
 | `css/highlightjs-github` | [`src/styles/github.css`][highlightjs-github] in highlightjs/highlight.js | [BSD-3-Clause][highlightjs-licence] |
+| `css/lessjs-at-rules-compressed-evaluation` | [`at-rules-compressed-evaluation.css`][css-lessjs-at-rules-compressed-evaluation] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `css/lessjs-css-3` | [`css-3.css`][css-lessjs-css-3] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `css/lessjs-math-strict` | [`css.css`][css-lessjs-math-strict] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `css/lessjs-media` | [`media.css`][css-lessjs-media] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `css/lessjs-selectors` | [`selectors.css`][css-lessjs-selectors] in less/less.js | [Apache-2.0][lessjs-licence] |
 | `css/milligram` | [`dist/milligram.css`][milligram-css] in milligram/milligram | [MIT][milligram-licence] |
 | `css/normalize` | [`normalize.css`][normalize-css] in necolas/normalize.css | [MIT][normalize-licence] |
 | `css/sample` | [`samples/css.sample`][css-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
@@ -111,6 +120,20 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `less/bootstrap3-mixins-grid-framework` | [`less/mixins/grid-framework.less`][less-bootstrap3-mixins-grid-framework] in twbs/bootstrap | [MIT][bootstrap3-licence] |
 | `less/bootstrap3-navbar` | [`less/navbar.less`][less-bootstrap3-navbar] in twbs/bootstrap | [MIT][bootstrap3-licence] |
 | `less/bootstrap3-variables` | [`less/variables.less`][less-bootstrap3-variables] in twbs/bootstrap | [MIT][bootstrap3-licence] |
+| `less/coverage` | `oracle/inputs/less-coverage.less`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `less/lessjs-at-rules` | [`at-rules.less`][less-lessjs-at-rules] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `less/lessjs-at-rules-compressed` | [`at-rules-compressed.less`][less-lessjs-at-rules-compressed] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `less/lessjs-container` | [`container.less`][less-lessjs-container] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `less/lessjs-css-3` | [`css-3.less`][less-lessjs-css-3] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `less/lessjs-extract-and-length` | [`extract-and-length.less`][less-lessjs-extract-and-length] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `less/lessjs-functions` | [`functions.less`][less-lessjs-functions] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `less/lessjs-functions-each` | [`functions-each.less`][less-lessjs-functions-each] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `less/lessjs-import-reference` | [`import-reference.less`][less-lessjs-import-reference] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `less/lessjs-math-strict` | [`css.less`][less-lessjs-math-strict] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `less/lessjs-merge` | [`merge.less`][less-lessjs-merge] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `less/lessjs-selectors` | [`selectors.less`][less-lessjs-selectors] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `less/lessjs-sourcemaps-comprehensive` | [`comprehensive.less`][less-lessjs-sourcemaps-comprehensive] in less/less.js | [Apache-2.0][lessjs-licence] |
+| `less/lessjs-urls` | [`urls.less`][less-lessjs-urls] in less/less.js | [Apache-2.0][lessjs-licence] |
 | `less/sample` | [`samples/less.sample`][less-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `make/cjson` | [`Makefile`][cjson-make] in DaveGamble/cJSON | [MIT][cjson-licence] |
 | `make/helm` | [`Makefile`][helm-make] in helm/helm | [Apache-2.0][helm-licence] |
@@ -174,8 +197,10 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `rust/ripgrep-searcher` | [`crates/searcher/src/searcher/mod.rs`][ripgrep-searcher] in BurntSushi/ripgrep | [Unlicense or MIT][ripgrep-licence] |
 | `rust/sample` | [`samples/rust.sample`][rust-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `rust/serde-de` | [`serde_core/src/de/mod.rs`][serde-de] in serde-rs/serde | [MIT or Apache-2.0][serde-licence] |
+| `scss/angular-menu` | [`menu.scss`][scss-angular-menu] in angular/components | [MIT][angular-components-licence] |
 | `scss/bootstrap-button` | [`scss/buttons/_button.scss`][scss-bootstrap-button] in twbs/bootstrap | [MIT][bootstrap-licence] |
 | `scss/bootstrap-functions` | [`scss/_functions.scss`][scss-bootstrap-functions] in twbs/bootstrap | [MIT][bootstrap-licence] |
+| `scss/bootstrap-mixins-form-validation` | [`_form-validation.scss`][scss-bootstrap-mixins-form-validation] in twbs/bootstrap | [MIT][bootstrap-licence] |
 | `scss/bootstrap-mixins-grid` | [`scss/mixins/_grid.scss`][scss-bootstrap-mixins-grid] in twbs/bootstrap | [MIT][bootstrap-licence] |
 | `scss/bootstrap-navbar` | [`scss/_navbar.scss`][scss-bootstrap-navbar] in twbs/bootstrap | [MIT][bootstrap-licence] |
 | `scss/bootstrap-root` | [`scss/_root.scss`][scss-bootstrap-root] in twbs/bootstrap | [MIT][bootstrap-licence] |
@@ -183,6 +208,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `scss/bulma-button` | [`sass/elements/button.scss`][scss-bulma-button] in jgthms/bulma | [MIT][bulma-licence] |
 | `scss/bulma-functions` | [`sass/utilities/functions.scss`][scss-bulma-functions] in jgthms/bulma | [MIT][bulma-licence] |
 | `scss/bulma-mixins` | [`sass/utilities/mixins.scss`][scss-bulma-mixins] in jgthms/bulma | [MIT][bulma-licence] |
+| `scss/coverage` | `oracle/inputs/scss-coverage.scss`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `scss/sample` | [`samples/scss.sample`][scss-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `shellscript/nvm` | [`nvm.sh`][nvm] in nvm-sh/nvm | [MIT][nvm-licence] |
 | `shellscript/pyenv-init` | [`libexec/pyenv-init`][pyenv-init] in pyenv/pyenv | [MIT][pyenv-licence] |
@@ -617,6 +643,8 @@ Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railtie
 
 `scss/sample`, `scss/bootstrap-functions`, `scss/bootstrap-button`, `scss/bootstrap-mixins-grid` and `scss/bulma-mixins` are the development inputs for SCSS.
 `scss/bootstrap-utilities`, `scss/bootstrap-navbar`, `scss/bootstrap-root`, `scss/bulma-functions` and `scss/bulma-button` are held out.
+The `lessjs-*`, `angular-menu`, `bootstrap-mixins-form-validation`, `coverage` and `charset-*` inputs of `css`, `less` and `scss` are held out: they were added to exercise the rest of those grammars, as [`COVERAGE.md`](COVERAGE.md) counts them.
+The three `css/charset-*` inputs are one line each, because the grammar's `@charset` rule begins only at the start of a document, and each of its error forms needs a document of its own.
 
 `html-derivative/vue-todomvc`, `html-derivative/vue-grid`, `html-derivative/vue-svg`, `html-derivative/vue-modal` and `html-derivative/vue-tree` are the development inputs for html-derivative.
 `html-derivative/vue-classic-todomvc`, `html-derivative/vue-classic-grid`, `html-derivative/vue-transition-list`, `html-derivative/vue-commits`, `html-derivative/vue-markdown` and `html-derivative/vue-hydration-visible` are held out.
@@ -635,6 +663,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [alamofire-licence]: https://github.com/Alamofire/Alamofire/blob/6c2892ea5adb5a03fa81c510933dd782c5ddd9cb/LICENSE
 [algorithms-chunked]: https://github.com/apple/swift-algorithms/blob/5b7143f8e291dee0e14c118fd0212487f0b37af5/Sources/Algorithms/Chunked.swift
 [algorithms-licence]: https://github.com/apple/swift-algorithms/blob/5b7143f8e291dee0e14c118fd0212487f0b37af5/LICENSE.txt
+[angular-components-licence]: https://github.com/angular/components/blob/6b8d6a47693cf9c862c46919e5de8982fa3fd417/LICENSE
 [ant-build]: https://github.com/apache/ant/blob/dbb01a2d528568b1d7ba0c2d84e533577f7f0876/build.xml
 [ant-checkstyle-frames]: https://github.com/apache/ant/blob/dbb01a2d528568b1d7ba0c2d84e533577f7f0876/src/etc/checkstyle/checkstyle-frames.xsl
 [ant-junit-frames]: https://github.com/apache/ant/blob/dbb01a2d528568b1d7ba0c2d84e533577f7f0876/src/etc/junit-frames.xsl
@@ -732,6 +761,11 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [csharp-docs-value-tuples]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/builtin-types/snippets/shared/ValueTuples.cs
 [csharp-docs-var-pattern]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/docs/csharp/language-reference/operators/snippets/patterns/VarPattern.cs
 [csharp-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/csharp.sample
+[css-lessjs-at-rules-compressed-evaluation]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-config/at-rules-compressed-evaluation/at-rules-compressed-evaluation.css
+[css-lessjs-css-3]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/css-3/css-3.css
+[css-lessjs-math-strict]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-config/math/strict/css.css
+[css-lessjs-media]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/media/media.css
+[css-lessjs-selectors]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/selectors/selectors.css
 [css-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/css.sample
 [dart-args-readme]: https://github.com/dart-lang/core/blob/36f57a994965785d641e436b7dd3aa8a18a26f62/pkgs/args/README.md
 [dart-collection-algorithms]: https://github.com/dart-lang/core/blob/36f57a994965785d641e436b7dd3aa8a18a26f62/pkgs/collection/lib/src/algorithms.dart
@@ -900,7 +934,21 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [less-bootstrap3-mixins-grid-framework]: https://github.com/twbs/bootstrap/blob/68b0d231a13201eb14acd3dc84e51543d16e5f7e/less/mixins/grid-framework.less
 [less-bootstrap3-navbar]: https://github.com/twbs/bootstrap/blob/68b0d231a13201eb14acd3dc84e51543d16e5f7e/less/navbar.less
 [less-bootstrap3-variables]: https://github.com/twbs/bootstrap/blob/68b0d231a13201eb14acd3dc84e51543d16e5f7e/less/variables.less
+[less-lessjs-at-rules]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/at-rules/at-rules.less
+[less-lessjs-at-rules-compressed]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-config/at-rules-compressed/at-rules-compressed.less
+[less-lessjs-container]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/container/container.less
+[less-lessjs-css-3]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/css-3/css-3.less
+[less-lessjs-extract-and-length]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/extract-and-length/extract-and-length.less
+[less-lessjs-functions]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/functions/functions.less
+[less-lessjs-functions-each]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/functions-each/functions-each.less
+[less-lessjs-import-reference]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/import/import/import-reference.less
+[less-lessjs-math-strict]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-config/math-strict/css.less
+[less-lessjs-merge]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/merge/merge.less
+[less-lessjs-selectors]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/selectors/selectors.less
+[less-lessjs-sourcemaps-comprehensive]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-config/sourcemaps/comprehensive/comprehensive.less
+[less-lessjs-urls]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/packages/test-data/tests-unit/urls/urls.less
 [less-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/less.sample
+[lessjs-licence]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/LICENSE
 [leveldb-licence]: https://github.com/google/leveldb/blob/bb74ef739973a70ca9f0d90788a1da89b788c0ad/LICENSE
 [leveldb-version-set]: https://github.com/google/leveldb/blob/bb74ef739973a70ca9f0d90788a1da89b788c0ad/db/version_set.cc
 [libuv-core]: https://github.com/libuv/libuv/blob/7228e05f3e407ed3fa59edba920b8cd825b5d83d/src/unix/core.c
@@ -1071,8 +1119,10 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [scala3-givens]: https://github.com/scala/scala3/blob/d71919d08172571e6a5c9392f186b2a6a4413097/docs/_docs/reference/contextual/givens.md
 [scala3-licence]: https://github.com/scala/scala3/blob/d71919d08172571e6a5c9392f186b2a6a4413097/LICENSE
 [scala3-source-position]: https://github.com/scala/scala3/blob/d71919d08172571e6a5c9392f186b2a6a4413097/compiler/src/dotty/tools/dotc/util/SourcePosition.scala
+[scss-angular-menu]: https://github.com/angular/components/blob/6b8d6a47693cf9c862c46919e5de8982fa3fd417/src/material/menu/menu.scss
 [scss-bootstrap-button]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/scss/buttons/_button.scss
 [scss-bootstrap-functions]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/scss/_functions.scss
+[scss-bootstrap-mixins-form-validation]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/scss/mixins/_form-validation.scss
 [scss-bootstrap-mixins-grid]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/scss/mixins/_grid.scss
 [scss-bootstrap-navbar]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/scss/_navbar.scss
 [scss-bootstrap-root]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/scss/_root.scss

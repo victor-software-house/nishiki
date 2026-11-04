@@ -18,6 +18,8 @@ const airflow =
   "https://raw.githubusercontent.com/apache/airflow/cfbd70b66d11f5d464eb9c0ba926dd34304e110d";
 const alamofire =
   "https://raw.githubusercontent.com/Alamofire/Alamofire/6c2892ea5adb5a03fa81c510933dd782c5ddd9cb";
+const angularComponents =
+  "https://raw.githubusercontent.com/angular/components/6b8d6a47693cf9c862c46919e5de8982fa3fd417";
 const ant =
   "https://raw.githubusercontent.com/apache/ant/dbb01a2d528568b1d7ba0c2d84e533577f7f0876";
 const antd =
@@ -164,6 +166,8 @@ const ky =
   "https://raw.githubusercontent.com/sindresorhus/ky/3541888878c4d303a8bc2ad61815f4e048f55a5d";
 const latexrun =
   "https://raw.githubusercontent.com/aclements/latexrun/38ff6ec2815654513c91f64bdf2a5760c85da26e";
+const lessjs =
+  "https://raw.githubusercontent.com/less/less.js/713331655e437401dfea6cd233893a69762734e1";
 const leveldb =
   "https://raw.githubusercontent.com/google/leveldb/bb74ef739973a70ca9f0d90788a1da89b788c0ad";
 const libuv =
@@ -397,9 +401,34 @@ export const inputs: Input[] = [
   { lang: "csharp", name: "runtime-linq-where", url: `${dotnetRuntime}/src/libraries/System.Linq/src/System/Linq/Where.cs` },
   { lang: "csharp", name: "runtime-stack", url: `${dotnetRuntime}/src/libraries/System.Collections/src/System/Collections/Generic/Stack.cs` },
   { lang: "csharp", name: "sample", url: `${samples}/csharp.sample` },
+  {
+    lang: "css",
+    name: "charset-no-space",
+    url: new URL("inputs/css-charset-no-space.css", import.meta.url).href,
+  },
+  {
+    lang: "css",
+    name: "charset-unclosed",
+    url: new URL("inputs/css-charset-unclosed.css", import.meta.url).href,
+  },
+  {
+    lang: "css",
+    name: "charset-unquoted",
+    url: new URL("inputs/css-charset-unquoted.css", import.meta.url).href,
+  },
+  {
+    lang: "css",
+    name: "coverage",
+    url: new URL("inputs/css-coverage.css", import.meta.url).href,
+  },
   { lang: "css", name: "github-markdown", url: `${githubMarkdownCss}/github-markdown.css` },
   { lang: "css", name: "highlightjs-atom-one-dark", url: `${highlightjs}/src/styles/atom-one-dark.css` },
   { lang: "css", name: "highlightjs-github", url: `${highlightjs}/src/styles/github.css` },
+  { lang: "css", name: "lessjs-at-rules-compressed-evaluation", url: `${lessjs}/packages/test-data/tests-config/at-rules-compressed-evaluation/at-rules-compressed-evaluation.css` },
+  { lang: "css", name: "lessjs-css-3", url: `${lessjs}/packages/test-data/tests-unit/css-3/css-3.css` },
+  { lang: "css", name: "lessjs-math-strict", url: `${lessjs}/packages/test-data/tests-config/math/strict/css.css` },
+  { lang: "css", name: "lessjs-media", url: `${lessjs}/packages/test-data/tests-unit/media/media.css` },
+  { lang: "css", name: "lessjs-selectors", url: `${lessjs}/packages/test-data/tests-unit/selectors/selectors.css` },
   { lang: "css", name: "milligram", url: `${milligram}/dist/milligram.css` },
   { lang: "css", name: "normalize", url: `${normalize}/normalize.css` },
   { lang: "css", name: "sample", url: `${samples}/css.sample` },
@@ -688,6 +717,24 @@ export const inputs: Input[] = [
   { lang: "less", name: "bootstrap3-mixins-grid-framework", url: `${bootstrap3}/less/mixins/grid-framework.less` },
   { lang: "less", name: "bootstrap3-navbar", url: `${bootstrap3}/less/navbar.less` },
   { lang: "less", name: "bootstrap3-variables", url: `${bootstrap3}/less/variables.less` },
+  {
+    lang: "less",
+    name: "coverage",
+    url: new URL("inputs/less-coverage.less", import.meta.url).href,
+  },
+  { lang: "less", name: "lessjs-at-rules", url: `${lessjs}/packages/test-data/tests-unit/at-rules/at-rules.less` },
+  { lang: "less", name: "lessjs-at-rules-compressed", url: `${lessjs}/packages/test-data/tests-config/at-rules-compressed/at-rules-compressed.less` },
+  { lang: "less", name: "lessjs-container", url: `${lessjs}/packages/test-data/tests-unit/container/container.less` },
+  { lang: "less", name: "lessjs-css-3", url: `${lessjs}/packages/test-data/tests-unit/css-3/css-3.less` },
+  { lang: "less", name: "lessjs-extract-and-length", url: `${lessjs}/packages/test-data/tests-unit/extract-and-length/extract-and-length.less` },
+  { lang: "less", name: "lessjs-functions", url: `${lessjs}/packages/test-data/tests-unit/functions/functions.less` },
+  { lang: "less", name: "lessjs-functions-each", url: `${lessjs}/packages/test-data/tests-unit/functions-each/functions-each.less` },
+  { lang: "less", name: "lessjs-import-reference", url: `${lessjs}/packages/test-data/tests-unit/import/import/import-reference.less` },
+  { lang: "less", name: "lessjs-math-strict", url: `${lessjs}/packages/test-data/tests-config/math-strict/css.less` },
+  { lang: "less", name: "lessjs-merge", url: `${lessjs}/packages/test-data/tests-unit/merge/merge.less` },
+  { lang: "less", name: "lessjs-selectors", url: `${lessjs}/packages/test-data/tests-unit/selectors/selectors.less` },
+  { lang: "less", name: "lessjs-sourcemaps-comprehensive", url: `${lessjs}/packages/test-data/tests-config/sourcemaps/comprehensive/comprehensive.less` },
+  { lang: "less", name: "lessjs-urls", url: `${lessjs}/packages/test-data/tests-unit/urls/urls.less` },
   { lang: "less", name: "sample", url: `${samples}/less.sample` },
   { lang: "lua", name: "inspect", url: `${inspectLua}/inspect.lua` },
   { lang: "lua", name: "json", url: `${jsonLua}/json.lua` },
@@ -932,8 +979,10 @@ export const inputs: Input[] = [
   { lang: "scala", name: "sample", url: `${samples}/scala.sample` },
   { lang: "scala", name: "scala3-boundary", url: `${scala3}/library/src/scala/util/boundary.scala` },
   { lang: "scala", name: "scala3-source-position", url: `${scala3}/compiler/src/dotty/tools/dotc/util/SourcePosition.scala` },
+  { lang: "scss", name: "angular-menu", url: `${angularComponents}/src/material/menu/menu.scss` },
   { lang: "scss", name: "bootstrap-button", url: `${bootstrap}/scss/buttons/_button.scss` },
   { lang: "scss", name: "bootstrap-functions", url: `${bootstrap}/scss/_functions.scss` },
+  { lang: "scss", name: "bootstrap-mixins-form-validation", url: `${bootstrap}/scss/mixins/_form-validation.scss` },
   { lang: "scss", name: "bootstrap-mixins-grid", url: `${bootstrap}/scss/mixins/_grid.scss` },
   { lang: "scss", name: "bootstrap-navbar", url: `${bootstrap}/scss/_navbar.scss` },
   { lang: "scss", name: "bootstrap-root", url: `${bootstrap}/scss/_root.scss` },
@@ -941,6 +990,11 @@ export const inputs: Input[] = [
   { lang: "scss", name: "bulma-button", url: `${bulma}/sass/elements/button.scss` },
   { lang: "scss", name: "bulma-functions", url: `${bulma}/sass/utilities/functions.scss` },
   { lang: "scss", name: "bulma-mixins", url: `${bulma}/sass/utilities/mixins.scss` },
+  {
+    lang: "scss",
+    name: "coverage",
+    url: new URL("inputs/scss-coverage.scss", import.meta.url).href,
+  },
   { lang: "scss", name: "sample", url: `${samples}/scss.sample` },
   { lang: "shellscript", name: "nvm", url: `${nvm}/nvm.sh` },
   { lang: "shellscript", name: "pyenv-init", url: `${pyenv}/libexec/pyenv-init` },

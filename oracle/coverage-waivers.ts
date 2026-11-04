@@ -24,6 +24,20 @@ export type Waiver = {
 /** The TypeScript family's grammars, which share their units' paths. */
 const typescriptFamily = ["javascript", "jsx", "tsx", "typescript"];
 
+/** The reason for a group that holds only blanks. */
+const blanks = "the group matches only blanks, and the oracle compares no blank";
+
+/** The reason for a group that holds only the line feed that ends a line. */
+const lineFeed = "the group matches only the line feed at the end of the line, and the oracle compares no blank";
+
+/** The reason for a group that is a lookahead. */
+const lookahead = "the group is a lookahead, so it never holds text";
+
+/** The reason for a group that the grammar names but its expression, with
+ * `groups` groups, does not have. */
+const missing = (groups: number) =>
+  `the grammar names the group, but the expression has ${["no groups", "one group", "two groups"][groups]}`;
+
 export const waivers: Waiver[] = [
   {
     grammar: "rust",
@@ -135,8 +149,221 @@ export const waivers: Waiver[] = [
     { grammar, path: "#template.patterns[1].begin", group: 1, reason: "`#template-call`, the pattern before it, starts at the same name wherever this group would match one" },
     { grammar, path: "#template-type.patterns[1].begin", group: 1, reason: "`#template-call`, the pattern before it, starts at the same name wherever this group would match one" },
   ]),
+  { grammar: "css", path: "#at-rules.patterns[0].patterns[0].match", group: 2, reason: blanks },
+  { grammar: "css", path: "#at-rules.patterns[0].patterns[0].match", group: 4, reason: blanks },
+  {
+    grammar: "css",
+    path: "#at-rules.patterns[0].patterns[2].patterns[0].begin",
+    reason: "group 6 of `#at-rules.patterns[0].patterns[0]`, earlier in the `@charset` rule, takes an unclosed string from the same `\"`, and a closed one fails the lookahead",
+  },
+  {
+    grammar: "css",
+    path: "#at-rules.patterns[0].patterns[2].patterns[0].end",
+    reason: "its begin never matches",
+  },
+  {
+    grammar: "css",
+    path: "#at-rules.patterns[3].end",
+    group: 0,
+    reason: "the expression is a lookahead, so the match holds no text",
+  },
+  {
+    grammar: "css",
+    path: "#escapes.patterns[1].end",
+    reason: "the begin, `\\\\$\\s*`, takes the line feed, so `\\G` stands at the start of the next line and `^(?<!\\G)` never holds",
+  },
+  { grammar: "less", path: "#at-container.patterns[0].begin", group: 3, reason: missing(2) },
+  {
+    grammar: "less",
+    path: "#at-container.patterns[0].patterns[0].patterns[1].patterns[5].match",
+    reason: "`(([<>])=?)|[/=]`, earlier in the same list, matches every `/`",
+  },
+  {
+    grammar: "less",
+    path: "#at-custom-media.patterns[0].match",
+    reason: "the rule's end, `\\s*(?=;)`, matches at the same position first",
+  },
+  { grammar: "less", path: "#at-custom-media.patterns[1].match", group: 3, reason: missing(2) },
+  { grammar: "less", path: "#at-keyframes.begin", group: 4, reason: missing(2) },
+  { grammar: "less", path: "#at-media.patterns[0].begin", group: 3, reason: missing(2) },
+  { grammar: "less", path: "#at-supports.patterns[0].begin", group: 3, reason: missing(2) },
+  {
+    grammar: "less",
+    path: "#less-namespace-accessors.patterns[0].patterns[0].match",
+    group: 2,
+    reason: missing(1),
+  },
+  {
+    grammar: "less",
+    path: "#less-namespace-accessors.patterns[0].patterns[3].begin",
+    reason: "the rule's end, `\\s*(?:(,)|(?=[;{]))`, matches at the same position first",
+  },
+  {
+    grammar: "less",
+    path: "#less-namespace-accessors.patterns[0].patterns[3].end",
+    reason: "its begin never matches",
+  },
+  {
+    grammar: "less",
+    path: "#less-namespace-accessors.patterns[1].end",
+    group: 2,
+    reason: missing(1),
+  },
+  { grammar: "less", path: "#less-strings.patterns[0].end", group: 2, reason: lineFeed },
+  {
+    grammar: "less",
+    path: "#less-variable-assignment.patterns[0].patterns[0].match",
+    group: 4,
+    reason: blanks,
+  },
+  {
+    grammar: "less",
+    path: "#less-variable-comparison.patterns[0].end",
+    group: 1,
+    reason: missing(0),
+  },
+  {
+    grammar: "less",
+    path: "#less-variable-comparison.patterns[0].patterns[5].match",
+    reason: "`#unquoted-string`, earlier in the same list, matches every `,`",
+  },
+  { grammar: "less", path: "#literal-string.patterns[0].end", group: 2, reason: lineFeed },
+  { grammar: "less", path: "#literal-string.patterns[1].end", group: 2, reason: lineFeed },
+  {
+    grammar: "less",
+    path: "#media-query.patterns[2].patterns[1].match",
+    reason: "the media-feature name, the begin before it in the same list, matches every word this does",
+  },
+  {
+    grammar: "less",
+    path: "#rule-list-body.patterns[5].patterns[5].patterns[0].match",
+    group: 4,
+    reason: blanks,
+  },
+  {
+    grammar: "less",
+    path: "#rule-list-body.patterns[5].patterns[5].patterns[3].match",
+    reason: "`#property-values`, earlier in the same list, takes every `,` through `#comma-delimiter`",
+  },
+  {
+    grammar: "less",
+    path: "#rule-list-body.patterns[5].patterns[9].patterns[0].match",
+    group: 4,
+    reason: blanks,
+  },
+  {
+    grammar: "less",
+    path: "#rule-list-body.patterns[5].patterns[10].patterns[0].match",
+    group: 4,
+    reason: blanks,
+  },
+  {
+    grammar: "less",
+    path: "#rule-list-body.patterns[5].patterns[11].patterns[0].match",
+    group: 4,
+    reason: blanks,
+  },
+  {
+    grammar: "less",
+    path: "#rule-list-body.patterns[5].patterns[11].patterns[3].match",
+    reason: "the name pattern, earlier in the same list, matches every word this does",
+  },
+  { grammar: "less", path: "#rule-list-body.patterns[6].begin", group: 2, reason: blanks },
+  {
+    grammar: "less",
+    path: "#selectors.patterns[10].patterns[3].patterns[3].match",
+    group: 1,
+    reason: "the enclosing rule's end, `(?=([]\\s]))`, matches at the blank before the flag first",
+  },
+  {
+    grammar: "less",
+    path: "#selectors.patterns[10].patterns[3].patterns[4].match",
+    reason: "the enclosing rule's end, `(?=([]\\s]))`, matches at every `]` first",
+  },
+  { grammar: "scss", path: "#at_rule_charset.end", group: 1, reason: lookahead },
+  { grammar: "scss", path: "#at_rule_charset.end", group: 2, reason: missing(1) },
+  { grammar: "scss", path: "#at_rule_content.end", group: 1, reason: lookahead },
+  { grammar: "scss", path: "#at_rule_each.end", group: 1, reason: lookahead },
+  { grammar: "scss", path: "#at_rule_each.end", group: 2, reason: missing(1) },
+  { grammar: "scss", path: "#at_rule_else.end", group: 1, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_else.end", group: 2, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_extend.end", group: 1, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_extend.end", group: 2, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_for.end", group: 1, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_for.end", group: 2, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_forward.end", group: 1, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_forward.end", group: 2, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_function.patterns[0].end", group: 1, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_function.patterns[0].end", group: 2, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_function.patterns[0].end", group: 3, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_if.end", group: 1, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_if.end", group: 2, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_import.end", group: 1, reason: lookahead },
+  { grammar: "scss", path: "#at_rule_import.end", group: 2, reason: missing(1) },
+  { grammar: "scss", path: "#at_rule_namespace.patterns[1].end", group: 1, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_page.patterns[0].end", group: 1, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_page.patterns[0].end", group: 2, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_page.patterns[0].end", group: 3, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_return.end", group: 1, reason: lookahead },
+  { grammar: "scss", path: "#at_rule_return.end", group: 2, reason: missing(1) },
+  { grammar: "scss", path: "#at_rule_use.end", group: 1, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_use.end", group: 2, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_warn.end", group: 1, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_warn.end", group: 2, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_while.end", group: 1, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_while.end", group: 2, reason: missing(0) },
+  { grammar: "scss", path: "#at_rule_function.patterns[0].begin", group: 3, reason: missing(2) },
+  {
+    grammar: "scss",
+    path: "#at_rule_function.patterns[1].match",
+    reason: "`#at_rule_function.patterns[0]`, before it, begins with the same expression",
+  },
+  {
+    grammar: "scss",
+    path: "#at_rule_supports.end",
+    group: 0,
+    reason: "the expression is a lookahead or the end of the line, so the match holds no text",
+  },
+  { grammar: "scss", path: "#at_rule_supports.end", group: 1, reason: missing(0) },
+  {
+    grammar: "scss",
+    path: "#comment_docblock.begin",
+    reason: "the rule's only pattern includes `source.sassdoc`, which Shiki does not load, so vscode-textmate drops the rule",
+  },
+  {
+    grammar: "scss",
+    path: "#comment_docblock.end",
+    reason: "the rule's only pattern includes `source.sassdoc`, which Shiki does not load, so vscode-textmate drops the rule",
+  },
+  {
+    grammar: "scss",
+    path: "#constant_sass_functions.begin",
+    reason: "`#constant_functions`, before it in `#property_values`, the only rule that includes it, matches every `name(` this does",
+  },
+  { grammar: "scss", path: "#constant_sass_functions.end", reason: "its begin never matches" },
+  { grammar: "scss", path: "#parent_selector_suffix.match", group: 2, reason: missing(1) },
+  {
+    grammar: "scss",
+    path: "#parent_selector_suffix.captures[2].patterns[1].match",
+    reason: "it applies to group 2, which the expression does not have",
+  },
+  {
+    grammar: "scss",
+    path: "#parent_selector_suffix.captures[2].patterns[2].match",
+    reason: "it applies to group 2, which the expression does not have",
+  },
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
  * pull request that closes its last gap. */
-export const complete: string[] = ["csharp", "javascript", "jsx", "rust", "tsx", "typescript"];
+export const complete: string[] = [
+  "csharp",
+  "css",
+  "javascript",
+  "jsx",
+  "less",
+  "rust",
+  "scss",
+  "tsx",
+  "typescript",
+];

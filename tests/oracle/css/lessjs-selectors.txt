@@ -1,0 +1,1651 @@
+L h1 a:hover,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css
+T 4 source.css meta.selector.css entity.name.tag.css
+T 5 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 11 source.css meta.selector.css punctuation.separator.list.comma.css
+L h2 a:hover,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css
+T 4 source.css meta.selector.css entity.name.tag.css
+T 5 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 11 source.css meta.selector.css punctuation.separator.list.comma.css
+L h3 a:hover,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css
+T 4 source.css meta.selector.css entity.name.tag.css
+T 5 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 11 source.css meta.selector.css punctuation.separator.list.comma.css
+L h1 p:hover,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css
+T 4 source.css meta.selector.css entity.name.tag.css
+T 5 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 11 source.css meta.selector.css punctuation.separator.list.comma.css
+L h2 p:hover,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css
+T 4 source.css meta.selector.css entity.name.tag.css
+T 5 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 11 source.css meta.selector.css punctuation.separator.list.comma.css
+L h3 p:hover {
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css
+T 4 source.css meta.selector.css entity.name.tag.css
+T 5 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 11 source.css
+T 12 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L #all {
+T 1 source.css meta.selector.css entity.other.attribute-name.id.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.id.css
+T 5 source.css
+T 6 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: blue;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L #the {
+T 1 source.css meta.selector.css entity.other.attribute-name.id.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.id.css
+T 5 source.css
+T 6 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: blue;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L #same {
+T 1 source.css meta.selector.css entity.other.attribute-name.id.css punctuation.definition.entity.css
+T 5 source.css meta.selector.css entity.other.attribute-name.id.css
+T 6 source.css
+T 7 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: blue;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L ul,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css punctuation.separator.list.comma.css
+L li,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css punctuation.separator.list.comma.css
+L div,
+T 3 source.css meta.selector.css entity.name.tag.css
+T 4 source.css meta.selector.css punctuation.separator.list.comma.css
+L q,
+T 1 source.css meta.selector.css entity.name.tag.css
+T 2 source.css meta.selector.css punctuation.separator.list.comma.css
+L blockquote,
+T 10 source.css meta.selector.css entity.name.tag.css
+T 11 source.css meta.selector.css punctuation.separator.list.comma.css
+L textarea {
+T 8 source.css meta.selector.css entity.name.tag.css
+T 9 source.css
+T 10 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   margin: 0;
+T 2 source.css meta.property-list.css
+T 8 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 source.css meta.property-list.css
+T 11 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 12 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L td {
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css
+T 4 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   margin: 0;
+T 2 source.css meta.property-list.css
+T 8 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 source.css meta.property-list.css
+T 11 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 12 source.css meta.property-list.css punctuation.terminator.rule.css
+L   padding: 0;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L td,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css punctuation.separator.list.comma.css
+L input {
+T 5 source.css meta.selector.css entity.name.tag.css
+T 6 source.css
+T 7 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   line-height: 1em;
+T 2 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 18 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.em.css
+T 19 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L a {
+T 1 source.css meta.selector.css entity.name.tag.css
+T 2 source.css
+T 3 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L a:hover {
+T 1 source.css meta.selector.css entity.name.tag.css
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 7 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 8 source.css
+T 9 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: blue;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L div a {
+T 3 source.css meta.selector.css entity.name.tag.css
+T 4 source.css meta.selector.css
+T 5 source.css meta.selector.css entity.name.tag.css
+T 6 source.css
+T 7 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: green;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 14 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 15 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L p a span {
+T 1 source.css meta.selector.css entity.name.tag.css
+T 2 source.css meta.selector.css
+T 3 source.css meta.selector.css entity.name.tag.css
+T 4 source.css meta.selector.css
+T 8 source.css meta.selector.css entity.name.tag.css
+T 9 source.css
+T 10 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: yellow;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 16 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .foo .bar .qux,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 source.css meta.selector.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css meta.selector.css punctuation.separator.list.comma.css
+L .foo .baz .qux {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 source.css meta.selector.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css
+T 16 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   display: block;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .qux .foo .bar,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 source.css meta.selector.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css meta.selector.css punctuation.separator.list.comma.css
+L .qux .foo .baz {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 source.css meta.selector.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css
+T 16 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   display: inline;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 17 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 18 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .qux.foo .bar,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 8 source.css meta.selector.css entity.other.attribute-name.class.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css punctuation.separator.list.comma.css
+L .qux.foo .baz {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 8 source.css meta.selector.css entity.other.attribute-name.class.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css
+T 15 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   display: inline-block;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 23 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 24 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .qux .foo .bar .biz,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 source.css meta.selector.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css meta.selector.css
+T 16 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 19 source.css meta.selector.css entity.other.attribute-name.class.css
+T 20 source.css meta.selector.css punctuation.separator.list.comma.css
+L .qux .foo .baz .biz {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 source.css meta.selector.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css meta.selector.css
+T 16 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 19 source.css meta.selector.css entity.other.attribute-name.class.css
+T 20 source.css
+T 21 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   display: none;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 16 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .a.b.c {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 2 source.css meta.selector.css entity.other.attribute-name.class.css
+T 3 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css
+T 7 source.css
+T 8 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .c .b.a {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 2 source.css meta.selector.css entity.other.attribute-name.class.css
+T 3 source.css meta.selector.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 5 source.css meta.selector.css entity.other.attribute-name.class.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css
+T 9 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .foo .p.bar {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css
+T 13 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .foo.p.bar {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css
+T 7 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css
+T 12 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .foo + .foo {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css keyword.operator.combinator.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css
+T 13 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   background: amber;
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 19 source.css meta.property-list.css meta.property-value.css
+T 20 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .foo + .foo {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css keyword.operator.combinator.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css
+T 13 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   background: amber;
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 19 source.css meta.property-list.css meta.property-value.css
+T 20 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .foo + .foo,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css keyword.operator.combinator.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css meta.selector.css punctuation.separator.list.comma.css
+L .foo + .bar,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css keyword.operator.combinator.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css meta.selector.css punctuation.separator.list.comma.css
+L .bar + .foo,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css keyword.operator.combinator.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css meta.selector.css punctuation.separator.list.comma.css
+L .bar + .bar {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css keyword.operator.combinator.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css
+T 13 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   background: amber;
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 19 source.css meta.property-list.css meta.property-value.css
+T 20 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .foo a > .foo a,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .foo a > .bar a,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .foo a > .foo b,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .foo a > .bar b,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .bar a > .foo a,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .bar a > .bar a,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .bar a > .foo b,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .bar a > .bar b,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .foo b > .foo a,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .foo b > .bar a,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .foo b > .foo b,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .foo b > .bar b,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .bar b > .foo a,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .bar b > .bar a,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .bar b > .foo b,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .bar b > .bar b {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css
+T 8 source.css meta.selector.css keyword.operator.combinator.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css meta.selector.css entity.name.tag.css
+T 16 source.css
+T 17 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   background: amber;
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 19 source.css meta.property-list.css meta.property-value.css
+T 20 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .other ::fnord {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css
+T 16 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .other::fnord {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css
+T 13 source.css meta.selector.css
+T 14 source.css
+T 15 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .other ::bnord {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css
+T 15 source.css
+T 16 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .other::bnord {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css
+T 13 source.css meta.selector.css
+T 14 source.css
+T 15 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .blood {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css
+T 7 source.css
+T 8 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .bloodred {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 source.css
+T 11 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: green;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 14 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 15 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L #blood.blood.red.black:blood {
+T 1 source.css meta.selector.css entity.other.attribute-name.id.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.id.css
+T 7 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 16 source.css meta.selector.css entity.other.attribute-name.class.css
+T 17 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 22 source.css meta.selector.css entity.other.attribute-name.class.css
+T 28 source.css meta.selector.css
+T 29 source.css
+T 30 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: black;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 14 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 15 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L :nth-child(3) {
+T 1 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 11 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 12 source.css meta.selector.css constant.numeric.css
+T 13 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 14 source.css
+T 15 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   selector: interpolated;
+T 2 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-name.css
+T 11 source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 source.css meta.property-list.css
+T 24 source.css meta.property-list.css meta.property-value.css
+T 25 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .test-rule:nth-child(3) {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 20 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 21 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 22 source.css meta.selector.css constant.numeric.css
+T 23 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 24 source.css
+T 25 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   selector: interpolated;
+T 2 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-name.css
+T 11 source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 source.css meta.property-list.css
+T 24 source.css meta.property-list.css meta.property-value.css
+T 25 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .test-rule:nth-child(odd):not(:nth-child(3)) {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 20 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 21 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 24 source.css meta.selector.css support.constant.parity.css
+T 25 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 26 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 29 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 30 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 31 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 40 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 41 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 42 source.css meta.selector.css constant.numeric.css
+T 43 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 44 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 45 source.css
+T 46 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: #ff0000;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L [prop],
+T 1 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 5 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 6 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 7 source.css meta.selector.css punctuation.separator.list.comma.css
+L [prop=ten-percent],
+T 1 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 5 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 6 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 17 source.css meta.selector.css meta.attribute-selector.css string.unquoted.attribute-value.css
+T 18 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 19 source.css meta.selector.css punctuation.separator.list.comma.css
+L [prop|="value3"],
+T 1 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 5 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 7 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 8 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.begin.css
+T 14 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css
+T 15 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.end.css
+T 16 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 17 source.css meta.selector.css punctuation.separator.list.comma.css
+L [prop*="val3"],
+T 1 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 5 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 7 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 8 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.begin.css
+T 12 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css
+T 13 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.end.css
+T 14 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 15 source.css meta.selector.css punctuation.separator.list.comma.css
+L [|prop~="val3"],
+T 1 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 2 source.css meta.selector.css meta.attribute-selector.css punctuation.separator.css
+T 6 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 8 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 9 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.begin.css
+T 13 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css
+T 14 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.end.css
+T 15 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L [*|prop$="val3"],
+T 1 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 2 source.css meta.selector.css meta.attribute-selector.css entity.other.namespace-prefix.css
+T 3 source.css meta.selector.css meta.attribute-selector.css punctuation.separator.css
+T 7 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 9 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 10 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.begin.css
+T 14 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css
+T 15 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.end.css
+T 16 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 17 source.css meta.selector.css punctuation.separator.list.comma.css
+L [ns|prop^="val3"],
+T 1 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 3 source.css meta.selector.css meta.attribute-selector.css entity.other.namespace-prefix.css
+T 4 source.css meta.selector.css meta.attribute-selector.css punctuation.separator.css
+T 8 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 10 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 11 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.begin.css
+T 15 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css
+T 16 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.end.css
+T 17 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 18 source.css meta.selector.css punctuation.separator.list.comma.css
+L [p^="val3"],
+T 1 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 2 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 4 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 5 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.begin.css
+T 9 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css
+T 10 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.end.css
+T 11 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 12 source.css meta.selector.css punctuation.separator.list.comma.css
+L [p] {
+T 1 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 2 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 3 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 4 source.css
+T 5 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   attributes: yes;
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 17 source.css meta.property-list.css meta.property-value.css
+T 18 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L /**
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+T 3 source.css comment.block.css
+L  * https://www.w3.org/TR/selectors-4/#attribute-case
+T 52 source.css comment.block.css
+L  */
+T 1 source.css comment.block.css
+T 3 source.css comment.block.css punctuation.definition.comment.end.css
+L a[href*="insensitive" i] {
+T 1 source.css meta.selector.css entity.name.tag.css
+T 2 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 6 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 8 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 9 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.begin.css
+T 20 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css
+T 21 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.end.css
+T 22 source.css meta.selector.css meta.attribute-selector.css
+T 23 source.css meta.selector.css meta.attribute-selector.css storage.modifier.ignore-case.css
+T 24 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 25 source.css
+T 26 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: cyan;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-extended-color-name.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L a[href*="cAsE" s] {
+T 1 source.css meta.selector.css entity.name.tag.css
+T 2 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 6 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 8 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 9 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.begin.css
+T 13 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css
+T 14 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.end.css
+T 15 source.css meta.selector.css meta.attribute-selector.css
+T 16 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 17 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 18 source.css
+T 19 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: pink;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-extended-color-name.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L a[href*="less" I] {
+T 1 source.css meta.selector.css entity.name.tag.css
+T 2 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 6 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 8 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 9 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.begin.css
+T 13 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css
+T 14 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.end.css
+T 15 source.css meta.selector.css meta.attribute-selector.css
+T 16 source.css meta.selector.css meta.attribute-selector.css storage.modifier.ignore-case.css
+T 17 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 18 source.css
+T 19 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   background-color: silver;
+T 2 source.css meta.property-list.css
+T 18 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 19 source.css meta.property-list.css punctuation.separator.key-value.css
+T 20 source.css meta.property-list.css
+T 26 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 27 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L a[href*="less" S] {
+T 1 source.css meta.selector.css entity.name.tag.css
+T 2 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 6 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 8 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 9 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.begin.css
+T 13 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css
+T 14 source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.end.css
+T 15 source.css meta.selector.css meta.attribute-selector.css
+T 16 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 17 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 18 source.css
+T 19 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   background-color: red;
+T 2 source.css meta.property-list.css
+T 18 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 19 source.css meta.property-list.css punctuation.separator.key-value.css
+T 20 source.css meta.property-list.css
+T 23 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 24 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L Large comment means chunk will be emitted after } which means chunk will begin with whitespace...
+T 97 source.css comment.block.css
+L blank blank blank blank blank blank blank blank blank blank blank blank blank blank blank blank
+T 95 source.css comment.block.css
+L blank blank blank blank blank blank blank blank blank blank blank blank blank blank blank blank
+T 95 source.css comment.block.css
+L blank blank blank blank blank blank blank blank blank blank blank blank blank blank blank blank
+T 95 source.css comment.block.css
+L blank blank blank blank blank blank blank blank blank blank blank blank blank blank blank blank
+T 95 source.css comment.block.css
+L blank blank blank blank blank blank blank blank blank blank blank blank blank blank blank blank
+T 95 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L .blood {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css
+T 7 source.css
+T 8 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .foo:not(.tst.only-nested .level2:hover) {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 8 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 9 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 25 source.css meta.selector.css entity.other.attribute-name.class.css
+T 26 source.css meta.selector.css
+T 27 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 33 source.css meta.selector.css entity.other.attribute-name.class.css
+T 34 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 39 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 40 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 41 source.css
+T 42 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   test: only-nested;
+T 2 source.css meta.property-list.css
+T 6 source.css meta.property-list.css meta.property-name.css
+T 7 source.css meta.property-list.css punctuation.separator.key-value.css
+T 8 source.css meta.property-list.css
+T 19 source.css meta.property-list.css meta.property-value.css
+T 20 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .foo.nestend-and-non-nested:not(.tst.nestend-and-non-nested:hover) {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 27 source.css meta.selector.css entity.other.attribute-name.class.css
+T 28 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 31 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 32 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 33 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 36 source.css meta.selector.css entity.other.attribute-name.class.css
+T 37 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 59 source.css meta.selector.css entity.other.attribute-name.class.css
+T 60 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 65 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 66 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 67 source.css
+T 68 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   test: nestend-and-non-nested;
+T 2 source.css meta.property-list.css
+T 6 source.css meta.property-list.css meta.property-name.css
+T 7 source.css meta.property-list.css punctuation.separator.key-value.css
+T 8 source.css meta.property-list.css
+T 30 source.css meta.property-list.css meta.property-value.css
+T 31 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .selector:not(:hover) {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 14 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 15 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 20 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 21 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 22 source.css
+T 23 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   test: global scope;
+T 2 source.css meta.property-list.css
+T 6 source.css meta.property-list.css meta.property-name.css
+T 7 source.css meta.property-list.css punctuation.separator.key-value.css
+T 8 source.css meta.property-list.css
+T 20 source.css meta.property-list.css meta.property-value.css
+T 21 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .extend-this,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css
+T 13 source.css meta.selector.css punctuation.separator.list.comma.css
+L .active.first-level .second-level,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 19 source.css meta.selector.css entity.other.attribute-name.class.css
+T 20 source.css meta.selector.css
+T 21 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 33 source.css meta.selector.css entity.other.attribute-name.class.css
+T 34 source.css meta.selector.css punctuation.separator.list.comma.css
+L .first-level .second-level.active2 {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css
+T 13 source.css meta.selector.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 26 source.css meta.selector.css entity.other.attribute-name.class.css
+T 27 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 34 source.css meta.selector.css entity.other.attribute-name.class.css
+T 35 source.css
+T 36 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   content: '\2661';
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css string.quoted.single.css punctuation.definition.string.begin.css
+T 17 source.css meta.property-list.css meta.property-value.css string.quoted.single.css constant.character.escape.codepoint.css
+T 18 source.css meta.property-list.css meta.property-value.css string.quoted.single.css punctuation.definition.string.end.css
+T 19 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .x:is(.x.a) {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 2 source.css meta.selector.css entity.other.attribute-name.class.css
+T 3 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 5 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 6 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 7 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 8 source.css meta.selector.css entity.other.attribute-name.class.css
+T 9 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 12 source.css
+T 13 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .x:not(.x.b, .x.c) {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 2 source.css meta.selector.css entity.other.attribute-name.class.css
+T 3 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 7 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 8 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css meta.selector.css punctuation.separator.list.comma.css
+T 13 source.css meta.selector.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 15 source.css meta.selector.css entity.other.attribute-name.class.css
+T 16 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 17 source.css meta.selector.css entity.other.attribute-name.class.css
+T 18 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 19 source.css
+T 20 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: green;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 14 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 15 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L .x:is(.x.d, .x.e, .x.f) {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 2 source.css meta.selector.css entity.other.attribute-name.class.css
+T 3 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 5 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 6 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 7 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 8 source.css meta.selector.css entity.other.attribute-name.class.css
+T 9 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.selector.css punctuation.separator.list.comma.css
+T 12 source.css meta.selector.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 16 source.css meta.selector.css entity.other.attribute-name.class.css
+T 17 source.css meta.selector.css punctuation.separator.list.comma.css
+T 18 source.css meta.selector.css
+T 19 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 20 source.css meta.selector.css entity.other.attribute-name.class.css
+T 21 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 22 source.css meta.selector.css entity.other.attribute-name.class.css
+T 23 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 24 source.css
+T 25 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: blue;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L a:is(.b, :is(.c)) {
+T 1 source.css meta.selector.css entity.name.tag.css
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 5 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.selector.css punctuation.separator.list.comma.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 12 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 13 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 15 source.css meta.selector.css entity.other.attribute-name.class.css
+T 16 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 17 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 18 source.css
+T 19 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: blue;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L a:is(.b, :is(.c), :has(div)) {
+T 1 source.css meta.selector.css entity.name.tag.css
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 5 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.selector.css punctuation.separator.list.comma.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 12 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 13 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 15 source.css meta.selector.css entity.other.attribute-name.class.css
+T 16 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 17 source.css meta.selector.css punctuation.separator.list.comma.css
+T 18 source.css meta.selector.css
+T 19 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 22 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 23 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 26 source.css meta.selector.css entity.name.tag.css
+T 27 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 28 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 29 source.css
+T 30 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L :is(:not(:has(>.foo)), :has(>.foo.bar)) {
+T 1 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 3 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 4 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 5 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 8 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 9 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 14 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 15 source.css meta.selector.css keyword.operator.combinator.css
+T 16 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 19 source.css meta.selector.css entity.other.attribute-name.class.css
+T 20 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 21 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 22 source.css meta.selector.css punctuation.separator.list.comma.css
+T 23 source.css meta.selector.css
+T 24 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 27 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 28 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 29 source.css meta.selector.css keyword.operator.combinator.css
+T 30 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 33 source.css meta.selector.css entity.other.attribute-name.class.css
+T 34 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 37 source.css meta.selector.css entity.other.attribute-name.class.css
+T 38 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 39 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 40 source.css
+T 41 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   overflow: clip;
+T 2 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L :matches(:not(:has(>.foo)), :has(>.foo.bar)) {
+T 1 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 8 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 9 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 14 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 15 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 18 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 19 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 20 source.css meta.selector.css keyword.operator.combinator.css
+T 21 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 24 source.css meta.selector.css entity.other.attribute-name.class.css
+T 25 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 26 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 27 source.css meta.selector.css punctuation.separator.list.comma.css
+T 28 source.css meta.selector.css
+T 29 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 32 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 33 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 34 source.css meta.selector.css keyword.operator.combinator.css
+T 35 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 38 source.css meta.selector.css entity.other.attribute-name.class.css
+T 39 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 42 source.css meta.selector.css entity.other.attribute-name.class.css
+T 43 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 44 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 45 source.css
+T 46 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   overflow: clip;
+T 2 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L :where(:not(:has(>.foo)), :has(>.foo.bar)) {
+T 1 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 7 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 8 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 12 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 13 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 16 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 17 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 18 source.css meta.selector.css keyword.operator.combinator.css
+T 19 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 22 source.css meta.selector.css entity.other.attribute-name.class.css
+T 23 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 24 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 25 source.css meta.selector.css punctuation.separator.list.comma.css
+T 26 source.css meta.selector.css
+T 27 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 30 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 31 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 32 source.css meta.selector.css keyword.operator.combinator.css
+T 33 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 36 source.css meta.selector.css entity.other.attribute-name.class.css
+T 37 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 40 source.css meta.selector.css entity.other.attribute-name.class.css
+T 41 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 42 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 43 source.css
+T 44 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   overflow: clip;
+T 2 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L :is(:has(>.foo + .bar), :has(>.baz ~ .qux), :not(:has(.quux))) {
+T 1 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 3 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 4 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 5 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 8 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 9 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 10 source.css meta.selector.css keyword.operator.combinator.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css meta.selector.css
+T 16 source.css meta.selector.css keyword.operator.combinator.css
+T 17 source.css meta.selector.css
+T 18 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 21 source.css meta.selector.css entity.other.attribute-name.class.css
+T 22 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 23 source.css meta.selector.css punctuation.separator.list.comma.css
+T 24 source.css meta.selector.css
+T 25 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 28 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 29 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 30 source.css meta.selector.css keyword.operator.combinator.css
+T 31 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 34 source.css meta.selector.css entity.other.attribute-name.class.css
+T 35 source.css meta.selector.css
+T 36 source.css meta.selector.css keyword.operator.combinator.css
+T 37 source.css meta.selector.css
+T 38 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 41 source.css meta.selector.css entity.other.attribute-name.class.css
+T 42 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 43 source.css meta.selector.css punctuation.separator.list.comma.css
+T 44 source.css meta.selector.css
+T 45 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 48 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 49 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 50 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 53 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 54 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 55 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 59 source.css meta.selector.css entity.other.attribute-name.class.css
+T 60 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 61 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 62 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 63 source.css
+T 64 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: blue;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L :where(.a, .b, .c) {
+T 1 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 7 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 8 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 source.css meta.selector.css punctuation.separator.list.comma.css
+T 11 source.css meta.selector.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css punctuation.separator.list.comma.css
+T 15 source.css meta.selector.css
+T 16 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 17 source.css meta.selector.css entity.other.attribute-name.class.css
+T 18 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 19 source.css
+T 20 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: red;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L :not(.a, .b, .c) {
+T 1 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 4 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 5 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.selector.css punctuation.separator.list.comma.css
+T 9 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css meta.selector.css punctuation.separator.list.comma.css
+T 13 source.css meta.selector.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 15 source.css meta.selector.css entity.other.attribute-name.class.css
+T 16 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 17 source.css
+T 18 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: green;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 14 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 15 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L :where(:is(.a, .b), :has(>.c)) {
+T 1 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 7 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 8 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 11 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css punctuation.separator.list.comma.css
+T 15 source.css meta.selector.css
+T 16 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 17 source.css meta.selector.css entity.other.attribute-name.class.css
+T 18 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 19 source.css meta.selector.css punctuation.separator.list.comma.css
+T 20 source.css meta.selector.css
+T 21 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 24 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 25 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 26 source.css meta.selector.css keyword.operator.combinator.css
+T 27 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 28 source.css meta.selector.css entity.other.attribute-name.class.css
+T 29 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 30 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 31 source.css
+T 32 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: blue;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L :is(:where(:has(.foo)), :not(:has(.bar))) {
+T 1 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 3 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 4 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 5 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 11 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 12 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 15 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 16 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 17 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 20 source.css meta.selector.css entity.other.attribute-name.class.css
+T 21 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 22 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 23 source.css meta.selector.css punctuation.separator.list.comma.css
+T 24 source.css meta.selector.css
+T 25 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 28 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 29 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 30 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 33 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 34 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 35 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 38 source.css meta.selector.css entity.other.attribute-name.class.css
+T 39 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 40 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 41 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 42 source.css
+T 43 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: purple;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 16 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 

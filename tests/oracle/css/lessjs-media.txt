@@ -1,0 +1,1808 @@
+L @media print {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 12 source.css meta.at-rule.media.header.css support.constant.media.css
+T 13 source.css
+T 14 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .class {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 8 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 9 source.css meta.at-rule.media.body.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     color: blue;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   .class .sub {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 8 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 9 source.css meta.at-rule.media.body.css meta.selector.css
+T 10 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.at-rule.media.body.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     width: 42;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   .top,
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 6 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css punctuation.separator.list.comma.css
+L   header > h1 {
+T 2 source.css meta.at-rule.media.body.css
+T 8 source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 9 source.css meta.at-rule.media.body.css meta.selector.css
+T 10 source.css meta.at-rule.media.body.css meta.selector.css keyword.operator.combinator.css
+T 11 source.css meta.at-rule.media.body.css meta.selector.css
+T 13 source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 14 source.css meta.at-rule.media.body.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     color: #444444;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 12 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 18 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 19 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media screen {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 13 source.css meta.at-rule.media.header.css support.constant.media.css
+T 14 source.css
+T 15 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .body {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     max-width: 480;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css
+T 18 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 19 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media all and (device-aspect-ratio: 16 / 9) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 10 source.css meta.at-rule.media.header.css support.constant.media.css
+T 11 source.css meta.at-rule.media.header.css
+T 14 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 15 source.css meta.at-rule.media.header.css
+T 16 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 35 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 36 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 37 source.css meta.at-rule.media.header.css
+T 39 source.css meta.at-rule.media.header.css meta.ratio.css constant.numeric.css
+T 40 source.css meta.at-rule.media.header.css meta.ratio.css
+T 41 source.css meta.at-rule.media.header.css meta.ratio.css keyword.operator.arithmetic.css
+T 42 source.css meta.at-rule.media.header.css meta.ratio.css
+T 43 source.css meta.at-rule.media.header.css meta.ratio.css constant.numeric.css
+T 44 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 45 source.css
+T 46 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .body {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     max-width: 800px;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css
+T 18 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 20 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media all and (orientation: portrait) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 10 source.css meta.at-rule.media.header.css support.constant.media.css
+T 11 source.css meta.at-rule.media.header.css
+T 14 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 15 source.css meta.at-rule.media.header.css
+T 16 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 27 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 28 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 29 source.css meta.at-rule.media.header.css
+T 37 source.css meta.at-rule.media.header.css support.constant.property-value.css
+T 38 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 39 source.css
+T 40 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   aside {
+T 2 source.css meta.at-rule.media.body.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     float: none;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media handheld and (min-width: 42), screen and (min-width: 20em) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 15 source.css meta.at-rule.media.header.css invalid.deprecated.constant.media.css
+T 16 source.css meta.at-rule.media.header.css
+T 19 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 20 source.css meta.at-rule.media.header.css
+T 21 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 30 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 31 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 32 source.css meta.at-rule.media.header.css
+T 34 source.css meta.at-rule.media.header.css constant.numeric.css
+T 35 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 36 source.css meta.at-rule.media.header.css punctuation.separator.list.comma.css
+T 37 source.css meta.at-rule.media.header.css
+T 43 source.css meta.at-rule.media.header.css support.constant.media.css
+T 44 source.css meta.at-rule.media.header.css
+T 47 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 48 source.css meta.at-rule.media.header.css
+T 49 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 58 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 59 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 60 source.css meta.at-rule.media.header.css
+T 62 source.css meta.at-rule.media.header.css constant.numeric.css
+T 64 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.em.css
+T 65 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 66 source.css
+T 67 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .body {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     max-width: 480px;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css
+T 18 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 20 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media print {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 12 source.css meta.at-rule.media.header.css support.constant.media.css
+T 13 source.css
+T 14 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .body {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     padding: 20px;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 18 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   .body header {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.at-rule.media.body.css meta.selector.css
+T 14 source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 15 source.css meta.at-rule.media.body.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background-color: red;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 20 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 22 source.css meta.at-rule.media.body.css meta.property-list.css
+T 25 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 26 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media print and (orientation: landscape) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 12 source.css meta.at-rule.media.header.css support.constant.media.css
+T 13 source.css meta.at-rule.media.header.css
+T 16 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 17 source.css meta.at-rule.media.header.css
+T 18 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 29 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 30 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 31 source.css meta.at-rule.media.header.css
+T 40 source.css meta.at-rule.media.header.css support.constant.property-value.css
+T 41 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 42 source.css
+T 43 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .body {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     margin-left: 20px;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 17 source.css meta.at-rule.media.body.css meta.property-list.css
+T 19 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 22 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media screen {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 13 source.css meta.at-rule.media.header.css support.constant.media.css
+T 14 source.css
+T 15 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .sidebar {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.at-rule.media.body.css
+T 12 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     width: 300px;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 17 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media screen and (orientation: landscape) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 13 source.css meta.at-rule.media.header.css support.constant.media.css
+T 14 source.css meta.at-rule.media.header.css
+T 17 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 18 source.css meta.at-rule.media.header.css
+T 19 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 30 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 31 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 32 source.css meta.at-rule.media.header.css
+T 41 source.css meta.at-rule.media.header.css support.constant.property-value.css
+T 42 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 43 source.css
+T 44 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .sidebar {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.at-rule.media.body.css
+T 12 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     width: 500px;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 17 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media a and (b) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 9 source.css meta.at-rule.media.header.css
+T 12 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 13 source.css meta.at-rule.media.header.css
+T 14 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 15 source.css meta.at-rule.media.header.css
+T 16 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 17 source.css
+T 18 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .first .second .third {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 8 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 9 source.css meta.at-rule.media.body.css meta.selector.css
+T 10 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 16 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 17 source.css meta.at-rule.media.body.css meta.selector.css
+T 18 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 23 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 24 source.css meta.at-rule.media.body.css
+T 25 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     width: 300px;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 17 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   .first .second .fourth {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 8 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 9 source.css meta.at-rule.media.body.css meta.selector.css
+T 10 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 16 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 17 source.css meta.at-rule.media.body.css meta.selector.css
+T 18 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 24 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 25 source.css meta.at-rule.media.body.css
+T 26 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     width: 3;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 12 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media a and (b) and (c) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 9 source.css meta.at-rule.media.header.css
+T 12 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 13 source.css meta.at-rule.media.header.css
+T 14 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 15 source.css meta.at-rule.media.header.css
+T 16 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 17 source.css meta.at-rule.media.header.css
+T 20 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 21 source.css meta.at-rule.media.header.css
+T 22 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 23 source.css meta.at-rule.media.header.css
+T 24 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 25 source.css
+T 26 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .first .second .third {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 8 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 9 source.css meta.at-rule.media.body.css meta.selector.css
+T 10 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 16 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 17 source.css meta.at-rule.media.body.css meta.selector.css
+T 18 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 23 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 24 source.css meta.at-rule.media.body.css
+T 25 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     width: 500px;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 17 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media a, (b) and (c) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 8 source.css meta.at-rule.media.header.css
+T 9 source.css meta.at-rule.media.header.css punctuation.separator.list.comma.css
+T 10 source.css meta.at-rule.media.header.css
+T 11 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 12 source.css meta.at-rule.media.header.css
+T 13 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 14 source.css meta.at-rule.media.header.css
+T 17 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 18 source.css meta.at-rule.media.header.css
+T 19 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 20 source.css meta.at-rule.media.header.css
+T 21 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 22 source.css
+T 23 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .body {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     width: 95%;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media a and (x), (b) and (c) and (x), a and (y), (b) and (c) and (y) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 9 source.css meta.at-rule.media.header.css
+T 12 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 13 source.css meta.at-rule.media.header.css
+T 14 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 15 source.css meta.at-rule.media.header.css
+T 16 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 17 source.css meta.at-rule.media.header.css punctuation.separator.list.comma.css
+T 18 source.css meta.at-rule.media.header.css
+T 19 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 20 source.css meta.at-rule.media.header.css
+T 21 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 22 source.css meta.at-rule.media.header.css
+T 25 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 26 source.css meta.at-rule.media.header.css
+T 27 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 28 source.css meta.at-rule.media.header.css
+T 29 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 30 source.css meta.at-rule.media.header.css
+T 33 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 34 source.css meta.at-rule.media.header.css
+T 35 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 36 source.css meta.at-rule.media.header.css
+T 37 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 38 source.css meta.at-rule.media.header.css punctuation.separator.list.comma.css
+T 41 source.css meta.at-rule.media.header.css
+T 44 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 45 source.css meta.at-rule.media.header.css
+T 46 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 47 source.css meta.at-rule.media.header.css
+T 48 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 49 source.css meta.at-rule.media.header.css punctuation.separator.list.comma.css
+T 50 source.css meta.at-rule.media.header.css
+T 51 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 52 source.css meta.at-rule.media.header.css
+T 53 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 54 source.css meta.at-rule.media.header.css
+T 57 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 58 source.css meta.at-rule.media.header.css
+T 59 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 60 source.css meta.at-rule.media.header.css
+T 61 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 62 source.css meta.at-rule.media.header.css
+T 65 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 66 source.css meta.at-rule.media.header.css
+T 67 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 68 source.css meta.at-rule.media.header.css
+T 69 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 70 source.css
+T 71 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .body {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     width: 100%;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L .a {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 2 source.css meta.selector.css entity.other.attribute-name.class.css
+T 3 source.css
+T 4 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   background: black;
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 19 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 20 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L @media handheld {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 15 source.css meta.at-rule.media.header.css invalid.deprecated.constant.media.css
+T 16 source.css
+T 17 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .a {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.at-rule.media.body.css
+T 6 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background: white;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 22 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media handheld and (max-width: 100px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 15 source.css meta.at-rule.media.header.css invalid.deprecated.constant.media.css
+T 16 source.css meta.at-rule.media.header.css
+T 19 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 20 source.css meta.at-rule.media.header.css
+T 21 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 30 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 31 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 32 source.css meta.at-rule.media.header.css
+T 35 source.css meta.at-rule.media.header.css constant.numeric.css
+T 37 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 38 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 39 source.css
+T 40 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .a {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.at-rule.media.body.css
+T 6 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background: red;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 19 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 20 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L .b {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 2 source.css meta.selector.css entity.other.attribute-name.class.css
+T 3 source.css
+T 4 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   background: black;
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 19 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 20 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L @media handheld {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 15 source.css meta.at-rule.media.header.css invalid.deprecated.constant.media.css
+T 16 source.css
+T 17 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .b {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.at-rule.media.body.css
+T 6 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background: white;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 22 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media handheld and (max-width: 200px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 15 source.css meta.at-rule.media.header.css invalid.deprecated.constant.media.css
+T 16 source.css meta.at-rule.media.header.css
+T 19 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 20 source.css meta.at-rule.media.header.css
+T 21 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 30 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 31 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 32 source.css meta.at-rule.media.header.css
+T 35 source.css meta.at-rule.media.header.css constant.numeric.css
+T 37 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 38 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 39 source.css
+T 40 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .b {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.at-rule.media.body.css
+T 6 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background: red;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 19 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 20 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media only screen and (max-width: 200px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 11 source.css meta.at-rule.media.header.css keyword.operator.logical.only.media.css
+T 12 source.css meta.at-rule.media.header.css
+T 18 source.css meta.at-rule.media.header.css support.constant.media.css
+T 19 source.css meta.at-rule.media.header.css
+T 22 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 23 source.css meta.at-rule.media.header.css
+T 24 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 33 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 34 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 35 source.css meta.at-rule.media.header.css
+T 38 source.css meta.at-rule.media.header.css constant.numeric.css
+T 40 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 41 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 42 source.css
+T 43 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .body {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     width: 480px;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 17 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media print {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 12 source.css meta.at-rule.media.header.css support.constant.media.css
+T 13 source.css
+T 14 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   @page :left {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.at-rule.page.css keyword.control.at-rule.page.css punctuation.definition.keyword.css
+T 7 source.css meta.at-rule.media.body.css meta.at-rule.page.css keyword.control.at-rule.page.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 13 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 14 source.css meta.at-rule.media.body.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     margin: 0.5cm;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 12 source.css meta.at-rule.media.body.css meta.property-list.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   @page :right {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.at-rule.page.css keyword.control.at-rule.page.css punctuation.definition.keyword.css
+T 7 source.css meta.at-rule.media.body.css meta.at-rule.page.css keyword.control.at-rule.page.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 14 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 15 source.css meta.at-rule.media.body.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     margin: 0.5cm;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 12 source.css meta.at-rule.media.body.css meta.property-list.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   @page Test:first {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.at-rule.page.css keyword.control.at-rule.page.css punctuation.definition.keyword.css
+T 7 source.css meta.at-rule.media.body.css meta.at-rule.page.css keyword.control.at-rule.page.css
+T 12 source.css meta.at-rule.media.body.css meta.at-rule.page.css
+T 13 source.css meta.at-rule.media.body.css meta.at-rule.page.css punctuation.definition.keyword.css
+T 19 source.css meta.at-rule.media.body.css meta.property-value.css
+T 20 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L     margin: 1cm;
+T 12 source.css meta.at-rule.media.body.css meta.property-value.css
+T 13 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 16 source.css meta.at-rule.media.body.css meta.property-value.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-value.css
+T 3 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L   @page :first {
+T 3 source.css meta.at-rule.media.body.css meta.property-value.css
+T 7 source.css meta.at-rule.media.body.css meta.property-value.css support.constant.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L     size: 8.5in 11in;
+T 10 source.css meta.at-rule.media.body.css meta.property-value.css
+T 13 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.in.css
+T 16 source.css meta.at-rule.media.body.css meta.property-value.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 20 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.in.css
+T 21 source.css meta.at-rule.media.body.css meta.property-value.css
+L     @top-left {
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @top-left-corner {
+T 21 source.css meta.at-rule.media.body.css meta.property-value.css
+T 22 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @top-center {
+T 16 source.css meta.at-rule.media.body.css meta.property-value.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @top-right {
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @top-right-corner {
+T 22 source.css meta.at-rule.media.body.css meta.property-value.css
+T 23 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @bottom-left {
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @bottom-left-corner {
+T 24 source.css meta.at-rule.media.body.css meta.property-value.css
+T 25 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @bottom-center {
+T 19 source.css meta.at-rule.media.body.css meta.property-value.css
+T 20 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @bottom-right {
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+T 19 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @bottom-right-corner {
+T 25 source.css meta.at-rule.media.body.css meta.property-value.css
+T 26 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @left-top {
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @left-middle {
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @left-bottom {
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @right-top {
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @right-middle {
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+T 19 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       content: "Page " counter(page);
+T 6 source.css meta.at-rule.media.body.css meta.property-value.css
+T 13 source.css meta.at-rule.media.body.css meta.property-value.css support.constant.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-value.css string.quoted.double.css punctuation.definition.string.begin.css
+T 21 source.css meta.at-rule.media.body.css meta.property-value.css string.quoted.double.css
+T 22 source.css meta.at-rule.media.body.css meta.property-value.css string.quoted.double.css punctuation.definition.string.end.css
+T 23 source.css meta.at-rule.media.body.css meta.property-value.css
+T 30 source.css meta.at-rule.media.body.css meta.property-value.css meta.function.misc.css support.function.misc.css
+T 31 source.css meta.at-rule.media.body.css meta.property-value.css meta.function.misc.css punctuation.section.function.begin.bracket.round.css
+T 35 source.css meta.at-rule.media.body.css meta.property-value.css meta.function.misc.css support.constant.property-value.css
+T 36 source.css meta.at-rule.media.body.css meta.property-value.css meta.function.misc.css punctuation.section.function.end.bracket.round.css
+T 37 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L     @right-bottom {
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+T 19 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+L       margin: 1cm;
+T 14 source.css meta.at-rule.media.body.css meta.property-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.at-rule.media.body.css meta.property-value.css constant.numeric.css keyword.other.unit.cm.css
+T 18 source.css meta.at-rule.media.body.css meta.property-value.css
+L     }
+T 4 source.css meta.at-rule.media.body.css meta.property-value.css
+T 5 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-value.css
+T 3 source.css meta.at-rule.media.body.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-resolution: 2dppx), (min-resolution: 128dpcm) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 8 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 38 source.css meta.at-rule.media.header.css support.type.vendored.property-name.media.css
+T 39 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 40 source.css meta.at-rule.media.header.css
+T 41 source.css meta.at-rule.media.header.css constant.numeric.css
+T 42 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 43 source.css meta.at-rule.media.header.css punctuation.separator.list.comma.css
+T 44 source.css meta.at-rule.media.header.css
+T 45 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 72 source.css meta.at-rule.media.header.css
+T 73 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 74 source.css meta.at-rule.media.header.css
+T 75 source.css meta.at-rule.media.header.css constant.numeric.css
+T 76 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 77 source.css meta.at-rule.media.header.css punctuation.separator.list.comma.css
+T 78 source.css meta.at-rule.media.header.css
+T 79 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 104 source.css meta.at-rule.media.header.css support.type.vendored.property-name.media.css
+T 105 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 106 source.css meta.at-rule.media.header.css
+T 107 source.css meta.at-rule.media.header.css meta.ratio.css constant.numeric.css
+T 108 source.css meta.at-rule.media.header.css meta.ratio.css keyword.operator.arithmetic.css
+T 109 source.css meta.at-rule.media.header.css meta.ratio.css constant.numeric.css
+T 110 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 111 source.css meta.at-rule.media.header.css punctuation.separator.list.comma.css
+T 112 source.css meta.at-rule.media.header.css
+T 113 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 127 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 128 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 129 source.css meta.at-rule.media.header.css
+T 130 source.css meta.at-rule.media.header.css constant.numeric.css
+T 134 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.dppx.css
+T 135 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 136 source.css meta.at-rule.media.header.css punctuation.separator.list.comma.css
+T 137 source.css meta.at-rule.media.header.css
+T 138 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 152 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 153 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 154 source.css meta.at-rule.media.header.css
+T 157 source.css meta.at-rule.media.header.css constant.numeric.css
+T 161 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.dpcm.css
+T 162 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 163 source.css
+T 164 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .b {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 4 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 5 source.css meta.at-rule.media.body.css
+T 6 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background: red;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 19 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 20 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L .body {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 5 source.css meta.selector.css entity.other.attribute-name.class.css
+T 6 source.css
+T 7 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   background: red;
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 17 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 18 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L @media (max-width: 500px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 8 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 17 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 18 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 19 source.css meta.at-rule.media.header.css
+T 22 source.css meta.at-rule.media.header.css constant.numeric.css
+T 24 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 25 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 26 source.css
+T 27 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .body {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background: green;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 22 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media (max-width: 1000px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 8 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 17 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 18 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 19 source.css meta.at-rule.media.header.css
+T 23 source.css meta.at-rule.media.header.css constant.numeric.css
+T 25 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 26 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 27 source.css
+T 28 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .body {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background: red;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 19 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 20 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L     background: blue;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 20 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media (max-width: 1000px) and (max-width: 500px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 8 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 17 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 18 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 19 source.css meta.at-rule.media.header.css
+T 23 source.css meta.at-rule.media.header.css constant.numeric.css
+T 25 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 26 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 27 source.css meta.at-rule.media.header.css
+T 30 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 31 source.css meta.at-rule.media.header.css
+T 32 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 41 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 42 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 43 source.css meta.at-rule.media.header.css
+T 46 source.css meta.at-rule.media.header.css constant.numeric.css
+T 48 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 49 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 50 source.css
+T 51 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .body {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background: green;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 22 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media (max-width: 1200px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 8 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 17 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 18 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 19 source.css meta.at-rule.media.header.css
+T 23 source.css meta.at-rule.media.header.css constant.numeric.css
+T 25 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 26 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 27 source.css
+T 28 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   /* a comment */
+T 2 source.css meta.at-rule.media.body.css
+T 4 source.css meta.at-rule.media.body.css comment.block.css punctuation.definition.comment.begin.css
+T 15 source.css meta.at-rule.media.body.css comment.block.css
+T 17 source.css meta.at-rule.media.body.css comment.block.css punctuation.definition.comment.end.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media (max-width: 1200px) and (max-width: 900px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 8 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 17 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 18 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 19 source.css meta.at-rule.media.header.css
+T 23 source.css meta.at-rule.media.header.css constant.numeric.css
+T 25 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 26 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 27 source.css meta.at-rule.media.header.css
+T 30 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 31 source.css meta.at-rule.media.header.css
+T 32 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 41 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 42 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 43 source.css meta.at-rule.media.header.css
+T 46 source.css meta.at-rule.media.header.css constant.numeric.css
+T 48 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 49 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 50 source.css
+T 51 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .body {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.at-rule.media.body.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     font-size: 11px;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css
+T 17 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 19 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 20 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media (min-width: 480px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 8 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 17 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 18 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 19 source.css meta.at-rule.media.header.css
+T 22 source.css meta.at-rule.media.header.css constant.numeric.css
+T 24 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 25 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 26 source.css
+T 27 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .nav-justified > li {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 16 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 17 source.css meta.at-rule.media.body.css meta.selector.css
+T 18 source.css meta.at-rule.media.body.css meta.selector.css keyword.operator.combinator.css
+T 19 source.css meta.at-rule.media.body.css meta.selector.css
+T 21 source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 22 source.css meta.at-rule.media.body.css
+T 23 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     display: table-cell;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css
+T 23 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 24 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media (min-width: 768px) and (min-width: 480px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 8 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 17 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 18 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 19 source.css meta.at-rule.media.header.css
+T 22 source.css meta.at-rule.media.header.css constant.numeric.css
+T 24 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 25 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 26 source.css meta.at-rule.media.header.css
+T 29 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 30 source.css meta.at-rule.media.header.css
+T 31 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 40 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 41 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 42 source.css meta.at-rule.media.header.css
+T 45 source.css meta.at-rule.media.header.css constant.numeric.css
+T 47 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 48 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 49 source.css
+T 50 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .menu > li {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css meta.at-rule.media.body.css meta.selector.css
+T 9 source.css meta.at-rule.media.body.css meta.selector.css keyword.operator.combinator.css
+T 10 source.css meta.at-rule.media.body.css meta.selector.css
+T 12 source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 13 source.css meta.at-rule.media.body.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     display: table-cell;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css
+T 23 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 24 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media all and (tv) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 10 source.css meta.at-rule.media.header.css support.constant.media.css
+T 11 source.css meta.at-rule.media.header.css
+T 14 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 15 source.css meta.at-rule.media.header.css
+T 16 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 18 source.css meta.at-rule.media.header.css
+T 19 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 20 source.css
+T 21 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .all-and-tv-variables {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 23 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 24 source.css meta.at-rule.media.body.css
+T 25 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     var: all-and-tv;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 7 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css
+T 8 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css
+T 19 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css
+T 20 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media screen and (min-width: 61px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 13 source.css meta.at-rule.media.header.css support.constant.media.css
+T 14 source.css meta.at-rule.media.header.css
+T 17 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 18 source.css meta.at-rule.media.header.css
+T 19 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 28 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 29 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 30 source.css meta.at-rule.media.header.css
+T 32 source.css meta.at-rule.media.header.css constant.numeric.css
+T 34 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 35 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 36 source.css
+T 37 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .selector {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css meta.at-rule.media.body.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     foo: bar;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 7 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css
+T 8 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css
+T 12 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media screen and (color), projection and (color) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 13 source.css meta.at-rule.media.header.css support.constant.media.css
+T 14 source.css meta.at-rule.media.header.css
+T 17 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 18 source.css meta.at-rule.media.header.css
+T 19 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 24 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 25 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 26 source.css meta.at-rule.media.header.css punctuation.separator.list.comma.css
+T 27 source.css meta.at-rule.media.header.css
+T 37 source.css meta.at-rule.media.header.css invalid.deprecated.constant.media.css
+T 38 source.css meta.at-rule.media.header.css
+T 41 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 42 source.css meta.at-rule.media.header.css
+T 43 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 48 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 49 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 50 source.css
+T 51 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .selector {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css meta.at-rule.media.body.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     color: #eee;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 12 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media not (width <= -100px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 10 source.css meta.at-rule.media.header.css keyword.operator.logical.not.media.css
+T 11 source.css meta.at-rule.media.header.css
+T 12 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 17 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 18 source.css meta.at-rule.media.header.css
+T 20 source.css meta.at-rule.media.header.css keyword.operator.comparison.css
+T 21 source.css meta.at-rule.media.header.css
+T 25 source.css meta.at-rule.media.header.css constant.numeric.css
+T 27 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 28 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 29 source.css
+T 30 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   body {
+T 2 source.css meta.at-rule.media.body.css
+T 6 source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.at-rule.media.body.css
+T 8 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background: green;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 22 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media (height > -100px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 8 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 14 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 15 source.css meta.at-rule.media.header.css
+T 16 source.css meta.at-rule.media.header.css keyword.operator.comparison.css
+T 17 source.css meta.at-rule.media.header.css
+T 21 source.css meta.at-rule.media.header.css constant.numeric.css
+T 23 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 24 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 25 source.css
+T 26 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   body {
+T 2 source.css meta.at-rule.media.body.css
+T 6 source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.at-rule.media.body.css
+T 8 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background: green;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 22 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media not (resolution: -300dpi) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 10 source.css meta.at-rule.media.header.css keyword.operator.logical.not.media.css
+T 11 source.css meta.at-rule.media.header.css
+T 12 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 22 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 23 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 24 source.css meta.at-rule.media.header.css
+T 28 source.css meta.at-rule.media.header.css constant.numeric.css
+T 31 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.dpi.css
+T 32 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 33 source.css
+T 34 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   body {
+T 2 source.css meta.at-rule.media.body.css
+T 6 source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.at-rule.media.body.css
+T 8 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background: green;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 22 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media (min-orientation: portrait) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 8 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 23 source.css meta.at-rule.media.header.css
+T 24 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 25 source.css meta.at-rule.media.header.css
+T 33 source.css meta.at-rule.media.header.css support.constant.property-value.css
+T 34 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 35 source.css
+T 36 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   body {
+T 2 source.css meta.at-rule.media.body.css
+T 6 source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.at-rule.media.body.css
+T 8 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background: green;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 22 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media print and (min-resolution: 118dpcm) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 12 source.css meta.at-rule.media.header.css support.constant.media.css
+T 13 source.css meta.at-rule.media.header.css
+T 16 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 17 source.css meta.at-rule.media.header.css
+T 18 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 32 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 33 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 34 source.css meta.at-rule.media.header.css
+T 37 source.css meta.at-rule.media.header.css constant.numeric.css
+T 41 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.dpcm.css
+T 42 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 43 source.css
+T 44 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   body {
+T 2 source.css meta.at-rule.media.body.css
+T 6 source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.at-rule.media.body.css
+T 8 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background: green;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 22 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media (200px <= width <= 500px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 8 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 11 source.css meta.at-rule.media.header.css constant.numeric.css
+T 13 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 14 source.css meta.at-rule.media.header.css
+T 16 source.css meta.at-rule.media.header.css keyword.operator.comparison.css
+T 17 source.css meta.at-rule.media.header.css
+T 22 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 23 source.css meta.at-rule.media.header.css
+T 25 source.css meta.at-rule.media.header.css keyword.operator.comparison.css
+T 26 source.css meta.at-rule.media.header.css
+T 29 source.css meta.at-rule.media.header.css constant.numeric.css
+T 31 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 32 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 33 source.css
+T 34 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .test-range-syntax {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 20 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 21 source.css meta.at-rule.media.body.css
+T 22 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     padding: 0;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L .selector {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 source.css
+T 11 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: #eee;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 13 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L @media (200px <= width <= 500px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 8 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 11 source.css meta.at-rule.media.header.css constant.numeric.css
+T 13 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 14 source.css meta.at-rule.media.header.css
+T 16 source.css meta.at-rule.media.header.css keyword.operator.comparison.css
+T 17 source.css meta.at-rule.media.header.css
+T 22 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 23 source.css meta.at-rule.media.header.css
+T 25 source.css meta.at-rule.media.header.css keyword.operator.comparison.css
+T 26 source.css meta.at-rule.media.header.css
+T 29 source.css meta.at-rule.media.header.css constant.numeric.css
+T 31 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 32 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 33 source.css
+T 34 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .selector .test-range-syntax {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css meta.at-rule.media.body.css meta.selector.css
+T 13 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 30 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 31 source.css meta.at-rule.media.body.css
+T 32 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     padding: 0;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 13 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media print, (max-width: 992px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 12 source.css meta.at-rule.media.header.css support.constant.media.css
+T 13 source.css meta.at-rule.media.header.css punctuation.separator.list.comma.css
+T 14 source.css meta.at-rule.media.header.css
+T 15 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 24 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 25 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 26 source.css meta.at-rule.media.header.css
+T 29 source.css meta.at-rule.media.header.css constant.numeric.css
+T 31 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 32 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 33 source.css
+T 34 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   div {
+T 2 source.css meta.at-rule.media.body.css
+T 5 source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 6 source.css meta.at-rule.media.body.css
+T 7 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     color: red;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media screen and (max-width: 1280px) {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 13 source.css meta.at-rule.media.header.css support.constant.media.css
+T 14 source.css meta.at-rule.media.header.css
+T 17 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 18 source.css meta.at-rule.media.header.css
+T 19 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 28 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 29 source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 30 source.css meta.at-rule.media.header.css
+T 34 source.css meta.at-rule.media.header.css constant.numeric.css
+T 36 source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.px.css
+T 37 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 38 source.css
+T 39 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   .form-process-table {
+T 2 source.css meta.at-rule.media.body.css
+T 3 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 21 source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 22 source.css meta.at-rule.media.body.css
+T 23 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     color: red;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 9 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L @media ((color) and (hover)), all {
+T 1 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 6 source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 7 source.css meta.at-rule.media.header.css
+T 8 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 9 source.css meta.at-rule.media.header.css
+T 14 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 15 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 16 source.css meta.at-rule.media.header.css
+T 19 source.css meta.at-rule.media.header.css keyword.operator.logical.and.media.css
+T 20 source.css meta.at-rule.media.header.css
+T 21 source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 26 source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 27 source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 28 source.css meta.at-rule.media.header.css
+T 29 source.css meta.at-rule.media.header.css punctuation.separator.list.comma.css
+T 30 source.css meta.at-rule.media.header.css
+T 33 source.css meta.at-rule.media.header.css support.constant.media.css
+T 34 source.css
+T 35 source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L   body {
+T 2 source.css meta.at-rule.media.body.css
+T 6 source.css meta.at-rule.media.body.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.at-rule.media.body.css
+T 8 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     background: green;
+T 4 source.css meta.at-rule.media.body.css meta.property-list.css
+T 14 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.at-rule.media.body.css meta.property-list.css
+T 21 source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 22 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.media.body.css meta.property-list.css
+T 3 source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L 

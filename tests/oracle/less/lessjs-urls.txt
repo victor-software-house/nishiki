@@ -1,0 +1,1189 @@
+L @import "nested-gradient-with-svg-gradient/mixin-consumer.less";
+T 1 source.css.less meta.at-rule.import.less keyword.control.at-rule.import.less punctuation.definition.keyword.less
+T 7 source.css.less meta.at-rule.import.less keyword.control.at-rule.import.less
+T 8 source.css.less meta.at-rule.import.less
+T 9 source.css.less meta.at-rule.import.less string.quoted.double.less punctuation.definition.string.begin.less
+T 62 source.css.less meta.at-rule.import.less string.quoted.double.less
+T 63 source.css.less meta.at-rule.import.less string.quoted.double.less punctuation.definition.string.end.less
+T 64 source.css.less meta.at-rule.import.less punctuation.terminator.rule.less
+L 
+L @font-face {
+T 1 source.css.less meta.at-rule.font-face.less keyword.control.at-rule.font-face.less punctuation.definition.keyword.less
+T 10 source.css.less meta.at-rule.font-face.less keyword.control.at-rule.font-face.less
+T 11 source.css.less meta.at-rule.font-face.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.begin.less
+L   src: url("/fonts/garamond-pro.ttf");
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less support.type.property-name.less
+T 6 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.separator.key-value.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less
+T 10 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.begin.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.end.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 38 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.terminator.rule.less
+L   src: local(Futura-Medium),
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less support.type.property-name.less
+T 6 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.separator.key-value.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.font-face.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 21 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 22 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less punctuation.separator.less
+L        url(fonts.svg#MyGeometricModern) format("svg");
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less
+T 10 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 21 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 22 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 29 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 30 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 31 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 34 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 38 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 39 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less
+T 46 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.format.less
+T 47 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 48 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.begin.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.end.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 54 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.terminator.rule.less
+L   not-a-comment: url(//z);
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.name.tag.custom.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+T 21 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less meta.group.less comment.line.double-slash.less punctuation.definition.comment.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less meta.group.less comment.line.double-slash.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+L #shorthands {
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less punctuation.definition.entity.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+L   background: url("http://www.lesscss.org/spec.html") no-repeat 0 4px;
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.begin.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.end.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 54 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 63 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.property-value.less
+T 64 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 65 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 66 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 67 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 69 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 70 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L   background: url("img.jpg") center / 100px;
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.begin.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.end.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 29 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.property-value.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less keyword.operator.arithmetic.less
+T 38 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 41 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 43 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 44 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L   background: #fff url(image.png) center / 1px 100px repeat-x scroll content-box padding-box;
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.other.color.rgb-value.less punctuation.definition.constant.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.other.color.rgb-value.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 22 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 29 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 30 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 31 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 34 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.property-value.less
+T 41 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less keyword.operator.arithmetic.less
+T 43 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 44 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 46 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 47 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 50 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 61 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.property-value.less
+T 62 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 68 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.property-value.less
+T 69 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 80 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.property-value.less
+T 81 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 92 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.property-value.less
+T 93 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.end.less
+L #misc {
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less punctuation.definition.entity.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less
+T 6 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+L   background-image: url(images/image.jpg);
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 29 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 30 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 31 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 34 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 38 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 39 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 41 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.end.less
+L #data-uri {
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less punctuation.definition.entity.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less
+T 10 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+L   background: url(data:image/png;charset=utf-8;base64,
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 21 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 22 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 29 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 30 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 31 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 34 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 38 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 39 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 41 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 43 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 44 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 45 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 46 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 47 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 48 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 49 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 50 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 54 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+L     kiVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD/
+T 4 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 6 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 10 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 21 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 22 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 29 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 30 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 31 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 34 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 38 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 39 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 41 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 43 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 44 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 45 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 46 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 47 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 48 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 49 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 50 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 54 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 55 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 56 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 57 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 58 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 59 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 60 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 61 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 62 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 63 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 64 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 65 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+L     k//+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4U
+T 4 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 6 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 10 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 21 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 22 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 29 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 30 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 31 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 34 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 38 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 39 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 41 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 43 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 44 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 45 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 46 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 47 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 48 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 49 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 50 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 54 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 55 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 56 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 57 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 58 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 59 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 60 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 61 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 62 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 63 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 64 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 65 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+L     kg9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC);
+T 4 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 6 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 10 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 21 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 22 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 29 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 30 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 31 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 34 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 38 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 39 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 41 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 43 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 44 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 45 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 46 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 47 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 48 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 49 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 50 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 54 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 55 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L   background-image: url(data:image/x-png,f9difSSFIIGFIFJD1f982FSDKAA9==);
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 29 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 30 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 31 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 34 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 38 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 39 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 41 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 43 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 44 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 45 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 46 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 47 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 48 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 49 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 50 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 54 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 55 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 56 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 57 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 58 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 59 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 60 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 61 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 62 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 63 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 64 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 65 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 66 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 67 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 68 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 69 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 70 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 71 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 72 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 73 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L   background-image: url(http://fonts.googleapis.com/css?family=\"Rokkitt\":\(400\),700);
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 29 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 30 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 31 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 34 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 38 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 39 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 41 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 43 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 44 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 45 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 46 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 47 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 48 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 49 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 50 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 54 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 55 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 56 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 57 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 58 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 59 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 60 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 61 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 62 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 63 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 64 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 65 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.begin.less
+T 72 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 74 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less constant.character.escape.less
+T 75 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 77 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less constant.character.escape.less
+T 80 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 82 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less constant.character.escape.less
+T 88 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+L   background-image: url("http://fonts.googleapis.com/css?family=\"Rokkitt\":\(400\),700");
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 3 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 4 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 6 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 10 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 21 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 22 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.begin.less
+T 64 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 66 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less constant.character.escape.less
+T 73 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 75 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less constant.character.escape.less
+T 76 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 78 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less constant.character.escape.less
+T 81 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 83 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less constant.character.escape.less
+T 87 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 88 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.end.less
+T 89 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 90 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.end.less
+L 
+L #svg-data-uri {
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less punctuation.definition.entity.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+L   background: transparent url('data:image/svg+xml, <svg version="1.1"><g></g></svg>');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.color.w3c-special-color-keyword.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 29 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 30 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 31 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.begin.less
+T 83 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less
+T 84 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.end.less
+T 85 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 86 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.end.less
+L 
+L .comma-delimited {
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+L   background: url(bg.jpg) no-repeat, url(bg.png) repeat-x top left, url(bg);
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 21 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 22 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.property-value.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.separator.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 41 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 43 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 44 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 45 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 46 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 47 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 48 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 49 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 57 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.property-value.less
+T 58 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 61 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.property-value.less
+T 62 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 66 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.property-value.less
+T 67 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.separator.less
+T 68 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 71 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 72 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 73 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 74 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 75 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 76 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.end.less
+L .values {
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+L     @a: 'Trebuchet';
+T 4 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less punctuation.definition.variable.less
+T 6 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less support.other.variable.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.separator.key-value.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.property-value.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less string.quoted.single.less punctuation.definition.string.begin.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less string.quoted.single.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less string.quoted.single.less punctuation.definition.string.end.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.terminator.rule.less
+L     url: url(@a);
+T 4 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less meta.property-value.less variable.other.readwrite.less punctuation.definition.variable.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less meta.property-value.less variable.other.readwrite.less support.other.variable.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.end.less
+L 
+L @import "import/import-and-relative-paths-test";
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.import.less keyword.control.at-rule.import.less punctuation.definition.keyword.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.import.less keyword.control.at-rule.import.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.import.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.import.less string.quoted.double.less punctuation.definition.string.begin.less
+T 46 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.import.less string.quoted.double.less
+T 47 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.import.less string.quoted.double.less punctuation.definition.string.end.less
+T 48 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.import.less punctuation.terminator.rule.less
+L 
+L #relative-url-import {
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less punctuation.definition.entity.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less
+T 21 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+T 22 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+L     .unquoted-relative-path-bg();
+T 4 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 30 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 31 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L     .quoted-relative-path-border-image();
+T 4 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 38 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 39 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 41 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.end.less
+L 
+L #data-uri {
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less punctuation.definition.entity.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less
+T 10 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+L   uri: data-uri('image/jpeg;base64', '../../data/image.jpg');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less entity.name.tag.custom.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less punctuation.definition.string.begin.less
+T 34 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less punctuation.definition.string.end.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.separator.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less
+T 38 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less punctuation.definition.string.begin.less
+T 58 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less
+T 59 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less punctuation.definition.string.end.less
+T 60 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 61 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L   @var: replace('../../data/replace.jpg', "replace", "image");
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 3 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less punctuation.definition.variable.less
+T 6 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less support.other.variable.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.separator.key-value.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.property-value.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.replace.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.begin.less
+T 39 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.end.less
+T 41 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 43 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.begin.less
+T 50 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.end.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 54 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.begin.less
+T 59 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 60 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.end.less
+T 61 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 62 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.terminator.rule.less
+L   background-image: data-uri(@var), data-uri(replace('../../data/image.filext', "filext", "jpg"));
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.data-uri.less
+T 29 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 30 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less variable.other.readwrite.less punctuation.definition.variable.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less variable.other.readwrite.less support.other.variable.less
+T 34 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.separator.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 44 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.data-uri.less
+T 45 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 54 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.begin.less
+T 77 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less
+T 78 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.end.less
+T 79 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 80 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 81 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.begin.less
+T 87 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 88 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.end.less
+T 89 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 90 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 91 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.begin.less
+T 94 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less
+T 95 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.double.less punctuation.definition.string.end.less
+T 96 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 98 source.css.less meta.at-rule.font-face.less meta.property-list.less
+L 
+L   uri-fragment: data-uri('image/jpeg;base64', '../../data/image.jpg#fragment');
+T 79 source.css.less meta.at-rule.font-face.less meta.property-list.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.end.less
+L 
+L #data-uri-guess {
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less punctuation.definition.entity.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+L   uri: data-uri('../../data/image.jpg');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less entity.name.tag.custom.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less punctuation.definition.string.begin.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less
+T 38 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less punctuation.definition.string.end.less
+T 39 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.end.less
+L 
+L #data-uri-ascii {
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less punctuation.definition.entity.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+L   uri-1: data-uri('text/html', '../../data/page.html');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less entity.name.tag.custom.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less entity.name.tag.custom.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less punctuation.definition.string.begin.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less
+T 29 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less punctuation.definition.string.end.less
+T 30 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.separator.less
+T 31 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less punctuation.definition.string.begin.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less punctuation.definition.string.end.less
+T 54 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 55 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L   uri-2: data-uri('../../data/page.html');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less entity.name.tag.custom.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less entity.name.tag.custom.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less punctuation.definition.string.begin.less
+T 39 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less punctuation.definition.string.end.less
+T 41 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.end.less
+L 
+L #file-functions {
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less punctuation.definition.entity.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+L   svg-not-base-64: data-uri('../../data/image.svg');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less entity.name.tag.custom.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less entity.name.tag.custom.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 29 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less punctuation.definition.string.begin.less
+T 49 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less
+T 50 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less string.quoted.single.less punctuation.definition.string.end.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L   size: image-size('../../data/data-uri-fail.png');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 6 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.image.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.begin.less
+T 48 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less
+T 49 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.end.less
+T 50 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L   width: image-width('../../data/data-uri-fail.png');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.image.less
+T 21 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 22 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.begin.less
+T 50 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.end.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L   height: image-height('../../data/data-uri-fail.png');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 10 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 22 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.image.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.begin.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.end.less
+T 54 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 55 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.end.less
+L .add_an_import(@file_to_import) {
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less meta.group.less meta.property-value.less variable.other.readwrite.less punctuation.definition.variable.less
+T 30 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less meta.group.less meta.property-value.less variable.other.readwrite.less support.other.variable.less
+T 31 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+L @import "@{file_to_import}";
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.at-rule.import.less keyword.control.at-rule.import.less punctuation.definition.keyword.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.at-rule.import.less keyword.control.at-rule.import.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.at-rule.import.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.at-rule.import.less string.quoted.double.less punctuation.definition.string.begin.less
+T 10 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.at-rule.import.less string.quoted.double.less variable.other.readwrite.less punctuation.definition.variable.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.at-rule.import.less string.quoted.double.less variable.other.readwrite.less punctuation.definition.expression.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.at-rule.import.less string.quoted.double.less variable.other.readwrite.less support.other.variable.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.at-rule.import.less string.quoted.double.less variable.other.readwrite.less punctuation.definition.expression.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.at-rule.import.less string.quoted.double.less punctuation.definition.string.end.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.at-rule.import.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.end.less
+L 
+L .add_an_import("file.css");
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less punctuation.definition.entity.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.class.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less meta.group.less string.quoted.double.less punctuation.definition.string.begin.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less meta.group.less string.quoted.double.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less meta.group.less string.quoted.double.less punctuation.definition.string.end.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.terminator.rule.less
+L 
+L #svg-functions {
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less punctuation.definition.entity.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less entity.other.attribute-name.id.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.selector.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+L   background-image: svg-gradient(to bottom, black, white);
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.svg-gradient.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less keyword.other.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.constant.property-value.less
+T 43 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 44 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 49 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.constant.color.w3c-standard-color-name.less
+T 50 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 56 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.constant.color.w3c-standard-color-name.less
+T 57 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 58 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L   background-image: svg-gradient(to bottom, black, orange 3%, white);
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.svg-gradient.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less keyword.other.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.constant.property-value.less
+T 43 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 44 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 49 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.constant.color.w3c-standard-color-name.less
+T 50 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 57 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.constant.color.w3c-standard-color-name.less
+T 58 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 59 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less constant.numeric.less
+T 60 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less constant.numeric.less keyword.other.unit.less
+T 61 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 62 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 67 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.constant.color.w3c-standard-color-name.less
+T 68 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 69 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.terminator.rule.less
+L   @green_5: green 5%;
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 3 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less punctuation.definition.variable.less
+T 10 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less support.other.variable.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.separator.key-value.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.property-value.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.color.w3c-standard-color-name.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 21 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.terminator.rule.less
+L   @orange_percentage: 3%;
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 3 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less punctuation.definition.variable.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less support.other.variable.less
+T 21 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.separator.key-value.less
+T 22 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.property-value.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.terminator.rule.less
+L   @orange_color: orange;
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 3 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less punctuation.definition.variable.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less support.other.variable.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.separator.key-value.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.property-value.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.color.w3c-standard-color-name.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.terminator.rule.less
+L   background-image: svg-gradient(to bottom, (mix(black, white) + #444) 1%, @orange_color @orange_percentage, ((@green_5)), white 95%);
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less support.type.property-name.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less punctuation.separator.key-value.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.svg-gradient.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less keyword.other.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less support.constant.property-value.less
+T 43 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.separator.less
+T 44 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 45 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 48 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less meta.function-call.less support.function.color-operation.less
+T 49 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less meta.function-call.less punctuation.definition.group.begin.less
+T 54 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less meta.function-call.less support.constant.color.w3c-standard-color-name.less
+T 55 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less meta.function-call.less punctuation.separator.less
+T 56 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less meta.function-call.less
+T 61 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less meta.function-call.less support.constant.color.w3c-standard-color-name.less
+T 62 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less meta.function-call.less punctuation.definition.group.end.less
+T 65 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less
+T 66 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less constant.other.color.rgb-value.less punctuation.definition.constant.less
+T 69 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less constant.other.color.rgb-value.less
+T 70 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 71 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 72 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 73 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 74 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.separator.less
+T 75 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 76 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less punctuation.definition.variable.less
+T 88 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less support.other.variable.less
+T 89 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less
+T 90 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less punctuation.definition.variable.less
+T 107 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less variable.other.readwrite.less support.other.variable.less
+T 108 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.separator.less
+T 109 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 110 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.group.less punctuation.definition.group.begin.less
+T 111 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.begin.less
+T 112 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less variable.other.readwrite.less punctuation.definition.variable.less
+T 119 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less variable.other.readwrite.less support.other.variable.less
+T 120 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.group.less meta.group.less punctuation.definition.group.end.less
+T 121 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less meta.group.less punctuation.definition.group.end.less
+T 122 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less punctuation.separator.less
+T 123 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 128 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less support.constant.color.w3c-standard-color-name.less
+T 129 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less
+T 131 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less
+T 132 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.property-list.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 134 source.css.less meta.at-rule.font-face.less meta.property-list.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.end.less
+L //it should work also inside @font-face #2035
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less comment.line.double-slash.less punctuation.definition.comment.less
+T 45 source.css.less meta.at-rule.font-face.less meta.property-list.less comment.line.double-slash.less
+L @font-face {
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less keyword.control.at-rule.font-face.less punctuation.definition.keyword.less
+T 10 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less keyword.control.at-rule.font-face.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.definition.block.begin.less
+L   font-family: 'MyWebFont';
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-name.less support.type.property-name.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-name.less punctuation.separator.key-value.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-name.less meta.property-value.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-name.less string.quoted.single.less punctuation.definition.string.begin.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-name.less string.quoted.single.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-name.less string.quoted.single.less punctuation.definition.string.end.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-name.less punctuation.terminator.rule.less
+L   src: url(webfont.eot);
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less support.type.property-name.less
+T 6 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.separator.key-value.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less
+T 10 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 18 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 19 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 20 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 21 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 22 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.unquoted.less
+T 23 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.terminator.rule.less
+L   src+: url('webfont.eot?#iefix');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less support.type.property-name.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.separator.key-value.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.begin.less
+T 31 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less
+T 32 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.end.less
+T 33 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 34 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.terminator.rule.less
+L   src+_: format('embedded-opentype');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less support.type.property-name.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.separator.key-value.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.format.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 17 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.begin.less
+T 34 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.end.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.terminator.rule.less
+L   src+: url('webfont.woff') format('woff');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less support.type.property-name.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.separator.key-value.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.begin.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.end.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less
+T 34 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.format.less
+T 35 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.begin.less
+T 40 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less
+T 41 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.end.less
+T 42 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 43 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.terminator.rule.less
+L   src+: format('truetype');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less support.type.property-name.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.separator.key-value.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.format.less
+T 15 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 16 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.begin.less
+T 24 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.end.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.terminator.rule.less
+L   src+_: url('webfont.ttf');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less support.type.property-name.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.separator.key-value.less
+T 9 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 14 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.begin.less
+T 25 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less
+T 26 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.end.less
+T 27 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 28 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.terminator.rule.less
+L   src+: url('webfont.svg#svgFontName') format('svg');
+T 2 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less
+T 5 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less support.type.property-name.less
+T 7 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.separator.key-value.less
+T 8 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less
+T 11 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.url.less
+T 12 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 13 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.begin.less
+T 36 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less
+T 37 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.end.less
+T 38 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 39 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less
+T 45 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less support.function.format.less
+T 46 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.begin.less
+T 47 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.begin.less
+T 50 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less
+T 51 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less string.quoted.single.less punctuation.definition.string.end.less
+T 52 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less meta.property-value.less meta.function-call.less punctuation.definition.group.end.less
+T 53 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less meta.property-list.less punctuation.terminator.rule.less
+L }
+T 1 source.css.less meta.at-rule.font-face.less meta.property-list.less meta.at-rule.font-face.less punctuation.definition.block.end.less
+L 

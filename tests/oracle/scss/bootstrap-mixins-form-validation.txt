@@ -1,0 +1,225 @@
+L // scss-docs-start form-validation-state-selector
+T 2 source.css.scss comment.line.scss punctuation.definition.comment.scss
+T 49 source.css.scss comment.line.scss
+L @mixin form-validation-state-selector($state) {
+T 1 source.css.scss meta.at-rule.mixin.scss keyword.control.at-rule.mixin.scss punctuation.definition.keyword.scss
+T 6 source.css.scss meta.at-rule.mixin.scss keyword.control.at-rule.mixin.scss
+T 7 source.css.scss meta.at-rule.mixin.scss
+T 37 source.css.scss meta.at-rule.mixin.scss entity.name.function.scss
+T 38 source.css.scss meta.at-rule.mixin.scss punctuation.definition.parameters.begin.bracket.round.scss
+T 44 source.css.scss meta.at-rule.mixin.scss variable.scss
+T 45 source.css.scss meta.at-rule.mixin.scss punctuation.definition.parameters.end.bracket.round.scss
+T 46 source.css.scss
+T 47 source.css.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+L   @if & {
+T 2 source.css.scss meta.property-list.scss meta.at-rule.if.scss
+T 3 source.css.scss meta.property-list.scss meta.at-rule.if.scss keyword.control.if.scss punctuation.definition.keyword.scss
+T 5 source.css.scss meta.property-list.scss meta.at-rule.if.scss keyword.control.if.scss
+T 6 source.css.scss meta.property-list.scss meta.at-rule.if.scss
+T 7 source.css.scss meta.property-list.scss meta.at-rule.if.scss
+T 8 source.css.scss meta.property-list.scss meta.at-rule.if.scss
+T 9 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+L     &.is-#{$state} {
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss
+T 5 source.css.scss meta.property-list.scss meta.property-list.scss entity.name.tag.reference.scss
+T 6 source.css.scss meta.property-list.scss meta.property-list.scss entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 source.css.scss meta.property-list.scss meta.property-list.scss entity.other.attribute-name.class.css
+T 11 source.css.scss meta.property-list.scss meta.property-list.scss entity.other.attribute-name.class.css variable.interpolation.scss punctuation.definition.interpolation.begin.bracket.curly.scss
+T 17 source.css.scss meta.property-list.scss meta.property-list.scss entity.other.attribute-name.class.css variable.interpolation.scss variable.scss
+T 18 source.css.scss meta.property-list.scss meta.property-list.scss entity.other.attribute-name.class.css variable.interpolation.scss punctuation.definition.interpolation.end.bracket.curly.scss
+T 19 source.css.scss meta.property-list.scss meta.property-list.scss
+T 20 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+L       @content;
+T 6 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.content.scss
+T 14 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.content.scss keyword.control.content.scss
+T 15 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.terminator.rule.css
+L     }
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss
+T 5 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+L 
+L     @if $state == "invalid" {
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss
+T 5 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss keyword.control.if.scss punctuation.definition.keyword.scss
+T 7 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss keyword.control.if.scss
+T 8 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss
+T 14 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss variable.scss
+T 15 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss
+T 17 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss keyword.operator.comparison.scss
+T 18 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss
+T 19 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss string.quoted.double.scss punctuation.definition.string.begin.scss
+T 26 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss string.quoted.double.scss
+T 27 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss string.quoted.double.scss punctuation.definition.string.end.scss
+T 28 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss
+T 29 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+L       @at-root [data-bs-validate] #{&}:user-invalid {
+T 6 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss
+T 7 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss keyword.control.at-rule.at-root.scss punctuation.definition.keyword.scss
+T 14 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss keyword.control.at-rule.at-root.scss
+T 15 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss
+T 16 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss meta.attribute-selector.scss punctuation.definition.attribute-selector.begin.bracket.square.scss
+T 32 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss meta.attribute-selector.scss entity.other.attribute-name.attribute.scss
+T 33 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss meta.attribute-selector.scss punctuation.definition.attribute-selector.end.bracket.square.scss
+T 34 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss
+T 36 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss variable.interpolation.scss punctuation.definition.interpolation.begin.bracket.curly.scss
+T 37 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss variable.interpolation.scss
+T 38 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss variable.interpolation.scss punctuation.definition.interpolation.end.bracket.curly.scss
+T 39 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss punctuation.separator.key-value.scss
+T 51 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss support.function.misc.scss
+T 52 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss
+T 53 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+L         @content;
+T 8 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.content.scss
+T 16 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.content.scss keyword.control.content.scss
+T 17 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.terminator.rule.css
+L       }
+T 6 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss
+T 7 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+L     } @else if $state == "valid" {
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss
+T 5 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+T 6 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.else.scss
+T 7 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.else.scss keyword.control.else.scss punctuation.definition.keyword.scss
+T 14 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.else.scss keyword.control.else.scss
+T 15 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.else.scss
+T 21 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.else.scss variable.scss
+T 22 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.else.scss
+T 24 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.else.scss keyword.operator.comparison.scss
+T 25 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.else.scss
+T 26 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.else.scss string.quoted.double.scss punctuation.definition.string.begin.scss
+T 31 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.else.scss string.quoted.double.scss
+T 32 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.else.scss string.quoted.double.scss punctuation.definition.string.end.scss
+T 33 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.else.scss
+T 34 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+L       @at-root [data-bs-validate~="valid"] #{&}:user-valid {
+T 6 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss
+T 7 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss keyword.control.at-rule.at-root.scss punctuation.definition.keyword.scss
+T 14 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss keyword.control.at-rule.at-root.scss
+T 15 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss
+T 16 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss meta.attribute-selector.scss punctuation.definition.attribute-selector.begin.bracket.square.scss
+T 32 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss meta.attribute-selector.scss entity.other.attribute-name.attribute.scss
+T 34 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss meta.attribute-selector.scss keyword.operator.scss
+T 35 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss meta.attribute-selector.scss string.quoted.double.attribute-value.scss punctuation.definition.string.begin.scss
+T 40 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss meta.attribute-selector.scss
+T 41 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss meta.attribute-selector.scss string.quoted.double.attribute-value.scss punctuation.definition.string.end.scss
+T 42 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss meta.attribute-selector.scss punctuation.definition.attribute-selector.end.bracket.square.scss
+T 43 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss
+T 45 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss variable.interpolation.scss punctuation.definition.interpolation.begin.bracket.curly.scss
+T 46 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss variable.interpolation.scss
+T 47 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss variable.interpolation.scss punctuation.definition.interpolation.end.bracket.curly.scss
+T 48 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss punctuation.separator.key-value.scss
+T 58 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss support.function.misc.scss
+T 59 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.at-rule.at-root.scss
+T 60 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+L         @content;
+T 8 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.content.scss
+T 16 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.content.scss keyword.control.content.scss
+T 17 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.terminator.rule.css
+L       }
+T 6 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss
+T 7 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+L     }
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss
+T 5 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+L   } @else {
+T 2 source.css.scss meta.property-list.scss meta.property-list.scss
+T 3 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+T 4 source.css.scss meta.property-list.scss meta.at-rule.else.scss
+T 5 source.css.scss meta.property-list.scss meta.at-rule.else.scss keyword.control.else.scss punctuation.definition.keyword.scss
+T 10 source.css.scss meta.property-list.scss meta.at-rule.else.scss keyword.control.else.scss
+T 11 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+L     .is-#{$state} {
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss
+T 5 source.css.scss meta.property-list.scss meta.property-list.scss entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 8 source.css.scss meta.property-list.scss meta.property-list.scss entity.other.attribute-name.class.css
+T 10 source.css.scss meta.property-list.scss meta.property-list.scss entity.other.attribute-name.class.css variable.interpolation.scss punctuation.definition.interpolation.begin.bracket.curly.scss
+T 16 source.css.scss meta.property-list.scss meta.property-list.scss entity.other.attribute-name.class.css variable.interpolation.scss variable.scss
+T 17 source.css.scss meta.property-list.scss meta.property-list.scss entity.other.attribute-name.class.css variable.interpolation.scss punctuation.definition.interpolation.end.bracket.curly.scss
+T 18 source.css.scss meta.property-list.scss meta.property-list.scss
+T 19 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+L       @content;
+T 6 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.content.scss
+T 14 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.content.scss keyword.control.content.scss
+T 15 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.terminator.rule.css
+L     }
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss
+T 5 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+L 
+L     @if $state == "invalid" {
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss
+T 5 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss keyword.control.if.scss punctuation.definition.keyword.scss
+T 7 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss keyword.control.if.scss
+T 8 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss
+T 14 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss variable.scss
+T 15 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss
+T 17 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss keyword.operator.comparison.scss
+T 18 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss
+T 19 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss string.quoted.double.scss punctuation.definition.string.begin.scss
+T 26 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss string.quoted.double.scss
+T 27 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss string.quoted.double.scss punctuation.definition.string.end.scss
+T 28 source.css.scss meta.property-list.scss meta.property-list.scss meta.at-rule.if.scss
+T 29 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+L       [data-bs-validate] :user-invalid {
+T 6 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss
+T 7 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.attribute-selector.scss punctuation.definition.attribute-selector.begin.bracket.square.scss
+T 23 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.attribute-selector.scss entity.other.attribute-name.attribute.scss
+T 24 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.attribute-selector.scss punctuation.definition.attribute-selector.end.bracket.square.scss
+T 25 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss
+T 26 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.separator.key-value.scss
+T 30 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss
+T 31 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss support.constant.mathematical-symbols.scss
+T 40 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss
+L         @content;
+T 9 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss
+T 16 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss support.constant.property-value.css
+T 17 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.terminator.rule.scss
+L       }
+T 6 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss
+T 7 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+L     } @else if $state == "valid" {
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss
+T 5 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+T 6 source.css.scss meta.property-list.scss meta.at-rule.else.scss
+T 7 source.css.scss meta.property-list.scss meta.at-rule.else.scss keyword.control.else.scss punctuation.definition.keyword.scss
+T 14 source.css.scss meta.property-list.scss meta.at-rule.else.scss keyword.control.else.scss
+T 15 source.css.scss meta.property-list.scss meta.at-rule.else.scss
+T 21 source.css.scss meta.property-list.scss meta.at-rule.else.scss variable.scss
+T 22 source.css.scss meta.property-list.scss meta.at-rule.else.scss
+T 24 source.css.scss meta.property-list.scss meta.at-rule.else.scss keyword.operator.comparison.scss
+T 25 source.css.scss meta.property-list.scss meta.at-rule.else.scss
+T 26 source.css.scss meta.property-list.scss meta.at-rule.else.scss string.quoted.double.scss punctuation.definition.string.begin.scss
+T 31 source.css.scss meta.property-list.scss meta.at-rule.else.scss string.quoted.double.scss
+T 32 source.css.scss meta.property-list.scss meta.at-rule.else.scss string.quoted.double.scss punctuation.definition.string.end.scss
+T 33 source.css.scss meta.property-list.scss meta.at-rule.else.scss
+T 34 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+L       [data-bs-validate~="valid"] :user-valid {
+T 6 source.css.scss meta.property-list.scss meta.property-list.scss
+T 7 source.css.scss meta.property-list.scss meta.property-list.scss meta.attribute-selector.scss punctuation.definition.attribute-selector.begin.bracket.square.scss
+T 23 source.css.scss meta.property-list.scss meta.property-list.scss meta.attribute-selector.scss entity.other.attribute-name.attribute.scss
+T 25 source.css.scss meta.property-list.scss meta.property-list.scss meta.attribute-selector.scss keyword.operator.scss
+T 26 source.css.scss meta.property-list.scss meta.property-list.scss meta.attribute-selector.scss string.quoted.double.attribute-value.scss punctuation.definition.string.begin.scss
+T 31 source.css.scss meta.property-list.scss meta.property-list.scss meta.attribute-selector.scss
+T 32 source.css.scss meta.property-list.scss meta.property-list.scss meta.attribute-selector.scss string.quoted.double.attribute-value.scss punctuation.definition.string.end.scss
+T 33 source.css.scss meta.property-list.scss meta.property-list.scss meta.attribute-selector.scss punctuation.definition.attribute-selector.end.bracket.square.scss
+T 34 source.css.scss meta.property-list.scss meta.property-list.scss
+T 35 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.separator.key-value.scss
+T 39 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss
+T 40 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss support.constant.mathematical-symbols.scss
+T 47 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss
+L         @content;
+T 9 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss
+T 16 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss support.constant.property-value.css
+T 17 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.terminator.rule.scss
+L       }
+T 6 source.css.scss meta.property-list.scss meta.property-list.scss
+T 7 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+L     }
+T 4 source.css.scss meta.property-list.scss
+T 5 source.css.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+L   }
+T 3 source.css.scss
+L }
+T 1 source.css.scss
+L // scss-docs-end form-validation-state-selector
+T 2 source.css.scss comment.line.scss punctuation.definition.comment.scss
+T 47 source.css.scss comment.line.scss
+L 

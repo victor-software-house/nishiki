@@ -31,7 +31,8 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 - [ ] 3.3 Python: `python`
 - [ ] 3.4 Go: `go`
 - [ ] 3.5 Java: `java`
-- [ ] 3.6 TypeScript: `typescript`, `javascript`, `jsx`, `tsx`
+- [x] 3.6 TypeScript: `typescript`, `javascript`, `jsx`, `tsx`
+  - 2026-11-04 UTC, [PR 281][pr281], [PR 275][pr275] and [PR 282][pr282]: 67 TypeScript test cases and a written input added, and a Unicode-digit key fixed in the lexer; the four grammars complete with seven waivers each. On `869e82a4` the [oracle test][run-282-ci] and the [coverage check][run-282-cov] passed.
 - [ ] 3.7 C and C++: `c`, `cpp`, `cpp-macro`
 - [x] 3.8 Rust: `rust`
   - 2026-11-04 UTC, [PR 259][pr259]: `rust/core-macros` and `rust/coverage` added; Rust complete with one waiver. On `b672f999` the [oracle test][run-259-ci] and the [coverage check][run-259-cov] passed.
@@ -58,3 +59,8 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr261]: https://github.com/victor-software-house/nishiki-archive/pull/261
 [run-261-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41764640336
 [run-261-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41764639889
+[pr275]: https://github.com/victor-software-house/nishiki-archive/pull/275
+[pr281]: https://github.com/victor-software-house/nishiki-archive/pull/281
+[pr282]: https://github.com/victor-software-house/nishiki-archive/pull/282
+[run-282-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41769127920
+[run-282-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41769127433

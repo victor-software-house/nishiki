@@ -1,0 +1,49 @@
+@Charset "utf-8" junk;
+@import /* theme */ url("theme.css") layer(base) screen;
+@import url("reset.css") layer;
+@namespace /* svg */ svg url(http://www.w3.org/2000/svg);
+@document url-prefix(http://example.com/docs), domain(example.com) {
+  body { color: red; }
+}
+@font-feature-values Font One {
+  @styleset { nice-style: 12; }
+  @swash { fancy: 1; }
+  @annotation { boxed: 4; }
+}
+@layer reset, theme.dark;
+@media screen, , print {
+  .p { color: red; }
+}
+@media screen, {
+  .q { color: red; }
+}
+
+.box {
+  width: calc((1px + 2px) * 2);
+  color: color-mix(in srgb, red, blue);
+  color: rgb(from red r g b);
+  background-image: image-set("a.png" 1x, "b.png" 2x);
+  clip-path: circle(50% at center);
+  shape-outside: inset(10px round 5px);
+  animation-timing-function: steps(4, end);
+  content: "x\"y";
+  background: linear-gradient(to right, red, blue), conic-gradient(from 90deg at center, red, blue);
+  content: "unclosed
+  ;
+  content: 'unclosed
+  ;
+  & .child { color: red; }
+  font {
+    color: red;
+  }
+}
+:lang("en", "*-CH") { color: red; }
+:lang('fr', '*-BE') { color: red; }
+a >>> b, a /deep/ b { color: red; }
+a::hover { color: red; }
+.2col, #-x { color: red; }
+font { color: red; }
+.last {
+  content: "line\
+continues";
+}
