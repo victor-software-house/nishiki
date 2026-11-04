@@ -22,6 +22,7 @@ use super::regex::{self, Context, LineKind, Regex};
 use super::scanner::Scanner;
 use super::selector::{self, Expr};
 use crate::arena::{Arena, IdMap, ROOT};
+use crate::language::{Halt, halt_before};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::scope::Scope;
 use crate::{Stack, Token};
@@ -68,6 +69,61 @@ enum Entry {
     Line { anchored: bool },
     /// Inside a capture group whose text rules lex again.
     Capture,
+}
+
+/// Where a line halts for the language that embeds the grammar, if it does.
+pub(crate) trait Halting: Copy {
+    /// Whether the line can halt at all: false compiles the test out, so a
+    /// line lexed on its own pays nothing for it.
+    const HALTS: bool;
+
+    /// The place in `text`, the line's `len` bytes, from `from` where the line
+    /// halts before the root rule's next match, which starts at `to`, and how
+    /// many bytes the test passed.
+    fn halt(self, text: &[u8], from: usize, to: usize, len: usize) -> (Option<usize>, usize);
+}
+
+/// A line lexed on its own, which never halts.
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct Whole;
+
+impl Halting for Whole {
+    const HALTS: bool = false;
+
+    #[inline]
+    fn halt(self, _: &[u8], _: usize, _: usize, _: usize) -> (Option<usize>, usize) {
+        (None, 0)
+    }
+}
+
+/// A line of a grammar that another language embeds, which halts where that
+/// language takes it back: at the first place where `end` holds with only the
+/// root rule open, tried before the root's patterns, or where `after` holds
+/// and none of them match (see [`Halt`]).
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct Embedded {
+    pub(crate) end: Halt,
+    pub(crate) after: Option<Halt>,
+}
+
+impl Halting for Embedded {
+    const HALTS: bool = true;
+
+    #[inline]
+    fn halt(self, text: &[u8], from: usize, to: usize, len: usize) -> (Option<usize>, usize) {
+        halt_before(text, from, to, len, self.end, self.after)
+    }
+}
+
+/// What one step of the loop leaves.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Flow {
+    /// The line goes on.
+    Next,
+    /// The line is done.
+    Done,
+    /// The line halted at this place for the language that embeds it.
+    Halted(usize),
 }
 
 /// One open rule.
@@ -117,6 +173,12 @@ enum Pat {
 }
 
 impl Scratch {
+    /// The steps of the work limit the last line spent: its machine steps
+    /// over [`STEP`], rounded up, so a line that spent any spent a step.
+    pub(crate) fn work_spent(&self) -> u64 {
+        self.spent.div_ceil(STEP)
+    }
+
     /// Hands the automata's caches of the current grammar and of every parked
     /// one back to their scanners, so that the next highlighter of a grammar
     /// does not build their states again.
@@ -242,6 +304,11 @@ impl GrammarCaches {
     /// automata caches those of that kind: the other kind's are kept, so
     /// that lines of the two kinds in turn keep the states their automata
     /// built.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a line"
+    )]
+    #[inline(always)]
     fn line_cells(&mut self, grammar: &'static Grammar, line: &[u8]) -> &'static Cells {
         let kind = match self.folding {
             Folding::Same => LineKind::Lean,
@@ -314,7 +381,7 @@ pub(crate) struct Scratch {
     current: GrammarCaches,
     /// Whether the scanners are left out, to measure what they gain.
     pub(crate) no_scanner: bool,
-    /// The steps the last line spent.
+    /// The machine steps the last line spent.
     pub(crate) spent: u64,
     /// The last `end` or `while` pattern filled with a match's groups, kept
     /// so that filling the next reuses its buffer.
@@ -384,6 +451,27 @@ pub(crate) fn line(
     out: &mut Vec<Token>,
     report: &mut LineReport,
 ) -> u32 {
+    line_until(scratch, arena, limits, text, state, out, report, Whole).0
+}
+
+/// Lexes one line like [`line`], halting where `halt` says the language that
+/// embeds the grammar takes the line back: the tokens then end at the halt,
+/// and the second value is where. The state at a halt is the root's, since a
+/// halt holds only with the root rule open.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "line's arguments and the halt; a struct for them would be built on every line"
+)]
+pub(crate) fn line_until<H: Halting>(
+    scratch: &mut Scratch,
+    arena: &mut Arena,
+    limits: &Limits,
+    text: Text<'_>,
+    state: u32,
+    out: &mut Vec<Token>,
+    report: &mut LineReport,
+    halt: H,
+) -> (u32, Option<usize>) {
     let Text {
         grammar,
         bytes: line,
@@ -392,7 +480,7 @@ pub(crate) fn line(
     } = text;
     scratch.spent = 0;
     if line.len() <= start {
-        return state;
+        return (state, None);
     }
     if !scratch.current.serves(grammar) {
         scratch.switch(grammar);
@@ -427,7 +515,7 @@ pub(crate) fn line(
         stopped: false,
         cells,
     };
-    tokenizer.tokenize_string(
+    let halted = tokenizer.tokenize_string(
         line.len() + 1,
         if first {
             DocStart::Open
@@ -437,13 +525,16 @@ pub(crate) fn line(
         start,
         &mut frames,
         Entry::Line { anchored },
+        halt,
     );
-    let top = frames.last().map_or(ROOT, |f| f.content);
-    tokenizer.produce(top, line.len());
+    if halted.is_none() {
+        let top = frames.last().map_or(ROOT, |f| f.content);
+        tokenizer.produce(top, line.len());
+    }
     let next = tokenizer.intern(&mut frames);
     tokenizer.s.spent = steps.saturating_sub(tokenizer.steps);
     tokenizer.s.frames = frames;
-    next
+    (next, halted)
 }
 
 /// Loads the frames of `state`, outermost first; true when it is the start of
@@ -750,6 +841,11 @@ impl Tokenizer<'_> {
 
     /// The number of an `end` or `while` pattern built from a match, or 0
     /// when the grammar's own serves.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a step"
+    )]
+    #[inline(always)]
     fn built_end(&mut self, pattern: usize, caps: &Caps) -> u32 {
         let Some(slot) = self.grammar.patterns.get(pattern) else {
             return 0;
@@ -818,6 +914,11 @@ impl Tokenizer<'_> {
     /// to `best`. One that starts earlier than the rules of the open rule
     /// wins, and so does one with `L:` that starts where they do; the others
     /// lose a tie.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a step"
+    )]
+    #[inline(always)]
     fn scan_injections(
         &mut self,
         stack: u32,
@@ -1045,14 +1146,17 @@ impl Tokenizer<'_> {
         found
     }
 
-    fn tokenize_string(
+    /// Returns where the line halted for the language that embeds the
+    /// grammar, if `halt` says it does.
+    fn tokenize_string<H: Halting>(
         &mut self,
         end: usize,
         first_line: DocStart,
         start: usize,
         frames: &mut Vec<Frame>,
         entry: Entry,
-    ) {
+        halt: H,
+    ) -> Option<usize> {
         let mut pos = start;
         let mut anchor = usize::MAX;
         let mut allow_a = first_line;
@@ -1090,36 +1194,46 @@ impl Tokenizer<'_> {
                     break;
                 }
                 if self.stopped {
-                    return;
+                    return None;
                 }
             }
             if self.stopped {
-                return;
+                return None;
             }
         }
         while !self.stopped {
-            if self.scan_next(end, &mut pos, &mut anchor, &mut allow_a, frames) {
-                break;
+            match self.scan_next(end, &mut pos, &mut anchor, &mut allow_a, frames, halt) {
+                Flow::Next => {}
+                Flow::Done => break,
+                Flow::Halted(at) => return Some(at),
             }
         }
+        None
     }
 
-    /// One step of the loop; true when the line is done. The match that
-    /// starts first wins, and a match of the `end` pattern closes the open
-    /// rule.
+    /// One step of the loop. The match that starts first wins, and a match of
+    /// the `end` pattern closes the open rule. With only the root rule open,
+    /// the line halts first where `halt` says the embedding language takes
+    /// it back, before the root's next match.
     ///
     /// A match kept from an earlier search holds no groups, so it is found
     /// again from where it starts.
-    fn scan_next(
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a step"
+    )]
+    #[inline(always)]
+    fn scan_next<H: Halting>(
         &mut self,
         end: usize,
         pos: &mut usize,
         anchor: &mut usize,
         allow_a: &mut DocStart,
         frames: &mut Vec<Frame>,
-    ) -> bool {
+        halt: H,
+    ) -> Flow {
         let Some(&top) = frames.last() else {
-            return true;
+            return Flow::Done;
         };
         let rule: &'static Rule = &self.grammar.rules[top.rule];
         let mut best: Option<Best> = None;
@@ -1142,11 +1256,21 @@ impl Tokenizer<'_> {
             self.scan_injections(top.content, (*pos, end, *anchor, *allow_a), &mut best);
         }
         if self.stopped {
-            return true;
+            return Flow::Done;
+        }
+        if H::HALTS && frames.len() == 1 {
+            let to = best.map_or(self.len, |b| b.start.min(self.len));
+            let text = self.s.text.get(..self.len).unwrap_or_default();
+            let (halted, passed) = halt.halt(text, *pos, to, self.len);
+            self.charge(u64::try_from(passed).unwrap_or(u64::MAX));
+            if let Some(at) = halted {
+                self.produce(top.content, at);
+                return Flow::Halted(at);
+            }
         }
         let Some(best) = best else {
             self.produce(top.content, end);
-            return true;
+            return Flow::Done;
         };
         let mut caps = self.s.caps.pop().unwrap_or_default();
         if best.groups_kept {
@@ -1156,17 +1280,22 @@ impl Tokenizer<'_> {
             if !self.search(best.pat, best.start, end, *anchor, *allow_a) {
                 self.s.caps.push(caps);
                 self.produce(top.content, end);
-                return true;
+                return Flow::Done;
             }
             read_caps(&self.s.cur, &mut caps);
         }
         let finished = self.apply(best.rule, &caps, rule, end, (pos, anchor, allow_a), frames);
         self.s.caps.push(caps);
-        finished
+        if finished { Flow::Done } else { Flow::Next }
     }
 
     /// Applies the match `caps` describes, of the rule `matched` (`None` for
     /// the `end` of `rule`); true when the line is done.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a step"
+    )]
+    #[inline(always)]
     fn apply(
         &mut self,
         matched: Option<usize>,
@@ -1215,6 +1344,11 @@ impl Tokenizer<'_> {
         clippy::too_many_arguments,
         reason = "one step of the loop, split out to keep it readable"
     )]
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a step"
+    )]
+    #[inline(always)]
     fn enter(
         &mut self,
         id: usize,
@@ -1362,7 +1496,7 @@ impl Tokenizer<'_> {
                 } else {
                     DocStart::Passed
                 };
-                self.tokenize_string(e.min(end), first, s, &mut sub, Entry::Capture);
+                self.tokenize_string(e.min(end), first, s, &mut sub, Entry::Capture, Whole);
                 self.s.pool.push(sub);
                 continue;
             }

@@ -181,8 +181,9 @@ pub(crate) struct Finished {
 }
 
 impl Finished {
-    /// A line on which the lexer spent nothing: an empty one, or one for a
-    /// lexer that keeps its own budget, as nishiki's `TextMate` engine does.
+    /// A line on which the lexer spent nothing: an empty one, or one whose
+    /// count nobody takes back, as for nishiki's `TextMate` engine on the
+    /// highlighter's own language.
     #[inline]
     pub(crate) fn unspent(state: u32) -> Self {
         Finished { state, spent: 0 }

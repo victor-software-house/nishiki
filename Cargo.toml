@@ -188,7 +188,7 @@ _rule-engine = ["_classes"]
 _rule-tables = ["_rule-engine"]
 _space = []
 # nishiki's own TextMate engine, which runs bundled grammars.
-_textmate = ["dep:regex-automata"]
+_textmate = ["dep:regex-automata", "_utf8"]
 _utf8 = []
 
 # Theme::from_json, for theme files in Shiki's JSON format. Not the JSON

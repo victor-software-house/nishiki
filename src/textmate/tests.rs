@@ -1034,3 +1034,189 @@ fn a_group_far_into_a_pattern_is_named() {
     assert_eq!(scopes.len(), 2, "{scopes:?}");
     assert_eq!(scopes[1], ["keyword.test", "source.test"]);
 }
+
+/// The halts the tests below pass, as an embedding language's would be.
+mod halts {
+    use super::super::tokenizer::{self, Embedded, Scratch, Text};
+    use super::rust_tables;
+    use crate::arena::{Arena, ROOT};
+    use crate::language::{Context, Halt, Line};
+    use crate::limits::{Limit, Limits, LineReport, Steps, Work};
+
+    /// Whether `s` holds `%>` at `p`, as ERB's end would.
+    fn at_erb_close(s: &[u8], p: usize) -> bool {
+        s.get(p..).is_some_and(|rest| rest.starts_with(b"%>"))
+    }
+
+    /// Whether `s` holds a backtick at `p`, which no Rust pattern matches.
+    fn at_backtick(s: &[u8], p: usize) -> bool {
+        s.get(p) == Some(&b'`')
+    }
+
+    /// Whether `s` holds `=` at `p`, which a Rust pattern matches.
+    fn at_equals(s: &[u8], p: usize) -> bool {
+        s.get(p) == Some(&b'=')
+    }
+
+    /// A halt that never holds.
+    fn never(_: &[u8], _: usize) -> bool {
+        false
+    }
+
+    /// Each line of `lines`, lexed in turn by the Rust test grammar as an
+    /// embedded language that halts where `end` or `after` say: where it
+    /// halted, and the ends of its tokens.
+    fn halting(lines: &[&str], end: Halt, after: Option<Halt>) -> Vec<(Option<usize>, Vec<usize>)> {
+        let grammar = &rust_tables::GRAMMAR;
+        let mut arena = Arena::new(None);
+        let mut scratch = Scratch::default();
+        let mut state = tokenizer::start_embedded(&mut arena, grammar, ROOT);
+        lines
+            .iter()
+            .map(|line| {
+                let mut out = Vec::new();
+                let mut report = LineReport::default();
+                let (next, halted) = tokenizer::line_until(
+                    &mut scratch,
+                    &mut arena,
+                    &Limits::unlimited(),
+                    Text {
+                        grammar,
+                        bytes: line.as_bytes(),
+                        start: 0,
+                        anchored: false,
+                    },
+                    state,
+                    &mut out,
+                    &mut report,
+                    Embedded { end, after },
+                );
+                state = next;
+                (halted, out.iter().map(|token| token.end).collect())
+            })
+            .collect()
+    }
+
+    /// One line, lexed as [`halting`] lexes each.
+    fn halting_one(line: &str, end: Halt, after: Option<Halt>) -> (Option<usize>, Vec<usize>) {
+        halting(&[line], end, after)
+            .into_iter()
+            .next()
+            .unwrap_or_default()
+    }
+
+    #[test]
+    fn an_end_halt_takes_the_line_back_at_the_root() {
+        let (halted, ends) = halting_one("let x = 1 %> rest", at_erb_close, None);
+        assert_eq!(halted, Some(10));
+        assert_eq!(ends.last(), Some(&10), "{ends:?}");
+    }
+
+    /// The end is tried before the root's patterns: Rust's `%` operator,
+    /// which matches at the same place, loses to it, while the name that
+    /// starts earlier keeps its token.
+    #[test]
+    fn an_end_halt_beats_a_match_at_its_place_but_not_an_earlier_one() {
+        let (halted, ends) = halting_one("x%>", at_erb_close, None);
+        assert_eq!(halted, Some(1));
+        assert_eq!(ends, [1]);
+    }
+
+    #[test]
+    fn an_end_halt_waits_while_a_rule_is_open() {
+        let line = r#"let s = "a %> b"; %>"#;
+        let (halted, _) = halting_one(line, at_erb_close, None);
+        assert_eq!(halted, line.rfind("%>"));
+    }
+
+    #[test]
+    fn a_halt_holds_at_the_lines_start() {
+        let (halted, ends) = halting_one("%> x", at_erb_close, None);
+        assert_eq!(halted, Some(0));
+        assert!(ends.is_empty(), "{ends:?}");
+    }
+
+    #[test]
+    fn an_after_halt_holds_only_where_no_pattern_matches() {
+        let line = "let a = 1 ` b";
+        let (halted, _) = halting_one(line, never, Some(at_backtick));
+        assert_eq!(halted, line.find('`'));
+        let (halted, _) = halting_one("a = b", never, Some(at_equals));
+        assert_eq!(halted, None);
+    }
+
+    /// A comment left open on one line keeps the root closed on the next, and
+    /// the state after a halt is the root's, so the next line starts there.
+    #[test]
+    fn the_state_carries_across_lines() {
+        let lines = ["/* open %>", "still %> */ x %>", "let y = 2;"];
+        let halts: Vec<Option<usize>> = halting(&lines, at_erb_close, None)
+            .into_iter()
+            .map(|(halted, _)| halted)
+            .collect();
+        assert_eq!(halts, [None, lines[1].rfind("%>"), None]);
+    }
+
+    /// `line`, lexed by the Rust test grammar as a language that a host
+    /// line under `host` embeds and lends its work to: what the host has
+    /// spent once it takes the engine's count back, what the engine spent in
+    /// steps of the work limit, and whether the line ran out of work.
+    fn counted(line: &str, host: &Limits) -> (u64, u64, bool) {
+        let grammar = &rust_tables::GRAMMAR;
+        let mut arena = Arena::new(None);
+        let mut scratch = crate::scratch::Scratch::default();
+        let state = tokenizer::start_embedded(&mut arena, grammar, ROOT);
+        let steps = Steps::new(host, line.len());
+        let lent = steps.lend(host);
+        let mut out = Vec::new();
+        let mut report = LineReport::default();
+        scratch.start_line();
+        let mut cx = Context {
+            scratch: &mut scratch,
+            arena: &mut arena,
+            limits: &lent,
+            out: &mut out,
+            report: &mut report,
+        };
+        let text = Line {
+            text: line,
+            start: 0,
+            embedded: false,
+        };
+        let (finished, _) = crate::textmate::lex_until(&mut cx, grammar, text, state, never, None);
+        steps.take_back(finished);
+        (
+            steps.into_spent(),
+            scratch.textmate.work_spent(),
+            report.reached(Limit::Work),
+        )
+    }
+
+    #[test]
+    fn the_host_line_counts_what_the_engine_spent() {
+        let (host, engine, ran_out) = counted("let x = a + b * c;", &Limits::default());
+        assert!(engine > 0, "the engine spent nothing");
+        assert_eq!(host, engine);
+        assert!(!ran_out);
+    }
+
+    /// With two steps left on the host line, the engine stops within them,
+    /// where the same line under the default limits spends more.
+    #[test]
+    fn the_engine_spends_only_what_the_host_line_has_left() {
+        let line = "let a = b + c * d - e / f; let g = h % i; let j = k && l || m;";
+        let tight = Limits {
+            work: Some(Work {
+                per_byte: 0,
+                base: 2,
+            }),
+            ..Limits::default()
+        };
+        let (_, free, _) = counted(line, &Limits::default());
+        assert!(free > 2, "the line spends {free} steps");
+        let (host, engine, ran_out) = counted(line, &tight);
+        assert!(ran_out);
+        assert!(engine <= 2, "the engine spent {engine} steps");
+        assert_eq!(host, engine);
+    }
+}

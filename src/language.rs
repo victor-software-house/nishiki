@@ -44,12 +44,21 @@ macro_rules! languages {
     (@lex [] [$grammar:path] [] $cx:ident $line:ident $state:ident) => {
         crate::limits::Finished::unspent(crate::textmate::lex($cx, &$grammar, $line, $state))
     };
-    (@until [] [$($module:ident)?] [$($dialect:expr)?] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {{
+    (@embedded [$module:ident] [] [$($dialect:expr)?] $cx:ident $line:ident $state:ident) => {
+        crate::$module::lex($cx, $($dialect,)? $line, $state)
+    };
+    (@embedded [] [$grammar:path] [] $cx:ident $line:ident $state:ident) => {
+        crate::textmate::lex_embedded($cx, &$grammar, $line, $state)
+    };
+    (@until [] [$($module:ident)?] [$($grammar:path)?] [$($dialect:expr)?] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {{
         let _ = ($cx, $line, $state, $end, $after);
         None
     }};
-    (@until [true] [$module:ident] [$($dialect:expr)?] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
+    (@until [true] [$module:ident] [] [$($dialect:expr)?] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
         Some(crate::$module::lex_until($cx, $($dialect,)? $line, $state, $end, $after))
+    };
+    (@until [true] [] [$grammar:path] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
+        Some(crate::textmate::lex_until($cx, &$grammar, $line, $state, $end, $after))
     };
     ($(
         $(#[$meta:meta])*
@@ -165,7 +174,7 @@ macro_rules! languages {
                 state: u32,
             ) -> Finished {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@lex [$($module)?] [$($grammar)?] [$($dialect)?] cx line state),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@embedded [$($module)?] [$($grammar)?] [$($dialect)?] cx line state),)*
                 }
             }
 
@@ -189,7 +198,7 @@ macro_rules! languages {
                 after: Option<Halt>,
             ) -> Option<(Finished, Option<usize>)> {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@until [$($halts)?] [$($module)?] [$($dialect)?] cx line state end after),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@until [$($halts)?] [$($module)?] [$($grammar)?] [$($dialect)?] cx line state end after),)*
                 }
             }
         }
@@ -585,6 +594,7 @@ languages! {
         names: ["powershell", "ps", "ps1", "pwsh"],
         engine: crate::powershell::grammar::GRAMMAR,
         reads_line_feed: true,
+        halts: true,
     }
     /// Scala, with the scopes of Shiki's `scala` grammar, which nishiki's
     /// `TextMate` engine runs.
@@ -593,6 +603,7 @@ languages! {
         names: ["scala"],
         engine: crate::scala::grammar::GRAMMAR,
         reads_line_feed: true,
+        halts: true,
     }
     /// HTML, with the scopes of Shiki's `html` grammar.
     ///
@@ -617,6 +628,7 @@ languages! {
         names: ["zig"],
         engine: crate::zig::grammar::GRAMMAR,
         reads_line_feed: true,
+        halts: true,
     }
     /// ERB, with the scopes of Shiki's `erb` grammar: HTML whose `<% %>`
     /// tags hold Ruby.
@@ -649,6 +661,7 @@ languages! {
         names: ["cmake"],
         engine: crate::cmake::grammar::GRAMMAR,
         reads_line_feed: true,
+        halts: true,
     }
     /// Protobuf, with the scopes of Shiki's `proto` grammar, which nishiki's
     /// `TextMate` engine runs.
@@ -657,6 +670,7 @@ languages! {
         names: ["proto", "protobuf"],
         engine: crate::proto::grammar::GRAMMAR,
         reads_line_feed: true,
+        halts: true,
     }
     /// html-derivative, with the scopes of Shiki's `html-derivative`
     /// grammar: HTML with a rule of its own for the tags no other rule takes.
@@ -678,6 +692,7 @@ languages! {
         names: ["bat", "batch", "cmd"],
         engine: crate::bat::grammar::GRAMMAR,
         reads_line_feed: true,
+        halts: true,
     }
     /// Nix, with the scopes of Shiki's `nix` grammar, which nishiki's
     /// `TextMate` engine runs.
@@ -686,6 +701,7 @@ languages! {
         names: ["nix"],
         engine: crate::nix::grammar::GRAMMAR,
         reads_line_feed: true,
+        halts: true,
     }
     /// Dart, with the scopes of Shiki's `dart` grammar, which nishiki's
     /// `TextMate` engine runs.
@@ -694,6 +710,7 @@ languages! {
         names: ["dart"],
         engine: crate::dart::grammar::GRAMMAR,
         reads_line_feed: true,
+        halts: true,
     }
     /// Julia, with the scopes of Shiki's `julia` grammar, which nishiki's
     /// `TextMate` engine runs.
@@ -709,6 +726,7 @@ languages! {
         names: ["julia", "jl"],
         engine: crate::julia::grammar::GRAMMAR,
         reads_line_feed: true,
+        halts: true,
     }
     /// SCSS, with the scopes of Shiki's `scss` grammar.
     ///
@@ -728,6 +746,7 @@ languages! {
         names: ["mermaid", "mmd"],
         engine: crate::mermaid::grammar::GRAMMAR,
         reads_line_feed: true,
+        halts: true,
     }
     /// Haskell, with the scopes of Shiki's `haskell` grammar, which nishiki's
     /// `TextMate` engine runs.
@@ -736,6 +755,7 @@ languages! {
         names: ["haskell", "hs"],
         engine: crate::haskell::grammar::GRAMMAR,
         reads_line_feed: true,
+        halts: true,
     }
     /// Less, with the scopes of Shiki's `less` grammar.
     ///

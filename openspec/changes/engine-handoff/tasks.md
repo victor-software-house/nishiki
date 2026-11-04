@@ -1,5 +1,14 @@
 # Tasks
 
+Order of work (lead, 2026-11-04):
+
+1. The engine as an embedded language, section 6 below, on the halt contract main has today (`end` and `after`).
+2. The engine's hand-off to hand lexers, sections 4.1 to 4.3, once core-fix's shared line budget (nishiki-archive#228) lands.
+3. HAML on the hand-off: Ruby, JavaScript, CSS and Markdown go to their hand lexers; Sass and CoffeeScript are engine rows of their own in the `textmate` tier, each after its licence is read at its source.
+4. Ruby's `<<~HAML` heredoc embeds HAML.
+
+Sections 1.5, 2 and 3 are deferred: `Halts`, `Grammar::rule_halts` and entries replace the two halt arguments in a cross-language PR of their own, and the engine's logic does not change when they do.
+
 ## 1. Agreement
 
 - [x] 1.1 Halt semantics agreed with xml-html (ERB's halt at any depth, Vue's entries) → verify: their reply recorded in design section 9
@@ -28,7 +37,8 @@
 
 ## 4. The engine hands off
 
-- [ ] 4.0 core-fix's shared line budget, `Context { steps }`, with depth per language (design section 9), has landed → verify: its PR cited here
+- [x] 4.0 core-fix's shared line budget, `Context { steps }`, with depth per language (design section 9), has landed → verify: its PR cited here
+  - nishiki-archive#228, merged on 2026-11-04 as 2102df71: `Steps::lend` and `Finished`, with depth per language.
 - [ ] 4.1 `RuleKind::HandOff` and the generator's list of hand-lexed grammars and entries → verify: regenerating every engine table changes only tables that include a hand-lexed grammar
 - [ ] 4.2 The hand-off frame and the resume at a halt → verify: Julia's oracle fixtures and a new input with `py"""` and `sql"""` match Shiki
 - [ ] 4.3 Limits through the hand-off → verify: hostile lines inside an embedded region end at the work limit
@@ -38,3 +48,8 @@
 - [ ] 5.1 Julia's table without engine copies → verify: its compiled size before and after
 - [ ] 5.2 ERB's any-depth injection (xml-html)
 - [ ] 5.3 Perl, Elixir, Objective-C, PHP, Vue and Svelte, each its own PR
+
+## 6. The engine as an embedded language
+
+- [ ] 6.1 `textmate::lex_until` and `Language::lex_until` for every engine row: the line halts where `end` holds with only the root rule open, before the root's patterns, or where `after` holds and none of them match, plain lexing keeps no halt test (a type parameter compiles it out), and an embedded engine line, through `lex_until` or `lex_embedded`, starts from the work its limits lend and returns what it spent in `Finished` → verify: the halt and budget tests in `src/textmate/tests.rs`, and Callgrind at one codegen unit with every engine language at or under 1.000
+- [ ] 6.2 Ruby's `<<~HAML` heredoc embeds HAML through it → verify: a Ruby fixture with a HAML heredoc matches Shiki
