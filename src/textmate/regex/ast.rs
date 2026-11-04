@@ -78,6 +78,34 @@ pub(super) enum Item {
     Nested(Class),
 }
 
+impl Item {
+    /// The item's members below 128, one bit per code point.
+    fn ascii(&self) -> u128 {
+        match self {
+            Item::Range(lo, hi) => ascii_range(u32::from(*lo), u32::from(*hi)),
+            Item::Prop(Prop(ranges), polarity) => {
+                let held = ranges
+                    .iter()
+                    .fold(0, |held, &(first, last)| held | ascii_range(first, last));
+                match polarity {
+                    Polarity::Positive => held,
+                    Polarity::Negated => !held,
+                }
+            }
+            Item::Nested(class) => class.ascii(),
+        }
+    }
+}
+
+/// The code points `first..=last` below 128, one bit each.
+fn ascii_range(first: u32, last: u32) -> u128 {
+    let last = last.min(127);
+    if first > last {
+        return 0;
+    }
+    (u128::MAX >> (127 - last)) & (u128::MAX << first)
+}
+
 /// A character class: the intersection of unions of items, negated or not.
 #[derive(Clone, Debug)]
 pub(super) struct Class {
@@ -619,6 +647,16 @@ impl Class {
             })
         });
         found != self.negated
+    }
+
+    /// The class's members below 128, one bit per code point, as
+    /// [`Class::matches`] decides them, from its ranges and sets rather than
+    /// a test of each character.
+    pub(super) fn ascii(&self) -> u128 {
+        let found = self.parts.iter().fold(u128::MAX, |all, union| {
+            all & union.iter().fold(0, |any, item| any | item.ascii())
+        });
+        if self.negated { !found } else { found }
     }
 
     /// The class's members when it is one union of ranges, not negated.

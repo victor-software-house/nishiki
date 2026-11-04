@@ -75,13 +75,10 @@ pub(super) struct ClassTable {
 
 impl ClassTable {
     fn new(class: Class) -> ClassTable {
-        let mut ascii = 0_u128;
-        for b in 0..128_u8 {
-            if class.matches(char::from(b)) {
-                ascii |= 1 << b;
-            }
+        ClassTable {
+            ascii: class.ascii(),
+            class,
         }
-        ClassTable { ascii, class }
     }
 
     /// Whether the code point is in the class.

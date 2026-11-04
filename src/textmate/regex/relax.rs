@@ -139,18 +139,17 @@ fn reaches_beyond_ascii(class: &Class) -> bool {
 /// A class with no member becomes one that matches nothing.
 fn class_source(class: &Class, out: &mut String) {
     out.push('[');
-    let members: Vec<bool> = (0..128_u8)
-        .map(|byte| class.matches(char::from(byte)))
-        .collect();
+    let members = class.ascii();
+    let member = |byte: u32| members >> byte & 1 == 1;
     let mut empty = true;
     let mut byte = 0;
-    while byte < members.len() {
-        if !members[byte] {
+    while byte < 128 {
+        if !member(byte) {
             byte += 1;
             continue;
         }
         let lo = byte;
-        while byte + 1 < members.len() && members[byte + 1] {
+        while byte + 1 < 128 && member(byte + 1) {
             byte += 1;
         }
         let _ = write!(out, "\\x{{{lo:x}}}-\\x{{{byte:x}}}");

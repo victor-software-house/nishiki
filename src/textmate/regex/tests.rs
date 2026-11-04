@@ -2,6 +2,7 @@ use std::collections::BTreeSet;
 
 use super::ast::orbit;
 use super::folds::{MULTI, UNFOLD};
+use super::parse::{self, Dialect};
 use super::{Context, LineKind, Regex, Scratch};
 
 /// The whole match and the groups of the first match in `text`, from `from`,
@@ -117,6 +118,40 @@ fn classes_with_intersection_and_posix() {
     assert_eq!(find("\\h+", "xyzBEEFq"), Some((3, 7)));
     assert_eq!(find("[^\\s]+", "  ab "), Some((2, 4)));
     assert_eq!(find("\\p{Lu}\\p{Ll}", "xAb"), Some((1, 3)));
+}
+
+/// The class a pattern of one class parses to.
+fn class_of(pattern: &str) -> super::ast::Class {
+    let root = parse::parse(pattern, Dialect::Grammar).unwrap().root;
+    let super::ast::Node::Class(class) = root else {
+        panic!("{pattern:?} is not one class: {root:?}");
+    };
+    *class
+}
+
+#[test]
+fn a_class_knows_its_ascii_members_as_it_matches_them() {
+    for pattern in [
+        "[a-z]",
+        "[^a-z]",
+        "[a-z&&[^aeiou]]",
+        "[[:digit:][:space:]]",
+        "[^\\s]",
+        "[\\w-]",
+        "\\h",
+        "\\p{Lu}",
+        "\\P{L}",
+        "[^\\p{L}\\d_]",
+        "[\\x00-\\x{7f}]",
+        "[\\x{80}-\\x{10ffff}]",
+        "[[^a][^b]&&[a-c]]",
+    ] {
+        let class = class_of(pattern);
+        let tested = (0..128_u8).fold(0_u128, |bits, byte| {
+            bits | u128::from(class.matches(char::from(byte))) << byte
+        });
+        assert_eq!(class.ascii(), tested, "{pattern:?}");
+    }
 }
 
 #[test]
