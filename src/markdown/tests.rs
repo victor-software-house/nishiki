@@ -1236,6 +1236,44 @@ fn a_fence_name_matches_with_oracles_case_folding() {
         ```"}));
 }
 
+/// A dot in a fence name matches any one character but a line feed, as the
+/// grammar's unescaped dot does in Shiki.
+/// A word that starts with a dot matches after any first character.
+/// Two dots in a row stand for two characters, so `css..erb` is no name.
+#[test]
+fn a_dot_in_a_fence_name_matches_any_one_character() {
+    for (name, embedded) in [
+        ("css.erb", "meta.embedded.block.css"),
+        ("cssXerb", "meta.embedded.block.css"),
+        ("css\u{e9}erb", "meta.embedded.block.css"),
+        ("css\u{4e00}erb", "meta.embedded.block.css"),
+        (".textmate_init", "meta.embedded.block.shellscript"),
+        ("xtextmate_init", "meta.embedded.block.shellscript"),
+        ("\u{e9}textmate_init", "meta.embedded.block.shellscript"),
+        ("{textmate_init", "meta.embedded.block.shellscript"),
+        ("Berksfile.lock", "meta.embedded.block.ruby"),
+        ("BerksfileXlock", "meta.embedded.block.ruby"),
+        ("Berksfile\u{e9}lock", "meta.embedded.block.ruby"),
+        ("berksfile_LOCK", "meta.embedded.block.ruby"),
+    ] {
+        let text = formatdoc! {"
+            ```{name}
+            a
+            ```"};
+        let found = lex(&text)[1]
+            .iter()
+            .any(|(_, scopes)| scopes.iter().any(|scope| scope == embedded));
+        assert!(found, "{name:?} embeds {embedded}");
+    }
+    for name in ["css..erb", "cssx", "textmate_init"] {
+        let text = formatdoc! {"
+            ```{name}
+            a
+            ```"};
+        assert!(!second_line_is_embedded(&text), "{name:?}");
+    }
+}
+
 #[test]
 fn a_caret_does_not_match_where_a_list_took_the_start_of_the_line() {
     // The list consumed the indentation, so `^` matches nowhere in the fence:

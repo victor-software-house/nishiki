@@ -261,6 +261,8 @@ languages! {
     ///   but an escaped `>` does not end an angle-bracket destination.
     /// - A fence of more than 255 characters is never closed.
     /// - With `lang-html`, a `php` fence is HTML under `meta.embedded.block.php`, since the grammar includes HTML there before PHP, which nishiki does not lex.
+    /// - A dot in the fence names `css.erb`, `Berksfile.lock` and `.textmate_init` matches any one character.
+    ///   The grammar leaves it unescaped, so `cssXerb` embeds CSS.
     Markdown { feature: "lang-markdown", names: ["markdown", "md"], module: markdown }
     /// `TypeScript`, with the scopes of Shiki's `typescript` grammar.
     ///

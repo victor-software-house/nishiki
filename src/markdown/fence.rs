@@ -41,6 +41,8 @@ impl Embed {
 /// How a fence's info string names a language, as the grammar spells it: each
 /// word, and each `{.word ...}` attribute form, matched without regard to
 /// case.
+/// A dot in a word matches any one character but a line feed, as the
+/// grammar's unescaped dot does.
 struct Name {
     words: &'static [&'static str],
     /// The text after `{.` in the attribute form, as in `{.rust .numberLines}`.
@@ -80,8 +82,8 @@ const NAMES: &[Name] = &[
         brace: None,
         embed: Embed::Lang(Language::Markdown),
     },
-    // The grammar's `.textmate_init` has an unescaped dot, which matches any
-    // character; it is matched here as a literal dot.
+    // The dot in `.textmate_init` is unescaped in the grammar.
+    // It matches any one character, as in Shiki.
     #[cfg(feature = "lang-shell")]
     Name {
         words: &[
@@ -202,8 +204,8 @@ const NAMES: &[Name] = &[
         brace: None,
         embed: Embed::Lang(Language::Ini),
     },
-    // The grammar's `css(?:|.erb)` has an unescaped dot, which matches any
-    // character; it is matched here as a literal dot.
+    // The dot in the grammar's `css(?:|.erb)` is unescaped.
+    // It matches any one character, as in Shiki.
     #[cfg(feature = "lang-css")]
     Name {
         words: &["css", "css.erb"],
@@ -216,8 +218,8 @@ const NAMES: &[Name] = &[
         brace: None,
         embed: Embed::Lang(Language::Go),
     },
-    // The grammar's `Berksfile.lock` has an unescaped dot, which matches any
-    // character; it is matched here as a literal dot.
+    // The dot in `Berksfile.lock` is unescaped in the grammar.
+    // It matches any one character, as in Shiki.
     #[cfg(feature = "lang-ruby")]
     Name {
         words: &[
@@ -343,15 +345,76 @@ pub(crate) struct Found {
     pub(crate) name_end: usize,
 }
 
-/// How many words [`NAMES`] holds.
-const WORDS: usize = {
-    let mut total = 0;
+/// How a word of [`NAMES`] is spelled, which picks how it is matched.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Spelling {
+    /// Letters alone, matched by [`fold_end`].
+    Letters,
+    /// With a dot, matched by [`word_end`].
+    Dotted,
+}
+
+/// A word of [`NAMES`]: its name's position, its own, and its spelling.
+#[derive(Clone, Copy, Debug)]
+struct Entry {
+    name: usize,
+    word: usize,
+    spelling: Spelling,
+}
+
+impl Entry {
+    const EMPTY: Entry = Entry {
+        name: 0,
+        word: 0,
+        spelling: Spelling::Letters,
+    };
+
+    const fn of(name: usize, word: usize) -> Entry {
+        let bytes = NAMES[name].words[word].as_bytes();
+        let mut k = 0;
+        let mut spelling = Spelling::Letters;
+        while k < bytes.len() {
+            if bytes[k] == b'.' {
+                spelling = Spelling::Dotted;
+            }
+            k += 1;
+        }
+        Entry {
+            name,
+            word,
+            spelling,
+        }
+    }
+
+    /// The word's bytes.
+    fn bytes(self) -> Option<&'static [u8]> {
+        Some(NAMES.get(self.name)?.words.get(self.word)?.as_bytes())
+    }
+}
+
+/// Whether a word starts with a dot, which matches any first character.
+const fn leads_with_dot(word: &str) -> bool {
+    word.as_bytes()[0] == b'.'
+}
+
+/// How many words [`NAMES`] holds that start with a letter, and how many
+/// start with a dot.
+const COUNTS: (usize, usize) = {
+    let mut counts = (0, 0);
     let mut n = 0;
     while n < NAMES.len() {
-        total += NAMES[n].words.len();
+        let mut w = 0;
+        while w < NAMES[n].words.len() {
+            if leads_with_dot(NAMES[n].words[w]) {
+                counts.1 += 1;
+            } else {
+                counts.0 += 1;
+            }
+            w += 1;
+        }
         n += 1;
     }
-    total
+    counts
 };
 
 /// The bucket of a word's first byte, lowercased: every word starts with an
@@ -372,7 +435,10 @@ const STARTS: [usize; 129] = {
     while n < NAMES.len() {
         let mut w = 0;
         while w < NAMES[n].words.len() {
-            starts[bucket(NAMES[n].words[w].as_bytes()[0]) + 1] += 1;
+            let word = NAMES[n].words[w];
+            if !leads_with_dot(word) {
+                starts[bucket(word.as_bytes()[0]) + 1] += 1;
+            }
             w += 1;
         }
         n += 1;
@@ -385,24 +451,47 @@ const STARTS: [usize; 129] = {
     starts
 };
 
-/// Every word of [`NAMES`] as its name's position and its own, grouped by
-/// the word's first byte, lowercased, and in table order within a group, so
-/// the first match in a group is the first in the table.
-const BY_FIRST: [(usize, usize); WORDS] = {
-    let mut by_first = [(0, 0); WORDS];
+/// Every word of [`NAMES`] that starts with a letter, grouped by that
+/// letter, lowercased, and in table order within a group, so the first match
+/// in a group is the first in the table.
+const BY_FIRST: [Entry; COUNTS.0] = {
+    let mut by_first = [Entry::EMPTY; COUNTS.0];
     let mut next = STARTS;
     let mut n = 0;
     while n < NAMES.len() {
         let mut w = 0;
         while w < NAMES[n].words.len() {
-            let b = bucket(NAMES[n].words[w].as_bytes()[0]);
-            by_first[next[b]] = (n, w);
-            next[b] += 1;
+            let word = NAMES[n].words[w];
+            if !leads_with_dot(word) {
+                let b = bucket(word.as_bytes()[0]);
+                by_first[next[b]] = Entry::of(n, w);
+                next[b] += 1;
+            }
             w += 1;
         }
         n += 1;
     }
     by_first
+};
+
+/// Every word of [`NAMES`] that starts with a dot, in table order.
+/// Its dot matches any first character, so it belongs to no group.
+const AFTER_ANY: [Entry; COUNTS.1] = {
+    let mut after_any = [Entry::EMPTY; COUNTS.1];
+    let mut next = 0;
+    let mut n = 0;
+    while n < NAMES.len() {
+        let mut w = 0;
+        while w < NAMES[n].words.len() {
+            if leads_with_dot(NAMES[n].words[w]) {
+                after_any[next] = Entry::of(n, w);
+                next += 1;
+            }
+            w += 1;
+        }
+        n += 1;
+    }
+    after_any
 };
 
 /// The language the info string at `i` names, when the attributes after it
@@ -411,23 +500,30 @@ const BY_FIRST: [(usize, usize); WORDS] = {
 /// An ASCII first byte other than `{` can only start a word of its own
 /// letter, as the folds that match more than ASCII case all start with a
 /// non-ASCII byte, so it tries only the words of its group in [`BY_FIRST`].
+/// Then it tries the words that start with a dot, in [`AFTER_ANY`], when
+/// the second byte can match theirs.
+/// No word of a group spells a dotted word's letters, and a name's
+/// attributes start with a space or one of `,:?{`, which no word holds.
+/// So a word that starts with a dot never matches where a group's word does,
+/// and trying it last keeps the table's order.
 /// Any other first byte tries the whole table.
 pub(crate) fn language(cx: &Cx<'_>, i: usize) -> Option<Found> {
     let backtick = last_backtick(cx, i);
-    if let Some(first) = cx.get(i)
-        && first.is_ascii()
-        && first != b'{'
-    {
+    let first = cx.get(i)?;
+    if first.is_ascii() && first != b'{' {
         let b = bucket(first);
         let group = STARTS
             .get(b)
             .zip(STARTS.get(b + 1))
             .and_then(|(&start, &end)| BY_FIRST.get(start..end))
             .unwrap_or_default();
-        for &(n, w) in group {
-            if let Some(lang) = NAMES.get(n)
-                && let Some(word) = lang.words.get(w)
-                && let Some(end) = fold_end(cx, i, word.as_bytes())
+        for &entry in group {
+            if let Some(lang) = NAMES.get(entry.name)
+                && let Some(word) = lang.words.get(entry.word)
+                && let Some(end) = match entry.spelling {
+                    Spelling::Letters => fold_end(cx, i, word.as_bytes()),
+                    Spelling::Dotted => word_end(cx, i, word.as_bytes()),
+                }
                 && attributes_ok(cx, end, backtick)
             {
                 return Some(Found {
@@ -436,11 +532,11 @@ pub(crate) fn language(cx: &Cx<'_>, i: usize) -> Option<Found> {
                 });
             }
         }
-        return None;
+        return after_any(cx, i, backtick);
     }
     for lang in NAMES {
         for word in lang.words {
-            if let Some(end) = fold_end(cx, i, word.as_bytes())
+            if let Some(end) = word_end(cx, i, word.as_bytes())
                 && attributes_ok(cx, end, backtick)
             {
                 return Some(Found {
@@ -473,6 +569,47 @@ pub(crate) fn language(cx: &Cx<'_>, i: usize) -> Option<Found> {
         }
     }
     None
+}
+
+/// The language that a word of [`AFTER_ANY`] names at `i`, when its
+/// attributes are allowed.
+/// A word is tried only when the second byte at `i` can match its own.
+#[cold]
+#[inline(never)]
+fn after_any(cx: &Cx<'_>, i: usize, backtick: Option<usize>) -> Option<Found> {
+    let second = cx.get(i + 1)?;
+    for entry in AFTER_ANY {
+        let word = entry.bytes()?;
+        let may_match = word
+            .get(1)
+            .is_some_and(|&want| !second.is_ascii() || second.eq_ignore_ascii_case(&want));
+        if may_match
+            && let Some(end) = word_end(cx, i, word)
+            && attributes_ok(cx, end, backtick)
+        {
+            return Some(Found {
+                embed: NAMES.get(entry.name)?.embed,
+                name_end: end,
+            });
+        }
+    }
+    None
+}
+
+/// The end of a fence name's `word` matched at `i`.
+/// The word's letters match as in [`fold_end`].
+/// Each dot matches any one character but a line feed, as the grammar's
+/// unescaped dot does: `css.erb` also reads `cssXerb` and `css一erb`.
+fn word_end(cx: &Cx<'_>, i: usize, word: &[u8]) -> Option<usize> {
+    let Some(dot) = memchr::memchr(b'.', word) else {
+        return fold_end(cx, i, word);
+    };
+    let at = fold_end(cx, i, word.get(..dot)?)?;
+    if cx.get(at)? == b'\n' {
+        return None;
+    }
+    let after = at + cx.char_len(at);
+    word_end(cx, after, word.get(dot + 1..)?)
 }
 
 /// The end of `word` matched at `i` the way a case-insensitive Oniguruma
