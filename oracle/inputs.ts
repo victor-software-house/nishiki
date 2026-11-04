@@ -42,6 +42,8 @@ import sqlCoverage from "./inputs/sql-coverage.sql" with { type: "text" };
 import swiftCoverage from "./inputs/swift-coverage.swift" with { type: "text" };
 import tomlCoverage from "./inputs/toml-coverage.toml" with { type: "text" };
 import typescriptCoverage from "./inputs/typescript-coverage.ts" with { type: "text" };
+import xmlCoverage from "./inputs/xml-coverage.xml" with { type: "text" };
+import xmlCoverageJspComment from "./inputs/xml-coverage-jsp-comment.xml" with { type: "text" };
 import yamlCoverage from "./inputs/yaml-coverage.yaml" with { type: "text" };
 
 /** One source file the oracle tokenizes: a third-party file, fetched from
@@ -1284,6 +1286,8 @@ export const inputs: Input[] = [
   { lang: "xml", name: "ant-junit-noframes", url: `${ant}/src/etc/junit-noframes.xsl` },
   { lang: "xml", name: "bootstrap-logo", url: `${bootstrap}/site/static/docs/%5Bversion%5D/assets/brand/bootstrap-logo.svg` },
   { lang: "xml", name: "commons-lang-pom", url: `${commonsLang}/pom.xml` },
+  { lang: "xml", name: "coverage", text: xmlCoverage },
+  { lang: "xml", name: "coverage-jsp-comment", text: xmlCoverageJspComment },
   { lang: "xml", name: "foundation-keyed-archive", url: `${foundation}/Tests/Foundation/Resources/NSKeyedUnarchiver-ConcreteValueTest.plist` },
   { lang: "xml", name: "rome-at", url: `${rome}/rome-modules/src/test/resources/xml/at.xml` },
   { lang: "xml", name: "rome-slashdot", url: `${rome}/rome-modules/src/test/resources/xml/slashdot.xml` },

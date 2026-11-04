@@ -600,6 +600,8 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `xml/rome-yahoo-top-songs` | [`data/YahooTopSongs.xml`][rome-yahoo-top-songs] in rometools/rome | [Apache-2.0][rome-licence] |
 | `xml/ant-junit-noframes` | [`src/etc/junit-noframes.xsl`][ant-junit-noframes] in apache/ant | [Apache-2.0][ant-licence] |
 | `xml/views-activity-entrance` | [`activity_entrance.xml`][views-activity-entrance] in android/views-widgets-samples | [Apache-2.0][views-licence] |
+| `xml/coverage` | `oracle/inputs/xml-coverage.xml`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `xml/coverage-jsp-comment` | `oracle/inputs/xml-coverage-jsp-comment.xml`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `html/sample` | [`samples/html.sample`][html-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `html/h5bp-index` | [`src/index.html`][h5bp-index] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
 | `html/todomvc-backbone` | [`examples/backbone/index.html`][todomvc-backbone] in tastejs/todomvc | [MIT][todomvc-licence] |
@@ -696,6 +698,8 @@ The lexer matched every input on its first run, held-out ones included.
 `xml/sample`, `xml/ant-build`, `xml/commons-lang-pom`, `xml/views-lots-of-cards`, `xml/ant-junit-frames`, `xml/rome-slashdot`, `xml/xerces-design` and `xml/xerces-xni-config` are the development inputs for XML.
 They cover an Ant build, a Maven POM, an Android layout, two XSLT stylesheets, an RSS 1.0 feed, and DOCTYPE declarations with and without an internal subset.
 `xml/foundation-keyed-archive`, `xml/bootstrap-logo`, `xml/xerces-schedule`, `xml/ant-checkstyle-frames`, `xml/rome-at`, `xml/rome-yahoo-top-songs`, `xml/ant-junit-noframes` and `xml/views-activity-entrance` are held out.
+`xml/coverage` and `xml/coverage-jsp-comment` are held out too: they were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
+Each ends in a rule the grammar never closes, `--` in a comment and `<%--`, so they are two inputs.
 They cover a property list, an SVG file, entity declarations, CDATA sections and namespaces.
 The lexer matched every input on its first run, held-out ones included.
 The Markdown fixtures `markdown/gson-user-guide` and `markdown/javapoet-readme` hold `xml` fences, and were regenerated once the `xml` grammar was loaded, because Shiki's Markdown grammar embeds it.

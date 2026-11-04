@@ -1,0 +1,94 @@
+L <?xml version="1.0"?>
+T 2 text.xml meta.tag.preprocessor.xml punctuation.definition.tag.xml
+T 5 text.xml meta.tag.preprocessor.xml entity.name.tag.xml
+T 13 text.xml meta.tag.preprocessor.xml entity.other.attribute-name.xml
+T 14 text.xml meta.tag.preprocessor.xml
+T 15 text.xml meta.tag.preprocessor.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 18 text.xml meta.tag.preprocessor.xml string.quoted.double.xml
+T 19 text.xml meta.tag.preprocessor.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 21 text.xml meta.tag.preprocessor.xml punctuation.definition.tag.xml
+L <!-- Written for nishiki: what the xml grammar's other inputs leave out. -->
+T 4 text.xml comment.block.xml punctuation.definition.comment.xml
+T 73 text.xml comment.block.xml
+T 76 text.xml comment.block.xml punctuation.definition.comment.xml
+L <!DOCTYPE note [
+T 2 text.xml meta.tag.sgml.doctype.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.sgml.doctype.xml keyword.other.doctype.xml
+T 10 text.xml meta.tag.sgml.doctype.xml
+T 14 text.xml meta.tag.sgml.doctype.xml variable.language.documentroot.xml
+T 15 text.xml meta.tag.sgml.doctype.xml
+T 16 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.constant.xml
+L   <!ENTITY % common SYSTEM "common.ent">
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 4 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 11 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 13 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.entity.xml
+T 19 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 27 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entitytype.xml
+T 28 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 38 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.double.xml
+T 39 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 40 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L   %common;
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 3 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml constant.character.parameter-entity.xml punctuation.definition.constant.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml constant.character.parameter-entity.xml
+T 10 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml constant.character.parameter-entity.xml punctuation.definition.constant.xml
+L ]>
+T 1 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.constant.xml
+T 2 text.xml meta.tag.sgml.doctype.xml punctuation.definition.tag.xml
+L <note title="fish & chips">
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 5 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 6 text.xml meta.tag.xml
+T 11 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 12 text.xml meta.tag.xml
+T 13 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 18 text.xml meta.tag.xml string.quoted.double.xml
+T 19 text.xml meta.tag.xml string.quoted.double.xml invalid.illegal.bad-ampersand.xml
+T 25 text.xml meta.tag.xml string.quoted.double.xml
+T 26 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 27 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <%@ page import="java.util.List" %>
+T 2 text.xml
+T 5 text.xml source.java-props.embedded.xml punctuation.section.embedded.begin.xml
+T 6 text.xml source.java-props.embedded.xml
+T 10 text.xml source.java-props.embedded.xml keyword.other.page-props.xml
+T 35 text.xml source.java-props.embedded.xml
+T 37 text.xml source.java-props.embedded.xml punctuation.section.embedded.end.xml
+L   <%= list.size() %>
+T 2 text.xml
+T 5 text.xml source.java.embedded.xml punctuation.section.embedded.begin.xml
+T 6 text.xml source.java.embedded.xml
+T 10 text.xml source.java.embedded.xml variable.other.object.java
+T 11 text.xml source.java.embedded.xml meta.method-call.java punctuation.separator.period.java
+T 15 text.xml source.java.embedded.xml meta.method-call.java entity.name.function.java
+T 16 text.xml source.java.embedded.xml meta.method-call.java punctuation.definition.parameters.begin.bracket.round.java
+T 17 text.xml source.java.embedded.xml meta.method-call.java punctuation.definition.parameters.end.bracket.round.java
+T 18 text.xml source.java.embedded.xml
+T 20 text.xml source.java.embedded.xml punctuation.section.embedded.end.xml
+L   <%! int count = 0; %>
+T 2 text.xml
+T 5 text.xml source.java.embedded.xml punctuation.section.embedded.begin.xml
+T 6 text.xml source.java.embedded.xml
+T 9 text.xml source.java.embedded.xml meta.definition.variable.java storage.type.primitive.java
+T 10 text.xml source.java.embedded.xml meta.definition.variable.java
+T 15 text.xml source.java.embedded.xml meta.definition.variable.java variable.other.definition.java
+T 16 text.xml source.java.embedded.xml meta.definition.variable.java
+T 17 text.xml source.java.embedded.xml keyword.operator.assignment.java
+T 18 text.xml source.java.embedded.xml
+T 19 text.xml source.java.embedded.xml constant.numeric.decimal.java
+T 20 text.xml source.java.embedded.xml punctuation.terminator.java
+T 21 text.xml source.java.embedded.xml
+T 23 text.xml source.java.embedded.xml punctuation.section.embedded.end.xml
+L </note>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 6 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <!-- The grammar never ends the rule that -- opens, so it comes last. -->
+T 4 text.xml comment.block.xml punctuation.definition.comment.xml
+T 42 text.xml comment.block.xml
+T 44 text.xml comment.block.xml invalid.illegal.bad-comments-or-CDATA.xml
+T 73 text.xml comment.block.xml
+L 

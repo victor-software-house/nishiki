@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- Written for nishiki: what the xml grammar's other inputs leave out. -->
+<!DOCTYPE note [
+  <!ENTITY % common SYSTEM "common.ent">
+  %common;
+]>
+<note title="fish & chips">
+  <%@ page import="java.util.List" %>
+  <%= list.size() %>
+  <%! int count = 0; %>
+</note>
+<!-- The grammar never ends the rule that -- opens, so it comes last. -->

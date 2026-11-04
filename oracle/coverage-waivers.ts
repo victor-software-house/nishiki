@@ -1094,6 +1094,21 @@ export const waivers: Waiver[] = [
       reason: "the match is only blanks and the line feed that end the line, and the oracle compares no blank",
     },
   ]),
+  ...[
+    { path: "patterns[0].end", groups: [2] },
+    { path: "patterns[1].end", groups: [2, 3] },
+    { path: "patterns[4].end", groups: [2, 3, 4, 5] },
+    { path: "#EntityDecl.end", groups: [2, 3, 4, 5] },
+  ].flatMap(({ path, groups }) =>
+    groups.map(
+      (group): Waiver => ({
+        grammar: "xml",
+        path,
+        group,
+        reason: "the rule's `captures` name the group for its end too, and the end's expression has one group",
+      }),
+    ),
+  ),
   {
     grammar: "sql",
     path: "#comments.patterns[0].begin",
@@ -1188,5 +1203,6 @@ export const complete: string[] = [
   "toml",
   "tsx",
   "typescript",
+  "xml",
   "yaml",
 ];

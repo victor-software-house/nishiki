@@ -1,0 +1,14 @@
+L <note>Written for nishiki: the xml grammar never ends a JSP comment.</note>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 5 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 68 text.xml
+T 70 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 74 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 75 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <%-- So the comment takes the rest of the document. --%>
+T 4 text.xml punctuation.definition.comment.xml
+T 56 text.xml
+L <note/>
+T 7 text.xml
+L 

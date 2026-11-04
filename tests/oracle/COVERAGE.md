@@ -47,7 +47,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | TOML | `toml` | 54 of 54 | 100.0% | 39 of 53 | 73.6% | 14 | 0 | yes |
 | TypeScript | `tsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | TypeScript | `typescript` | 513 of 515 | 99.6% | 571 of 576 | 99.1% | 7 | 0 | yes |
-| XML | `xml` | 23 of 32 | 71.9% | 46 of 66 | 69.7% | 0 | 1 |  |
+| XML | `xml` | 32 of 32 | 100.0% | 55 of 66 | 83.3% | 11 | 0 | yes |
 | YAML | `yaml` | 60 of 62 | 96.8% | 51 of 55 | 92.7% | 6 | 0 | yes |
 
 ## Units no fixture exercises
@@ -859,20 +859,10 @@ patterns[88].patterns[0].end  (?=not)impossible  waived: the rule that holds it 
 ### `xml`
 
 ```text
-patterns[0].end  groups 2
-patterns[1].end  groups 2, 3
-patterns[4].end  groups 2, 3, 4, 5
-patterns[7].begin  <%@
-patterns[7].end  %>
-patterns[7].patterns[0].match  page|include|taglib
-patterns[8].begin  <%[!=]?(?!--)
-patterns[8].end  (?!--)%>
-#EntityDecl.begin  groups 3
-#EntityDecl.end  groups 2, 3, 4, 5
-#bare-ampersand.match  &  fuzz
-#comments.patterns[0].begin  <%--
-#comments.patterns[1].patterns[0].begin  --(?!>)
-#parameterEntity.match  (%)([:A-Z_a-z][-.0-:A-Z_a-z]*)(;)
+patterns[0].end  groups 2 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group)
+patterns[1].end  groups 2 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group), 3 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group)
+patterns[4].end  groups 2 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group), 3 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group), 4 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group), 5 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group)
+#EntityDecl.end  groups 2 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group), 3 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group), 4 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group), 5 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group)
 ```
 
 ### `yaml`

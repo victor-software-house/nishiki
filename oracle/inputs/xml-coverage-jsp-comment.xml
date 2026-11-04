@@ -1,0 +1,3 @@
+<note>Written for nishiki: the xml grammar never ends a JSP comment.</note>
+<%-- So the comment takes the rest of the document. --%>
+<note/>
