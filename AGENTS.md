@@ -5,10 +5,15 @@ Read [README.md](README.md) for what it is.
 
 ## Guides
 
+Each directory below has a README that says what it holds, and an `AGENTS.md` with the rules for working there.
+
 - [CODING_STANDARDS.md](CODING_STANDARDS.md): the numbered coding rules.
+- [src/](src/README.md): the crate, by module.
 - [openspec/](openspec/README.md): specs, changes in flight and research notes, with [their rules](openspec/AGENTS.md).
+- [oracle/](oracle/README.md): the Bun scripts that run Shiki, with [their rules](oracle/AGENTS.md).
+- [tests/](tests/README.md): the integration tests and fixtures, with [their rules](tests/AGENTS.md).
 - [bench/AGENTS.md](bench/AGENTS.md): the rules for measuring.
-- [openspec/changes/repo-layout](openspec/changes/repo-layout/proposal.md): the plan that moves these into one layout.
+- [mise-tasks/](mise-tasks/README.md): the repository's tasks.
 
 The decisions that created nishiki live in a private planning repository:
 
@@ -115,8 +120,11 @@ The decisions that created nishiki live in a private planning repository:
    Never edit either by hand.
 3. Publishing to crates.io waits for the operator's approval.
    The Version PR has no auto-merge, and only the operator merges it, because merging it publishes.
-4. A change that builds on an unmerged one goes up as a stacked pull request with `gh stack`,
-   one idea per pull request (operator, 2026-11-02).
+4. Work merges in batches through `gh stack`, one idea per pull request (operator, 2026-11-02 and 2026-11-03):
+   - a workstream's slices go up as one stack, each pull request based on the branch below, opened without waiting for its parent to land;
+   - a stacked pull request takes no auto-merge;
+   - once every head is green and reviewed, `gh stack merge <stack> --yes` puts the whole stack in the merge queue;
+   - a pull request already queued is never linked into a stack, since linking drops it from the queue.
 
 ### Languages
 
@@ -132,33 +140,7 @@ The decisions that created nishiki live in a private planning repository:
 
 ### The Shiki oracle
 
-1. `mise run oracle` runs Shiki on every input in `oracle/inputs.ts`
-   and writes its scopes to `tests/oracle/<language>/`.
-2. `tests/it/oracle.rs` checks every language in `Language::ALL`, in parallel.
-   It fails when a non-whitespace byte gets a different scope stack or colour,
-   so a new language needs only its fixtures there.
-3. A new language adds its inputs and fixtures.
-   `tests/oracle/SOURCES.md` records each input's source and licence.
-4. `tests/oracle/.ignore` keeps typos, `rg` and `fd` out of the generated fixtures,
-   which keep their sources' spelling.
-   Search them with `rg -u`.
-5. Three tools reach past the fixtures, each run by hand with an ignored test:
-
-   | Tool | Does |
-   |:--|:--|
-   | `oracle/fuzz.ts` | Writes a corpus of mutated and generated documents, bare and in Markdown fences. |
-   | `oracle/dump.ts` | Writes a corpus of held-out files. |
-   | `oracle/onig.ts` | Checks a language's hand matchers against Oniguruma, one expression at a time, through the language's `matchers_answer_the_probe_cases` test. |
-
-   `the_corpus_matches_shiki` in `tests/it/oracle.rs` compares a corpus with nishiki.
-   `oracle/fuzz/<language>.ts` holds what the tools draw on for one language.
-6. `mise run oracle:coverage` writes `tests/oracle/COVERAGE.md`: how much of each hand-lexed grammar the fixtures exercise, and every unit they do not.
-   - A pull request that changes the oracle's inputs or fixtures writes it again.
-   - `oracle/coverage-waivers.ts` waives the units no document can reach, each with a reason, and lists the grammars that are complete.
-   - The Oracle coverage workflow (`.github/workflows/coverage.yml`) runs `mise run check:oracle-coverage`.
-     It fails on a stale report, a wrong waiver, or a gap in a complete grammar.
-   - A new hand lexer adds its grammar to `handLexed` in `oracle/coverage.ts`; the run fails on a loaded grammar it cannot place.
-   - A gap closes with an input: a pinned, licensed third-party file first, then one written for nishiki under `oracle/inputs/`.
+The rules are in [oracle/AGENTS.md](oracle/AGENTS.md) and [tests/AGENTS.md](tests/AGENTS.md).
 
 ### Benchmarks
 

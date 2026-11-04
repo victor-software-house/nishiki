@@ -13,7 +13,8 @@
 
 ## 2. A README per browsable directory
 
-- [ ] 2.1 Add `README.md` and `AGENTS.md` to `oracle/` and `tests/`, and a `README.md` to `src/` and `mise-tasks/`; move the oracle and test rules from the root guide into them → verify: the root guide links each, and no rule is stated twice
+- [x] 2.1 Add `README.md` and `AGENTS.md` to `oracle/` and `tests/`, and a `README.md` to `src/` and `mise-tasks/`; move the oracle and test rules from the root guide into them → verify: the root guide links each, and no rule is stated twice
+  - 2026-11-04 UTC: `oracle/` and `tests/` have both files, `src/` and `mise-tasks/` a README; the root guide's oracle section moved to `oracle/AGENTS.md` and `tests/AGENTS.md`, and its Guides list links each. `bench/` gets its README in the `bench-methodology` change.
 - [ ] 2.2 Add `check:layout`, run by `verify`, which fails when a listed directory lacks its README or guide → verify: removing `oracle/README.md` locally makes it fail
 
 ## 3. Writing rules
