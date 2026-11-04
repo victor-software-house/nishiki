@@ -1,11 +1,13 @@
-//! The rules the lexer opens, which are frames of the interned state.
+//! The rules the lexer opens.
+//! Each is a frame of the interned state.
 
 use super::scope::S;
 
 /// The high byte that marks a frame as one of the XML lexer's.
 const TAG: u16 = crate::tag::XML;
 
-/// A begin/end rule of the grammar, which can stay open at the end of a line.
+/// A begin/end rule of the grammar.
+/// It can stay open at the end of a line.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(u8)]
 pub(crate) enum Rule {
@@ -21,9 +23,11 @@ pub(crate) enum Rule {
     EntityDecl,
     /// `<!--` up to `-->`.
     Comment,
-    /// A `--` inside a comment, which the grammar gives no end.
+    /// A `--` inside a comment.
+    /// The grammar gives it no end.
     CommentBad,
-    /// `<%--`, which the grammar gives no end.
+    /// `<%--`.
+    /// The grammar gives it no end.
     CommentJsp,
     /// `<name` that closes right away as `></name>`.
     NoContent,
@@ -42,7 +46,8 @@ pub(crate) enum Rule {
 }
 
 impl Rule {
-    /// The rules in code order, which [`Rule::code`] numbers.
+    /// The rules in code order.
+    /// [`Rule::code`] numbers them.
     const ALL: [Rule; 15] = [
         Rule::Root,
         Rule::Pi,
@@ -71,8 +76,8 @@ impl Rule {
         TAG | self as u16
     }
 
-    /// The rule a frame's code names; [`Rule::Root`] for a code that is not
-    /// the XML lexer's.
+    /// The rule a frame's code names.
+    /// It is [`Rule::Root`] for a code that is not the XML lexer's.
     pub(crate) fn from_code(code: u16) -> Rule {
         if code & 0xff00 != TAG {
             return Rule::Root;

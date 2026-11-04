@@ -1,15 +1,18 @@
-//! XML, with the scopes of the `xml` grammar that Shiki bundles, which VS Code
-//! ships and which derives from the `TextMate` XML bundle.
+//! XML, with the scopes of the `xml` grammar that Shiki bundles.
+//! VS Code ships that grammar, and it derives from the `TextMate` XML bundle.
 //!
 //! The lexer runs the grammar's begin/end rules with hand-written matchers
-//! over bytes (see the `engine` module). The rules left open at the end of a
-//! line (a tag with attributes, a comment, a CDATA section, a string, a
-//! doctype) are frames of the highlighter's interned state.
+//! over bytes (see the `engine` module).
+//! The rules left open at the end of a line are frames of the highlighter's
+//! interned state: a tag with attributes, a comment, a CDATA section, a
+//! string, a doctype.
 //!
-//! It reproduces Shiki's output, quirks included: a `--` inside a comment
-//! opens a rule that never ends, so the rest of the document is a comment, and
-//! `<%--` opens one that never ends and has no scope at all. The grammar
-//! embeds Java in `<% ... %>`.
+//! It reproduces Shiki's output, quirks included.
+//! A `--` inside a comment opens a rule that never ends.
+//! The rest of the document is then a comment.
+//! `<%--` opens a rule that never ends and has no scope at all.
+//!
+//! The grammar embeds Java in `<% ... %>`.
 //!
 //! An empty line leaves the state as it is, because Shiki does not tokenize
 //! empty lines.

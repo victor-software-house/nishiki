@@ -52,7 +52,8 @@ pub(super) enum Pat {
 }
 
 impl Pat {
-    /// The rule the pattern opens; `None` for a match.
+    /// The rule the pattern opens.
+    /// It is `None` for a match.
     pub(super) fn opens(self) -> Option<Rule> {
         match self {
             Pat::Pi => Some(Rule::Pi),

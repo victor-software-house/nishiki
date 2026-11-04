@@ -2,8 +2,9 @@
 //!
 //! Each matcher answers whether its expression matches starting at a given
 //! position, and with which capture groups, including where backtracking
-//! lands. The text ends with a line feed that is not in the line: `\s`
-//! matches it and `.` does not.
+//! lands.
+//! The text ends with a line feed that is not in the line.
+//! `\s` matches that line feed, and `.` does not.
 
 use memchr::memchr;
 
@@ -17,8 +18,9 @@ use crate::utf8::char_at;
 /// How the parts of a name are scoped.
 #[derive(Clone, Copy)]
 enum Names {
-    /// The name of a tag: the namespace, the colon and the local name each
-    /// carry their own scope.
+    /// The name of a tag.
+    /// The namespace, the colon and the local name each carry their own
+    /// scope.
     Tag,
     /// The name of a tag with nothing in it: each part also carries the scope
     /// of the whole name.

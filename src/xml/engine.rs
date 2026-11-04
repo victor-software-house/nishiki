@@ -1,11 +1,13 @@
-//! The per-line engine: it runs the grammar's rules the way a `TextMate`
-//! engine does, with hand-written matchers instead of regular expressions.
+//! The per-line engine.
+//! It runs the grammar's rules the way a `TextMate` engine does, with
+//! hand-written matchers instead of regular expressions.
 //!
-//! At each position the engine tries the end pattern of the innermost rule and
-//! then the rule's patterns in order, and takes the first that matches at the
-//! earliest position. A begin match opens a rule and an end match closes it.
-//! Every pattern of this grammar consumes at least one byte, so a match always
-//! advances the position.
+//! At each position the engine tries the end pattern of the innermost rule,
+//! then the rule's patterns in order.
+//! It takes the first that matches at the earliest position.
+//! A begin match opens a rule, and an end match closes it.
+//! Every pattern of this grammar consumes at least one byte.
+//! A match therefore always advances the position.
 
 use std::cell::Cell;
 
@@ -22,13 +24,14 @@ use crate::{Stack, Token, java};
 /// it has a name of three parts between three punctuation marks.
 const CAPS: usize = 7;
 
-/// The end of a `<% ... %>`, which halts its Java.
+/// The end of a `<% ... %>`.
+/// It halts the Java inside.
 fn jsp_end(s: &[u8], p: usize) -> bool {
     s.get(p..).is_some_and(|rest| rest.starts_with(b"%>"))
 }
 
-/// A capture group that carries a scope; `inner` is a second group over the
-/// same bytes, nested in it.
+/// A capture group that carries a scope.
+/// `inner` is a second group over the same bytes, nested in it.
 #[derive(Clone, Copy, Debug)]
 pub(super) struct Cap {
     pub(super) from: usize,
@@ -89,8 +92,8 @@ struct Frame {
     rule: Rule,
     /// Interned scope stack of the rule's begin, content and end.
     stack: u32,
-    /// The interned state with this rule on top. A rule that a limit kept
-    /// out of the arena has its parent's.
+    /// The interned state with this rule on top.
+    /// A rule that a limit kept out of the arena has its parent's.
     state: u32,
 }
 
@@ -100,8 +103,8 @@ enum Found {
     Pat(Pat, Hit),
 }
 
-/// What the highlighter keeps from one line to the next, so lexing a line
-/// allocates nothing once these have grown.
+/// What the highlighter keeps from one line to the next.
+/// Lexing a line then allocates nothing once these have grown.
 #[derive(Debug, Default)]
 pub(crate) struct Buffers {
     frames: Vec<Frame>,
@@ -114,7 +117,8 @@ pub(super) struct Lexer<'a> {
     /// The same text, for the Java lexer.
     text: &'a str,
     scratch: &'a mut Scratch,
-    /// The text ends here; the line feed after it is one more character.
+    /// The text ends here.
+    /// The line feed after it is one more character.
     pub(super) lim: usize,
     out: &'a mut Vec<Token>,
     arena: &'a mut Arena,
@@ -131,7 +135,8 @@ pub(super) struct Lexer<'a> {
     frames: Vec<Frame>,
     chain: Vec<(u32, crate::arena::Frame)>,
     /// The last run of white space found: where it was found from, and where
-    /// it ends, so a scan from any byte inside it is one lookup.
+    /// it ends.
+    /// A scan from any byte inside it is then one lookup.
     pub(super) space_run: Cell<(usize, usize)>,
     /// The last run of name characters found, in the same way.
     pub(super) name_run: Cell<(usize, usize)>,
@@ -139,8 +144,10 @@ pub(super) struct Lexer<'a> {
     /// `>` or the end of the text is.
     pub(super) angle_run: Cell<(usize, usize)>,
     /// Where the language that embeds XML takes the line back, while only the
-    /// root is open: `end` before the root's patterns at a place, and `after`
-    /// where none of them matches (see [`Halt`]).
+    /// root is open.
+    /// `end` is tried before the root's patterns at a place.
+    /// `after` is tried where none of them matches.
+    /// See [`Halt`].
     pub(super) halts: Option<&'a Halts<'a>>,
     /// Where the line went back to the embedding language.
     halted: Option<usize>,
@@ -206,9 +213,10 @@ impl<'a> Lexer<'a> {
 
     /// Lexes the line and returns the state after it.
     ///
-    /// `#[inline]`: `xml::lex`, in another module, calls it once a line.
-    /// [`run_until`](Self::run_until) moves the lexer's buffers out, so the
-    /// lexer needs no drop glue where it is inlined.
+    /// It is `#[inline]`, because `xml::lex`, in another module, calls it once
+    /// a line.
+    /// [`run_until`](Self::run_until) moves the lexer's buffers out.
+    /// The lexer then needs no drop glue where it is inlined.
     #[inline]
     pub(super) fn run(self) -> Finished {
         self.run_until().0
@@ -263,8 +271,8 @@ impl<'a> Lexer<'a> {
         self.frames[self.frames.len() - 1]
     }
 
-    /// The stack `base` with `scope` on top; a node limit keeps a scope that
-    /// does not fit off.
+    /// The stack `base` with `scope` on top.
+    /// A node limit keeps off a scope that does not fit.
     fn path(&mut self, base: u32, scope: Option<S>) -> u32 {
         let Some(scope) = scope else {
             return base;
@@ -382,9 +390,10 @@ impl<'a> Lexer<'a> {
         None
     }
 
-    /// Where the search goes on after nothing matched at `p`. In a rule whose
-    /// patterns start at white space, a run of it is tried once: every
-    /// position in it ends in the same place.
+    /// Where the search goes on after nothing matched at `p`.
+    /// In a rule whose patterns start at white space, a run of it is tried
+    /// once.
+    /// Every position in the run ends in the same place.
     fn after_miss(&self, rule: Rule, p: usize) -> usize {
         match rule {
             Rule::Tag | Rule::NoContent | Rule::Doctype if self.space_at(p) > 0 => {
@@ -409,14 +418,15 @@ impl<'a> Lexer<'a> {
     }
 
     /// The rest of a `<% ... %>` on this line: the Java up to the first `%>`
-    /// that Java is not inside a context of, and then the end. The Java lexer
-    /// reads the code, and its state is the payload of the rule's frame, so
-    /// code that goes on across lines resumes where it stopped.
+    /// that Java is not inside a context of, and then the end.
+    /// The Java lexer reads the code.
+    /// Its state is the payload of the rule's frame.
+    /// Code that goes on across lines therefore resumes where it stopped.
     ///
-    /// The grammar's end pattern is tried only when no Java rule is open, so a
-    /// `%>` inside a string, a comment or a block belongs to Java: the Java
-    /// lexer halts at the first `%>` it reaches with no rule open, and reads
-    /// the whole line, as the grammar's lookaheads do.
+    /// The grammar's end pattern is tried only when no Java rule is open.
+    /// A `%>` inside a string, a comment or a block therefore belongs to Java.
+    /// The Java lexer halts at the first `%>` it reaches with no rule open.
+    /// It reads the whole line, as the grammar's lookaheads do.
     fn jsp(&mut self) -> Option<Found> {
         let top = self.top();
         let mut state = self.arena.frame(top.state).payload;
@@ -471,8 +481,9 @@ impl<'a> Lexer<'a> {
     }
 
     /// Lexes Java up to the `%>` that ends JSP code.
-    /// It stays out of line, so `tokenize` never builds the `&dyn Halt` it
-    /// passes. Inlined, that value cost every XML line a store.
+    /// It stays out of line.
+    /// `tokenize` then never builds the `&dyn Halt` it passes.
+    /// Inlined, that value cost every XML line a store.
     #[cold]
     #[inline(never)]
     fn lex_jsp(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> (Finished, Option<usize>) {
@@ -489,9 +500,10 @@ impl<'a> Lexer<'a> {
         self.pos = self.pos.max(hit.end);
     }
 
-    /// Applies a pattern's match. A rule the depth limit keeps from opening
-    /// leaves its text plain, and the search goes on after the match; the
-    /// depth counts the rules open above the root, as every lexer does.
+    /// Applies a pattern's match.
+    /// A rule the depth limit keeps from opening leaves its text plain.
+    /// The search then goes on after the match.
+    /// The depth counts the rules open above the root, as every lexer does.
     fn apply(&mut self, pat: Pat, hit: &Hit) {
         let top = self.top();
         self.tok(top.stack, hit.start);

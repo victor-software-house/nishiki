@@ -398,9 +398,10 @@ fn ruby_takes_an_xml_heredoc_line_back_only_where_no_xml_rule_is_open() {
     assert_eq!(ruby_halts(&["  <![CDATA[ #{e} ]]> #{f}"]), [Some(21)]);
 }
 
-/// `end` is tried before the root's patterns at a place, so it takes the
-/// line back at a `<` that starts a tag, and at the end of the text when
-/// nothing matches after it.
+/// `end` is tried before the root's patterns at a place.
+/// It therefore takes the line back at a `<` that starts a tag.
+/// It also takes it back at the end of the text when nothing matches after
+/// it.
 #[test]
 fn an_xml_end_halt_beats_a_tag_at_its_place_and_holds_at_the_end() {
     fn at_end(bytes: &[u8], p: usize) -> bool {
