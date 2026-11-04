@@ -26,3 +26,7 @@ Rules for the Shiki oracle, beside the root guide's invariants.
    - A new hand lexer adds its grammar to `handLexed` in `coverage.ts`; the run fails on a loaded grammar it cannot place.
    - A gap closes with an input: a pinned, licensed third-party file first, then one written for nishiki under `inputs/`.
 7. Scripts are TypeScript run by Bun, with each import pinned to an exact version, such as `shiki@4.6.0`.
+8. [`grammars.ts`](grammars.ts) makes one edit to Shiki's grammars, and no other.
+   - In C++'s `string_context`, a rule whose patterns include only grammars the oracle leaves out keeps its match with no patterns inside.
+   - vscode-textmate skips such a rule, so without the edit `R"re(` and `R"glsl(` would read as other raw strings, which full Shiki does not do.
+   - nishiki lexes them with their own rules and plain text inside.
