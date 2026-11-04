@@ -10,56 +10,62 @@
 // matches nothing, and Shiki runs on an engine that wraps its own Oniguruma
 // engine and reads the tag of each match the scanner returns. The script
 // tokenizes the text of every fixture, and fails when a scope stack differs
-// from the fixture's, so the tags provably change nothing. It prints, per
-// hand-lexed grammar, the reachable expressions and captures and how many the
-// fixtures exercise, and the units no root reaches. Every loaded grammar must
+// from the fixture's, so the tags provably change nothing. Where a grammar has
+// injections, it counts only the match vscode-textmate keeps. It measures a
+// fixed fuzz corpus from oracle/fuzz.ts the same way, and writes, per
+// hand-lexed grammar, the reachable expressions and captures the fixtures
+// exercise, those only the fuzz corpus exercises, and the units no root
+// reaches, to tests/oracle/COVERAGE.md. Every loaded grammar must
 // be listed as hand-lexed or have engine tables under src/, so a new hand
 // lexer cannot drop out of the count.
-import { readdirSync, readFileSync } from "node:fs";
+import { mkdtempSync, readdirSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { createHighlighter, type RegexEngine } from "shiki@4.6.0";
 import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
 import { fixture } from "./fixture.ts";
 import { grammars } from "./grammars.ts";
 import { inputs } from "./inputs.ts";
 
-/** The grammars a hand-written lexer follows, by Shiki's name. */
-const handLexed = new Set([
-  "c",
-  "cpp",
-  "cpp-macro",
-  "csharp",
-  "css",
-  "diff",
-  "docker",
-  "erb",
-  "go",
-  "graphql",
-  "html",
-  "html-derivative",
-  "ini",
-  "java",
-  "javascript",
-  "json",
-  "jsonc",
-  "jsonl",
-  "jsx",
-  "kotlin",
-  "less",
-  "lua",
-  "make",
-  "markdown",
-  "python",
-  "ruby",
-  "rust",
-  "scss",
-  "shellscript",
-  "sql",
-  "swift",
-  "toml",
-  "tsx",
-  "typescript",
-  "xml",
-  "yaml",
+/** The grammars a hand-written lexer follows, by Shiki's name, and the
+ * lexer that follows each. */
+const handLexed = new Map([
+  ["c", "C"],
+  ["cpp", "C++"],
+  ["cpp-macro", "C++"],
+  ["csharp", "C#"],
+  ["css", "CSS"],
+  ["diff", "diff"],
+  ["docker", "Dockerfile"],
+  ["erb", "ERB"],
+  ["go", "Go"],
+  ["graphql", "GraphQL"],
+  ["html", "HTML"],
+  ["html-derivative", "HTML"],
+  ["ini", "INI"],
+  ["java", "Java"],
+  ["javascript", "TypeScript"],
+  ["json", "JSON"],
+  ["jsonc", "JSON"],
+  ["jsonl", "JSON"],
+  ["jsx", "TypeScript"],
+  ["kotlin", "Kotlin"],
+  ["less", "Less"],
+  ["lua", "Lua"],
+  ["make", "Make"],
+  ["markdown", "Markdown"],
+  ["python", "Python"],
+  ["ruby", "Ruby"],
+  ["rust", "Rust"],
+  ["scss", "SCSS"],
+  ["shellscript", "shell"],
+  ["sql", "SQL"],
+  ["swift", "Swift"],
+  ["toml", "TOML"],
+  ["tsx", "TypeScript"],
+  ["typescript", "TypeScript"],
+  ["xml", "XML"],
+  ["yaml", "YAML"],
 ]);
 
 /** A rule of a TextMate grammar, as far as coverage reads it. */
@@ -112,6 +118,9 @@ const expressions: Expression[] = [];
 const unitsOf = new Map<Rule, number[]>();
 const places = new Map<Rule, Place>();
 
+/** `part` under `path`, the root's path being empty. */
+const under = (path: string, part: string) => (path === "" ? part : `${path}.${part}`);
+
 /** Records where every rule of `grammar` stands and, in a hand-lexed grammar,
  * numbers and tags its expressions. */
 function walk(rule: Rule, path: string, place: Place, tag: boolean): void {
@@ -125,20 +134,20 @@ function walk(rule: Rule, path: string, place: Place, tag: boolean): void {
       .map(([group]) => group);
     units.push(expressions.length);
     rule[kind] = `(?#u${expressions.length})${source}`;
-    expressions.push({ grammar: place.grammar.name, path: `${path}.${kind}`, groups });
+    expressions.push({ grammar: place.grammar.name, path: under(path, kind), groups });
   }
   unitsOf.set(rule, units);
   const inner: Place = rule.repository
     ? { grammar: place.grammar, repositories: [...place.repositories, rule.repository] }
     : place;
-  rule.patterns?.forEach((child, index) => walk(child, `${path}.patterns[${index}]`, inner, tag));
+  rule.patterns?.forEach((child, index) => walk(child, under(path, `patterns[${index}]`), inner, tag));
   for (const key of captureKeys) {
     for (const [group, capture] of groupsIn(rule[key])) {
-      walk(capture, `${path}.${key}[${group}]`, inner, tag);
+      walk(capture, under(path, `${key}[${group}]`), inner, tag);
     }
   }
   for (const [name, child] of Object.entries(rule.repository ?? {})) {
-    walk(child, `${path === "" ? "" : `${path}.repository.`}#${name}`, inner, tag);
+    walk(child, path === "" ? `#${name}` : under(path, `repository.#${name}`), inner, tag);
   }
   for (const [selector, child] of Object.entries(rule.injections ?? {})) {
     walk(child, `injections[${selector}]`, inner, tag);
@@ -158,7 +167,7 @@ for (const path of new Bun.Glob("src/*/grammar.rs").scanSync(root)) {
 }
 
 const loaded = structuredClone(grammars) as unknown as Grammar[];
-for (const name of handLexed) {
+for (const name of handLexed.keys()) {
   if (!loaded.some((grammar) => grammar.name === name)) {
     throw new Error(`${name}: listed as hand-lexed, but the oracle does not load it`);
   }
@@ -214,30 +223,93 @@ while (todo.length > 0) {
   }
 }
 
-const exercised = new Set<number>();
-/** Captures exercised, as `<unit>:<group>`. */
-const capturesExercised = new Set<string>();
+/** Each injection's priority, by its number: -1 for an `L:` selector, which
+ * wins a tie with the rule list, 1 for `R:` and 0 otherwise, as
+ * vscode-textmate reads them. Every injection gets a first pattern that never
+ * matches, `(?#i<n>)(?!)`, so its scanner can be told from a rule list's. */
+const priorities: number[] = [];
+for (const grammar of loaded) {
+  for (const [selector, injection] of Object.entries(grammar.injections ?? {})) {
+    const sentinel: Rule = { match: `(?#i${priorities.length})(?!)` };
+    injection.patterns = [sentinel, ...(injection.patterns ?? [])];
+    priorities.push(selector.startsWith("L:") ? -1 : selector.startsWith("R:") ? 1 : 0);
+  }
+}
+
+/** What the run counts: on the fixtures, then on the fuzz corpus. */
+type Tally = { expressions: Set<number>; captures: Set<string> };
+const tally = (): Tally => ({ expressions: new Set(), captures: new Set() });
+const fixtures = tally();
+const fuzzed = tally();
+let counting = fixtures;
+
+type IOnigMatch = NonNullable<
+  ReturnType<ReturnType<RegexEngine["createScanner"]>["findNextMatchSync"]>
+>;
+/** A match a scanner returned, and the text it matched in. */
+type Hit = { unit: number | undefined; found: IOnigMatch; content: string };
+/** One scan of the rule list, and the scans of the injections that
+ * vscode-textmate makes after it at the same position. It keeps one of them:
+ * the injection with the earliest match, against the rule list's match, where
+ * the earlier start wins, and on a tie the rule list, unless the injection's
+ * priority is -1. */
+type Scan = {
+  text: unknown;
+  start: number;
+  rule: Hit | null;
+  injection: (Hit & { priority: number }) | null;
+};
+let scan: Scan | undefined;
+
+const startOf = (hit: Hit) => hit.found.captureIndices[0]?.start ?? 0;
+/** Counts the match vscode-textmate keeps from the open scan. */
+function settle(): void {
+  if (scan === undefined) return;
+  const { rule, injection } = scan;
+  scan = undefined;
+  const kept =
+    injection === null || rule === null
+      ? (injection ?? rule)
+      : startOf(injection) < startOf(rule) ||
+          (injection.priority === -1 && startOf(injection) === startOf(rule))
+        ? injection
+        : rule;
+  if (kept === null || kept.unit === undefined) return;
+  counting.expressions.add(kept.unit);
+  for (const group of expressions[kept.unit]?.groups ?? []) {
+    const span = kept.found.captureIndices[group];
+    if (span !== undefined && /\S/.test(kept.content.slice(span.start, span.end))) {
+      counting.captures.add(`${kept.unit}:${group}`);
+    }
+  }
+}
+
+const tagged = (source: string | RegExp, kind: "u" | "i") =>
+  typeof source === "string" ? new RegExp(`^\\(\\?#${kind}(\\d+)\\)`).exec(source)?.[1] : undefined;
 const base = await createOnigurumaEngine(import("shiki@4.6.0/wasm"));
 const engine: RegexEngine = {
   createString: (text) => base.createString(text),
   createScanner(sources) {
     const scanner = base.createScanner(sources);
-    const tags = sources.map((source) =>
-      typeof source === "string" ? /^\(\?#u(\d+)\)/.exec(source)?.[1] : undefined,
-    );
+    const units = sources.map((source) => {
+      const unit = tagged(source, "u");
+      return unit === undefined ? undefined : Number(unit);
+    });
+    const injection = sources.map((source) => tagged(source, "i")).find((n) => n !== undefined);
     return {
       findNextMatchSync(text, start, options) {
         const found = scanner.findNextMatchSync(text, start, options);
-        const tag = found === null ? undefined : tags[found.index];
-        if (found !== null && tag !== undefined) {
-          const unit = Number(tag);
-          exercised.add(unit);
-          const content = typeof text === "string" ? text : text.content;
-          for (const group of expressions[unit]?.groups ?? []) {
-            const span = found.captureIndices[group];
-            if (span !== undefined && /\S/.test(content.slice(span.start, span.end))) {
-              capturesExercised.add(`${unit}:${group}`);
-            }
+        const content = typeof text === "string" ? text : text.content;
+        const hit = found === null ? null : { unit: units[found.index], found, content };
+        if (injection === undefined) {
+          settle();
+          scan = { text, start, rule: hit, injection: null };
+        } else {
+          if (scan === undefined || scan.text !== text || scan.start !== start) {
+            throw new Error("an injection was scanned without the rule list before it");
+          }
+          if (hit !== null && (scan.injection === null || startOf(hit) < startOf(scan.injection))) {
+            scan.injection = { ...hit, priority: priorities[Number(injection)] ?? 0 };
           }
         }
         return found;
@@ -252,51 +324,158 @@ const highlighter = await createHighlighter({
   engine,
 });
 
+/** The text of a file in the fixture format, from its `L` records. */
+const textOf = (records: string) =>
+  records
+    .split("\n")
+    .filter((record) => record.startsWith("L "))
+    .map((record) => record.slice(2))
+    .join("\n");
+/** Tokenizes `text` as `lang` on the tagged grammars, counting what it
+ * exercises, and tells whether the scopes equal `committed`. */
+function agrees(text: string, lang: string, committed: string): boolean {
+  const scopes = fixture(highlighter, text, lang);
+  settle();
+  return scopes === committed;
+}
+
 const differing: string[] = [];
-for (const lang of new Set(inputs.map((input) => input.lang))) {
+const inputLangs = [...new Set(inputs.map((input) => input.lang))].sort();
+for (const lang of inputLangs) {
   const dir = `${root}tests/oracle/${lang}`;
   for (const name of readdirSync(dir).filter((file) => file.endsWith(".txt")).sort()) {
     const committed = readFileSync(`${dir}/${name}`, "utf8");
-    const text = committed
-      .split("\n")
-      .filter((record) => record.startsWith("L "))
-      .map((record) => record.slice(2))
-      .join("\n");
-    if (fixture(highlighter, text, lang) !== committed) differing.push(`${lang}/${name}`);
+    if (!agrees(textOf(committed), lang, committed)) differing.push(`${lang}/${name}`);
   }
 }
+
+/** The fuzz corpus: per hand-lexed input language, `fuzzCount` mutated
+ * windows of its fixtures, and as many generated documents where
+ * oracle/fuzz/<lang>.ts has pieces, at seed 1. oracle/fuzz.ts writes the
+ * same documents for the same arguments. Only their text is read: fuzz.ts
+ * loads one grammar, so its scopes leave other languages' fences plain. */
+const fuzzCount = 100;
+const corpus = mkdtempSync(join(tmpdir(), "nishiki-coverage-"));
+counting = fuzzed;
+for (const lang of inputLangs.filter((lang) => handLexed.has(lang))) {
+  const pieces = `${root}oracle/fuzz/${lang}.ts`;
+  const extras = (await Bun.file(pieces).exists()) ? await import(pieces) : {};
+  for (const mode of extras.pieces === undefined ? ["win"] : ["win", "gen"]) {
+    const dir = join(corpus, `${lang}-${mode}`);
+    const run = Bun.spawnSync(
+      [process.execPath, "run", `${root}oracle/fuzz.ts`, lang, mode, "1", String(fuzzCount), dir],
+      { stdout: "ignore", stderr: "pipe" },
+    );
+    if (run.exitCode !== 0) throw new Error(`fuzz.ts ${lang} ${mode}: ${run.stderr.toString()}`);
+    for (const name of readdirSync(dir).sort()) {
+      fixture(highlighter, textOf(readFileSync(join(dir, name), "utf8")), lang);
+      settle();
+    }
+  }
+}
+rmSync(corpus, { recursive: true });
+
 if (differing.length > 0) {
   console.error(`✘ the tagged grammars changed Shiki's scopes in ${differing.join(", ")}`);
   process.exit(1);
 }
-const strays = [...exercised].filter((unit) => !reachable.has(unit));
+const strays = [...fixtures.expressions, ...fuzzed.expressions].filter(
+  (unit) => !reachable.has(unit),
+);
 if (strays.length > 0) {
   const paths = strays.map((unit) => `${expressions[unit]?.grammar} ${expressions[unit]?.path}`);
   console.error(`✘ exercised but counted unreachable: ${paths.join(", ")}`);
   process.exit(1);
 }
 
+/** One counted unit: an expression, or a group of one. */
+type Unit = { unit: number; group?: number };
+const keyOf = ({ unit, group }: Unit) => (group === undefined ? String(unit) : `${unit}:${group}`);
+const hitIn = (counted: Tally, u: Unit) =>
+  u.group === undefined ? counted.expressions.has(u.unit) : counted.captures.has(keyOf(u));
 const percent = (part: number, whole: number) =>
   whole === 0 ? "-" : `${((100 * part) / whole).toFixed(1)}%`;
-console.log("grammar          expressions          captures             unreachable");
-for (const name of [...handLexed].sort()) {
+/** A regex as a cell in a fenced block: one line, at most 60 characters. */
+const excerpt = (source: string) => {
+  const line = source.replace(/^\(\?#u\d+\)/, "").replaceAll("\n", "\\n");
+  return line.length > 60 ? `${line.slice(0, 59)}…` : line;
+};
+const sourceOf = new Map<number, string>();
+for (const rule of places.keys()) {
+  for (const kind of kinds) {
+    const unit = /^\(\?#u(\d+)\)/.exec(rule[kind] ?? "")?.[1];
+    if (unit !== undefined) sourceOf.set(Number(unit), rule[kind] ?? "");
+  }
+}
+
+const rows: string[] = [];
+const sections: string[] = [];
+const unreachableSections: string[] = [];
+for (const name of [...handLexed.keys()].sort()) {
   const units = expressions.flatMap((expression, unit) =>
     expression.grammar === name ? [unit] : [],
   );
   const live = units.filter((unit) => reachable.has(unit));
-  const hit = live.filter((unit) => exercised.has(unit)).length;
-  const groups = live.flatMap((unit) =>
-    (expressions[unit]?.groups ?? []).map((group) => `${unit}:${group}`),
+  const groups: Unit[] = live.flatMap((unit) =>
+    (expressions[unit]?.groups ?? []).map((group) => ({ unit, group })),
   );
-  const groupsHit = groups.filter((key) => capturesExercised.has(key)).length;
-  console.log(
-    [
-      name.padEnd(16),
-      `${hit}/${live.length}`.padEnd(10),
-      percent(hit, live.length).padEnd(10),
-      `${groupsHit}/${groups.length}`.padEnd(10),
-      percent(groupsHit, groups.length).padEnd(10),
-      String(units.length - live.length),
-    ].join(" "),
+  const all: Unit[] = [...live.map((unit) => ({ unit })), ...groups];
+  const hit = live.filter((unit) => fixtures.expressions.has(unit)).length;
+  const groupsHit = groups.filter((u) => hitIn(fixtures, u)).length;
+  const missing = all.filter((u) => !hitIn(fixtures, u));
+  const fuzzOnly = missing.filter((u) => hitIn(fuzzed, u)).length;
+  rows.push(
+    `| ${handLexed.get(name)} | \`${name}\` | ${hit} of ${live.length} | ${percent(hit, live.length)} | ${groupsHit} of ${groups.length} | ${percent(groupsHit, groups.length)} | ${fuzzOnly} |`,
   );
+  const lines = live.flatMap((unit) => {
+    const path = expressions[unit]?.path ?? "";
+    if (!fixtures.expressions.has(unit)) {
+      const fuzz = fuzzed.expressions.has(unit) ? "  fuzz" : "";
+      return [`${path}  ${excerpt(sourceOf.get(unit) ?? "")}${fuzz}`];
+    }
+    const open = groups.filter((u) => u.unit === unit && !hitIn(fixtures, u));
+    if (open.length === 0) return [];
+    const list = open.map((u) => `${u.group}${hitIn(fuzzed, u) ? " (fuzz)" : ""}`);
+    return [`${path}  groups ${list.join(", ")}`];
+  });
+  if (lines.length > 0) {
+    sections.push(`### \`${name}\`\n\n\`\`\`text\n${lines.join("\n")}\n\`\`\``);
+  }
+  const dead = units.filter((unit) => !reachable.has(unit));
+  if (dead.length > 0) {
+    const lines = dead.map((unit) => expressions[unit]?.path ?? "");
+    unreachableSections.push(`### \`${name}\`\n\n\`\`\`text\n${lines.join("\n")}\n\`\`\``);
+  }
 }
+
+const report = `# Oracle coverage
+
+How much of each grammar that a hand-written lexer follows the oracle fixtures exercise.
+\`mise run oracle:coverage\` writes this file from [\`oracle/coverage.ts\`](../../oracle/coverage.ts); do not edit it.
+The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) defines the units.
+
+- An expression is exercised when Shiki takes its match on a fixture.
+- A capture is exercised when its group takes part in such a match and holds a non-whitespace byte.
+- Fuzz only counts the units that only the fixed fuzz corpus exercises: ${fuzzCount} mutated windows per language, and ${fuzzCount} generated documents where \`oracle/fuzz/<lang>.ts\` has pieces, at seed 1.
+  No CI job compares that corpus with nishiki.
+
+| Lexer | Grammar | Expressions | Share | Captures | Share | Fuzz only |
+|:--|:--|--:|--:|--:|--:|--:|
+${rows.join("\n")}
+
+## Units no fixture exercises
+
+Each line is an expression's path in its grammar, then the start of its regex and \`fuzz\` when the fuzz corpus exercises it.
+An expression the fixtures do exercise is listed with the groups they do not, each marked \`(fuzz)\` when the fuzz corpus exercises it.
+The groups of an unexercised expression count as unexercised and are not listed.
+
+${sections.join("\n\n")}
+
+## Units no root reaches
+
+Neither an input language's grammar nor an injection reaches these, so they are left out of the shares.
+
+${unreachableSections.join("\n\n")}
+`;
+await Bun.write(`${root}tests/oracle/COVERAGE.md`, report);
+console.log(`✔ tests/oracle/COVERAGE.md: ${handLexed.size} grammars`);

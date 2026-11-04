@@ -2,10 +2,14 @@
 
 ## 1. Measure
 
-- [ ] 1.1 Write `oracle/coverage.ts`: units and reachability per hand-lexed grammar, the comment tags, the wrapped engine, and the run over every fixture's text (design, sections 2 and 3) → verify: on `swift` it finds the 264 matched expressions of the 2026-11-04 measurement, and the instrumented scope stacks equal every fixture's
-- [ ] 1.2 Settle injection scans as vscode-textmate does, for HTML, html-derivative and ERB → verify: a test document where the rule list wins and one where the injection wins credits only the winner
-- [ ] 1.3 Measure the fixed fuzz corpus from `oracle/fuzz.ts` in a temporary directory → verify: two runs report the same fuzz column
-- [ ] 1.4 Write `tests/oracle/COVERAGE.md` from `mise run oracle:coverage` (design, section 4) → verify: a second run leaves it byte for byte the same, and every hand-lexed grammar of the design's table has a row
+- [x] 1.1 Write `oracle/coverage.ts`: units and reachability per hand-lexed grammar, the comment tags, the wrapped engine, and the run over every fixture's text (design, sections 2 and 3) → verify: on `swift` it finds the 264 matched expressions of the 2026-11-04 measurement, and the instrumented scope stacks equal every fixture's
+  - 2026-11-04 UTC, [PR 238][pr238]: over all fixtures, every scope stack came out equal with the tags in place, and with one scope of `tests/oracle/ini/black-tox.txt` edited the run failed and named it. Swift: 267 of 448 expressions, the 264 of its own fixtures and 3 from Swift fences in other fixtures.
+- [x] 1.2 Settle injection scans as vscode-textmate does, for HTML, html-derivative and ERB → verify: a test document where the rule list wins and one where the injection wins credits only the winner
+  - 2026-11-04 UTC: on the fixtures, whose `<` always opens a tag, the rule list wins every tie and HTML's injection `<` is not counted (131 of 227 expressions, 132 before settling). With a probe fixture `<p>a < b</p>` added, the injection wins at the lone `<` and HTML reads 132 of 227; the probe was then removed.
+- [x] 1.3 Measure the fixed fuzz corpus from `oracle/fuzz.ts` in a temporary directory → verify: two runs report the same fuzz column
+  - 2026-11-04 UTC: 100 mutated windows per hand-lexed language, and 100 generated documents for C++, C#, Lua and Swift, at seed 1. Two runs wrote the same report, fuzz column included.
+- [x] 1.4 Write `tests/oracle/COVERAGE.md` from `mise run oracle:coverage` (design, section 4) → verify: a second run leaves it byte for byte the same, and every hand-lexed grammar of the design's table has a row
+  - 2026-11-04 UTC: `mise run oracle:coverage` wrote 36 rows, one per grammar of the design's table, in 28 seconds; a second run left the file byte for byte the same.
 
 ## 2. Gate
 
@@ -39,3 +43,5 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 - [ ] 3.19 SQL: `sql`
 - [ ] 3.20 GraphQL: `graphql`
 - [ ] 3.21 diff, Dockerfile, INI and Make: `diff`, `docker`, `ini`, `make`
+
+[pr238]: https://github.com/victor-software-house/nishiki-archive/pull/238

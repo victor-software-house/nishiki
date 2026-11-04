@@ -4,3 +4,6 @@
 *.txt
 *.colors
 *.json
+# The coverage report quotes the grammars' regexes as Shiki spells them;
+# mise run oracle:coverage rewrites it.
+COVERAGE.md
