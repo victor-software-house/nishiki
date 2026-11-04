@@ -1,8 +1,10 @@
 //! `switch` statements, `case` and `default` labels, and inline assembly.
 //!
-//! These rules all start with a group of white space and comments that the
-//! grammar lexes again as comments; it has two spellings, one that takes a
-//! run of white space only after a non-space, and one that is lazy.
+//! These rules all start with a group of white space and comments.
+//! The grammar lexes that group again as comments.
+//! The group has two spellings.
+//! One takes a run of white space only after a non-space.
+//! The other is lazy.
 
 use super::engine::Lexer;
 use super::scope::S;
@@ -130,9 +132,10 @@ impl Lexer<'_> {
         self.begin(p, q + 1)
     }
 
-    /// The end of the lazy prefix `(?:(?>\s+)|(/\*)(…))+?` at `p`, with the
-    /// element boundaries tried in order until `then` accepts one. Without
-    /// any element, the other alternative, a position that is a boundary.
+    /// The end of the lazy prefix `(?:(?>\s+)|(/\*)(…))+?` at `p`.
+    /// The element boundaries are tried in order until `then` accepts one.
+    /// With no element, the other alternative applies: a position that is a
+    /// boundary.
     fn lazy_prefix(&self, p: usize, then: impl Fn(&Self, usize) -> bool) -> Option<usize> {
         let mut q = p;
         loop {

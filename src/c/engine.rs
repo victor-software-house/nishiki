@@ -1,11 +1,14 @@
-//! C on the shared rule engine ([`crate::rules`]): the grammar's rules and
-//! patterns as C's hand-written tables, the search that finds the next match,
-//! and what the matchers remember about a line.
+//! C on the shared rule engine ([`crate::rules`]).
+//! The module holds the grammar's rules and patterns as C's hand-written
+//! tables, the search that finds the next match, and what the matchers
+//! remember about a line.
 //!
-//! The search is C's own rather than the engine's table scan: at each
-//! position it tries the end of the innermost rule and then only the patterns
-//! that the kind of position allows (`lists::kind`), and it does not skip a
-//! run of blanks at once, because some C patterns start inside one.
+//! The search is C's own, not the engine's table scan.
+//! At each position it tries the end of the innermost rule first.
+//! Then it tries only the patterns that the kind of position allows
+//! (`lists::kind`).
+//! It does not skip a run of blanks at once, because some C patterns start
+//! inside one.
 
 use std::cell::Cell;
 
@@ -24,8 +27,8 @@ pub(crate) type Scratch = rules::Scratch<C>;
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct C;
 
-/// The capture groups the grammar tokenizes with patterns of their own:
-/// none, since a span lexed again names its rule.
+/// The capture groups the grammar tokenizes with patterns of their own: none.
+/// A span lexed again names its rule instead.
 #[derive(Clone, Copy, Debug)]
 pub(crate) enum Nested {}
 
@@ -36,8 +39,9 @@ pub(crate) struct Extra {
     pub(super) start: usize,
     pub(super) end: usize,
     /// The end of the text the caches below were filled from, with its line
-    /// feed: lexing a capture again moves it, and a run found up to another
-    /// end is not the run up to this one.
+    /// feed.
+    /// Lexing a capture again moves this end.
+    /// A run found up to another end is not the run up to this one.
     pub(super) text_end: Cell<usize>,
     /// The last run of each class found.
     pub(super) runs: Runs,
@@ -78,14 +82,16 @@ impl Run {
         end: 0,
     };
 
-    /// Whether a search from `i` lies in the run, and so ends where it does.
+    /// Whether a search from `i` lies in the run.
+    /// Such a search ends where the run does.
     pub(super) fn holds(self, i: usize) -> bool {
         self.start <= i && i <= self.end
     }
 }
 
-/// The last run of each character class found. A search from inside a run
-/// ends where the run does, so a run is scanned once.
+/// The last run of each character class found.
+/// A search from inside a run ends where the run does.
+/// Each run is therefore scanned once.
 #[derive(Debug)]
 pub(super) struct Runs {
     pub(super) space: Cell<Run>,
@@ -114,7 +120,8 @@ impl Runs {
 }
 
 /// A word looked up in the word lists: where it starts and ends, and the
-/// lists it is in, an empty set where no word starts.
+/// lists it is in.
+/// The set of lists is empty where no word starts.
 #[derive(Clone, Copy, Debug)]
 pub(super) struct WordLists {
     pub(super) start: usize,
@@ -199,8 +206,9 @@ impl Grammar for C {
 
 impl Lexer<'_> {
     /// Forgets the runs and words found when the text they were found in
-    /// has changed since, as it does while a capture is lexed again. The
-    /// matchers run only inside `find`, which calls it first.
+    /// has changed since.
+    /// The text changes while a capture is lexed again.
+    /// The matchers run only inside `find`, and `find` calls this first.
     fn fresh(&self) {
         let end = self.len_all();
         if self.x.text_end.get() != end {
@@ -224,22 +232,30 @@ impl Lexer<'_> {
         }
     }
 
-    /// The first match from the cursor on: the earliest position where the
-    /// innermost rule's end or one of its patterns matches, the end first,
-    /// as where it starts, the pattern and where it ends. `None` when nothing
-    /// matches, the work runs out, or, when `HALTING`, a language that embeds
-    /// C takes the text back: where `halt` holds before the patterns at a
-    /// place, or `after` once they fail there. Without `HALTING` the tests
-    /// compile out. A begin of a rule the depth limit keeps
-    /// closed is tried only to record the limit, and its text stays plain.
+    /// The first match from the cursor on.
+    /// It is the earliest position where the innermost rule's end or one of
+    /// its patterns matches, with the end tried first.
+    /// The answer gives where the match starts, the pattern and where it ends.
+    ///
+    /// It is `None` when nothing matches or when the work runs out.
+    /// When `HALTING`, it is also `None` where a language that embeds C takes
+    /// the text back.
+    /// That language takes it back where `halt` holds before the patterns at
+    /// a place, or where `after` holds once they fail there.
+    /// Without `HALTING` the tests compile out.
+    ///
+    /// A begin of a rule the depth limit keeps closed is tried only to record
+    /// the limit.
+    /// Its text stays plain.
     ///
     /// Each position tries only the patterns its kind of position allows
-    /// (`lists::kind`): inside an ASCII word the search tried at its start,
-    /// the patterns that read only the word's chain are left out.
+    /// (`lists::kind`).
+    /// Inside an ASCII word that the search tried at its start, the patterns
+    /// that read only the word's chain are left out.
     ///
-    /// It calls the matchers itself rather than through the engine's
-    /// `try_pat`: C's matchers read no capture groups, so a try clears only
-    /// the spans the last one left.
+    /// It calls the matchers itself, not through the engine's `try_pat`.
+    /// C's matchers read no capture groups.
+    /// A try then clears only the spans the last one left.
     fn find_from<const HALTING: bool>(
         &mut self,
         halt: Halt,

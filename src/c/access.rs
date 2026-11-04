@@ -62,9 +62,11 @@ impl Lexer<'_> {
     /// The chain at `p` that ends in a name of the kind `last`.
     ///
     /// The repeated objects `((?:[A-Za-z_]\w*\s*(?:\.\*?|->\*?)\s*)*)` after
-    /// the first operator are greedy, and give one repetition back at a time
-    /// until the last name matches: the match is the last repetition, in
-    /// order, after which the name matches, so one walk forward finds it.
+    /// the first operator are greedy.
+    /// They give one repetition back at a time until the last name matches.
+    /// The match therefore ends at the last repetition, in order, that the
+    /// name follows.
+    /// One walk forward finds it.
     fn access_chain(&mut self, p: usize, last: Last) -> Option<Chain> {
         let object_end = self.access_object(p)?;
         let (op_end, _) = self.access_op(object_end)?;
@@ -194,13 +196,15 @@ impl Lexer<'_> {
 
     /// `(?:[A-Za-z_][0-9A-Za-z_]*+|::)++` at `i`: where the run ends.
     ///
-    /// The call patterns ask at every byte of a run, so a walk past a plain
-    /// name is cached. A run of colons takes its pairs from wherever it is
-    /// entered, so it passes when an even number of colons is left and stops
-    /// before the last one otherwise. Every position a step lands on after the
-    /// first starts a name or a run of colons, which the cached walk, if it
-    /// covers that position, also lands on: the search then ends where the
-    /// cached one did.
+    /// The call patterns ask at every byte of a run.
+    /// A walk past a plain name is therefore cached.
+    /// A run of colons takes its pairs from wherever it is entered.
+    /// It passes when an even number of colons is left.
+    /// Otherwise it stops before the last colon.
+    /// Every position a step lands on after the first starts a name or a run
+    /// of colons.
+    /// The cached walk, when it covers that position, lands on it too.
+    /// The search then ends where the cached one did.
     fn scoped_name(&self, i: usize) -> Option<usize> {
         let mut j = i;
         if let Some(end) = self.ascii_ident_end(i) {
@@ -247,8 +251,9 @@ impl Lexer<'_> {
         self.b(paren) == b'(' && paren < self.len_all()
     }
 
-    /// The name of a call at `p` and where its `(` is, with `exclude` the
-    /// word lists whose words may not be called: `(?!(?:…)\s*\()(name)\s*(\()`.
+    /// The name of a call at `p` and where its `(` is:
+    /// `(?!(?:…)\s*\()(name)\s*(\()`.
+    /// `exclude` names the word lists whose words may not be called.
     pub(super) fn call_target(&self, p: usize, exclude: u32) -> Option<(usize, usize)> {
         let (name_end, paren) = if let Some(end) = self.scoped_name(p) {
             (end, self.skip_space(end))

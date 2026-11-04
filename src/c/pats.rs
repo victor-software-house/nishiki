@@ -12,8 +12,9 @@ use crate::rules::Act;
 
 impl P {
     /// What the pattern does when it matches: the scopes it names its text
-    /// with, the rule it opens, or the end of the innermost rule. The
-    /// matchers record only where a match lies and the scopes of its parts.
+    /// with, the rule it opens, or the end of the innermost rule.
+    /// The matchers record only where a match lies and the scopes of its
+    /// parts.
     #[expect(
         clippy::too_many_lines,
         reason = "one arm per pattern: the table of what each pattern does"
@@ -189,13 +190,14 @@ impl P {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`; the match's start and end are in `x`,
-    /// and its parts in the spans.
+    /// Whether `pat` matches at `p`.
+    /// The match's start and end are in `x`, and its parts are in the spans.
     ///
-    /// `#[inline]` because `find`, in another module, calls it for every
-    /// candidate pattern: at the default sixteen codegen units the two land in
-    /// different units, and a generic method that is not `#[inline]` cannot be
-    /// inlined across them (`bench/AGENTS.md` rule 13).
+    /// It is `#[inline]` because `find`, in another module, calls it for every
+    /// candidate pattern.
+    /// At the default sixteen codegen units, the two land in different units.
+    /// A generic method that is not `#[inline]` cannot be inlined across them
+    /// (`bench/AGENTS.md` rule 13).
     #[inline]
     #[expect(
         clippy::too_many_lines,

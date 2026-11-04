@@ -5,7 +5,8 @@ use super::scope::S;
 use super::state::R;
 
 /// The words a Doxygen command may be, in the order the grammar lists them.
-/// Each entry of a list stands for one alternative; `em??` is `e` then `em`.
+/// Each entry of a list stands for one alternative.
+/// `em??` is `e` then `em`.
 pub(super) const DOXY_BARE: &[&str] = &[
     "callergraph",
     "callgraph",
@@ -362,8 +363,9 @@ impl Lexer<'_> {
     }
 
     /// The end of a complete `/* … */` comment at `p`:
-    /// `(/\*)((?>…)((?>\*+)/))`. Returns where the body ends, where the closing
-    /// starts, and where it ends.
+    /// `(/\*)((?>…)((?>\*+)/))`.
+    /// It returns where the body ends, where the closing starts, and where the
+    /// closing ends.
     pub(super) fn inline_comment_at(&self, p: usize) -> Option<(usize, usize)> {
         if !self.starts(p, b"/*") {
             return None;

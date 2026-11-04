@@ -15,7 +15,8 @@ impl Lexer<'_> {
         self.s.len() + usize::from(self.nl)
     }
 
-    /// The byte at `i`; the line feed after the text, and 0 past it.
+    /// The byte at `i`.
+    /// It is the line feed just after the text, and 0 past that.
     #[inline]
     pub(super) fn b(&self, i: usize) -> u8 {
         self.at(i)
@@ -87,8 +88,10 @@ impl Lexer<'_> {
     }
 
     /// The end of the run that starts at `i` and holds the characters
-    /// `width_of` accepts, found once per run: `cache` keeps the last run,
-    /// and a search from inside it ends where it does.
+    /// `width_of` accepts.
+    /// Each run is found once.
+    /// `cache` keeps the last run.
+    /// A search from inside that run ends where the run does.
     fn run_end(&self, i: usize, cache: &Cell<Run>, width_of: impl Fn(usize) -> usize) -> usize {
         let run = cache.get();
         if run.holds(i) {
@@ -125,7 +128,7 @@ impl Lexer<'_> {
             .then(|| self.skip_word(i + 1))
     }
 
-    /// The end of `[A-Za-z_][0-9A-Za-z_]*` at `i`, which is ASCII only.
+    /// The end of `[A-Za-z_][0-9A-Za-z_]*` at `i`, in ASCII only.
     pub(super) fn ascii_ident_end(&self, i: usize) -> Option<usize> {
         let b = self.b(i);
         if i >= self.len_all() || !(b.is_ascii_alphabetic() || b == b'_') {
@@ -159,8 +162,8 @@ impl Lexer<'_> {
         true
     }
 
-    /// A begin match from `start` to `end`; its pattern names the rule it
-    /// opens.
+    /// A begin match from `start` to `end`.
+    /// Its pattern names the rule it opens.
     pub(super) fn begin(&mut self, start: usize, end: usize) -> bool {
         self.plain(start, end)
     }

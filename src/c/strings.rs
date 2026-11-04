@@ -40,8 +40,9 @@ impl Lexer<'_> {
     }
 
     /// The end of an escape sequence after the backslash at `p`, as
-    /// `string_escaped_char` reads it; `octal` reads the digits of the
-    /// three-digit form as octal digits, as `backslash_escapes` does.
+    /// `string_escaped_char` reads it.
+    /// `octal` makes it read the digits of the three-digit form as octal
+    /// digits, as `backslash_escapes` does.
     fn escape_end(&self, p: usize, octal: bool) -> Option<usize> {
         if self.b(p) != b'\\' || p >= self.len_all() {
             return None;

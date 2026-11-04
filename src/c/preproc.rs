@@ -307,8 +307,8 @@ impl Lexer<'_> {
         self.begin(0, dir.kw.1)
     }
 
-    /// `^\s*((#)\s*(error|warning))\b\s*` and the include directives, whose
-    /// word names the scope.
+    /// `^\s*((#)\s*(error|warning))\b\s*` and the include directives.
+    /// Each directive's word names the scope.
     pub(super) fn named_directive(&mut self, p: usize, kws: &[&str], prefix: &'static str) -> bool {
         let Some(dir) = self.directive(p, kws) else {
             return false;

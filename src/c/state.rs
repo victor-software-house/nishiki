@@ -1,5 +1,6 @@
-//! The rules the C lexer opens, which are frames of the interned state, and
-//! the pattern lists that lex a capture group again.
+//! The rules the C lexer opens, and the pattern lists that lex a capture
+//! group again.
+//! Each is a frame of the interned state.
 
 use super::scope::S;
 
@@ -148,8 +149,8 @@ impl R {
         TAG | self as u16
     }
 
-    /// The kind a frame's code names; [`R::Top`] for a code that is not C's,
-    /// such as the empty state's.
+    /// The kind a frame's code names.
+    /// It is [`R::Top`] for a code that is not C's, such as the empty state's.
     pub(super) fn from_code(code: u16) -> R {
         if code & 0xfe00 != TAG {
             return R::Top;

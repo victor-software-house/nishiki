@@ -1,15 +1,17 @@
 //! Numeric constants.
 //!
-//! The grammar matches a run of number-like characters, and then lexes that
-//! run again with six patterns, each of which must match all of it, and a
-//! seventh that marks what none of them takes.
+//! The grammar matches a run of number-like characters.
+//! It then lexes that run again with seven patterns.
+//! Each of the first six must match the whole run.
+//! The seventh marks what none of them takes.
 
 use super::engine::Lexer;
 use super::scope::S;
 use super::state::R;
 
-/// The suffixes an integer pattern takes, which are all that follows its
-/// digits: the grammar's alternation, spelled out.
+/// The suffixes an integer pattern takes: the grammar's alternation, spelled
+/// out.
+/// A suffix is all that follows the digits.
 const INT_SUFFIXES: &[&[u8]] = &[
     b"u", b"U", b"ul", b"ull", b"Ul", b"Ull", b"uL", b"uLL", b"UL", b"ULL", b"l", b"ll", b"lu",
     b"llu", b"lU", b"llU", b"L", b"LL", b"Lu", b"LLu", b"LU", b"LLU", b"f", b"F",
@@ -85,10 +87,11 @@ impl Lexer<'_> {
         self.plain(p, i)
     }
 
-    /// One of the six patterns of a number-like run, `pattern`, tried at
-    /// `p`: each is anchored with `\G` at the start of the run and must take
-    /// all of it, so it matches only where the search of the run began, and
-    /// up to its end.
+    /// One of the six patterns of a number-like run, `pattern`, tried at `p`.
+    /// Each is anchored with `\G` at the start of the run and must take all
+    /// of it.
+    /// It matches only from where the search of the run began up to the run's
+    /// end.
     pub(super) fn number_pattern(
         &mut self,
         p: usize,
@@ -189,7 +192,8 @@ impl Lexer<'_> {
     }
 
     /// Whether what follows the digits from `i` to `b` is nothing, or a
-    /// suffix the number takes; with its scopes when it is a suffix.
+    /// suffix the number takes.
+    /// A suffix comes with its scopes.
     fn suffix(&self, i: usize, b: usize, suffix: Suffix) -> Option<&'static [S]> {
         let rest = self.text(i, b);
         let (ok, scopes) = match suffix {

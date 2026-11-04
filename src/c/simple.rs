@@ -61,7 +61,8 @@ impl Lexer<'_> {
         ok && self.plain(p, end)
     }
 
-    /// `typedef`: no boundary before or after, as the grammar has none.
+    /// `typedef`, with no boundary before or after.
+    /// The grammar has none.
     pub(super) fn typedef(&mut self, p: usize) -> bool {
         self.starts(p, b"typedef") && self.plain(p, p + 7)
     }

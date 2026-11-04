@@ -172,7 +172,8 @@ pub(crate) enum P {
     AsmLabel,
     AsmColon,
     ParamDir,
-    /// The end pattern of the innermost rule, which `ends` matches by rule.
+    /// The end pattern of the innermost rule.
+    /// `ends` matches it by rule.
     End,
     HexFloat,
     DecFloat,
@@ -251,8 +252,9 @@ pub(super) const DEFINE_PARAMS: &[Item] = &[
 ];
 pub(super) const PARAM_DIR: &[Item] = &[I(P::ParamDir)];
 pub(super) const NUM_SEP: &[Item] = &[I(P::NumSep)];
-/// The patterns a number-like run is lexed again with: each of the first six
-/// must take the whole run from its start, and the last marks what none takes.
+/// The patterns a number-like run is lexed again with.
+/// Each of the first six must take the whole run from its start.
+/// The last marks what none takes.
 const NUMBER: &[Item] = &[
     I(P::HexFloat),
     I(P::DecFloat),
@@ -265,7 +267,8 @@ const NUMBER: &[Item] = &[
 
 const DISABLED_ITEMS: &[Item] = &[I(P::NestBegin), I(P::PragmaMark)];
 
-/// The top-level patterns, which `$self` includes.
+/// The top-level patterns.
+/// `$self` includes them.
 const SELF: &[Item] = &[
     I(P::EnabledIfBegin),
     I(P::DisabledIfBegin),
@@ -544,7 +547,8 @@ impl R {
     }
 }
 
-/// The index of the bucket for the byte at `p`; 256 is the end of the text.
+/// The index of the bucket for the byte at `p`.
+/// Bucket 256 is the end of the text.
 pub(super) const EOT: usize = 256;
 
 fn is_ws(b: u8) -> bool {
@@ -555,8 +559,9 @@ fn is_ident(b: u8) -> bool {
     b.is_ascii_alphabetic() || b == b'_'
 }
 
-/// Whether a match of `p` can start at the byte `b`, conservatively: a
-/// pattern may start at more bytes than it should, never at fewer.
+/// Whether a match of `p` can start at the byte `b`.
+/// The answer is conservative.
+/// A pattern may start at more bytes than it should, never at fewer.
 #[expect(
     clippy::too_many_lines,
     reason = "one arm per pattern, the table of first bytes"
@@ -751,8 +756,8 @@ fn start_only(p: P) -> bool {
     )
 }
 
-/// Whether `p` can match only where no word character comes before it:
-/// each of these looks at the character before first.
+/// Whether `p` can match only where no word character comes before it.
+/// Each of these patterns first looks at the character before.
 fn word_start(p: P) -> bool {
     matches!(
         p,
@@ -783,9 +788,9 @@ fn word_start(p: P) -> bool {
     )
 }
 
-/// Whether `p` reads only white space and comments from its position, so
-/// that inside a run of white space it fails wherever it failed at the first
-/// position of the run that the search tried.
+/// Whether `p` reads only white space and comments from its position.
+/// Inside a run of white space, such a pattern fails wherever it failed at
+/// the first position of the run that the search tried.
 fn run_start_only(p: P) -> bool {
     matches!(
         p,
@@ -817,9 +822,9 @@ pub(super) fn blank_run_live(b: u8) -> bool {
     )
 }
 
-/// Whether `p` reads only the chain that follows the word it starts in, so
-/// that inside a word that starts with a letter it fails wherever it failed
-/// at the start of the word, if the search tried that.
+/// Whether `p` reads only the chain that follows the word it starts in.
+/// Inside a word that starts with a letter, such a pattern fails wherever it
+/// failed at the start of the word, when the search tried it there.
 fn word_tail_only(p: P) -> bool {
     matches!(
         p,
@@ -827,8 +832,9 @@ fn word_tail_only(p: P) -> bool {
     )
 }
 
-/// Whether `p` starts only at a name that a `(` follows, except that a list
-/// of words it excludes may match inside a word.
+/// Whether `p` starts only at a name that a `(` follows.
+/// The one exception is a list of words it excludes.
+/// Those words may match inside a word.
 fn call_only(p: P) -> bool {
     matches!(
         p,
@@ -899,12 +905,15 @@ pub(super) struct Table {
 }
 
 impl Table {
-    /// The table of context `r`, built the first time a line reaches `r`,
-    /// so a line pays only for the contexts it opens. Bytes that start the
-    /// same patterns share a class, so each kind has a column per class. A
-    /// class index fits a `u8` and a list index a `u16`, which
-    /// `tables_fit_their_indices` checks, so the fallbacks never apply.
-    /// `None` only for an `r` outside [`R::ALL`], which has no such value.
+    /// The table of context `r`, built the first time a line reaches `r`.
+    /// A line pays only for the contexts it opens.
+    /// Bytes that start the same patterns share a class.
+    /// Each kind has a column per class.
+    /// A class index fits a `u8`, and a list index fits a `u16`.
+    /// `tables_fit_their_indices` checks both.
+    /// The fallbacks therefore never apply.
+    /// It is `None` only for an `r` outside [`R::ALL`].
+    /// No such `r` exists.
     pub(super) fn of(r: R) -> Option<&'static Table> {
         static TABLES: [OnceLock<Table>; R::ALL.len()] = [const { OnceLock::new() }; R::ALL.len()];
         TABLES
@@ -912,10 +921,11 @@ impl Table {
             .map(|table| table.get_or_init(move || Table::build(r)))
     }
 
-    /// Builds the table over sets of the context's patterns, one bit per
-    /// pattern in the order the context tries them: a class is the set of
-    /// patterns a byte can start, a kind the set it allows, and a list is
-    /// made only for a set not seen before.
+    /// Builds the table over sets of the context's patterns.
+    /// A set has one bit per pattern, in the order the context tries them.
+    /// A class is the set of patterns a byte can start.
+    /// A kind is the set of patterns it allows.
+    /// A list is made only for a set not seen before.
     fn build(r: R) -> Table {
         let mut flat = Vec::new();
         for list in r.items() {

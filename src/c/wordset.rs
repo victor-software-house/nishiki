@@ -1,5 +1,6 @@
-//! One lookup that says which of the grammar's word lists a word is in, so
-//! the dozen patterns that test a word against a list do not each search.
+//! One lookup that says which of the grammar's word lists a word is in.
+//! The dozen patterns that test a word against a list then do not each
+//! search.
 //! Every test of a word against a list goes through it.
 
 use std::sync::OnceLock;
