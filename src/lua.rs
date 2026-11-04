@@ -17,7 +17,7 @@ pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 use crate::rules;
 
 /// The state at the start of a Lua document whose scopes sit on the stack
@@ -35,6 +35,19 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 #[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
     rules::lex::<Lua>(cx, line, state, |scratch| &mut scratch.lua)
+}
+
+/// Lexes `line` like [`lex`], for Lua that another language embeds, up to
+/// where `end` or `after` halts it (see [`rules::lex_until`]).
+#[inline]
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: Halt,
+    after: Option<Halt>,
+) -> (u32, Option<usize>) {
+    rules::lex_until::<Lua>(cx, line, state, |scratch| &mut scratch.lua, end, after)
 }
 
 #[cfg(test)]

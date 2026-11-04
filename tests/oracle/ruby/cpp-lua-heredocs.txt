@@ -1,0 +1,340 @@
+L # Here documents named for C++ and Lua, which nishiki lexes in those
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 68 source.ruby comment.line.number-sign.ruby
+L # languages, with interpolation and escapes where the language has nothing
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 74 source.ruby comment.line.number-sign.ruby
+L # open.
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 7 source.ruby comment.line.number-sign.ruby
+L source = <<~CPP
+T 6 source.ruby variable.ruby
+T 7 source.ruby
+T 8 source.ruby keyword.operator.assignment.ruby
+T 9 source.ruby
+T 15 source.ruby meta.embedded.block.cpp string.definition.begin.ruby
+L   #include <vector>
+T 2 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.include.cpp
+T 3 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 10 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 11 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.include.cpp
+T 12 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.begin.cpp
+T 18 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp
+T 19 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.end.cpp
+L   template <typename T> class Box { T value = #{initial}; };
+T 2 source.ruby meta.embedded.block.cpp source.cpp
+T 10 source.ruby meta.embedded.block.cpp source.cpp meta.template.definition.cpp storage.type.template.cpp
+T 11 source.ruby meta.embedded.block.cpp source.cpp meta.template.definition.cpp
+T 12 source.ruby meta.embedded.block.cpp source.cpp meta.template.definition.cpp punctuation.section.angle-brackets.begin.template.definition.cpp
+T 20 source.ruby meta.embedded.block.cpp source.cpp meta.template.definition.cpp storage.type.template.argument.typename.cpp
+T 21 source.ruby meta.embedded.block.cpp source.cpp meta.template.definition.cpp
+T 22 source.ruby meta.embedded.block.cpp source.cpp meta.template.definition.cpp entity.name.type.template.cpp
+T 23 source.ruby meta.embedded.block.cpp source.cpp meta.template.definition.cpp punctuation.section.angle-brackets.end.template.definition.cpp
+T 24 source.ruby meta.embedded.block.cpp source.cpp
+T 29 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.head.class.cpp storage.type.class.cpp
+T 30 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp
+T 33 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp entity.name.type.class.cpp
+T 34 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp
+T 35 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.head.class.cpp punctuation.section.block.begin.bracket.curly.class.cpp
+T 36 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.body.class.cpp
+T 37 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.body.class.cpp variable.upper-case.cpp variable.other.unknown.T.cpp
+T 38 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.body.class.cpp
+T 43 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.body.class.cpp variable.lower-case.cpp variable.other.unknown.value.cpp
+T 44 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.body.class.cpp
+T 45 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.body.class.cpp keyword.operator.assignment.cpp
+T 47 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.body.class.cpp
+T 48 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 55 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp variable.lower-case.cpp variable.other.unknown.initial.cpp
+T 56 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 57 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.terminator.statement.cpp
+T 58 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.body.class.cpp
+T 59 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.section.block.end.bracket.curly.class.cpp
+T 60 source.ruby meta.embedded.block.cpp source.cpp meta.block.class.cpp punctuation.terminator.statement.cpp
+L   int main() { std::vector<int> v{#{items}}; return v.size() > 0 ? 0 : 1; }
+T 2 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 5 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 6 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp
+T 10 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 11 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 12 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 13 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 14 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.block.begin.bracket.curly.function.definition.cpp
+T 15 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 18 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.scope-resolution.cpp
+T 20 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 26 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 27 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.qualified-type.cpp meta.template.call.cpp punctuation.section.angle-brackets.begin.template.call.cpp
+T 30 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.qualified-type.cpp meta.template.call.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 31 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.qualified-type.cpp meta.template.call.cpp punctuation.section.angle-brackets.end.template.call.cpp
+T 32 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 33 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.object.construction.cpp
+T 34 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 35 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.block.cpp
+T 36 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.block.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 41 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.unknown.items.cpp
+T 42 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.block.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 43 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 44 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+T 45 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 51 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.control.return.cpp
+T 52 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 53 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 54 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.dot-access.cpp
+T 58 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.function.member.cpp
+T 59 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 60 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 61 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 62 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.comparison.cpp
+T 63 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 64 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.numeric.decimal.cpp
+T 65 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 66 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.ternary.cpp
+T 67 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 68 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.numeric.decimal.cpp
+T 69 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 70 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.ternary.cpp
+T 71 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 72 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.numeric.decimal.cpp
+T 73 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+T 74 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 75 source.ruby meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.block.end.bracket.curly.function.definition.cpp
+L   auto s = "#{name}\n"; auto r = R"(raw #{text})";
+T 2 source.ruby meta.embedded.block.cpp source.cpp
+T 6 source.ruby meta.embedded.block.cpp source.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 7 source.ruby meta.embedded.block.cpp source.cpp
+T 8 source.ruby meta.embedded.block.cpp source.cpp variable.lower-case.cpp variable.other.unknown.s.cpp
+T 9 source.ruby meta.embedded.block.cpp source.cpp
+T 10 source.ruby meta.embedded.block.cpp source.cpp keyword.operator.assignment.cpp
+T 11 source.ruby meta.embedded.block.cpp source.cpp
+T 12 source.ruby meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 19 source.ruby meta.embedded.block.cpp source.cpp string.quoted.double.cpp
+T 21 source.ruby meta.embedded.block.cpp source.cpp string.quoted.double.cpp constant.character.escape.cpp
+T 22 source.ruby meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 23 source.ruby meta.embedded.block.cpp source.cpp punctuation.terminator.statement.cpp
+T 24 source.ruby meta.embedded.block.cpp source.cpp
+T 28 source.ruby meta.embedded.block.cpp source.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 29 source.ruby meta.embedded.block.cpp source.cpp
+T 30 source.ruby meta.embedded.block.cpp source.cpp variable.lower-case.cpp variable.other.unknown.r.cpp
+T 31 source.ruby meta.embedded.block.cpp source.cpp
+T 32 source.ruby meta.embedded.block.cpp source.cpp keyword.operator.assignment.cpp
+T 33 source.ruby meta.embedded.block.cpp source.cpp
+T 34 source.ruby meta.embedded.block.cpp source.cpp string.quoted.double.raw.cpp punctuation.definition.string.begin.cpp meta.encoding.cpp
+T 36 source.ruby meta.embedded.block.cpp source.cpp string.quoted.double.raw.cpp punctuation.definition.string.begin.cpp
+T 47 source.ruby meta.embedded.block.cpp source.cpp string.quoted.double.raw.cpp
+T 49 source.ruby meta.embedded.block.cpp source.cpp string.quoted.double.raw.cpp punctuation.definition.string.end.cpp
+T 50 source.ruby meta.embedded.block.cpp source.cpp punctuation.terminator.statement.cpp
+L   /* a comment
+T 2 source.ruby meta.embedded.block.cpp source.cpp comment.block.cpp
+T 4 source.ruby meta.embedded.block.cpp source.cpp comment.block.cpp punctuation.definition.comment.begin.cpp
+T 14 source.ruby meta.embedded.block.cpp source.cpp comment.block.cpp
+L      across lines #{x} */
+T 23 source.ruby meta.embedded.block.cpp source.cpp comment.block.cpp
+T 25 source.ruby meta.embedded.block.cpp source.cpp comment.block.cpp punctuation.definition.comment.end.cpp
+L   #{statement} \x
+T 2 source.ruby meta.embedded.block.cpp source.cpp
+T 4 source.ruby meta.embedded.block.cpp source.cpp meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 13 source.ruby meta.embedded.block.cpp source.cpp meta.embedded.line.ruby source.ruby
+T 14 source.ruby meta.embedded.block.cpp source.cpp meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 15 source.ruby meta.embedded.block.cpp source.cpp
+T 17 source.ruby meta.embedded.block.cpp source.cpp constant.character.escape.ruby
+L   #define TWICE(x) ((x) * 2)
+T 2 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp
+T 3 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 9 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 10 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp
+T 15 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 16 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 17 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 18 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 19 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp
+T 20 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 21 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp meta.parens.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 22 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp meta.parens.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.x.cpp
+T 23 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp meta.parens.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 24 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 25 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp meta.parens.cpp keyword.operator.arithmetic.cpp
+T 26 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 27 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp meta.parens.cpp constant.numeric.decimal.cpp
+T 28 source.ruby meta.embedded.block.cpp source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L CPP
+T 3 source.ruby meta.embedded.block.cpp string.definition.end.ruby
+L 
+L header = <<-MY_CPP
+T 6 source.ruby variable.ruby
+T 7 source.ruby
+T 8 source.ruby keyword.operator.assignment.ruby
+T 9 source.ruby
+T 18 source.ruby meta.embedded.block.cpp string.definition.begin.ruby
+L   namespace app { struct Point { double x, y; }; }
+T 2 source.ruby meta.embedded.block.cpp source.cpp
+T 11 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.head.namespace.cpp keyword.other.namespace.definition.cpp storage.type.namespace.definition.cpp
+T 12 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.head.namespace.cpp
+T 15 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.head.namespace.cpp entity.name.namespace.cpp
+T 16 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.head.namespace.cpp
+T 17 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.head.namespace.cpp punctuation.section.block.begin.bracket.curly.namespace.cpp
+T 18 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 24 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp meta.head.struct.cpp storage.type.struct.cpp
+T 25 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp
+T 30 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp entity.name.type.struct.cpp
+T 31 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp
+T 32 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp meta.head.struct.cpp punctuation.section.block.begin.bracket.curly.struct.cpp
+T 33 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 39 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp meta.body.struct.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 40 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 41 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp meta.body.struct.cpp variable.lower-case.cpp variable.other.unknown.x.cpp
+T 42 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp meta.body.struct.cpp punctuation.separator.delimiter.comma.cpp
+T 43 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 44 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp meta.body.struct.cpp variable.lower-case.cpp variable.other.unknown.y.cpp
+T 45 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp meta.body.struct.cpp punctuation.terminator.statement.cpp
+T 46 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 47 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp meta.body.struct.cpp punctuation.section.block.end.bracket.curly.struct.cpp
+T 48 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.struct.cpp punctuation.terminator.statement.cpp
+T 49 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 50 source.ruby meta.embedded.block.cpp source.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.section.block.end.bracket.curly.namespace.cpp
+L MY_CPP
+T 6 source.ruby meta.embedded.block.cpp string.definition.end.ruby
+L 
+L script = <<~LUA
+T 6 source.ruby variable.ruby
+T 7 source.ruby
+T 8 source.ruby keyword.operator.assignment.ruby
+T 9 source.ruby
+T 15 source.ruby meta.embedded.block.lua string.definition.begin.ruby
+L   local count = #{count}
+T 2 source.ruby meta.embedded.block.lua source.lua
+T 7 source.ruby meta.embedded.block.lua source.lua keyword.local.lua
+T 8 source.ruby meta.embedded.block.lua source.lua
+T 13 source.ruby meta.embedded.block.lua source.lua variable.other.lua
+T 14 source.ruby meta.embedded.block.lua source.lua
+T 15 source.ruby meta.embedded.block.lua source.lua keyword.operator.lua
+T 16 source.ruby meta.embedded.block.lua source.lua
+T 18 source.ruby meta.embedded.block.lua source.lua meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 23 source.ruby meta.embedded.block.lua source.lua meta.embedded.line.ruby source.ruby
+T 24 source.ruby meta.embedded.block.lua source.lua meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+L   local function greet(name) return "hello " .. name .. " #{suffix}" end
+T 2 source.ruby meta.embedded.block.lua source.lua
+T 7 source.ruby meta.embedded.block.lua source.lua meta.function.lua keyword.local.lua
+T 8 source.ruby meta.embedded.block.lua source.lua meta.function.lua
+T 16 source.ruby meta.embedded.block.lua source.lua meta.function.lua keyword.control.lua
+T 17 source.ruby meta.embedded.block.lua source.lua meta.function.lua
+T 22 source.ruby meta.embedded.block.lua source.lua meta.function.lua entity.name.function.lua
+T 23 source.ruby meta.embedded.block.lua source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 27 source.ruby meta.embedded.block.lua source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 28 source.ruby meta.embedded.block.lua source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 29 source.ruby meta.embedded.block.lua source.lua
+T 35 source.ruby meta.embedded.block.lua source.lua keyword.control.lua
+T 36 source.ruby meta.embedded.block.lua source.lua
+T 37 source.ruby meta.embedded.block.lua source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 43 source.ruby meta.embedded.block.lua source.lua string.quoted.double.lua
+T 45 source.ruby meta.embedded.block.lua source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 47 source.ruby meta.embedded.block.lua source.lua keyword.operator.lua
+T 48 source.ruby meta.embedded.block.lua source.lua
+T 52 source.ruby meta.embedded.block.lua source.lua variable.other.lua
+T 53 source.ruby meta.embedded.block.lua source.lua
+T 55 source.ruby meta.embedded.block.lua source.lua keyword.operator.lua
+T 56 source.ruby meta.embedded.block.lua source.lua
+T 57 source.ruby meta.embedded.block.lua source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 67 source.ruby meta.embedded.block.lua source.lua string.quoted.double.lua
+T 69 source.ruby meta.embedded.block.lua source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 72 source.ruby meta.embedded.block.lua source.lua keyword.control.lua
+L   local text = [[
+T 2 source.ruby meta.embedded.block.lua source.lua
+T 7 source.ruby meta.embedded.block.lua source.lua keyword.local.lua
+T 8 source.ruby meta.embedded.block.lua source.lua
+T 12 source.ruby meta.embedded.block.lua source.lua variable.other.lua
+T 13 source.ruby meta.embedded.block.lua source.lua
+T 14 source.ruby meta.embedded.block.lua source.lua keyword.operator.lua
+T 15 source.ruby meta.embedded.block.lua source.lua
+T 17 source.ruby meta.embedded.block.lua source.lua string.quoted.other.multiline.lua punctuation.definition.string.begin.lua
+L     long #{body}
+T 16 source.ruby meta.embedded.block.lua source.lua string.quoted.other.multiline.lua
+L   ]]
+T 2 source.ruby meta.embedded.block.lua source.lua string.quoted.other.multiline.lua
+T 4 source.ruby meta.embedded.block.lua source.lua string.quoted.other.multiline.lua punctuation.definition.string.end.lua
+L   --[[ a comment
+T 2 source.ruby meta.embedded.block.lua source.lua punctuation.whitespace.comment.leading.lua
+T 6 source.ruby meta.embedded.block.lua source.lua comment.block.lua punctuation.definition.comment.begin.lua
+T 16 source.ruby meta.embedded.block.lua source.lua comment.block.lua
+L        across lines #{x} ]]
+T 25 source.ruby meta.embedded.block.lua source.lua comment.block.lua
+T 27 source.ruby meta.embedded.block.lua source.lua comment.block.lua punctuation.definition.comment.end.lua
+L   for i = 1, #items do print(i) end -- #{note}
+T 2 source.ruby meta.embedded.block.lua source.lua
+T 5 source.ruby meta.embedded.block.lua source.lua keyword.control.lua
+T 6 source.ruby meta.embedded.block.lua source.lua
+T 7 source.ruby meta.embedded.block.lua source.lua variable.other.lua
+T 8 source.ruby meta.embedded.block.lua source.lua
+T 9 source.ruby meta.embedded.block.lua source.lua keyword.operator.lua
+T 10 source.ruby meta.embedded.block.lua source.lua
+T 11 source.ruby meta.embedded.block.lua source.lua constant.numeric.float.lua
+T 13 source.ruby meta.embedded.block.lua source.lua
+T 14 source.ruby meta.embedded.block.lua source.lua keyword.operator.lua
+T 19 source.ruby meta.embedded.block.lua source.lua variable.other.lua
+T 20 source.ruby meta.embedded.block.lua source.lua
+T 22 source.ruby meta.embedded.block.lua source.lua keyword.control.lua
+T 23 source.ruby meta.embedded.block.lua source.lua
+T 28 source.ruby meta.embedded.block.lua source.lua support.function.lua
+T 29 source.ruby meta.embedded.block.lua source.lua
+T 30 source.ruby meta.embedded.block.lua source.lua variable.other.lua
+T 32 source.ruby meta.embedded.block.lua source.lua
+T 35 source.ruby meta.embedded.block.lua source.lua keyword.control.lua
+T 36 source.ruby meta.embedded.block.lua source.lua
+T 38 source.ruby meta.embedded.block.lua source.lua comment.line.double-dash.lua punctuation.definition.comment.lua
+T 46 source.ruby meta.embedded.block.lua source.lua comment.line.double-dash.lua
+L   #{statements} \n
+T 2 source.ruby meta.embedded.block.lua source.lua
+T 4 source.ruby meta.embedded.block.lua source.lua meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 14 source.ruby meta.embedded.block.lua source.lua meta.embedded.line.ruby source.ruby
+T 15 source.ruby meta.embedded.block.lua source.lua meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 16 source.ruby meta.embedded.block.lua source.lua
+T 18 source.ruby meta.embedded.block.lua source.lua constant.character.escape.ruby
+L LUA
+T 3 source.ruby meta.embedded.block.lua string.definition.end.ruby
+L 
+L pair = [<<~CPP, <<~LUA]
+T 4 source.ruby variable.ruby
+T 5 source.ruby
+T 6 source.ruby keyword.operator.assignment.ruby
+T 7 source.ruby
+T 8 source.ruby punctuation.section.array.begin.ruby
+T 14 source.ruby meta.embedded.block.cpp string.definition.begin.ruby
+T 15 source.ruby meta.embedded.block.cpp source.cpp punctuation.separator.delimiter.comma.cpp
+T 16 source.ruby meta.embedded.block.cpp source.cpp
+T 18 source.ruby meta.embedded.block.cpp source.cpp keyword.operator.bitwise.shift.cpp
+T 19 source.ruby meta.embedded.block.cpp source.cpp keyword.operator.bitwise.cpp
+T 22 source.ruby meta.embedded.block.cpp source.cpp variable.upper-case.cpp variable.other.unknown.LUA.cpp
+T 23 source.ruby meta.embedded.block.cpp source.cpp
+L   if (a < b) { #{branch} }
+T 2 source.ruby meta.embedded.block.cpp source.cpp
+T 4 source.ruby meta.embedded.block.cpp source.cpp keyword.control.if.cpp
+T 5 source.ruby meta.embedded.block.cpp source.cpp
+T 6 source.ruby meta.embedded.block.cpp source.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 7 source.ruby meta.embedded.block.cpp source.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.a.cpp
+T 8 source.ruby meta.embedded.block.cpp source.cpp meta.parens.cpp
+T 9 source.ruby meta.embedded.block.cpp source.cpp meta.parens.cpp keyword.operator.comparison.cpp
+T 10 source.ruby meta.embedded.block.cpp source.cpp meta.parens.cpp
+T 11 source.ruby meta.embedded.block.cpp source.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.b.cpp
+T 12 source.ruby meta.embedded.block.cpp source.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 13 source.ruby meta.embedded.block.cpp source.cpp
+T 14 source.ruby meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 16 source.ruby meta.embedded.block.cpp source.cpp meta.block.cpp
+T 17 source.ruby meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 23 source.ruby meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.unknown.branch.cpp
+T 24 source.ruby meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 25 source.ruby meta.embedded.block.cpp source.cpp meta.block.cpp
+T 26 source.ruby meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+L CPP
+T 3 source.ruby meta.embedded.block.cpp string.definition.end.ruby
+L   if a < b then #{branch} end
+T 2 source.ruby
+T 4 source.ruby keyword.control.ruby
+T 7 source.ruby
+T 8 source.ruby keyword.operator.comparison.ruby
+T 11 source.ruby
+T 15 source.ruby keyword.control.ruby
+T 16 source.ruby
+T 17 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 29 source.ruby comment.line.number-sign.ruby
+L LUA
+T 3 source.ruby variable.other.constant.ruby
+L 

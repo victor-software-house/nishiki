@@ -124,6 +124,8 @@ const embeddable: Record<string, [string, string]> = {
   "source.shell": ["Shell", "lang-shell"],
   "source.c": ["C", "lang-c"],
   "source.js": ["JavaScript", "lang-javascript"],
+  "source.cpp": ["Cpp", "lang-cpp"],
+  "source.lua": ["Lua", "lang-lua"],
 };
 
 const pats = new Map<string, Pat>();

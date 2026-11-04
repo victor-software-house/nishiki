@@ -245,10 +245,10 @@ impl<'a> Lexer<'a> {
             while at != ROOT {
                 let frame = arena.frame(at);
                 let kind = Kind::from_code(frame.kind);
-                let name = if rules::content_name(kind).is_some() {
-                    arena.frame(frame.parent).stack
-                } else {
+                let name = if rules::content_name(kind).is_empty() {
                     frame.stack
+                } else {
+                    arena.frame(frame.parent).stack
                 };
                 frames.push(Frame {
                     rule: Rule::Open(kind),
@@ -797,10 +797,7 @@ impl<'a> Lexer<'a> {
             (stack, stack, 0, Some(state))
         } else {
             let name = self.path(parent, rules::names(kind));
-            let content = match rules::content_name(kind) {
-                Some(scope) => self.child(name, scope),
-                None => name,
-            };
+            let content = self.path(name, rules::content_name(kind));
             let payload = match kind {
                 Kind::Fence(_) | Kind::FencePlain => opened.map_or(0, |open| open.fence.payload()),
                 Kind::Body(lang) if lang != Language::Markdown => {

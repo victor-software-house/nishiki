@@ -789,6 +789,11 @@ export const inputs: Input[] = [
   { lang: "python", name: "requests-models", url: `${requests}/src/requests/models.py` },
   { lang: "python", name: "rich-console", url: `${rich}/rich/console.py` },
   { lang: "python", name: "sample", url: `${samples}/python.sample` },
+  {
+    lang: "ruby",
+    name: "cpp-lua-heredocs",
+    url: new URL("inputs/ruby-cpp-lua-heredocs.rb", import.meta.url).href,
+  },
   { lang: "ruby", name: "devise", url: `${devise}/lib/devise.rb` },
   {
     lang: "ruby",

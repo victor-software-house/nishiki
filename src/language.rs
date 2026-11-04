@@ -265,7 +265,7 @@ languages! {
     /// C, with the scopes of Shiki's `c` grammar.
     C { feature: "lang-c", names: ["c"], module: c, reads_line_feed: true, halts: true }
     /// C++, with the scopes of Shiki's `cpp` grammar.
-    Cpp { feature: "lang-cpp", names: ["cpp", "c++"], module: cpp, reads_line_feed: true }
+    Cpp { feature: "lang-cpp", names: ["cpp", "c++"], module: cpp, reads_line_feed: true, halts: true }
     /// SQL, with the scopes of Shiki's `sql` grammar.
     Sql { feature: "lang-sql", names: ["sql"], module: sql, halts: true }
     /// INI, with the scopes of Shiki's `ini` grammar.
@@ -316,7 +316,7 @@ languages! {
     /// tags hold Ruby.
     Erb { feature: "lang-erb", names: ["erb"], module: erb }
     /// Lua, with the scopes of Shiki's `lua` grammar.
-    Lua { feature: "lang-lua", names: ["lua"], module: lua }
+    Lua { feature: "lang-lua", names: ["lua"], module: lua, halts: true }
     /// CMake, with the scopes of Shiki's `cmake` grammar, which nishiki's
     /// `TextMate` engine runs.
     CMake {

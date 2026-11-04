@@ -20,7 +20,7 @@ pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 use crate::rules;
 
 /// The state at the start of a C++ document whose scopes sit on the stack
@@ -29,17 +29,31 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     rules::start::<Cpp>(arena, base)
 }
 
-/// The state at the start of the C++ lines of a fenced code block, whose
-/// text sits on the stack `base`. Shiki's embedding keeps `source.cpp` on the
-/// stack, as for a document of its own, unlike C's.
+/// The state at the start of the C++ lines of a fenced code block or a here
+/// document, whose text sits on the stack `base` with no `source.cpp` of its
+/// own: the language that embeds C++ names it, as Markdown's and Ruby's
+/// grammars do in their `contentName`.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
-    rules::start::<Cpp>(arena, base)
+    rules::start_embedded::<Cpp>(arena, base)
 }
 
 /// Lexes one line under the crate's lexer contract.
 #[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
     rules::lex::<Cpp>(cx, line, state, |scratch| &mut scratch.cpp)
+}
+
+/// Lexes `line` like [`lex`], for C++ that another language embeds, up to
+/// where `end` or `after` halts it (see [`rules::lex_until`]).
+#[inline]
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: Halt,
+    after: Option<Halt>,
+) -> (u32, Option<usize>) {
+    rules::lex_until::<Cpp>(cx, line, state, |scratch| &mut scratch.cpp, end, after)
 }
 
 #[cfg(test)]

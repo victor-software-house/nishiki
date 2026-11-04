@@ -1273,6 +1273,162 @@ fn a_line_lexes_the_same_from_kept_and_rebuilt_frames() {
     }
 }
 
+/// The lines of `a_cpp_fence_keeps_its_scopes_from_kept_and_rebuilt_frames`
+/// and, per line, each token's text with the scopes Shiki 4.6.0 gives it
+/// below the fence's `text.html.markdown markup.fenced_code.block.markdown`.
+#[cfg(feature = "lang-cpp")]
+const CPP_FENCE: [(&str, &[(&str, &str)]); 5] = [
+    (
+        "```cpp",
+        &[
+            ("```", "punctuation.definition.markdown"),
+            ("cpp", "fenced_code.block.language.markdown"),
+        ],
+    ),
+    (
+        "int a = 1; /* one",
+        &[
+            (
+                "int",
+                "meta.embedded.block.cpp source.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp",
+            ),
+            (" ", "meta.embedded.block.cpp source.cpp"),
+            (
+                "a",
+                "meta.embedded.block.cpp source.cpp variable.lower-case.cpp variable.other.unknown.a.cpp",
+            ),
+            (" ", "meta.embedded.block.cpp source.cpp"),
+            (
+                "=",
+                "meta.embedded.block.cpp source.cpp keyword.operator.assignment.cpp",
+            ),
+            (" ", "meta.embedded.block.cpp source.cpp"),
+            (
+                "1",
+                "meta.embedded.block.cpp source.cpp constant.numeric.decimal.cpp",
+            ),
+            (
+                ";",
+                "meta.embedded.block.cpp source.cpp punctuation.terminator.statement.cpp",
+            ),
+            (" ", "meta.embedded.block.cpp source.cpp comment.block.cpp"),
+            (
+                "/*",
+                "meta.embedded.block.cpp source.cpp comment.block.cpp punctuation.definition.comment.begin.cpp",
+            ),
+            (
+                " one",
+                "meta.embedded.block.cpp source.cpp comment.block.cpp",
+            ),
+        ],
+    ),
+    (
+        "two */ int b;",
+        &[
+            (
+                "two ",
+                "meta.embedded.block.cpp source.cpp comment.block.cpp",
+            ),
+            (
+                "*/",
+                "meta.embedded.block.cpp source.cpp comment.block.cpp punctuation.definition.comment.end.cpp",
+            ),
+            (" ", "meta.embedded.block.cpp source.cpp"),
+            (
+                "int",
+                "meta.embedded.block.cpp source.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp",
+            ),
+            (" ", "meta.embedded.block.cpp source.cpp"),
+            (
+                "b",
+                "meta.embedded.block.cpp source.cpp variable.lower-case.cpp variable.other.unknown.b.cpp",
+            ),
+            (
+                ";",
+                "meta.embedded.block.cpp source.cpp punctuation.terminator.statement.cpp",
+            ),
+        ],
+    ),
+    (
+        "return a;",
+        &[
+            (
+                "return",
+                "meta.embedded.block.cpp source.cpp keyword.control.return.cpp",
+            ),
+            (" ", "meta.embedded.block.cpp source.cpp"),
+            (
+                "a",
+                "meta.embedded.block.cpp source.cpp variable.lower-case.cpp variable.other.unknown.a.cpp",
+            ),
+            (
+                ";",
+                "meta.embedded.block.cpp source.cpp punctuation.terminator.statement.cpp",
+            ),
+        ],
+    ),
+    ("```", &[("```", "punctuation.definition.markdown")]),
+];
+
+/// A C++ fence's lines, lexed in order and again from each saved state after
+/// another line moved the highlighter on, so that the frames are rebuilt from
+/// the arena: the scopes Shiki gives, with `meta.embedded.block.cpp
+/// source.cpp`, both from the fence's `contentName`, under one frame.
+#[cfg(feature = "lang-cpp")]
+#[test]
+fn a_cpp_fence_keeps_its_scopes_from_kept_and_rebuilt_frames() {
+    const FENCE: &str = "text.html.markdown markup.fenced_code.block.markdown";
+    let row = |highlighter: &Highlighter, line: &str, tokens: &[crate::Token]| {
+        let mut start = 0;
+        tokens
+            .iter()
+            .map(|token| {
+                let mut scopes: Vec<String> = highlighter
+                    .scopes(token.stack())
+                    .map(ToString::to_string)
+                    .collect();
+                scopes.reverse();
+                let text = line[start..token.end()].to_owned();
+                start = token.end();
+                (text, scopes.join(" "))
+            })
+            .collect::<Vec<_>>()
+    };
+    let want = |index: usize| -> Vec<(String, String)> {
+        CPP_FENCE[index]
+            .1
+            .iter()
+            .map(|&(text, rest)| (text.to_owned(), format!("{FENCE} {rest}")))
+            .collect()
+    };
+    let mut highlighter = Highlighter::new(Language::Markdown);
+    let mut state = State::default();
+    let mut states = Vec::new();
+    for (index, &(line, _)) in CPP_FENCE.iter().enumerate() {
+        states.push(state);
+        let mut tokens = Vec::new();
+        let _ = highlighter.line(line, &mut state, &mut tokens);
+        assert_eq!(
+            row(&highlighter, line, &tokens),
+            want(index),
+            "kept: {line:?}"
+        );
+    }
+    states.push(state);
+    for (index, &(line, _)) in CPP_FENCE.iter().enumerate().skip(1) {
+        let _ = highlighter.line("other", &mut State::default(), &mut Vec::new());
+        let mut from = states[index];
+        let mut tokens = Vec::new();
+        let _ = highlighter.line(line, &mut from, &mut tokens);
+        assert_eq!(
+            row(&highlighter, line, &tokens),
+            want(index),
+            "rebuilt: {line:?}"
+        );
+        assert_eq!(from, states[index + 1], "rebuilt: {line:?}");
+    }
+}
+
 /// The scope stacks of the tokens of line `index` of `text`.
 #[cfg(feature = "lang-html-derivative")]
 fn row(text: &str, index: usize) -> Vec<(String, Vec<String>)> {

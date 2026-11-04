@@ -4369,14 +4369,12 @@ impl Rule {
             | Rule::RootAt93
             | Rule::RootAt94
             | Rule::RootAt95
-            | Rule::RootAt95At0
             | Rule::RootAt96
             | Rule::RootAt97
             | Rule::RootAt98
             | Rule::RootAt98At0
             | Rule::RootAt99
             | Rule::RootAt100
-            | Rule::RootAt100At0
             | Rule::RootAt101
             | Rule::RootAt101At0
             | Rule::RootAt102
@@ -4413,6 +4411,9 @@ impl Rule {
             Rule::RootAt94At0 => {
                 embedded!(Css, "lang-css").map_or(rules::Payload::None, rules::Payload::Embed)
             }
+            Rule::RootAt95At0 => {
+                embedded!(Cpp, "lang-cpp").map_or(rules::Payload::None, rules::Payload::Embed)
+            }
             Rule::RootAt96At0 => {
                 embedded!(C, "lang-c").map_or(rules::Payload::None, rules::Payload::Embed)
             }
@@ -4420,6 +4421,9 @@ impl Rule {
                 .map_or(rules::Payload::None, rules::Payload::Embed),
             Rule::RootAt99At0 => {
                 embedded!(Shell, "lang-shell").map_or(rules::Payload::None, rules::Payload::Embed)
+            }
+            Rule::RootAt100At0 => {
+                embedded!(Lua, "lang-lua").map_or(rules::Payload::None, rules::Payload::Embed)
             }
             Rule::RootAt104 => rules::Payload::Backref(2),
             Rule::RootAt105 => rules::Payload::Backref(6),
