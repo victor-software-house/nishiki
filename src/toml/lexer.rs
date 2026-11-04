@@ -13,25 +13,30 @@ use crate::language::Context;
 use crate::limits::{Finished, Limit, Steps};
 use crate::utf8::char_len;
 
-/// Lexes one line. `pos` is the end of the last token; the bytes between it
-/// and the cursor are plain text of the current context.
+/// Lexes one line.
+/// `pos` is the end of the last token.
+/// The bytes between it and the cursor are plain text of the current context.
 pub(crate) struct Lexer<'a> {
     pub(super) s: &'a [u8],
     /// The tokens, the contexts and the end of the last token.
     pub(super) em: Emitter<'a>,
     /// The work this line has spent and may spend.
     pub(super) steps: Steps,
-    /// The first byte that is not white space: a table header, or a comment
-    /// that gets the leading-space scope, starts here at the earliest.
+    /// The first byte that is not white space.
+    /// A table header, or a comment that gets the leading-space scope, starts
+    /// here at the earliest.
     first: usize,
-    /// Where the table header at `first` ends and whether it is `[[…]]`,
-    /// scanned once: the white space before it and the header ask in turn.
+    /// Where the table header at `first` ends, and whether it is `[[…]]`.
+    /// It is scanned once.
+    /// The white space before the header and the header itself ask in turn.
     header: OnceCell<Option<(usize, bool)>>,
-    /// The last `=` of the line, which a key must precede.
+    /// The last `=` of the line.
+    /// A key must come before it.
     pub(super) last_eq: Option<usize>,
     /// The last answer of a search for the first `"` that `\s*=` follows
-    /// after a byte: the byte searched from and the answer, `usize::MAX` for
-    /// none, which holds for every byte between them.
+    /// after a byte: the byte searched from, and the answer.
+    /// The answer is `usize::MAX` for none.
+    /// It holds for every byte between the two.
     pub(super) quote_eq: Cell<(usize, usize)>,
     /// No key that is only bare names, dots and white space starts before
     /// this byte, because one that started earlier failed where this ends.
@@ -45,9 +50,9 @@ pub(crate) struct Lexer<'a> {
 impl<'a> Lexer<'a> {
     /// The lexer of one line, from `state`.
     ///
-    /// `#[inline]`, as `run` is: `toml::lex`, in another module, calls both on
-    /// every line. At the default sixteen codegen units they were called out
-    /// of line.
+    /// It is `#[inline]`, as `run` is.
+    /// `toml::lex`, in another module, calls both on every line.
+    /// At the default sixteen codegen units they were called out of line.
     #[inline]
     pub(crate) fn new(cx: &'a mut Context<'_>, s: &'a [u8], state: u32) -> Self {
         let steps = Steps::new(cx.limits, s.len());
@@ -151,7 +156,8 @@ impl<'a> Lexer<'a> {
         Kind::from_code(self.em.frame.kind)
     }
 
-    /// Opens a context; false when a limit keeps it closed.
+    /// Opens a context.
+    /// It returns false when a limit keeps the context closed.
     fn push(&mut self, kind: Kind) -> bool {
         let payload = if kind == Kind::Inline {
             InlineComments::Allowed.payload()
@@ -198,8 +204,9 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    /// Opens `kind` at `p`, whose begin text ends at `end` and carries
-    /// `leaf`; the text stays plain when a limit keeps the context closed.
+    /// Opens `kind` at `p`.
+    /// Its begin text ends at `end` and carries `leaf`.
+    /// The text stays plain when a limit keeps the context closed.
     pub(super) fn begin(&mut self, p: usize, end: usize, kind: Kind, leaf: S) -> usize {
         self.gap(p);
         if self.push(kind) {
@@ -240,8 +247,10 @@ impl<'a> Lexer<'a> {
         self.invalid(p)
     }
 
-    /// White space at `p`: the scope of a table header or comment that
-    /// follows it on a line that starts with it, plain otherwise.
+    /// White space at `p`.
+    /// On a line that starts with it, it takes the scope of the table header
+    /// or comment that follows.
+    /// Elsewhere it is plain.
     fn space(&mut self, p: usize) -> usize {
         let end = self.skip_space(p);
         if p == 0 && end == self.first && end < self.s.len() {
@@ -264,7 +273,8 @@ impl<'a> Lexer<'a> {
     }
 
     /// Whether the line up to `end` is only spaces and tabs, as `[ \t]+` reads
-    /// it; other white space does not get the leading-space scope.
+    /// it.
+    /// Other white space does not get the leading-space scope.
     fn blanks(&self, end: usize) -> bool {
         self.s[..end].iter().all(|&b| b == b' ' || b == b'\t')
     }
@@ -376,9 +386,10 @@ impl<'a> Lexer<'a> {
         self.invalid(p)
     }
 
-    /// White space in an array or inline table, which is the leading-space
-    /// scope when it precedes a comment on a line that starts with it, though
-    /// an inline table has no comments.
+    /// White space in an array or inline table.
+    /// It takes the leading-space scope when it precedes a comment on a line
+    /// that starts with it.
+    /// An inline table has no comments.
     fn leading_space(&mut self, p: usize) -> usize {
         let end = self.skip_space(p);
         let comments =

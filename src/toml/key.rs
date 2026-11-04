@@ -1,9 +1,11 @@
 //! Keys, and the `=` that follows one.
 //!
-//! A key is bare names, quoted names, or both, joined by dots. One that
-//! begins with a `"` and ends with the first later `"` that an `=` follows is
-//! read as a single quoted name, whatever its dots and quotes, which marks
-//! its inner quotes invalid; Shiki's output shows it, so the lexer does it.
+//! A key is bare names, quoted names, or both, joined by dots.
+//! Some keys begin with a `"` and end with the first later `"` that an `=`
+//! follows.
+//! Such a key is read as a single quoted name, whatever its dots and quotes.
+//! Its inner quotes are then marked invalid.
+//! Shiki's output does this, so the lexer does it too.
 
 use memchr::{memchr, memchr2};
 
@@ -136,8 +138,9 @@ impl Lexer<'_> {
     }
 
     /// Whether the name at `i` opens with a quote, and its end if it is a
-    /// whole name. A quote that never closes still makes the name quoted,
-    /// which decides what a failed key remembers.
+    /// whole name.
+    /// A quote that never closes still makes the name quoted.
+    /// That decides what a failed key remembers.
     fn name(&self, i: usize) -> (NameKind, Option<usize>) {
         let kind = if matches!(self.at(i), b'"' | b'\'') {
             NameKind::Quoted
@@ -243,8 +246,9 @@ impl Lexer<'_> {
         self.tok_at(close, end, &[S::Key, S::PunctKeyEnd]);
     }
 
-    /// Emits a key of names joined by dots, from `p` to `end`: its text,
-    /// white space between the names and dots included, is a key.
+    /// Emits a key of names joined by dots, from `p` to `end`.
+    /// Its whole text is scoped as a key, white space between the names and
+    /// dots included.
     fn dotted(&mut self, p: usize, end: usize) {
         let mut i = p;
         while i < end {

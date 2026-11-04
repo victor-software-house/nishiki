@@ -157,6 +157,9 @@ fn what_follows_an_equals_that_is_no_value_is_plain_for_one_character() {
     assert_eq!(rows[0].last().map(|(t, _)| t.as_str()), Some("= 1"));
 }
 
+/// `3` follows `2` with no comma between them.
+/// The comma after `3` is a separator.
+/// `4` after that is a value again.
 #[test]
 fn a_value_after_a_value_in_an_array_needs_a_comma_across_lines() {
     let text = indoc! {"
@@ -172,8 +175,6 @@ fn a_value_after_a_value_in_an_array_needs_a_comma_across_lines() {
     let leaf_of = |row: usize, token: usize| rows[row][token].1.last().map(String::as_str);
     assert_eq!(leaf_of(1, 1), integer);
     assert_eq!(leaf_of(2, 1), integer);
-    // `3` follows `2` with no comma between them; the comma after it is a
-    // separator, and `4` after that is a value again.
     assert_eq!(leaf_of(3, 1), Some(INVALID));
     assert_eq!(leaf_of(3, 2), Some("punctuation.separator.array.toml"));
     assert_eq!(leaf_of(4, 1), integer);
@@ -243,10 +244,10 @@ fn strings_continue_across_lines_and_close_with_up_to_five_quotes() {
     );
 }
 
+/// The backslashes and the `u`s sit in separate pieces of the text.
+/// No tool then reads them as one escape.
 #[test]
 fn escapes_are_valid_or_invalid_by_their_digits() {
-    // The backslashes and the `u`s are apart so that no tool reads them as one
-    // escape.
     let text = ["a = \"", "\\n", "\\", "u00e9", "\\", "u00e ", "\\q", "\""].concat();
     let rows = lex(&text);
     let scoped: Vec<_> = rows[0]

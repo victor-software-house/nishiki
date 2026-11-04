@@ -1,4 +1,5 @@
-//! The contexts the TOML lexer opens, which are frames of the interned state.
+//! The contexts the TOML lexer opens.
+//! Each is a frame of the interned state.
 
 use super::scope::S;
 
@@ -10,9 +11,11 @@ crate::tag::frame_kinds! {
     pub(crate) enum Kind: TAG {
         /// Outside every context: a table of key/value pairs.
         Top,
-        /// `[` up to `]`; the payload is an [`ArrayNext`].
+        /// `[` up to `]`.
+        /// The payload is an [`ArrayNext`].
         Array,
-        /// `{` up to `}`; the payload is an [`InlineComments`].
+        /// `{` up to `}`.
+        /// The payload is an [`InlineComments`].
         Inline,
         /// `"` up to `"`.
         Basic,
@@ -67,8 +70,9 @@ impl ArrayNext {
     }
 }
 
-/// Whether a comment may start a line of the inline table being read, kept
-/// in its frame's payload: one may after `{` and `,` only.
+/// Whether a comment may start a line of the inline table being read.
+/// It is kept in the frame's payload.
+/// A comment may start a line only after `{` and `,`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum InlineComments {
     Allowed,

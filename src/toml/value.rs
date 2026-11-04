@@ -61,9 +61,12 @@ impl Lexer<'_> {
         }
     }
 
-    /// The value after a key's `=`: white space, then one value; where none
-    /// matches, the first character is plain text and the lines' own rules
-    /// read the rest.
+    /// The value after a key's `=`: white space, then one value.
+    /// Where no value matches, the first character is plain text.
+    /// The lines' own rules read the rest.
+    ///
+    /// A second `=` matches `=[=\s]*\S?`.
+    /// It takes the white space after it and the next character along.
     pub(super) fn value_after_equals(&mut self, equals: usize) -> usize {
         let p = self.skip_space(equals);
         if p >= self.s.len() {
@@ -75,8 +78,6 @@ impl Lexer<'_> {
         if self.s[p] != b'=' {
             return p + self.width_at(p);
         }
-        // `=[=\s]*\S?`: another `=` takes the `=` and white space after it, and
-        // the character after those, along.
         let mut end = p;
         loop {
             let width = space_width(self.s, end);

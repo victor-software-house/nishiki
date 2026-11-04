@@ -9,6 +9,8 @@ use super::state::Kind;
 impl Lexer<'_> {
     /// Takes the text of a `"` or `"""` string up to its next escape or
     /// closing quote.
+    ///
+    /// A backslash that ends a `"""` line takes the next line's.
     #[inline]
     pub(super) fn in_basic(&mut self, p: usize) -> usize {
         let multi = self.top() == Kind::BasicMulti;
@@ -30,7 +32,6 @@ impl Lexer<'_> {
                 self.tok_at(q, q + len, &[scope]);
                 q + len
             }
-            // A backslash that ends a `"""` line takes the next line's.
             None if multi => self.s.len(),
             None => {
                 self.tok_at(q, q + 1, &[S::InvalidEscape]);
@@ -54,8 +55,9 @@ impl Lexer<'_> {
         }
     }
 
-    /// A run of `quote` at `q` in a triple-quoted string: three to five of
-    /// them close it, and fewer are text.
+    /// A run of `quote` at `q` in a triple-quoted string.
+    /// Three to five of them close it.
+    /// Fewer are text.
     fn multi_quote(&mut self, q: usize, quote: u8) -> usize {
         let mut end = q;
         while self.at(end) == quote {
@@ -71,8 +73,8 @@ impl Lexer<'_> {
     /// The escape at the backslash at `q` in a `"` string: its length and
     /// scope, or `None` when the backslash ends the line.
     ///
-    /// `\\(?:[btnfr"\\]|u\h{4}|U\h{8})` is an escape; a backslash and
-    /// the character after it are an invalid one otherwise.
+    /// `\\(?:[btnfr"\\]|u\h{4}|U\h{8})` is an escape.
+    /// Any other backslash and the character after it are an invalid escape.
     pub(super) fn escape(&self, q: usize) -> Option<(usize, S)> {
         let hex = |digits: usize| (2..2 + digits).all(|k| self.at(q + k).is_ascii_hexdigit());
         match self.at(q + 1) {
