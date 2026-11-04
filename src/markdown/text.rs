@@ -8,9 +8,10 @@ use crate::utf8;
 /// A window on one line, as the `TextMate` engine presents it to a regular
 /// expression.
 ///
-/// The engine appends a newline to every line, and shows a capture's own
-/// rules only the line up to the end of the capture. `end` is that end: in a
-/// line it is one past the last byte, which stands for the newline.
+/// The engine appends a newline to every line.
+/// It shows a capture's own rules only the line up to the end of the capture.
+/// `end` is that end.
+/// In a line it is one past the last byte, which stands for the newline.
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Cx<'a> {
     /// The line, without its line ending.
@@ -19,8 +20,8 @@ pub(crate) struct Cx<'a> {
     pub(crate) end: usize,
     /// The position `\G` matches: where the last rule matched ended.
     pub(crate) anchor: Option<usize>,
-    /// The steps the line has spent and may spend, which the lexer's loop
-    /// checks each turn.
+    /// The steps the line has spent and may spend.
+    /// The lexer's loop checks them each turn.
     pub(crate) steps: &'a Steps,
 }
 
@@ -165,12 +166,14 @@ impl Cx<'_> {
         self.char_before(p).is_some_and(is_word)
     }
 
-    /// The byte length of the character at `p`, which is 1 for an invalid one.
+    /// The byte length of the character at `p`.
+    /// It is 1 for an invalid character.
     pub(crate) fn char_len(&self, p: usize) -> usize {
         self.char_at(p).map_or(1, char::len_utf8)
     }
 
-    /// Whether the line has spent its work, so that a long scan gives up.
+    /// Whether the line has spent its work.
+    /// A long scan then gives up.
     pub(crate) fn over(&self) -> bool {
         self.steps.exhausted()
     }

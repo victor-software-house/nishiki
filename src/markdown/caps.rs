@@ -4,16 +4,17 @@
 /// The most groups any rule has (the link rules have 21).
 const GROUPS: usize = 22;
 
-/// The deepest the scoped groups of one match nest inside each other. No
-/// rule of the grammar nests deeper, which debug builds assert; a deeper
-/// group would take no scope of its own.
+/// The deepest the scoped groups of one match nest inside each other.
+/// No rule of the grammar nests deeper, and debug builds assert it.
+/// A deeper group would take no scope of its own.
 pub(crate) const NESTING: usize = 4;
 
 /// The byte range of each capture group that took part in a match, in group
 /// order.
 ///
-/// Clearing is one store, so a lexer keeps one table and clears it before
-/// each rule it tries instead of building a table per attempt.
+/// Clearing is one store.
+/// A lexer therefore keeps one table and clears it before each rule it tries,
+/// instead of building a table per attempt.
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Caps {
     len: usize,
@@ -32,9 +33,9 @@ impl Caps {
         self.len = 0;
     }
 
-    /// Records group `index` as the bytes from `start` to `end`. A full
-    /// table keeps the groups it has: no rule sets more than [`GROUPS`],
-    /// which debug builds assert.
+    /// Records group `index` as the bytes from `start` to `end`.
+    /// A full table keeps the groups it has.
+    /// No rule sets more than [`GROUPS`], and debug builds assert it.
     pub(crate) fn set(&mut self, index: usize, start: usize, end: usize) {
         debug_assert!(self.len < GROUPS, "group {index} past {GROUPS} groups");
         if self.len == GROUPS {

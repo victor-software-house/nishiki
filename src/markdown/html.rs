@@ -48,8 +48,8 @@ pub(crate) fn raw_open(cx: &Cx<'_>, p: usize) -> Option<usize> {
     (ends && raw_closes(cx, name).next().is_none()).then_some(i)
 }
 
-/// `(?i)(.*)((</)(script|style|pre)(>))`, which closes a raw HTML block at
-/// the last closing tag of the line.
+/// `(?i)(.*)((</)(script|style|pre)(>))`.
+/// It closes a raw HTML block at the last closing tag of the line.
 pub(crate) fn raw_close(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
     let at = raw_closes(cx, p).last()?;
     let end = raw_tag(cx, at + 2)? + 1;
@@ -61,16 +61,18 @@ pub(crate) fn raw_close(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize>
     Some(end)
 }
 
-/// `(?i)^(?!.*</(script|style|pre)>)`, which keeps the lines of a raw HTML
-/// block going up to the closing one. `^` matches at the start of the line
-/// only, so a block inside a container ends with its first line.
+/// `(?i)^(?!.*</(script|style|pre)>)`.
+/// It keeps the lines of a raw HTML block going up to the closing one.
+/// `^` matches at the start of the line only.
+/// A block inside a container therefore ends with its first line.
 pub(crate) fn raw_while(cx: &Cx<'_>, p: usize) -> Option<usize> {
     (p == 0 && raw_closes(cx, 0).next().is_none()).then_some(p)
 }
 
 /// The two other HTML blocks:
 /// `(?i)(^|\G)\s*(?=</?[A-Za-z]+[^\&/;gt\s]*(\s|$|/?>))` and `(^|\G)\s*(?=(<(?:
-/// [-0-9A-Za-z](/?>|\s.*?>)|/[-0-9A-Za-z]>))\s*$)`, which match the same text.
+/// [-0-9A-Za-z](/?>|\s.*?>)|/[-0-9A-Za-z]>))\s*$)`.
+/// Both match the same text.
 pub(crate) fn block_open(cx: &Cx<'_>, p: usize) -> Option<usize> {
     if !cx.at_start(p) {
         return None;
@@ -79,12 +81,14 @@ pub(crate) fn block_open(cx: &Cx<'_>, p: usize) -> Option<usize> {
     (cx.get(i) == Some(b'<') && (tag_start(cx, i) || short_tag_line(cx, i))).then_some(i)
 }
 
-/// `</?[A-Za-z]+[^\&/;gt\s]*(\s|$|/?>)` at `p`, under `(?i)`, which keeps
-/// `G` and `T` out of the class too.
+/// `</?[A-Za-z]+[^\&/;gt\s]*(\s|$|/?>)` at `p`, under `(?i)`.
+/// `(?i)` keeps `G` and `T` out of the class too.
 ///
 /// A position past the letters is reachable when one of the letters ends
-/// there, or when the byte before it is in the class and that position is
-/// reachable; the match needs a reachable position that ends the tag.
+/// there.
+/// It is also reachable when the byte before it is in the class and that
+/// position is reachable.
+/// The match needs a reachable position that ends the tag.
 fn tag_start(cx: &Cx<'_>, p: usize) -> bool {
     let start = p + 1 + usize::from(cx.get(p + 1) == Some(b'/'));
     let letters = cx.skip(start, |b| b.is_ascii_alphabetic());
@@ -135,15 +139,16 @@ fn short_tag_line(cx: &Cx<'_>, p: usize) -> bool {
     memchr::memchr_iter(b'>', rest).any(|at| cx.only_space_after(k + space + at + 1))
 }
 
-/// `^(?!\s*$)`, which keeps an HTML block going up to a blank line. `^`
-/// matches at the start of the line only, so a block inside a container
-/// ends with its first line.
+/// `^(?!\s*$)`.
+/// It keeps an HTML block going up to a blank line.
+/// `^` matches at the start of the line only.
+/// A block inside a container therefore ends with its first line.
 pub(crate) fn block_while(cx: &Cx<'_>, p: usize) -> Option<usize> {
     (p == 0 && !cx.only_space_after(0)).then_some(p)
 }
 
-/// `(?=<[^>]*?>)`, the rule that emphasis tries first, which hands a tag to
-/// html-derivative.
+/// `(?=<[^>]*?>)`, the rule that emphasis tries first.
+/// It hands a tag to html-derivative.
 pub(crate) fn wrap_open(cx: &Cx<'_>, p: usize) -> Option<usize> {
     if cx.get(p) != Some(b'<') {
         return None;

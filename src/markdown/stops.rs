@@ -56,12 +56,14 @@ pub(crate) enum Step {
 ///
 /// It lives in the box of [`Runs`](super::runs::Runs), which the first long
 /// look-ahead allocates.
-/// The runs' per-line reset forgets it too, so a line pays one test for both.
+/// The runs' per-line reset forgets it too.
+/// A line therefore pays one test for both.
 #[derive(Debug, Default)]
 pub(crate) struct Stops {
     /// The line's address and length, and the end of its text.
     text: Option<(usize, usize, usize)>,
-    /// Bumped whenever `text` changes, so old entries need no clearing.
+    /// Bumped whenever `text` changes.
+    /// Old entries therefore need no clearing.
     generation: u32,
     /// For each kind, for each position, the generation and the stop.
     memo: [Vec<(u32, usize)>; 4],

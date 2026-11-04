@@ -1,7 +1,8 @@
 //! What Markdown does when the languages it embeds are not built.
 //!
-//! Each test runs only when its language is off, so `cargo test --lib
-//! --no-default-features --features lang-markdown` exercises it.
+//! Each test runs only when its language is off.
+//! `cargo test --lib --no-default-features --features lang-markdown`
+//! exercises it.
 
 use indoc::indoc;
 

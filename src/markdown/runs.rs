@@ -96,7 +96,8 @@ impl Run {
 ///
 /// The tables are boxed and allocated on the first miss.
 /// A highlighter that never needs them keeps an 8-byte field and allocates
-/// nothing. Once allocated, the box is reused from line to line.
+/// nothing.
+/// Once allocated, the box is reused from line to line.
 #[derive(Debug, Default)]
 pub(crate) struct Runs {
     held: Option<Box<Held>>,
@@ -263,7 +264,8 @@ struct Table {
 
 impl Table {
     /// Finds the runs of `full`'s delimiter in `line`, and each delimiter's
-    /// closing run. Returns the bytes it read.
+    /// closing run.
+    /// It returns the bytes it read.
     #[cold]
     #[inline(never)]
     fn build<C: Closer>(&mut self, line: &[u8], full: &C) -> usize {
@@ -313,9 +315,9 @@ impl Table {
     /// The table assumes the text runs to the end of the line.
     /// A run that ends past `open.line_end` does not count.
     /// When the closing run found is such a run, the lookup tries the next
-    /// shorter length. The one run that reaches `open.line_end` is checked
-    /// separately. It counts with its cut length, and the rule checks it in the
-    /// cut text.
+    /// shorter length.
+    /// The one run that reaches `open.line_end` is checked separately.
+    /// It counts with its cut length, and the rule checks it in the cut text.
     fn closing<C: Closer>(&self, open: Open, at: &C) -> (Option<Span>, usize) {
         let Open {
             p,
@@ -488,7 +490,8 @@ mod tests {
 
     /// The rule finds the span the scan finds.
     /// The test covers each line, each delimiter in it and each end of its
-    /// text. It uses a fresh table, which takes the first scan.
+    /// text.
+    /// It uses a fresh table, which takes the first scan.
     /// It also uses a table that the line's earlier spans built.
     fn check(
         alphabet: &[u8],

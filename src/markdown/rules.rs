@@ -6,7 +6,8 @@ use super::state::Kind;
 use crate::Language;
 
 /// A rule that matches text: a `match` rule, or the `begin` of a rule that
-/// opens a container. The closing rules ([`End`]) are separate.
+/// opens a container.
+/// The closing rules ([`End`]) are separate.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum P {
     // Blocks.
@@ -17,18 +18,20 @@ pub(crate) enum P {
     Quote,
     Bullet,
     Ordered,
-    /// A fence of any language; matching decides which of the two below it is.
+    /// A fence of any language.
+    /// Matching decides which of the two below it is.
     Fence,
     FenceLanguage,
     FencePlain,
     RawBlock,
     LinkDef,
     Comment,
-    /// A raw HTML block: `<script>`, `<style>` or `<pre>`, which its line
-    /// does not close.
+    /// A raw HTML block: `<script>`, `<style>` or `<pre>`.
+    /// Its line does not close it.
     #[cfg(feature = "lang-html-derivative")]
     HtmlRaw,
-    /// `(\s*|$)`, which starts the lines inside a raw HTML block.
+    /// `(\s*|$)`.
+    /// It starts the lines inside a raw HTML block.
     #[cfg(feature = "lang-html-derivative")]
     HtmlRawBody,
     /// The two other HTML blocks, whose matches are the same.
@@ -70,11 +73,12 @@ pub(crate) enum P {
     LinkRef,
     LinkRefLiteral,
     LinkRefShortcut,
-    /// The root patterns of html-derivative, which a paragraph and a heading
-    /// include after the inline rules.
+    /// The root patterns of html-derivative.
+    /// A paragraph and a heading include them after the inline rules.
     #[cfg(feature = "lang-html-derivative")]
     Html,
-    /// `(?=<[^>]*?>)`, which emphasis tries first.
+    /// `(?=<[^>]*?>)`.
+    /// Emphasis tries it first.
     #[cfg(feature = "lang-html-derivative")]
     HtmlWrap,
 }
@@ -82,10 +86,11 @@ pub(crate) enum P {
 impl P {
     /// Whether a block rule can match at a position, given the byte there
     /// (`at`), the first byte after the blanks that follow (`first`), and
-    /// whether `^` or `\G` matches there (`anchored`). Every block rule but
-    /// the definition starts at such a position; each begins by testing one of
-    /// the two bytes, and the lexer asserts in debug builds that a rule this
-    /// skips would have failed.
+    /// whether `^` or `\G` matches there (`anchored`).
+    /// Every block rule but the definition starts at such a position.
+    /// Each begins by testing one of the two bytes.
+    /// The lexer asserts in debug builds that a rule this skips would have
+    /// failed.
     pub(crate) fn opens_block(self, anchored: bool, at: u8, first: u8) -> bool {
         if !anchored {
             return self == P::LinkDef;
@@ -140,9 +145,10 @@ impl P {
         }
     }
 
-    /// Whether an inline rule can start with `byte`, so that the lexer tries
-    /// only those that can. The block rules answer true, as they are not
-    /// chosen by their first byte.
+    /// Whether an inline rule can start with `byte`.
+    /// The lexer then tries only those that can.
+    /// The block rules answer true, because they are not chosen by their first
+    /// byte.
     pub(crate) fn opens_with(self, byte: u8) -> bool {
         match self {
             P::Ampersand => byte == b'&',
@@ -198,7 +204,8 @@ pub(crate) enum End {
     Comment,
     Bold,
     Italic,
-    /// `(?i)(.*)((</)(script|style|pre)(>))`, which closes a raw HTML block.
+    /// `(?i)(.*)((</)(script|style|pre)(>))`.
+    /// It closes a raw HTML block.
     #[cfg(feature = "lang-html-derivative")]
     HtmlRaw,
 }
@@ -468,10 +475,11 @@ pub(crate) fn names(kind: Kind) -> &'static [S] {
     }
 }
 
-/// The scopes each embedded language's fence adds to its text: one, except
-/// C++'s, whose `contentName` also names `source.cpp`. Shiki's Markdown
-/// grammar has no rule that embeds TOML or GraphQL, so they have none, and
-/// neither has a language whose feature is off.
+/// The scopes each embedded language's fence adds to its text.
+/// Each adds one, except C++, whose `contentName` also names `source.cpp`.
+/// Shiki's Markdown grammar has no rule that embeds TOML or GraphQL, so they
+/// have none.
+/// Neither has a language whose feature is off.
 const EMBEDDED: &[(Language, &[S])] = &[
     #[cfg(feature = "lang-rust")]
     (Language::Rust, &[S::EmbeddedRust]),
@@ -677,8 +685,9 @@ const fn only(group: usize, only: usize, capture: Capture) -> Capture {
     if group == only { capture } else { NONE }
 }
 
-/// The title groups of a link, image or definition, which start at group
-/// `first`: the parenthesised, double-quoted and single-quoted forms.
+/// The title groups of a link, image or definition, starting at group
+/// `first`.
+/// They are the parenthesised, double-quoted and single-quoted forms.
 fn title(group: usize, first: usize) -> Capture {
     match group.checked_sub(first) {
         Some(0 | 3 | 6) => scope(S::TitleName),
@@ -757,6 +766,9 @@ pub(crate) fn capture(rule: P, group: usize) -> Capture {
 }
 
 /// [`capture`] for the inline rules.
+///
+/// [`capture`] has taken every rule that is not inline, so the last arm
+/// gives the rest none.
 #[expect(
     clippy::wildcard_enum_match_arm,
     reason = "`capture` handles every rule that is not inline"
@@ -833,7 +845,6 @@ fn inline_capture(rule: P, group: usize) -> Capture {
             3 => scope(S::TitleEndLink),
             _ => NONE,
         },
-        // `capture` has taken every rule that is not inline.
         _ => NONE,
     }
 }

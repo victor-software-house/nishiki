@@ -1,5 +1,5 @@
-//! The contexts the Markdown lexer opens, which are frames of the interned
-//! state.
+//! The contexts the Markdown lexer opens.
+//! Each is a frame of the interned state.
 
 use crate::Language;
 
@@ -18,22 +18,24 @@ pub(crate) enum Kind {
     ListBullet,
     /// `1.` or `1)` up to a line that is not indented.
     ListOrdered,
-    /// A fence of an embedded language up to the closing fence. The frame's
-    /// payload is the [`Fence`]. A `markdown` fence embeds Markdown itself:
-    /// the grammar includes its own rules there.
+    /// A fence of an embedded language up to the closing fence.
+    /// The frame's payload is the [`Fence`].
+    /// A `markdown` fence embeds Markdown itself.
+    /// The grammar includes its own rules there.
     Fence(Language),
-    /// A fence of any other language up to the closing fence. The payload is
-    /// the [`Fence`].
+    /// A fence of any other language up to the closing fence.
+    /// The payload is the [`Fence`].
     FencePlain,
-    /// The lines inside a [`Kind::Fence`], which the embedded language's rules
-    /// take. The payload of an embedded body is the state of the embedded
-    /// lexer.
+    /// The lines inside a [`Kind::Fence`].
+    /// The embedded language's rules take them.
+    /// The payload of an embedded body is the state of the embedded lexer.
     Body(Language),
     /// Four spaces or a tab up to a line without them.
     RawBlock,
     /// `|` up to a line that does not start with `|`.
     Table,
-    /// A paragraph, which ends with the next line unless that is indented.
+    /// A paragraph.
+    /// It ends with the next line unless that line is indented.
     Paragraph,
     /// `<!--` up to `-->`.
     Comment,
@@ -45,43 +47,45 @@ pub(crate) enum Kind {
     ItalicStar,
     /// `_` up to `_`.
     ItalicUnder,
-    /// A first line of dashes up to a line of the same dashes or `...`. The
-    /// payload is the number of dashes.
+    /// A first line of dashes up to a line of the same dashes or `...`.
+    /// The payload is the number of dashes.
     FrontMatter,
-    /// The YAML inside [`Kind::FrontMatter`]; the payload is the YAML lexer's
-    /// state.
+    /// The YAML inside [`Kind::FrontMatter`].
+    /// The payload is the YAML lexer's state.
     FrontMatterBody,
     /// A `<script>`, `<style>` or `<pre>` HTML block whose line does not close
     /// it, up to the line that does.
     HtmlRaw,
-    /// The lines inside [`Kind::HtmlRaw`] before the closing one, which
-    /// html-derivative takes; the payload is its state.
+    /// The lines inside [`Kind::HtmlRaw`] before the closing one.
+    /// html-derivative takes them, and the payload is its state.
     HtmlRawBody,
-    /// Any other HTML block, up to a blank line, which html-derivative takes;
-    /// the payload is its state.
+    /// Any other HTML block, up to a blank line.
+    /// html-derivative takes it, and the payload is its state.
     HtmlBlock,
     /// A match of html-derivative's root patterns in a paragraph or a
-    /// heading, up to where the grammar is back at its root; the payload is
-    /// its state.
+    /// heading, up to where the grammar is back at its root.
+    /// The payload is html-derivative's state.
     HtmlInline,
-    /// `(?=<[^>]*?>)` in emphasis up to `(?<=>)`, whose text html-derivative
-    /// takes; the payload is its state.
+    /// `(?=<[^>]*?>)` in emphasis up to `(?<=>)`.
+    /// html-derivative takes its text, and the payload is its state.
     HtmlWrap,
-    /// A `php` fence up to the closing fence; the payload is the [`Fence`].
+    /// A `php` fence up to the closing fence.
+    /// The payload is the [`Fence`].
     /// The grammar's `php` rule includes `text.html.basic` before
-    /// `source.php`, so without a PHP grammar HTML takes its body, as in
-    /// Shiki.
+    /// `source.php`.
+    /// Without a PHP grammar, HTML therefore takes its body, as in Shiki.
     #[cfg(feature = "lang-html")]
     FencePhp,
-    /// The lines inside a [`Kind::FencePhp`], which the HTML lexer takes
-    /// under `meta.embedded.block.php`; the payload is its state.
+    /// The lines inside a [`Kind::FencePhp`].
+    /// The HTML lexer takes them under `meta.embedded.block.php`, and the
+    /// payload is its state.
     #[cfg(feature = "lang-html")]
     BodyPhp,
 }
 
 impl Kind {
-    /// The kinds whose code is their own, not a language's, in code order; a
-    /// test checks that [`Kind::code`] agrees.
+    /// The kinds whose code is their own, not a language's, in code order.
+    /// A test checks that [`Kind::code`] agrees.
     const FIXED: &[Kind] = &[
         Kind::Base,
         Kind::Quote,
@@ -109,10 +113,12 @@ impl Kind {
         Kind::BodyPhp,
     ];
 
-    /// The kind as a frame stores it: the Markdown tag in the high byte and,
-    /// in the low one, the position in [`Kind::FIXED`], or after those two
-    /// codes per language, its fence then its body, in [`Language::ALL`]
-    /// order. A new language therefore needs no code of its own.
+    /// The kind as a frame stores it: the Markdown tag in the high byte and an
+    /// index in the low one.
+    /// The index is the position in [`Kind::FIXED`].
+    /// After those come two codes per language, its fence then its body, in
+    /// [`Language::ALL`] order.
+    /// A new language therefore needs no code of its own.
     pub(crate) fn code(self) -> u16 {
         let low = match self {
             Kind::Base => 0,
@@ -145,8 +151,8 @@ impl Kind {
         TAG | low_byte(low)
     }
 
-    /// The kind a frame's code names; [`Kind::Base`] for a code that is not
-    /// Markdown's.
+    /// The kind a frame's code names.
+    /// It is [`Kind::Base`] for a code that is not Markdown's.
     pub(crate) fn from_code(code: u16) -> Kind {
         if code & 0xff00 != TAG {
             return Kind::Base;
@@ -165,14 +171,16 @@ impl Kind {
 }
 
 /// The fixed kinds and a fence and a body per language must fit the low byte of
-/// a code. A language past the limit would otherwise share a code with another
-/// kind, so adding one that does not fit fails the build.
+/// a code.
+/// A language past the limit would otherwise share a code with another kind.
+/// Adding one that does not fit therefore fails the build.
 const _: () = assert!(
     Kind::FIXED.len() + 2 * Language::ALL.len() <= 0x100,
     "the Markdown kind codes no longer fit one byte"
 );
 
-/// The low byte of a kind code, which the assertion above keeps below 0x100.
+/// The low byte of a kind code.
+/// The assertion above keeps it below 0x100.
 #[expect(
     clippy::as_conversions,
     clippy::cast_possible_truncation,
@@ -195,8 +203,8 @@ pub(crate) struct Fence {
 }
 
 impl Fence {
-    /// An indent that holds a tab or more than 254 bytes, which no closing
-    /// fence is taken to repeat.
+    /// An indent that holds a tab or more than 254 bytes.
+    /// No closing fence is taken to repeat it.
     pub(crate) const MIXED: u8 = u8::MAX;
 
     /// The fence as a frame's payload.

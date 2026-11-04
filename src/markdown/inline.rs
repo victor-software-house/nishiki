@@ -1,9 +1,11 @@
 //! The inline rules: emphasis, code spans, escapes, links and images.
 //!
-//! Each function matches one rule of the grammar at `p`, returns where the
-//! match ends and fills in the capture groups the grammar gives scopes to.
-//! The regular expressions backtrack, and where that changes a result the
-//! functions try the same alternatives in the same order.
+//! Each function matches one rule of the grammar at `p`.
+//! It returns where the match ends and fills in the capture groups the
+//! grammar gives scopes to.
+//! The regular expressions backtrack.
+//! Where that changes a result, the functions try the same alternatives in
+//! the same order.
 
 use super::caps::Caps;
 use super::limits::{MAX_BRACKET_DEPTH, MAX_PAREN_DEPTH};
@@ -81,8 +83,8 @@ pub(crate) enum Emphasis {
 /// The opening delimiter of `emphasis` at `p`, as the grammar's `open` group
 /// matches it: `**` or `__` for bold, `*` or `_` for italic.
 ///
-/// A `*` opens when a word character follows or none precedes; a `_` only
-/// when none precedes.
+/// A `*` opens when a word character follows or none precedes.
+/// A `_` opens only when none precedes.
 fn delimiter(cx: &Cx<'_>, p: usize, emphasis: Emphasis) -> Option<(u8, usize)> {
     let mark = cx.get(p).filter(|b| matches!(b, b'*' | b'_'))?;
     let len = match emphasis {
@@ -102,9 +104,10 @@ fn delimiter(cx: &Cx<'_>, p: usize, emphasis: Emphasis) -> Option<(u8, usize)> {
 /// The bold and italic begin rules: the opening delimiter, when a closing one
 /// follows later in the line.
 ///
-/// The grammar looks ahead over everything that cannot close the span: tags,
-/// code spans, escapes and links count as units, and anything else is one
-/// character, except that italic skips a doubled delimiter whole.
+/// The grammar looks ahead over everything that cannot close the span.
+/// Tags, code spans, escapes and links count as units.
+/// Anything else is one character, except that italic skips a doubled
+/// delimiter whole.
 /// A look-ahead past [`PLAIN_STEPS`] steps goes through the line's memo of
 /// stops.
 pub(crate) fn emphasis_open(
@@ -193,6 +196,9 @@ fn long_look_ahead(
 
 /// One step of the look-ahead: the end of the unit at `q`, or none when the
 /// look-ahead stops there.
+///
+/// A tag is `<[^>]*+>`.
+/// A character is `(?!(?<=\S)\k<open>).`.
 #[expect(
     clippy::inline_always,
     reason = "measured at one codegen unit: called from the plain loop and the memo's walk, it stopped being inlined, at a call per step"
@@ -209,7 +215,6 @@ fn emphasis_atom(
     let b = cx.get(q)?;
     match b {
         b'<' => {
-            // `<[^>]*+>`
             let rest = cx.line.get(q + 1..cx.end.min(cx.line.len()))?;
             if let Some(gt) = memchr::memchr(b'>', rest) {
                 return Some(q + 1 + gt + 1);
@@ -237,7 +242,6 @@ fn emphasis_atom(
     if emphasis == Emphasis::Italic && cx.starts(q, &[mark, mark]) {
         return Some(q + 2);
     }
-    // `(?!(?<=\S)\k<open>).`
     let closes_here = cx.non_space_before(q) && (0..len).all(|k| cx.get(q + k) == Some(mark));
     (b != b'\n' && !closes_here).then_some(q + cx.char_len(q))
 }
@@ -372,8 +376,8 @@ pub(crate) fn strikethrough(
 }
 
 /// `(?<square>[^]\[\\]|\\.|\[\g<square>*+])*+`: the end of the label that
-/// starts at `i`, where the closing `]` is. Brackets inside nest, and a
-/// backslash escapes the byte after it.
+/// starts at `i`, where the closing `]` is.
+/// Brackets inside nest, and a backslash escapes the byte after it.
 fn label_end(cx: &Cx<'_>, mut i: usize, depth: usize) -> usize {
     while let Some(b) = cx.get(i) {
         match b {
@@ -437,10 +441,11 @@ fn label(cx: &Cx<'_>, p: usize) -> Option<usize> {
 /// The inline link or reference that the look-ahead of emphasis skips:
 /// `\[label](( ?\[[^]]*+])|(\([\t ]*+<?(.*?)>?[\t
 /// ]*+(("|')(.*?)\k<title>)?\)))`.
+///
+/// The reference form after the label is ` ?\[[^]]*+]`.
 fn bracketed_link(cx: &Cx<'_>, p: usize) -> Option<usize> {
     let close = label(cx, p)?;
     let after = close + 1;
-    // ` ?\[[^]]*+]`
     let bracket = if cx.get(after) == Some(b' ') {
         after + 1
     } else {
@@ -505,9 +510,9 @@ fn title_close(open: u8) -> u8 {
     if open == b'(' { b')' } else { open }
 }
 
-/// Which grammar rule a destination belongs to. The link rule takes any
-/// title that holds no closing byte; the image rule takes the first one that
-/// the closing parenthesis follows.
+/// Which grammar rule a destination belongs to.
+/// The link rule takes any title that holds no closing byte.
+/// The image rule takes the first one that the closing parenthesis follows.
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Destination {
     Link,
@@ -550,6 +555,10 @@ fn destination(cx: &Cx<'_>, open: usize, kind: Destination, caps: &mut Caps) -> 
 }
 
 /// `[\t ]*(title)?\s*(\))` after the destination, ending at the parenthesis.
+///
+/// The link's title takes `[^()]*`, `[^"]*` or `[^']*`.
+/// The image's title takes `.+?` up to the first closing byte that the final
+/// parenthesis follows.
 fn destination_tail(cx: &Cx<'_>, p: usize, kind: Destination, caps: &mut Caps) -> Option<usize> {
     let at = cx.skip(p, |b| matches!(b, b' ' | b'\t'));
     let mut close = cx.skip_space(at);
@@ -561,8 +570,6 @@ fn destination_tail(cx: &Cx<'_>, p: usize, kind: Destination, caps: &mut Caps) -
         };
         let shut = title_close(open);
         let mut i = at + 1;
-        // The link takes `[^()]*`, `[^"]*` or `[^']*`; the image takes `.+?`
-        // up to the first closing byte that the final parenthesis follows.
         while let Some(b) = cx.get(i) {
             let stop = match kind {
                 Destination::Link => b == shut || (open == b'(' && b == b'('),
