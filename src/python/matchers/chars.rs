@@ -9,8 +9,9 @@ use crate::python::words;
 use crate::rules::Chars;
 
 impl Lexer<'_> {
-    /// The end of the run of `\w` characters from `i`. Patterns ask about
-    /// the same word one after another, so the last run is kept.
+    /// The end of the run of `\w` characters from `i`.
+    /// Patterns ask about the same word one after another.
+    /// The last run is therefore kept.
     pub(in crate::python) fn word_end(&self, i: usize) -> usize {
         let (start, end) = self.x.word_run.get();
         if start <= i && i < end {

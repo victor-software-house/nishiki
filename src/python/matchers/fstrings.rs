@@ -319,20 +319,22 @@ impl Lexer<'_> {
 
     /// The match `(.+?)($(\n?)|(?=[\\{}]|'''|"""))|\n`, or for a single-line
     /// f-string `(.+?)($(\n?)|(?=[\\{}]|(["'])|((?<!\\)\n)))|\n`.
+    ///
+    /// `.+?` needs a character, so a line feed alone is the match.
+    /// Otherwise the match takes at least one character, then the first end
+    /// that fits.
+    /// One such end is `$(\n?)`.
     fn core(&self, p: usize, quotes: Quotes) -> Option<usize> {
         if p == self.lim() {
-            // `.+?` needs a character: the line feed alone is the match.
             return Some(p + 1);
         }
         if p > self.lim() {
             return None;
         }
-        // At least one character, then the first end that fits.
         let mut e = self.char_end(p);
         loop {
             self.spend(1);
             if e >= self.lim() {
-                // `$(\n?)`.
                 return Some(self.lim() + 1);
             }
             let b = self.at(e);

@@ -1,10 +1,12 @@
 //! The matchers: for each regular expression of the grammar, the function that
-//! decides whether it matches at a position and where. A matcher records the
-//! capture groups the grammar names with [`Lexer::cap`]; the engine names them.
+//! decides whether it matches at a position and where.
+//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
+//! The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
-//! would. Where a quantifier could give characters back, the doc comment says
-//! why it cannot matter.
+//! would.
+//! Where a quantifier could give characters back, the doc comment says why it
+//! cannot matter.
 
 mod chars;
 mod code;
@@ -15,8 +17,8 @@ mod strings;
 use super::engine::Lexer;
 use super::grammar::{Pat, Split};
 
-/// Whether a string's quotes are one character or three, which the grammar
-/// writes as two rules.
+/// Whether a string's quotes are one character or three.
+/// The grammar writes the two as separate rules.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Quotes {
     /// `'` or `"`.

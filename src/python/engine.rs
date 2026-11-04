@@ -86,8 +86,8 @@ impl Stops {
 /// What the Python matchers remember about a line.
 #[derive(Debug)]
 pub(crate) struct Extra {
-    /// The last run of word characters found: where it starts and ends. A
-    /// search from inside it ends where it does.
+    /// The last run of word characters found: where it starts and ends.
+    /// A search from inside the run ends where the run does.
     pub(crate) word_run: Cell<(usize, usize)>,
     /// The last word looked up in the word lists: where it starts and which
     /// lists have it.
@@ -111,8 +111,9 @@ impl Default for Extra {
 }
 
 impl Lexer<'_> {
-    /// Where `what` last stands in the line, so that a lookahead for it asks
-    /// one question however many positions it is tried at.
+    /// Where `what` last stands in the line.
+    /// A lookahead for it then asks one question, however many positions it
+    /// is tried at.
     pub(crate) fn last(&self, what: Ahead) -> Option<usize> {
         let slot = &self.x.ahead[what.slot()];
         match slot.get() {
@@ -135,8 +136,8 @@ impl Lexer<'_> {
         found
     }
 
-    /// The first position from `from` where one of `stops` stands; the end
-    /// of the line when none does.
+    /// The first position from `from` where one of `stops` stands.
+    /// It is the end of the line when none does.
     pub(crate) fn next_stop(&self, from: usize, stops: Stops) -> usize {
         let slot = &self.x.stops[stops.slot()];
         let (start, answer) = slot.get();

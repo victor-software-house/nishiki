@@ -13,9 +13,9 @@ enum Close {
     Quote,
     /// The quote text, or a line feed that no backslash precedes.
     QuoteOrNewline,
-    /// The quote text, or any line feed. A single-quoted docstring ends this
-    /// way. Its end `(\1)|(\n)` closes it at the line feed after a backslash
-    /// too.
+    /// The quote text, or any line feed.
+    /// A single-quoted docstring ends this way.
+    /// Its end `(\1)|(\n)` closes it at the line feed after a backslash too.
     QuoteOrAnyNewline,
 }
 
@@ -91,8 +91,9 @@ impl Lexer<'_> {
             || (p == self.lim() && !self.prev_is(p, b'\\'))
     }
 
-    /// The width of the quote at `p`: three for a triple quote, one for a
-    /// single one, when `quotes` says which kind the rule takes.
+    /// The width of the quote at `p`, when `quotes` says which kind the rule
+    /// takes.
+    /// It is three for a triple quote and one for a single one.
     fn quote_width(&self, p: usize, quotes: Quotes) -> Option<usize> {
         if quotes == Quotes::Three {
             self.triple_ahead(p).then_some(3)
@@ -190,8 +191,9 @@ impl Lexer<'_> {
         Some(p + 2 + width)
     }
 
-    /// The end of a string: its quote text, which the begin kept, or for a
-    /// single-line string a line feed that no backslash precedes.
+    /// The end of a string: its quote text, which the begin kept.
+    /// A single-line string also ends at a line feed that no backslash
+    /// precedes.
     fn string_end(&mut self, p: usize, close: Close) -> Option<usize> {
         if let Some(width) = self.payload_at(p) {
             self.cap(1, p, p + width);
@@ -246,6 +248,8 @@ impl Lexer<'_> {
     }
 
     /// `[Rr]?('''|"""|["'])` at `q`: where the quote starts and how wide it is.
+    ///
+    /// `[Rr]?` is optional, so the quote may start at `q` itself.
     fn string_start(&self, q: usize) -> Option<(usize, usize)> {
         let start = if matches!(self.at(q), b'R' | b'r') && q < self.lim() {
             q + 1
@@ -258,7 +262,6 @@ impl Lexer<'_> {
         {
             return Some((start, width));
         }
-        // `[Rr]?` is optional: the quote may start at `q` itself.
         let width = self
             .quote_width(q, Quotes::Three)
             .or_else(|| self.quote_width(q, Quotes::One))?;
@@ -274,6 +277,8 @@ impl Lexer<'_> {
     }
 
     /// The match `(?:^|\G)\s*((?:>>>|\.\.\.)\s)(?=\s*\S)`.
+    ///
+    /// `(?=\s*\S)` needs a character that is not white space later on.
     fn docstring_prompt(&mut self, p: usize) -> Option<usize> {
         if !(p == 0 || (self.g && p == self.pos)) {
             return None;
@@ -287,7 +292,6 @@ impl Lexer<'_> {
             return None;
         }
         let r = q + 3 + w;
-        // `(?=\s*\S)`: a character that is not white space comes later.
         if self.space_end(r) >= self.lim() {
             return None;
         }
@@ -296,6 +300,8 @@ impl Lexer<'_> {
     }
 
     /// The match `\\(u\h{4}|U\h{8}|N\{[\w\s]+?})`.
+    ///
+    /// `[\w\s]+?}` is one or more word or space characters, then `}`.
     fn unicode_escape(&self, p: usize) -> Option<usize> {
         if self.at(p) != b'\\' || p >= self.lim() {
             return None;
@@ -307,7 +313,6 @@ impl Lexer<'_> {
             b'u' if hex(p + 2, 4) => Some(p + 6),
             b'U' if hex(p + 2, 8) => Some(p + 10),
             b'N' if self.at(p + 2) == b'{' && p + 2 < self.lim() => {
-                // `[\w\s]+?}`: one or more word or space characters, then `}`.
                 let mut i = p + 3;
                 loop {
                     if self.at(i) == b'}' && i < self.lim() {
@@ -354,23 +359,31 @@ impl Lexer<'_> {
     }
 
     /// The match `\\[\n"'\\]`.
+    ///
+    /// The line feed counts, as the end of the line.
     fn consume_escape(&self, p: usize) -> Option<usize> {
         if self.at(p) != b'\\' || p >= self.lim() {
             return None;
         }
-        // The line feed counts, as the end of the line.
         let c = self.at(p + 1);
         matches!(c, b'\n' | b'"' | b'\'' | b'\\').then_some(p + 2)
     }
 
     /// The match `(%(\([\w\s]*\))?[-
     /// #+0]*(\d+|\*)?(\.(\d+|\*))?([Lhl])?[%EFGXa-giorsux])`.
+    ///
+    /// The parts match, in order:
+    /// - `(\([\w\s]*\))?`;
+    /// - `(\d+|\*)?`;
+    /// - `(\.(\d+|\*))?`;
+    /// - `([Lhl])?`, then the conversion.
+    ///
+    /// The length modifier gives itself back when no conversion follows it.
     fn percent_format(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'%' || p >= self.lim() {
             return None;
         }
         let mut i = p + 1;
-        // `(\([\w\s]*\))?`
         if self.at(i) == b'(' && i < self.lim() {
             let mut j = i + 1;
             loop {
@@ -388,13 +401,11 @@ impl Lexer<'_> {
             }
         }
         i = self.skip(i, |b| matches!(b, b'-' | b' ' | b'#' | b'+' | b'0'));
-        // `(\d+|\*)?`
         if self.at(i) == b'*' && i < self.lim() {
             i += 1;
         } else {
             i = self.digit_end(i);
         }
-        // `(\.(\d+|\*))?`
         if self.at(i) == b'.' && i < self.lim() {
             if self.at(i + 1) == b'*' && i + 1 < self.lim() {
                 i += 2;
@@ -405,8 +416,6 @@ impl Lexer<'_> {
                 }
             }
         }
-        // `([Lhl])?` then the conversion: the length modifier gives itself
-        // back when no conversion follows it.
         let conversion = |b: u8| b"%EFGXabcdefgiorsux".contains(&b);
         if matches!(self.at(i), b'L' | b'h' | b'l')
             && conversion(self.at(i + 1))
@@ -422,9 +431,10 @@ impl Lexer<'_> {
         None
     }
 
-    /// The end of `\{\w*(\.[_[:alpha:]]\w*|\[[^]"']+])*(![ars])?` at `p`,
-    /// which starts with the brace: where the field name, attributes and
-    /// conversion end, and the conversion's span.
+    /// The end of `\{\w*(\.[_[:alpha:]]\w*|\[[^]"']+])*(![ars])?` at `p`, which
+    /// starts with the brace.
+    /// It gives where the field name, attributes and conversion end, and the
+    /// conversion's span.
     fn field_head(&self, p: usize) -> (usize, Option<(usize, usize)>) {
         let mut i = self.word_end(p + 1);
         loop {
@@ -456,6 +466,8 @@ impl Lexer<'_> {
 
     /// The match `(\{\{|}}|\{\w*(\.[_[:alpha:]]\w*|\[[^]"']+])*(![ars])?(:\w?
     /// [<=>^]?[- +]?#?\d*,?(\.\d+)?[%EFGXb-gnosx]?)?})`.
+    ///
+    /// `(:spec)?` and then `}` are tried with the spec first, then without it.
     fn brace_format(&mut self, p: usize) -> Option<usize> {
         if self.starts(p, b"{{") || self.starts(p, b"}}") {
             self.cap(1, p, p + 2);
@@ -465,7 +477,6 @@ impl Lexer<'_> {
             return None;
         }
         let (head_end, conversion) = self.field_head(p);
-        // `(:spec)?` then `}`: with the spec first, then without it.
         if self.at(head_end) == b':'
             && head_end < self.lim()
             && let Some(close) = self.format_spec(head_end + 1)
@@ -488,12 +499,17 @@ impl Lexer<'_> {
     }
 
     /// The format spec `\w?[<=>^]?[- +]?#?\d*,?(\.\d+)?[%EFGXb-gnosx]?` that
-    /// ends at a `}`: where that brace is. Each part is optional and takes
-    /// what it can, giving it back when the rest does not fit.
+    /// ends at a `}`: where that brace is.
+    /// Each part is optional and takes what it can.
+    /// A part gives back what it took when the rest does not fit.
     pub(super) fn format_spec(&self, start: usize) -> Option<usize> {
         self.spec_from(start, 0)
     }
 
+    /// The format spec from part `stage` on, at `i`: where its closing `}` is.
+    ///
+    /// The part takes a character when it can.
+    /// The digit run may give digits back one at a time.
     fn spec_from(&self, i: usize, stage: u8) -> Option<usize> {
         self.spend(1);
         if stage == 8 {
@@ -501,7 +517,6 @@ impl Lexer<'_> {
         }
         let b = self.at(i);
         let live = i < self.lim();
-        // The part takes a character when it can.
         let taken = match stage {
             0 => self.word_at(i).map(|w| i + w),
             1 => (live && matches!(b, b'<' | b'=' | b'>' | b'^')).then_some(i + 1),
@@ -526,7 +541,6 @@ impl Lexer<'_> {
             if let Some(close) = self.spec_from(next, stage + 1) {
                 return Some(close);
             }
-            // The digit run may give digits back one at a time.
             if stage == 4 {
                 let mut e = next;
                 while e > i + 1 {
@@ -544,6 +558,8 @@ impl Lexer<'_> {
 
     /// The match `(\{\w*(\.[_[:alpha:]]\w*|\[[^]"']+])*(![ars])?(:)[^\n"'{}]*(?
     /// :\{[^\n"'}]*?}[^\n"'{}]*)*})`.
+    ///
+    /// `\{[^\n"'}]*?}` reaches up to the first `}`, with no quote.
     fn brace_format_nested(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'{' || p >= self.lim() {
             return None;
@@ -557,7 +573,6 @@ impl Lexer<'_> {
             match self.at(i) {
                 b'}' if i < self.lim() => break,
                 b'{' if i < self.lim() => {
-                    // `\{[^\n"'}]*?}`: up to the first `}`, with no quote.
                     let j = self.next_stop(i + 1, Stops::QuoteOrClose);
                     if !(self.at(j) == b'}' && j < self.lim()) {
                         return None;
@@ -575,8 +590,9 @@ impl Lexer<'_> {
         Some(i + 1)
     }
 
-    /// The begin `(?=\{%(.*?(?!...))%})`: a `{%` with a `%}` after it on
-    /// the line. The negative lookahead sits before the `%}`, so it holds.
+    /// The begin `(?=\{%(.*?(?!...))%})`: a `{%` with a `%}` after it on the
+    /// line.
+    /// The negative lookahead sits before the `%}`, so it holds.
     fn bad_brace1(&self, p: usize) -> Option<usize> {
         if !self.starts(p, b"{%") {
             return None;
@@ -584,15 +600,18 @@ impl Lexer<'_> {
         (self.last(Ahead::PercentBrace)? >= p + 2).then_some(p)
     }
 
-    /// The begin `(?!\{\{)(?=\{(\w*?(?!q)[^!.:\[}\w]).*?(?!q)})`: a brace group
-    /// whose first character after the name is none of `!.:[}`, so it is not a
-    /// placeholder.
+    /// The begin `(?!\{\{)(?=\{(\w*?(?!q)[^!.:\[}\w]).*?(?!q)})`.
+    /// It finds a brace group whose first character after the name is none of
+    /// `!.:[}`.
+    /// Such a group is not a placeholder.
+    ///
+    /// `(?!q)` is checked before the class character.
+    /// `.*?(?!q)}` finds the first brace after it, on this line.
     fn bad_brace2(&self, p: usize, quotes: Quotes) -> Option<usize> {
         if self.at(p) != b'{' || p >= self.lim() || self.at(p + 1) == b'{' && p + 1 < self.lim() {
             return None;
         }
         let t = self.word_end(p + 1);
-        // `(?!q)` before the class character.
         let blocked = |at: usize| {
             if quotes == Quotes::Three {
                 self.triple_ahead(at)
@@ -613,7 +632,6 @@ impl Lexer<'_> {
         } else {
             t + 1
         };
-        // `.*?(?!q)}`: the first brace after it, on this line.
         (self.last(Ahead::CloseBrace)? >= after).then_some(p)
     }
 }

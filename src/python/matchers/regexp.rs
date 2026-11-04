@@ -1,7 +1,8 @@
 //! The matchers of regular-expression strings: `r"..."` and its kin.
 //!
 //! The grammar writes each rule of the expression four times, once for each
-//! quote style, so the ends and the nested rules take a [`Flavour`].
+//! quote style.
+//! The ends and the nested rules therefore take a [`Flavour`].
 
 use crate::classes;
 use crate::python::engine::{Ahead, Lexer};
@@ -93,13 +94,15 @@ impl Lexer<'_> {
 
     /// The begin `\b(([Uu]r)|([Bb]r)|(r[Bb]?))(Q)` of a regular-expression
     /// string with quote `Q`.
+    ///
+    /// The alternatives are tried in order.
+    /// `r[Bb]?` takes the `B` first.
     fn regexp_begin(&mut self, p: usize, flavour: Flavour) -> Option<usize> {
         if !self.boundary(p) {
             return None;
         }
         let (a, b, c) = (self.at(p), self.at(p + 1), self.at(p + 2));
         let quote = flavour.quote();
-        // The alternatives in order; `r[Bb]?` takes the `B` first.
         let (end, group) = if matches!(a, b'U' | b'u') && b == b'r' {
             (p + 2, 2)
         } else if matches!(a, b'B' | b'b') && b == b'r' {
@@ -211,7 +214,8 @@ impl Lexer<'_> {
     }
 
     /// `\w+(?:\s+\p{alnum}+)?` at `i`, followed by `close`: where `close`
-    /// ends. The optional part is tried first.
+    /// ends.
+    /// The optional part is tried first.
     fn word_and_alnum(&self, i: usize, close: u8) -> Option<usize> {
         let w = self.word_end(i);
         if w == i {
@@ -321,11 +325,12 @@ impl Lexer<'_> {
     }
 
     /// The match `(\\[1-9]\d?)`.
+    ///
+    /// `\d?` takes one more digit, of any script.
     fn backreference_number(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'\\' || !matches!(self.at(p + 1), b'1'..=b'9') || p + 1 >= self.lim() {
             return None;
         }
-        // `\d?`: one more digit, of any script.
         let end = match self.char_at(p + 2) {
             Some((c, next)) if p + 2 < self.lim() && classes::is_digit(c) => next,
             _ => p + 2,
@@ -335,11 +340,12 @@ impl Lexer<'_> {
     }
 
     /// The match `\\(.|\n)`.
+    ///
+    /// It takes the next character, or the line feed.
     fn escape_catchall(&self, p: usize) -> Option<usize> {
         if self.at(p) != b'\\' || p >= self.lim() {
             return None;
         }
-        // The next character, or the line feed.
         Some(if p + 1 < self.lim() {
             self.char_end(p + 1)
         } else {

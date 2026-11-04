@@ -296,6 +296,8 @@ impl Lexer<'_> {
     }
 
     /// The regex `\b(?<!\.)(from)\b(?=.+import)`.
+    ///
+    /// `.+` takes at least one character before `import`.
     fn import_from(&mut self, p: usize) -> Option<usize> {
         if !self.boundary(p)
             || self.prev_is(p, b'.')
@@ -304,7 +306,6 @@ impl Lexer<'_> {
         {
             return None;
         }
-        // `.+` takes at least one character before `import`.
         if self.last(Ahead::Import)? < p + 5 {
             return None;
         }
@@ -433,12 +434,14 @@ impl Lexer<'_> {
 
     /// The match of `number-float`:
     /// `(?<!\w)(?:(?:\.D|D\.D|D\.)(?:E)?|DE)([Jj])?\b`.
+    ///
+    /// The alternatives are tried in the grammar's order.
+    /// Each tries its exponent and imaginary suffix present before absent.
+    /// The last, `DE`, is digits and then an exponent, which is not optional.
     fn number_float(&mut self, p: usize) -> Option<usize> {
         if self.word_before(p) {
             return None;
         }
-        // The alternatives in the grammar's order, each with its exponent
-        // and imaginary suffix tried present before absent.
         let mut bases = [None; 4];
         bases[0] = (self.at(p) == b'.' && p < self.lim())
             .then(|| self.digits(p + 1))
@@ -471,7 +474,6 @@ impl Lexer<'_> {
                 return Some(end);
             }
         }
-        // `DE`: digits then an exponent, which is not optional.
         let e = self.digits(p).and_then(|e| self.exponent(e))?;
         if matches!(self.at(e), b'J' | b'j') && e < self.lim() && self.boundary(e + 1) {
             self.cap(1, e, e + 1);
@@ -481,26 +483,29 @@ impl Lexer<'_> {
     }
 
     /// The match of `number-dec`.
+    ///
+    /// The branches match, in order:
+    /// - `[1-9](?:_?[0-9])*`;
+    /// - `0+`;
+    /// - `[0-9](?:_?[0-9])*([Jj])`;
+    /// - `0([0-9]+)(?![.Ee])`.
     fn number_dec(&mut self, p: usize) -> Option<usize> {
         if self.prev_is(p, b'.') || self.word_before(p) {
             return None;
         }
         let b = self.at(p);
-        // `[1-9](?:_?[0-9])*`
         if matches!(b, b'1'..=b'9') && p < self.lim() {
             let end = self.digits(p)?;
             if self.boundary(end) {
                 return Some(end);
             }
         }
-        // `0+`
         if b == b'0' && p < self.lim() {
             let end = self.skip(p, |c| c == b'0');
             if self.boundary(end) {
                 return Some(end);
             }
         }
-        // `[0-9](?:_?[0-9])*([Jj])`
         if let Some(end) = self.digits(p)
             && matches!(self.at(end), b'J' | b'j')
             && end < self.lim()
@@ -509,7 +514,6 @@ impl Lexer<'_> {
             self.cap(1, end, end + 1);
             return Some(end + 1);
         }
-        // `0([0-9]+)(?![.Ee])`
         if b == b'0' && p < self.lim() {
             let end = self.skip(p + 1, |c| c.is_ascii_digit());
             if end > p + 1 && !matches!(self.at(end), b'.' | b'E' | b'e') && self.boundary(end) {
@@ -569,8 +573,9 @@ impl Lexer<'_> {
         None
     }
 
-    /// The match `\b[0-9]+\w+`: a number that runs into letters. `[0-9]+`
-    /// gives digits back to `\w+`, so a word of two digits or more matches.
+    /// The match `\b[0-9]+\w+`: a number that runs into letters.
+    /// `[0-9]+` gives digits back to `\w+`.
+    /// A word of two digits or more therefore matches.
     fn number_name(&self, p: usize) -> Option<usize> {
         if !self.boundary(p) || !self.at(p).is_ascii_digit() || p >= self.lim() {
             return None;
@@ -711,6 +716,12 @@ impl Lexer<'_> {
     }
 
     /// The match of `operator`.
+    ///
+    /// The branches match, in order:
+    /// - `(<<|>>|[\&^|~])`;
+    /// - `(\*\*|[-%*+]|//|[/@])`;
+    /// - `(!=|==|>=|<=|[<>])`;
+    /// - `(:=)`.
     fn operator(&mut self, p: usize) -> Option<usize> {
         if let Some(end) = self.keyword_operator(p) {
             return Some(end);
@@ -720,7 +731,6 @@ impl Lexer<'_> {
             return None;
         }
         let two = |me: &Self, text: &[u8]| me.starts(p, text);
-        // `(<<|>>|[\&^|~])`
         if two(self, b"<<") || two(self, b">>") {
             self.cap(3, p, p + 2);
             return Some(p + 2);
@@ -729,7 +739,6 @@ impl Lexer<'_> {
             self.cap(3, p, p + 1);
             return Some(p + 1);
         }
-        // `(\*\*|[-%*+]|//|[/@])`
         if two(self, b"**") || two(self, b"//") {
             self.cap(4, p, p + 2);
             return Some(p + 2);
@@ -738,7 +747,6 @@ impl Lexer<'_> {
             self.cap(4, p, p + 1);
             return Some(p + 1);
         }
-        // `(!=|==|>=|<=|[<>])`
         if two(self, b"!=") || two(self, b"==") || two(self, b">=") || two(self, b"<=") {
             self.cap(5, p, p + 2);
             return Some(p + 2);
@@ -747,7 +755,6 @@ impl Lexer<'_> {
             self.cap(5, p, p + 1);
             return Some(p + 1);
         }
-        // `(:=)`
         if two(self, b":=") {
             self.cap(6, p, p + 2);
             return Some(p + 2);
@@ -758,6 +765,8 @@ impl Lexer<'_> {
     /// The first alternative of `operator`:
     /// `\b(?<!\.)(?:(and|or|not|in|is)|(for|if|else|await|yield(?:\s+from)?))(?
     /// !\s*:)\b`.
+    ///
+    /// `(?:\s+from)?` is tried first, then without it.
     fn keyword_operator(&mut self, p: usize) -> Option<usize> {
         if !self.boundary(p) || self.prev_is(p, b'.') {
             return None;
@@ -783,7 +792,6 @@ impl Lexer<'_> {
             return Some(end);
         }
         if word == b"yield" {
-            // `(?:\s+from)?` first, then without it.
             let q = self.space_end(end);
             if q > end && self.starts(q, b"from") {
                 let e = q + 4;
@@ -843,6 +851,11 @@ impl Lexer<'_> {
     }
 
     /// The match `\b(_*\p{upper}[_\d]*\p{upper})[[:upper:]\d]*(_\w*)?\b`.
+    ///
+    /// It takes the first capital, then underscores and digits, then a second
+    /// capital.
+    /// Capitals and digits follow.
+    /// An underscore then ends the match at the word's end.
     fn special_names(&self, p: usize) -> Option<usize> {
         if !self.boundary(p) {
             return None;
@@ -850,7 +863,6 @@ impl Lexer<'_> {
         let end = self.word_end(p);
         let upper = classes::is_upper;
         let mut i = self.skip(p, |b| b == b'_');
-        // The first capital, then underscores and digits, then a second one.
         let (c, next) = self.char_at(i)?;
         if !upper(c) || next > end {
             return None;
@@ -867,8 +879,6 @@ impl Lexer<'_> {
             return None;
         }
         i = next;
-        // Capitals and digits, then an underscore ends the match at the word's
-        // end.
         while i < end {
             self.spend(1);
             let (c, next) = self.char_at(i)?;
@@ -973,22 +983,24 @@ impl Lexer<'_> {
     }
 
     /// The end `(?=^\s*$)|(?!(\s*[Rr]?('''|"""|["']))|\G()$)`.
+    ///
+    /// It checks `(\s*[Rr]?('''|"""|["']))`, then `\G()$`.
+    /// `[Rr]?` is optional, so a quote may follow either way.
     fn continuation_end(&self, p: usize) -> Option<usize> {
         if p == 0 && self.space_end(0) > self.lim() {
             return Some(p);
         }
-        // `(\s*[Rr]?('''|"""|["']))`
         let q = self.space_end(p);
-        if matches!(self.at(q), b'R' | b'r') && q < self.lim() {
-            // `[Rr]?` is optional, so a quote may follow either way.
-            if matches!(self.at(q + 1), b'\'' | b'"') && q + 1 < self.lim() {
-                return None;
-            }
+        if matches!(self.at(q), b'R' | b'r')
+            && q < self.lim()
+            && matches!(self.at(q + 1), b'\'' | b'"')
+            && q + 1 < self.lim()
+        {
+            return None;
         }
         if matches!(self.at(q), b'\'' | b'"') && q < self.lim() {
             return None;
         }
-        // `\G()$`
         if self.g && p == self.pos && self.at_eol(p) {
             return None;
         }
@@ -996,13 +1008,14 @@ impl Lexer<'_> {
     }
 
     /// The begin `(\.)\s*(?!\.)`.
+    ///
+    /// The spaces give one back, so that the lookahead sees a space.
     fn member_access_begin(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'.' || p >= self.lim() {
             return None;
         }
         let q = self.space_end(p + 1);
         let end = if self.at(q) == b'.' && q < self.lim() {
-            // The spaces give one back so that the lookahead sees a space.
             if q == p + 1 {
                 return None;
             }
@@ -1016,11 +1029,12 @@ impl Lexer<'_> {
 
     /// The end `(?<=\S)(?=\W)|(^|(?<=\s))(?=[^\\\w\s])|$` of `member-access`,
     /// or `(?<=\S)(?=\W)|$` of `member-access-class`.
+    ///
+    /// `(?=\W)` takes any character that is not a word character, the line
+    /// feed included.
     fn member_access_end(&self, p: usize, member: Member) -> Option<usize> {
         let prev_non_space = p > 0 && self.char_before(p).is_some_and(|c| !classes::is_space(c));
         let word = self.word_at(p).is_some();
-        // `(?=\W)`: any character that is not a word character, the line feed
-        // included.
         if prev_non_space && !word && p <= self.lim() {
             return Some(p);
         }
@@ -1066,9 +1080,10 @@ impl Lexer<'_> {
 
     /// The begin `\s*(?:\b(async)\s+)?\b(def)\s+(?=[_[:alpha:]]\p{word}*\s*\
     /// ()`.
+    ///
+    /// It tries the match with `async` first, then without it.
     fn def_begin(&mut self, p: usize) -> Option<usize> {
         let q = self.space_end(p);
-        // With `async` first, then without it.
         if self.boundary(q)
             && self.starts(q, b"async")
             && let r = self.space_end(q + 5)
@@ -1132,6 +1147,8 @@ impl Lexer<'_> {
     }
 
     /// The match `([_[:alpha:]]\w*)\s*(?:(,)|(?=[\n#)=]))`.
+    ///
+    /// When the spaces take the line feed, the lookahead sees it again.
     fn parameter_name(&mut self, p: usize) -> Option<usize> {
         let e = self.ident_end(p)?;
         let q = self.space_end(e);
@@ -1146,7 +1163,6 @@ impl Lexer<'_> {
                 _ => return None,
             }
         }
-        // The spaces took the line feed, which the lookahead sees again.
         Some(self.lim())
     }
 
@@ -1184,6 +1200,8 @@ impl Lexer<'_> {
     }
 
     /// The match `\b((async\s+)?\s*def)\b`.
+    ///
+    /// Without `async`, the `\s*` can still take blanks after the boundary.
     fn def_keyword(&self, p: usize) -> Option<usize> {
         if !self.boundary(p) {
             return None;
@@ -1199,7 +1217,6 @@ impl Lexer<'_> {
                 }
             }
         }
-        // Without `async`, the `\s*` can still take blanks after the boundary.
         try_def(self, self.space_end(p))
     }
 
@@ -1268,11 +1285,13 @@ impl Lexer<'_> {
     }
 
     /// The end `(\))(.*?)(?=\s*(?:#|$))|(?=[\n#])`.
+    ///
+    /// The lazy `.*?` stops at the first place that only white space
+    /// separates from a `#` or the end of the line.
+    /// That place is before the first `#`, or before the trailing white
+    /// space.
     fn decorator_end(&mut self, p: usize) -> Option<usize> {
         if self.at(p) == b')' && p < self.lim() {
-            // The lazy `.*?` stops at the first place that only white space
-            // separates from a `#` or the end of the line: before the first
-            // `#`, or before the trailing white space.
             let from = p + 1;
             let back = |me: &Self, mut at: usize| {
                 while at > from
