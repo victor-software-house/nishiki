@@ -4376,7 +4376,6 @@ impl Rule {
             | Rule::RootAt101
             | Rule::RootAt101At0
             | Rule::RootAt102
-            | Rule::RootAt102At0
             | Rule::RootAt103
             | Rule::RootAt103At0
             | Rule::Nested0
@@ -4428,6 +4427,9 @@ impl Rule {
             }
             Rule::RootAt100At0 => {
                 embedded!(Lua, "lang-lua").map_or(rules::Payload::None, rules::Payload::Embed)
+            }
+            Rule::RootAt102At0 => {
+                embedded!(Yaml, "lang-yaml").map_or(rules::Payload::None, rules::Payload::Embed)
             }
             Rule::RootAt104 => rules::Payload::Backref(2),
             Rule::RootAt105 => rules::Payload::Backref(6),

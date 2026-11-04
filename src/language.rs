@@ -502,9 +502,11 @@ languages! {
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - A here document named for SQL, GraphQL, CSS, C, C++, HTML, XML, JavaScript, shell, Lua or Ruby, such as `<<~SQL`, lexes its lines in that language, with Ruby's interpolation and escapes where the language has nothing open, as Shiki does.
-    /// - One named for YAML, HAML or Slim, such as `<<~YAML`, keeps that language's scopes, but its lines are plain text with Ruby's interpolation.
-    ///   Shiki lexes them in that language.
+    /// - A here document named for SQL, GraphQL, CSS, C, C++, HTML, XML, JavaScript, YAML, shell, Lua or Ruby, such as `<<~SQL`, lexes its lines in that language, with Ruby's interpolation and escapes where the language has nothing open, as Shiki does.
+    /// - In one named for YAML, an indented `#{` is a YAML comment, as in Shiki: the grammar's comment rule takes the blanks before it.
+    /// - One named for HAML, such as `<<~HAML`, keeps that language's scopes, but its lines are plain text with Ruby's interpolation.
+    ///   Shiki lexes them as HAML.
+    /// - One named for Slim is plain text with Ruby's interpolation, as in Shiki, which has no Slim grammar.
     /// - The text after `__END__` is plain, where Shiki lexes it as HTML when it starts like HTML.
     Ruby { feature: "lang-ruby", names: ["ruby", "rb"], module: ruby }
     /// C#, with the scopes of Shiki's `csharp` grammar.

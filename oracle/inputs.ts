@@ -829,6 +829,11 @@ export const inputs: Input[] = [
     name: "xml-heredocs",
     url: new URL("inputs/ruby-xml-heredocs.rb", import.meta.url).href,
   },
+  {
+    lang: "ruby",
+    name: "yaml-heredocs",
+    url: new URL("inputs/ruby-yaml-heredocs.rb", import.meta.url).href,
+  },
   { lang: "rust", name: "core-macros", url: `${rustc}/library/core/src/macros/mod.rs` },
   {
     lang: "rust",

@@ -1,0 +1,208 @@
+L # Here documents named for YAML, which nishiki lexes as YAML, with
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 66 source.ruby comment.line.number-sign.ruby
+L # interpolation where a YAML step begins at it.
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 47 source.ruby comment.line.number-sign.ruby
+L config = <<~YAML
+T 6 source.ruby variable.ruby
+T 7 source.ruby
+T 8 source.ruby keyword.operator.assignment.ruby
+T 9 source.ruby
+T 16 source.ruby meta.embedded.block.yaml string.definition.begin.ruby
+L   #{a}: b
+T 2 source.ruby meta.embedded.block.yaml source.yaml punctuation.whitespace.comment.leading.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 9 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml
+L   key: #{value}
+T 2 source.ruby meta.embedded.block.yaml source.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+T 7 source.ruby meta.embedded.block.yaml source.yaml
+T 8 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 15 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml
+L   key: plain #{value} more
+T 2 source.ruby meta.embedded.block.yaml source.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+T 7 source.ruby meta.embedded.block.yaml source.yaml
+T 8 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+T 12 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+T 13 source.ruby meta.embedded.block.yaml source.yaml
+T 14 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 26 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml
+L   key: "q #{x}" #{y}
+T 2 source.ruby meta.embedded.block.yaml source.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+T 7 source.ruby meta.embedded.block.yaml source.yaml
+T 8 source.ruby meta.embedded.block.yaml source.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 14 source.ruby meta.embedded.block.yaml source.yaml string.quoted.double.yaml
+T 15 source.ruby meta.embedded.block.yaml source.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 16 source.ruby meta.embedded.block.yaml source.yaml
+T 17 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 20 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml
+L   key: 'q #{x}'
+T 2 source.ruby meta.embedded.block.yaml source.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+T 7 source.ruby meta.embedded.block.yaml source.yaml
+T 8 source.ruby meta.embedded.block.yaml source.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 14 source.ruby meta.embedded.block.yaml source.yaml string.quoted.single.yaml
+T 15 source.ruby meta.embedded.block.yaml source.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+L   list:
+T 2 source.ruby meta.embedded.block.yaml source.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+L     - #{item}
+T 4 source.ruby meta.embedded.block.yaml source.yaml
+T 5 source.ruby meta.embedded.block.yaml source.yaml punctuation.definition.block.sequence.item.yaml
+T 6 source.ruby meta.embedded.block.yaml source.yaml
+T 7 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 13 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml
+L     - a #{b}
+T 4 source.ruby meta.embedded.block.yaml source.yaml
+T 5 source.ruby meta.embedded.block.yaml source.yaml punctuation.definition.block.sequence.item.yaml
+T 6 source.ruby meta.embedded.block.yaml source.yaml
+T 7 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+T 8 source.ruby meta.embedded.block.yaml source.yaml
+T 9 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 12 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml
+L   block: |
+T 2 source.ruby meta.embedded.block.yaml source.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+T 9 source.ruby meta.embedded.block.yaml source.yaml
+T 10 source.ruby meta.embedded.block.yaml source.yaml keyword.control.flow.block-scalar.literal.yaml
+L     text #{x}
+T 4 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.block.yaml
+T 13 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.block.yaml
+L   # comment #{c}
+T 2 source.ruby meta.embedded.block.yaml source.yaml punctuation.whitespace.comment.leading.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 16 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml
+L   key: a \n b
+T 2 source.ruby meta.embedded.block.yaml source.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+T 7 source.ruby meta.embedded.block.yaml source.yaml
+T 8 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+T 13 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+L   anchor: &a value
+T 2 source.ruby meta.embedded.block.yaml source.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+T 10 source.ruby meta.embedded.block.yaml source.yaml
+T 11 source.ruby meta.embedded.block.yaml source.yaml meta.property.yaml keyword.control.property.anchor.yaml punctuation.definition.anchor.yaml
+T 12 source.ruby meta.embedded.block.yaml source.yaml meta.property.yaml entity.name.type.anchor.yaml
+T 13 source.ruby meta.embedded.block.yaml source.yaml
+T 14 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+T 18 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+L   ref: *a
+T 2 source.ruby meta.embedded.block.yaml source.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+T 7 source.ruby meta.embedded.block.yaml source.yaml
+T 8 source.ruby meta.embedded.block.yaml source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 9 source.ruby meta.embedded.block.yaml source.yaml variable.other.alias.yaml
+L YAML
+T 4 source.ruby meta.embedded.block.yaml string.definition.end.ruby
+L 
+L settings = <<-YML
+T 8 source.ruby variable.ruby
+T 9 source.ruby
+T 10 source.ruby keyword.operator.assignment.ruby
+T 11 source.ruby
+T 17 source.ruby meta.embedded.block.yaml string.definition.begin.ruby
+L #{name}: value
+T 2 source.ruby meta.embedded.block.yaml source.yaml meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 6 source.ruby meta.embedded.block.yaml source.yaml meta.embedded.line.ruby source.ruby
+T 7 source.ruby meta.embedded.block.yaml source.yaml meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 8 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+T 9 source.ruby meta.embedded.block.yaml source.yaml
+T 10 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+T 14 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+L a#{b}: c
+T 1 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+T 7 source.ruby meta.embedded.block.yaml source.yaml
+T 8 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+L key: e#{f}
+T 1 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 4 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+T 5 source.ruby meta.embedded.block.yaml source.yaml
+T 6 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+T 10 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+L - #{g}
+T 1 source.ruby meta.embedded.block.yaml source.yaml punctuation.definition.block.sequence.item.yaml
+T 2 source.ruby meta.embedded.block.yaml source.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 6 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml
+L \n: c
+T 1 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 2 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+T 4 source.ruby meta.embedded.block.yaml source.yaml
+T 5 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+L ---
+T 3 source.ruby meta.embedded.block.yaml source.yaml entity.other.document.begin.yaml
+L nested:
+T 1 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+L   deeper: [one, two]
+T 2 source.ruby meta.embedded.block.yaml source.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+T 10 source.ruby meta.embedded.block.yaml source.yaml
+T 11 source.ruby meta.embedded.block.yaml source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.begin.yaml
+T 12 source.ruby meta.embedded.block.yaml source.yaml meta.flow-sequence.yaml string.unquoted.plain.in.yaml
+T 14 source.ruby meta.embedded.block.yaml source.yaml meta.flow-sequence.yaml string.unquoted.plain.in.yaml
+T 15 source.ruby meta.embedded.block.yaml source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 16 source.ruby meta.embedded.block.yaml source.yaml meta.flow-sequence.yaml
+T 17 source.ruby meta.embedded.block.yaml source.yaml meta.flow-sequence.yaml string.unquoted.plain.in.yaml
+T 19 source.ruby meta.embedded.block.yaml source.yaml meta.flow-sequence.yaml string.unquoted.plain.in.yaml
+T 20 source.ruby meta.embedded.block.yaml source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.end.yaml
+L YML
+T 3 source.ruby meta.embedded.block.yaml string.definition.end.ruby
+L 
+L pair = [<<~YAML, <<~SQL]
+T 4 source.ruby variable.ruby
+T 5 source.ruby
+T 6 source.ruby keyword.operator.assignment.ruby
+T 7 source.ruby
+T 8 source.ruby punctuation.section.array.begin.ruby
+T 15 source.ruby meta.embedded.block.yaml string.definition.begin.ruby
+T 17 source.ruby meta.embedded.block.yaml source.yaml
+T 18 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+T 24 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml
+L   item: #{item}
+T 2 source.ruby meta.embedded.block.yaml source.yaml
+T 3 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.ruby meta.embedded.block.yaml source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.ruby meta.embedded.block.yaml source.yaml punctuation.separator.key-value.mapping.yaml
+T 8 source.ruby meta.embedded.block.yaml source.yaml
+T 9 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 15 source.ruby meta.embedded.block.yaml source.yaml comment.line.number-sign.yaml
+L YAML
+T 4 source.ruby meta.embedded.block.yaml string.definition.end.ruby
+L   SELECT 1
+T 2 source.ruby
+T 8 source.ruby variable.other.constant.ruby
+T 9 source.ruby
+T 10 source.ruby constant.numeric.ruby
+L SQL
+T 3 source.ruby variable.other.constant.ruby
+L 

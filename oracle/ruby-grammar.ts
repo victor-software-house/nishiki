@@ -128,6 +128,7 @@ const embeddable: Record<string, [string, string]> = {
   "source.lua": ["Lua", "lang-lua"],
   "text.html.basic": ["Html", "lang-html"],
   "text.xml": ["Xml", "lang-xml"],
+  "source.yaml": ["Yaml", "lang-yaml"],
 };
 
 const pats = new Map<string, Pat>();
