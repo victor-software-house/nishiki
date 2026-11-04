@@ -13,38 +13,39 @@ use regex_syntax::hir::{self, ClassUnicode, ClassUnicodeRange, Dot, Hir, Look, R
 
 use super::ast::{Anchor, Class, Item, Kind, Node};
 
-/// The pattern cut at its first positive lookahead, which is replaced by what
-/// it looks for: a match that starts at `s` has the text before the lookahead
-/// and then the lookahead's pattern at the end of that text, so the two in a
-/// row say where a match can start, and what follows the lookahead, which
-/// overlaps it, is left out.
-pub(super) fn widen(node: &Node) -> Node {
+/// The pattern as an expression for `regex-automata`, in one walk of its tree.
+///
+/// A sequence is cut at its first positive lookahead.
+/// The lookahead's pattern replaces the lookahead and everything after it.
+/// A match that starts at `s` has the text before the lookahead.
+/// The lookahead's pattern then matches at the end of that text.
+/// The two in a row therefore match wherever a match can start.
+/// The cut applies on the path from the root through groups, atomic groups
+/// and lookaheads, as each one is walked.
+pub(super) fn relaxed(node: &Node) -> Hir {
     match node {
         Node::Seq(items) => {
-            for (index, item) in items.iter().enumerate() {
+            let mut parts = Vec::with_capacity(items.len());
+            for item in items {
                 if let Node::Look {
                     ahead: true,
                     negative: false,
                     node: body,
                 } = item
                 {
-                    let mut kept = items[..index].to_vec();
-                    kept.push(widen(body));
-                    return Node::Seq(kept);
+                    parts.push(relaxed(body));
+                    break;
                 }
+                parts.push(hir(item));
             }
-            node.clone()
+            Hir::concat(parts)
         }
-        Node::Group { index, node: inner } => Node::Group {
-            index: *index,
-            node: Box::new(widen(inner)),
-        },
-        Node::Atomic(inner) => Node::Atomic(Box::new(widen(inner))),
+        Node::Group { node: inner, .. } | Node::Atomic(inner) => relaxed(inner),
         Node::Look {
             ahead: true,
             negative: false,
             node: body,
-        } => widen(body),
+        } => relaxed(body),
         Node::Empty
         | Node::Char(..)
         | Node::Any(_)
@@ -57,13 +58,12 @@ pub(super) fn widen(node: &Node) -> Node {
         | Node::NamedBackref(..)
         | Node::Call(_)
         | Node::NamedCall(_)
-        | Node::Anchor(_) => node.clone(),
+        | Node::Anchor(_) => hir(node),
     }
 }
 
-/// The widened pattern as an expression for `regex-automata`, built without
-/// a round trip through its source.
-pub(super) fn hir(node: &Node) -> Hir {
+/// The node as an expression for `regex-automata`, with no cut.
+fn hir(node: &Node) -> Hir {
     match node {
         Node::Empty
         | Node::Look { .. }

@@ -262,9 +262,8 @@ impl Regex {
         let context_free = !uses_context(&parsed.root);
         let relaxed = match relaxed {
             Relaxed::Kept => context_free
-                .then(|| relax::widen(&parsed.root))
-                .filter(|widened| analysis::width(widened).0 > 0)
-                .map(|widened| relax::hir(&widened)),
+                .then(|| relax::relaxed(&parsed.root))
+                .filter(|relaxed| relaxed.properties().minimum_len().is_none_or(|len| len > 0)),
             Relaxed::Skipped => None,
         };
         let prefilter = if prefix.len() >= 2 {

@@ -578,3 +578,44 @@ fn lean_programs_leave_out_the_wide_alternatives() {
     assert_eq!(lean("(?i)fi", "ﬁ"), None);
     assert_eq!(find("(?i)fi", "ﬁ"), Some((0, 3)));
 }
+
+/// The relaxed form cuts a sequence at its first positive lookahead.
+/// The lookahead's pattern takes the place of the lookahead and the rest.
+/// The cut follows groups and atomic groups from the root.
+#[test]
+fn the_relaxed_form_ends_with_the_first_positive_lookahead() {
+    let cases = [
+        ("a(?=bc)d", "abc", "abx"),
+        ("(a(?=b))", "ab", "ac"),
+        ("(?>p(?=q))", "pq", "pr"),
+        ("(?=ab)c", "ab", "ac"),
+        ("a(?!b)c", "ac", "ab"),
+    ];
+    for (pattern, matched, missed) in cases {
+        let relaxed = Regex::relaxed_of(pattern, LineKind::Full)
+            .unwrap_or_else(|| panic!("{pattern} has no relaxed form"));
+        let automaton = regex_automata::meta::Regex::builder()
+            .build_from_hir(&relaxed)
+            .unwrap_or_else(|e| panic!("{pattern}: {e}"));
+        assert!(automaton.is_match(matched), "{pattern} misses {matched}");
+        assert!(!automaton.is_match(missed), "{pattern} matches {missed}");
+    }
+}
+
+/// A pattern whose relaxed form can match no text has no relaxed form.
+/// A pattern with an empty class keeps one, as a class counts one character.
+#[test]
+fn a_relaxed_form_needs_a_character() {
+    for pattern in ["(?<=a)", "^", "\\b", "(?=)", "a*"] {
+        assert!(
+            Regex::relaxed_of(pattern, LineKind::Full).is_none(),
+            "{pattern} has a relaxed form"
+        );
+    }
+    for pattern in ["a", "(?<=a)b", "[^\\x{0}-\\x{10ffff}]", "a+"] {
+        assert!(
+            Regex::relaxed_of(pattern, LineKind::Full).is_some(),
+            "{pattern} has no relaxed form"
+        );
+    }
+}
