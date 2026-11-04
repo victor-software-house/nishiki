@@ -1,0 +1,392 @@
+L // RUN: %empty-directory(%t)
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 28 source.swift comment.line.double-slash.swift
+L // RUN: echo "import Swift; public struct X {}; public var x = X()" | %target-swift-frontend -module-name import_builtin -parse-stdlib -emit-module -o %t -
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 155 source.swift comment.line.double-slash.swift
+L // RUN: echo "public func foo() -> Int { return false }" > %t/import_text.swift
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 79 source.swift comment.line.double-slash.swift
+L // RUN: echo "public func phoûx() -> Int { return false }" > %t/français.swift
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 80 source.swift comment.line.double-slash.swift
+L // RUN: %target-swift-frontend -typecheck %s -I %t -I %S/../../Inputs/ -sdk "" -enable-source-import -module-name main -verify -show-diagnostics-after-fatal -verify-ignore-unknown
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 179 source.swift comment.line.double-slash.swift
+L 
+L // -verify-ignore-unknown is for:
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 33 source.swift comment.line.double-slash.swift
+L // <unknown>:0: error: unexpected note produced: did you forget to set an SDK using -sdk or SDKROOT?
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 100 source.swift comment.line.double-slash.swift
+L // <unknown>:0: error: unexpected note produced: use "xcrun swiftc" to select the default macOS SDK installed with Xcode
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 120 source.swift comment.line.double-slash.swift
+L // <unknown>:0: error: unexpected note produced: did you forget to set an SDK using -sdk or SDKROOT?
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 100 source.swift comment.line.double-slash.swift
+L // <unknown>:0: error: unexpected note produced: use "xcrun swiftc" to select the default macOS SDK installed with Xcode
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 120 source.swift comment.line.double-slash.swift
+L // <unknown>:0: error: unexpected note produced: did you forget to set an SDK using -sdk or SDKROOT?
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 100 source.swift comment.line.double-slash.swift
+L // <unknown>:0: error: unexpected note produced: use "xcrun swiftc" to select the default macOS SDK installed with Xcode
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 120 source.swift comment.line.double-slash.swift
+L 
+L import Builtin  // expected-error {{no such module 'Builtin'}}
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 14 source.swift meta.import.swift entity.name.type.swift
+T 16 source.swift meta.import.swift
+T 18 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 62 source.swift comment.line.double-slash.swift
+L 
+L import import_builtin
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 21 source.swift meta.import.swift entity.name.type.swift
+L 
+L extension Int32 {
+T 9 source.swift meta.definition.type.extension.swift storage.type.extension.swift
+T 10 source.swift meta.definition.type.extension.swift
+T 15 source.swift meta.definition.type.extension.swift entity.name.type.swift support.type.swift
+T 16 source.swift meta.definition.type.extension.swift
+T 17 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   init(_: import_builtin.X) { }
+T 2 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.initializer.swift storage.type.function.swift
+T 7 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 8 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 10 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift
+T 26 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift
+T 27 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 28 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.initializer.swift
+T 29 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 30 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.definition.function.body.swift
+T 31 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L }
+T 1 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L func indirectBuiltin() {
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 20 source.swift meta.definition.function.swift entity.name.function.swift
+T 21 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 22 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 23 source.swift meta.definition.function.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+L   Int(Int32(import_builtin.x)) // expected-warning{{unused}}
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift support.type.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift support.type.swift
+T 12 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift meta.function-call.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift meta.function-call.swift variable.other.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 30 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 31 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 60 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L func f0() {
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 7 source.swift meta.definition.function.swift entity.name.function.swift
+T 8 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 9 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 10 source.swift meta.definition.function.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+L   import Swift // expected-error{{declaration is only valid at file scope}}
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 8 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.import.swift keyword.control.import.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.import.swift
+T 14 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.import.swift entity.name.type.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.import.swift
+T 17 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 75 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L import func Swift.print
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 11 source.swift meta.import.swift storage.modifier.swift
+T 12 source.swift meta.import.swift
+T 17 source.swift meta.import.swift entity.name.type.swift
+T 18 source.swift meta.import.swift punctuation.separator.import.swift
+T 23 source.swift meta.import.swift entity.name.type.swift
+L func f1(_ a: Swift.Int) -> Swift.Void { print(a) }
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 7 source.swift meta.definition.function.swift entity.name.function.swift
+T 8 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 9 source.swift meta.definition.function.swift meta.parameter-clause.swift entity.name.function.swift
+T 10 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 11 source.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 13 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 19 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 22 source.swift meta.definition.function.swift meta.parameter-clause.swift support.type.swift
+T 23 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 24 source.swift meta.definition.function.swift
+T 26 source.swift meta.definition.function.swift meta.function-result.swift keyword.operator.function-result.swift
+T 27 source.swift meta.definition.function.swift meta.function-result.swift
+T 33 source.swift meta.definition.function.swift meta.function-result.swift
+T 37 source.swift meta.definition.function.swift meta.function-result.swift support.type.swift
+T 38 source.swift meta.definition.function.swift meta.function-result.swift
+T 39 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 40 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 45 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.swift
+T 46 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 47 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift
+T 48 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 49 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 50 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L import func Swift.print
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 11 source.swift meta.import.swift storage.modifier.swift
+T 12 source.swift meta.import.swift
+T 17 source.swift meta.import.swift entity.name.type.swift
+T 18 source.swift meta.import.swift punctuation.separator.import.swift
+T 23 source.swift meta.import.swift entity.name.type.swift
+L 
+L // rdar://14418336
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 18 source.swift comment.line.double-slash.swift
+L #import something_nonexistent
+T 7 source.swift support.function.any-method.swift
+T 29 source.swift
+L // expected-error@-1 {{no macro named 'import'}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 48 source.swift comment.line.double-slash.swift
+L // expected-error@-2 {{consecutive statements on a line}} 
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 58 source.swift comment.line.double-slash.swift
+L // expected-error@-3 {{cannot find 'something_nonexistent' in scope}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 69 source.swift comment.line.double-slash.swift
+L 
+L // Import specific decls
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 24 source.swift comment.line.double-slash.swift
+L import typealias Swift.Int
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 16 source.swift meta.import.swift storage.modifier.swift
+T 17 source.swift meta.import.swift
+T 22 source.swift meta.import.swift entity.name.type.swift
+T 23 source.swift meta.import.swift punctuation.separator.import.swift
+T 26 source.swift meta.import.swift entity.name.type.swift
+L import struct Swift.Int
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 13 source.swift meta.import.swift storage.modifier.swift
+T 14 source.swift meta.import.swift
+T 19 source.swift meta.import.swift entity.name.type.swift
+T 20 source.swift meta.import.swift punctuation.separator.import.swift
+T 23 source.swift meta.import.swift entity.name.type.swift
+L import typealias Swift.ManagedBuffer
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 16 source.swift meta.import.swift storage.modifier.swift
+T 17 source.swift meta.import.swift
+T 22 source.swift meta.import.swift entity.name.type.swift
+T 23 source.swift meta.import.swift punctuation.separator.import.swift
+T 36 source.swift meta.import.swift entity.name.type.swift
+L import class Swift.ManagedBuffer
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 12 source.swift meta.import.swift storage.modifier.swift
+T 13 source.swift meta.import.swift
+T 18 source.swift meta.import.swift entity.name.type.swift
+T 19 source.swift meta.import.swift punctuation.separator.import.swift
+T 32 source.swift meta.import.swift entity.name.type.swift
+L import typealias Swift.Bool
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 16 source.swift meta.import.swift storage.modifier.swift
+T 17 source.swift meta.import.swift
+T 22 source.swift meta.import.swift entity.name.type.swift
+T 23 source.swift meta.import.swift punctuation.separator.import.swift
+T 27 source.swift meta.import.swift entity.name.type.swift
+L import struct Swift.Bool
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 13 source.swift meta.import.swift storage.modifier.swift
+T 14 source.swift meta.import.swift
+T 19 source.swift meta.import.swift entity.name.type.swift
+T 20 source.swift meta.import.swift punctuation.separator.import.swift
+T 24 source.swift meta.import.swift entity.name.type.swift
+L import protocol Swift.IteratorProtocol
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 15 source.swift meta.import.swift storage.modifier.swift
+T 16 source.swift meta.import.swift
+T 21 source.swift meta.import.swift entity.name.type.swift
+T 22 source.swift meta.import.swift punctuation.separator.import.swift
+T 38 source.swift meta.import.swift entity.name.type.swift
+L import var import_builtin.x
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 10 source.swift meta.import.swift storage.modifier.swift
+T 11 source.swift meta.import.swift
+T 25 source.swift meta.import.swift entity.name.type.swift
+T 26 source.swift meta.import.swift punctuation.separator.import.swift
+T 27 source.swift meta.import.swift entity.name.type.swift
+L import func Swift.min
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 11 source.swift meta.import.swift storage.modifier.swift
+T 12 source.swift meta.import.swift
+T 17 source.swift meta.import.swift entity.name.type.swift
+T 18 source.swift meta.import.swift punctuation.separator.import.swift
+T 21 source.swift meta.import.swift entity.name.type.swift
+L 
+L import var x // expected-error {{expected module name}}
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 10 source.swift meta.import.swift storage.modifier.swift
+T 11 source.swift meta.import.swift
+T 12 source.swift meta.import.swift entity.name.type.swift
+T 13 source.swift meta.import.swift
+T 15 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 55 source.swift comment.line.double-slash.swift
+L import struct Swift.nonexistent // expected-error {{struct 'nonexistent' does not exist in module 'Swift'}}
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 13 source.swift meta.import.swift storage.modifier.swift
+T 14 source.swift meta.import.swift
+T 19 source.swift meta.import.swift entity.name.type.swift
+T 20 source.swift meta.import.swift punctuation.separator.import.swift
+T 31 source.swift meta.import.swift entity.name.type.swift
+T 32 source.swift meta.import.swift
+T 34 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 107 source.swift comment.line.double-slash.swift
+L import func SwiftUI.Text.++ // expected-error{{cannot include postfix operator in import declaration}}{{25-28=}}
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 11 source.swift meta.import.swift storage.modifier.swift
+T 12 source.swift meta.import.swift
+T 19 source.swift meta.import.swift entity.name.type.swift
+T 20 source.swift meta.import.swift punctuation.separator.import.swift
+T 24 source.swift meta.import.swift entity.name.type.swift
+T 25 source.swift meta.import.swift punctuation.separator.import.swift
+T 27 source.swift meta.import.swift entity.name.type.swift
+T 28 source.swift meta.import.swift
+T 30 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 112 source.swift comment.line.double-slash.swift
+L 
+L import Swift.import.abc // expected-error {{expected identifier in import declaration}}
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 12 source.swift meta.import.swift entity.name.type.swift
+T 13 source.swift meta.import.swift punctuation.separator.import.swift
+T 19 source.swift meta.import.swift entity.name.type.swift
+T 20 source.swift meta.import.swift punctuation.separator.import.swift
+T 23 source.swift meta.import.swift entity.name.type.swift
+T 24 source.swift meta.import.swift
+T 26 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 87 source.swift comment.line.double-slash.swift
+L // expected-error @-1 {{keyword 'import' cannot be used as an identifier here}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 79 source.swift comment.line.double-slash.swift
+L // expected-note @-2 {{if this name is unavoidable, use backticks to escape it}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 80 source.swift comment.line.double-slash.swift
+L import where Swift.Int // expected-error {{expected identifier}}
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 12 source.swift meta.import.swift entity.name.type.swift
+T 22 source.swift meta.import.swift invalid.illegal.character-not-allowed-here.swift
+T 23 source.swift meta.import.swift
+T 25 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 64 source.swift comment.line.double-slash.swift
+L // expected-error @-1 {{keyword 'where' cannot be used as an identifier here}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 78 source.swift comment.line.double-slash.swift
+L // expected-note @-2 {{if this name is unavoidable, use backticks to escape it}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 80 source.swift comment.line.double-slash.swift
+L import 2 // expected-error {{expected identifier}}
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 8 source.swift meta.import.swift invalid.illegal.character-not-allowed-here.swift
+T 9 source.swift meta.import.swift
+T 11 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 50 source.swift comment.line.double-slash.swift
+L 
+L import really.nonexistent // expected-error {{no such module 'really.nonexistent'}}
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 13 source.swift meta.import.swift entity.name.type.swift
+T 14 source.swift meta.import.swift punctuation.separator.import.swift
+T 25 source.swift meta.import.swift entity.name.type.swift
+T 26 source.swift meta.import.swift
+T 28 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 83 source.swift comment.line.double-slash.swift
+L 
+L 
+L import import_text // no-warning despite function body problems
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 18 source.swift meta.import.swift entity.name.type.swift
+T 19 source.swift meta.import.swift
+T 21 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 63 source.swift comment.line.double-slash.swift
+L var _ : Int = foo()
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 7 source.swift
+T 8 source.swift
+T 11 source.swift support.type.swift
+T 12 source.swift
+T 13 source.swift keyword.operator.custom.infix.swift
+T 14 source.swift
+T 17 source.swift meta.function-call.swift support.function.any-method.swift
+T 18 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L 
+L import français
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 16 source.swift meta.import.swift entity.name.type.swift
+L import func français.phoûx
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 11 source.swift meta.import.swift storage.modifier.swift
+T 12 source.swift meta.import.swift
+T 21 source.swift meta.import.swift entity.name.type.swift
+T 22 source.swift meta.import.swift punctuation.separator.import.swift
+T 28 source.swift meta.import.swift entity.name.type.swift
+L 
+L import main // expected-warning {{file 'import.swift' is part of module 'main'; ignoring import}}{{group-name=ModuleSelfImport}}
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 11 source.swift meta.import.swift entity.name.type.swift
+T 12 source.swift meta.import.swift
+T 14 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 128 source.swift comment.line.double-slash.swift
+L 
+L @_exported @_implementationOnly import empty // expected-error {{module 'empty' cannot be both exported and implementation-only}} {{12-33=}}
+T 1 source.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 10 source.swift meta.attribute.swift storage.modifier.attribute.swift
+T 11 source.swift
+T 12 source.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 31 source.swift meta.attribute.swift storage.modifier.attribute.swift
+T 32 source.swift
+T 38 source.swift meta.import.swift keyword.control.import.swift
+T 39 source.swift meta.import.swift
+T 44 source.swift meta.import.swift entity.name.type.swift
+T 45 source.swift meta.import.swift
+T 47 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 140 source.swift comment.line.double-slash.swift
+L // expected-warning @-1 {{safely use '@_implementationOnly' without library evolution by setting '-enable-experimental-feature CheckImplementationOnly' for 'main'}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 164 source.swift comment.line.double-slash.swift
+L 

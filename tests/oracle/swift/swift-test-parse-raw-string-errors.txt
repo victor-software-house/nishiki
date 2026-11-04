@@ -1,0 +1,149 @@
+L // RUN: %target-typecheck-verify-swift
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 38 source.swift comment.line.double-slash.swift
+L 
+L let _ = "foo\(#"bar"##)baz"
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 4 source.swift
+T 5 source.swift support.variable.discard-value.swift
+T 6 source.swift
+T 7 source.swift keyword.operator.custom.infix.swift
+T 8 source.swift
+T 9 source.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 12 source.swift string.quoted.double.single-line.swift
+T 14 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift punctuation.section.embedded.begin.swift
+T 16 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 19 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift string.quoted.double.single-line.raw.swift
+T 21 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+T 22 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift invalid.illegal.extra-closing-delimiter.swift
+T 23 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift punctuation.section.embedded.end.swift
+T 26 source.swift string.quoted.double.single-line.swift
+T 27 source.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+L // expected-error@-1{{too many '#' characters in closing delimiter}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 68 source.swift comment.line.double-slash.swift
+L // expected-error@-2{{expected ',' separator}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 46 source.swift comment.line.double-slash.swift
+L // expected-error@-3{{expected a macro identifier}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 51 source.swift comment.line.double-slash.swift
+L 
+L let _ = #"\##("invalid")"#
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 4 source.swift
+T 5 source.swift support.variable.discard-value.swift
+T 6 source.swift
+T 7 source.swift keyword.operator.custom.infix.swift
+T 8 source.swift
+T 10 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 13 source.swift string.quoted.double.single-line.raw.swift invalid.illegal.escape-not-recognized
+T 24 source.swift string.quoted.double.single-line.raw.swift
+T 26 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // expected-error@-1{{too many '#' characters in delimited escape}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 67 source.swift comment.line.double-slash.swift
+L // expected-error@-2{{invalid escape sequence in literal}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 58 source.swift comment.line.double-slash.swift
+L 
+L let _ = ###"""invalid"######
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 4 source.swift
+T 5 source.swift support.variable.discard-value.swift
+T 6 source.swift
+T 7 source.swift keyword.operator.custom.infix.swift
+T 8 source.swift
+T 12 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 21 source.swift string.quoted.double.single-line.raw.swift
+T 25 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+T 28 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift invalid.illegal.extra-closing-delimiter.swift
+L // expected-error@-1{{too many '#' characters in closing delimiter}}{{26-29=}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 78 source.swift comment.line.double-slash.swift
+L // expected-error@-2{{consecutive statements on a line must be separated by ';'}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 81 source.swift comment.line.double-slash.swift
+L // expected-error@-3{{expected a macro identifier}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 51 source.swift comment.line.double-slash.swift
+L 
+L let _ = ####"invalid"###
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 4 source.swift
+T 5 source.swift support.variable.discard-value.swift
+T 6 source.swift
+T 7 source.swift keyword.operator.custom.infix.swift
+T 8 source.swift
+T 13 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 24 source.swift string.quoted.double.single-line.raw.swift
+L // expected-error@-1{{unterminated string literal}}
+T 51 source.swift string.quoted.double.single-line.raw.swift
+L 
+L let _ = ###"invalid"######
+T 19 source.swift string.quoted.double.single-line.raw.swift
+T 24 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+T 26 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift invalid.illegal.extra-closing-delimiter.swift
+L // expected-error@-1{{too many '#' characters in closing delimiter}}{{24-27=}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 78 source.swift comment.line.double-slash.swift
+L // expected-error@-2{{consecutive statements on a line must be separated by ';'}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 81 source.swift comment.line.double-slash.swift
+L // expected-error@-3{{expected a macro identifier}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 51 source.swift comment.line.double-slash.swift
+L 
+L let _ = ##"""aa
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 4 source.swift
+T 5 source.swift support.variable.discard-value.swift
+T 6 source.swift
+T 7 source.swift keyword.operator.custom.infix.swift
+T 8 source.swift
+T 13 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+T 15 source.swift string.quoted.double.block.raw.swift invalid.illegal.content-after-opening-delimiter.swift
+L   foobar
+T 8 source.swift string.quoted.double.block.raw.swift
+L   aa"""##
+T 4 source.swift string.quoted.double.block.raw.swift
+T 9 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+L // expected-error@-3{{multi-line string literal content must begin on a new line}}{{14-14=\n}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 94 source.swift comment.line.double-slash.swift
+L // expected-error@-2{{multi-line string literal closing delimiter must begin on a new line}}{{5-5=\n}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 102 source.swift comment.line.double-slash.swift
+L 
+L let _ = #""" foo "bar" #baz
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 4 source.swift
+T 5 source.swift support.variable.discard-value.swift
+T 6 source.swift
+T 7 source.swift keyword.operator.custom.infix.swift
+T 8 source.swift
+T 12 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+T 27 source.swift string.quoted.double.block.raw.swift invalid.illegal.content-after-opening-delimiter.swift
+L   """#
+T 2 source.swift string.quoted.double.block.raw.swift
+T 6 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+L // expected-error@-2{{multi-line string literal content must begin on a new line}}{{13-13=\n}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 94 source.swift comment.line.double-slash.swift
+L 
+L let _ = ###""" "# "##
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 4 source.swift
+T 5 source.swift support.variable.discard-value.swift
+T 6 source.swift
+T 7 source.swift keyword.operator.custom.infix.swift
+T 8 source.swift
+T 14 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+T 21 source.swift string.quoted.double.block.raw.swift invalid.illegal.content-after-opening-delimiter.swift
+L   """###
+T 2 source.swift string.quoted.double.block.raw.swift
+T 8 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+L // expected-error@-2{{multi-line string literal content must begin on a new line}}{{15-15=\n}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 94 source.swift comment.line.double-slash.swift
+L 

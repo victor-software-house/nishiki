@@ -1,0 +1,1490 @@
+L // RUN: %target-swift-frontend(mock-sdk: %clang-importer-sdk) -disable-objc-attr-requires-foundation-module -typecheck %s -verify
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 129 source.swift comment.line.double-slash.swift
+L import ObjectiveC
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 17 source.swift meta.import.swift entity.name.type.swift
+L 
+L // REQUIRES: objc_interop
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 25 source.swift comment.line.double-slash.swift
+L 
+L @objc class A { }
+T 1 source.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 5 source.swift meta.attribute.swift storage.modifier.attribute.swift
+T 6 source.swift
+T 11 source.swift meta.definition.type.class.swift storage.type.class.swift
+T 12 source.swift meta.definition.type.class.swift
+T 13 source.swift meta.definition.type.class.swift entity.name.type.class.swift
+T 14 source.swift meta.definition.type.class.swift
+T 15 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 16 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 17 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L @objc class B { }
+T 1 source.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 5 source.swift meta.attribute.swift storage.modifier.attribute.swift
+T 6 source.swift
+T 11 source.swift meta.definition.type.class.swift storage.type.class.swift
+T 12 source.swift meta.definition.type.class.swift
+T 13 source.swift meta.definition.type.class.swift entity.name.type.class.swift
+T 14 source.swift meta.definition.type.class.swift
+T 15 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 16 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 17 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L class C1 {
+T 5 source.swift meta.definition.type.class.swift storage.type.class.swift
+T 6 source.swift meta.definition.type.class.swift
+T 8 source.swift meta.definition.type.class.swift entity.name.type.class.swift
+T 9 source.swift meta.definition.type.class.swift
+T 10 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   @objc init(a: A, b: B) { }
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.initializer.swift storage.type.function.swift
+T 13 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 14 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 16 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift
+T 17 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift
+T 19 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift
+T 20 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 22 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift
+T 23 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift
+T 24 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 25 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.initializer.swift
+T 26 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 27 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.definition.function.body.swift
+T 28 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L   @objc func method1(_ a: A, b: B) { }
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 13 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 20 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 21 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 22 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift entity.name.function.swift
+T 23 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 24 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 26 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 27 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 29 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 30 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 32 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 33 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 34 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 35 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 36 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 37 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 38 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L   @objc(someMethodWithA:B:) func method2(_ a: A, b: B) { }
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift punctuation.definition.arguments.begin.swift
+T 26 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift entity.name.function.swift
+T 27 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift punctuation.definition.arguments.end.swift
+T 28 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 32 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 33 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 40 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 41 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 42 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift entity.name.function.swift
+T 43 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 44 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 46 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 47 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 49 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 50 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 52 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 53 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 54 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 55 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 56 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 57 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 58 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L   @objc class func method3(_ a: A, b: B) { } // expected-note{{found this candidate}}
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.class.swift meta.definition.type.body.swift storage.type.class.swift
+T 14 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 18 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 19 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 26 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 27 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 28 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift entity.name.function.swift
+T 29 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 30 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 32 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 33 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 35 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 36 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 38 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 39 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 40 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 41 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 42 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 43 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 44 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+T 45 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 47 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 85 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   @objc class func method3(a: A, b: B) { } // expected-note{{found this candidate}}
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.class.swift meta.definition.type.body.swift storage.type.class.swift
+T 14 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 18 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 19 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 26 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 27 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 28 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 30 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 31 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 33 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 34 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 36 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 37 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 38 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 39 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 40 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 41 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 42 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+T 43 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 45 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 83 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L 
+L   @objc(ambiguous1:b:) class func ambiguous(a: A, b: A) { } // expected-note{{found this candidate}}
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift punctuation.definition.arguments.begin.swift
+T 21 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift entity.name.function.swift
+T 22 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift punctuation.definition.arguments.end.swift
+T 23 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 28 source.swift meta.definition.type.class.swift meta.definition.type.body.swift storage.type.class.swift
+T 29 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 33 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 34 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 43 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 44 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 45 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 47 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 48 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 50 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 51 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 53 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 54 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 55 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 56 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 57 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 58 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 59 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+T 60 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 62 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 100 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   @objc(ambiguous2:b:) class func ambiguous(a: A, b: B) { } // expected-note{{found this candidate}}
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift punctuation.definition.arguments.begin.swift
+T 21 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift entity.name.function.swift
+T 22 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.objc.swift punctuation.definition.arguments.end.swift
+T 23 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 28 source.swift meta.definition.type.class.swift meta.definition.type.body.swift storage.type.class.swift
+T 29 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 33 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 34 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 43 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 44 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 45 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 47 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 48 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 50 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 51 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 53 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 54 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 55 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 56 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 57 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 58 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 59 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+T 60 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 62 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 100 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L 
+L   @objc func getC1() -> AnyObject { return self }
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 13 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 18 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 19 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 20 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 21 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 23 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift keyword.operator.function-result.swift
+T 24 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift
+T 33 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift support.type.swift
+T 34 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift
+T 35 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 36 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 42 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.transfer.swift
+T 43 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 47 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift variable.language.swift
+T 48 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 49 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L   @objc func testUnqualifiedSelector(_ a: A, b: B) {
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 13 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 36 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 37 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 38 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift entity.name.function.swift
+T 39 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 40 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 42 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 43 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 45 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 46 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 48 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 49 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 50 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 51 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 52 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+L     _ = #selector(testUnqualifiedSelector(_:b:))
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 6 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 17 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 18 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 41 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 42 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 44 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 46 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 47 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 48 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L     let testUnqualifiedSelector = 1
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift keyword.other.declaration-specifier.swift
+T 32 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 33 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 34 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 35 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift constant.numeric.integer.decimal.swift
+L     _ = #selector(testUnqualifiedSelector(_:b:))
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 6 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 17 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 18 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 41 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 42 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 44 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 46 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 47 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 48 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L     _ = testUnqualifiedSelector // suppress unused warning
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 6 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 32 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 34 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 58 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   }
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L   @objc func testParam(_ testParam: A) { // expected-note{{'testParam' declared here}}
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 13 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 22 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 23 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 24 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift entity.name.function.swift
+T 25 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 34 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 36 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 37 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 38 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 39 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 40 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 41 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 43 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 86 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L     _ = #selector(testParam) // expected-error{{argument of '#selector' cannot refer to parameter 'testParam'}}
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 6 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 17 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 18 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 27 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 28 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 29 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 31 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 111 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   }
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L   @objc func testVariable() {
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 13 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 25 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 26 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 27 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 28 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 29 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+L     let testVariable = 1 // expected-note{{'testVariable' declared here}}
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift keyword.other.declaration-specifier.swift
+T 21 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 22 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 23 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 24 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift constant.numeric.integer.decimal.swift
+T 25 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 27 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 73 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L     _ = #selector(testVariable) // expected-error{{argument of '#selector' cannot refer to variable 'testVariable'}}
+T 4 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 6 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 17 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 18 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 30 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 31 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 32 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 34 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 116 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   }
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L }
+T 1 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L @objc protocol P1 {
+T 1 source.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 5 source.swift meta.attribute.swift storage.modifier.attribute.swift
+T 6 source.swift
+T 14 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift
+T 17 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 18 source.swift meta.definition.type.protocol.swift
+T 19 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   func method4(_ a: A, b: B)
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 7 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 14 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 15 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 16 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift entity.name.function.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 20 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 21 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 23 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 24 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 26 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 27 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 28 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+L   static func method5(_ a: B, b: B)
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 14 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 21 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 22 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 23 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift entity.name.function.swift
+T 24 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 25 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 27 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 28 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 30 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 31 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 33 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 34 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 35 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L extension C1 {
+T 9 source.swift meta.definition.type.extension.swift storage.type.extension.swift
+T 10 source.swift meta.definition.type.extension.swift
+T 12 source.swift meta.definition.type.extension.swift entity.name.type.swift
+T 13 source.swift meta.definition.type.extension.swift
+T 14 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   final func method6() { } // expected-note{{add '@objc' to expose this instance method to Objective-C}}{{3-3=@objc }}
+T 2 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift
+T 7 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift storage.modifier.swift
+T 8 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 13 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.swift
+T 20 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 21 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 22 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 23 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.swift
+T 24 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 25 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+T 27 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift
+T 29 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 118 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.extension.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L func testSelector(_ c1: C1, p1: P1, obj: AnyObject) {
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 17 source.swift meta.definition.function.swift entity.name.function.swift
+T 18 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 19 source.swift meta.definition.function.swift meta.parameter-clause.swift entity.name.function.swift
+T 20 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 22 source.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 24 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 26 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 28 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 30 source.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 32 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 34 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 36 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 39 source.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 41 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 50 source.swift meta.definition.function.swift meta.parameter-clause.swift support.type.swift
+T 51 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 52 source.swift meta.definition.function.swift
+T 53 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+L   // Instance methods on an instance
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 36 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   let sel1 = #selector(c1.method1)
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.other.declaration-specifier.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 12 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 13 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 34 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L   _ = #selector(c1.method1(_:b:))
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 31 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 32 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L   _ = #selector(c1.method2)
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L 
+L   // Instance methods on a class.
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   _ = #selector(C1.method1)
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L   _ = #selector(C1.method1(_:b:))
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 31 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 32 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L   _ = #selector(C1.method2)
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L 
+L   // Class methods on a class.
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 30 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   _ = #selector(C1.method3(_:b:))
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 31 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 32 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L   _ = #selector(C1.method3(a:b:))
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 31 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 32 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L 
+L   // Methods on a protocol.
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   _ = #selector(P1.method4)
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L   _ = #selector(P1.method4(_:b:))
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 31 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 32 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L   _ = #selector(P1.method5) // expected-error{{static member 'method5' cannot be used on protocol metatype '(any P1).Type'}}
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 30 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 124 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   _ = #selector(P1.method5(_:b:)) // expected-error{{static member 'method5(_:b:)' cannot be used on protocol metatype '(any P1).Type'}}
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 31 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 32 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 34 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 36 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 136 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   _ = #selector(p1.method4)
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L   _ = #selector(p1.method4(_:b:))
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 31 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 32 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L   _ = #selector(type(of: p1).method5)
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 20 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.dynamic-type.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.parameter.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.separator.argument-label.begin.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 36 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 37 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L   _ = #selector(type(of: p1).method5(_:b:))
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 20 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.dynamic-type.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.parameter.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.separator.argument-label.begin.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 36 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 37 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 39 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 41 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 42 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 43 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L 
+L   // Interesting expressions that refer to methods.
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 51 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   _ = #selector(Swift.AnyObject.method1)
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 31 source.swift meta.definition.function.swift meta.definition.function.body.swift support.type.swift
+T 32 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 39 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 40 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L   _ = #selector(AnyObject.method1!)
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift support.type.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 34 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.postfix.swift
+T 35 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L   // expected-error@-1 {{cannot force unwrap value of non-optional type '(AnyObject) -> ((A, B) -> ())?'}}
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 106 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   _ = #selector(obj.getC1?().method1)
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 20 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.tuple.begin.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.tuple.end.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 36 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 37 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L 
+L   // Initializers
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 17 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   _ = #selector(C1.init(a:b:))
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 30 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L 
+L   // Make sure the result has type "ObjectiveC.Selector"
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 56 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   let sel2: Selector
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.other.declaration-specifier.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 20 source.swift meta.definition.function.swift meta.definition.function.body.swift
+L   sel2 = sel1
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 8 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 13 source.swift meta.definition.function.swift meta.definition.function.body.swift
+L   _ = sel2
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 10 source.swift meta.definition.function.swift meta.definition.function.body.swift
+L 
+L   let dict: [Selector: Int] = [:]
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.other.declaration-specifier.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 12 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 13 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.collection-type.begin.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.separator.key-value.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift support.type.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.collection-type.end.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 31 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 32 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.ternary.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift
+L   let _: Int? = dict[#selector(c1.method1)]
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.other.declaration-specifier.swift
+T 8 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 12 source.swift meta.definition.function.swift meta.definition.function.body.swift support.type.swift
+T 13 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.type.optional.swift
+T 14 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 20 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.subscript-expression.swift punctuation.definition.arguments.begin.swift
+T 30 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.subscript-expression.swift support.function.selector-reference.swift
+T 31 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.subscript-expression.swift punctuation.definition.arguments.begin.swift
+T 34 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.subscript-expression.swift
+T 41 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.subscript-expression.swift variable.other.swift
+T 42 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.subscript-expression.swift punctuation.definition.arguments.end.swift
+T 43 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.subscript-expression.swift punctuation.definition.arguments.end.swift
+L   let _ = [#selector(c1.method1)]
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.other.declaration-specifier.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 8 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 20 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 31 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 32 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L func testAmbiguity() {
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 18 source.swift meta.definition.function.swift entity.name.function.swift
+T 19 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 20 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 21 source.swift meta.definition.function.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+L   _ = #selector(C1.method3) // expected-error{{ambiguous use of 'method3'}}
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 30 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 75 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   _ = #selector(C1.ambiguous) // expected-error{{ambiguous use of 'ambiguous(a:b:)'}}
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 30 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 32 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 85 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L func testUnusedSelector() {
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 23 source.swift meta.definition.function.swift entity.name.function.swift
+T 24 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 25 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 26 source.swift meta.definition.function.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+L     #selector(C1.getC1) // expected-warning{{result of '#selector' is unused}}
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 13 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 14 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 17 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 78 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L func testNonObjC(_ c1: C1) {
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 16 source.swift meta.definition.function.swift entity.name.function.swift
+T 17 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 18 source.swift meta.definition.function.swift meta.parameter-clause.swift entity.name.function.swift
+T 19 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 21 source.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 23 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 25 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 26 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 27 source.swift meta.definition.function.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+L   _ = #selector(c1.method6) // expected-error{{argument of '#selector' refers to instance method 'method6()' that is not exposed to Objective-C}}
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 30 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 145 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L func testParseErrors1() {
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 21 source.swift meta.definition.function.swift entity.name.function.swift
+T 22 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 23 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 24 source.swift meta.definition.function.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+L   _ = #selector foo // expected-error{{expected '(' following '#selector'}}
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.any-method.swift
+T 20 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 75 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L func testParseErrors2() {
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 21 source.swift meta.definition.function.swift entity.name.function.swift
+T 22 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 23 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 24 source.swift meta.definition.function.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+L   _ = #selector( // expected-error{{expected expression naming a method within '#selector(...)'}}
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 17 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 97 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift
+L 
+L func testParseErrors3(_ c1: C1) {
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift support.function.any-method.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift support.variable.discard-value.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift keyword.operator.ternary.swift
+T 30 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift
+T 31 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 32 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L   _ = #selector( // expected-note{{to match this opening '('}}
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 17 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 62 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L       c1.method1(_:b:) // expected-error{{expected ')' to complete '#selector' expression}}
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 17 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 91 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift
+L 
+L func testParseErrors4() {
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift support.function.any-method.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L   _ = #selector(C1.subscript) // expected-error{{type 'C1' has no member 'subscript'}}
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 30 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 32 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 86 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L 
+L // https://github.com/apple/swift/issues/44436
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 46 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L do {
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.exception.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.whitespace.trailing.do.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L   let optionalSel: Selector?
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.other.declaration-specifier.swift
+T 18 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.type.optional.swift
+L 
+L   switch optionalSel {
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 8 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.branch.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L   case #selector(C1.method1)?:
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.branch.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 17 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 20 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.postfix.swift
+T 30 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.ternary.swift
+L     break
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.transfer.swift
+L   default:
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.branch.swift
+T 10 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.ternary.swift
+L     break
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.transfer.swift
+L   }
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L 
+L   @objc class C {
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 13 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift storage.type.class.swift
+T 14 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift entity.name.type.class.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift
+T 17 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L     @objc func bar() {}
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 10 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 14 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 18 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 20 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L   }
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L   switch optionalSel {
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 8 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.branch.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L   case #selector(C.bar):
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.branch.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 17 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.ternary.swift
+L     break
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.transfer.swift
+L   case #selector(C.bar)!: // expected-error{{cannot force unwrap value of non-optional type 'Selector'}}
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.branch.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 17 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.postfix.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.ternary.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 104 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L     break
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.transfer.swift
+L   case #selector(C.bar)?:
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.branch.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 17 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.postfix.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.ternary.swift
+L     break
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.transfer.swift
+L   default:
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.branch.swift
+T 10 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.ternary.swift
+L     break
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.control.transfer.swift
+L   }
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L 
+L // https://github.com/apple/swift/issues/51857
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 46 source.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L 
+L protocol SomeProtocol {
+T 8 source.swift meta.definition.function.swift meta.definition.function.body.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.trailing-closure-only.swift support.function.any-method.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L   func someFunction()
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift storage.type.function.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift entity.name.function.swift
+T 20 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+L   func anotherFunction()
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift storage.type.function.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift entity.name.function.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L 
+L extension SomeProtocol {
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift storage.type.extension.swift
+T 10 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.trailing-closure-only.swift support.function.any-method.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L   func someFunction() {
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift storage.type.function.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift entity.name.function.swift
+T 20 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+L     let _ = #selector(anotherFunction) // expected-error {{cannot use 'anotherFunction' as a selector because protocol 'SomeProtocol' is not exposed to Objective-C}} {{none}}
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift keyword.other.declaration-specifier.swift
+T 8 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 10 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 12 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 37 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 38 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+T 39 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 41 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 174 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift comment.line.double-slash.swift
+L   }
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L   func anotherFunction() {
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift storage.type.function.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift entity.name.function.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+L     print("Hello world!")
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift support.function.swift
+T 10 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift string.quoted.double.single-line.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L  }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L 
+L @objc class OverloadedFuncAndProperty {
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift storage.type.class.swift
+T 12 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 37 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.trailing-closure-only.swift support.function.any-method.swift
+T 38 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 39 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L   @objc static func f() {}
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 14 source.swift meta.definition.function.swift meta.definition.function.body.swift storage.modifier.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift storage.type.function.swift
+T 20 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift entity.name.function.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L   @objc var f: Int { 0 }
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.other.declaration-specifier.swift
+T 14 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 18 source.swift meta.definition.function.swift meta.definition.function.body.swift support.type.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 20 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift constant.numeric.integer.decimal.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L 
+L func test() -> Selector {
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 9 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift support.function.any-method.swift
+T 10 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 12 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 14 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.trailing-closure-only.swift support.function.any-method.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L   #selector(OverloadedFuncAndProperty.f)
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 12 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 38 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 39 source.swift meta.definition.function.swift meta.definition.function.body.swift variable.other.swift
+T 40 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L 
+L @objc protocol HasThrows {
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 14 source.swift meta.definition.function.swift meta.definition.function.body.swift storage.type.protocol.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.trailing-closure-only.swift support.function.any-method.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L   @objc optional func doSomething(to object: AnyObject) throws -> Void
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift storage.modifier.swift
+T 17 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift storage.type.function.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift entity.name.function.swift
+T 34 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 36 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift entity.name.function.swift
+T 37 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 43 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 45 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 54 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift support.type.swift
+T 55 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 56 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift
+T 62 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift storage.modifier.exception.swift
+T 63 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift
+T 65 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.function-result.swift keyword.operator.function-result.swift
+T 66 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.function-result.swift
+T 70 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.function-result.swift support.type.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L 
+L func testWithThrowing(obj: AnyObject) {
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift support.function.any-method.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift support.function.any-method.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 27 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift
+T 36 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift support.type.swift
+T 37 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 38 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 39 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L   _ = #selector(HasThrows.doSomething(to:))
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 26 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 37 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 38 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 41 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 42 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 43 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L 
+L @available(SwiftStdlib 5.1, *)
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.available.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 10 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.available.swift storage.modifier.attribute.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.available.swift punctuation.definition.arguments.begin.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.available.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.available.swift keyword.other.platform.all.swift
+T 30 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.available.swift punctuation.definition.arguments.end.swift
+L @objc protocol HasAsync {
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 14 source.swift meta.definition.function.swift meta.definition.function.body.swift storage.type.protocol.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.trailing-closure-only.swift support.function.any-method.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L   @objc optional func doSomething(to object: AnyObject) async -> Void
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 7 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 8 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift storage.modifier.swift
+T 17 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 21 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift storage.type.function.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift entity.name.function.swift
+T 34 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 36 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift entity.name.function.swift
+T 37 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 43 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 45 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 54 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift support.type.swift
+T 55 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 56 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 61 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.parameter-clause.swift storage.modifier.async.swift
+T 62 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift
+T 64 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.function-result.swift keyword.operator.function-result.swift
+T 65 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.function-result.swift
+T 69 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.definition.function.swift meta.function-result.swift support.type.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L 
+L @available(SwiftStdlib 5.1, *)
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.available.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 10 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.available.swift storage.modifier.attribute.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.available.swift punctuation.definition.arguments.begin.swift
+T 28 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.available.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.available.swift keyword.other.platform.all.swift
+T 30 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.attribute.available.swift punctuation.definition.arguments.end.swift
+L func testWithAsync(obj: AnyObject) {
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 18 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift support.function.any-method.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 22 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift support.function.any-method.swift
+T 23 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 24 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift support.type.swift
+T 34 source.swift meta.definition.function.swift meta.definition.function.body.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 35 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 36 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.begin.swift
+L   _ = #selector(HasAsync.doSomething(to:))
+T 2 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 3 source.swift meta.definition.function.swift meta.definition.function.body.swift support.variable.discard-value.swift
+T 4 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 5 source.swift meta.definition.function.swift meta.definition.function.body.swift keyword.operator.custom.infix.swift
+T 6 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 15 source.swift meta.definition.function.swift meta.definition.function.body.swift support.function.selector-reference.swift
+T 16 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.begin.swift
+T 25 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 36 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 37 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 40 source.swift meta.definition.function.swift meta.definition.function.body.swift entity.name.function.compound-name.swift
+T 41 source.swift meta.definition.function.swift meta.definition.function.body.swift
+T 42 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.definition.arguments.end.swift
+L }
+T 1 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.scope.end.swift
+L 

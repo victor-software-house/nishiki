@@ -1,0 +1,614 @@
+L // RUN: %target-typecheck-verify-swift
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 38 source.swift comment.line.double-slash.swift
+L 
+L prefix operator +++ {} // expected-error {{operator should no longer be declared with body}} {{20-23=}}
+T 6 source.swift meta.definition.operator.swift storage.modifier.swift
+T 7 source.swift meta.definition.operator.swift
+T 15 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 16 source.swift meta.definition.operator.swift
+T 19 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 20 source.swift meta.definition.operator.swift
+T 21 source.swift meta.definition.operator.swift punctuation.definition.operator.begin.swift
+T 22 source.swift meta.definition.operator.swift punctuation.definition.operator.end.swift
+T 23 source.swift meta.definition.operator.swift
+T 25 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 103 source.swift comment.line.double-slash.swift
+L postfix operator +++ {} // expected-error {{operator should no longer be declared with body}} {{21-24=}}
+T 7 source.swift meta.definition.operator.swift storage.modifier.swift
+T 8 source.swift meta.definition.operator.swift
+T 16 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 17 source.swift meta.definition.operator.swift
+T 20 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 21 source.swift meta.definition.operator.swift
+T 22 source.swift meta.definition.operator.swift punctuation.definition.operator.begin.swift
+T 23 source.swift meta.definition.operator.swift punctuation.definition.operator.end.swift
+T 24 source.swift meta.definition.operator.swift
+T 26 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 104 source.swift comment.line.double-slash.swift
+L infix operator +++ {} // expected-error {{operator should no longer be declared with body}} {{19-22=}}
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 18 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 19 source.swift meta.definition.operator.swift
+T 20 source.swift meta.definition.operator.swift punctuation.definition.operator.begin.swift
+T 21 source.swift meta.definition.operator.swift punctuation.definition.operator.end.swift
+T 22 source.swift meta.definition.operator.swift
+T 24 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 102 source.swift comment.line.double-slash.swift
+L infix operator +++* { // expected-error {{operator should no longer be declared with body; use a precedence group instead}} {{none}}
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 19 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 20 source.swift meta.definition.operator.swift
+T 21 source.swift meta.definition.operator.swift punctuation.definition.operator.begin.swift
+T 22 source.swift meta.definition.operator.swift
+T 24 source.swift meta.definition.operator.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 132 source.swift meta.definition.operator.swift comment.line.double-slash.swift
+L   associativity right
+T 2 source.swift meta.definition.operator.swift
+T 15 source.swift meta.definition.operator.swift storage.modifier.swift
+T 16 source.swift meta.definition.operator.swift
+T 21 source.swift meta.definition.operator.swift keyword.other.operator.associativity.swift
+L }
+T 1 source.swift meta.definition.operator.swift punctuation.definition.operator.end.swift
+L infix operator +++*+ : A { } // expected-error {{operator should no longer be declared with body}} {{25-29=}}
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 20 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 21 source.swift meta.definition.operator.swift
+T 23 source.swift meta.definition.operator.swift
+T 24 source.swift meta.definition.operator.swift entity.other.inherited-class.swift
+T 25 source.swift meta.definition.operator.swift
+T 26 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 27 source.swift meta.definition.operator.swift
+T 28 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 29 source.swift meta.definition.operator.swift
+T 31 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 109 source.swift comment.line.double-slash.swift
+L 
+L 
+L prefix operator +++** : A { }
+T 6 source.swift meta.definition.operator.swift storage.modifier.swift
+T 7 source.swift meta.definition.operator.swift
+T 15 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 16 source.swift meta.definition.operator.swift
+T 21 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 22 source.swift meta.definition.operator.swift
+T 24 source.swift meta.definition.operator.swift
+T 25 source.swift meta.definition.operator.swift entity.other.inherited-class.swift
+T 26 source.swift meta.definition.operator.swift
+T 27 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 28 source.swift meta.definition.operator.swift
+T 29 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+L // expected-error@-1 {{only infix operators may declare a precedence}} {{23-27=}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 81 source.swift comment.line.double-slash.swift
+L // expected-error@-2 {{operator should no longer be declared with body}} {{26-30=}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 83 source.swift comment.line.double-slash.swift
+L 
+L prefix operator ++*++ : A
+T 6 source.swift meta.definition.operator.swift storage.modifier.swift
+T 7 source.swift meta.definition.operator.swift
+T 15 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 16 source.swift meta.definition.operator.swift
+T 21 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 22 source.swift meta.definition.operator.swift
+T 24 source.swift meta.definition.operator.swift
+T 25 source.swift meta.definition.operator.swift entity.other.inherited-class.swift
+L // expected-error@-1 {{only infix operators may declare a precedence}} {{23-26=}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 81 source.swift comment.line.double-slash.swift
+L 
+L postfix operator ++*+* : A { }
+T 7 source.swift meta.definition.operator.swift storage.modifier.swift
+T 8 source.swift meta.definition.operator.swift
+T 16 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 17 source.swift meta.definition.operator.swift
+T 22 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 23 source.swift meta.definition.operator.swift
+T 25 source.swift meta.definition.operator.swift
+T 26 source.swift meta.definition.operator.swift entity.other.inherited-class.swift
+T 27 source.swift meta.definition.operator.swift
+T 28 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 29 source.swift meta.definition.operator.swift
+T 30 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+L // expected-error@-1 {{only infix operators may declare a precedence}} {{24-28=}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 81 source.swift comment.line.double-slash.swift
+L // expected-error@-2 {{operator should no longer be declared with body}} {{27-31=}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 83 source.swift comment.line.double-slash.swift
+L 
+L postfix operator ++**+ : A
+T 7 source.swift meta.definition.operator.swift storage.modifier.swift
+T 8 source.swift meta.definition.operator.swift
+T 16 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 17 source.swift meta.definition.operator.swift
+T 22 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 23 source.swift meta.definition.operator.swift
+T 25 source.swift meta.definition.operator.swift
+T 26 source.swift meta.definition.operator.swift entity.other.inherited-class.swift
+L // expected-error@-1 {{only infix operators may declare a precedence}} {{24-27=}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 81 source.swift comment.line.double-slash.swift
+L 
+L operator ++*** : A
+T 8 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 9 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 17 source.swift meta.definition.operator.swift
+T 18 source.swift meta.definition.operator.swift entity.other.inherited-class.swift
+L // expected-error@-1 {{operator must be declared as 'prefix', 'postfix', or 'infix'}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 85 source.swift comment.line.double-slash.swift
+L 
+L operator +*+++ { }
+T 8 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 9 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 16 source.swift meta.definition.operator.swift punctuation.definition.operator.begin.swift
+T 17 source.swift meta.definition.operator.swift
+T 18 source.swift meta.definition.operator.swift punctuation.definition.operator.end.swift
+L // expected-error@-1 {{operator must be declared as 'prefix', 'postfix', or 'infix'}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 85 source.swift comment.line.double-slash.swift
+L // expected-error@-2 {{operator should no longer be declared with body}} {{15-19=}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 83 source.swift comment.line.double-slash.swift
+L 
+L operator +*++* : A { }
+T 8 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 9 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 17 source.swift meta.definition.operator.swift
+T 18 source.swift meta.definition.operator.swift entity.other.inherited-class.swift
+T 19 source.swift meta.definition.operator.swift
+T 20 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 21 source.swift meta.definition.operator.swift
+T 22 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+L // expected-error@-1 {{operator must be declared as 'prefix', 'postfix', or 'infix'}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 85 source.swift comment.line.double-slash.swift
+L // expected-error@-2 {{operator should no longer be declared with body}} {{19-23=}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 83 source.swift comment.line.double-slash.swift
+L 
+L prefix operator // expected-error {{expected operator name in operator declaration}}
+T 6 source.swift meta.definition.operator.swift storage.modifier.swift
+T 7 source.swift meta.definition.operator.swift
+T 15 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 16 source.swift meta.definition.operator.swift
+T 18 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 19 source.swift meta.definition.operator.swift
+T 33 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 34 source.swift meta.definition.operator.swift
+T 44 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 45 source.swift meta.definition.operator.swift
+T 53 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 54 source.swift meta.definition.operator.swift
+T 58 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 59 source.swift meta.definition.operator.swift
+T 61 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 62 source.swift meta.definition.operator.swift
+T 70 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 71 source.swift meta.definition.operator.swift
+T 84 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+L 
+L ;
+T 1 source.swift
+L prefix operator %%+
+T 6 source.swift meta.definition.operator.swift storage.modifier.swift
+T 7 source.swift meta.definition.operator.swift
+T 15 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 16 source.swift meta.definition.operator.swift
+T 19 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+L 
+L prefix operator ??
+T 6 source.swift meta.definition.operator.swift storage.modifier.swift
+T 7 source.swift meta.definition.operator.swift
+T 15 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 16 source.swift meta.definition.operator.swift
+T 18 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+L postfix operator ?? // expected-error {{postfix operator names starting with '?' or '!' are disallowed to avoid collisions with built-in unwrapping operators}}
+T 7 source.swift meta.definition.operator.swift storage.modifier.swift
+T 8 source.swift meta.definition.operator.swift
+T 16 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 17 source.swift meta.definition.operator.swift
+T 19 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 20 source.swift meta.definition.operator.swift
+T 22 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 159 source.swift comment.line.double-slash.swift
+L prefix operator !!
+T 6 source.swift meta.definition.operator.swift storage.modifier.swift
+T 7 source.swift meta.definition.operator.swift
+T 15 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 16 source.swift meta.definition.operator.swift
+T 18 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+L postfix operator !! // expected-error {{postfix operator names starting with '?' or '!' are disallowed to avoid collisions with built-in unwrapping operators}}
+T 7 source.swift meta.definition.operator.swift storage.modifier.swift
+T 8 source.swift meta.definition.operator.swift
+T 16 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 17 source.swift meta.definition.operator.swift
+T 19 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 20 source.swift meta.definition.operator.swift
+T 22 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 159 source.swift comment.line.double-slash.swift
+L postfix operator ?$$
+T 7 source.swift meta.definition.operator.swift storage.modifier.swift
+T 8 source.swift meta.definition.operator.swift
+T 16 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 17 source.swift meta.definition.operator.swift
+T 18 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 20 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+L // expected-error@-1 {{postfix operator names starting with '?' or '!' are disallowed}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 87 source.swift comment.line.double-slash.swift
+L // expected-error@-2 {{'$$' is considered an identifier}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 57 source.swift comment.line.double-slash.swift
+L 
+L infix operator --aa // expected-error {{'aa' is considered an identifier and must not appear within an operator name}}
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 17 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 19 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 20 source.swift meta.definition.operator.swift
+T 22 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 118 source.swift comment.line.double-slash.swift
+L infix operator aa--: A // expected-error {{'aa' is considered an identifier and must not appear within an operator name}}
+T 5 source.swift storage.modifier.swift
+T 6 source.swift
+T 14 source.swift keyword.other.declaration-specifier.swift
+T 17 source.swift
+T 19 source.swift keyword.operator.custom.postfix.swift
+T 20 source.swift keyword.operator.ternary.swift
+T 23 source.swift
+T 25 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 121 source.swift comment.line.double-slash.swift
+L infix operator <<$$@< // expected-error {{'$$' is considered an identifier and must not appear within an operator name}}
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 17 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 21 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 22 source.swift meta.definition.operator.swift
+T 24 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 120 source.swift comment.line.double-slash.swift
+L infix operator !!@aa // expected-error {{'@' is not allowed in operator names}}
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 17 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 20 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 21 source.swift meta.definition.operator.swift
+T 23 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 79 source.swift comment.line.double-slash.swift
+L infix operator #++= // expected-error {{'#' is not allowed in operator names}}
+T 5 source.swift storage.modifier.swift
+T 6 source.swift
+T 14 source.swift keyword.other.declaration-specifier.swift
+T 16 source.swift
+T 19 source.swift keyword.operator.custom.postfix.swift
+T 20 source.swift
+T 22 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 78 source.swift comment.line.double-slash.swift
+L infix operator ++=# // expected-error {{'#' is not allowed in operator names}}
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 18 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 19 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 20 source.swift meta.definition.operator.swift
+T 22 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 78 source.swift comment.line.double-slash.swift
+L infix operator -># // expected-error {{'#' is not allowed in operator names}}
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 17 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 18 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 19 source.swift meta.definition.operator.swift
+T 21 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 77 source.swift comment.line.double-slash.swift
+L 
+L // FIXME: Ideally, we shouldn't emit the «consistent whitespace» diagnostic
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 77 source.swift comment.line.double-slash.swift
+L // where = cannot possibly mean an assignment.
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 46 source.swift comment.line.double-slash.swift
+L infix operator =#=
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 16 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 18 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+L // expected-error@-1 {{'#' is not allowed in operator names}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 61 source.swift comment.line.double-slash.swift
+L // expected-error@-2 {{'=' must have consistent whitespace on both sides}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 74 source.swift comment.line.double-slash.swift
+L 
+L infix operator +++=
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 19 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+L infix operator *** : A
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 18 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 19 source.swift meta.definition.operator.swift
+T 21 source.swift meta.definition.operator.swift
+T 22 source.swift meta.definition.operator.swift entity.other.inherited-class.swift
+L infix operator --- : ; // expected-error {{expected precedence group name after ':' in operator declaration}}
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 18 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 19 source.swift meta.definition.operator.swift
+T 20 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 21 source.swift meta.definition.operator.swift
+T 22 source.swift meta.definition.operator.swift punctuation.terminator.statement.swift
+T 23 source.swift
+T 25 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 109 source.swift comment.line.double-slash.swift
+L 
+L precedencegroup { // expected-error {{expected identifier after 'precedencegroup'}}
+T 15 source.swift meta.function-call.trailing-closure-only.swift support.function.any-method.swift
+T 16 source.swift
+T 17 source.swift punctuation.section.scope.begin.swift
+T 18 source.swift
+T 20 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 83 source.swift comment.line.double-slash.swift
+L   associativity: right
+T 15 source.swift
+T 16 source.swift keyword.operator.ternary.swift
+T 22 source.swift
+L }
+T 1 source.swift punctuation.section.scope.end.swift
+L precedencegroup A {
+T 15 source.swift meta.definition.precedencegroup.swift storage.type.precedencegroup.swift
+T 16 source.swift meta.definition.precedencegroup.swift
+T 17 source.swift meta.definition.precedencegroup.swift entity.name.type.precedencegroup.swift
+T 18 source.swift meta.definition.precedencegroup.swift
+T 19 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.begin.swift
+L   associativity right // expected-error {{expected colon after attribute name in precedence group}}
+T 2 source.swift meta.definition.precedencegroup.swift
+T 15 source.swift meta.definition.precedencegroup.swift storage.modifier.swift
+T 22 source.swift meta.definition.precedencegroup.swift
+T 24 source.swift meta.definition.precedencegroup.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 99 source.swift meta.definition.precedencegroup.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.end.swift
+L precedencegroup B {
+T 15 source.swift meta.definition.precedencegroup.swift storage.type.precedencegroup.swift
+T 16 source.swift meta.definition.precedencegroup.swift
+T 17 source.swift meta.definition.precedencegroup.swift entity.name.type.precedencegroup.swift
+T 18 source.swift meta.definition.precedencegroup.swift
+T 19 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.begin.swift
+L   precedence 123 // expected-error {{'precedence' is not a valid precedence group attribute}}
+T 17 source.swift meta.definition.precedencegroup.swift
+T 19 source.swift meta.definition.precedencegroup.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 93 source.swift meta.definition.precedencegroup.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.end.swift
+L precedencegroup C {
+T 15 source.swift meta.definition.precedencegroup.swift storage.type.precedencegroup.swift
+T 16 source.swift meta.definition.precedencegroup.swift
+T 17 source.swift meta.definition.precedencegroup.swift entity.name.type.precedencegroup.swift
+T 18 source.swift meta.definition.precedencegroup.swift
+T 19 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.begin.swift
+L   associativity: sinister // expected-error {{expected 'none', 'left', or 'right' after 'associativity'}}
+T 2 source.swift meta.definition.precedencegroup.swift
+T 15 source.swift meta.definition.precedencegroup.swift storage.modifier.swift
+T 26 source.swift meta.definition.precedencegroup.swift
+T 28 source.swift meta.definition.precedencegroup.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 105 source.swift meta.definition.precedencegroup.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.end.swift
+L precedencegroup D {
+T 15 source.swift meta.definition.precedencegroup.swift storage.type.precedencegroup.swift
+T 16 source.swift meta.definition.precedencegroup.swift
+T 17 source.swift meta.definition.precedencegroup.swift entity.name.type.precedencegroup.swift
+T 18 source.swift meta.definition.precedencegroup.swift
+T 19 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.begin.swift
+L   assignment: no // expected-error {{expected 'true' or 'false' after 'assignment'}}
+T 2 source.swift meta.definition.precedencegroup.swift
+T 12 source.swift meta.definition.precedencegroup.swift storage.modifier.swift
+T 17 source.swift meta.definition.precedencegroup.swift
+T 19 source.swift meta.definition.precedencegroup.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 84 source.swift meta.definition.precedencegroup.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.end.swift
+L precedencegroup E {
+T 15 source.swift meta.definition.precedencegroup.swift storage.type.precedencegroup.swift
+T 16 source.swift meta.definition.precedencegroup.swift
+T 17 source.swift meta.definition.precedencegroup.swift entity.name.type.precedencegroup.swift
+T 18 source.swift meta.definition.precedencegroup.swift
+T 19 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.begin.swift
+L   higherThan:
+T 13 source.swift meta.definition.precedencegroup.swift
+L } // expected-error {{expected name of related precedence group after 'higherThan'}}
+T 1 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.end.swift
+T 2 source.swift
+T 4 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 84 source.swift comment.line.double-slash.swift
+L precedencegroup EE {
+T 15 source.swift meta.definition.precedencegroup.swift storage.type.precedencegroup.swift
+T 16 source.swift meta.definition.precedencegroup.swift
+T 18 source.swift meta.definition.precedencegroup.swift entity.name.type.precedencegroup.swift
+T 19 source.swift meta.definition.precedencegroup.swift
+T 20 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.begin.swift
+L   higherThan: E,
+T 2 source.swift meta.definition.precedencegroup.swift
+T 12 source.swift meta.definition.precedencegroup.swift storage.modifier.swift
+T 14 source.swift meta.definition.precedencegroup.swift
+T 15 source.swift meta.definition.precedencegroup.swift entity.other.inherited-class.swift
+T 16 source.swift meta.definition.precedencegroup.swift
+L } // expected-error {{expected name of related precedence group after 'higherThan'}}
+T 1 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.end.swift
+T 2 source.swift
+T 4 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 84 source.swift comment.line.double-slash.swift
+L 
+L precedencegroup F {
+T 15 source.swift meta.definition.precedencegroup.swift storage.type.precedencegroup.swift
+T 16 source.swift meta.definition.precedencegroup.swift
+T 17 source.swift meta.definition.precedencegroup.swift entity.name.type.precedencegroup.swift
+T 18 source.swift meta.definition.precedencegroup.swift
+T 19 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.begin.swift
+L   higherThan: A, B, C
+T 2 source.swift meta.definition.precedencegroup.swift
+T 12 source.swift meta.definition.precedencegroup.swift storage.modifier.swift
+T 14 source.swift meta.definition.precedencegroup.swift
+T 15 source.swift meta.definition.precedencegroup.swift entity.other.inherited-class.swift
+T 21 source.swift meta.definition.precedencegroup.swift
+L }
+T 1 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.end.swift
+L 
+L 
+L precedencegroup BangBangBang {
+T 15 source.swift meta.definition.precedencegroup.swift storage.type.precedencegroup.swift
+T 16 source.swift meta.definition.precedencegroup.swift
+T 28 source.swift meta.definition.precedencegroup.swift entity.name.type.precedencegroup.swift
+T 29 source.swift meta.definition.precedencegroup.swift
+T 30 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.begin.swift
+L   associativity: none
+T 2 source.swift meta.definition.precedencegroup.swift
+T 15 source.swift meta.definition.precedencegroup.swift storage.modifier.swift
+T 17 source.swift meta.definition.precedencegroup.swift
+T 21 source.swift meta.definition.precedencegroup.swift keyword.other.operator.associativity.swift
+L   associativity: left // expected-error{{'associativity' attribute for precedence group declared multiple times}}
+T 2 source.swift meta.definition.precedencegroup.swift
+T 15 source.swift meta.definition.precedencegroup.swift storage.modifier.swift
+T 17 source.swift meta.definition.precedencegroup.swift
+T 21 source.swift meta.definition.precedencegroup.swift keyword.other.operator.associativity.swift
+T 22 source.swift meta.definition.precedencegroup.swift
+T 24 source.swift meta.definition.precedencegroup.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 113 source.swift meta.definition.precedencegroup.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.end.swift
+L 
+L precedencegroup CaretCaretCaret {
+T 15 source.swift meta.definition.precedencegroup.swift storage.type.precedencegroup.swift
+T 16 source.swift meta.definition.precedencegroup.swift
+T 31 source.swift meta.definition.precedencegroup.swift entity.name.type.precedencegroup.swift
+T 32 source.swift meta.definition.precedencegroup.swift
+T 33 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.begin.swift
+L   assignment: true 
+T 2 source.swift meta.definition.precedencegroup.swift
+T 12 source.swift meta.definition.precedencegroup.swift storage.modifier.swift
+T 14 source.swift meta.definition.precedencegroup.swift
+T 18 source.swift meta.definition.precedencegroup.swift constant.language.boolean.swift
+T 19 source.swift meta.definition.precedencegroup.swift
+L   assignment: false // expected-error{{'assignment' attribute for precedence group declared multiple times}}
+T 2 source.swift meta.definition.precedencegroup.swift
+T 12 source.swift meta.definition.precedencegroup.swift storage.modifier.swift
+T 14 source.swift meta.definition.precedencegroup.swift
+T 19 source.swift meta.definition.precedencegroup.swift constant.language.boolean.swift
+T 20 source.swift meta.definition.precedencegroup.swift
+T 22 source.swift meta.definition.precedencegroup.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 108 source.swift meta.definition.precedencegroup.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.end.swift
+L 
+L class Foo {
+T 5 source.swift meta.definition.type.class.swift storage.type.class.swift
+T 6 source.swift meta.definition.type.class.swift
+T 9 source.swift meta.definition.type.class.swift entity.name.type.class.swift
+T 10 source.swift meta.definition.type.class.swift
+T 11 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   infix operator ||| // expected-error{{'operator' may only be declared at file scope}}
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 7 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.operator.swift storage.modifier.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.operator.swift
+T 16 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 17 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.operator.swift
+T 20 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 21 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.definition.operator.swift
+T 23 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 87 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L infix operator **<< : UndeclaredPrecedenceGroup
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 19 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 20 source.swift meta.definition.operator.swift
+T 22 source.swift meta.definition.operator.swift
+T 47 source.swift meta.definition.operator.swift entity.other.inherited-class.swift
+L // expected-error@-1 {{unknown precedence group 'UndeclaredPrecedenceGroup'}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 77 source.swift comment.line.double-slash.swift
+L 
+L protocol Proto {}
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 14 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift
+T 16 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L infix operator *<*< : F, Proto
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 19 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 20 source.swift meta.definition.operator.swift
+T 22 source.swift meta.definition.operator.swift
+T 23 source.swift meta.definition.operator.swift entity.other.inherited-class.swift
+T 24 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 25 source.swift meta.definition.operator.swift
+T 30 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+L // expected-error@-1 {{consecutive statements on a line must be separated by ';'}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 82 source.swift comment.line.double-slash.swift
+L // expected-error@-2 {{expected expression}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 44 source.swift comment.line.double-slash.swift
+L 
+L // https://github.com/apple/swift/issues/60932
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 46 source.swift comment.line.double-slash.swift
+L 
+L // expected-error@+2 {{expected precedence group name after ':' in operator declaration}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 89 source.swift comment.line.double-slash.swift
+L postfix operator ++: // expected-error {{only infix operators may declare a precedence}} {{20-21=}}
+T 7 source.swift meta.definition.operator.swift storage.modifier.swift
+T 8 source.swift meta.definition.operator.swift
+T 16 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 17 source.swift meta.definition.operator.swift
+T 19 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 20 source.swift meta.definition.operator.swift invalid.illegal.character-not-allowed-here.swift
+T 21 source.swift meta.definition.operator.swift
+T 23 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 99 source.swift comment.line.double-slash.swift
+L 

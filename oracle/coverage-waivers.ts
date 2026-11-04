@@ -593,6 +593,52 @@ export const waivers: Waiver[] = [
   },
   { grammar: "yaml", path: "#flow-pair.patterns[0].patterns[3].end", reason: "its begin never matches" },
   { grammar: "yaml", path: "#flow-pair.patterns[3].end", group: 0, reason: lookahead },
+  { grammar: "swift", path: "#comments.patterns[5].begin", group: 1, reason: blanks, probe: "CommentsAt5" },
+  { grammar: "swift", path: "#compiler-control.patterns[1].end", group: 1, reason: missing(0), probe: "CompilerControlAt1End" },
+  { grammar: "swift", path: "#compiler-control.patterns[1].end", group: 2, reason: missing(0), probe: "CompilerControlAt1End" },
+  {
+    grammar: "swift",
+    path: "#declarations-import.patterns[0].patterns[2].captures[1].patterns[0].match",
+    reason: "group 1 is a run of operator heads and combining marks, none of them `.`, so the pattern never finds one in it",
+    probe: "DeclarationsImportAt0At2",
+  },
+  { grammar: "swift", path: "#keywords.patterns[5].match", group: 2, reason: blanks, probe: "KeywordsAt5" },
+  { grammar: "swift", path: "#keywords.patterns[10].match", group: 2, reason: blanks, probe: "KeywordsAt10" },
+  { grammar: "swift", path: "#literals-regular-expression-literal.patterns[2].match", group: 5, reason: lineFeed, probe: "LiteralsRegularExpressionLiteralAt2" },
+  { grammar: "swift", path: "#literals-regular-expression-literal-quote.end", group: 1, reason: lineFeed, probe: "LiteralsRegularExpressionLiteralQuoteEnd" },
+  ...(
+    [
+      ["literals-string-string-guts", "LiteralsStringStringGutsAt2"],
+      ["literals-string-raw-string-guts", "LiteralsStringRawStringGutsAt2"],
+    ] as const
+  ).flatMap(([rule, probe]): Waiver[] => [
+    {
+      grammar: "swift",
+      path: `#${rule}.patterns[2].patterns[1].begin`,
+      reason:
+        "`$self`, before it in the same list, holds `#expressions-without-trailing-closures-or-member-references-parenthesized-expression`, whose begin `\\(` matches every `(`",
+      probe,
+    },
+    { grammar: "swift", path: `#${rule}.patterns[2].patterns[1].end`, reason: "its begin never matches", probe },
+  ]),
+  ...(
+    [
+      [0, [0, 1, 2, 3]],
+      [1, [0, 1]],
+      [2, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],
+      [5, [0]],
+    ] as const
+  ).flatMap(([rule, patterns]) =>
+    patterns.map(
+      (pattern): Waiver => ({
+        grammar: "swift",
+        path: `#operators.patterns[1].patterns[${rule}].captures[0].patterns[${pattern}].match`,
+        reason:
+          "vscode-textmate tokenizes a capture's patterns with no anchor, so `\\G` never matches there and the operator falls to the `.+` pattern after it",
+        probe: `OperatorsAt1At${rule}`,
+      }),
+    ),
+  ),
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -607,6 +653,7 @@ export const complete: string[] = [
   "python",
   "rust",
   "scss",
+  "swift",
   "toml",
   "tsx",
   "typescript",

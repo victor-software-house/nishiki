@@ -296,6 +296,8 @@ const swiftAlgorithms =
   "https://raw.githubusercontent.com/apple/swift-algorithms/5b7143f8e291dee0e14c118fd0212487f0b37af5";
 const swiftTesting =
   "https://raw.githubusercontent.com/swiftlang/swift-testing/87ec972e0b5725ee02b31a6e9ed690d85abb460a";
+const swiftTests =
+  "https://raw.githubusercontent.com/swiftlang/swift/f21f2c19ef734859c366829e0d23927813040968";
 const tailwind =
   "https://raw.githubusercontent.com/tailwindlabs/tailwindcss/2626ae6ceddf36069ab6d55c53a5857c1e2e360a";
 const testify =
@@ -1076,6 +1078,11 @@ export const inputs: Input[] = [
   },
   {
     lang: "swift",
+    name: "coverage",
+    url: new URL("inputs/swift-coverage.swift", import.meta.url).href,
+  },
+  {
+    lang: "swift",
     name: "kingfisher-image-processor",
     url: `${kingfisher}/Sources/Image/ImageProcessor.swift`,
   },
@@ -1100,6 +1107,21 @@ export const inputs: Input[] = [
     name: "string-processing-custom-tests",
     url: `${stringProcessing}/Tests/RegexBuilderTests/CustomTests.swift`,
   },
+  { lang: "swift", name: "swift-test-decl-func-keyword-argument-labels", url: `${swiftTests}/test/decl/func/keyword-argument-labels.swift` },
+  { lang: "swift", name: "swift-test-decl-func-rethrows", url: `${swiftTests}/test/decl/func/rethrows.swift` },
+  { lang: "swift", name: "swift-test-decl-import-import", url: `${swiftTests}/test/decl/import/import.swift` },
+  { lang: "swift", name: "swift-test-decl-protocol-protocol-enum-witness", url: `${swiftTests}/test/decl/protocol/protocol_enum_witness.swift` },
+  { lang: "swift", name: "swift-test-decl-protocol-protocols", url: `${swiftTests}/test/decl/protocol/protocols.swift` },
+  { lang: "swift", name: "swift-test-expr-expressions", url: `${swiftTests}/test/expr/expressions.swift` },
+  { lang: "swift", name: "swift-test-expr-primary-selector-selector", url: `${swiftTests}/test/expr/primary/selector/selector.swift` },
+  { lang: "swift", name: "swift-test-expr-unary-async-await", url: `${swiftTests}/test/expr/unary/async_await.swift` },
+  { lang: "swift", name: "swift-test-parse-conditionalcompilation-basicparseerrors", url: `${swiftTests}/test/Parse/ConditionalCompilation/basicParseErrors.swift` },
+  { lang: "swift", name: "swift-test-parse-escaped-identifiers", url: `${swiftTests}/test/Parse/escaped_identifiers.swift` },
+  { lang: "swift", name: "swift-test-parse-operator-decl", url: `${swiftTests}/test/Parse/operator_decl.swift` },
+  { lang: "swift", name: "swift-test-parse-raw-string", url: `${swiftTests}/test/Parse/raw_string.swift` },
+  { lang: "swift", name: "swift-test-parse-raw-string-errors", url: `${swiftTests}/test/Parse/raw_string_errors.swift` },
+  { lang: "swift", name: "swift-test-parse-trailing-comma", url: `${swiftTests}/test/Parse/trailing-comma.swift` },
+  { lang: "swift", name: "swift-test-parse-type-expr", url: `${swiftTests}/test/Parse/type_expr.swift` },
   {
     lang: "swift",
     name: "testing-runner-tests",

@@ -43,7 +43,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | SCSS | `scss` | 161 of 168 | 95.8% | 136 of 179 | 76.0% | 50 | 0 | yes |
 | shell | `shellscript` | 119 of 174 | 68.4% | 106 of 199 | 53.3% | 0 | 10 |  |
 | SQL | `sql` | 47 of 75 | 62.7% | 42 of 79 | 53.2% | 0 | 9 |  |
-| Swift | `swift` | 267 of 448 | 59.6% | 183 of 448 | 40.8% | 0 | 11 |  |
+| Swift | `swift` | 425 of 448 | 94.9% | 441 of 448 | 98.4% | 30 | 0 | yes |
 | TOML | `toml` | 54 of 54 | 100.0% | 39 of 53 | 73.6% | 14 | 0 | yes |
 | TypeScript | `tsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | TypeScript | `typescript` | 513 of 515 | 99.6% | 571 of 576 | 99.1% | 7 | 0 | yes |
@@ -2695,230 +2695,35 @@ patterns[44].match  (?i)\b(vector_(?:distance|norm|normalize))\b\s*\(
 ### `swift`
 
 ```text
-#async-throws.match  groups 1, 3
-#attributes.patterns[0].patterns[3].match  groups 3
-#attributes.patterns[1].begin  ((@)objc)(\()
-#attributes.patterns[1].end  \)
-#attributes.patterns[1].patterns[0].match  \w*(?::(?:\w*:)*(\w*))?
-#attributes.patterns[2].begin  groups 2, 3
-#builtin-functions.patterns[2].match  (?<=\.)(?:s(?:uperclassMirror|amePositionIn|tartsWith)|next…
-#builtin-global-functions.patterns[0].begin  \b(type)(\()\s*(of)(:)
-#builtin-global-functions.patterns[0].end  \)
-#builtin-global-functions.patterns[1].match  \ba(?:nyGenerator|utoreleasepool)(?=\s*[({])\b
-#builtin-global-functions.patterns[3].match  \b(?:s(?:ort|uffix|pli(?:ce|t))|insert|overlaps|d(?:istance…
-#builtin-properties.patterns[0].match  (?<=(?:^|\W)(?:Process\.|CommandLine\.))(arguments|argc|uns…
-#builtin-types-builtin-class-type.match  \b(Managed((?:|Proto)Buffer)|NonObjectiveCBase|AnyGenerator…
-#builtin-types-builtin-enum-type.patterns[0].match  \b(?:CommandLine|Process(?=\.))\b
-#builtin-types-builtin-enum-type.patterns[3].match  \b(?:MirrorDisposition|QuickLookObject)\b
-#builtin-types-builtin-protocol-type.patterns[0].match  \bActor\b
-#builtin-types-builtin-protocol-type.patterns[2].match  \b(?:Ran(?:domAccessIndex|geReplaceableCollection)Type|Gene…
-#builtin-types-builtin-struct-type.patterns[1].match  \b(?:R(?:everse(?:RandomAccess(?:Collection|Index)|Collecti…
-#builtin-types-builtin-typealias.patterns[1].match  \b(?:Generator|PlaygroundQuickLook|UWord|Word)\b
-#comments.patterns[0].match  \A^(#!).*$\n?
-#comments.patterns[1].begin  /\*\*(?!/)
-#comments.patterns[1].end  \*/
-#comments.patterns[2].begin  /\*:
-#comments.patterns[2].end  \*/
-#comments.patterns[3].begin  /\*  fuzz
-#comments.patterns[3].end  \*/
-#comments.patterns[4].match  \*/  fuzz
-#comments.patterns[5].begin  groups 1
-#comments.patterns[5].patterns[1].begin  //:
-#comments.patterns[5].patterns[1].end  $
-#comments-nested.begin  /\*
-#comments-nested.end  \*/
-#compiler-control.patterns[1].end  groups 1, 2
-#compiler-control.patterns[1].patterns[2].match  \b(arch)\s*(\()\s*(?:(arm|arm64|powerpc64|powerpc64le|i386|…
-#compiler-control.patterns[1].patterns[5].patterns[0].match  \b(simulator|UIKitForMac)\b
-#compiler-control.patterns[2].match  groups 3
-#compiler-control.patterns[2].captures[3].patterns[0].match  \S+
-#compiler-control.patterns[3].match  groups 7
-#compiler-control.patterns[3].captures[5].patterns[3].match  \S+
-#compiler-control.patterns[3].captures[7].patterns[0].match  \S+
-#declarations-available-types.patterns[3].match  \basync\b
-#declarations-available-types.patterns[7].match  \b(?:repeat|each)\b
-#declarations-available-types.patterns[9].match  \bnonisolated(?:\(nonsending\)|\b)
-#declarations-available-types.patterns[15].match  \bprotocol\b
-#declarations-available-types-collection-type.patterns[2].match  \b_\b
-#declarations-available-types-collection-type.patterns[3].match  (?<=\s)\bof\b(?=\s+[(\[_\p{L}\d\p{N}\p{M}])
-#declarations-available-types-collection-type.patterns[4].patterns[0].match  :
-#declarations-function.begin  groups 3, 4
-#declarations-function-initializer.beginCaptures[1].patterns[0].match  (?<=[!?])[!?]+
-#declarations-function-result.patterns[0].match  \bsending\b
-#declarations-generic-parameter-clause.patterns[2].match  \blet\b
-#declarations-generic-parameter-clause.patterns[3].match  \beach\b
-#declarations-import.end  groups 1
-#declarations-import.patterns[0].begin  groups 1
-#declarations-import.patterns[0].patterns[0].match  groups 1, 2
-#declarations-import.patterns[0].patterns[1].match  (?<=\G|\.)\$[0-9]+
-#declarations-import.patterns[0].patterns[2].match  (?<=\G|\.)(?:((?<oph>[-!%\&*+/<-?^|~¡-§©«¬®°±¶»¿×÷‖‗†-‧‰-‾⁁…
-#declarations-import.patterns[0].patterns[2].captures[1].patterns[0].match  \.
-#declarations-import.patterns[0].patterns[3].match  \.
-#declarations-import.patterns[0].patterns[4].begin  (?!\s*(;|$|//|/\*))
-#declarations-import.patterns[0].patterns[4].end  (?=\s*(;|$|//|/\*))
-#declarations-inheritance-clause.begin  groups 1
-#declarations-inheritance-clause.patterns[0].begin  \bclass\b
-#declarations-inheritance-clause.patterns[0].end  (?=[={}]|(?!\G)\bwhere\b)
-#declarations-macro.begin  \b(macro)\s+((?<q>`?)[_\p{L}][_\p{L}\p{N}\p{M}]*(\k<q>))\s*…
-#declarations-macro.end  $|(?=;|//|/\*|[=}])
-#declarations-operator.end  groups 1
-#declarations-operator.patterns[2].match  ((?!$|;|//|/\*)\S)+
-#declarations-operator.beginCaptures[4].patterns[0].match  \.
-#declarations-operator-swift2.begin  \G(\{)
-#declarations-operator-swift2.end  (})
-#declarations-operator-swift2.patterns[1].match  \b(associativity)\s+(left|right)\b
-#declarations-operator-swift2.patterns[2].match  \b(precedence)\s+([0-9]+)\b
-#declarations-operator-swift2.patterns[3].match  \b(assignment)\b
-#declarations-operator-swift3.match  groups 3, 4
-#declarations-parameter-list.patterns[0].match  groups 2, 3, 5, 6
-#declarations-parameter-list.patterns[1].match  groups 3, 4
-#declarations-parameter-list.patterns[2].patterns[0].match  \bsending\b
-#declarations-parameter-list.patterns[2].patterns[2].match  :  fuzz
-#declarations-precedencegroup.begin  \b(precedencegroup)\s+((?<q>`?)[_\p{L}][_\p{L}\p{N}\p{M}]*(…
-#declarations-precedencegroup.end  (?!\G)
-#declarations-precedencegroup.patterns[0].begin  \{
-#declarations-precedencegroup.patterns[0].end  }
-#declarations-precedencegroup.patterns[0].patterns[1].match  \b((?:high|low)erThan)\s*:\s*((?<q>`?)[_\p{L}][_\p{L}\p{N}\…
-#declarations-precedencegroup.patterns[0].patterns[2].match  \b(associativity)\b(?:\s*:\s*(right|left|none)\b)?
-#declarations-precedencegroup.patterns[0].patterns[3].match  \b(assignment)\b(?:\s*:\s*(true|false)\b)?
-#declarations-protocol.begin  groups 3, 4
-#declarations-protocol-associated-type.begin  groups 3, 4
-#declarations-protocol-protocol-initializer.begin  (?<!\.)\b(init[!?]*)\s*(?=[(<])
-#declarations-protocol-protocol-initializer.end  $|(?=;|//|/\*|})
-#declarations-protocol-protocol-initializer.patterns[5].begin  \{
-#declarations-protocol-protocol-initializer.patterns[5].end  }
-#declarations-protocol-protocol-initializer.beginCaptures[1].patterns[0].match  (?<=[!?])[!?]+
-#declarations-protocol-protocol-method.begin  groups 3, 4
-#declarations-protocol-protocol-method.patterns[6].begin  \{
-#declarations-protocol-protocol-method.patterns[6].end  }
-#declarations-type.patterns[0].begin  groups 3, 4
-#declarations-type-enum.begin  groups 3, 4
-#declarations-type-enum-associated-values.patterns[1].begin  (?:(_)|((?<q1>`?)[_\p{L}][_\p{L}\p{N}\p{M}]*\k<q1>))\s+(((?…
-#declarations-type-enum-associated-values.patterns[1].end  (?=[]),])
-#declarations-type-enum-associated-values.patterns[3].patterns[1].match  :
-#declarations-type-identifier.begin  groups 2, 3
-#declarations-typealias.begin  groups 3, 4
-#declarations-typed-variable-declaration.begin  groups 1
-#expressions-trailing-closure.patterns[0].match  groups 2, 3
-#expressions-trailing-closure.patterns[1].match  groups 2, 3
-#expressions-without-trailing-closures-or-member-references-availability-condition.patterns[1].match  groups 2
-#expressions-without-trailing-closures-or-member-references-compound-name.match  groups 2, 3
-#expressions-without-trailing-closures-or-member-references-compound-name.captures[4].patterns[0].match  groups 1, 2
-#expressions-without-trailing-closures-or-member-references-expression-element-list.patterns[1].begin  groups 2, 3
-#expressions-without-trailing-closures-or-member-references-function-or-macro-call-expression.patterns[0].begin  groups 2, 3
-#expressions-without-trailing-closures-or-member-references-parenthesized-expression.end  groups 2
-#expressions-without-trailing-closures-or-member-references-parenthesized-expression.endCaptures[2].patterns[0].match  \brethrows\b
-#keywords.patterns[3].match  (?<=\s)\bof\b(?=\s+[(\[_\p{L}\d\p{N}\p{M}])
-#keywords.patterns[5].match  groups 2
-#keywords.patterns[7].match  groups 1
-#keywords.patterns[9].match  (?<!\.)\b(?:|re)throws\b  fuzz
-#keywords.patterns[10].match  groups 2
-#keywords.patterns[11].match  groups 1
-#keywords.patterns[12].match  (?<!\.)\b(?:associatedtype|operator|typealias)\b
-#keywords.patterns[13].match  (?<!\.)\b(class|enum|extension|precedencegroup|protocol|str…  fuzz
-#keywords.patterns[17].match  groups 2, 3, 4
-#keywords.patterns[23].match  (?<!\.)\bimport\b
-#keywords.patterns[25].match  (?<!\.)\bcopy(?=\s+`?[_\p{L}])
-#literals.patterns[4].match  \B#((?:color|image|file)Literal)\b
-#literals.patterns[5].match  \B#externalMacro\b
-#literals.patterns[6].match  \B#keyPath\b
-#literals.patterns[7].begin  \B(#selector)(\()(?:\s*([gs]etter)\s*(:))?
-#literals.patterns[7].end  \)
-#literals-numeric.patterns[1].match  (\B-|\b)(?<![]()\[_{}\p{L}\p{N}\p{M}]\.)(0x\h[_\h]*)(?:\.\h…
-#literals-numeric.patterns[2].match  (\B-|\b)(?<![]()\[_{}\p{L}\p{N}\p{M}]\.)(0x\h[_\h]*)(?:\.\h…
-#literals-numeric.patterns[3].match  (\B-|\b)(?<![]()\[_{}\p{L}\p{N}\p{M}]\.)(0x\h[_\h]*)\.[0-9]…
-#literals-numeric.patterns[4].match  (?<=\s|^)-?\.[0-9][.\w]*
-#literals-numeric.patterns[5].match  (\B-|\b)0[box]_[_\h]*(?:[EPep][-+]?\w+)?[.\w]+
-#literals-numeric.patterns[7].match  (\B-|\b)(?<![]()\[_{}\p{L}\p{N}\p{M}]\.)0b[01][01_]*\b(?!\.…
-#literals-numeric.patterns[8].match  (\B-|\b)(?<![]()\[_{}\p{L}\p{N}\p{M}]\.)0o[0-7][0-7_]*\b(?!…
-#literals-numeric.patterns[11].match  (\B-|\b)[0-9][.\w]*
-#literals-regular-expression-literal.patterns[0].begin  (#+)/\n
-#literals-regular-expression-literal.patterns[0].end  /\1
-#literals-regular-expression-literal.patterns[1].match  (/)(?!\s)(?!/)(?:\\\s(?=/)|(?<guts>(?>(?:\\Q(?:(?!\\E)(?!/)…  fuzz
-#literals-regular-expression-literal.patterns[2].match  groups 5
-#literals-regular-expression-literal-backreference-or-subpattern.patterns[0].match  (\\g\{)(?:((?!\d)\w+)(?:([-+])(\d+))?|([-+]?\d+)(?:([-+])(\…
-#literals-regular-expression-literal-backreference-or-subpattern.patterns[1].match  (\\g)([-+]?\d+)(?:([-+])(\d+))?
-#literals-regular-expression-literal-backreference-or-subpattern.patterns[2].match  (\\[gk]<)(?:((?!\d)\w+)(?:([-+])(\d+))?|([-+]?\d+)(?:([-+])…
-#literals-regular-expression-literal-backreference-or-subpattern.patterns[3].match  (\\[gk]')(?:((?!\d)\w+)(?:([-+])(\d+))?|([-+]?\d+)(?:([-+])…
-#literals-regular-expression-literal-backreference-or-subpattern.patterns[4].match  (\\k\{)((?!\d)\w+)(?:([-+])(\d+))?(})
-#literals-regular-expression-literal-backreference-or-subpattern.patterns[5].match  \\[1-9][0-9]+
-#literals-regular-expression-literal-backreference-or-subpattern.patterns[6].match  (\(\?(?:P[=>]|&))((?!\d)\w+)(?:([-+])(\d+))?(\))
-#literals-regular-expression-literal-backreference-or-subpattern.patterns[7].match  \(\?R\)
-#literals-regular-expression-literal-backreference-or-subpattern.patterns[8].match  (\(\?)([-+]?\d+)(?:([-+])(\d+))?(\))
-#literals-regular-expression-literal-backtracking-directive-or-global-matching-option.match  (\(\*)(?:(ACCEPT|FAIL|F|MARK(?=:)|(?=:)|COMMIT|PRUNE|SKIP|T…
-#literals-regular-expression-literal-callout.match  (\()(?<keyw>\?C)(?:(?<num>\d+)|`(?<name>(?:[^`]|``)*)`|'(?<…
-#literals-regular-expression-literal-character-properties.match  \\[Pp]\{([-\s\w]+(?:=[-\s\w]+)?)}|(\[:)([-\s\w]+(?:=[-\s\w]…
-#literals-regular-expression-literal-custom-char-class.patterns[0].begin  (\[)(\^)?
-#literals-regular-expression-literal-custom-char-class.patterns[0].end  ]
-#literals-regular-expression-literal-custom-char-class-members.patterns[0].match  \\b
-#literals-regular-expression-literal-group-option-toggle.match  \(\?(?:\^(?:[DJPSUWimnswx]|xx|y\{[gw]})*|(?:[DJPSUWimnswx]|…
-#literals-regular-expression-literal-group-or-conditional.patterns[0].begin  (\()(\?~)
-#literals-regular-expression-literal-group-or-conditional.patterns[0].end  \)
-#literals-regular-expression-literal-group-or-conditional.patterns[1].begin  (\()(?<cond>\?\()(?:(?<NumberRef>(?<num>[-+]?\d+)(?:(?<op>[…
-#literals-regular-expression-literal-group-or-conditional.patterns[1].end  \)
-#literals-regular-expression-literal-group-or-conditional.patterns[2].begin  groups 4, 5, 6, 8, 9, 10
-#literals-regular-expression-literal-line-comment.match  (#).*$
-#literals-regular-expression-literal-quote.begin  \\Q
-#literals-regular-expression-literal-quote.end  \\E|(\n)
-#literals-regular-expression-literal-regex-guts.patterns[1].begin  \(\?#
-#literals-regular-expression-literal-regex-guts.patterns[1].end  \)
-#literals-regular-expression-literal-regex-guts.patterns[2].begin  <\{
-#literals-regular-expression-literal-regex-guts.patterns[2].end  }>
-#literals-regular-expression-literal-regex-guts.patterns[5].match  [$^]|\\[ABGYZbyz]|\\K
-#literals-regular-expression-literal-regex-guts.patterns[10].match  \\c.
-#literals-regular-expression-literal-regex-guts.patterns[11].match  \\[^c]
-#literals-regular-expression-literal-regex-guts.patterns[12].match  \|
-#literals-regular-expression-literal-regex-guts.patterns[14].match  \{(?:\s*\d+\s*(?:,\s*\d*\s*)?}|\s*,\s*\d+\s*})
-#literals-regular-expression-literal-set-operators.patterns[0].match  &&
-#literals-regular-expression-literal-set-operators.patterns[1].match  --
-#literals-regular-expression-literal-set-operators.patterns[2].match  ~~
-#literals-regular-expression-literal-unicode-scalars.match  \\(?:u\{\s*(?:\h+\s*)+}|u\h{4}|x\{\h+}|x\h{0,2}|U\h{8}|o\{[…
-#literals-string.patterns[0].end  groups 1
-#literals-string.patterns[0].patterns[3].match  \S((?!\\\().)*(?=""")
-#literals-string.patterns[1].begin  #"""(?!#)(?=(?:[^"]|"(?!#))*$)
-#literals-string.patterns[1].end  """#(#*)
-#literals-string.patterns[1].patterns[0].match  \G(?:.+(?=""")|.+)
-#literals-string.patterns[1].patterns[1].match  \\#\s*\n
-#literals-string.patterns[1].patterns[3].match  \S((?!\\#\().)*(?=""")
-#literals-string.patterns[2].begin  (?<!#)(##+)"""(?!\1)(?=(?:[^"]|"(?!\1))*$)
-#literals-string.patterns[2].end  """\1(#*)
-#literals-string.patterns[2].patterns[0].match  \G(?:.+(?=""")|.+)
-#literals-string.patterns[3].end  groups 1
-#literals-string.patterns[3].patterns[0].match  [\n\r]  fuzz
-#literals-string.patterns[4].begin  (?<!#)(##+)"
-#literals-string.patterns[4].end  "\1(#*)
-#literals-string.patterns[4].patterns[0].match  [\n\r]
-#literals-string.patterns[5].end  groups 1
-#literals-string.patterns[5].patterns[0].match  [\n\r]
-#literals-string-raw-string-guts.patterns[0].match  \\#["'0\\nrt]
-#literals-string-raw-string-guts.patterns[1].match  \\#u\{\h{1,8}}
-#literals-string-raw-string-guts.patterns[2].begin  \\#\(
-#literals-string-raw-string-guts.patterns[2].end  \)
-#literals-string-raw-string-guts.patterns[2].patterns[1].begin  \(
-#literals-string-raw-string-guts.patterns[2].patterns[1].end  \)
-#literals-string-raw-string-guts.patterns[3].match  \\#.
-#literals-string-string-guts.patterns[2].patterns[1].begin  \(
-#literals-string-string-guts.patterns[2].patterns[1].end  \)
-#literals-string-string-guts.patterns[3].match  \\.
-#member-reference.patterns[0].match  groups 2, 3
-#operators.patterns[1].patterns[0].captures[0].patterns[0].match  \G(\+\+|--)$
-#operators.patterns[1].patterns[0].captures[0].patterns[1].match  \G([-+])$
-#operators.patterns[1].patterns[0].captures[0].patterns[2].match  \G!$
-#operators.patterns[1].patterns[0].captures[0].patterns[3].match  \G~$
-#operators.patterns[1].patterns[1].captures[0].patterns[0].match  \G(\+\+|--)$
-#operators.patterns[1].patterns[1].captures[0].patterns[1].match  \G!$
-#operators.patterns[1].patterns[2].captures[0].patterns[0].match  \G=$
-#operators.patterns[1].patterns[2].captures[0].patterns[1].match  \G([-%*+/]|<<|>>|[\&^|]|&&|\|\|)=$
-#operators.patterns[1].patterns[2].captures[0].patterns[2].match  \G([-*+/])$
-#operators.patterns[1].patterns[2].captures[0].patterns[3].match  \G&([-*+])$
-#operators.patterns[1].patterns[2].captures[0].patterns[4].match  \G%$
-#operators.patterns[1].patterns[2].captures[0].patterns[5].match  \G(==|!=|[<>]|>=|<=|~=)$
-#operators.patterns[1].patterns[2].captures[0].patterns[6].match  \G\?\?$
-#operators.patterns[1].patterns[2].captures[0].patterns[7].match  \G(&&|\|\|)$
-#operators.patterns[1].patterns[2].captures[0].patterns[8].match  \G([\&^|]|<<|>>)$
-#operators.patterns[1].patterns[2].captures[0].patterns[9].match  \G([!=]==)$
-#operators.patterns[1].patterns[2].captures[0].patterns[10].match  \G\?$
-#operators.patterns[1].patterns[5].captures[0].patterns[0].match  \G\.\.[.<]$
+#comments.patterns[5].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#compiler-control.patterns[1].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#declarations-import.patterns[0].patterns[2].captures[1].patterns[0].match  \.  waived: group 1 is a run of operator heads and combining marks, none of them `.`, so the pattern never finds one in it
+#keywords.patterns[5].match  groups 2 (waived: the group matches only blanks, and the oracle compares no blank)
+#keywords.patterns[10].match  groups 2 (waived: the group matches only blanks, and the oracle compares no blank)
+#literals-regular-expression-literal.patterns[2].match  groups 5 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#literals-regular-expression-literal-quote.end  groups 1 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#literals-string-raw-string-guts.patterns[2].patterns[1].begin  \(  waived: `$self`, before it in the same list, holds `#expressions-without-trailing-closures-or-member-references-parenthesized-expression`, whose begin `\(` matches every `(`
+#literals-string-raw-string-guts.patterns[2].patterns[1].end  \)  waived: its begin never matches
+#literals-string-string-guts.patterns[2].patterns[1].begin  \(  waived: `$self`, before it in the same list, holds `#expressions-without-trailing-closures-or-member-references-parenthesized-expression`, whose begin `\(` matches every `(`
+#literals-string-string-guts.patterns[2].patterns[1].end  \)  waived: its begin never matches
+#operators.patterns[1].patterns[0].captures[0].patterns[0].match  \G(\+\+|--)$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[0].captures[0].patterns[1].match  \G([-+])$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[0].captures[0].patterns[2].match  \G!$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[0].captures[0].patterns[3].match  \G~$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[1].captures[0].patterns[0].match  \G(\+\+|--)$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[1].captures[0].patterns[1].match  \G!$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[0].match  \G=$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[1].match  \G([-%*+/]|<<|>>|[\&^|]|&&|\|\|)=$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[2].match  \G([-*+/])$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[3].match  \G&([-*+])$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[4].match  \G%$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[5].match  \G(==|!=|[<>]|>=|<=|~=)$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[6].match  \G\?\?$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[7].match  \G(&&|\|\|)$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[8].match  \G([\&^|]|<<|>>)$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[9].match  \G([!=]==)$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[10].match  \G\?$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[5].captures[0].patterns[0].match  \G\.\.[.<]$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
 ```
 
 ### `toml`

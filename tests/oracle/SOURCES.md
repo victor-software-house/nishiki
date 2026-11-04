@@ -350,6 +350,22 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `swift/testing-runner-tests` | [`RunnerTests.swift`][testing-runner-tests] in swiftlang/swift-testing | [Apache-2.0][swift-testing-licence] |
 | `swift/kingfisher-image-processor` | [`ImageProcessor.swift`][kingfisher-image-processor] in onevcat/Kingfisher | [MIT][kingfisher-licence] |
 | `swift/snapshot-assert-snapshot` | [`AssertSnapshot.swift`][snapshot-assert-snapshot] in pointfreeco/swift-snapshot-testing | [MIT][snapshot-testing-licence] |
+| `swift/coverage` | `oracle/inputs/swift-coverage.swift`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `swift/swift-test-decl-func-keyword-argument-labels` | [`test/decl/func/keyword-argument-labels.swift`][swift-test-decl-func-keyword-argument-labels] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-decl-func-rethrows` | [`test/decl/func/rethrows.swift`][swift-test-decl-func-rethrows] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-decl-import-import` | [`test/decl/import/import.swift`][swift-test-decl-import-import] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-decl-protocol-protocol-enum-witness` | [`test/decl/protocol/protocol_enum_witness.swift`][swift-test-decl-protocol-protocol-enum-witness] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-decl-protocol-protocols` | [`test/decl/protocol/protocols.swift`][swift-test-decl-protocol-protocols] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-expr-expressions` | [`test/expr/expressions.swift`][swift-test-expr-expressions] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-expr-primary-selector-selector` | [`test/expr/primary/selector/selector.swift`][swift-test-expr-primary-selector-selector] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-expr-unary-async-await` | [`test/expr/unary/async_await.swift`][swift-test-expr-unary-async-await] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-parse-conditionalcompilation-basicparseerrors` | [`test/Parse/ConditionalCompilation/basicParseErrors.swift`][swift-test-parse-conditionalcompilation-basicparseerrors] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-parse-escaped-identifiers` | [`test/Parse/escaped_identifiers.swift`][swift-test-parse-escaped-identifiers] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-parse-operator-decl` | [`test/Parse/operator_decl.swift`][swift-test-parse-operator-decl] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-parse-raw-string` | [`test/Parse/raw_string.swift`][swift-test-parse-raw-string] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-parse-raw-string-errors` | [`test/Parse/raw_string_errors.swift`][swift-test-parse-raw-string-errors] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-parse-trailing-comma` | [`test/Parse/trailing-comma.swift`][swift-test-parse-trailing-comma] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
+| `swift/swift-test-parse-type-expr` | [`test/Parse/type_expr.swift`][swift-test-parse-type-expr] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
 | `markdown/argument-parser-declaring-arguments` | [`DeclaringArguments.md`][argument-parser-declaring-arguments] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
 | `markdown/kingfisher-common-tasks-cache` | [`CommonTasks_Cache.md`][kingfisher-common-tasks-cache] in onevcat/Kingfisher | [MIT][kingfisher-licence] |
 | `markdown/argument-parser-getting-started` | [`GettingStarted.md`][argument-parser-getting-started] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
@@ -608,6 +624,8 @@ The lexer matched every input on its first run, held-out ones included.
 The last one is full of regex literals.
 `swift/argument-parser-command-parser`, `swift/nio-codec`, `swift/string-processing-custom-tests`, `swift/testing-runner-tests`, `swift/kingfisher-image-processor` and `swift/snapshot-assert-snapshot` are held out.
 Their first score, before any fix, was 2 of 27,734 non-whitespace bytes different for `kingfisher-image-processor` and none for the other five: a name that two capture groups of the operator declaration cover got its scope twice.
+The `swift-test-*` and `coverage` inputs of `swift` are held out too: they were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
+The swiftlang/swift files are parser tests, some of them invalid Swift on purpose.
 `markdown/argument-parser-declaring-arguments` is the development input for `swift` fences, and `markdown/kingfisher-common-tasks-cache` and `markdown/argument-parser-getting-started` are held out.
 Their first scores, before any fix, were 538 of 17,090 non-whitespace bytes different for `argument-parser-declaring-arguments` and 276 of 8,936 for `argument-parser-getting-started`; the score of `kingfisher-common-tasks-cache` was not recorded.
 Two causes made them differ: `\G` holds at the start of every line in a fence, which the lexer did not apply to Swift, and the first-byte table of the enum case list's end left out letters, so a case list that a fence's `\G` kept open did not close.
@@ -1191,7 +1209,23 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [string-processing-algorithms-tests]: https://github.com/swiftlang/swift-experimental-string-processing/blob/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee/Tests/RegexTests/AlgorithmsTests.swift
 [string-processing-custom-tests]: https://github.com/swiftlang/swift-experimental-string-processing/blob/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee/Tests/RegexBuilderTests/CustomTests.swift
 [string-processing-licence]: https://github.com/swiftlang/swift-experimental-string-processing/blob/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee/LICENSE.txt
+[swift-licence]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/LICENSE.txt
 [swift-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/swift.sample
+[swift-test-decl-func-keyword-argument-labels]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/decl/func/keyword-argument-labels.swift
+[swift-test-decl-func-rethrows]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/decl/func/rethrows.swift
+[swift-test-decl-import-import]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/decl/import/import.swift
+[swift-test-decl-protocol-protocol-enum-witness]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/decl/protocol/protocol_enum_witness.swift
+[swift-test-decl-protocol-protocols]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/decl/protocol/protocols.swift
+[swift-test-expr-expressions]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/expr/expressions.swift
+[swift-test-expr-primary-selector-selector]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/expr/primary/selector/selector.swift
+[swift-test-expr-unary-async-await]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/expr/unary/async_await.swift
+[swift-test-parse-conditionalcompilation-basicparseerrors]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/Parse/ConditionalCompilation/basicParseErrors.swift
+[swift-test-parse-escaped-identifiers]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/Parse/escaped_identifiers.swift
+[swift-test-parse-operator-decl]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/Parse/operator_decl.swift
+[swift-test-parse-raw-string]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/Parse/raw_string.swift
+[swift-test-parse-raw-string-errors]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/Parse/raw_string_errors.swift
+[swift-test-parse-trailing-comma]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/Parse/trailing-comma.swift
+[swift-test-parse-type-expr]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/Parse/type_expr.swift
 [swift-testing-licence]: https://github.com/swiftlang/swift-testing/blob/87ec972e0b5725ee02b31a6e9ed690d85abb460a/LICENSE.txt
 [tailwind-licence]: https://github.com/tailwindlabs/tailwindcss/blob/2626ae6ceddf36069ab6d55c53a5857c1e2e360a/LICENSE
 [tailwind-preflight]: https://github.com/tailwindlabs/tailwindcss/blob/2626ae6ceddf36069ab6d55c53a5857c1e2e360a/packages/tailwindcss/preflight.css

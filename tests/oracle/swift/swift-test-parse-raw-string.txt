@@ -1,0 +1,609 @@
+L // RUN: %target-swift-frontend -dump-ast %s | %FileCheck --strict-whitespace %s
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 79 source.swift comment.line.double-slash.swift
+L 
+L import Swift
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 12 source.swift meta.import.swift entity.name.type.swift
+L 
+L _ = #"""
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 8 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+L ###################################################################
+T 67 source.swift string.quoted.double.block.raw.swift
+L ## This source file is part of the Swift.org open source project ##
+T 67 source.swift string.quoted.double.block.raw.swift
+L ###################################################################
+T 67 source.swift string.quoted.double.block.raw.swift
+L """#
+T 4 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+L // CHECK: "###################################################################\n## This source file is part of the Swift.org open source project ##\n###################################################################"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 217 source.swift comment.line.double-slash.swift
+L 
+L _ = #"""
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 8 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+L     # H1 #
+T 10 source.swift string.quoted.double.block.raw.swift
+L     ## H2 ##
+T 12 source.swift string.quoted.double.block.raw.swift
+L     ### H3 ###
+T 14 source.swift string.quoted.double.block.raw.swift
+L     """#
+T 4 source.swift string.quoted.double.block.raw.swift
+T 8 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+L // CHECK: "# H1 #\n## H2 ##\n### H3 ###"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 40 source.swift comment.line.double-slash.swift
+L 
+L // ===---------- Multiline RawString --------===
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 48 source.swift comment.line.double-slash.swift
+L 
+L _ = ##"""
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 9 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+L     One
+T 7 source.swift string.quoted.double.block.raw.swift
+L     ""Alpha""
+T 13 source.swift string.quoted.double.block.raw.swift
+L     """##
+T 4 source.swift string.quoted.double.block.raw.swift
+T 9 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+L // CHECK: "One\n\"\"Alpha\"\""
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 30 source.swift comment.line.double-slash.swift
+L 
+L _ = ##"""
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 9 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+L     Two
+T 7 source.swift string.quoted.double.block.raw.swift
+L   Beta
+T 6 source.swift string.quoted.double.block.raw.swift
+L   """##
+T 2 source.swift string.quoted.double.block.raw.swift
+T 7 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+L // CHECK: "  Two\nBeta"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 23 source.swift comment.line.double-slash.swift
+L 
+L _ = #"""
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 8 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+L     Three\r
+T 11 source.swift string.quoted.double.block.raw.swift
+L     Gamma\
+T 10 source.swift string.quoted.double.block.raw.swift
+L   """#
+T 2 source.swift string.quoted.double.block.raw.swift
+T 6 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+L // CHECK: "  Three\\r\n  Gamma\\"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 33 source.swift comment.line.double-slash.swift
+L 
+L _ = ###"""
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 10 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+L     Four \(foo)
+T 15 source.swift string.quoted.double.block.raw.swift
+L     Delta
+T 9 source.swift string.quoted.double.block.raw.swift
+L """###
+T 6 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+L // CHECK: "    Four \\(foo)\n    Delta"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 39 source.swift comment.line.double-slash.swift
+L 
+L _ = ##"""
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 9 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+L   print("""
+T 11 source.swift string.quoted.double.block.raw.swift
+L     Five\##n\##n\##nEpsilon
+T 27 source.swift string.quoted.double.block.raw.swift
+L     """)
+T 8 source.swift string.quoted.double.block.raw.swift
+L   """##
+T 2 source.swift string.quoted.double.block.raw.swift
+T 7 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+L // CHECK: "print(\"\"\"\n  Five\n\n\nEpsilon\n  \"\"\")"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 56 source.swift comment.line.double-slash.swift
+L 
+L // ===---------- Single line --------===
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 40 source.swift comment.line.double-slash.swift
+L 
+L _ = #""Zeta""#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 12 source.swift string.quoted.double.single-line.raw.swift
+T 14 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "\"Zeta\""
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 20 source.swift comment.line.double-slash.swift
+L 
+L _ = #""Eta"\#n\#n\#n\#""#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 11 source.swift string.quoted.double.single-line.raw.swift
+T 14 source.swift string.quoted.double.single-line.raw.swift constant.character.escape.swift
+T 17 source.swift string.quoted.double.single-line.raw.swift constant.character.escape.swift
+T 20 source.swift string.quoted.double.single-line.raw.swift constant.character.escape.swift
+T 23 source.swift string.quoted.double.single-line.raw.swift constant.character.escape.swift
+T 25 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "\"Eta\"\n\n\n\""
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 27 source.swift comment.line.double-slash.swift
+L 
+L _ = #""Iota"\n\n\n\""#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 20 source.swift string.quoted.double.single-line.raw.swift
+T 22 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "\"Iota\"\\n\\n\\n\\\""
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 33 source.swift comment.line.double-slash.swift
+L 
+L _ = #"a raw string with \" in it"#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 32 source.swift string.quoted.double.single-line.raw.swift
+T 34 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "a raw string with \\\" in it"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 40 source.swift comment.line.double-slash.swift
+L 
+L _ = ##"""
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 9 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+L       a raw string with """ in it
+T 33 source.swift string.quoted.double.block.raw.swift
+L       """##
+T 6 source.swift string.quoted.double.block.raw.swift
+T 11 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+L // CHECK: "a raw string with \"\"\" in it"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 42 source.swift comment.line.double-slash.swift
+L 
+L // ===---------- False Multiline Delimiters --------===
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 55 source.swift comment.line.double-slash.swift
+L 
+L /// Source code contains zero-width character in this format: `#"[U+200B]"[U+200B]"#`
+T 3 source.swift comment.line.triple-slash.documentation.swift punctuation.definition.comment.swift
+T 85 source.swift comment.line.triple-slash.documentation.swift
+L /// If this check fails after you implement `diagnoseZeroWidthMatchAndAdvance`,
+T 3 source.swift comment.line.triple-slash.documentation.swift punctuation.definition.comment.swift
+T 79 source.swift comment.line.triple-slash.documentation.swift
+L /// then you may need to tweak how to test for single-line string literals that
+T 3 source.swift comment.line.triple-slash.documentation.swift punctuation.definition.comment.swift
+T 79 source.swift comment.line.triple-slash.documentation.swift
+L /// resemble a multiline delimiter in `advanceIfMultilineDelimiter` so that it
+T 3 source.swift comment.line.triple-slash.documentation.swift punctuation.definition.comment.swift
+T 78 source.swift comment.line.triple-slash.documentation.swift
+L /// passes again.
+T 3 source.swift comment.line.triple-slash.documentation.swift punctuation.definition.comment.swift
+T 17 source.swift comment.line.triple-slash.documentation.swift
+L /// See https://github.com/apple/swift/issues/51192.
+T 3 source.swift comment.line.triple-slash.documentation.swift punctuation.definition.comment.swift
+T 52 source.swift comment.line.triple-slash.documentation.swift
+L _ = #"​"​"#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 13 source.swift string.quoted.double.single-line.raw.swift
+T 15 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "​\"​"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 20 source.swift comment.line.double-slash.swift
+L 
+L _ = #""""#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 8 source.swift string.quoted.double.single-line.raw.swift
+T 10 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "\"\""
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 16 source.swift comment.line.double-slash.swift
+L 
+L _ = #"""""#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 9 source.swift string.quoted.double.single-line.raw.swift
+T 11 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "\"\"\""
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 18 source.swift comment.line.double-slash.swift
+L 
+L _ = #""""""#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 10 source.swift string.quoted.double.single-line.raw.swift
+T 12 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "\"\"\"\""
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 20 source.swift comment.line.double-slash.swift
+L 
+L _ = #"""#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 7 source.swift string.quoted.double.single-line.raw.swift
+T 9 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "\""
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 14 source.swift comment.line.double-slash.swift
+L 
+L _ = ##""" foo # "# "##
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 7 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 19 source.swift string.quoted.double.single-line.raw.swift
+T 22 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "\"\" foo # \"# "
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 27 source.swift comment.line.double-slash.swift
+L 
+L _ = ###""" "# "## "###
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 8 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 18 source.swift string.quoted.double.single-line.raw.swift
+T 22 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "\"\" \"# \"## "
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 26 source.swift comment.line.double-slash.swift
+L 
+L _ = ###"""##"###
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 8 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 12 source.swift string.quoted.double.single-line.raw.swift
+T 16 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "\"\"##"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 18 source.swift comment.line.double-slash.swift
+L 
+L _ = "interpolating \(#"""false delimiter"#)"
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 5 source.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 19 source.swift string.quoted.double.single-line.swift
+T 21 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift punctuation.section.embedded.begin.swift
+T 23 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 40 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift string.quoted.double.single-line.raw.swift
+T 42 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+T 43 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift punctuation.section.embedded.end.swift
+T 44 source.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+L // CHECK: "interpolating "
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 26 source.swift comment.line.double-slash.swift
+L // CHECK: "\"\"false delimiter"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 31 source.swift comment.line.double-slash.swift
+L   
+T 2 source.swift
+L _ = """
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 7 source.swift string.quoted.double.block.swift punctuation.definition.string.begin.swift
+L   interpolating \(#"""false delimiters"""#)
+T 16 source.swift string.quoted.double.block.swift
+T 18 source.swift string.quoted.double.block.swift meta.embedded.line.swift punctuation.section.embedded.begin.swift
+T 20 source.swift string.quoted.double.block.swift meta.embedded.line.swift source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 40 source.swift string.quoted.double.block.swift meta.embedded.line.swift source.swift string.quoted.double.single-line.raw.swift
+T 42 source.swift string.quoted.double.block.swift meta.embedded.line.swift source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+T 43 source.swift string.quoted.double.block.swift meta.embedded.line.swift punctuation.section.embedded.end.swift
+L   """
+T 2 source.swift string.quoted.double.block.swift
+T 5 source.swift string.quoted.double.block.swift punctuation.definition.string.end.swift
+L // CHECK: "interpolating "
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 26 source.swift comment.line.double-slash.swift
+L // CHECK: "\"\"false delimiters\"\""
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 36 source.swift comment.line.double-slash.swift
+L 
+L let foo = "Interpolation"
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 8 source.swift
+T 9 source.swift keyword.operator.custom.infix.swift
+T 10 source.swift
+T 11 source.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 24 source.swift string.quoted.double.single-line.swift
+T 25 source.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+L _ = #"\b\b \#(foo)\#(foo) Kappa"#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 11 source.swift string.quoted.double.single-line.raw.swift
+T 14 source.swift string.quoted.double.single-line.raw.swift meta.embedded.line.swift punctuation.section.embedded.begin.swift
+T 17 source.swift string.quoted.double.single-line.raw.swift meta.embedded.line.swift source.swift
+T 18 source.swift string.quoted.double.single-line.raw.swift meta.embedded.line.swift punctuation.section.embedded.end.swift
+T 21 source.swift string.quoted.double.single-line.raw.swift meta.embedded.line.swift punctuation.section.embedded.begin.swift
+T 24 source.swift string.quoted.double.single-line.raw.swift meta.embedded.line.swift source.swift
+T 25 source.swift string.quoted.double.single-line.raw.swift meta.embedded.line.swift punctuation.section.embedded.end.swift
+T 31 source.swift string.quoted.double.single-line.raw.swift
+T 33 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "\\b\\b "
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 19 source.swift comment.line.double-slash.swift
+L // CHECK: " Kappa"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 18 source.swift comment.line.double-slash.swift
+L 
+L _ = """
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 7 source.swift string.quoted.double.block.swift punctuation.definition.string.begin.swift
+L   interpolating \(##"""
+T 16 source.swift string.quoted.double.block.swift
+T 18 source.swift string.quoted.double.block.swift meta.embedded.line.swift punctuation.section.embedded.begin.swift
+T 23 source.swift string.quoted.double.block.swift meta.embedded.line.swift source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+L     delimited \##("string")\#n\##n
+T 34 source.swift string.quoted.double.block.swift meta.embedded.line.swift source.swift string.quoted.double.block.raw.swift
+L     """##)
+T 4 source.swift string.quoted.double.block.swift meta.embedded.line.swift source.swift string.quoted.double.block.raw.swift
+T 9 source.swift string.quoted.double.block.swift meta.embedded.line.swift source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+T 10 source.swift string.quoted.double.block.swift meta.embedded.line.swift punctuation.section.embedded.end.swift
+L   """
+T 2 source.swift string.quoted.double.block.swift
+T 5 source.swift string.quoted.double.block.swift punctuation.definition.string.end.swift
+L 
+L // CHECK: "interpolating "
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 26 source.swift comment.line.double-slash.swift
+L // CHECK: "delimited "
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 22 source.swift comment.line.double-slash.swift
+L // CHECK: "string"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 18 source.swift comment.line.double-slash.swift
+L // CHECK: "\\#n\n"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 18 source.swift comment.line.double-slash.swift
+L 
+L #"unused literal"#
+T 2 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 16 source.swift string.quoted.double.single-line.raw.swift
+T 18 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "unused literal"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 26 source.swift comment.line.double-slash.swift
+L 
+L // ===---------- From proposal --------===
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 42 source.swift comment.line.double-slash.swift
+L 
+L _ = #"This is a string"#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 22 source.swift string.quoted.double.single-line.raw.swift
+T 24 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "This is a string"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 28 source.swift comment.line.double-slash.swift
+L 
+L _ = #####"This is a string"#####
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 10 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 26 source.swift string.quoted.double.single-line.raw.swift
+T 32 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "This is a string"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 28 source.swift comment.line.double-slash.swift
+L 
+L _ = #"enum\s+.+\{.*case\s+[:upper:]"#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 35 source.swift string.quoted.double.single-line.raw.swift
+T 37 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "enum\\s+.+\\{.*case\\s+[:upper:]"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 44 source.swift comment.line.double-slash.swift
+L 
+L _ = #"Alice: "How long is forever?" White Rabbit: "Sometimes, just one second.""#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 79 source.swift string.quoted.double.single-line.raw.swift
+T 81 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "Alice: \"How long is forever?\" White Rabbit: \"Sometimes, just one second.\""
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 89 source.swift comment.line.double-slash.swift
+L 
+L _ = #"\#\#1"#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 9 source.swift string.quoted.double.single-line.raw.swift constant.character.escape.swift
+T 11 source.swift string.quoted.double.single-line.raw.swift
+T 13 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "\\#1"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 16 source.swift comment.line.double-slash.swift
+L 
+L _ = ##"\#1"##
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 7 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 10 source.swift string.quoted.double.single-line.raw.swift
+T 13 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "\\#1"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 16 source.swift comment.line.double-slash.swift
+L 
+L _ = #"c:\windows\system32"#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 25 source.swift string.quoted.double.single-line.raw.swift
+T 27 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "c:\\windows\\system32"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 33 source.swift comment.line.double-slash.swift
+L 
+L _ = #"\d{3) \d{3} \d{4}"#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 23 source.swift string.quoted.double.single-line.raw.swift
+T 25 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "\\d{3) \\d{3} \\d{4}"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 32 source.swift comment.line.double-slash.swift
+L 
+L _ = #"""
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 8 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+L     a string with
+T 17 source.swift string.quoted.double.block.raw.swift
+L     """
+T 7 source.swift string.quoted.double.block.raw.swift
+L     in it
+T 9 source.swift string.quoted.double.block.raw.swift
+L     """#
+T 4 source.swift string.quoted.double.block.raw.swift
+T 8 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+L // CHECK: "a string with\n\"\"\"\nin it"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 40 source.swift comment.line.double-slash.swift
+L 
+L _ = #"a raw string containing \r\n"#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 34 source.swift string.quoted.double.single-line.raw.swift
+T 36 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "a raw string containing \\r\\n"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 42 source.swift comment.line.double-slash.swift
+L 
+L _ = #"""
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 8 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+L     [
+T 5 source.swift string.quoted.double.block.raw.swift
+L         {
+T 9 source.swift string.quoted.double.block.raw.swift
+L             "id": "12345",
+T 26 source.swift string.quoted.double.block.raw.swift
+L             "title": "A title that \"contains\" \\\""
+T 53 source.swift string.quoted.double.block.raw.swift
+L         }
+T 9 source.swift string.quoted.double.block.raw.swift
+L     ]
+T 5 source.swift string.quoted.double.block.raw.swift
+L     """#
+T 4 source.swift string.quoted.double.block.raw.swift
+T 8 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+L // CHECK: "[\n    {\n        \"id\": \"12345\",\n        \"title\": \"A title that \\\"contains\\\" \\\\\\\"\"\n    }\n]"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 121 source.swift comment.line.double-slash.swift
+L 
+L _ = #"# #"#
+T 1 source.swift support.variable.discard-value.swift
+T 2 source.swift
+T 3 source.swift keyword.operator.custom.infix.swift
+T 4 source.swift
+T 6 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 9 source.swift string.quoted.double.single-line.raw.swift
+T 11 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L // CHECK: "# #"
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 15 source.swift comment.line.double-slash.swift
+L 

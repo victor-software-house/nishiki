@@ -1,0 +1,408 @@
+L // RUN: %target-typecheck-verify-swift
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 38 source.swift comment.line.double-slash.swift
+L 
+L func `protocol`() {}
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 6 source.swift meta.definition.function.swift entity.name.function.swift punctuation.definition.identifier.swift
+T 14 source.swift meta.definition.function.swift entity.name.function.swift
+T 15 source.swift meta.definition.function.swift entity.name.function.swift punctuation.definition.identifier.swift
+T 16 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 17 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 18 source.swift meta.definition.function.swift
+T 19 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 20 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L `protocol`()
+T 1 source.swift meta.function-call.swift support.function.any-method.swift punctuation.definition.identifier.swift
+T 9 source.swift meta.function-call.swift support.function.any-method.swift
+T 10 source.swift meta.function-call.swift support.function.any-method.swift punctuation.definition.identifier.swift
+T 11 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 12 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L 
+L class `Type` {}
+T 5 source.swift meta.definition.type.class.swift storage.type.class.swift
+T 6 source.swift meta.definition.type.class.swift
+T 7 source.swift meta.definition.type.class.swift entity.name.type.class.swift punctuation.definition.identifier.swift
+T 11 source.swift meta.definition.type.class.swift entity.name.type.class.swift
+T 12 source.swift meta.definition.type.class.swift entity.name.type.class.swift punctuation.definition.identifier.swift
+T 13 source.swift meta.definition.type.class.swift
+T 14 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 15 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L var `class` = `Type`.self
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 12 source.swift
+T 13 source.swift keyword.operator.custom.infix.swift
+T 21 source.swift
+T 25 source.swift keyword.other.type.swift
+L 
+L func foo() {}
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 8 source.swift meta.definition.function.swift entity.name.function.swift
+T 9 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 10 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 11 source.swift meta.definition.function.swift
+T 12 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 13 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L `foo`()
+T 1 source.swift meta.function-call.swift support.function.any-method.swift punctuation.definition.identifier.swift
+T 4 source.swift meta.function-call.swift support.function.any-method.swift
+T 5 source.swift meta.function-call.swift support.function.any-method.swift punctuation.definition.identifier.swift
+T 6 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 7 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L 
+L // Escaping suppresses identifier contextualization.
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 52 source.swift comment.line.double-slash.swift
+L var get: (() -> ()) -> () = { $0() }
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 8 source.swift
+T 9 source.swift
+T 10 source.swift punctuation.section.tuple-type.begin.swift
+T 11 source.swift punctuation.section.tuple-type.begin.swift
+T 12 source.swift punctuation.section.tuple-type.end.swift
+T 13 source.swift
+T 15 source.swift keyword.operator.type.function.swift
+T 16 source.swift
+T 17 source.swift punctuation.section.tuple-type.begin.swift
+T 18 source.swift punctuation.section.tuple-type.end.swift
+T 19 source.swift punctuation.section.tuple-type.end.swift
+T 20 source.swift
+T 22 source.swift keyword.operator.type.function.swift
+T 23 source.swift
+T 24 source.swift punctuation.section.tuple-type.begin.swift
+T 25 source.swift punctuation.section.tuple-type.end.swift
+T 26 source.swift
+T 27 source.swift keyword.operator.custom.infix.swift
+T 28 source.swift
+T 29 source.swift punctuation.section.scope.begin.swift
+T 30 source.swift
+T 32 source.swift variable.language.closure-parameter.swift
+T 33 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 34 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 35 source.swift
+T 36 source.swift punctuation.section.scope.end.swift
+L 
+L var applyGet: Int {
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 13 source.swift
+T 14 source.swift
+T 17 source.swift support.type.swift
+T 18 source.swift
+T 19 source.swift punctuation.section.scope.begin.swift
+L   `get` { }
+T 2 source.swift
+T 3 source.swift meta.function-call.trailing-closure-only.swift support.function.any-method.swift punctuation.definition.identifier.swift
+T 6 source.swift meta.function-call.trailing-closure-only.swift support.function.any-method.swift
+T 7 source.swift meta.function-call.trailing-closure-only.swift support.function.any-method.swift punctuation.definition.identifier.swift
+T 8 source.swift
+T 9 source.swift punctuation.section.scope.begin.swift
+T 10 source.swift
+T 11 source.swift punctuation.section.scope.end.swift
+L   return 0
+T 2 source.swift
+T 8 source.swift keyword.control.transfer.swift
+T 9 source.swift
+T 10 source.swift constant.numeric.integer.decimal.swift
+L }
+T 1 source.swift punctuation.section.scope.end.swift
+L 
+L enum `switch` {}
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 6 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift punctuation.definition.identifier.swift
+T 12 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 13 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift punctuation.definition.identifier.swift
+T 14 source.swift meta.definition.type.enum.swift
+T 15 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 16 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L typealias `Self` = Int
+T 9 source.swift meta.definition.typealias.swift keyword.other.declaration-specifier.swift
+T 10 source.swift meta.definition.typealias.swift
+T 11 source.swift meta.definition.typealias.swift entity.name.type.typealias.swift punctuation.definition.identifier.swift
+T 15 source.swift meta.definition.typealias.swift entity.name.type.typealias.swift
+T 16 source.swift meta.definition.typealias.swift entity.name.type.typealias.swift punctuation.definition.identifier.swift
+T 17 source.swift meta.definition.typealias.swift
+T 18 source.swift meta.definition.typealias.swift keyword.operator.assignment.swift
+T 19 source.swift meta.definition.typealias.swift
+T 22 source.swift meta.definition.typealias.swift support.type.swift
+L 
+L // Identifiers that must be escaped
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 35 source.swift comment.line.double-slash.swift
+L func `method with space and .:/`() {}
+T 4 source.swift storage.type.function.swift
+T 29 source.swift
+T 30 source.swift keyword.operator.ternary.swift
+T 31 source.swift keyword.operator.custom.prefix.swift
+T 32 source.swift
+T 33 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 34 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 35 source.swift
+T 36 source.swift punctuation.section.scope.begin.swift
+T 37 source.swift punctuation.section.scope.end.swift
+L `method with space and .:/`()
+T 24 source.swift
+T 25 source.swift keyword.operator.ternary.swift
+T 26 source.swift keyword.operator.custom.prefix.swift
+T 27 source.swift
+T 28 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 29 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L 
+L class `Class with space and .:/` {}
+T 5 source.swift storage.type.class.swift
+T 29 source.swift
+T 30 source.swift keyword.operator.ternary.swift
+T 31 source.swift keyword.operator.custom.prefix.swift
+T 33 source.swift
+T 34 source.swift punctuation.section.scope.begin.swift
+T 35 source.swift punctuation.section.scope.end.swift
+L var `var with space and .:/` = `Class with space and .:/`.self
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 5 source.swift
+T 8 source.swift keyword.other.declaration-specifier.swift
+T 25 source.swift
+T 26 source.swift keyword.operator.ternary.swift
+T 53 source.swift string.regexp.line.swift
+T 54 source.swift string.regexp.line.swift constant.character.character-class.regexp
+T 56 source.swift string.regexp.line.swift
+T 58 source.swift
+T 62 source.swift keyword.other.type.swift
+L 
+L enum `enum with space and .:/` {
+T 4 source.swift storage.type.enum.swift
+T 6 source.swift
+T 10 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 11 source.swift meta.definition.type.enum.swift
+T 15 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 27 source.swift meta.definition.type.enum.swift
+T 28 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 29 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 30 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 31 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 32 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   case `space cases`
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 20 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+L   case `case with payload`(`some label`: `Class with space and .:/`)
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 17 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 26 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 27 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 39 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.function-call.swift
+T 40 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.function-call.swift keyword.operator.ternary.swift
+T 64 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.function-call.swift
+T 65 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.function-call.swift keyword.operator.ternary.swift
+T 66 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.function-call.swift keyword.operator.custom.prefix.swift
+T 67 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.function-call.swift
+T 68 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L typealias `Typealias with space and .:/` = Int
+T 9 source.swift keyword.other.declaration-specifier.swift
+T 37 source.swift
+T 38 source.swift keyword.operator.ternary.swift
+T 39 source.swift keyword.operator.custom.prefix.swift
+T 41 source.swift
+T 42 source.swift keyword.operator.custom.infix.swift
+T 43 source.swift
+T 46 source.swift support.type.swift
+L func `+ start with operator`() {}
+T 4 source.swift storage.type.function.swift
+T 6 source.swift
+T 7 source.swift keyword.operator.custom.postfix.swift
+T 19 source.swift
+T 27 source.swift keyword.other.declaration-specifier.swift
+T 28 source.swift
+T 29 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 30 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 31 source.swift
+T 32 source.swift punctuation.section.scope.begin.swift
+T 33 source.swift punctuation.section.scope.end.swift
+L 
+L struct `Escaped Type` {}
+T 6 source.swift storage.type.struct.swift
+T 22 source.swift
+T 23 source.swift punctuation.section.scope.begin.swift
+T 24 source.swift punctuation.section.scope.end.swift
+L func `escaped function`(`escaped label` `escaped arg`: `Escaped Type`) {}
+T 4 source.swift storage.type.function.swift
+T 23 source.swift
+T 24 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 53 source.swift meta.function-call.swift
+T 54 source.swift meta.function-call.swift keyword.operator.ternary.swift
+T 69 source.swift meta.function-call.swift
+T 70 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 71 source.swift
+T 72 source.swift punctuation.section.scope.begin.swift
+T 73 source.swift punctuation.section.scope.end.swift
+L `escaped function`(`escaped label`: `Escaped Type`())
+T 18 source.swift
+T 19 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 34 source.swift meta.function-call.swift
+T 35 source.swift meta.function-call.swift keyword.operator.ternary.swift
+T 50 source.swift meta.function-call.swift
+T 51 source.swift meta.function-call.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 52 source.swift meta.function-call.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 53 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L let `escaped reference` = `escaped function`(`escaped label`:)
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 24 source.swift
+T 25 source.swift keyword.operator.custom.infix.swift
+T 44 source.swift
+T 45 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 60 source.swift meta.function-call.swift
+T 61 source.swift meta.function-call.swift keyword.operator.ternary.swift
+T 62 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L `escaped reference`(`Escaped Type`())
+T 19 source.swift
+T 20 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 34 source.swift meta.function-call.swift
+T 35 source.swift meta.function-call.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 36 source.swift meta.function-call.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 37 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L 
+L let `@atSign` = 0
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 5 source.swift
+T 6 source.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 12 source.swift meta.attribute.swift storage.modifier.attribute.swift
+T 14 source.swift
+T 15 source.swift keyword.operator.custom.infix.swift
+T 16 source.swift
+T 17 source.swift constant.numeric.integer.decimal.swift
+L let `#octothorpe` = 0
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 5 source.swift
+T 16 source.swift support.function.any-method.swift
+T 18 source.swift
+T 19 source.swift keyword.operator.custom.infix.swift
+T 20 source.swift
+T 21 source.swift constant.numeric.integer.decimal.swift
+L 
+L // Escaped identifiers cannot contain *only* operator characters.
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 65 source.swift comment.line.double-slash.swift
+L let `+` = 0  // expected-error{{expected pattern}}
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 5 source.swift
+T 6 source.swift keyword.operator.custom.infix.swift
+T 8 source.swift
+T 9 source.swift keyword.operator.custom.infix.swift
+T 10 source.swift
+T 11 source.swift constant.numeric.integer.decimal.swift
+T 13 source.swift
+T 15 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 50 source.swift comment.line.double-slash.swift
+L let `^*^` = 0  // expected-error{{expected pattern}}
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 5 source.swift
+T 8 source.swift keyword.operator.custom.infix.swift
+T 10 source.swift
+T 11 source.swift keyword.operator.custom.infix.swift
+T 12 source.swift
+T 13 source.swift constant.numeric.integer.decimal.swift
+T 15 source.swift
+T 17 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 52 source.swift comment.line.double-slash.swift
+L let `.` = 0  // expected-error{{expected pattern}}
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 8 source.swift
+T 9 source.swift keyword.operator.custom.infix.swift
+T 10 source.swift
+T 11 source.swift constant.numeric.integer.decimal.swift
+T 13 source.swift
+T 15 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 50 source.swift comment.line.double-slash.swift
+L let `?` = 0  // expected-error{{expected pattern}}
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 5 source.swift
+T 6 source.swift keyword.operator.custom.infix.swift
+T 8 source.swift
+T 9 source.swift keyword.operator.custom.infix.swift
+T 10 source.swift
+T 11 source.swift constant.numeric.integer.decimal.swift
+T 13 source.swift
+T 15 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 50 source.swift comment.line.double-slash.swift
+L func `+`(lhs: Int, rhs: Int) -> Int  // expected-error{{expected identifier in function declaration}}
+T 4 source.swift storage.type.function.swift
+T 6 source.swift
+T 7 source.swift keyword.operator.custom.infix.swift
+T 8 source.swift
+T 9 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 12 source.swift meta.function-call.swift support.function.any-method.swift
+T 13 source.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 14 source.swift meta.function-call.swift
+T 17 source.swift meta.function-call.swift support.type.swift
+T 19 source.swift meta.function-call.swift
+T 22 source.swift meta.function-call.swift support.function.any-method.swift
+T 23 source.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 24 source.swift meta.function-call.swift
+T 27 source.swift meta.function-call.swift support.type.swift
+T 28 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 29 source.swift
+T 31 source.swift keyword.operator.custom.infix.swift
+T 32 source.swift
+T 35 source.swift support.type.swift
+T 37 source.swift
+T 39 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 101 source.swift comment.line.double-slash.swift
+L 
+L @propertyWrapper
+T 1 source.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 16 source.swift meta.attribute.swift storage.modifier.attribute.swift
+L struct `@PoorlyNamedWrapper`<`The Value`> {
+T 8 source.swift
+T 9 source.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 27 source.swift meta.attribute.swift storage.modifier.attribute.swift
+T 28 source.swift
+T 29 source.swift keyword.operator.custom.infix.swift
+T 34 source.swift
+T 39 source.swift support.type.swift
+T 40 source.swift
+T 41 source.swift keyword.operator.custom.postfix.swift
+T 42 source.swift
+T 43 source.swift punctuation.section.scope.begin.swift
+L   var wrappedValue: `The Value`
+T 2 source.swift
+T 5 source.swift keyword.other.declaration-specifier.swift
+T 19 source.swift
+T 25 source.swift
+T 30 source.swift support.type.swift
+T 31 source.swift
+L }
+T 1 source.swift punctuation.section.scope.end.swift
+L struct WithWrappedProperty {
+T 6 source.swift meta.definition.type.struct.swift storage.type.struct.swift
+T 7 source.swift meta.definition.type.struct.swift
+T 26 source.swift meta.definition.type.struct.swift entity.name.type.struct.swift
+T 27 source.swift meta.definition.type.struct.swift
+T 28 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   @`@PoorlyNamedWrapper` var x: Int
+T 4 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift
+T 5 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 23 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.attribute.swift storage.modifier.attribute.swift
+T 25 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift
+T 28 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift keyword.other.declaration-specifier.swift
+T 31 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift
+T 32 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift
+T 35 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift support.type.swift
+L }
+T 1 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 

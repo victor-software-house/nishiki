@@ -1,0 +1,1663 @@
+L #!/usr/bin/env swift
+T 2 source.swift comment.line.number-sign.swift punctuation.definition.comment.swift
+T 20 source.swift comment.line.number-sign.swift
+L // Written for nishiki's oracle coverage: the rules of Shiki's Swift grammar
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 76 source.swift comment.line.double-slash.swift
+L // that the other inputs do not reach.
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 38 source.swift comment.line.double-slash.swift
+L 
+L let block = #/
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 10 source.swift
+T 11 source.swift keyword.operator.custom.infix.swift
+T 12 source.swift
+T 14 source.swift string.regexp.block.swift
+L   (?<year>\d{4})   # a line comment
+T 2 source.swift string.regexp.block.swift
+T 3 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 4 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 5 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp
+T 9 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp variable.other.group-name.regexp
+T 10 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp
+T 12 source.swift string.regexp.block.swift meta.group.regexp constant.character.character-class.regexp
+T 15 source.swift string.regexp.block.swift meta.group.regexp keyword.operator.quantifier.regexp
+T 16 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 19 source.swift string.regexp.block.swift
+T 20 source.swift string.regexp.block.swift comment.line.regexp punctuation.definition.comment.regexp
+T 35 source.swift string.regexp.block.swift comment.line.regexp
+L   \g{year} \g{-1+2} \g{year+1} \g{2-1}
+T 2 source.swift string.regexp.block.swift
+T 5 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 9 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 10 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 11 source.swift string.regexp.block.swift
+T 14 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 16 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 17 source.swift string.regexp.block.swift keyword.operator.recursion-level.regexp
+T 18 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 19 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 20 source.swift string.regexp.block.swift
+T 23 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 27 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 28 source.swift string.regexp.block.swift keyword.operator.recursion-level.regexp
+T 29 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 30 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 31 source.swift string.regexp.block.swift
+T 34 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 35 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 36 source.swift string.regexp.block.swift keyword.operator.recursion-level.regexp
+T 37 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 38 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+L   \g1 \g-2+3 \g+1
+T 2 source.swift string.regexp.block.swift
+T 4 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 5 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 6 source.swift string.regexp.block.swift
+T 8 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 10 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 11 source.swift string.regexp.block.swift keyword.operator.recursion-level.regexp
+T 12 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 13 source.swift string.regexp.block.swift
+T 15 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 17 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+L   \k<year> \k'year' \k{year} \k<-1+0> \k'1-1'
+T 2 source.swift string.regexp.block.swift
+T 5 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 9 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 10 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 11 source.swift string.regexp.block.swift
+T 14 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 18 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 19 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 20 source.swift string.regexp.block.swift
+T 23 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 27 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 28 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 29 source.swift string.regexp.block.swift
+T 32 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 34 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 35 source.swift string.regexp.block.swift keyword.operator.recursion-level.regexp
+T 36 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 37 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 38 source.swift string.regexp.block.swift
+T 41 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 42 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 43 source.swift string.regexp.block.swift keyword.operator.recursion-level.regexp
+T 44 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 45 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+L   (?P=year) (?P>year) (?&year) (?&year+1) (?R) (?1) (?+1) (?-1) (?1+2)
+T 2 source.swift string.regexp.block.swift
+T 6 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 10 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 11 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 12 source.swift string.regexp.block.swift
+T 16 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 20 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 21 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 22 source.swift string.regexp.block.swift
+T 25 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 29 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 30 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 31 source.swift string.regexp.block.swift
+T 34 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 38 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 39 source.swift string.regexp.block.swift keyword.operator.recursion-level.regexp
+T 40 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 41 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 42 source.swift string.regexp.block.swift
+T 46 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 47 source.swift string.regexp.block.swift
+T 49 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 50 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 51 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 52 source.swift string.regexp.block.swift
+T 54 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 56 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 57 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 58 source.swift string.regexp.block.swift
+T 60 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 62 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 63 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 64 source.swift string.regexp.block.swift
+T 66 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 67 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 68 source.swift string.regexp.block.swift keyword.operator.recursion-level.regexp
+T 69 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 70 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+L   \g<year> \g'year' \g<1+0> \g<year-1>
+T 2 source.swift string.regexp.block.swift
+T 5 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 9 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 10 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 11 source.swift string.regexp.block.swift
+T 14 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 18 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 19 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 20 source.swift string.regexp.block.swift
+T 23 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 24 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 25 source.swift string.regexp.block.swift keyword.operator.recursion-level.regexp
+T 26 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 27 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 28 source.swift string.regexp.block.swift
+T 31 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 35 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 36 source.swift string.regexp.block.swift keyword.operator.recursion-level.regexp
+T 37 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 38 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+L   (*ACCEPT) (*FAIL) (*COMMIT) (*MARK:name) (*PRUNE:name) (*SKIP) (*THEN:name)
+T 2 source.swift string.regexp.block.swift
+T 4 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 10 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 11 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 12 source.swift string.regexp.block.swift
+T 14 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 18 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 19 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 20 source.swift string.regexp.block.swift
+T 22 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 28 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 29 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 30 source.swift string.regexp.block.swift
+T 32 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 36 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 37 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 41 source.swift string.regexp.block.swift variable.language.tag.regexp
+T 42 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 43 source.swift string.regexp.block.swift
+T 45 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 50 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 51 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 55 source.swift string.regexp.block.swift variable.language.tag.regexp
+T 56 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 57 source.swift string.regexp.block.swift
+T 59 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 63 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 64 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 65 source.swift string.regexp.block.swift
+T 67 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 71 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 72 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 76 source.swift string.regexp.block.swift variable.language.tag.regexp
+T 77 source.swift string.regexp.block.swift keyword.control.directive.regexp
+L   (*LIMIT_DEPTH=10) (*LIMIT_HEAP=5) (*NOTEMPTY) (*NOTEMPTY_ATSTART) (*UTF) (*CR) (*LF)
+T 2 source.swift string.regexp.block.swift
+T 4 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 15 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 16 source.swift string.regexp.block.swift keyword.operator.assignment.regexp
+T 18 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 19 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 20 source.swift string.regexp.block.swift
+T 22 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 32 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 33 source.swift string.regexp.block.swift keyword.operator.assignment.regexp
+T 34 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 35 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 36 source.swift string.regexp.block.swift
+T 38 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 46 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 47 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 48 source.swift string.regexp.block.swift
+T 50 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 66 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 67 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 68 source.swift string.regexp.block.swift
+T 70 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 73 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 74 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 75 source.swift string.regexp.block.swift
+T 77 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 79 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 80 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 81 source.swift string.regexp.block.swift
+T 83 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 85 source.swift string.regexp.block.swift keyword.control.directive.regexp
+T 86 source.swift string.regexp.block.swift keyword.control.directive.regexp
+L   (?C) (?C12) (?C`na``me`) (?C'na''me') (?C"x""y") (?C^x^^y^) (?C%x%%y%) (?C#x##y#) (?C$x$$y$) (?C{x}}y})
+T 2 source.swift string.regexp.block.swift
+T 3 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 5 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 6 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 7 source.swift string.regexp.block.swift
+T 8 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 10 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 12 source.swift string.regexp.block.swift meta.callout.regexp constant.numeric.integer.decimal.regexp
+T 13 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 14 source.swift string.regexp.block.swift
+T 15 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 17 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 18 source.swift string.regexp.block.swift meta.callout.regexp
+T 24 source.swift string.regexp.block.swift meta.callout.regexp entity.name.function.callout.regexp
+T 25 source.swift string.regexp.block.swift meta.callout.regexp
+T 26 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 27 source.swift string.regexp.block.swift
+T 28 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 30 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 31 source.swift string.regexp.block.swift meta.callout.regexp
+T 37 source.swift string.regexp.block.swift meta.callout.regexp entity.name.function.callout.regexp
+T 38 source.swift string.regexp.block.swift meta.callout.regexp
+T 39 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 40 source.swift string.regexp.block.swift
+T 41 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 43 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 44 source.swift string.regexp.block.swift meta.callout.regexp
+T 48 source.swift string.regexp.block.swift meta.callout.regexp entity.name.function.callout.regexp
+T 49 source.swift string.regexp.block.swift meta.callout.regexp
+T 50 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 51 source.swift string.regexp.block.swift
+T 52 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 54 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 55 source.swift string.regexp.block.swift meta.callout.regexp
+T 59 source.swift string.regexp.block.swift meta.callout.regexp entity.name.function.callout.regexp
+T 60 source.swift string.regexp.block.swift meta.callout.regexp
+T 61 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 62 source.swift string.regexp.block.swift
+T 63 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 65 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 66 source.swift string.regexp.block.swift meta.callout.regexp
+T 70 source.swift string.regexp.block.swift meta.callout.regexp entity.name.function.callout.regexp
+T 71 source.swift string.regexp.block.swift meta.callout.regexp
+T 72 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 73 source.swift string.regexp.block.swift
+T 74 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 76 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 77 source.swift string.regexp.block.swift meta.callout.regexp
+T 81 source.swift string.regexp.block.swift meta.callout.regexp entity.name.function.callout.regexp
+T 82 source.swift string.regexp.block.swift meta.callout.regexp
+T 83 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 84 source.swift string.regexp.block.swift
+T 85 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 87 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 88 source.swift string.regexp.block.swift meta.callout.regexp
+T 92 source.swift string.regexp.block.swift meta.callout.regexp entity.name.function.callout.regexp
+T 93 source.swift string.regexp.block.swift meta.callout.regexp
+T 94 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 95 source.swift string.regexp.block.swift
+T 96 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 98 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 99 source.swift string.regexp.block.swift meta.callout.regexp
+T 103 source.swift string.regexp.block.swift meta.callout.regexp entity.name.function.callout.regexp
+T 104 source.swift string.regexp.block.swift meta.callout.regexp
+T 105 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+L   (*name) (*name[tag]) (*name[tag]{a,b})
+T 2 source.swift string.regexp.block.swift
+T 3 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 4 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 8 source.swift string.regexp.block.swift meta.callout.regexp entity.name.function.callout.regexp
+T 9 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 10 source.swift string.regexp.block.swift
+T 11 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 12 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 16 source.swift string.regexp.block.swift meta.callout.regexp entity.name.function.callout.regexp
+T 17 source.swift string.regexp.block.swift meta.callout.regexp
+T 20 source.swift string.regexp.block.swift meta.callout.regexp variable.language.tag-name.regexp
+T 21 source.swift string.regexp.block.swift meta.callout.regexp
+T 22 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 23 source.swift string.regexp.block.swift
+T 24 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 25 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 29 source.swift string.regexp.block.swift meta.callout.regexp entity.name.function.callout.regexp
+T 30 source.swift string.regexp.block.swift meta.callout.regexp
+T 33 source.swift string.regexp.block.swift meta.callout.regexp variable.language.tag-name.regexp
+T 39 source.swift string.regexp.block.swift meta.callout.regexp
+T 40 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+L   (?{code}) (?{code}[tag]>) (?{{code}}X) (?{{{code}}}<)
+T 2 source.swift string.regexp.block.swift
+T 3 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 4 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 10 source.swift string.regexp.block.swift meta.callout.regexp
+T 11 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 12 source.swift string.regexp.block.swift
+T 13 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 14 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 21 source.swift string.regexp.block.swift meta.callout.regexp
+T 24 source.swift string.regexp.block.swift meta.callout.regexp variable.language.tag-name.regexp
+T 25 source.swift string.regexp.block.swift meta.callout.regexp
+T 26 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 27 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 28 source.swift string.regexp.block.swift
+T 29 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 30 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 38 source.swift string.regexp.block.swift meta.callout.regexp
+T 39 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 40 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 41 source.swift string.regexp.block.swift
+T 42 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+T 43 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 53 source.swift string.regexp.block.swift meta.callout.regexp
+T 54 source.swift string.regexp.block.swift meta.callout.regexp keyword.control.callout.regexp
+T 55 source.swift string.regexp.block.swift meta.callout.regexp punctuation.definition.group.regexp
+L   \p{Letter} \P{L} \p{^Greek} \p{Script=Greek} [[:alpha:]] [[:^digit:]]
+T 2 source.swift string.regexp.block.swift
+T 5 source.swift string.regexp.block.swift constant.other.character-class.set.regexp
+T 11 source.swift string.regexp.block.swift constant.other.character-class.set.regexp support.variable.character-property.regexp
+T 12 source.swift string.regexp.block.swift constant.other.character-class.set.regexp
+T 13 source.swift string.regexp.block.swift
+T 16 source.swift string.regexp.block.swift constant.other.character-class.set.regexp
+T 17 source.swift string.regexp.block.swift constant.other.character-class.set.regexp support.variable.character-property.regexp
+T 18 source.swift string.regexp.block.swift constant.other.character-class.set.regexp
+T 19 source.swift string.regexp.block.swift
+T 21 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 22 source.swift string.regexp.block.swift
+T 23 source.swift string.regexp.block.swift keyword.control.anchor.regexp
+T 30 source.swift string.regexp.block.swift
+T 33 source.swift string.regexp.block.swift constant.other.character-class.set.regexp
+T 45 source.swift string.regexp.block.swift constant.other.character-class.set.regexp support.variable.character-property.regexp
+T 46 source.swift string.regexp.block.swift constant.other.character-class.set.regexp
+T 47 source.swift string.regexp.block.swift
+T 48 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 49 source.swift string.regexp.block.swift constant.other.character-class.set.regexp constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 56 source.swift string.regexp.block.swift constant.other.character-class.set.regexp constant.other.character-class.set.regexp
+T 57 source.swift string.regexp.block.swift constant.other.character-class.set.regexp constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 58 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 59 source.swift string.regexp.block.swift
+T 60 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 61 source.swift string.regexp.block.swift constant.other.character-class.set.regexp constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 69 source.swift string.regexp.block.swift constant.other.character-class.set.regexp constant.other.character-class.set.regexp
+T 70 source.swift string.regexp.block.swift constant.other.character-class.set.regexp constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 71 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+L   [abc] [^a-z&&[aeiou]] [a--b] [a~~b] [\d\-\]]
+T 2 source.swift string.regexp.block.swift
+T 3 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 6 source.swift string.regexp.block.swift constant.other.character-class.set.regexp
+T 7 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 8 source.swift string.regexp.block.swift
+T 9 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 10 source.swift string.regexp.block.swift constant.other.character-class.set.regexp keyword.operator.negation.regexp
+T 13 source.swift string.regexp.block.swift constant.other.character-class.set.regexp
+T 15 source.swift string.regexp.block.swift constant.other.character-class.set.regexp keyword.operator.intersection.regexp.swift
+T 16 source.swift string.regexp.block.swift constant.other.character-class.set.regexp constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 21 source.swift string.regexp.block.swift constant.other.character-class.set.regexp constant.other.character-class.set.regexp
+T 22 source.swift string.regexp.block.swift constant.other.character-class.set.regexp constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 23 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 24 source.swift string.regexp.block.swift
+T 25 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 26 source.swift string.regexp.block.swift constant.other.character-class.set.regexp
+T 28 source.swift string.regexp.block.swift constant.other.character-class.set.regexp keyword.operator.subtraction.regexp.swift
+T 29 source.swift string.regexp.block.swift constant.other.character-class.set.regexp
+T 30 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 31 source.swift string.regexp.block.swift
+T 32 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 33 source.swift string.regexp.block.swift constant.other.character-class.set.regexp
+T 35 source.swift string.regexp.block.swift constant.other.character-class.set.regexp keyword.operator.symmetric-difference.regexp.swift
+T 36 source.swift string.regexp.block.swift constant.other.character-class.set.regexp
+T 37 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 38 source.swift string.regexp.block.swift
+T 39 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 44 source.swift string.regexp.block.swift constant.other.character-class.set.regexp
+T 45 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 46 source.swift string.regexp.block.swift
+L   (?i) (?i-m) (?^) (?^i) (?i:x) (?<name>x) (?'name'x) (?P<name>x) (?:x) (?|x) (?>x) (?=x) (?!x) (?<=x) (?<!x) (?*x) (?<*x) (?<a-b>x) (?'a-b'x)
+T 2 source.swift string.regexp.block.swift
+T 6 source.swift string.regexp.block.swift keyword.other.option-toggle.regexp
+T 7 source.swift string.regexp.block.swift
+T 13 source.swift string.regexp.block.swift keyword.other.option-toggle.regexp
+T 14 source.swift string.regexp.block.swift
+T 18 source.swift string.regexp.block.swift keyword.other.option-toggle.regexp
+T 19 source.swift string.regexp.block.swift
+T 24 source.swift string.regexp.block.swift keyword.other.option-toggle.regexp
+T 25 source.swift string.regexp.block.swift
+T 26 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 27 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 29 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp
+T 30 source.swift string.regexp.block.swift meta.group.regexp
+T 31 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 32 source.swift string.regexp.block.swift
+T 33 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 34 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 35 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp
+T 39 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp variable.other.group-name.regexp
+T 40 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp
+T 41 source.swift string.regexp.block.swift meta.group.regexp
+T 42 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 43 source.swift string.regexp.block.swift
+T 44 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 45 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 46 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp
+T 50 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp variable.other.group-name.regexp
+T 51 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp
+T 52 source.swift string.regexp.block.swift meta.group.regexp
+T 53 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 54 source.swift string.regexp.block.swift
+T 55 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 56 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 58 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp
+T 62 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp variable.other.group-name.regexp
+T 63 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp
+T 64 source.swift string.regexp.block.swift meta.group.regexp
+T 65 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 66 source.swift string.regexp.block.swift
+T 67 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 68 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 69 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 70 source.swift string.regexp.block.swift meta.group.regexp
+T 71 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 72 source.swift string.regexp.block.swift
+T 73 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 74 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 75 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 76 source.swift string.regexp.block.swift meta.group.regexp
+T 77 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 78 source.swift string.regexp.block.swift
+T 79 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 80 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 81 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 82 source.swift string.regexp.block.swift meta.group.regexp
+T 83 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 84 source.swift string.regexp.block.swift
+T 85 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 86 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 87 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 88 source.swift string.regexp.block.swift meta.group.regexp
+T 89 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 90 source.swift string.regexp.block.swift
+T 91 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 92 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 93 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 94 source.swift string.regexp.block.swift meta.group.regexp
+T 95 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 96 source.swift string.regexp.block.swift
+T 97 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 98 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 100 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 101 source.swift string.regexp.block.swift meta.group.regexp
+T 102 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 103 source.swift string.regexp.block.swift
+T 104 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 105 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 107 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 108 source.swift string.regexp.block.swift meta.group.regexp
+T 109 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 110 source.swift string.regexp.block.swift
+T 111 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 112 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 113 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 114 source.swift string.regexp.block.swift meta.group.regexp
+T 115 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 116 source.swift string.regexp.block.swift
+T 117 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 118 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 120 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 121 source.swift string.regexp.block.swift meta.group.regexp
+T 122 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 123 source.swift string.regexp.block.swift
+T 124 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 125 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 126 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp
+T 127 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp variable.other.group-name.regexp
+T 128 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp keyword.operator.balancing-group.regexp
+T 129 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp variable.other.group-name.regexp
+T 130 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp
+T 131 source.swift string.regexp.block.swift meta.group.regexp
+T 132 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 133 source.swift string.regexp.block.swift
+T 134 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+T 135 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 136 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp
+T 137 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp variable.other.group-name.regexp
+T 138 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp keyword.operator.balancing-group.regexp
+T 139 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp variable.other.group-name.regexp
+T 140 source.swift string.regexp.block.swift meta.group.regexp keyword.other.group-options.regexp
+T 141 source.swift string.regexp.block.swift meta.group.regexp
+T 142 source.swift string.regexp.block.swift meta.group.regexp punctuation.definition.group.regexp
+L   (?(1)a|b) (?(<name>)a) (?('name')a) (?(R)a) (?(R1)a) (?(R&name)a) (?(DEFINE)a) (?(VERSION>=10.0)a) (?(+1)a) (?(-1)a)
+T 2 source.swift string.regexp.block.swift
+T 3 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 5 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 6 source.swift string.regexp.block.swift meta.group.conditional.regexp constant.numeric.integer.decimal.regexp
+T 7 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 8 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 9 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.operator.or.regexp
+T 10 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 11 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 12 source.swift string.regexp.block.swift
+T 13 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 15 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 16 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 20 source.swift string.regexp.block.swift meta.group.conditional.regexp variable.other.group-name.regexp
+T 21 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 22 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 23 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 24 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 25 source.swift string.regexp.block.swift
+T 26 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 28 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 29 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 33 source.swift string.regexp.block.swift meta.group.conditional.regexp variable.other.group-name.regexp
+T 34 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 35 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 36 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 37 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 38 source.swift string.regexp.block.swift
+T 39 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 41 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 42 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 43 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 44 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 45 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 46 source.swift string.regexp.block.swift
+T 47 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 49 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 50 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 51 source.swift string.regexp.block.swift meta.group.conditional.regexp constant.numeric.integer.decimal.regexp
+T 52 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 53 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 54 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 55 source.swift string.regexp.block.swift
+T 56 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 58 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 60 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 64 source.swift string.regexp.block.swift meta.group.conditional.regexp variable.other.group-name.regexp
+T 65 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 66 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 67 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 68 source.swift string.regexp.block.swift
+T 69 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 71 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 77 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 78 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 79 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 80 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 81 source.swift string.regexp.block.swift
+T 82 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 84 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 91 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 93 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.operator.comparison.regexp
+T 97 source.swift string.regexp.block.swift meta.group.conditional.regexp constant.numeric.integer.decimal.regexp
+T 98 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 99 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 100 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 101 source.swift string.regexp.block.swift
+T 102 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 104 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 106 source.swift string.regexp.block.swift meta.group.conditional.regexp constant.numeric.integer.decimal.regexp
+T 107 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 108 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 109 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 110 source.swift string.regexp.block.swift
+T 111 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 113 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 115 source.swift string.regexp.block.swift meta.group.conditional.regexp constant.numeric.integer.decimal.regexp
+T 116 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 117 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 118 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+L   \Q quoted text \E
+T 2 source.swift string.regexp.block.swift
+T 4 source.swift string.regexp.block.swift string.quoted.other.regexp.swift constant.character.escape.backslash.regexp
+T 17 source.swift string.regexp.block.swift string.quoted.other.regexp.swift
+T 19 source.swift string.regexp.block.swift string.quoted.other.regexp.swift constant.character.escape.backslash.regexp
+L   (?# a comment)
+T 2 source.swift string.regexp.block.swift
+T 5 source.swift string.regexp.block.swift comment.block.regexp punctuation.definition.comment.begin.regexp
+T 15 source.swift string.regexp.block.swift comment.block.regexp
+T 16 source.swift string.regexp.block.swift comment.block.regexp punctuation.definition.comment.end.regexp
+L   <{ embedded }>
+T 2 source.swift string.regexp.block.swift
+T 4 source.swift string.regexp.block.swift meta.embedded.expression.regexp punctuation.section.embedded.begin.regexp
+T 14 source.swift string.regexp.block.swift meta.embedded.expression.regexp
+T 16 source.swift string.regexp.block.swift meta.embedded.expression.regexp punctuation.section.embedded.end.regexp
+L   \u{1F600} \x{41} \N{U+41} \o{17} A \U00000041 \x41 \0 \01
+T 2 source.swift string.regexp.block.swift
+T 11 source.swift string.regexp.block.swift constant.character.numeric.regexp
+T 12 source.swift string.regexp.block.swift
+T 18 source.swift string.regexp.block.swift constant.character.numeric.regexp
+T 19 source.swift string.regexp.block.swift
+T 27 source.swift string.regexp.block.swift constant.character.numeric.regexp
+T 28 source.swift string.regexp.block.swift
+T 34 source.swift string.regexp.block.swift constant.character.numeric.regexp
+T 37 source.swift string.regexp.block.swift
+T 47 source.swift string.regexp.block.swift constant.character.numeric.regexp
+T 48 source.swift string.regexp.block.swift
+T 52 source.swift string.regexp.block.swift constant.character.numeric.regexp
+T 53 source.swift string.regexp.block.swift
+T 55 source.swift string.regexp.block.swift constant.character.numeric.regexp
+T 56 source.swift string.regexp.block.swift
+T 59 source.swift string.regexp.block.swift constant.character.numeric.regexp
+L   \A \z \Z \b \B \G \K \y \Y $ ^
+T 2 source.swift string.regexp.block.swift
+T 4 source.swift string.regexp.block.swift keyword.control.anchor.regexp
+T 5 source.swift string.regexp.block.swift
+T 7 source.swift string.regexp.block.swift keyword.control.anchor.regexp
+T 8 source.swift string.regexp.block.swift
+T 10 source.swift string.regexp.block.swift keyword.control.anchor.regexp
+T 11 source.swift string.regexp.block.swift
+T 13 source.swift string.regexp.block.swift keyword.control.anchor.regexp
+T 14 source.swift string.regexp.block.swift
+T 16 source.swift string.regexp.block.swift keyword.control.anchor.regexp
+T 17 source.swift string.regexp.block.swift
+T 19 source.swift string.regexp.block.swift keyword.control.anchor.regexp
+T 20 source.swift string.regexp.block.swift
+T 22 source.swift string.regexp.block.swift keyword.control.anchor.regexp
+T 23 source.swift string.regexp.block.swift
+T 25 source.swift string.regexp.block.swift keyword.control.anchor.regexp
+T 26 source.swift string.regexp.block.swift
+T 28 source.swift string.regexp.block.swift keyword.control.anchor.regexp
+T 29 source.swift string.regexp.block.swift
+T 30 source.swift string.regexp.block.swift keyword.control.anchor.regexp
+T 31 source.swift string.regexp.block.swift
+T 32 source.swift string.regexp.block.swift keyword.control.anchor.regexp
+L   \cA \e \t \. \d \D \w \W \s \S \h \H \v \V \R \X \N \O
+T 2 source.swift string.regexp.block.swift
+T 5 source.swift string.regexp.block.swift constant.character.entity.control-character.regexp
+T 6 source.swift string.regexp.block.swift
+T 8 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 9 source.swift string.regexp.block.swift
+T 11 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 12 source.swift string.regexp.block.swift
+T 14 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 15 source.swift string.regexp.block.swift
+T 17 source.swift string.regexp.block.swift constant.character.character-class.regexp
+T 18 source.swift string.regexp.block.swift
+T 20 source.swift string.regexp.block.swift constant.character.character-class.regexp
+T 21 source.swift string.regexp.block.swift
+T 23 source.swift string.regexp.block.swift constant.character.character-class.regexp
+T 24 source.swift string.regexp.block.swift
+T 26 source.swift string.regexp.block.swift constant.character.character-class.regexp
+T 27 source.swift string.regexp.block.swift
+T 29 source.swift string.regexp.block.swift constant.character.character-class.regexp
+T 30 source.swift string.regexp.block.swift
+T 32 source.swift string.regexp.block.swift constant.character.character-class.regexp
+T 33 source.swift string.regexp.block.swift
+T 35 source.swift string.regexp.block.swift constant.character.character-class.regexp
+T 36 source.swift string.regexp.block.swift
+T 38 source.swift string.regexp.block.swift constant.character.character-class.regexp
+T 39 source.swift string.regexp.block.swift
+T 41 source.swift string.regexp.block.swift constant.character.character-class.regexp
+T 42 source.swift string.regexp.block.swift
+T 44 source.swift string.regexp.block.swift constant.character.character-class.regexp
+T 45 source.swift string.regexp.block.swift
+T 47 source.swift string.regexp.block.swift constant.character.character-class.regexp
+T 48 source.swift string.regexp.block.swift
+T 50 source.swift string.regexp.block.swift constant.character.character-class.regexp
+T 51 source.swift string.regexp.block.swift
+T 53 source.swift string.regexp.block.swift constant.character.character-class.regexp
+T 54 source.swift string.regexp.block.swift
+T 56 source.swift string.regexp.block.swift constant.character.character-class.regexp
+L   a* a+ a? a{2} a{2,} a{,3} a{ 1 , 3 } a*? a++
+T 3 source.swift string.regexp.block.swift
+T 4 source.swift string.regexp.block.swift keyword.operator.quantifier.regexp
+T 6 source.swift string.regexp.block.swift
+T 7 source.swift string.regexp.block.swift keyword.operator.quantifier.regexp
+T 9 source.swift string.regexp.block.swift
+T 10 source.swift string.regexp.block.swift keyword.operator.quantifier.regexp
+T 12 source.swift string.regexp.block.swift
+T 15 source.swift string.regexp.block.swift keyword.operator.quantifier.regexp
+T 17 source.swift string.regexp.block.swift
+T 21 source.swift string.regexp.block.swift keyword.operator.quantifier.regexp
+T 23 source.swift string.regexp.block.swift
+T 27 source.swift string.regexp.block.swift keyword.operator.quantifier.regexp
+T 29 source.swift string.regexp.block.swift
+T 38 source.swift string.regexp.block.swift keyword.operator.quantifier.regexp
+T 40 source.swift string.regexp.block.swift
+T 41 source.swift string.regexp.block.swift keyword.operator.quantifier.regexp
+T 42 source.swift string.regexp.block.swift keyword.operator.quantifier.regexp
+T 44 source.swift string.regexp.block.swift
+T 45 source.swift string.regexp.block.swift keyword.operator.quantifier.regexp
+T 46 source.swift string.regexp.block.swift keyword.operator.quantifier.regexp
+L   \k'year+1' \g'year-1' \k{year+1} \12 [:alpha:] [:^digit=x:] [\b] (?~absent)
+T 2 source.swift string.regexp.block.swift
+T 5 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 9 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 10 source.swift string.regexp.block.swift keyword.operator.recursion-level.regexp
+T 11 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 12 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 13 source.swift string.regexp.block.swift
+T 16 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 20 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 21 source.swift string.regexp.block.swift keyword.operator.recursion-level.regexp
+T 22 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 23 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 24 source.swift string.regexp.block.swift
+T 27 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 31 source.swift string.regexp.block.swift variable.other.group-name.regexp
+T 32 source.swift string.regexp.block.swift keyword.operator.recursion-level.regexp
+T 33 source.swift string.regexp.block.swift constant.numeric.integer.decimal.regexp
+T 34 source.swift string.regexp.block.swift constant.character.escape.backslash.regexp
+T 35 source.swift string.regexp.block.swift
+T 38 source.swift string.regexp.block.swift keyword.other.back-reference.regexp
+T 39 source.swift string.regexp.block.swift
+T 41 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 46 source.swift string.regexp.block.swift constant.other.character-class.set.regexp support.variable.character-property.regexp
+T 48 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 49 source.swift string.regexp.block.swift
+T 50 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 60 source.swift string.regexp.block.swift constant.other.character-class.set.regexp
+T 61 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 62 source.swift string.regexp.block.swift
+T 63 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 65 source.swift string.regexp.block.swift constant.other.character-class.set.regexp constant.character.escape.backslash.regexp
+T 66 source.swift string.regexp.block.swift constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 67 source.swift string.regexp.block.swift
+T 68 source.swift string.regexp.block.swift meta.group.absent.regexp punctuation.definition.group.regexp
+T 70 source.swift string.regexp.block.swift meta.group.absent.regexp keyword.control.conditional.absent.regexp
+T 76 source.swift string.regexp.block.swift meta.group.absent.regexp
+T 77 source.swift string.regexp.block.swift meta.group.absent.regexp punctuation.definition.group.regexp
+L   (?(1+2)a) (?(R&name+1)a) (?(VERSION=10.0)a) (?(<name-1>)a) (?((?=a)b|c))
+T 2 source.swift string.regexp.block.swift
+T 3 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 5 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 6 source.swift string.regexp.block.swift meta.group.conditional.regexp constant.numeric.integer.decimal.regexp
+T 7 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.operator.recursion-level.regexp
+T 8 source.swift string.regexp.block.swift meta.group.conditional.regexp constant.numeric.integer.decimal.regexp
+T 9 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 10 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 11 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 12 source.swift string.regexp.block.swift
+T 13 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 15 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 17 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 21 source.swift string.regexp.block.swift meta.group.conditional.regexp variable.other.group-name.regexp
+T 22 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.operator.recursion-level.regexp
+T 23 source.swift string.regexp.block.swift meta.group.conditional.regexp constant.numeric.integer.decimal.regexp
+T 24 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 25 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 26 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 27 source.swift string.regexp.block.swift
+T 28 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 30 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 37 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 38 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.operator.comparison.regexp
+T 42 source.swift string.regexp.block.swift meta.group.conditional.regexp constant.numeric.integer.decimal.regexp
+T 43 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 44 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 45 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 46 source.swift string.regexp.block.swift
+T 47 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 49 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 50 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 54 source.swift string.regexp.block.swift meta.group.conditional.regexp variable.other.group-name.regexp
+T 55 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.operator.recursion-level.regexp
+T 56 source.swift string.regexp.block.swift meta.group.conditional.regexp constant.numeric.integer.decimal.regexp
+T 57 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 58 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 59 source.swift string.regexp.block.swift meta.group.conditional.regexp
+T 60 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 61 source.swift string.regexp.block.swift
+T 62 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+T 63 source.swift string.regexp.block.swift meta.group.conditional.regexp keyword.control.conditional.regexp
+T 64 source.swift string.regexp.block.swift meta.group.conditional.regexp meta.group.regexp punctuation.definition.group.regexp
+T 65 source.swift string.regexp.block.swift meta.group.conditional.regexp meta.group.regexp meta.group.regexp punctuation.definition.group.regexp
+T 66 source.swift string.regexp.block.swift meta.group.conditional.regexp meta.group.regexp meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 67 source.swift string.regexp.block.swift meta.group.conditional.regexp meta.group.regexp meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 68 source.swift string.regexp.block.swift meta.group.conditional.regexp meta.group.regexp meta.group.regexp
+T 69 source.swift string.regexp.block.swift meta.group.conditional.regexp meta.group.regexp meta.group.regexp punctuation.definition.group.regexp
+T 70 source.swift string.regexp.block.swift meta.group.conditional.regexp meta.group.regexp
+T 71 source.swift string.regexp.block.swift meta.group.conditional.regexp meta.group.regexp keyword.operator.or.regexp
+T 72 source.swift string.regexp.block.swift meta.group.conditional.regexp meta.group.regexp
+T 73 source.swift string.regexp.block.swift meta.group.conditional.regexp meta.group.regexp punctuation.definition.group.regexp
+T 74 source.swift string.regexp.block.swift meta.group.conditional.regexp punctuation.definition.group.regexp
+L /#
+T 2 source.swift string.regexp.block.swift
+L 
+L let line = /(?<word>\w+) \k<word> \Q/\E (?C1) (*COMMIT)/
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 9 source.swift
+T 10 source.swift keyword.operator.custom.infix.swift
+T 11 source.swift
+T 12 source.swift string.regexp.line.swift
+T 13 source.swift string.regexp.line.swift meta.group.regexp punctuation.definition.group.regexp
+T 14 source.swift string.regexp.line.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 15 source.swift string.regexp.line.swift meta.group.regexp keyword.other.group-options.regexp
+T 19 source.swift string.regexp.line.swift meta.group.regexp keyword.other.group-options.regexp variable.other.group-name.regexp
+T 20 source.swift string.regexp.line.swift meta.group.regexp keyword.other.group-options.regexp
+T 22 source.swift string.regexp.line.swift meta.group.regexp constant.character.character-class.regexp
+T 23 source.swift string.regexp.line.swift meta.group.regexp keyword.operator.quantifier.regexp
+T 24 source.swift string.regexp.line.swift meta.group.regexp punctuation.definition.group.regexp
+T 25 source.swift string.regexp.line.swift
+T 28 source.swift string.regexp.line.swift constant.character.escape.backslash.regexp
+T 32 source.swift string.regexp.line.swift variable.other.group-name.regexp
+T 33 source.swift string.regexp.line.swift constant.character.escape.backslash.regexp
+T 34 source.swift string.regexp.line.swift
+T 36 source.swift string.regexp.line.swift string.quoted.other.regexp.swift constant.character.escape.backslash.regexp
+T 37 source.swift string.regexp.line.swift string.quoted.other.regexp.swift
+T 38 source.swift
+T 39 source.swift meta.function-call.swift support.function.any-method.swift
+T 40 source.swift meta.function-call.swift
+T 41 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 42 source.swift meta.function-call.swift keyword.operator.custom.prefix.swift
+T 44 source.swift meta.function-call.swift
+T 45 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 46 source.swift meta.function-call.swift
+T 47 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 48 source.swift meta.function-call.swift keyword.operator.custom.prefix.swift
+T 54 source.swift meta.function-call.swift
+T 55 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 56 source.swift keyword.operator.custom.postfix.swift
+L let extended = #/a/b (?<n>x) \g{n}/#
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 13 source.swift
+T 14 source.swift keyword.operator.custom.infix.swift
+T 15 source.swift
+T 21 source.swift string.regexp.line.extended.swift
+T 22 source.swift string.regexp.line.extended.swift meta.group.regexp punctuation.definition.group.regexp
+T 23 source.swift string.regexp.line.extended.swift meta.group.regexp keyword.other.group-options.regexp punctuation.definition.group.regexp
+T 24 source.swift string.regexp.line.extended.swift meta.group.regexp keyword.other.group-options.regexp
+T 25 source.swift string.regexp.line.extended.swift meta.group.regexp keyword.other.group-options.regexp variable.other.group-name.regexp
+T 26 source.swift string.regexp.line.extended.swift meta.group.regexp keyword.other.group-options.regexp
+T 27 source.swift string.regexp.line.extended.swift meta.group.regexp
+T 28 source.swift string.regexp.line.extended.swift meta.group.regexp punctuation.definition.group.regexp
+T 29 source.swift string.regexp.line.extended.swift
+T 32 source.swift string.regexp.line.extended.swift constant.character.escape.backslash.regexp
+T 33 source.swift string.regexp.line.extended.swift variable.other.group-name.regexp
+T 34 source.swift string.regexp.line.extended.swift constant.character.escape.backslash.regexp
+T 36 source.swift string.regexp.line.extended.swift
+L let extendedReturn = #/a/ b
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 19 source.swift
+T 20 source.swift keyword.operator.custom.infix.swift
+T 21 source.swift
+T 27 source.swift string.regexp.line.extended.swift
+L let doubleHash = ##/a#/b/##
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 15 source.swift
+T 16 source.swift keyword.operator.custom.infix.swift
+T 17 source.swift
+T 27 source.swift string.regexp.line.extended.swift
+L 
+L /*: Playground markup, /* nested */ still a comment */
+T 3 source.swift comment.block.documentation.playground.swift punctuation.definition.comment.begin.swift
+T 23 source.swift comment.block.documentation.playground.swift
+T 25 source.swift comment.block.documentation.playground.swift
+T 33 source.swift comment.block.documentation.playground.swift
+T 35 source.swift comment.block.documentation.playground.swift
+T 52 source.swift comment.block.documentation.playground.swift
+T 54 source.swift comment.block.documentation.playground.swift punctuation.definition.comment.end.swift
+L //: A playground line
+T 3 source.swift comment.line.double-slash.documentation.swift punctuation.definition.comment.swift
+T 21 source.swift comment.line.double-slash.documentation.swift
+L let stray = 1 */ 2
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 10 source.swift
+T 11 source.swift keyword.operator.custom.infix.swift
+T 12 source.swift
+T 13 source.swift constant.numeric.integer.decimal.swift
+T 14 source.swift
+T 16 source.swift invalid.illegal.unexpected-end-of-block-comment.swift
+T 17 source.swift
+T 18 source.swift constant.numeric.integer.decimal.swift
+L 
+L func ordered() throws async {}
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 12 source.swift meta.definition.function.swift entity.name.function.swift
+T 13 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 14 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 15 source.swift meta.definition.function.swift
+T 27 source.swift meta.definition.function.swift invalid.illegal.await-must-precede-throws.swift
+T 28 source.swift meta.definition.function.swift
+T 29 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 30 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L @available(*, deprecated: 13.0)
+T 1 source.swift meta.attribute.available.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 10 source.swift meta.attribute.available.swift storage.modifier.attribute.swift
+T 11 source.swift meta.attribute.available.swift punctuation.definition.arguments.begin.swift
+T 12 source.swift meta.attribute.available.swift keyword.other.platform.all.swift
+T 14 source.swift meta.attribute.available.swift
+T 24 source.swift meta.attribute.available.swift keyword.other.swift
+T 25 source.swift meta.attribute.available.swift punctuation.separator.key-value.swift
+T 26 source.swift meta.attribute.available.swift
+T 30 source.swift meta.attribute.available.swift constant.numeric.swift
+T 31 source.swift meta.attribute.available.swift punctuation.definition.arguments.end.swift
+L @available(iOS, unavailable, message)
+T 1 source.swift meta.attribute.available.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 10 source.swift meta.attribute.available.swift storage.modifier.attribute.swift
+T 11 source.swift meta.attribute.available.swift punctuation.definition.arguments.begin.swift
+T 14 source.swift meta.attribute.available.swift keyword.other.platform.os.swift
+T 16 source.swift meta.attribute.available.swift
+T 27 source.swift meta.attribute.available.swift keyword.other.swift
+T 36 source.swift meta.attribute.available.swift
+T 37 source.swift meta.attribute.available.swift punctuation.definition.arguments.end.swift
+L @objc(first:second) func selectorPiece() {}
+T 1 source.swift meta.attribute.objc.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 5 source.swift meta.attribute.objc.swift storage.modifier.attribute.swift
+T 6 source.swift meta.attribute.objc.swift punctuation.definition.arguments.begin.swift
+T 12 source.swift meta.attribute.objc.swift entity.name.function.swift
+T 18 source.swift meta.attribute.objc.swift entity.name.function.swift invalid.illegal.missing-colon-after-selector-piece.swift
+T 19 source.swift meta.attribute.objc.swift punctuation.definition.arguments.end.swift
+T 20 source.swift
+T 24 source.swift meta.definition.function.swift storage.type.function.swift
+T 25 source.swift meta.definition.function.swift
+T 38 source.swift meta.definition.function.swift entity.name.function.swift
+T 39 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 40 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 41 source.swift meta.definition.function.swift
+T 42 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 43 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L @`backticked` struct Wrapped {}
+T 1 source.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 2 source.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.identifier.swift
+T 12 source.swift meta.attribute.swift storage.modifier.attribute.swift
+T 13 source.swift meta.attribute.swift storage.modifier.attribute.swift punctuation.definition.identifier.swift
+T 14 source.swift
+T 20 source.swift meta.definition.type.struct.swift storage.type.struct.swift
+T 21 source.swift meta.definition.type.struct.swift
+T 28 source.swift meta.definition.type.struct.swift entity.name.type.struct.swift
+T 29 source.swift meta.definition.type.struct.swift
+T 30 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 31 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L let lengthOfString = text.startsWith("a")
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 19 source.swift
+T 20 source.swift keyword.operator.custom.infix.swift
+T 26 source.swift
+T 36 source.swift support.function.swift
+T 37 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 38 source.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 39 source.swift meta.function-call.swift string.quoted.double.single-line.swift
+T 40 source.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+T 41 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L autoreleasepool { }
+T 15 source.swift support.function.swift
+T 16 source.swift
+T 17 source.swift punctuation.section.scope.begin.swift
+T 18 source.swift
+T 19 source.swift punctuation.section.scope.end.swift
+L sort(values)
+T 4 source.swift support.function.swift
+T 5 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 11 source.swift meta.function-call.swift
+T 12 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L let args = CommandLine.arguments
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 9 source.swift
+T 10 source.swift keyword.operator.custom.infix.swift
+T 11 source.swift
+T 22 source.swift support.constant.swift
+T 23 source.swift
+T 32 source.swift support.variable.swift
+L let count = Process.argc
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 10 source.swift
+T 11 source.swift keyword.operator.custom.infix.swift
+T 12 source.swift
+T 19 source.swift support.constant.swift
+T 20 source.swift
+T 24 source.swift support.variable.swift
+L let buffer: ManagedBuffer<Int, Int>
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 11 source.swift
+T 12 source.swift
+T 25 source.swift support.class.swift
+T 26 source.swift meta.generic-argument-clause.swift punctuation.separator.generic-argument-clause.begin.swift
+T 29 source.swift meta.generic-argument-clause.swift support.type.swift
+T 31 source.swift meta.generic-argument-clause.swift
+T 34 source.swift meta.generic-argument-clause.swift support.type.swift
+T 35 source.swift meta.generic-argument-clause.swift punctuation.separator.generic-argument-clause.end.swift
+L let look: QuickLookObject
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 9 source.swift
+T 10 source.swift
+T 25 source.swift support.type.swift
+L let actorType: Actor
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 14 source.swift
+T 15 source.swift
+T 20 source.swift support.type.swift
+L let generator: GeneratorType
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 14 source.swift
+T 15 source.swift
+T 28 source.swift support.type.swift
+L let raw: RawByte
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 8 source.swift
+T 9 source.swift
+T 16 source.swift support.type.swift
+L let word: UWord
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 9 source.swift
+T 10 source.swift
+T 15 source.swift support.type.swift
+L 
+L #if arch(arm64) || arch(sparc) || targetEnvironment(simulator)
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 9 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 14 source.swift meta.preprocessor.conditional.swift support.constant.platform.architecture.swift
+T 15 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+T 16 source.swift meta.preprocessor.conditional.swift
+T 18 source.swift meta.preprocessor.conditional.swift keyword.operator.logical.swift
+T 19 source.swift meta.preprocessor.conditional.swift
+T 23 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 24 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 29 source.swift meta.preprocessor.conditional.swift
+T 30 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+T 31 source.swift meta.preprocessor.conditional.swift
+T 33 source.swift meta.preprocessor.conditional.swift keyword.operator.logical.swift
+T 34 source.swift meta.preprocessor.conditional.swift
+T 51 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 52 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 61 source.swift meta.preprocessor.conditional.swift support.constant.platform.environment.swift
+T 62 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L #sourceLocation(file: "a.swift", line: 1, junk) trailing
+T 1 source.swift meta.preprocessor.sourcelocation.swift punctuation.definition.preprocessor.swift
+T 15 source.swift meta.preprocessor.sourcelocation.swift keyword.control.import.preprocessor.sourcelocation.swift
+T 16 source.swift meta.preprocessor.sourcelocation.swift punctuation.definition.parameters.begin.swift
+T 20 source.swift meta.preprocessor.sourcelocation.swift support.variable.parameter.swift
+T 21 source.swift meta.preprocessor.sourcelocation.swift punctuation.separator.key-value.swift
+T 22 source.swift meta.preprocessor.sourcelocation.swift
+T 23 source.swift meta.preprocessor.sourcelocation.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 30 source.swift meta.preprocessor.sourcelocation.swift string.quoted.double.single-line.swift
+T 31 source.swift meta.preprocessor.sourcelocation.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+T 32 source.swift meta.preprocessor.sourcelocation.swift punctuation.separator.parameters.swift
+T 33 source.swift meta.preprocessor.sourcelocation.swift
+T 37 source.swift meta.preprocessor.sourcelocation.swift support.variable.parameter.swift
+T 38 source.swift meta.preprocessor.sourcelocation.swift punctuation.separator.key-value.swift
+T 39 source.swift meta.preprocessor.sourcelocation.swift
+T 40 source.swift meta.preprocessor.sourcelocation.swift constant.numeric.integer.swift
+T 41 source.swift meta.preprocessor.sourcelocation.swift punctuation.separator.parameters.swift
+T 42 source.swift meta.preprocessor.sourcelocation.swift
+T 46 source.swift meta.preprocessor.sourcelocation.swift invalid.illegal.character-not-allowed-here.swift
+T 47 source.swift meta.preprocessor.sourcelocation.swift punctuation.definition.parameters.begin.swift
+T 48 source.swift meta.preprocessor.sourcelocation.swift
+T 56 source.swift meta.preprocessor.sourcelocation.swift invalid.illegal.character-not-allowed-here.swift
+L #sourceLocation()
+T 1 source.swift meta.preprocessor.sourcelocation.swift punctuation.definition.preprocessor.swift
+T 15 source.swift meta.preprocessor.sourcelocation.swift keyword.control.import.preprocessor.sourcelocation.swift
+T 16 source.swift meta.preprocessor.sourcelocation.swift punctuation.definition.parameters.begin.swift
+T 17 source.swift meta.preprocessor.sourcelocation.swift punctuation.definition.parameters.begin.swift
+L 
+L let f: nonisolated(nonsending) () async -> Void
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 6 source.swift
+T 7 source.swift
+T 30 source.swift storage.modifier.swift
+T 31 source.swift
+T 32 source.swift punctuation.section.tuple-type.begin.swift
+T 33 source.swift punctuation.section.tuple-type.end.swift
+T 34 source.swift
+T 39 source.swift storage.modifier.async.swift
+T 40 source.swift
+T 42 source.swift keyword.operator.type.function.swift
+T 43 source.swift
+T 47 source.swift support.type.swift
+L let p: protocol<A, B>
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 6 source.swift
+T 7 source.swift
+T 15 source.swift keyword.other.type.composition.swift
+T 16 source.swift meta.generic-argument-clause.swift punctuation.separator.generic-argument-clause.begin.swift
+T 20 source.swift meta.generic-argument-clause.swift
+T 21 source.swift meta.generic-argument-clause.swift punctuation.separator.generic-argument-clause.end.swift
+L let inline: [5 of Int]
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 11 source.swift
+T 12 source.swift
+T 13 source.swift punctuation.section.collection-type.begin.swift
+T 14 source.swift constant.numeric.integer.decimal.swift
+T 15 source.swift
+T 17 source.swift keyword.other.inline-array.swift
+T 18 source.swift
+T 21 source.swift support.type.swift
+T 22 source.swift punctuation.section.collection-type.end.swift
+L let wildcard: [_]
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 13 source.swift
+T 14 source.swift
+T 15 source.swift punctuation.section.collection-type.begin.swift
+T 16 source.swift support.variable.inferred.swift
+T 17 source.swift punctuation.section.collection-type.end.swift
+L let keyed: [String: [Int: Bool]]
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 10 source.swift
+T 11 source.swift
+T 12 source.swift punctuation.section.collection-type.begin.swift
+T 18 source.swift support.type.swift
+T 19 source.swift punctuation.separator.key-value.swift
+T 20 source.swift
+T 21 source.swift punctuation.section.collection-type.begin.swift
+T 24 source.swift support.type.swift
+T 25 source.swift punctuation.separator.key-value.swift
+T 26 source.swift
+T 30 source.swift support.type.swift
+T 31 source.swift punctuation.section.collection-type.end.swift
+T 32 source.swift punctuation.section.collection-type.end.swift
+L struct Fixed<let N: Int> {}
+T 6 source.swift meta.definition.type.struct.swift storage.type.struct.swift
+T 7 source.swift meta.definition.type.struct.swift
+T 12 source.swift meta.definition.type.struct.swift entity.name.type.struct.swift
+T 13 source.swift meta.definition.type.struct.swift meta.generic-parameter-clause.swift punctuation.separator.generic-parameter-clause.begin.swift
+T 16 source.swift meta.definition.type.struct.swift meta.generic-parameter-clause.swift keyword.other.declaration-specifier.swift
+T 17 source.swift meta.definition.type.struct.swift meta.generic-parameter-clause.swift
+T 18 source.swift meta.definition.type.struct.swift meta.generic-parameter-clause.swift variable.language.generic-parameter.swift
+T 19 source.swift meta.definition.type.struct.swift meta.generic-parameter-clause.swift meta.generic-parameter-constraint.swift punctuation.separator.generic-parameter-constraint.swift
+T 20 source.swift meta.definition.type.struct.swift meta.generic-parameter-clause.swift meta.generic-parameter-constraint.swift
+T 23 source.swift meta.definition.type.struct.swift meta.generic-parameter-clause.swift meta.generic-parameter-constraint.swift entity.other.inherited-class.swift meta.type-name.swift support.type.swift
+T 24 source.swift meta.definition.type.struct.swift meta.generic-parameter-clause.swift punctuation.separator.generic-parameter-clause.end.swift
+T 25 source.swift meta.definition.type.struct.swift
+T 26 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 27 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L func result() -> sending Value {}
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 11 source.swift meta.definition.function.swift entity.name.function.swift
+T 12 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 13 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 14 source.swift meta.definition.function.swift
+T 16 source.swift meta.definition.function.swift meta.function-result.swift keyword.operator.function-result.swift
+T 17 source.swift meta.definition.function.swift meta.function-result.swift
+T 24 source.swift meta.definition.function.swift meta.function-result.swift storage.modifier.swift
+T 25 source.swift meta.definition.function.swift meta.function-result.swift
+T 30 source.swift meta.definition.function.swift meta.function-result.swift support.type.swift
+T 31 source.swift meta.definition.function.swift meta.function-result.swift
+T 32 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 33 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L init?!() {}
+T 5 source.swift meta.definition.function.initializer.swift storage.type.function.swift
+T 6 source.swift meta.definition.function.initializer.swift storage.type.function.swift invalid.illegal.character-not-allowed-here.swift
+T 7 source.swift meta.definition.function.initializer.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 8 source.swift meta.definition.function.initializer.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 9 source.swift meta.definition.function.initializer.swift
+T 10 source.swift meta.definition.function.initializer.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 11 source.swift meta.definition.function.initializer.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L 
+L import `Module`;
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 8 source.swift meta.import.swift entity.name.type.swift punctuation.definition.identifier.swift
+T 14 source.swift meta.import.swift entity.name.type.swift
+T 15 source.swift meta.import.swift entity.name.type.swift punctuation.definition.identifier.swift
+T 16 source.swift meta.import.swift punctuation.terminator.statement.swift
+L import Module.$1
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 13 source.swift meta.import.swift entity.name.type.swift
+T 14 source.swift meta.import.swift punctuation.separator.import.swift
+T 16 source.swift meta.import.swift entity.name.type.swift
+L import operator Module.+.
+T 6 source.swift meta.import.swift keyword.control.import.swift
+T 7 source.swift meta.import.swift
+T 15 source.swift meta.import.swift entity.name.type.swift
+T 25 source.swift meta.import.swift invalid.illegal.character-not-allowed-here.swift
+L class Empty: {}
+T 5 source.swift meta.definition.type.class.swift storage.type.class.swift
+T 6 source.swift meta.definition.type.class.swift
+T 11 source.swift meta.definition.type.class.swift entity.name.type.class.swift
+T 12 source.swift meta.definition.type.class.swift meta.inheritance-clause.swift invalid.illegal.empty-inheritance-clause.swift
+T 13 source.swift meta.definition.type.class.swift meta.inheritance-clause.swift
+T 14 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 15 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L macro `stringify`(_ value: Int) = #externalMacro(module: "M", type: "S")
+T 5 source.swift meta.definition.macro.swift storage.type.function.swift
+T 6 source.swift meta.definition.macro.swift
+T 7 source.swift meta.definition.macro.swift entity.name.function.swift punctuation.definition.identifier.swift
+T 16 source.swift meta.definition.macro.swift entity.name.function.swift
+T 17 source.swift meta.definition.macro.swift entity.name.function.swift punctuation.definition.identifier.swift
+T 18 source.swift meta.definition.macro.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 19 source.swift meta.definition.macro.swift meta.parameter-clause.swift entity.name.function.swift
+T 20 source.swift meta.definition.macro.swift meta.parameter-clause.swift
+T 25 source.swift meta.definition.macro.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 27 source.swift meta.definition.macro.swift meta.parameter-clause.swift
+T 30 source.swift meta.definition.macro.swift meta.parameter-clause.swift support.type.swift
+T 31 source.swift meta.definition.macro.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 32 source.swift meta.definition.macro.swift
+T 33 source.swift keyword.operator.custom.infix.swift
+T 34 source.swift
+T 48 source.swift support.function.builtin-macro.swift
+T 49 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 55 source.swift meta.function-call.swift support.function.any-method.swift
+T 56 source.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 57 source.swift meta.function-call.swift
+T 58 source.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 59 source.swift meta.function-call.swift string.quoted.double.single-line.swift
+T 60 source.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+T 62 source.swift meta.function-call.swift
+T 66 source.swift meta.function-call.swift support.function.any-method.swift
+T 67 source.swift meta.function-call.swift punctuation.separator.argument-label.swift
+T 68 source.swift meta.function-call.swift
+T 69 source.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 70 source.swift meta.function-call.swift string.quoted.double.single-line.swift
+T 71 source.swift meta.function-call.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+T 72 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L infix operator .+. : `Group`
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 18 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 19 source.swift meta.definition.operator.swift
+T 21 source.swift meta.definition.operator.swift
+T 28 source.swift meta.definition.operator.swift entity.other.inherited-class.swift
+L infix operator ~~ { associativity left precedence 140 assignment }
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 17 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 18 source.swift meta.definition.operator.swift
+T 19 source.swift meta.definition.operator.swift punctuation.definition.operator.begin.swift
+T 20 source.swift meta.definition.operator.swift
+T 33 source.swift meta.definition.operator.swift storage.modifier.swift
+T 34 source.swift meta.definition.operator.swift
+T 38 source.swift meta.definition.operator.swift keyword.other.operator.associativity.swift
+T 39 source.swift meta.definition.operator.swift
+T 49 source.swift meta.definition.operator.swift storage.modifier.swift
+T 50 source.swift meta.definition.operator.swift
+T 53 source.swift meta.definition.operator.swift constant.numeric.integer.swift
+T 54 source.swift meta.definition.operator.swift
+T 64 source.swift meta.definition.operator.swift storage.modifier.swift
+T 65 source.swift meta.definition.operator.swift
+T 66 source.swift meta.definition.operator.swift punctuation.definition.operator.end.swift
+L func labels(outer `inner`: Int, sent: sending Value, nested: x: Int) {}
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 11 source.swift meta.definition.function.swift entity.name.function.swift
+T 12 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 17 source.swift meta.definition.function.swift meta.parameter-clause.swift entity.name.function.swift
+T 18 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 19 source.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift punctuation.definition.identifier.swift
+T 24 source.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 25 source.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift punctuation.definition.identifier.swift
+T 27 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 30 source.swift meta.definition.function.swift meta.parameter-clause.swift support.type.swift
+T 32 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 36 source.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 38 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 45 source.swift meta.definition.function.swift meta.parameter-clause.swift storage.modifier.swift
+T 46 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 51 source.swift meta.definition.function.swift meta.parameter-clause.swift support.type.swift
+T 53 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 59 source.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 61 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 62 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 63 source.swift meta.definition.function.swift meta.parameter-clause.swift invalid.illegal.extra-colon-in-parameter-list.swift
+T 64 source.swift meta.definition.function.swift meta.parameter-clause.swift
+T 67 source.swift meta.definition.function.swift meta.parameter-clause.swift support.type.swift
+T 68 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 69 source.swift meta.definition.function.swift
+T 70 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 71 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L precedencegroup `Group` { higherThan: `Other` }
+T 15 source.swift meta.definition.precedencegroup.swift storage.type.precedencegroup.swift
+T 16 source.swift meta.definition.precedencegroup.swift
+T 17 source.swift meta.definition.precedencegroup.swift entity.name.type.precedencegroup.swift punctuation.definition.identifier.swift
+T 22 source.swift meta.definition.precedencegroup.swift entity.name.type.precedencegroup.swift
+T 23 source.swift meta.definition.precedencegroup.swift entity.name.type.precedencegroup.swift punctuation.definition.identifier.swift
+T 24 source.swift meta.definition.precedencegroup.swift
+T 25 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.begin.swift
+T 26 source.swift meta.definition.precedencegroup.swift
+T 36 source.swift meta.definition.precedencegroup.swift storage.modifier.swift
+T 38 source.swift meta.definition.precedencegroup.swift
+T 45 source.swift meta.definition.precedencegroup.swift entity.other.inherited-class.swift
+T 46 source.swift meta.definition.precedencegroup.swift
+T 47 source.swift meta.definition.precedencegroup.swift punctuation.definition.precedencegroup.end.swift
+L protocol `Proto` {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 10 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift punctuation.definition.identifier.swift
+T 15 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 16 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift punctuation.definition.identifier.swift
+T 17 source.swift meta.definition.type.protocol.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   associatedtype `Element`
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 16 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.associatedtype.swift keyword.other.declaration-specifier.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.associatedtype.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.associatedtype.swift variable.language.associatedtype.swift punctuation.definition.identifier.swift
+T 25 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.associatedtype.swift variable.language.associatedtype.swift
+T 26 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.associatedtype.swift variable.language.associatedtype.swift punctuation.definition.identifier.swift
+L   init?!()
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 7 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.initializer.swift storage.type.function.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.initializer.swift storage.type.function.swift invalid.illegal.character-not-allowed-here.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 10 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.initializer.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+L   func `method`()
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 7 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift punctuation.definition.identifier.swift
+T 14 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 15 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift punctuation.definition.identifier.swift
+T 16 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L enum Labels { case pair(first second: Int), single(_ name: Int, x: y: Int) }
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 11 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 12 source.swift meta.definition.type.enum.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 14 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 19 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 23 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 24 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.begin.swift
+T 29 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift invalid.illegal.distinct-labels-not-allowed.swift
+T 30 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 36 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.parameter.function.swift
+T 37 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.separator.argument-label.swift
+T 38 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 41 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift support.type.swift
+T 42 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.end.swift
+T 44 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases
+T 50 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases variable.other.enummember.swift
+T 51 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases punctuation.definition.parameters.begin.swift
+T 52 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases entity.name.function.swift
+T 53 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases
+T 57 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases variable.parameter.function.swift
+T 58 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases punctuation.separator.argument-label.swift
+T 59 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases
+T 62 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases support.type.swift
+T 64 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases
+T 65 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases entity.name.function.swift variable.parameter.function.swift
+T 66 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases punctuation.separator.argument-label.swift
+T 70 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases
+T 73 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases support.type.swift
+T 74 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases punctuation.definition.parameters.end.swift
+T 75 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift meta.enum-case.more-cases
+T 76 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L let typed: `Typed` = value
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 10 source.swift
+T 19 source.swift
+T 20 source.swift keyword.operator.custom.infix.swift
+T 26 source.swift
+L 
+L call `label`: { }
+T 5 source.swift
+T 6 source.swift support.function.any-method.trailing-closure-label.swift punctuation.definition.identifier.swift
+T 11 source.swift support.function.any-method.trailing-closure-label.swift
+T 12 source.swift support.function.any-method.trailing-closure-label.swift punctuation.definition.identifier.swift
+T 13 source.swift punctuation.separator.argument-label.swift
+T 14 source.swift
+T 15 source.swift punctuation.section.scope.begin.swift
+T 16 source.swift
+T 17 source.swift punctuation.section.scope.end.swift
+L if #available(* junk) {}
+T 2 source.swift keyword.control.branch.swift
+T 3 source.swift
+T 13 source.swift support.function.availability-condition.swift
+T 14 source.swift punctuation.definition.arguments.begin.swift
+T 15 source.swift keyword.other.platform.all.swift
+T 16 source.swift
+T 20 source.swift invalid.illegal.character-not-allowed-here.swift
+T 21 source.swift punctuation.definition.arguments.end.swift
+T 22 source.swift
+T 23 source.swift punctuation.section.scope.begin.swift
+T 24 source.swift punctuation.section.scope.end.swift
+L let compound = `method`(first:second:)
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 13 source.swift
+T 14 source.swift keyword.operator.custom.infix.swift
+T 15 source.swift
+T 16 source.swift entity.name.function.compound-name.swift punctuation.definition.entity.swift
+T 22 source.swift entity.name.function.compound-name.swift
+T 23 source.swift entity.name.function.compound-name.swift punctuation.definition.entity.swift
+T 24 source.swift
+T 30 source.swift entity.name.function.compound-name.swift
+T 37 source.swift entity.name.function.compound-name.swift
+T 38 source.swift
+L let viaOf = [3 of Int]
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 10 source.swift
+T 11 source.swift keyword.operator.custom.infix.swift
+T 13 source.swift
+T 14 source.swift constant.numeric.integer.decimal.swift
+T 15 source.swift
+T 17 source.swift keyword.other.inline-array.swift
+T 18 source.swift
+T 21 source.swift support.type.swift
+T 22 source.swift
+L repeat {} while false
+T 6 source.swift keyword.control.loop.swift
+T 7 source.swift punctuation.whitespace.trailing.repeat.swift
+T 8 source.swift punctuation.section.scope.begin.swift
+T 9 source.swift punctuation.section.scope.end.swift
+T 10 source.swift
+T 15 source.swift keyword.control.loop.swift
+T 16 source.swift
+T 21 source.swift constant.language.boolean.swift
+L do {}
+T 2 source.swift keyword.control.exception.swift
+T 3 source.swift punctuation.whitespace.trailing.do.swift
+T 4 source.swift punctuation.section.scope.begin.swift
+T 5 source.swift punctuation.section.scope.end.swift
+L var property: Int { get throws async { 0 } }
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 13 source.swift
+T 14 source.swift
+T 17 source.swift support.type.swift
+T 18 source.swift
+T 19 source.swift punctuation.section.scope.begin.swift
+T 20 source.swift
+T 23 source.swift storage.type.function.swift
+T 24 source.swift
+T 36 source.swift invalid.illegal.async-must-precede-throws.swift
+T 37 source.swift
+T 38 source.swift punctuation.section.scope.begin.swift
+T 39 source.swift
+T 40 source.swift constant.numeric.integer.decimal.swift
+T 41 source.swift
+T 42 source.swift punctuation.section.scope.end.swift
+T 43 source.swift
+T 44 source.swift punctuation.section.scope.end.swift
+L var other: Int { get async throws { 0 } }
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 10 source.swift
+T 11 source.swift
+T 14 source.swift support.type.swift
+T 15 source.swift
+T 16 source.swift punctuation.section.scope.begin.swift
+T 17 source.swift
+T 20 source.swift storage.type.function.swift
+T 21 source.swift
+T 26 source.swift storage.modifier.async.swift
+T 27 source.swift
+T 33 source.swift storage.modifier.exception.swift
+T 34 source.swift
+T 35 source.swift punctuation.section.scope.begin.swift
+T 36 source.swift
+T 37 source.swift constant.numeric.integer.decimal.swift
+T 38 source.swift
+T 39 source.swift punctuation.section.scope.end.swift
+T 40 source.swift
+T 41 source.swift punctuation.section.scope.end.swift
+L let imported = import
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 13 source.swift
+T 14 source.swift keyword.operator.custom.infix.swift
+T 15 source.swift
+T 21 source.swift meta.import.swift keyword.control.import.swift
+L let path = #keyPath(Foo.bar)
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 9 source.swift
+T 10 source.swift keyword.operator.custom.infix.swift
+T 11 source.swift
+T 19 source.swift support.function.key-path.swift
+T 20 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 24 source.swift meta.function-call.swift
+T 27 source.swift meta.function-call.swift variable.other.swift
+T 28 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L let getter = #selector(getter: Foo.bar)
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 11 source.swift
+T 12 source.swift keyword.operator.custom.infix.swift
+T 13 source.swift
+T 22 source.swift support.function.selector-reference.swift
+T 23 source.swift punctuation.definition.arguments.begin.swift
+T 29 source.swift support.variable.parameter.swift
+T 30 source.swift punctuation.separator.argument-label.swift
+T 35 source.swift
+T 38 source.swift variable.other.swift
+T 39 source.swift punctuation.definition.arguments.end.swift
+L let badHex = 0x_1g
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 11 source.swift
+T 12 source.swift keyword.operator.custom.infix.swift
+T 13 source.swift
+T 18 source.swift invalid.illegal.numeric.leading-underscore.swift
+L let member = value.`member`
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 11 source.swift
+T 12 source.swift keyword.operator.custom.infix.swift
+T 19 source.swift
+T 20 source.swift variable.other.swift punctuation.definition.identifier.swift
+T 26 source.swift variable.other.swift
+T 27 source.swift variable.other.swift punctuation.definition.identifier.swift
+L @available(*, unavailable junk)
+T 1 source.swift meta.attribute.available.swift storage.modifier.attribute.swift punctuation.definition.attribute.swift
+T 10 source.swift meta.attribute.available.swift storage.modifier.attribute.swift
+T 11 source.swift meta.attribute.available.swift punctuation.definition.arguments.begin.swift
+T 12 source.swift meta.attribute.available.swift keyword.other.platform.all.swift
+T 14 source.swift meta.attribute.available.swift
+T 25 source.swift meta.attribute.available.swift keyword.other.swift
+T 26 source.swift meta.attribute.available.swift
+T 30 source.swift meta.attribute.available.swift invalid.illegal.character-not-allowed-here.swift
+T 31 source.swift meta.attribute.available.swift punctuation.definition.arguments.end.swift
+L infix operator +.+
+T 5 source.swift meta.definition.operator.swift storage.modifier.swift
+T 6 source.swift meta.definition.operator.swift
+T 14 source.swift meta.definition.operator.swift storage.type.function.operator.swift
+T 15 source.swift meta.definition.operator.swift
+T 16 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+T 17 source.swift meta.definition.operator.swift entity.name.function.operator.swift invalid.illegal.dot-not-allowed-here.swift
+T 18 source.swift meta.definition.operator.swift entity.name.function.operator.swift
+L let sliced: [String: Int: Bool]
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 11 source.swift
+T 12 source.swift
+T 13 source.swift punctuation.section.collection-type.begin.swift
+T 19 source.swift support.type.swift
+T 20 source.swift punctuation.separator.key-value.swift
+T 21 source.swift
+T 24 source.swift support.type.swift
+T 25 source.swift invalid.illegal.extra-colon-in-dictionary-type.swift
+T 26 source.swift
+T 30 source.swift support.type.swift
+T 31 source.swift punctuation.section.collection-type.end.swift
+L enum Typed { case value([Int]: Bool) }
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 11 source.swift meta.definition.type.enum.swift
+T 12 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 17 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 23 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 24 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.begin.swift
+T 25 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.section.collection-type.begin.swift
+T 28 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift support.type.swift
+T 29 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.section.collection-type.end.swift
+T 30 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift invalid.illegal.extra-colon-in-parameter-list.swift
+T 31 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 35 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift support.type.swift
+T 36 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.end.swift
+T 37 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 38 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L call(import)
+T 4 source.swift meta.function-call.swift support.function.any-method.swift
+T 5 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 11 source.swift meta.function-call.swift keyword.control.import.swift
+T 12 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L struct Generic<`T`>: `Base` {}
+T 6 source.swift meta.definition.type.struct.swift storage.type.struct.swift
+T 7 source.swift meta.definition.type.struct.swift
+T 14 source.swift meta.definition.type.struct.swift entity.name.type.struct.swift
+T 15 source.swift meta.definition.type.struct.swift meta.generic-parameter-clause.swift punctuation.separator.generic-parameter-clause.begin.swift
+T 16 source.swift meta.definition.type.struct.swift meta.generic-parameter-clause.swift
+T 17 source.swift meta.definition.type.struct.swift meta.generic-parameter-clause.swift variable.language.generic-parameter.swift
+T 18 source.swift meta.definition.type.struct.swift meta.generic-parameter-clause.swift
+T 19 source.swift meta.definition.type.struct.swift meta.generic-parameter-clause.swift punctuation.separator.generic-parameter-clause.end.swift
+T 20 source.swift meta.definition.type.struct.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 21 source.swift meta.definition.type.struct.swift meta.inheritance-clause.swift
+T 22 source.swift meta.definition.type.struct.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 26 source.swift meta.definition.type.struct.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift support.type.swift
+T 27 source.swift meta.definition.type.struct.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 28 source.swift meta.definition.type.struct.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 29 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 30 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L let extra = "closed"#
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 10 source.swift
+T 11 source.swift keyword.operator.custom.infix.swift
+T 12 source.swift
+T 13 source.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 19 source.swift string.quoted.double.single-line.swift
+T 20 source.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+T 21 source.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift invalid.illegal.extra-closing-delimiter.swift
+L let block = """
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 10 source.swift
+T 11 source.swift keyword.operator.custom.infix.swift
+T 12 source.swift
+T 15 source.swift string.quoted.double.block.swift punctuation.definition.string.begin.swift
+L     text"""#
+T 4 source.swift string.quoted.double.block.swift
+T 8 source.swift string.quoted.double.block.swift invalid.illegal.content-before-closing-delimiter.swift
+T 11 source.swift string.quoted.double.block.swift punctuation.definition.string.end.swift
+T 12 source.swift string.quoted.double.block.swift punctuation.definition.string.end.swift invalid.illegal.extra-closing-delimiter.swift
+L let raw = #"""
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 8 source.swift
+T 9 source.swift keyword.operator.custom.infix.swift
+T 10 source.swift
+T 14 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+L     continued \#
+T 14 source.swift string.quoted.double.block.raw.swift
+T 16 source.swift string.quoted.double.block.raw.swift constant.character.escape.newline.swift
+L     text"""##
+T 4 source.swift string.quoted.double.block.raw.swift
+T 8 source.swift string.quoted.double.block.raw.swift invalid.illegal.content-before-closing-delimiter.swift
+T 12 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+T 13 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift invalid.illegal.extra-closing-delimiter.swift
+L let raw2 = ##"""
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 9 source.swift
+T 10 source.swift keyword.operator.custom.infix.swift
+T 11 source.swift
+T 16 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.begin.swift
+L     body
+T 8 source.swift string.quoted.double.block.raw.swift
+L     """###
+T 4 source.swift string.quoted.double.block.raw.swift
+T 9 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift
+T 10 source.swift string.quoted.double.block.raw.swift punctuation.definition.string.end.swift invalid.illegal.extra-closing-delimiter.swift
+L let open = #"unterminated
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 4 source.swift
+T 8 source.swift keyword.other.declaration-specifier.accessibility.swift
+T 9 source.swift
+T 10 source.swift keyword.operator.custom.infix.swift
+T 11 source.swift
+T 13 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.begin.raw.swift
+T 25 source.swift string.quoted.double.single-line.raw.swift
+L let rawEscape = #"a \#u{41} \#(f(x)) b"#
+T 20 source.swift string.quoted.double.single-line.raw.swift
+T 27 source.swift string.quoted.double.single-line.raw.swift constant.character.escape.unicode.swift
+T 28 source.swift string.quoted.double.single-line.raw.swift
+T 31 source.swift string.quoted.double.single-line.raw.swift meta.embedded.line.swift punctuation.section.embedded.begin.swift
+T 32 source.swift string.quoted.double.single-line.raw.swift meta.embedded.line.swift source.swift meta.function-call.swift support.function.any-method.swift
+T 33 source.swift string.quoted.double.single-line.raw.swift meta.embedded.line.swift source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 34 source.swift string.quoted.double.single-line.raw.swift meta.embedded.line.swift source.swift meta.function-call.swift
+T 35 source.swift string.quoted.double.single-line.raw.swift meta.embedded.line.swift source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 36 source.swift string.quoted.double.single-line.raw.swift meta.embedded.line.swift punctuation.section.embedded.end.swift
+T 38 source.swift string.quoted.double.single-line.raw.swift
+T 40 source.swift string.quoted.double.single-line.raw.swift punctuation.definition.string.end.raw.swift
+L let nested = "a \(f(x)) b"
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 11 source.swift
+T 12 source.swift keyword.operator.custom.infix.swift
+T 13 source.swift
+T 14 source.swift string.quoted.double.single-line.swift punctuation.definition.string.begin.swift
+T 16 source.swift string.quoted.double.single-line.swift
+T 18 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift punctuation.section.embedded.begin.swift
+T 19 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift meta.function-call.swift support.function.any-method.swift
+T 20 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 21 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift meta.function-call.swift
+T 22 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 23 source.swift string.quoted.double.single-line.swift meta.embedded.line.swift punctuation.section.embedded.end.swift
+T 25 source.swift string.quoted.double.single-line.swift
+T 26 source.swift string.quoted.double.single-line.swift punctuation.definition.string.end.swift
+L 

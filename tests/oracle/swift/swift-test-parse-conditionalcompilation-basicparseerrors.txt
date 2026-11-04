@@ -1,0 +1,766 @@
+L // RUN: %target-typecheck-verify-swift -D FOO -D BAZ -swift-version 4
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 69 source.swift comment.line.double-slash.swift
+L 
+L #if FOO == BAZ // expected-error{{expected '&&' or '||' expression}}
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 14 source.swift meta.preprocessor.conditional.swift
+T 15 source.swift
+T 17 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 68 source.swift comment.line.double-slash.swift
+L var x = 0
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 6 source.swift
+T 7 source.swift keyword.operator.custom.infix.swift
+T 8 source.swift
+T 9 source.swift constant.numeric.integer.decimal.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if ^FOO // expected-error {{expected unary '!' expression}}
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift
+T 9 source.swift
+T 11 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 60 source.swift comment.line.double-slash.swift
+L var y = 0
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 6 source.swift
+T 7 source.swift keyword.operator.custom.infix.swift
+T 8 source.swift
+T 9 source.swift constant.numeric.integer.decimal.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if foo(BAR) // expected-error {{invalid conditional compilation expression}}
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 12 source.swift meta.preprocessor.conditional.swift
+T 13 source.swift
+T 15 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 77 source.swift comment.line.double-slash.swift
+L var z = 0
+T 3 source.swift keyword.other.declaration-specifier.swift
+T 6 source.swift
+T 7 source.swift keyword.operator.custom.infix.swift
+T 8 source.swift
+T 9 source.swift constant.numeric.integer.decimal.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if FOO || !FOO
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift
+T 10 source.swift meta.preprocessor.conditional.swift keyword.operator.logical.swift
+T 15 source.swift meta.preprocessor.conditional.swift
+L func f() {}
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 6 source.swift meta.definition.function.swift entity.name.function.swift
+T 7 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 8 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 9 source.swift meta.definition.function.swift
+T 10 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L #endif ; f() // expected-error {{extra tokens following conditional compilation directive}}
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 7 source.swift meta.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift invalid.illegal.character-not-allowed-here.swift
+T 9 source.swift meta.preprocessor.conditional.swift
+T 12 source.swift meta.preprocessor.conditional.swift invalid.illegal.character-not-allowed-here.swift
+T 13 source.swift meta.preprocessor.conditional.swift
+T 15 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 91 source.swift comment.line.double-slash.swift
+L 
+L #if FOO || !FOO
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift
+T 10 source.swift meta.preprocessor.conditional.swift keyword.operator.logical.swift
+T 15 source.swift meta.preprocessor.conditional.swift
+L func g() {}
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 6 source.swift meta.definition.function.swift entity.name.function.swift
+T 7 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 8 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 9 source.swift meta.definition.function.swift
+T 10 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L #else g()  // expected-error {{extra tokens following conditional compilation directive}}
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 6 source.swift meta.preprocessor.conditional.swift
+T 9 source.swift meta.preprocessor.conditional.swift invalid.illegal.character-not-allowed-here.swift
+T 11 source.swift meta.preprocessor.conditional.swift
+T 13 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 89 source.swift comment.line.double-slash.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L 
+L #if FOO || !FOO
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift
+T 10 source.swift meta.preprocessor.conditional.swift keyword.operator.logical.swift
+T 15 source.swift meta.preprocessor.conditional.swift
+L func h() {}
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 6 source.swift meta.definition.function.swift entity.name.function.swift
+T 7 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 8 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 9 source.swift meta.definition.function.swift
+T 10 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 11 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L #else /* aaa */
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 6 source.swift meta.preprocessor.conditional.swift
+T 8 source.swift comment.block.swift punctuation.definition.comment.begin.swift
+T 13 source.swift comment.block.swift
+T 15 source.swift comment.block.swift punctuation.definition.comment.end.swift
+L #endif /* bbb */
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 7 source.swift meta.preprocessor.conditional.swift
+T 9 source.swift comment.block.swift punctuation.definition.comment.begin.swift
+T 14 source.swift comment.block.swift
+T 16 source.swift comment.block.swift punctuation.definition.comment.end.swift
+L 
+L #if foo.bar() // expected-error {{invalid conditional compilation expression}}
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 13 source.swift meta.preprocessor.conditional.swift
+T 14 source.swift
+T 16 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 78 source.swift comment.line.double-slash.swift
+L       .baz()
+T 7 source.swift
+T 10 source.swift meta.function-call.swift support.function.any-method.swift
+T 11 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 12 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L 
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L 
+L // <https://twitter.com/practicalswift/status/829066902869786625>
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 65 source.swift comment.line.double-slash.swift
+L #if // expected-error {{incomplete condition in conditional compilation directive}}
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 6 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 83 source.swift comment.line.double-slash.swift
+L #if 0 == // expected-error {{incomplete condition in conditional compilation directive}}
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift
+T 9 source.swift
+T 11 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 88 source.swift comment.line.double-slash.swift
+L #if 0= // expected-error {{incomplete condition in conditional compilation directive}} expected-error {{'=' must have consistent whitespace on both sides}}
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 6 source.swift meta.preprocessor.conditional.swift
+T 7 source.swift
+T 9 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 155 source.swift comment.line.double-slash.swift
+L class Foo {
+T 5 source.swift meta.definition.type.class.swift storage.type.class.swift
+T 6 source.swift meta.definition.type.class.swift
+T 9 source.swift meta.definition.type.class.swift entity.name.type.class.swift
+T 10 source.swift meta.definition.type.class.swift
+T 11 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   #if // expected-error {{incomplete condition in conditional compilation directive}}
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 6 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 85 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   #if 0 == // expected-error {{incomplete condition in conditional compilation directive}}
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 6 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 10 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 11 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 90 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   #if 0= // expected-error {{incomplete condition in conditional compilation directive}} expected-error {{'=' must have consistent whitespace on both sides}}
+T 2 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 3 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 6 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 8 source.swift meta.definition.type.class.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 9 source.swift meta.definition.type.class.swift meta.definition.type.body.swift
+T 11 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 157 source.swift meta.definition.type.class.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.class.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L struct S {
+T 6 source.swift meta.definition.type.struct.swift storage.type.struct.swift
+T 7 source.swift meta.definition.type.struct.swift
+T 8 source.swift meta.definition.type.struct.swift entity.name.type.struct.swift
+T 9 source.swift meta.definition.type.struct.swift
+T 10 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   #if FOO
+T 2 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 3 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 6 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 9 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+L   #else
+T 2 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 3 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 7 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L   #else  // expected-error {{further conditions after #else are unreachable}}
+T 2 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 3 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 7 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 9 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 11 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 77 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   #endif
+T 2 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 3 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 8 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L   
+T 2 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift
+L   #if FOO
+T 2 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 3 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 6 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 9 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+L   #elseif BAR
+T 2 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 3 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 9 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 10 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 13 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+L   #elseif BAZ
+T 2 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 3 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 9 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 10 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 13 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+L   #else
+T 2 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 3 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 7 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L   #endif
+T 2 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift
+T 3 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 8 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L }
+T 1 source.swift meta.definition.type.struct.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L #if FOO
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 7 source.swift meta.preprocessor.conditional.swift
+L #else
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L #else  // expected-error {{further conditions after #else are unreachable}}
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 7 source.swift meta.preprocessor.conditional.swift
+T 9 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 75 source.swift comment.line.double-slash.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if FOO
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 7 source.swift meta.preprocessor.conditional.swift
+L #elseif BAR
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 7 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift
+T 11 source.swift meta.preprocessor.conditional.swift
+L #elseif BAZ
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 7 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift
+T 11 source.swift meta.preprocessor.conditional.swift
+L #else
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if os(ios)
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 7 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 10 source.swift meta.preprocessor.conditional.swift
+T 11 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if os(uOS)
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 7 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 10 source.swift meta.preprocessor.conditional.swift
+T 11 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if os(xxxxxxd)
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 7 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 14 source.swift meta.preprocessor.conditional.swift
+T 15 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if os(bisionos)
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 7 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 15 source.swift meta.preprocessor.conditional.swift
+T 16 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+L 
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if os(Firmware)
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 7 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 15 source.swift meta.preprocessor.conditional.swift
+T 16 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if arch(arn)
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 9 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 12 source.swift meta.preprocessor.conditional.swift
+T 13 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if _endian(mid) // expected-warning {{unknown endianness for build configuration '_endian'}}
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 16 source.swift meta.preprocessor.conditional.swift
+T 17 source.swift
+T 19 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 93 source.swift comment.line.double-slash.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L LABEL: #if true // expected-error {{expected statement}}
+T 5 source.swift
+T 6 source.swift keyword.operator.ternary.swift
+T 7 source.swift
+T 10 source.swift support.function.any-method.swift
+T 11 source.swift
+T 15 source.swift constant.language.boolean.swift
+T 16 source.swift
+T 18 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 56 source.swift comment.line.double-slash.swift
+L func fn_i() {}
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 9 source.swift meta.definition.function.swift entity.name.function.swift
+T 10 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 11 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 12 source.swift meta.definition.function.swift
+T 13 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 14 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L fn_i() // OK
+T 4 source.swift meta.function-call.swift support.function.any-method.swift
+T 5 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 6 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 7 source.swift
+T 9 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 12 source.swift comment.line.double-slash.swift
+L 
+L try #if false // expected-error {{expected expression}}
+T 3 source.swift keyword.control.exception.swift
+T 4 source.swift
+T 7 source.swift support.function.any-method.swift
+T 8 source.swift
+T 13 source.swift constant.language.boolean.swift
+T 14 source.swift
+T 16 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 55 source.swift comment.line.double-slash.swift
+L #else
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L func fn_j() {}
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 9 source.swift meta.definition.function.swift entity.name.function.swift
+T 10 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 11 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 12 source.swift meta.definition.function.swift
+T 13 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 14 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L fn_j() // OK
+T 4 source.swift meta.function-call.swift support.function.any-method.swift
+T 5 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 6 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 7 source.swift
+T 9 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 12 source.swift comment.line.double-slash.swift
+L 
+L #if foo || bar || nonExistent() // expected-error {{invalid conditional compilation expression}}
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift
+T 10 source.swift meta.preprocessor.conditional.swift keyword.operator.logical.swift
+T 15 source.swift meta.preprocessor.conditional.swift
+T 17 source.swift meta.preprocessor.conditional.swift keyword.operator.logical.swift
+T 31 source.swift meta.preprocessor.conditional.swift
+T 32 source.swift
+T 34 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 96 source.swift comment.line.double-slash.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if FOO = false
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 10 source.swift meta.preprocessor.conditional.swift
+T 15 source.swift meta.preprocessor.conditional.swift constant.language.boolean.swift
+L // expected-error @-1 {{invalid conditional compilation expression}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 68 source.swift comment.line.double-slash.swift
+L undefinedFunc() // ignored.
+T 13 source.swift meta.function-call.swift support.function.any-method.swift
+T 14 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 15 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 16 source.swift
+T 18 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 27 source.swift comment.line.double-slash.swift
+L #else
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L undefinedFunc() // expected-error {{cannot find 'undefinedFunc' in scope}}
+T 13 source.swift meta.function-call.swift support.function.any-method.swift
+T 14 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 15 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 16 source.swift
+T 18 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 74 source.swift comment.line.double-slash.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if false
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 9 source.swift meta.preprocessor.conditional.swift constant.language.boolean.swift
+L #elseif FOO ? true : false
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 7 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift
+T 14 source.swift meta.preprocessor.conditional.swift
+T 18 source.swift meta.preprocessor.conditional.swift constant.language.boolean.swift
+T 21 source.swift meta.preprocessor.conditional.swift
+T 26 source.swift meta.preprocessor.conditional.swift constant.language.boolean.swift
+L // expected-error @-1 {{invalid conditional compilation expression}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 68 source.swift comment.line.double-slash.swift
+L undefinedFunc() // ignored.
+T 13 source.swift meta.function-call.swift support.function.any-method.swift
+T 14 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 15 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 16 source.swift
+T 18 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 27 source.swift comment.line.double-slash.swift
+L #else
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L undefinedFunc() // expected-error {{cannot find 'undefinedFunc' in scope}}
+T 13 source.swift meta.function-call.swift support.function.any-method.swift
+T 14 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 15 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 16 source.swift
+T 18 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 74 source.swift comment.line.double-slash.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L /// Invalid platform condition arguments don't invalidate the whole condition.
+T 3 source.swift comment.line.triple-slash.documentation.swift punctuation.definition.comment.swift
+T 78 source.swift comment.line.triple-slash.documentation.swift
+L // expected-warning@+1{{unknown endianness}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 44 source.swift comment.line.double-slash.swift
+L #if !arch(arn) && !os(ystem) && !_endian(ness)
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 5 source.swift meta.preprocessor.conditional.swift
+T 9 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 10 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 13 source.swift meta.preprocessor.conditional.swift
+T 14 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+T 15 source.swift meta.preprocessor.conditional.swift
+T 17 source.swift meta.preprocessor.conditional.swift keyword.operator.logical.swift
+T 19 source.swift meta.preprocessor.conditional.swift
+T 21 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 22 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 27 source.swift meta.preprocessor.conditional.swift
+T 28 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+T 29 source.swift meta.preprocessor.conditional.swift
+T 31 source.swift meta.preprocessor.conditional.swift keyword.operator.logical.swift
+T 46 source.swift meta.preprocessor.conditional.swift
+L func fn_k() {}
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 9 source.swift meta.definition.function.swift entity.name.function.swift
+T 10 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 11 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 12 source.swift meta.definition.function.swift
+T 13 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.begin.swift
+T 14 source.swift meta.definition.function.swift meta.definition.function.body.swift punctuation.section.function.end.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L fn_k()
+T 4 source.swift meta.function-call.swift support.function.any-method.swift
+T 5 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 6 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+L 
+L #if os(cillator) || arch(i3rm)
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 7 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 15 source.swift meta.preprocessor.conditional.swift
+T 16 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+T 17 source.swift meta.preprocessor.conditional.swift
+T 19 source.swift meta.preprocessor.conditional.swift keyword.operator.logical.swift
+T 20 source.swift meta.preprocessor.conditional.swift
+T 24 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 25 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 29 source.swift meta.preprocessor.conditional.swift
+T 30 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+L func undefinedFunc() // ignored.
+T 4 source.swift meta.definition.function.swift storage.type.function.swift
+T 5 source.swift meta.definition.function.swift
+T 18 source.swift meta.definition.function.swift entity.name.function.swift
+T 19 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 20 source.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 21 source.swift meta.definition.function.swift
+T 23 source.swift meta.definition.function.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 32 source.swift meta.definition.function.swift comment.line.double-slash.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L undefinedFunc() // expected-error {{cannot find 'undefinedFunc' in scope}}
+T 13 source.swift meta.function-call.swift support.function.any-method.swift
+T 14 source.swift meta.function-call.swift punctuation.definition.arguments.begin.swift
+T 15 source.swift meta.function-call.swift punctuation.definition.arguments.end.swift
+T 16 source.swift
+T 18 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 74 source.swift comment.line.double-slash.swift
+L 
+L #if os(simulator)
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 7 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 16 source.swift meta.preprocessor.conditional.swift
+T 17 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if arch(iOS)
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 9 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 12 source.swift meta.preprocessor.conditional.swift
+T 13 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if _endian(arm64) // expected-warning {{unknown endianness for build configuration '_endian'}}
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 18 source.swift meta.preprocessor.conditional.swift
+T 19 source.swift
+T 21 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 95 source.swift comment.line.double-slash.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if targetEnvironment(_ObjC)
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 21 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 22 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 27 source.swift meta.preprocessor.conditional.swift
+T 28 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if os(iOS) || os(simulator)
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 7 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 10 source.swift meta.preprocessor.conditional.swift support.constant.platform.os.swift
+T 11 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+T 12 source.swift meta.preprocessor.conditional.swift
+T 14 source.swift meta.preprocessor.conditional.swift keyword.operator.logical.swift
+T 15 source.swift meta.preprocessor.conditional.swift
+T 17 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 18 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 27 source.swift meta.preprocessor.conditional.swift
+T 28 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if arch(ios)
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift keyword.other.condition.swift
+T 9 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.begin.swift
+T 12 source.swift meta.preprocessor.conditional.swift
+T 13 source.swift meta.preprocessor.conditional.swift punctuation.definition.parameters.end.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if FOO
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 7 source.swift meta.preprocessor.conditional.swift
+L #else if BAR
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 6 source.swift meta.preprocessor.conditional.swift
+T 8 source.swift meta.preprocessor.conditional.swift invalid.illegal.character-not-allowed-here.swift
+T 9 source.swift meta.preprocessor.conditional.swift
+T 12 source.swift meta.preprocessor.conditional.swift invalid.illegal.character-not-allowed-here.swift
+L // expected-error@-1 {{unexpected 'if' keyword following '#else' conditional compilation directive; did you mean '#elseif'?}} {{1-9=#elseif}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 141 source.swift comment.line.double-slash.swift
+L #else
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 
+L #if FOO
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 7 source.swift meta.preprocessor.conditional.swift
+L #else
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 5 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L if true {}
+T 2 source.swift keyword.control.branch.swift
+T 3 source.swift
+T 7 source.swift constant.language.boolean.swift
+T 8 source.swift
+T 9 source.swift punctuation.section.scope.begin.swift
+T 10 source.swift punctuation.section.scope.end.swift
+L #endif // OK
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 7 source.swift meta.preprocessor.conditional.swift
+T 9 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 12 source.swift comment.line.double-slash.swift
+L 
+L // rdar://83017601 Make sure we don't crash
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 43 source.swift comment.line.double-slash.swift
+L #if canImport()
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 3 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+T 4 source.swift meta.preprocessor.conditional.swift
+T 15 source.swift meta.preprocessor.conditional.swift
+L // expected-error@-1 {{'canImport' requires a module name}}
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 59 source.swift comment.line.double-slash.swift
+L #endif
+T 1 source.swift meta.preprocessor.conditional.swift punctuation.definition.preprocessor.swift
+T 6 source.swift meta.preprocessor.conditional.swift keyword.control.import.preprocessor.conditional.swift
+L 

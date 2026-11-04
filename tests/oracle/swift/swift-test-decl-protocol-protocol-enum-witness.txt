@@ -1,0 +1,908 @@
+L // RUN: %target-typecheck-verify-swift
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 38 source.swift comment.line.double-slash.swift
+L 
+L ////// WITNESS MATCHING FOR PAYLOAD-LESS ENUMS //////
+T 3 source.swift comment.line.triple-slash.documentation.swift punctuation.definition.comment.swift
+T 53 source.swift comment.line.triple-slash.documentation.swift
+L 
+L // Requirement is settable, so witness cannot satisfy it //
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 59 source.swift comment.line.double-slash.swift
+L 
+L protocol Foo1 {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 13 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 14 source.swift meta.definition.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   static var bar: Self { get set } // expected-note {{protocol requires property 'bar' with type 'Bar1'}}
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift keyword.other.declaration-specifier.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 22 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift variable.language.swift
+T 23 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 24 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.begin.swift
+T 25 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 28 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.type.function.swift
+T 29 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 32 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.type.function.swift
+T 33 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 34 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.end.swift
+T 35 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 37 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 105 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L enum Bar1: Foo1 { 
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 9 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 15 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 16 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 17 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+L   // expected-error@-1 {{type 'Bar1' does not conform to protocol 'Foo1'}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 74 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   // expected-note@-2 {{add stubs for conformance}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 51 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   case bar // expected-note {{candidate is not settable, but protocol requires it}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 11 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 83 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L // Witness has associated values, which is unsupported //
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 57 source.swift comment.line.double-slash.swift
+L 
+L protocol Foo2 {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 13 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 14 source.swift meta.definition.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   static var bar: Self { get set } // expected-note {{protocol requires property 'bar' with type 'Bar2'}}
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift keyword.other.declaration-specifier.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 22 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift variable.language.swift
+T 23 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 24 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.begin.swift
+T 25 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 28 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.type.function.swift
+T 29 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 32 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.type.function.swift
+T 33 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 34 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.end.swift
+T 35 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 37 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 105 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L enum Bar2: Foo2 { 
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 9 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 15 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 16 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 17 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+L   // expected-error@-1 {{type 'Bar2' does not conform to protocol 'Foo2'}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 74 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   // expected-note@-2 {{add stubs for conformance}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 51 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   case bar(Int) // expected-note {{candidate is an enum case with associated values, but protocol does not allow it}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 11 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.begin.swift
+T 14 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift support.type.swift
+T 15 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.end.swift
+T 16 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 117 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L protocol Foo3 {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 13 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 14 source.swift meta.definition.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   static var bar: Self { get } // expected-note {{protocol requires property 'bar' with type 'Bar3'}}
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift keyword.other.declaration-specifier.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 22 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift variable.language.swift
+T 23 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 24 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.begin.swift
+T 25 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 28 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.type.function.swift
+T 29 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 30 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.end.swift
+T 31 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 33 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 101 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L enum Bar3: Foo3 { 
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 9 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 15 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 16 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 17 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+L   // expected-error@-1 {{type 'Bar3' does not conform to protocol 'Foo3'}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 74 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   // expected-note@-2 {{add stubs for conformance}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 51 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   case bar(Int) // expected-note {{candidate is an enum case with associated values, but protocol does not allow it}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 11 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.begin.swift
+T 14 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift support.type.swift
+T 15 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.end.swift
+T 16 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 117 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L // Requirement is not static, so it cannot be witnessed by the enum case //
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 75 source.swift comment.line.double-slash.swift
+L 
+L protocol Foo4 {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 13 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 14 source.swift meta.definition.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   var bar: Self { get } // expected-note {{protocol requires property 'bar' with type 'Bar4'}}
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 5 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift keyword.other.declaration-specifier.swift
+T 10 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 11 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 15 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift variable.language.swift
+T 16 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.begin.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 21 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.type.function.swift
+T 22 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 23 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.end.swift
+T 24 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 26 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 94 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L enum Bar4: Foo4 { 
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 9 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 15 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 16 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 17 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+L   // expected-error@-1 {{type 'Bar4' does not conform to protocol 'Foo4'}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 74 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   // expected-note@-2 {{add stubs for conformance}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 51 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   case bar // expected-note {{candidate operates on a type, not an instance as required}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 11 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 89 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L protocol Foo5 {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 13 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 14 source.swift meta.definition.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   var bar: Self { get set } // expected-note {{protocol requires property 'bar' with type 'Bar5'}}
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 5 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift keyword.other.declaration-specifier.swift
+T 10 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 11 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 15 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift variable.language.swift
+T 16 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.begin.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 21 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.type.function.swift
+T 22 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 25 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.type.function.swift
+T 26 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 27 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.end.swift
+T 28 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 30 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 98 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L enum Bar5: Foo5 { 
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 9 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 15 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 16 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 17 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+L   // expected-error@-1 {{type 'Bar5' does not conform to protocol 'Foo5'}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 74 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   // expected-note@-2 {{add stubs for conformance}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 51 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   case bar // expected-note {{candidate operates on a type, not an instance as required}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 11 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 89 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L // Requirement does not have Self type, so it cannot be witnessed by the enum case //
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 85 source.swift comment.line.double-slash.swift
+L 
+L protocol Foo6 {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 13 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 14 source.swift meta.definition.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   static var bar: Int { get } // expected-note {{protocol requires property 'bar' with type 'Int'}}
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift keyword.other.declaration-specifier.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 21 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift support.type.swift
+T 22 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 23 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.begin.swift
+T 24 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 27 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.type.function.swift
+T 28 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 29 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.end.swift
+T 30 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 32 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 99 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L enum Bar6: Foo6 { 
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 9 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 15 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 16 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 17 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+L   // expected-error@-1 {{type 'Bar6' does not conform to protocol 'Foo6'}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 74 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   // expected-note@-2 {{add stubs for conformance}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 51 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   case bar // expected-note {{candidate has non-matching type '(Bar6.Type) -> Bar6'}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 11 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 85 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L // Valid cases
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 14 source.swift comment.line.double-slash.swift
+L 
+L protocol Foo7 {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 13 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 14 source.swift meta.definition.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   static var bar: Self { get }
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift keyword.other.declaration-specifier.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 22 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift variable.language.swift
+T 23 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 24 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.begin.swift
+T 25 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 28 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.type.function.swift
+T 29 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 30 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.end.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L enum Bar7: Foo7 {
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 9 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 15 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 16 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 17 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   case bar // Okay
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 11 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L protocol Foo8 {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 13 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 14 source.swift meta.definition.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   static var bar: Bar8 { get }
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift keyword.other.declaration-specifier.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 23 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 24 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.begin.swift
+T 25 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 28 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.type.function.swift
+T 29 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 30 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.section.scope.end.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L enum Bar8: Foo8 {
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 9 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 15 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 16 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 17 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   case bar // Okay
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 11 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L ////// WITNESS MATCHING FOR PAYLOAD ENUMS //////
+T 3 source.swift comment.line.triple-slash.documentation.swift punctuation.definition.comment.swift
+T 48 source.swift comment.line.triple-slash.documentation.swift
+L 
+L // Witness does not have argument label, but requirement does
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 61 source.swift comment.line.double-slash.swift
+L 
+L protocol Foo9 {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 13 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 14 source.swift meta.definition.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   static func bar(f: Int) -> Self // expected-note {{requirement 'bar(f:)' declared here}}
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 14 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 19 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 21 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 24 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift support.type.swift
+T 25 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 26 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 28 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift keyword.operator.function-result.swift
+T 29 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift
+T 33 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift variable.language.swift
+T 34 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift
+T 36 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 90 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L enum Bar9: Foo9 {
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 9 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 15 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 16 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 17 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   case bar(_ f: Int) // expected-error {{enum case 'bar' has different argument labels from those required by protocol 'Foo9' ('bar(f:)')}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 11 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.begin.swift
+T 12 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift entity.name.function.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 14 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.parameter.function.swift
+T 15 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.separator.argument-label.swift
+T 16 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 19 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift support.type.swift
+T 20 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.end.swift
+T 21 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 23 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 139 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L // Witness does not have any labels, but requirement does
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 57 source.swift comment.line.double-slash.swift
+L 
+L protocol Foo10 {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 14 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift
+T 16 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   static func bar(g: Int) -> Self // expected-note {{requirement 'bar(g:)' declared here}}
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 14 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 19 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 21 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 24 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift support.type.swift
+T 25 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 26 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 28 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift keyword.operator.function-result.swift
+T 29 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift
+T 33 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift variable.language.swift
+T 34 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift
+T 36 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 90 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L enum Bar10: Foo10 {
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 12 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 17 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 18 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 19 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   case bar(Int) // expected-error {{enum case 'bar' has different argument labels from those required by protocol 'Foo10' ('bar(g:)')}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 11 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.begin.swift
+T 14 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift support.type.swift
+T 15 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.end.swift
+T 16 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 135 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L // Witness does not have a payload, but requirement is a function
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 65 source.swift comment.line.double-slash.swift
+L 
+L protocol Foo11 {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 14 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift
+T 16 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   static func bar(h: Int) -> Self // expected-note {{protocol requires function 'bar(h:)' with type '(Int) -> Bar11'}}
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 14 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 19 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 21 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 24 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift support.type.swift
+T 25 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 26 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 28 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift keyword.operator.function-result.swift
+T 29 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift
+T 33 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift variable.language.swift
+T 34 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift
+T 36 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 118 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L enum Bar11: Foo11 { 
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 12 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 17 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 18 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 19 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 20 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+L   // expected-error@-1 {{type 'Bar11' does not conform to protocol 'Foo11'}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 76 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   // expected-note@-2 {{add stubs for conformance}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 51 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   case bar // expected-note {{candidate has non-matching type '(Bar11.Type) -> Bar11'}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 11 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 87 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L // Witness is static, but requirement is not
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 44 source.swift comment.line.double-slash.swift
+L 
+L protocol Foo12 {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 14 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift
+T 16 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   func bar(i: Int) -> Self // expected-note {{protocol requires function 'bar(i:)' with type '(Int) -> Bar12'}}
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 7 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 10 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 11 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 12 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 14 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift support.type.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 19 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 21 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift keyword.operator.function-result.swift
+T 22 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift
+T 26 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift variable.language.swift
+T 27 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift
+T 29 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 111 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L enum Bar12: Foo12 { 
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 12 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 17 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 18 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 19 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 20 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+L   // expected-error@-1 {{type 'Bar12' does not conform to protocol 'Foo12'}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 76 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   // expected-note@-2 {{add stubs for conformance}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.whitespace.comment.leading.swift
+T 4 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 51 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   case bar // expected-note {{candidate operates on a type, not an instance as required}}
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 11 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 89 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L // Valid cases
+T 2 source.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 14 source.swift comment.line.double-slash.swift
+L 
+L protocol Foo13 {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 14 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 15 source.swift meta.definition.type.protocol.swift
+T 16 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   static func bar(j: Int) -> Self
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 14 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 19 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 21 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 24 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift support.type.swift
+T 25 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 26 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 28 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift keyword.operator.function-result.swift
+T 29 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift
+T 33 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift variable.language.swift
+L   static func baz(_ k: String) -> Bar13
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 14 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 19 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift entity.name.function.swift
+T 20 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 21 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift
+T 23 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 29 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift support.type.swift
+T 30 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 31 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 33 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift keyword.operator.function-result.swift
+T 34 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift
+T 39 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L enum Bar13: Foo13 {
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 12 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 17 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 18 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 19 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   case bar(j: Int) // Okay
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 11 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.begin.swift
+T 12 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift entity.name.function.swift variable.parameter.function.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.separator.argument-label.swift
+T 14 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 17 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift support.type.swift
+T 18 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.end.swift
+T 19 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 21 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 26 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   case baz(_ k: String) // Okay
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 11 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.begin.swift
+T 12 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift entity.name.function.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 14 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.parameter.function.swift
+T 15 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.separator.argument-label.swift
+T 16 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 22 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift support.type.swift
+T 23 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.end.swift
+T 24 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 26 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 31 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L ////// REQUIREMENT IS A THROWING FUNCTION //////
+T 3 source.swift comment.line.triple-slash.documentation.swift punctuation.definition.comment.swift
+T 48 source.swift comment.line.triple-slash.documentation.swift
+L 
+L protocol ThrowingFactory {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 24 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 25 source.swift meta.definition.type.protocol.swift
+T 26 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   static func horse(_: Int) throws -> Self
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 13 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift storage.type.function.swift
+T 14 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 19 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift entity.name.function.swift
+T 20 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.begin.swift
+T 21 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift variable.parameter.function.swift entity.name.function.swift
+T 23 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift
+T 26 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift support.type.swift
+T 27 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.parameter-clause.swift punctuation.definition.parameters.end.swift
+T 28 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 34 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift storage.modifier.exception.swift
+T 35 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift
+T 37 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift keyword.operator.function-result.swift
+T 38 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift
+T 42 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift meta.definition.function.swift meta.function-result.swift variable.language.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L enum HorseFactory : ThrowingFactory {
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 17 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 18 source.swift meta.definition.type.enum.swift
+T 19 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 20 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 35 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 36 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 37 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   case horse(Int)
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+T 13 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.begin.swift
+T 16 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift support.type.swift
+T 17 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.parameters.end.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L protocol MissingAccessorsVar {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 28 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 29 source.swift meta.definition.type.protocol.swift
+T 30 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   static var bar: Self // expected-error {{property in protocol must have explicit { get } or { get set } specifier}}
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift keyword.other.declaration-specifier.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 22 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift variable.language.swift
+T 23 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 25 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 117 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L enum Bar14: MissingAccessorsVar { // OK
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 12 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 31 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 32 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 33 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 34 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 36 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 39 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   case bar
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
+L protocol MissingAccessorsLet {
+T 8 source.swift meta.definition.type.protocol.swift storage.type.protocol.swift
+T 9 source.swift meta.definition.type.protocol.swift
+T 28 source.swift meta.definition.type.protocol.swift entity.name.type.protocol.swift
+T 29 source.swift meta.definition.type.protocol.swift
+T 30 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+L   static let bar: Self // expected-error {{protocols cannot require properties to be immutable; declare read-only properties by using 'var' with a '{ get }' specifier}}
+T 2 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 8 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift storage.modifier.swift
+T 9 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 12 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift keyword.other.declaration-specifier.swift
+T 17 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 18 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 22 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift variable.language.swift
+T 23 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift
+T 25 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 168 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L }
+T 1 source.swift meta.definition.type.protocol.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L enum Bar15: MissingAccessorsLet { // OK
+T 4 source.swift meta.definition.type.enum.swift storage.type.enum.swift
+T 5 source.swift meta.definition.type.enum.swift
+T 10 source.swift meta.definition.type.enum.swift entity.name.type.enum.swift
+T 11 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift punctuation.separator.inheritance-clause.swift
+T 12 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift
+T 31 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift meta.type-name.swift
+T 32 source.swift meta.definition.type.enum.swift meta.inheritance-clause.swift entity.other.inherited-class.swift
+T 33 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.begin.swift
+T 34 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 36 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift punctuation.definition.comment.swift
+T 39 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift comment.line.double-slash.swift
+L   case bar
+T 2 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 6 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift storage.type.enum.case.swift
+T 7 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift
+T 10 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift variable.other.enummember.swift
+L }
+T 1 source.swift meta.definition.type.enum.swift meta.definition.type.body.swift punctuation.definition.type.end.swift
+L 
