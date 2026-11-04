@@ -12,17 +12,21 @@
 # those languages may differ, and any other difference still fails. CI reads
 # them from a pull request's `identity: changes <languages>` line.
 set -euo pipefail
+. "$(dirname "$0")/lib/commit-target.sh"
 base="${1:-origin/main}"
 dir=target/identity
+base_target=$(commit_target "$dir" base "$base")
+head_target=$(commit_target "$dir" head HEAD)
+keep_commit_targets "$dir" "$base_target" "$head_target"
 rm -rf "$dir/base"
 mkdir -p "$dir/base"
 git archive "$base" | tar -x -C "$dir/base"
 mkdir -p "$dir/base/examples"
 cp examples/identity.rs "$dir/base/examples/identity.rs"
 fixtures="$PWD/tests/oracle"
-CARGO_TARGET_DIR="$dir/target-base" cargo run --quiet --release --locked \
+CARGO_TARGET_DIR="$base_target" cargo run --quiet --release --locked \
   --manifest-path "$dir/base/Cargo.toml" --example identity -- "$fixtures" >"$dir/base.txt"
-CARGO_TARGET_DIR="$dir/target-head" cargo run --quiet --release --locked \
+CARGO_TARGET_DIR="$head_target" cargo run --quiet --release --locked \
   --example identity -- "$fixtures" >"$dir/head.txt"
 if diff "$dir/base.txt" "$dir/head.txt" >"$dir/diff.txt"; then
   echo "identical to $base: $(tail -n 1 "$dir/head.txt")"

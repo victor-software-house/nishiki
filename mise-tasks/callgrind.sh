@@ -23,6 +23,7 @@
 # MISE_ENV=dev,bench locally (Linux only); it stops when the valgrind on
 # PATH is not the version mise.bench.toml pins.
 set -euo pipefail
+. "$(dirname "$0")/lib/commit-target.sh"
 base="${1:-origin/main}"
 shift || true
 languages=("$@")
@@ -47,6 +48,9 @@ if [ "$found" != "valgrind-$pin" ]; then
   exit 1
 fi
 dir=target/callgrind
+base_target=$(commit_target "$dir" base "$base")
+head_target=$(commit_target "$dir" head HEAD)
+keep_commit_targets "$dir" "$base_target" "$head_target"
 rm -rf "$dir/base"
 mkdir -p "$dir/base/examples"
 git archive "$base" | tar -x -C "$dir/base"
@@ -83,10 +87,10 @@ for units in 1 16; do
   if [ "$units" = 16 ]; then
     examples+=(--example memory)
   fi
-  CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$dir/target-base-$units" \
+  CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$base_target/cgu-$units" \
     cargo build --quiet --release --locked --manifest-path "$dir/base/Cargo.toml" \
     "${base_features[@]}" "${examples[@]}"
-  CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$dir/target-head-$units" \
+  CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$head_target/cgu-$units" \
     cargo build --quiet --release --locked "${head_features[@]}" "${examples[@]}"
 done
 # Counts one build (base-1, head-1, base-16 or head-16) on one language into
@@ -98,18 +102,29 @@ done
 counts="$dir/counts"
 rm -rf "$counts"
 mkdir -p "$counts"
+# The target directory of one build: base-1, head-1, base-16 or head-16.
+build_target() {
+  case "$1" in
+  base-*) echo "$base_target/cgu-${1#base-}" ;;
+  head-*) echo "$head_target/cgu-${1#head-}" ;;
+  *)
+    echo "no build named $1" >&2
+    return 1
+    ;;
+  esac
+}
 count() {
   local log="$counts/$1.$2.log"
   if ! valgrind --tool=callgrind --callgrind-out-file=/dev/null --collect-atstart=no \
-    --toggle-collect='*lex::measured*' "$dir/target-$1/release/examples/lex" "$fixtures" "$2" >"$log" 2>&1; then
+    --toggle-collect='*lex::measured*' "$(build_target "$1")/release/examples/lex" "$fixtures" "$2" >"$log" 2>&1; then
     echo "valgrind failed on $1 $2; the end of $log:" >&2
     tail -n 20 "$log" >&2
     return 1
   fi
   sed -n 's/.*Collected : *\([0-9]*\).*/\1/p' "$log" >"$counts/$1.$2"
 }
-export -f count
-export dir fixtures counts
+export -f build_target count
+export base_target head_target fixtures counts
 for language in "${languages[@]}"; do
   if [ -n "$(ls -A "$fixtures/$language")" ]; then
     printf '%s %s\n' base-1 "$language" head-1 "$language" base-16 "$language" head-16 "$language"
@@ -158,8 +173,8 @@ for language in "${languages[@]}"; do
     echo "| $language | new | | | | | |"
     continue
   fi
-  read -r base_allocs base_bytes base_peak < <("$dir/target-base-16/release/examples/memory" "$fixtures" "$language")
-  read -r head_allocs head_bytes head_peak < <("$dir/target-head-16/release/examples/memory" "$fixtures" "$language")
+  read -r base_allocs base_bytes base_peak < <("$base_target/cgu-16/release/examples/memory" "$fixtures" "$language")
+  read -r head_allocs head_bytes head_peak < <("$head_target/cgu-16/release/examples/memory" "$fixtures" "$language")
   if [ -z "${base_peak:-}" ] || [ -z "${head_peak:-}" ]; then
     echo "examples/memory.rs printed no counts for $language" >&2
     exit 1
