@@ -78,9 +78,13 @@ function micros(ns: number, resolutionNs: number): string {
   return ns < resolutionNs ? `<${fixed(resolutionNs / 1e3, 3)}` : fixed(ns / 1e3, 2);
 }
 
-/** What a record's wall-clock figures can carry, with the probe note at `probe`. */
+/** What a record's wall-clock figures can carry. `probe` links the probe note. */
 function standing(record: BenchRecord, probe: string): string {
-  return `indicative only: no host class keeps two runs of one build within 2%, and this one moves by up to ${fixed(record.anchor.bound_pct, 0)}% ([probe](${probe})), so speed decisions rest on Callgrind instruction counts`;
+  return [
+    "These figures are indicative only.",
+    `No host class keeps two runs of one build within 2%, and this one moves by up to ${fixed(record.anchor.bound_pct, 0)}% ([probe](${probe})).`,
+    "Speed decisions rest on Callgrind instruction counts.",
+  ].join("\n");
 }
 
 function hostLine(record: BenchRecord): string {
@@ -97,7 +101,8 @@ export function renderRecord(record: BenchRecord, stem: string): string {
   const out: string[] = [
     `# ${record.date}, commit ${sha8}`,
     "",
-    `A recorded session under the \`bench-methodology\` method, rendered from its JSON by \`mise run bench:report\`. Its figures are ${standing(record, `../../../${PROBE}`)}.`,
+    `A recorded session under the \`bench-methodology\` method, rendered from its JSON by \`mise run bench:report\`.`,
+    standing(record, `../../../${PROBE}`),
     "",
     "## Session",
     "",
@@ -203,7 +208,7 @@ export function renderSummary(newest: { path: string; record: BenchRecord } | un
     BEGIN,
     "",
     `${record.host.class}, ${record.date}, commit \`${record.commit.slice(0, 8)}\`; [the full record](results/${page}).`,
-    `Its figures are ${standing(record, `../${PROBE}`)}.`,
+    standing(record, `../${PROBE}`),
     "",
     "| Figure | Median over languages | Worst | Median spread over rounds |",
     "|:--|--:|--:|--:|",

@@ -62,7 +62,15 @@ The probe uses the current `examples/bench.rs` throughput figure, so it does not
 
 - [ ] 6.1 The JSON record of design decision 12, `bench/report.ts` to render a record and the README summary, and a check that the README matches the newest record → verify: CI passes, and the pull request shows the check failing when the README summary is edited by hand
 - [ ] 6.2 Rewrite `bench/AGENTS.md` as design decision 16 says, and update `targets.toml` to the new figures (steady p99 and first-contact maximum) → verify: every kept rule is still present, and `rg` finds no rule naming `examples/bench.rs` or `research/`
-- [ ] 6.3 The first record under this method, on the reference host, with the `bench/<full sha>` tag pushed; set the throughput floors in `targets.toml` by a dated decision → verify: the record's anchor drift is under the reference class's bound (decision 11, point 4), the rendered summary matches the JSON, and `git ls-remote` shows the tag
+- [x] 6.3 The first record under this method, on the reference host, with the `bench/<full sha>` tag pushed; set the throughput floors in `targets.toml` by a dated decision → verify: the record's anchor drift is under the reference class's bound (decision 11, point 4), the rendered summary matches the JSON, and `git ls-remote` shows the tag
+  - 2026-11-04 UTC: the record is `bench/results/namespace-8x16/2026-11-04-0a58343a.json`.
+    It ran main `0a58343a` on a Namespace 8x16, five rounds.
+    The anchor moved 2.24%, inside the 11% bound.
+    `check:bench-report` passes.
+    `git ls-remote` shows the tag `bench/0a58343ad39d593b1565956ed1f7792023043a29`.
+    A throughput floor is a language's lowest round less 11%, rounded down to 0.1 MiB/s (lead).
+    First-contact and first-line times spread by about 30% and get no floor yet.
+    Compute: 6,210 s, about 828 unit minutes, $1.24.
 
 ## 7. The comparison
 

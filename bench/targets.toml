@@ -2,11 +2,8 @@
 # A target changes only by a dated decision, cited in the comment above it.
 #
 # Not set yet, with the reason:
-# - throughput floors per language: no recorded run on a box yet. For
-#   reference, the hand-written prototypes of the 2026-10-22 engine comparison
-#   reached, per line on a 4 vCPU AMD EPYC box, 89.7 MiB/s on Rust, 90.6 on
-#   TypeScript, 345 on Markdown and 21.1 on shell. A floor per language is set
-#   once the first recorded run exists.
+# - First-contact and first-line floors: their rounds spread by about 30%.
+#   They get a floor once a record shows them stable.
 
 # A result regresses when its statistic is worse than the last recorded
 # result on the same host class by more than this percentage and by at least
@@ -53,3 +50,59 @@ unit = "us"
 metric = "theme_style_time"
 stat = "median"
 unit = "ns_per_token"
+
+# Throughput floors in MiB/s, on each language's medium file (lead, 2026-11-04).
+# A floor is the language's lowest round in the first record, less 11%.
+# The 11% is the reference class's noise bound.
+# Floors are rounded down to 0.1 MiB/s.
+# Source: tag bench/0a58343ad39d593b1565956ed1f7792023043a29, results/namespace-8x16/.
+# That record predates the speed work of 2026-11-04.
+# These floors catch a regression; they are not targets.
+# The next reference record raises them.
+[throughput_floor]
+bat = 31.3
+c = 31.0
+cmake = 35.1
+cpp = 7.1
+csharp = 59.4
+css = 42.5
+dart = 32.8
+diff = 1739.5
+docker = 881.4
+erb = 74.5
+go = 27.3
+graphql = 109.3
+haskell = 18.5
+html = 65.6
+"html-derivative" = 63.7
+ini = 369.4
+java = 40.2
+javascript = 30.0
+json = 420.0
+jsonc = 308.1
+jsonl = 4490.9
+jsx = 31.4
+julia = 33.1
+kotlin = 145.5
+less = 30.0
+lua = 57.2
+make = 76.8
+markdown = 376.3
+mermaid = 69.3
+nix = 29.4
+powershell = 63.1
+proto = 85.7
+python = 38.4
+ruby = 50.6
+rust = 195.2
+scala = 35.9
+scss = 24.9
+shellscript = 66.2
+sql = 22.6
+swift = 21.9
+toml = 268.7
+tsx = 24.6
+typescript = 29.3
+xml = 235.8
+yaml = 871.5
+zig = 27.2

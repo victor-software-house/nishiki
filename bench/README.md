@@ -23,16 +23,33 @@ The worst line under the default limits and the comparison with other highlighte
 - [corpus/](corpus/README.md): the files the wall-clock benchmarks read, and [corpus.toml](corpus.toml), which lists them.
 - `Cargo.toml`, `src/` and `benches/`: the bench workspace, apart from the crate's, with Criterion.
 - [targets.toml](targets.toml): what a recorded run is judged against.
+  Its throughput floors come from the first record, at main `0a58343a`.
+  That record predates the speed work of 2026-11-04.
+  The floors catch a regression; they are not targets.
+  The next reference record raises them.
+  First-contact and first-line times have no floor until a record shows them stable.
 - `results/`: recorded runs, one folder per host class.
 
 ## The newest record
 
-`mise run bench:record` records a session as `results/namespace-8x16/<date>-<sha8>.json`, and runs only on that reference class ([why](../openspec/research/2026-11-04-bench-host-probe-criterion.md)).
-`mise run bench:report` renders each record's page and the summary below; `check:bench-report` fails when either differs from its JSON.
+`mise run bench:record` records a session as `results/namespace-8x16/<date>-<sha8>.json`.
+It runs only on that reference class ([why](../openspec/research/2026-11-04-bench-host-probe-criterion.md)).
+`mise run bench:report` renders each record's page and the summary below.
+`check:bench-report` fails when either differs from its JSON.
 
 <!-- record summary: rendered by `mise run bench:report summary` -->
 
-No record under this method yet.
+namespace-8x16, 2026-11-04, commit `0a58343a`; [the full record](results/namespace-8x16/2026-11-04-0a58343a.md).
+These figures are indicative only.
+No host class keeps two runs of one build within 2%, and this one moves by up to 11% ([probe](../openspec/research/2026-11-04-bench-host-probe-criterion.md)).
+Speed decisions rest on Callgrind instruction counts.
+
+| Figure | Median over languages | Worst | Median spread over rounds |
+|:--|--:|--:|--:|
+| Medium throughput, MiB/s | 61.8 | 8.1 (cpp) | 2.4% |
+| Medium steady p99 per line, µs | 2.4 | 14.5 (haskell) | 4.7% |
+| Medium first-contact max per line, µs | 68.6 | 19,646.3 (cmake) | 29.8% |
+| Small first line in a fresh process, µs | 129.9 | 18,395.3 (cmake) | per process |
 
 <!-- end of record summary -->
 
