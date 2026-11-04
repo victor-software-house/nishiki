@@ -55,6 +55,7 @@ const handLexed = new Map([
   ["cpp-macro", "C++"],
   ["csharp", "C#"],
   ["css", "CSS"],
+  ["dart", "Dart"],
   ["diff", "diff"],
   ["docker", "Dockerfile"],
   ["erb", "ERB"],

@@ -11,7 +11,6 @@ mod coffee;
 mod cpp;
 mod csharp;
 mod css;
-#[cfg(feature = "lang-dart")]
 mod dart;
 mod diff;
 mod dockerfile;

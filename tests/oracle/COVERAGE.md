@@ -18,6 +18,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | C++ | `cpp-macro` | 593 of 611 | 97.1% | 1532 of 1645 | 93.1% | 131 | 0 | yes |
 | C# | `csharp` | 544 of 547 | 99.5% | 515 of 525 | 98.1% | 13 | 0 | yes |
 | CSS | `css` | 219 of 222 | 98.6% | 181 of 184 | 98.4% | 6 | 0 | yes |
+| Dart | `dart` | 92 of 93 | 98.9% | 18 of 18 | 100.0% | 1 | 0 | yes |
 | diff | `diff` | 16 of 16 | 100.0% | 22 of 23 | 95.7% | 1 | 0 | yes |
 | Dockerfile | `docker` | 8 of 9 | 88.9% | 6 of 13 | 46.2% | 8 | 0 | yes |
 | ERB | `erb` | 12 of 12 | 100.0% | 10 of 14 | 71.4% | 4 | 0 | yes |
@@ -239,6 +240,12 @@ The groups of an unexercised expression count as unexercised and are not listed.
 #at-rules.patterns[0].patterns[2].patterns[0].end  $  waived: its begin never matches
 #at-rules.patterns[3].end  groups 0 (waived: the expression is a lookahead, so the match holds no text)
 #escapes.patterns[1].end  ^(?<!\G)  waived: the begin, `\\$\s*`, takes the line feed, so `\G` stands at the start of the next line and `^(?<!\G)` never holds
+```
+
+### `dart`
+
+```text
+#operators.patterns[3].match  (([\&^|]|<<|>>>?)=)  waived: `#operators.patterns[2]`, `(<<|>>>?|[\&^|~])`, before it, matches at the start of every one of its operators
 ```
 
 ### `diff`

@@ -86,6 +86,8 @@ tables! {
     CSHARP = csharp;
     #[cfg(feature = "lang-css")]
     CSS = css;
+    #[cfg(feature = "lang-dart")]
+    DART = dart;
     #[cfg(feature = "lang-diff")]
     DIFF = diff;
     #[cfg(feature = "lang-dockerfile")]

@@ -1075,6 +1075,11 @@ export const waivers: Waiver[] = [
   ),
   { grammar: "java", path: "#comments-inline.patterns[1].begin", group: 1, reason: blanks },
   {
+    grammar: "dart",
+    path: "#operators.patterns[3].match",
+    reason: "`#operators.patterns[2]`, `(<<|>>>?|[\\&^|~])`, before it, matches at the start of every one of its operators",
+  },
+  {
     grammar: "kotlin",
     path: "#operators.patterns[5].match",
     reason: "`#operators.patterns[3]`, `([-%*+/])`, before it, takes the first character of every `--` and `++`",
@@ -1229,6 +1234,7 @@ export const complete: string[] = [
   "cpp-macro",
   "csharp",
   "css",
+  "dart",
   "diff",
   "docker",
   "erb",

@@ -10,6 +10,7 @@ import cssCharsetNoSpace from "./inputs/css-charset-no-space.css" with { type: "
 import cssCharsetUnclosed from "./inputs/css-charset-unclosed.css" with { type: "text" };
 import cssCharsetUnquoted from "./inputs/css-charset-unquoted.css" with { type: "text" };
 import cssCoverage from "./inputs/css-coverage.css" with { type: "text" };
+import dartCoverage from "./inputs/dart-coverage.dart" with { type: "text" };
 import diffCoverage from "./inputs/diff-coverage.diff" with { type: "text" };
 import dockerCoverage from "./inputs/docker-coverage.dockerfile" with { type: "text" };
 import erbCoverage from "./inputs/erb-coverage.erb" with { type: "text" };
@@ -519,8 +520,8 @@ export const inputs: Input[] = [
   { lang: "css", name: "normalize", url: `${normalize}/normalize.css` },
   { lang: "css", name: "sample", url: `${samples}/css.sample` },
   { lang: "css", name: "tailwind-preflight", url: `${tailwind}/packages/tailwindcss/preflight.css` },
-  // Dart runs on the TextMate engine.
   { lang: "dart", name: "collection-algorithms", url: `${dartCore}/pkgs/collection/lib/src/algorithms.dart` },
+  { lang: "dart", name: "coverage", text: dartCoverage },
   { lang: "dart", name: "http-base-request", url: `${dartHttp}/pkgs/http/lib/src/base_request.dart` },
   { lang: "dart", name: "http-client", url: `${dartHttp}/pkgs/http/lib/src/client.dart` },
   { lang: "dart", name: "sample", url: `${samples}/dart.sample` },

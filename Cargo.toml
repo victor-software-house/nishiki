@@ -35,6 +35,7 @@ all = [
   "lang-cpp",
   "lang-csharp",
   "lang-css",
+  "lang-dart",
   "lang-diff",
   "lang-dockerfile",
   "lang-erb",
@@ -106,7 +107,6 @@ textmate = [
   "lang-bat",
   "lang-cmake",
   "lang-coffee",
-  "lang-dart",
   "lang-haml",
   "lang-haskell",
   "lang-julia",
@@ -127,7 +127,7 @@ lang-coffee = ["_textmate", "lang-javascript"]
 lang-cpp = ["_scope-table", "_rule-tables", "_classes"]
 lang-csharp = ["_scope-table", "_rule-tables", "_classes"]
 lang-css = ["_scope-table", "_rule-tables", "_classes"]
-lang-dart = ["_textmate"]
+lang-dart = ["_scope-table", "_rule-tables", "_classes"]
 lang-diff = ["_scope-table", "_classes", "_utf8"]
 lang-dockerfile = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
 lang-erb = ["lang-html", "lang-ruby"]

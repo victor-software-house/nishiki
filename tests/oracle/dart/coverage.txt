@@ -1,0 +1,284 @@
+L #!/usr/bin/env dart
+T 19 source.dart meta.preprocessor.script.dart
+L 
+L /**/
+T 4 source.dart comment.block.empty.dart punctuation.definition.comment.dart
+L /* A block comment. */
+T 2 source.dart comment.block.dart
+T 20 source.dart comment.block.dart
+T 22 source.dart comment.block.dart
+L 
+L /**
+T 3 source.dart comment.block.documentation.dart
+L  * A documentation comment.
+T 27 source.dart comment.block.documentation.dart
+L  *     indented code
+T 1 source.dart comment.block.documentation.dart
+T 7 source.dart comment.block.documentation.dart
+T 20 source.dart comment.block.documentation.dart variable.other.source.dart
+L  * ```
+T 6 source.dart comment.block.documentation.dart
+L  * final fenced = 1;
+T 3 source.dart comment.block.documentation.dart
+T 20 source.dart comment.block.documentation.dart variable.other.source.dart
+L  * ```
+T 6 source.dart comment.block.documentation.dart
+L  */
+T 1 source.dart comment.block.documentation.dart
+T 3 source.dart comment.block.documentation.dart
+L class Cache<T extends Object> {
+T 5 source.dart keyword.declaration.dart
+T 6 source.dart
+T 11 source.dart support.class.dart
+T 12 source.dart other.source.dart
+T 13 source.dart support.class.dart
+T 14 source.dart
+T 21 source.dart keyword.declaration.dart
+T 22 source.dart
+T 28 source.dart support.class.dart
+T 29 source.dart other.source.dart
+T 31 source.dart
+L   final Map<String, int> sizes = {};
+T 2 source.dart
+T 7 source.dart storage.modifier.dart
+T 8 source.dart
+T 11 source.dart support.class.dart
+T 12 source.dart other.source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart
+T 20 source.dart
+T 23 source.dart support.class.dart
+T 24 source.dart other.source.dart
+T 31 source.dart
+T 32 source.dart keyword.operator.assignment.dart
+T 35 source.dart
+T 36 source.dart punctuation.terminator.dart
+L 
+L   Cache();
+T 2 source.dart
+T 7 source.dart support.class.dart
+T 9 source.dart
+T 10 source.dart punctuation.terminator.dart
+L   Cache factory() => Cache.new();
+T 2 source.dart
+T 7 source.dart support.class.dart
+T 8 source.dart
+T 15 source.dart entity.name.function.dart
+T 18 source.dart
+T 20 source.dart keyword.operator.closure.dart
+T 21 source.dart
+T 26 source.dart support.class.dart
+T 27 source.dart punctuation.dot.dart
+T 30 source.dart entity.name.function.dart
+T 31 source.dart
+T 32 source.dart
+T 33 source.dart punctuation.terminator.dart
+L   static final make = Cache.new;
+T 2 source.dart
+T 8 source.dart storage.modifier.dart
+T 9 source.dart
+T 14 source.dart storage.modifier.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.assignment.dart
+T 22 source.dart
+T 27 source.dart support.class.dart
+T 28 source.dart punctuation.dot.dart
+T 31 source.dart entity.name.function.dart
+T 32 source.dart punctuation.terminator.dart
+L   int factory;
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 13 source.dart entity.name.function.dart
+T 14 source.dart punctuation.terminator.dart
+L   void factory;
+T 2 source.dart
+T 6 source.dart storage.type.primitive.dart
+T 7 source.dart
+T 14 source.dart entity.name.function.dart
+T 15 source.dart punctuation.terminator.dart
+L 
+L   void run(int a) {
+T 2 source.dart
+T 6 source.dart storage.type.primitive.dart
+T 7 source.dart
+T 10 source.dart entity.name.function.dart
+T 11 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 19 source.dart
+L     var b = new Cache<int>();
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 12 source.dart
+T 15 source.dart keyword.new.dart
+T 16 source.dart
+T 21 source.dart support.class.dart
+T 22 source.dart other.source.dart
+T 25 source.dart support.class.dart
+T 26 source.dart other.source.dart
+T 28 source.dart
+T 29 source.dart punctuation.terminator.dart
+L     a &= 3;
+T 6 source.dart
+T 7 source.dart keyword.operator.bitwise.dart
+T 8 source.dart keyword.operator.assignment.dart
+T 9 source.dart
+T 10 source.dart constant.numeric.dart
+T 11 source.dart punctuation.terminator.dart
+L     a <<= 1;
+T 6 source.dart
+T 8 source.dart keyword.operator.bitwise.dart
+T 9 source.dart keyword.operator.assignment.dart
+T 10 source.dart
+T 11 source.dart constant.numeric.dart
+T 12 source.dart punctuation.terminator.dart
+L     a ~/= 2;
+T 6 source.dart
+T 7 source.dart keyword.operator.bitwise.dart
+T 9 source.dart keyword.operator.assignment.arithmetic.dart
+T 10 source.dart
+T 11 source.dart constant.numeric.dart
+T 12 source.dart punctuation.terminator.dart
+L     a -= 1;
+T 6 source.dart
+T 8 source.dart keyword.operator.assignment.arithmetic.dart
+T 9 source.dart
+T 10 source.dart constant.numeric.dart
+T 11 source.dart punctuation.terminator.dart
+L     final tab = 'a\tb';
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.assignment.dart
+T 16 source.dart
+T 17 source.dart string.interpolated.single.dart
+T 18 source.dart string.interpolated.single.dart
+T 20 source.dart string.interpolated.single.dart constant.character.escape.dart
+T 21 source.dart string.interpolated.single.dart
+T 22 source.dart string.interpolated.single.dart
+T 23 source.dart punctuation.terminator.dart
+L     final block = "${ {a} }";
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart string.interpolated.double.dart
+T 21 source.dart string.interpolated.double.dart meta.embedded.expression.dart
+T 22 source.dart string.interpolated.double.dart meta.embedded.expression.dart
+T 23 source.dart string.interpolated.double.dart meta.embedded.expression.dart
+T 24 source.dart string.interpolated.double.dart meta.embedded.expression.dart variable.parameter.dart
+T 25 source.dart string.interpolated.double.dart meta.embedded.expression.dart
+T 26 source.dart string.interpolated.double.dart meta.embedded.expression.dart
+T 27 source.dart string.interpolated.double.dart meta.embedded.expression.dart
+T 28 source.dart string.interpolated.double.dart
+T 29 source.dart punctuation.terminator.dart
+L     final triple = """one
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 17 source.dart
+T 18 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 22 source.dart string.interpolated.triple.double.dart
+T 25 source.dart string.interpolated.triple.double.dart
+L       two""";
+T 9 source.dart string.interpolated.triple.double.dart
+T 12 source.dart string.interpolated.triple.double.dart
+T 13 source.dart punctuation.terminator.dart
+L     final single = '''one
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 17 source.dart
+T 18 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 22 source.dart string.interpolated.triple.single.dart
+T 25 source.dart string.interpolated.triple.single.dart
+L       two''';
+T 9 source.dart string.interpolated.triple.single.dart
+T 12 source.dart string.interpolated.triple.single.dart
+T 13 source.dart punctuation.terminator.dart
+L     final raw = r"""raw
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.assignment.dart
+T 16 source.dart
+T 20 source.dart string.quoted.triple.double.dart
+T 23 source.dart string.quoted.triple.double.dart
+L       $a""";
+T 8 source.dart string.quoted.triple.double.dart
+T 11 source.dart string.quoted.triple.double.dart
+T 12 source.dart punctuation.terminator.dart
+L     final rawSingle = r'''raw
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.assignment.dart
+T 22 source.dart
+T 26 source.dart string.quoted.triple.single.dart
+T 29 source.dart string.quoted.triple.single.dart
+L       $a''';
+T 8 source.dart string.quoted.triple.single.dart
+T 11 source.dart string.quoted.triple.single.dart
+T 12 source.dart punctuation.terminator.dart
+L     final quoted = r'raw $a';
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 17 source.dart
+T 18 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 21 source.dart string.quoted.single.dart
+T 27 source.dart string.quoted.single.dart
+T 28 source.dart string.quoted.single.dart
+T 29 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L // Strings left open at the end of a line, as while text is being edited.
+T 73 source.dart comment.line.double-slash.dart
+L final a = "open
+T 5 source.dart storage.modifier.dart
+T 8 source.dart
+T 9 source.dart keyword.operator.assignment.dart
+T 10 source.dart
+T 11 source.dart string.interpolated.double.dart
+T 15 source.dart string.interpolated.double.dart
+L ";
+T 1 source.dart string.interpolated.double.dart
+T 2 source.dart punctuation.terminator.dart
+L final b = r"open
+T 5 source.dart storage.modifier.dart
+T 8 source.dart
+T 9 source.dart keyword.operator.assignment.dart
+T 10 source.dart
+T 12 source.dart string.quoted.double.dart
+T 16 source.dart string.quoted.double.dart
+L ";
+T 1 source.dart string.quoted.double.dart
+T 2 source.dart punctuation.terminator.dart
+L final c = 'open
+T 5 source.dart storage.modifier.dart
+T 8 source.dart
+T 9 source.dart keyword.operator.assignment.dart
+T 10 source.dart
+T 11 source.dart string.interpolated.single.dart
+T 15 source.dart string.interpolated.single.dart
+L ';
+T 1 source.dart string.interpolated.single.dart
+T 2 source.dart punctuation.terminator.dart
+L final d = r'open
+T 5 source.dart storage.modifier.dart
+T 8 source.dart
+T 9 source.dart keyword.operator.assignment.dart
+T 10 source.dart
+T 12 source.dart string.quoted.single.dart
+T 16 source.dart string.quoted.single.dart
+L ';
+T 1 source.dart string.quoted.single.dart
+T 2 source.dart punctuation.terminator.dart
+L 

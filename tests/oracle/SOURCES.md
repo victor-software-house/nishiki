@@ -480,6 +480,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `nix/nixpkgs-lists` | [`lib/lists.nix`][nixpkgs-lists] in NixOS/nixpkgs | [MIT][nixpkgs-licence] |
 | `nix/home-manager-tmux` | [`modules/programs/tmux.nix`][home-manager-tmux] in nix-community/home-manager | [MIT][home-manager-licence] |
 | `nix/home-manager-flake` | [`flake.nix`][home-manager-flake] in nix-community/home-manager | [MIT][home-manager-licence] |
+| `dart/coverage` | `oracle/inputs/dart-coverage.dart`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `dart/sample` | [`samples/dart.sample`][dart-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `dart/http-client` | [`pkgs/http/lib/src/client.dart`][dart-http-client] in dart-lang/http | [BSD-3-Clause][dart-http-licence] |
 | `dart/http-base-request` | [`pkgs/http/lib/src/base_request.dart`][dart-http-base-request] in dart-lang/http | [BSD-3-Clause][dart-http-licence] |
@@ -760,7 +761,7 @@ Nix runs on nishiki's TextMate engine as well.
 `nix/sample` and `nix/nixpkgs-ripgrep` are its development inputs, and `nix/nixpkgs-lists`, `nix/home-manager-tmux` and `nix/home-manager-flake` are held out.
 Shiki's Markdown grammar has no Nix fence, so no Markdown input embeds Nix.
 Dart runs on nishiki's TextMate engine as well.
-`dart/sample` and `dart/http-client` are its development inputs, and `markdown/dart-http-readme` is the development input for Dart fences.
+`dart/sample`, `dart/http-client` and `dart/coverage` are its development inputs, and `markdown/dart-http-readme` is the development input for Dart fences.
 `dart/http-base-request`, `dart/collection-algorithms` and `markdown/dart-args-readme` are held out.
 
 `html/sample`, `html/h5bp-index`, `html/todomvc-backbone`, `html/three-animation-keyframes`, `html/mathjax-mml-chtml`, `html/three-css3d-periodictable` and `html/jquery-qunit-fixture` are the development inputs for HTML.

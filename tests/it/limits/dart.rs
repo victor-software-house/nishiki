@@ -1,9 +1,7 @@
-//! Hostile lines for Dart, which the `TextMate` engine runs, under the
-//! default limits.
+//! Hostile lines for Dart under the default limits.
 //!
-//! The engine interprets the grammar's own regular expressions, so a line
-//! that would cost it more than the default work ends at the work limit, with
-//! tokens that cover it, rather than running on.
+//! A line that would cost more than the default work ends at the work limit,
+//! with tokens that cover it, rather than running on.
 
 use nishiki::{Highlighter, Language, Limit, Limits, Work};
 

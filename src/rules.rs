@@ -25,6 +25,7 @@ use std::fmt::Debug;
     feature = "lang-go",
     feature = "lang-ruby",
     feature = "lang-csharp",
+    feature = "lang-dart",
     feature = "lang-swift",
     feature = "lang-cpp",
     feature = "lang-lua",

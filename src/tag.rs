@@ -57,6 +57,9 @@ tags! {
     /// CSS.
     #[cfg(feature = "lang-css")]
     CSS = 0x2600,
+    /// Dart.
+    #[cfg(feature = "lang-dart")]
+    DART = 0x3000,
     /// Diff.
     #[cfg(feature = "lang-diff")]
     DIFF = 0x0e00,

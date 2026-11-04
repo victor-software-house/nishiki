@@ -26,6 +26,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["(", ")", "[", "]", "{", "}", "<", ">", ",", ".", "?.", "::", ":", "?", "=", "==", "+", "-", "->", "\"", "\"\"\"", "'", "\"${x}\"", "$x", "/*", "*/", "/**", "//"],
     heads: ["", "", " ", "    ", " * ", "// "],
   },
+  dart: {
+    words: ["import", "export", "library", "part of", "as", "show", "hide", "class", "extends", "extension type", "mixin", "with", "implements", "factory", "get", "set", "final", "const", "late", "var", "void", "int", "bool", "dynamic", "if", "else", "for", "in", "switch", "case", "when", "return", "async", "async*", "sync*", "await", "yield", "yield*", "try", "on", "catch", "throw", "new", "is", "is!", "this", "super", "true", "null", "Foo", "_Bar", "\$x", "x", "foo", "1", "1.5e3", "0x1F", "1.x", ".5", "@override", "[Foo]", "`code`", "extends"],
+    marks: ["(", ")", "[", "]", "{", "}", "<", ">", "<T>(", "<List<int>>(", ",", ".", "?.", "!", "?", ":", ";", "=", "==", "=>", "+", "-", "~/", ">>>=", "&&", "\"", "'", "\"\"\"", "'''", "r\"", "r'", "\"\${x}\"", "'\$x'", "\\n", "/*", "*/", "/**", "/**/", "//", "///", "```"],
+    heads: ["", "", " ", "  ", " * ", "/// ", "///     ", "// ", "#!"],
+  },
   swift: {
     words: ["func", "init", "class", "struct", "enum", "protocol", "extension", "actor", "typealias", "operator", "infix", "import", "let", "var", "if", "else", "guard", "switch", "case", "default", "for", "in", "while", "return", "throws", "try", "await", "async", "where", "is", "as?", "self", "Self", "nil", "true", "some", "any", "static", "public", "private", "@available", "@objc", "@MainActor", "#if", "#else", "#endif", "#available", "Int", "String", "Array", "Foo", "x", "_", "é", "$0", "print", "1", "0x1F", "1_000", "2e10", "`class`", "\\(x)", "\\.self", "swift(>=5.9)", "os(macOS)"],
     marks: ["(", ")", "[", "]", "{", "}", "<", ">", ",", ".", "...", "..<", "?", "!", "??", "?.", ":", ";", "=", "==", "+", "-", "*", "/", "&+", "->", "=>", "@", "#", "\\", "\"", "\"\"\"", "#\"", "\"#", "##\"", "\\(", "/*", "*/", "///", "//", "#/", "/#", "/a+/", "#/a|b/#", "(?i)", "|>"],

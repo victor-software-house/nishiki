@@ -768,15 +768,21 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
-    /// Dart, with the scopes of Shiki's `dart` grammar, which nishiki's
-    /// `TextMate` engine runs.
-    Dart {
-        feature: "lang-dart",
-        names: ["dart"],
-        engine: crate::dart::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-    }
+    /// Dart, with the scopes of Shiki's `dart` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A number followed by a letter ends at its dot: `1.x` is the number `1.` and `x`.
+    /// - In `async* {`, `sync*` and `yield*` before a blank, the `*` is an arithmetic operator.
+    ///   The keyword takes the `*` only when a word character follows it.
+    /// - `is!` before a blank is `is` and the logical operator `!`.
+    /// - `&=`, `^=`, `|=`, `<<=`, `>>=` and `>>>=` are a bitwise operator and an assignment.
+    ///   The bitwise pattern comes first and takes the operator.
+    /// - `get(` and `set(` are function names, not keywords.
+    /// - A string left open at the end of a line goes on to the next line.
+    /// - A function name needs no word boundary before it, so in `9abc(` the name is `abc`.
+    /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
+    Dart { feature: "lang-dart", names: ["dart"], module: dart }
     /// Julia, with the scopes of Shiki's `julia` grammar, which nishiki's
     /// `TextMate` engine runs.
     ///

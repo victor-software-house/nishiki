@@ -1261,7 +1261,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-Its TextMate engine runs the Dart TextMate grammar in [dart-lang/dart-syntax-highlight](https://github.com/dart-lang/dart-syntax-highlight), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode) as `dart`, with its rules compiled into tables (`src/dart/grammar.rs`).
+Its Dart lexer emits the scope names of the Dart TextMate grammar in [dart-lang/dart-syntax-highlight](https://github.com/dart-lang/dart-syntax-highlight), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode) as `dart`, and tries that grammar's rules in its order, from tables generated from it (`src/dart/grammar.rs`).
 That grammar is licensed under the BSD 3-Clause License:
 
 ```text

@@ -22,6 +22,10 @@ pub(crate) struct Scratch {
     /// The CSS lexer's, for CSS documents and Markdown CSS fences.
     #[cfg(feature = "lang-css")]
     pub(crate) css: crate::css::Scratch,
+    /// The Dart lexer's, for Dart documents and Markdown Dart fences.
+    /// It is boxed and allocated by the first Dart line, as GraphQL's is.
+    #[cfg(feature = "lang-dart")]
+    pub(crate) dart: Option<Box<crate::dart::Scratch>>,
     /// The Go lexer's, for Go documents.
     #[cfg(feature = "lang-go")]
     pub(crate) go: crate::go::Scratch,

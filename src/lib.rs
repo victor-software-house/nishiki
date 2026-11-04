@@ -167,7 +167,7 @@
 //! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less |
 //! | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
 //! | `docs` | Markdown and `config` |
-//! | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix, Dart, Julia, Mermaid, Haskell |
+//! | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix, Julia, Mermaid, Haskell |
 //!
 //! `textmate` holds the languages that nishiki's own `TextMate` engine runs
 //! from Shiki's grammars, compiled in as tables.
