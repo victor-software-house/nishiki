@@ -1,10 +1,12 @@
 //! The lookaheads the grammar decides rules with, written as scanners.
 //!
 //! The grammar spells each one as a regular expression of bracket groups
-//! nested a fixed number of levels. A scanner here accepts the same text,
-//! including the level at which the regular expression gives up, so the rules
-//! agree with Shiki on where an arrow function or a call with type arguments
-//! starts. Every scan stays within [`Lexer::window`].
+//! nested a fixed number of levels.
+//! A scanner here accepts the same text, including the level at which the
+//! regular expression gives up.
+//! The rules then agree with Shiki on where an arrow function or a call with
+//! type arguments starts.
+//! Every scan stays within [`Lexer::window`].
 
 use super::lexer::Lexer;
 
@@ -342,8 +344,9 @@ impl<const D: u8> Lexer<'_, D> {
             || (Self::DIALECT.jsx() && self.generic_extends_ahead(i))
     }
 
-    /// `<\s*ID\s+extends\s*[^=>]`, which the JSX grammars add to the arrow
-    /// function lookahead: a type parameter list that cannot be a tag.
+    /// `<\s*ID\s+extends\s*[^=>]`: a type parameter list that cannot be a
+    /// tag.
+    /// The JSX grammars add it to the arrow function lookahead.
     fn generic_extends_ahead(&self, i: usize) -> bool {
         if self.byte(i) != b'<' {
             return false;
@@ -559,8 +562,8 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `=\s*FUNCTION` at `i`, or a type-annotated form: the lookahead of a
-    /// name the grammar scopes as a function. `eq_ws` is the position of the
-    /// `\s*` that precedes `=`.
+    /// name the grammar scopes as a function.
+    /// `eq_ws` is the position of the `\s*` that precedes `=`.
     pub(crate) fn named_fn_ahead(&self, eq_ws: usize) -> bool {
         let j = self.ws(eq_ws);
         if self.byte(j) == b'=' && self.fn_value_ahead(self.ws(j + 1)) {
@@ -650,10 +653,11 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// The end of the longest `ID(\s*\??\.\s*#?ID)*` at `i`.
     ///
-    /// The regular expression may backtrack to a shorter chain, but every
-    /// shorter end is followed by `.` or `?.` and a name, which neither what
-    /// follows a call target ([`Lexer::call_rest`]) nor an open `<` accepts, so
-    /// only the longest end can match.
+    /// The regular expression may backtrack to a shorter chain.
+    /// Every shorter end is followed by `.` or `?.` and a name.
+    /// Neither what follows a call target ([`Lexer::call_rest`]) nor an open
+    /// `<` accepts that.
+    /// Only the longest end can therefore match.
     fn chain_end(&self, i: usize) -> Option<usize> {
         let mut e = self.ident(i)?;
         let limit = self.window();
@@ -722,8 +726,8 @@ impl<const D: u8> Lexer<'_, D> {
             || (self.prev_char(i) == Some(')') && open_at(i))
     }
 
-    /// Which call lookahead holds at `i`, if either. The name chain, which
-    /// both read, is scanned once.
+    /// Which call lookahead holds at `i`, if either.
+    /// Both read the name chain, and it is scanned once.
     pub(crate) fn call_kind(&self, i: usize) -> Option<CallKind> {
         if !self.has_open_after(i) {
             return None;

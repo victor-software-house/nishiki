@@ -1,8 +1,9 @@
 //! The end rule of each context.
 //!
-//! Each end is the grammar's end regular expression, tried before the
-//! context's other rules at every position, as `TextMate` does. An end that is
-//! a lookahead closes the context without a token.
+//! Each end is the grammar's end regular expression.
+//! It is tried before the context's other rules at every position, as
+//! `TextMate` does.
+//! An end that is a lookahead closes the context without a token.
 
 use super::chars::{is_alnum_char, is_alpha_char};
 use super::decl::VarKind;
@@ -14,7 +15,7 @@ const BLOCK: S = S::PunctuationDefinitionBlock;
 const ROUND: S = S::MetaBraceRound;
 
 /// Where the type of an annotation or of a function type's return starts.
-/// The grammar has a rule for each, which end differently.
+/// The grammar has a rule for each, and the two end differently.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum TypeStart {
     /// On the line of the `:` or `=>`.
@@ -26,8 +27,8 @@ enum TypeStart {
 impl<const D: u8> Lexer<'_, D> {
     /// Closes the innermost context at `p` if its end rule matches there.
     ///
-    /// One end tests for the grammar's misspelling of `satisfies`; a byte
-    /// escape keeps the misspelling out of the source.
+    /// One end tests for the grammar's misspelling of `satisfies`.
+    /// A byte escape keeps the misspelling out of the source.
     #[expect(
         clippy::too_many_lines,
         reason = "one arm per context, in the order of the grammar"
@@ -571,8 +572,9 @@ impl<const D: u8> Lexer<'_, D> {
         }
     }
 
-    /// The tail of a string key. The grammar misspells `satisfies` here; the
-    /// byte escape keeps the misspelling out of the source.
+    /// The tail of a string key.
+    /// The grammar misspells `satisfies` here.
+    /// The byte escape keeps the misspelling out of the source.
     fn key_string_tail(&self, p: usize) -> bool {
         let j = self.ws(p);
         if matches!(self.byte(j), b'(' | b',' | b'<' | b'}') {
@@ -653,9 +655,10 @@ impl<const D: u8> Lexer<'_, D> {
         None
     }
 
-    /// Ends a type annotation where its end rule matches: zero-width, except
-    /// before a `{` that follows a name or a closing bracket, where the match
-    /// takes the blanks up to the brace.
+    /// Ends a type annotation where its end rule matches.
+    /// The end is zero-width, except before a `{` that follows a name or a
+    /// closing bracket.
+    /// There the match takes the blanks up to the brace.
     fn type_ann_close(&mut self, p: usize, start: TypeStart) -> Option<usize> {
         let (end, blanks) = self.type_ann_end(p, start)?;
         let to = self.ws(p);
@@ -666,9 +669,11 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `(?<![\&:|])(?!\s*[\&|]\s+)(…)` for a type annotation whose type starts
-    /// on its line, and the same without the lookahead for one whose type
-    /// starts on the next: where it ends, and whether the match takes the
-    /// blanks that follow.
+    /// on its line.
+    /// For one whose type starts on the next line, it is the same without the
+    /// lookahead.
+    /// It returns where the match ends, and whether it takes the blanks that
+    /// follow.
     fn type_ann_end(&self, p: usize, start: TypeStart) -> Option<(usize, bool)> {
         if matches!(self.prev_char(p), Some('&' | ':' | '|')) {
             return None;

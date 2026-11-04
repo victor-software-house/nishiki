@@ -232,8 +232,8 @@ impl<const D: u8> Lexer<'_, D> {
     ///
     /// The byte before `p` tells which of the rule's lookbehinds can hold: `(`,
     /// `,` and `=`, the `>` of `=>`, the `n` of `return`, and the `)` of a
-    /// return type. Any other byte, anywhere but the line's start, rules them
-    /// all out.
+    /// return type.
+    /// Any other byte, anywhere but the line's start, rules them all out.
     pub(crate) fn paren_expression_possibly_arrow(&mut self, p: usize) -> Option<usize> {
         if self.full() {
             return None;

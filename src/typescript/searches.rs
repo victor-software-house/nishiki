@@ -2,10 +2,11 @@
 //! one line.
 //!
 //! An embedding language can lex many texts of one line with this lexer,
-//! such as HTML's event handlers, one per attribute. A search of the line per
-//! text would read the line once per text. Instead, the second text of a line
-//! and those after it ask a list of the line's matches. The list grows
-//! forward and is read once per line.
+//! such as HTML's event handlers, one per attribute.
+//! A search of the line per text would read the line once per text.
+//! Instead, the second text of a line and those after it ask a list of the
+//! line's matches.
+//! The list grows forward and is read once per line.
 
 use super::lexer::Opened;
 
@@ -21,8 +22,9 @@ pub(crate) struct Scratch {
 /// The searches every text of one line shares.
 ///
 /// Every text an embedding language gives this lexer is the line's text or a
-/// prefix of it. Each starts where the line does. A position then means the
-/// same byte in every text of the line.
+/// prefix of it.
+/// Each starts where the line does.
+/// A position then means the same byte in every text of the line.
 #[derive(Debug, Default)]
 pub(crate) struct Searches {
     /// The number of the line the last lexer started on, as
@@ -59,8 +61,8 @@ impl Searches {
     /// them.
     ///
     /// The first text of a line searches its own bytes, as a document of one
-    /// text per line does on every line. The texts after it ask the line's
-    /// lists of matches.
+    /// text per line does on every line.
+    /// The texts after it ask the line's lists of matches.
     #[inline]
     pub(crate) fn last(
         &mut self,
@@ -84,7 +86,8 @@ impl Searches {
     }
 
     /// [`Searches::last`] for a text after the first of its line, from the
-    /// line's lists. It starts the lists when the line has none yet.
+    /// line's lists.
+    /// It starts the lists when the line has none yet.
     #[cold]
     #[inline(never)]
     fn listed_last(

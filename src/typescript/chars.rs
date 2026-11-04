@@ -18,8 +18,8 @@ pub(crate) fn is_alpha_char(c: char) -> bool {
     c == '$' || c == '_' || classes::is_alpha(c)
 }
 
-/// What an operator lookbehind accepts before a position; see
-/// [`Lexer::operator_before`].
+/// What an operator lookbehind accepts before a position.
+/// See [`Lexer::operator_before`].
 pub(crate) struct Before {
     /// Bytes that may end the text before it.
     pub(crate) bytes: Bytes,
@@ -50,8 +50,9 @@ impl<'a, const D: u8> Lexer<'a, D> {
         is_ascii_space(self.byte(i)) || space::len(self.bytes.get(i..).unwrap_or_default()) > 0
     }
 
-    /// The character before `i`; the newline that ends the line, when one
-    /// follows, is the one before `len + 1`.
+    /// The character before `i`.
+    /// The newline that ends the line, when one follows, is the one before
+    /// `len + 1`.
     pub(crate) fn prev_char(&self, i: usize) -> Option<char> {
         if i == self.len + 1 {
             return (self.byte(self.len) == b'\n').then_some('\n');
@@ -140,8 +141,8 @@ impl<'a, const D: u8> Lexer<'a, D> {
 
     /// `[$_[:alpha:]][$_[:alnum:]]*` at `i`: its end.
     ///
-    /// Every rule asks for the name at the position, so the last answer is
-    /// kept.
+    /// Every rule asks for the name at the position.
+    /// The last answer is therefore kept.
     pub(crate) fn ident(&self, i: usize) -> Option<usize> {
         let (at, end) = self.last_ident.get();
         if at == i {
@@ -192,7 +193,8 @@ impl<'a, const D: u8> Lexer<'a, D> {
 
     /// A keyword between the grammar's guards: its end.
     ///
-    /// Most calls fail on the first byte, so it is checked alone first.
+    /// Most calls fail on the first byte.
+    /// That byte is therefore checked alone first.
     pub(crate) fn kw(&self, p: usize, word: &str) -> Option<usize> {
         let word = word.as_bytes();
         let e = p + word.len();
@@ -220,8 +222,9 @@ impl<'a, const D: u8> Lexer<'a, D> {
 
     /// Whether the text before `p` ends in what `before` accepts: one of its
     /// bytes or operators, or one of its words as a whole word, and none of
-    /// what it refuses. The grammar spells this lookbehind, with its own sets,
-    /// before an object literal, a cast, a JSX tag and a regular expression.
+    /// what it refuses.
+    /// The grammar spells this lookbehind, with its own sets, before an object
+    /// literal, a cast, a JSX tag and a regular expression.
     pub(crate) fn operator_before(&self, p: usize, before: &Before) -> bool {
         let Some(head) = self.bytes.get(..p) else {
             return false;

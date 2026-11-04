@@ -8,8 +8,8 @@ impl<const D: u8> Lexer<'_, D> {
     /// An `export` declaration: `export as namespace Name`, `export (type)?
     /// (=|default)`, or `export type`? followed by `*`, `{` or a name list.
     ///
-    /// The optional `type` is tried first, then skipped. The keyword is not
-    /// followed by `(?!(\$)|(\s*:))`.
+    /// The optional `type` is tried first, then skipped.
+    /// The keyword is not followed by `(?!(\$)|(\s*:))`.
     #[expect(
         clippy::many_single_char_names,
         reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"

@@ -210,8 +210,8 @@ impl<const D: u8> Lexer<'_, D> {
         Some(j)
     }
 
-    /// The end of `@word` at `p`, if the text there starts with it. Callers
-    /// try a tag's words in the order the grammar lists them.
+    /// The end of `@word` at `p`, if the text there starts with it.
+    /// Callers try a tag's words in the order the grammar lists them.
     fn tag_end(&self, p: usize, word: &str) -> Option<usize> {
         self.starts(p + 1, word).then(|| p + 1 + word.len())
     }

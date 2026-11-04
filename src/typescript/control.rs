@@ -174,7 +174,8 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `if (…)` not followed directly by a brace.
     ///
-    /// `\s*(?!\{)` backs off a blank, so only `){` fails.
+    /// `\s*(?!\{)` backs off a blank.
+    /// Only `){` therefore fails.
     fn if_statement(&mut self, p: usize) -> Option<usize> {
         if !(self.starts(p, "if") && self.kw_before(p) && self.boundary(p)) {
             return None;

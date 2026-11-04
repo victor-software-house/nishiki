@@ -205,14 +205,18 @@ impl<const D: u8> Lexer<'_, D> {
         None
     }
 
-    /// The operators made of symbols, in the grammar's order: the spread
-    /// `...`; the compound assignments `*=`, `/=` (not after `(`), `-=`, `%=`
-    /// and `+=`; the bitwise ones `&=`, `^=`, `<<=`, `>>=`, `>>>=` and `|=`;
-    /// `a! /= b` and `a! / b`; and the arithmetic and relational operators.
+    /// The operators made of symbols, in the grammar's order:
+    /// - the spread `...`;
+    /// - the compound assignments `*=`, `/=` (not after `(`), `-=`, `%=` and
+    ///   `+=`;
+    /// - the bitwise ones `&=`, `^=`, `<<=`, `>>=`, `>>>=` and `|=`;
+    /// - `a! /= b` and `a! / b`;
+    /// - the arithmetic and relational operators.
     ///
-    /// A `/` after a name may follow blanks and comments, because the regex
-    /// and comment rules have claimed the other cases, and a `/` or `/=` after
-    /// a closing bracket or a name may have blanks before it.
+    /// A `/` after a name may follow blanks and comments.
+    /// The regex and comment rules have claimed the other cases.
+    /// A `/` or `/=` after a closing bracket or a name may have blanks before
+    /// it.
     fn symbol_operators(&mut self, p: usize) -> Option<usize> {
         let b = self.byte(p);
         let b1 = self.byte(p + 1);
@@ -397,9 +401,10 @@ impl<const D: u8> Lexer<'_, D> {
     /// The built-in objects and their members, such as `arguments`, `Promise`
     /// and the `Number` constants.
     ///
-    /// For a `Number` constant the grammar maps a scope to capture 4, but
-    /// numbering counts the groups inside the negative lookahead before it, so
-    /// the constant gets none. Shiki's output has none, and so has ours.
+    /// For a `Number` constant the grammar maps a scope to capture 4.
+    /// The numbering counts the groups inside the negative lookahead before
+    /// it, so the constant gets no scope.
+    /// Shiki's output has none, and so has ours.
     pub(crate) fn support_objects(&mut self, p: usize) -> Option<usize> {
         let b = self.byte(p);
         if b.is_ascii_lowercase() || b.is_ascii_uppercase() {

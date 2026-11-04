@@ -7,8 +7,8 @@ use super::scope::S;
 
 impl<const D: u8> Lexer<'_, D> {
     /// Processes position `p` once: the innermost context's end rule first,
-    /// then its other rules. `None` means nothing matched and the byte is
-    /// plain text.
+    /// then its other rules.
+    /// `None` means nothing matched and the byte is plain text.
     pub(crate) fn step(&mut self, p: usize) -> Option<usize> {
         if self.halt_if(p, self.halts.map(|halts| halts.end)) {
             return Some(p);

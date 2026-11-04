@@ -42,12 +42,13 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// The two comment rules that HTML's grammar puts before the JavaScript
-    /// of a script, at `p`: `(^[\t ]+)?(?=//)` then `//`, a line comment that
-    /// ends with the line or before `</script`, and `/\*`, a block comment
-    /// that ends at `*/` or before `</script`.
+    /// of a script, at `p`:
+    /// - `(^[\t ]+)?(?=//)` then `//`, a line comment that ends with the line
+    ///   or before `</script`;
+    /// - `/\*`, a block comment that ends at `*/` or before `</script`.
     ///
-    /// The rule around the line comment has no scope and ends as soon as the
-    /// comment does, so the comment is the one context.
+    /// The rule around the line comment has no scope.
+    /// It ends as soon as the comment does, so the comment is the one context.
     pub(crate) fn script_comment(&mut self, p: usize) -> Option<usize> {
         if self.full() {
             return None;

@@ -244,8 +244,9 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// A parameter, or a field-like name before a function-aware lookahead.
-    /// The grammar's modifier group is optional, so when the rest fails after
-    /// a modifier, the modifier word is tried as the name: `(readonly 42`.
+    /// The grammar's modifier group is optional.
+    /// When the rest fails after a modifier, the modifier word is tried as the
+    /// name, as in `(readonly 42`.
     pub(crate) fn parameter_like(&mut self, p: usize, style: ParamStyle) -> Option<usize> {
         if let Some(e) = self.kw_of(
             p,

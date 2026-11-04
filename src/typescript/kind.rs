@@ -1,6 +1,6 @@
 //! The contexts of the grammar: each begin/end rule that holds state across
-//! tokens, with the scopes it adds. Each is a frame of the highlighter's
-//! interned state.
+//! tokens, with the scopes it adds.
+//! Each is a frame of the highlighter's interned state.
 
 use super::scope::S;
 
@@ -9,9 +9,10 @@ const TAG: u16 = crate::tag::TYPESCRIPT;
 
 macro_rules! kinds {
     ($($id:ident [$($name:expr),*] [$($content:expr),*];)*) => {
-        /// An open context. The scopes in `names` apply to the context's begin
-        /// and end tokens and to everything inside; those in `content` only to
-        /// what lies between begin and end.
+        /// An open context.
+        /// The scopes in `names` apply to the context's begin and end tokens
+        /// and to everything inside.
+        /// Those in `content` apply only to what lies between begin and end.
         #[derive(Clone, Copy, Debug, PartialEq, Eq)]
         #[repr(u8)]
         pub(crate) enum Kind { $($id),* }
@@ -20,8 +21,8 @@ macro_rules! kinds {
             /// Every kind, indexed by discriminant.
             const ALL: &[Kind] = &[$(Kind::$id),*];
 
-            /// How many kinds there are, which bounds the lexer's steps
-            /// without advancing.
+            /// How many kinds there are.
+            /// The count bounds the lexer's steps without advancing.
             #[cfg(debug_assertions)]
             pub(crate) const COUNT: usize = Self::ALL.len();
 
@@ -222,8 +223,9 @@ impl Kind {
         TAG | self as u16
     }
 
-    /// The kind a frame's code names; [`Kind::Top`] for a code that is not
-    /// TypeScript's, such as the empty state's.
+    /// The kind a frame's code names.
+    /// It is [`Kind::Top`] for a code that is not TypeScript's, such as the
+    /// empty state's.
     pub(crate) fn from_code(code: u16) -> Kind {
         if code & 0xff00 != TAG {
             return Kind::Top;

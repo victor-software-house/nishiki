@@ -14,9 +14,10 @@ pub(crate) struct Prefix {
     pub(crate) at: usize,
 }
 
-/// Whether the names a binding pattern declares are constants, which the
-/// grammar scopes apart. A `using` declaration has no patterns, so a
-/// [`VarKind`] would carry a case no pattern meets.
+/// Whether the names a binding pattern declares are constants.
+/// The grammar scopes constants apart.
+/// A `using` declaration has no patterns.
+/// A [`VarKind`] would therefore carry a case no pattern meets.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Binding {
     /// `let`, `var` and parameters.

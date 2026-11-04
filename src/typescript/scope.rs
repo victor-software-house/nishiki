@@ -1,15 +1,17 @@
 //! The scope names the lexer emits, in Shiki's naming.
 //!
 //! The `typescript`, `javascript`, `jsx` and `tsx` grammars differ only in the
-//! suffix of their names, so one table holds the four spellings one after
-//! another: a scope's number is its index plus a whole table's length for each
-//! dialect before its own.
+//! suffix of their names.
+//! One table therefore holds the four spellings one after another.
+//! A scope's number is its index plus a whole table's length for each dialect
+//! before its own.
 
 use super::Dialect;
 
 macro_rules! scopes {
     ($($id:ident $ts:literal $js:literal $jsx:literal $tsx:literal)*) => {
-        /// A scope name; the discriminant indexes the table of each dialect.
+        /// A scope name.
+        /// The discriminant indexes the table of each dialect.
         #[derive(Clone, Copy, Debug, PartialEq, Eq)]
         #[repr(u16)]
         pub(crate) enum S { $($id),* }

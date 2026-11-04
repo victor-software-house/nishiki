@@ -1,4 +1,5 @@
-//! Sets of bytes, which say where a rule can start.
+//! Sets of bytes.
+//! Each says where a rule can start.
 
 /// A set of byte values, built in `const` context.
 #[derive(Clone, Copy, Debug)]
@@ -63,7 +64,8 @@ pub(crate) const UPPER: Bytes = Bytes::range(b'A', b'Z');
 /// `0`-`9`.
 pub(crate) const DIGIT: Bytes = Bytes::range(b'0', b'9');
 
-/// The bytes of a character at or past U+0080, which may be a letter.
+/// The bytes of a character at or past U+0080.
+/// Such a character may be a letter.
 pub(crate) const HIGH: Bytes = Bytes::range(0x80, 0xff);
 
 /// What `\s` reads, with the line's newline, and the first bytes of the

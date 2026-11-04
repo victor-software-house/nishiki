@@ -1,9 +1,10 @@
 //! JSX: tags, their attributes and children, and the code embedded in them.
 //!
 //! The `javascript`, `jsx` and `tsx` grammars read `<` after an operator or
-//! a keyword that takes a value as the start of a tag. A tag is lexed as the
-//! grammar's contexts: an expression that holds tags, a tag with or without
-//! attributes, its attributes, its children and the `{…}` code inside them.
+//! a keyword that takes a value as the start of a tag.
+//! A tag is lexed as the grammar's contexts: an expression that holds tags, a
+//! tag with or without attributes, its attributes, its children and the `{…}`
+//! code inside them.
 
 use super::bytes::Bytes;
 use super::chars::{Before, is_alnum_char};
@@ -41,8 +42,8 @@ enum TagPart {
 }
 
 impl<const D: u8> Lexer<'_, D> {
-    /// The run of `[$_[:alpha:]][-$._[:alnum:]]*` at `i`, which a tag name
-    /// does not end in `-` or `.`: its end.
+    /// The end of the run of `[$_[:alpha:]][-$._[:alnum:]]*` at `i`.
+    /// A tag name does not end in `-` or `.`.
     fn tag_run(&self, i: usize) -> Option<usize> {
         if !self.id_start(i) {
             return None;
@@ -180,7 +181,8 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `<\s*[$_[:alpha:]][$_[:alnum:]]*((\s+extends\s+[^=>])|,)`: a type
-    /// parameter list, which an arrow function takes, not a tag.
+    /// parameter list.
+    /// An arrow function takes it, and it is not a tag.
     fn generic_head_at(&self, q: usize) -> bool {
         if self.byte(q) != b'<' {
             return false;
@@ -374,10 +376,11 @@ impl<const D: u8> Lexer<'_, D> {
         (e > p).then(|| self.token_rule(p, e, S::InvalidIllegalAttribute))?
     }
 
-    /// `=(?=\s*(?:["'{]|/\*|//|\n))`: what may follow an attribute's `=`, a
-    /// quote, a brace, a comment or the line feed, which a capture group lexed
-    /// again does not have. The blanks skipped include that line feed, so
-    /// reaching past the text means one was there.
+    /// `=(?=\s*(?:["'{]|/\*|//|\n))`: what may follow an attribute's `=`.
+    /// That is a quote, a brace, a comment or the line feed.
+    /// A capture group lexed again has no line feed.
+    /// The blanks skipped include that line feed, so reaching past the text
+    /// means one was there.
     fn assignment_ahead(&self, i: usize) -> bool {
         let j = self.ws(i);
         j > self.len

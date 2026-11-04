@@ -213,8 +213,9 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// A method declaration in a class or an interface.
     ///
-    /// The grammar's optional groups back off, so the empty prefix is tried
-    /// when the full one does not lead to a method.
+    /// The grammar's optional groups back off.
+    /// The empty prefix is therefore tried when the full one does not lead to
+    /// a method.
     pub(crate) fn method_declaration(&mut self, p: usize) -> Option<usize> {
         if self.full() {
             return None;
@@ -535,10 +536,12 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `\s*(KEY)\s*(?:(?:(\?)|(!))\s*)?`: where the character after a field
-    /// key sits. The begin accepts `}` there and the end's `^` branch does
-    /// not, so a line such as `  c }` opens a field at column 0 and closes it
-    /// there at once; `TextMate` then gives the rest of the line to the field
-    /// and keeps it open.
+    /// key sits.
+    /// The begin accepts `}` there, and the end's `^` branch does not.
+    /// A line such as `  c }` therefore opens a field at column 0 and closes
+    /// it there at once.
+    /// `TextMate` then gives the rest of the line to the field and keeps it
+    /// open.
     pub(crate) fn field_tail(&self, i: usize) -> Option<usize> {
         let e = self.field_key_end(self.ws(i))?;
         let mut m = self.ws(e);
