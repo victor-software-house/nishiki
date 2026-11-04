@@ -162,7 +162,7 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 - nishiki forbids unsafe code.
   Test support that cannot be written safely lives in its own unpublished workspace crate, as [Google's Rust style guide](https://google.github.io/styleguide/rustguide.html) asks for unsafe code: behind a safe API, in a separate crate with few dependencies.
   Its crate docs justify the unsafe code, every unsafe block carries a `SAFETY:` comment, and its tests run under Miri.
-  The one such crate is `nishiki-alloc-count`, a counting global allocator for the test that proves 2.1 (operator, 2026-11-03).
+  The one such crate is `nishiki-alloc-count`, a counting global allocator for the test that proves 2.1 and for the memory counts of `examples/memory.rs` (operator, 2026-11-03).
 
 ### 3.4 Comments carry the why
 

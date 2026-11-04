@@ -88,6 +88,7 @@ The decisions that created nishiki live in a private planning repository:
    - Label a pull request that touches a hot path.
    - The gate builds both sides at one codegen unit, so the counts follow the code and not its layout.
    - Columns at the default sixteen units are for information only (`bench/AGENTS.md` rule 12).
+   - Below the table, what one pass over the fixtures allocates on each side, for information only (`bench/AGENTS.md` rule 17).
    - valgrind comes from the bench mise profile, `mise.bench.toml` with `mise.bench.lock`, which only this workflow loads (`MISE_ENV=ci,bench`).
    - A local run on Linux uses `MISE_ENV=dev,bench mise run callgrind`.
 5. Nobody runs the full suite before a push; CI does.

@@ -16,7 +16,9 @@
 # tables, stays out.
 #
 # Prints a Markdown table of millions of instructions and head/base, and
-# fails when a language rises more than CALLGRIND_TOLERANCE_PCT (0.5). Needs
+# fails when a language rises more than CALLGRIND_TOLERANCE_PCT (0.5). Then
+# prints, for information, what one pass over each language's fixtures
+# allocates on each side (examples/memory.rs). Needs
 # valgrind from the bench profile: MISE_ENV=ci,bench in CI,
 # MISE_ENV=dev,bench locally (Linux only).
 set -euo pipefail
@@ -39,6 +41,11 @@ rm -rf "$dir/base"
 mkdir -p "$dir/base/examples"
 git archive "$base" | tar -x -C "$dir/base"
 cp examples/lex.rs "$dir/base/examples/lex.rs"
+# The memory counts use this tree's harness and counter on both sides, so a
+# base whose nishiki-alloc-count is older than this tree's still builds them.
+cp examples/memory.rs "$dir/base/examples/memory.rs"
+rm -rf "$dir/base/nishiki-alloc-count/src"
+cp -R nishiki-alloc-count/src "$dir/base/nishiki-alloc-count/src"
 # Both binaries lex the same files: this tree's fixtures that the base has
 # too, so inputs a pull request adds do not count as a change of code.
 fixtures="$dir/fixtures"
@@ -59,13 +66,18 @@ if grep -q '^textmate = ' "$dir/base/Cargo.toml"; then
   base_features=(--features textmate)
 fi
 # One build of each side at one codegen unit, which gates, and one at the
-# default sixteen, which the table shows for information only.
+# default sixteen, which the table shows for information only. The memory
+# counts do not depend on the layout, so only the default build has them.
 for units in 1 16; do
+  examples=(--example lex)
+  if [ "$units" = 16 ]; then
+    examples+=(--example memory)
+  fi
   CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$dir/target-base-$units" \
     cargo build --quiet --release --locked --manifest-path "$dir/base/Cargo.toml" \
-    "${base_features[@]}" --example lex
+    "${base_features[@]}" "${examples[@]}"
   CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$dir/target-head-$units" \
-    cargo build --quiet --release --locked "${head_features[@]}" --example lex
+    cargo build --quiet --release --locked "${head_features[@]}" "${examples[@]}"
 done
 # Counts one build (base-1, head-1, base-16 or head-16) on one language into
 # counts/<build>.<language>. valgrind runs one thread, so the runs go in
@@ -116,6 +128,28 @@ if [ "${#notes[@]}" -gt 0 ]; then
   echo
   echo "Note, not a failure: at sixteen codegen units the head runs more than 3% more instructions than at one in ${notes[*]}. A matcher its scan calls in another module may lack \`#[inline]\` (bench/AGENTS.md rule 13)."
 fi
+# What one pass over each language's fixtures allocates, from fresh
+# highlighters (examples/memory.rs): exact counts, for information only.
+echo
+echo "Memory, for information: allocations, then KiB allocated, then the most KiB one document held at once."
+echo
+echo "| language | allocations, base | allocations, head | KiB, base | KiB, head | peak KiB, base | peak KiB, head |"
+echo "|:--|--:|--:|--:|--:|--:|--:|"
+for language in "${languages[@]}"; do
+  if [ -z "$(ls -A "$fixtures/$language")" ]; then
+    echo "| $language | new | | | | | |"
+    continue
+  fi
+  read -r base_allocs base_bytes base_peak < <("$dir/target-base-16/release/examples/memory" "$fixtures" "$language")
+  read -r head_allocs head_bytes head_peak < <("$dir/target-head-16/release/examples/memory" "$fixtures" "$language")
+  if [ -z "${base_peak:-}" ] || [ -z "${head_peak:-}" ]; then
+    echo "examples/memory.rs printed no counts for $language" >&2
+    exit 1
+  fi
+  awk -v l="$language" -v b_n="$base_allocs" -v h_n="$head_allocs" -v b_bytes="$base_bytes" -v h_bytes="$head_bytes" -v b_peak="$base_peak" -v h_peak="$head_peak" 'BEGIN {
+    printf "| %s | %d | %d | %.1f | %.1f | %.1f | %.1f |\n", l, b_n, h_n, b_bytes / 1024, h_bytes / 1024, b_peak / 1024, h_peak / 1024
+  }'
+done
 if [ "${#failed[@]}" -gt 0 ]; then
   echo "instructions rose more than ${tolerance}% in: ${failed[*]}" >&2
   exit 1

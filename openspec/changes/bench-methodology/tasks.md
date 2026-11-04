@@ -26,7 +26,8 @@ No new dependency.
 - [x] 2.1 `mise-tasks/callgrind.sh` takes its default languages from the fixture directories and runs one valgrind per core; bench rule 15 says so → verify: the pull request's Callgrind job prints a row for each of the 46 languages, and its step finishes inside the 20-minute timeout
   - 2026-11-04 UTC: [#242][pr-242]'s [Callgrind run][run-242] printed 46 rows and passed; its compare step took 2 min 4 s, against 4.5 to 5 min for 27 languages on the four runs before it.
     Untouched languages read 0.9993 to 1.0003 there, so the counts carry some run-to-run noise of their own, well inside the 0.5% gate; its cause is not established.
-- [ ] 2.2 `nishiki-alloc-count` counts bytes and peak live bytes beside calls → verify: `tests/it/alloc.rs` passes in CI unchanged, and a unit test in the crate covers the new counts
+- [x] 2.2 `nishiki-alloc-count` counts bytes and peak live bytes beside calls → verify: `tests/it/alloc.rs` passes in CI unchanged, and a unit test in the crate covers the new counts
+  - 2026-11-04 UTC: [#244][pr-244] merged with CI green: `measure` reports allocations, bytes and peak live bytes; its unit tests and Miri passed, and `tests/it/alloc.rs` ran unchanged.
 - [ ] 2.3 `examples/memory.rs` prints each language's allocations, bytes and peak over one pass of its fixtures, and the Callgrind job shows it for base and head → verify: the job summary of the pull request shows the memory table, and the job passes
 
 ## 3. The reference host
@@ -72,3 +73,4 @@ The probe uses the current `examples/bench.rs` throughput figure, so it does not
 [pr-239]: https://github.com/victor-software-house/nishiki-archive/pull/239
 [pr-242]: https://github.com/victor-software-house/nishiki-archive/pull/242
 [run-242]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41754856763
+[pr-244]: https://github.com/victor-software-house/nishiki-archive/pull/244
