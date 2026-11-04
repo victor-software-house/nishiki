@@ -201,6 +201,10 @@ impl Scanner {
     /// The first position at or after `from` in `text` where a pattern of the
     /// automaton may match, the number of the first such pattern, and where
     /// its widened match ends; or `None`.
+    ///
+    /// Inlined across codegen units.
+    /// At 16 units it stayed a call from the tokenizer.
+    #[inline]
     pub(crate) fn candidate(
         &self,
         cache: &mut Cache,

@@ -6,7 +6,7 @@
 //! costs a step from the caller's budget.
 
 use super::ast::{Anchor, Case, is_word, orbit};
-use super::program::{Inst, Program};
+use super::program::{ClassTable, Inst, Program};
 
 /// A capture slot that holds no position.
 pub(super) const UNSET: u32 = u32::MAX;
@@ -145,6 +145,20 @@ fn as_u32(value: usize) -> u32 {
 
 fn as_usize(value: u32) -> usize {
     usize::try_from(value).unwrap_or(usize::MAX)
+}
+
+impl ClassTable {
+    /// Whether the code point is in the class.
+    ///
+    /// It lives in `Machine::run`'s module, so both share a codegen unit.
+    /// An `#[inline]` mark instead changed how `run` compiled at one unit.
+    fn matches(&self, c: u32) -> bool {
+        if c < 128 {
+            self.ascii >> c & 1 == 1
+        } else {
+            char::from_u32(c).is_some_and(|c| self.class.matches(c))
+        }
+    }
 }
 
 impl Machine<'_> {

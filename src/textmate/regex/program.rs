@@ -67,10 +67,13 @@ pub(super) enum Inst {
 }
 
 /// A character class with its answer for ASCII precomputed.
+///
+/// Its test, `ClassTable::matches`, lives in `vm.rs`, beside its one caller.
 #[derive(Debug)]
 pub(super) struct ClassTable {
-    ascii: u128,
-    class: Class,
+    /// Bit `c` is set when ASCII character `c` is in the class.
+    pub(super) ascii: u128,
+    pub(super) class: Class,
 }
 
 impl ClassTable {
@@ -78,15 +81,6 @@ impl ClassTable {
         ClassTable {
             ascii: class.ascii(),
             class,
-        }
-    }
-
-    /// Whether the code point is in the class.
-    pub(super) fn matches(&self, c: u32) -> bool {
-        if c < 128 {
-            self.ascii >> c & 1 == 1
-        } else {
-            char::from_u32(c).is_some_and(|c| self.class.matches(c))
         }
     }
 }

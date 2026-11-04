@@ -189,6 +189,10 @@ pub(super) fn builtin(name: &str) -> Prop {
 }
 
 /// `\w`, and what `\b` tests.
+///
+/// Inlined across codegen units.
+/// At 16 units it stayed a call from the machine.
+#[inline]
 pub(super) fn is_word(c: char) -> bool {
     if c.is_ascii() {
         return c.is_ascii_alphanumeric() || c == '_';
