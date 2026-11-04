@@ -1,0 +1,395 @@
+L extends Node
+T 7 source.gdscript keyword.language.gdscript
+T 8 source.gdscript
+T 12 source.gdscript entity.name.type.class.gdscript
+L class_name TestClass2
+T 10 source.gdscript keyword.language.gdscript
+T 11 source.gdscript
+T 21 source.gdscript entity.name.type.class.gdscript
+L @icon("res://path/to/icon.png")
+T 1 source.gdscript entity.name.function.decorator.gdscript
+T 5 source.gdscript entity.name.function.decorator.gdscript
+T 6 source.gdscript punctuation.parenthesis.begin.gdscript
+T 7 source.gdscript string.quoted.gdscript
+T 29 source.gdscript string.quoted.gdscript
+T 30 source.gdscript string.quoted.gdscript
+T 31 source.gdscript punctuation.parenthesis.end.gdscript
+L 
+L # ******************************************************************************
+T 1 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 80 source.gdscript comment.line.number-sign.gdscript
+L 
+L @export var x : int
+T 1 source.gdscript entity.name.function.decorator.gdscript
+T 7 source.gdscript entity.name.function.decorator.gdscript
+T 8 source.gdscript
+T 11 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 12 source.gdscript meta.variable.declaration.gdscript
+T 13 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 14 source.gdscript meta.variable.declaration.gdscript
+T 15 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+L @export var y : int
+T 1 source.gdscript entity.name.function.decorator.gdscript
+T 7 source.gdscript entity.name.function.decorator.gdscript
+T 8 source.gdscript
+T 11 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 12 source.gdscript meta.variable.declaration.gdscript
+T 13 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 14 source.gdscript meta.variable.declaration.gdscript
+T 15 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+L @export var z : String
+T 1 source.gdscript entity.name.function.decorator.gdscript
+T 7 source.gdscript entity.name.function.decorator.gdscript
+T 8 source.gdscript
+T 11 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 12 source.gdscript meta.variable.declaration.gdscript
+T 13 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 14 source.gdscript meta.variable.declaration.gdscript
+T 15 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+L @export_node_path(Resource) var resource_name
+T 1 source.gdscript entity.name.function.decorator.gdscript
+T 17 source.gdscript entity.name.function.decorator.gdscript
+T 18 source.gdscript punctuation.parenthesis.begin.gdscript
+T 26 source.gdscript entity.name.type.class.gdscript
+T 27 source.gdscript punctuation.parenthesis.end.gdscript
+T 28 source.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 32 source.gdscript meta.variable.declaration.gdscript
+T 45 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+L 
+L var array_a: Array[int] = [1, 2, 3]
+T 3 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript
+T 11 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 12 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 13 source.gdscript meta.variable.declaration.gdscript
+T 18 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.begin.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.end.gdscript
+T 24 source.gdscript meta.variable.declaration.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.begin.gdscript
+T 28 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+T 33 source.gdscript meta.variable.declaration.gdscript
+T 34 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.end.gdscript
+L var array_b: Array[String] = ['1', '2', '3']
+T 3 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript
+T 11 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 12 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 13 source.gdscript meta.variable.declaration.gdscript
+T 18 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.begin.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.end.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript
+T 28 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.begin.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript string.quoted.gdscript
+T 32 source.gdscript meta.variable.declaration.gdscript string.quoted.gdscript
+T 33 source.gdscript meta.variable.declaration.gdscript string.quoted.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript string.quoted.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript string.quoted.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript string.quoted.gdscript
+T 40 source.gdscript meta.variable.declaration.gdscript
+T 41 source.gdscript meta.variable.declaration.gdscript string.quoted.gdscript
+T 42 source.gdscript meta.variable.declaration.gdscript string.quoted.gdscript
+T 43 source.gdscript meta.variable.declaration.gdscript string.quoted.gdscript
+T 44 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.end.gdscript
+L 
+L @rpc
+T 1 source.gdscript entity.name.function.decorator.gdscript
+T 4 source.gdscript entity.name.function.decorator.gdscript
+L func remote_function_a():
+T 4 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 5 source.gdscript meta.function.gdscript
+T 22 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 23 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 24 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 25 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	pass
+T 1 source.gdscript
+T 5 source.gdscript keyword.control.flow.gdscript
+L 
+L @rpc(any_peer, call_local, unreliable)
+T 1 source.gdscript entity.name.function.decorator.gdscript
+T 4 source.gdscript entity.name.function.decorator.gdscript
+T 5 source.gdscript punctuation.parenthesis.begin.gdscript
+T 13 source.gdscript variable.other.gdscript
+T 15 source.gdscript
+T 25 source.gdscript variable.other.gdscript
+T 27 source.gdscript
+T 37 source.gdscript variable.other.gdscript
+T 38 source.gdscript punctuation.parenthesis.end.gdscript
+L func remote_function_b():
+T 4 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 5 source.gdscript meta.function.gdscript
+T 22 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 23 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 24 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 25 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	pass
+T 1 source.gdscript
+T 5 source.gdscript keyword.control.flow.gdscript
+L 
+L # ------------------------------------------------------------------------------
+T 1 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 80 source.gdscript comment.line.number-sign.gdscript
+L 
+L func f():
+T 4 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 5 source.gdscript meta.function.gdscript
+T 6 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 7 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 8 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 9 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L     await $Button.button_up
+T 4 source.gdscript
+T 9 source.gdscript keyword.control.gdscript
+T 10 source.gdscript
+T 11 source.gdscript meta.literal.nodepath.bare.gdscript keyword.control.flow.gdscript
+T 17 source.gdscript meta.literal.nodepath.bare.gdscript constant.character.escape.gdscript
+T 18 source.gdscript punctuation.accessor.gdscript
+T 27 source.gdscript variable.other.property.gdscript
+L     super()
+T 4 source.gdscript
+T 9 source.gdscript keyword.language.gdscript
+T 10 source.gdscript punctuation.parenthesis.begin.gdscript
+T 11 source.gdscript punctuation.parenthesis.end.gdscript
+L     super.some_function()
+T 4 source.gdscript
+T 9 source.gdscript keyword.language.gdscript
+T 10 source.gdscript
+T 23 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 24 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 25 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L     for i in range(1): # `in` is a control keyword
+T 4 source.gdscript
+T 7 source.gdscript keyword.control.gdscript
+T 8 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 12 source.gdscript keyword.control.gdscript
+T 13 source.gdscript
+T 18 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 19 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 20 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 21 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 22 source.gdscript
+T 23 source.gdscript
+T 24 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 50 source.gdscript comment.line.number-sign.gdscript
+L         print(i in range(1)) # `in` is an operator keyword
+T 8 source.gdscript
+T 13 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 14 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 15 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 16 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 18 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.wordlike.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 24 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 28 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 29 source.gdscript
+T 30 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 58 source.gdscript comment.line.number-sign.gdscript
+L 
+L func lambda_test():
+T 4 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 5 source.gdscript meta.function.gdscript
+T 16 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 17 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 18 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 19 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	var lambda_a = func(param1, param2, param3):
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 13 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 14 source.gdscript meta.variable.declaration.gdscript
+T 15 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 28 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.parameters.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.parameters.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 43 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 44 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 45 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript
+L 		pass
+T 2 source.gdscript
+T 6 source.gdscript keyword.control.flow.gdscript
+L 	var lambda_b = func(param1, param2=func_a(10, 1.0, 'test')):
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 13 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 14 source.gdscript meta.variable.declaration.gdscript
+T 15 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 28 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.parameters.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript keyword.operator.gdscript
+T 42 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 43 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 45 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 46 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 47 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 50 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 51 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 52 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 53 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript meta.function-call.gdscript meta.function.parameters.gdscript string.quoted.gdscript
+T 57 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript meta.function-call.gdscript meta.function.parameters.gdscript string.quoted.gdscript
+T 58 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript meta.function-call.gdscript meta.function.parameters.gdscript string.quoted.gdscript
+T 59 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 60 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 61 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript
+L 		pass
+T 2 source.gdscript
+T 6 source.gdscript keyword.control.flow.gdscript
+L 	var lambda_c = func(param1 = false, param2: bool = false, param3 := false):
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 13 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 14 source.gdscript meta.variable.declaration.gdscript
+T 15 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 28 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript keyword.operator.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript constant.language.literal.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.parameters.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 43 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 44 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 45 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 49 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 50 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 51 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript keyword.operator.assignment.gdscript
+T 52 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 57 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript constant.language.literal.gdscript
+T 58 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.parameters.gdscript
+T 59 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 65 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 66 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 67 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 68 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript keyword.operator.assignment.gdscript
+T 69 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 74 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript constant.language.literal.gdscript
+T 75 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 76 source.gdscript meta.variable.declaration.gdscript meta.function.gdscript
+L 		pass
+T 2 source.gdscript
+T 6 source.gdscript keyword.control.flow.gdscript
+L 
+L 	lambda_a.call()
+T 1 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 14 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 15 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 16 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	lambda_b.call()
+T 1 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 14 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 15 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 16 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	lambda_c.call()
+T 1 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 14 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 15 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 16 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L # ------------------------------------------------------------------------------
+T 1 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 80 source.gdscript comment.line.number-sign.gdscript
+L 
+L signal changed(new_value)
+T 6 source.gdscript meta.signal.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 7 source.gdscript meta.signal.gdscript
+T 14 source.gdscript meta.signal.gdscript entity.name.function.gdscript
+T 15 source.gdscript meta.signal.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 24 source.gdscript meta.signal.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 25 source.gdscript meta.signal.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+L var warns_when_changed = "some value":
+T 3 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript
+T 24 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript string.quoted.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript string.quoted.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript string.quoted.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+L 	get:
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.getter.gdscript entity.name.function.gdscript
+T 5 source.gdscript meta.variable.declaration.getter.gdscript punctuation.separator.annotation.gdscript
+L 		return warns_when_changed
+T 2 source.gdscript
+T 8 source.gdscript keyword.control.flow.gdscript
+T 9 source.gdscript
+T 27 source.gdscript variable.other.gdscript
+L 	set(value):
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.setter.gdscript entity.name.function.gdscript
+T 5 source.gdscript meta.variable.declaration.setter.gdscript punctuation.definition.arguments.begin.gdscript
+T 10 source.gdscript meta.variable.declaration.setter.gdscript variable.other.gdscript
+T 11 source.gdscript meta.variable.declaration.setter.gdscript punctuation.definition.arguments.end.gdscript
+T 12 source.gdscript meta.variable.declaration.setter.gdscript punctuation.separator.annotation.gdscript
+L 		changed.emit(value)
+T 2 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 14 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 15 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 20 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 21 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 		warns_when_changed = value
+T 2 source.gdscript
+T 20 source.gdscript variable.other.gdscript
+T 21 source.gdscript
+T 22 source.gdscript keyword.operator.assignment.gdscript
+T 23 source.gdscript
+T 28 source.gdscript variable.other.gdscript
+L 
+L # ------------------------------------------------------------------------------
+T 1 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 80 source.gdscript comment.line.number-sign.gdscript
+L 
+L # from https://github.com/godotengine/godot-vscode-plugin/blob/cdc550a412dfffd26dfe7351e429b73c819d68d0/syntaxes/examples/gdscript2.gd
+T 1 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 134 source.gdscript comment.line.number-sign.gdscript

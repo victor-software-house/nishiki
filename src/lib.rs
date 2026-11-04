@@ -247,6 +247,8 @@ mod emit;
 mod erb;
 #[cfg(any(feature = "lang-c", feature = "lang-python"))]
 mod fnv;
+#[cfg(feature = "lang-gdscript")]
+mod gdscript;
 #[cfg(feature = "lang-go")]
 mod go;
 #[cfg(feature = "lang-graphql")]

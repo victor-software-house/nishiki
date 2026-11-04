@@ -62,6 +62,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "Apache-2.0",
     file: "LICENSE",
   },
+  gdscript: {
+    bundled: "godotengine/godot-vscode-plugin@3f2860fd76c591a6010f0d35220490933e41d01d",
+    origin: "godotengine/godot-vscode-plugin",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   haml: {
     bundled: "karuna/haml-vscode@aa45415aefd691af0a501ea4f98e434490623e0d",
     origin: "karuna/haml-vscode",

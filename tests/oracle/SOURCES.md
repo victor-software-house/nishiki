@@ -151,6 +151,11 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `erb/rails-scaffold-form` | [`railties/lib/rails/generators/erb/scaffold/templates/_form.html.erb.tt`][rails-scaffold-form] in rails/rails | [MIT][railties-licence] |
 | `erb/rails-welcome` | [`railties/lib/rails/templates/rails/welcome/index.html.erb`][rails-welcome] in rails/rails | [MIT][railties-licence] |
 | `erb/sample` | [`samples/erb.sample`][erb-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `gdscript/godot-paint-control` | [`gui/gd_paint/paint_control.gd`][godot-paint-control] in godotengine/godot-demo-projects | [MIT][godot-demos-licence] |
+| `gdscript/godot-voxel-chunk` | [`3d/voxel/world/chunk.gd`][godot-voxel-chunk] in godotengine/godot-demo-projects | [MIT][godot-demos-licence] |
+| `gdscript/grammar-example-1` | [`syntaxes/examples/gdscript1.gd`][godot-vscode-example-1] in godotengine/godot-vscode-plugin | [MIT][godot-vscode-licence] |
+| `gdscript/grammar-example-2` | [`syntaxes/examples/gdscript2.gd`][godot-vscode-example-2] in godotengine/godot-vscode-plugin | [MIT][godot-vscode-licence] |
+| `gdscript/sample` | [`samples/gdscript.sample`][gdscript-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `go/cobra-command` | [`command.go`][cobra-command] in spf13/cobra | [Apache-2.0][cobra-licence] |
 | `go/coverage` | `oracle/inputs/go-coverage.go`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `go/gin-context` | [`context.go`][gin-context] in gin-gonic/gin | [MIT][gin-licence] |
@@ -1080,6 +1085,7 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [fmt-xchar-test]: https://github.com/fmtlib/fmt/blob/4ed3535092a96ac9f56fab80df83416d51bcc78e/test/xchar-test.cc
 [foundation-keyed-archive]: https://github.com/apple/swift-corelibs-foundation/blob/cbfe1c7376ffe869d08b1b5f643d747ef0a16069/Tests/Foundation/Resources/NSKeyedUnarchiver-ConcreteValueTest.plist
 [foundation-licence]: https://github.com/apple/swift-corelibs-foundation/blob/cbfe1c7376ffe869d08b1b5f643d747ef0a16069/LICENSE
+[gdscript-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/gdscript.sample
 [gin-context]: https://github.com/gin-gonic/gin/blob/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646/context.go
 [gin-licence]: https://github.com/gin-gonic/gin/blob/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646/LICENSE
 [gin-readme]: https://github.com/gin-gonic/gin/blob/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646/README.md
@@ -1097,6 +1103,12 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [go-test-issue15528]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/test/fixedbugs/issue15528.go
 [go-types-typeinst1]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/internal/types/testdata/check/typeinst1.go
 [go-types-typeparams]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/internal/types/testdata/check/typeparams.go
+[godot-demos-licence]: https://github.com/godotengine/godot-demo-projects/blob/b761b4cd5718a7118f2c95eb55f181d0a5f004f1/LICENSE.md
+[godot-paint-control]: https://github.com/godotengine/godot-demo-projects/blob/b761b4cd5718a7118f2c95eb55f181d0a5f004f1/gui/gd_paint/paint_control.gd
+[godot-voxel-chunk]: https://github.com/godotengine/godot-demo-projects/blob/b761b4cd5718a7118f2c95eb55f181d0a5f004f1/3d/voxel/world/chunk.gd
+[godot-vscode-example-1]: https://github.com/godotengine/godot-vscode-plugin/blob/3f2860fd76c591a6010f0d35220490933e41d01d/syntaxes/examples/gdscript1.gd
+[godot-vscode-example-2]: https://github.com/godotengine/godot-vscode-plugin/blob/3f2860fd76c591a6010f0d35220490933e41d01d/syntaxes/examples/gdscript2.gd
+[godot-vscode-licence]: https://github.com/godotengine/godot-vscode-plugin/blob/3f2860fd76c591a6010f0d35220490933e41d01d/LICENSE
 [golang-licence]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/LICENSE
 [google-java-format-b380299722]: https://github.com/google/google-java-format/blob/056a0ac101cc5c297499f1ded7062a2a65b0cdcc/core/src/test/resources/com/google/googlejavaformat/java/testdata/B380299722.input
 [google-java-format-i574]: https://github.com/google/google-java-format/blob/056a0ac101cc5c297499f1ded7062a2a65b0cdcc/core/src/test/resources/com/google/googlejavaformat/java/testdata/I574.input

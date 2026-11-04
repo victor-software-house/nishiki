@@ -184,6 +184,10 @@ const gin =
   "https://raw.githubusercontent.com/gin-gonic/gin/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646";
 const githubMarkdownCss =
   "https://raw.githubusercontent.com/sindresorhus/github-markdown-css/7f38dcb9054bc5d860fac65291f5c98fef47932c";
+const godotDemos =
+  "https://raw.githubusercontent.com/godotengine/godot-demo-projects/b761b4cd5718a7118f2c95eb55f181d0a5f004f1";
+const godotVscode =
+  "https://raw.githubusercontent.com/godotengine/godot-vscode-plugin/3f2860fd76c591a6010f0d35220490933e41d01d";
 const golang =
   "https://raw.githubusercontent.com/golang/go/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6";
 const googleapis =
@@ -630,6 +634,12 @@ export const inputs: Input[] = [
   { lang: "erb", name: "rails-scaffold-form", url: `${rails}/railties/lib/rails/generators/erb/scaffold/templates/_form.html.erb.tt` },
   { lang: "erb", name: "rails-welcome", url: `${rails}/railties/lib/rails/templates/rails/welcome/index.html.erb` },
   { lang: "erb", name: "sample", url: `${samples}/erb.sample` },
+  // GDScript runs on the TextMate engine.
+  { lang: "gdscript", name: "godot-paint-control", url: `${godotDemos}/gui/gd_paint/paint_control.gd` },
+  { lang: "gdscript", name: "godot-voxel-chunk", url: `${godotDemos}/3d/voxel/world/chunk.gd` },
+  { lang: "gdscript", name: "grammar-example-1", url: `${godotVscode}/syntaxes/examples/gdscript1.gd` },
+  { lang: "gdscript", name: "grammar-example-2", url: `${godotVscode}/syntaxes/examples/gdscript2.gd` },
+  { lang: "gdscript", name: "sample", url: `${samples}/gdscript.sample` },
   { lang: "go", name: "cobra-command", url: `${cobra}/command.go` },
   { lang: "go", name: "coverage", text: goCoverage },
   { lang: "go", name: "gin-context", url: `${gin}/context.go` },

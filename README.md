@@ -66,6 +66,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | Dockerfile | `Language::Dockerfile` | `lang-dockerfile` | `all` | `docker`, `dockerfile` |
 | Elixir | `Language::Elixir` | `lang-elixir` | `textmate` | `elixir` |
 | ERB | `Language::Erb` | `lang-erb` | `all` | `erb` |
+| GDScript | `Language::GdScript` | `lang-gdscript` | `textmate` | `gdscript`, `gd` |
 | Go | `Language::Go` | `lang-go` | `all` | `go`, `golang` |
 | GraphQL | `Language::GraphQl` | `lang-graphql` | `all` | `graphql`, `gql` |
 | HAML | `Language::Haml` | `lang-haml` | `textmate` | `haml` |

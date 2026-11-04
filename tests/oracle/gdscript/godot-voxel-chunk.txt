@@ -1,0 +1,2885 @@
+L class_name Chunk
+T 10 source.gdscript keyword.language.gdscript
+T 11 source.gdscript
+T 16 source.gdscript entity.name.type.class.gdscript
+L extends StaticBody3D
+T 7 source.gdscript keyword.language.gdscript
+T 8 source.gdscript
+T 20 source.gdscript entity.name.type.class.gdscript
+L # These chunks are instanced and given data by VoxelWorld.
+T 1 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 58 source.gdscript comment.line.number-sign.gdscript
+L # After that, chunks finish setting themselves up in the _ready() function.
+T 1 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 75 source.gdscript comment.line.number-sign.gdscript
+L # If a chunk is changed, its "regenerate" method is called.
+T 1 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 59 source.gdscript comment.line.number-sign.gdscript
+L 
+L const CHUNK_SIZE := 16 # Keep in sync with TerrainGenerator.
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.const.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 17 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript
+T 24 source.gdscript meta.variable.declaration.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 60 source.gdscript meta.variable.declaration.gdscript comment.line.number-sign.gdscript
+L const TEXTURE_SHEET_WIDTH := 8
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.const.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript
+T 28 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+L const CHUNK_LAST_INDEX := CHUNK_SIZE - 1
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.const.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript keyword.operator.arithmetic.gdscript
+T 39 source.gdscript meta.variable.declaration.gdscript
+T 40 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+L const TEXTURE_TILE_SIZE := 1.0 / TEXTURE_SHEET_WIDTH
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.const.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 24 source.gdscript meta.variable.declaration.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript constant.numeric.float.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript
+T 32 source.gdscript meta.variable.declaration.gdscript keyword.operator.arithmetic.gdscript
+T 33 source.gdscript meta.variable.declaration.gdscript
+T 52 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+L const CHUNK_EXTENTS := Vector3.ONE / 2.0
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.const.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript punctuation.accessor.gdscript
+T 34 source.gdscript meta.variable.declaration.gdscript constant.language.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript keyword.operator.arithmetic.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript
+T 40 source.gdscript meta.variable.declaration.gdscript constant.numeric.float.gdscript
+L const DIRECTIONS: Array[Vector3i] = [Vector3i.LEFT, Vector3i.RIGHT, Vector3i.DOWN, Vector3i.UP, Vector3i.FORWARD, Vector3i.BACK]
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.const.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 17 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 18 source.gdscript meta.variable.declaration.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 24 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.begin.gdscript
+T 32 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 33 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.end.gdscript
+T 34 source.gdscript meta.variable.declaration.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.begin.gdscript
+T 45 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 46 source.gdscript meta.variable.declaration.gdscript
+T 50 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 52 source.gdscript meta.variable.declaration.gdscript
+T 60 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 61 source.gdscript meta.variable.declaration.gdscript
+T 66 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 68 source.gdscript meta.variable.declaration.gdscript
+T 76 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 77 source.gdscript meta.variable.declaration.gdscript
+T 81 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 83 source.gdscript meta.variable.declaration.gdscript
+T 91 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 92 source.gdscript meta.variable.declaration.gdscript
+T 94 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 96 source.gdscript meta.variable.declaration.gdscript
+T 104 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 105 source.gdscript meta.variable.declaration.gdscript
+T 112 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 114 source.gdscript meta.variable.declaration.gdscript
+T 122 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 123 source.gdscript meta.variable.declaration.gdscript
+T 127 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 128 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.end.gdscript
+L 
+L var data: Dictionary[Vector3i, int] = {}
+T 3 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript
+T 8 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 9 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 10 source.gdscript meta.variable.declaration.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.begin.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript
+T 34 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.end.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript
+T 39 source.gdscript meta.variable.declaration.gdscript punctuation.definition.dict.begin.gdscript
+T 40 source.gdscript meta.variable.declaration.gdscript punctuation.definition.dict.end.gdscript
+L var chunk_position := Vector3i()
+T 3 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript
+T 18 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.begin.gdscript
+T 32 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.end.gdscript
+L var is_initial_mesh_generated: bool = false
+T 3 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript
+T 43 source.gdscript meta.variable.declaration.gdscript constant.language.literal.gdscript
+L var mesh_task_id := 0
+T 3 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 17 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+L 
+L static var box_shape: BoxShape3D = null
+T 6 source.gdscript keyword.language.gdscript
+T 7 source.gdscript
+T 10 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 11 source.gdscript meta.variable.declaration.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript
+T 32 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 33 source.gdscript meta.variable.declaration.gdscript
+T 34 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript
+T 39 source.gdscript meta.variable.declaration.gdscript constant.language.literal.gdscript
+L 
+L @onready var voxel_world := get_parent() as VoxelWorld
+T 1 source.gdscript entity.name.function.decorator.gdscript
+T 8 source.gdscript entity.name.function.decorator.gdscript
+T 9 source.gdscript
+T 12 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 13 source.gdscript meta.variable.declaration.gdscript
+T 24 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 28 source.gdscript meta.variable.declaration.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 39 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 40 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 41 source.gdscript meta.variable.declaration.gdscript
+T 43 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript
+T 44 source.gdscript meta.variable.declaration.gdscript
+T 54 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+L 
+L 
+L func _init(pos: Vector3i) -> void:
+T 4 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 5 source.gdscript meta.function.gdscript
+T 10 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 11 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 14 source.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 15 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 16 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 24 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 25 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 26 source.gdscript meta.function.gdscript
+T 28 source.gdscript meta.function.gdscript keyword.operator.arithmetic.gdscript
+T 29 source.gdscript meta.function.gdscript
+T 33 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 34 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	chunk_position = pos
+T 1 source.gdscript
+T 15 source.gdscript variable.other.gdscript
+T 16 source.gdscript
+T 17 source.gdscript keyword.operator.assignment.gdscript
+T 18 source.gdscript
+T 21 source.gdscript variable.other.gdscript
+L 	transform.origin = Vector3(chunk_position * CHUNK_SIZE)
+T 1 source.gdscript
+T 10 source.gdscript variable.other.gdscript
+T 11 source.gdscript punctuation.accessor.gdscript
+T 17 source.gdscript variable.other.property.gdscript
+T 18 source.gdscript
+T 19 source.gdscript keyword.operator.assignment.gdscript
+T 20 source.gdscript
+T 27 source.gdscript entity.name.type.class.builtin.gdscript
+T 28 source.gdscript punctuation.parenthesis.begin.gdscript
+T 42 source.gdscript variable.other.gdscript
+T 43 source.gdscript
+T 44 source.gdscript keyword.operator.arithmetic.gdscript
+T 45 source.gdscript
+T 55 source.gdscript variable.other.constant.gdscript
+T 56 source.gdscript punctuation.parenthesis.end.gdscript
+L 	name = str(chunk_position)
+T 1 source.gdscript
+T 5 source.gdscript variable.other.gdscript
+T 6 source.gdscript
+T 7 source.gdscript keyword.operator.assignment.gdscript
+T 8 source.gdscript
+T 11 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 12 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 27 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	if Settings.world_type == 0:
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 12 source.gdscript entity.name.type.class.gdscript
+T 13 source.gdscript punctuation.accessor.gdscript
+T 23 source.gdscript variable.other.property.gdscript
+T 24 source.gdscript
+T 26 source.gdscript keyword.operator.comparison.gdscript
+T 27 source.gdscript
+T 28 source.gdscript constant.numeric.integer.gdscript
+T 29 source.gdscript
+L 		data = TerrainGenerator.random_blocks()
+T 2 source.gdscript
+T 6 source.gdscript variable.other.gdscript
+T 7 source.gdscript
+T 8 source.gdscript keyword.operator.assignment.gdscript
+T 9 source.gdscript
+T 25 source.gdscript entity.name.type.class.gdscript
+T 26 source.gdscript
+T 39 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 40 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 41 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	else:
+T 1 source.gdscript
+T 5 source.gdscript keyword.control.flow.gdscript
+T 6 source.gdscript
+L 		data = TerrainGenerator.flat(chunk_position)
+T 2 source.gdscript
+T 6 source.gdscript variable.other.gdscript
+T 7 source.gdscript
+T 8 source.gdscript keyword.operator.assignment.gdscript
+T 9 source.gdscript
+T 25 source.gdscript entity.name.type.class.gdscript
+T 26 source.gdscript
+T 30 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 31 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 45 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 46 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	# We can only add colliders in the main thread due to physics limitations.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 75 source.gdscript comment.line.number-sign.gdscript
+L 	_generate_chunk_collider()
+T 1 source.gdscript
+T 25 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 26 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 27 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 
+L func _notification(what: int) -> void:
+T 4 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 5 source.gdscript meta.function.gdscript
+T 18 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 19 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 23 source.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 24 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 25 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 28 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 29 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 30 source.gdscript meta.function.gdscript
+T 32 source.gdscript meta.function.gdscript keyword.operator.arithmetic.gdscript
+T 33 source.gdscript meta.function.gdscript
+T 37 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 38 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	if what == NOTIFICATION_PREDELETE:
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 8 source.gdscript variable.other.gdscript
+T 9 source.gdscript
+T 11 source.gdscript keyword.operator.comparison.gdscript
+T 12 source.gdscript
+T 34 source.gdscript variable.other.constant.gdscript
+T 35 source.gdscript
+L 		if mesh_task_id >= 1:
+T 2 source.gdscript
+T 4 source.gdscript keyword.control.flow.gdscript
+T 5 source.gdscript
+T 17 source.gdscript variable.other.gdscript
+T 18 source.gdscript
+T 20 source.gdscript keyword.operator.comparison.gdscript
+T 21 source.gdscript
+T 22 source.gdscript constant.numeric.integer.gdscript
+T 23 source.gdscript
+L 			WorkerThreadPool.wait_for_task_completion(mesh_task_id)
+T 3 source.gdscript
+T 19 source.gdscript entity.name.type.class.gdscript
+T 20 source.gdscript
+T 44 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 45 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 57 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 58 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 			mesh_task_id = 0
+T 3 source.gdscript
+T 15 source.gdscript variable.other.gdscript
+T 16 source.gdscript
+T 17 source.gdscript keyword.operator.assignment.gdscript
+T 18 source.gdscript
+T 19 source.gdscript constant.numeric.integer.gdscript
+L 
+L 
+L func try_initial_generate_mesh(all_chunks: Dictionary[Vector3i, Chunk]) -> void:
+T 4 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 5 source.gdscript meta.function.gdscript
+T 30 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 31 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 41 source.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 42 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 43 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 53 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 54 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 62 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 64 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 69 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 70 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 71 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 72 source.gdscript meta.function.gdscript
+T 74 source.gdscript meta.function.gdscript keyword.operator.arithmetic.gdscript
+T 75 source.gdscript meta.function.gdscript
+T 79 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 80 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	# We can use a thread for mesh generation.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 43 source.gdscript comment.line.number-sign.gdscript
+L 	for dir in DIRECTIONS:
+T 1 source.gdscript
+T 4 source.gdscript keyword.control.gdscript
+T 5 source.gdscript
+T 8 source.gdscript variable.other.gdscript
+T 9 source.gdscript
+T 11 source.gdscript keyword.control.gdscript
+T 12 source.gdscript
+T 22 source.gdscript variable.other.constant.gdscript
+T 23 source.gdscript
+L 		if not all_chunks.has(chunk_position + dir):
+T 2 source.gdscript
+T 4 source.gdscript keyword.control.flow.gdscript
+T 5 source.gdscript
+T 8 source.gdscript keyword.operator.wordlike.gdscript
+T 9 source.gdscript
+T 19 source.gdscript variable.other.gdscript
+T 20 source.gdscript
+T 23 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 24 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 38 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 45 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 46 source.gdscript
+L 			return
+T 3 source.gdscript
+T 9 source.gdscript keyword.control.flow.gdscript
+L 	is_initial_mesh_generated = true
+T 1 source.gdscript
+T 26 source.gdscript variable.other.gdscript
+T 27 source.gdscript
+T 28 source.gdscript keyword.operator.assignment.gdscript
+T 29 source.gdscript
+T 33 source.gdscript constant.language.literal.gdscript
+L 	mesh_task_id = WorkerThreadPool.add_task(_generate_chunk_mesh, true)
+T 1 source.gdscript
+T 13 source.gdscript variable.other.gdscript
+T 14 source.gdscript
+T 15 source.gdscript keyword.operator.assignment.gdscript
+T 16 source.gdscript
+T 32 source.gdscript entity.name.type.class.gdscript
+T 33 source.gdscript
+T 41 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 42 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 63 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 68 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.literal.gdscript
+T 69 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 
+L func regenerate() -> void:
+T 4 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 5 source.gdscript meta.function.gdscript
+T 15 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 16 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 17 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 18 source.gdscript meta.function.gdscript
+T 20 source.gdscript meta.function.gdscript keyword.operator.arithmetic.gdscript
+T 21 source.gdscript meta.function.gdscript
+T 25 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 26 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	# Making shape changes to bodies with many/complex shapes, while the body is in the scene tree,
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 96 source.gdscript comment.line.number-sign.gdscript
+L 	# can be expensive when using Jolt Physics, so we temporarily remove it from the scene tree.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 93 source.gdscript comment.line.number-sign.gdscript
+L 	voxel_world.remove_child(self)
+T 1 source.gdscript
+T 12 source.gdscript variable.other.gdscript
+T 13 source.gdscript
+T 25 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 26 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 30 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.language.gdscript
+T 31 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	# Clear out all old nodes first.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 33 source.gdscript comment.line.number-sign.gdscript
+L 	for c in get_children():
+T 1 source.gdscript
+T 4 source.gdscript keyword.control.gdscript
+T 5 source.gdscript
+T 6 source.gdscript variable.other.gdscript
+T 7 source.gdscript
+T 9 source.gdscript keyword.control.gdscript
+T 10 source.gdscript
+T 22 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 23 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 24 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 25 source.gdscript
+L 		remove_child(c)
+T 2 source.gdscript
+T 14 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 15 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 16 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 17 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 		c.queue_free()
+T 2 source.gdscript
+T 3 source.gdscript variable.other.gdscript
+T 4 source.gdscript
+T 14 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 15 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 16 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	# Then generate new ones.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 26 source.gdscript comment.line.number-sign.gdscript
+L 	_generate_chunk_collider()
+T 1 source.gdscript
+T 25 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 26 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 27 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	_generate_chunk_mesh()
+T 1 source.gdscript
+T 21 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 22 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 23 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	voxel_world.add_child(self)
+T 1 source.gdscript
+T 12 source.gdscript variable.other.gdscript
+T 13 source.gdscript
+T 22 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 23 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.language.gdscript
+T 28 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 
+L func _generate_chunk_collider() -> void:
+T 4 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 5 source.gdscript meta.function.gdscript
+T 29 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 30 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 31 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 32 source.gdscript meta.function.gdscript
+T 34 source.gdscript meta.function.gdscript keyword.operator.arithmetic.gdscript
+T 35 source.gdscript meta.function.gdscript
+T 39 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 40 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	if data.is_empty():
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 8 source.gdscript variable.other.gdscript
+T 9 source.gdscript
+T 17 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 18 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 19 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 20 source.gdscript
+L 		return
+T 2 source.gdscript
+T 8 source.gdscript keyword.control.flow.gdscript
+L 
+L 	# For each block, generate a collider.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 39 source.gdscript comment.line.number-sign.gdscript
+L 	for block_position: Vector3i in data.keys():
+T 1 source.gdscript
+T 4 source.gdscript keyword.control.gdscript
+T 5 source.gdscript
+T 19 source.gdscript variable.other.gdscript
+T 20 source.gdscript
+T 21 source.gdscript
+T 29 source.gdscript entity.name.type.class.builtin.gdscript
+T 30 source.gdscript
+T 32 source.gdscript keyword.operator.wordlike.gdscript
+T 33 source.gdscript
+T 37 source.gdscript variable.other.gdscript
+T 38 source.gdscript
+T 42 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 43 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 44 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 45 source.gdscript
+L 		var block_id: int = data[block_position]
+T 2 source.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 14 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 15 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.begin.gdscript
+T 41 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 42 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.end.gdscript
+L 		if block_id != 27 and block_id != 28:
+T 2 source.gdscript
+T 4 source.gdscript keyword.control.flow.gdscript
+T 5 source.gdscript
+T 13 source.gdscript variable.other.gdscript
+T 14 source.gdscript
+T 16 source.gdscript keyword.operator.comparison.gdscript
+T 17 source.gdscript
+T 19 source.gdscript constant.numeric.integer.gdscript
+T 20 source.gdscript
+T 23 source.gdscript keyword.operator.wordlike.gdscript
+T 24 source.gdscript
+T 32 source.gdscript variable.other.gdscript
+T 33 source.gdscript
+T 35 source.gdscript keyword.operator.comparison.gdscript
+T 36 source.gdscript
+T 38 source.gdscript constant.numeric.integer.gdscript
+T 39 source.gdscript
+L 			_create_block_collider(block_position)
+T 3 source.gdscript
+T 25 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 26 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 41 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 
+L func _generate_chunk_mesh() -> void:
+T 4 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 5 source.gdscript meta.function.gdscript
+T 25 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 26 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 27 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 28 source.gdscript meta.function.gdscript
+T 30 source.gdscript meta.function.gdscript keyword.operator.arithmetic.gdscript
+T 31 source.gdscript meta.function.gdscript
+T 35 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 36 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	if data.is_empty():
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 8 source.gdscript variable.other.gdscript
+T 9 source.gdscript
+T 17 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 18 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 19 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 20 source.gdscript
+L 		return
+T 2 source.gdscript
+T 8 source.gdscript keyword.control.flow.gdscript
+L 
+L 	var surface_tool := SurfaceTool.new()
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 17 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 18 source.gdscript meta.variable.declaration.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript
+T 32 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 33 source.gdscript meta.variable.declaration.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	surface_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
+T 1 source.gdscript
+T 13 source.gdscript variable.other.gdscript
+T 14 source.gdscript
+T 19 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 20 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 24 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 45 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	# For each block, add data to the SurfaceTool and generate a collider.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 71 source.gdscript comment.line.number-sign.gdscript
+L 	for block_position: Vector3i in data.keys():
+T 1 source.gdscript
+T 4 source.gdscript keyword.control.gdscript
+T 5 source.gdscript
+T 19 source.gdscript variable.other.gdscript
+T 20 source.gdscript
+T 21 source.gdscript
+T 29 source.gdscript entity.name.type.class.builtin.gdscript
+T 30 source.gdscript
+T 32 source.gdscript keyword.operator.wordlike.gdscript
+T 33 source.gdscript
+T 37 source.gdscript variable.other.gdscript
+T 38 source.gdscript
+T 42 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 43 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 44 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 45 source.gdscript
+L 		var block_id: int = data[block_position]
+T 2 source.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 14 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 15 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.begin.gdscript
+T 41 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 42 source.gdscript meta.variable.declaration.gdscript punctuation.definition.list.end.gdscript
+L 		_draw_block_mesh(surface_tool, block_position, block_id)
+T 2 source.gdscript
+T 18 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 19 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 47 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 48 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 57 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 58 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	# Create the chunk's mesh from the SurfaceTool data.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 53 source.gdscript comment.line.number-sign.gdscript
+L 	surface_tool.generate_tangents()
+T 1 source.gdscript
+T 13 source.gdscript variable.other.gdscript
+T 14 source.gdscript
+T 31 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 32 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 33 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	surface_tool.index()
+T 1 source.gdscript
+T 13 source.gdscript variable.other.gdscript
+T 14 source.gdscript
+T 19 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 20 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 21 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	var array_mesh := surface_tool.commit()
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 15 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript
+T 18 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 32 source.gdscript meta.variable.declaration.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 39 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 40 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	var mi := MeshInstance3D.new()
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 7 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 8 source.gdscript meta.variable.declaration.gdscript
+T 10 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 11 source.gdscript meta.variable.declaration.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	mi.mesh = array_mesh
+T 1 source.gdscript
+T 3 source.gdscript variable.other.gdscript
+T 4 source.gdscript punctuation.accessor.gdscript
+T 8 source.gdscript variable.other.property.gdscript
+T 9 source.gdscript
+T 10 source.gdscript keyword.operator.assignment.gdscript
+T 11 source.gdscript
+T 21 source.gdscript variable.other.gdscript
+L 	mi.material_override = preload("res://world/textures/material.tres")
+T 1 source.gdscript
+T 3 source.gdscript variable.other.gdscript
+T 4 source.gdscript punctuation.accessor.gdscript
+T 21 source.gdscript variable.other.property.gdscript
+T 22 source.gdscript
+T 23 source.gdscript keyword.operator.assignment.gdscript
+T 24 source.gdscript
+T 31 source.gdscript meta.function-call.gdscript keyword.language.gdscript
+T 32 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript string.quoted.gdscript
+T 67 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript string.quoted.gdscript
+T 68 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript string.quoted.gdscript
+T 69 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	add_child.call_deferred(mi)
+T 1 source.gdscript
+T 10 source.gdscript variable.other.gdscript
+T 11 source.gdscript
+T 24 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 25 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 28 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 
+L func _draw_block_mesh(surface_tool: SurfaceTool, block_sub_position: Vector3i, block_id: int) -> void:
+T 4 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 5 source.gdscript meta.function.gdscript
+T 21 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 22 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 34 source.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 35 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 36 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 47 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 48 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.parameters.gdscript
+T 49 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 67 source.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 68 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 69 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 77 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 78 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.parameters.gdscript
+T 79 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 87 source.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 88 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 89 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 92 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 93 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 94 source.gdscript meta.function.gdscript
+T 96 source.gdscript meta.function.gdscript keyword.operator.arithmetic.gdscript
+T 97 source.gdscript meta.function.gdscript
+T 101 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 102 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	var verts := Chunk.calculate_block_verts(block_sub_position)
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 10 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 11 source.gdscript meta.variable.declaration.gdscript
+T 13 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 14 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript
+T 41 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 42 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 60 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 61 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	var uvs := Chunk.calculate_block_uvs(block_id)
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 8 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 9 source.gdscript meta.variable.declaration.gdscript
+T 11 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 12 source.gdscript meta.variable.declaration.gdscript
+T 17 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 18 source.gdscript meta.variable.declaration.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 46 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 47 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	var top_uvs := uvs
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 12 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 13 source.gdscript meta.variable.declaration.gdscript
+T 15 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+L 	var bottom_uvs := uvs
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 15 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript
+T 18 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+L 
+L 	# Bush blocks get drawn in their own special way.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 50 source.gdscript comment.line.number-sign.gdscript
+L 	if block_id == 27 or block_id == 28:
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 12 source.gdscript variable.other.gdscript
+T 13 source.gdscript
+T 15 source.gdscript keyword.operator.comparison.gdscript
+T 16 source.gdscript
+T 18 source.gdscript constant.numeric.integer.gdscript
+T 19 source.gdscript
+T 21 source.gdscript keyword.operator.wordlike.gdscript
+T 22 source.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 33 source.gdscript keyword.operator.comparison.gdscript
+T 34 source.gdscript
+T 36 source.gdscript constant.numeric.integer.gdscript
+T 37 source.gdscript
+L 		_draw_block_face(surface_tool, [verts[2], verts[0], verts[7], verts[5]], uvs, Vector3(-1, 0, 1).normalized())
+T 2 source.gdscript
+T 18 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 19 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 51 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 69 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 73 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 74 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 79 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 80 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 87 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 88 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.parenthesis.begin.gdscript
+T 89 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 90 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 92 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 93 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 95 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 96 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 97 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.parenthesis.end.gdscript
+T 98 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 108 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 109 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 110 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 111 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 		_draw_block_face(surface_tool, [verts[7], verts[5], verts[2], verts[0]], uvs, Vector3(1, 0, -1).normalized())
+T 2 source.gdscript
+T 18 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 19 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 51 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 69 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 73 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 74 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 79 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 80 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 87 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 88 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.parenthesis.begin.gdscript
+T 89 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 91 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 92 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 94 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 95 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 96 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 97 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.parenthesis.end.gdscript
+T 98 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 108 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 109 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 110 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 111 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 		_draw_block_face(surface_tool, [verts[3], verts[1], verts[6], verts[4]], uvs, Vector3(1, 0, 1).normalized())
+T 2 source.gdscript
+T 18 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 19 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 51 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 69 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 73 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 74 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 79 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 80 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 87 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 88 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.parenthesis.begin.gdscript
+T 89 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 91 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 92 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 94 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 95 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 96 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.parenthesis.end.gdscript
+T 97 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 107 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 108 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 109 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 110 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 		_draw_block_face(surface_tool, [verts[6], verts[4], verts[3], verts[1]], uvs, Vector3(-1, 0, -1).normalized())
+T 2 source.gdscript
+T 18 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 19 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 51 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 69 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 73 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 74 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 79 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 80 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 87 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 88 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.parenthesis.begin.gdscript
+T 89 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 90 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 92 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 93 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 95 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 96 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 97 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 98 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.parenthesis.end.gdscript
+T 99 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 109 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 110 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 111 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 112 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 		return
+T 2 source.gdscript
+T 8 source.gdscript keyword.control.flow.gdscript
+L 
+L 	# Allow some blocks to have different top/bottom textures.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 59 source.gdscript comment.line.number-sign.gdscript
+L 	if block_id == 3: # Grass.
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 12 source.gdscript variable.other.gdscript
+T 13 source.gdscript
+T 15 source.gdscript keyword.operator.comparison.gdscript
+T 16 source.gdscript
+T 17 source.gdscript constant.numeric.integer.gdscript
+T 19 source.gdscript
+T 20 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 27 source.gdscript comment.line.number-sign.gdscript
+L 		top_uvs = Chunk.calculate_block_uvs(0)
+T 2 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 11 source.gdscript keyword.operator.assignment.gdscript
+T 12 source.gdscript
+T 17 source.gdscript entity.name.type.class.gdscript
+T 18 source.gdscript
+T 37 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 38 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 40 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 		bottom_uvs = Chunk.calculate_block_uvs(2)
+T 2 source.gdscript
+T 12 source.gdscript variable.other.gdscript
+T 13 source.gdscript
+T 14 source.gdscript keyword.operator.assignment.gdscript
+T 15 source.gdscript
+T 20 source.gdscript entity.name.type.class.gdscript
+T 21 source.gdscript
+T 40 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 41 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 43 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	elif block_id == 5: # Furnace.
+T 1 source.gdscript
+T 5 source.gdscript keyword.control.flow.gdscript
+T 6 source.gdscript
+T 14 source.gdscript variable.other.gdscript
+T 15 source.gdscript
+T 17 source.gdscript keyword.operator.comparison.gdscript
+T 18 source.gdscript
+T 19 source.gdscript constant.numeric.integer.gdscript
+T 21 source.gdscript
+T 22 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 31 source.gdscript comment.line.number-sign.gdscript
+L 		top_uvs = Chunk.calculate_block_uvs(31)
+T 2 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 11 source.gdscript keyword.operator.assignment.gdscript
+T 12 source.gdscript
+T 17 source.gdscript entity.name.type.class.gdscript
+T 18 source.gdscript
+T 37 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 38 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 41 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 		bottom_uvs = top_uvs
+T 2 source.gdscript
+T 12 source.gdscript variable.other.gdscript
+T 13 source.gdscript
+T 14 source.gdscript keyword.operator.assignment.gdscript
+T 15 source.gdscript
+T 22 source.gdscript variable.other.gdscript
+L 	elif block_id == 12: # Log.
+T 1 source.gdscript
+T 5 source.gdscript keyword.control.flow.gdscript
+T 6 source.gdscript
+T 14 source.gdscript variable.other.gdscript
+T 15 source.gdscript
+T 17 source.gdscript keyword.operator.comparison.gdscript
+T 18 source.gdscript
+T 20 source.gdscript constant.numeric.integer.gdscript
+T 22 source.gdscript
+T 23 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 28 source.gdscript comment.line.number-sign.gdscript
+L 		top_uvs = Chunk.calculate_block_uvs(30)
+T 2 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 11 source.gdscript keyword.operator.assignment.gdscript
+T 12 source.gdscript
+T 17 source.gdscript entity.name.type.class.gdscript
+T 18 source.gdscript
+T 37 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 38 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 41 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 		bottom_uvs = top_uvs
+T 2 source.gdscript
+T 12 source.gdscript variable.other.gdscript
+T 13 source.gdscript
+T 14 source.gdscript keyword.operator.assignment.gdscript
+T 15 source.gdscript
+T 22 source.gdscript variable.other.gdscript
+L 	elif block_id == 19: # Bookshelf.
+T 1 source.gdscript
+T 5 source.gdscript keyword.control.flow.gdscript
+T 6 source.gdscript
+T 14 source.gdscript variable.other.gdscript
+T 15 source.gdscript
+T 17 source.gdscript keyword.operator.comparison.gdscript
+T 18 source.gdscript
+T 20 source.gdscript constant.numeric.integer.gdscript
+T 22 source.gdscript
+T 23 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 34 source.gdscript comment.line.number-sign.gdscript
+L 		top_uvs = Chunk.calculate_block_uvs(4)
+T 2 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 11 source.gdscript keyword.operator.assignment.gdscript
+T 12 source.gdscript
+T 17 source.gdscript entity.name.type.class.gdscript
+T 18 source.gdscript
+T 37 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 38 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 40 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 		bottom_uvs = top_uvs
+T 2 source.gdscript
+T 12 source.gdscript variable.other.gdscript
+T 13 source.gdscript
+T 14 source.gdscript keyword.operator.assignment.gdscript
+T 15 source.gdscript
+T 22 source.gdscript variable.other.gdscript
+L 
+L 	# Main rendering code for normal blocks.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 41 source.gdscript comment.line.number-sign.gdscript
+L 	#var other_block_position := block_sub_position
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 48 source.gdscript comment.line.number-sign.gdscript
+L 	var other_block_id := 0
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript
+T 24 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+L 	if block_sub_position.x == 0:
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 22 source.gdscript variable.other.gdscript
+T 23 source.gdscript punctuation.accessor.gdscript
+T 24 source.gdscript variable.other.property.gdscript
+T 25 source.gdscript
+T 27 source.gdscript keyword.operator.comparison.gdscript
+T 28 source.gdscript
+T 29 source.gdscript constant.numeric.integer.gdscript
+T 30 source.gdscript
+L 		var other_sub_pos: Vector3i = Vector3i(15, block_sub_position.y, block_sub_position.z)
+T 2 source.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 32 source.gdscript meta.variable.declaration.gdscript
+T 40 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 41 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.begin.gdscript
+T 43 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+T 45 source.gdscript meta.variable.declaration.gdscript
+T 63 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 64 source.gdscript meta.variable.declaration.gdscript
+T 65 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 67 source.gdscript meta.variable.declaration.gdscript
+T 85 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 86 source.gdscript meta.variable.declaration.gdscript
+T 87 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 88 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.end.gdscript
+L 		other_block_id = voxel_world.get_block_in_chunk(chunk_position + Vector3i.LEFT, other_sub_pos)
+T 2 source.gdscript
+T 16 source.gdscript variable.other.gdscript
+T 17 source.gdscript
+T 18 source.gdscript keyword.operator.assignment.gdscript
+T 19 source.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 49 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 50 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 65 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 66 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 67 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 80 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 81 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 82 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 95 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 96 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	else:
+T 1 source.gdscript
+T 5 source.gdscript keyword.control.flow.gdscript
+T 6 source.gdscript
+L 		var other_block_sub_pos: Vector3i = block_sub_position + Vector3i.LEFT
+T 2 source.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript
+T 56 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 57 source.gdscript meta.variable.declaration.gdscript
+T 58 source.gdscript meta.variable.declaration.gdscript keyword.operator.arithmetic.gdscript
+T 59 source.gdscript meta.variable.declaration.gdscript
+T 67 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 68 source.gdscript meta.variable.declaration.gdscript punctuation.accessor.gdscript
+T 72 source.gdscript meta.variable.declaration.gdscript constant.language.gdscript
+L 		if data.has(other_block_sub_pos):
+T 2 source.gdscript
+T 4 source.gdscript keyword.control.flow.gdscript
+T 5 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 13 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 14 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 34 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 35 source.gdscript
+L 			other_block_id = data[other_block_sub_pos]
+T 3 source.gdscript
+T 17 source.gdscript variable.other.gdscript
+T 18 source.gdscript
+T 19 source.gdscript keyword.operator.assignment.gdscript
+T 20 source.gdscript
+T 24 source.gdscript variable.other.gdscript
+T 25 source.gdscript punctuation.definition.list.begin.gdscript
+T 44 source.gdscript variable.other.gdscript
+T 45 source.gdscript punctuation.definition.list.end.gdscript
+L 	if block_id != other_block_id and Chunk.is_block_transparent(other_block_id):
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 12 source.gdscript variable.other.gdscript
+T 13 source.gdscript
+T 15 source.gdscript keyword.operator.comparison.gdscript
+T 16 source.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 34 source.gdscript keyword.operator.wordlike.gdscript
+T 35 source.gdscript
+T 40 source.gdscript entity.name.type.class.gdscript
+T 41 source.gdscript
+T 61 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 62 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 77 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 78 source.gdscript
+L 		_draw_block_face(surface_tool, [verts[2], verts[0], verts[3], verts[1]], uvs, Vector3.LEFT)
+T 2 source.gdscript
+T 18 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 19 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 51 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 69 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 73 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 74 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 79 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 80 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 87 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 88 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 92 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 93 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	other_block_id = 0
+T 1 source.gdscript
+T 15 source.gdscript variable.other.gdscript
+T 16 source.gdscript
+T 17 source.gdscript keyword.operator.assignment.gdscript
+T 18 source.gdscript
+T 19 source.gdscript constant.numeric.integer.gdscript
+L 	if block_sub_position.x == CHUNK_SIZE - 1:
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 22 source.gdscript variable.other.gdscript
+T 23 source.gdscript punctuation.accessor.gdscript
+T 24 source.gdscript variable.other.property.gdscript
+T 25 source.gdscript
+T 27 source.gdscript keyword.operator.comparison.gdscript
+T 28 source.gdscript
+T 38 source.gdscript variable.other.constant.gdscript
+T 39 source.gdscript
+T 40 source.gdscript keyword.operator.arithmetic.gdscript
+T 41 source.gdscript
+T 42 source.gdscript constant.numeric.integer.gdscript
+T 43 source.gdscript
+L 		var other_sub_pos: Vector3i = Vector3i(0, block_sub_position.y, block_sub_position.z)
+T 2 source.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 32 source.gdscript meta.variable.declaration.gdscript
+T 40 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 41 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.begin.gdscript
+T 42 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+T 44 source.gdscript meta.variable.declaration.gdscript
+T 62 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 63 source.gdscript meta.variable.declaration.gdscript
+T 64 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 66 source.gdscript meta.variable.declaration.gdscript
+T 84 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 85 source.gdscript meta.variable.declaration.gdscript
+T 86 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 87 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.end.gdscript
+L 		other_block_id = voxel_world.get_block_in_chunk(chunk_position + Vector3i.RIGHT, other_sub_pos)
+T 2 source.gdscript
+T 16 source.gdscript variable.other.gdscript
+T 17 source.gdscript
+T 18 source.gdscript keyword.operator.assignment.gdscript
+T 19 source.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 49 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 50 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 65 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 66 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 67 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 81 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 82 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 83 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 96 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 97 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	else:
+T 1 source.gdscript
+T 5 source.gdscript keyword.control.flow.gdscript
+T 6 source.gdscript
+L 		var other_block_sub_pos: Vector3i = block_sub_position + Vector3i.RIGHT
+T 2 source.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript
+T 56 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 57 source.gdscript meta.variable.declaration.gdscript
+T 58 source.gdscript meta.variable.declaration.gdscript keyword.operator.arithmetic.gdscript
+T 59 source.gdscript meta.variable.declaration.gdscript
+T 67 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 68 source.gdscript meta.variable.declaration.gdscript punctuation.accessor.gdscript
+T 73 source.gdscript meta.variable.declaration.gdscript constant.language.gdscript
+L 		if data.has(other_block_sub_pos):
+T 2 source.gdscript
+T 4 source.gdscript keyword.control.flow.gdscript
+T 5 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 13 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 14 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 34 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 35 source.gdscript
+L 			other_block_id = data[other_block_sub_pos]
+T 3 source.gdscript
+T 17 source.gdscript variable.other.gdscript
+T 18 source.gdscript
+T 19 source.gdscript keyword.operator.assignment.gdscript
+T 20 source.gdscript
+T 24 source.gdscript variable.other.gdscript
+T 25 source.gdscript punctuation.definition.list.begin.gdscript
+T 44 source.gdscript variable.other.gdscript
+T 45 source.gdscript punctuation.definition.list.end.gdscript
+L 	if block_id != other_block_id and Chunk.is_block_transparent(other_block_id):
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 12 source.gdscript variable.other.gdscript
+T 13 source.gdscript
+T 15 source.gdscript keyword.operator.comparison.gdscript
+T 16 source.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 34 source.gdscript keyword.operator.wordlike.gdscript
+T 35 source.gdscript
+T 40 source.gdscript entity.name.type.class.gdscript
+T 41 source.gdscript
+T 61 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 62 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 77 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 78 source.gdscript
+L 		_draw_block_face(surface_tool, [verts[7], verts[5], verts[6], verts[4]], uvs, Vector3.RIGHT)
+T 2 source.gdscript
+T 18 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 19 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 51 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 69 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 73 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 74 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 79 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 80 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 87 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 88 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 93 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 94 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	other_block_id = 0
+T 1 source.gdscript
+T 15 source.gdscript variable.other.gdscript
+T 16 source.gdscript
+T 17 source.gdscript keyword.operator.assignment.gdscript
+T 18 source.gdscript
+T 19 source.gdscript constant.numeric.integer.gdscript
+L 	if block_sub_position.z == 0:
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 22 source.gdscript variable.other.gdscript
+T 23 source.gdscript punctuation.accessor.gdscript
+T 24 source.gdscript variable.other.property.gdscript
+T 25 source.gdscript
+T 27 source.gdscript keyword.operator.comparison.gdscript
+T 28 source.gdscript
+T 29 source.gdscript constant.numeric.integer.gdscript
+T 30 source.gdscript
+L 		var other_sub_pos: Vector3i = Vector3i(block_sub_position.x, block_sub_position.y, CHUNK_SIZE - 1)
+T 2 source.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 32 source.gdscript meta.variable.declaration.gdscript
+T 40 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 41 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.begin.gdscript
+T 59 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 60 source.gdscript meta.variable.declaration.gdscript
+T 61 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 63 source.gdscript meta.variable.declaration.gdscript
+T 81 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 82 source.gdscript meta.variable.declaration.gdscript
+T 83 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 85 source.gdscript meta.variable.declaration.gdscript
+T 95 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 96 source.gdscript meta.variable.declaration.gdscript
+T 97 source.gdscript meta.variable.declaration.gdscript keyword.operator.arithmetic.gdscript
+T 98 source.gdscript meta.variable.declaration.gdscript
+T 99 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+T 100 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.end.gdscript
+L 		other_block_id = voxel_world.get_block_in_chunk(chunk_position + Vector3i.FORWARD, other_sub_pos)
+T 2 source.gdscript
+T 16 source.gdscript variable.other.gdscript
+T 17 source.gdscript
+T 18 source.gdscript keyword.operator.assignment.gdscript
+T 19 source.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 49 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 50 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 65 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 66 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 67 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 83 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 84 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 85 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 98 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 99 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	else:
+T 1 source.gdscript
+T 5 source.gdscript keyword.control.flow.gdscript
+T 6 source.gdscript
+L 		var other_block_sub_pos: Vector3i = block_sub_position + Vector3i.FORWARD
+T 2 source.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript
+T 56 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 57 source.gdscript meta.variable.declaration.gdscript
+T 58 source.gdscript meta.variable.declaration.gdscript keyword.operator.arithmetic.gdscript
+T 59 source.gdscript meta.variable.declaration.gdscript
+T 67 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 68 source.gdscript meta.variable.declaration.gdscript punctuation.accessor.gdscript
+T 75 source.gdscript meta.variable.declaration.gdscript constant.language.gdscript
+L 		if data.has(other_block_sub_pos):
+T 2 source.gdscript
+T 4 source.gdscript keyword.control.flow.gdscript
+T 5 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 13 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 14 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 34 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 35 source.gdscript
+L 			other_block_id = data[other_block_sub_pos]
+T 3 source.gdscript
+T 17 source.gdscript variable.other.gdscript
+T 18 source.gdscript
+T 19 source.gdscript keyword.operator.assignment.gdscript
+T 20 source.gdscript
+T 24 source.gdscript variable.other.gdscript
+T 25 source.gdscript punctuation.definition.list.begin.gdscript
+T 44 source.gdscript variable.other.gdscript
+T 45 source.gdscript punctuation.definition.list.end.gdscript
+L 	if block_id != other_block_id and Chunk.is_block_transparent(other_block_id):
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 12 source.gdscript variable.other.gdscript
+T 13 source.gdscript
+T 15 source.gdscript keyword.operator.comparison.gdscript
+T 16 source.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 34 source.gdscript keyword.operator.wordlike.gdscript
+T 35 source.gdscript
+T 40 source.gdscript entity.name.type.class.gdscript
+T 41 source.gdscript
+T 61 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 62 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 77 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 78 source.gdscript
+L 		_draw_block_face(surface_tool, [verts[6], verts[4], verts[2], verts[0]], uvs, Vector3.FORWARD)
+T 2 source.gdscript
+T 18 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 19 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 51 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 69 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 73 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 74 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 79 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 80 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 87 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 88 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 95 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 96 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	other_block_id = 0
+T 1 source.gdscript
+T 15 source.gdscript variable.other.gdscript
+T 16 source.gdscript
+T 17 source.gdscript keyword.operator.assignment.gdscript
+T 18 source.gdscript
+T 19 source.gdscript constant.numeric.integer.gdscript
+L 	if block_sub_position.z == CHUNK_SIZE - 1:
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 22 source.gdscript variable.other.gdscript
+T 23 source.gdscript punctuation.accessor.gdscript
+T 24 source.gdscript variable.other.property.gdscript
+T 25 source.gdscript
+T 27 source.gdscript keyword.operator.comparison.gdscript
+T 28 source.gdscript
+T 38 source.gdscript variable.other.constant.gdscript
+T 39 source.gdscript
+T 40 source.gdscript keyword.operator.arithmetic.gdscript
+T 41 source.gdscript
+T 42 source.gdscript constant.numeric.integer.gdscript
+T 43 source.gdscript
+L 		var other_sub_pos: Vector3i = Vector3i(block_sub_position.x, block_sub_position.y, 0)
+T 2 source.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 32 source.gdscript meta.variable.declaration.gdscript
+T 40 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 41 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.begin.gdscript
+T 59 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 60 source.gdscript meta.variable.declaration.gdscript
+T 61 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 63 source.gdscript meta.variable.declaration.gdscript
+T 81 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 82 source.gdscript meta.variable.declaration.gdscript
+T 83 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 85 source.gdscript meta.variable.declaration.gdscript
+T 86 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+T 87 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.end.gdscript
+L 		other_block_id = voxel_world.get_block_in_chunk(chunk_position + Vector3i.BACK, other_sub_pos)
+T 2 source.gdscript
+T 16 source.gdscript variable.other.gdscript
+T 17 source.gdscript
+T 18 source.gdscript keyword.operator.assignment.gdscript
+T 19 source.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 49 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 50 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 65 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 66 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 67 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 80 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 81 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 82 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 95 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 96 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	else:
+T 1 source.gdscript
+T 5 source.gdscript keyword.control.flow.gdscript
+T 6 source.gdscript
+L 		var other_block_sub_pos: Vector3i = block_sub_position + Vector3i.BACK
+T 2 source.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript
+T 56 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 57 source.gdscript meta.variable.declaration.gdscript
+T 58 source.gdscript meta.variable.declaration.gdscript keyword.operator.arithmetic.gdscript
+T 59 source.gdscript meta.variable.declaration.gdscript
+T 67 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 68 source.gdscript meta.variable.declaration.gdscript punctuation.accessor.gdscript
+T 72 source.gdscript meta.variable.declaration.gdscript constant.language.gdscript
+L 		if data.has(other_block_sub_pos):
+T 2 source.gdscript
+T 4 source.gdscript keyword.control.flow.gdscript
+T 5 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 13 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 14 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 34 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 35 source.gdscript
+L 			other_block_id = data[other_block_sub_pos]
+T 3 source.gdscript
+T 17 source.gdscript variable.other.gdscript
+T 18 source.gdscript
+T 19 source.gdscript keyword.operator.assignment.gdscript
+T 20 source.gdscript
+T 24 source.gdscript variable.other.gdscript
+T 25 source.gdscript punctuation.definition.list.begin.gdscript
+T 44 source.gdscript variable.other.gdscript
+T 45 source.gdscript punctuation.definition.list.end.gdscript
+L 	if block_id != other_block_id and Chunk.is_block_transparent(other_block_id):
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 12 source.gdscript variable.other.gdscript
+T 13 source.gdscript
+T 15 source.gdscript keyword.operator.comparison.gdscript
+T 16 source.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 34 source.gdscript keyword.operator.wordlike.gdscript
+T 35 source.gdscript
+T 40 source.gdscript entity.name.type.class.gdscript
+T 41 source.gdscript
+T 61 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 62 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 77 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 78 source.gdscript
+L 		_draw_block_face(surface_tool, [verts[3], verts[1], verts[7], verts[5]], uvs, Vector3.BACK)
+T 2 source.gdscript
+T 18 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 19 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 51 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 69 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 73 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 74 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 79 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 80 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 87 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 88 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 92 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 93 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	other_block_id = 0
+T 1 source.gdscript
+T 15 source.gdscript variable.other.gdscript
+T 16 source.gdscript
+T 17 source.gdscript keyword.operator.assignment.gdscript
+T 18 source.gdscript
+T 19 source.gdscript constant.numeric.integer.gdscript
+L 	if block_sub_position.y == 0:
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 22 source.gdscript variable.other.gdscript
+T 23 source.gdscript punctuation.accessor.gdscript
+T 24 source.gdscript variable.other.property.gdscript
+T 25 source.gdscript
+T 27 source.gdscript keyword.operator.comparison.gdscript
+T 28 source.gdscript
+T 29 source.gdscript constant.numeric.integer.gdscript
+T 30 source.gdscript
+L 		var other_sub_pos: Vector3i = Vector3i(block_sub_position.x, CHUNK_SIZE - 1, block_sub_position.z)
+T 2 source.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 32 source.gdscript meta.variable.declaration.gdscript
+T 40 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 41 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.begin.gdscript
+T 59 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 60 source.gdscript meta.variable.declaration.gdscript
+T 61 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 63 source.gdscript meta.variable.declaration.gdscript
+T 73 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 74 source.gdscript meta.variable.declaration.gdscript
+T 75 source.gdscript meta.variable.declaration.gdscript keyword.operator.arithmetic.gdscript
+T 76 source.gdscript meta.variable.declaration.gdscript
+T 77 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+T 79 source.gdscript meta.variable.declaration.gdscript
+T 97 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 98 source.gdscript meta.variable.declaration.gdscript
+T 99 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 100 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.end.gdscript
+L 		other_block_id = voxel_world.get_block_in_chunk(chunk_position + Vector3i.DOWN, other_sub_pos)
+T 2 source.gdscript
+T 16 source.gdscript variable.other.gdscript
+T 17 source.gdscript
+T 18 source.gdscript keyword.operator.assignment.gdscript
+T 19 source.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 49 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 50 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 65 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 66 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 67 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 80 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 81 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 82 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 95 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 96 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	else:
+T 1 source.gdscript
+T 5 source.gdscript keyword.control.flow.gdscript
+T 6 source.gdscript
+L 		var other_block_sub_pos: Vector3i = block_sub_position + Vector3i.DOWN
+T 2 source.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript
+T 56 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 57 source.gdscript meta.variable.declaration.gdscript
+T 58 source.gdscript meta.variable.declaration.gdscript keyword.operator.arithmetic.gdscript
+T 59 source.gdscript meta.variable.declaration.gdscript
+T 67 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 68 source.gdscript meta.variable.declaration.gdscript punctuation.accessor.gdscript
+T 72 source.gdscript meta.variable.declaration.gdscript constant.language.gdscript
+L 		if data.has(other_block_sub_pos):
+T 2 source.gdscript
+T 4 source.gdscript keyword.control.flow.gdscript
+T 5 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 13 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 14 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 34 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 35 source.gdscript
+L 			other_block_id = data[other_block_sub_pos]
+T 3 source.gdscript
+T 17 source.gdscript variable.other.gdscript
+T 18 source.gdscript
+T 19 source.gdscript keyword.operator.assignment.gdscript
+T 20 source.gdscript
+T 24 source.gdscript variable.other.gdscript
+T 25 source.gdscript punctuation.definition.list.begin.gdscript
+T 44 source.gdscript variable.other.gdscript
+T 45 source.gdscript punctuation.definition.list.end.gdscript
+L 	if block_id != other_block_id and Chunk.is_block_transparent(other_block_id):
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 12 source.gdscript variable.other.gdscript
+T 13 source.gdscript
+T 15 source.gdscript keyword.operator.comparison.gdscript
+T 16 source.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 34 source.gdscript keyword.operator.wordlike.gdscript
+T 35 source.gdscript
+T 40 source.gdscript entity.name.type.class.gdscript
+T 41 source.gdscript
+T 61 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 62 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 77 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 78 source.gdscript
+L 		_draw_block_face(surface_tool, [verts[4], verts[5], verts[0], verts[1]], bottom_uvs, Vector3.DOWN)
+T 2 source.gdscript
+T 18 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 19 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 51 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 69 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 73 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 74 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 85 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 86 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 87 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 94 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 95 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 99 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 100 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	other_block_id = 0
+T 1 source.gdscript
+T 15 source.gdscript variable.other.gdscript
+T 16 source.gdscript
+T 17 source.gdscript keyword.operator.assignment.gdscript
+T 18 source.gdscript
+T 19 source.gdscript constant.numeric.integer.gdscript
+L 	if block_sub_position.y == CHUNK_SIZE - 1:
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 22 source.gdscript variable.other.gdscript
+T 23 source.gdscript punctuation.accessor.gdscript
+T 24 source.gdscript variable.other.property.gdscript
+T 25 source.gdscript
+T 27 source.gdscript keyword.operator.comparison.gdscript
+T 28 source.gdscript
+T 38 source.gdscript variable.other.constant.gdscript
+T 39 source.gdscript
+T 40 source.gdscript keyword.operator.arithmetic.gdscript
+T 41 source.gdscript
+T 42 source.gdscript constant.numeric.integer.gdscript
+T 43 source.gdscript
+L 		var other_sub_pos: Vector3i = Vector3i(block_sub_position.x, 0, block_sub_position.z)
+T 2 source.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 32 source.gdscript meta.variable.declaration.gdscript
+T 40 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 41 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.begin.gdscript
+T 59 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 60 source.gdscript meta.variable.declaration.gdscript
+T 61 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 63 source.gdscript meta.variable.declaration.gdscript
+T 64 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+T 66 source.gdscript meta.variable.declaration.gdscript
+T 84 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 85 source.gdscript meta.variable.declaration.gdscript
+T 86 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 87 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.end.gdscript
+L 		other_block_id = voxel_world.get_block_in_chunk(chunk_position + Vector3i.UP, other_sub_pos)
+T 2 source.gdscript
+T 16 source.gdscript variable.other.gdscript
+T 17 source.gdscript
+T 18 source.gdscript keyword.operator.assignment.gdscript
+T 19 source.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 49 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 50 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 65 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 66 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 67 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 79 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 80 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 93 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 94 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	else:
+T 1 source.gdscript
+T 5 source.gdscript keyword.control.flow.gdscript
+T 6 source.gdscript
+L 		var other_block_sub_pos: Vector3i = block_sub_position + Vector3i.UP
+T 2 source.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript
+T 56 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 57 source.gdscript meta.variable.declaration.gdscript
+T 58 source.gdscript meta.variable.declaration.gdscript keyword.operator.arithmetic.gdscript
+T 59 source.gdscript meta.variable.declaration.gdscript
+T 67 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 68 source.gdscript meta.variable.declaration.gdscript punctuation.accessor.gdscript
+T 70 source.gdscript meta.variable.declaration.gdscript constant.language.gdscript
+L 		if data.has(other_block_sub_pos):
+T 2 source.gdscript
+T 4 source.gdscript keyword.control.flow.gdscript
+T 5 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript
+T 13 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 14 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 34 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 35 source.gdscript
+L 			other_block_id = data[other_block_sub_pos]
+T 3 source.gdscript
+T 17 source.gdscript variable.other.gdscript
+T 18 source.gdscript
+T 19 source.gdscript keyword.operator.assignment.gdscript
+T 20 source.gdscript
+T 24 source.gdscript variable.other.gdscript
+T 25 source.gdscript punctuation.definition.list.begin.gdscript
+T 44 source.gdscript variable.other.gdscript
+T 45 source.gdscript punctuation.definition.list.end.gdscript
+L 	if block_id != other_block_id and Chunk.is_block_transparent(other_block_id):
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 12 source.gdscript variable.other.gdscript
+T 13 source.gdscript
+T 15 source.gdscript keyword.operator.comparison.gdscript
+T 16 source.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 34 source.gdscript keyword.operator.wordlike.gdscript
+T 35 source.gdscript
+T 40 source.gdscript entity.name.type.class.gdscript
+T 41 source.gdscript
+T 61 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 62 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 77 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 78 source.gdscript
+L 		_draw_block_face(surface_tool, [verts[2], verts[3], verts[6], verts[7]], top_uvs, Vector3.UP)
+T 2 source.gdscript
+T 18 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 19 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 51 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 69 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 73 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 74 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 82 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 83 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 84 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 91 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 92 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 94 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 95 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 
+L func _draw_block_face(surface_tool: SurfaceTool, verts: Array[Vector3], uvs: Array[Vector2], normal: Vector3) -> void:
+T 4 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 5 source.gdscript meta.function.gdscript
+T 21 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 22 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 34 source.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 35 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 36 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 47 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 48 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.parameters.gdscript
+T 49 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 54 source.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 55 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 56 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 61 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 62 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 69 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 70 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 71 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.parameters.gdscript
+T 72 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 75 source.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 76 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 77 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 82 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 83 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 90 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 91 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 92 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.parameters.gdscript
+T 93 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 99 source.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 100 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 101 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 108 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 109 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 110 source.gdscript meta.function.gdscript
+T 112 source.gdscript meta.function.gdscript keyword.operator.arithmetic.gdscript
+T 113 source.gdscript meta.function.gdscript
+T 117 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 118 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	surface_tool.set_normal(normal)
+T 1 source.gdscript
+T 13 source.gdscript variable.other.gdscript
+T 14 source.gdscript
+T 24 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 25 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 32 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	surface_tool.set_uv(uvs[1]); surface_tool.add_vertex(verts[1])
+T 1 source.gdscript
+T 13 source.gdscript variable.other.gdscript
+T 14 source.gdscript
+T 20 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 21 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 24 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 28 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 30 source.gdscript
+T 42 source.gdscript variable.other.gdscript
+T 43 source.gdscript
+T 53 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 54 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 63 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	surface_tool.set_uv(uvs[2]); surface_tool.add_vertex(verts[2])
+T 1 source.gdscript
+T 13 source.gdscript variable.other.gdscript
+T 14 source.gdscript
+T 20 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 21 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 24 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 28 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 30 source.gdscript
+T 42 source.gdscript variable.other.gdscript
+T 43 source.gdscript
+T 53 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 54 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 63 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	surface_tool.set_uv(uvs[3]); surface_tool.add_vertex(verts[3])
+T 1 source.gdscript
+T 13 source.gdscript variable.other.gdscript
+T 14 source.gdscript
+T 20 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 21 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 24 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 28 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 30 source.gdscript
+T 42 source.gdscript variable.other.gdscript
+T 43 source.gdscript
+T 53 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 54 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 63 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	surface_tool.set_uv(uvs[2]); surface_tool.add_vertex(verts[2])
+T 1 source.gdscript
+T 13 source.gdscript variable.other.gdscript
+T 14 source.gdscript
+T 20 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 21 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 24 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 28 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 30 source.gdscript
+T 42 source.gdscript variable.other.gdscript
+T 43 source.gdscript
+T 53 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 54 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 63 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	surface_tool.set_uv(uvs[1]); surface_tool.add_vertex(verts[1])
+T 1 source.gdscript
+T 13 source.gdscript variable.other.gdscript
+T 14 source.gdscript
+T 20 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 21 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 24 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 28 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 30 source.gdscript
+T 42 source.gdscript variable.other.gdscript
+T 43 source.gdscript
+T 53 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 54 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 63 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	surface_tool.set_uv(uvs[0]); surface_tool.add_vertex(verts[0])
+T 1 source.gdscript
+T 13 source.gdscript variable.other.gdscript
+T 14 source.gdscript
+T 20 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 21 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 24 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 28 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+T 30 source.gdscript
+T 42 source.gdscript variable.other.gdscript
+T 43 source.gdscript
+T 53 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 54 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.begin.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.definition.list.end.gdscript
+T 63 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 
+L func _create_block_collider(block_sub_position: Vector3) -> void:
+T 4 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 5 source.gdscript meta.function.gdscript
+T 27 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 28 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 46 source.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 47 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 48 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 55 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 56 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 57 source.gdscript meta.function.gdscript
+T 59 source.gdscript meta.function.gdscript keyword.operator.arithmetic.gdscript
+T 60 source.gdscript meta.function.gdscript
+T 64 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 65 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	if not box_shape:
+T 1 source.gdscript
+T 3 source.gdscript keyword.control.flow.gdscript
+T 4 source.gdscript
+T 7 source.gdscript keyword.operator.wordlike.gdscript
+T 8 source.gdscript
+T 17 source.gdscript variable.other.gdscript
+T 18 source.gdscript
+L 		box_shape = BoxShape3D.new()
+T 2 source.gdscript
+T 11 source.gdscript variable.other.gdscript
+T 12 source.gdscript
+T 13 source.gdscript keyword.operator.assignment.gdscript
+T 14 source.gdscript
+T 24 source.gdscript entity.name.type.class.gdscript
+T 25 source.gdscript
+T 28 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 29 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 30 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 		box_shape.extents = CHUNK_EXTENTS
+T 2 source.gdscript
+T 11 source.gdscript variable.other.gdscript
+T 12 source.gdscript punctuation.accessor.gdscript
+T 19 source.gdscript variable.other.property.gdscript
+T 20 source.gdscript
+T 21 source.gdscript keyword.operator.assignment.gdscript
+T 22 source.gdscript
+T 35 source.gdscript variable.other.constant.gdscript
+L 
+L 	var collider := CollisionShape3D.new()
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 13 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 14 source.gdscript meta.variable.declaration.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 17 source.gdscript meta.variable.declaration.gdscript
+T 33 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 34 source.gdscript meta.variable.declaration.gdscript
+T 37 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 38 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 39 source.gdscript meta.variable.declaration.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	collider.shape = box_shape
+T 1 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript punctuation.accessor.gdscript
+T 15 source.gdscript variable.other.property.gdscript
+T 16 source.gdscript
+T 17 source.gdscript keyword.operator.assignment.gdscript
+T 18 source.gdscript
+T 27 source.gdscript variable.other.gdscript
+L 	collider.transform.origin = block_sub_position + CHUNK_EXTENTS
+T 1 source.gdscript
+T 9 source.gdscript variable.other.gdscript
+T 10 source.gdscript punctuation.accessor.gdscript
+T 19 source.gdscript variable.other.property.gdscript
+T 20 source.gdscript punctuation.accessor.gdscript
+T 26 source.gdscript variable.other.property.gdscript
+T 27 source.gdscript
+T 28 source.gdscript keyword.operator.assignment.gdscript
+T 29 source.gdscript
+T 47 source.gdscript variable.other.gdscript
+T 48 source.gdscript
+T 49 source.gdscript keyword.operator.arithmetic.gdscript
+T 50 source.gdscript
+T 63 source.gdscript variable.other.constant.gdscript
+L 	add_child(collider)
+T 1 source.gdscript
+T 10 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 11 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 20 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 
+L static func calculate_block_uvs(block_id: int) -> Array[Vector2]:
+T 6 source.gdscript keyword.language.gdscript
+T 7 source.gdscript meta.function.gdscript
+T 11 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 12 source.gdscript meta.function.gdscript
+T 31 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 32 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 40 source.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 41 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 42 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 45 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 46 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 47 source.gdscript meta.function.gdscript
+T 49 source.gdscript meta.function.gdscript keyword.operator.arithmetic.gdscript
+T 50 source.gdscript meta.function.gdscript
+T 55 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 56 source.gdscript meta.function.gdscript punctuation.definition.list.begin.gdscript
+T 63 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 64 source.gdscript meta.function.gdscript punctuation.definition.list.end.gdscript
+T 65 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	# This method only supports square texture sheets.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 51 source.gdscript comment.line.number-sign.gdscript
+L 	@warning_ignore("integer_division")
+T 1 source.gdscript
+T 2 source.gdscript entity.name.function.decorator.gdscript
+T 16 source.gdscript entity.name.function.decorator.gdscript
+T 17 source.gdscript punctuation.parenthesis.begin.gdscript
+T 18 source.gdscript string.quoted.gdscript
+T 34 source.gdscript string.quoted.gdscript
+T 35 source.gdscript string.quoted.gdscript
+T 36 source.gdscript punctuation.parenthesis.end.gdscript
+L 	var row := block_id / TEXTURE_SHEET_WIDTH
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 8 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 9 source.gdscript meta.variable.declaration.gdscript
+T 11 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 12 source.gdscript meta.variable.declaration.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript keyword.operator.arithmetic.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript
+T 42 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+L 	var col := block_id % TEXTURE_SHEET_WIDTH
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 8 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 9 source.gdscript meta.variable.declaration.gdscript
+T 11 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 12 source.gdscript meta.variable.declaration.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript keyword.operator.arithmetic.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript
+T 42 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+L 
+L 	return [
+T 1 source.gdscript
+T 7 source.gdscript keyword.control.flow.gdscript
+T 8 source.gdscript
+T 9 source.gdscript punctuation.definition.list.begin.gdscript
+L 			# Godot 4 has a weird bug where there are seams at the edge
+T 3 source.gdscript
+T 4 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 62 source.gdscript comment.line.number-sign.gdscript
+L 			# of the textures. Adding a margin of 0.01 "fixes" it.
+T 3 source.gdscript
+T 4 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 57 source.gdscript comment.line.number-sign.gdscript
+L 			TEXTURE_TILE_SIZE * Vector2(col + 0.01, row + 0.01),
+T 3 source.gdscript
+T 20 source.gdscript variable.other.constant.gdscript
+T 21 source.gdscript
+T 22 source.gdscript keyword.operator.arithmetic.gdscript
+T 23 source.gdscript
+T 30 source.gdscript entity.name.type.class.builtin.gdscript
+T 31 source.gdscript punctuation.parenthesis.begin.gdscript
+T 34 source.gdscript variable.other.gdscript
+T 35 source.gdscript
+T 36 source.gdscript keyword.operator.arithmetic.gdscript
+T 37 source.gdscript
+T 41 source.gdscript constant.numeric.float.gdscript
+T 43 source.gdscript
+T 46 source.gdscript variable.other.gdscript
+T 47 source.gdscript
+T 48 source.gdscript keyword.operator.arithmetic.gdscript
+T 49 source.gdscript
+T 53 source.gdscript constant.numeric.float.gdscript
+T 54 source.gdscript punctuation.parenthesis.end.gdscript
+T 55 source.gdscript
+L 			TEXTURE_TILE_SIZE * Vector2(col + 0.01, row + 0.99),
+T 3 source.gdscript
+T 20 source.gdscript variable.other.constant.gdscript
+T 21 source.gdscript
+T 22 source.gdscript keyword.operator.arithmetic.gdscript
+T 23 source.gdscript
+T 30 source.gdscript entity.name.type.class.builtin.gdscript
+T 31 source.gdscript punctuation.parenthesis.begin.gdscript
+T 34 source.gdscript variable.other.gdscript
+T 35 source.gdscript
+T 36 source.gdscript keyword.operator.arithmetic.gdscript
+T 37 source.gdscript
+T 41 source.gdscript constant.numeric.float.gdscript
+T 43 source.gdscript
+T 46 source.gdscript variable.other.gdscript
+T 47 source.gdscript
+T 48 source.gdscript keyword.operator.arithmetic.gdscript
+T 49 source.gdscript
+T 53 source.gdscript constant.numeric.float.gdscript
+T 54 source.gdscript punctuation.parenthesis.end.gdscript
+T 55 source.gdscript
+L 			TEXTURE_TILE_SIZE * Vector2(col + 0.99, row + 0.01),
+T 3 source.gdscript
+T 20 source.gdscript variable.other.constant.gdscript
+T 21 source.gdscript
+T 22 source.gdscript keyword.operator.arithmetic.gdscript
+T 23 source.gdscript
+T 30 source.gdscript entity.name.type.class.builtin.gdscript
+T 31 source.gdscript punctuation.parenthesis.begin.gdscript
+T 34 source.gdscript variable.other.gdscript
+T 35 source.gdscript
+T 36 source.gdscript keyword.operator.arithmetic.gdscript
+T 37 source.gdscript
+T 41 source.gdscript constant.numeric.float.gdscript
+T 43 source.gdscript
+T 46 source.gdscript variable.other.gdscript
+T 47 source.gdscript
+T 48 source.gdscript keyword.operator.arithmetic.gdscript
+T 49 source.gdscript
+T 53 source.gdscript constant.numeric.float.gdscript
+T 54 source.gdscript punctuation.parenthesis.end.gdscript
+T 55 source.gdscript
+L 			TEXTURE_TILE_SIZE * Vector2(col + 0.99, row + 0.99),
+T 3 source.gdscript
+T 20 source.gdscript variable.other.constant.gdscript
+T 21 source.gdscript
+T 22 source.gdscript keyword.operator.arithmetic.gdscript
+T 23 source.gdscript
+T 30 source.gdscript entity.name.type.class.builtin.gdscript
+T 31 source.gdscript punctuation.parenthesis.begin.gdscript
+T 34 source.gdscript variable.other.gdscript
+T 35 source.gdscript
+T 36 source.gdscript keyword.operator.arithmetic.gdscript
+T 37 source.gdscript
+T 41 source.gdscript constant.numeric.float.gdscript
+T 43 source.gdscript
+T 46 source.gdscript variable.other.gdscript
+T 47 source.gdscript
+T 48 source.gdscript keyword.operator.arithmetic.gdscript
+T 49 source.gdscript
+T 53 source.gdscript constant.numeric.float.gdscript
+T 54 source.gdscript punctuation.parenthesis.end.gdscript
+T 55 source.gdscript
+L 		]
+T 2 source.gdscript
+T 3 source.gdscript punctuation.definition.list.end.gdscript
+L 
+L 
+L static func calculate_block_verts(block_position: Vector3) -> Array[Vector3]:
+T 6 source.gdscript keyword.language.gdscript
+T 7 source.gdscript meta.function.gdscript
+T 11 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 12 source.gdscript meta.function.gdscript
+T 33 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 34 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 48 source.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 49 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 50 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 57 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 58 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 59 source.gdscript meta.function.gdscript
+T 61 source.gdscript meta.function.gdscript keyword.operator.arithmetic.gdscript
+T 62 source.gdscript meta.function.gdscript
+T 67 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 68 source.gdscript meta.function.gdscript punctuation.definition.list.begin.gdscript
+T 75 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 76 source.gdscript meta.function.gdscript punctuation.definition.list.end.gdscript
+T 77 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	return [
+T 1 source.gdscript
+T 7 source.gdscript keyword.control.flow.gdscript
+T 8 source.gdscript
+T 9 source.gdscript punctuation.definition.list.begin.gdscript
+L 			Vector3(block_position.x, block_position.y, block_position.z),
+T 3 source.gdscript
+T 10 source.gdscript entity.name.type.class.builtin.gdscript
+T 11 source.gdscript punctuation.parenthesis.begin.gdscript
+T 25 source.gdscript variable.other.gdscript
+T 26 source.gdscript
+T 27 source.gdscript variable.other.gdscript
+T 29 source.gdscript
+T 43 source.gdscript variable.other.gdscript
+T 44 source.gdscript
+T 45 source.gdscript variable.other.gdscript
+T 47 source.gdscript
+T 61 source.gdscript variable.other.gdscript
+T 62 source.gdscript
+T 63 source.gdscript variable.other.gdscript
+T 64 source.gdscript punctuation.parenthesis.end.gdscript
+T 65 source.gdscript
+L 			Vector3(block_position.x, block_position.y, block_position.z + 1),
+T 3 source.gdscript
+T 10 source.gdscript entity.name.type.class.builtin.gdscript
+T 11 source.gdscript punctuation.parenthesis.begin.gdscript
+T 25 source.gdscript variable.other.gdscript
+T 26 source.gdscript
+T 27 source.gdscript variable.other.gdscript
+T 29 source.gdscript
+T 43 source.gdscript variable.other.gdscript
+T 44 source.gdscript
+T 45 source.gdscript variable.other.gdscript
+T 47 source.gdscript
+T 61 source.gdscript variable.other.gdscript
+T 62 source.gdscript
+T 63 source.gdscript variable.other.gdscript
+T 64 source.gdscript
+T 65 source.gdscript keyword.operator.arithmetic.gdscript
+T 66 source.gdscript
+T 67 source.gdscript constant.numeric.integer.gdscript
+T 68 source.gdscript punctuation.parenthesis.end.gdscript
+T 69 source.gdscript
+L 			Vector3(block_position.x, block_position.y + 1, block_position.z),
+T 3 source.gdscript
+T 10 source.gdscript entity.name.type.class.builtin.gdscript
+T 11 source.gdscript punctuation.parenthesis.begin.gdscript
+T 25 source.gdscript variable.other.gdscript
+T 26 source.gdscript
+T 27 source.gdscript variable.other.gdscript
+T 29 source.gdscript
+T 43 source.gdscript variable.other.gdscript
+T 44 source.gdscript
+T 45 source.gdscript variable.other.gdscript
+T 46 source.gdscript
+T 47 source.gdscript keyword.operator.arithmetic.gdscript
+T 48 source.gdscript
+T 49 source.gdscript constant.numeric.integer.gdscript
+T 51 source.gdscript
+T 65 source.gdscript variable.other.gdscript
+T 66 source.gdscript
+T 67 source.gdscript variable.other.gdscript
+T 68 source.gdscript punctuation.parenthesis.end.gdscript
+T 69 source.gdscript
+L 			Vector3(block_position.x, block_position.y + 1, block_position.z + 1),
+T 3 source.gdscript
+T 10 source.gdscript entity.name.type.class.builtin.gdscript
+T 11 source.gdscript punctuation.parenthesis.begin.gdscript
+T 25 source.gdscript variable.other.gdscript
+T 26 source.gdscript
+T 27 source.gdscript variable.other.gdscript
+T 29 source.gdscript
+T 43 source.gdscript variable.other.gdscript
+T 44 source.gdscript
+T 45 source.gdscript variable.other.gdscript
+T 46 source.gdscript
+T 47 source.gdscript keyword.operator.arithmetic.gdscript
+T 48 source.gdscript
+T 49 source.gdscript constant.numeric.integer.gdscript
+T 51 source.gdscript
+T 65 source.gdscript variable.other.gdscript
+T 66 source.gdscript
+T 67 source.gdscript variable.other.gdscript
+T 68 source.gdscript
+T 69 source.gdscript keyword.operator.arithmetic.gdscript
+T 70 source.gdscript
+T 71 source.gdscript constant.numeric.integer.gdscript
+T 72 source.gdscript punctuation.parenthesis.end.gdscript
+T 73 source.gdscript
+L 			Vector3(block_position.x + 1, block_position.y, block_position.z),
+T 3 source.gdscript
+T 10 source.gdscript entity.name.type.class.builtin.gdscript
+T 11 source.gdscript punctuation.parenthesis.begin.gdscript
+T 25 source.gdscript variable.other.gdscript
+T 26 source.gdscript
+T 27 source.gdscript variable.other.gdscript
+T 28 source.gdscript
+T 29 source.gdscript keyword.operator.arithmetic.gdscript
+T 30 source.gdscript
+T 31 source.gdscript constant.numeric.integer.gdscript
+T 33 source.gdscript
+T 47 source.gdscript variable.other.gdscript
+T 48 source.gdscript
+T 49 source.gdscript variable.other.gdscript
+T 51 source.gdscript
+T 65 source.gdscript variable.other.gdscript
+T 66 source.gdscript
+T 67 source.gdscript variable.other.gdscript
+T 68 source.gdscript punctuation.parenthesis.end.gdscript
+T 69 source.gdscript
+L 			Vector3(block_position.x + 1, block_position.y, block_position.z + 1),
+T 3 source.gdscript
+T 10 source.gdscript entity.name.type.class.builtin.gdscript
+T 11 source.gdscript punctuation.parenthesis.begin.gdscript
+T 25 source.gdscript variable.other.gdscript
+T 26 source.gdscript
+T 27 source.gdscript variable.other.gdscript
+T 28 source.gdscript
+T 29 source.gdscript keyword.operator.arithmetic.gdscript
+T 30 source.gdscript
+T 31 source.gdscript constant.numeric.integer.gdscript
+T 33 source.gdscript
+T 47 source.gdscript variable.other.gdscript
+T 48 source.gdscript
+T 49 source.gdscript variable.other.gdscript
+T 51 source.gdscript
+T 65 source.gdscript variable.other.gdscript
+T 66 source.gdscript
+T 67 source.gdscript variable.other.gdscript
+T 68 source.gdscript
+T 69 source.gdscript keyword.operator.arithmetic.gdscript
+T 70 source.gdscript
+T 71 source.gdscript constant.numeric.integer.gdscript
+T 72 source.gdscript punctuation.parenthesis.end.gdscript
+T 73 source.gdscript
+L 			Vector3(block_position.x + 1, block_position.y + 1, block_position.z),
+T 3 source.gdscript
+T 10 source.gdscript entity.name.type.class.builtin.gdscript
+T 11 source.gdscript punctuation.parenthesis.begin.gdscript
+T 25 source.gdscript variable.other.gdscript
+T 26 source.gdscript
+T 27 source.gdscript variable.other.gdscript
+T 28 source.gdscript
+T 29 source.gdscript keyword.operator.arithmetic.gdscript
+T 30 source.gdscript
+T 31 source.gdscript constant.numeric.integer.gdscript
+T 33 source.gdscript
+T 47 source.gdscript variable.other.gdscript
+T 48 source.gdscript
+T 49 source.gdscript variable.other.gdscript
+T 50 source.gdscript
+T 51 source.gdscript keyword.operator.arithmetic.gdscript
+T 52 source.gdscript
+T 53 source.gdscript constant.numeric.integer.gdscript
+T 55 source.gdscript
+T 69 source.gdscript variable.other.gdscript
+T 70 source.gdscript
+T 71 source.gdscript variable.other.gdscript
+T 72 source.gdscript punctuation.parenthesis.end.gdscript
+T 73 source.gdscript
+L 			Vector3(block_position.x + 1, block_position.y + 1, block_position.z + 1),
+T 3 source.gdscript
+T 10 source.gdscript entity.name.type.class.builtin.gdscript
+T 11 source.gdscript punctuation.parenthesis.begin.gdscript
+T 25 source.gdscript variable.other.gdscript
+T 26 source.gdscript
+T 27 source.gdscript variable.other.gdscript
+T 28 source.gdscript
+T 29 source.gdscript keyword.operator.arithmetic.gdscript
+T 30 source.gdscript
+T 31 source.gdscript constant.numeric.integer.gdscript
+T 33 source.gdscript
+T 47 source.gdscript variable.other.gdscript
+T 48 source.gdscript
+T 49 source.gdscript variable.other.gdscript
+T 50 source.gdscript
+T 51 source.gdscript keyword.operator.arithmetic.gdscript
+T 52 source.gdscript
+T 53 source.gdscript constant.numeric.integer.gdscript
+T 55 source.gdscript
+T 69 source.gdscript variable.other.gdscript
+T 70 source.gdscript
+T 71 source.gdscript variable.other.gdscript
+T 72 source.gdscript
+T 73 source.gdscript keyword.operator.arithmetic.gdscript
+T 74 source.gdscript
+T 75 source.gdscript constant.numeric.integer.gdscript
+T 76 source.gdscript punctuation.parenthesis.end.gdscript
+T 77 source.gdscript
+L 		]
+T 2 source.gdscript
+T 3 source.gdscript punctuation.definition.list.end.gdscript
+L 
+L 
+L static func is_block_transparent(block_id: int) -> int:
+T 6 source.gdscript keyword.language.gdscript
+T 7 source.gdscript meta.function.gdscript
+T 11 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 12 source.gdscript meta.function.gdscript
+T 32 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 33 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 41 source.gdscript meta.function.gdscript meta.function.parameters.gdscript variable.parameter.function.language.gdscript
+T 42 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.separator.annotation.gdscript
+T 43 source.gdscript meta.function.gdscript meta.function.parameters.gdscript
+T 46 source.gdscript meta.function.gdscript meta.function.parameters.gdscript entity.name.type.class.gdscript
+T 47 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 48 source.gdscript meta.function.gdscript
+T 50 source.gdscript meta.function.gdscript keyword.operator.arithmetic.gdscript
+T 51 source.gdscript meta.function.gdscript
+T 54 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 55 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	return block_id == 0 or (block_id > 25 and block_id < 30)
+T 1 source.gdscript
+T 7 source.gdscript keyword.control.flow.gdscript
+T 8 source.gdscript
+T 16 source.gdscript variable.other.gdscript
+T 17 source.gdscript
+T 19 source.gdscript keyword.operator.comparison.gdscript
+T 20 source.gdscript
+T 21 source.gdscript constant.numeric.integer.gdscript
+T 22 source.gdscript
+T 24 source.gdscript keyword.operator.wordlike.gdscript
+T 25 source.gdscript
+T 26 source.gdscript punctuation.parenthesis.begin.gdscript
+T 34 source.gdscript variable.other.gdscript
+T 35 source.gdscript
+T 36 source.gdscript keyword.operator.comparison.gdscript
+T 37 source.gdscript
+T 39 source.gdscript constant.numeric.integer.gdscript
+T 40 source.gdscript
+T 43 source.gdscript keyword.operator.wordlike.gdscript
+T 44 source.gdscript
+T 52 source.gdscript variable.other.gdscript
+T 53 source.gdscript
+T 54 source.gdscript keyword.operator.comparison.gdscript
+T 55 source.gdscript
+T 57 source.gdscript constant.numeric.integer.gdscript
+T 58 source.gdscript punctuation.parenthesis.end.gdscript
+L 

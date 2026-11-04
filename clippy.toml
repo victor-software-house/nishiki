@@ -1,7 +1,7 @@
 avoid-breaking-exported-api = false
 # Language names that clippy would take for identifiers in docs; ".." keeps
 # clippy's own list.
-doc-valid-idents = ["CMake", ".."]
+doc-valid-idents = ["CMake", "GDScript", ".."]
 allow-unwrap-in-tests = true
 allow-expect-in-tests = true
 allow-print-in-tests = true

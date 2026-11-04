@@ -1025,6 +1025,15 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
+    /// GDScript, Godot's scripting language, with the scopes of Shiki's
+    /// `gdscript` grammar, which nishiki's `TextMate` engine runs.
+    GdScript {
+        feature: "lang-gdscript",
+        names: ["gdscript", "gd"],
+        engine: crate::gdscript::grammar::GRAMMAR,
+        reads_line_feed: true,
+        halts: true,
+    }
 }
 
 impl Language {

@@ -18,6 +18,8 @@ mod dockerfile;
 #[cfg(feature = "lang-elixir")]
 mod elixir;
 mod erb;
+#[cfg(feature = "lang-gdscript")]
+mod gdscript;
 mod go;
 mod graphql;
 #[cfg(feature = "lang-haml")]
