@@ -120,8 +120,9 @@ impl Lexer<'_> {
     }
 
     /// The end of the tag's name at `p` when it is one of `names`, recorded as
-    /// group 5. A name ends at a character that is not `\w`, since each
-    /// name is followed by a blank or the end of the line.
+    /// group 5.
+    /// A name ends at a character that is not `\w`, since each name is
+    /// followed by a blank or the end of the line.
     fn yard_name(&mut self, p: usize, names: &[&[u8]]) -> Option<usize> {
         let end = self.word_end(p);
         names.contains(&self.text(p, end)).then(|| {
@@ -144,9 +145,10 @@ impl Lexer<'_> {
         Some(end + usize::from(self.byte_in(end, |b| b == b':')))
     }
 
-    /// The ends of the closing bytes of `open.+close` at `p`, the last first:
-    /// `.+` is greedy, so each `close` after at least one character is a
-    /// candidate, from the end of the line back.
+    /// The ends of the closing bytes of `open.+close` at `p`, the last first.
+    /// `.+` is greedy.
+    /// Each `close` after at least one character is therefore a candidate,
+    /// from the end of the line back.
     fn yard_bracketed(&self, p: usize, open: u8, close: u8) -> impl Iterator<Item = usize> + '_ {
         let opened = self.byte_in(p, |b| b == open);
         (p + 2..self.lim())
@@ -170,8 +172,9 @@ impl Lexer<'_> {
     }
 
     /// `(?>\s+(?>([_a-z]\w*:?)|(…)))?` at `p` and its mirror, with the types
-    /// first when `types_first`: the end of the group, recording the name as
-    /// `name` and the types from `types`.
+    /// first when `types_first`.
+    /// It returns the end of the group.
+    /// It records the name as `name` and the types from `types`.
     fn yard_name_or_types(
         &mut self,
         p: usize,
@@ -229,8 +232,8 @@ impl Lexer<'_> {
     /// `^(\s*)(#)(\s*)(@)(option)(?=\s)(?>\s+([_a-z]\w*:?))?(?>\s+((\[).+(])))?
     /// (?>\s+((\S*)))?(?>\s+((\().+(\))))?`
     ///
-    /// `\S*` may match nothing, so its group can take the line feed as its
-    /// blanks and end after it.
+    /// `\S*` may match nothing.
+    /// Its group can then take the line feed as its blanks and end after it.
     pub(in crate::ruby) fn yard_option(&mut self, p: usize) -> Option<usize> {
         let name = self.yard_head(p, Mark::Tag)?;
         let mut end = self.yard_name(name, &[b"option"])?;
@@ -333,9 +336,10 @@ impl Lexer<'_> {
 
     /// `^(\s*)(#)(\s*)(@)(see)(?=\s)(\s+(.+?))?(?=\s|$)`
     ///
-    /// The lazy `.+?` starts after the blanks, where it takes characters up
-    /// to the next blank or the end of the line. When the blanks reach the
-    /// end of the line, they give back their last character for it.
+    /// The lazy `.+?` starts after the blanks.
+    /// There it takes characters up to the next blank or the end of the line.
+    /// When the blanks reach the end of the line, they give back their last
+    /// character for it.
     pub(in crate::ruby) fn yard_see(&mut self, p: usize) -> Option<usize> {
         let name = self.yard_head(p, Mark::Tag)?;
         let end = self.yard_name(name, &[b"see"])?;
@@ -360,8 +364,8 @@ impl Lexer<'_> {
     }
 
     /// `^(?!\s*#\3\s{2,}|\s*#\s*$)`: the first line that does not continue the
-    /// YARD tag, where group 3 is the `#` and its blanks (see
-    /// [`Lexer::yard_head`]).
+    /// YARD tag.
+    /// Group 3 is the `#` and its blanks; see [`Lexer::yard_head`].
     pub(in crate::ruby) fn yard_end(&mut self, p: usize) -> Option<usize> {
         if p != 0 {
             return None;

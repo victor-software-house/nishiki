@@ -18,8 +18,9 @@ impl Lexer<'_> {
     /// The end of ``(["'`]?)([A-Z_a-z]\w*)\1`` at `p`: a name, quoted or not.
     ///
     /// A quote with no closing one leaves no name, since the name cannot
-    /// start at the quote; a shorter name is followed by a `\w`, which is
-    /// neither the quote nor what follows the opener.
+    /// start at the quote.
+    /// A shorter name is followed by a `\w`.
+    /// That is neither the quote nor what follows the opener.
     fn quoted_name(&self, p: usize) -> Option<Opener> {
         let quote = self
             .byte_in(p, |b| matches!(b, b'"' | b'\'' | b'`'))
@@ -79,11 +80,13 @@ impl Lexer<'_> {
 
     /// ``(?>((<<…\3,\s?)*<<[-~]?(["'`]?)([A-Z_a-z]\w*)\5))(.*)``: one or more
     /// here document openers, separated by `,` and one optional blank, and
-    /// the rest of the line. The last opener's name, group 6, closes them.
+    /// the rest of the line.
+    /// The last opener's name, group 6, closes them.
     ///
-    /// An opener repeats only when another opener follows its `,`; the
-    /// greedy repetition gives back the last one otherwise, which is then
-    /// the final opener, and the atomic group keeps that first success.
+    /// An opener repeats only when another opener follows its `,`.
+    /// Otherwise the greedy repetition gives back the last one, which is then
+    /// the final opener.
+    /// The atomic group keeps that first success.
     pub(in crate::ruby) fn heredoc_openers(&mut self, p: usize) -> Option<usize> {
         let mut last = self.heredoc_opener(p)?;
         while self.byte_in(last.end, |b| b == b',') {

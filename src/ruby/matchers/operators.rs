@@ -51,9 +51,9 @@ impl Lexer<'_> {
         self.first_of(p, &[b"&&", b"||", b"^"])
     }
 
-    /// `(op)\s*(?![A-Z])`: an operator before a method's name. When a capital
-    /// follows the blanks, they give back their last character, which then
-    /// follows instead.
+    /// `(op)\s*(?![A-Z])`: an operator before a method's name.
+    /// When a capital follows the blanks, they give back their last character.
+    /// That character then follows instead.
     fn before_method(&mut self, p: usize, op_end: usize) -> Option<usize> {
         let mut end = self.space_end(op_end);
         if self.byte_in(end, |b| b.is_ascii_uppercase()) {

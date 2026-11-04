@@ -146,8 +146,9 @@ impl Lexer<'_> {
     }
 
     /// Tries `rest` after a method's full name at `p`:
-    /// `(?>[A-Z_a-z]\w*(?>\.|::))?` then the name. The receiver is atomic but
-    /// optional, so the name alone is tried when `rest` fails after both.
+    /// `(?>[A-Z_a-z]\w*(?>\.|::))?` then the name.
+    /// The receiver is atomic but optional.
+    /// The name alone is therefore tried when `rest` fails after both.
     fn after_method_name<T>(
         &self,
         p: usize,

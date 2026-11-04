@@ -73,7 +73,8 @@ fn a_class_names_its_type() {
 }
 
 /// A point that neither a blank nor a digit follows does not start a
-/// fraction, so `1..25` is two numbers and a range.
+/// fraction.
+/// `1..25` is therefore two numbers and a range.
 #[test]
 fn a_range_of_numbers_is_two_numbers() {
     let row = lex("  NUMERIC_RANGE = 1..25");
@@ -186,9 +187,10 @@ fn a_ruby_heredoc_lexes_its_lines_as_ruby() {
     assert_eq!(scope_of(&rows[3], "end"), "keyword.control.ruby");
 }
 
-/// In `expect(<<~RUBY)` the here document takes the `)`, so the call's rule
-/// stays open after it ends, as in Shiki, and a long spec file holds one per
-/// call. The default limits keep 300 of them open.
+/// In `expect(<<~RUBY)` the here document takes the `)`.
+/// The call's rule therefore stays open after it ends, as in Shiki.
+/// A long spec file holds one such rule per call.
+/// The default limits keep 300 of them open.
 #[test]
 fn a_call_whose_paren_a_heredoc_takes_stays_open() {
     let calls = 300;
@@ -215,7 +217,8 @@ fn a_call_whose_paren_a_heredoc_takes_stays_open() {
 }
 
 /// The engine keeps the indices of open `while` rules only when the flag is
-/// set. The flag must say whether any rule has a `while` pattern.
+/// set.
+/// The flag must say whether any rule has a `while` pattern.
 #[test]
 fn the_while_flag_matches_the_rules() {
     use crate::ruby::engine::Ruby;

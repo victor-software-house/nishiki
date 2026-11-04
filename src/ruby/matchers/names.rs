@@ -74,8 +74,8 @@ impl Lexer<'_> {
     /// An assignment to a local variable, from the start of a line or after a
     /// condition's word: the variable, then `assign`.
     ///
-    /// `(\()*?` is lazy, but a `(` is neither a name nor a blank, so it takes
-    /// every `(` before the name.
+    /// `(\()*?` is lazy, but a `(` is neither a name nor a blank.
+    /// It therefore takes every `(` before the name.
     fn assignment(&mut self, p: usize, lead: Lead, assign: Assign) -> Option<usize> {
         let (name, word) = self.assigned_start(p, lead)?;
         let name_end = self.local_end(name)?;

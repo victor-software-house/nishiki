@@ -1,6 +1,7 @@
 //! The here documents whose name says which language their lines are in,
-//! such as `<<~SQL`: the openers, the `while` line test that keeps them open,
-//! and the line that closes them.
+//! such as `<<~SQL`.
+//! The module holds their openers, the `while` line test that keeps them
+//! open, and the line that closes them.
 
 use super::super::engine::Lexer;
 use crate::rules::Chars;
@@ -27,17 +28,20 @@ pub(in crate::ruby) const EMBEDDED_NAMES: [&[&[u8]]; 15] = [
     &[b"SLIM"],
 ];
 
-/// The four matchers below are not inlined: the matcher dispatch has an arm
-/// for each of them per language, sixty in all, and inlined they made the
-/// dispatch too large to inline into the engine's call, at a cost to every
-/// Ruby pattern tried. They run only at `<<` and on a here document's lines.
+/// The four matchers below are not inlined.
+/// The matcher dispatch has an arm for each of them per language, sixty in
+/// all.
+/// Inlined, they made the dispatch too large to inline into the engine's
+/// call, at a cost to every Ruby pattern tried.
+/// They run only at `<<` and on a here document's lines.
 impl Lexer<'_> {
     /// The end of `(?:[_\w]+_|)NAME` at `p`, where `names` are NAME's
     /// alternatives and what follows is not `\w`.
     ///
-    /// NAME is all word characters and a non-word character follows it, so
-    /// it ends where the run of word characters at `p` does. The run before
-    /// it is empty, or at least two characters that end in `_`.
+    /// NAME is all word characters, and a non-word character follows it.
+    /// It therefore ends where the run of word characters at `p` does.
+    /// The run before it is empty, or at least two characters that end in
+    /// `_`.
     fn embedded_name_end(&self, p: usize, names: &[&[u8]]) -> Option<usize> {
         let end = self.word_end(p);
         let word = self.text(p, end);

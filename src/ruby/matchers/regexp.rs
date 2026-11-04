@@ -4,8 +4,8 @@
 use super::super::engine::Lexer;
 use crate::rules::Chars;
 
-/// The words that may follow a regular expression's closing `/`; the grammar
-/// tests them as prefixes, with no `\b` after them.
+/// The words that may follow a regular expression's closing `/`.
+/// The grammar tests them as prefixes, with no `\b` after them.
 const FOLLOWING_WORDS: &[&[u8]] = &[
     b"if", b"else", b"elsif", b"then", b"do", b"end", b"unless", b"while", b"until", b"or", b"and",
 ];
@@ -20,12 +20,13 @@ impl Lexer<'_> {
     /// (?<![)\w])((/))(?![*+?])(?!\s*$)(?=(?:\\/|[^/])*+/[eimnosux]*\s*(?:…))
     /// ```
     ///
-    /// The possessive body takes `\/` whole and any other character alone, so
-    /// it stops at the first `/` that no backslash right before it escapes,
-    /// counting a backslash that a backslash escapes. Of the flags, each end
-    /// from the longest is tried; the blanks after them cannot end early,
-    /// since no alternative after them starts with a blank and `$` holds at
-    /// the end of the blanks whenever it holds within them.
+    /// The possessive body takes `\/` whole and any other character alone.
+    /// It therefore stops at the first `/` that no backslash right before it
+    /// escapes, counting a backslash that a backslash escapes.
+    /// Of the flags, each end from the longest is tried.
+    /// The blanks after them cannot end early.
+    /// No alternative after them starts with a blank, and `$` holds at the end
+    /// of the blanks whenever it holds within them.
     pub(in crate::ruby) fn regexp_start(&mut self, p: usize) -> Option<usize> {
         let refused_before = self.word_before(p) || self.prev_is(p, b')');
         if refused_before || !self.byte_in(p, |b| b == b'/') {
@@ -55,9 +56,10 @@ impl Lexer<'_> {
     /// Where `(?:\\/|[^/])*+` stops from `p`, at a `/`.
     ///
     /// Every `/` the scan passes is the second character of a `\/` it took
-    /// whole, so the scan from just after it starts where this one has a
-    /// boundary and stops at the same `/`, or at none. The last scan is
-    /// kept, and a line of escaped slashes is scanned once.
+    /// whole.
+    /// The scan from just after it therefore starts where this one has a
+    /// boundary, and stops at the same `/` or at none.
+    /// The last scan is kept, and a line of escaped slashes is scanned once.
     fn regexp_body_end(&self, p: usize) -> Option<usize> {
         let text_end = self.lim() * 2 + usize::from(self.nl);
         let (end, from, close) = self.x.regexp_close.get();

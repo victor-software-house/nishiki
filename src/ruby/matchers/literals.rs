@@ -6,7 +6,8 @@ use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// The end of `D(?>_?D)*` at `p`, where `digit` accepts a `D`: digits that
-    /// single `_`s may separate. Each `_` that no digit follows ends the run.
+    /// single `_`s may separate.
+    /// Each `_` that no digit follows ends the run.
     fn separated_digits(
         &self,
         p: usize,
@@ -50,9 +51,9 @@ impl Lexer<'_> {
     /// b`
     ///
     /// Only the whole run of digits can be followed by a point, an exponent
-    /// or a `\b`, since the digits and `_` are all `\w`; of the fraction, the
-    /// whole run can take an exponent and the point alone can end at `\b`
-    /// before a digit.
+    /// or a `\b`, since the digits and `_` are all `\w`.
+    /// Of the fraction, the whole run can take an exponent.
+    /// The point alone can end at `\b` before a digit.
     pub(in crate::ruby) fn number(&mut self, p: usize) -> Option<usize> {
         if self.word_before(p) {
             return None;
@@ -211,8 +212,8 @@ impl Lexer<'_> {
         (self.byte_in(p, |b| b == b'\\') && p + 1 < self.lim()).then(|| self.char_end(p + 1))
     }
 
-    /// `(\W)` at `p`: the delimiter of a percent literal, which the end
-    /// repeats, recorded as group 1.
+    /// `(\W)` at `p`: the delimiter of a percent literal, recorded as group 1.
+    /// The end repeats it.
     fn any_delimiter(&mut self, p: usize) -> Option<usize> {
         if !self.avail(p) || self.word_at(p).is_some() {
             return None;

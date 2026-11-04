@@ -46,7 +46,8 @@ impl Lexer<'_> {
     }
 
     /// The end of `\bword` at `p`, for a `word` that ends in a character that
-    /// is not `\w`, so no `\b` follows it.
+    /// is not `\w`.
+    /// No `\b` follows such a word.
     pub(in crate::ruby) fn word_then(&self, p: usize, word: &[u8]) -> Option<usize> {
         self.boundary(p).then(|| self.lit(p, word)).flatten()
     }
