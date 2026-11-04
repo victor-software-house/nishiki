@@ -28,6 +28,7 @@ use std::fmt::Debug;
     feature = "lang-ruby",
     feature = "lang-csharp",
     feature = "lang-dart",
+    feature = "lang-sass",
     feature = "lang-scala",
     feature = "lang-bat",
     feature = "lang-swift",

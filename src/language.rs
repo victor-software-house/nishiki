@@ -888,15 +888,16 @@ languages! {
         halts: true,
         hands_off: true,
     }
-    /// Sass, the indented syntax, with the scopes of Shiki's `sass` grammar,
-    /// which nishiki's `TextMate` engine runs.
-    Sass {
-        feature: "lang-sass",
-        names: ["sass"],
-        engine: crate::sass::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-    }
+    /// Sass, the indented syntax, with the scopes of Shiki's `sass` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A block comment goes on while each line starts with a blank and the indent of its `/*`.
+    ///   An empty line keeps an unindented comment open.
+    /// - `@import` runs to the line's end, and the text from ` as` on is marked invalid.
+    /// - A unit needs a digit or `}` before it and no word boundary after it, so `1sec` is `1`, `s` and `ec`.
+    /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
+    Sass { feature: "lang-sass", names: ["sass"], module: sass, halts: true }
     /// CoffeeScript, with the scopes of Shiki's `coffee` grammar, which
     /// nishiki's `TextMate` engine runs. Its embedded JavaScript goes to the
     /// JavaScript lexer.

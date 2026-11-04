@@ -132,6 +132,8 @@ tables! {
     RUBY = ruby;
     #[cfg(feature = "lang-rust")]
     RUST = rust;
+    #[cfg(feature = "lang-sass")]
+    SASS = sass;
     #[cfg(feature = "lang-scala")]
     SCALA = scala;
     #[cfg(feature = "lang-scss")]

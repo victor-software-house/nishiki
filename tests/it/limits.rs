@@ -55,7 +55,6 @@ mod proto;
 mod python;
 mod ruby;
 mod rust;
-#[cfg(feature = "lang-sass")]
 mod sass;
 #[cfg(feature = "lang-scala")]
 mod scala;

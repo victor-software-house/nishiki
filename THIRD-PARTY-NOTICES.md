@@ -1725,7 +1725,7 @@ SOFTWARE.
 
 ## Sass
 
-Its TextMate engine runs the Sass TextMate grammar in [TheRealSyler/vscode-sass-indented](https://github.com/TheRealSyler/vscode-sass-indented), which Shiki bundles as `sass`, with its rules compiled into tables (`src/sass/grammar.rs`).
+Its Sass lexer emits the scope names of the Sass TextMate grammar in [TheRealSyler/vscode-sass-indented](https://github.com/TheRealSyler/vscode-sass-indented), which Shiki bundles as `sass`, and tries that grammar's rules in its order, from tables generated from it (`src/sass/grammar.rs`).
 That repository's `LICENSE`, read at commit `f0e50cfaca4b64a1d49f8d938f188d6fd0bcfb6f`, holds two MIT licences: its own, and that of the grammar definitions it took from [atom/language-sass](https://github.com/atom/language-sass):
 
 ```text

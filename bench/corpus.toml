@@ -12,7 +12,7 @@
 #
 # Changing a file, or adding or removing one, raises version: figures from
 # two versions are never compared.
-version = 1
+version = 2
 
 [[file]]
 language = "bat"
@@ -951,6 +951,28 @@ licence = "MIT OR Apache-2.0"
 licence_source = "https://github.com/rust-lang/hashbrown/blob/f7bae3d165a3191d086a506ce6a39e516ffd5c67/LICENSE-MIT"
 bytes = 216530
 sha256 = "ec2f436aad4e71345481fbe6cf279564b627e5dc479cc2d584a8387ef4f0846a"
+
+[[file]]
+language = "sass"
+tier = "small"
+origin = "neutral"
+path = "sass/small/bulma-card.sass"
+source = "https://raw.githubusercontent.com/jgthms/bulma/3e00a8e6d0d0e566d507328f0185ef84854effba/sass/components/card.sass"
+licence = "MIT"
+licence_source = "https://github.com/jgthms/bulma/blob/3e00a8e6d0d0e566d507328f0185ef84854effba/LICENSE"
+bytes = 2489
+sha256 = "571dc4e4c16237aad9f2fa27c01173a726182ca564a47af88171e1021a0788cf"
+
+[[file]]
+language = "sass"
+tier = "medium"
+origin = "neutral"
+path = "sass/medium/web3-is-going-great-main.sass"
+source = "https://raw.githubusercontent.com/molly/web3-is-going-great/d33e8e751749b547d5880c16dee4bd77e7c55973/src/styles/main.sass"
+licence = "MIT"
+licence_source = "https://github.com/molly/web3-is-going-great/blob/d33e8e751749b547d5880c16dee4bd77e7c55973/LICENSE"
+bytes = 27797
+sha256 = "08874620b979dc5ece2042b6130d8d87a6bbf1442ba9cd94fc3a5e78678f4c47"
 
 [[file]]
 language = "scala"

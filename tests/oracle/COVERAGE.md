@@ -48,6 +48,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
 | Ruby | `ruby` | 328 of 336 | 97.6% | 284 of 293 | 96.9% | 17 | 0 | yes |
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
+| Sass | `sass` | 78 of 78 | 100.0% | 11 of 20 | 55.0% | 9 | 0 | yes |
 | Scala | `scala` | 153 of 155 | 98.7% | 140 of 147 | 95.2% | 9 | 0 | yes |
 | SCSS | `scss` | 161 of 168 | 95.8% | 136 of 179 | 76.0% | 50 | 0 | yes |
 | shell | `shellscript` | 172 of 174 | 98.9% | 188 of 199 | 94.5% | 13 | 0 | yes |
@@ -757,6 +758,17 @@ patterns[88].patterns[0].end  (?=not)impossible  waived: the rule that holds it 
 
 ```text
 #functions.patterns[1].match  \b(pub)(\()  waived: `\b(pub)\b`, the pattern before it, matches wherever `\b(pub)(\()` does
+```
+
+### `sass`
+
+```text
+patterns[2].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups), 3 (waived: the grammar names the group, but the expression has no groups)
+patterns[9].end  groups 0 (waived: the end matches only the line feed, or nothing before a lookahead, and the oracle compares no blank)
+patterns[17].end  groups 0 (waived: the group is a lookahead, so it never holds text)
+patterns[18].end  groups 0 (waived: the group is a lookahead, so it never holds text)
+patterns[19].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+patterns[20].end  groups 0 (waived: the end matches only the line feed, or nothing before a lookahead, and the oracle compares no blank)
 ```
 
 ### `scala`

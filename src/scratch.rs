@@ -89,6 +89,11 @@ pub(crate) struct Scratch {
     /// The Ruby lexer's, for Ruby documents.
     #[cfg(feature = "lang-ruby")]
     pub(crate) ruby: crate::ruby::Scratch,
+    /// The Sass lexer's, for Sass documents, Vue's Sass styles and HAML's Sass
+    /// filters.
+    /// It is boxed and allocated by the first Sass line, as Dart's is.
+    #[cfg(feature = "lang-sass")]
+    pub(crate) sass: Option<Box<crate::sass::Scratch>>,
     /// The Scala lexer's, for Scala documents and Markdown Scala fences.
     /// It is boxed and allocated by the first Scala line, as Dart's is.
     #[cfg(feature = "lang-scala")]

@@ -98,7 +98,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | Python | `Language::Python` | `lang-python` | `all` | `python`, `py` |
 | Ruby | `Language::Ruby` | `lang-ruby` | `all` | `ruby`, `rb` |
 | Rust | `Language::Rust` | `lang-rust` | `all` | `rust`, `rs` |
-| Sass | `Language::Sass` | `lang-sass` | `textmate` | `sass` |
+| Sass | `Language::Sass` | `lang-sass` | `all` | `sass` |
 | Scala | `Language::Scala` | `lang-scala` | `all` | `scala` |
 | SCSS | `Language::Scss` | `lang-scss` | `all` | `scss` |
 | Shell | `Language::Shell` | `lang-shell` | `all` | `shellscript`, `bash`, `sh`, `shell`, `zsh` |

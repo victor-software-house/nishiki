@@ -62,6 +62,7 @@ all = [
   "lang-python",
   "lang-ruby",
   "lang-rust",
+  "lang-sass",
   "lang-scala",
   "lang-scss",
   "lang-shell",
@@ -126,7 +127,6 @@ textmate = [
   "lang-pascal",
   "lang-perl",
   "lang-php",
-  "lang-sass",
   "lang-vb",
 ]
 
@@ -222,7 +222,7 @@ lang-proto = ["_scope-table", "_rule-tables", "_classes"]
 lang-python = ["_scope-table", "_rule-tables"]
 lang-ruby = ["_scope-table", "_rule-tables", "_classes", "_embedding"]
 lang-rust = ["_scope-table", "_classes", "_space", "_utf8"]
-lang-sass = ["_textmate"]
+lang-sass = ["_scope-table", "_rule-tables", "_classes"]
 lang-scala = ["_scope-table", "_rule-tables", "_classes"]
 lang-scss = ["lang-css"]
 lang-shell = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]

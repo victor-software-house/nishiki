@@ -529,6 +529,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `sass/bulma-generic` | [`sass/base/generic.sass`][sass-bulma-generic] in jgthms/bulma | [MIT][bulma-sass-licence] |
 | `sass/bulma-mixins` | [`sass/utilities/mixins.sass`][sass-bulma-mixins] in jgthms/bulma | [MIT][bulma-sass-licence] |
 | `sass/bulma-navbar` | [`sass/components/navbar.sass`][sass-bulma-navbar] in jgthms/bulma | [MIT][bulma-sass-licence] |
+| `sass/coverage` | `oracle/inputs/sass-coverage.sass`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `sass/sample` | [`samples/sass.sample`][sass-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `scala/circe-build` | [`build.sbt`][circe-build] in circe/circe | [Apache-2.0][circe-licence] |
 | `scala/circe-json` | [`modules/core/shared/src/main/scala/io/circe/Json.scala`][circe-json] in circe/circe | [Apache-2.0][circe-licence] |
@@ -816,6 +817,8 @@ Shiki's Markdown grammar has no Zig fence, so no Markdown input embeds Zig.
 Shiki's Markdown grammar has no CMake fence, so no Markdown input embeds CMake.
 `proto/sample`, `proto/googleapis-http` and `proto/coverage` are Protobuf's development inputs, and `proto/googleapis-operations` and `proto/grpc-route-guide` are held out.
 Shiki's Markdown grammar has no Protobuf fence, so no Markdown input embeds Protobuf.
+`sass/sample`, `sass/bulma-functions` and `sass/coverage` are Sass's development inputs, and `sass/bulma-generic`, `sass/bulma-mixins` and `sass/bulma-navbar` are held out.
+Shiki's Markdown grammar has no Sass fence, so no Markdown input embeds Sass.
 `bat/sample` and `bat/gradlew` are Batch's development inputs, and `bat/tomcat-catalina` and `bat/tomcat-setclasspath` are held out.
 `bat/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 Shiki's Markdown grammar embeds Batch in `bat` and `batch` fences, and no Markdown input holds one yet.

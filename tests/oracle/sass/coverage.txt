@@ -1,0 +1,190 @@
+L // I
+T 4 source.sass keyword.other.sass.formatter.action
+L // import css-variables from "./vars"
+T 3 source.sass comment.import.css.variables
+T 9 source.sass comment.import.css.variables keyword.control
+T 10 source.sass comment.import.css.variables
+T 23 source.sass comment.import.css.variables variable
+T 24 source.sass comment.import.css.variables
+T 28 source.sass comment.import.css.variables keyword.control
+T 29 source.sass comment.import.css.variables
+T 37 source.sass comment.import.css.variables constant.character.css.sass
+L @use "sass:math" as m with ($base: 1px, $n: 2)
+T 4 source.sass sass.use keyword.control.at-rule.css.sass.use
+T 5 source.sass sass.use
+T 10 source.sass sass.use constant.character.css.sass
+T 11 source.sass sass.use meta.property-list.css.sass.colon
+T 16 source.sass sass.use constant.character.css.sass
+T 17 source.sass sass.use
+T 19 source.sass sass.use support.type.css.sass
+T 20 source.sass sass.use
+T 21 source.sass sass.use constant.character.css.sass
+T 22 source.sass sass.use
+T 26 source.sass sass.use support.type.css.sass
+T 27 source.sass sass.use
+T 28 source.sass sass.use entity.name.function.parenthesis.open
+T 33 source.sass sass.use variable.other.root
+T 34 source.sass sass.use meta.property-list.css.sass.colon
+T 35 source.sass sass.use
+T 36 source.sass sass.use constant.numeric.css.sass
+T 38 source.sass sass.use keyword.control.unit.css.sass
+T 39 source.sass sass.use comment.punctuation.comma.sass
+T 40 source.sass sass.use
+T 42 source.sass sass.use variable.other.root
+T 43 source.sass sass.use meta.property-list.css.sass.colon
+T 44 source.sass sass.use
+T 45 source.sass sass.use constant.numeric.css.sass
+T 46 source.sass sass.use entity.name.function.parenthesis.close
+L @import base/reset as legacy
+T 7 source.sass keyword.control.at-rule.use
+T 18 source.sass keyword.control.at-rule.use constant.character.css.sass
+T 28 source.sass keyword.control.at-rule.use invalid
+L /* A block comment with {{tag}} and @param name
+T 2 source.sass comment.block.sass
+T 26 source.sass comment.block.sass
+T 29 source.sass comment.block.sass comment.tag.sass
+T 36 source.sass comment.block.sass
+T 42 source.sass comment.block.sass storage.type.class.jsdoc
+T 47 source.sass comment.block.sass
+L    that goes on here.
+T 21 source.sass comment.block.sass
+L =tools($args...)
+T 1 source.sass support.function.name.sass keyword.control.at-rule.css.sass
+T 6 source.sass support.function.name.sass entity.name.function
+T 7 source.sass entity.name.function
+T 12 source.sass variable.other.root
+T 15 source.sass variable.other
+T 16 source.sass entity.name.function.close
+L   margin: 0;
+T 2 source.sass
+T 8 source.sass support.type.property-name.css.sass.prop.name
+T 9 source.sass meta.property-list.css.sass.prop
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 12 source.sass meta.property-list.css.sass.prop invalid
+L   width: math.div(10px, 2)
+T 2 source.sass
+T 7 source.sass support.type.property-name.css.sass.prop.name
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop constant.character.module constant.character.module.name
+T 14 source.sass meta.property-list.css.sass.prop constant.character.module constant.numeric.module.dot
+T 18 source.sass meta.property-list.css.sass.prop entity.name.function
+T 20 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 22 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 23 source.sass meta.property-list.css.sass.prop comment.punctuation.comma.sass
+T 24 source.sass meta.property-list.css.sass.prop
+T 25 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 26 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L a[href^="http"], a[title~='x']
+T 1 source.sass entity.name.tag.css.sass.symbol
+T 2 source.sass entity.other.attribute-selector.sass
+T 6 source.sass entity.other.attribute-selector.sass
+T 7 source.sass entity.other.attribute-selector.sass keyword.other.regex.sass
+T 8 source.sass entity.other.attribute-selector.sass
+T 9 source.sass entity.other.attribute-selector.sass string.quoted.double.css.sass
+T 13 source.sass entity.other.attribute-selector.sass string.quoted.double.css.sass
+T 14 source.sass entity.other.attribute-selector.sass string.quoted.double.css.sass
+T 15 source.sass entity.other.attribute-selector.sass
+T 16 source.sass comment.punctuation.comma.sass
+T 17 source.sass
+T 18 source.sass entity.name.tag.css.sass.symbol
+T 19 source.sass entity.other.attribute-selector.sass
+T 24 source.sass entity.other.attribute-selector.sass
+T 25 source.sass entity.other.attribute-selector.sass keyword.other.regex.sass
+T 26 source.sass entity.other.attribute-selector.sass
+T 27 source.sass entity.other.attribute-selector.sass string.quoted.single.css.sass
+T 28 source.sass entity.other.attribute-selector.sass string.quoted.single.css.sass
+T 29 source.sass entity.other.attribute-selector.sass string.quoted.single.css.sass
+T 30 source.sass entity.other.attribute-selector.sass
+L   background: url(img/a.png) no-repeat
+T 2 source.sass
+T 12 source.sass support.type.property-name.css.sass.prop.name
+T 13 source.sass meta.property-list.css.sass.prop
+T 14 source.sass meta.property-list.css.sass.prop
+T 18 source.sass meta.property-list.css.sass.prop entity.name.function
+T 26 source.sass meta.property-list.css.sass.prop string.quoted.double.css.sass
+T 27 source.sass meta.property-list.css.sass.prop string.quoted.double.css.sass
+T 28 source.sass meta.property-list.css.sass.prop entity.name.function.close
+T 29 source.sass meta.property-list.css.sass.prop
+T 38 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   font:bold 12px/1.5 sans-serif
+T 2 source.sass
+T 6 source.sass support.type.property-name.css.sass.prop.name
+T 7 source.sass meta.property-list.css.sass.prop
+T 12 source.sass meta.property-list.css.sass.prop support.type.property-name.css.sass.prop.name
+T 14 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 16 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 17 source.sass meta.property-list.css.sass.prop keyword.operator.sass
+T 20 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 21 source.sass meta.property-list.css.sass.prop
+T 31 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L   color: var(--main-color)
+T 2 source.sass
+T 7 source.sass support.type.property-name.css.sass.prop.name
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop entity.name.function
+T 25 source.sass meta.property-list.css.sass.prop variable.css
+T 26 source.sass meta.property-list.css.sass.prop entity.name.function.close
+L   content: "a #{$b} c"
+T 2 source.sass
+T 9 source.sass support.type.property-name.css.sass.prop.name
+T 10 source.sass meta.property-list.css.sass.prop
+T 11 source.sass meta.property-list.css.sass.prop
+T 12 source.sass meta.property-list.css.sass.prop string.quoted.double.css.sass
+T 14 source.sass meta.property-list.css.sass.prop string.quoted.double.css.sass
+T 16 source.sass meta.property-list.css.sass.prop string.quoted.double.css.sass support.function.interpolation.sass
+T 18 source.sass meta.property-list.css.sass.prop string.quoted.double.css.sass support.function.interpolation.sass variable.other.value
+T 19 source.sass meta.property-list.css.sass.prop string.quoted.double.css.sass support.function.interpolation.sass
+T 21 source.sass meta.property-list.css.sass.prop string.quoted.double.css.sass
+T 22 source.sass meta.property-list.css.sass.prop string.quoted.double.css.sass
+L ::selection
+T 11 source.sass entity.other.attribute-name.pseudo-class.css.sass
+L   color: red
+T 2 source.sass
+T 7 source.sass support.type.property-name.css.sass.prop.name
+T 8 source.sass meta.property-list.css.sass.prop
+T 9 source.sass meta.property-list.css.sass.prop
+T 12 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+L .card
+T 1 source.sass entity.other.attribute-name.class.css.sass
+T 5 source.sass entity.other.attribute-name.class.css.sass
+L   &:hover
+T 2 source.sass
+T 3 source.sass entity.name.tag.css.sass.symbol
+T 9 source.sass entity.name.tag.css.sass.symbol entity.other.attribute-name.pseudo-class.css.sass
+L     $map: (key: 1px, other: 2px)
+T 4 source.sass
+T 8 source.sass sass.script.maps variable.other.name
+T 11 source.sass sass.script.maps
+T 14 source.sass sass.script.maps meta.property-value.css.sass support.constant.property-value.css.sass
+T 16 source.sass sass.script.maps
+T 17 source.sass sass.script.maps constant.numeric.css.sass
+T 19 source.sass sass.script.maps keyword.control.unit.css.sass
+T 20 source.sass sass.script.maps comment.punctuation.comma.sass
+T 21 source.sass sass.script.maps
+T 26 source.sass sass.script.maps meta.property-value.css.sass support.constant.property-value.css.sass
+T 28 source.sass sass.script.maps
+T 29 source.sass sass.script.maps constant.numeric.css.sass
+T 31 source.sass sass.script.maps keyword.control.unit.css.sass
+T 32 source.sass entity.name.function.close
+L     border: { width: 1px }
+T 4 source.sass
+T 10 source.sass support.type.property-name.css.sass.prop.name
+T 11 source.sass meta.property-list.css.sass.prop
+T 12 source.sass meta.property-list.css.sass.prop
+T 13 source.sass meta.property-list.css.sass.prop invalid
+T 14 source.sass meta.property-list.css.sass.prop
+T 19 source.sass meta.property-list.css.sass.prop meta.property-value.css.sass support.constant.property-value.css.sass
+T 21 source.sass meta.property-list.css.sass.prop
+T 22 source.sass meta.property-list.css.sass.prop constant.numeric.css.sass
+T 24 source.sass meta.property-list.css.sass.prop keyword.control.unit.css.sass
+T 25 source.sass meta.property-list.css.sass.prop
+T 26 source.sass meta.property-list.css.sass.prop invalid
+L     $sel: &
+T 4 source.sass
+T 8 source.sass sass.script.maps variable.other.name
+T 10 source.sass sass.script.maps
+T 11 source.sass sass.script.maps entity.name.tag.css.sass
+L 

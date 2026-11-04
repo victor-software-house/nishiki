@@ -71,6 +71,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["{", "}", "(", ")", "[", "]", "<", ">", "=", ";", ",", ":", ".", "\"proto3\"", "\"a.proto\"", "'x'", "\"a\\\"b\"", "/*", "*/", "//"],
     heads: ["", "", " ", "  ", "// ", "message M { ", "enum E { ", "service S { "],
   },
+  sass: {
+    words: ["$base", "$map", "10px", "1.5em", "50%", "1sec", "-2", ".5", "#fff", "#abcdef", "!default", "!important", "darken(", "url(", "math.div(", "and", "or", "not", "true", "null", "a", "div", "h1", "span", "nav", "&", ".btn", "#main", "%placeholder", ":hover", "::before", "@media", "@include", "@mixin", "@function", "@use", "@import", "@extend", "=m", "+m", "color", "font-size", "--x", "é"],
+    marks: ["(", ")", "[", "]", "{", "}", "#{", ",", ".", ":", ";", " - ", "+", "*", "/", "=", "~", "^=", "...", "\"", "'", "\"a#{$b}\"", "/*", "*/", "//", "{{", "}}"],
+    heads: ["", "", "  ", "    ", "// ", "/* ", "=", "+", "@"],
+  },
   swift: {
     words: ["func", "init", "class", "struct", "enum", "protocol", "extension", "actor", "typealias", "operator", "infix", "import", "let", "var", "if", "else", "guard", "switch", "case", "default", "for", "in", "while", "return", "throws", "try", "await", "async", "where", "is", "as?", "self", "Self", "nil", "true", "some", "any", "static", "public", "private", "@available", "@objc", "@MainActor", "#if", "#else", "#endif", "#available", "Int", "String", "Array", "Foo", "x", "_", "é", "$0", "print", "1", "0x1F", "1_000", "2e10", "`class`", "\\(x)", "\\.self", "swift(>=5.9)", "os(macOS)"],
     marks: ["(", ")", "[", "]", "{", "}", "<", ">", ",", ".", "...", "..<", "?", "!", "??", "?.", ":", ";", "=", "==", "+", "-", "*", "/", "&+", "->", "=>", "@", "#", "\\", "\"", "\"\"\"", "#\"", "\"#", "##\"", "\\(", "/*", "*/", "///", "//", "#/", "/#", "/a+/", "#/a|b/#", "(?i)", "|>"],

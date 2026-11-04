@@ -47,6 +47,7 @@ import rubyXmlHeredocs from "./inputs/ruby-xml-heredocs.rb" with { type: "text" 
 import rubyYamlHeredocs from "./inputs/ruby-yaml-heredocs.rb" with { type: "text" };
 import rustCoverage from "./inputs/rust-coverage.rs" with { type: "text" };
 import scalaCoverage from "./inputs/scala-coverage.scala" with { type: "text" };
+import sassCoverage from "./inputs/sass-coverage.sass" with { type: "text" };
 import scssCoverage from "./inputs/scss-coverage.scss" with { type: "text" };
 import shellscriptCoverage from "./inputs/shellscript-coverage.sh" with { type: "text" };
 import shellscriptUnicodeWords from "./inputs/shellscript-unicode-words.sh" with { type: "text" };
@@ -1180,12 +1181,12 @@ export const inputs: Input[] = [
   },
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   { lang: "rust", name: "serde-de", url: `${serde}/serde_core/src/de/mod.rs` },
-  // Sass runs on the TextMate engine. Shiki's Markdown grammar has no Sass
-  // fence, so no Markdown input embeds it.
+  // Shiki's Markdown grammar has no Sass fence, so no Markdown input embeds Sass.
   { lang: "sass", name: "bulma-functions", url: `${bulmaSass}/sass/utilities/functions.sass` },
   { lang: "sass", name: "bulma-generic", url: `${bulmaSass}/sass/base/generic.sass` },
   { lang: "sass", name: "bulma-mixins", url: `${bulmaSass}/sass/utilities/mixins.sass` },
   { lang: "sass", name: "bulma-navbar", url: `${bulmaSass}/sass/components/navbar.sass` },
+  { lang: "sass", name: "coverage", text: sassCoverage },
   { lang: "sass", name: "sample", url: `${samples}/sass.sample` },
   { lang: "scala", name: "circe-build", url: `${circe}/build.sbt` },
   { lang: "scala", name: "circe-json", url: `${circe}/modules/core/shared/src/main/scala/io/circe/Json.scala` },

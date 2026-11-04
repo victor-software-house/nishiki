@@ -1260,6 +1260,12 @@ export const waivers: Waiver[] = [
     reason: "`#pipeline`, before it in every context that includes both, takes the first `|` of every `||` with `[!|]`",
   },
   { grammar: "shellscript", path: "#option.begin", group: 2, reason: lookahead },
+  ...[1, 2, 3].map((group): Waiver => ({ grammar: "sass", path: "patterns[2].end", group, reason: missing(0) })),
+  { grammar: "sass", path: "patterns[9].end", group: 0, reason: "the end matches only the line feed, or nothing before a lookahead, and the oracle compares no blank" },
+  { grammar: "sass", path: "patterns[17].end", group: 0, reason: lookahead },
+  { grammar: "sass", path: "patterns[18].end", group: 0, reason: lookahead },
+  ...[1, 2].map((group): Waiver => ({ grammar: "sass", path: "patterns[19].end", group, reason: missing(0) })),
+  { grammar: "sass", path: "patterns[20].end", group: 0, reason: "the end matches only the line feed, or nothing before a lookahead, and the oracle compares no blank" },
   { grammar: "scala", path: "#comments.patterns[1].begin", group: 1, reason: blanks },
   ...["#exports.patterns[5].patterns[2].match", "#imports.patterns[6].patterns[2].match"].map(
     (path): Waiver => ({
@@ -1325,6 +1331,7 @@ export const complete: string[] = [
   "python",
   "ruby",
   "rust",
+  "sass",
   "scala",
   "scss",
   "shellscript",

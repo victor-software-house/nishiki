@@ -2,9 +2,9 @@
 // ids. Design section 14 of `openspec/changes/engine-handoff` describes the
 // hand-off.
 //
-// Most of them nishiki lexes by hand. Sass and CoffeeScript run on the engine
-// with tables of their own. A hand-off to one of them runs the engine again,
-// on the scratch the hand-off lends it.
+// Most of them nishiki lexes by hand. CoffeeScript runs on the engine with
+// tables of its own. A hand-off to it runs the engine again, on the scratch
+// the hand-off lends it.
 //
 // A spec names the languages its table hands off with `>`, as in
 // `haml>ruby>javascript`. An include of one of their grammars becomes a

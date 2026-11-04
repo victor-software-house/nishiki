@@ -1,0 +1,21 @@
+// I
+// import css-variables from "./vars"
+@use "sass:math" as m with ($base: 1px, $n: 2)
+@import base/reset as legacy
+/* A block comment with {{tag}} and @param name
+   that goes on here.
+=tools($args...)
+  margin: 0;
+  width: math.div(10px, 2)
+a[href^="http"], a[title~='x']
+  background: url(img/a.png) no-repeat
+  font:bold 12px/1.5 sans-serif
+  color: var(--main-color)
+  content: "a #{$b} c"
+::selection
+  color: red
+.card
+  &:hover
+    $map: (key: 1px, other: 2px)
+    border: { width: 1px }
+    $sel: &
