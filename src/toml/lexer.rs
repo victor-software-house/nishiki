@@ -285,7 +285,7 @@ impl<'a> Lexer<'a> {
     ///
     /// `[` or `[[`, text without brackets, then `]` or `]]`.
     fn header_end(&self) -> Option<(usize, bool)> {
-        *self.header.get_or_init(|| {
+        *self.header.get_or_init(move || {
             let p = self.first;
             let double = self.at(p + 1) == b'[';
             let start = p + if double { 2 } else { 1 };

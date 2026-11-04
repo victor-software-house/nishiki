@@ -85,9 +85,10 @@ impl Lexer<'_> {
     pub(super) fn at_keyframes(&mut self, p: usize) -> Option<usize> {
         let at = self.spaces(p);
         let end = self.lit(at, b"@keyframes")?;
-        let brace = *self.x.brace.get_or_init(|| {
-            let brace = self.text(0, self.lim()).iter().rposition(|&b| b == b'{');
-            self.spend(self.lim() - brace.unwrap_or(0));
+        let lexer = &*self;
+        let brace = *lexer.x.brace.get_or_init(move || {
+            let brace = lexer.text(0, lexer.lim()).iter().rposition(|&b| b == b'{');
+            lexer.spend(lexer.lim() - brace.unwrap_or(0));
             brace
         });
         if brace.is_none_or(|brace| brace < end) {

@@ -145,7 +145,7 @@ impl<'a> Lexer<'a> {
     /// call rule. The line is searched once, from its end, so each check is
     /// one comparison and a line of repeated `a::<` stays linear.
     pub(crate) fn call_ahead(&self, from: usize) -> bool {
-        let last = self.last_call.get_or_init(|| {
+        let last = self.last_call.get_or_init(move || {
             self.spend(self.s.len());
             memmem::rfind(self.s, b">(")
         });

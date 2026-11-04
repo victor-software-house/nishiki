@@ -258,7 +258,7 @@ impl Lexer<'_> {
         let close = *self
             .x
             .interpolated
-            .get_or_init(|| self.last_property_close());
+            .get_or_init(move || self.last_property_close());
         close.filter(|&close| close > open + 2).map(|_| p)
     }
 

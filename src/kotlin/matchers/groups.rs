@@ -97,7 +97,7 @@ impl Lexer<'_> {
         memo: &OnceCell<Option<usize>>,
         bytes: &[u8],
     ) -> Option<usize> {
-        *memo.get_or_init(|| {
+        *memo.get_or_init(move || {
             let line = self.text(0, self.lim());
             self.spend(line.len());
             line.iter().rposition(|b| bytes.contains(b))

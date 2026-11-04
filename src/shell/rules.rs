@@ -1373,7 +1373,7 @@ static TABLE: [OnceLock<RuleInfo>; Rule::ALL.len()] = [const { OnceLock::new() }
 
 /// The table of `rule`.
 pub(crate) fn rule_info(rule: Rule) -> &'static RuleInfo {
-    TABLE[rule.index()].get_or_init(|| with_tables(build(rule)))
+    TABLE[rule.index()].get_or_init(move || with_tables(build(rule)))
 }
 
 #[cfg(test)]
