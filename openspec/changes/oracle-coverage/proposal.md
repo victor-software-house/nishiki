@@ -36,4 +36,4 @@ The [`shiki-fidelity`][fidelity] requirements stay as they are: coverage measure
 [oracle-test]: ../../../tests/it/oracle.rs
 [sources]: ../../../tests/oracle/SOURCES.md
 [onig]: ../../../oracle/onig.ts
-[fidelity]: ../shiki-oracle/specs/shiki-fidelity/spec.md
+[fidelity]: ../../specs/shiki-fidelity/spec.md

@@ -2,10 +2,14 @@
 
 ## 1. OpenSpec as the home for intent
 
-- [ ] 1.1 Verify the open tasks of `shiki-oracle`, `themes` and `line-limits` against main, record the evidence, and archive every change whose tasks all pass → verify: `openspec/specs/` holds their capabilities and `mise run specs` passes
-- [ ] 1.2 Archive `textmate-engine` → verify: `openspec list` no longer shows it
-- [ ] 1.3 Move `docs/research/` to `openspec/research/` with `git mv`, move the research rules from `docs/AGENTS.md` to `openspec/AGENTS.md`, add `openspec/README.md`, and delete `docs/` → verify: `rg 'docs/research|docs/AGENTS'` finds nothing outside archived changes
-- [ ] 1.4 Delete `research/textmate/` and its `exclude` entry in `Cargo.toml`; point the note at the prototype's last commit → verify: `rg 'research/textmate'` finds only that pinned link
+- [x] 1.1 Verify the open tasks of `shiki-oracle`, `themes` and `line-limits` against main, record the evidence, and archive every change whose tasks all pass → verify: `openspec/specs/` holds their capabilities and `mise run specs` passes
+  - 2026-11-03 UTC: each open task was checked against main `fc6d39a0` and CI run 41674564525, with a dated note under it; `shiki-oracle`, `themes` and `line-limits` are archived, and `openspec validate --all --strict` passes.
+- [x] 1.2 Archive `textmate-engine` → verify: `openspec list` no longer shows it
+  - 2026-11-03 UTC: archived; `openspec list` shows `engine-handoff`, `language-detection` and `repo-layout` only.
+- [x] 1.3 Move `docs/research/` to `openspec/research/` with `git mv`, move the research rules from `docs/AGENTS.md` to `openspec/AGENTS.md`, add `openspec/README.md`, and delete `docs/` → verify: `rg 'docs/research|docs/AGENTS'` finds nothing outside archived changes
+  - 2026-11-03 UTC: `rg` finds those paths only in this change and in the root guide's links to the planning repository's own `docs/research/`.
+- [x] 1.4 Delete `research/textmate/` and its `exclude` entry in `Cargo.toml`; point the note at the prototype's last commit → verify: `rg 'research/textmate'` finds only that pinned link
+  - 2026-11-03 UTC: removed; the note links the prototype at `d6bc4a8e`. `bench/AGENTS.md` rule 8 still names `research/` for comparisons; the `bench-methodology` change replaces that rule.
 
 ## 2. A README per browsable directory
 

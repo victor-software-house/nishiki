@@ -6,7 +6,7 @@ Read [README.md](README.md) for what it is.
 ## Guides
 
 - [CODING_STANDARDS.md](CODING_STANDARDS.md): the numbered coding rules.
-- [docs/AGENTS.md](docs/AGENTS.md): the rules for research notes.
+- [openspec/](openspec/README.md): specs, changes in flight and research notes, with [their rules](openspec/AGENTS.md).
 - [bench/AGENTS.md](bench/AGENTS.md): the rules for measuring.
 - [openspec/changes/repo-layout](openspec/changes/repo-layout/proposal.md): the plan that moves these into one layout.
 

@@ -8,4 +8,5 @@
   - 2026-11-02 UTC: on the operator's Mac it passed on all three fixtures (751 non-whitespace bytes in the sample alone); with one scope in `rust/sample.txt` renamed it failed with 4 of 751 bytes, naming line 2, column 4 and both stacks.
 - [x] 1.3 List each input's source and licence in `tests/oracle/SOURCES.md` → verify: every licence link resolves at its pinned commit
   - 2026-11-02 UTC: `gh api` read the three licence files at their pinned commits.
-- [ ] 1.4 CI runs the oracle test → verify: `mise run verify` passes on the pull request
+- [x] 1.4 CI runs the oracle test → verify: `mise run verify` passes on the pull request
+  - 2026-11-03 UTC: `mise run verify` runs the oracle test on every pull request and on main; [CI run 41674564525](https://github.com/victor-software-house/nishiki-archive/actions/runs/41674564525) passed at main `c50342f8`.

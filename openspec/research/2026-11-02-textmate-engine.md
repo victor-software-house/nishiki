@@ -28,7 +28,7 @@ All numbers come from one Apple M4 Pro (14 cores, 48 GiB), rustc 1.99.1, release
 Shiki is 4.6.0 with per-line limits off, as `tests/oracle/SOURCES.md` records.
 Grammars are the ones `shiki@4.6.0` ships in `@shikijs/langs` 4.6.0, which its `package.json` builds from `tm-grammars` `^1.32.22`.
 
-1. Prototype commits: `67b37ce`, `ffa144b`, `19b6ada`, `211ef84` on a base of `322dd23`, in `research/textmate/`.
+1. Prototype commits: `67b37ce`, `ffa144b`, `19b6ada`, `211ef84` on a base of `322dd23`, in [`research/textmate/`][prototype], which [#45] added and the repo-layout change later removed.
 2. Grammars loaded together: `source.rust`, `source.shell`, `source.ts`, `text.html.markdown`.
    Their JSON is 14,801, 39,955, 163,900 and 56,874 bytes.
 3. The oracle fixtures are the ones `tests/oracle/<language>/*.txt` holds.
@@ -252,3 +252,6 @@ Open questions the prototype did not answer:
 1. One Apple M4 Pro laptop, builds, runs and surveys, not timed, at no cost.
 2. Network: `gh api` calls for 171 repositories and the Shiki and `tm-grammars` downloads, at no cost.
 3. No cloud, Namespace or paid run.
+
+[prototype]: https://github.com/victor-software-house/nishiki-archive/tree/d6bc4a8e254a7ffa0fb05e9d15d28dc8b2518244/research/textmate
+[#45]: https://github.com/victor-software-house/nishiki-archive/pull/45
