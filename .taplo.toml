@@ -2,6 +2,8 @@
 # The Copier template owns the layout of the files it renders.
 exclude = [
   "target/**",
+  # Benchmark inputs keep their sources' bytes (bench/corpus/README.md).
+  "bench/corpus/**",
   ".miserc.toml",
   "committed.toml",
   "mise.dev.toml",

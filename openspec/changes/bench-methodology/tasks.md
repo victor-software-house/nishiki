@@ -38,8 +38,13 @@ The probe uses the current `examples/bench.rs` throughput figure, so it does not
 
 ## 4. The corpus
 
-- [ ] 4.1 `bench/corpus/` with small and medium files for every language, large files for the languages the comparison covers, and the reply set; `bench/corpus.toml` and `bench/corpus/SOURCES.md` list each file's origin, source at its commit, licence and SHA-256 → verify: every licence link resolves (`gh api` for each repository), and no file is copyleft or unlicensed
-- [ ] 4.2 A check task fails when a corpus file and its manifest row disagree, or a file has no row, and `check:local` runs it → verify: CI passes, and the pull request shows the check failing on a deliberately edited copy
+- [x] 4.1 `bench/corpus/` with small and medium files for every language, large files for the languages the comparison covers, and the reply set; `bench/corpus.toml` lists each file's language, tier, origin, source at its commit, licence and its source, size and SHA-256 → verify: every source and licence link resolves (`gh api` for each repository), and no file is copyleft or unlicensed
+  - 2026-11-04 UTC: 111 files over all 46 languages: small and medium for each, large for 16 (CSS has none: every CSS file found in range was generated or vendored), and three replies.
+    Each licence was read at its source; all are MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, CC0-1.0, or dual MIT with Apache-2.0 or the Unlicense.
+    All 219 source and licence links resolved through `gh api`. 110 files are neutral; jQuery 2.1.4 is shared with syntect's and giallo's benchmarks.
+- [x] 4.2 A check task fails when a corpus file and its manifest row disagree, or a file has no row, and `check:local` runs it → verify: CI passes, and the pull request shows the check failing on a deliberately edited copy
+  - 2026-11-04 UTC: `mise-tasks/check/corpus.sh` also fails on a size outside its tier, an unpinned source, or a licence off the permissive list.
+    Locally, one byte appended to `c/nginx-ngx-hash.c` and a stray `c/stray.c` gave three failures (size, SHA-256, no row); the restored tree passes. CI's verify runs it through `check:local`.
 
 ## 5. The `bench/` workspace
 

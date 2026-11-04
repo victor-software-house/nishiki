@@ -1,0 +1,704 @@
+# Server-Sent Event parsing plus client/server helpers.
+
+import Base: close, eof, isopen, readavailable, write
+
+const _SSE_LF = UInt8('\n')
+const _SSE_CR = UInt8('\r')
+const _SSE_COLON = UInt8(':')
+const _SSE_SPACE = UInt8(' ')
+const _DEFAULT_SSE_STREAM_MAX_LEN = 16 * 1024 * 1024
+
+"""
+    SSEEvent(data; event=nothing, id=nothing, retry=nothing)
+
+One server-sent event: what a server writes to an [`SSEStream`](@ref), and what
+the client passes to an `sse_callback`.
+
+Fields:
+- `data`: the event data; several `data:` lines are joined with `"\\n"`
+- `event`: the event type, or `nothing`
+- `id`: the last event ID received, or `nothing`
+- `retry`: the last reconnection time received, in milliseconds, or `nothing`
+- `fields`: the event's fields by name
+"""
+struct SSEEvent
+    data::String
+    event::Union{Nothing,String}
+    id::Union{Nothing,String}
+    retry::Union{Nothing,Int}
+    fields::Dict{String,String}
+end
+
+# A bare CR or LF (and therefore CRLF) is a valid SSE line terminator on the
+# wire, so any CR/LF embedded in a single-line field (event, id, retry) would
+# let one SSEEvent forge additional fields or a blank-line dispatch boundary and
+# inject events into every connected EventSource client. NUL is additionally
+# rejected in `id` because the SSE spec / browser EventSource parsers reject an
+# id containing NUL. The `data` field may legitimately span multiple lines, so
+# it is not validated here; it is split into `data:` lines at write time.
+function _reject_sse_line_breaks(name::String, value::AbstractString)
+    if occursin('\n', value) || occursin('\r', value)
+        throw(ArgumentError("SSE $name field must not contain CR or LF characters"))
+    end
+    return nothing
+end
+
+function SSEEvent(
+    data::AbstractString;
+    event::Union{Nothing,AbstractString}=nothing,
+    id::Union{Nothing,AbstractString}=nothing,
+    retry::Union{Nothing,Integer}=nothing,
+)
+    if event !== nothing
+        _reject_sse_line_breaks("event", event)
+    end
+    if id !== nothing
+        _reject_sse_line_breaks("id", id)
+        occursin('\0', id) && throw(ArgumentError("SSE id field must not contain NUL"))
+    end
+    if retry !== nothing && retry < 0
+        # `retry` is serialized as digits only; a negative value would emit a
+        # leading '-' that is not a valid retry hint.
+        throw(ArgumentError("SSE retry field must be non-negative"))
+    end
+    return SSEEvent(
+        String(data),
+        event === nothing ? nothing : String(event),
+        id === nothing ? nothing : String(id),
+        retry === nothing ? nothing : Int(retry),
+        Dict{String,String}(),
+    )
+end
+
+"""
+    SSEStream(; max_len=16*1024*1024)
+
+The body of a server-sent event response from [`sse_stream`](@ref).
+`write(stream, event::SSEEvent)` sends an event and `close(stream)` ends the
+response. `max_len` limits the size of one event, in bytes. Events the client
+has not read yet may hold up to four times `max_len` bytes, and at least
+16 MiB: a `write` past that closes the stream and throws `IOError`, as it does
+once the client has gone.
+"""
+mutable struct SSEStream <: AbstractBody
+    buffer::Base.BufferStream
+    format_buffer::IOBuffer
+    lock::ReentrantLock
+    max_len::Int
+end
+
+function SSEStream(; max_len::Integer=_DEFAULT_SSE_STREAM_MAX_LEN)
+    max_len > 0 || throw(ArgumentError("max_len must be > 0"))
+    return SSEStream(Base.BufferStream(), IOBuffer(), ReentrantLock(), Int(max_len))
+end
+
+isopen(stream::SSEStream)::Bool = isopen(stream.buffer)
+
+eof(stream::SSEStream)::Bool = eof(stream.buffer)
+
+function close(stream::SSEStream)
+    close(stream.buffer)
+    return nothing
+end
+
+readavailable(stream::SSEStream) = readavailable(stream.buffer)
+
+body_closed(stream::SSEStream)::Bool = !isopen(stream)
+
+function body_close!(stream::SSEStream)
+    close(stream)
+    return nothing
+end
+
+function body_read!(stream::SSEStream, dst::Vector{UInt8})::Int
+    isempty(dst) && return 0
+    buf = stream.buffer
+    # Return as soon as any bytes are buffered rather than asking readbytes! to
+    # fill `dst`: on a BufferStream that call blocks until length(dst) bytes
+    # accumulate or the stream closes, which would hold written events back
+    # from the transport until the SSE stream ends instead of streaming them
+    # live. `eof` blocks until at least one byte is available or the stream is
+    # closed and drained.
+    eof(buf) && return 0
+    available = min(bytesavailable(buf), length(dst))
+    return readbytes!(buf, dst, available)
+end
+
+# Split `value` on CR, LF, and CRLF. EventSource parsers treat each as a line
+# break, so each must start a new `data:` line; otherwise a bare '\r' in
+# `data` could smuggle extra fields onto the wire.
+function _split_sse_data_lines(value::AbstractString)
+    return split(value, r"\r\n|\r|\n"; keepempty=true)
+end
+
+function write(stream::SSEStream, event::SSEEvent)::Int
+    # Defense-in-depth: the SSEEvent keyword constructor already rejects CR/LF in
+    # these single-line fields, but an SSEEvent can also be built via the raw
+    # positional constructor (e.g. by the client-side parser), so re-validate the
+    # values we are about to serialize verbatim before they reach the wire.
+    if event.event !== nothing
+        _reject_sse_line_breaks("event", event.event)
+    end
+    if event.id !== nothing
+        _reject_sse_line_breaks("id", event.id)
+    end
+    return lock(stream.lock) do
+        buf = stream.format_buffer
+        truncate(buf, 0)
+        # One value per `write`: Base's varargs `write(io, x1, xs...)` is not
+        # specialized on `xs`, so its writes dispatch dynamically, which
+        # juliac --trim cannot resolve.
+        if event.event !== nothing
+            write(buf, "event: ")
+            write(buf, event.event)
+            write(buf, '\n')
+        end
+        if event.id !== nothing
+            write(buf, "id: ")
+            write(buf, event.id)
+            write(buf, '\n')
+        end
+        if event.retry !== nothing
+            # `retry` is an Int, so `string` yields digits (plus possibly a
+            # leading '-' which the constructor already rejects) and cannot
+            # contain a line break.
+            write(buf, "retry: ")
+            write(buf, string(event.retry))
+            write(buf, '\n')
+        end
+        for line in _split_sse_data_lines(event.data)
+            write(buf, "data: ")
+            write(buf, line)
+            write(buf, '\n')
+        end
+        write(buf, "\n")
+        bytes = take!(buf)
+        length(bytes) <= stream.max_len || throw(ArgumentError("serialized SSE event exceeds max_len"))
+        # A client that stops reading must not make the server keep every event.
+        # The floor keeps a burst of small events from tripping a small max_len;
+        # a max_len too large for `4 * max_len` to fit an `Int` means no cap.
+        waiting = bytesavailable(stream.buffer)
+        cap = stream.max_len > typemax(Int) ÷ 4 ? typemax(Int) : 4 * stream.max_len
+        if waiting + length(bytes) > max(cap, _DEFAULT_SSE_STREAM_MAX_LEN)
+            close(stream)
+            throw(Base.IOError("SSE client is not reading: $(waiting) bytes of events are waiting", 0))
+        end
+        return write(stream.buffer, bytes)
+    end
+end
+
+"""
+    sse_stream(status=200; max_len=16*1024*1024, kwargs...) -> Response
+    sse_stream(f, status; max_len=16*1024*1024, kwargs...) -> Response
+    sse_stream(response[, f]) -> SSEStream
+
+Build a server-sent event response for a `serve!` handler to return. It has an
+[`SSEStream`](@ref) body and the headers `Content-Type: text/event-stream` and
+`Cache-Control: no-cache`. The other keywords are those of
+[`Response`](@ref).
+
+With a function `f`, usually a `do` block as in `sse_stream(200) do stream`,
+`f(stream)` runs on its own task and writes [`SSEEvent`](@ref)s to the stream;
+the response ends when `f` returns.
+Without `f`, write events to `response.body` and close it to end the response.
+
+The `response` forms take a `Response` whose body is already an `SSEStream`,
+set its headers, start `f` if given, and return the stream.
+"""
+function sse_stream end
+
+@inline function _configure_sse_response!(response::Response)::Response
+    response.content_length = Int64(-1)
+    setheader(response.headers, "Content-Type", "text/event-stream")
+    setheader(response.headers, "Cache-Control", "no-cache")
+    removeheader(response.headers, "Content-Length")
+    return response
+end
+
+function sse_stream(
+    status::Integer=200;
+    reason::AbstractString="",
+    headers=Headers(),
+    trailers=Headers(),
+    max_len::Integer=_DEFAULT_SSE_STREAM_MAX_LEN,
+    proto_major::Integer=1,
+    proto_minor::Integer=1,
+    close::Bool=false,
+    request::Union{Nothing,Request}=nothing,
+    request_url::Union{Nothing,AbstractString}=nothing,
+    previous::Union{Nothing,Response}=nothing,
+    redirect_count::Integer=0,
+)::Response
+    response = Response(
+        status,
+        SSEStream(; max_len=max_len);
+        reason=reason,
+        headers=headers,
+        trailers=trailers,
+        content_length=Int64(-1),
+        proto_major=proto_major,
+        proto_minor=proto_minor,
+        close=close,
+        request=request,
+        request_url=request_url,
+        previous=previous,
+        redirect_count=redirect_count,
+    )
+    return _configure_sse_response!(response)
+end
+
+function sse_stream(response::Response; max_len::Integer=_DEFAULT_SSE_STREAM_MAX_LEN)::SSEStream
+    _ = max_len
+    response.body isa SSEStream ||
+        throw(ArgumentError("sse_stream(response) requires response.body to already be an SSEStream; use sse_stream(status) to construct one"))
+    _configure_sse_response!(response)
+    return response.body::SSEStream
+end
+
+function sse_stream(response::Response, f::Function; max_len::Integer=_DEFAULT_SSE_STREAM_MAX_LEN)::SSEStream
+    stream = sse_stream(response; max_len=max_len)
+    @_spawn_interactive begin
+        try
+            f(stream)
+        catch err
+            err isa InterruptException && rethrow()
+            @error "SSE stream handler error" exception = (err, catch_backtrace())
+        finally
+            @try_ignore begin
+                close(stream)
+            end
+        end
+    end
+    return stream
+end
+
+function sse_stream(
+    status::Integer,
+    f::Function;
+    reason::AbstractString="",
+    headers=Headers(),
+    trailers=Headers(),
+    max_len::Integer=_DEFAULT_SSE_STREAM_MAX_LEN,
+    proto_major::Integer=1,
+    proto_minor::Integer=1,
+    close::Bool=false,
+    request::Union{Nothing,Request}=nothing,
+    request_url::Union{Nothing,AbstractString}=nothing,
+    previous::Union{Nothing,Response}=nothing,
+    redirect_count::Integer=0,
+)::Response
+    response = sse_stream(
+        status;
+        reason=reason,
+        headers=headers,
+        trailers=trailers,
+        max_len=max_len,
+        proto_major=proto_major,
+        proto_minor=proto_minor,
+        close=close,
+        request=request,
+        request_url=request_url,
+        previous=previous,
+        redirect_count=redirect_count,
+    )
+    sse_stream(response, f; max_len=max_len)
+    return response
+end
+
+function sse_stream(f::Function, response::Response; max_len::Integer=_DEFAULT_SSE_STREAM_MAX_LEN)::SSEStream
+    return sse_stream(response, f; max_len=max_len)
+end
+
+function sse_stream(
+    f::Function,
+    status::Integer;
+    reason::AbstractString="",
+    headers=Headers(),
+    trailers=Headers(),
+    max_len::Integer=_DEFAULT_SSE_STREAM_MAX_LEN,
+    proto_major::Integer=1,
+    proto_minor::Integer=1,
+    close::Bool=false,
+    request::Union{Nothing,Request}=nothing,
+    request_url::Union{Nothing,AbstractString}=nothing,
+    previous::Union{Nothing,Response}=nothing,
+    redirect_count::Integer=0,
+)::Response
+    return sse_stream(
+        status,
+        f;
+        reason=reason,
+        headers=headers,
+        trailers=trailers,
+        max_len=max_len,
+        proto_major=proto_major,
+        proto_minor=proto_minor,
+        close=close,
+        request=request,
+        request_url=request_url,
+        previous=previous,
+        redirect_count=redirect_count,
+    )
+end
+
+mutable struct _SSEState
+    data_lines::Vector{String}
+    has_data::Bool
+    bom_checked::Bool
+    saw_evidence::Bool
+    event_bytes::Int
+    event_name::Union{Nothing,String}
+    last_event_id::Union{Nothing,String}
+    last_retry::Union{Nothing,Int}
+    fields::Dict{String,Vector{String}}
+end
+
+function _SSEState()
+    return _SSEState(String[], false, false, false, 0, nothing, nothing, nothing, Dict{String,Vector{String}}())
+end
+
+mutable struct _SSEClientStream{F} <: IO
+    response::Response
+    cancel_cb::F
+    @atomic closed::Bool
+end
+
+function _SSEClientStream(response::Response, cancel_cb::F) where {F}
+    return _SSEClientStream{F}(response, cancel_cb, false)
+end
+
+function Base.getproperty(stream::_SSEClientStream, field::Symbol)
+    if field === :response || field === :cancel_cb || field === :closed
+        return getfield(stream, field)
+    end
+    return getproperty(getfield(stream, :response), field)
+end
+
+function close(stream::_SSEClientStream)
+    was_closed = @atomic :acquire stream.closed
+    was_closed && return nothing
+    @atomic :release stream.closed = true
+    stream.cancel_cb()
+    return nothing
+end
+
+function isopen(stream::_SSEClientStream)::Bool
+    return !(@atomic :acquire stream.closed)
+end
+
+struct _SSEStop <: Exception
+end
+
+function _wrap_sse_callback(callback::Function, stream::_SSEClientStream, response::Response)::Function
+    dummy = SSEEvent("", nothing, nothing, nothing, Dict{String,String}())
+    if applicable(callback, stream, dummy)
+        return event -> begin
+            callback(stream, event)
+            isopen(stream) || throw(_SSEStop())
+            return nothing
+        end
+    end
+    _ = response
+    applicable(callback, dummy) || throw(ArgumentError("sse_callback must accept (event) or (stream, event)"))
+    return event -> begin
+        callback(event)
+        return nothing
+    end
+end
+
+function _trim_sse_line_length(bytes::AbstractVector{UInt8})::Int
+    len = length(bytes)
+    while len > 0 && bytes[len] == _SSE_CR
+        len -= 1
+    end
+    return len
+end
+
+function _sse_bytes_to_string(bytes::AbstractVector{UInt8})::String
+    isempty(bytes) && return ""
+    try
+        return String(bytes)
+    catch err
+        err isa ArgumentError && throw(ErrorException("SSE stream emitted invalid UTF-8 data"))
+        rethrow(err)
+    end
+end
+
+function _looks_like_sse_prefix(partial::Vector{UInt8})::Bool
+    isempty(partial) && return false
+    idx = 1
+    if length(partial) >= 3 && partial[1] == 0xEF && partial[2] == 0xBB && partial[3] == 0xBF
+        idx = 4
+    end
+    idx > length(partial) && return false
+    b = partial[idx]
+    b == _SSE_COLON && return true
+    remaining = length(partial) - idx + 1
+    remaining >= 4 && partial[idx] == UInt8('d') && partial[idx+1] == UInt8('a') &&
+        partial[idx+2] == UInt8('t') && partial[idx+3] == UInt8('a') && return true
+    remaining >= 5 && partial[idx] == UInt8('e') && partial[idx+1] == UInt8('v') &&
+        partial[idx+2] == UInt8('e') && partial[idx+3] == UInt8('n') && partial[idx+4] == UInt8('t') &&
+        return true
+    remaining >= 2 && partial[idx] == UInt8('i') && partial[idx+1] == UInt8('d') && return true
+    remaining >= 5 && partial[idx] == UInt8('r') && partial[idx+1] == UInt8('e') &&
+        partial[idx+2] == UInt8('t') && partial[idx+3] == UInt8('r') && partial[idx+4] == UInt8('y') &&
+        return true
+    return false
+end
+
+function _append_sse_field!(state::_SSEState, field::String, value::String)::Nothing
+    values = get(() -> String[], state.fields, field)
+    push!(values, value)
+    state.fields[field] = values
+    return nothing
+end
+
+function _parse_sse_retry(value::String)
+    digits = _strip_ows(value)
+    # `tryparse` skips Unicode whitespace with `isspace`, which throws on overlong UTF-8.
+    parsed = isascii(digits) ? tryparse(Int, digits) : nothing
+    (parsed === nothing || parsed < 0) && return nothing
+    return parsed
+end
+
+@inline function _check_sse_line_bytes!(len::Integer, max_line_bytes::Integer)::Nothing
+    max_line_bytes > 0 && len > max_line_bytes &&
+        throw(ErrorException("SSE line exceeds configured max_sse_line_bytes=$(Int(max_line_bytes))"))
+    return nothing
+end
+
+@inline function _add_sse_event_bytes!(state::_SSEState, len::Integer, max_event_bytes::Integer)::Nothing
+    max_event_bytes <= 0 && return nothing
+    next = state.event_bytes + Int(len)
+    next > max_event_bytes &&
+        throw(ErrorException("SSE event exceeds configured max_sse_event_bytes=$(Int(max_event_bytes))"))
+    state.event_bytes = next
+    return nothing
+end
+
+function _process_sse_field!(state::_SSEState, field::String, value::String)::Nothing
+    if field == "data"
+        state.saw_evidence = true
+        _append_sse_field!(state, field, value)
+        push!(state.data_lines, value)
+        state.has_data = true
+        return nothing
+    end
+    if field == "event"
+        state.saw_evidence = true
+        _append_sse_field!(state, field, value)
+        state.event_name = value
+        return nothing
+    end
+    if field == "id"
+        state.saw_evidence = true
+        occursin('\0', value) && return nothing
+        _append_sse_field!(state, field, value)
+        state.last_event_id = value
+        return nothing
+    end
+    if field == "retry"
+        state.saw_evidence = true
+        _append_sse_field!(state, field, value)
+        parsed = _parse_sse_retry(value)
+        parsed === nothing || (state.last_retry = parsed)
+        return nothing
+    end
+    _append_sse_field!(state, field, value)
+    return nothing
+end
+
+function _build_sse_fields(state::_SSEState)::Dict{String,String}
+    out = Dict{String,String}()
+    for (key, entries) in state.fields
+        isempty(entries) && continue
+        out[key] = length(entries) == 1 ? entries[1] : join(entries, "\n")
+    end
+    return out
+end
+
+function _reset_sse_event!(state::_SSEState)::Nothing
+    empty!(state.data_lines)
+    state.has_data = false
+    state.event_name = nothing
+    state.event_bytes = 0
+    for values in values(state.fields)
+        empty!(values)
+    end
+    return nothing
+end
+
+function _emit_sse_event!(state::_SSEState, callback::Function)::Nothing
+    data = isempty(state.data_lines) ? "" : join(state.data_lines, "\n")
+    event = SSEEvent(data, state.event_name, state.last_event_id, state.last_retry, _build_sse_fields(state))
+    callback(event)
+    return nothing
+end
+
+function _dispatch_sse_event!(state::_SSEState, callback::Function)::Nothing
+    if state.has_data
+        _emit_sse_event!(state, callback)
+    end
+    _reset_sse_event!(state)
+    return nothing
+end
+
+function _process_sse_line!(
+    state::_SSEState,
+    raw::AbstractVector{UInt8},
+    callback::Function,
+    max_event_bytes::Integer=_DEFAULT_SSE_CLIENT_MAX_EVENT_BYTES,
+)::Nothing
+    line_len = _trim_sse_line_length(raw)
+    if line_len == 0
+        _dispatch_sse_event!(state, callback)
+        return nothing
+    end
+    _add_sse_event_bytes!(state, line_len, max_event_bytes)
+    line = line_len == length(raw) ? raw : @view raw[1:line_len]
+    if !state.bom_checked
+        state.bom_checked = true
+        if length(line) >= 3 && line[1] == 0xEF && line[2] == 0xBB && line[3] == 0xBF
+            line = length(line) == 3 ? UInt8[] : @view line[4:length(line)]
+            isempty(line) && return nothing
+        end
+    end
+    line[1] == _SSE_COLON && (state.saw_evidence = true; return nothing)
+    colon_idx = findfirst(isequal(_SSE_COLON), line)
+    if colon_idx === nothing
+        field = _sse_bytes_to_string(line)
+        value = ""
+    else
+        field = colon_idx == 1 ? "" : _sse_bytes_to_string(@view line[1:colon_idx-1])
+        value_slice = colon_idx == length(line) ? UInt8[] : @view line[colon_idx+1:length(line)]
+        if !isempty(value_slice) && value_slice[1] == _SSE_SPACE
+            value_slice = length(value_slice) == 1 ? UInt8[] : @view value_slice[2:length(value_slice)]
+        end
+        value = _sse_bytes_to_string(value_slice)
+    end
+    _process_sse_field!(state, field, value)
+    return nothing
+end
+
+function _process_sse_chunk!(
+    state::_SSEState,
+    partial::Vector{UInt8},
+    chunk::AbstractVector{UInt8},
+    callback::Function,
+    max_line_bytes::Integer=_DEFAULT_SSE_CLIENT_MAX_LINE_BYTES,
+    max_event_bytes::Integer=_DEFAULT_SSE_CLIENT_MAX_EVENT_BYTES,
+)::Nothing
+    start = 1
+    len = length(chunk)
+    while start <= len
+        nl = findnext(isequal(_SSE_LF), chunk, start)
+        nl === nothing && break
+        stop = nl - 1
+        if isempty(partial)
+            if stop >= start
+                _check_sse_line_bytes!(stop - start + 1, max_line_bytes)
+                _process_sse_line!(state, @view(chunk[start:stop]), callback, max_event_bytes)
+            else
+                _process_sse_line!(state, UInt8[], callback, max_event_bytes)
+            end
+        else
+            if stop >= start
+                append!(partial, @view(chunk[start:stop]))
+                _check_sse_line_bytes!(length(partial), max_line_bytes)
+            end
+            _process_sse_line!(state, partial, callback, max_event_bytes)
+            empty!(partial)
+        end
+        start = nl + 1
+    end
+    if start <= len
+        append!(partial, @view(chunk[start:len]))
+        _check_sse_line_bytes!(length(partial), max_line_bytes)
+    end
+    return nothing
+end
+
+function _parse_sse_stream!(
+    io::IO,
+    callback::Function;
+    max_line_bytes::Integer=_DEFAULT_SSE_CLIENT_MAX_LINE_BYTES,
+    max_event_bytes::Integer=_DEFAULT_SSE_CLIENT_MAX_EVENT_BYTES,
+)::Int64
+    max_line_bytes >= 0 || throw(ArgumentError("max_line_bytes must be >= 0"))
+    max_event_bytes >= 0 || throw(ArgumentError("max_event_bytes must be >= 0"))
+    state = _SSEState()
+    partial = UInt8[]
+    total = Int64(0)
+    detect_bytes = 8 * 1024
+    while !eof(io)
+        chunk = readavailable(io)
+        isempty(chunk) && continue
+        total += length(chunk)
+        _process_sse_chunk!(state, partial, chunk, callback, max_line_bytes, max_event_bytes)
+        if total >= detect_bytes && !state.saw_evidence && !_looks_like_sse_prefix(partial)
+            throw(ErrorException("Response does not appear to be a Server-Sent Events stream"))
+        end
+    end
+    if !isempty(partial)
+        _process_sse_line!(state, partial, callback, max_event_bytes)
+        empty!(partial)
+    end
+    total > 0 && !state.saw_evidence && throw(ErrorException("Response does not appear to be a Server-Sent Events stream"))
+    if state.has_data
+        _emit_sse_event!(state, callback)
+        _reset_sse_event!(state)
+    end
+    return total
+end
+
+function _consume_incoming_sse!(
+    incoming::_IncomingResponse,
+    response::Response,
+    callback::Function,
+    decompress::Union{Nothing,Bool},
+    max_line_bytes::Integer=_DEFAULT_SSE_CLIENT_MAX_LINE_BYTES,
+    max_event_bytes::Integer=_DEFAULT_SSE_CLIENT_MAX_EVENT_BYTES,
+)::Nothing
+    raw_stream = Base.BufferStream()
+    encoding = _response_content_encoding(incoming.head.headers, decompress)
+    reader = encoding === nothing ? raw_stream : _decompressor_stream(raw_stream, encoding)
+    cancelled = Ref(false)
+    producer = Threads.@spawn begin
+        try
+            _pump_response_body!(raw_stream, incoming.rawbody)
+        catch err
+            cancelled[] || rethrow(err)
+        end
+    end
+    stream = _SSEClientStream(response, () -> begin
+        cancelled[] = true
+        @try_ignore begin
+            body_close!(incoming.rawbody)
+        end
+        @try_ignore begin
+            close(raw_stream)
+        end
+        return nothing
+    end)
+    wrapped = _wrap_sse_callback(callback, stream, response)
+    parse_err = nothing
+    try
+        _parse_sse_stream!(reader, wrapped; max_line_bytes=max_line_bytes, max_event_bytes=max_event_bytes)
+    catch err
+        err isa _SSEStop || (parse_err = err)
+    finally
+        @try_ignore begin
+            close(reader)
+        end
+        try
+            wait(producer)
+        catch err
+            cancelled[] || parse_err !== nothing || rethrow(err)
+        end
+    end
+    parse_err === nothing || throw(parse_err)
+    if isopen(stream)
+        close(stream)
+    end
+    return nothing
+end

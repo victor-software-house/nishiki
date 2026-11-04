@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+<head>
+  <title><%= page_title %></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-site-verification" content="AuesbWQ9MCDMmC1lbDlw25RJzyqWOcDYpuaCjgPxEZY">
+  <link rel="apple-touch-icon" href="/apple-touch-icons/apple-touch-icon.png">
+  <% ["57x57", "72x72", "76x76", "114x114","120x120", "144x144", "152x152", "180x180"].each do |size| %>
+    <link rel="apple-touch-icon" sizes="<%= size %>" href="/apple-touch-icons/apple-touch-icon-<%= size %>.png">
+  <% end %>
+  <link rel="mask-icon" href="/rubygems_logo.svg" color="#e9573f">
+  <link rel="fluid-icon" href="/fluid-icon.png">
+  <link rel="search" type="application/opensearchdescription+xml" title="<%= t :title %>" href="/opensearch.xml">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+  <%= stylesheet_link_tag("hammy") %>
+  <%= stylesheet_link_tag("tailwind", "data-turbo-track": "reload") %>
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet" type="text/css">
+  <%= render "layouts/feeds" %>
+  <%= csrf_meta_tag if signed_in? %>
+  <%= yield :head %>
+  <%= javascript_importmap_tags %>
+</head>
+<body class="bg-neutral-050 dark:bg-neutral-950">
+  <div class="min-h-screen flex flex-col" data-controller="reveal-search" data-action="keydown@window->reveal-search#focus" data-reveal-search-toggle-class="bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border">
+    <!-- Header -->
+    <header class="bg-white dark:bg-black">
+      <!-- Header Nav -->
+      <div class="py-4 px-8 border-b border-neutral-400 dark:border-neutral-800">
+        <div class="flex flex-wrap justify-between max-w-screen-xl mx-auto" data-controller="dialog">
+          <!-- Logo, desktop nav, mobile nav dialog -->
+          <div class="flex flex-row items-center xl:mr-auto">
+            <!-- Logo -->
+            <%= link_to(root_path, title: "RubyGems", class: "flex h-8 items-center text-orange text-b1") do %>
+              <%= icon_tag "logo", size: 8, class: "w-7 h-7 lg:w-8 lg:h-8", aria: { label: "RubyGems Home" } %>
+              <span class="hidden sm:flex ml-1 text-h5 text-orange">RubyGems</span>
+            <% end %>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden lg:flex flex-row ml-7 items-center justify-end text-b2 text-neutral-800 dark:text-white leading-7">
+              <%= link_to t("layouts.application.header.explore"), explore_path, class: "lowercase hover:text-neutral-600 dark:hover:text-neutral-400" %>
+              <%= link_to t("layouts.application.footer.blog"), "https://blog.rubygems.org", class: "ml-7 lowercase hover:text-neutral-600 dark:hover:text-neutral-400" %>
+              <%= link_to t("layouts.application.footer.statistics"), stats_path, class: "ml-7 lowercase hover:text-neutral-600 dark:hover:text-neutral-400" %>
+              <%= link_to t("layouts.application.footer.docs"), "https://guides.rubygems.org/command-reference/#gem-install", class: "ml-7 lowercase hover:text-neutral-600 dark:hover:text-neutral-400" %>
+              <!-- About links -->
+              <div class="flex relative ml-7" data-controller="dropdown" data-action="pointerenter->dropdown#show pointerleave->dropdown#hide focusout->dropdown#hide">
+                <button data-action="dropdown#toggle click@window->dropdown#hide" class="flex items-center cursor-pointer text-neutral-900 dark:text-white hover:text-neutral-600 dark:hover:text-neutral-400 focus:outline-none lowercase">
+                  <span><%= t("layouts.application.footer.about") %></span>
+                  <%= icon_tag "arrow-drop-down" %>
+                </button>
+
+                <!-- About Dropdown Menu -->
+                <div data-dropdown-target="menu" class="z-50 hidden absolute -left-4 top-full pt-1">
+                  <div class="bg-white dark:bg-black border border-neutral-200 dark:border-neutral-800 rounded shadow-lg text-b2 text-neutral-700 dark:text-neutral-300 divide-y divide-neutral-200 dark:divide-neutral-800">
+                    <%= link_to t('title'), page_path("about"), data: { reveal_target: "item" }, class: "block px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800" %>
+                    <%= link_to t('layouts.application.footer.status'), "https://status.rubygems.org", data: { reveal_target: "item" }, class: "block px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800" %>
+                    <%= link_to t('layouts.application.footer.data'), page_path("data"), data: { reveal_target: "item" }, class: "block px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800" %>
+                    <%= link_to t('layouts.application.footer.security'), page_path("security"), data: { reveal_target: "item" }, class: "block px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800" %>
+                    <%= link_to t('pages.supporters.title'), supporters_path, data: { reveal_target: "item" }, class: "block px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800" %>
+                    <%= mail_to "support@rubygems.org", t('layouts.application.footer.help'), data: { reveal_target: "item" }, class: "block px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800" %>
+                  </div>
+                </div>
+              </div>
+              <%# Locale switcher temporarily disabled to improve cacheability and mitigate bot abuse %>
+            </nav>
+
+            <!-- Mobile Right Navigation Menu -->
+            <dialog
+              data-dialog-target="dialog" data-action="click->dialog#backdropClose"
+              role="dialog" aria-modal="true" aria-label="<%= t('layouts.application.header.main_navigation') %>"
+              class="fixed inset-0 m-0 p-0 h-full w-screen max-h-full max-w-screen bg-white bg-opacity-20 z-50 overflow-hidden">
+              <div class="ml-auto h-full w-72 max-w-full bg-white dark:bg-black overflow-y-auto border-l border-neutral-400 dark:border-neutral-800 shadow-[-5px_0px_9px_3px_rgba(0,0,0,0.10)]">
+                <!-- Mobile nav header -->
+                <div class="flex items-center justify-end px-8 py-4 border-b border-neutral-400 dark:border-neutral-800">
+                  <!-- Close Menu Button -->
+                  <button data-action="dialog#close" aria-label="<%= t('layouts.application.header.close_menu') %>" class="flex w-9 h-9 shrink-0 items-center justify-center rounded-lg border border-neutral-400 dark:border-neutral-700 text-neutral-900 dark:text-white bg-white dark:bg-black hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange">
+                    <%= icon_tag "close", class: "w-6 h-6", aria: { hidden: true } %>
+                  </button>
+                </div>
+
+                <!-- Mobile nav links -->
+                <nav class="flex flex-col py-3 text-left text-[18px] leading-6 text-neutral-900 dark:text-white">
+                  <%= link_to t("layouts.application.header.explore"), explore_path, class: "px-6 py-2 font-semibold hover:bg-neutral-100 dark:hover:bg-neutral-800" %>
+                  <%= link_to t("layouts.application.footer.blog"), "https://blog.rubygems.org", class: "px-6 py-2 font-semibold hover:bg-neutral-100 dark:hover:bg-neutral-800" %>
+                  <%= link_to t("layouts.application.footer.statistics"), stats_path, class: "px-6 py-2 font-semibold hover:bg-neutral-100 dark:hover:bg-neutral-800" %>
+                  <%= link_to t("layouts.application.footer.docs"), "https://guides.rubygems.org/command-reference/#gem-install", class: "px-6 py-2 font-semibold hover:bg-neutral-100 dark:hover:bg-neutral-800" %>
+
+                  <!-- About hierarchy -->
+                  <section aria-labelledby="mobile-about-heading">
+                    <h2 id="mobile-about-heading" class="px-6 pt-3.5 pb-2 font-semibold"><%= t("layouts.application.footer.about") %></h2>
+                    <ul class="text-b3">
+                      <li><%= link_to t('title'), page_path("about"), class: "block px-6 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800" %></li>
+                      <li><%= link_to t('layouts.application.footer.status'), "https://status.rubygems.org", class: "block px-6 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800" %></li>
+                      <li><%= link_to t('layouts.application.footer.data'), page_path("data"), class: "block px-6 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800" %></li>
+                      <li><%= link_to t('layouts.application.footer.security'), page_path("security"), class: "block px-6 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800" %></li>
+                      <li><%= link_to t('pages.supporters.title'), supporters_path, class: "block px-6 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800" %></li>
+                      <li><%= mail_to "support@rubygems.org", t('layouts.application.footer.help'), class: "block px-6 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800" %></li>
+                    </ul>
+                  </section>
+
+                  <%# Mobile locale switcher temporarily disabled to improve cacheability and mitigate bot abuse %>
+                </nav>
+              </div>
+            </dialog>
+          </div>
+
+          <!-- Search button, Profile, and mobile menu button -->
+          <div class="ml-auto flex flex-row items-center xl:ml-0 xl:order-3">
+            <!-- Search button -->
+            <% if show_header_search? %>
+              <button type="button" data-action="reveal-search#toggle:stop" data-reveal-search-target="button toggle" aria-label="Open search" aria-controls="header-search" aria-expanded="false" class="flex xl:hidden h-9 w-9 box-border text-neutral-800 dark:text-white hover:text-neutral-600 dark:hover:text-neutral-400 items-center justify-center rounded border-neutral-300 dark:border-neutral-700">
+                <%= icon_tag "search", class: "h-6 w-6" %>
+              </button>
+            <% end %>
+
+            <!-- Profile -->
+            <%= render "layouts/session" %>
+
+            <!-- Mobile Menu Button -->
+            <button data-action="dialog#open" data-dialog-target="button" aria-label="<%= t('layouts.application.header.open_menu') %>" class="flex w-9 h-9 ml-3 shrink-0 items-center justify-center rounded-lg border border-neutral-400 dark:border-neutral-700 text-neutral-900 dark:text-white bg-white dark:bg-black hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-700 lg:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange">
+              <%= icon_tag "menu", class: "w-6 h-6", aria: { hidden: true } %>
+            </button>
+          </div>
+
+          <!-- Search Bar -->
+          <% if show_header_search? %>
+            <div id="header-search" data-reveal-search-target="item" class="hidden pt-4 w-full items-center xl:flex xl:pt-0 xl:w-72 xl:order-2">
+              <%= form_tag(search_path, method: :get, data: { controller: "autocomplete", autocomplete_selected_class: "bg-neutral-100 dark:bg-neutral-800", reveal_target: "item" }, class: "relative w-full items-center", role: "search") do %>
+                <%= rubygem_search_field(data: { reveal_search_target: "input" }, class: "w-full md h-9 pr-12 bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 rounded border-neutral-300 dark:border-neutral-700 box-border outline-none focus:ring-0 focus:border-neutral-500") %>
+
+                <ul id="query_suggestions" role="listbox" data-autocomplete-target="suggestions" class="hidden absolute z-40 start-0 mt-2 w-full bg-white dark:bg-black text-b2 text-neutral-800 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-800 rounded shadow-md divide-y divide-neutral-200 dark:divide-neutral-800"></ul>
+
+                <template id="suggestion" data-autocomplete-target="template">
+                  <li class="block px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800" role="option" aria-selected="false" data-autocomplete-target="item" data-action="mousedown->autocomplete#keepFocus click->autocomplete#choose mouseover->autocomplete#highlight"></li>
+                </template>
+
+                <%= label_tag :query, id: "querylabel" do %>
+                  <span class="sr-only"><%= t('layouts.application.header.search_gem_html') %></span>
+                <% end %>
+
+                <button type="submit" id="search_submit" aria-labelledby="querylabel" class="absolute end-[1px] top-[1px] p-[5px] text-neutral-900 dark:text-white focus:outline-neutral-700 dark:focus:outline-white border-l border-neutral-300 dark:border-neutral-700 hover:text-neutral-600 dark:hover:text-neutral-400 rounded-r">
+                  <%= icon_tag "search", class: "h-6 w-6" %>
+                </button>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Policies acknowledgment banner -->
+      <%= render "layouts/policies_acknowledgement_hammy" if show_policies_acknowledge_banner?(current_user) %>
+
+      <!-- Breadcrumbs -->
+      <%= render "layouts/breadcrumbs" %>
+    </header>
+
+    <!-- Content -->
+    <% if content_for?(:main) %>
+      <%= yield :main %>
+    <% else %>
+      <main class="flex-1 w-full px-8 flex-col bg-neutral-050 dark:bg-neutral-950 text-neutral-950 dark:text-neutral-050 text-b2 items-center inline-flex">
+        <div class="max-w-screen-xl w-full mx-auto pt-8 pb-10 mb-12 md:mb-16 lg:mb-28">
+
+          <% flash.each do |name, msg| %>
+            <div id="flash_<%= name %>">
+              <%= render AlertComponent.new(style: name, closeable: true) do %>
+                <%= flash_message(name, msg) %>
+              <% end %>
+            </div>
+          <% end %>
+
+          <%= yield %>
+        </div>
+      </main>
+    <% end %>
+
+    <!-- Footer -->
+    <footer>
+      <div class="w-full px-8 py-8 bg-orange-100 dark:bg-orange-950 text-neutral-800 dark:text-neutral-200">
+        <!-- Footer Nav -->
+        <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row gap-x-8 gap-y-4 justify-between">
+          <nav class="min-w-0">
+            <ul class="flex flex-col md:flex-row md:flex-wrap md:gap-x-8 md:gap-y-2 text-b1 md:text-b2">
+              <li><%= link_to t("layouts.application.footer.about"), page_path("about"), class: "hover:text-neutral-600" %></li>
+              <li><%= link_to t("layouts.application.footer.docs"), "https://guides.rubygems.org/command-reference/#gem-install", class: "hover:text-neutral-600" %></li>
+              <li><%= link_to t("layouts.application.footer.policies"), policies_path, class: "hover:text-neutral-600" %></li>
+              <li><%= link_to t("layouts.application.footer.status"), "https://status.rubygems.org", class: "hover:text-neutral-600" %></li>
+              <li><%= link_to t("layouts.application.footer.security"), page_path("security"), class: "hover:text-neutral-600" %></li>
+              <li><%= link_to t('pages.supporters.title'), supporters_path, class: "hover:text-neutral-600" %></li>
+              <li><%= mail_to "support@rubygems.org", t('layouts.application.footer.help'), class: "hover:text-neutral-600" %></li>
+            </ul>
+          </nav>
+          <div class="flex shrink-0 gap-4">
+            <a href="https://github.com/rubygems/rubygems.org">
+              <%= icon_tag "github" %>
+            </a>
+            <a href="https://ruby.social/users/rubygems">
+              <%= icon_tag "mastodon" %>
+            </a>
+            <a href="https://x.com/rubygems" aria-label="<%= t("layouts.application.footer.x") %>">
+              <%= icon_tag "x-twitter" %>
+            </a>
+            <a href="https://bsky.app/profile/rubygems.bsky.social" aria-label="<%= t("layouts.application.footer.bluesky") %>">
+              <%= icon_tag "bluesky" %>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full px-6 bg-orange-200 dark:bg-orange-900 text-neutral-900 dark:text-neutral-100">
+        <!-- Supported By -->
+        <div class="flex flex-col lg:flex-row max-w-screen-xl mx-auto py-6 items-center justify-between">
+          <!-- RubyGems.org is supported by -->
+          <p class="mb-6 lg:mb-0 lg:mr-14 lg:w-52 text-b2 leading-6 text-balance">
+            <%= t("layouts.application.footer.supported_by_html") %>
+          </p>
+
+          <!-- Supporter Icons -->
+          <div class="w-full lg:grow mx-auto grid grid-cols-3 gap-6 justify-items-center md:flex md:items-center md:justify-between">
+            <a href="https://rubycentral.org/" class="p-1"><%= icon_tag "ruby-central", size: 15 %></a>
+            <a href="https://aws.amazon.com/" class="p-1"><%= icon_tag "aws", size: 15 %></a>
+            <a href="https://dnsimple.link/resolving-rubygems" class="p-1"><%= icon_tag "dnsimple", size: 15 %></a>
+            <a href="https://www.datadoghq.com/" class="p-1"><%= icon_tag "datadog", size: 15 %></a>
+            <a href="https://www.fastly.com/" class="p-1"><%= icon_tag "fastly", size: 15 %></a>
+            <a href="https://www.honeybadger.io/" class="p-1"><%= icon_tag "honeybadger", size: 15 %></a>
+            <a href="https://mend.io/" class="col-start-2 p-1"><%= icon_tag "mend-io", size: 15 %></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

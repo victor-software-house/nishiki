@@ -1,0 +1,12 @@
+# Secret scanning (gitleaks), as the pre-commit hook and the Secrets workflow
+# run it: the default rules, with one path allowed.
+[extend]
+useDefault = true
+
+# The benchmark corpus is third-party source, byte for byte as published at
+# the commits bench/corpus.toml pins, and check:corpus holds every file to
+# its SHA-256 there. Its example keys, demo passwords and key-binding ids
+# are not secrets of this repository.
+[[allowlists]]
+description = "benchmark corpus, pinned third-party source"
+paths = ['''^bench/corpus/''']

@@ -1,0 +1,5 @@
+# Benchmark inputs, byte for byte as their sources wrote them: spelling,
+# Markdown and other linters stay out. check:corpus reads them through
+# bench/corpus.toml.
+*
+!README.md

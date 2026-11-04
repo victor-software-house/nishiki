@@ -74,7 +74,7 @@ The corpus:
    - medium, 16 to 64 KB: a typical source file;
    - large, 200 KB to 1 MB: a big real file, for the languages the comparison covers.
 2. A reply set: Markdown replies with code blocks in several languages, nishiki's main use.
-3. Each file is pinned to a commit, with its licence read at the source, as `tests/oracle/SOURCES.md` does.
+3. Each file is pinned to a commit, with its licence read at the source.
    Only permissive licences.
 4. Each file is labelled by origin, as [syntax-highlighter-bench][shb] does:
    - neutral, a file no measured engine was tuned on, preferred;
@@ -296,7 +296,7 @@ bench/
   src/             corpus loader, statistics, JSON writer; bin/latency.rs, bin/cold.rs
   benches/         throughput.rs, styling.rs
   corpus.toml      the corpus manifest
-  corpus/          <language>/<file>, SOURCES.md
+  corpus/          <language>/<file>, README.md
   targets.toml
   report.ts        renders a record and the README summary
   results/         <host class>/<date>-<sha8>.{json,md,txt}
@@ -337,7 +337,7 @@ This replaces today's three runs and a median.
 - [No host class passes the probe] → decision 11, point 6.
 - [Forty-six languages make the Callgrind job slower] → parallel valgrind runs; the task that adds them measures the job and keeps it under its step timeout.
 - [giallo's EUPL-1.2] → it is built only on the bench host and never distributed, the condition the operator set on 2026-11-03.
-- [The corpus costs licence work] → the oracle's `SOURCES.md` already shows the pattern.
+- [The corpus costs licence work] → `bench/corpus.toml` holds each file's licence source, and `check:corpus` refuses any licence off the permissive list.
 
 ## Migration Plan
 

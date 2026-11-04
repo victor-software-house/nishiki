@@ -1,0 +1,1147 @@
+# frozen_string_literal: true
+
+require "rack"
+require "rack/utils"
+
+# @see Hanami::Router
+module Hanami
+  # Rack compatible, lightweight and fast HTTP Router.
+  #
+  # @since 0.1.0
+  class Router
+    require "hanami/router/version"
+    require "hanami/router/constants"
+    require "hanami/router/errors"
+    require "hanami/router/segment"
+    require "hanami/router/redirect"
+    require "hanami/router/prefix"
+    require "hanami/router/params"
+    require "hanami/router/trie"
+    require "hanami/router/block"
+    require "hanami/router/route"
+    require "hanami/router/url_helpers"
+    require "hanami/router/globbed_path"
+    require "hanami/router/mounted_path"
+    require "hanami/router/rack_utils"
+    require "hanami/router/formatter"
+
+    # URL helpers for other Hanami integrations
+    #
+    # @api private
+    # @since 2.0.0
+    attr_reader :url_helpers
+
+    # Returns the routes defined on this router, in the order they were defined.
+    #
+    # Each GET route is followed by the HEAD route the router generates for it. Routes defined
+    # within a {#scope}, or under a router prefix, have their full prefixed path.
+    #
+    # The returned array is frozen. Once the router is frozen, every call returns the same array.
+    #
+    # To render the routes, pass them to a formatter, such as {Formatter::HumanFriendly} or
+    # {Formatter::CSV}.
+    #
+    # @return [Array<Hanami::Router::Route>]
+    #
+    # @example
+    #   router = Hanami::Router.new do
+    #     get "/books/:id", to: "books.show", as: :book
+    #   end
+    #
+    #   router.routes.map { |route| "#{route.http_method} #{route.path}" }
+    #   # => ["GET /books/:id", "HEAD /books/:id"]
+    #
+    # @since 3.1.0
+    # @api public
+    def routes
+      @routes.frozen? ? @routes : @routes.dup.freeze
+    end
+
+    # Returns the given block as it is.
+    #
+    # @param blk [Proc] a set of route definitions
+    #
+    # @return [Proc] the given block
+    #
+    # @since 0.5.0
+    #
+    # @example
+    #   # apps/web/config/routes.rb
+    #   Hanami::Router.define do
+    #     get "/", to: ->(*) { ... }
+    #   end
+    def self.define(&blk)
+      blk
+    end
+
+    # Initialize the router
+    #
+    # @param base_url [String] the base URL where the HTTP application is
+    #   deployed
+    # @param prefix [String] the relative URL prefix where the HTTP application
+    #   is deployed
+    # @param resolver [#call(path, to)] a resolver for route endpoints
+    # @param block_context [Hanami::Router::Block::Context)
+    # @param not_found [#call(env)] default handler when route is not matched
+    # @param blk [Proc] the route definitions
+    #
+    # @since 0.1.0
+    #
+    # @return [Hanami::Router]
+    #
+    # @example Base usage
+    #   require "hanami/router"
+    #
+    #   Hanami::Router.new do
+    #     get "/", to: ->(*) { [200, {}, ["OK"]] }
+    #   end
+    def initialize(base_url: DEFAULT_BASE_URL, prefix: DEFAULT_PREFIX, resolver: DEFAULT_RESOLVER, not_allowed: NOT_ALLOWED, not_found: NOT_FOUND, block_context: nil, &blk) # rubocop:disable Layout/LineLength
+      # TODO: verify if Prefix can handle both name and path prefix
+      @path_prefix = Prefix.new(prefix)
+      @name_prefix = Prefix.new("")
+      @url_helpers = UrlHelpers.new(base_url)
+      @base_url = base_url
+      @resolver = resolver
+      @not_allowed = not_allowed
+      @not_found = not_found
+      @block_context = block_context
+      @fixed = {}
+      @variable = {}
+      @globs_and_mounts = []
+      @routes = []
+      @blk = blk
+      instance_eval(&blk) if blk
+    end
+
+    # Freezes the router, along with its {#routes}.
+    #
+    # @return [self]
+    #
+    # @since 2.0.0
+    # @api public
+    def freeze
+      @routes.freeze
+      super
+    end
+
+    # Resolve the given Rack env to a registered endpoint and invokes it.
+    #
+    # @param env [Hash] a Rack env
+    #
+    # @return [Array] a finalized Rack env response
+    #
+    # @since 0.1.0
+    def call(env)
+      endpoint, params = lookup(env)
+
+      unless endpoint
+        return not_allowed(env) || not_found(env)
+      end
+
+      # Rack 3 no longer requires "rack.input" to be rewindable. Force input to be rewindable to
+      # maintain Rack 2 behavior while we're still supporting both.
+      if (input = env[::Rack::RACK_INPUT]) && !input.respond_to?(:rewind)
+        env[::Rack::RACK_INPUT] = Rack::RewindableInput.new(input)
+      end
+
+      endpoint.call(_env_with_params(env, params)).to_a
+    end
+
+    # Defines a named root route (a GET route for "/")
+    #
+    # @param to [#call] the Rack endpoint
+    # @param blk [Proc] the anonymous proc to be used as endpoint for the route
+    #
+    # @since 0.7.0
+    #
+    # @see #get
+    # @see #path
+    # @see #url
+    #
+    # @example Proc endpoint
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new do
+    #     root to: ->(env) { [200, {}, ["Hello from Hanami!"]] }
+    #   end
+    #
+    # @example Block endpoint
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new do
+    #     root do
+    #       "Hello from Hanami!"
+    #     end
+    #   end
+    #
+    # @example URL helpers
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new(base_url: "https://hanamirb.org") do
+    #     root do
+    #       "Hello from Hanami!"
+    #     end
+    #   end
+    #
+    #   router.path(:root) # => "/"
+    #   router.url(:root)  # => #<URI::HTTPS https://hanamirb.org>
+    def root(to: nil, &blk)
+      get(ROOT_PATH, to: to, as: :root, &blk)
+    end
+
+    # Defines a route that accepts GET requests for the given path.
+    # It also defines a route to accept HEAD requests.
+    #
+    # @param path [String] the relative URL to be matched
+    # @param to [#call] the Rack endpoint
+    # @param as [Symbol, Array<Symbol>] a unique name for the route, or a ["prefix", "name"] array,
+    #   to add a prefix to the name when nested within scopes.
+    # @param constraints [Hash] a set of constraints for path variables
+    # @param blk [Proc] the anonymous proc to be used as endpoint for the route
+    #
+    # @since 0.1.0
+    #
+    # @see #initialize
+    # @see #path
+    # @see #url
+    #
+    # @example Proc endpoint
+    #   require "hanami/router"
+    #
+    #   Hanami::Router.new do
+    #     get "/", to: ->(*) { [200, {}, ["OK"]] }
+    #   end
+    #
+    # @example Block endpoint
+    #   require "hanami/router"
+    #
+    #   Hanami::Router.new do
+    #     get "/" do
+    #       "OK"
+    #     end
+    #   end
+    #
+    # @example Named route
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new do
+    #     get "/", to: ->(*) { [200, {}, ["OK"]] }, as: :welcome
+    #   end
+    #
+    #   router.path(:welcome) # => "/"
+    #   router.url(:welcome)  # => #<URI::HTTP http://localhost/>
+    #
+    # @example Named route with prefix inside scope
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new do
+    #     scope "backend" do
+    #       scope "admin", as: :secret do
+    #         get "/cats/new", to: ->(*) { [200, {}, ["OK"]] }, as: [:new, :cat]
+    #       end
+    #     end
+    #   end
+    #
+    #   router.path(:new_backend_secret_cat) # => "/backend/admin/cats/new
+    #
+    # @example Constraints
+    #   require "hanami/router"
+    #
+    #   Hanami::Router.new do
+    #     get "/users/:id", to: ->(*) { [200, {}, ["OK"]] }, id: /\d+/
+    #   end
+    def get(path, to: nil, as: nil, **constraints, &blk)
+      add_route(::Rack::GET, path, to, as, constraints, &blk)
+      add_route(::Rack::HEAD, path, to, as, constraints, &blk)
+    end
+
+    if defined?(::Rack::QUERY)
+      # Defines a route that accepts QUERY requests for the given path.
+      #
+      # @param path [String] the relative URL to be matched
+      # @param to [#call] the Rack endpoint
+      # @param as [Symbol, Array<Symbol>] a unique name for the route, or a ["prefix", "name"] array,
+      #   to add a prefix to the name when nested within scopes.
+      # @param constraints [Hash] a set of constraints for path variables
+      # @param blk [Proc] the anonymous proc to be used as endpoint for the route
+      #
+      # @since 3.1.0
+      def query(path, to: nil, as: nil, **constraints, &blk)
+        add_route(::Rack::QUERY, path, to, as, constraints, &blk)
+      end
+    end
+
+    # Defines a route that accepts POST requests for the given path.
+    #
+    # @param path [String] the relative URL to be matched
+    # @param to [#call] the Rack endpoint
+    # @param as [Symbol, Array<Symbol>] a unique name for the route, or a ["prefix", "name"] array,
+    #   to add a prefix to the name when nested within scopes.
+    # @param constraints [Hash] a set of constraints for path variables
+    # @param blk [Proc] the anonymous proc to be used as endpoint for the route
+    #
+    # @since 0.1.0
+    #
+    # @see #get
+    # @see #initialize
+    # @see #path
+    # @see #url
+    def post(path, to: nil, as: nil, **constraints, &blk)
+      add_route(::Rack::POST, path, to, as, constraints, &blk)
+    end
+
+    # Defines a route that accepts PATCH requests for the given path.
+    #
+    # @param path [String] the relative URL to be matched
+    # @param to [#call] the Rack endpoint
+    # @param as [Symbol, Array<Symbol>] a unique name for the route, or a ["prefix", "name"] array,
+    #   to add a prefix to the name when nested within scopes.
+    # @param constraints [Hash] a set of constraints for path variables
+    # @param blk [Proc] the anonymous proc to be used as endpoint for the route
+    #
+    # @since 0.1.0
+    #
+    # @see #get
+    # @see #initialize
+    # @see #path
+    # @see #url
+    def patch(path, to: nil, as: nil, **constraints, &blk)
+      add_route(::Rack::PATCH, path, to, as, constraints, &blk)
+    end
+
+    # Defines a route that accepts PUT requests for the given path.
+    #
+    # @param path [String] the relative URL to be matched
+    # @param to [#call] the Rack endpoint
+    # @param as [Symbol, Array<Symbol>] a unique name for the route, or a ["prefix", "name"] array,
+    #   to add a prefix to the name when nested within scopes.
+    # @param constraints [Hash] a set of constraints for path variables
+    # @param blk [Proc] the anonymous proc to be used as endpoint for the route
+    #
+    # @since 0.1.0
+    #
+    # @see #get
+    # @see #initialize
+    # @see #path
+    # @see #url
+    def put(path, to: nil, as: nil, **constraints, &blk)
+      add_route(::Rack::PUT, path, to, as, constraints, &blk)
+    end
+
+    # Defines a route that accepts DELETE requests for the given path.
+    #
+    # @param path [String] the relative URL to be matched
+    # @param to [#call] the Rack endpoint
+    # @param as [Symbol, Array<Symbol>] a unique name for the route, or a ["prefix", "name"] array,
+    #   to add a prefix to the name when nested within scopes.
+    # @param constraints [Hash] a set of constraints for path variables
+    # @param blk [Proc] the anonymous proc to be used as endpoint for the route
+    #
+    # @since 0.1.0
+    #
+    # @see #get
+    # @see #initialize
+    # @see #path
+    # @see #url
+    def delete(path, to: nil, as: nil, **constraints, &blk)
+      add_route(::Rack::DELETE, path, to, as, constraints, &blk)
+    end
+
+    # Defines a route that accepts TRACE requests for the given path.
+    #
+    # @param path [String] the relative URL to be matched
+    # @param to [#call] the Rack endpoint
+    # @param as [Symbol, Array<Symbol>] a unique name for the route, or a ["prefix", "name"] array,
+    #   to add a prefix to the name when nested within scopes.
+    # @param constraints [Hash] a set of constraints for path variables
+    # @param blk [Proc] the anonymous proc to be used as endpoint for the route
+    #
+    # @since 0.1.0
+    #
+    # @see #get
+    # @see #initialize
+    # @see #path
+    # @see #url
+    def trace(path, to: nil, as: nil, **constraints, &blk)
+      add_route(::Rack::TRACE, path, to, as, constraints, &blk)
+    end
+
+    # Defines a route that accepts OPTIONS requests for the given path.
+    #
+    # @param path [String] the relative URL to be matched
+    # @param to [#call] the Rack endpoint
+    # @param as [Symbol, Array<Symbol>] a unique name for the route, or a ["prefix", "name"] array,
+    #   to add a prefix to the name when nested within scopes.
+    # @param constraints [Hash] a set of constraints for path variables
+    # @param blk [Proc] the anonymous proc to be used as endpoint for the route
+    #
+    # @since 0.1.0
+    #
+    # @see #get
+    # @see #initialize
+    # @see #path
+    # @see #url
+    def options(path, to: nil, as: nil, **constraints, &blk)
+      add_route(::Rack::OPTIONS, path, to, as, constraints, &blk)
+    end
+
+    # Defines a route that accepts LINK requests for the given path.
+    #
+    # @param path [String] the relative URL to be matched
+    # @param to [#call] the Rack endpoint
+    # @param as [Symbol, Array<Symbol>] a unique name for the route, or a ["prefix", "name"] array,
+    #   to add a prefix to the name when nested within scopes.
+    # @param constraints [Hash] a set of constraints for path variables
+    # @param blk [Proc] the anonymous proc to be used as endpoint for the route
+    #
+    # @since 0.1.0
+    #
+    # @see #get
+    # @see #initialize
+    # @see #path
+    # @see #url
+    def link(path, to: nil, as: nil, **constraints, &blk)
+      add_route(::Rack::LINK, path, to, as, constraints, &blk)
+    end
+
+    # Defines a route that accepts UNLINK requests for the given path.
+    #
+    # @param path [String] the relative URL to be matched
+    # @param to [#call] the Rack endpoint
+    # @param as [Symbol, Array<Symbol>] a unique name for the route, or a ["prefix", "name"] array,
+    #   to add a prefix to the name when nested within scopes.
+    # @param constraints [Hash] a set of constraints for path variables
+    # @param blk [Proc] the anonymous proc to be used as endpoint for the route
+    #
+    # @since 0.1.0
+    #
+    # @see #get
+    # @see #initialize
+    # @see #path
+    # @see #url
+    def unlink(path, to: nil, as: nil, **constraints, &blk)
+      add_route(::Rack::UNLINK, path, to, as, constraints, &blk)
+    end
+
+    # Defines a route that redirects the incoming request to another path.
+    #
+    # `code:` is required. For the common cases, prefer {#permanent_redirect} (301)
+    # or {#temporary_redirect} (302). Use this method when you need a less common
+    # redirect code such as 303 See Other, 307 Temporary Redirect, or 308 Permanent Redirect.
+    #
+    # @param path [String] the relative URL to be matched
+    # @param to [#call] the Rack endpoint
+    # @param as [Symbol, Array<Symbol>] a unique name for the route, or a ["prefix", "name"] array,
+    #   to add a prefix to the name when nested within scopes.
+    # @param code [Integer] the HTTP status code to use for the redirect (e.g. 303, 307, 308)
+    #
+    # @raise [Hanami::Router::UnknownHTTPStatusCodeError] when an unknown redirect code is given
+    #
+    # @since 0.1.0
+    #
+    # @see #redirect_permanent
+    # @see #redirect_temporary
+    def redirect(path, code:, to: nil, as: nil)
+      get(path, to: _redirect(to, code), as: as)
+    end
+
+    # Defines a route that permanently redirects the incoming request to another path.
+    #
+    # Issues a 301 Moved Permanently response, indicating that the resource has moved to
+    # a new location and all future requests should use the new URL.
+    #
+    # NOTE: Browsers cache permanent redirects aggressively. Once a client has followed
+    # a 301, it may not re-request the original URL, making the redirect hard to undo
+    # without clearing the browser cache. Prefer {#redirect_temporary} when in doubt.
+    #
+    # @param path [String] the relative URL to be matched
+    # @param to [#call] the Rack endpoint
+    # @param as [Symbol, Array<Symbol>] a unique name for the route, or a ["prefix", "name"] array,
+    #   to add a prefix to the name when nested within scopes.
+    #
+    # @raise [Hanami::Router::UnknownHTTPStatusCodeError] when an unknown redirect code is given
+    #
+    # @since 3.0.0
+    #
+    # @see #redirect
+    # @see #redirect_temporary
+    def redirect_permanent(path, to: nil, as: nil)
+      get(path, to: _redirect(to, PERMANENT_REDIRECT_CODE), as: as)
+    end
+
+    # Defines a route that temporarily redirects the incoming request to another path.
+    #
+    # Issues a 302 Found response, indicating that the resource is temporarily available
+    # at a different URL and future requests should continue to use the original URL.
+    #
+    # @param path [String] the relative URL to be matched
+    # @param to [#call] the Rack endpoint
+    # @param as [Symbol, Array<Symbol>] a unique name for the route, or a ["prefix", "name"] array,
+    #   to add a prefix to the name when nested within scopes.
+    #
+    # @raise [Hanami::Router::UnknownHTTPStatusCodeError] when an unknown redirect code is given
+    #
+    # @since 3.0.0
+    #
+    # @see #redirect
+    # @see #redirect_permanent
+    def redirect_temporary(path, to: nil, as: nil)
+      get(path, to: _redirect(to, TEMPORARY_REDIRECT_CODE), as: as)
+    end
+
+    # Defines a routing scope. Routes defined in the context of a scope,
+    # inherit the given path as path prefix and as a named routes prefix.
+    #
+    # @param path [String] the scope path to be used as a path prefix
+    # @param as: [String, Symbol] the name prefix to use for nested routes
+    # @param blk [Proc] the routes definitions withing the scope
+    #
+    # @since 2.0.0
+    #
+    # @see #path
+    #
+    # @example
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new do
+    #     scope "v1" do
+    #       get "/users", to: ->(*) { ... }, as: :users
+    #     end
+    #   end
+    #
+    #   router.path(:v1_users) # => "/v1/users"
+    def scope(path, as: nil, &blk)
+      path_prefix = @path_prefix
+      name_prefix = @name_prefix
+
+      begin
+        @path_prefix = @path_prefix.join(path.to_s)
+        @name_prefix = @name_prefix.join((as || path).to_s)
+        instance_eval(&blk)
+      ensure
+        @path_prefix = path_prefix
+        @name_prefix = name_prefix
+      end
+    end
+
+    # Mount a Rack application at the specified path.
+    # All the requests starting with the specified path, will be forwarded to
+    # the given application.
+    #
+    # All the other methods (eg `#get`) support callable objects, but they
+    # restrict the range of the acceptable HTTP verb. Mounting an application
+    # with #mount doesn't apply this kind of restriction at the router level,
+    # but let the application to decide.
+    #
+    # @param app [#call] a class or an object that responds to #call
+    # @param at [String] the relative path where to mount the app
+    # @param constraints [Hash] a set of constraints for path variables
+    #
+    # @since 0.1.1
+    #
+    # @example
+    #   require "hanami/router"
+    #
+    #   Hanami::Router.new do
+    #     mount MyRackApp.new, at: "/foo"
+    #   end
+    def mount(app, at:, **constraints)
+      raise_if_frozen
+
+      path = prefixed_path(at)
+      prefix = Segment.fabricate(path, **constraints)
+
+      @globs_and_mounts << MountedPath.new(prefix, @resolver.call(path, app))
+      @routes << Route.new(http_method: "*", path:, to: app, constraints:)
+    end
+
+    # Generate an relative URL for a specified named route.
+    # The additional arguments will be used to compose the relative URL - in
+    #   case it has tokens to match - and for compose the query string.
+    #
+    # @param name [Symbol] the route name
+    #
+    # @return [String]
+    #
+    # @raise [Hanami::Router::MissingRouteError] when the router fails to
+    #   recognize a route, because of the given arguments.
+    #
+    # @since 0.1.0
+    #
+    # @see #url
+    #
+    # @example
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new(base_url: "https://hanamirb.org") do
+    #     get "/login", to: ->(*) { ... }, as: :login
+    #     get "/:name", to: ->(*) { ... }, as: :framework
+    #   end
+    #
+    #   router.path(:login)                          # => "/login"
+    #   router.path(:login, return_to: "/dashboard") # => "/login?return_to=%2Fdashboard"
+    #   router.path(:framework, name: "router")      # => "/router"
+    def path(name, variables = {})
+      url_helpers.path(name, variables)
+    end
+
+    # Generate an absolute URL for a specified named route.
+    # The additional arguments will be used to compose the relative URL - in
+    #   case it has tokens to match - and for compose the query string.
+    #
+    # @param name [Symbol] the route name
+    #
+    # @return [URI::HTTP, URI::HTTPS]
+    #
+    # @raise [Hanami::Router::MissingRouteError] when the router fails to
+    #   recognize a route, because of the given arguments.
+    #
+    # @since 0.1.0
+    #
+    # @see #path
+    #
+    # @example
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new(base_url: "https://hanamirb.org") do
+    #     get "/login", to: ->(*) { ... }, as: :login
+    #     get "/:name", to: ->(*) { ... }, as: :framework
+    #   end
+    #
+    #   router.url(:login)                          # => #<URI::HTTPS https://hanamirb.org/login>
+    #   router.url(:login, return_to: "/dashboard") # => #<URI::HTTPS https://hanamirb.org/login?return_to=%2Fdashboard>
+    #   router.url(:framework, name: "router")      # => #<URI::HTTPS https://hanamirb.org/router>
+    def url(name, variables = {})
+      url_helpers.url(name, variables)
+    end
+
+    # Recognize the given env, path, or name and return a route for testing
+    # inspection.
+    #
+    # If the route cannot be recognized, it still returns an object for testing
+    # inspection.
+    #
+    # @param env [Hash, String, Symbol] Rack env, path or route name
+    # @param options [Hash] a set of options for Rack env or route params
+    # @param params [Hash] a set of params
+    #
+    # @return [Hanami::Routing::RecognizedRoute] the recognized route
+    #
+    # @since 0.5.0
+    #
+    # @see Hanami::Router#env_for
+    # @see Hanami::Routing::RecognizedRoute
+    #
+    # @example Successful Path Recognition
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new do
+    #     get "/books/:id", to: ->(*) { ... }, as: :book
+    #   end
+    #
+    #   route = router.recognize("/books/23")
+    #   route.verb      # => "GET" (default)
+    #   route.routable? # => true
+    #   route.params    # => {:id=>"23"}
+    #
+    # @example Successful Rack Env Recognition
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new do
+    #     get "/books/:id", to: ->(*) { ... }, as: :book
+    #   end
+    #
+    #   route = router.recognize(Rack::MockRequest.env_for("/books/23"))
+    #   route.verb      # => "GET" (default)
+    #   route.routable? # => true
+    #   route.params    # => {:id=>"23"}
+    #
+    # @example Successful Named Route Recognition
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new do
+    #     get "/books/:id", to: ->(*) { ... }, as: :book
+    #   end
+    #
+    #   route = router.recognize(:book, id: 23)
+    #   route.verb      # => "GET" (default)
+    #   route.routable? # => true
+    #   route.params    # => {:id=>"23"}
+    #
+    # @example Failing Recognition For Unknown Path
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new do
+    #     get "/books/:id", to: ->(*) { ... }, as: :book
+    #   end
+    #
+    #   route = router.recognize("/books")
+    #   route.verb      # => "GET" (default)
+    #   route.routable? # => false
+    #
+    # @example Failing Recognition For Path With Wrong HTTP Verb
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new do
+    #     get "/books/:id", to: ->(*) { ... }, as: :book
+    #   end
+    #
+    #   route = router.recognize("/books/23", method: :post)
+    #   route.verb      # => "POST"
+    #   route.routable? # => false
+    #
+    # @example Failing Recognition For Rack Env With Wrong HTTP Verb
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new do
+    #     get "/books/:id", to: ->(*) { ... }, as: :book
+    #   end
+    #
+    #   route = router.recognize(Rack::MockRequest.env_for("/books/23", method: :post))
+    #   route.verb      # => "POST"
+    #   route.routable? # => false
+    #
+    # @example Failing Recognition Named Route With Wrong Params
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new do
+    #     get "/books/:id", to: ->(*) { ... }, as: :book
+    #   end
+    #
+    #   route = router.recognize(:book)
+    #   route.verb      # => "GET" (default)
+    #   route.routable? # => false
+    #
+    # @example Failing Recognition Named Route With Wrong HTTP Verb
+    #   require "hanami/router"
+    #
+    #   router = Hanami::Router.new do
+    #     get "/books/:id", to: ->(*) { ... }, as: :book
+    #   end
+    #
+    #   route = router.recognize(:book, {method: :post}, {id: 1})
+    #   route.verb      # => "POST"
+    #   route.routable? # => false
+    #   route.params    # => {:id=>"1"}
+    def recognize(env, params = {}, options = {})
+      require "hanami/router/recognized_route"
+
+      env = env_for(env, params, options)
+      endpoint, params = lookup(env)
+
+      RecognizedRoute.new(endpoint, _env_with_params(env, params))
+    end
+
+    # @since 2.0.0
+    # @api private
+    def fixed(env)
+      path_info = env[::Rack::PATH_INFO]
+      # Treat empty PATH_INFO as "/" for route matching. This allows root routes (defined as "/") to
+      # match the empty PATH_INFO that is set for requests to a mount without a trailing slash.
+      path_info = DEFAULT_PREFIX if path_info == EMPTY_STRING
+
+      @fixed.dig(env[::Rack::REQUEST_METHOD], path_info)
+    end
+
+    # @since 2.0.0
+    # @api private
+    def variable(env)
+      @variable[env[::Rack::REQUEST_METHOD]]&.find(env[::Rack::PATH_INFO])
+    end
+
+    # @since 2.1.0
+    # @api private
+    def globbed_or_mounted(env)
+      @globs_and_mounts.each do |path|
+        result = path.endpoint_and_params(env)
+        return result unless result.empty?
+      end
+
+      nil
+    end
+
+    # @since 2.0.0
+    # @api private
+    def not_allowed(env)
+      allowed_http_methods = _not_allowed_fixed(env) || _not_allowed_variable(env)
+      return if allowed_http_methods.nil?
+
+      @not_allowed.call(env, allowed_http_methods)
+    end
+
+    # @since 2.0.0
+    # @api private
+    def not_found(env)
+      @not_found.call(env)
+    end
+
+    protected
+
+    # Fabricate Rack env for the given Rack env, path or named route
+    #
+    # @param env [Hash, String, Symbol] Rack env, path or route name
+    # @param options [Hash] a set of options for Rack env or route params
+    # @param params [Hash] a set of params
+    #
+    # @return [Hash] Rack env
+    #
+    # @since 0.5.0
+    # @api private
+    #
+    # @see Hanami::Router#recognize
+    # @see http://www.rubydoc.info/github/rack/rack/Rack%2FMockRequest.env_for
+    def env_for(env, params = {}, options = {})
+      require "rack/mock"
+
+      case env
+      when ::String
+        ::Rack::MockRequest.env_for(env, options)
+      when ::Symbol
+        begin
+          url = path(env, params)
+          return env_for(url, params, options) # rubocop:disable Style/RedundantReturn
+        rescue Hanami::Router::MissingRouteError
+          {} # Empty Rack env
+        end
+      else
+        env
+      end
+    end
+
+    private
+
+    # @since 2.0.0
+    # @api private
+    DEFAULT_BASE_URL = "http://localhost"
+
+    # @since 2.0.0
+    # @api private
+    DEFAULT_PREFIX = "/"
+
+    # @since 2.0.0
+    # @api private
+    PREFIXED_NAME_SEPARATOR = "_"
+
+    # @api private
+    UNDERSCORED_NAME_REGEXP = /[-+~.]/
+
+    # @since 2.0.0
+    # @api private
+    ROOT_PATH = "/"
+
+    # @since 2.0.0
+    # @api private
+    EMPTY_STRING = ""
+
+    # @api private
+    EMPTY_HASH = {}.freeze
+
+    # @since 2.0.0
+    # @api private
+    DEFAULT_RESOLVER = ->(_, to) { to }
+
+    # @since 3.0.0
+    # @api private
+    PERMANENT_REDIRECT_CODE = 301
+
+    # @since 3.0.0
+    # @api private
+    TEMPORARY_REDIRECT_CODE = 302
+
+    # @since 2.0.0
+    # @api private
+    HTTP_STATUS_OK = 200
+
+    # @since 2.0.0
+    # @api private
+    HTTP_STATUS_NOT_FOUND = 404
+
+    # @since 2.0.0
+    # @api private
+    HTTP_BODY_NOT_FOUND = ::Rack::Utils::HTTP_STATUS_CODES.fetch(HTTP_STATUS_NOT_FOUND)
+
+    # @since 2.0.0
+    # @api private
+    HTTP_BODY_NOT_FOUND_LENGTH = HTTP_BODY_NOT_FOUND.bytesize.to_s
+
+    # @since 2.0.0
+    # @api private
+    HTTP_STATUS_NOT_ALLOWED = 405
+
+    # @since 2.0.0
+    # @api private
+    HTTP_BODY_NOT_ALLOWED = ::Rack::Utils::HTTP_STATUS_CODES.fetch(HTTP_STATUS_NOT_ALLOWED)
+
+    # @since 2.0.0
+    # @api private
+    HTTP_BODY_NOT_ALLOWED_LENGTH = HTTP_BODY_NOT_ALLOWED.bytesize.to_s
+
+    # @since 2.0.0
+    # @api private
+    HTTP_HEADER_LOCATION = Hanami::Router.rack_3? ? "location" : "Location"
+
+    # @since 2.2.0
+    # @api private
+    HTTP_HEADER_ALLOW = Hanami::Router.rack_3? ? "allow" : "Allow"
+
+    # @since 2.0.0
+    # @api private
+    PARAMS = "router.params"
+
+    # @api private
+    CONTENT_TYPE = "CONTENT_TYPE"
+
+    # @api private
+    FORM_URLENCODED_MEDIA_TYPE = "application/x-www-form-urlencoded"
+
+    # @api private
+    FORM_URLENCODED_MEDIA_TYPE_PREFIX = "#{FORM_URLENCODED_MEDIA_TYPE};".freeze
+
+    # @since 2.0.0
+    # @api private
+    ROUTE_VARIABLE_MATCHER = /:/
+
+    # @since 2.0.0
+    # @api private
+    ROUTE_GLOBBED_MATCHER = /\*/
+
+    # Default response when the route method was not allowed
+    #
+    # @api private
+    # @since 2.1.0
+    NOT_ALLOWED = -> (_, allowed_http_methods) {
+      [
+        HTTP_STATUS_NOT_ALLOWED,
+        {
+          ::Rack::CONTENT_LENGTH => HTTP_BODY_NOT_ALLOWED_LENGTH,
+          HTTP_HEADER_ALLOW => allowed_http_methods.join(", ")
+        },
+        [HTTP_BODY_NOT_ALLOWED]
+      ]
+    }
+
+    # Default response when no route was matched
+    #
+    # @api private
+    # @since 2.0.0
+    NOT_FOUND = ->(*) {
+      [HTTP_STATUS_NOT_FOUND, {::Rack::CONTENT_LENGTH => HTTP_BODY_NOT_FOUND_LENGTH}, [HTTP_BODY_NOT_FOUND]]
+    }
+
+    # @since 2.0.0
+    # @api private
+    def lookup(env)
+      endpoint = fixed(env)
+
+      return [endpoint, {}] if endpoint
+
+      variable(env) || globbed_or_mounted(env)
+    end
+
+    # @since 2.0.0
+    # @api private
+    def add_route(http_method, path, to, as, constraints, &blk)
+      raise_if_frozen
+
+      path = prefixed_path(path)
+      endpoint = resolve_endpoint(path, to, blk)
+
+      if globbed?(path)
+        add_globbed_route(http_method, path, endpoint, constraints)
+      elsif variable?(path)
+        add_variable_route(http_method, path, endpoint, constraints)
+      else
+        add_fixed_route(http_method, path, endpoint)
+      end
+
+      if as
+        as = prefixed_name(as)
+        add_named_route(path, as)
+      end
+
+      @routes << Route.new(http_method:, path:, to: to || endpoint, as:, constraints:, blk:)
+    end
+
+    # @since 2.0.0
+    # @api private
+    def resolve_endpoint(path, to, blk)
+      (to || blk) or raise MissingEndpointError.new(path)
+      to = Block.new(@block_context, blk) if to.nil?
+
+      @resolver.call(path, to)
+    end
+
+    # @since 2.0.0
+    # @api private
+    def add_globbed_route(http_method, path, to, constraints)
+      @globs_and_mounts << GlobbedPath.new(http_method, Segment.fabricate(path, **constraints), to)
+    end
+
+    # @since 2.0.0
+    # @api private
+    def add_variable_route(http_method, path, to, constraints)
+      @variable[http_method] ||= Trie.new
+      @variable[http_method].add(path, to, constraints)
+    end
+
+    # @since 2.0.0
+    # @api private
+    def add_fixed_route(http_method, path, to)
+      @fixed[http_method] ||= {}
+      @fixed[http_method][path] = to
+    end
+
+    # @since 2.0.0
+    # @api private
+    def add_named_route(path, name)
+      @url_helpers.add(name, path)
+    end
+
+    # @since 2.0.0
+    # @api private
+    def variable?(path)
+      ROUTE_VARIABLE_MATCHER.match?(path)
+    end
+
+    # @since 2.0.0
+    # @api private
+    def globbed?(path)
+      ROUTE_GLOBBED_MATCHER.match?(path)
+    end
+
+    # Raises before a route is added to a frozen router.
+    #
+    # Freezing the router does not freeze its routing tables, so without this check a route would
+    # be added to them, and so start serving requests, before {#routes} raised on being changed.
+    #
+    # @raise [FrozenError] if the router is frozen
+    #
+    # @since 3.1.0
+    # @api private
+    def raise_if_frozen
+      raise FrozenError.new("can't modify frozen #{self.class}", receiver: self) if frozen?
+    end
+
+    # @since 2.0.0
+    # @api private
+    def prefixed_path(path)
+      # Intern the path so every use of it shares a single string. This includes the routing tables,
+      # such as the hash keys in {#add_fixed_route}, and each route we record for {#routes}. This
+      # means a route defined for several HTTP methods (including the HEAD added for every GET) then
+      # keeps just one copy of its path.
+      -@path_prefix.join(path).to_s
+    end
+
+    # @api private
+    def prefixed_name(name)
+      prefix, suffix = name_parts(name)
+
+      name = @name_prefix.relative_join(suffix, PREFIXED_NAME_SEPARATOR).to_s
+      name = prefix + PREFIXED_NAME_SEPARATOR + name if prefix
+
+      normalized_name(name)
+    end
+
+    # Returns a [prefix, suffix] array for a given route name.
+    #
+    # @api private
+    def name_parts(name)
+      name = Array(name)
+
+      if name.size < 2
+        [nil, name.first&.to_s]
+      else
+        [name.first&.to_s, name[1..].join("_")]
+      end
+    end
+
+    # @api private
+    def normalized_name(name)
+      name.gsub(UNDERSCORED_NAME_REGEXP, "_").to_sym
+    end
+
+    # @since 2.0.0
+    # @api private
+    def _redirect(to, code)
+      body = ::Rack::Utils::HTTP_STATUS_CODES.fetch(code) do
+        raise UnknownHTTPStatusCodeError.new(code)
+      end
+
+      destination = if to.is_a?(URI)
+                      to.to_s
+                    elsif to.start_with?("http://") || to.start_with?("https://")
+                      to
+                    else
+                      prefixed_path(to)
+                    end
+      Redirect.new(destination, code, ->(*) { [code, {HTTP_HEADER_LOCATION => destination}, [body]] })
+    end
+
+    # @api private
+    def _env_with_params(env, params)
+      params ||= {}
+      env[PARAMS] ||= {}
+
+      env[PARAMS].merge!(_form_urlencoded_body(env))
+      env[PARAMS].merge!(::Rack::Utils.parse_nested_query(env[::Rack::QUERY_STRING]))
+      env[PARAMS].merge!(params)
+      env[PARAMS] = Params.deep_symbolize(env[PARAMS])
+
+      env
+    end
+
+    # @api private
+    def _form_urlencoded_body(env)
+      return EMPTY_HASH if env.key?(ROUTER_PARSED_BODY)
+      return EMPTY_HASH unless _form_urlencoded?(env)
+      return EMPTY_HASH unless (input = env[::Rack::RACK_INPUT])
+
+      input.rewind
+      body = ::Rack::Utils.parse_nested_query(input.read)
+      input.rewind # leave the stream readable for downstream consumers
+      body
+    end
+
+    # @api private
+    def _form_urlencoded?(env)
+      content_type = env[CONTENT_TYPE]
+      return false unless content_type
+
+      content_type = content_type.downcase
+      content_type == FORM_URLENCODED_MEDIA_TYPE ||
+        content_type.start_with?(FORM_URLENCODED_MEDIA_TYPE_PREFIX)
+    end
+
+    # @since 2.0.0
+    # @api private
+    def _not_allowed_fixed(env)
+      found = []
+
+      @fixed.each do |http_method, routes|
+        next if routes.fetch(env[::Rack::PATH_INFO], nil).nil?
+
+        found << http_method
+      end
+
+      return nil if found.empty?
+
+      found
+    end
+
+    # @since 2.0.0
+    # @api private
+    def _not_allowed_variable(env)
+      found = []
+
+      @variable.each do |http_method, routes|
+        next if routes.find(env[::Rack::PATH_INFO]).nil?
+
+        found << http_method
+      end
+
+      return nil if found.empty?
+
+      found
+    end
+  end
+end

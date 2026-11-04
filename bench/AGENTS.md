@@ -51,3 +51,6 @@ Rules for measuring nishiki, beside the root guide's invariants.
     A move of 0.1% or less in these languages is within that spread; the 0.5% gate sits five times above the largest.
 17. Below its instruction table, `mise run callgrind` prints what one pass over each language's fixtures allocates on each side: allocations, KiB and the most KiB one document held (`examples/memory.rs`).
     The counts are exact and never fail the job; zero allocations on a second pass stays a test (`tests/it/alloc.rs`).
+18. The wall-clock benchmarks and the comparison read `bench/corpus/`, never the oracle fixtures; its README says what each tier stands for.
+    A file enters only with its row in `bench/corpus.toml` and a permissive licence read at its source, and `mise run check:corpus` holds the two together.
+    Changing the corpus raises its `version`, and a record names the version it ran on.
