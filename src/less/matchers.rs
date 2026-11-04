@@ -26,6 +26,19 @@ use crate::rules::Chars;
 /// fails on a longer one.
 const LONGEST_WORD: usize = 64;
 
+/// The word of `table`, which is sorted, that `key` is, and whether a longer
+/// word of it starts with `key`: the words that do sort right after `key`.
+fn find(table: &[Word], key: &[u8]) -> (Option<Word>, bool) {
+    let (word, next) = match table.binary_search_by(|word| word.text.as_bytes().cmp(key)) {
+        Ok(index) => (table.get(index).copied(), index + 1),
+        Err(index) => (None, index),
+    };
+    let goes_on = table
+        .get(next)
+        .is_some_and(|word| word.text.as_bytes().starts_with(key));
+    (word, goes_on)
+}
+
 /// A word of one of the grammar's big alternations: its text, its place in
 /// the alternation and whether it ignores case.
 #[derive(Clone, Copy, Debug)]
@@ -925,6 +938,11 @@ impl Lexer<'_> {
     /// that start at `p` and end where `\b` holds, the one the alternation
     /// tries first. Every word of a table is made of `[-.0-9:A-Za-z]` and is
     /// at most [`LONGEST_WORD`] bytes long, so the search ends there.
+    ///
+    /// Each end where `\b` holds is searched as written and, when it holds a
+    /// capital, lowered for the words that ignore case ([`find`]). The search
+    /// stops at the first end that no longer word of the table goes on from,
+    /// in either spelling, as no later end can then match.
     fn table_word(&self, p: usize, table: &[Word]) -> Option<usize> {
         if !self.boundary(p) {
             return None;
@@ -933,39 +951,33 @@ impl Lexer<'_> {
             b == b'-' || b == b'.' || b == b':' || b.is_ascii_alphanumeric()
         });
         let mut best: Option<(u16, usize)> = None;
-        let mut end = p + 1;
-        while end <= run {
-            if self.boundary(end) {
-                let text = self.text(p, end);
-                if let Some(word) = Self::lookup(table, text)
-                    && best.is_none_or(|(order, _)| word.order < order)
-                {
-                    best = Some((word.order, end));
-                }
+        let mut lower = [0_u8; LONGEST_WORD];
+        for end in p + 1..=run {
+            if !self.boundary(end) {
+                continue;
             }
-            end += 1;
+            let text = self.text(p, end);
+            let (mut word, mut goes_on) = find(table, text);
+            if text.iter().any(u8::is_ascii_uppercase)
+                && let Some(folded) = lower.get_mut(..text.len())
+            {
+                folded.copy_from_slice(text);
+                folded.make_ascii_lowercase();
+                let (found, more) = find(table, folded);
+                word = word.or(found.filter(|word| word.folded));
+                goes_on |= more;
+            }
+            if let Some(word) = word
+                && best.is_none_or(|(order, _)| word.order < order)
+            {
+                best = Some((word.order, end));
+            }
+            if !goes_on {
+                break;
+            }
         }
         self.spend(run - p);
         best.map(|(_, end)| end)
-    }
-
-    /// The word of `table` that `text` is: itself, or its lower case for a
-    /// word that ignores case.
-    fn lookup(table: &[Word], text: &[u8]) -> Option<Word> {
-        let find = |key: &[u8]| {
-            table
-                .binary_search_by(|word| word.text.as_bytes().cmp(key))
-                .ok()
-                .and_then(|index| table.get(index).copied())
-        };
-        if let Some(word) = find(text) {
-            return Some(word);
-        }
-        let mut lower = [0_u8; LONGEST_WORD];
-        let folded = lower.get_mut(..text.len())?;
-        folded.copy_from_slice(text);
-        folded.make_ascii_lowercase();
-        find(folded).filter(|word| word.folded)
     }
 
     /// `\b(a|b|…)\b` at `p` for a short alternation: the first word, in the
