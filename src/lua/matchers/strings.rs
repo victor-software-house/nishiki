@@ -26,8 +26,13 @@ impl Lexer<'_> {
     /// `]\N]` at `p`, where `\N` is the `=` signs the rule opened with, which
     /// may be none: the end of the bracket.
     pub(super) fn long_bracket_close(&self, p: usize) -> Option<usize> {
+        self.bracket_close(p, self.payload_text().as_bytes())
+    }
+
+    /// `]` at `p`, then `equals`, then `]`.
+    /// Returns the end of the bracket.
+    fn bracket_close(&self, p: usize, equals: &[u8]) -> Option<usize> {
         let inner = self.lit(p, b"]")?;
-        let equals = self.payload_text().as_bytes();
         let after = if equals.is_empty() {
             inner
         } else {
@@ -45,6 +50,13 @@ impl Lexer<'_> {
         let end = self.long_bracket(open, 2)?;
         self.cap(1, open, end);
         Some(end)
+    }
+
+    /// `(?=]\2])`, the end of the rule inside the cdef rule.
+    /// `\2` is the `=` signs the cdef rule opened with.
+    pub(super) fn cdef_body_end(&self, p: usize) -> Option<usize> {
+        self.bracket_close(p, self.parent_payload_text().as_bytes())?;
+        Some(p)
     }
 
     /// `(]\2])[\t ]*`

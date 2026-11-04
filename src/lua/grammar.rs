@@ -6,7 +6,7 @@
 //! its `include`s flattened, so the first that matches at the earliest
 //! position wins as in a `TextMate` engine.
 
-use super::engine::Lua;
+use super::engine::{Lua, embedded};
 use super::scope::S;
 use crate::rules;
 
@@ -26,6 +26,7 @@ pub(crate) enum Rule {
     StringAt1,
     StringAt2,
     StringAt3,
+    StringAt3At0,
     StringAt4,
     CommentAt1,
     EmmydocAt0,
@@ -70,7 +71,7 @@ pub(crate) enum Rule {
 
 impl Rule {
     /// Every rule, in code order.
-    pub(crate) const ALL: [Rule; 47] = [
+    pub(crate) const ALL: [Rule; 48] = [
         Rule::RootAt0,
         Rule::CommentAt0,
         Rule::CommentAt0At0,
@@ -78,6 +79,7 @@ impl Rule {
         Rule::StringAt1,
         Rule::StringAt2,
         Rule::StringAt3,
+        Rule::StringAt3At0,
         Rule::StringAt4,
         Rule::CommentAt1,
         Rule::EmmydocAt0,
@@ -233,6 +235,13 @@ impl Rule {
                 content: &[S::MetaEmbedded],
                 end: Some(Pat::StringAt3End),
                 backref: Some(2),
+                patterns: &[Pat::StringAt3At0],
+            },
+            Rule::StringAt3At0 => RuleData {
+                name: &[],
+                content: &[],
+                end: Some(Pat::StringAt3At0End),
+                backref: None,
                 patterns: &[],
             },
             Rule::StringAt4 => RuleData {
@@ -744,6 +753,66 @@ impl Rule {
             },
         }
     }
+
+    /// What a rule carries from line to line.
+    /// A rule that includes another language's grammar carries that language's
+    /// state, when its feature is on. A rule whose end repeats a begin capture
+    /// group carries that group.
+    #[inline]
+    pub(crate) fn payload(self) -> rules::Payload {
+        match self {
+            Rule::RootAt0
+            | Rule::CommentAt0
+            | Rule::StringAt0
+            | Rule::StringAt1
+            | Rule::StringAt2
+            | Rule::CommentAt1
+            | Rule::EmmydocAt0
+            | Rule::EmmydocAt1
+            | Rule::EmmydocAt1At0
+            | Rule::EmmydocAt2
+            | Rule::EmmydocTypeAt0
+            | Rule::EmmydocTypeAt4
+            | Rule::EmmydocAt3
+            | Rule::EmmydocAt3At0
+            | Rule::EmmydocAt4
+            | Rule::EmmydocAt5
+            | Rule::EmmydocAt5At0
+            | Rule::EmmydocAt6
+            | Rule::EmmydocAt6At0
+            | Rule::EmmydocAt7
+            | Rule::EmmydocAt8
+            | Rule::EmmydocAt8At0
+            | Rule::EmmydocAt9
+            | Rule::EmmydocAt9At0
+            | Rule::EmmydocAt10
+            | Rule::EmmydocAt11
+            | Rule::EmmydocAt12
+            | Rule::EmmydocAt13
+            | Rule::EmmydocAt14
+            | Rule::EmmydocAt15
+            | Rule::EmmydocAt16
+            | Rule::EmmydocAt17
+            | Rule::EmmydocAt18
+            | Rule::EmmydocAt19
+            | Rule::EmmydocAt19At0
+            | Rule::EmmydocAt20
+            | Rule::EmmydocAt22
+            | Rule::CommentAt0At2
+            | Rule::CommentAt0At3
+            | Rule::CommentAt0At4
+            | Rule::RootAt0At1
+            | Rule::RootAt0At1At4
+            | Rule::Root => rules::Payload::None,
+            Rule::CommentAt0At0 | Rule::StringAt4 | Rule::CommentAt0At1 => {
+                rules::Payload::Backref(1)
+            }
+            Rule::StringAt3 => rules::Payload::Backref(2),
+            Rule::StringAt3At0 => {
+                embedded!(C, "lang-c").map_or(rules::Payload::None, rules::Payload::Embed)
+            }
+        }
+    }
 }
 
 /// A pattern of the grammar.
@@ -802,6 +871,10 @@ pub(crate) enum Pat {
     StringAt3,
     /// The end `(]\2])[\t ]*`.
     StringAt3End,
+    /// The begin `\G`.
+    StringAt3At0,
+    /// The end `(?=]\2])`.
+    StringAt3At0End,
     /// The begin `(?<!--)\[(=*)\[`.
     StringAt4,
     /// The end `]\1][\t ]*`.
@@ -1059,7 +1132,7 @@ pub(crate) enum Pat {
 impl Pat {
     /// Every pattern, for the tool that compares the matchers with Oniguruma.
     #[cfg(test)]
-    pub(crate) const ALL: [Pat; 152] = [
+    pub(crate) const ALL: [Pat; 154] = [
         Pat::RootAt0,
         Pat::RootAt0End,
         Pat::CommentAt0,
@@ -1086,6 +1159,8 @@ impl Pat {
         Pat::StringAt2End,
         Pat::StringAt3,
         Pat::StringAt3End,
+        Pat::StringAt3At0,
+        Pat::StringAt3At0End,
         Pat::StringAt4,
         Pat::StringAt4End,
         Pat::RootAt8,
@@ -1223,6 +1298,7 @@ impl Pat {
                 nested: &[],
             },
             Pat::RootAt0End
+            | Pat::StringAt3At0End
             | Pat::EmmydocAt0End
             | Pat::EmmydocAt1End
             | Pat::EmmydocAt1At0End
@@ -1357,6 +1433,11 @@ impl Pat {
                     (0, &[S::StrQuotedOtherMultiline]),
                     (1, &[S::PDefinitionStringEnd]),
                 ],
+                nested: &[],
+            },
+            Pat::StringAt3At0 => PatData {
+                act: Act::Begin(Rule::StringAt3At0),
+                captures: &[],
                 nested: &[],
             },
             Pat::StringAt4 => PatData {
@@ -1745,7 +1826,7 @@ impl Pat {
                 bol: false,
                 wb: true,
             },
-            Pat::RootAt0End | Pat::CommentAt0End | Pat::LdocTag => Start {
+            Pat::RootAt0End | Pat::CommentAt0End | Pat::StringAt3At0 | Pat::LdocTag => Start {
                 bytes: [
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
@@ -1904,7 +1985,10 @@ impl Pat {
                 bol: false,
                 wb: false,
             },
-            Pat::StringAt3End | Pat::StringAt4End | Pat::EmmydocAt8At0At2 => Start {
+            Pat::StringAt3End
+            | Pat::StringAt3At0End
+            | Pat::StringAt4End
+            | Pat::EmmydocAt8At0At2 => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x0000_0000_2000_0000,

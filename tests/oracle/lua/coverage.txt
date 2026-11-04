@@ -372,8 +372,67 @@ T 3 source.lua variable.other.lua
 T 4 source.lua
 T 8 source.lua support.function.any-method.lua
 T 10 source.lua string.quoted.other.multiline.lua punctuation.definition.string.begin.lua
+L typedef struct { int x; } point;
+T 7 source.lua meta.embedded.lua keyword.other.typedef.c
+T 8 source.lua meta.embedded.lua
+T 14 source.lua meta.embedded.lua storage.type.struct.c
+T 15 source.lua meta.embedded.lua
+T 16 source.lua meta.embedded.lua meta.block.c punctuation.section.block.begin.bracket.curly.c
+T 17 source.lua meta.embedded.lua meta.block.c
+T 20 source.lua meta.embedded.lua meta.block.c storage.type.built-in.primitive.c
+T 22 source.lua meta.embedded.lua meta.block.c
+T 23 source.lua meta.embedded.lua meta.block.c punctuation.terminator.statement.c
+T 24 source.lua meta.embedded.lua meta.block.c
+T 25 source.lua meta.embedded.lua meta.block.c punctuation.section.block.end.bracket.curly.c
+T 31 source.lua meta.embedded.lua
+T 32 source.lua meta.embedded.lua punctuation.terminator.statement.c
 L ]]
 T 2 source.lua string.quoted.other.multiline.lua punctuation.definition.string.end.lua
+L ffi.cdef[=[
+T 3 source.lua variable.other.lua
+T 4 source.lua
+T 8 source.lua entity.other.attribute.lua
+T 11 source.lua string.quoted.other.multiline.lua punctuation.definition.string.begin.lua
+L int lookup(int a[], int b[]); int v = a[b[1]];
+T 3 source.lua meta.embedded.lua storage.type.built-in.primitive.c
+T 4 source.lua meta.embedded.lua
+T 10 source.lua meta.embedded.lua meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 11 source.lua meta.embedded.lua meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 14 source.lua meta.embedded.lua meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 15 source.lua meta.embedded.lua meta.function.c meta.function.definition.parameters.c
+T 16 source.lua meta.embedded.lua meta.function.c meta.function.definition.parameters.c variable.parameter.probably.c
+T 18 source.lua meta.embedded.lua meta.function.c meta.function.definition.parameters.c storage.modifier.array.bracket.square.c
+T 19 source.lua meta.embedded.lua meta.function.c meta.function.definition.parameters.c punctuation.separator.delimiter.c
+T 20 source.lua meta.embedded.lua meta.function.c meta.function.definition.parameters.c
+T 23 source.lua meta.embedded.lua meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 24 source.lua meta.embedded.lua meta.function.c meta.function.definition.parameters.c
+T 25 source.lua meta.embedded.lua meta.function.c meta.function.definition.parameters.c variable.parameter.probably.c
+T 27 source.lua meta.embedded.lua meta.function.c meta.function.definition.parameters.c storage.modifier.array.bracket.square.c
+T 28 source.lua meta.embedded.lua meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 29 source.lua meta.embedded.lua punctuation.terminator.statement.c
+T 30 source.lua meta.embedded.lua
+T 33 source.lua meta.embedded.lua storage.type.built-in.primitive.c
+T 36 source.lua meta.embedded.lua
+T 37 source.lua meta.embedded.lua keyword.operator.assignment.c
+T 38 source.lua meta.embedded.lua
+T 39 source.lua meta.embedded.lua meta.bracket.square.access.c variable.object.c
+T 40 source.lua meta.embedded.lua meta.bracket.square.access.c punctuation.definition.begin.bracket.square.c
+T 41 source.lua meta.embedded.lua meta.bracket.square.access.c meta.bracket.square.access.c variable.object.c
+T 42 source.lua meta.embedded.lua meta.bracket.square.access.c meta.bracket.square.access.c punctuation.definition.begin.bracket.square.c
+T 43 source.lua meta.embedded.lua meta.bracket.square.access.c meta.bracket.square.access.c constant.numeric.decimal.c
+T 44 source.lua meta.embedded.lua meta.bracket.square.access.c meta.bracket.square.access.c punctuation.definition.end.bracket.square.c
+T 45 source.lua meta.embedded.lua meta.bracket.square.access.c punctuation.definition.end.bracket.square.c
+T 46 source.lua meta.embedded.lua punctuation.terminator.statement.c
+L ]=] local after = 1
+T 3 source.lua string.quoted.other.multiline.lua punctuation.definition.string.end.lua
+T 4 source.lua string.quoted.other.multiline.lua
+T 9 source.lua keyword.local.lua
+T 10 source.lua
+T 15 source.lua variable.other.lua
+T 16 source.lua
+T 17 source.lua keyword.operator.lua
+T 18 source.lua
+T 19 source.lua constant.numeric.float.lua
 L local bad = "\q \k"
 T 5 source.lua keyword.local.lua
 T 6 source.lua

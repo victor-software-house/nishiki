@@ -1099,6 +1099,7 @@ export const complete: string[] = [
   "jsx",
   "kotlin",
   "less",
+  "lua",
   "make",
   "markdown",
   "python",

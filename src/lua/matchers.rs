@@ -52,6 +52,8 @@ impl Lexer<'_> {
             Pat::StringAt2End => self.quote_end(p, b'`'),
             Pat::StringAt3 => self.cdef_open(p),
             Pat::StringAt3End => self.cdef_close(p),
+            Pat::StringAt3At0 => self.at_g(p).then_some(p),
+            Pat::StringAt3At0End => self.cdef_body_end(p),
             Pat::StringAt4 => self.long_string_open(p),
             Pat::StringAt4End => self.long_string_close(p),
             Pat::EscapedCharAt0 => self.simple_escape(p),

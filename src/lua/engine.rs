@@ -4,6 +4,7 @@ use std::convert::Infallible;
 
 use super::grammar::{Pat, Rule};
 use super::scope::S;
+pub(crate) use crate::rules::embedded;
 use crate::rules::{self, Act, Captures, Grammar, HasRuns, Payload, Runs, ScopeName, table_scan};
 
 /// The Lua lexer for one line.
@@ -63,8 +64,10 @@ impl Grammar for Lua {
         rule.data().content
     }
 
+    const EMBEDS_ON_DEMAND: bool = true;
+
     fn rule_payload(rule: Rule) -> Payload {
-        rule.data().backref.map_or(Payload::None, Payload::Backref)
+        rule.payload()
     }
 
     fn pat_act(pat: Pat) -> Act<Self> {

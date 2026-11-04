@@ -2,6 +2,8 @@ use indoc::indoc;
 
 use crate::Language;
 use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf};
+#[cfg(feature = "lang-c")]
+use crate::{Highlighter, Limit, Limits, State, Work};
 
 /// Lexes the lines of `text` in order from one start state.
 fn lex_lines(text: &str) -> Vec<LeafRow> {
@@ -162,18 +164,75 @@ fn labels_and_attributes_are_named() {
     );
 }
 
-/// Shiki lexes the body of `ffi.cdef[[...]]` as C; the body stays the
-/// embedding rule's content until the engine can run another lexer inside a
-/// rule.
+/// The body of `ffi.cdef[[...]]` is C, up to the bracket that closes it.
+#[cfg(feature = "lang-c")]
 #[test]
-fn an_ffi_cdef_body_is_left_unlexed() {
+fn an_ffi_cdef_body_lexes_as_c() {
     let row = lex("ffi.cdef[[ int x; ]]");
     assert_eq!(
         leaf_in(&row, "[["),
         "punctuation.definition.string.begin.lua"
     );
-    assert_eq!(leaf_in(&row, " int x; "), "meta.embedded.lua");
+    assert_eq!(leaf_in(&row, "int"), "storage.type.built-in.primitive.c");
     assert_eq!(leaf_in(&row, "]]"), "punctuation.definition.string.end.lua");
+}
+
+/// A cdef body with `=` signs goes back to Lua only at a bracket of its own
+/// level. The `]]` of `a[b[1]]` stays C.
+#[cfg(feature = "lang-c")]
+#[test]
+fn an_ffi_cdef_body_closes_only_at_its_own_level() {
+    let rows = lex_lines(indoc! {"
+        ffi.cdef[=[
+        int a[b[1]];
+        ]=] x
+    "});
+    assert_eq!(
+        leaf_in(&rows[1], "int"),
+        "storage.type.built-in.primitive.c"
+    );
+    assert!(
+        rows[1]
+            .iter()
+            .all(|(_, scope)| scope != "punctuation.definition.string.end.lua"),
+        "{:?}",
+        rows[1]
+    );
+    assert_eq!(
+        leaf_in(&rows[2], "]=]"),
+        "punctuation.definition.string.end.lua"
+    );
+    assert_eq!(leaf_in(&rows[2], "x"), "variable.other.lua");
+}
+
+/// A line in a cdef body is lexed twice: as Lua, then with C.
+/// Both passes spend the line's one work budget.
+/// Under a tight limit, a long body line runs out of work.
+/// Its tokens still cover the line.
+#[cfg(feature = "lang-c")]
+#[test]
+fn a_long_cdef_body_under_a_tight_work_limit_still_covers_its_lines() {
+    let limits = Limits {
+        work: Some(Work {
+            per_byte: 0,
+            base: 8,
+        }),
+        ..Limits::default()
+    };
+    let mut highlighter = Highlighter::new_with_limits(Language::Lua, limits);
+    let mut state = State::default();
+    let body = "int a[b[1]]; ".repeat(200);
+    for (index, line) in ["ffi.cdef[[", body.as_str(), "]] x"]
+        .into_iter()
+        .enumerate()
+    {
+        let mut tokens = Vec::new();
+        let report = highlighter.line(line, &mut state, &mut tokens);
+        assert_eq!(tokens.last().map(|token| token.end()), Some(line.len()));
+        if index == 1 {
+            assert!(report.reached(Limit::Work));
+        }
+    }
 }
 
 #[cfg(feature = "json")]

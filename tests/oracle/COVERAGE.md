@@ -34,7 +34,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | TypeScript | `jsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | Kotlin | `kotlin` | 63 of 65 | 96.9% | 35 of 35 | 100.0% | 2 | 0 | yes |
 | Less | `less` | 581 of 590 | 98.5% | 417 of 437 | 95.4% | 29 | 0 | yes |
-| Lua | `lua` | 147 of 152 | 96.7% | 72 of 74 | 97.3% | 7 | 0 | ready |
+| Lua | `lua` | 147 of 152 | 96.7% | 72 of 74 | 97.3% | 7 | 0 | yes |
 | Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
 | Markdown | `markdown` | 209 of 311 | 67.2% | 270 of 373 | 72.4% | 205 | 0 | yes |
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |

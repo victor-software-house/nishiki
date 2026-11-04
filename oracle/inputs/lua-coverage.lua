@@ -52,7 +52,11 @@ local s = `backtick ${s}`
 local unfinished = `open
 local ffi = require("ffi")
 ffi.cdef[[
+typedef struct { int x; } point;
 ]]
+ffi.cdef[=[
+int lookup(int a[], int b[]); int v = a[b[1]];
+]=] local after = 1
 local bad = "\q \k"
 
 local hex = 0xFF

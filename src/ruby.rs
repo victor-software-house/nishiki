@@ -40,14 +40,18 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// See [`rules::lex_embedding`].
 #[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
-    rules::lex_embedding::<Ruby>(
-        cx,
-        line,
-        state,
-        |scratch| &mut scratch.ruby,
-        &interpolation,
-        Some(&escape),
-    )
+    rules::lex_embedding::<Ruby>(cx, line, state, |scratch| &mut scratch.ruby)
+}
+
+/// A heredoc named for a language takes the line back where Ruby's own patterns
+/// begin. [`interpolation`] is tried before the embedded grammar.
+/// [`escape`] is tried after it.
+impl rules::Embeds for Ruby {
+    type End = fn(&[u8], usize) -> bool;
+
+    fn embed_halts(_: &rules::Embedding, _: &Arena) -> (Self::End, Option<rules::FnHalt>) {
+        (interpolation, Some(escape))
+    }
 }
 
 /// Where Ruby's interpolation or a heredoc at the start of a line begins:

@@ -13,7 +13,7 @@
 
 use std::borrow::Cow;
 
-#[cfg(feature = "lang-ruby")]
+#[cfg(feature = "_embedding")]
 use super::Embedding;
 use super::{Act, Captures, DynName, Grammar, NameCase, Payload, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
@@ -203,6 +203,15 @@ pub(crate) struct Scratch<G: Grammar> {
     kept: G::Kept,
 }
 
+impl<G: Grammar> Scratch<G> {
+    /// Drops the frames kept for the next line.
+    /// That line then opens its rules from its state.
+    #[cfg(feature = "_embedding")]
+    pub(crate) fn forget_resume(&mut self) {
+        self.resume = None;
+    }
+}
+
 impl<G: Grammar> Default for Scratch<G> {
     fn default() -> Self {
         Scratch {
@@ -327,7 +336,7 @@ pub(crate) struct Lexer<'a, G: Grammar> {
 }
 
 /// Where an embedding line enters the rule engine.
-#[cfg(feature = "lang-ruby")]
+#[cfg(feature = "_embedding")]
 #[derive(Clone, Copy, Debug)]
 enum Entry {
     /// At the start of the line, where the `while` rules are tried.
@@ -445,6 +454,13 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             let mut chain = std::mem::take(&mut self.scratch.chain);
             self.open_frames(self.state, &mut chain);
             self.scratch.chain = chain;
+            #[cfg(feature = "_embedding")]
+            if G::EMBEDS_ON_DEMAND
+                && !self.embedding
+                && let Payload::Embed(language) = G::rule_payload(self.top().rule)
+            {
+                self.yielded = Some((self.pos, language));
+            }
         }
         if G::CAPTURED_EOL
             && self.frames.len() > 1
@@ -533,13 +549,27 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         (self.finish(), halted)
     }
 
+    /// Lexes the line like [`Lexer::run`], and returns whether it needs the
+    /// languages its rules embed ([`Grammar::EMBEDS_ON_DEMAND`]).
+    /// The rule's text is lexed as the rule's own.
+    /// It needs them where it starts inside a rule that embeds one, or opens
+    /// one. The caller then lexes the line again with [`Lexer::run_embedding`].
+    #[cfg(feature = "_embedding")]
+    pub(crate) fn run_on_demand(mut self) -> (Finished, bool) {
+        self.open();
+        self.check_while();
+        self.tokenize();
+        let embeds = self.yielded.is_some();
+        (self.finish(), embeds)
+    }
+
     /// Lexes the line like [`Lexer::run`], but stops where the innermost
     /// rule embeds another language and returns where. Its count is given
     /// back by then, so the caller lends what the line has left to the
     /// embedded language and, where it halts, to
     /// [`Lexer::resume_embedding`], and every part of the line spends one
     /// budget.
-    #[cfg(feature = "lang-ruby")]
+    #[cfg(feature = "_embedding")]
     pub(crate) fn run_embedding(self) -> (Finished, Option<Embedding>) {
         self.embed(Entry::Start)
     }
@@ -548,13 +578,13 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// [`Lexer::run_embedding`]: the rule's own patterns are tried at the
     /// cursor first, and the `while` rules, which only the start of a line
     /// tries, are not.
-    #[cfg(feature = "lang-ruby")]
+    #[cfg(feature = "_embedding")]
     pub(crate) fn resume_embedding(self) -> (Finished, Option<Embedding>) {
         self.embed(Entry::Resume)
     }
 
     /// The loop of [`Lexer::run_embedding`] and [`Lexer::resume_embedding`].
-    #[cfg(feature = "lang-ruby")]
+    #[cfg(feature = "_embedding")]
     fn embed(mut self, entry: Entry) -> (Finished, Option<Embedding>) {
         self.embedding = true;
         self.open();
@@ -563,7 +593,14 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             Entry::Resume => self.host = true,
         }
         self.note_embedding();
-        self.tokenize();
+        if !G::EMBEDS
+            && !self.host
+            && let Payload::Embed(language) = G::rule_payload(self.top().rule)
+        {
+            self.yield_to(language);
+        } else {
+            self.tokenize();
+        }
         let embedding = self.yielded.map(|(at, language)| {
             let top = self.top();
             Embedding {
@@ -571,6 +608,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 language,
                 state: top.payload,
                 base: top.content,
+                parent: self.frames[self.frames.len() - 2].payload,
             }
         });
         (self.finish(), embedding)
@@ -882,6 +920,17 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// The innermost rule's payload text.
     pub(crate) fn payload_text(&self) -> &str {
         self.arena.string(self.top().payload)
+    }
+
+    /// The payload text of the rule around the innermost one.
+    /// An example is the begin capture of an outer rule whose end the innermost
+    /// rule waits for.
+    #[cfg(feature = "lang-lua")]
+    pub(crate) fn parent_payload_text(&self) -> &str {
+        self.frames
+            .len()
+            .checked_sub(2)
+            .map_or("", |parent| self.arena.string(self.frames[parent].payload))
     }
 
     /// Whether the line has the innermost rule's payload text just before `p`.
@@ -1384,9 +1433,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 && let Some(language) = self.embeds
             {
                 if !self.host {
-                    let node = self.top().content;
-                    self.emit(self.pos, node);
-                    self.yielded = Some((self.pos, language));
+                    self.yield_to(language);
                     return;
                 }
                 self.host = false;
@@ -1573,9 +1620,14 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         let top_content = self.top().content;
         self.emit(start, top_content);
         let before = self.depth();
+        let mut embedded = None;
         let payload = match G::rule_payload(rule) {
             Payload::None if G::CAPTURED_EOL && end > self.s.len() => CAPTURED_EOL,
-            Payload::None | Payload::Embed(_) => 0,
+            Payload::None => 0,
+            Payload::Embed(language) => {
+                embedded = Some(language);
+                0
+            }
             Payload::Backref(group) => {
                 let text = std::str::from_utf8(self.cap_text(usize::from(group))).unwrap_or("");
                 self.arena.intern(text).unwrap_or_else(|| {
@@ -1601,7 +1653,39 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             return true;
         }
         self.note_embedding();
-        false
+        match embedded {
+            Some(language) => self.opened_embedding(language, end),
+            None => false,
+        }
+    }
+
+    /// Runs after a rule that embeds `language` opened with a begin match
+    /// ending at `end`. A grammar with the per-step test
+    /// ([`Grammar::EMBEDS`]) does nothing here.
+    /// On an embedding line, it hands the line to `language` past the match.
+    /// It returns true there, to stop the line.
+    /// On another line, it notes the language and the line goes on.
+    /// [`Lexer::run_on_demand`] reads that note.
+    #[cold]
+    fn opened_embedding(&mut self, language: Language, end: usize) -> bool {
+        if G::EMBEDS {
+            return false;
+        }
+        if !self.embedding {
+            self.yielded = Some((self.pos, language));
+            return false;
+        }
+        self.pos = self.pos.max(end);
+        self.yield_to(language);
+        true
+    }
+
+    /// Ends the line at the cursor for `language`, which lexes the text from
+    /// there.
+    fn yield_to(&mut self, language: Language) {
+        let node = self.top().content;
+        self.emit(self.pos, node);
+        self.yielded = Some((self.pos, language));
     }
 
     /// Whether `rule`, just opened above frame `before`, repeats a rule that
@@ -1655,7 +1739,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 /// The state `state` with its innermost rule's payload replaced by
 /// `payload`, such as the state of the language the rule embeds after a
 /// line, or `None` when the node limit keeps the new state from being made.
-#[cfg(feature = "lang-ruby")]
+#[cfg(feature = "_embedding")]
 pub(crate) fn with_payload(arena: &mut Arena, state: u32, payload: u32) -> Option<u32> {
     let frame = arena.frame(state);
     arena.push(frame.parent, frame.kind, payload, frame.stack)

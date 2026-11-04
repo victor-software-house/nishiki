@@ -4,20 +4,8 @@ use std::cell::Cell;
 
 use super::grammar::{Pat, Rule};
 use super::scope::S;
+pub(crate) use crate::rules::embedded;
 use crate::rules::{self, Act, Captures, Grammar, HasRuns, Payload, Runs, ScopeName, table_scan};
-
-/// `Some(Language::$variant)` when the language's feature is on, and `None`
-/// otherwise: the language a heredoc's rule embeds, for the generated table.
-macro_rules! embedded {
-    ($variant:ident, $feature:literal) => {{
-        #[cfg(feature = $feature)]
-        let language = Some(crate::Language::$variant);
-        #[cfg(not(feature = $feature))]
-        let language = None;
-        language
-    }};
-}
-pub(crate) use embedded;
 
 /// The Ruby lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Ruby>;

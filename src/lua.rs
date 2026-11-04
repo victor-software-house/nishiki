@@ -33,9 +33,57 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// Lexes one line under the crate's lexer contract.
+/// The body of an `ffi.cdef[[...]]` is C (see [`rules::lex_embedding`]).
+/// C lexes it up to the bracket that closes it.
+/// Most lines hold no such body, and they are lexed without C
+/// (see [`rules::lex_on_demand`]).
 #[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
-    rules::lex::<Lua>(cx, line, state, |scratch| &mut scratch.lua)
+    rules::lex_on_demand::<Lua>(cx, line, state, |scratch| &mut scratch.lua)
+}
+
+/// The body of an `ffi.cdef` long bracket goes back to Lua at its closing
+/// bracket. The cdef rule's frame carries the bracket's `=` signs.
+impl rules::Embeds for Lua {
+    type End = LongBracketClose;
+
+    fn embed_halts(
+        embedding: &rules::Embedding,
+        arena: &Arena,
+    ) -> (Self::End, Option<rules::FnHalt>) {
+        let level = arena.string(embedding.parent).len();
+        (LongBracketClose { level }, None)
+    }
+}
+
+/// The close of a long bracket with `level` `=` signs, as `]==]` is.
+/// The body of an `ffi.cdef[==[` ends there.
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct LongBracketClose {
+    level: usize,
+}
+
+impl Halt for LongBracketClose {
+    fn first(&self, s: &[u8], from: usize, to: usize) -> Option<usize> {
+        let end = to.saturating_add(1).min(s.len());
+        let mut p = from;
+        while p < end {
+            let at = p + memchr::memchr(b']', s.get(p..end)?)?;
+            if self.holds(s, at) {
+                return Some(at);
+            }
+            p = at + 1;
+        }
+        None
+    }
+
+    fn holds(&self, s: &[u8], p: usize) -> bool {
+        let close = p + 1 + self.level;
+        s.get(p) == Some(&b']')
+            && s.get(p + 1..close)
+                .is_some_and(|run| run.iter().all(|&b| b == b'='))
+            && s.get(close) == Some(&b']')
+    }
 }
 
 /// Lexes `line` like [`lex`], for Lua that another language embeds, up to
