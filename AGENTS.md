@@ -5,11 +5,10 @@ Read [README.md](README.md) for what it is.
 
 ## Guides
 
-| File | Holds |
-|:--|:--|
-| [CODING_STANDARDS.md](CODING_STANDARDS.md) | The numbered coding rules. |
-| [docs/AGENTS.md](docs/AGENTS.md) | The rules for research notes. |
-| [bench/AGENTS.md](bench/AGENTS.md) | The rules for measuring. |
+- [CODING_STANDARDS.md](CODING_STANDARDS.md): the numbered coding rules.
+- [docs/AGENTS.md](docs/AGENTS.md): the rules for research notes.
+- [bench/AGENTS.md](bench/AGENTS.md): the rules for measuring.
+- [openspec/changes/repo-layout](openspec/changes/repo-layout/proposal.md): the plan that moves these into one layout.
 
 The decisions that created nishiki live in a private planning repository:
 
@@ -98,11 +97,16 @@ The decisions that created nishiki live in a private planning repository:
 
 1. The README's Rust examples run as doctests (`ReadmeDoctests` in `src/lib.rs`).
 2. The README links to files through docs.rs source URLs, because the repository is private.
-3. Guides and the README are written to be scanned (operator, 2026-11-02):
+3. Every document, from guides to research notes, is written to be scanned (operator, 2026-11-02 and 2026-11-03):
    - short sentences, one idea each, with Semantic Line Breaks;
    - a list for a set of items, a table for a comparison, a heading per topic;
-   - a blank line between blocks.
-4. A language's section under "Behaviour kept from Shiki" in the README is a bullet list, one quirk per bullet.
+   - a blank line between blocks;
+   - plain words: no filler, no flourish, no mannered phrasing;
+   - no walls of prose: a paragraph past four lines becomes a list or splits;
+   - headers that name their content, never vague ones like "Piece" or "What it holds".
+4. A directory a reader browses on GitHub has a `README.md` that says what it holds.
+   Where it has rules for working there, an `AGENTS.md` sits beside it.
+5. A language's section under "Behaviour kept from Shiki" in the README is a bullet list, one quirk per bullet.
 
 ### Release
 
