@@ -4359,7 +4359,6 @@ impl Rule {
             | Rule::RootAt88
             | Rule::RootAt88At0
             | Rule::RootAt89
-            | Rule::RootAt89At0
             | Rule::Heredoc
             | Rule::RootAt90
             | Rule::RootAt90At0
@@ -4403,6 +4402,9 @@ impl Rule {
             | Rule::YardDirective
             | Rule::YardSee
             | Rule::YardMacroAttribute => rules::Payload::Backref(3),
+            Rule::RootAt89At0 => {
+                embedded!(Html, "lang-html").map_or(rules::Payload::None, rules::Payload::Embed)
+            }
             Rule::RootAt92At0 => {
                 embedded!(Sql, "lang-sql").map_or(rules::Payload::None, rules::Payload::Embed)
             }

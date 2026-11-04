@@ -126,6 +126,7 @@ const embeddable: Record<string, [string, string]> = {
   "source.js": ["JavaScript", "lang-javascript"],
   "source.cpp": ["Cpp", "lang-cpp"],
   "source.lua": ["Lua", "lang-lua"],
+  "text.html.basic": ["Html", "lang-html"],
 };
 
 const pats = new Map<string, Pat>();
@@ -265,10 +266,14 @@ function flatten(list: Node[], context: string, repos: Repos): string[] {
       out.push(...flatten(root.patterns!, "Root", [repository]));
     } else if (node.include !== undefined && !node.include.startsWith("#")) {
       // Another grammar, such as SQL in a heredoc: the engine hands the rule's
-      // text to that language, when nishiki lexes it.
+      // text to that language, when nishiki lexes it. Only a heredoc's rule,
+      // whose patterns hold Ruby's interpolation, embeds: the hand-over halts
+      // at Ruby's interpolation and escapes, and the HTML after `__END__` has
+      // neither.
       const rule = rules.get(context);
       const embed = embeddable[node.include];
-      if (rule && embed) rule.embed = embed;
+      const heredoc = list.some((other) => other.include === "#interpolated_ruby");
+      if (rule && embed && heredoc) rule.embed = embed;
     } else if (node.include !== undefined) {
       const key = node.include.slice(1);
       const target = repos.map((repo) => repo[key]).find((found) => found !== undefined);

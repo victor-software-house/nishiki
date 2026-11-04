@@ -1,0 +1,198 @@
+L # Here documents named for HTML, which nishiki lexes as HTML, with
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 66 source.ruby comment.line.number-sign.ruby
+L # interpolation and escapes where the HTML has nothing open.
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 60 source.ruby comment.line.number-sign.ruby
+L page = <<~HTML
+T 4 source.ruby variable.ruby
+T 5 source.ruby
+T 6 source.ruby keyword.operator.assignment.ruby
+T 7 source.ruby
+T 14 source.ruby meta.embedded.block.html string.definition.begin.ruby
+L   <!DOCTYPE html>
+T 2 source.ruby meta.embedded.block.html text.html
+T 4 source.ruby meta.embedded.block.html text.html meta.tag.metadata.doctype.html punctuation.definition.tag.begin.html
+T 11 source.ruby meta.embedded.block.html text.html meta.tag.metadata.doctype.html entity.name.tag.html
+T 12 source.ruby meta.embedded.block.html text.html meta.tag.metadata.doctype.html
+T 16 source.ruby meta.embedded.block.html text.html meta.tag.metadata.doctype.html entity.other.attribute-name.html
+T 17 source.ruby meta.embedded.block.html text.html meta.tag.metadata.doctype.html punctuation.definition.tag.end.html
+L   x #{a} <b>y</b> &amp; &copy;
+T 4 source.ruby meta.embedded.block.html text.html
+T 6 source.ruby meta.embedded.block.html text.html meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 7 source.ruby meta.embedded.block.html text.html meta.embedded.line.ruby source.ruby
+T 8 source.ruby meta.embedded.block.html text.html meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 9 source.ruby meta.embedded.block.html text.html
+T 10 source.ruby meta.embedded.block.html text.html meta.tag.inline.b.start.html punctuation.definition.tag.begin.html
+T 11 source.ruby meta.embedded.block.html text.html meta.tag.inline.b.start.html entity.name.tag.html
+T 12 source.ruby meta.embedded.block.html text.html meta.tag.inline.b.start.html punctuation.definition.tag.end.html
+T 13 source.ruby meta.embedded.block.html text.html
+T 15 source.ruby meta.embedded.block.html text.html meta.tag.inline.b.end.html punctuation.definition.tag.begin.html
+T 16 source.ruby meta.embedded.block.html text.html meta.tag.inline.b.end.html entity.name.tag.html
+T 17 source.ruby meta.embedded.block.html text.html meta.tag.inline.b.end.html punctuation.definition.tag.end.html
+T 18 source.ruby meta.embedded.block.html text.html
+T 19 source.ruby meta.embedded.block.html text.html constant.character.entity.named.amp.html punctuation.definition.entity.html
+T 22 source.ruby meta.embedded.block.html text.html constant.character.entity.named.amp.html
+T 23 source.ruby meta.embedded.block.html text.html constant.character.entity.named.amp.html punctuation.definition.entity.html
+T 24 source.ruby meta.embedded.block.html text.html
+T 25 source.ruby meta.embedded.block.html text.html constant.character.entity.named.copy.html punctuation.definition.entity.html
+T 29 source.ruby meta.embedded.block.html text.html constant.character.entity.named.copy.html
+T 30 source.ruby meta.embedded.block.html text.html constant.character.entity.named.copy.html punctuation.definition.entity.html
+L   <a title="#{x}">t</a>
+T 2 source.ruby meta.embedded.block.html text.html
+T 3 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 4 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html entity.name.tag.html
+T 5 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html
+T 10 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.title.html entity.other.attribute-name.html
+T 11 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.title.html punctuation.separator.key-value.html
+T 12 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.title.html string.quoted.double.html punctuation.definition.string.begin.html
+T 16 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.title.html string.quoted.double.html
+T 17 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.title.html string.quoted.double.html punctuation.definition.string.end.html
+T 18 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 19 source.ruby meta.embedded.block.html text.html
+T 21 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 22 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.end.html entity.name.tag.html
+T 23 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+L   <a href="x"
+T 2 source.ruby meta.embedded.block.html text.html
+T 3 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 4 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html entity.name.tag.html
+T 5 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html
+T 9 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 10 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 11 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 12 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 13 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+L      data-y="#{y}">z</a>
+T 5 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html
+T 11 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.data-x.data-y.html entity.other.attribute-name.html
+T 12 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.data-x.data-y.html punctuation.separator.key-value.html
+T 13 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.data-x.data-y.html string.quoted.double.html punctuation.definition.string.begin.html
+T 17 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.data-x.data-y.html string.quoted.double.html
+T 18 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html meta.attribute.data-x.data-y.html string.quoted.double.html punctuation.definition.string.end.html
+T 19 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 20 source.ruby meta.embedded.block.html text.html
+T 22 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 23 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.end.html entity.name.tag.html
+T 24 source.ruby meta.embedded.block.html text.html meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+L   <script>var a = #{x};</script>
+T 2 source.ruby meta.embedded.block.html text.html punctuation.whitespace.embedded.leading.html
+T 3 source.ruby meta.embedded.block.html text.html meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 9 source.ruby meta.embedded.block.html text.html meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 10 source.ruby meta.embedded.block.html text.html meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 13 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.js meta.var.expr.js storage.type.js
+T 14 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.js meta.var.expr.js
+T 15 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 16 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 17 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.js meta.var.expr.js keyword.operator.assignment.js
+T 19 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.js meta.var.expr.js
+T 20 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+T 21 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 22 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+T 23 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.js punctuation.terminator.statement.js
+T 24 source.ruby meta.embedded.block.html text.html meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 25 source.ruby meta.embedded.block.html text.html meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 31 source.ruby meta.embedded.block.html text.html meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 32 source.ruby meta.embedded.block.html text.html meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L   <style>p { color: #{color}; }</style>
+T 2 source.ruby meta.embedded.block.html text.html punctuation.whitespace.embedded.leading.html
+T 3 source.ruby meta.embedded.block.html text.html meta.embedded.block.html meta.tag.metadata.style.start.html punctuation.definition.tag.begin.html
+T 8 source.ruby meta.embedded.block.html text.html meta.embedded.block.html meta.tag.metadata.style.start.html entity.name.tag.html
+T 9 source.ruby meta.embedded.block.html text.html meta.embedded.block.html meta.tag.metadata.style.start.html punctuation.definition.tag.end.html
+T 11 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.css
+T 12 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+T 13 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.css meta.property-list.css
+T 18 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 19 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 20 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.css meta.property-list.css
+T 21 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 22 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.css meta.property-list.css meta.property-value.css punctuation.section.group.begin.bracket.curly.css
+T 27 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 28 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.css meta.property-list.css meta.property-value.css punctuation.section.group.end.bracket.curly.css
+T 29 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+T 30 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.css meta.property-list.css
+T 31 source.ruby meta.embedded.block.html text.html meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+T 32 source.ruby meta.embedded.block.html text.html meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.begin.html source.css-ignored-vscode
+T 33 source.ruby meta.embedded.block.html text.html meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.begin.html
+T 38 source.ruby meta.embedded.block.html text.html meta.embedded.block.html meta.tag.metadata.style.end.html entity.name.tag.html
+T 39 source.ruby meta.embedded.block.html text.html meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.end.html
+L   <!-- a comment
+T 2 source.ruby meta.embedded.block.html text.html
+T 6 source.ruby meta.embedded.block.html text.html comment.block.html punctuation.definition.comment.html
+T 16 source.ruby meta.embedded.block.html text.html comment.block.html
+L        across lines #{c} -->
+T 25 source.ruby meta.embedded.block.html text.html comment.block.html
+T 28 source.ruby meta.embedded.block.html text.html comment.block.html punctuation.definition.comment.html
+L   a \n b < c #@ivar
+T 4 source.ruby meta.embedded.block.html text.html
+T 6 source.ruby meta.embedded.block.html text.html constant.character.escape.ruby
+T 13 source.ruby meta.embedded.block.html text.html
+T 15 source.ruby meta.embedded.block.html text.html variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 19 source.ruby meta.embedded.block.html text.html variable.other.readwrite.instance.ruby
+L   #{content}
+T 2 source.ruby meta.embedded.block.html text.html
+T 4 source.ruby meta.embedded.block.html text.html meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 11 source.ruby meta.embedded.block.html text.html meta.embedded.line.ruby source.ruby
+T 12 source.ruby meta.embedded.block.html text.html meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+L HTML
+T 4 source.ruby meta.embedded.block.html string.definition.end.ruby
+L 
+L mail = <<-MAIL_HTML
+T 4 source.ruby variable.ruby
+T 5 source.ruby
+T 6 source.ruby keyword.operator.assignment.ruby
+T 7 source.ruby
+T 19 source.ruby meta.embedded.block.html string.definition.begin.ruby
+L   <p class="greeting">Hello, #{user.name}!</p>
+T 2 source.ruby meta.embedded.block.html text.html
+T 3 source.ruby meta.embedded.block.html text.html meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 4 source.ruby meta.embedded.block.html text.html meta.tag.structure.p.start.html entity.name.tag.html
+T 5 source.ruby meta.embedded.block.html text.html meta.tag.structure.p.start.html
+T 10 source.ruby meta.embedded.block.html text.html meta.tag.structure.p.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 11 source.ruby meta.embedded.block.html text.html meta.tag.structure.p.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 12 source.ruby meta.embedded.block.html text.html meta.tag.structure.p.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 source.ruby meta.embedded.block.html text.html meta.tag.structure.p.start.html meta.attribute.class.html string.quoted.double.html
+T 21 source.ruby meta.embedded.block.html text.html meta.tag.structure.p.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 source.ruby meta.embedded.block.html text.html meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 29 source.ruby meta.embedded.block.html text.html
+T 31 source.ruby meta.embedded.block.html text.html meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 35 source.ruby meta.embedded.block.html text.html meta.embedded.line.ruby source.ruby
+T 36 source.ruby meta.embedded.block.html text.html meta.embedded.line.ruby source.ruby punctuation.separator.method.ruby
+T 40 source.ruby meta.embedded.block.html text.html meta.embedded.line.ruby source.ruby meta.function-call.ruby entity.name.function.ruby
+T 41 source.ruby meta.embedded.block.html text.html meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 42 source.ruby meta.embedded.block.html text.html
+T 44 source.ruby meta.embedded.block.html text.html meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 45 source.ruby meta.embedded.block.html text.html meta.tag.structure.p.end.html entity.name.tag.html
+T 46 source.ruby meta.embedded.block.html text.html meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L MAIL_HTML
+T 9 source.ruby meta.embedded.block.html string.definition.end.ruby
+L 
+L pair = [<<~HTML, <<~SQL]
+T 4 source.ruby variable.ruby
+T 5 source.ruby
+T 6 source.ruby keyword.operator.assignment.ruby
+T 7 source.ruby
+T 8 source.ruby punctuation.section.array.begin.ruby
+T 15 source.ruby meta.embedded.block.html string.definition.begin.ruby
+T 24 source.ruby meta.embedded.block.html text.html
+L   <li>#{item}</li>
+T 2 source.ruby meta.embedded.block.html text.html
+T 3 source.ruby meta.embedded.block.html text.html meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 5 source.ruby meta.embedded.block.html text.html meta.tag.structure.li.start.html entity.name.tag.html
+T 6 source.ruby meta.embedded.block.html text.html meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+T 8 source.ruby meta.embedded.block.html text.html meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 12 source.ruby meta.embedded.block.html text.html meta.embedded.line.ruby source.ruby
+T 13 source.ruby meta.embedded.block.html text.html meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 15 source.ruby meta.embedded.block.html text.html meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 17 source.ruby meta.embedded.block.html text.html meta.tag.structure.li.end.html entity.name.tag.html
+T 18 source.ruby meta.embedded.block.html text.html meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L HTML
+T 4 source.ruby meta.embedded.block.html string.definition.end.ruby
+L   SELECT 1
+T 2 source.ruby
+T 8 source.ruby variable.other.constant.ruby
+T 9 source.ruby
+T 10 source.ruby constant.numeric.ruby
+L SQL
+T 3 source.ruby variable.other.constant.ruby
+L 

@@ -800,6 +800,11 @@ export const inputs: Input[] = [
     name: "heredocs",
     url: new URL("inputs/ruby-heredocs.rb", import.meta.url).href,
   },
+  {
+    lang: "ruby",
+    name: "html-heredocs",
+    url: new URL("inputs/ruby-html-heredocs.rb", import.meta.url).href,
+  },
   { lang: "ruby", name: "jekyll-site", url: `${jekyll}/lib/jekyll/site.rb` },
   {
     lang: "ruby",
