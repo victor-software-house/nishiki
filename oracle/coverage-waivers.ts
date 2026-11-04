@@ -1107,6 +1107,37 @@ export const waivers: Waiver[] = [
     path: "#regexps.patterns[0].patterns[1].match",
     reason: "its rule's begin never matches",
   },
+  ...[
+    { path: "#alias_statement.begin", group: 7 },
+    { path: "#array_value.begin", group: 4 },
+    { path: "#modified_assignment_statement.patterns[2].match", group: 4 },
+    { path: "#normal_assignment_statement.begin", group: 4 },
+  ].map(
+    ({ path, group }): Waiver => ({
+      grammar: "shellscript",
+      path,
+      group,
+      reason: "the alternative before it in the index, `\\$?(?<!\\w)[-0-9A-Z_a-z]+(?!\\w)`, matches every text this group's `-?\\d+` can",
+    }),
+  ),
+  { grammar: "shellscript", path: "#interpolation.patterns[2].patterns[1].begin", group: 1, reason: missing(0) },
+  {
+    grammar: "shellscript",
+    path: "#loop.patterns[0].begin",
+    reason: "`#for_statement`, before `#loop` in `#initial_context`, matches `\\bfor\\b` wherever this does",
+  },
+  {
+    grammar: "shellscript",
+    path: "#loop.patterns[0].end",
+    reason: "its begin never matches, since `#for_statement`, before `#loop` in `#initial_context`, takes every `for`",
+  },
+  {
+    grammar: "shellscript",
+    path: "#normal_statement_seperator.match",
+    group: 3,
+    reason: "`#pipeline`, before it in every context that includes both, takes the first `|` of every `||` with `[!|]`",
+  },
+  { grammar: "shellscript", path: "#option.begin", group: 2, reason: lookahead },
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -1136,6 +1167,7 @@ export const complete: string[] = [
   "ruby",
   "rust",
   "scss",
+  "shellscript",
   "sql",
   "swift",
   "toml",

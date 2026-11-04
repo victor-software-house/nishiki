@@ -21,3 +21,6 @@ extend-exclude = [
 nd = "nd"
 # SQL Server's `iif` function, which the sql grammar names.
 iif = "iif"
+# The shellscript grammar names a rule `normal_statement_seperator`, and
+# oracle/coverage-waivers.ts quotes that path.
+seperator = "seperator"

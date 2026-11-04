@@ -257,7 +257,13 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `scss/bulma-mixins` | [`sass/utilities/mixins.scss`][scss-bulma-mixins] in jgthms/bulma | [MIT][bulma-licence] |
 | `scss/coverage` | `oracle/inputs/scss-coverage.scss`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `scss/sample` | [`samples/scss.sample`][scss-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `shellscript/bats-core-bats` | [`libexec/bats-core/bats`][bats-core-bats] in bats-core/bats-core | [MIT][bats-core-licence] |
+| `shellscript/bats-core-gather-tests` | [`libexec/bats-core/bats-gather-tests`][bats-core-gather-tests] in bats-core/bats-core | [MIT][bats-core-licence] |
+| `shellscript/coverage` | `oracle/inputs/shellscript-coverage.sh`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `shellscript/docker-install` | [`install.sh`][docker-install] in docker/docker-install | [Apache-2.0][docker-install-licence] |
+| `shellscript/homebrew-uninstall` | [`uninstall.sh`][homebrew-uninstall] in Homebrew/install | [BSD-2-Clause][homebrew-install-licence] |
 | `shellscript/nvm` | [`nvm.sh`][nvm] in nvm-sh/nvm | [MIT][nvm-licence] |
+| `shellscript/ohmyzsh-alias-finder-test` | [`plugins/alias-finder/tests/test_run.sh`][ohmyzsh-alias-finder-test] in ohmyzsh/ohmyzsh | [MIT][ohmyzsh-licence] |
 | `shellscript/pyenv-init` | [`libexec/pyenv-init`][pyenv-init] in pyenv/pyenv | [MIT][pyenv-licence] |
 | `shellscript/ruby-build` | [`bin/ruby-build`][ruby-build] in rbenv/ruby-build | [MIT][ruby-build-licence] |
 | `shellscript/sample` | [`samples/shellscript.sample`][shell-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
@@ -647,6 +653,7 @@ The `tsc-*` and `coverage` inputs of `javascript`, `jsx`, `tsx` and `typescript`
 Their test cases are pinned at TypeScript's `v5.9.3` tag, the release they were picked from, because microsoft/TypeScript's main branch now holds the Go port and no longer has `tests/cases`.
 `ruby-build` and `pyenv-init` are held out for shell, for the same reason.
 `shellscript/unicode-words` puts combining marks in names, where `\w` decides a token, because no other input has one.
+The `bats-core-*`, `docker-install`, `homebrew-uninstall`, `ohmyzsh-alias-finder-test` and `coverage` inputs of `shellscript` are held out: they were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 `python/sample`, `python/requests-models` and `python/black-strings` are the development inputs for Python.
 `python/flask-helpers`, `python/rich-console`, `python/fastapi-routing` and `python/pytest-python` are held out.
 The `black-*`, `ruff-class` and `coverage` inputs of `python` are held out too: they were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
@@ -828,6 +835,9 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [axios-licence]: https://github.com/axios/axios/blob/7324e94d8a7b5156a4baf3c86c8b5daa242daee3/LICENSE
 [axios-xhr]: https://github.com/axios/axios/blob/7324e94d8a7b5156a4baf3c86c8b5daa242daee3/lib/adapters/xhr.js
 [bat-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/bat.sample
+[bats-core-bats]: https://github.com/bats-core/bats-core/blob/48d8d75a836fb322cf98bd305e2db5a84c1be419/libexec/bats-core/bats
+[bats-core-gather-tests]: https://github.com/bats-core/bats-core/blob/48d8d75a836fb322cf98bd305e2db5a84c1be419/libexec/bats-core/bats-gather-tests
+[bats-core-licence]: https://github.com/bats-core/bats-core/blob/48d8d75a836fb322cf98bd305e2db5a84c1be419/LICENSE.md
 [benchmark-core]: https://github.com/google/benchmark/blob/1813ad9c3a828cee126f399739443c329e75bc79/src/benchmark.cc
 [benchmark-licence]: https://github.com/google/benchmark/blob/1813ad9c3a828cee126f399739443c329e75bc79/LICENSE
 [benchmark-sysinfo]: https://github.com/google/benchmark/blob/1813ad9c3a828cee126f399739443c329e75bc79/src/sysinfo.cc
@@ -961,6 +971,8 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [diff-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/diff.sample
 [django-licence]: https://github.com/django/django/blob/b501b8493f31cf8cba31211d59b3b78642b8cb02/LICENSE
 [django-tox]: https://github.com/django/django/blob/b501b8493f31cf8cba31211d59b3b78642b8cb02/tox.ini
+[docker-install]: https://github.com/docker/docker-install/blob/ada7a567e59b3935bd601bb21e422da50e80e376/install.sh
+[docker-install-licence]: https://github.com/docker/docker-install/blob/ada7a567e59b3935bd601bb21e422da50e80e376/LICENSE
 [docker-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/docker.sample
 [dotnet-docs-licence]: https://github.com/dotnet/docs/blob/d1a7e773f847015b60202a8332d949ac9dbbb279/LICENSE-CODE
 [dotnet-install]: https://github.com/dotnet/install-scripts/blob/e5cf1dd2d1540ed05ac84f8eb8c5cdec2807621e/src/dotnet-install.ps1
@@ -1057,6 +1069,8 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [home-manager-flake]: https://github.com/nix-community/home-manager/blob/095fef2f265c3c0da4fe315efba8f8a04495ab34/flake.nix
 [home-manager-licence]: https://github.com/nix-community/home-manager/blob/095fef2f265c3c0da4fe315efba8f8a04495ab34/LICENSE
 [home-manager-tmux]: https://github.com/nix-community/home-manager/blob/095fef2f265c3c0da4fe315efba8f8a04495ab34/modules/programs/tmux.nix
+[homebrew-install-licence]: https://github.com/Homebrew/install/blob/959bdd728192d78c47287c177796c3d86d111f09/LICENSE.txt
+[homebrew-uninstall]: https://github.com/Homebrew/install/blob/959bdd728192d78c47287c177796c3d86d111f09/uninstall.sh
 [html-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/html.sample
 [httparser-licence]: https://github.com/antlabs/httparser/blob/622df4409cddf119cf437633f620947235d2d1eb/LICENSE
 [httparser-readme]: https://github.com/antlabs/httparser/blob/622df4409cddf119cf437633f620947235d2d1eb/README.md
@@ -1200,6 +1214,8 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [nvm-make]: https://github.com/nvm-sh/nvm/blob/16df5aa69aeda3814703e14f9d35a4f60220dd37/Makefile
 [nvm-make-licence]: https://github.com/nvm-sh/nvm/blob/16df5aa69aeda3814703e14f9d35a4f60220dd37/LICENSE.md
 [nvm-readme]: https://github.com/nvm-sh/nvm/blob/5e38bc0caed342356ffd26eb21e0e9b995ac228b/README.md
+[ohmyzsh-alias-finder-test]: https://github.com/ohmyzsh/ohmyzsh/blob/b509b1c6ed0c1ba37de12cbd37f30b2b2f61193a/plugins/alias-finder/tests/test_run.sh
+[ohmyzsh-licence]: https://github.com/ohmyzsh/ohmyzsh/blob/b509b1c6ed0c1ba37de12cbd37f30b2b2f61193a/LICENSE.txt
 [okhttp-build]: https://github.com/square/okhttp/blob/16fb6aef3aee1c4645fc8d24af01f8a4dc128ebf/okhttp/build.gradle.kts
 [okhttp-cookie]: https://github.com/square/okhttp/blob/16fb6aef3aee1c4645fc8d24af01f8a4dc128ebf/okhttp/src/commonJvmAndroid/kotlin/okhttp3/Cookie.kt
 [okhttp-licence]: https://github.com/square/okhttp/blob/16fb6aef3aee1c4645fc8d24af01f8a4dc128ebf/LICENSE.txt

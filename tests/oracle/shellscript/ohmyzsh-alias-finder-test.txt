@@ -1,0 +1,872 @@
+L #!/usr/bin/env zunit
+T 2 source.shell comment.line.number-sign.shell meta.shebang.shell punctuation.definition.comment.shebang.shell
+T 20 source.shell comment.line.number-sign.shell meta.shebang.shell
+L 
+L @setup {
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L   load ../alias-finder.plugin.zsh
+T 2 source.shell meta.statement.shell meta.statement.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 33 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L 
+L   set_git_aliases() {
+T 2 source.shell meta.function.shell
+T 17 source.shell meta.function.shell entity.name.function.shell
+T 18 source.shell meta.function.shell punctuation.definition.arguments.shell
+T 19 source.shell meta.function.shell punctuation.definition.arguments.shell
+T 20 source.shell meta.function.shell
+T 21 source.shell meta.function.shell meta.function.body.shell punctuation.definition.group.shell punctuation.section.function.definition.shell
+L     unalias -a # all
+T 4 source.shell meta.function.shell meta.function.body.shell meta.statement.shell meta.statement.command.shell
+T 11 source.shell meta.function.shell meta.function.body.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 12 source.shell meta.function.shell meta.function.body.shell meta.statement.shell meta.statement.command.shell
+T 13 source.shell meta.function.shell meta.function.body.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 14 source.shell meta.function.shell meta.function.body.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 15 source.shell meta.function.shell meta.function.body.shell
+T 16 source.shell meta.function.shell meta.function.body.shell comment.line.number-sign.shell punctuation.definition.comment.shell
+T 20 source.shell meta.function.shell meta.function.body.shell comment.line.number-sign.shell
+L     alias g="git"
+T 4 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell
+T 9 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell storage.type.alias.shell
+T 10 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell
+T 11 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell variable.other.assignment.shell
+T 12 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell keyword.operator.assignment.shell
+T 13 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 16 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell string.quoted.double.shell
+T 17 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L     alias gc="git commit"
+T 4 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell
+T 9 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell storage.type.alias.shell
+T 10 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell
+T 12 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell variable.other.assignment.shell
+T 13 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell keyword.operator.assignment.shell
+T 14 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 24 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell string.quoted.double.shell
+T 25 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L     alias gcv="git commit -v"
+T 4 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell
+T 9 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell storage.type.alias.shell
+T 10 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell
+T 13 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell variable.other.assignment.shell
+T 14 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell keyword.operator.assignment.shell
+T 15 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 28 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell string.quoted.double.shell
+T 29 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L     alias gcvs="git commit -v -S"
+T 4 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell
+T 9 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell storage.type.alias.shell
+T 10 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell
+T 14 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell variable.other.assignment.shell
+T 15 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell keyword.operator.assignment.shell
+T 16 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 32 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell string.quoted.double.shell
+T 33 source.shell meta.function.shell meta.function.body.shell meta.expression.assignment.alias.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L   }
+T 2 source.shell meta.function.shell meta.function.body.shell meta.statement.shell
+T 3 source.shell meta.function.shell meta.function.body.shell punctuation.definition.group.shell punctuation.section.function.definition.shell
+L }
+T 1 source.shell meta.statement.shell
+L 
+L @test 'find aliases that contain input' {
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.begin.shell
+T 38 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell
+T 39 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.end.shell
+T 40 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 41 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L   set_git_aliases
+T 2 source.shell meta.statement.shell meta.statement.command.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+L 
+L   run alias-finder "git"
+T 2 source.shell meta.statement.shell
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 24 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 
+L   assert "${#lines[@]}" equals 1
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 13 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 24 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.integer.shell
+L   assert "${lines[1]}" same_as "g=git"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 37 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 38 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L }
+T 1 source.shell meta.statement.shell
+L 
+L @test 'find aliases that contain input with whitespaces at ends' {
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.begin.shell
+T 63 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell
+T 64 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.end.shell
+T 65 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 66 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L   set_git_aliases
+T 2 source.shell meta.statement.shell meta.statement.command.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+L 
+L   run alias-finder "   git     "
+T 2 source.shell meta.statement.shell
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 
+L   assert "${#lines[@]}" equals 1
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 13 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 24 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.integer.shell
+L   assert "${lines[1]}" same_as "g=git"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 37 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 38 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L }
+T 1 source.shell meta.statement.shell
+L 
+L @test 'find aliases that contain multiple words' {
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.begin.shell
+T 47 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell
+T 48 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.end.shell
+T 49 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 50 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L   set_git_aliases
+T 2 source.shell meta.statement.shell meta.statement.command.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+L 
+L   run alias-finder "git commit -v"
+T 2 source.shell meta.statement.shell
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 33 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 34 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 
+L   assert "${#lines[@]}" equals 3
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 13 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 24 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.integer.shell
+L   assert "${lines[1]}" same_as "gcv='git commit -v'"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 51 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 52 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L   assert "${lines[2]}" same_as "gc='git commit'"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 47 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 48 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L   assert "${lines[3]}" same_as "g=git"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 37 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 38 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L }
+T 1 source.shell meta.statement.shell
+L 
+L @test 'find alias that is the same with input when --exact option is set' {
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.begin.shell
+T 72 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell
+T 73 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.end.shell
+T 74 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 75 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L   set_git_aliases
+T 2 source.shell meta.statement.shell meta.statement.command.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+L 
+L   run alias-finder -e "git"
+T 2 source.shell meta.statement.shell
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 26 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 27 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 
+L   assert "${#lines[@]}" equals 1
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 13 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 24 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.integer.shell
+L   assert "${lines[1]}" same_as "g=git"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 37 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 38 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L }
+T 1 source.shell meta.statement.shell
+L 
+L @test 'find alias that is the same with multiple words input when --exact option is set' {
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.begin.shell
+T 87 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell
+T 88 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.end.shell
+T 89 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 90 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L   set_git_aliases
+T 2 source.shell meta.statement.shell meta.statement.command.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+L 
+L   run alias-finder -e "git commit -v"
+T 2 source.shell meta.statement.shell
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 36 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 37 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 
+L   assert "${#lines[@]}" equals 1
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 13 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 24 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.integer.shell
+L   assert "${lines[1]}" same_as "gcv='git commit -v'"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 51 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 52 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L }
+T 1 source.shell meta.statement.shell
+L 
+L @test 'find alias that is the same with or longer than input when --longer option is set' {
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.begin.shell
+T 88 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell
+T 89 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.end.shell
+T 90 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 91 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L   set_git_aliases
+T 2 source.shell meta.statement.shell meta.statement.command.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+L 
+L   run alias-finder -l "git"
+T 2 source.shell meta.statement.shell
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 26 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 27 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 
+L   assert "${#lines[@]}" equals 4
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 13 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 24 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.integer.shell
+L   assert "${lines[1]}" same_as "g=git"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 37 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 38 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L   assert "${lines[2]}" same_as "gc='git commit'"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 47 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 48 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L   assert "${lines[3]}" same_as "gcv='git commit -v'"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 51 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 52 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L   assert "${lines[4]}" same_as "gcvs='git commit -v -S'"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 55 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 56 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L }
+T 1 source.shell meta.statement.shell
+L 
+L @test 'find alias that is the same with or longer than multiple words input when --longer option is set' {
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.begin.shell
+T 103 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell
+T 104 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.end.shell
+T 105 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 106 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L   set_git_aliases
+T 2 source.shell meta.statement.shell meta.statement.command.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+L 
+L   run alias-finder -l "git commit -v"
+T 2 source.shell meta.statement.shell
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 36 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 37 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 
+L   assert "${#lines[@]}" equals 2
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 13 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 24 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.integer.shell
+L   assert "${lines[1]}" same_as "gcv='git commit -v'"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 51 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 52 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L   assert "${lines[2]}" same_as "gcvs='git commit -v -S'"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 55 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 56 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L }
+T 1 source.shell meta.statement.shell
+L 
+L @test 'find aliases including expensive (longer) than input' {
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.begin.shell
+T 59 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell
+T 60 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.end.shell
+T 61 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 62 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L   set_git_aliases
+T 2 source.shell meta.statement.shell meta.statement.command.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+L   alias expensiveCommands="git commit"
+T 2 source.shell meta.expression.assignment.alias.shell
+T 7 source.shell meta.expression.assignment.alias.shell storage.type.alias.shell
+T 8 source.shell meta.expression.assignment.alias.shell
+T 25 source.shell meta.expression.assignment.alias.shell variable.other.assignment.shell
+T 26 source.shell meta.expression.assignment.alias.shell keyword.operator.assignment.shell
+T 27 source.shell meta.expression.assignment.alias.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 37 source.shell meta.expression.assignment.alias.shell string.quoted.double.shell
+T 38 source.shell meta.expression.assignment.alias.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 
+L   run alias-finder "git commit -v"
+T 2 source.shell meta.statement.shell
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 33 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 34 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 
+L   assert "${#lines[@]}" equals 4
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 13 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 24 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.integer.shell
+L   assert "${lines[1]}" same_as "gcv='git commit -v'"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 51 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 52 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L   assert "${lines[2]}" same_as "expensiveCommands='git commit'"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 62 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 63 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L   assert "${lines[3]}" same_as "gc='git commit'"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 47 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 48 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L   assert "${lines[4]}" same_as "g=git"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 37 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 38 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L }
+T 1 source.shell meta.statement.shell
+L 
+L @test 'find aliases excluding expensive (longer) than input when --cheap option is set' {
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.begin.shell
+T 86 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell
+T 87 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.single.shell punctuation.definition.string.end.shell
+T 88 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 89 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L   set_git_aliases
+T 2 source.shell meta.statement.shell meta.statement.command.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+L   alias expensiveCommands="git commit"
+T 2 source.shell meta.expression.assignment.alias.shell
+T 7 source.shell meta.expression.assignment.alias.shell storage.type.alias.shell
+T 8 source.shell meta.expression.assignment.alias.shell
+T 25 source.shell meta.expression.assignment.alias.shell variable.other.assignment.shell
+T 26 source.shell meta.expression.assignment.alias.shell keyword.operator.assignment.shell
+T 27 source.shell meta.expression.assignment.alias.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 37 source.shell meta.expression.assignment.alias.shell string.quoted.double.shell
+T 38 source.shell meta.expression.assignment.alias.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 
+L   run alias-finder -c "git commit -v"
+T 2 source.shell meta.statement.shell
+T 5 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 36 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 37 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 
+L   assert "${#lines[@]}" equals 3
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 13 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion keyword.operator.expansion.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 24 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.integer.shell
+L   assert "${lines[1]}" same_as "gcv='git commit -v'"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 51 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 52 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L   assert "${lines[2]}" same_as "gc='git commit'"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 47 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 48 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L   assert "${lines[3]}" same_as "g=git"
+T 2 source.shell meta.statement.shell
+T 8 source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 9 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 11 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell
+T 12 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.begin.shell punctuation.definition.variable.shell
+T 17 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion variable.other.normal.shell
+T 18 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 19 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion
+T 20 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell meta.parameter-expansion punctuation.section.array.shell
+T 21 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.section.bracket.curly.variable.end.shell punctuation.definition.variable.shell
+T 22 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+T 23 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 37 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 38 source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L }
+T 1 source.shell meta.statement.shell
+L 

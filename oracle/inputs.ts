@@ -35,6 +35,7 @@ import rubyXmlHeredocs from "./inputs/ruby-xml-heredocs.rb" with { type: "text" 
 import rubyYamlHeredocs from "./inputs/ruby-yaml-heredocs.rb" with { type: "text" };
 import rustCoverage from "./inputs/rust-coverage.rs" with { type: "text" };
 import scssCoverage from "./inputs/scss-coverage.scss" with { type: "text" };
+import shellscriptCoverage from "./inputs/shellscript-coverage.sh" with { type: "text" };
 import shellscriptUnicodeWords from "./inputs/shellscript-unicode-words.sh" with { type: "text" };
 import sqlCoverage from "./inputs/sql-coverage.sql" with { type: "text" };
 import swiftCoverage from "./inputs/swift-coverage.swift" with { type: "text" };
@@ -72,6 +73,8 @@ const aspnetcore =
   "https://raw.githubusercontent.com/dotnet/aspnetcore/cd236906b73c6540703e51fa583d55de091ae047";
 const axios =
   "https://raw.githubusercontent.com/axios/axios/7324e94d8a7b5156a4baf3c86c8b5daa242daee3";
+const batsCore =
+  "https://raw.githubusercontent.com/bats-core/bats-core/48d8d75a836fb322cf98bd305e2db5a84c1be419";
 const benchmark =
   "https://raw.githubusercontent.com/google/benchmark/1813ad9c3a828cee126f399739443c329e75bc79";
 const black =
@@ -127,6 +130,8 @@ const devise =
   "https://raw.githubusercontent.com/heartcombo/devise/05811fb8366edd08874111d0f6fb44543e1c91ef";
 const django =
   "https://raw.githubusercontent.com/django/django/b501b8493f31cf8cba31211d59b3b78642b8cb02";
+const dockerInstall =
+  "https://raw.githubusercontent.com/docker/docker-install/ada7a567e59b3935bd601bb21e422da50e80e376";
 const dockerPostgres =
   "https://raw.githubusercontent.com/docker-library/postgres/dfc76bb299b057785026eb2eea39556b6fe52983";
 const dockerPython =
@@ -183,6 +188,8 @@ const helm =
   "https://raw.githubusercontent.com/helm/helm/bc232c5312e784e808ea95ae76f9e82d4fe142fc";
 const highlightjs =
   "https://raw.githubusercontent.com/highlightjs/highlight.js/60e092057673595fa542db0bc2b13a99df5d0551";
+const homebrewInstall =
+  "https://raw.githubusercontent.com/Homebrew/install/959bdd728192d78c47287c177796c3d86d111f09";
 const homeManager =
   "https://raw.githubusercontent.com/nix-community/home-manager/095fef2f265c3c0da4fe315efba8f8a04495ab34";
 const httparser =
@@ -265,6 +272,8 @@ const nvm =
   "https://raw.githubusercontent.com/nvm-sh/nvm/5e38bc0caed342356ffd26eb21e0e9b995ac228b";
 const nvmMake =
   "https://raw.githubusercontent.com/nvm-sh/nvm/16df5aa69aeda3814703e14f9d35a4f60220dd37";
+const ohmyzsh =
+  "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/b509b1c6ed0c1ba37de12cbd37f30b2b2f61193a";
 const okhttp =
   "https://raw.githubusercontent.com/square/okhttp/16fb6aef3aee1c4645fc8d24af01f8a4dc128ebf";
 const penlight =
@@ -1098,7 +1107,13 @@ export const inputs: Input[] = [
   { lang: "scss", name: "bulma-mixins", url: `${bulma}/sass/utilities/mixins.scss` },
   { lang: "scss", name: "coverage", text: scssCoverage },
   { lang: "scss", name: "sample", url: `${samples}/scss.sample` },
+  { lang: "shellscript", name: "bats-core-bats", url: `${batsCore}/libexec/bats-core/bats` },
+  { lang: "shellscript", name: "bats-core-gather-tests", url: `${batsCore}/libexec/bats-core/bats-gather-tests` },
+  { lang: "shellscript", name: "coverage", text: shellscriptCoverage },
+  { lang: "shellscript", name: "docker-install", url: `${dockerInstall}/install.sh` },
+  { lang: "shellscript", name: "homebrew-uninstall", url: `${homebrewInstall}/uninstall.sh` },
   { lang: "shellscript", name: "nvm", url: `${nvm}/nvm.sh` },
+  { lang: "shellscript", name: "ohmyzsh-alias-finder-test", url: `${ohmyzsh}/plugins/alias-finder/tests/test_run.sh` },
   { lang: "shellscript", name: "pyenv-init", url: `${pyenv}/libexec/pyenv-init` },
   { lang: "shellscript", name: "ruby-build", url: `${rubyBuild}/bin/ruby-build` },
   { lang: "shellscript", name: "sample", url: `${samples}/shellscript.sample` },

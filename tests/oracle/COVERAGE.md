@@ -41,7 +41,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Ruby | `ruby` | 328 of 336 | 97.6% | 284 of 293 | 96.9% | 17 | 0 | yes |
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
 | SCSS | `scss` | 161 of 168 | 95.8% | 136 of 179 | 76.0% | 50 | 0 | yes |
-| shell | `shellscript` | 119 of 174 | 68.4% | 106 of 199 | 53.3% | 0 | 10 |  |
+| shell | `shellscript` | 172 of 174 | 98.9% | 188 of 199 | 94.5% | 13 | 0 | yes |
 | SQL | `sql` | 72 of 75 | 96.0% | 75 of 79 | 94.9% | 7 | 0 | yes |
 | Swift | `swift` | 425 of 448 | 94.9% | 441 of 448 | 98.4% | 30 | 0 | yes |
 | TOML | `toml` | 54 of 54 | 100.0% | 39 of 53 | 73.6% | 14 | 0 | yes |
@@ -771,68 +771,15 @@ patterns[88].patterns[0].end  (?=not)impossible  waived: the rule that holds it 
 ### `shellscript`
 
 ```text
-#alias_statement.begin  [\t ]*+(alias)[\t ]*+((?:((?<!\w)-\w+)\b[\t ]*+)*)[\t ]*+((…
-#alias_statement.end  (?=[\t ]|$)|(?:(?:(?:(;)|(&&))|(\|\|))|(&))
-#alias_statement.beginCaptures[2].patterns[0].match  (?<!\w)-\w+\b
-#array_value.begin  groups 2, 3, 4, 5, 8
-#array_value.patterns[1].match  ((?<!\w)[-0-9A-Z_a-z]+(?!\w))(=)
-#array_value.patterns[2].match  (\[)(.+?)(])(=)
-#case_statement_context.patterns[1].match  \+  fuzz
-#case_statement_context.patterns[2].match  \?
-#case_statement_context.patterns[3].match  @
-#case_statement_context.patterns[6].match  (?<=\tin| in|[\t ]|;;)\(
-#case_statement_context.patterns[7].begin  (?<=\S)(\()  fuzz
-#case_statement_context.patterns[7].end  \)  fuzz
-#case_statement_context.patterns[8].patterns[0].match  \\.
-#command_name_range.patterns[4].begin  groups 1, 4 (fuzz)
-#continuation_of_double_quoted_command_name.patterns[0].match  \\[\n"$\\`]
-#continuation_of_single_quoted_command_name.begin  \G(?<=')  fuzz
-#continuation_of_single_quoted_command_name.end  '  fuzz
-#double_quote_context.patterns[0].match  \\[\n"$\\`]
-#function_definition.patterns[2].begin  \(
-#function_definition.patterns[2].end  \)
-#heredoc.patterns[0].begin  ((?<!<)<<-)[\t ]*+(["'])[\t ]*+([^"']+?)(?=["\&';<\s])(\2)(…
-#heredoc.patterns[0].end  ^\t*\3(?=[\&;\s]|$)
-#heredoc.patterns[1].begin  ((?<!<)<<(?!<))[\t ]*+(["'])[\t ]*+([^"']+?)(?=["\&';<\s])(…
-#heredoc.patterns[1].end  ^\3(?=[\&;\s]|$)
-#heredoc.patterns[2].begin  ((?<!<)<<-)[\t ]*+([^\t "']+)(?=["\&';<\s])(.*)
-#heredoc.patterns[2].end  ^\t*\2(?=[\&;\s]|$)
-#herestring.patterns[0].begin  (<<<)\s*(('))
-#herestring.patterns[0].end  (')
-#herestring.patterns[2].match  (<<<)\s*(([^)\\\s]|\\.)+)
-#interpolation.patterns[2].patterns[0].match  \\[$\\`]
-#interpolation.patterns[2].patterns[1].begin  (?<=\W)(?=#)(?!#\{)
-#interpolation.patterns[2].patterns[1].end  (?!\G)
-#interpolation.patterns[2].patterns[1].patterns[0].begin  #
-#interpolation.patterns[2].patterns[1].patterns[0].end  (?=`)
-#loop.patterns[0].begin  (?<=^|[\&;\s])(for)\s+(.+?)\s+(in)(?=[\&;\s]|$)
-#loop.patterns[0].end  (?<=^|[\&;\s])done(?=[\&;\s]|$|\))
-#math.patterns[2].match  0[Xx]\h+
-#math.patterns[4].match  0\d+
-#math.patterns[5].match  \d{1,2}#[0-9@-Z_a-z]+
-#math_operators.patterns[1].match  0[Xx]\h+
-#math_operators.patterns[2].match  0\d+
-#math_operators.patterns[3].match  \d{1,2}#[0-9@-Z_a-z]+
-#modified_assignment_statement.patterns[2].match  groups 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13
-#normal_assignment_statement.begin  groups 2, 3, 4, 5, 7, 8
-#normal_statement_seperator.match  groups 3
-#numeric_literal.match  groups 1, 2, 3
-#option.begin  groups 2
-#pathname.patterns[0].match  (?<=[:=\s]|^)~  fuzz
-#pathname.patterns[2].begin  ([!*+?@])(\()
-#pathname.patterns[2].end  \)
-#pipeline.patterns[0].match  (?<=^|[\&;\s])(time)(?=[\&;\s]|$)
-#redirect_fix.match  (>>?)[\t ]*+([^\t\n "$\&-);<>\\`|]+)
-#redirection.patterns[0].begin  [<>]\(
-#redirection.patterns[0].end  \)
-#regex_comparison.match  =~
-#string.patterns[3].begin  \$'
-#string.patterns[3].end  '
-#string.patterns[3].patterns[0].match  \\['\\abefnrtv]
-#string.patterns[3].patterns[1].match  \\[0-9]{3}"
-#string.patterns[3].patterns[2].match  \\x\h{2}"
-#string.patterns[3].patterns[3].match  \\c."
-#support.patterns[0].match  (?<=^|[\&;\s])[.:](?=[\&;\s]|$)
+#alias_statement.begin  groups 7 (waived: the alternative before it in the index, `\$?(?<!\w)[-0-9A-Z_a-z]+(?!\w)`, matches every text this group's `-?\d+` can)
+#array_value.begin  groups 4 (waived: the alternative before it in the index, `\$?(?<!\w)[-0-9A-Z_a-z]+(?!\w)`, matches every text this group's `-?\d+` can)
+#interpolation.patterns[2].patterns[1].begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#loop.patterns[0].begin  (?<=^|[\&;\s])(for)\s+(.+?)\s+(in)(?=[\&;\s]|$)  waived: `#for_statement`, before `#loop` in `#initial_context`, matches `\bfor\b` wherever this does
+#loop.patterns[0].end  (?<=^|[\&;\s])done(?=[\&;\s]|$|\))  waived: its begin never matches, since `#for_statement`, before `#loop` in `#initial_context`, takes every `for`
+#modified_assignment_statement.patterns[2].match  groups 4 (waived: the alternative before it in the index, `\$?(?<!\w)[-0-9A-Z_a-z]+(?!\w)`, matches every text this group's `-?\d+` can)
+#normal_assignment_statement.begin  groups 4 (waived: the alternative before it in the index, `\$?(?<!\w)[-0-9A-Z_a-z]+(?!\w)`, matches every text this group's `-?\d+` can)
+#normal_statement_seperator.match  groups 3 (waived: `#pipeline`, before it in every context that includes both, takes the first `|` of every `||` with `[!|]`)
+#option.begin  groups 2 (waived: the group is a lookahead, so it never holds text)
 ```
 
 ### `sql`
