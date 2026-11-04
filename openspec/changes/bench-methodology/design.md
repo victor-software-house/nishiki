@@ -216,6 +216,7 @@ It is worth revisiting if cache-miss counts are ever needed.
 4. At least five rounds of every figure; the median, with the minimum and maximum beside it.
 5. Where the host exposes `instructions:u`, the record carries it next to wall time.
 6. If no candidate passes the probe, records carry their measured spread, and speed claims rest on instructions alone.
+   The first probe, with today's harness, found no candidate within 2% ([probe note][probe]); task 3.2 repeats it with the Criterion harness.
 
 ### 12. Results are data first
 
@@ -368,3 +369,4 @@ Rollback is reverting a pull request; the crate never depends on any of this.
 [targets]: https://github.com/victor-software-house/nishiki-archive/blob/fc6d39a0bb1df915e26d66243810318470602c82/bench/targets.toml
 [ts-bench]: https://github.com/tree-sitter/tree-sitter/blob/9632b561db2f647e9c0be9e61cf91f10671a6491/crates/cli/benches/benchmark.rs
 [run-242]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41754856763
+[probe]: ../../research/2026-11-04-bench-host-probe.md

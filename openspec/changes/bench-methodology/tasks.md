@@ -32,7 +32,10 @@ No new dependency.
 
 ## 3. The reference host
 
-- [ ] 3.1 Run the A/A probe of design decision 11 on an instabox box, a Namespace 4x8 and a Namespace 8x16 pinned to one core, and check `perf stat -e instructions:u` on each → verify: a research note under `openspec/research/` names the reference host class, each candidate's A/A spread per language, and each run's minutes and cost
+- [x] 3.1 Run the A/A probe of design decision 11 on an instabox box, a Namespace 4x8 and a Namespace 8x16 pinned to one core, and check `perf stat -e instructions:u` on each → verify: a research note under `openspec/research/` names the reference host class, each candidate's A/A spread per language, and each run's minutes and cost
+  - 2026-11-04 UTC: [the probe note](../../research/2026-11-04-bench-host-probe.md): no candidate passed; 14 to 33 of 46 languages moved by more than 2% between the halves of one session on every host and mode, and pinning did not fix it.
+    instabox has no `perf` for its kernel; on Namespace the `perf` install failed silently. Compute: about 36 Namespace unit minutes ($0.06) and 460 s of instabox.
+- [ ] 3.2 Run the same probe with the Criterion harness of task 5.1, before the first record (task 6.3) → verify: a research note gives each candidate's A/A gap and spread per language under the new harness, and names the reference host class or confirms decision 11, point 6
 
 The probe uses the current `examples/bench.rs` throughput figure, so it does not wait for group 5.
 

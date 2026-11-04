@@ -1,0 +1,6 @@
+E: Unable to locate package linux-tools-common
+E: Unable to locate package linux-tools-6.18.60-instabox
+E: Couldn't find any package by glob 'linux-tools-6.18.60-instabox'
+E: Couldn't find any package by regex 'linux-tools-6.18.60-instabox'
+E: Unable to locate package linux-perf
+2
