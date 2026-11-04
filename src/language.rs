@@ -282,7 +282,7 @@ languages! {
     /// - `a!=b` reads `a!` as a macro.
     /// - A camel-case name such as `fooBar` gets no scope.
     /// - Every non-ASCII byte counts as a word character.
-    Rust { feature: "lang-rust", names: ["rust", "rs"], module: rust }
+    Rust { feature: "lang-rust", names: ["rust", "rs"], module: rust, inlined: true }
     /// Markdown, with the scopes of Shiki's `markdown` grammar. A fence of
     /// another supported language is lexed as that language.
     ///
