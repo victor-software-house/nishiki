@@ -6,7 +6,7 @@ use super::scalar;
 use super::scope::S;
 use super::state::Kind;
 use crate::emit::Emitter;
-use crate::language::Context;
+use crate::language::{Context, Halt};
 use crate::limits::{Limit, Steps};
 use crate::utf8::char_len;
 
@@ -25,6 +25,21 @@ pub(crate) struct Lexer<'a> {
     last_tab: Option<usize>,
     /// Whether `^` matches at the start of `s`.
     text_start: TextStart,
+    /// Where the language that embeds YAML takes the line back (see
+    /// [`Lexer::halts_at`]).
+    pub(super) halts: Option<Halts<'a>>,
+    /// Where in `s` the line went back to the embedding language.
+    halted: Option<usize>,
+}
+
+/// The halts of a language that embeds YAML, which read the whole line:
+/// `s` starts at byte `start` of `line`.
+#[derive(Clone, Copy)]
+pub(crate) struct Halts<'a> {
+    pub(crate) line: &'a [u8],
+    pub(crate) start: usize,
+    pub(crate) end: Halt,
+    pub(crate) after: Option<Halt>,
 }
 
 /// Where the text a YAML lexer reads starts in its line, which decides
@@ -116,6 +131,8 @@ impl<'a> Lexer<'a> {
             lead_blanks,
             last_tab: memchr::memrchr(b'\t', s),
             text_start,
+            halts: None,
+            halted: None,
         }
     }
 
@@ -123,6 +140,16 @@ impl<'a> Lexer<'a> {
         self.em.state
     }
 
+    /// Where in `s` the line went back to the embedding language, if it did.
+    pub(crate) fn halted(&self) -> Option<usize> {
+        self.halted
+    }
+
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and YAML rose 3% (1.0315)"
+    )]
+    #[inline(always)]
     pub(crate) fn run(&mut self) {
         let len = self.s.len();
         let mut p = match self.top() {
@@ -141,6 +168,11 @@ impl<'a> Lexer<'a> {
             if self.steps.exhausted() {
                 self.em.report.record(Limit::Work);
                 break;
+            }
+            if self.halts.is_some() && self.halts_at(p) {
+                self.gap(p);
+                self.halted = Some(p);
+                return;
             }
             let from = p;
             p = match self.top() {
@@ -592,6 +624,43 @@ impl<'a> Lexer<'a> {
 
     // Block context.
 
+    /// Whether the line goes back to the embedding language at `p`, where a
+    /// step begins: only while the top context alone is open, where `end`
+    /// holds, or where `after` holds and the step at `p` is no YAML token.
+    ///
+    /// A comment after blanks is the exception to `end`: the grammar's
+    /// comment rule begins at the blanks, before `p`, so it wins there.
+    #[cold]
+    fn halts_at(&self, p: usize) -> bool {
+        let Some(halts) = self.halts else {
+            return false;
+        };
+        if self.top() != Kind::Top {
+            return false;
+        }
+        let at = halts.start + p;
+        if (halts.end)(halts.line, at) {
+            return !(p > 0 && self.comment_at(p));
+        }
+        halts.after.is_some_and(|after| after(halts.line, at)) && self.bare_at(p)
+    }
+
+    /// Whether the block step at `p` emits text with no scope of its own: a
+    /// byte no rule of the grammar takes there.
+    fn bare_at(&self, p: usize) -> bool {
+        match self.s[p] {
+            b'#' => !self.comment_at(p),
+            b'%' => !(p == 0 && self.text_start == TextStart::Line),
+            b',' | b']' | b'}' | b'@' | b'`' => true,
+            _ => false,
+        }
+    }
+
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: with `run` inlined into both callers, rustc stopped inlining it, and YAML rose 5% (1.0542)"
+    )]
+    #[inline(always)]
     fn block_step(&mut self, p: usize) -> usize {
         let b = self.s[p];
         if self.blank_at(p) > 0 {

@@ -17,7 +17,7 @@ use scope::S;
 use state::Kind;
 
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 
 /// The state at the start of a YAML document whose scopes sit on the stack
 /// `base`: one context with `source.yaml` on top.
@@ -54,6 +54,48 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
         lexer.run();
         lexer.into_state()
     })
+}
+
+/// Lexes `line` like [`lex`], for YAML that another language embeds from
+/// [`start_embedded`], and returns where the line went back to it.
+///
+/// The halts are tested only where the lexer begins a step while its top
+/// context alone is open: `end` there, and `after` where that step is no
+/// YAML token. HTML and XML test them at every place up to their next match,
+/// but a YAML step takes its blanks with it, as the grammar does: the
+/// comment rule begins at the blanks before `#`, so an indented `#{` in a
+/// Ruby here document is a YAML comment, and only one where a step begins,
+/// such as at the start of an unindented line, goes back to Ruby.
+#[inline]
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: Halt,
+    after: Option<Halt>,
+) -> (u32, Option<usize>) {
+    let start = if line.start == 0 {
+        TextStart::Line
+    } else {
+        TextStart::MidLine
+    };
+    let mut halted = None;
+    let next = cx.lex_from_start(line, |cx, rest| {
+        if rest.is_empty() {
+            return state;
+        }
+        let mut lexer = lexer::Lexer::new(cx, rest.as_bytes(), start, state);
+        lexer.halts = Some(lexer::Halts {
+            line: line.text.as_bytes(),
+            start: line.start,
+            end,
+            after,
+        });
+        lexer.run();
+        halted = lexer.halted().map(|p| line.start + p);
+        lexer.into_state()
+    });
+    (next, halted)
 }
 
 #[cfg(test)]

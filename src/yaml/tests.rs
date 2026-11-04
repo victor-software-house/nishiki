@@ -395,3 +395,58 @@ fn unicode_spaces_separate_as_blanks_where_the_grammar_reads_them() {
         );
     }
 }
+
+/// YAML as another language embeds it.
+const EMBEDDED: crate::test_support::Embedded = crate::test_support::Embedded {
+    start: super::start_embedded,
+    lex: super::lex,
+    lex_until: super::lex_until,
+};
+
+/// The scopes a Ruby here document named for YAML puts under its lines, as
+/// Shiki gives them: `source.yaml` comes from the rule's `contentName`.
+const RUBY_HEREDOC: [&str; 3] = ["source.ruby", "meta.embedded.block.yaml", "source.yaml"];
+
+/// Where each line, lexed alone, halts under a Ruby here document's halts.
+fn ruby_halts(lines: &[&str]) -> Vec<Option<usize>> {
+    lines
+        .iter()
+        .flat_map(|line| crate::test_support::ruby_heredoc_halts(EMBEDDED, &RUBY_HEREDOC, &[line]))
+        .collect()
+}
+
+/// Shiki hands an indented `#{` back to Ruby nowhere: the comment rule
+/// begins at the blanks before it, and a plain scalar or a string holds it
+/// otherwise.
+#[test]
+fn an_indented_ruby_interpolation_in_yaml_stays_yaml() {
+    assert_eq!(
+        ruby_halts(&[
+            "  #{a}: b",
+            "  key: #{value}",
+            "  key: plain #{value} more",
+            "  key: \"q #{x}\" #{y}",
+            "    - #{item}",
+            "  key: a#{b}",
+        ]),
+        [None; 6]
+    );
+}
+
+/// Shiki hands a line back to Ruby where a YAML step begins at the `#{`,
+/// such as at the start of an unindented line, but not inside a plain
+/// scalar, nor at a comment after blanks.
+#[test]
+fn ruby_takes_a_yaml_line_back_where_a_step_begins_at_its_interpolation() {
+    assert_eq!(
+        ruby_halts(&["#{a}: b", "#{x}", "a#{b}: c", "key: e#{f}", "- #{g}"]),
+        [Some(0), Some(0), None, None, None]
+    );
+}
+
+/// A Ruby escape is tried after YAML's patterns, so a plain scalar that
+/// starts with it keeps it.
+#[test]
+fn a_ruby_escape_at_a_yaml_plain_scalar_stays_yaml() {
+    assert_eq!(ruby_halts(&["\\n: c", "key: a \\n b"]), [None, None]);
+}

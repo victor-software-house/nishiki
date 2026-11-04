@@ -330,7 +330,7 @@ languages! {
     /// - Front matter starts only on the first line of a Markdown document.
     ///   The state of a document's first line therefore differs from the states after it.
     /// - A line of a block scalar is text up to the first line indented less than the scalar's first line.
-    Yaml { feature: "lang-yaml", names: ["yaml", "yml"], module: yaml }
+    Yaml { feature: "lang-yaml", names: ["yaml", "yml"], module: yaml, halts: true }
     /// TOML, with the scopes of Shiki's `toml` grammar.
     ///
     /// # Behaviour kept from Shiki
