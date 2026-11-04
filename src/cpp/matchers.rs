@@ -61,6 +61,7 @@ pub(super) const NEEDS: &[&[u8]] = &[
     b"delete",
     b"pragma",
     b"typename",
+    b"#",
 ];
 
 /// The index in [`NEEDS`] of `(`, which a builtin type's initializer,
@@ -86,6 +87,11 @@ const NEED_PRAGMA: usize = 17;
 /// The index in [`NEEDS`] of `typename`, the keyword the dependent type
 /// name `GAP(typename)GAP…` starts with.
 const NEED_TYPENAME: usize = 18;
+/// The index in [`NEEDS`] of `#`, which the directive heads spell out after
+/// their gap: `^GAP(#)\s*(if(?:n?def|))`, `^GAP(#)\s*e(?:ndif|lse|lif…)`,
+/// `^GAP(#)\s*(error|warning)`, `^GAP(#)\s*define`, `^GAP(#)\s*undef` and
+/// `^GAP(#)\s*include(?:|_next)`.
+const NEED_HASH: usize = 19;
 
 /// The index in [`NEEDS`] of `]]`, which closes an attribute.
 pub(super) const NEED_BRACKETS: usize = 7;
@@ -116,6 +122,12 @@ fn need(rx: Rx) -> Option<&'static [usize]> {
         Rx::MemoryOperators => &[NEED_NEW, NEED_DELETE],
         Rx::PragmaMark => &[NEED_PRAGMA],
         Rx::Typename => &[NEED_TYPENAME],
+        Rx::PreprocessorConditionalRange
+        | Rx::PreprocessorConditionalStandalone
+        | Rx::Diagnostic
+        | Rx::Macro
+        | Rx::Undef
+        | Rx::Include => &[NEED_HASH],
         _ => return None,
     })
 }
