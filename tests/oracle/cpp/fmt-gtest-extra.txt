@@ -1,0 +1,1387 @@
+L // Formatting library for C++ - custom Google Test assertions
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 61 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Copyright (c) 2012 - present, Victor Zverovich and {fmt} contributors
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp comment.line.double-slash.cpp
+L // All rights reserved.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 23 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // For the license information refer to format.h.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 49 source.cpp comment.line.double-slash.cpp
+L 
+L #ifndef FMT_GTEST_EXTRA_H_
+T 1 source.cpp keyword.control.directive.conditional.ifndef.cpp punctuation.definition.directive.cpp
+T 7 source.cpp keyword.control.directive.conditional.ifndef.cpp
+T 8 source.cpp meta.preprocessor.conditional
+T 26 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+L #define FMT_GTEST_EXTRA_H_
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+L 
+L #include <stdlib.h>  // _invalid_parameter_handler
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.begin.cpp
+T 18 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp
+T 19 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.end.cpp
+T 21 source.cpp meta.preprocessor.include.cpp
+T 23 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 50 source.cpp comment.line.double-slash.cpp
+L 
+L #include <string>
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.begin.cpp
+T 16 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp
+T 17 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.end.cpp
+L 
+L #include "fmt/os.h"
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.begin.cpp
+T 18 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp
+T 19 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.end.cpp
+L #include "gmock/gmock.h"
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.begin.cpp
+T 23 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp
+T 24 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.end.cpp
+L 
+L #ifdef _MSC_VER
+T 1 source.cpp keyword.control.directive.conditional.ifdef.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.conditional.ifdef.cpp
+T 7 source.cpp meta.preprocessor.conditional
+T 15 source.cpp meta.preprocessor.conditional entity.name.other.preprocessor.macro.predefined._MSC_VER.cpp
+L #  include <crtdbg.h>
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 10 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 11 source.cpp meta.preprocessor.include.cpp
+T 12 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.begin.cpp
+T 20 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp
+T 21 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.end.cpp
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L #define FMT_TEST_THROW_(statement, expected_exception, expected_message, fail) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 73 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   GTEST_AMBIGUOUS_ELSE_BLOCKER_                                                \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp variable.upper-case.cpp variable.other.unknown.GTEST_AMBIGUOUS_ELSE_BLOCKER_.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   if (::testing::AssertionResult gtest_ar = ::testing::AssertionSuccess()) {   \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp keyword.control.if.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.scope-resolution.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.other.unknown.AssertionResult.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.snake-case.cpp variable.other.unknown.gtest_ar.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp keyword.operator.assignment.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.scope-resolution.function.call.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.function.call.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.function.call.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 73 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 74 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 75 source.cpp meta.preprocessor.macro.cpp
+T 76 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     std::string gtest_expected_message = expected_message;                     \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.qualified-type.cpp entity.name.scope-resolution.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.qualified-type.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.assignment.cpp variable.other.unknown.gtest_expected_message.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.assignment.cpp keyword.operator.assignment.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp variable.snake-case.cpp variable.other.unknown.expected_message.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     bool gtest_caught_expected = false;                                        \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.assignment.cpp variable.other.unknown.gtest_caught_expected.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.assignment.cpp keyword.operator.assignment.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp constant.language.false.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     try {                                                                      \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp meta.block.cpp keyword.control.try.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_(statement);               \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.unknown.statement.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     } catch (expected_exception const& e) {                                    \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.cpp keyword.control.catch.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp variable.snake-case.cpp variable.other.unknown.expected_exception.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp storage.modifier.specifier.const.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp keyword.operator.bitwise.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.e.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       if (gtest_expected_message != e.what()) {                                \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp keyword.control.if.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp variable.other.unknown.gtest_expected_message.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp keyword.operator.comparison.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp variable.lower-case.cpp variable.other.object.access.e.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.separator.dot-access.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp entity.name.function.member.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L         gtest_ar << #statement                                                 \
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp variable.snake-case.cpp variable.other.unknown.gtest_ar.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp keyword.operator.bitwise.shift.cpp
+T 20 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp variable.other.macro.argument.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L             " throws an exception with a different message.\n"                 \
+T 12 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp constant.character.escape.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L                  << "Expected: " << gtest_expected_message << "\n"             \
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp keyword.operator.bitwise.shift.cpp
+T 20 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp keyword.operator.bitwise.shift.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp variable.other.unknown.gtest_expected_message.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp keyword.operator.bitwise.shift.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp constant.character.escape.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L                  << "  Actual: " << e.what();                                  \
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp keyword.operator.bitwise.shift.cpp
+T 20 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp keyword.operator.bitwise.shift.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.e.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L         goto GTEST_CONCAT_TOKEN_(gtest_label_testthrow_, __LINE__);            \
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp keyword.control.goto.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp entity.name.label.call.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp meta.parens.cpp variable.other.unknown.gtest_label_testthrow_.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp meta.parens.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       }                                                                        \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       gtest_caught_expected = true;                                            \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp variable.other.unknown.gtest_caught_expected.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp keyword.operator.assignment.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.language.true.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     } catch (...) {                                                            \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.cpp keyword.control.catch.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       gtest_ar << "Expected: " #statement                                      \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 14 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp variable.snake-case.cpp variable.other.unknown.gtest_ar.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp keyword.operator.bitwise.shift.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp variable.other.macro.argument.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L                   " throws an exception of type " #expected_exception          \
+T 18 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 69 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp variable.other.macro.argument.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L                   ".\n  Actual: it throws a different type.";                  \
+T 18 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 20 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp constant.character.escape.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       goto GTEST_CONCAT_TOKEN_(gtest_label_testthrow_, __LINE__);              \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp keyword.control.goto.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp entity.name.label.call.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp variable.other.unknown.gtest_label_testthrow_.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     }                                                                          \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     if (!gtest_caught_expected) {                                              \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp keyword.control.if.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp keyword.operator.logical.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp variable.other.unknown.gtest_caught_expected.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       gtest_ar << "Expected: " #statement                                      \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 14 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp variable.snake-case.cpp variable.other.unknown.gtest_ar.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp keyword.operator.bitwise.shift.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp variable.other.macro.argument.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L                   " throws an exception of type " #expected_exception          \
+T 18 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 69 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp variable.other.macro.argument.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L                   ".\n  Actual: it throws nothing.";                           \
+T 18 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 20 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp constant.character.escape.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       goto GTEST_CONCAT_TOKEN_(gtest_label_testthrow_, __LINE__);              \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp keyword.control.goto.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp entity.name.label.call.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp variable.other.unknown.gtest_label_testthrow_.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     }                                                                          \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L   } else                                                                       \
+T 2 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp keyword.control.else.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L     GTEST_CONCAT_TOKEN_(gtest_label_testthrow_, __LINE__)                      \
+T 4 source.cpp meta.preprocessor.macro.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.gtest_label_testthrow_.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L         : fail(gtest_ar.failure_message())
+T 9 source.cpp meta.preprocessor.macro.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp
+T 14 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.object.access.gtest_ar.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp punctuation.separator.dot-access.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp entity.name.function.member.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+L 
+L // Tests that the statement throws the expected exception and the exception's
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp comment.line.double-slash.cpp
+L // what() method returns expected message.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 42 source.cpp comment.line.double-slash.cpp
+L #define EXPECT_THROW_MSG(statement, expected_exception, expected_message) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 73 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 74 source.cpp meta.preprocessor.macro.cpp
+T 75 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   FMT_TEST_THROW_(statement, expected_exception, expected_message,        \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.statement.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.expected_exception.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.expected_message.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 74 source.cpp meta.preprocessor.macro.cpp
+T 75 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L                   GTEST_NONFATAL_FAILURE_)
+T 18 source.cpp meta.preprocessor.macro.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp variable.upper-case.cpp variable.other.unknown.GTEST_NONFATAL_FAILURE_.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+L 
+L inline std::string system_error_message(int error_code,
+T 6 source.cpp meta.function.definition.cpp storage.modifier.inline.cpp
+T 7 source.cpp meta.function.definition.cpp
+T 10 source.cpp meta.function.definition.cpp meta.qualified-type.cpp entity.name.scope-resolution.cpp
+T 12 source.cpp meta.function.definition.cpp meta.qualified-type.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 18 source.cpp meta.function.definition.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 19 source.cpp meta.function.definition.cpp
+T 39 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 40 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 43 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 44 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 54 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 55 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.delimiter.comma.cpp
+L                                         const std::string& message) {
+T 40 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 45 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.specifier.const.cpp
+T 46 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 49 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.scope-resolution.parameter.cpp
+T 51 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.parameter.cpp
+T 57 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.type.parameter.cpp
+T 58 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.reference.cpp
+T 59 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 66 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 67 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 68 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 69 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.block.begin.bracket.curly.function.definition.cpp
+L   auto ec = std::error_code(error_code, std::generic_category());
+T 2 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp
+T 6 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 7 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp
+T 9 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp meta.assignment.cpp variable.lower-case.cpp variable.other.assignment.cpp
+T 10 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp
+T 11 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp meta.assignment.cpp keyword.operator.assignment.cpp
+T 12 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp
+T 15 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp entity.name.scope-resolution.cpp
+T 17 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 27 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp entity.name.function.call.cpp
+T 28 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 38 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp variable.snake-case.cpp variable.other.unknown.error_code.cpp
+T 39 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp punctuation.separator.delimiter.comma.cpp
+T 40 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp
+T 43 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp entity.name.scope-resolution.cpp
+T 45 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 61 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp entity.name.function.call.cpp
+T 62 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 63 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 64 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 65 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L   return std::system_error(ec, message).what();
+T 2 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 8 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.control.return.cpp
+T 9 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 12 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.scope-resolution.cpp
+T 14 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 26 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.function.call.cpp
+T 27 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 29 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.ec.cpp
+T 30 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.delimiter.comma.cpp
+T 31 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 38 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.message.cpp
+T 39 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 40 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.dot-access.cpp
+T 44 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.function.member.cpp
+T 45 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 46 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 47 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L }
+T 1 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.block.end.bracket.curly.function.definition.cpp
+L 
+L #define EXPECT_SYSTEM_ERROR(statement, error_code, message) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   EXPECT_THROW_MSG(statement, std::system_error,            \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.statement.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.system_error.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L                    system_error_message(error_code, message))
+T 19 source.cpp meta.preprocessor.macro.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.error_code.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.message.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+L 
+L #if FMT_USE_FCNTL
+T 1 source.cpp keyword.control.directive.conditional.if.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.if.cpp
+T 4 source.cpp meta.preprocessor.conditional
+T 17 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+L 
+L // Captures file output by redirecting it to a pipe.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 52 source.cpp comment.line.double-slash.cpp
+L // The output it can handle is limited by the pipe capacity.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 60 source.cpp comment.line.double-slash.cpp
+L class output_redirect {
+T 5 source.cpp meta.block.class.cpp meta.head.class.cpp storage.type.class.cpp
+T 6 source.cpp meta.block.class.cpp
+T 21 source.cpp meta.block.class.cpp entity.name.type.class.cpp
+T 22 source.cpp meta.block.class.cpp
+T 23 source.cpp meta.block.class.cpp meta.head.class.cpp punctuation.section.block.begin.bracket.curly.class.cpp
+L  private:
+T 1 source.cpp meta.block.class.cpp meta.body.class.cpp
+T 8 source.cpp meta.block.class.cpp meta.body.class.cpp storage.type.modifier.access.control.private.cpp
+T 9 source.cpp meta.block.class.cpp meta.body.class.cpp storage.type.modifier.access.control.private.cpp punctuation.separator.colon.access.control.cpp
+L   FILE* file_;
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp
+T 6 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 7 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp storage.modifier.pointer.cpp
+T 8 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp
+T 13 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp meta.declaration.cpp variable.snake-case.cpp variable.other.declare.cpp
+T 14 source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.terminator.statement.cpp
+L   fmt::file original_;  // Original file passed to redirector.
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp
+T 5 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp meta.qualified-type.cpp entity.name.scope-resolution.cpp
+T 7 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp meta.qualified-type.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 11 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 12 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp
+T 21 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp meta.declaration.cpp variable.snake-case.cpp variable.other.declare.cpp
+T 22 source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.terminator.statement.cpp
+T 24 source.cpp meta.block.class.cpp meta.body.class.cpp comment.line.double-slash.cpp
+T 26 source.cpp meta.block.class.cpp meta.body.class.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 62 source.cpp meta.block.class.cpp meta.body.class.cpp comment.line.double-slash.cpp
+L   fmt::file read_end_;  // Read end of the pipe where the output is redirected.
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp
+T 5 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp meta.qualified-type.cpp entity.name.scope-resolution.cpp
+T 7 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp meta.qualified-type.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 11 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 12 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp
+T 21 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp meta.declaration.cpp variable.other.unknown.read_end_.cpp
+T 22 source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.terminator.statement.cpp
+T 24 source.cpp meta.block.class.cpp meta.body.class.cpp comment.line.double-slash.cpp
+T 26 source.cpp meta.block.class.cpp meta.body.class.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 79 source.cpp meta.block.class.cpp meta.body.class.cpp comment.line.double-slash.cpp
+L 
+L   void flush();
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 6 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 7 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp
+T 12 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 13 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 14 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 15 source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.terminator.statement.cpp
+L   void restore();
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 6 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 7 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp
+T 14 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 15 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 16 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 17 source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.terminator.statement.cpp
+L 
+L  public:
+T 1 source.cpp meta.block.class.cpp meta.body.class.cpp
+T 7 source.cpp meta.block.class.cpp meta.body.class.cpp storage.type.modifier.access.control.public.cpp
+T 8 source.cpp meta.block.class.cpp meta.body.class.cpp storage.type.modifier.access.control.public.cpp punctuation.separator.colon.access.control.cpp
+L   explicit output_redirect(FILE* file, bool flush = true);
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp
+T 10 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp storage.modifier.specifier.functional.pre-parameters.explicit.cpp
+T 11 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp
+T 26 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp entity.name.function.constructor.cpp entity.name.function.definition.special.constructor.cpp
+T 27 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp punctuation.section.parameters.begin.bracket.round.special.constructor.cpp
+T 31 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp entity.name.type.parameter.cpp
+T 32 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp storage.modifier.pointer.cpp
+T 33 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp
+T 37 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp variable.parameter.cpp
+T 38 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp punctuation.separator.delimiter.comma.cpp
+T 39 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp
+T 43 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 44 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp
+T 49 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp variable.parameter.cpp
+T 50 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp
+T 51 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp keyword.operator.assignment.cpp
+T 52 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp
+T 56 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp constant.language.true.cpp
+T 57 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp punctuation.section.parameters.end.bracket.round.special.constructor.cpp
+T 58 source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.terminator.statement.cpp
+L   ~output_redirect() noexcept;
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp
+T 18 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.head.function.definition.special.member.destructor.cpp entity.name.function.destructor.cpp entity.name.function.definition.special.member.destructor.cpp
+T 19 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.head.function.definition.special.member.destructor.cpp punctuation.section.parameters.begin.bracket.round.special.member.destructor.cpp
+T 20 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.head.function.definition.special.member.destructor.cpp punctuation.section.parameters.end.bracket.round.special.member.destructor.cpp
+T 21 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.head.function.definition.special.member.destructor.cpp
+T 29 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.head.function.definition.special.member.destructor.cpp storage.modifier.specifier.functional.post-parameters.noexcept.cpp
+T 30 source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.terminator.statement.cpp
+L 
+L   output_redirect(const output_redirect&) = delete;
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp
+T 17 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp entity.name.function.constructor.cpp entity.name.function.definition.special.constructor.cpp
+T 18 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp punctuation.section.parameters.begin.bracket.round.special.constructor.cpp
+T 23 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp storage.modifier.specifier.const.cpp
+T 24 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp
+T 39 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp entity.name.type.parameter.cpp
+T 40 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.function.definition.parameters.special.constructor meta.parameter.cpp storage.modifier.reference.cpp
+T 41 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp punctuation.section.parameters.end.bracket.round.special.constructor.cpp
+T 42 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp
+T 43 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp keyword.operator.assignment.cpp
+T 44 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp
+T 50 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp keyword.other.delete.function.cpp keyword.other.delete.constructor.cpp
+T 51 source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.terminator.statement.cpp
+L   void operator=(const output_redirect&) = delete;
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp
+T 6 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 7 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp
+T 15 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp meta.head.function.definition.special.operator-overload.cpp keyword.other.operator.overload.cpp
+T 16 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp meta.head.function.definition.special.operator-overload.cpp entity.name.operator.cpp
+T 17 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp meta.head.function.definition.special.operator-overload.cpp punctuation.section.parameters.begin.bracket.round.special.operator-overload.cpp
+T 22 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp meta.head.function.definition.special.operator-overload.cpp meta.function.definition.parameters.special.operator-overload meta.parameter.cpp storage.modifier.specifier.const.cpp
+T 23 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp meta.head.function.definition.special.operator-overload.cpp meta.function.definition.parameters.special.operator-overload meta.parameter.cpp
+T 38 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp meta.head.function.definition.special.operator-overload.cpp meta.function.definition.parameters.special.operator-overload meta.parameter.cpp entity.name.type.parameter.cpp
+T 39 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp meta.head.function.definition.special.operator-overload.cpp meta.function.definition.parameters.special.operator-overload meta.parameter.cpp storage.modifier.reference.cpp
+T 40 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp meta.head.function.definition.special.operator-overload.cpp punctuation.section.parameters.end.bracket.round.special.operator-overload.cpp
+T 41 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp meta.head.function.definition.special.operator-overload.cpp
+T 42 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp meta.head.function.definition.special.operator-overload.cpp keyword.operator.assignment.cpp
+T 43 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp meta.head.function.definition.special.operator-overload.cpp
+T 49 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.operator-overload.cpp meta.head.function.definition.special.operator-overload.cpp keyword.other.delete.function.cpp
+T 50 source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.terminator.statement.cpp
+L 
+L   // Restores the original file, reads output from the pipe into a string
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp comment.line.double-slash.cpp
+T 4 source.cpp meta.block.class.cpp meta.body.class.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 73 source.cpp meta.block.class.cpp meta.body.class.cpp comment.line.double-slash.cpp
+L   // and returns it.
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp comment.line.double-slash.cpp
+T 4 source.cpp meta.block.class.cpp meta.body.class.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 20 source.cpp meta.block.class.cpp meta.body.class.cpp comment.line.double-slash.cpp
+L   std::string restore_and_read();
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 5 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.qualified-type.cpp entity.name.scope-resolution.cpp
+T 7 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.qualified-type.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 13 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 14 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp
+T 30 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 31 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 32 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 33 source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.terminator.statement.cpp
+L };
+T 1 source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.section.block.end.bracket.curly.class.cpp
+T 2 source.cpp meta.block.class.cpp punctuation.terminator.statement.cpp
+L 
+L #  define FMT_TEST_WRITE_(statement, expected_output, file, fail)              \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L     GTEST_AMBIGUOUS_ELSE_BLOCKER_                                              \
+T 4 source.cpp meta.preprocessor.macro.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp variable.upper-case.cpp variable.other.unknown.GTEST_AMBIGUOUS_ELSE_BLOCKER_.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L     if (::testing::AssertionResult gtest_ar = ::testing::AssertionSuccess()) { \
+T 4 source.cpp meta.preprocessor.macro.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp keyword.control.if.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.scope-resolution.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.other.unknown.AssertionResult.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.snake-case.cpp variable.other.unknown.gtest_ar.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp keyword.operator.assignment.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.scope-resolution.function.call.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.function.call.cpp
+T 73 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.function.call.cpp
+T 74 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 75 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 76 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       std::string gtest_expected_output = expected_output;                     \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.qualified-type.cpp entity.name.scope-resolution.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.qualified-type.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.assignment.cpp variable.other.unknown.gtest_expected_output.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.assignment.cpp keyword.operator.assignment.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp variable.snake-case.cpp variable.other.unknown.expected_output.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       output_redirect gtest_redir(file);                                       \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp entity.name.function.call.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.block.cpp variable.lower-case.cpp variable.other.unknown.file.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_(statement);               \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.cpp variable.lower-case.cpp variable.other.unknown.statement.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       std::string gtest_output = gtest_redir.restore_and_read();               \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.qualified-type.cpp entity.name.scope-resolution.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.qualified-type.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.assignment.cpp variable.snake-case.cpp variable.other.assignment.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp meta.assignment.cpp keyword.operator.assignment.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp variable.snake-case.cpp variable.other.object.access.gtest_redir.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp punctuation.separator.dot-access.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp entity.name.function.member.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.assignment.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       if (gtest_output != gtest_expected_output) {                             \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.cpp keyword.control.if.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp variable.snake-case.cpp variable.other.unknown.gtest_output.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp keyword.operator.comparison.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp variable.other.unknown.gtest_expected_output.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L         gtest_ar << #statement " produces different output.\n"                 \
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp variable.snake-case.cpp variable.other.unknown.gtest_ar.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp keyword.operator.bitwise.shift.cpp
+T 20 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp variable.other.macro.argument.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp constant.character.escape.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L                  << "Expected: " << gtest_expected_output << "\n"              \
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp keyword.operator.bitwise.shift.cpp
+T 20 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp keyword.operator.bitwise.shift.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp variable.other.unknown.gtest_expected_output.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp keyword.operator.bitwise.shift.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp constant.character.escape.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L                  << "  Actual: " << gtest_output;                              \
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp keyword.operator.bitwise.shift.cpp
+T 20 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp keyword.operator.bitwise.shift.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp variable.snake-case.cpp variable.other.unknown.gtest_output.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L         goto GTEST_CONCAT_TOKEN_(gtest_label_testthrow_, __LINE__);            \
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp keyword.control.goto.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp entity.name.label.call.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp variable.other.unknown.gtest_label_testthrow_.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       }                                                                        \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     } else                                                                     \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp keyword.control.else.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L       GTEST_CONCAT_TOKEN_(gtest_label_testthrow_, __LINE__)                    \
+T 6 source.cpp meta.preprocessor.macro.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.gtest_label_testthrow_.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L           : fail(gtest_ar.failure_message())
+T 11 source.cpp meta.preprocessor.macro.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.object.access.gtest_ar.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp punctuation.separator.dot-access.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp entity.name.function.member.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+L 
+L // Tests that the statement writes the expected output to file.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 63 source.cpp comment.line.double-slash.cpp
+L #  define EXPECT_WRITE(file, statement, expected_output) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L     FMT_TEST_WRITE_(statement, expected_output, file, GTEST_NONFATAL_FAILURE_)
+T 4 source.cpp meta.preprocessor.macro.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 20 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.statement.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.expected_output.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.file.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp variable.upper-case.cpp variable.other.unknown.GTEST_NONFATAL_FAILURE_.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+L 
+L #  ifdef _MSC_VER
+T 1 source.cpp keyword.control.directive.conditional.ifdef.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.ifdef.cpp
+T 8 source.cpp keyword.control.directive.conditional.ifdef.cpp
+T 9 source.cpp meta.preprocessor.conditional
+T 17 source.cpp meta.preprocessor.conditional entity.name.other.preprocessor.macro.predefined._MSC_VER.cpp
+L 
+L // Suppresses Windows assertions on invalid file descriptors, making
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 68 source.cpp comment.line.double-slash.cpp
+L // POSIX functions return proper error codes instead of crashing on Windows.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L class suppress_assert {
+T 5 source.cpp meta.block.class.cpp meta.head.class.cpp storage.type.class.cpp
+T 6 source.cpp meta.block.class.cpp
+T 21 source.cpp meta.block.class.cpp entity.name.type.class.cpp
+T 22 source.cpp meta.block.class.cpp
+T 23 source.cpp meta.block.class.cpp meta.head.class.cpp punctuation.section.block.begin.bracket.curly.class.cpp
+L  private:
+T 1 source.cpp meta.block.class.cpp meta.body.class.cpp
+T 8 source.cpp meta.block.class.cpp meta.body.class.cpp storage.type.modifier.access.control.private.cpp
+T 9 source.cpp meta.block.class.cpp meta.body.class.cpp storage.type.modifier.access.control.private.cpp punctuation.separator.colon.access.control.cpp
+L   _invalid_parameter_handler original_handler_;
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp
+T 28 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 29 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp
+T 46 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp meta.declaration.cpp variable.other.unknown.original_handler_.cpp
+T 47 source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.terminator.statement.cpp
+L   int original_report_mode_;
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp
+T 5 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 6 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp
+T 27 source.cpp meta.block.class.cpp meta.body.class.cpp meta.declaration.cpp meta.declaration.cpp variable.other.unknown.original_report_mode_.cpp
+T 28 source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.terminator.statement.cpp
+L 
+L   static void handle_invalid_parameter(const wchar_t*, const wchar_t*,
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 8 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp storage.modifier.static.cpp
+T 9 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp
+T 13 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 14 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp
+T 38 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 39 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 44 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.specifier.const.cpp
+T 45 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 52 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 53 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.pointer.cpp
+T 54 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.delimiter.comma.cpp
+T 55 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 60 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.specifier.const.cpp
+T 61 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 68 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 69 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.pointer.cpp
+T 70 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.delimiter.comma.cpp
+L                                        const wchar_t*, unsigned, uintptr_t) {}
+T 39 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 44 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.specifier.const.cpp
+T 45 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 52 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 53 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.pointer.cpp
+T 54 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.delimiter.comma.cpp
+T 55 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 63 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 64 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.delimiter.comma.cpp
+T 65 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 74 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.type.cpp storage.type.built-in.cpp
+T 75 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 76 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 77 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.block.begin.bracket.curly.function.definition.cpp
+T 78 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.block.end.bracket.curly.function.definition.cpp
+L 
+L  public:
+T 1 source.cpp meta.block.class.cpp meta.body.class.cpp
+T 7 source.cpp meta.block.class.cpp meta.body.class.cpp storage.type.modifier.access.control.public.cpp
+T 8 source.cpp meta.block.class.cpp meta.body.class.cpp storage.type.modifier.access.control.public.cpp punctuation.separator.colon.access.control.cpp
+L   suppress_assert()
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp
+T 17 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp entity.name.function.constructor.cpp entity.name.function.definition.special.constructor.cpp
+T 18 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp punctuation.section.parameters.begin.bracket.round.special.constructor.cpp
+T 19 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp punctuation.section.parameters.end.bracket.round.special.constructor.cpp
+L       : original_handler_(
+T 6 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp
+T 7 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp punctuation.separator.initializers.cpp
+T 8 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp
+T 25 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp entity.name.function.call.initializer.cpp
+T 26 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp punctuation.section.arguments.begin.bracket.round.function.call.initializer.cpp
+L             _set_invalid_parameter_handler(handle_invalid_parameter)),
+T 12 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.parameter.initialization
+T 42 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.parameter.initialization entity.name.function.call.cpp
+T 43 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.parameter.initialization punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 67 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.parameter.initialization variable.other.unknown.handle_invalid_parameter.cpp
+T 68 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.parameter.initialization punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 69 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp punctuation.section.arguments.end.bracket.round.function.call.initializer.cpp
+T 70 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp punctuation.separator.delimiter.comma.cpp
+L         original_report_mode_(_CrtSetReportMode(_CRT_ASSERT, 0)) {}
+T 8 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp
+T 29 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp entity.name.function.call.initializer.cpp
+T 30 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp punctuation.section.arguments.begin.bracket.round.function.call.initializer.cpp
+T 47 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.parameter.initialization entity.name.function.call.cpp
+T 48 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.parameter.initialization punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 59 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.parameter.initialization variable.other.unknown._CRT_ASSERT.cpp
+T 60 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.parameter.initialization punctuation.separator.delimiter.comma.cpp
+T 61 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.parameter.initialization
+T 62 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.parameter.initialization constant.numeric.decimal.cpp
+T 63 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp meta.parameter.initialization punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 64 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp punctuation.section.arguments.end.bracket.round.function.call.initializer.cpp
+T 65 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp
+T 66 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.head.function.definition.special.constructor.cpp punctuation.section.block.begin.bracket.curly.function.definition.special.constructor.cpp
+T 67 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.constructor.cpp meta.body.function.definition.special.constructor.cpp punctuation.section.block.end.bracket.curly.function.definition.special.constructor.cpp
+L   ~suppress_assert() {
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp
+T 18 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.head.function.definition.special.member.destructor.cpp entity.name.function.destructor.cpp entity.name.function.definition.special.member.destructor.cpp
+T 19 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.head.function.definition.special.member.destructor.cpp punctuation.section.parameters.begin.bracket.round.special.member.destructor.cpp
+T 20 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.head.function.definition.special.member.destructor.cpp punctuation.section.parameters.end.bracket.round.special.member.destructor.cpp
+T 21 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.head.function.definition.special.member.destructor.cpp
+T 22 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.head.function.definition.special.member.destructor.cpp punctuation.section.block.begin.bracket.curly.function.definition.special.member.destructor.cpp
+L     _set_invalid_parameter_handler(original_handler_);
+T 4 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp
+T 34 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp entity.name.function.call.cpp
+T 35 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 52 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp variable.other.unknown.original_handler_.cpp
+T 53 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 54 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp punctuation.terminator.statement.cpp
+L     _CrtSetReportMode(_CRT_ASSERT, original_report_mode_);
+T 4 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp
+T 21 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp entity.name.function.call.cpp
+T 22 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 33 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp variable.other.unknown._CRT_ASSERT.cpp
+T 34 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp punctuation.separator.delimiter.comma.cpp
+T 35 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp
+T 56 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp variable.other.unknown.original_report_mode_.cpp
+T 57 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 58 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp punctuation.terminator.statement.cpp
+L     (void)original_report_mode_;
+T 4 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp
+T 5 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 9 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp meta.parens.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 10 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 31 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp variable.other.unknown.original_report_mode_.cpp
+T 32 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp punctuation.terminator.statement.cpp
+L   }
+T 2 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp
+T 3 source.cpp meta.block.class.cpp meta.body.class.cpp meta.function.definition.special.member.destructor.cpp meta.body.function.definition.special.member.destructor.cpp punctuation.section.block.end.bracket.curly.function.definition.special.member.destructor.cpp
+L };
+T 1 source.cpp meta.block.class.cpp meta.body.class.cpp punctuation.section.block.end.bracket.curly.class.cpp
+T 2 source.cpp meta.block.class.cpp punctuation.terminator.statement.cpp
+L 
+L #    define SUPPRESS_ASSERT(statement) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L       {                                \
+T 6 source.cpp meta.preprocessor.macro.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L         suppress_assert sa;            \
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.declaration.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.declaration.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.declaration.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.declaration.cpp meta.declaration.cpp variable.lower-case.cpp variable.other.declare.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L         statement;                     \
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp variable.lower-case.cpp variable.other.unknown.statement.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       }
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+L #  else
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 7 source.cpp keyword.control.directive.else.cpp
+L #    define SUPPRESS_ASSERT(statement) statement
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.statement.cpp
+L #  endif  // _MSC_VER
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 8 source.cpp keyword.control.directive.endif.cpp
+T 10 source.cpp comment.line.double-slash.cpp
+T 12 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 21 source.cpp comment.line.double-slash.cpp
+L 
+L #  define EXPECT_SYSTEM_ERROR_NOASSERT(statement, error_code, message) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 69 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L     EXPECT_SYSTEM_ERROR(SUPPRESS_ASSERT(statement), error_code, message)
+T 4 source.cpp meta.preprocessor.macro.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.statement.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.error_code.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.message.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+L 
+L // Attempts to read count characters from a file.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 49 source.cpp comment.line.double-slash.cpp
+L std::string read(fmt::file& f, size_t count);
+T 3 source.cpp meta.function.definition.cpp meta.qualified-type.cpp entity.name.scope-resolution.cpp
+T 5 source.cpp meta.function.definition.cpp meta.qualified-type.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 11 source.cpp meta.function.definition.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 12 source.cpp meta.function.definition.cpp
+T 16 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 17 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 20 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.scope-resolution.parameter.cpp
+T 22 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.parameter.cpp
+T 26 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.type.parameter.cpp
+T 27 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.reference.cpp
+T 28 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 29 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 30 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.delimiter.comma.cpp
+T 31 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 37 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.type.cpp storage.type.built-in.cpp
+T 38 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 43 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 44 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 45 source.cpp punctuation.terminator.statement.cpp
+L 
+L #  define EXPECT_READ(file, expected_content) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L     EXPECT_EQ(expected_content,               \
+T 4 source.cpp meta.preprocessor.macro.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 14 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.expected_content.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L               read(file, fmt::string_view(expected_content).size()))
+T 14 source.cpp meta.preprocessor.macro.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.file.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.expected_content.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp punctuation.separator.dot-access.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp entity.name.function.member.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 68 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+L 
+L #else
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+L #  define EXPECT_WRITE(file, statement, expected_output) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L     do {                                                 \
+T 4 source.cpp meta.preprocessor.macro.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp keyword.control.do.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       (void)(file);                                      \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.file.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       (void)(statement);                                 \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.statement.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       (void)(expected_output);                           \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp variable.snake-case.cpp variable.other.unknown.expected_output.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       SUCCEED();                                         \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 14 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     } while (false)
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp keyword.control.while.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp constant.language.false.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L #endif  // FMT_USE_FCNTL
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+T 8 source.cpp comment.line.double-slash.cpp
+T 10 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 24 source.cpp comment.line.double-slash.cpp
+L 
+L #endif  // FMT_GTEST_EXTRA_H_
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+T 8 source.cpp comment.line.double-slash.cpp
+T 10 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 29 source.cpp comment.line.double-slash.cpp
+L 

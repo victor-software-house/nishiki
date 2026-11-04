@@ -13,9 +13,9 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 
 | Lexer | Grammar | Expressions | Share | Captures | Share | Waived | Fuzz only | Complete |
 |:--|:--|--:|--:|--:|--:|--:|--:|:--|
-| C | `c` | 159 of 342 | 46.5% | 140 of 341 | 41.1% | 0 | 3 |  |
-| C++ | `cpp` | 312 of 912 | 34.2% | 373 of 2679 | 13.9% | 0 | 288 |  |
-| C++ | `cpp-macro` | 22 of 611 | 3.6% | 22 of 1645 | 1.3% | 0 | 68 |  |
+| C | `c` | 316 of 342 | 92.4% | 302 of 341 | 88.6% | 0 | 0 |  |
+| C++ | `cpp` | 877 of 912 | 96.2% | 1560 of 2679 | 58.2% | 0 | 29 |  |
+| C++ | `cpp-macro` | 593 of 611 | 97.1% | 713 of 1645 | 43.3% | 0 | 1 |  |
 | C# | `csharp` | 544 of 547 | 99.5% | 515 of 525 | 98.1% | 13 | 0 | yes |
 | CSS | `css` | 219 of 222 | 98.6% | 181 of 184 | 98.4% | 6 | 0 | yes |
 | diff | `diff` | 10 of 16 | 62.5% | 10 of 23 | 43.5% | 0 | 1 |  |
@@ -60,76 +60,14 @@ The groups of an unexercised expression count as unexercised and are not listed.
 
 ```text
 #anon_pattern_10.match  \b((?:int8|int16|int32|int64|uint8|uint16|uint32|uint64|int…
-#anon_pattern_11.match  \b(noErr|kNilOptions|kInvalidID|kVariableLengthArray)\b
-#anon_pattern_12.match  \b(AbsoluteTime|Boolean|Byte|ByteCount|ByteOffset|BytePtr|C…
-#anon_pattern_4.match  \bk[A-Z]\w*\b
-#anon_pattern_5.match  \bg[A-Z]\w*\b
-#anon_pattern_6.match  \bs[A-Z]\w*\b
 #anon_pattern_8.match  \b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|…
 #anon_pattern_9.match  \b(pthread_(?:attr_|cond_|condattr_|mutex_|mutexattr_|once_…
 #anon_pattern_range_1.begin  groups 1, 2, 3, 4
 #anon_pattern_range_1.beginCaptures[4].patterns[0].match  \*/
 #anon_pattern_range_1.beginCaptures[4].patterns[1].match  \*
-#anon_pattern_range_2.patterns[0].begin  "
-#anon_pattern_range_2.patterns[0].end  "|(?<!\\)(?=\s*\n)
-#anon_pattern_range_2.patterns[1].begin  '
-#anon_pattern_range_2.patterns[1].end  '|(?<!\\)(?=\s*\n)
-#anon_pattern_range_4.begin  ^\s*((#)\s*line)\b
-#anon_pattern_range_4.end  (?=/[*/])|(?<!\\)(?=\n)
-#backslash_escapes.match  \\(["'?\\abefnprtv]|[0-3][0-7]{0,2}|[4-7]\d?|x\h{0,2}|u\h{0…
 #block_comment.patterns[1].begin  \s*+(/\*)
 #block_comment.patterns[1].end  \*/
-#block_innards.patterns[6].begin  (?=\s)(?<!else|new|return)(?<=\w)\s+(and|and_eq|bitand|bito…
-#block_innards.patterns[6].end  \)
-#case_statement.begin  groups 1, 2, 3, 4
-#case_statement.beginCaptures[4].patterns[0].match  \*/
-#case_statement.beginCaptures[4].patterns[1].match  \*
-#comments.patterns[0].patterns[0].patterns[0].begin  ^(?>\s*)(//[!/]+)
-#comments.patterns[0].patterns[0].patterns[0].end  (?<=\n)(?<!\\\n)
-#comments.patterns[0].patterns[0].patterns[0].patterns[1].match  (?<=[!*/\s])[@\\](?:callergraph|callgraph|else|endif|f\$|f\…
-#comments.patterns[0].patterns[0].patterns[0].patterns[2].match  ((?<=[!*/\s])[@\\](?:a|em?))\s+(\S+)
-#comments.patterns[0].patterns[0].patterns[0].patterns[3].match  ((?<=[!*/\s])[@\\]b)\s+(\S+)
-#comments.patterns[0].patterns[0].patterns[0].patterns[4].match  ((?<=[!*/\s])[@\\][cp])\s+(\S+)
-#comments.patterns[0].patterns[0].patterns[0].patterns[5].match  (?<=[!*/\s])[@\\](?:a|anchor|[bc]|cite|copybrief|copydetail…
-#comments.patterns[0].patterns[0].patterns[0].patterns[6].match  (?<=[!*/\s])[@\\](?:addindex|addtogroup|category|class|defg…
-#comments.patterns[0].patterns[0].patterns[0].patterns[7].match  ((?<=[!*/\s])[@\\]param)(?:\s*\[((?:,?\s*(?:in|out)\s*)+)])…
-#comments.patterns[0].patterns[0].patterns[0].patterns[7].captures[2].patterns[0].match  in|out
-#comments.patterns[0].patterns[0].patterns[0].patterns[8].match  (?<=[!*/\s])[@\\](?:arg|attention|authors??|brief|bug|copyr…
-#comments.patterns[0].patterns[0].patterns[0].patterns[9].match  (?<=[!*/\s])[@\\](?:code|cond|docbookonly|dot|htmlonly|inte…
-#comments.patterns[0].patterns[0].patterns[0].patterns[10].match  \b[A-Z]+:|@[_a-z]+:
-#comments.patterns[0].patterns[0].patterns[1].match  (/\*[!*]+(?=\s))(.+)([!*]*\*/)
-#comments.patterns[0].patterns[0].patterns[1].captures[2].patterns[0].match  (?<=[!*/\s])[@\\](?:callergraph|callgraph|else|endif|f\$|f\…
-#comments.patterns[0].patterns[0].patterns[1].captures[2].patterns[1].match  ((?<=[!*/\s])[@\\](?:a|em?))\s+(\S+)
-#comments.patterns[0].patterns[0].patterns[1].captures[2].patterns[2].match  ((?<=[!*/\s])[@\\]b)\s+(\S+)
-#comments.patterns[0].patterns[0].patterns[1].captures[2].patterns[3].match  ((?<=[!*/\s])[@\\][cp])\s+(\S+)
-#comments.patterns[0].patterns[0].patterns[1].captures[2].patterns[4].match  (?<=[!*/\s])[@\\](?:a|anchor|[bc]|cite|copybrief|copydetail…
-#comments.patterns[0].patterns[0].patterns[1].captures[2].patterns[5].match  (?<=[!*/\s])[@\\](?:addindex|addtogroup|category|class|defg…
-#comments.patterns[0].patterns[0].patterns[1].captures[2].patterns[6].match  ((?<=[!*/\s])[@\\]param)(?:\s*\[((?:,?\s*(?:in|out)\s*)+)])…
-#comments.patterns[0].patterns[0].patterns[1].captures[2].patterns[6].captures[2].patterns[0].match  in|out
-#comments.patterns[0].patterns[0].patterns[1].captures[2].patterns[7].match  (?<=[!*/\s])[@\\](?:arg|attention|authors??|brief|bug|copyr…
-#comments.patterns[0].patterns[0].patterns[1].captures[2].patterns[8].match  (?<=[!*/\s])[@\\](?:code|cond|docbookonly|dot|htmlonly|inte…
-#comments.patterns[0].patterns[0].patterns[1].captures[2].patterns[9].match  \b[A-Z]+:|@[_a-z]+:
-#comments.patterns[0].patterns[0].patterns[2].patterns[0].match  (?<=[!*/\s])[@\\](?:callergraph|callgraph|else|endif|f\$|f\…
-#comments.patterns[0].patterns[0].patterns[2].patterns[1].match  ((?<=[!*/\s])[@\\](?:a|em?))\s+(\S+)
-#comments.patterns[0].patterns[0].patterns[2].patterns[2].match  ((?<=[!*/\s])[@\\]b)\s+(\S+)
-#comments.patterns[0].patterns[0].patterns[2].patterns[3].match  ((?<=[!*/\s])[@\\][cp])\s+(\S+)
-#comments.patterns[0].patterns[0].patterns[2].patterns[4].match  (?<=[!*/\s])[@\\](?:a|anchor|[bc]|cite|copybrief|copydetail…
-#comments.patterns[0].patterns[0].patterns[2].patterns[5].match  (?<=[!*/\s])[@\\](?:addindex|addtogroup|category|class|defg…
-#comments.patterns[0].patterns[0].patterns[2].patterns[6].match  ((?<=[!*/\s])[@\\]param)(?:\s*\[((?:,?\s*(?:in|out)\s*)+)])…
-#comments.patterns[0].patterns[0].patterns[2].patterns[6].captures[2].patterns[0].match  in|out
-#comments.patterns[0].patterns[0].patterns[2].patterns[7].match  (?<=[!*/\s])[@\\](?:arg|attention|authors??|brief|bug|copyr…
-#comments.patterns[0].patterns[0].patterns[2].patterns[8].match  (?<=[!*/\s])[@\\](?:code|cond|docbookonly|dot|htmlonly|inte…
-#comments.patterns[0].patterns[0].patterns[2].patterns[9].match  \b[A-Z]+:|@[_a-z]+:
-#comments.patterns[0].patterns[0].patterns[5].match  ^// =(\s*.*?)\s*=$\n?
 #comments.patterns[0].patterns[0].patterns[6].begin  groups 1
-#default_statement.begin  groups 1, 2, 3, 4
-#default_statement.beginCaptures[4].patterns[0].match  \*/
-#default_statement.beginCaptures[4].patterns[1].match  \*
-#disabled.begin  ^\s*#\s*if(n?def)?\b.*$
-#disabled.end  ^\s*#\s*endif\b
-#inline_comment.patterns[0].patterns[0].match  (/\*)((?>(?:[^*]|(?>\*+)[^/])*)((?>\*+)/))
-#inline_comment.patterns[0].patterns[0].captures[3].patterns[0].match  \*/
-#inline_comment.patterns[0].patterns[0].captures[3].patterns[1].match  \*
 #inline_comment.patterns[0].patterns[1].match  (/\*)((?:[^*]|\*++[^/])*+(\*++/))
 #inline_comment.patterns[0].patterns[1].captures[3].patterns[0].match  \*/
 #inline_comment.patterns[0].patterns[1].captures[3].patterns[1].match  \*
@@ -139,119 +77,25 @@ The groups of an unexercised expression count as unexercised and are not listed.
 #line_comment.patterns[1].begin  \s*+(//)
 #line_comment.patterns[1].end  (?<=\n)(?<!\\\n)
 #method_access.beginCaptures[4].patterns[2].match  groups 3
-#numbers.captures[0].patterns[0].patterns[0].match  \G(0[Xx])(\h(?:\h|((?<=\h)'(?=\h)))*)?((?<=\h)\.|\.(?=\h))(…
-#numbers.captures[0].patterns[0].patterns[0].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#numbers.captures[0].patterns[0].patterns[0].captures[5].patterns[0].match  (?<=\h)'(?=\h)
-#numbers.captures[0].patterns[0].patterns[0].captures[11].patterns[0].match  (?<=\h)'(?=\h)
-#numbers.captures[0].patterns[0].patterns[1].match  groups 3, 6, 8, 9, 10, 11, 12
-#numbers.captures[0].patterns[0].patterns[1].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#numbers.captures[0].patterns[0].patterns[1].captures[5].patterns[0].match  (?<=\h)'(?=\h)
-#numbers.captures[0].patterns[0].patterns[1].captures[11].patterns[0].match  (?<=\h)'(?=\h)
-#numbers.captures[0].patterns[0].patterns[2].match  \G(0[Bb])([01](?:[01]|((?<=\h)'(?=\h)))*)((?:(?:(?:(?:(?:[U…
-#numbers.captures[0].patterns[0].patterns[2].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#numbers.captures[0].patterns[0].patterns[3].match  \G(0)((?:[0-7]|((?<=\h)'(?=\h)))+)((?:(?:(?:(?:(?:[Uu]|[Uu]…
-#numbers.captures[0].patterns[0].patterns[3].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#numbers.captures[0].patterns[0].patterns[4].match  groups 3, 5, 6, 7, 8, 9
-#numbers.captures[0].patterns[0].patterns[4].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#numbers.captures[0].patterns[0].patterns[4].captures[8].patterns[0].match  (?<=\h)'(?=\h)
-#numbers.captures[0].patterns[0].patterns[5].match  groups 3, 5, 6, 7, 8
-#numbers.captures[0].patterns[0].patterns[5].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#numbers.captures[0].patterns[0].patterns[5].captures[8].patterns[0].match  (?<=\h)'(?=\h)
-#numbers.captures[0].patterns[0].patterns[6].match  (?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])+  fuzz
-#parens-block.patterns[1].match  (?-im:(?<!:):(?!:))
-#pragma-mark.match  ^\s*(((#)\s*pragma\s+mark)\s+(.*))
-#predefined_macros.patterns[0].match  \b(__cplusplus|__DATE__|__FILE__|__LINE__|__STDC__|__STDC_H…
-#predefined_macros.patterns[1].match  \b__([A-Z_]+)__\b  fuzz
+#numbers.captures[0].patterns[0].patterns[1].match  groups 9, 12
+#numbers.captures[0].patterns[0].patterns[4].match  groups 6, 7
+#numbers.captures[0].patterns[0].patterns[5].match  groups 7
 #preprocessor-rule-conditional-block.patterns[1].match  ^\s*#\s*(e(?:lse|lif|ndif))\b
-#preprocessor-rule-conditional-line.patterns[1].match  \bdefined\b
-#preprocessor-rule-conditional-line.patterns[5].begin  \?
-#preprocessor-rule-conditional-line.patterns[5].end  :
-#preprocessor-rule-define-line-contents.patterns[6].begin  '
-#preprocessor-rule-define-line-contents.patterns[6].end  '|(?<!\\)(?=\s*\n)
-#preprocessor-rule-disabled.patterns[0].patterns[5].begin  ^\s*((#)\s*elif)\b
-#preprocessor-rule-disabled.patterns[0].patterns[5].end  (?=^\s*((#)\s*e(?:lif|lse|ndif))\b)
-#preprocessor-rule-disabled.patterns[0].patterns[5].patterns[0].begin  \G(?=.)(?!/(?:/|\*(?!.*\\\s*\n)))
-#preprocessor-rule-disabled.patterns[0].patterns[5].patterns[0].end  (?=//)|(?=/\*(?!.*\\\s*\n))|(?<!\\)(?=\n)
-#preprocessor-rule-disabled-block.patterns[0].patterns[5].begin  ^\s*((#)\s*elif)\b
-#preprocessor-rule-disabled-block.patterns[0].patterns[5].end  (?=^\s*((#)\s*e(?:lif|lse|ndif))\b)
-#preprocessor-rule-disabled-block.patterns[0].patterns[5].patterns[0].begin  \G(?=.)(?!/(?:/|\*(?!.*\\\s*\n)))
-#preprocessor-rule-disabled-block.patterns[0].patterns[5].patterns[0].end  (?=//)|(?=/\*(?!.*\\\s*\n))|(?<!\\)(?=\n)
-#preprocessor-rule-disabled-elif.begin  ^\s*((#)\s*elif)\b(?=\s*\(*\b0+\b\)*\s*(?:$|//|/\*))
-#preprocessor-rule-disabled-elif.end  (?=^\s*((#)\s*e(?:lif|lse|ndif))\b)
-#preprocessor-rule-disabled-elif.patterns[0].begin  \G(?=.)(?!/(?:/|\*(?!.*\\\s*\n)))
-#preprocessor-rule-disabled-elif.patterns[0].end  (?=//)|(?=/\*(?!.*\\\s*\n))|(?<!\\)(?=\n)
-#preprocessor-rule-disabled-elif.patterns[2].begin  \n
-#preprocessor-rule-disabled-elif.patterns[2].end  (?=^\s*((#)\s*e(?:lse|lif|ndif))\b)
-#preprocessor-rule-enabled.patterns[0].begin  ^\s*((#)\s*if)\b(?=\s*\(*\b0*1\b\)*\s*(?:$|//|/\*))
-#preprocessor-rule-enabled.patterns[0].end  ^\s*((#)\s*endif)\b
-#preprocessor-rule-enabled.patterns[0].patterns[0].begin  \G(?=.)(?!/(?:/|\*(?!.*\\\s*\n)))
-#preprocessor-rule-enabled.patterns[0].patterns[0].end  (?=//)|(?=/\*(?!.*\\\s*\n))|(?=\n)
-#preprocessor-rule-enabled.patterns[0].patterns[2].begin  ^\s*((#)\s*else)\b
-#preprocessor-rule-enabled.patterns[0].patterns[2].end  (?=^\s*((#)\s*endif)\b)
-#preprocessor-rule-enabled.patterns[0].patterns[3].begin  ^\s*((#)\s*elif)\b
-#preprocessor-rule-enabled.patterns[0].patterns[3].end  (?=^\s*((#)\s*e(?:lse|lif|ndif))\b)
-#preprocessor-rule-enabled.patterns[0].patterns[4].begin  \n
-#preprocessor-rule-enabled.patterns[0].patterns[4].end  (?=^\s*((#)\s*e(?:lse|lif|ndif))\b)
-#preprocessor-rule-enabled-block.patterns[0].begin  ^\s*((#)\s*if)\b(?=\s*\(*\b0*1\b\)*\s*(?:$|//|/\*))
-#preprocessor-rule-enabled-block.patterns[0].end  ^\s*((#)\s*endif)\b
-#preprocessor-rule-enabled-block.patterns[0].patterns[0].begin  \G(?=.)(?!/(?:/|\*(?!.*\\\s*\n)))
-#preprocessor-rule-enabled-block.patterns[0].patterns[0].end  (?=//)|(?=/\*(?!.*\\\s*\n))|(?=\n)
-#preprocessor-rule-enabled-block.patterns[0].patterns[2].begin  ^\s*((#)\s*else)\b
-#preprocessor-rule-enabled-block.patterns[0].patterns[2].end  (?=^\s*((#)\s*endif)\b)
-#preprocessor-rule-enabled-block.patterns[0].patterns[3].begin  ^\s*((#)\s*elif)\b
-#preprocessor-rule-enabled-block.patterns[0].patterns[3].end  (?=^\s*((#)\s*e(?:lse|lif|ndif))\b)
-#preprocessor-rule-enabled-block.patterns[0].patterns[4].begin  \n
-#preprocessor-rule-enabled-block.patterns[0].patterns[4].end  (?=^\s*((#)\s*e(?:lse|lif|ndif))\b)
-#preprocessor-rule-enabled-elif.begin  ^\s*((#)\s*elif)\b(?=\s*\(*\b0*1\b\)*\s*(?:$|//|/\*))
-#preprocessor-rule-enabled-elif.end  (?=^\s*((#)\s*endif)\b)
-#preprocessor-rule-enabled-elif.patterns[0].begin  \G(?=.)(?!/(?:/|\*(?!.*\\\s*\n)))
-#preprocessor-rule-enabled-elif.patterns[0].end  (?=//)|(?=/\*(?!.*\\\s*\n))|(?<!\\)(?=\n)
-#preprocessor-rule-enabled-elif.patterns[2].begin  \n
-#preprocessor-rule-enabled-elif.patterns[2].end  (?=^\s*((#)\s*endif)\b)
-#preprocessor-rule-enabled-elif.patterns[2].patterns[0].begin  ^\s*((#)\s*(else))\b
-#preprocessor-rule-enabled-elif.patterns[2].patterns[0].end  (?=^\s*((#)\s*endif)\b)
-#preprocessor-rule-enabled-elif.patterns[2].patterns[1].begin  ^\s*((#)\s*(elif))\b
-#preprocessor-rule-enabled-elif.patterns[2].patterns[1].end  (?=^\s*((#)\s*e(?:lse|lif|ndif))\b)
-#preprocessor-rule-enabled-elif-block.begin  ^\s*((#)\s*elif)\b(?=\s*\(*\b0*1\b\)*\s*(?:$|//|/\*))
-#preprocessor-rule-enabled-elif-block.end  (?=^\s*((#)\s*endif)\b)
-#preprocessor-rule-enabled-elif-block.patterns[0].begin  \G(?=.)(?!/(?:/|\*(?!.*\\\s*\n)))
-#preprocessor-rule-enabled-elif-block.patterns[0].end  (?=//)|(?=/\*(?!.*\\\s*\n))|(?<!\\)(?=\n)
-#preprocessor-rule-enabled-elif-block.patterns[2].begin  \n
-#preprocessor-rule-enabled-elif-block.patterns[2].end  (?=^\s*((#)\s*endif)\b)
-#preprocessor-rule-enabled-elif-block.patterns[2].patterns[0].begin  ^\s*((#)\s*(else))\b
-#preprocessor-rule-enabled-elif-block.patterns[2].patterns[0].end  (?=^\s*((#)\s*endif)\b)
-#preprocessor-rule-enabled-elif-block.patterns[2].patterns[1].begin  ^\s*((#)\s*(elif))\b
-#preprocessor-rule-enabled-elif-block.patterns[2].patterns[1].end  (?=^\s*((#)\s*e(?:lse|lif|ndif))\b)
-#storage_types.patterns[3].begin  \b(__asm__|asm)\b\s*((?:volatile)?)
-#storage_types.patterns[3].end  (?!\G)
-#storage_types.patterns[3].patterns[0].match  ^((?:(?>\s+)|(/\*)((?>(?:[^*]|(?>\*+)[^/])*)((?>\*+)/)))+?|…
-#storage_types.patterns[3].patterns[0].captures[4].patterns[0].match  \*/
-#storage_types.patterns[3].patterns[0].captures[4].patterns[1].match  \*
-#storage_types.patterns[3].patterns[2].begin  (((?:(?>\s+)|(/\*)((?>(?:[^*]|(?>\*+)[^/])*)((?>\*+)/)))+?|…
-#storage_types.patterns[3].patterns[2].end  (\))
-#storage_types.patterns[3].patterns[2].patterns[0].begin  (R?)(")
-#storage_types.patterns[3].patterns[2].patterns[0].end  (")
-#storage_types.patterns[3].patterns[2].patterns[1].begin  (\()
-#storage_types.patterns[3].patterns[2].patterns[1].end  (\))
-#storage_types.patterns[3].patterns[2].patterns[2].match  \[((?:(?>\s+)|(/\*)((?>(?:[^*]|(?>\*+)[^/])*)((?>\*+)/)))+?…
+#preprocessor-rule-enabled.patterns[0].begin  groups 3
+#storage_types.patterns[3].patterns[2].begin  groups 2, 3, 4, 5
+#storage_types.patterns[3].patterns[2].patterns[0].begin  groups 1
+#storage_types.patterns[3].patterns[2].patterns[2].match  groups 1, 2, 3, 4, 6, 7, 8, 9
 #storage_types.patterns[3].patterns[2].patterns[2].captures[4].patterns[0].match  \*/
 #storage_types.patterns[3].patterns[2].patterns[2].captures[4].patterns[1].match  \*
 #storage_types.patterns[3].patterns[2].patterns[2].captures[9].patterns[0].match  \*/
 #storage_types.patterns[3].patterns[2].patterns[2].captures[9].patterns[1].match  \*
-#storage_types.patterns[3].patterns[2].patterns[3].match  :
 #storage_types.patterns[3].patterns[2].beginCaptures[5].patterns[0].match  \*/
 #storage_types.patterns[3].patterns[2].beginCaptures[5].patterns[1].match  \*
-#string_escaped_char.patterns[1].match  \\.  fuzz
-#string_placeholder.patterns[1].match  (%)(?!"\s*(PRI|SCN))
-#switch_conditional_parentheses.begin  groups 1, 2, 3, 4
-#switch_conditional_parentheses.beginCaptures[4].patterns[0].match  \*/
-#switch_conditional_parentheses.beginCaptures[4].patterns[1].match  \*
 #switch_statement.begin  groups 2, 3, 4, 5
 #switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)[\n\s]*
 #switch_statement.patterns[2].end  [\n\s]*(?=;)
 #switch_statement.beginCaptures[5].patterns[0].match  \*/
 #switch_statement.beginCaptures[5].patterns[1].match  \*
-#vararg_ellipses.match  (?<!\.)\.\.\.(?!\.)
 ```
 
 ### `cpp`
@@ -259,240 +103,66 @@ The groups of an unexercised expression count as unexercised and are not listed.
 ```text
 #access_control_keywords.match  groups 1, 2
 #access_control_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#alignas_attribute.begin  alignas\(
-#alignas_attribute.end  \)
-#alignas_attribute.patterns[1].begin  \(
-#alignas_attribute.patterns[1].end  \)
-#alignas_attribute.patterns[2].match  (using)\s+((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A…
-#alignas_attribute.patterns[3].match  ,
-#alignas_attribute.patterns[4].match  :
-#alignas_attribute.patterns[5].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#alignas_attribute.patterns[6].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#assembly.begin  \b(__asm__|asm)\b\s+{0,1}((?:volatile)?)  fuzz
-#assembly.end  (?!\G)  fuzz
-#assembly.patterns[0].match  ^((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#assembly.patterns[2].begin  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…  fuzz
-#assembly.patterns[2].end  \)  fuzz
-#assembly.patterns[2].patterns[0].begin  (R?)(")  fuzz
-#assembly.patterns[2].patterns[0].end  "  fuzz
-#assembly.patterns[2].patterns[1].begin  \(  fuzz
-#assembly.patterns[2].patterns[1].end  \)  fuzz
-#assembly.patterns[2].patterns[2].match  \[((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=…
-#assembly.patterns[2].patterns[3].match  :  fuzz
-#backslash_escapes.match  \\(["'?\\abefnprtv]|[0-3][0-7]{0,2}|[4-7]\d?|x\h{0,2}|u\h{0…
-#builtin_storage_type_initilizer.begin  \s*+(?<!\w)(?:(?:(?:(unsigned|wchar_t|double|signed|short|f…  fuzz
-#builtin_storage_type_initilizer.end  \)  fuzz
+#assembly.patterns[2].begin  groups 1, 2, 3, 4
+#assembly.patterns[2].patterns[0].begin  groups 1
+#assembly.patterns[2].patterns[2].match  groups 1, 2, 3, 4, 6, 7, 8, 9
+#builtin_storage_type_initilizer.begin  groups 2 (fuzz), 3, 4
 #case_statement.begin  groups 1, 2, 3, 4
-#class_block.begin  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20 (fuzz)
-#class_block.patterns[2].end  \s*(?=;)
-#class_block.beginCaptures[11].patterns[0].match  ((?<!\w)final(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#class_block.beginCaptures[11].patterns[1].match  groups 2, 3, 4, 5, 6, 7, 8, 9, 10
-#class_block.beginCaptures[11].patterns[2].match  DLLEXPORT
-#comments.patterns[0].patterns[1].match  (?<=[!*/\s])[@\\](?:callergraph|callgraph|else|endif|f\$|f\…  fuzz
-#comments.patterns[0].patterns[2].match  ((?<=[!*/\s])[@\\](?:a|em?))\s+(\S+)
-#comments.patterns[0].patterns[3].match  ((?<=[!*/\s])[@\\]b)\s+(\S+)
-#comments.patterns[0].patterns[4].match  ((?<=[!*/\s])[@\\][cp])\s+(\S+)  fuzz
-#comments.patterns[0].patterns[6].match  (?<=[!*/\s])[@\\](?:addindex|addtogroup|category|class|defg…
-#comments.patterns[0].patterns[7].match  ((?<=[!*/\s])[@\\]param)(?:\s*\[((?:,?\s+{0,1}(?:in|out)\s+…
-#comments.patterns[0].patterns[7].captures[2].patterns[0].match  in|out
-#comments.patterns[0].patterns[7].captures[3].patterns[0].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#comments.patterns[0].patterns[7].captures[3].patterns[1].match  ,
-#comments.patterns[0].patterns[8].match  (?<=[!*/\s])[@\\](?:arg|attention|authors??|brief|bug|copyr…
-#comments.patterns[0].patterns[10].match  \b[A-Z]+:|@[_a-z]+:
-#comments.patterns[1].captures[2].patterns[0].match  (?<=[!*/\s])[@\\](?:callergraph|callgraph|else|endif|f\$|f\…
-#comments.patterns[1].captures[2].patterns[1].match  ((?<=[!*/\s])[@\\](?:a|em?))\s+(\S+)
-#comments.patterns[1].captures[2].patterns[2].match  ((?<=[!*/\s])[@\\]b)\s+(\S+)
-#comments.patterns[1].captures[2].patterns[3].match  ((?<=[!*/\s])[@\\][cp])\s+(\S+)
-#comments.patterns[1].captures[2].patterns[5].match  (?<=[!*/\s])[@\\](?:addindex|addtogroup|category|class|defg…
-#comments.patterns[1].captures[2].patterns[6].match  ((?<=[!*/\s])[@\\]param)(?:\s*\[((?:,?\s+{0,1}(?:in|out)\s+…
-#comments.patterns[1].captures[2].patterns[6].captures[2].patterns[0].match  in|out
-#comments.patterns[1].captures[2].patterns[6].captures[3].patterns[0].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#comments.patterns[1].captures[2].patterns[6].captures[3].patterns[1].match  ,
-#comments.patterns[1].captures[2].patterns[7].match  (?<=[!*/\s])[@\\](?:arg|attention|authors??|brief|bug|copyr…  fuzz
-#comments.patterns[1].captures[2].patterns[8].match  (?<=[!*/\s])[@\\](?:code|cond|docbookonly|dot|htmlonly|inte…
-#comments.patterns[1].captures[2].patterns[9].match  \b[A-Z]+:|@[_a-z]+:
-#comments.patterns[2].patterns[1].match  ((?<=[!*/\s])[@\\](?:a|em?))\s+(\S+)  fuzz
-#comments.patterns[2].patterns[2].match  ((?<=[!*/\s])[@\\]b)\s+(\S+)  fuzz
-#comments.patterns[2].patterns[6].match  groups 2 (fuzz), 5, 6
-#comments.patterns[2].patterns[6].captures[2].patterns[0].match  in|out  fuzz
-#comments.patterns[2].patterns[6].captures[3].patterns[1].match  ,
-#comments.patterns[2].patterns[9].match  \b[A-Z]+:|@[_a-z]+:  fuzz
-#constructor_bracket_call.match  groups 2, 3, 4, 5, 6, 7 (fuzz), 8, 10, 11, 13, 14, 16, 17, 18 (fuzz), 20, 21
-#constructor_bracket_call.captures[1].patterns[0].match  ::  fuzz
-#constructor_bracket_call.captures[1].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)  fuzz
-#constructor_bracket_call.captures[4].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#constructor_bracket_call.captures[6].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#constructor_bracket_call.captures[7].patterns[0].match  ::  fuzz
-#constructor_bracket_call.captures[7].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…  fuzz
-#constructor_bracket_call.captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#constructor_bracket_call.captures[14].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#constructor_bracket_call.captures[21].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#constructor_inline.begin  groups 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14
-#constructor_inline.patterns[0].patterns[1].match  (=)((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
-#constructor_inline.patterns[0].patterns[3].patterns[0].begin  groups 2, 4, 5, 6
-#constructor_inline.patterns[0].patterns[3].patterns[1].begin  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#constructor_inline.patterns[0].patterns[3].patterns[1].end  }
+#class_block.begin  groups 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19
+#class_block.beginCaptures[11].patterns[0].match  groups 2, 3, 4, 5
+#class_block.beginCaptures[11].patterns[1].match  groups 2, 3, 4, 5, 7, 8, 9, 10
+#constructor_bracket_call.match  groups 17, 18 (fuzz)
+#constructor_inline.begin  groups 6, 7, 8, 9, 10, 11, 12, 13, 14
+#constructor_inline.patterns[0].patterns[1].match  groups 2, 3, 4, 5
+#constructor_inline.patterns[0].patterns[3].patterns[0].begin  groups 4, 5, 6
 #constructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #constructor_inline.patterns[2].end  \s*(?=;)
-#constructor_root.begin  \s*+((?:__(?:cdec|clrcal|stdcal|fastcal|thiscal|vectorcal)l…
-#constructor_root.end  (?<=}|%>|\?\?>)|(?=[];=>\[])
-#constructor_root.patterns[0].begin  \G ?
-#constructor_root.patterns[0].end  \{|<%|\?\?<|(?=;)
-#constructor_root.patterns[0].patterns[1].match  (=)((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
-#constructor_root.patterns[0].patterns[3].begin  :
-#constructor_root.patterns[0].patterns[3].end  (?=\{)
-#constructor_root.patterns[0].patterns[3].patterns[0].begin  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#constructor_root.patterns[0].patterns[3].patterns[0].end  \)
-#constructor_root.patterns[0].patterns[3].patterns[1].begin  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#constructor_root.patterns[0].patterns[3].patterns[1].end  }
-#constructor_root.patterns[0].patterns[3].patterns[2].match  ,
-#constructor_root.patterns[0].patterns[4].begin  \(
-#constructor_root.patterns[0].patterns[4].end  \)
-#constructor_root.patterns[1].begin  (?<=\{|<%|\?\?<)
-#constructor_root.patterns[1].end  }|%>|\?\?>
+#constructor_root.begin  groups 7
+#constructor_root.patterns[0].patterns[1].match  groups 2, 3, 4, 5
+#constructor_root.patterns[0].patterns[3].patterns[0].begin  groups 2, 4, 5, 6
 #constructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #constructor_root.patterns[2].end  \s*(?=;)
-#constructor_root.beginCaptures[6].patterns[0].match  ::
-#constructor_root.beginCaptures[6].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#constructor_root.beginCaptures[9].patterns[0].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#constructor_root.beginCaptures[9].patterns[1].match  (?<=:)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?…
-#constructor_root.beginCaptures[9].patterns[2].match  ::
 #control_flow_keywords.match  groups 1, 2
 #control_flow_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#cpp_attributes.begin  \[\[  fuzz
-#cpp_attributes.end  ]]  fuzz
-#cpp_attributes.patterns[1].begin  \(
-#cpp_attributes.patterns[1].end  \)
-#cpp_attributes.patterns[2].match  (using)\s+((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A…
-#cpp_attributes.patterns[3].match  ,
-#cpp_attributes.patterns[4].match  :
-#cpp_attributes.patterns[5].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#cpp_attributes.patterns[6].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…  fuzz
-#curly_initializer.begin  (\s*+((?:(?:(?:\[\[.*?]]|__attribute(?:__)?\s*\(\s*\(.*?\)\…  fuzz
-#curly_initializer.end  }  fuzz
-#curly_initializer.patterns[0].begin  (\.)((?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:…  fuzz
-#curly_initializer.patterns[0].end  (,)|(?=})  fuzz
-#curly_initializer.beginCaptures[1].patterns[0].match  ::
-#curly_initializer.beginCaptures[1].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#curly_initializer.beginCaptures[1].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…  fuzz
-#curly_initializer.beginCaptures[11].patterns[0].match  ::
-#curly_initializer.beginCaptures[11].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
+#curly_initializer.begin  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 16, 17, 19, 20, 21, 22
 #decltype.begin  groups 2, 3, 4, 5
 #default_statement.begin  groups 1, 2, 3, 4
 #destructor_inline.begin  groups 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14
 #destructor_inline.patterns[0].patterns[1].match  groups 2, 3, 4, 5, 7
 #destructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #destructor_inline.patterns[2].end  \s*(?=;)
-#destructor_root.begin  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#destructor_root.end  (?<=}|%>|\?\?>)|(?=[];=>\[])
-#destructor_root.patterns[0].begin  \G ?
-#destructor_root.patterns[0].end  \{|<%|\?\?<|(?=;)
-#destructor_root.patterns[0].patterns[1].match  (=)((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
-#destructor_root.patterns[0].patterns[2].begin  \(
-#destructor_root.patterns[0].patterns[2].end  \)
-#destructor_root.patterns[1].begin  (?<=\{|<%|\?\?<)
-#destructor_root.patterns[1].end  }|%>|\?\?>
+#destructor_root.begin  groups 1, 2, 3, 4, 11
+#destructor_root.patterns[0].patterns[1].match  groups 2, 3, 4, 5
 #destructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #destructor_root.patterns[2].end  \s*(?=;)
-#destructor_root.beginCaptures[10].patterns[0].match  ::
-#destructor_root.beginCaptures[10].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#destructor_root.beginCaptures[13].patterns[0].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#destructor_root.beginCaptures[13].patterns[1].match  (?<=:)~(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#destructor_root.beginCaptures[13].patterns[2].match  ::
 #diagnostic.begin  groups 2 (fuzz), 3 (fuzz), 4 (fuzz), 5 (fuzz)
-#diagnostic.patterns[1].begin  "  fuzz
-#diagnostic.patterns[1].end  (")|(?<!\\)(?:(?=\n)|(?<=(?:^|[^\\])\n)(?=$))  fuzz
-#diagnostic.patterns[2].begin  '
-#diagnostic.patterns[2].end  (')|(?<!\\)(?:(?=\n)|(?<=(?:^|[^\\])\n)(?=$))
-#emacs_file_banner.match  ^(?:(\s+{0,1}((//)\s+{0,1}([#*/;=C~]++(?![#*/;=C~]))\s+{0,1…  fuzz
-#enum_block.begin  groups 3, 5 (fuzz), 6, 7, 8, 10, 11, 13, 14, 15, 16, 17 (fuzz)
-#enum_block.end  groups 2 (fuzz)
-#enum_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*  fuzz
-#enum_block.patterns[2].end  \s*(?=;)  fuzz
+#emacs_file_banner.match  groups 5 (fuzz), 6 (fuzz), 7 (fuzz), 8 (fuzz)
+#enum_block.begin  groups 3, 6, 7, 8, 11, 13, 14, 15
 #enumerator_list.match  groups 2
 #exception_keywords.match  (((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+)+)|\s++|(?<=\W)|(?…
 #exception_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
 #extern_block.begin  groups 1, 2, 3, 4
 #extern_block.end  groups 1
-#extern_block.patterns[0].end  groups 0 (fuzz)
-#extern_block.patterns[1].begin  (?<=\{|<%|\?\?<)  fuzz
-#extern_block.patterns[1].end  }|%>|\?\?>
-#extern_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#extern_block.patterns[2].end  \s*(?=;)
 #function_call.patterns[0].begin  groups 1 (fuzz), 2, 3, 6, 7, 8, 9, 10, 12, 13, 14
-#function_call.patterns[1].begin  groups 6, 7, 8, 9, 12, 13, 14
-#function_definition.begin  groups 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 26, 27, 28, 29, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 50, 51, 54, 55, 56, 57
+#function_definition.begin  groups 1, 2, 3, 4, 5, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 26, 27, 28, 29, 32, 33, 34, 35, 36, 37, 38, 39, 44, 45, 46, 47, 48, 50, 54 (fuzz), 55 (fuzz), 56 (fuzz), 57 (fuzz)
 #function_definition.patterns[0].patterns[2].match  groups 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 19, 20, 21, 22
-#function_definition.patterns[0].patterns[2].captures[6].patterns[0].match  ::
-#function_definition.patterns[0].patterns[2].captures[6].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
 #function_definition.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #function_definition.patterns[2].end  \s*(?=;)
-#function_definition.beginCaptures[7].patterns[0].match  groups 2, 3, 4, 5
-#function_definition.beginCaptures[13].patterns[0].match  ::
-#function_definition.beginCaptures[13].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#function_definition.beginCaptures[31].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#function_pointer.begin  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 35, 36, 37
+#function_definition.beginCaptures[31].patterns[1].match  groups 1, 2, 3, 4
+#function_pointer.begin  groups 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 16, 17, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 35, 36, 37
 #function_pointer.end  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
-#function_pointer.beginCaptures[1].patterns[0].match  ::
-#function_pointer.beginCaptures[1].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#function_pointer.beginCaptures[1].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#function_pointer.beginCaptures[11].patterns[0].match  ::
-#function_pointer.beginCaptures[11].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#function_pointer.beginCaptures[19].patterns[0].match  \*
-#function_pointer.beginCaptures[19].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#function_pointer.beginCaptures[19].patterns[2].match  &
-#function_pointer_parameter.begin  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 35, 36, 37
+#function_pointer.beginCaptures[19].patterns[1].match  groups 1, 2, 3, 4
+#function_pointer_parameter.begin  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 16, 17, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 35, 36, 37
 #function_pointer_parameter.end  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
-#function_pointer_parameter.beginCaptures[1].patterns[0].match  ::
-#function_pointer_parameter.beginCaptures[1].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#function_pointer_parameter.beginCaptures[1].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#function_pointer_parameter.beginCaptures[11].patterns[0].match  ::
-#function_pointer_parameter.beginCaptures[11].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#function_pointer_parameter.beginCaptures[19].patterns[0].match  \*
-#function_pointer_parameter.beginCaptures[19].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#function_pointer_parameter.beginCaptures[19].patterns[2].match  &
-#gcc_attributes.begin  __attribute(?:__)?\s*\(\s*\(  fuzz
-#gcc_attributes.end  \)\s*\)  fuzz
-#gcc_attributes.patterns[1].begin  \(
-#gcc_attributes.patterns[1].end  \)
-#gcc_attributes.patterns[2].match  (using)\s+((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A…
-#gcc_attributes.patterns[3].match  ,
-#gcc_attributes.patterns[4].match  :
-#gcc_attributes.patterns[5].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#gcc_attributes.patterns[6].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…  fuzz
-#goto_statement.match  (((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+)+)|\s++|(?<=\W)|(?…  fuzz
+#function_pointer_parameter.beginCaptures[19].patterns[1].match  groups 1, 2, 3, 4
+#goto_statement.match  groups 1, 2
 #goto_statement.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#goto_statement.captures[5].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#include.match  groups 1 (fuzz), 2 (fuzz), 9, 10, 14, 15, 16, 17, 18, 19, 20, 21, 22
-#include.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  fuzz
-#include.captures[10].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#include.captures[15].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#include.captures[18].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#include.captures[20].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#include.captures[22].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#inheritance_context.patterns[1].match  ,  fuzz
-#inheritance_context.patterns[3].match  (?<!\w)virtual(?!\w)
-#inheritance_context.patterns[4].match  groups 2, 3, 4, 5, 6, 8, 10, 11
-#inheritance_context.patterns[4].captures[1].patterns[0].match  ::
-#inheritance_context.patterns[4].captures[1].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#inheritance_context.patterns[4].captures[4].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#inheritance_context.patterns[4].captures[6].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#inheritance_context.patterns[4].captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#inline_builtin_storage_type.match  groups 3 (fuzz)
-#inline_comment.match  (/\*)((?:[^*]++|\*+(?!/))*+(\*/))  fuzz
-#invalid_comment_end.match  \*/  fuzz
-#label.match  (((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+)+)|\s++|(?<=\W)|(?…  fuzz
+#label.match  groups 1, 2
 #label.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#label.captures[5].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
 #lambdas.begin  groups 5, 6, 7, 8
-#lambdas.patterns[1].match  (?<!\w)(?:constexpr|consteval|mutable)(?!\w)  fuzz
-#lambdas.beginCaptures[2].patterns[1].match  groups 2, 3, 4, 5, 6, 7
-#line.begin  ^((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…  fuzz
-#line.end  (?<!\\)(?:(?=\n)|(?<=(?:^|[^\\])\n)(?=$))  fuzz
+#lambdas.beginCaptures[2].patterns[1].match  groups 2, 3, 4, 5
 #macro.begin  groups 2, 3, 4, 5
-#macro.patterns[0].captures[2].patterns[2].match  \.\.\.
-#macro_argument.match  ##?(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\…  fuzz
-#member_access.match  groups 1, 2, 6 (fuzz), 7
+#member_access.match  groups 1, 2
 #member_access.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
 #member_access.captures[11].patterns[0].match  groups 1, 2, 3, 4, 5, 8, 9, 10
 #member_access.captures[11].patterns[1].match  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
@@ -503,1050 +173,284 @@ The groups of an unexercised expression count as unexercised and are not listed.
 #method_access.beginCaptures[13].patterns[1].match  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
 #misc_keywords.match  groups 1, 2
 #misc_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#ms_attributes.begin  __declspec\(  fuzz
-#ms_attributes.end  \)  fuzz
-#ms_attributes.patterns[1].begin  \(
-#ms_attributes.patterns[1].end  \)
-#ms_attributes.patterns[2].match  (using)\s+((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A…
-#ms_attributes.patterns[3].match  ,
-#ms_attributes.patterns[4].match  :
-#ms_attributes.patterns[5].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#ms_attributes.patterns[6].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…  fuzz
-#namespace_alias.match  (?<!\w)(namespace)\s+((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8…  fuzz
-#namespace_block.patterns[0].patterns[4].match  groups 1 (fuzz), 2, 3, 6, 7
+#namespace_alias.match  groups 6, 7
+#namespace_block.patterns[0].patterns[4].match  groups 2, 3, 6, 7
 #namespace_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #namespace_block.patterns[2].end  \s*(?=;)
-#normal_variable_assignment.begin  groups 1, 2, 3, 4, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 27, 28, 29, 30, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 48, 50, 51, 52, 53, 54, 55
-#normal_variable_assignment.beginCaptures[14].patterns[0].match  ::
-#normal_variable_assignment.beginCaptures[14].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#normal_variable_assignment.beginCaptures[32].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#normal_variable_declaration.begin  groups 1, 2, 3, 4, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 27, 28, 29, 30, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 48, 50, 51, 52, 53
-#normal_variable_declaration.beginCaptures[14].patterns[0].match  ::
-#normal_variable_declaration.beginCaptures[32].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#number_literal.captures[0].patterns[0].patterns[0].match  \G(0[Xx])(\h(?:\h|((?<=\h)'(?=\h)))*)?((?<=\h)\.|\.(?=\h))(…
-#number_literal.captures[0].patterns[0].patterns[0].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#number_literal.captures[0].patterns[0].patterns[0].captures[5].patterns[0].match  (?<=\h)'(?=\h)
-#number_literal.captures[0].patterns[0].patterns[0].captures[10].patterns[0].match  (?<=\h)'(?=\h)
-#number_literal.captures[0].patterns[0].patterns[1].match  groups 2, 5 (fuzz), 6, 7, 8, 9, 10 (fuzz), 11 (fuzz)
-#number_literal.captures[0].patterns[0].patterns[1].captures[1].patterns[0].match  (?<=\h)'(?=\h)
-#number_literal.captures[0].patterns[0].patterns[1].captures[4].patterns[0].match  (?<=\h)'(?=\h)  fuzz
-#number_literal.captures[0].patterns[0].patterns[1].captures[9].patterns[0].match  (?<=\h)'(?=\h)
-#number_literal.captures[0].patterns[0].patterns[2].match  \G(0[Bb])([01](?:[01]|((?<=\h)'(?=\h)))*)((?:[Uu]|[Uu]ll?|[…  fuzz
-#number_literal.captures[0].patterns[0].patterns[2].captures[2].patterns[0].match  (?<=\h)'(?=\h)  fuzz
-#number_literal.captures[0].patterns[0].patterns[3].match  \G(0)((?:[0-7]|((?<=\h)'(?=\h)))+)((?:[Uu]|[Uu]ll?|[Uu]LL?|…  fuzz
-#number_literal.captures[0].patterns[0].patterns[3].captures[2].patterns[0].match  (?<=\h)'(?=\h)  fuzz
-#number_literal.captures[0].patterns[0].patterns[4].match  groups 3, 4 (fuzz), 5, 6 (fuzz), 7 (fuzz), 8 (fuzz), 9 (fuzz)
-#number_literal.captures[0].patterns[0].patterns[4].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#number_literal.captures[0].patterns[0].patterns[4].captures[7].patterns[0].match  (?<=\h)'(?=\h)
-#number_literal.captures[0].patterns[0].patterns[5].match  groups 2 (fuzz), 3 (fuzz), 4, 5, 6 (fuzz), 8 (fuzz)
-#number_literal.captures[0].patterns[0].patterns[5].captures[1].patterns[0].match  (?<=\h)'(?=\h)  fuzz
-#number_literal.captures[0].patterns[0].patterns[5].captures[6].patterns[0].match  (?<=\h)'(?=\h)
-#number_literal.captures[0].patterns[0].patterns[6].match  (?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])+  fuzz
-#operator_overload.begin  groups 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 (fuzz), 46, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 62 (fuzz), 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77 (fuzz), 78, 79, 80, 81, 82 (fuzz), 83, 84, 85, 86
-#operator_overload.patterns[0].patterns[4].match  (=)((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
+#normal_variable_assignment.begin  groups 1, 2, 3, 4, 15, 16, 17, 18, 19, 54, 55
+#normal_variable_assignment.beginCaptures[32].patterns[1].match  groups 1, 2, 3, 4
+#normal_variable_declaration.begin  groups 1, 2, 3, 4, 7, 8, 9, 10, 11, 12, 13, 16, 17, 18, 19, 20, 21, 22, 23, 25, 27, 28, 29, 30, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 50, 51, 52, 53
+#normal_variable_declaration.beginCaptures[32].patterns[1].match  groups 1, 2, 3, 4
+#number_literal.captures[0].patterns[0].patterns[0].match  groups 8, 9, 11, 12
+#number_literal.captures[0].patterns[0].patterns[1].match  groups 7, 11 (fuzz)
+#number_literal.captures[0].patterns[0].patterns[2].match  groups 5 (fuzz)
+#number_literal.captures[0].patterns[0].patterns[3].match  groups 5 (fuzz)
+#number_literal.captures[0].patterns[0].patterns[4].match  groups 5, 6 (fuzz), 9 (fuzz)
+#number_literal.captures[0].patterns[0].patterns[5].match  groups 4
+#operator_overload.begin  groups 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 18, 19, 20, 21, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 46, 49, 50, 51, 52, 54, 55, 56, 57, 59, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77 (fuzz), 78, 79, 80, 81, 82 (fuzz), 83, 84, 85, 86
+#operator_overload.patterns[0].patterns[4].match  groups 2, 3, 4, 5
 #operator_overload.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #operator_overload.patterns[2].end  \s*(?=;)
-#operator_overload.beginCaptures[5].patterns[0].match  ::
-#operator_overload.beginCaptures[5].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#operator_overload.beginCaptures[15].patterns[0].match  ::
-#operator_overload.beginCaptures[15].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#operator_overload.beginCaptures[23].patterns[0].match  \*
-#operator_overload.beginCaptures[23].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#operator_overload.beginCaptures[45].patterns[0].match  ::  fuzz
-#operator_overload.beginCaptures[45].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…  fuzz
-#operator_overload.beginCaptures[58].patterns[0].match  ::
-#operator_overload.beginCaptures[58].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#operator_overload.beginCaptures[63].patterns[0].match  \*
-#operator_overload.beginCaptures[63].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#operator_overload.beginCaptures[63].patterns[2].match  &
+#operator_overload.beginCaptures[23].patterns[1].match  groups 1, 2, 3, 4
+#operator_overload.beginCaptures[63].patterns[1].match  groups 1, 2, 3, 4
 #operators.patterns[0].begin  groups 2, 3, 4, 5
-#operators.patterns[1].begin  ((?<!\w)alignof(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\…  fuzz
-#operators.patterns[1].end  \)  fuzz
-#operators.patterns[2].begin  ((?<!\w)alignas(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\…  fuzz
-#operators.patterns[2].end  \)  fuzz
-#operators.patterns[3].begin  ((?<!\w)typeid(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*…  fuzz
-#operators.patterns[3].end  \)  fuzz
-#operators.patterns[4].begin  ((?<!\w)noexcept(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(…  fuzz
-#operators.patterns[4].end  \)  fuzz
+#operators.patterns[1].begin  groups 2, 3, 4, 5
+#operators.patterns[2].begin  groups 2, 3, 4, 5
+#operators.patterns[3].begin  groups 2, 3, 4, 5
+#operators.patterns[4].begin  groups 2, 3, 4, 5
 #operators.patterns[5].begin  groups 2, 3, 4, 5
 #operators.patterns[12].match  groups 2
-#over_qualified_types.patterns[0].match  \b(struct)(((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+)+)|\s++|…
-#over_qualified_types.patterns[0].captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[0].captures[6].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[0].captures[7].patterns[0].match  \*
-#over_qualified_types.patterns[0].captures[7].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#over_qualified_types.patterns[0].captures[7].patterns[2].match  &
+#over_qualified_types.patterns[0].match  groups 8, 9
+#over_qualified_types.patterns[0].captures[7].patterns[1].match  groups 1, 2, 3, 4
 #over_qualified_types.patterns[0].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[0].captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[0].captures[13].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[0].captures[16].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[0].captures[18].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[0].captures[20].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[1].match  \b(enum)(((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+)+)|\s++|(?…
-#over_qualified_types.patterns[1].captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[1].captures[6].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[1].captures[7].patterns[0].match  \*
-#over_qualified_types.patterns[1].captures[7].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#over_qualified_types.patterns[1].captures[7].patterns[2].match  &
+#over_qualified_types.patterns[1].match  groups 8, 9
+#over_qualified_types.patterns[1].captures[7].patterns[1].match  groups 1, 2, 3, 4
 #over_qualified_types.patterns[1].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[1].captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[1].captures[13].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[1].captures[16].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[1].captures[18].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[1].captures[20].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[2].match  \b(union)(((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+)+)|\s++|(…
-#over_qualified_types.patterns[2].captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[2].captures[6].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[2].captures[7].patterns[0].match  \*
-#over_qualified_types.patterns[2].captures[7].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#over_qualified_types.patterns[2].captures[7].patterns[2].match  &
+#over_qualified_types.patterns[2].match  groups 8, 9
+#over_qualified_types.patterns[2].captures[7].patterns[1].match  groups 1, 2, 3, 4
 #over_qualified_types.patterns[2].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[2].captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[2].captures[13].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[2].captures[16].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[2].captures[18].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[2].captures[20].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[3].match  \b(class)(((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+)+)|\s++|(…  fuzz
-#over_qualified_types.patterns[3].captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[3].captures[6].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[3].captures[7].patterns[0].match  \*
-#over_qualified_types.patterns[3].captures[7].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#over_qualified_types.patterns[3].captures[7].patterns[2].match  &
+#over_qualified_types.patterns[3].match  groups 8, 9
+#over_qualified_types.patterns[3].captures[7].patterns[1].match  groups 1, 2, 3, 4
 #over_qualified_types.patterns[3].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[3].captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[3].captures[13].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[3].captures[16].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[3].captures[18].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[3].captures[20].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
 #parameter.begin  groups 1, 2, 3, 4
-#parameter.patterns[5].match  ((?:(thread_local|volatile|register|restrict|static|extern|…
-#parameter.patterns[8].match  (?<!\w)(?:struct|class|union|enum)(?!\w)  fuzz
-#parameter.patterns[11].match  groups 1, 2, 3, 4, 6, 7, 8, 9
-#parameter.patterns[13].begin  \[  fuzz
-#parameter.patterns[13].end  ]  fuzz
+#parameter.patterns[5].match  groups 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19
+#parameter.patterns[11].match  groups 1, 2, 3, 4
 #parameter.patterns[16].match  groups 1, 2, 3, 4, 5, 6, 7, 8
-#parameter.patterns[16].captures[0].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
+#parameter.patterns[16].captures[0].patterns[1].match  groups 1, 2, 3, 4
 #parameter_or_maybe_value.begin  groups 1, 2, 3, 4
-#parameter_or_maybe_value.patterns[7].match  ((?:(thread_local|volatile|register|restrict|static|extern|…
-#parameter_or_maybe_value.patterns[11].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
+#parameter_or_maybe_value.patterns[7].match  groups 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19
 #parameter_or_maybe_value.patterns[12].end  groups 1
-#parameter_or_maybe_value.patterns[13].match  groups 1, 2, 3, 4, 6, 7, 8, 9
-#parameter_or_maybe_value.patterns[18].match  groups 1, 2, 3, 4, 5, 6, 7, 8
-#parameter_or_maybe_value.patterns[18].captures[0].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#parentheses.patterns[2].match  (?<!:):(?!:)  fuzz
+#parameter_or_maybe_value.patterns[13].match  groups 1, 2, 3, 4
+#parameter_or_maybe_value.patterns[18].match  groups 1, 2, 3, 4
+#parameter_or_maybe_value.patterns[18].captures[0].patterns[1].match  groups 1, 2, 3, 4
 #pragma.begin  groups 1, 2, 3, 4
-#pragma_mark.match  ^((((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+)+)|\s++|(?<=\W)|…  fuzz
-#pragma_mark.captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
 #preprocessor_conditional_range.begin  groups 1, 2, 3, 4
-#preprocessor_conditional_standalone.match  groups 1, 2
-#preprocessor_conditional_standalone.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#preprocessor_number_literal.captures[0].patterns[0].patterns[0].match  \G(0[Xx])(\h(?:\h|((?<=\h)'(?=\h)))*)?((?<=\h)\.|\.(?=\h))(…
-#preprocessor_number_literal.captures[0].patterns[0].patterns[0].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#preprocessor_number_literal.captures[0].patterns[0].patterns[0].captures[5].patterns[0].match  (?<=\h)'(?=\h)
-#preprocessor_number_literal.captures[0].patterns[0].patterns[0].captures[10].patterns[0].match  (?<=\h)'(?=\h)
-#preprocessor_number_literal.captures[0].patterns[0].patterns[1].match  \G(?=[.0-9])(?!0[BXbx])([0-9](?:[0-9]|((?<=\h)'(?=\h)))*)?(…  fuzz
-#preprocessor_number_literal.captures[0].patterns[0].patterns[1].captures[1].patterns[0].match  (?<=\h)'(?=\h)
-#preprocessor_number_literal.captures[0].patterns[0].patterns[1].captures[4].patterns[0].match  (?<=\h)'(?=\h)
-#preprocessor_number_literal.captures[0].patterns[0].patterns[1].captures[9].patterns[0].match  (?<=\h)'(?=\h)
-#preprocessor_number_literal.captures[0].patterns[0].patterns[2].match  \G(0[Bb])([01](?:[01]|((?<=\h)'(?=\h)))*)((?:[Uu]|[Uu]ll?|[…
-#preprocessor_number_literal.captures[0].patterns[0].patterns[2].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#preprocessor_number_literal.captures[0].patterns[0].patterns[3].match  \G(0)((?:[0-7]|((?<=\h)'(?=\h)))+)((?:[Uu]|[Uu]ll?|[Uu]LL?|…  fuzz
-#preprocessor_number_literal.captures[0].patterns[0].patterns[3].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#preprocessor_number_literal.captures[0].patterns[0].patterns[4].match  \G(0[Xx])(\h(?:\h|((?<=\h)'(?=\h)))*)(?:(?<!')([Pp])(\+?)(-…  fuzz
-#preprocessor_number_literal.captures[0].patterns[0].patterns[4].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#preprocessor_number_literal.captures[0].patterns[0].patterns[4].captures[7].patterns[0].match  (?<=\h)'(?=\h)
-#preprocessor_number_literal.captures[0].patterns[0].patterns[5].match  groups 2, 3 (fuzz), 4, 5, 6 (fuzz)
-#preprocessor_number_literal.captures[0].patterns[0].patterns[5].captures[1].patterns[0].match  (?<=\h)'(?=\h)
-#preprocessor_number_literal.captures[0].patterns[0].patterns[5].captures[6].patterns[0].match  (?<=\h)'(?=\h)
-#preprocessor_number_literal.captures[0].patterns[0].patterns[6].match  (?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])+  fuzz
-#qualified_type.match  groups 1 (fuzz), 2, 3, 4, 5, 7, 9, 10
-#qualified_type.captures[0].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)  fuzz
-#qualified_type.captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#qualified_type.captures[5].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#qualified_type.captures[6].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#qualified_type.captures[10].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#qualifiers_and_specifiers_post_parameters.patterns[0].begin  ((?<!\w)requires(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(…  fuzz
-#qualifiers_and_specifiers_post_parameters.patterns[0].end  \)  fuzz
+#preprocessor_number_literal.captures[0].patterns[0].patterns[0].match  groups 8, 9, 11
+#preprocessor_number_literal.captures[0].patterns[0].patterns[1].match  groups 7, 8, 10 (fuzz)
+#preprocessor_number_literal.captures[0].patterns[0].patterns[2].match  groups 4
+#preprocessor_number_literal.captures[0].patterns[0].patterns[3].match  groups 4
+#preprocessor_number_literal.captures[0].patterns[0].patterns[4].match  groups 5, 6 (fuzz), 8 (fuzz)
+#preprocessor_number_literal.captures[0].patterns[0].patterns[5].match  groups 4, 5
+#qualifiers_and_specifiers_post_parameters.patterns[0].begin  groups 2, 3, 4, 5
 #qualifiers_and_specifiers_post_parameters.patterns[1].captures[1].patterns[0].match  groups 1, 2, 3, 4
-#range_for_inner.patterns[0].match  groups 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 23, 24, 25, 26, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 42, 43, 44, 45
-#range_for_inner.patterns[0].captures[10].patterns[0].match  ::
-#range_for_inner.patterns[0].captures[10].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#range_for_inner.patterns[0].captures[28].patterns[0].match  \*
-#range_for_inner.patterns[0].captures[28].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#range_for_inner.patterns[1].match  ((?:((?:(?:(?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\…  fuzz
-#range_for_inner.patterns[1].captures[10].patterns[0].match  ::
-#range_for_inner.patterns[1].captures[10].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#range_for_inner.patterns[1].captures[10].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#range_for_inner.patterns[1].captures[20].patterns[0].match  ::
-#range_for_inner.patterns[1].captures[20].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#range_for_inner.patterns[1].captures[28].patterns[0].match  \*
-#range_for_inner.patterns[1].captures[28].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#range_for_inner.patterns[1].captures[28].patterns[2].match  &  fuzz
-#scope_resolution_function_call_inner_generated.match  groups 2, 3, 8, 9, 10
-#scope_resolution_function_definition_inner_generated.match  groups 1, 2, 3, 6, 8, 9, 10
-#scope_resolution_inner_generated.match  groups 2, 3, 8, 9, 10
-#scope_resolution_namespace_alias_inner_generated.match  ((::)?(?:(?!\b(?:__has_cpp_attribute|reinterpret_cast|atomi…  fuzz
-#scope_resolution_namespace_block_inner_generated.match  ((::)?(?:(?!\b(?:__has_cpp_attribute|reinterpret_cast|atomi…  fuzz
-#scope_resolution_namespace_using_inner_generated.match  ((::)?(?:(?!\b(?:__has_cpp_attribute|reinterpret_cast|atomi…
-#scope_resolution_parameter_inner_generated.match  groups 2, 3, 6, 8, 9, 10
+#range_for_inner.patterns[0].match  groups 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 23, 24, 25, 26, 33, 42, 43, 44, 45
+#range_for_inner.patterns[0].captures[28].patterns[1].match  groups 1, 2, 3, 4
+#range_for_inner.patterns[1].match  groups 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 23, 24, 25, 26, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 42, 43, 44, 45, 47, 48, 49, 50, 52, 53, 54, 55, 57, 58, 59, 60, 62, 63, 64, 65
+#range_for_inner.patterns[1].captures[28].patterns[1].match  groups 1, 2, 3, 4
+#scope_resolution_function_call_inner_generated.match  groups 8, 9, 10
+#scope_resolution_function_definition_inner_generated.match  groups 2, 3, 8, 9, 10
+#scope_resolution_inner_generated.match  groups 8, 9, 10
+#scope_resolution_namespace_alias_inner_generated.match  groups 1, 2, 3, 6, 8, 9, 10
+#scope_resolution_namespace_block_inner_generated.match  groups 2, 3, 6, 8, 9, 10
+#scope_resolution_namespace_using_inner_generated.match  groups 1, 2, 3, 6, 8, 9, 10
+#scope_resolution_parameter_inner_generated.match  groups 2, 8, 9, 10
 #scope_resolution_template_call_inner_generated.match  groups 2, 3, 8, 9, 10
 #scope_resolution_template_definition_inner_generated.match  groups 1, 2, 3, 8, 9, 10
-#simple_array_assignment.match  groups 2, 3, 4, 5, 6, 7, 8, 10, 11, 14, 15, 16, 17, 18, 19, 23, 24, 27, 28, 29, 30
-#simple_array_assignment.captures[1].patterns[0].match  ::
-#simple_array_assignment.captures[1].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#simple_array_assignment.captures[1].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#simple_array_assignment.captures[4].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#simple_array_assignment.captures[6].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#simple_array_assignment.captures[7].patterns[0].match  ::
-#simple_array_assignment.captures[7].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#simple_array_assignment.captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#simple_array_assignment.captures[13].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#simple_array_assignment.captures[13].patterns[2].match  &
-#simple_array_assignment.captures[15].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#simple_array_assignment.captures[17].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#simple_array_assignment.captures[19].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#simple_array_assignment.captures[28].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#simple_constructor_call.match  groups 2 (fuzz), 3, 4, 5, 6, 7, 8, 10, 11, 13, 14, 15, 16
-#simple_constructor_call.captures[1].patterns[0].match  ::
-#simple_constructor_call.captures[1].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#simple_constructor_call.captures[4].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#simple_constructor_call.captures[6].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#simple_constructor_call.captures[7].patterns[0].match  ::
-#simple_constructor_call.captures[7].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#simple_constructor_call.captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#simple_constructor_call.captures[14].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+#simple_array_assignment.match  groups 23, 24, 29, 30
+#simple_array_assignment.captures[13].patterns[1].match  groups 1, 2, 3, 4
 #simple_constructor_call.captures[16].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[0].match  ((?<!\w)struct(?!\w))(((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s…
-#standard_declares.patterns[0].captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[0].captures[5].patterns[0].match  \*
-#standard_declares.patterns[0].captures[5].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#standard_declares.patterns[0].captures[5].patterns[2].match  &
-#standard_declares.patterns[0].captures[7].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[0].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[0].captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[0].captures[14].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[1].match  ((?<!\w)union(?!\w))(((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*…
-#standard_declares.patterns[1].captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[1].captures[5].patterns[0].match  \*
-#standard_declares.patterns[1].captures[5].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#standard_declares.patterns[1].captures[5].patterns[2].match  &
-#standard_declares.patterns[1].captures[7].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[1].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[1].captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[1].captures[14].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[2].match  ((?<!\w)enum(?!\w))(((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+…
-#standard_declares.patterns[2].captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[2].captures[5].patterns[0].match  \*
-#standard_declares.patterns[2].captures[5].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#standard_declares.patterns[2].captures[5].patterns[2].match  &
-#standard_declares.patterns[2].captures[7].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[2].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[2].captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[2].captures[14].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[3].match  ((?<!\w)class(?!\w))(((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*…
-#standard_declares.patterns[3].captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[3].captures[5].patterns[0].match  \*
-#standard_declares.patterns[3].captures[5].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#standard_declares.patterns[3].captures[5].patterns[2].match  &
-#standard_declares.patterns[3].captures[7].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[3].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[3].captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#standard_declares.patterns[3].captures[14].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+#standard_declares.patterns[0].captures[5].patterns[1].match  groups 1, 2, 3, 4
+#standard_declares.patterns[1].captures[5].patterns[1].match  groups 1, 2, 3, 4
+#standard_declares.patterns[2].captures[5].patterns[1].match  groups 1, 2, 3, 4
+#standard_declares.patterns[3].captures[5].patterns[1].match  groups 1, 2, 3, 4
 #static_assert.begin  groups 1, 2, 3, 4, 6, 7, 8, 9
-#storage_specifiers.match  groups 1, 2
-#storage_specifiers.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#string_context.patterns[0].begin  groups 1
-#string_context.patterns[0].end  groups 2 (fuzz), 3 (fuzz)
-#string_context.patterns[0].patterns[0].match  \\(?:u\h{4}|U\h{8})  fuzz
-#string_context.patterns[0].patterns[2].match  \\[0-7]{1,3}  fuzz
-#string_context.patterns[0].patterns[3].match  (\\x0*\h{2}(?!\h))|(\\x\h*)  fuzz
-#string_context.patterns[1].begin  groups 1 (fuzz)
+#string_context.patterns[0].end  groups 2 (fuzz)
 #string_context.patterns[1].end  groups 2 (fuzz), 3 (fuzz)
-#string_context.patterns[1].patterns[0].match  (\\x0*\h{2}(?!\h))|(\\x\h*)  fuzz
-#string_context.patterns[2].begin  ((?:[LUu]8?)?R)"(?:(?:_r|re)|regex)\(
-#string_context.patterns[2].end  \)(?:(?:_r|re)|regex)"
-#string_context.patterns[3].begin  ((?:[LUu]8?)?R)"(?:glsl|GLSL)\(
-#string_context.patterns[3].end  \)(?:glsl|GLSL)"
-#string_context.patterns[5].begin  ((?:u8??|[LU])?R)"(?:([^\t ()\\]{0,16})|([^\t ()\\]*))\(  fuzz
-#string_context.patterns[5].end  (\)(\2)(\3)")(?:((?:[A-Za-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z…  fuzz
 #string_escaped_char.match  \\(["'?\\abefnprtv]|[0-3][0-7]{0,2}|[4-7]\d?|x\h{0,2}|u\h{0…
-#string_escapes_context_c.patterns[1].match  \\.  fuzz
-#struct_block.begin  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19
-#struct_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*  fuzz
-#struct_block.patterns[2].end  \s*(?=;)
-#struct_block.beginCaptures[11].patterns[0].match  ((?<!\w)final(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#struct_block.beginCaptures[11].patterns[1].match  groups 2, 3, 4, 5, 6 (fuzz), 7, 8, 9, 10
-#struct_block.beginCaptures[11].patterns[2].match  DLLEXPORT
-#struct_block.beginCaptures[11].patterns[3].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#switch_conditional_parentheses.begin  groups 1, 2, 3, 4
+#struct_block.begin  groups 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19
+#struct_block.beginCaptures[11].patterns[0].match  groups 2, 3, 4, 5
+#struct_block.beginCaptures[11].patterns[1].match  groups 2, 3, 4, 5, 7, 8, 9, 10
 #switch_statement.begin  groups 1, 2, 3, 4
 #switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #switch_statement.patterns[2].end  \s*(?=;)
 #template_call_innards.match  groups 2, 3, 4
-#template_call_range_helper.patterns[0].match  \b((?<!\w)\.?\d(?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])*)(((?:\s*…  fuzz
-#template_call_range_helper.patterns[0].captures[1].patterns[0].begin  (?=.)  fuzz
-#template_call_range_helper.patterns[0].captures[1].patterns[0].end  $  fuzz
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[0].match  \G(0[Xx])(\h(?:\h|((?<=\h)'(?=\h)))*)?((?<=\h)\.|\.(?=\h))(…
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[0].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[0].captures[5].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[0].captures[10].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[1].match  \G(?=[.0-9])(?!0[BXbx])([0-9](?:[0-9]|((?<=\h)'(?=\h)))*)?(…
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[1].captures[1].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[1].captures[4].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[1].captures[9].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[2].match  \G(0[Bb])([01](?:[01]|((?<=\h)'(?=\h)))*)((?:[Uu]|[Uu]ll?|[…
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[2].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[3].match  \G(0)((?:[0-7]|((?<=\h)'(?=\h)))+)((?:[Uu]|[Uu]ll?|[Uu]LL?|…  fuzz
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[3].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[4].match  \G(0[Xx])(\h(?:\h|((?<=\h)'(?=\h)))*)(?:(?<!')([Pp])(\+?)(-…
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[4].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[4].captures[7].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[5].match  \G(?=[.0-9])(?!0[BXbx])([0-9](?:[0-9]|((?<=\h)'(?=\h)))*)(?…
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[5].captures[1].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[5].captures[6].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[6].match  (?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])+
-#template_call_range_helper.patterns[0].captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#template_call_range_helper.patterns[1].match  \b((?<!\w)\.?\d(?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])*)(((?:\s*…  fuzz
-#template_call_range_helper.patterns[1].captures[1].patterns[0].begin  (?=.)  fuzz
-#template_call_range_helper.patterns[1].captures[1].patterns[0].end  $  fuzz
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[0].match  \G(0[Xx])(\h(?:\h|((?<=\h)'(?=\h)))*)?((?<=\h)\.|\.(?=\h))(…
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[0].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[0].captures[5].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[0].captures[10].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[1].match  \G(?=[.0-9])(?!0[BXbx])([0-9](?:[0-9]|((?<=\h)'(?=\h)))*)?(…  fuzz
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[1].captures[1].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[1].captures[4].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[1].captures[9].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[2].match  \G(0[Bb])([01](?:[01]|((?<=\h)'(?=\h)))*)((?:[Uu]|[Uu]ll?|[…
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[2].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[3].match  \G(0)((?:[0-7]|((?<=\h)'(?=\h)))+)((?:[Uu]|[Uu]ll?|[Uu]LL?|…
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[3].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[4].match  \G(0[Xx])(\h(?:\h|((?<=\h)'(?=\h)))*)(?:(?<!')([Pp])(\+?)(-…
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[4].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[4].captures[7].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[5].match  \G(?=[.0-9])(?!0[BXbx])([0-9](?:[0-9]|((?<=\h)'(?=\h)))*)(?…
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[5].captures[1].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[5].captures[6].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[6].match  (?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])+
-#template_call_range_helper.patterns[1].captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#template_definition_argument.match  groups 1, 2, 9, 10, 11, 12, 13, 14, 15
-#template_definition_argument.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#template_explicit_instantiation.match  (?<!\w)(?:(extern)\s+)?(template)\s+  fuzz
-#the_this_keyword.match  groups 1, 2
-#the_this_keyword.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#type_alias.match  groups 3, 6, 7, 9, 10, 11, 12, 13, 17, 18, 22, 23, 24, 25, 26, 27, 28, 29, 30
-#type_alias.captures[7].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#type_alias.captures[8].patterns[0].match  ::
-#type_alias.captures[8].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#type_alias.captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#type_alias.captures[13].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#type_alias.captures[18].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#type_alias.captures[21].patterns[0].match  \*
-#type_alias.captures[21].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#type_alias.captures[23].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#type_alias.captures[25].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#type_alias.captures[27].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[0].match  groups 8, 9, 11, 12
+#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[1].match  groups 7, 8, 10, 11
+#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[2].match  groups 5
+#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[3].match  groups 4, 5
+#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[4].match  groups 5, 6, 8, 9
+#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[5].match  groups 4, 5, 7, 8
+#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[0].match  groups 8, 9, 11, 12
+#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[1].match  groups 7, 8, 10 (fuzz), 11
+#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[2].match  groups 5
+#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[3].match  groups 4, 5
+#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[4].match  groups 5, 6, 8, 9
+#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[5].match  groups 4, 5, 7, 8
+#template_definition_argument.match  groups 12
+#template_explicit_instantiation.match  groups 1
+#type_alias.captures[21].patterns[1].match  groups 1, 2, 3, 4
 #type_casting_operators.match  groups 1, 2
 #type_casting_operators.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#typedef_class.begin  ((?<!\w)typedef(?!\w))\s+{0,1}(?=(?<!\w)class(?!\w))
-#typedef_class.end  (?<=;)
-#typedef_class.patterns[0].begin  ((?<!\w)class(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#typedef_class.patterns[0].end  (?:(?<=}|%>|\?\?>)\s+{0,1}(;)|(;))|(?=[];=>\[])
-#typedef_class.patterns[0].patterns[0].begin  \G ?
-#typedef_class.patterns[0].patterns[0].end  \{|<%|\?\?<|(?=;)
-#typedef_class.patterns[0].patterns[1].begin  (?<=\{|<%|\?\?<)
-#typedef_class.patterns[0].patterns[1].end  }|%>|\?\?>
-#typedef_class.patterns[0].patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#typedef_class.patterns[0].patterns[2].end  \s*(?=;)
-#typedef_class.patterns[0].patterns[2].patterns[0].match  (((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#typedef_class.patterns[0].patterns[2].patterns[0].captures[1].patterns[0].match  \*
-#typedef_class.patterns[0].patterns[2].patterns[0].captures[1].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#typedef_class.patterns[0].patterns[2].patterns[0].captures[1].patterns[2].match  &
-#typedef_class.patterns[0].patterns[2].patterns[1].match  ,
-#typedef_class.patterns[0].beginCaptures[11].patterns[0].match  ((?<!\w)final(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#typedef_class.patterns[0].beginCaptures[11].patterns[1].match  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#typedef_class.patterns[0].beginCaptures[11].patterns[2].match  DLLEXPORT
-#typedef_class.patterns[0].beginCaptures[11].patterns[3].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#typedef_struct.begin  ((?<!\w)typedef(?!\w))\s+{0,1}(?=(?<!\w)struct(?!\w))
-#typedef_struct.end  (?<=;)
-#typedef_struct.patterns[0].begin  ((?<!\w)struct(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*…
-#typedef_struct.patterns[0].end  (?:(?<=}|%>|\?\?>)\s+{0,1}(;)|(;))|(?=[];=>\[])
-#typedef_struct.patterns[0].patterns[0].begin  \G ?
-#typedef_struct.patterns[0].patterns[0].end  \{|<%|\?\?<|(?=;)
-#typedef_struct.patterns[0].patterns[1].begin  (?<=\{|<%|\?\?<)
-#typedef_struct.patterns[0].patterns[1].end  }|%>|\?\?>
-#typedef_struct.patterns[0].patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#typedef_struct.patterns[0].patterns[2].end  \s*(?=;)
-#typedef_struct.patterns[0].patterns[2].patterns[0].match  (((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#typedef_struct.patterns[0].patterns[2].patterns[0].captures[1].patterns[0].match  \*
-#typedef_struct.patterns[0].patterns[2].patterns[0].captures[1].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#typedef_struct.patterns[0].patterns[2].patterns[0].captures[1].patterns[2].match  &
-#typedef_struct.patterns[0].patterns[2].patterns[1].match  ,
-#typedef_struct.patterns[0].beginCaptures[11].patterns[0].match  ((?<!\w)final(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#typedef_struct.patterns[0].beginCaptures[11].patterns[1].match  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#typedef_struct.patterns[0].beginCaptures[11].patterns[2].match  DLLEXPORT
-#typedef_struct.patterns[0].beginCaptures[11].patterns[3].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#typedef_union.begin  ((?<!\w)typedef(?!\w))\s+{0,1}(?=(?<!\w)union(?!\w))
-#typedef_union.end  (?<=;)
-#typedef_union.patterns[0].begin  ((?<!\w)union(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#typedef_union.patterns[0].end  (?:(?<=}|%>|\?\?>)\s+{0,1}(;)|(;))|(?=[];=>\[])
-#typedef_union.patterns[0].patterns[0].begin  \G ?
-#typedef_union.patterns[0].patterns[0].end  \{|<%|\?\?<|(?=;)
-#typedef_union.patterns[0].patterns[1].begin  (?<=\{|<%|\?\?<)
-#typedef_union.patterns[0].patterns[1].end  }|%>|\?\?>
-#typedef_union.patterns[0].patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#typedef_union.patterns[0].patterns[2].end  \s*(?=;)
-#typedef_union.patterns[0].patterns[2].patterns[0].match  (((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#typedef_union.patterns[0].patterns[2].patterns[0].captures[1].patterns[0].match  \*
-#typedef_union.patterns[0].patterns[2].patterns[0].captures[1].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#typedef_union.patterns[0].patterns[2].patterns[0].captures[1].patterns[2].match  &
-#typedef_union.patterns[0].patterns[2].patterns[1].match  ,
-#typedef_union.patterns[0].beginCaptures[11].patterns[0].match  ((?<!\w)final(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#typedef_union.patterns[0].beginCaptures[11].patterns[1].match  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#typedef_union.patterns[0].beginCaptures[11].patterns[2].match  DLLEXPORT
-#typedef_union.patterns[0].beginCaptures[11].patterns[3].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#typename.match  groups 2, 3, 4, 5, 7, 8, 9, 10, 11, 15, 16
+#typedef_class.patterns[0].begin  groups 6, 7, 8, 9, 10, 16, 17, 18, 19, 20
+#typedef_class.patterns[0].end  groups 1
+#typedef_class.patterns[0].patterns[2].patterns[0].match  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
+#typedef_class.patterns[0].patterns[2].patterns[0].captures[1].patterns[1].match  groups 1, 2, 3, 4
+#typedef_class.patterns[0].beginCaptures[11].patterns[0].match  groups 2, 3, 4, 5
+#typedef_class.patterns[0].beginCaptures[11].patterns[1].match  groups 2, 3, 4, 5
+#typedef_struct.patterns[0].begin  groups 6, 7, 8, 9, 10, 16, 17, 18, 19, 20
+#typedef_struct.patterns[0].end  groups 1
+#typedef_struct.patterns[0].patterns[2].patterns[0].match  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
+#typedef_struct.patterns[0].patterns[2].patterns[0].captures[1].patterns[1].match  groups 1, 2, 3, 4
+#typedef_struct.patterns[0].beginCaptures[11].patterns[0].match  groups 2, 3, 4, 5
+#typedef_struct.patterns[0].beginCaptures[11].patterns[1].match  groups 2, 3, 4, 5
+#typedef_union.patterns[0].begin  groups 6, 7, 8, 9, 10, 16, 17, 18, 19, 20
+#typedef_union.patterns[0].end  groups 1
+#typedef_union.patterns[0].patterns[2].patterns[0].match  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
+#typedef_union.patterns[0].patterns[2].patterns[0].captures[1].patterns[1].match  groups 1, 2, 3, 4
+#typedef_union.patterns[0].beginCaptures[11].patterns[0].match  groups 2, 3, 4, 5
+#typedef_union.patterns[0].beginCaptures[11].patterns[1].match  groups 2, 3, 4, 5
+#typename.match  groups 2, 3
 #typename.captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#typename.captures[5].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#typename.captures[6].patterns[0].match  ::
-#typename.captures[6].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#typename.captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#typename.captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#typename.captures[16].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#undef.match  groups 2, 3, 5, 6
-#undef.captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#undef.captures[6].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#union_block.begin  ((?<!\w)union(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…  fuzz
-#union_block.end  (?:(?<=}|%>|\?\?>)\s+{0,1}(;)|(;))|(?=[];=>\[])  fuzz
-#union_block.patterns[0].begin  \G ?  fuzz
-#union_block.patterns[0].end  \{|<%|\?\?<|(?=;)  fuzz
-#union_block.patterns[1].begin  (?<=\{|<%|\?\?<)  fuzz
-#union_block.patterns[1].end  }|%>|\?\?>  fuzz
-#union_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*  fuzz
-#union_block.patterns[2].end  \s*(?=;)  fuzz
-#union_block.beginCaptures[11].patterns[0].match  ((?<!\w)final(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#union_block.beginCaptures[11].patterns[1].match  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#union_block.beginCaptures[11].patterns[2].match  DLLEXPORT
-#union_block.beginCaptures[11].patterns[3].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#using_namespace.begin  groups 3, 4, 5
-#variable_assignment.match  (?:((?:(?:((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+)+)|\s++|(…
-#variable_assignment.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#variable_assignment.captures[4].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#variable_assignment.captures[5].patterns[0].match  ::
-#variable_assignment.captures[5].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#variable_assignment.captures[5].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#variable_assignment.captures[8].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#variable_assignment.captures[10].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#variable_assignment.captures[11].patterns[0].match  ::
-#variable_assignment.captures[11].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#variable_assignment.captures[15].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#variable_assignment.captures[17].patterns[0].match  \*
-#variable_assignment.captures[17].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#variable_assignment.captures[17].patterns[2].match  &
-#variable_assignment.captures[19].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#variable_assignment.captures[21].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#variable_assignment.captures[23].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#variable_assignment.captures[30].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#wordlike_operators.patterns[0].match  (?<!\w)(?:noexcept|xor_eq|and_eq|delete|not_eq|bitand|bitor…  fuzz
+#union_block.begin  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20
+#union_block.beginCaptures[11].patterns[0].match  groups 2, 3, 4, 5
+#union_block.beginCaptures[11].patterns[1].match  groups 2, 3, 4, 5, 7, 8, 9, 10
+#using_namespace.begin  groups 4, 5
+#variable_assignment.match  groups 20, 25, 26, 27, 28, 31, 32
+#variable_assignment.captures[17].patterns[1].match  groups 1, 2, 3, 4
 ```
 
 ### `cpp-macro`
 
 ```text
-#alignas_attribute.begin  alignas\(
-#alignas_attribute.end  \)|(?=(?<!\\)\n)
-#alignas_attribute.patterns[1].begin  \(
-#alignas_attribute.patterns[1].end  \)|(?=(?<!\\)\n)
-#alignas_attribute.patterns[2].match  (using)\s+((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A…
-#alignas_attribute.patterns[3].match  ,
-#alignas_attribute.patterns[4].match  :
-#alignas_attribute.patterns[5].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#alignas_attribute.patterns[6].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#assembly.begin  \b(__asm__|asm)\b\s+{0,1}((?:volatile)?)
-#assembly.end  (?!\G)|(?=(?<!\\)\n)
+#assembly.begin  groups 2
 #assembly.patterns[0].match  ^((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#assembly.patterns[2].begin  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#assembly.patterns[2].end  \)|(?=(?<!\\)\n)
-#assembly.patterns[2].patterns[0].begin  (R?)(")
-#assembly.patterns[2].patterns[0].end  "|(?=(?<!\\)\n)
-#assembly.patterns[2].patterns[1].begin  \(
-#assembly.patterns[2].patterns[1].end  \)|(?=(?<!\\)\n)
-#assembly.patterns[2].patterns[2].match  \[((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=…
-#assembly.patterns[2].patterns[3].match  :
-#block_comment.patterns[0].match  [^*]*\n  fuzz
-#builtin_storage_type_initilizer.begin  \s*+(?<!\w)(?:(?:(?:(unsigned|wchar_t|double|signed|short|f…
-#builtin_storage_type_initilizer.end  \)|(?=(?<!\\)\n)
-#case_statement.begin  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#case_statement.end  :|(?=(?<!\\)\n)
-#class_block.begin  ((?<!\w)class(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…  fuzz
-#class_block.end  (?:(?:(?<=}|%>|\?\?>)\s+{0,1}(;)|(;))|(?=[];=>\[]))|(?=(?<!…  fuzz
-#class_block.patterns[0].begin  \G ?  fuzz
-#class_block.patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)  fuzz
-#class_block.patterns[1].begin  (?<=\{|<%|\?\?<)  fuzz
-#class_block.patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)  fuzz
-#class_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#class_block.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#class_block.beginCaptures[11].patterns[0].match  ((?<!\w)final(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#class_block.beginCaptures[11].patterns[1].match  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…  fuzz
-#class_block.beginCaptures[11].patterns[2].match  DLLEXPORT
-#class_block.beginCaptures[11].patterns[3].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#comments.patterns[0].begin  ^\s+{1,0}(//[!/]+)  fuzz
-#comments.patterns[0].end  (?<=\n)(?<!\\\n)|(?=(?<!\\)\n)  fuzz
-#comments.patterns[0].patterns[1].match  (?<=[!*/\s])[@\\](?:callergraph|callgraph|else|endif|f\$|f\…
-#comments.patterns[0].patterns[2].match  ((?<=[!*/\s])[@\\](?:a|em?))\s+(\S+)
-#comments.patterns[0].patterns[3].match  ((?<=[!*/\s])[@\\]b)\s+(\S+)
-#comments.patterns[0].patterns[4].match  ((?<=[!*/\s])[@\\][cp])\s+(\S+)
-#comments.patterns[0].patterns[5].match  (?<=[!*/\s])[@\\](?:a|anchor|[bc]|cite|copybrief|copydetail…
-#comments.patterns[0].patterns[6].match  (?<=[!*/\s])[@\\](?:addindex|addtogroup|category|class|defg…
-#comments.patterns[0].patterns[7].match  ((?<=[!*/\s])[@\\]param)(?:\s*\[((?:,?\s+{0,1}(?:in|out)\s+…
-#comments.patterns[0].patterns[7].captures[2].patterns[0].match  in|out
-#comments.patterns[0].patterns[7].captures[3].patterns[0].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#comments.patterns[0].patterns[7].captures[3].patterns[1].match  ,
-#comments.patterns[0].patterns[8].match  (?<=[!*/\s])[@\\](?:arg|attention|authors??|brief|bug|copyr…
-#comments.patterns[0].patterns[9].match  (?<=[!*/\s])[@\\](?:code|cond|docbookonly|dot|htmlonly|inte…  fuzz
-#comments.patterns[0].patterns[10].match  \b[A-Z]+:|@[_a-z]+:
-#comments.patterns[1].match  (/\*[!*]+(?=\s))(.+)([!*]*\*/)
-#comments.patterns[1].captures[2].patterns[0].match  (?<=[!*/\s])[@\\](?:callergraph|callgraph|else|endif|f\$|f\…
-#comments.patterns[1].captures[2].patterns[1].match  ((?<=[!*/\s])[@\\](?:a|em?))\s+(\S+)
-#comments.patterns[1].captures[2].patterns[2].match  ((?<=[!*/\s])[@\\]b)\s+(\S+)
-#comments.patterns[1].captures[2].patterns[3].match  ((?<=[!*/\s])[@\\][cp])\s+(\S+)
-#comments.patterns[1].captures[2].patterns[4].match  (?<=[!*/\s])[@\\](?:a|anchor|[bc]|cite|copybrief|copydetail…
-#comments.patterns[1].captures[2].patterns[5].match  (?<=[!*/\s])[@\\](?:addindex|addtogroup|category|class|defg…
-#comments.patterns[1].captures[2].patterns[6].match  ((?<=[!*/\s])[@\\]param)(?:\s*\[((?:,?\s+{0,1}(?:in|out)\s+…
-#comments.patterns[1].captures[2].patterns[6].captures[2].patterns[0].match  in|out
-#comments.patterns[1].captures[2].patterns[6].captures[3].patterns[0].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#comments.patterns[1].captures[2].patterns[6].captures[3].patterns[1].match  ,
-#comments.patterns[1].captures[2].patterns[7].match  (?<=[!*/\s])[@\\](?:arg|attention|authors??|brief|bug|copyr…
-#comments.patterns[1].captures[2].patterns[8].match  (?<=[!*/\s])[@\\](?:code|cond|docbookonly|dot|htmlonly|inte…
-#comments.patterns[1].captures[2].patterns[9].match  \b[A-Z]+:|@[_a-z]+:
-#comments.patterns[2].begin  \s+{1,0}/\*[!*]+(?:(?:\n|$)|(?=\s))
-#comments.patterns[2].end  [!*]*\*/|(?=(?<!\\)\n)
-#comments.patterns[2].patterns[0].match  (?<=[!*/\s])[@\\](?:callergraph|callgraph|else|endif|f\$|f\…
-#comments.patterns[2].patterns[1].match  ((?<=[!*/\s])[@\\](?:a|em?))\s+(\S+)
-#comments.patterns[2].patterns[2].match  ((?<=[!*/\s])[@\\]b)\s+(\S+)
-#comments.patterns[2].patterns[3].match  ((?<=[!*/\s])[@\\][cp])\s+(\S+)
-#comments.patterns[2].patterns[4].match  (?<=[!*/\s])[@\\](?:a|anchor|[bc]|cite|copybrief|copydetail…
-#comments.patterns[2].patterns[5].match  (?<=[!*/\s])[@\\](?:addindex|addtogroup|category|class|defg…
-#comments.patterns[2].patterns[6].match  ((?<=[!*/\s])[@\\]param)(?:\s*\[((?:,?\s+{0,1}(?:in|out)\s+…
-#comments.patterns[2].patterns[6].captures[2].patterns[0].match  in|out
-#comments.patterns[2].patterns[6].captures[3].patterns[0].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#comments.patterns[2].patterns[6].captures[3].patterns[1].match  ,
-#comments.patterns[2].patterns[7].match  (?<=[!*/\s])[@\\](?:arg|attention|authors??|brief|bug|copyr…
-#comments.patterns[2].patterns[8].match  (?<=[!*/\s])[@\\](?:code|cond|docbookonly|dot|htmlonly|inte…
-#comments.patterns[2].patterns[9].match  \b[A-Z]+:|@[_a-z]+:
-#constructor_inline.begin  ^((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#constructor_inline.end  (?:(?<=}|%>|\?\?>)|(?=[];=>\[]))|(?=(?<!\\)\n)
-#constructor_inline.patterns[0].begin  \G ?
-#constructor_inline.patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)
-#constructor_inline.patterns[0].patterns[1].match  (=)((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
-#constructor_inline.patterns[0].patterns[3].begin  :
-#constructor_inline.patterns[0].patterns[3].end  (?=\{)|(?=(?<!\\)\n)
-#constructor_inline.patterns[0].patterns[3].patterns[0].begin  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#constructor_inline.patterns[0].patterns[3].patterns[0].end  \)|(?=(?<!\\)\n)
-#constructor_inline.patterns[0].patterns[3].patterns[1].begin  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#constructor_inline.patterns[0].patterns[3].patterns[1].end  }|(?=(?<!\\)\n)
-#constructor_inline.patterns[0].patterns[3].patterns[2].match  ,
-#constructor_inline.patterns[0].patterns[4].begin  \(
-#constructor_inline.patterns[0].patterns[4].end  \)|(?=(?<!\\)\n)
-#constructor_inline.patterns[1].begin  (?<=\{|<%|\?\?<)
-#constructor_inline.patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)
+#assembly.patterns[2].begin  groups 1, 2, 3, 4
+#assembly.patterns[2].patterns[0].begin  groups 1
+#assembly.patterns[2].patterns[2].match  groups 1, 2, 3, 4, 6, 7, 8, 9
+#builtin_storage_type_initilizer.begin  groups 2, 3, 4
+#case_statement.begin  groups 1, 2, 3, 4
+#class_block.begin  groups 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20 (fuzz)
+#class_block.beginCaptures[11].patterns[0].match  groups 2, 3, 4, 5
+#class_block.beginCaptures[11].patterns[1].match  groups 2, 3, 4, 5, 7, 8, 9, 10
+#constructor_inline.begin  groups 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14
+#constructor_inline.patterns[0].patterns[1].match  groups 2, 3, 4, 5, 7
+#constructor_inline.patterns[0].patterns[3].patterns[0].begin  groups 2, 4, 5, 6
 #constructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #constructor_inline.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#constructor_root.begin  \s*+((?:__(?:cdec|clrcal|stdcal|fastcal|thiscal|vectorcal)l…
-#constructor_root.end  (?:(?<=}|%>|\?\?>)|(?=[];=>\[]))|(?=(?<!\\)\n)
-#constructor_root.patterns[0].begin  \G ?
-#constructor_root.patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)
-#constructor_root.patterns[0].patterns[1].match  (=)((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
-#constructor_root.patterns[0].patterns[3].begin  :
-#constructor_root.patterns[0].patterns[3].end  (?=\{)|(?=(?<!\\)\n)
-#constructor_root.patterns[0].patterns[3].patterns[0].begin  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#constructor_root.patterns[0].patterns[3].patterns[0].end  \)|(?=(?<!\\)\n)
-#constructor_root.patterns[0].patterns[3].patterns[1].begin  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#constructor_root.patterns[0].patterns[3].patterns[1].end  }|(?=(?<!\\)\n)
-#constructor_root.patterns[0].patterns[3].patterns[2].match  ,
-#constructor_root.patterns[0].patterns[4].begin  \(
-#constructor_root.patterns[0].patterns[4].end  \)|(?=(?<!\\)\n)
-#constructor_root.patterns[1].begin  (?<=\{|<%|\?\?<)
-#constructor_root.patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)
+#constructor_root.begin  groups 7
+#constructor_root.patterns[0].patterns[1].match  groups 2, 3, 4, 5
+#constructor_root.patterns[0].patterns[3].patterns[0].begin  groups 2, 4, 5, 6
 #constructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #constructor_root.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#constructor_root.beginCaptures[6].patterns[0].match  ::
-#constructor_root.beginCaptures[6].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#constructor_root.beginCaptures[9].patterns[0].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#constructor_root.beginCaptures[9].patterns[1].match  (?<=:)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?…
-#constructor_root.beginCaptures[9].patterns[2].match  ::
-#cpp_attributes.patterns[1].begin  \(
-#cpp_attributes.patterns[1].end  \)|(?=(?<!\\)\n)
-#cpp_attributes.patterns[2].match  (using)\s+((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A…
-#cpp_attributes.patterns[3].match  ,
-#curly_initializer.begin  (\s*+((?:(?:(?:\[\[.*?]]|__attribute(?:__)?\s*\(\s*\(.*?\)\…
-#curly_initializer.end  }|(?=(?<!\\)\n)
-#curly_initializer.patterns[0].begin  (\.)((?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:…
-#curly_initializer.patterns[0].end  (?:(,)|(?=}))|(?=(?<!\\)\n)
-#curly_initializer.beginCaptures[1].patterns[0].match  ::
-#curly_initializer.beginCaptures[1].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#curly_initializer.beginCaptures[1].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#curly_initializer.beginCaptures[11].patterns[0].match  ::
-#curly_initializer.beginCaptures[11].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#decltype.begin  ((?<!\w)decltype(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(…
-#decltype.end  \)|(?=(?<!\\)\n)
-#default_statement.begin  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#default_statement.end  :|(?=(?<!\\)\n)
-#destructor_inline.begin  ^((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#destructor_inline.end  (?:(?<=}|%>|\?\?>)|(?=[];=>\[]))|(?=(?<!\\)\n)
-#destructor_inline.patterns[0].begin  \G ?
-#destructor_inline.patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)
-#destructor_inline.patterns[0].patterns[1].match  (=)((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
-#destructor_inline.patterns[0].patterns[2].begin  \(
-#destructor_inline.patterns[0].patterns[2].end  \)|(?=(?<!\\)\n)
-#destructor_inline.patterns[1].begin  (?<=\{|<%|\?\?<)
-#destructor_inline.patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)
+#curly_initializer.begin  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 16, 17, 19, 20, 21, 22
+#decltype.begin  groups 2, 3, 4, 5
+#default_statement.begin  groups 1, 2, 3, 4
+#destructor_inline.begin  groups 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14
+#destructor_inline.patterns[0].patterns[1].match  groups 2, 3, 4, 5, 7
 #destructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #destructor_inline.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#destructor_root.begin  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#destructor_root.end  (?:(?<=}|%>|\?\?>)|(?=[];=>\[]))|(?=(?<!\\)\n)
-#destructor_root.patterns[0].begin  \G ?
-#destructor_root.patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)
-#destructor_root.patterns[0].patterns[1].match  (=)((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
-#destructor_root.patterns[0].patterns[2].begin  \(
-#destructor_root.patterns[0].patterns[2].end  \)|(?=(?<!\\)\n)
-#destructor_root.patterns[1].begin  (?<=\{|<%|\?\?<)
-#destructor_root.patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)
+#destructor_root.begin  groups 1, 2, 3, 4, 11
+#destructor_root.patterns[0].patterns[1].match  groups 2, 3, 4, 5
 #destructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #destructor_root.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#destructor_root.beginCaptures[10].patterns[0].match  ::
-#destructor_root.beginCaptures[10].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#destructor_root.beginCaptures[13].patterns[0].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#destructor_root.beginCaptures[13].patterns[1].match  (?<=:)~(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#destructor_root.beginCaptures[13].patterns[2].match  ::
-#diagnostic.begin  ^(((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=…
-#diagnostic.end  (?<!\\)(?:(?=\n)|(?<=(?:^|[^\\])\n)(?=$))|(?=(?<!\\)\n)
-#diagnostic.patterns[1].begin  "
-#diagnostic.patterns[1].end  (?:(")|(?<!\\)(?:(?=\n)|(?<=(?:^|[^\\])\n)(?=$)))|(?=(?<!\\…
-#diagnostic.patterns[2].begin  '
-#diagnostic.patterns[2].end  (?:(')|(?<!\\)(?:(?=\n)|(?<=(?:^|[^\\])\n)(?=$)))|(?=(?<!\\…
-#diagnostic.patterns[3].begin  [^"']
-#diagnostic.patterns[3].end  (?<!\\)(?:(?=\n)|(?<=(?:^|[^\\])\n)(?=$))|(?=(?<!\\)\n)
-#enum_block.begin  ((?<!\w)enum(?!\w))(?:\s+(class|struct))?(?:(?:\s+|((?:(?:(…
-#enum_block.end  (?:(?:(?<=}|%>|\?\?>)\s+{0,1}(;)|(;))|(?=[];=>\[]))|(?=(?<!…
-#enum_block.patterns[0].begin  \G ?
-#enum_block.patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)
-#enum_block.patterns[1].begin  (?<=\{|<%|\?\?<)
-#enum_block.patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)
-#enum_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#enum_block.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#extern_block.begin  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#extern_block.end  (?:(?:(?<=}|%>|\?\?>)\s+{0,1}(;)|(;))|(?=[];=>\[]))|(?=(?<!…
-#extern_block.patterns[0].begin  \G ?
-#extern_block.patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)
-#extern_block.patterns[1].begin  (?<=\{|<%|\?\?<)
-#extern_block.patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)
-#extern_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#extern_block.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
+#diagnostic.begin  groups 2, 3, 4, 5
+#enum_block.begin  groups 3, 6, 7, 8, 10, 11, 13, 14, 15, 16
+#extern_block.begin  groups 1, 2, 3, 4
+#extern_block.end  groups 1
 #function_call.patterns[0].begin  groups 1, 2, 3, 6, 7, 8, 9, 10, 12, 13, 14
-#function_call.patterns[1].begin  groups 2, 3, 6, 7, 8, 9, 10 (fuzz), 12, 13, 14
-#function_definition.begin  (?:(?:^|\G|(?<=[;}]))|(?<=>|\*/))\s*+(?:((?<!\w)template(?!…
-#function_definition.end  (?:(?<=}|%>|\?\?>)|(?=[];=>\[]))|(?=(?<!\\)\n)
-#function_definition.patterns[0].begin  \G ?
-#function_definition.patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)
-#function_definition.patterns[0].patterns[1].begin  \(
-#function_definition.patterns[0].patterns[1].end  \)|(?=(?<!\\)\n)
-#function_definition.patterns[0].patterns[2].match  (?<=^|\))\s+{0,1}(->)((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*…
-#function_definition.patterns[0].patterns[2].captures[6].patterns[0].match  ::
-#function_definition.patterns[0].patterns[2].captures[6].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#function_definition.patterns[0].patterns[2].captures[6].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#function_definition.patterns[0].patterns[2].captures[16].patterns[0].match  ::
-#function_definition.patterns[0].patterns[2].captures[16].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#function_definition.patterns[1].begin  (?<=\{|<%|\?\?<)
-#function_definition.patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)
+#function_definition.begin  groups 1, 2, 3, 4, 5, 6, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 26, 27, 28, 29, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 50, 54, 55, 56, 57
+#function_definition.patterns[0].patterns[2].match  groups 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 19, 20, 21, 22
 #function_definition.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #function_definition.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#function_definition.beginCaptures[7].patterns[0].match  ((?<!\w)(?:(?:constexpr|consteval|explicit|mutable|virtual|…
-#function_definition.beginCaptures[13].patterns[0].match  ::
-#function_definition.beginCaptures[13].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#function_definition.beginCaptures[13].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#function_definition.beginCaptures[23].patterns[0].match  ::
-#function_definition.beginCaptures[23].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#function_definition.beginCaptures[31].patterns[0].match  \*
-#function_definition.beginCaptures[31].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#function_definition.beginCaptures[31].patterns[2].match  &
-#function_pointer.begin  (\s*+((?:(?:(?:\[\[.*?]]|__attribute(?:__)?\s*\(\s*\(.*?\)\…
-#function_pointer.end  (\))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#function_pointer.beginCaptures[1].patterns[0].match  ::
-#function_pointer.beginCaptures[1].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#function_pointer.beginCaptures[1].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#function_pointer.beginCaptures[11].patterns[0].match  ::
-#function_pointer.beginCaptures[11].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#function_pointer.beginCaptures[19].patterns[0].match  \*
-#function_pointer.beginCaptures[19].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#function_pointer.beginCaptures[19].patterns[2].match  &
-#function_pointer_parameter.begin  (\s*+((?:(?:(?:\[\[.*?]]|__attribute(?:__)?\s*\(\s*\(.*?\)\…
-#function_pointer_parameter.end  (\))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#function_pointer_parameter.beginCaptures[1].patterns[0].match  ::
-#function_pointer_parameter.beginCaptures[1].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#function_pointer_parameter.beginCaptures[1].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#function_pointer_parameter.beginCaptures[11].patterns[0].match  ::
-#function_pointer_parameter.beginCaptures[11].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#function_pointer_parameter.beginCaptures[19].patterns[0].match  \*
-#function_pointer_parameter.beginCaptures[19].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#function_pointer_parameter.beginCaptures[19].patterns[2].match  &
-#gcc_attributes.begin  __attribute(?:__)?\s*\(\s*\(
-#gcc_attributes.end  \)\s*\)|(?=(?<!\\)\n)
-#gcc_attributes.patterns[1].begin  \(
-#gcc_attributes.patterns[1].end  \)|(?=(?<!\\)\n)
-#gcc_attributes.patterns[2].match  (using)\s+((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A…
-#gcc_attributes.patterns[3].match  ,
-#gcc_attributes.patterns[4].match  :
-#gcc_attributes.patterns[5].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#gcc_attributes.patterns[6].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#inheritance_context.patterns[1].match  ,
-#inheritance_context.patterns[2].match  (?<!\w)p(?:rotected|rivate|ublic)(?!\w)  fuzz
-#inheritance_context.patterns[3].match  (?<!\w)virtual(?!\w)
-#inheritance_context.patterns[4].match  (?<=protected|virtual|private|public|[,:])\s+{0,1}(?!p(?:ro…  fuzz
-#inheritance_context.patterns[4].captures[1].patterns[0].match  ::
-#inheritance_context.patterns[4].captures[1].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#inheritance_context.patterns[4].captures[1].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…  fuzz
-#inheritance_context.patterns[4].captures[4].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#inheritance_context.patterns[4].captures[6].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#inheritance_context.patterns[4].captures[7].patterns[0].match  ::
-#inheritance_context.patterns[4].captures[7].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#inheritance_context.patterns[4].captures[11].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#lambdas.begin  (?:(?<=\S|^)(?<![]"\&)*>\[\w])|(?<=(?:\W|^)return))\s+{0,1}…
-#lambdas.end  (?<=[;}])|(?=(?<!\\)\n)
-#lambdas.patterns[0].begin  \(
-#lambdas.patterns[0].end  \)|(?=(?<!\\)\n)
-#lambdas.patterns[1].match  (?<!\w)(?:constexpr|consteval|mutable)(?!\w)
-#lambdas.patterns[2].begin  ->
-#lambdas.patterns[2].end  (?=\{)|(?=(?<!\\)\n)
-#lambdas.patterns[2].patterns[1].match  \S+
-#lambdas.patterns[3].begin  \{
-#lambdas.patterns[3].end  }|(?=(?<!\\)\n)
-#lambdas.beginCaptures[2].patterns[1].match  ((?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{…
-#line.begin  ^((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#line.end  (?<!\\)(?:(?=\n)|(?<=(?:^|[^\\])\n)(?=$))|(?=(?<!\\)\n)
-#line_comment.begin  \s*+(//)  fuzz
-#line_comment.end  (?<!\\)(?:(?=\n)|(?<=(?:^|[^\\])\n)(?=$))|(?=(?<!\\)\n)  fuzz
-#macro.begin  ^(((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=…
-#macro.end  (?<!\\)(?:(?=\n)|(?<=(?:^|[^\\])\n)(?=$))|(?=(?<!\\)\n)
-#macro.patterns[0].match  \G\s+{0,1}(\()([^(]*)(\))
-#macro.patterns[0].captures[2].patterns[0].match  (?<=[(,])\s+{0,1}((?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A…
-#macro.patterns[0].captures[2].patterns[1].match  ,
-#macro.patterns[0].captures[2].patterns[2].match  \.\.\.
-#method_access.begin  groups 1, 2, 3, 4, 5, 7, 8, 9, 10, 12, 13
-#method_access.beginCaptures[13].patterns[0].match  (?<=\.\*?|->\*??)\s+{0,1}(?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/…
+#function_definition.beginCaptures[31].patterns[1].match  groups 1, 2, 3, 4
+#function_pointer.begin  groups 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 16, 17, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 35, 36, 37
+#function_pointer.end  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
+#function_pointer.beginCaptures[19].patterns[1].match  groups 1, 2, 3, 4
+#function_pointer_parameter.begin  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 16, 17, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 35, 36, 37
+#function_pointer_parameter.end  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
+#function_pointer_parameter.beginCaptures[19].patterns[1].match  groups 1, 2, 3, 4
+#lambdas.begin  groups 5, 6, 7, 8
+#lambdas.beginCaptures[2].patterns[1].match  groups 2, 3, 4, 5
+#line.begin  groups 1, 2, 3, 4
+#macro.begin  groups 2, 3, 4, 5
+#method_access.begin  groups 1, 2, 3, 4, 8, 9
+#method_access.beginCaptures[13].patterns[0].match  groups 1, 2, 3, 4, 5, 7, 8, 9, 10
 #method_access.beginCaptures[13].patterns[1].match  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
-#ms_attributes.begin  __declspec\(
-#ms_attributes.end  \)|(?=(?<!\\)\n)
-#ms_attributes.patterns[1].begin  \(
-#ms_attributes.patterns[1].end  \)|(?=(?<!\\)\n)
-#ms_attributes.patterns[2].match  (using)\s+((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A…
-#ms_attributes.patterns[3].match  ,
-#ms_attributes.patterns[4].match  :
-#ms_attributes.patterns[5].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#ms_attributes.patterns[6].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#namespace_block.begin  ((?<!\w)namespace(?!\w))  fuzz
-#namespace_block.end  (?:(?<=}|%>|\?\?>)|(?=[];=>\[]))|(?=(?<!\\)\n)  fuzz
-#namespace_block.patterns[0].begin  \G ?  fuzz
-#namespace_block.patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)  fuzz
-#namespace_block.patterns[0].patterns[4].match  ((::)?(?:(?!\b(?:__has_cpp_attribute|reinterpret_cast|atomi…  fuzz
-#namespace_block.patterns[1].begin  (?<=\{|<%|\?\?<)  fuzz
-#namespace_block.patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)  fuzz
+#namespace_block.patterns[0].patterns[4].match  groups 2, 3, 6, 7
 #namespace_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #namespace_block.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#normal_variable_assignment.begin  ^((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#normal_variable_assignment.end  (?=;)|(?=(?<!\\)\n)
-#normal_variable_assignment.beginCaptures[14].patterns[0].match  ::
-#normal_variable_assignment.beginCaptures[14].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#normal_variable_assignment.beginCaptures[14].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#normal_variable_assignment.beginCaptures[24].patterns[0].match  ::
-#normal_variable_assignment.beginCaptures[24].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#normal_variable_assignment.beginCaptures[32].patterns[0].match  \*
-#normal_variable_assignment.beginCaptures[32].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#normal_variable_assignment.beginCaptures[32].patterns[2].match  &
-#normal_variable_declaration.begin  ^((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#normal_variable_declaration.end  (?=;)|(?=(?<!\\)\n)
-#normal_variable_declaration.beginCaptures[14].patterns[0].match  ::
-#normal_variable_declaration.beginCaptures[14].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#normal_variable_declaration.beginCaptures[14].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#normal_variable_declaration.beginCaptures[24].patterns[0].match  ::
-#normal_variable_declaration.beginCaptures[24].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#normal_variable_declaration.beginCaptures[32].patterns[0].match  \*
-#normal_variable_declaration.beginCaptures[32].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#normal_variable_declaration.beginCaptures[32].patterns[2].match  &
-#operator_overload.begin  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#operator_overload.end  (?:(?<=}|%>|\?\?>)|(?=[];=>\[]))|(?=(?<!\\)\n)
-#operator_overload.patterns[0].begin  \G ?
-#operator_overload.patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)
-#operator_overload.patterns[0].patterns[2].begin  \(
-#operator_overload.patterns[0].patterns[2].end  \)|(?=(?<!\\)\n)
-#operator_overload.patterns[0].patterns[4].match  (=)((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
-#operator_overload.patterns[1].begin  (?<=\{|<%|\?\?<)
-#operator_overload.patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)
+#normal_variable_assignment.begin  groups 1, 2, 3, 4, 15, 16, 17, 18, 19, 47, 48, 54, 55
+#normal_variable_assignment.beginCaptures[32].patterns[1].match  groups 1, 2, 3, 4
+#normal_variable_declaration.begin  groups 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 16, 17, 18, 19, 20, 21, 22, 23, 25, 27, 28, 29, 30, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 46, 47, 48, 49, 50, 51, 52, 53
+#normal_variable_declaration.beginCaptures[32].patterns[1].match  groups 1, 2, 3, 4
+#operator_overload.begin  groups 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 18, 19, 20, 21, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 46, 49, 50, 51, 52, 53, 54, 55, 56, 57, 59, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86
+#operator_overload.patterns[0].patterns[4].match  groups 2, 3, 4, 5, 7
 #operator_overload.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #operator_overload.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#operator_overload.beginCaptures[5].patterns[0].match  ::
-#operator_overload.beginCaptures[5].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#operator_overload.beginCaptures[5].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#operator_overload.beginCaptures[15].patterns[0].match  ::
-#operator_overload.beginCaptures[15].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#operator_overload.beginCaptures[23].patterns[0].match  \*
-#operator_overload.beginCaptures[23].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#operator_overload.beginCaptures[23].patterns[2].match  &
-#operator_overload.beginCaptures[45].patterns[0].match  ::
-#operator_overload.beginCaptures[45].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#operator_overload.beginCaptures[58].patterns[0].match  ::
-#operator_overload.beginCaptures[58].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#operator_overload.beginCaptures[63].patterns[0].match  \*
-#operator_overload.beginCaptures[63].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#operator_overload.beginCaptures[63].patterns[2].match  &
-#operators.patterns[0].begin  ((?<!\w)sizeof(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*…
-#operators.patterns[0].end  \)|(?=(?<!\\)\n)
-#operators.patterns[1].begin  ((?<!\w)alignof(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\…
-#operators.patterns[1].end  \)|(?=(?<!\\)\n)
-#operators.patterns[2].begin  ((?<!\w)alignas(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\…
-#operators.patterns[2].end  \)|(?=(?<!\\)\n)
-#operators.patterns[3].begin  ((?<!\w)typeid(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*…
-#operators.patterns[3].end  \)|(?=(?<!\\)\n)
-#operators.patterns[4].begin  ((?<!\w)noexcept(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(…
-#operators.patterns[4].end  \)|(?=(?<!\\)\n)
-#operators.patterns[5].begin  \b(sizeof\.\.\.)((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s…
-#operators.patterns[5].end  \)|(?=(?<!\\)\n)
-#operators.patterns[6].match  --  fuzz
-#operators.patterns[7].match  \+\+
-#operators.patterns[8].match  <<|>>
-#operators.patterns[9].match  !=|<=|>=|==|[<>]  fuzz
-#operators.patterns[12].match  ((?:[-%*+]|(?<!\()/)=)|((?:[\&^]|<<|>>|\|)=)|(=)  fuzz
-#parameter.begin  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#parameter.end  (?:(?=\))|(,))|(?=(?<!\\)\n)
-#parameter.patterns[5].match  ((?:(thread_local|volatile|register|restrict|static|extern|…
-#parameter.patterns[8].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#parameter.patterns[9].begin  (?<==)
-#parameter.patterns[9].end  (?:(?=\))|(,))|(?=(?<!\\)\n)
-#parameter.patterns[10].match  =
-#parameter.patterns[11].match  (?<![(,:\s])((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+…
-#parameter.patterns[13].begin  \[
-#parameter.patterns[13].end  ]|(?=(?<!\\)\n)
-#parameter.patterns[14].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#parameter.patterns[16].match  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#parameter.patterns[16].captures[0].patterns[0].match  \*
-#parameter.patterns[16].captures[0].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#parameter.patterns[16].captures[0].patterns[2].match  &
-#parameter_or_maybe_value.begin  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#parameter_or_maybe_value.end  (?:(?=\))|(,))|(?=(?<!\\)\n)
-#parameter_or_maybe_value.patterns[7].match  ((?:(thread_local|volatile|register|restrict|static|extern|…
-#parameter_or_maybe_value.patterns[11].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#parameter_or_maybe_value.patterns[12].begin  (?<==)
-#parameter_or_maybe_value.patterns[12].end  (?:(?=\))|(,))|(?=(?<!\\)\n)
-#parameter_or_maybe_value.patterns[13].match  (?<![(,:\s])((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+…
-#parameter_or_maybe_value.patterns[15].begin  \[
-#parameter_or_maybe_value.patterns[15].end  ]|(?=(?<!\\)\n)
-#parameter_or_maybe_value.patterns[16].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#parameter_or_maybe_value.patterns[18].match  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#parameter_or_maybe_value.patterns[18].captures[0].patterns[0].match  \*
-#parameter_or_maybe_value.patterns[18].captures[0].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#parameter_or_maybe_value.patterns[18].captures[0].patterns[2].match  &
-#parentheses.patterns[2].match  (?<!:):(?!:)  fuzz
-#pragma.begin  ^((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#pragma.end  (?<!\\)(?:(?=\n)|(?<=(?:^|[^\\])\n)(?=$))|(?=(?<!\\)\n)
-#pragma.patterns[2].match  [$A-Z_a-z][-$\w]*
-#preprocessor_conditional_defined.begin  ((?<!\w)defined(?!\w))(\()
-#preprocessor_conditional_defined.end  (?:\)|(?<!\\)(?:(?=\n)|(?<=(?:^|[^\\])\n)(?=$)))|(?=(?<!\\)…
-#preprocessor_conditional_range.begin  ^((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#preprocessor_conditional_range.end  (?<!\\)(?:(?=\n)|(?<=(?:^|[^\\])\n)(?=$))|(?=(?<!\\)\n)
-#qualifiers_and_specifiers_post_parameters.patterns[0].begin  ((?<!\w)requires(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(…
-#qualifiers_and_specifiers_post_parameters.patterns[0].end  \)|(?=(?<!\\)\n)
-#qualifiers_and_specifiers_post_parameters.patterns[1].match  ((?:(?:(?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+)+|\s++|(?<=\W…
-#qualifiers_and_specifiers_post_parameters.patterns[1].captures[1].patterns[0].match  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#range_for_inner.begin  (?<=(?:\W|^)for ?\()
-#range_for_inner.end  (?=\))|(?=(?<!\\)\n)
-#range_for_inner.patterns[0].match  ((?:((?:(?:(?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\…
-#range_for_inner.patterns[0].captures[10].patterns[0].match  ::
-#range_for_inner.patterns[0].captures[10].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#range_for_inner.patterns[0].captures[10].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#range_for_inner.patterns[0].captures[20].patterns[0].match  ::
-#range_for_inner.patterns[0].captures[20].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#range_for_inner.patterns[0].captures[28].patterns[0].match  \*
-#range_for_inner.patterns[0].captures[28].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#range_for_inner.patterns[0].captures[28].patterns[2].match  &
-#range_for_inner.patterns[1].match  ((?:((?:(?:(?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\…
-#range_for_inner.patterns[1].captures[10].patterns[0].match  ::
-#range_for_inner.patterns[1].captures[10].patterns[1].match  (?<!\w)(?:struct|class|union|enum)(?!\w)
-#range_for_inner.patterns[1].captures[10].patterns[9].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#range_for_inner.patterns[1].captures[20].patterns[0].match  ::
-#range_for_inner.patterns[1].captures[20].patterns[1].match  (?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(…
-#range_for_inner.patterns[1].captures[28].patterns[0].match  \*
-#range_for_inner.patterns[1].captures[28].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#range_for_inner.patterns[1].captures[28].patterns[2].match  &
-#square_brackets.begin  ([A-Z_a-z][0-9A-Z_a-z]*|(?<=[])]))?(\[)(?!])  fuzz
-#square_brackets.end  ]|(?=(?<!\\)\n)  fuzz
-#static_assert.begin  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#static_assert.end  \)|(?=(?<!\\)\n)
-#static_assert.patterns[0].begin  (,)\s+{0,1}(?=(?:L|u8?|U\s+{0,1}")?)
-#static_assert.patterns[0].end  (?=\))|(?=(?<!\\)\n)
-#string_context.patterns[0].begin  groups 1
+#operator_overload.beginCaptures[23].patterns[1].match  groups 1, 2, 3, 4
+#operator_overload.beginCaptures[63].patterns[1].match  groups 1, 2, 3, 4
+#operators.patterns[0].begin  groups 2, 3, 4, 5
+#operators.patterns[1].begin  groups 2, 3, 4, 5
+#operators.patterns[2].begin  groups 2, 3, 4, 5
+#operators.patterns[3].begin  groups 2, 3, 4, 5
+#operators.patterns[4].begin  groups 2, 3, 4, 5
+#operators.patterns[5].begin  groups 2, 3, 4, 5
+#operators.patterns[12].match  groups 2
+#parameter.begin  groups 1, 2, 3, 4
+#parameter.patterns[5].match  groups 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19
+#parameter.patterns[9].end  groups 1
+#parameter.patterns[11].match  groups 1, 2, 3, 4, 6, 7, 8, 9
+#parameter.patterns[16].match  groups 1, 2, 3, 4, 5, 6, 7, 8
+#parameter.patterns[16].captures[0].patterns[1].match  groups 1, 2, 3, 4
+#parameter_or_maybe_value.begin  groups 1, 2, 3, 4
+#parameter_or_maybe_value.patterns[7].match  groups 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19
+#parameter_or_maybe_value.patterns[12].end  groups 1
+#parameter_or_maybe_value.patterns[13].match  groups 1, 2, 3, 4
+#parameter_or_maybe_value.patterns[18].match  groups 1, 2, 3, 4
+#parameter_or_maybe_value.patterns[18].captures[0].patterns[1].match  groups 1, 2, 3, 4
+#pragma.begin  groups 1, 2, 3, 4
+#preprocessor_conditional_range.begin  groups 1, 2, 3, 4
+#qualifiers_and_specifiers_post_parameters.patterns[0].begin  groups 2, 3, 4, 5
+#qualifiers_and_specifiers_post_parameters.patterns[1].captures[1].patterns[0].match  groups 1, 2, 3, 4
+#range_for_inner.patterns[0].match  groups 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 23, 24, 25, 26, 33, 42, 43, 44, 45
+#range_for_inner.patterns[0].captures[28].patterns[1].match  groups 1, 2, 3, 4
+#range_for_inner.patterns[1].match  groups 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 23, 24, 25, 26, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 42, 43, 44, 45, 47, 48, 49, 50, 52, 53, 54, 55, 57, 58, 59, 60, 62, 63, 64, 65
+#range_for_inner.patterns[1].captures[28].patterns[1].match  groups 1, 2, 3, 4
+#square_brackets.begin  groups 1
+#static_assert.begin  groups 1, 2, 3, 4, 6, 7, 8, 9
 #string_context.patterns[0].end  groups 2, 3
-#string_context.patterns[0].patterns[0].match  \\(?:u\h{4}|U\h{8})
-#string_context.patterns[0].patterns[1].match  \\["'?\\abfnrtv]
-#string_context.patterns[0].patterns[2].match  \\[0-7]{1,3}
-#string_context.patterns[0].patterns[3].match  (\\x0*\h{2}(?!\h))|(\\x\h*)
-#string_context.patterns[1].begin  (?<!\h)((?:u8??|[LU])?)'  fuzz
-#string_context.patterns[1].end  (')(?:((?:[A-Za-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?…  fuzz
-#string_context.patterns[1].patterns[0].match  (\\x0*\h{2}(?!\h))|(\\x\h*)
-#string_context.patterns[2].begin  ((?:[LUu]8?)?R)"(?:(?:_r|re)|regex)\(
-#string_context.patterns[2].end  \)(?:(?:_r|re)|regex)"|(?=(?<!\\)\n)
-#string_context.patterns[3].begin  ((?:[LUu]8?)?R)"(?:glsl|GLSL)\(
-#string_context.patterns[3].end  \)(?:glsl|GLSL)"|(?=(?<!\\)\n)
-#string_context.patterns[4].begin  ((?:[LUu]8?)?R)"\(  fuzz
-#string_context.patterns[4].end  \)"|(?=(?<!\\)\n)  fuzz
-#string_context.patterns[5].begin  ((?:u8??|[LU])?R)"(?:([^\t ()\\]{0,16})|([^\t ()\\]*))\(  fuzz
-#string_context.patterns[5].end  (\)(\2)(\3)")(?:((?:[A-Za-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z…  fuzz
-#struct_block.begin  ((?<!\w)struct(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*…
-#struct_block.end  (?:(?:(?<=}|%>|\?\?>)\s+{0,1}(;)|(;))|(?=[];=>\[]))|(?=(?<!…
-#struct_block.patterns[0].begin  \G ?
-#struct_block.patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)
-#struct_block.patterns[1].begin  (?<=\{|<%|\?\?<)
-#struct_block.patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)
-#struct_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#struct_block.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#struct_block.beginCaptures[11].patterns[0].match  ((?<!\w)final(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#struct_block.beginCaptures[11].patterns[1].match  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#struct_block.beginCaptures[11].patterns[2].match  DLLEXPORT
-#struct_block.beginCaptures[11].patterns[3].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#switch_conditional_parentheses.begin  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#switch_conditional_parentheses.end  \)|(?=(?<!\\)\n)
-#switch_statement.begin  ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W…
-#switch_statement.end  (?:(?<=}|%>|\?\?>)|(?=[];=>\[]))|(?=(?<!\\)\n)
-#switch_statement.patterns[0].begin  \G ?
-#switch_statement.patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)
-#switch_statement.patterns[1].begin  (?<=\{|<%|\?\?<)
-#switch_statement.patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)
+#string_context.patterns[1].end  groups 2, 3
+#string_context.patterns[1].patterns[0].match  groups 2
+#struct_block.begin  groups 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19
+#struct_block.beginCaptures[11].patterns[0].match  groups 2, 3, 4, 5
+#struct_block.beginCaptures[11].patterns[1].match  groups 2, 3, 4, 5, 7, 8, 9, 10
+#switch_statement.begin  groups 1, 2, 3, 4
 #switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)\s*
 #switch_statement.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#template_call_range.begin  <  fuzz
-#template_call_range.end  >|(?=(?<!\\)\n)  fuzz
-#template_call_range_helper.patterns[0].match  \b((?<!\w)\.?\d(?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])*)(((?:\s*…
-#template_call_range_helper.patterns[0].captures[1].patterns[0].begin  (?=.)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].end  $|(?=(?<!\\)\n)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[0].match  \G(0[Xx])(\h(?:\h|((?<=\h)'(?=\h)))*)?((?<=\h)\.|\.(?=\h))(…
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[0].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[0].captures[5].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[0].captures[10].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[1].match  \G(?=[.0-9])(?!0[BXbx])([0-9](?:[0-9]|((?<=\h)'(?=\h)))*)?(…
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[1].captures[1].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[1].captures[4].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[1].captures[9].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[2].match  \G(0[Bb])([01](?:[01]|((?<=\h)'(?=\h)))*)((?:[Uu]|[Uu]ll?|[…
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[2].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[3].match  \G(0)((?:[0-7]|((?<=\h)'(?=\h)))+)((?:[Uu]|[Uu]ll?|[Uu]LL?|…
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[3].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[4].match  \G(0[Xx])(\h(?:\h|((?<=\h)'(?=\h)))*)(?:(?<!')([Pp])(\+?)(-…
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[4].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[4].captures[7].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[5].match  \G(?=[.0-9])(?!0[BXbx])([0-9](?:[0-9]|((?<=\h)'(?=\h)))*)(?…
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[5].captures[1].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[5].captures[6].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[6].match  (?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])+
-#template_call_range_helper.patterns[0].captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#template_call_range_helper.patterns[1].match  \b((?<!\w)\.?\d(?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])*)(((?:\s*…
-#template_call_range_helper.patterns[1].captures[1].patterns[0].begin  (?=.)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].end  $|(?=(?<!\\)\n)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[0].match  \G(0[Xx])(\h(?:\h|((?<=\h)'(?=\h)))*)?((?<=\h)\.|\.(?=\h))(…
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[0].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[0].captures[5].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[0].captures[10].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[1].match  \G(?=[.0-9])(?!0[BXbx])([0-9](?:[0-9]|((?<=\h)'(?=\h)))*)?(…
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[1].captures[1].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[1].captures[4].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[1].captures[9].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[2].match  \G(0[Bb])([01](?:[01]|((?<=\h)'(?=\h)))*)((?:[Uu]|[Uu]ll?|[…
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[2].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[3].match  \G(0)((?:[0-7]|((?<=\h)'(?=\h)))+)((?:[Uu]|[Uu]ll?|[Uu]LL?|…
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[3].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[4].match  \G(0[Xx])(\h(?:\h|((?<=\h)'(?=\h)))*)(?:(?<!')([Pp])(\+?)(-…
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[4].captures[2].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[4].captures[7].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[5].match  \G(?=[.0-9])(?!0[BXbx])([0-9](?:[0-9]|((?<=\h)'(?=\h)))*)(?…
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[5].captures[1].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[5].captures[6].patterns[0].match  (?<=\h)'(?=\h)
-#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[6].match  (?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])+
-#template_call_range_helper.patterns[1].captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#template_definition.begin  (?<!\w)(template)\s+{0,1}(<)
-#template_definition.end  >|(?=(?<!\\)\n)
-#template_definition.patterns[0].begin  (?<=\w)\s+{0,1}<
-#template_definition.patterns[0].end  >|(?=(?<!\\)\n)
-#ternary_operator.begin  \?  fuzz
-#ternary_operator.end  :|(?=(?<!\\)\n)  fuzz
-#typedef_class.begin  ((?<!\w)typedef(?!\w))\s+{0,1}(?=(?<!\w)class(?!\w))
-#typedef_class.end  (?<=;)|(?=(?<!\\)\n)
-#typedef_class.patterns[0].begin  ((?<!\w)class(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#typedef_class.patterns[0].end  (?:(?:(?<=}|%>|\?\?>)\s+{0,1}(;)|(;))|(?=[];=>\[]))|(?=(?<!…
-#typedef_class.patterns[0].patterns[0].begin  \G ?
-#typedef_class.patterns[0].patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)
-#typedef_class.patterns[0].patterns[1].begin  (?<=\{|<%|\?\?<)
-#typedef_class.patterns[0].patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)
-#typedef_class.patterns[0].patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#typedef_class.patterns[0].patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#typedef_class.patterns[0].patterns[2].patterns[0].match  (((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#typedef_class.patterns[0].patterns[2].patterns[0].captures[1].patterns[0].match  \*
-#typedef_class.patterns[0].patterns[2].patterns[0].captures[1].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#typedef_class.patterns[0].patterns[2].patterns[0].captures[1].patterns[2].match  &
-#typedef_class.patterns[0].patterns[2].patterns[1].match  ,
-#typedef_class.patterns[0].beginCaptures[11].patterns[0].match  ((?<!\w)final(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#typedef_class.patterns[0].beginCaptures[11].patterns[1].match  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#typedef_class.patterns[0].beginCaptures[11].patterns[2].match  DLLEXPORT
-#typedef_class.patterns[0].beginCaptures[11].patterns[3].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#typedef_struct.begin  ((?<!\w)typedef(?!\w))\s+{0,1}(?=(?<!\w)struct(?!\w))
-#typedef_struct.end  (?<=;)|(?=(?<!\\)\n)
-#typedef_struct.patterns[0].begin  ((?<!\w)struct(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*…
-#typedef_struct.patterns[0].end  (?:(?:(?<=}|%>|\?\?>)\s+{0,1}(;)|(;))|(?=[];=>\[]))|(?=(?<!…
-#typedef_struct.patterns[0].patterns[0].begin  \G ?
-#typedef_struct.patterns[0].patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)
-#typedef_struct.patterns[0].patterns[1].begin  (?<=\{|<%|\?\?<)
-#typedef_struct.patterns[0].patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)
-#typedef_struct.patterns[0].patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#typedef_struct.patterns[0].patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#typedef_struct.patterns[0].patterns[2].patterns[0].match  (((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#typedef_struct.patterns[0].patterns[2].patterns[0].captures[1].patterns[0].match  \*
-#typedef_struct.patterns[0].patterns[2].patterns[0].captures[1].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#typedef_struct.patterns[0].patterns[2].patterns[0].captures[1].patterns[2].match  &
-#typedef_struct.patterns[0].patterns[2].patterns[1].match  ,
-#typedef_struct.patterns[0].beginCaptures[11].patterns[0].match  ((?<!\w)final(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#typedef_struct.patterns[0].beginCaptures[11].patterns[1].match  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#typedef_struct.patterns[0].beginCaptures[11].patterns[2].match  DLLEXPORT
-#typedef_struct.patterns[0].beginCaptures[11].patterns[3].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#typedef_union.begin  ((?<!\w)typedef(?!\w))\s+{0,1}(?=(?<!\w)union(?!\w))
-#typedef_union.end  (?<=;)|(?=(?<!\\)\n)
-#typedef_union.patterns[0].begin  ((?<!\w)union(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#typedef_union.patterns[0].end  (?:(?:(?<=}|%>|\?\?>)\s+{0,1}(;)|(;))|(?=[];=>\[]))|(?=(?<!…
-#typedef_union.patterns[0].patterns[0].begin  \G ?
-#typedef_union.patterns[0].patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)
-#typedef_union.patterns[0].patterns[1].begin  (?<=\{|<%|\?\?<)
-#typedef_union.patterns[0].patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)
-#typedef_union.patterns[0].patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#typedef_union.patterns[0].patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#typedef_union.patterns[0].patterns[2].patterns[0].match  (((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#typedef_union.patterns[0].patterns[2].patterns[0].captures[1].patterns[0].match  \*
-#typedef_union.patterns[0].patterns[2].patterns[0].captures[1].patterns[1].match  (?:&((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?…
-#typedef_union.patterns[0].patterns[2].patterns[0].captures[1].patterns[2].match  &
-#typedef_union.patterns[0].patterns[2].patterns[1].match  ,
-#typedef_union.patterns[0].beginCaptures[11].patterns[0].match  ((?<!\w)final(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#typedef_union.patterns[0].beginCaptures[11].patterns[1].match  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#typedef_union.patterns[0].beginCaptures[11].patterns[2].match  DLLEXPORT
-#typedef_union.patterns[0].beginCaptures[11].patterns[3].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#union_block.begin  ((?<!\w)union(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#union_block.end  (?:(?:(?<=}|%>|\?\?>)\s+{0,1}(;)|(;))|(?=[];=>\[]))|(?=(?<!…
-#union_block.patterns[0].begin  \G ?
-#union_block.patterns[0].end  (?:\{|<%|\?\?<|(?=;))|(?=(?<!\\)\n)
-#union_block.patterns[1].begin  (?<=\{|<%|\?\?<)
-#union_block.patterns[1].end  }|%>|\?\?>|(?=(?<!\\)\n)
-#union_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#union_block.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#union_block.beginCaptures[11].patterns[0].match  ((?<!\w)final(?!\w))((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/…
-#union_block.beginCaptures[11].patterns[1].match  ((?<!\w)(?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\…
-#union_block.beginCaptures[11].patterns[2].match  DLLEXPORT
-#union_block.beginCaptures[11].patterns[3].match  (?:[A-Z_a-z]|\\(?:u\h{4}|U\h{8}))(?:[0-9A-Z_a-z]|\\(?:u\h{4…
-#using_namespace.begin  (?<!\w)(using)\s+(namespace)\s+((::)?(?:(?!\b(?:__has_cpp_a…
-#using_namespace.end  ;|(?=(?<!\\)\n)
+#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[0].match  groups 8, 9, 11, 12
+#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[1].match  groups 7, 8, 10, 11
+#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[2].match  groups 5
+#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[3].match  groups 4, 5
+#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[4].match  groups 5, 6, 8, 9
+#template_call_range_helper.patterns[0].captures[1].patterns[0].patterns[5].match  groups 4, 5, 7, 8
+#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[0].match  groups 8, 9, 11, 12
+#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[1].match  groups 7, 8, 10, 11
+#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[2].match  groups 5
+#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[3].match  groups 4, 5
+#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[4].match  groups 5, 6, 8, 9
+#template_call_range_helper.patterns[1].captures[1].patterns[0].patterns[5].match  groups 4, 5, 7, 8
+#typedef_class.patterns[0].begin  groups 6, 7, 8, 9, 10, 16, 17, 18, 19, 20
+#typedef_class.patterns[0].end  groups 1
+#typedef_class.patterns[0].patterns[2].patterns[0].match  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
+#typedef_class.patterns[0].patterns[2].patterns[0].captures[1].patterns[1].match  groups 1, 2, 3, 4
+#typedef_class.patterns[0].beginCaptures[11].patterns[0].match  groups 2, 3, 4, 5
+#typedef_class.patterns[0].beginCaptures[11].patterns[1].match  groups 2, 3, 4, 5
+#typedef_struct.patterns[0].begin  groups 6, 7, 8, 9, 10, 16, 17, 18, 19, 20
+#typedef_struct.patterns[0].end  groups 1
+#typedef_struct.patterns[0].patterns[2].patterns[0].match  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
+#typedef_struct.patterns[0].patterns[2].patterns[0].captures[1].patterns[1].match  groups 1, 2, 3, 4
+#typedef_struct.patterns[0].beginCaptures[11].patterns[0].match  groups 2, 3, 4, 5
+#typedef_struct.patterns[0].beginCaptures[11].patterns[1].match  groups 2, 3, 4, 5
+#typedef_union.patterns[0].begin  groups 6, 7, 8, 9, 10, 16, 17, 18, 19, 20
+#typedef_union.patterns[0].end  groups 1
+#typedef_union.patterns[0].patterns[2].patterns[0].match  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
+#typedef_union.patterns[0].patterns[2].patterns[0].captures[1].patterns[1].match  groups 1, 2, 3, 4
+#typedef_union.patterns[0].beginCaptures[11].patterns[0].match  groups 2, 3, 4, 5
+#typedef_union.patterns[0].beginCaptures[11].patterns[1].match  groups 2, 3, 4, 5
+#union_block.begin  groups 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20
+#union_block.beginCaptures[11].patterns[0].match  groups 2, 3, 4, 5
+#union_block.beginCaptures[11].patterns[1].match  groups 2, 3, 4, 5, 7, 8, 9, 10
+#using_namespace.begin  groups 4, 5
 ```
 
 ### `csharp`

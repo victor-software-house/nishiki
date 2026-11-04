@@ -8,15 +8,39 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | Fixture | Source | Licence |
 |:--|:--|:--|
 | `c/cjson` | [`cJSON.c`][cjson] in DaveGamble/cJSON | [MIT][cjson-licence] |
+| `c/coverage` | `oracle/inputs/c-coverage.c`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `c/jq-print` | [`src/jv_print.c`][jq-print] in jqlang/jq | [MIT][jq-licence] |
 | `c/libuv-core` | [`src/unix/core.c`][libuv-core] in libuv/libuv | [MIT][libuv-licence] |
+| `c/libuv-freertos-startup` | [`test/freertos/mps2/startup.c`][libuv-freertos-startup] in libuv/libuv | [MIT][libuv-licence] |
 | `c/linenoise` | [`linenoise.c`][linenoise] in antirez/linenoise | [BSD-2-Clause][linenoise-licence] |
 | `c/lua-vm` | [`lvm.c`][lua-vm] in lua/lua | [MIT][lua-licence] |
 | `c/sample` | [`samples/c.sample`][c-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `c/zlib-inflate` | [`inflate.c`][zlib-inflate] in madler/zlib | [zlib][zlib-licence] |
+| `cpp/absl-any-invocable` | [`absl/functional/internal/any_invocable.h`][absl-any-invocable] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-any-invocable-test` | [`absl/functional/any_invocable_test.h`][absl-any-invocable-test] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-check-op` | [`absl/log/internal/check_op.h`][absl-check-op] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-cpu-detect` | [`absl/base/internal/cpu_detect.cc`][absl-cpu-detect] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-crc-x86-arm-combined` | [`absl/crc/internal/crc_x86_arm_combined.cc`][absl-crc-x86-arm-combined] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-crc32c` | [`absl/crc/crc32c.h`][absl-crc32c] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-dynamic-annotations` | [`absl/base/internal/dynamic_annotations.h`][absl-dynamic-annotations] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-exception-safety-testing` | [`absl/base/internal/exception_safety_testing.h`][absl-exception-safety-testing] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-flag` | [`absl/flags/flag.h`][absl-flag] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-flag-internal` | [`absl/flags/internal/flag.h`][absl-flag-internal] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-flag-test` | [`absl/flags/flag_test.cc`][absl-flag-test] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-hash-benchmark` | [`absl/hash/hash_benchmark.cc`][absl-hash-benchmark] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-mutex` | [`absl/synchronization/mutex.h`][absl-mutex] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-profile-builder` | [`absl/profiling/internal/profile_builder.cc`][absl-profile-builder] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-status-matchers` | [`absl/status/internal/status_matchers.h`][absl-status-matchers] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
 | `cpp/absl-str-split` | [`absl/strings/str_split.h`][absl-str-split] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/absl-symbolize-test` | [`absl/debugging/symbolize_test.cc`][absl-symbolize-test] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
 | `cpp/benchmark-core` | [`src/benchmark.cc`][benchmark-core] in google/benchmark | [Apache-2.0][benchmark-licence] |
+| `cpp/benchmark-sysinfo` | [`src/sysinfo.cc`][benchmark-sysinfo] in google/benchmark | [Apache-2.0][benchmark-licence] |
+| `cpp/coverage` | `oracle/inputs/cpp-coverage.cpp`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `cpp/fmt-c` | [`include/fmt/fmt-c.h`][fmt-c] in fmtlib/fmt | [MIT][fmt-licence] |
+| `cpp/fmt-core-test` | [`test/core-test.cc`][fmt-core-test] in fmtlib/fmt | [MIT][fmt-licence] |
+| `cpp/fmt-gtest-extra` | [`test/gtest-extra.h`][fmt-gtest-extra] in fmtlib/fmt | [MIT][fmt-licence] |
 | `cpp/fmt-ranges` | [`include/fmt/ranges.h`][fmt-ranges] in fmtlib/fmt | [MIT][fmt-licence] |
+| `cpp/fmt-xchar-test` | [`test/xchar-test.cc`][fmt-xchar-test] in fmtlib/fmt | [MIT][fmt-licence] |
 | `cpp/leveldb-version-set` | [`db/version_set.cc`][leveldb-version-set] in google/leveldb | [BSD-3-Clause][leveldb-licence] |
 | `cpp/rapidjson-reader` | [`include/rapidjson/reader.h`][rapidjson-reader] in Tencent/rapidjson | [MIT][rapidjson-licence] |
 | `cpp/sample` | [`samples/cpp.sample`][cpp-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
@@ -693,7 +717,23 @@ The three `css/charset-*` inputs are one line each, because the grammar's `@char
 They are Vue's examples: HTML with custom elements and components at the top level, and templates in `<script type="text/x-template">` blocks, which the HTML grammar reads as `text.html.basic`.
 
 [abseil-licence]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/LICENSE
+[absl-any-invocable]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/functional/internal/any_invocable.h
+[absl-any-invocable-test]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/functional/any_invocable_test.h
+[absl-check-op]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/log/internal/check_op.h
+[absl-cpu-detect]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/base/internal/cpu_detect.cc
+[absl-crc-x86-arm-combined]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/crc/internal/crc_x86_arm_combined.cc
+[absl-crc32c]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/crc/crc32c.h
+[absl-dynamic-annotations]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/base/internal/dynamic_annotations.h
+[absl-exception-safety-testing]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/base/internal/exception_safety_testing.h
+[absl-flag]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/flags/flag.h
+[absl-flag-internal]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/flags/internal/flag.h
+[absl-flag-test]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/flags/flag_test.cc
+[absl-hash-benchmark]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/hash/hash_benchmark.cc
+[absl-mutex]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/synchronization/mutex.h
+[absl-profile-builder]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/profiling/internal/profile_builder.cc
+[absl-status-matchers]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/status/internal/status_matchers.h
 [absl-str-split]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/strings/str_split.h
+[absl-symbolize-test]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/debugging/symbolize_test.cc
 [actionpack-licence]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/actionpack/MIT-LICENSE
 [aeson-builder]: https://github.com/haskell/aeson/blob/42190167dbe120578a06d67b13b4d96991b34e01/src/Data/Aeson/Encoding/Builder.hs
 [aeson-decoding-text]: https://github.com/haskell/aeson/blob/42190167dbe120578a06d67b13b4d96991b34e01/src/Data/Aeson/Decoding/Text.hs
@@ -722,6 +762,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [bat-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/bat.sample
 [benchmark-core]: https://github.com/google/benchmark/blob/1813ad9c3a828cee126f399739443c329e75bc79/src/benchmark.cc
 [benchmark-licence]: https://github.com/google/benchmark/blob/1813ad9c3a828cee126f399739443c329e75bc79/LICENSE
+[benchmark-sysinfo]: https://github.com/google/benchmark/blob/1813ad9c3a828cee126f399739443c329e75bc79/src/sysinfo.cc
 [benchmark-user-guide]: https://github.com/google/benchmark/blob/1813ad9c3a828cee126f399739443c329e75bc79/docs/user_guide.md
 [black-licence]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/LICENSE
 [black-other-tools]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/docs/guides/using_black_with_other_tools.md
@@ -861,8 +902,12 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [fastapi-routing]: https://github.com/tiangolo/fastapi/blob/5cb6272ed7e3e07eaf6978e1e65b94aca76fa8e0/fastapi/routing.py
 [flask-helpers]: https://github.com/pallets/flask/blob/49943b5a94413a530761350f04e896f76e8d620e/src/flask/helpers.py
 [flask-licence]: https://github.com/pallets/flask/blob/49943b5a94413a530761350f04e896f76e8d620e/LICENSE.txt
+[fmt-c]: https://github.com/fmtlib/fmt/blob/4ed3535092a96ac9f56fab80df83416d51bcc78e/include/fmt/fmt-c.h
+[fmt-core-test]: https://github.com/fmtlib/fmt/blob/4ed3535092a96ac9f56fab80df83416d51bcc78e/test/core-test.cc
+[fmt-gtest-extra]: https://github.com/fmtlib/fmt/blob/4ed3535092a96ac9f56fab80df83416d51bcc78e/test/gtest-extra.h
 [fmt-licence]: https://github.com/fmtlib/fmt/blob/4ed3535092a96ac9f56fab80df83416d51bcc78e/LICENSE
 [fmt-ranges]: https://github.com/fmtlib/fmt/blob/4ed3535092a96ac9f56fab80df83416d51bcc78e/include/fmt/ranges.h
+[fmt-xchar-test]: https://github.com/fmtlib/fmt/blob/4ed3535092a96ac9f56fab80df83416d51bcc78e/test/xchar-test.cc
 [foundation-keyed-archive]: https://github.com/apple/swift-corelibs-foundation/blob/cbfe1c7376ffe869d08b1b5f643d747ef0a16069/Tests/Foundation/Resources/NSKeyedUnarchiver-ConcreteValueTest.plist
 [foundation-licence]: https://github.com/apple/swift-corelibs-foundation/blob/cbfe1c7376ffe869d08b1b5f643d747ef0a16069/LICENSE
 [gin-context]: https://github.com/gin-gonic/gin/blob/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646/context.go
@@ -994,6 +1039,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [leveldb-licence]: https://github.com/google/leveldb/blob/bb74ef739973a70ca9f0d90788a1da89b788c0ad/LICENSE
 [leveldb-version-set]: https://github.com/google/leveldb/blob/bb74ef739973a70ca9f0d90788a1da89b788c0ad/db/version_set.cc
 [libuv-core]: https://github.com/libuv/libuv/blob/7228e05f3e407ed3fa59edba920b8cd825b5d83d/src/unix/core.c
+[libuv-freertos-startup]: https://github.com/libuv/libuv/blob/7228e05f3e407ed3fa59edba920b8cd825b5d83d/test/freertos/mps2/startup.c
 [libuv-licence]: https://github.com/libuv/libuv/blob/7228e05f3e407ed3fa59edba920b8cd825b5d83d/LICENSE
 [linenoise]: https://github.com/antirez/linenoise/blob/a473823d74b93eab2ba83480df16ed37617493f2/linenoise.c
 [linenoise-licence]: https://github.com/antirez/linenoise/blob/a473823d74b93eab2ba83480df16ed37617493f2/LICENSE

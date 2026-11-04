@@ -1,0 +1,1727 @@
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //  Copyright 2019 The Abseil Authors.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 38 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Licensed under the Apache License, Version 2.0 (the "License");
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 66 source.cpp comment.line.double-slash.cpp
+L // you may not use this file except in compliance with the License.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 67 source.cpp comment.line.double-slash.cpp
+L // You may obtain a copy of the License at
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 42 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //      https://www.apache.org/licenses/LICENSE-2.0
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 51 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Unless required by applicable law or agreed to in writing, software
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 70 source.cpp comment.line.double-slash.cpp
+L // distributed under the License is distributed on an "AS IS" BASIS,
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 68 source.cpp comment.line.double-slash.cpp
+L // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 75 source.cpp comment.line.double-slash.cpp
+L // See the License for the specific language governing permissions and
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 70 source.cpp comment.line.double-slash.cpp
+L // limitations under the License.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 33 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // -----------------------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 80 source.cpp comment.line.double-slash.cpp
+L // File: flag.h
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 15 source.cpp comment.line.double-slash.cpp
+L // -----------------------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 80 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // This header file defines the `absl::Flag<T>` type for holding command-line
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp comment.line.double-slash.cpp
+L // flag data, and abstractions to create, get and set such flag data.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 69 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // It is important to note that this type is **unspecified** (an implementation
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 79 source.cpp comment.line.double-slash.cpp
+L // detail) and you do not construct or manipulate actual `absl::Flag<T>`
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp comment.line.double-slash.cpp
+L // instances. Instead, you define and declare flags using the
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 61 source.cpp comment.line.double-slash.cpp
+L // `ABSL_FLAG()` and `ABSL_DECLARE_FLAG()` macros, and get and set flag values
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 78 source.cpp comment.line.double-slash.cpp
+L // using the `absl::GetFlag()` and `absl::SetFlag()` functions.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 63 source.cpp comment.line.double-slash.cpp
+L 
+L #ifndef ABSL_FLAGS_FLAG_H_
+T 1 source.cpp keyword.control.directive.conditional.ifndef.cpp punctuation.definition.directive.cpp
+T 7 source.cpp keyword.control.directive.conditional.ifndef.cpp
+T 8 source.cpp meta.preprocessor.conditional
+T 26 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+L #define ABSL_FLAGS_FLAG_H_
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+L 
+L #include <cstdint>
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.begin.cpp
+T 17 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp
+T 18 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.end.cpp
+L #include <string>
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.begin.cpp
+T 16 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp
+T 17 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.end.cpp
+L #include <type_traits>
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.begin.cpp
+T 21 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp
+T 22 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.end.cpp
+L 
+L #include "absl/base/attributes.h"
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.begin.cpp
+T 32 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp
+T 33 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.end.cpp
+L #include "absl/base/config.h"
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.begin.cpp
+T 28 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp
+T 29 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.end.cpp
+L #include "absl/base/nullability.h"
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.begin.cpp
+T 33 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp
+T 34 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.end.cpp
+L #include "absl/base/optimization.h"
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.begin.cpp
+T 34 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp
+T 35 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.end.cpp
+L #include "absl/flags/commandlineflag.h"
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.begin.cpp
+T 38 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp
+T 39 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.end.cpp
+L #include "absl/flags/config.h"
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.begin.cpp
+T 29 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp
+T 30 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.end.cpp
+L #include "absl/flags/internal/flag.h"
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.begin.cpp
+T 36 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp
+T 37 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.end.cpp
+L #include "absl/flags/internal/registry.h"
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.begin.cpp
+T 40 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp
+T 41 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.end.cpp
+L #include "absl/strings/string_view.h"
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.begin.cpp
+T 36 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp
+T 37 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.end.cpp
+L 
+L namespace absl {
+T 9 source.cpp meta.block.namespace.cpp meta.head.namespace.cpp keyword.other.namespace.definition.cpp storage.type.namespace.definition.cpp
+T 10 source.cpp meta.block.namespace.cpp meta.head.namespace.cpp
+T 14 source.cpp meta.block.namespace.cpp meta.head.namespace.cpp entity.name.namespace.cpp
+T 15 source.cpp meta.block.namespace.cpp meta.head.namespace.cpp
+T 16 source.cpp meta.block.namespace.cpp meta.head.namespace.cpp punctuation.section.block.begin.bracket.curly.namespace.cpp
+L ABSL_NAMESPACE_BEGIN
+T 20 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp variable.upper-case.cpp variable.other.unknown.ABSL_NAMESPACE_BEGIN.cpp
+L 
+L // Flag
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 7 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // An `absl::Flag` holds a command-line flag value, providing a runtime
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 71 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // parameter to a binary. Such flags should be defined in the global namespace
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 78 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // and (preferably) in the module containing the binary's `main()` function.
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // You should not construct and cannot use the `absl::Flag` type directly;
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 74 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // instead, you should declare flags using the `ABSL_DECLARE_FLAG()` macro
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 74 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // within a header file, and define your flag using `ABSL_FLAG()` within your
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // header's associated `.cc` file. Such flags will be named `FLAGS_name`.
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 73 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Example:
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 11 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //    .h file
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 13 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //      // Declares usage of a flag named "FLAGS_count"
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 55 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //      ABSL_DECLARE_FLAG(int, count);
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 38 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //    .cc file
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 14 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //      // Defines a flag named "FLAGS_count" with a default `int` value of 0.
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 78 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //      ABSL_FLAG(int, count, 0, "Count of items to process");
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 62 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // No public methods of `absl::Flag<T>` are part of the Abseil Flags API.
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 73 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // For type support of Abseil Flags, see the marshalling.h header file, which
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // discusses supported standard types, optional flags, and additional Abseil
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // type support.
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 16 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L 
+L template <typename T>
+T 8 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp storage.type.template.cpp
+T 9 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 10 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.section.angle-brackets.begin.template.definition.cpp
+T 18 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp storage.type.template.argument.typename.cpp
+T 19 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp
+T 20 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp entity.name.type.template.cpp
+T 21 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.section.angle-brackets.end.template.definition.cpp
+L using Flag = flags_internal::Flag<T>;
+T 5 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.declaration.type.alias.cpp keyword.other.using.directive.cpp
+T 6 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.declaration.type.alias.cpp
+T 10 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.declaration.type.alias.cpp entity.name.type.cpp
+T 11 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.declaration.type.alias.cpp
+T 12 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.declaration.type.alias.cpp keyword.operator.assignment.cpp
+T 13 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.declaration.type.alias.cpp
+T 27 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.declaration.type.alias.cpp meta.qualified-type.cpp entity.name.scope-resolution.cpp
+T 29 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.declaration.type.alias.cpp meta.qualified-type.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 33 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.declaration.type.alias.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 34 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.declaration.type.alias.cpp meta.qualified-type.cpp meta.template.call.cpp punctuation.section.angle-brackets.begin.template.call.cpp
+T 35 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.declaration.type.alias.cpp meta.qualified-type.cpp meta.template.call.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 36 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.declaration.type.alias.cpp meta.qualified-type.cpp meta.template.call.cpp punctuation.section.angle-brackets.end.template.call.cpp
+T 37 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.declaration.type.alias.cpp punctuation.terminator.statement.cpp
+L 
+L // GetFlag()
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 12 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Returns the value (of type `T`) of an `absl::Flag<T>` instance, by value. Do
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 79 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // not construct an `absl::Flag<T>` directly and call `absl::GetFlag()`;
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // instead, refer to flag's constructed variable name (e.g. `FLAGS_name`).
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 74 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // Because this function returns by value and not by reference, it is
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 69 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // thread-safe, but note that the operation may be expensive; as a result, avoid
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 80 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // `absl::GetFlag()` within any tight loops.
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 44 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Example:
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 11 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //   // FLAGS_count is a Flag of type `int`
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 43 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //   int my_count = absl::GetFlag(FLAGS_count);
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 47 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //   // FLAGS_firstname is a Flag of type `std::string`
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 55 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //   std::string first_name = absl::GetFlag(FLAGS_firstname);
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 61 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L template <typename T>
+T 8 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp storage.type.template.cpp
+T 9 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 10 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.section.angle-brackets.begin.template.definition.cpp
+T 18 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp storage.type.template.argument.typename.cpp
+T 19 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp
+T 20 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp entity.name.type.template.cpp
+T 21 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.section.angle-brackets.end.template.definition.cpp
+L [[nodiscard]] T GetFlag(const absl::Flag<T>& flag) {
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp support.other.attribute.cpp punctuation.section.attribute.begin.cpp
+T 11 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp support.other.attribute.cpp entity.other.attribute.nodiscard.cpp
+T 13 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp support.other.attribute.cpp punctuation.section.attribute.end.cpp
+T 14 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.qualified-type.cpp
+T 15 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 16 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp
+T 23 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 24 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 29 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.specifier.const.cpp
+T 30 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 34 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.scope-resolution.parameter.cpp
+T 36 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.parameter.cpp
+T 40 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.type.parameter.cpp
+T 41 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp meta.template.call.cpp punctuation.section.angle-brackets.begin.template.call.cpp
+T 42 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp meta.template.call.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 43 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp meta.template.call.cpp punctuation.section.angle-brackets.end.template.call.cpp
+T 44 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.reference.cpp
+T 45 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 49 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 50 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 51 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 52 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.block.begin.bracket.curly.function.definition.cpp
+L   return flags_internal::FlagImplPeer::InvokeGet<T>(flag);
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 8 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.control.return.cpp
+T 9 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 23 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.scope-resolution.cpp
+T 25 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 37 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.scope-resolution.function.call.cpp
+T 39 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.function.call.cpp
+T 48 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.function.call.cpp
+T 49 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.template.call.cpp meta.template.call.cpp punctuation.section.angle-brackets.begin.template.call.cpp
+T 50 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.template.call.cpp meta.template.call.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 51 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.template.call.cpp meta.template.call.cpp punctuation.section.angle-brackets.end.template.call.cpp
+T 52 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 56 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.flag.cpp
+T 57 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 58 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L }
+T 1 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.block.end.bracket.curly.function.definition.cpp
+L 
+L // SetFlag()
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 12 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Sets the value of an `absl::Flag` to the value `v`. Do not construct an
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 74 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // `absl::Flag<T>` directly and call `absl::SetFlag()`; instead, use the
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // flag's variable name (e.g. `FLAGS_name`). This function is
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 61 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // thread-safe, but is potentially expensive. Avoid setting flags in general,
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // but especially within performance-critical code.
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 51 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L template <typename T>
+T 8 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp storage.type.template.cpp
+T 9 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 10 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.section.angle-brackets.begin.template.definition.cpp
+T 18 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp storage.type.template.argument.typename.cpp
+T 19 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp
+T 20 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp entity.name.type.template.cpp
+T 21 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.section.angle-brackets.end.template.definition.cpp
+L void SetFlag(absl::Flag<T>* absl_nonnull flag, const T& v) {
+T 4 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 5 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp
+T 12 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 13 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 17 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.scope-resolution.parameter.cpp
+T 19 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.parameter.cpp
+T 23 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.type.parameter.cpp
+T 24 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp meta.template.call.cpp punctuation.section.angle-brackets.begin.template.call.cpp
+T 25 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp meta.template.call.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 26 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp meta.template.call.cpp punctuation.section.angle-brackets.end.template.call.cpp
+T 27 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.pointer.cpp
+T 28 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 40 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.type.parameter.cpp
+T 41 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 45 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 46 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.delimiter.comma.cpp
+T 47 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 52 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.specifier.const.cpp
+T 53 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 54 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.type.parameter.cpp
+T 55 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.reference.cpp
+T 56 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 57 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 58 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 59 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 60 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.block.begin.bracket.curly.function.definition.cpp
+L   flags_internal::FlagImplPeer::InvokeSet(*flag, v);
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 16 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.scope-resolution.cpp
+T 18 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 30 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.scope-resolution.function.call.cpp
+T 32 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.function.call.cpp
+T 41 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.function.call.cpp
+T 42 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 43 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.arithmetic.cpp
+T 47 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.flag.cpp
+T 48 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.delimiter.comma.cpp
+T 49 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 50 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.v.cpp
+T 51 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 52 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L }
+T 1 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.block.end.bracket.curly.function.definition.cpp
+L 
+L // Overload of `SetFlag()` to allow callers to pass in a value that is
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 70 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // convertible to `T`. E.g., use this overload to pass a "const char*" when `T`
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 79 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // is `std::string`.
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 20 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L template <typename T, typename V>
+T 8 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp storage.type.template.cpp
+T 9 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 10 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.section.angle-brackets.begin.template.definition.cpp
+T 18 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp storage.type.template.argument.typename.cpp
+T 19 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp
+T 20 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp entity.name.type.template.cpp
+T 21 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp punctuation.separator.delimiter.comma.template.argument.cpp
+T 22 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp
+T 30 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp storage.type.template.argument.typename.cpp
+T 31 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp
+T 32 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp entity.name.type.template.cpp
+T 33 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.section.angle-brackets.end.template.definition.cpp
+L void SetFlag(absl::Flag<T>* absl_nonnull flag, const V& v) {
+T 4 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 5 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp
+T 12 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 13 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 17 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.scope-resolution.parameter.cpp
+T 19 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.parameter.cpp
+T 23 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.type.parameter.cpp
+T 24 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp meta.template.call.cpp punctuation.section.angle-brackets.begin.template.call.cpp
+T 25 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp meta.template.call.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 26 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp meta.template.call.cpp punctuation.section.angle-brackets.end.template.call.cpp
+T 27 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.pointer.cpp
+T 28 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 40 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.type.parameter.cpp
+T 41 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 45 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 46 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.delimiter.comma.cpp
+T 47 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 52 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.specifier.const.cpp
+T 53 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 54 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.type.parameter.cpp
+T 55 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.reference.cpp
+T 56 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 57 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 58 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 59 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 60 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.block.begin.bracket.curly.function.definition.cpp
+L   T value(v);
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 3 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 4 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 9 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.function.call.cpp
+T 10 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 11 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.v.cpp
+T 12 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 13 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L   flags_internal::FlagImplPeer::InvokeSet(*flag, value);
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 16 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.scope-resolution.cpp
+T 18 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 30 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.scope-resolution.function.call.cpp
+T 32 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.function.call.cpp
+T 41 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.function.call.cpp
+T 42 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 43 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.arithmetic.cpp
+T 47 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.flag.cpp
+T 48 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.delimiter.comma.cpp
+T 49 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 54 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.value.cpp
+T 55 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 56 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L }
+T 1 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.block.end.bracket.curly.function.definition.cpp
+L 
+L // GetFlagReflectionHandle()
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 28 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Returns the reflection handle corresponding to specified Abseil Flag
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 71 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // instance. Use this handle to access flag's reflection information, like name,
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 80 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L // location, default value etc.
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 31 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Example:
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 11 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //   std::string = absl::GetFlagReflectionHandle(FLAGS_count).DefaultValue();
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp comment.line.double-slash.cpp
+L 
+L template <typename T>
+T 8 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp storage.type.template.cpp
+T 9 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 10 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.section.angle-brackets.begin.template.definition.cpp
+T 18 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp storage.type.template.argument.typename.cpp
+T 19 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp
+T 20 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.template.definition.cpp entity.name.type.template.cpp
+T 21 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.section.angle-brackets.end.template.definition.cpp
+L const CommandLineFlag& GetFlagReflectionHandle(const absl::Flag<T>& f) {
+T 5 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp storage.modifier.const.cpp
+T 6 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp
+T 21 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 22 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp storage.modifier.reference.cpp
+T 23 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp
+T 46 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 47 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 52 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.specifier.const.cpp
+T 53 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 57 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.scope-resolution.parameter.cpp
+T 59 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.parameter.cpp
+T 63 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.type.parameter.cpp
+T 64 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp meta.template.call.cpp punctuation.section.angle-brackets.begin.template.call.cpp
+T 65 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp meta.template.call.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 66 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp meta.template.call.cpp punctuation.section.angle-brackets.end.template.call.cpp
+T 67 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.reference.cpp
+T 68 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 69 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 70 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 71 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 72 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.block.begin.bracket.curly.function.definition.cpp
+L   return flags_internal::FlagImplPeer::InvokeReflect(f);
+T 2 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 8 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.control.return.cpp
+T 9 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 23 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.scope-resolution.cpp
+T 25 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 37 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.scope-resolution.function.call.cpp
+T 39 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.function.call.cpp
+T 52 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.function.call.cpp
+T 53 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 54 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.f.cpp
+T 55 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 56 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L }
+T 1 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.block.end.bracket.curly.function.definition.cpp
+L 
+L ABSL_NAMESPACE_END
+T 18 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp variable.upper-case.cpp variable.other.unknown.ABSL_NAMESPACE_END.cpp
+L }  // namespace absl
+T 1 source.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.section.block.end.bracket.curly.namespace.cpp
+T 3 source.cpp comment.line.double-slash.cpp
+T 5 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 20 source.cpp comment.line.double-slash.cpp
+L 
+L 
+L // ABSL_FLAG()
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 14 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // This macro defines an `absl::Flag<T>` instance of a specified type `T`:
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 74 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //   ABSL_FLAG(T, name, default_value, help);
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 45 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // where:
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 9 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //   * `T` is a supported flag type (see the list of types in `marshalling.h`),
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 79 source.cpp comment.line.double-slash.cpp
+L //   * `name` designates the name of the flag (as a global variable
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 67 source.cpp comment.line.double-slash.cpp
+L //     `FLAGS_name`),
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 21 source.cpp comment.line.double-slash.cpp
+L //   * `default_value` is an expression holding the default value for this flag
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 79 source.cpp comment.line.double-slash.cpp
+L //     (which must be implicitly convertible to `T`),
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 53 source.cpp comment.line.double-slash.cpp
+L //   * `help` is the help text, which can also be an expression.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 64 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // This macro expands to a flag named 'FLAGS_name' of type 'T':
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 63 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //   absl::Flag<T> FLAGS_name = ...;
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 36 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Note that all such instances are created as global variables.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 64 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // For `ABSL_FLAG()` values that you wish to expose to other translation units,
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 79 source.cpp comment.line.double-slash.cpp
+L // it is recommended to define those flags within the `.cc` file associated with
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 80 source.cpp comment.line.double-slash.cpp
+L // the header where the flag is declared.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 41 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Note: do not construct objects of type `absl::Flag<T>` directly. Only use the
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 80 source.cpp comment.line.double-slash.cpp
+L // `ABSL_FLAG()` macro for such construction.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 45 source.cpp comment.line.double-slash.cpp
+L #define ABSL_FLAG(Type, name, default_value, help) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_FLAG_IMPL(Type, name, default_value, help)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.Type.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.name.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.default_value.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.help.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+L 
+L // ABSL_FLAG().OnUpdate()
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 25 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Defines a flag of type `T` with a callback attached:
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 55 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //   ABSL_FLAG(T, name, default_value, help).OnUpdate(callback);
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 64 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // `callback` should be convertible to `void (*)()`.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 52 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // After any setting of the flag value, the callback will be called at least
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // once. A rapid sequence of changes may be merged together into the same
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 73 source.cpp comment.line.double-slash.cpp
+L // callback. No concurrent calls to the callback will be made for the same
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 74 source.cpp comment.line.double-slash.cpp
+L // flag. Callbacks are allowed to read the current value of the flag but must
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp comment.line.double-slash.cpp
+L // not mutate that flag.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 24 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // The update mechanism guarantees "eventual consistency"; if the callback
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 74 source.cpp comment.line.double-slash.cpp
+L // derives an auxiliary data structure from the flag value, it is guaranteed
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // that eventually the flag value and the derived data structure will be
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp comment.line.double-slash.cpp
+L // consistent.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 14 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Note: ABSL_FLAG.OnUpdate() does not have a public definition. Hence, this
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // comment serves as its API documentation.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 43 source.cpp comment.line.double-slash.cpp
+L 
+L // -----------------------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 80 source.cpp comment.line.double-slash.cpp
+L // Implementation details below this section
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 44 source.cpp comment.line.double-slash.cpp
+L // -----------------------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 80 source.cpp comment.line.double-slash.cpp
+L 
+L // ABSL_FLAG_IMPL macro definition conditional on ABSL_FLAGS_STRIP_NAMES
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp comment.line.double-slash.cpp
+L #define ABSL_FLAG_IMPL_FLAG_PTR(flag) flag
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.flag.cpp
+L #define ABSL_FLAG_IMPL_HELP_ARG(name)                      \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   absl::flags_internal::HelpArg<AbslFlagHelpGenFor##name>( \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.function.call.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.function.call.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp punctuation.section.angle-brackets.begin.template.call.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp variable.other.macro.argument.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp punctuation.section.angle-brackets.end.template.call.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L       FLAGS_help_storage_##name)
+T 6 source.cpp meta.preprocessor.macro.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.FLAGS_help_storage_.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp variable.other.macro.argument.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+L #define ABSL_FLAG_IMPL_DEFAULT_ARG(Type, name) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   absl::flags_internal::DefaultArg<Type, AbslFlagDefaultGenFor##name>(0)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.function.call.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.function.call.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp punctuation.section.angle-brackets.begin.template.call.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp punctuation.separator.delimiter.comma.template.argument.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp meta.qualified-type.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 68 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp variable.other.macro.argument.cpp
+T 69 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp punctuation.section.angle-brackets.end.template.call.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp constant.numeric.decimal.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+L 
+L #if ABSL_FLAGS_STRIP_NAMES
+T 1 source.cpp keyword.control.directive.conditional.if.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.if.cpp
+T 4 source.cpp meta.preprocessor.conditional
+T 26 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+L #define ABSL_FLAG_IMPL_FLAGNAME(txt) ""
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+L #define ABSL_FLAG_IMPL_TYPENAME(txt) ""
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+L #define ABSL_FLAG_IMPL_FILENAME() ""
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+L #define ABSL_FLAG_IMPL_REGISTRAR(T, flag)                                      \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   absl::flags_internal::FlagRegistrar<T, false>(ABSL_FLAG_IMPL_FLAG_PTR(flag), \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.function.call.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.function.call.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp punctuation.section.angle-brackets.begin.template.call.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp punctuation.separator.delimiter.comma.template.argument.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp constant.language.false.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp punctuation.section.angle-brackets.end.template.call.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 76 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.flag.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp
+T 80 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L                                                 nullptr)
+T 48 source.cpp meta.preprocessor.macro.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp constant.language.nullptr.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+L #else
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+L #define ABSL_FLAG_IMPL_FLAGNAME(txt) txt
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.txt.cpp
+L #define ABSL_FLAG_IMPL_TYPENAME(txt) txt
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.txt.cpp
+L #define ABSL_FLAG_IMPL_FILENAME() __FILE__
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+L #define ABSL_FLAG_IMPL_REGISTRAR(T, flag)                                     \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   absl::flags_internal::FlagRegistrar<T, true>(ABSL_FLAG_IMPL_FLAG_PTR(flag), \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.function.call.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.function.call.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp punctuation.section.angle-brackets.begin.template.call.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp punctuation.separator.delimiter.comma.template.argument.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp constant.language.true.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp punctuation.section.angle-brackets.end.template.call.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 75 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.flag.cpp
+T 76 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L                                                __FILE__)
+T 47 source.cpp meta.preprocessor.macro.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L // ABSL_FLAG_IMPL macro definition conditional on ABSL_FLAGS_STRIP_HELP
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 71 source.cpp comment.line.double-slash.cpp
+L 
+L #if ABSL_FLAGS_STRIP_HELP
+T 1 source.cpp keyword.control.directive.conditional.if.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.if.cpp
+T 4 source.cpp meta.preprocessor.conditional
+T 25 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+L #define ABSL_FLAG_IMPL_FLAGHELP(txt) absl::flags_internal::kStrippedFlagHelp
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 76 source.cpp meta.preprocessor.macro.cpp variable.camel-case.cpp variable.other.unknown.kStrippedFlagHelp.cpp
+L #else
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+L #define ABSL_FLAG_IMPL_FLAGHELP(txt) txt
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.txt.cpp
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L // AbslFlagHelpGenFor##name is used to encapsulate both immediate (method Const)
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 80 source.cpp comment.line.double-slash.cpp
+L // and lazy (method NonConst) evaluation of help message expression. We choose
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 78 source.cpp comment.line.double-slash.cpp
+L // between the two via the call to HelpArg in absl::Flag instantiation below.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp comment.line.double-slash.cpp
+L // If help message expression is constexpr evaluable compiler will optimize
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 75 source.cpp comment.line.double-slash.cpp
+L // away this whole struct.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 26 source.cpp comment.line.double-slash.cpp
+L // TODO(rogeeff): place these generated structs into local namespace and apply
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 78 source.cpp comment.line.double-slash.cpp
+L // ABSL_INTERNAL_UNIQUE_SHORT_NAME.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 35 source.cpp comment.line.double-slash.cpp
+L // TODO(rogeeff): Apply __attribute__((nodebug)) to FLAGS_help_storage_##name
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp comment.line.double-slash.cpp
+L #define ABSL_FLAG_IMPL_DECLARE_HELP_WRAPPER(name, txt)                       \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   struct AbslFlagHelpGenFor##name {                                          \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.head.struct.cpp storage.type.struct.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp entity.name.type.struct.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.head.struct.cpp variable.other.macro.argument.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.head.struct.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.head.struct.cpp punctuation.section.block.begin.bracket.curly.struct.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp constant.character.escape.line-continuation.cpp
+L     /* The expression is run in the caller as part of the   */               \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp comment.block.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp comment.block.cpp punctuation.definition.comment.begin.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp comment.block.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp comment.block.cpp punctuation.definition.comment.end.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp constant.character.escape.line-continuation.cpp
+L     /* default value argument. That keeps temporaries alive */               \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp comment.block.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp comment.block.cpp punctuation.definition.comment.begin.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp comment.block.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp comment.block.cpp punctuation.definition.comment.end.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp constant.character.escape.line-continuation.cpp
+L     /* long enough for NonConst to work correctly.          */               \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp comment.block.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp comment.block.cpp punctuation.definition.comment.begin.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp comment.block.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp comment.block.cpp punctuation.definition.comment.end.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp constant.character.escape.line-continuation.cpp
+L     static constexpr absl::string_view Value(                                \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp storage.modifier.static.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp
+T 20 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp storage.modifier.constexpr.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.qualified-type.cpp entity.name.scope-resolution.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.qualified-type.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters constant.character.escape.line-continuation.cpp
+L         absl::string_view absl_flag_help ABSL_ATTRIBUTE_LIFETIME_BOUND  =     \
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.scope-resolution.parameter.cpp
+T 14 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.parameter.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.type.parameter.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.type.parameter.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 73 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp keyword.operator.assignment.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp constant.character.escape.line-continuation.cpp
+L             ABSL_FLAG_IMPL_FLAGHELP(txt)) {                                  \
+T 12 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.lower-case.cpp variable.other.unknown.txt.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.block.begin.bracket.curly.function.definition.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.character.escape.line-continuation.cpp
+L       return absl_flag_help;                                                 \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.control.return.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.other.unknown.absl_flag_help.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.character.escape.line-continuation.cpp
+L     }                                                                        \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.block.end.bracket.curly.function.definition.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp constant.character.escape.line-continuation.cpp
+L     static std::string NonConst() { return std::string(Value()); }           \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp storage.modifier.static.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp
+T 14 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.qualified-type.cpp entity.name.scope-resolution.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.qualified-type.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.block.begin.bracket.curly.function.definition.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.control.return.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.scope-resolution.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.function.call.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.function.call.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.block.end.bracket.curly.function.definition.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp constant.character.escape.line-continuation.cpp
+L   };                                                                         \
+T 2 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp punctuation.section.block.end.bracket.curly.struct.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp punctuation.terminator.statement.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   constexpr auto FLAGS_help_storage_##name ABSL_INTERNAL_UNIQUE_SMALL_NAME() \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp storage.modifier.specifier.functional.pre-parameters.constexpr.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.FLAGS_help_storage_.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp variable.other.macro.argument.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp
+T 74 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 75 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 76 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L       ABSL_ATTRIBUTE_SECTION_VARIABLE(flags_help_cold) =                     \
+T 6 source.cpp meta.preprocessor.macro.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.flags_help_cold.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp keyword.operator.assignment.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L           absl::flags_internal::HelpStringAsArray<AbslFlagHelpGenFor##name>( \
+T 10 source.cpp meta.preprocessor.macro.cpp
+T 14 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.function.call.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.function.call.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp punctuation.section.angle-brackets.begin.template.call.cpp
+T 68 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 74 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp variable.other.macro.argument.cpp
+T 75 source.cpp meta.preprocessor.macro.cpp meta.template.call.cpp meta.template.call.cpp punctuation.section.angle-brackets.end.template.call.cpp
+T 76 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L               0);
+T 14 source.cpp meta.preprocessor.macro.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp constant.numeric.decimal.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp punctuation.terminator.statement.cpp
+L 
+L #define ABSL_FLAG_IMPL_DECLARE_DEF_VAL_WRAPPER(name, Type, default_value)     \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 73 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   struct AbslFlagDefaultGenFor##name {                                        \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.head.struct.cpp storage.type.struct.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp entity.name.type.struct.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.head.struct.cpp variable.other.macro.argument.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.head.struct.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.head.struct.cpp punctuation.section.block.begin.bracket.curly.struct.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp constant.character.escape.line-continuation.cpp
+L     Type value = absl::flags_internal::InitDefaultValue<Type>(default_value); \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp
+T 14 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp meta.assignment.cpp variable.lower-case.cpp variable.other.assignment.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp meta.assignment.cpp keyword.operator.assignment.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp entity.name.scope-resolution.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp entity.name.scope-resolution.function.call.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.function.call.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp entity.name.function.call.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp meta.template.call.cpp meta.template.call.cpp punctuation.section.angle-brackets.begin.template.call.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp meta.template.call.cpp meta.template.call.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp meta.template.call.cpp meta.template.call.cpp punctuation.section.angle-brackets.end.template.call.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 75 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp variable.snake-case.cpp variable.other.unknown.default_value.cpp
+T 76 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.assignment.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp punctuation.terminator.statement.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp constant.character.escape.line-continuation.cpp
+L     static void Gen(void* absl_flag_default_loc) {                            \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp storage.modifier.static.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 20 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.modifier.pointer.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.block.begin.bracket.curly.function.definition.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.character.escape.line-continuation.cpp
+L       new (absl_flag_default_loc) Type(AbslFlagDefaultGenFor##name{}.value);  \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.wordlike.cpp keyword.operator.new.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.parens.cpp variable.other.unknown.absl_flag_default_loc.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.function.call.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.other.unknown.AbslFlagDefaultGenFor.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.other.macro.argument.cpp
+T 69 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 74 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.value.cpp
+T 75 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 76 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.character.escape.line-continuation.cpp
+L     }                                                                         \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.block.end.bracket.curly.function.definition.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 79 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp constant.character.escape.line-continuation.cpp
+L   };
+T 2 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp punctuation.section.block.end.bracket.curly.struct.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp punctuation.terminator.statement.cpp
+L 
+L // ABSL_FLAG_IMPL
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 17 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Note: Name of registrar object is not arbitrary. It is used to "grab"
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp comment.line.double-slash.cpp
+L // global name for FLAGS_no<flag_name> symbol, thus preventing the possibility
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 78 source.cpp comment.line.double-slash.cpp
+L // of defining two flags with names foo and nofoo.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 50 source.cpp comment.line.double-slash.cpp
+L #define ABSL_FLAG_IMPL(Type, name, default_value, help)               \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   extern ::absl::Flag<Type> FLAGS_##name;                             \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp storage.modifier.specifier.extern.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.Flag.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp keyword.operator.comparison.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.Type.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp keyword.operator.comparison.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.FLAGS_.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp variable.other.macro.argument.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp punctuation.terminator.statement.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   namespace absl /* block flags in namespaces */ {}                   \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.head.namespace.cpp keyword.other.namespace.definition.cpp storage.type.namespace.definition.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.head.namespace.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.head.namespace.cpp entity.name.namespace.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.head.namespace.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.head.namespace.cpp comment.block.cpp punctuation.definition.comment.begin.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.head.namespace.cpp comment.block.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.head.namespace.cpp comment.block.cpp punctuation.definition.comment.end.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.head.namespace.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.head.namespace.cpp punctuation.section.block.begin.bracket.curly.namespace.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.section.block.end.bracket.curly.namespace.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_FLAG_IMPL_DECLARE_DEF_VAL_WRAPPER(name, Type, default_value)   \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.name.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.Type.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.default_value.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_FLAG_IMPL_DECLARE_HELP_WRAPPER(name, help)                     \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.name.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.help.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_CONST_INIT absl::Flag<Type> FLAGS_##name{                      \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp variable.upper-case.cpp variable.other.unknown.ABSL_CONST_INIT.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.Flag.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp keyword.operator.comparison.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.Type.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp keyword.operator.comparison.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.FLAGS_.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp variable.other.macro.argument.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       ABSL_FLAG_IMPL_FLAGNAME(#name), ABSL_FLAG_IMPL_TYPENAME(#Type), \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.block.cpp variable.other.macro.argument.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.separator.delimiter.comma.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp meta.block.cpp variable.other.macro.argument.cpp
+T 68 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 69 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.separator.delimiter.comma.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       ABSL_FLAG_IMPL_FILENAME(), ABSL_FLAG_IMPL_HELP_ARG(name),       \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.separator.delimiter.comma.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.block.cpp variable.lower-case.cpp variable.other.unknown.name.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.separator.delimiter.comma.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       ABSL_FLAG_IMPL_DEFAULT_ARG(Type, name)};                        \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.block.cpp variable.other.unknown.Type.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.separator.delimiter.comma.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.block.cpp variable.lower-case.cpp variable.other.unknown.name.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp punctuation.terminator.statement.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   extern absl::flags_internal::FlagRegistrarEmpty FLAGS_no##name;     \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp storage.modifier.specifier.extern.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.FlagRegistrarEmpty.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.FLAGS_no.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp variable.other.macro.argument.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp punctuation.terminator.statement.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   absl::flags_internal::FlagRegistrarEmpty FLAGS_no##name =           \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 24 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.FlagRegistrarEmpty.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.FLAGS_no.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp variable.other.macro.argument.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp keyword.operator.assignment.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L       ABSL_FLAG_IMPL_REGISTRAR(Type, FLAGS_##name)
+T 6 source.cpp meta.preprocessor.macro.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.Type.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.FLAGS_.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp variable.other.macro.argument.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+L 
+L // ABSL_RETIRED_FLAG
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 20 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Designates the flag (which is usually pre-existing) as "retired." A retired
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 78 source.cpp comment.line.double-slash.cpp
+L // flag is a flag that is now unused by the program, but may still be passed on
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 79 source.cpp comment.line.double-slash.cpp
+L // the command line, usually by production scripts. A retired flag is ignored
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp comment.line.double-slash.cpp
+L // and code can't access it at runtime.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 39 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // This macro registers a retired flag with given name and type, with a name
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // identical to the name of the original flag you are retiring. The retired
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 75 source.cpp comment.line.double-slash.cpp
+L // flag's type can change over time, so that you can retire code to support a
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp comment.line.double-slash.cpp
+L // custom flag type.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 20 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // This macro has the same signature as `ABSL_FLAG`. To retire a flag, simply
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp comment.line.double-slash.cpp
+L // replace an `ABSL_FLAG` definition with `ABSL_RETIRED_FLAG`, leaving the
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 74 source.cpp comment.line.double-slash.cpp
+L // arguments unchanged (unless of course you actually want to retire the flag
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp comment.line.double-slash.cpp
+L // type at this time as well).
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 30 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // `default_value` and `explanation` are unused.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 48 source.cpp comment.line.double-slash.cpp
+L // TODO(rogeeff): replace RETIRED_FLAGS with FLAGS once forward declarations of
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 79 source.cpp comment.line.double-slash.cpp
+L // retired flags are cleaned up.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 32 source.cpp comment.line.double-slash.cpp
+L #if ABSL_FLAGS_STRIP_NAMES
+T 1 source.cpp keyword.control.directive.conditional.if.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.if.cpp
+T 4 source.cpp meta.preprocessor.conditional
+T 26 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+L // When flag names are stripped, retired flags are not registered. Define an
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // unused type alias instead of an object so that no runtime constructor or
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 75 source.cpp comment.line.double-slash.cpp
+L // storage is emitted, the trailing semicolon is consumed, and `type` (along
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // with this header) remains referenced to avoid unused-type/include warnings.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 78 source.cpp comment.line.double-slash.cpp
+L #define ABSL_RETIRED_FLAG(type, name, default_value, explanation) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   using RETIRED_FLAGS_##name [[maybe_unused]] =                   \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.other.using.directive.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp variable.upper-case.cpp variable.other.unknown.RETIRED_FLAGS_.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp variable.other.macro.argument.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp support.other.attribute.cpp punctuation.section.attribute.begin.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp support.other.attribute.cpp entity.other.attribute.maybe_unused.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp support.other.attribute.cpp punctuation.section.attribute.end.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp keyword.operator.assignment.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L       ::absl::flags_internal::RetiredFlag<type>
+T 6 source.cpp meta.preprocessor.macro.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 14 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.RetiredFlag.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp keyword.operator.comparison.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.type.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp keyword.operator.comparison.cpp
+L #else
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+L #define ABSL_RETIRED_FLAG(type, name, default_value, explanation)      \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   static absl::flags_internal::RetiredFlag<type> RETIRED_FLAGS_##name; \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp storage.modifier.specifier.static.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.RetiredFlag.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp keyword.operator.comparison.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.type.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp keyword.operator.comparison.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp variable.upper-case.cpp variable.other.unknown.RETIRED_FLAGS_.cpp
+T 69 source.cpp meta.preprocessor.macro.cpp variable.other.macro.argument.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp punctuation.terminator.statement.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   [[maybe_unused]] static const auto RETIRED_FLAGS_REG_##name =        \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp support.other.attribute.cpp punctuation.section.attribute.begin.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp support.other.attribute.cpp entity.other.attribute.maybe_unused.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp support.other.attribute.cpp punctuation.section.attribute.end.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp storage.modifier.specifier.static.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp storage.modifier.specifier.const.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp variable.upper-case.cpp variable.other.unknown.RETIRED_FLAGS_REG_.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp variable.other.macro.argument.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp keyword.operator.assignment.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L       (RETIRED_FLAGS_##name.Retire(#name),                             \
+T 6 source.cpp meta.preprocessor.macro.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.upper-case.cpp variable.other.unknown.RETIRED_FLAGS_.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.other.macro.argument.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.function.call.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.other.macro.argument.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp constant.character.escape.line-continuation.cpp
+L        ::absl::flags_internal::FlagRegistrarEmpty{})
+T 7 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.scope-resolution.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.scope-resolution.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.other.unknown.FlagRegistrarEmpty.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L #endif  // ABSL_FLAGS_FLAG_H_
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+T 8 source.cpp comment.line.double-slash.cpp
+T 10 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 29 source.cpp comment.line.double-slash.cpp
+L 

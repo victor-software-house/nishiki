@@ -25,6 +25,8 @@ Rules for the Shiki oracle, beside the root guide's invariants.
      It fails on a stale report, a wrong waiver, or a gap in a complete grammar.
    - A new hand lexer adds its grammar to `handLexed` in `coverage.ts`; the run fails on a loaded grammar it cannot place.
    - A gap closes with an input: a pinned, licensed third-party file first, then one written for nishiki under `inputs/`.
+   - An input may hold text that is not valid in its language, in a commented section, to reach a grammar unit, because fidelity covers text being edited.
+     A waiver is only for a unit no document can reach.
 7. Scripts are TypeScript run by Bun, with each import pinned to an exact version, such as `shiki@4.6.0`.
 8. [`grammars.ts`](grammars.ts) makes one edit to Shiki's grammars, and no other.
    - In C++'s `string_context`, a rule whose patterns include only grammars the oracle leaves out keeps its match with no patterns inside.

@@ -1,0 +1,1746 @@
+L // C that nishiki's other oracle inputs leave out, written to exercise the
+T 2 source.c comment.line.double-slash.c punctuation.definition.comment.c
+T 74 source.c comment.line.double-slash.c
+L // rest of Shiki's `c` grammar.
+T 2 source.c comment.line.double-slash.c punctuation.definition.comment.c
+T 31 source.c comment.line.double-slash.c
+L 
+L /**
+T 3 source.c comment.block.documentation.c punctuation.definition.comment.begin.documentation.c
+L  * @file coverage.c
+T 3 source.c comment.block.documentation.c
+T 8 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 19 source.c comment.block.documentation.c
+L  * @brief Exercises the C grammar's rarer rules.
+T 3 source.c comment.block.documentation.c
+T 9 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 48 source.c comment.block.documentation.c
+L  * @param[in] value the value, in \c units, see @ref other.
+T 3 source.c comment.block.documentation.c
+T 9 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 10 source.c comment.block.documentation.c
+T 12 source.c comment.block.documentation.c keyword.other.parameter.direction.in.c
+T 14 source.c comment.block.documentation.c
+T 19 source.c comment.block.documentation.c variable.parameter.c
+T 34 source.c comment.block.documentation.c
+T 36 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 37 source.c comment.block.documentation.c
+T 43 source.c comment.block.documentation.c markup.inline.raw.string.c
+T 48 source.c comment.block.documentation.c
+T 52 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 59 source.c comment.block.documentation.c
+L  * @param [in, out] buffer a buffer
+T 3 source.c comment.block.documentation.c
+T 9 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 11 source.c comment.block.documentation.c
+T 13 source.c comment.block.documentation.c keyword.other.parameter.direction.in.c
+T 15 source.c comment.block.documentation.c
+T 18 source.c comment.block.documentation.c keyword.other.parameter.direction.out.c
+T 20 source.c comment.block.documentation.c
+T 26 source.c comment.block.documentation.c variable.parameter.c
+T 35 source.c comment.block.documentation.c
+L  * \b bold \a arg \e emph \p param \c code
+T 3 source.c comment.block.documentation.c
+T 5 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 6 source.c comment.block.documentation.c
+T 10 source.c comment.block.documentation.c markup.bold.doxygen.c
+T 11 source.c comment.block.documentation.c
+T 13 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 14 source.c comment.block.documentation.c
+T 17 source.c comment.block.documentation.c markup.italic.doxygen.c
+T 18 source.c comment.block.documentation.c
+T 20 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 21 source.c comment.block.documentation.c
+T 25 source.c comment.block.documentation.c markup.italic.doxygen.c
+T 26 source.c comment.block.documentation.c
+T 28 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 29 source.c comment.block.documentation.c
+T 34 source.c comment.block.documentation.c markup.inline.raw.string.c
+T 35 source.c comment.block.documentation.c
+T 37 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 38 source.c comment.block.documentation.c
+T 42 source.c comment.block.documentation.c markup.inline.raw.string.c
+L  * @code
+T 3 source.c comment.block.documentation.c
+T 8 source.c comment.block.documentation.c storage.type.class.doxygen.c
+L  * int x = 1;
+T 13 source.c comment.block.documentation.c
+L  * @endcode
+T 3 source.c comment.block.documentation.c
+T 11 source.c comment.block.documentation.c storage.type.class.doxygen.c
+L  * @see other
+T 3 source.c comment.block.documentation.c
+T 7 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 13 source.c comment.block.documentation.c
+L  * @note A note. TODO: something
+T 3 source.c comment.block.documentation.c
+T 8 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 17 source.c comment.block.documentation.c
+T 22 source.c comment.block.documentation.c storage.type.class.gtkdoc
+T 32 source.c comment.block.documentation.c
+L  * @deprecated
+T 3 source.c comment.block.documentation.c
+T 14 source.c comment.block.documentation.c storage.type.class.doxygen.c
+L  * \n
+T 3 source.c comment.block.documentation.c
+T 5 source.c comment.block.documentation.c storage.type.class.doxygen.c
+L  * @addtogroup group
+T 3 source.c comment.block.documentation.c
+T 14 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 20 source.c comment.block.documentation.c
+L  * @defgroup grp Group
+T 3 source.c comment.block.documentation.c
+T 12 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 22 source.c comment.block.documentation.c
+L  * @copydoc other
+T 3 source.c comment.block.documentation.c
+T 11 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 17 source.c comment.block.documentation.c
+L  * @warning careful
+T 3 source.c comment.block.documentation.c
+T 11 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 19 source.c comment.block.documentation.c
+L  */
+T 1 source.c comment.block.documentation.c
+T 3 source.c comment.block.documentation.c punctuation.definition.comment.end.documentation.c
+L /*! Short qt style comment @return nothing */
+T 3 source.c comment.block.documentation.c punctuation.definition.comment.begin.documentation.c
+T 27 source.c comment.block.documentation.c
+T 34 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 43 source.c comment.block.documentation.c
+T 45 source.c comment.block.documentation.c punctuation.definition.comment.end.documentation.c
+L /** A one-liner with @a arg and \b bold. */
+T 3 source.c comment.block.documentation.c punctuation.definition.comment.begin.documentation.c
+T 21 source.c comment.block.documentation.c
+T 23 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 24 source.c comment.block.documentation.c
+T 27 source.c comment.block.documentation.c markup.italic.doxygen.c
+T 32 source.c comment.block.documentation.c
+T 34 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 35 source.c comment.block.documentation.c
+T 40 source.c comment.block.documentation.c markup.bold.doxygen.c
+T 41 source.c comment.block.documentation.c
+T 43 source.c comment.block.documentation.c punctuation.definition.comment.end.documentation.c
+L /*!< after a member */
+T 2 source.c comment.block.c punctuation.definition.comment.begin.c
+T 20 source.c comment.block.c
+T 22 source.c comment.block.c punctuation.definition.comment.end.c
+L /// A line doc with @brief and \param name
+T 3 source.c comment.line.double-slash.documentation.c punctuation.definition.comment.documentation.c
+T 20 source.c comment.line.double-slash.documentation.c
+T 26 source.c comment.line.double-slash.documentation.c storage.type.class.doxygen.c
+T 31 source.c comment.line.double-slash.documentation.c
+T 37 source.c comment.line.double-slash.documentation.c storage.type.class.doxygen.c
+T 38 source.c comment.line.double-slash.documentation.c
+T 42 source.c comment.line.double-slash.documentation.c variable.parameter.c
+L /// @param[out] out the result
+T 3 source.c comment.line.double-slash.documentation.c punctuation.definition.comment.documentation.c
+T 4 source.c comment.line.double-slash.documentation.c
+T 10 source.c comment.line.double-slash.documentation.c storage.type.class.doxygen.c
+T 11 source.c comment.line.double-slash.documentation.c
+T 14 source.c comment.line.double-slash.documentation.c keyword.other.parameter.direction.out.c
+T 16 source.c comment.line.double-slash.documentation.c
+T 19 source.c comment.line.double-slash.documentation.c variable.parameter.c
+T 30 source.c comment.line.double-slash.documentation.c
+L /// \b strong @c code @p param \a arg
+T 3 source.c comment.line.double-slash.documentation.c punctuation.definition.comment.documentation.c
+T 4 source.c comment.line.double-slash.documentation.c
+T 6 source.c comment.line.double-slash.documentation.c storage.type.class.doxygen.c
+T 7 source.c comment.line.double-slash.documentation.c
+T 13 source.c comment.line.double-slash.documentation.c markup.bold.doxygen.c
+T 14 source.c comment.line.double-slash.documentation.c
+T 16 source.c comment.line.double-slash.documentation.c storage.type.class.doxygen.c
+T 17 source.c comment.line.double-slash.documentation.c
+T 21 source.c comment.line.double-slash.documentation.c markup.inline.raw.string.c
+T 22 source.c comment.line.double-slash.documentation.c
+T 24 source.c comment.line.double-slash.documentation.c storage.type.class.doxygen.c
+T 25 source.c comment.line.double-slash.documentation.c
+T 30 source.c comment.line.double-slash.documentation.c markup.inline.raw.string.c
+T 31 source.c comment.line.double-slash.documentation.c
+T 33 source.c comment.line.double-slash.documentation.c storage.type.class.doxygen.c
+T 34 source.c comment.line.double-slash.documentation.c
+T 37 source.c comment.line.double-slash.documentation.c markup.italic.doxygen.c
+L //! Another doc line with \return value and @todo later
+T 3 source.c comment.line.double-slash.documentation.c punctuation.definition.comment.documentation.c
+T 26 source.c comment.line.double-slash.documentation.c
+T 33 source.c comment.line.double-slash.documentation.c storage.type.class.doxygen.c
+T 44 source.c comment.line.double-slash.documentation.c
+T 49 source.c comment.line.double-slash.documentation.c storage.type.class.doxygen.c
+T 55 source.c comment.line.double-slash.documentation.c
+L //!< trailing member doc
+T 3 source.c comment.line.double-slash.documentation.c punctuation.definition.comment.documentation.c
+T 24 source.c comment.line.double-slash.documentation.c
+L // = Banner =
+T 4 source.c comment.line.banner.c
+T 11 source.c comment.line.banner.c meta.toc-list.banner.line.c
+T 13 source.c comment.line.banner.c
+L /* plain block */
+T 2 source.c comment.block.c punctuation.definition.comment.begin.c
+T 15 source.c comment.block.c
+T 17 source.c comment.block.c punctuation.definition.comment.end.c
+L 
+L #pragma mark - Section
+T 1 source.c meta.section.c meta.preprocessor.pragma.c keyword.control.directive.pragma.pragma-mark.c punctuation.definition.directive.c
+T 12 source.c meta.section.c meta.preprocessor.pragma.c keyword.control.directive.pragma.pragma-mark.c
+T 13 source.c meta.section.c meta.preprocessor.pragma.c
+T 22 source.c meta.section.c meta.preprocessor.pragma.c entity.name.tag.pragma-mark.c
+L #pragma mark Helpers
+T 1 source.c meta.section.c meta.preprocessor.pragma.c keyword.control.directive.pragma.pragma-mark.c punctuation.definition.directive.c
+T 12 source.c meta.section.c meta.preprocessor.pragma.c keyword.control.directive.pragma.pragma-mark.c
+T 13 source.c meta.section.c meta.preprocessor.pragma.c
+T 20 source.c meta.section.c meta.preprocessor.pragma.c entity.name.tag.pragma-mark.c
+L 
+L #line 42 "coverage.c"
+T 1 source.c meta.preprocessor.c keyword.control.directive.line.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.line.c
+T 6 source.c meta.preprocessor.c
+T 8 source.c meta.preprocessor.c constant.numeric.decimal.c
+T 9 source.c meta.preprocessor.c
+T 10 source.c meta.preprocessor.c string.quoted.double.c punctuation.definition.string.begin.c
+T 20 source.c meta.preprocessor.c string.quoted.double.c
+T 21 source.c meta.preprocessor.c string.quoted.double.c punctuation.definition.string.end.c
+L #line 43
+T 1 source.c meta.preprocessor.c keyword.control.directive.line.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.line.c
+T 6 source.c meta.preprocessor.c
+T 8 source.c meta.preprocessor.c constant.numeric.decimal.c
+L 
+L #include "header.h"
+T 1 source.c meta.preprocessor.include.c keyword.control.directive.include.c punctuation.definition.directive.c
+T 8 source.c meta.preprocessor.include.c keyword.control.directive.include.c
+T 9 source.c meta.preprocessor.include.c
+T 10 source.c meta.preprocessor.include.c string.quoted.double.include.c punctuation.definition.string.begin.c
+T 18 source.c meta.preprocessor.include.c string.quoted.double.include.c
+T 19 source.c meta.preprocessor.include.c string.quoted.double.include.c punctuation.definition.string.end.c
+L #include <stdio.h>
+T 1 source.c meta.preprocessor.include.c keyword.control.directive.include.c punctuation.definition.directive.c
+T 8 source.c meta.preprocessor.include.c keyword.control.directive.include.c
+T 9 source.c meta.preprocessor.include.c
+T 10 source.c meta.preprocessor.include.c string.quoted.other.lt-gt.include.c punctuation.definition.string.begin.c
+T 17 source.c meta.preprocessor.include.c string.quoted.other.lt-gt.include.c
+T 18 source.c meta.preprocessor.include.c string.quoted.other.lt-gt.include.c punctuation.definition.string.end.c
+L #error "an error string" with 'quotes'
+T 1 source.c meta.preprocessor.diagnostic.c keyword.control.directive.diagnostic.error.c punctuation.definition.directive.c
+T 6 source.c meta.preprocessor.diagnostic.c keyword.control.directive.diagnostic.error.c
+T 7 source.c meta.preprocessor.diagnostic.c
+T 8 source.c meta.preprocessor.diagnostic.c string.quoted.double.c punctuation.definition.string.begin.c
+T 23 source.c meta.preprocessor.diagnostic.c string.quoted.double.c
+T 24 source.c meta.preprocessor.diagnostic.c string.quoted.double.c punctuation.definition.string.end.c
+T 25 source.c meta.preprocessor.diagnostic.c string.unquoted.single.c
+T 38 source.c meta.preprocessor.diagnostic.c string.unquoted.single.c
+L #warning 'a warning'
+T 1 source.c meta.preprocessor.diagnostic.c keyword.control.directive.diagnostic.warning.c punctuation.definition.directive.c
+T 8 source.c meta.preprocessor.diagnostic.c keyword.control.directive.diagnostic.warning.c
+T 9 source.c meta.preprocessor.diagnostic.c
+T 10 source.c meta.preprocessor.diagnostic.c string.quoted.single.c punctuation.definition.string.begin.c
+T 19 source.c meta.preprocessor.diagnostic.c string.quoted.single.c
+T 20 source.c meta.preprocessor.diagnostic.c string.quoted.single.c punctuation.definition.string.end.c
+L 
+L #if 1
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.preprocessor.c
+T 5 source.c meta.preprocessor.c constant.numeric.decimal.c
+L int enabled_one;
+T 3 source.c storage.type.built-in.primitive.c
+T 15 source.c
+T 16 source.c punctuation.terminator.statement.c
+L #elif defined FOO
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 17 source.c comment.block.preprocessor.if-branch.c
+L int enabled_elif;
+T 17 source.c comment.block.preprocessor.if-branch.c
+L #else
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+L int enabled_else;
+T 17 source.c comment.block.preprocessor.else-branch.c
+L #endif
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+L 
+L #if 1 // comment
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.preprocessor.c
+T 5 source.c meta.preprocessor.c constant.numeric.decimal.c
+T 6 source.c meta.preprocessor.c comment.line.double-slash.c
+T 8 source.c meta.preprocessor.c comment.line.double-slash.c punctuation.definition.comment.c
+T 16 source.c meta.preprocessor.c comment.line.double-slash.c
+L int enabled_two;
+T 3 source.c meta.preprocessor.c entity.name.function.preprocessor.c
+T 4 source.c meta.preprocessor.c
+T 15 source.c meta.preprocessor.c entity.name.function.preprocessor.c
+T 16 source.c meta.preprocessor.c
+L #else
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+L #if FOO
+T 7 source.c comment.block.preprocessor.else-branch.c
+L int nested;
+T 11 source.c comment.block.preprocessor.else-branch.c
+L #endif
+T 6 source.c comment.block.preprocessor.else-branch.c
+L #endif
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+L 
+L #if 0
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.preprocessor.c
+T 5 source.c meta.preprocessor.c constant.numeric.decimal.c
+L int disabled;
+T 13 source.c comment.block.preprocessor.if-branch.c
+L #ifdef NESTED
+T 13 source.c comment.block.preprocessor.if-branch.c
+L int nested_disabled;
+T 20 source.c comment.block.preprocessor.if-branch.c
+L #endif
+T 6 source.c comment.block.preprocessor.if-branch.c
+L #elif 1
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 6 source.c meta.preprocessor.c
+T 7 source.c meta.preprocessor.c constant.numeric.decimal.c
+L int enabled_after_disabled;
+T 3 source.c storage.type.built-in.primitive.c
+T 26 source.c
+T 27 source.c punctuation.terminator.statement.c
+L #elif FOO
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 9 source.c comment.block.preprocessor.elif-branch.c
+L int other;
+T 10 source.c comment.block.preprocessor.elif-branch.c
+L #else
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+L int last;
+T 9 source.c comment.block.preprocessor.elif-branch.c
+L #endif
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+L 
+L #if 0
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.preprocessor.c
+T 5 source.c meta.preprocessor.c constant.numeric.decimal.c
+L int disabled_again;
+T 19 source.c comment.block.preprocessor.if-branch.c
+L #elif 0
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 6 source.c meta.preprocessor.c
+T 7 source.c meta.preprocessor.c constant.numeric.decimal.c
+L int disabled_elif;
+T 18 source.c comment.block.preprocessor.elif-branch.c
+L #elif BAR
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 6 source.c meta.preprocessor.c
+T 9 source.c meta.preprocessor.c entity.name.function.preprocessor.c
+L int bar;
+T 3 source.c storage.type.built-in.primitive.c
+T 7 source.c
+T 8 source.c punctuation.terminator.statement.c
+L #endif
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+L 
+L #if FOO
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.preprocessor.c
+T 7 source.c meta.preprocessor.c entity.name.function.preprocessor.c
+L #elif 1
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 6 source.c meta.preprocessor.c
+T 7 source.c meta.preprocessor.c constant.numeric.decimal.c
+L int enabled_elif_line;
+T 3 source.c storage.type.built-in.primitive.c
+T 21 source.c
+T 22 source.c punctuation.terminator.statement.c
+L #else
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+L int enabled_elif_else;
+T 22 source.c comment.block.preprocessor.elif-branch.c
+L #endif
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+L 
+L #if FOO
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.preprocessor.c
+T 7 source.c meta.preprocessor.c entity.name.function.preprocessor.c
+L #elif 0
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 6 source.c meta.preprocessor.c
+T 7 source.c meta.preprocessor.c constant.numeric.decimal.c
+L int disabled_elif_line;
+T 23 source.c comment.block.preprocessor.elif-branch.c
+L #elif BAR
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 6 source.c meta.preprocessor.c
+T 9 source.c meta.preprocessor.c entity.name.function.preprocessor.c
+L int bar_line;
+T 3 source.c storage.type.built-in.primitive.c
+T 12 source.c
+T 13 source.c punctuation.terminator.statement.c
+L #endif
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+L 
+L #if defined BAR && (A ? B : C)
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.preprocessor.c
+T 11 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 12 source.c meta.preprocessor.c
+T 15 source.c meta.preprocessor.c entity.name.function.preprocessor.c
+T 16 source.c meta.preprocessor.c
+T 18 source.c meta.preprocessor.c keyword.operator.logical.c
+T 19 source.c meta.preprocessor.c
+T 20 source.c meta.preprocessor.c punctuation.section.parens.begin.bracket.round.c
+T 21 source.c meta.preprocessor.c entity.name.function.preprocessor.c
+T 22 source.c meta.preprocessor.c
+T 23 source.c meta.preprocessor.c keyword.operator.ternary.c
+T 24 source.c meta.preprocessor.c
+T 25 source.c meta.preprocessor.c entity.name.function.preprocessor.c
+T 26 source.c meta.preprocessor.c
+T 27 source.c meta.preprocessor.c keyword.operator.ternary.c
+T 28 source.c meta.preprocessor.c
+T 29 source.c meta.preprocessor.c entity.name.function.preprocessor.c
+T 30 source.c meta.preprocessor.c punctuation.section.parens.end.bracket.round.c
+L #endif
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+L 
+L #define STR(x) #x
+T 1 source.c meta.preprocessor.macro.c keyword.control.directive.define.c punctuation.definition.directive.c
+T 7 source.c meta.preprocessor.macro.c keyword.control.directive.define.c
+T 8 source.c meta.preprocessor.macro.c
+T 11 source.c meta.preprocessor.macro.c entity.name.function.preprocessor.c
+T 12 source.c meta.preprocessor.macro.c punctuation.definition.parameters.begin.c
+T 13 source.c meta.preprocessor.macro.c variable.parameter.preprocessor.c
+T 14 source.c meta.preprocessor.macro.c punctuation.definition.parameters.end.c
+T 17 source.c meta.preprocessor.macro.c
+L #define CHR 'c'
+T 1 source.c meta.preprocessor.macro.c keyword.control.directive.define.c punctuation.definition.directive.c
+T 7 source.c meta.preprocessor.macro.c keyword.control.directive.define.c
+T 8 source.c meta.preprocessor.macro.c
+T 11 source.c meta.preprocessor.macro.c entity.name.function.preprocessor.c
+T 12 source.c meta.preprocessor.macro.c
+T 13 source.c meta.preprocessor.macro.c string.quoted.single.c punctuation.definition.string.begin.c
+T 14 source.c meta.preprocessor.macro.c string.quoted.single.c
+T 15 source.c meta.preprocessor.macro.c string.quoted.single.c punctuation.definition.string.end.c
+L #define ERR "unterminated
+T 1 source.c meta.preprocessor.macro.c keyword.control.directive.define.c punctuation.definition.directive.c
+T 7 source.c meta.preprocessor.macro.c keyword.control.directive.define.c
+T 8 source.c meta.preprocessor.macro.c
+T 11 source.c meta.preprocessor.macro.c entity.name.function.preprocessor.c
+T 12 source.c meta.preprocessor.macro.c
+T 13 source.c meta.preprocessor.macro.c string.quoted.double.c punctuation.definition.string.begin.c
+T 25 source.c meta.preprocessor.macro.c string.quoted.double.c
+L #define SQ 'x
+T 1 source.c meta.preprocessor.macro.c keyword.control.directive.define.c punctuation.definition.directive.c
+T 7 source.c meta.preprocessor.macro.c keyword.control.directive.define.c
+T 8 source.c meta.preprocessor.macro.c
+T 10 source.c meta.preprocessor.macro.c entity.name.function.preprocessor.c
+T 11 source.c meta.preprocessor.macro.c
+T 12 source.c meta.preprocessor.macro.c string.quoted.single.c punctuation.definition.string.begin.c
+T 13 source.c meta.preprocessor.macro.c string.quoted.single.c
+L 
+L struct /* comment */ point /* another */ {
+T 6 source.c storage.type.struct.c
+T 7 source.c comment.block.c
+T 9 source.c comment.block.c punctuation.definition.comment.begin.c
+T 18 source.c comment.block.c
+T 20 source.c comment.block.c punctuation.definition.comment.end.c
+T 26 source.c
+T 27 source.c comment.block.c
+T 29 source.c comment.block.c punctuation.definition.comment.begin.c
+T 38 source.c comment.block.c
+T 40 source.c comment.block.c punctuation.definition.comment.end.c
+T 41 source.c
+T 42 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     int x : 4;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 12 source.c meta.block.c
+T 13 source.c meta.block.c constant.numeric.decimal.c
+T 14 source.c meta.block.c punctuation.terminator.statement.c
+L     int y : 4;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 12 source.c meta.block.c
+T 13 source.c meta.block.c constant.numeric.decimal.c
+T 14 source.c meta.block.c punctuation.terminator.statement.c
+L };
+T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+T 2 source.c punctuation.terminator.statement.c
+L struct
+T 6 source.c storage.type.struct.c
+L point2 {
+T 7 source.c
+T 8 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     int z;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 9 source.c meta.block.c
+T 10 source.c meta.block.c punctuation.terminator.statement.c
+L };
+T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+T 2 source.c punctuation.terminator.statement.c
+L struct /* lead */
+T 6 source.c storage.type.struct.c
+T 7 source.c comment.block.c
+T 9 source.c comment.block.c punctuation.definition.comment.begin.c
+T 15 source.c comment.block.c
+T 17 source.c comment.block.c punctuation.definition.comment.end.c
+L named {
+T 6 source.c
+T 7 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     int w;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 9 source.c meta.block.c
+T 10 source.c meta.block.c punctuation.terminator.statement.c
+L };
+T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+T 2 source.c punctuation.terminator.statement.c
+L typedef struct node_s {
+T 7 source.c keyword.other.typedef.c
+T 8 source.c
+T 14 source.c storage.type.struct.c
+T 22 source.c
+T 23 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     struct node_s *next;
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c storage.type.struct.c
+T 18 source.c meta.block.c
+T 19 source.c meta.block.c keyword.operator.c
+T 23 source.c meta.block.c
+T 24 source.c meta.block.c punctuation.terminator.statement.c
+L } node_t;
+T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+T 2 source.c
+T 8 source.c support.type.posix-reserved.c
+T 9 source.c punctuation.terminator.statement.c
+L enum /* c */ color { RED, GREEN };
+T 4 source.c storage.type.enum.c
+T 5 source.c comment.block.c
+T 7 source.c comment.block.c punctuation.definition.comment.begin.c
+T 10 source.c comment.block.c
+T 12 source.c comment.block.c punctuation.definition.comment.end.c
+T 19 source.c
+T 20 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+T 24 source.c meta.block.c
+T 25 source.c meta.block.c punctuation.separator.delimiter.c
+T 32 source.c meta.block.c
+T 33 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+T 34 source.c punctuation.terminator.statement.c
+L union /* c */ value { int i; float f; };
+T 5 source.c storage.type.union.c
+T 6 source.c comment.block.c
+T 8 source.c comment.block.c punctuation.definition.comment.begin.c
+T 11 source.c comment.block.c
+T 13 source.c comment.block.c punctuation.definition.comment.end.c
+T 20 source.c
+T 21 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+T 22 source.c meta.block.c
+T 25 source.c meta.block.c storage.type.built-in.primitive.c
+T 27 source.c meta.block.c
+T 28 source.c meta.block.c punctuation.terminator.statement.c
+T 29 source.c meta.block.c
+T 34 source.c meta.block.c storage.type.built-in.primitive.c
+T 36 source.c meta.block.c
+T 37 source.c meta.block.c punctuation.terminator.statement.c
+T 38 source.c meta.block.c
+T 39 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+T 40 source.c punctuation.terminator.statement.c
+L 
+L int printf(const char *fmt, ...);
+T 3 source.c storage.type.built-in.primitive.c
+T 4 source.c
+T 10 source.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 11 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 16 source.c meta.function.c meta.function.definition.parameters.c storage.modifier.c
+T 17 source.c meta.function.c meta.function.definition.parameters.c
+T 21 source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 22 source.c meta.function.c meta.function.definition.parameters.c
+T 23 source.c meta.function.c meta.function.definition.parameters.c keyword.operator.c
+T 26 source.c meta.function.c meta.function.definition.parameters.c variable.parameter.probably.c
+T 27 source.c meta.function.c meta.function.definition.parameters.c punctuation.separator.delimiter.c
+T 28 source.c meta.function.c meta.function.definition.parameters.c
+T 31 source.c meta.function.c meta.function.definition.parameters.c punctuation.vararg-ellipses.c
+T 32 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 33 source.c punctuation.terminator.statement.c
+L static int sCount = 0;
+T 6 source.c storage.modifier.c
+T 7 source.c
+T 10 source.c storage.type.built-in.primitive.c
+T 11 source.c
+T 17 source.c variable.other.readwrite.static.mac-classic.c
+T 18 source.c
+T 19 source.c keyword.operator.assignment.c
+T 20 source.c
+T 21 source.c constant.numeric.decimal.c
+T 22 source.c punctuation.terminator.statement.c
+L int gGlobal = 1;
+T 3 source.c storage.type.built-in.primitive.c
+T 4 source.c
+T 11 source.c variable.other.readwrite.global.mac-classic.c
+T 12 source.c
+T 13 source.c keyword.operator.assignment.c
+T 14 source.c
+T 15 source.c constant.numeric.decimal.c
+T 16 source.c punctuation.terminator.statement.c
+L const int kLimit = 10;
+T 5 source.c storage.modifier.c
+T 6 source.c
+T 9 source.c storage.type.built-in.primitive.c
+T 10 source.c
+T 16 source.c constant.other.variable.mac-classic.c
+T 17 source.c
+T 18 source.c keyword.operator.assignment.c
+T 19 source.c
+T 21 source.c constant.numeric.decimal.c
+T 22 source.c punctuation.terminator.statement.c
+L u_char uc;
+T 6 source.c storage.type.built-in.c
+T 9 source.c
+T 10 source.c punctuation.terminator.statement.c
+L pthread_mutex_t mutex;
+T 15 source.c storage.type.built-in.c
+T 21 source.c
+T 22 source.c punctuation.terminator.statement.c
+L pthread_t thread;
+T 9 source.c storage.type.built-in.c
+T 16 source.c
+T 17 source.c punctuation.terminator.statement.c
+L int32_t i32;
+T 7 source.c storage.type.built-in.c
+T 11 source.c
+T 12 source.c punctuation.terminator.statement.c
+L uint_least16_t ul16;
+T 14 source.c storage.type.built-in.c
+T 19 source.c
+T 20 source.c punctuation.terminator.statement.c
+L Boolean flag;
+T 7 source.c support.type.mac-classic.c
+T 12 source.c
+T 13 source.c punctuation.terminator.statement.c
+L OSStatus status = noErr;
+T 8 source.c support.type.mac-classic.c
+T 16 source.c
+T 17 source.c keyword.operator.assignment.c
+T 18 source.c
+T 23 source.c support.constant.mac-classic.c
+T 24 source.c punctuation.terminator.statement.c
+L Float32 f32;
+T 7 source.c support.type.mac-classic.c
+T 11 source.c
+T 12 source.c punctuation.terminator.statement.c
+L 
+L void numbers(void) {
+T 4 source.c storage.type.built-in.primitive.c
+T 5 source.c
+T 12 source.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 13 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 17 source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 18 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 19 source.c
+T 20 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     int a = 0x1.8p3;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 12 source.c meta.block.c
+T 14 source.c meta.block.c keyword.other.unit.hexadecimal.c
+T 15 source.c meta.block.c constant.numeric.hexadecimal.c
+T 16 source.c meta.block.c constant.numeric.hexadecimal.c
+T 17 source.c meta.block.c constant.numeric.hexadecimal.c
+T 18 source.c meta.block.c keyword.other.unit.exponent.hexadecimal.c
+T 19 source.c meta.block.c constant.numeric.exponent.hexadecimal.c
+T 20 source.c meta.block.c punctuation.terminator.statement.c
+L     double b = 0x.8p-2;
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c storage.type.built-in.primitive.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c keyword.operator.assignment.c
+T 15 source.c meta.block.c
+T 17 source.c meta.block.c keyword.other.unit.hexadecimal.c
+T 18 source.c meta.block.c constant.numeric.hexadecimal.c
+T 19 source.c meta.block.c constant.numeric.hexadecimal.c
+T 20 source.c meta.block.c keyword.other.unit.exponent.hexadecimal.c
+T 21 source.c meta.block.c keyword.operator.minus.exponent.hexadecimal.c
+T 22 source.c meta.block.c constant.numeric.exponent.hexadecimal.c
+T 23 source.c meta.block.c punctuation.terminator.statement.c
+L     double c = 0X1.p+4f;
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c storage.type.built-in.primitive.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c keyword.operator.assignment.c
+T 15 source.c meta.block.c
+T 17 source.c meta.block.c keyword.other.unit.hexadecimal.c
+T 18 source.c meta.block.c constant.numeric.hexadecimal.c
+T 19 source.c meta.block.c constant.numeric.hexadecimal.c
+T 20 source.c meta.block.c keyword.other.unit.exponent.hexadecimal.c
+T 21 source.c meta.block.c keyword.operator.plus.exponent.hexadecimal.c
+T 22 source.c meta.block.c constant.numeric.exponent.hexadecimal.c
+T 23 source.c meta.block.c keyword.other.unit.suffix.floating-point.c
+T 24 source.c meta.block.c punctuation.terminator.statement.c
+L     int d = 0'17;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 12 source.c meta.block.c
+T 13 source.c meta.block.c keyword.other.unit.octal.c
+T 14 source.c meta.block.c constant.numeric.octal.c punctuation.separator.constant.numeric
+T 16 source.c meta.block.c constant.numeric.octal.c
+T 17 source.c meta.block.c punctuation.terminator.statement.c
+L     int e = 017;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 12 source.c meta.block.c
+T 13 source.c meta.block.c keyword.other.unit.octal.c
+T 15 source.c meta.block.c constant.numeric.octal.c
+T 16 source.c meta.block.c punctuation.terminator.statement.c
+L     int f = 0b1010;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 12 source.c meta.block.c
+T 14 source.c meta.block.c keyword.other.unit.binary.c
+T 18 source.c meta.block.c constant.numeric.binary.c
+T 19 source.c meta.block.c punctuation.terminator.statement.c
+L     int g = 0B1'0'1;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 12 source.c meta.block.c
+T 14 source.c meta.block.c keyword.other.unit.binary.c
+T 15 source.c meta.block.c constant.numeric.binary.c
+T 16 source.c meta.block.c constant.numeric.binary.c punctuation.separator.constant.numeric
+T 17 source.c meta.block.c constant.numeric.binary.c
+T 18 source.c meta.block.c constant.numeric.binary.c punctuation.separator.constant.numeric
+T 19 source.c meta.block.c constant.numeric.binary.c
+T 20 source.c meta.block.c punctuation.terminator.statement.c
+L     int h = 1'000'000;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 12 source.c meta.block.c
+T 13 source.c meta.block.c constant.numeric.decimal.c
+T 14 source.c meta.block.c constant.numeric.decimal.c punctuation.separator.constant.numeric
+T 17 source.c meta.block.c constant.numeric.decimal.c
+T 18 source.c meta.block.c constant.numeric.decimal.c punctuation.separator.constant.numeric
+T 21 source.c meta.block.c constant.numeric.decimal.c
+T 22 source.c meta.block.c punctuation.terminator.statement.c
+L     int i = 0x12'34'56;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 12 source.c meta.block.c
+T 14 source.c meta.block.c keyword.other.unit.hexadecimal.c
+T 16 source.c meta.block.c constant.numeric.hexadecimal.c
+T 17 source.c meta.block.c constant.numeric.hexadecimal.c punctuation.separator.constant.numeric
+T 19 source.c meta.block.c constant.numeric.hexadecimal.c
+T 20 source.c meta.block.c constant.numeric.hexadecimal.c punctuation.separator.constant.numeric
+T 22 source.c meta.block.c constant.numeric.hexadecimal.c
+T 23 source.c meta.block.c punctuation.terminator.statement.c
+L     int j = 0x12zz;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 12 source.c meta.block.c
+T 18 source.c meta.block.c invalid.illegal.constant.numeric
+T 19 source.c meta.block.c punctuation.terminator.statement.c
+L     int k = 123abc;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 12 source.c meta.block.c
+T 18 source.c meta.block.c invalid.illegal.constant.numeric
+T 19 source.c meta.block.c punctuation.terminator.statement.c
+L     int l = 017ULL;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 12 source.c meta.block.c
+T 13 source.c meta.block.c keyword.other.unit.octal.c
+T 15 source.c meta.block.c constant.numeric.octal.c
+T 18 source.c meta.block.c keyword.other.unit.suffix.integer.c
+T 19 source.c meta.block.c punctuation.terminator.statement.c
+L     int m = 0b11u;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 12 source.c meta.block.c
+T 14 source.c meta.block.c keyword.other.unit.binary.c
+T 16 source.c meta.block.c constant.numeric.binary.c
+T 17 source.c meta.block.c keyword.other.unit.suffix.integer.c
+T 18 source.c meta.block.c punctuation.terminator.statement.c
+L     long n = 1e+5;
+T 4 source.c meta.block.c
+T 8 source.c meta.block.c storage.type.built-in.primitive.c
+T 11 source.c meta.block.c
+T 12 source.c meta.block.c keyword.operator.assignment.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c constant.numeric.decimal.c
+T 15 source.c meta.block.c keyword.other.unit.exponent.decimal.c
+T 16 source.c meta.block.c keyword.operator.plus.exponent.decimal.c
+T 17 source.c meta.block.c constant.numeric.exponent.decimal.c
+T 18 source.c meta.block.c punctuation.terminator.statement.c
+L     double o = 1.5e-3;
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c storage.type.built-in.primitive.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c keyword.operator.assignment.c
+T 15 source.c meta.block.c
+T 16 source.c meta.block.c constant.numeric.decimal.c
+T 17 source.c meta.block.c constant.numeric.decimal.point.c
+T 18 source.c meta.block.c constant.numeric.decimal.c
+T 19 source.c meta.block.c keyword.other.unit.exponent.decimal.c
+T 20 source.c meta.block.c keyword.operator.minus.exponent.decimal.c
+T 21 source.c meta.block.c constant.numeric.exponent.decimal.c
+T 22 source.c meta.block.c punctuation.terminator.statement.c
+L }
+T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L 
+L void strings(void) {
+T 4 source.c storage.type.built-in.primitive.c
+T 5 source.c
+T 12 source.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 13 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 17 source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 18 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 19 source.c
+T 20 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     printf("%d %5.2f %% 100%");
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c meta.function-call.c entity.name.function.c
+T 11 source.c meta.block.c meta.function-call.c punctuation.section.arguments.begin.bracket.round.c
+T 12 source.c meta.block.c meta.function-call.c string.quoted.double.c punctuation.definition.string.begin.c
+T 14 source.c meta.block.c meta.function-call.c string.quoted.double.c constant.other.placeholder.c
+T 15 source.c meta.block.c meta.function-call.c string.quoted.double.c
+T 20 source.c meta.block.c meta.function-call.c string.quoted.double.c constant.other.placeholder.c
+T 21 source.c meta.block.c meta.function-call.c string.quoted.double.c
+T 23 source.c meta.block.c meta.function-call.c string.quoted.double.c constant.other.placeholder.c
+T 27 source.c meta.block.c meta.function-call.c string.quoted.double.c
+T 28 source.c meta.block.c meta.function-call.c string.quoted.double.c invalid.illegal.placeholder.c
+T 29 source.c meta.block.c meta.function-call.c string.quoted.double.c punctuation.definition.string.end.c
+T 30 source.c meta.block.c meta.function-call.c punctuation.section.arguments.end.bracket.round.c
+T 31 source.c meta.block.c punctuation.terminator.statement.c
+L     printf("%" PRId64 "\n", x);
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c meta.function-call.c entity.name.function.c
+T 11 source.c meta.block.c meta.function-call.c punctuation.section.arguments.begin.bracket.round.c
+T 12 source.c meta.block.c meta.function-call.c string.quoted.double.c punctuation.definition.string.begin.c
+T 13 source.c meta.block.c meta.function-call.c string.quoted.double.c
+T 14 source.c meta.block.c meta.function-call.c string.quoted.double.c punctuation.definition.string.end.c
+T 22 source.c meta.block.c meta.function-call.c
+T 23 source.c meta.block.c meta.function-call.c string.quoted.double.c punctuation.definition.string.begin.c
+T 25 source.c meta.block.c meta.function-call.c string.quoted.double.c constant.character.escape.c
+T 26 source.c meta.block.c meta.function-call.c string.quoted.double.c punctuation.definition.string.end.c
+T 27 source.c meta.block.c meta.function-call.c punctuation.separator.delimiter.c
+T 29 source.c meta.block.c meta.function-call.c
+T 30 source.c meta.block.c meta.function-call.c punctuation.section.arguments.end.bracket.round.c
+T 31 source.c meta.block.c punctuation.terminator.statement.c
+L     printf("bad \q escape \y");
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c meta.function-call.c entity.name.function.c
+T 11 source.c meta.block.c meta.function-call.c punctuation.section.arguments.begin.bracket.round.c
+T 12 source.c meta.block.c meta.function-call.c string.quoted.double.c punctuation.definition.string.begin.c
+T 16 source.c meta.block.c meta.function-call.c string.quoted.double.c
+T 18 source.c meta.block.c meta.function-call.c string.quoted.double.c invalid.illegal.unknown-escape.c
+T 26 source.c meta.block.c meta.function-call.c string.quoted.double.c
+T 28 source.c meta.block.c meta.function-call.c string.quoted.double.c invalid.illegal.unknown-escape.c
+T 29 source.c meta.block.c meta.function-call.c string.quoted.double.c punctuation.definition.string.end.c
+T 30 source.c meta.block.c meta.function-call.c punctuation.section.arguments.end.bracket.round.c
+T 31 source.c meta.block.c punctuation.terminator.statement.c
+L     char c = '\x41';
+T 4 source.c meta.block.c
+T 8 source.c meta.block.c storage.type.built-in.primitive.c
+T 11 source.c meta.block.c
+T 12 source.c meta.block.c keyword.operator.assignment.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c string.quoted.single.c punctuation.definition.string.begin.c
+T 18 source.c meta.block.c string.quoted.single.c constant.character.escape.c
+T 19 source.c meta.block.c string.quoted.single.c punctuation.definition.string.end.c
+T 20 source.c meta.block.c punctuation.terminator.statement.c
+L     char d = '\101';
+T 4 source.c meta.block.c
+T 8 source.c meta.block.c storage.type.built-in.primitive.c
+T 11 source.c meta.block.c
+T 12 source.c meta.block.c keyword.operator.assignment.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c string.quoted.single.c punctuation.definition.string.begin.c
+T 18 source.c meta.block.c string.quoted.single.c constant.character.escape.c
+T 19 source.c meta.block.c string.quoted.single.c punctuation.definition.string.end.c
+T 20 source.c meta.block.c punctuation.terminator.statement.c
+L     char e = 'é';
+T 4 source.c meta.block.c
+T 8 source.c meta.block.c storage.type.built-in.primitive.c
+T 11 source.c meta.block.c
+T 12 source.c meta.block.c keyword.operator.assignment.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c string.quoted.single.c punctuation.definition.string.begin.c
+T 16 source.c meta.block.c string.quoted.single.c
+T 17 source.c meta.block.c string.quoted.single.c punctuation.definition.string.end.c
+T 18 source.c meta.block.c punctuation.terminator.statement.c
+L     char f = '\U0001F600';
+T 4 source.c meta.block.c
+T 8 source.c meta.block.c storage.type.built-in.primitive.c
+T 11 source.c meta.block.c
+T 12 source.c meta.block.c keyword.operator.assignment.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c string.quoted.single.c punctuation.definition.string.begin.c
+T 24 source.c meta.block.c string.quoted.single.c constant.character.escape.c
+T 25 source.c meta.block.c string.quoted.single.c punctuation.definition.string.end.c
+T 26 source.c meta.block.c punctuation.terminator.statement.c
+L     char g = '\a';
+T 4 source.c meta.block.c
+T 8 source.c meta.block.c storage.type.built-in.primitive.c
+T 11 source.c meta.block.c
+T 12 source.c meta.block.c keyword.operator.assignment.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c string.quoted.single.c punctuation.definition.string.begin.c
+T 16 source.c meta.block.c string.quoted.single.c constant.character.escape.c
+T 17 source.c meta.block.c string.quoted.single.c punctuation.definition.string.end.c
+T 18 source.c meta.block.c punctuation.terminator.statement.c
+L     const char *s = "\?\a\b\f\n\r\t\v\\\'\"";
+T 4 source.c meta.block.c
+T 9 source.c meta.block.c storage.modifier.c
+T 10 source.c meta.block.c
+T 14 source.c meta.block.c storage.type.built-in.primitive.c
+T 15 source.c meta.block.c
+T 16 source.c meta.block.c keyword.operator.c
+T 18 source.c meta.block.c
+T 19 source.c meta.block.c keyword.operator.assignment.c
+T 20 source.c meta.block.c
+T 21 source.c meta.block.c string.quoted.double.c punctuation.definition.string.begin.c
+T 23 source.c meta.block.c string.quoted.double.c constant.character.escape.c
+T 25 source.c meta.block.c string.quoted.double.c constant.character.escape.c
+T 27 source.c meta.block.c string.quoted.double.c constant.character.escape.c
+T 29 source.c meta.block.c string.quoted.double.c constant.character.escape.c
+T 31 source.c meta.block.c string.quoted.double.c constant.character.escape.c
+T 33 source.c meta.block.c string.quoted.double.c constant.character.escape.c
+T 35 source.c meta.block.c string.quoted.double.c constant.character.escape.c
+T 37 source.c meta.block.c string.quoted.double.c constant.character.escape.c
+T 39 source.c meta.block.c string.quoted.double.c constant.character.escape.c
+T 41 source.c meta.block.c string.quoted.double.c constant.character.escape.c
+T 43 source.c meta.block.c string.quoted.double.c constant.character.escape.c
+T 44 source.c meta.block.c string.quoted.double.c punctuation.definition.string.end.c
+T 45 source.c meta.block.c punctuation.terminator.statement.c
+L }
+T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L 
+L int bits(int a, int b) {
+T 3 source.c storage.type.built-in.primitive.c
+T 4 source.c
+T 8 source.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 9 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 12 source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 13 source.c meta.function.c meta.function.definition.parameters.c
+T 14 source.c meta.function.c meta.function.definition.parameters.c variable.parameter.probably.c
+T 15 source.c meta.function.c meta.function.definition.parameters.c punctuation.separator.delimiter.c
+T 16 source.c meta.function.c meta.function.definition.parameters.c
+T 19 source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 20 source.c meta.function.c meta.function.definition.parameters.c
+T 21 source.c meta.function.c meta.function.definition.parameters.c variable.parameter.probably.c
+T 22 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 23 source.c
+T 24 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     return a not_eq(b) bitand compl(a) or not(b);
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c keyword.control.c
+T 12 source.c meta.block.c
+T 13 source.c meta.block.c meta.initialization.c
+T 16 source.c meta.block.c meta.initialization.c variable.other.c
+T 19 source.c meta.block.c meta.initialization.c punctuation.section.parens.begin.bracket.round.initialization.c
+T 20 source.c meta.block.c meta.initialization.c
+T 21 source.c meta.block.c meta.initialization.c
+T 22 source.c meta.block.c meta.initialization.c punctuation.section.parens.end.bracket.round.initialization.c
+T 31 source.c meta.block.c
+T 35 source.c meta.block.c meta.function-call.c entity.name.function.c
+T 36 source.c meta.block.c meta.function-call.c punctuation.section.arguments.begin.bracket.round.c
+T 37 source.c meta.block.c meta.function-call.c
+T 38 source.c meta.block.c meta.function-call.c punctuation.section.arguments.end.bracket.round.c
+T 43 source.c meta.block.c
+T 45 source.c meta.block.c meta.function-call.c entity.name.function.c
+T 46 source.c meta.block.c meta.function-call.c punctuation.section.arguments.begin.bracket.round.c
+T 47 source.c meta.block.c meta.function-call.c
+T 48 source.c meta.block.c meta.function-call.c punctuation.section.arguments.end.bracket.round.c
+T 49 source.c meta.block.c punctuation.terminator.statement.c
+L }
+T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L 
+L int ops(int x) {
+T 3 source.c storage.type.built-in.primitive.c
+T 4 source.c
+T 7 source.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 8 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 11 source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 12 source.c meta.function.c meta.function.definition.parameters.c
+T 13 source.c meta.function.c meta.function.definition.parameters.c variable.parameter.probably.c
+T 14 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 15 source.c
+T 16 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     int y = (x ? 1 : 2);
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 12 source.c meta.block.c
+T 13 source.c meta.block.c meta.parens.block.c punctuation.section.parens.begin.bracket.round.c
+T 15 source.c meta.block.c meta.parens.block.c
+T 16 source.c meta.block.c meta.parens.block.c keyword.operator.ternary.c
+T 17 source.c meta.block.c meta.parens.block.c
+T 18 source.c meta.block.c meta.parens.block.c constant.numeric.decimal.c
+T 19 source.c meta.block.c meta.parens.block.c
+T 20 source.c meta.block.c meta.parens.block.c keyword.operator.ternary.c
+T 21 source.c meta.block.c meta.parens.block.c
+T 22 source.c meta.block.c meta.parens.block.c constant.numeric.decimal.c
+T 23 source.c meta.block.c meta.parens.block.c punctuation.section.parens.end.bracket.round.c
+T 24 source.c meta.block.c punctuation.terminator.statement.c
+L     int z = x and y;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 19 source.c meta.block.c
+T 20 source.c meta.block.c punctuation.terminator.statement.c
+L     switch (x) /* c */ {
+T 4 source.c meta.block.c meta.block.switch.c
+T 10 source.c meta.block.c meta.block.switch.c meta.head.switch.c keyword.control.switch.c
+T 11 source.c meta.block.c meta.block.switch.c meta.head.switch.c
+T 12 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c punctuation.section.parens.begin.bracket.round.conditional.switch.c
+T 13 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c
+T 14 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c punctuation.section.parens.end.bracket.round.conditional.switch.c
+T 15 source.c meta.block.c meta.block.switch.c meta.head.switch.c comment.block.c
+T 17 source.c meta.block.c meta.block.switch.c meta.head.switch.c comment.block.c punctuation.definition.comment.begin.c
+T 20 source.c meta.block.c meta.block.switch.c meta.head.switch.c comment.block.c
+T 22 source.c meta.block.c meta.block.switch.c meta.head.switch.c comment.block.c punctuation.definition.comment.end.c
+T 23 source.c meta.block.c meta.block.switch.c meta.head.switch.c
+T 24 source.c meta.block.c meta.block.switch.c meta.head.switch.c punctuation.section.block.begin.bracket.curly.switch.c
+L     case 1 /* c */:
+T 4 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c
+T 8 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c keyword.control.case.c
+T 9 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c
+T 10 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c constant.numeric.decimal.c
+T 11 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c
+T 13 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c punctuation.definition.comment.begin.c
+T 16 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c
+T 18 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c punctuation.definition.comment.end.c
+T 19 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c punctuation.separator.colon.case.c
+L         return __FILE__[0] + __LINE__ + __MY_MACRO__;
+T 8 source.c meta.block.c meta.block.switch.c meta.body.switch.c
+T 14 source.c meta.block.c meta.block.switch.c meta.body.switch.c keyword.control.c
+T 15 source.c meta.block.c meta.block.switch.c meta.body.switch.c
+T 23 source.c meta.block.c meta.block.switch.c meta.body.switch.c entity.name.other.preprocessor.macro.predefined.__FILE__.c
+T 24 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.bracket.square.access.c punctuation.definition.begin.bracket.square.c
+T 25 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.bracket.square.access.c constant.numeric.decimal.c
+T 26 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.bracket.square.access.c punctuation.definition.end.bracket.square.c
+T 27 source.c meta.block.c meta.block.switch.c meta.body.switch.c
+T 28 source.c meta.block.c meta.block.switch.c meta.body.switch.c keyword.operator.c
+T 29 source.c meta.block.c meta.block.switch.c meta.body.switch.c
+T 37 source.c meta.block.c meta.block.switch.c meta.body.switch.c entity.name.other.preprocessor.macro.predefined.__LINE__.c
+T 38 source.c meta.block.c meta.block.switch.c meta.body.switch.c
+T 39 source.c meta.block.c meta.block.switch.c meta.body.switch.c keyword.operator.c
+T 40 source.c meta.block.c meta.block.switch.c meta.body.switch.c
+T 52 source.c meta.block.c meta.block.switch.c meta.body.switch.c entity.name.other.preprocessor.macro.predefined.probably.MY_MACRO.c
+T 53 source.c meta.block.c meta.block.switch.c meta.body.switch.c punctuation.terminator.statement.c
+L     default /* c */:
+T 4 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c
+T 11 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c keyword.control.default.c
+T 12 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c
+T 14 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c punctuation.definition.comment.begin.c
+T 17 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c
+T 19 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c punctuation.definition.comment.end.c
+T 20 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c punctuation.separator.colon.case.default.c
+L         break;
+T 8 source.c meta.block.c meta.block.switch.c meta.body.switch.c
+T 13 source.c meta.block.c meta.block.switch.c meta.body.switch.c keyword.control.c
+T 14 source.c meta.block.c meta.block.switch.c meta.body.switch.c punctuation.terminator.statement.c
+L     }
+T 4 source.c meta.block.c meta.block.switch.c meta.body.switch.c
+T 5 source.c meta.block.c meta.block.switch.c meta.body.switch.c punctuation.section.block.end.bracket.curly.switch.c
+L     switch /* c */ (x) {
+T 4 source.c meta.block.c meta.block.switch.c
+T 10 source.c meta.block.c meta.block.switch.c meta.head.switch.c keyword.control.switch.c
+T 11 source.c meta.block.c meta.block.switch.c meta.head.switch.c
+T 13 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c comment.block.c punctuation.definition.comment.begin.c
+T 16 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c comment.block.c
+T 18 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c comment.block.c punctuation.definition.comment.end.c
+T 19 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c
+T 20 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c punctuation.section.parens.begin.bracket.round.conditional.switch.c
+T 21 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c
+T 22 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c punctuation.section.parens.end.bracket.round.conditional.switch.c
+T 23 source.c meta.block.c meta.block.switch.c meta.head.switch.c
+T 24 source.c meta.block.c meta.block.switch.c meta.head.switch.c punctuation.section.block.begin.bracket.curly.switch.c
+L     default:;
+T 4 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c
+T 11 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c keyword.control.default.c
+T 12 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c punctuation.separator.colon.case.default.c
+T 13 source.c meta.block.c meta.block.switch.c meta.body.switch.c punctuation.terminator.statement.c
+L     }
+T 4 source.c meta.block.c meta.block.switch.c meta.body.switch.c
+T 5 source.c meta.block.c meta.block.switch.c meta.body.switch.c punctuation.section.block.end.bracket.curly.switch.c
+L     ;
+T 4 source.c meta.block.c
+T 5 source.c meta.block.c punctuation.terminator.statement.c
+L     return y;
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c keyword.control.c
+T 12 source.c meta.block.c
+T 13 source.c meta.block.c punctuation.terminator.statement.c
+L }
+T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L 
+L void blocks(void) {
+T 4 source.c storage.type.built-in.primitive.c
+T 5 source.c
+T 11 source.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 12 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 16 source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 17 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 18 source.c
+T 19 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L #if 1
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.block.c meta.preprocessor.c
+T 5 source.c meta.block.c meta.preprocessor.c constant.numeric.decimal.c
+L     int inside_enabled;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 22 source.c meta.block.c
+T 23 source.c meta.block.c punctuation.terminator.statement.c
+L #elif FOO
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 9 source.c meta.block.c comment.block.preprocessor.if-branch.in-block.c
+L     int inside_elif;
+T 20 source.c meta.block.c comment.block.preprocessor.if-branch.in-block.c
+L #else
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+L     int inside_else;
+T 20 source.c meta.block.c comment.block.preprocessor.else-branch.in-block.c
+L #endif
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+L #if 0
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.block.c meta.preprocessor.c
+T 5 source.c meta.block.c meta.preprocessor.c constant.numeric.decimal.c
+L     int inside_disabled;
+T 24 source.c meta.block.c comment.block.preprocessor.if-branch.in-block.c
+L #elif 1
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 6 source.c meta.block.c meta.preprocessor.c
+T 7 source.c meta.block.c meta.preprocessor.c constant.numeric.decimal.c
+L     int inside_enabled_elif;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 27 source.c meta.block.c
+T 28 source.c meta.block.c punctuation.terminator.statement.c
+L #else
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+L     int inside_enabled_else;
+T 28 source.c meta.block.c comment.block.preprocessor.elif-branch.in-block.c
+L #endif
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+L #if 0
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.block.c meta.preprocessor.c
+T 5 source.c meta.block.c meta.preprocessor.c constant.numeric.decimal.c
+L     int inside_disabled_two;
+T 28 source.c meta.block.c comment.block.preprocessor.if-branch.in-block.c
+L #elif 0
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 6 source.c meta.block.c meta.preprocessor.c
+T 7 source.c meta.block.c meta.preprocessor.c constant.numeric.decimal.c
+L     int inside_disabled_elif;
+T 29 source.c meta.block.c comment.block.preprocessor.elif-branch.c
+L #endif
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+L }
+T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L 
+L /** One line with @code, @param [in] x, \c y, @addtogroup g, @cite ref, TODO: and \callgraph @endcode */
+T 3 source.c comment.block.documentation.c punctuation.definition.comment.begin.documentation.c
+T 18 source.c comment.block.documentation.c
+T 23 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 25 source.c comment.block.documentation.c
+T 31 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 33 source.c comment.block.documentation.c
+T 35 source.c comment.block.documentation.c keyword.other.parameter.direction.in.c
+T 37 source.c comment.block.documentation.c
+T 38 source.c comment.block.documentation.c variable.parameter.c
+T 40 source.c comment.block.documentation.c
+T 42 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 43 source.c comment.block.documentation.c
+T 45 source.c comment.block.documentation.c markup.inline.raw.string.c
+T 46 source.c comment.block.documentation.c
+T 57 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 61 source.c comment.block.documentation.c
+T 66 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 72 source.c comment.block.documentation.c
+T 77 source.c comment.block.documentation.c storage.type.class.gtkdoc
+T 82 source.c comment.block.documentation.c
+T 92 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 93 source.c comment.block.documentation.c
+T 101 source.c comment.block.documentation.c storage.type.class.doxygen.c
+T 102 source.c comment.block.documentation.c
+T 104 source.c comment.block.documentation.c punctuation.definition.comment.end.documentation.c
+L /// Line with @code, @addtogroup grp, @anchor here, \callgraph and FIXME: soon @endcode
+T 3 source.c comment.line.double-slash.documentation.c punctuation.definition.comment.documentation.c
+T 14 source.c comment.line.double-slash.documentation.c
+T 19 source.c comment.line.double-slash.documentation.c storage.type.class.doxygen.c
+T 21 source.c comment.line.double-slash.documentation.c
+T 32 source.c comment.line.double-slash.documentation.c storage.type.class.doxygen.c
+T 38 source.c comment.line.double-slash.documentation.c
+T 45 source.c comment.line.double-slash.documentation.c storage.type.class.doxygen.c
+T 52 source.c comment.line.double-slash.documentation.c
+T 62 source.c comment.line.double-slash.documentation.c storage.type.class.doxygen.c
+T 67 source.c comment.line.double-slash.documentation.c
+T 73 source.c comment.line.double-slash.documentation.c storage.type.class.gtkdoc
+T 79 source.c comment.line.double-slash.documentation.c
+T 87 source.c comment.line.double-slash.documentation.c storage.type.class.doxygen.c
+L 
+L #if defined(FOO) + 1
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.preprocessor.c
+T 11 source.c meta.preprocessor.c invalid.illegal.macro-name.c
+T 12 source.c meta.preprocessor.c punctuation.section.parens.begin.bracket.round.c
+T 15 source.c meta.preprocessor.c entity.name.function.preprocessor.c
+T 16 source.c meta.preprocessor.c punctuation.section.parens.end.bracket.round.c
+T 17 source.c meta.preprocessor.c
+T 18 source.c meta.preprocessor.c keyword.operator.c
+T 19 source.c meta.preprocessor.c
+T 20 source.c meta.preprocessor.c constant.numeric.decimal.c
+L #endif
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+L 
+L  /* lead **/#define LEAD(a, b, ...) a
+T 1 source.c comment.block.c
+T 3 source.c comment.block.c punctuation.definition.comment.begin.c
+T 10 source.c comment.block.c
+T 12 source.c comment.block.c punctuation.definition.comment.end.c
+T 13 source.c meta.preprocessor.macro.c keyword.control.directive.define.c punctuation.definition.directive.c
+T 19 source.c meta.preprocessor.macro.c keyword.control.directive.define.c
+T 20 source.c meta.preprocessor.macro.c
+T 24 source.c meta.preprocessor.macro.c entity.name.function.preprocessor.c
+T 25 source.c meta.preprocessor.macro.c punctuation.definition.parameters.begin.c
+T 26 source.c meta.preprocessor.macro.c variable.parameter.preprocessor.c
+T 27 source.c meta.preprocessor.macro.c punctuation.separator.parameters.c
+T 28 source.c meta.preprocessor.macro.c
+T 29 source.c meta.preprocessor.macro.c variable.parameter.preprocessor.c
+T 30 source.c meta.preprocessor.macro.c punctuation.separator.parameters.c
+T 31 source.c meta.preprocessor.macro.c
+T 34 source.c meta.preprocessor.macro.c ellipses.c punctuation.vararg-ellipses.variable.parameter.preprocessor.c
+T 35 source.c meta.preprocessor.macro.c punctuation.definition.parameters.end.c
+T 37 source.c meta.preprocessor.macro.c
+L /* lead **/struct lead_s { int x; };
+T 2 source.c comment.block.c punctuation.definition.comment.begin.c
+T 9 source.c comment.block.c
+T 11 source.c comment.block.c punctuation.definition.comment.end.c
+T 17 source.c storage.type.struct.c
+T 25 source.c
+T 26 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+T 27 source.c meta.block.c
+T 30 source.c meta.block.c storage.type.built-in.primitive.c
+T 32 source.c meta.block.c
+T 33 source.c meta.block.c punctuation.terminator.statement.c
+T 34 source.c meta.block.c
+T 35 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+T 36 source.c punctuation.terminator.statement.c
+L 
+L void more_blocks(int x) {
+T 4 source.c storage.type.built-in.primitive.c
+T 5 source.c
+T 16 source.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 17 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 20 source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 21 source.c meta.function.c meta.function.definition.parameters.c
+T 22 source.c meta.function.c meta.function.definition.parameters.c variable.parameter.probably.c
+T 23 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 24 source.c
+T 25 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L #if FOO
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.block.c meta.preprocessor.c
+T 7 source.c meta.block.c meta.preprocessor.c entity.name.function.preprocessor.c
+L     int generic_if;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 18 source.c meta.block.c
+T 19 source.c meta.block.c punctuation.terminator.statement.c
+L #elif BAR
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 6 source.c meta.block.c meta.preprocessor.c
+T 9 source.c meta.block.c meta.preprocessor.c entity.name.function.preprocessor.c
+L     int generic_elif;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 20 source.c meta.block.c
+T 21 source.c meta.block.c punctuation.terminator.statement.c
+L #else
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+L     int generic_else;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 20 source.c meta.block.c
+T 21 source.c meta.block.c punctuation.terminator.statement.c
+L #endif
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+L #if 1
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.block.c meta.preprocessor.c
+T 5 source.c meta.block.c meta.preprocessor.c constant.numeric.decimal.c
+L     int one;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 11 source.c meta.block.c
+T 12 source.c meta.block.c punctuation.terminator.statement.c
+L #elif 1
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 7 source.c meta.block.c comment.block.preprocessor.if-branch.in-block.c
+L     int one_elif;
+T 17 source.c meta.block.c comment.block.preprocessor.if-branch.in-block.c
+L #elif BAR
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 9 source.c meta.block.c comment.block.preprocessor.if-branch.in-block.c
+L     int elif_after_elif;
+T 24 source.c meta.block.c comment.block.preprocessor.if-branch.in-block.c
+L #endif
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+L #if FOO
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.block.c meta.preprocessor.c
+T 7 source.c meta.block.c meta.preprocessor.c entity.name.function.preprocessor.c
+L #elif 1
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 6 source.c meta.block.c meta.preprocessor.c
+T 7 source.c meta.block.c meta.preprocessor.c constant.numeric.decimal.c
+L     int enabled_elif_in_block;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 29 source.c meta.block.c
+T 30 source.c meta.block.c punctuation.terminator.statement.c
+L #elif BAR
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 9 source.c meta.block.c comment.block.preprocessor.elif-branch.c
+L     int generic_after_enabled_elif;
+T 35 source.c meta.block.c comment.block.preprocessor.elif-branch.c
+L #endif
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+L #if 0
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.block.c meta.preprocessor.c
+T 5 source.c meta.block.c meta.preprocessor.c constant.numeric.decimal.c
+L     int zero;
+T 13 source.c meta.block.c comment.block.preprocessor.if-branch.in-block.c
+L #elif BAR
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 6 source.c meta.block.c meta.preprocessor.c
+T 9 source.c meta.block.c meta.preprocessor.c entity.name.function.preprocessor.c
+L     int generic_after_zero;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 26 source.c meta.block.c
+T 27 source.c meta.block.c punctuation.terminator.statement.c
+L #endif
+T 1 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.block.c meta.preprocessor.c keyword.control.directive.conditional.c
+L     x = 1; /* c **/switch (x) {
+T 6 source.c meta.block.c
+T 7 source.c meta.block.c keyword.operator.assignment.c
+T 8 source.c meta.block.c
+T 9 source.c meta.block.c constant.numeric.decimal.c
+T 10 source.c meta.block.c punctuation.terminator.statement.c
+T 11 source.c meta.block.c comment.block.c
+T 13 source.c meta.block.c comment.block.c punctuation.definition.comment.begin.c
+T 17 source.c meta.block.c comment.block.c
+T 19 source.c meta.block.c comment.block.c punctuation.definition.comment.end.c
+T 25 source.c meta.block.c meta.block.switch.c meta.head.switch.c keyword.control.switch.c
+T 26 source.c meta.block.c meta.block.switch.c meta.head.switch.c
+T 27 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c punctuation.section.parens.begin.bracket.round.conditional.switch.c
+T 28 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c
+T 29 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c punctuation.section.parens.end.bracket.round.conditional.switch.c
+T 30 source.c meta.block.c meta.block.switch.c meta.head.switch.c
+T 31 source.c meta.block.c meta.block.switch.c meta.head.switch.c punctuation.section.block.begin.bracket.curly.switch.c
+L     case 0:
+T 4 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c
+T 8 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c keyword.control.case.c
+T 9 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c
+T 10 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c constant.numeric.decimal.c
+T 11 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c punctuation.separator.colon.case.c
+L         break; /* c **/case 1:
+T 8 source.c meta.block.c meta.block.switch.c meta.body.switch.c
+T 13 source.c meta.block.c meta.block.switch.c meta.body.switch.c keyword.control.c
+T 14 source.c meta.block.c meta.block.switch.c meta.body.switch.c punctuation.terminator.statement.c
+T 15 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c
+T 17 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c punctuation.definition.comment.begin.c
+T 20 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c
+T 21 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c
+T 23 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c punctuation.definition.comment.end.c
+T 27 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c keyword.control.case.c
+T 28 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c
+T 29 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c constant.numeric.decimal.c
+T 30 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c punctuation.separator.colon.case.c
+L         break; /* c **/default:
+T 8 source.c meta.block.c meta.block.switch.c meta.body.switch.c
+T 13 source.c meta.block.c meta.block.switch.c meta.body.switch.c keyword.control.c
+T 14 source.c meta.block.c meta.block.switch.c meta.body.switch.c punctuation.terminator.statement.c
+T 15 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c
+T 17 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c punctuation.definition.comment.begin.c
+T 20 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c
+T 21 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c
+T 23 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c comment.block.c punctuation.definition.comment.end.c
+T 30 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c keyword.control.default.c
+T 31 source.c meta.block.c meta.block.switch.c meta.body.switch.c meta.conditional.case.c punctuation.separator.colon.case.default.c
+L         break;
+T 8 source.c meta.block.c meta.block.switch.c meta.body.switch.c
+T 13 source.c meta.block.c meta.block.switch.c meta.body.switch.c keyword.control.c
+T 14 source.c meta.block.c meta.block.switch.c meta.body.switch.c punctuation.terminator.statement.c
+L     } ;
+T 4 source.c meta.block.c meta.block.switch.c meta.body.switch.c
+T 5 source.c meta.block.c meta.block.switch.c meta.body.switch.c punctuation.section.block.end.bracket.curly.switch.c
+T 6 source.c meta.block.c
+T 7 source.c meta.block.c punctuation.terminator.statement.c
+L     switch (x) {} ;
+T 4 source.c meta.block.c meta.block.switch.c
+T 10 source.c meta.block.c meta.block.switch.c meta.head.switch.c keyword.control.switch.c
+T 11 source.c meta.block.c meta.block.switch.c meta.head.switch.c
+T 12 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c punctuation.section.parens.begin.bracket.round.conditional.switch.c
+T 13 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c
+T 14 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c punctuation.section.parens.end.bracket.round.conditional.switch.c
+T 15 source.c meta.block.c meta.block.switch.c meta.head.switch.c
+T 16 source.c meta.block.c meta.block.switch.c meta.head.switch.c punctuation.section.block.begin.bracket.curly.switch.c
+T 17 source.c meta.block.c meta.block.switch.c meta.body.switch.c punctuation.section.block.end.bracket.curly.switch.c
+T 18 source.c meta.block.c
+T 19 source.c meta.block.c punctuation.terminator.statement.c
+L     switch /* c **/(x) {}
+T 4 source.c meta.block.c meta.block.switch.c
+T 10 source.c meta.block.c meta.block.switch.c meta.head.switch.c keyword.control.switch.c
+T 11 source.c meta.block.c meta.block.switch.c meta.head.switch.c
+T 13 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c comment.block.c punctuation.definition.comment.begin.c
+T 16 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c comment.block.c
+T 17 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c comment.block.c
+T 19 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c comment.block.c punctuation.definition.comment.end.c
+T 20 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c punctuation.section.parens.begin.bracket.round.conditional.switch.c
+T 21 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c
+T 22 source.c meta.block.c meta.block.switch.c meta.head.switch.c meta.conditional.switch.c punctuation.section.parens.end.bracket.round.conditional.switch.c
+T 23 source.c meta.block.c meta.block.switch.c meta.head.switch.c
+T 24 source.c meta.block.c meta.block.switch.c meta.head.switch.c punctuation.section.block.begin.bracket.curly.switch.c
+T 25 source.c meta.block.c meta.block.switch.c meta.body.switch.c punctuation.section.block.end.bracket.curly.switch.c
+L }
+T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L 
+L void numbers_more(void) {
+T 4 source.c storage.type.built-in.primitive.c
+T 5 source.c
+T 17 source.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 18 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 22 source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 23 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 24 source.c
+T 25 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     double a = 1'0.2'5e1'0;
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c storage.type.built-in.primitive.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c keyword.operator.assignment.c
+T 15 source.c meta.block.c
+T 16 source.c meta.block.c constant.numeric.decimal.c
+T 17 source.c meta.block.c constant.numeric.decimal.c punctuation.separator.constant.numeric
+T 18 source.c meta.block.c constant.numeric.decimal.c
+T 19 source.c meta.block.c constant.numeric.decimal.point.c
+T 20 source.c meta.block.c constant.numeric.decimal.c
+T 21 source.c meta.block.c constant.numeric.decimal.c punctuation.separator.constant.numeric
+T 22 source.c meta.block.c constant.numeric.decimal.c
+T 23 source.c meta.block.c keyword.other.unit.exponent.decimal.c
+T 24 source.c meta.block.c constant.numeric.exponent.decimal.c
+T 25 source.c meta.block.c constant.numeric.exponent.decimal.c punctuation.separator.constant.numeric
+T 26 source.c meta.block.c constant.numeric.exponent.decimal.c
+T 27 source.c meta.block.c punctuation.terminator.statement.c
+L     double b = 0x1'2.3'4p1'0;
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c storage.type.built-in.primitive.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c keyword.operator.assignment.c
+T 15 source.c meta.block.c
+T 17 source.c meta.block.c keyword.other.unit.hexadecimal.c
+T 18 source.c meta.block.c constant.numeric.hexadecimal.c
+T 19 source.c meta.block.c constant.numeric.hexadecimal.c punctuation.separator.constant.numeric
+T 20 source.c meta.block.c constant.numeric.hexadecimal.c
+T 21 source.c meta.block.c constant.numeric.hexadecimal.c
+T 22 source.c meta.block.c constant.numeric.hexadecimal.c
+T 23 source.c meta.block.c constant.numeric.hexadecimal.c punctuation.separator.constant.numeric
+T 24 source.c meta.block.c constant.numeric.hexadecimal.c
+T 25 source.c meta.block.c keyword.other.unit.exponent.hexadecimal.c
+T 26 source.c meta.block.c constant.numeric.exponent.hexadecimal.c
+T 27 source.c meta.block.c constant.numeric.exponent.hexadecimal.c punctuation.separator.constant.numeric
+T 28 source.c meta.block.c constant.numeric.exponent.hexadecimal.c
+T 29 source.c meta.block.c punctuation.terminator.statement.c
+L     int c = 0x1p1'0;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 12 source.c meta.block.c
+T 14 source.c meta.block.c keyword.other.unit.hexadecimal.c
+T 15 source.c meta.block.c constant.numeric.hexadecimal.c
+T 16 source.c meta.block.c keyword.other.unit.exponent.hexadecimal.c
+T 17 source.c meta.block.c constant.numeric.exponent.hexadecimal.c
+T 18 source.c meta.block.c constant.numeric.exponent.hexadecimal.c punctuation.separator.constant.numeric
+T 19 source.c meta.block.c constant.numeric.exponent.hexadecimal.c
+T 20 source.c meta.block.c punctuation.terminator.statement.c
+L     int d = 1e1'0;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 10 source.c meta.block.c
+T 11 source.c meta.block.c keyword.operator.assignment.c
+T 12 source.c meta.block.c
+T 13 source.c meta.block.c constant.numeric.decimal.c
+T 14 source.c meta.block.c keyword.other.unit.exponent.decimal.c
+T 15 source.c meta.block.c constant.numeric.exponent.decimal.c
+T 16 source.c meta.block.c constant.numeric.exponent.decimal.c punctuation.separator.constant.numeric
+T 17 source.c meta.block.c constant.numeric.exponent.decimal.c
+T 18 source.c meta.block.c punctuation.terminator.statement.c
+L }
+T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L 
+L void assembly(int x) {
+T 4 source.c storage.type.built-in.primitive.c
+T 5 source.c
+T 13 source.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 14 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 17 source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 18 source.c meta.function.c meta.function.definition.parameters.c
+T 19 source.c meta.function.c meta.function.definition.parameters.c variable.parameter.probably.c
+T 20 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 21 source.c
+T 22 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     int y;
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c storage.type.built-in.primitive.c
+T 9 source.c meta.block.c
+T 10 source.c meta.block.c punctuation.terminator.statement.c
+L     __asm__ volatile ("mov %[out], %[in]\n\t\x41\101" : [out] "=r" (y) : [in] "r" (x) : "memory");
+T 4 source.c meta.block.c
+T 11 source.c meta.block.c meta.asm.c storage.type.asm.c
+T 12 source.c meta.block.c meta.asm.c
+T 20 source.c meta.block.c meta.asm.c storage.modifier.c
+T 21 source.c meta.block.c meta.asm.c
+T 22 source.c meta.block.c meta.asm.c punctuation.section.parens.begin.bracket.round.assembly.c
+T 23 source.c meta.block.c meta.asm.c string.quoted.double.c punctuation.definition.string.begin.assembly.c
+T 40 source.c meta.block.c meta.asm.c string.quoted.double.c meta.embedded.assembly.c
+T 42 source.c meta.block.c meta.asm.c string.quoted.double.c meta.embedded.assembly.c constant.character.escape.c
+T 44 source.c meta.block.c meta.asm.c string.quoted.double.c meta.embedded.assembly.c constant.character.escape.c
+T 48 source.c meta.block.c meta.asm.c string.quoted.double.c meta.embedded.assembly.c constant.character.escape.c
+T 52 source.c meta.block.c meta.asm.c string.quoted.double.c meta.embedded.assembly.c constant.character.escape.c
+T 53 source.c meta.block.c meta.asm.c string.quoted.double.c punctuation.definition.string.end.assembly.c
+T 54 source.c meta.block.c meta.asm.c
+T 55 source.c meta.block.c meta.asm.c punctuation.separator.delimiter.colon.assembly.c
+T 56 source.c meta.block.c meta.asm.c
+T 57 source.c meta.block.c meta.asm.c
+T 60 source.c meta.block.c meta.asm.c variable.other.asm.label.c
+T 61 source.c meta.block.c meta.asm.c
+T 62 source.c meta.block.c meta.asm.c
+T 63 source.c meta.block.c meta.asm.c string.quoted.double.c punctuation.definition.string.begin.assembly.c
+T 65 source.c meta.block.c meta.asm.c string.quoted.double.c meta.embedded.assembly.c
+T 66 source.c meta.block.c meta.asm.c string.quoted.double.c punctuation.definition.string.end.assembly.c
+T 67 source.c meta.block.c meta.asm.c
+T 68 source.c meta.block.c meta.asm.c punctuation.section.parens.begin.bracket.round.assembly.inner.c
+T 69 source.c meta.block.c meta.asm.c
+T 70 source.c meta.block.c meta.asm.c punctuation.section.parens.end.bracket.round.assembly.inner.c
+T 71 source.c meta.block.c meta.asm.c
+T 72 source.c meta.block.c meta.asm.c punctuation.separator.delimiter.colon.assembly.c
+T 73 source.c meta.block.c meta.asm.c
+T 74 source.c meta.block.c meta.asm.c
+T 76 source.c meta.block.c meta.asm.c variable.other.asm.label.c
+T 77 source.c meta.block.c meta.asm.c
+T 78 source.c meta.block.c meta.asm.c
+T 79 source.c meta.block.c meta.asm.c string.quoted.double.c punctuation.definition.string.begin.assembly.c
+T 80 source.c meta.block.c meta.asm.c string.quoted.double.c meta.embedded.assembly.c
+T 81 source.c meta.block.c meta.asm.c string.quoted.double.c punctuation.definition.string.end.assembly.c
+T 82 source.c meta.block.c meta.asm.c
+T 83 source.c meta.block.c meta.asm.c punctuation.section.parens.begin.bracket.round.assembly.inner.c
+T 84 source.c meta.block.c meta.asm.c
+T 85 source.c meta.block.c meta.asm.c punctuation.section.parens.end.bracket.round.assembly.inner.c
+T 86 source.c meta.block.c meta.asm.c
+T 87 source.c meta.block.c meta.asm.c punctuation.separator.delimiter.colon.assembly.c
+T 88 source.c meta.block.c meta.asm.c
+T 89 source.c meta.block.c meta.asm.c string.quoted.double.c punctuation.definition.string.begin.assembly.c
+T 95 source.c meta.block.c meta.asm.c string.quoted.double.c meta.embedded.assembly.c
+T 96 source.c meta.block.c meta.asm.c string.quoted.double.c punctuation.definition.string.end.assembly.c
+T 97 source.c meta.block.c meta.asm.c punctuation.section.parens.end.bracket.round.assembly.c
+T 98 source.c meta.block.c punctuation.terminator.statement.c
+L     __asm__ volatile /* c **/("nop" : [ /* c **/ name /* c **/ ] "=r" (y));
+T 4 source.c meta.block.c
+T 11 source.c meta.block.c meta.asm.c storage.type.asm.c
+T 12 source.c meta.block.c meta.asm.c
+T 20 source.c meta.block.c meta.asm.c storage.modifier.c
+T 21 source.c meta.block.c meta.asm.c comment.block.c
+T 23 source.c meta.block.c meta.asm.c comment.block.c punctuation.definition.comment.begin.c
+T 27 source.c meta.block.c meta.asm.c comment.block.c
+T 29 source.c meta.block.c meta.asm.c comment.block.c punctuation.definition.comment.end.c
+T 30 source.c meta.block.c meta.parens.block.c punctuation.section.parens.begin.bracket.round.c
+T 31 source.c meta.block.c meta.parens.block.c string.quoted.double.c punctuation.definition.string.begin.c
+T 34 source.c meta.block.c meta.parens.block.c string.quoted.double.c
+T 35 source.c meta.block.c meta.parens.block.c string.quoted.double.c punctuation.definition.string.end.c
+T 36 source.c meta.block.c meta.parens.block.c
+T 37 source.c meta.block.c meta.parens.block.c punctuation.range-based.c
+T 38 source.c meta.block.c meta.parens.block.c
+T 39 source.c meta.block.c meta.parens.block.c meta.bracket.square.access.c punctuation.definition.begin.bracket.square.c
+T 40 source.c meta.block.c meta.parens.block.c meta.bracket.square.access.c comment.block.c
+T 42 source.c meta.block.c meta.parens.block.c meta.bracket.square.access.c comment.block.c punctuation.definition.comment.begin.c
+T 46 source.c meta.block.c meta.parens.block.c meta.bracket.square.access.c comment.block.c
+T 48 source.c meta.block.c meta.parens.block.c meta.bracket.square.access.c comment.block.c punctuation.definition.comment.end.c
+T 53 source.c meta.block.c meta.parens.block.c meta.bracket.square.access.c
+T 54 source.c meta.block.c meta.parens.block.c meta.bracket.square.access.c comment.block.c
+T 56 source.c meta.block.c meta.parens.block.c meta.bracket.square.access.c comment.block.c punctuation.definition.comment.begin.c
+T 60 source.c meta.block.c meta.parens.block.c meta.bracket.square.access.c comment.block.c
+T 62 source.c meta.block.c meta.parens.block.c meta.bracket.square.access.c comment.block.c punctuation.definition.comment.end.c
+T 63 source.c meta.block.c meta.parens.block.c meta.bracket.square.access.c
+T 64 source.c meta.block.c meta.parens.block.c meta.bracket.square.access.c punctuation.definition.end.bracket.square.c
+T 65 source.c meta.block.c meta.parens.block.c
+T 66 source.c meta.block.c meta.parens.block.c string.quoted.double.c punctuation.definition.string.begin.c
+T 68 source.c meta.block.c meta.parens.block.c string.quoted.double.c
+T 69 source.c meta.block.c meta.parens.block.c string.quoted.double.c punctuation.definition.string.end.c
+T 70 source.c meta.block.c meta.parens.block.c
+T 71 source.c meta.block.c meta.parens.block.c meta.parens.block.c punctuation.section.parens.begin.bracket.round.c
+T 72 source.c meta.block.c meta.parens.block.c meta.parens.block.c
+T 73 source.c meta.block.c meta.parens.block.c meta.parens.block.c punctuation.section.parens.end.bracket.round.c
+T 74 source.c meta.block.c meta.parens.block.c punctuation.section.parens.end.bracket.round.c
+T 75 source.c meta.block.c punctuation.terminator.statement.c
+L     asm
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c meta.asm.c storage.type.asm.c
+L     /* c **/
+T 4 source.c meta.block.c meta.asm.c
+T 6 source.c meta.block.c meta.asm.c comment.block.c punctuation.definition.comment.begin.c
+T 9 source.c meta.block.c meta.asm.c comment.block.c
+T 10 source.c meta.block.c meta.asm.c comment.block.c
+T 12 source.c meta.block.c meta.asm.c comment.block.c punctuation.definition.comment.end.c
+L     ("nop");
+T 4 source.c meta.block.c
+T 5 source.c meta.block.c meta.parens.block.c punctuation.section.parens.begin.bracket.round.c
+T 6 source.c meta.block.c meta.parens.block.c string.quoted.double.c punctuation.definition.string.begin.c
+T 9 source.c meta.block.c meta.parens.block.c string.quoted.double.c
+T 10 source.c meta.block.c meta.parens.block.c string.quoted.double.c punctuation.definition.string.end.c
+T 11 source.c meta.block.c meta.parens.block.c punctuation.section.parens.end.bracket.round.c
+T 12 source.c meta.block.c punctuation.terminator.statement.c
+L     size_t n = sizeof(pthread_t) + sizeof(u_char) + sizeof(int32_t);
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c storage.type.built-in.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c keyword.operator.assignment.c
+T 15 source.c meta.block.c
+T 21 source.c meta.block.c keyword.operator.sizeof.c
+T 22 source.c meta.block.c meta.parens.block.c punctuation.section.parens.begin.bracket.round.c
+T 31 source.c meta.block.c meta.parens.block.c storage.type.built-in.c
+T 32 source.c meta.block.c meta.parens.block.c punctuation.section.parens.end.bracket.round.c
+T 33 source.c meta.block.c
+T 34 source.c meta.block.c keyword.operator.c
+T 35 source.c meta.block.c
+T 41 source.c meta.block.c keyword.operator.sizeof.c
+T 42 source.c meta.block.c meta.parens.block.c punctuation.section.parens.begin.bracket.round.c
+T 48 source.c meta.block.c meta.parens.block.c storage.type.built-in.c
+T 49 source.c meta.block.c meta.parens.block.c punctuation.section.parens.end.bracket.round.c
+T 50 source.c meta.block.c
+T 51 source.c meta.block.c keyword.operator.c
+T 52 source.c meta.block.c
+T 58 source.c meta.block.c keyword.operator.sizeof.c
+T 59 source.c meta.block.c meta.parens.block.c punctuation.section.parens.begin.bracket.round.c
+T 66 source.c meta.block.c meta.parens.block.c storage.type.built-in.c
+T 67 source.c meta.block.c meta.parens.block.c punctuation.section.parens.end.bracket.round.c
+T 68 source.c meta.block.c punctuation.terminator.statement.c
+L }
+T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L 
+L #if FOO
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 3 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+T 4 source.c meta.preprocessor.c
+T 7 source.c meta.preprocessor.c entity.name.function.preprocessor.c
+L void split(void) {
+T 4 source.c storage.type.built-in.primitive.c
+T 5 source.c
+T 10 source.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 11 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 15 source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 16 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 17 source.c
+T 18 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L #else
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 5 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+L void split(int x) {
+T 4 source.c storage.type.built-in.primitive.c
+T 5 source.c
+T 10 source.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 11 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 14 source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 15 source.c meta.function.c meta.function.definition.parameters.c
+T 16 source.c meta.function.c meta.function.definition.parameters.c variable.parameter.probably.c
+T 17 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 18 source.c
+T 19 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L #endif
+T 1 source.c meta.preprocessor.c keyword.control.directive.conditional.c punctuation.definition.directive.c
+T 6 source.c meta.preprocessor.c keyword.control.directive.conditional.c
+L     return;
+T 4 source.c
+T 10 source.c keyword.control.c
+T 11 source.c punctuation.terminator.statement.c
+L }
+T 1 source.c
+L 

@@ -1,0 +1,2109 @@
+L // Copyright 2017 The Abseil Authors.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 37 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Licensed under the Apache License, Version 2.0 (the "License");
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 66 source.cpp comment.line.double-slash.cpp
+L // you may not use this file except in compliance with the License.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 67 source.cpp comment.line.double-slash.cpp
+L // You may obtain a copy of the License at
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 42 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //      https://www.apache.org/licenses/LICENSE-2.0
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 51 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Unless required by applicable law or agreed to in writing, software
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 70 source.cpp comment.line.double-slash.cpp
+L // distributed under the License is distributed on an "AS IS" BASIS,
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 68 source.cpp comment.line.double-slash.cpp
+L // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 75 source.cpp comment.line.double-slash.cpp
+L // See the License for the specific language governing permissions and
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 70 source.cpp comment.line.double-slash.cpp
+L // limitations under the License.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 33 source.cpp comment.line.double-slash.cpp
+L 
+L // This file defines dynamic annotations for use with dynamic analysis tool
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 75 source.cpp comment.line.double-slash.cpp
+L // such as valgrind, PIN, etc.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 30 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Dynamic annotation is a source code annotation that affects the generated
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // code (that is, the annotation is not a comment). Each such annotation is
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 75 source.cpp comment.line.double-slash.cpp
+L // attached to a particular instruction and/or to a particular object (address)
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 79 source.cpp comment.line.double-slash.cpp
+L // in the program.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 18 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // The annotations that should be used by users are macros in all upper-case
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // (e.g., ANNOTATE_THREAD_NAME).
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 32 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // Actual implementation of these macros may differ depending on the dynamic
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // analysis tool being used.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 28 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // This file supports the following configurations:
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 51 source.cpp comment.line.double-slash.cpp
+L // - Dynamic Annotations enabled (with static thread-safety warnings disabled).
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 79 source.cpp comment.line.double-slash.cpp
+L //   In this case, macros expand to functions implemented by Thread Sanitizer,
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 78 source.cpp comment.line.double-slash.cpp
+L //   when building with TSan. When not provided an external implementation,
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 75 source.cpp comment.line.double-slash.cpp
+L //   dynamic_annotations.cc provides no-op implementations.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 59 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // - Static Clang thread-safety warnings enabled.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 49 source.cpp comment.line.double-slash.cpp
+L //   When building with a Clang compiler that supports thread-safety warnings,
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 78 source.cpp comment.line.double-slash.cpp
+L //   a subset of annotations can be statically-checked at compile-time. We
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 74 source.cpp comment.line.double-slash.cpp
+L //   expand these macros to static-inline functions that can be analyzed for
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L //   thread-safety, but afterwards elided when building the final binary.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 73 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // - All annotations are disabled.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 34 source.cpp comment.line.double-slash.cpp
+L //   If neither Dynamic Annotations nor Clang thread-safety warnings are
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp comment.line.double-slash.cpp
+L //   enabled, then all annotation-macros expand to empty.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 57 source.cpp comment.line.double-slash.cpp
+L 
+L // SKIP_ABSL_INLINE_NAMESPACE_CHECK
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 35 source.cpp comment.line.double-slash.cpp
+L 
+L #ifndef ABSL_BASE_INTERNAL_DYNAMIC_ANNOTATIONS_H_
+T 1 source.cpp keyword.control.directive.conditional.ifndef.cpp punctuation.definition.directive.cpp
+T 7 source.cpp keyword.control.directive.conditional.ifndef.cpp
+T 8 source.cpp meta.preprocessor.conditional
+T 49 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+L #define ABSL_BASE_INTERNAL_DYNAMIC_ANNOTATIONS_H_
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+L 
+L #include <stddef.h>
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.begin.cpp
+T 18 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp
+T 19 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.end.cpp
+L 
+L #include "absl/base/config.h"
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.begin.cpp
+T 28 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp
+T 29 source.cpp meta.preprocessor.include.cpp string.quoted.double.include.cpp punctuation.definition.string.end.cpp
+L 
+L // -------------------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // Decide which features are enabled
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 36 source.cpp comment.line.double-slash.cpp
+L 
+L #ifndef DYNAMIC_ANNOTATIONS_ENABLED
+T 1 source.cpp keyword.control.directive.conditional.ifndef.cpp punctuation.definition.directive.cpp
+T 7 source.cpp keyword.control.directive.conditional.ifndef.cpp
+T 8 source.cpp meta.preprocessor.conditional
+T 35 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+L #define DYNAMIC_ANNOTATIONS_ENABLED 0
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp constant.numeric.decimal.cpp
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L #if defined(__clang__)
+T 1 source.cpp keyword.control.directive.conditional.if.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.if.cpp
+T 4 source.cpp meta.preprocessor.conditional
+T 11 source.cpp meta.preprocessor.conditional keyword.control.directive.conditional.defined.cpp
+T 12 source.cpp meta.preprocessor.conditional punctuation.section.parens.control.defined.cpp
+T 21 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+T 22 source.cpp meta.preprocessor.conditional punctuation.section.parens.control.defined.cpp
+L #define ABSL_INTERNAL_IGNORE_READS_ATTRIBUTE_ENABLED 1
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp constant.numeric.decimal.cpp
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L #if DYNAMIC_ANNOTATIONS_ENABLED != 0
+T 1 source.cpp keyword.control.directive.conditional.if.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.if.cpp
+T 4 source.cpp meta.preprocessor.conditional
+T 31 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+T 32 source.cpp meta.preprocessor.conditional
+T 34 source.cpp meta.preprocessor.conditional keyword.operator.comparison.cpp
+T 35 source.cpp meta.preprocessor.conditional
+T 36 source.cpp meta.preprocessor.conditional constant.numeric.decimal.cpp
+L 
+L #define ABSL_INTERNAL_RACE_ANNOTATIONS_ENABLED 1
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp constant.numeric.decimal.cpp
+L #define ABSL_INTERNAL_READS_ANNOTATIONS_ENABLED 1
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp constant.numeric.decimal.cpp
+L #define ABSL_INTERNAL_WRITES_ANNOTATIONS_ENABLED 1
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp constant.numeric.decimal.cpp
+L #define ABSL_INTERNAL_ANNOTALYSIS_ENABLED 0
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp constant.numeric.decimal.cpp
+L #define ABSL_INTERNAL_READS_WRITES_ANNOTATIONS_ENABLED 1
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp constant.numeric.decimal.cpp
+L 
+L #else
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+L 
+L #define ABSL_INTERNAL_RACE_ANNOTATIONS_ENABLED 0
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp constant.numeric.decimal.cpp
+L #define ABSL_INTERNAL_READS_ANNOTATIONS_ENABLED 0
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp constant.numeric.decimal.cpp
+L #define ABSL_INTERNAL_WRITES_ANNOTATIONS_ENABLED 0
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp constant.numeric.decimal.cpp
+L 
+L // Clang provides limited support for static thread-safety analysis through a
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp comment.line.double-slash.cpp
+L // feature called Annotalysis. We configure macro-definitions according to
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 74 source.cpp comment.line.double-slash.cpp
+L // whether Annotalysis support is available. When running in opt-mode, GCC
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 74 source.cpp comment.line.double-slash.cpp
+L // will issue a warning, if these attributes are compiled. Only include them
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // when compiling using Clang.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 30 source.cpp comment.line.double-slash.cpp
+L 
+L // ANNOTALYSIS_ENABLED == 1 when IGNORE_READ_ATTRIBUTE_ENABLED == 1
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 67 source.cpp comment.line.double-slash.cpp
+L #define ABSL_INTERNAL_ANNOTALYSIS_ENABLED \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   defined(ABSL_INTERNAL_IGNORE_READS_ATTRIBUTE_ENABLED)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp variable.upper-case.cpp variable.other.unknown.ABSL_INTERNAL_IGNORE_READS_ATTRIBUTE_ENABLED.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+L // Read/write annotations are enabled in Annotalysis mode; disabled otherwise.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 78 source.cpp comment.line.double-slash.cpp
+L #define ABSL_INTERNAL_READS_WRITES_ANNOTATIONS_ENABLED \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_ANNOTALYSIS_ENABLED
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp variable.upper-case.cpp variable.other.unknown.ABSL_INTERNAL_ANNOTALYSIS_ENABLED.cpp
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L // Memory annotations are also made available to LLVM's Memory Sanitizer
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp comment.line.double-slash.cpp
+L #if defined(ABSL_HAVE_MEMORY_SANITIZER)
+T 1 source.cpp keyword.control.directive.conditional.if.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.if.cpp
+T 4 source.cpp meta.preprocessor.conditional
+T 11 source.cpp meta.preprocessor.conditional keyword.control.directive.conditional.defined.cpp
+T 12 source.cpp meta.preprocessor.conditional punctuation.section.parens.control.defined.cpp
+T 38 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.conditional punctuation.section.parens.control.defined.cpp
+L #define ABSL_INTERNAL_MEMORY_ANNOTATIONS_ENABLED 1
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp constant.numeric.decimal.cpp
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L #ifndef ABSL_INTERNAL_MEMORY_ANNOTATIONS_ENABLED
+T 1 source.cpp keyword.control.directive.conditional.ifndef.cpp punctuation.definition.directive.cpp
+T 7 source.cpp keyword.control.directive.conditional.ifndef.cpp
+T 8 source.cpp meta.preprocessor.conditional
+T 48 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+L #define ABSL_INTERNAL_MEMORY_ANNOTATIONS_ENABLED 0
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp constant.numeric.decimal.cpp
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L #ifdef __cplusplus
+T 1 source.cpp keyword.control.directive.conditional.ifdef.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.conditional.ifdef.cpp
+T 7 source.cpp meta.preprocessor.conditional
+T 18 source.cpp meta.preprocessor.conditional entity.name.other.preprocessor.macro.predefined.__cplusplus.cpp
+L #define ABSL_INTERNAL_BEGIN_EXTERN_C extern "C" {
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.block.extern.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.block.extern.cpp meta.head.extern.cpp storage.type.extern.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.block.extern.cpp meta.head.extern.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp meta.block.extern.cpp meta.head.extern.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.block.extern.cpp meta.head.extern.cpp string.quoted.double.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.block.extern.cpp meta.head.extern.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.block.extern.cpp meta.head.extern.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.block.extern.cpp meta.head.extern.cpp punctuation.section.block.begin.bracket.curly.extern.cpp
+L #define ABSL_INTERNAL_END_EXTERN_C }  // extern "C"
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ABSL_INTERNAL_GLOBAL_SCOPED(F) ::F
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp variable.upper-case.cpp variable.other.unknown.F.cpp
+L #define ABSL_INTERNAL_STATIC_INLINE inline
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp storage.modifier.specifier.functional.pre-parameters.inline.cpp
+L #else
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+L #define ABSL_INTERNAL_BEGIN_EXTERN_C  // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ABSL_INTERNAL_END_EXTERN_C    // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ABSL_INTERNAL_GLOBAL_SCOPED(F) F
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp variable.upper-case.cpp variable.other.unknown.F.cpp
+L #define ABSL_INTERNAL_STATIC_INLINE static inline
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp storage.modifier.specifier.static.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp storage.modifier.specifier.functional.pre-parameters.inline.cpp
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L // -------------------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // Define race annotations.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 27 source.cpp comment.line.double-slash.cpp
+L 
+L #if ABSL_INTERNAL_RACE_ANNOTATIONS_ENABLED == 1
+T 1 source.cpp keyword.control.directive.conditional.if.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.if.cpp
+T 4 source.cpp meta.preprocessor.conditional
+T 42 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+T 43 source.cpp meta.preprocessor.conditional
+T 45 source.cpp meta.preprocessor.conditional keyword.operator.comparison.cpp
+T 46 source.cpp meta.preprocessor.conditional
+T 47 source.cpp meta.preprocessor.conditional constant.numeric.decimal.cpp
+L 
+L // -------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 64 source.cpp comment.line.double-slash.cpp
+L // Annotations that suppress errors. It is usually better to express the
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp comment.line.double-slash.cpp
+L // program's synchronization using the other annotations, but these can be used
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 79 source.cpp comment.line.double-slash.cpp
+L // when all else fails.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 23 source.cpp comment.line.double-slash.cpp
+L 
+L // Report that we may have a benign race at `pointer`, with size
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 64 source.cpp comment.line.double-slash.cpp
+L // "sizeof(*(pointer))". `pointer` must be a non-void* pointer. Insert at the
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp comment.line.double-slash.cpp
+L // point where `pointer` has been allocated, preferably close to the point
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 74 source.cpp comment.line.double-slash.cpp
+L // where the race happens. See also ANNOTATE_BENIGN_RACE_STATIC.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 64 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_BENIGN_RACE(pointer, description)     \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateBenignRaceSized) \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AnnotateBenignRaceSized.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   (__FILE__, __LINE__, pointer, sizeof(*(pointer)), description)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.pointer.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp keyword.operator.functionlike.cpp keyword.operator.sizeof.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.arguments.begin.bracket.round.operator.sizeof.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp meta.arguments.operator.sizeof keyword.operator.arithmetic.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp meta.arguments.operator.sizeof meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp meta.arguments.operator.sizeof meta.parens.cpp variable.lower-case.cpp variable.other.unknown.pointer.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp meta.arguments.operator.sizeof meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.arguments.end.bracket.round.operator.sizeof.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.description.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L // Same as ANNOTATE_BENIGN_RACE(`address`, `description`), but applies to
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 73 source.cpp comment.line.double-slash.cpp
+L // the memory range [`address`, `address`+`size`).
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 50 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_BENIGN_RACE_SIZED(address, size, description) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateBenignRaceSized)         \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AnnotateBenignRaceSized.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   (__FILE__, __LINE__, address, size, description)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.address.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.size.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.description.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L // Enable (`enable`!=0) or disable (`enable`==0) race detection for all threads.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 80 source.cpp comment.line.double-slash.cpp
+L // This annotation could be useful if you want to skip expensive race analysis
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 78 source.cpp comment.line.double-slash.cpp
+L // during some period of program execution, e.g. during initialization.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 71 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_ENABLE_RACE_DETECTION(enable)             \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateEnableRaceDetection) \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AnnotateEnableRaceDetection.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   (__FILE__, __LINE__, enable)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.enable.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L // -------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 64 source.cpp comment.line.double-slash.cpp
+L // Annotations useful for debugging.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 36 source.cpp comment.line.double-slash.cpp
+L 
+L // Report the current thread `name` to a race detector.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 55 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_THREAD_NAME(name) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateThreadName)(__FILE__, __LINE__, name)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AnnotateThreadName.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 68 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 69 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 74 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.name.cpp
+T 75 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L // -------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 64 source.cpp comment.line.double-slash.cpp
+L // Annotations useful when implementing locks. They are not normally needed by
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 78 source.cpp comment.line.double-slash.cpp
+L // modules that merely use locks. The `lock` argument is a pointer to the lock
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 78 source.cpp comment.line.double-slash.cpp
+L // object.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 10 source.cpp comment.line.double-slash.cpp
+L 
+L // Report that a lock has been created at address `lock`.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 57 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_RWLOCK_CREATE(lock) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateRWLockCreate)(__FILE__, __LINE__, lock)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AnnotateRWLockCreate.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 76 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.lock.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L // Report that a linker initialized lock has been created at address `lock`.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L #ifdef ABSL_HAVE_THREAD_SANITIZER
+T 1 source.cpp keyword.control.directive.conditional.ifdef.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.conditional.ifdef.cpp
+T 7 source.cpp meta.preprocessor.conditional
+T 33 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+L #define ANNOTATE_RWLOCK_CREATE_STATIC(lock)               \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateRWLockCreateStatic) \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AnnotateRWLockCreateStatic.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   (__FILE__, __LINE__, lock)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.lock.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L #else
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+L #define ANNOTATE_RWLOCK_CREATE_STATIC(lock) ANNOTATE_RWLOCK_CREATE(lock)
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.lock.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L // Report that the lock at address `lock` is about to be destroyed.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 67 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_RWLOCK_DESTROY(lock) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateRWLockDestroy)(__FILE__, __LINE__, lock)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AnnotateRWLockDestroy.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 73 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 77 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.lock.cpp
+T 78 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L // Report that the lock at address `lock` has been acquired.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 60 source.cpp comment.line.double-slash.cpp
+L // `is_w`=1 for writer lock, `is_w`=0 for reader lock.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 54 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_RWLOCK_ACQUIRED(lock, is_w)          \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateRWLockAcquired) \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AnnotateRWLockAcquired.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   (__FILE__, __LINE__, lock, is_w)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.lock.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.snake-case.cpp variable.other.unknown.is_w.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L // Report that the lock at address `lock` is about to be released.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 66 source.cpp comment.line.double-slash.cpp
+L // `is_w`=1 for writer lock, `is_w`=0 for reader lock.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 54 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_RWLOCK_RELEASED(lock, is_w)          \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateRWLockReleased) \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AnnotateRWLockReleased.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   (__FILE__, __LINE__, lock, is_w)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 22 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.lock.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.snake-case.cpp variable.other.unknown.is_w.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L // Apply ANNOTATE_BENIGN_RACE_SIZED to a static variable `static_var`.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 70 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_BENIGN_RACE_STATIC(static_var, description)      \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   namespace {                                                     \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.head.namespace.cpp keyword.other.namespace.definition.cpp storage.type.namespace.definition.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.head.namespace.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.head.namespace.cpp punctuation.section.block.begin.bracket.curly.namespace.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp constant.character.escape.line-continuation.cpp
+L   class static_var##_annotator {                                  \
+T 2 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.head.class.cpp storage.type.class.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp entity.name.type.class.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.head.class.cpp variable.other.macro.argument.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.head.class.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.head.class.cpp punctuation.section.block.begin.bracket.curly.class.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp constant.character.escape.line-continuation.cpp
+L    public:                                                        \
+T 3 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp storage.type.modifier.access.control.public.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp storage.type.modifier.access.control.public.cpp punctuation.separator.colon.access.control.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp constant.character.escape.line-continuation.cpp
+L     static_var##_annotator() {                                    \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp
+T 14 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp variable.snake-case.cpp variable.other.unknown.static_var.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp variable.other.macro.argument.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L       ANNOTATE_BENIGN_RACE_SIZED(&static_var, sizeof(static_var), \
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp keyword.operator.bitwise.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp variable.snake-case.cpp variable.other.unknown.static_var.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp punctuation.separator.delimiter.comma.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp keyword.operator.functionlike.cpp keyword.operator.sizeof.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.operator.sizeof.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp meta.arguments.operator.sizeof variable.snake-case.cpp variable.other.unknown.static_var.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.operator.sizeof.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp punctuation.separator.delimiter.comma.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L                                  #static_var ": " description);   \
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp variable.other.macro.argument.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp string.quoted.double.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp variable.lower-case.cpp variable.other.unknown.description.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     }                                                             \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp constant.character.escape.line-continuation.cpp
+L   };                                                              \
+T 2 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp meta.body.class.cpp punctuation.section.block.end.bracket.curly.class.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp meta.block.class.cpp punctuation.terminator.statement.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp constant.character.escape.line-continuation.cpp
+L   static static_var##_annotator the##static_var##_annotator;      \
+T 2 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp storage.modifier.specifier.static.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp variable.snake-case.cpp variable.other.unknown.static_var.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp variable.other.macro.argument.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp variable.lower-case.cpp variable.other.unknown.the.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp variable.other.macro.argument.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp variable.other.macro.argument.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.terminator.statement.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp constant.character.escape.line-continuation.cpp
+L   }  // namespace
+T 2 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.block.namespace.cpp meta.body.namespace.cpp punctuation.section.block.end.bracket.curly.namespace.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L 
+L #else  // ABSL_INTERNAL_RACE_ANNOTATIONS_ENABLED == 0
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+T 7 source.cpp comment.line.double-slash.cpp
+T 9 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 53 source.cpp comment.line.double-slash.cpp
+L 
+L #define ANNOTATE_RWLOCK_CREATE(lock)                            // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_RWLOCK_CREATE_STATIC(lock)                     // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_RWLOCK_DESTROY(lock)                           // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_RWLOCK_ACQUIRED(lock, is_w)                    // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_RWLOCK_RELEASED(lock, is_w)                    // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_BENIGN_RACE(address, description)              // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_BENIGN_RACE_SIZED(address, size, description)  // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_THREAD_NAME(name)                              // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_ENABLE_RACE_DETECTION(enable)                  // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_BENIGN_RACE_STATIC(static_var, description)    // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L 
+L #endif  // ABSL_INTERNAL_RACE_ANNOTATIONS_ENABLED
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+T 8 source.cpp comment.line.double-slash.cpp
+T 10 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 49 source.cpp comment.line.double-slash.cpp
+L 
+L // -------------------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // Define memory annotations.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 29 source.cpp comment.line.double-slash.cpp
+L 
+L #if ABSL_INTERNAL_MEMORY_ANNOTATIONS_ENABLED == 1
+T 1 source.cpp keyword.control.directive.conditional.if.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.if.cpp
+T 4 source.cpp meta.preprocessor.conditional
+T 44 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+T 45 source.cpp meta.preprocessor.conditional
+T 47 source.cpp meta.preprocessor.conditional keyword.operator.comparison.cpp
+T 48 source.cpp meta.preprocessor.conditional
+T 49 source.cpp meta.preprocessor.conditional constant.numeric.decimal.cpp
+L 
+L #include <sanitizer/msan_interface.h>
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.begin.cpp
+T 36 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp
+T 37 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.end.cpp
+L 
+L #define ANNOTATE_MEMORY_IS_INITIALIZED(address, size) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   __msan_unpoison(address, size)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.address.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.size.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+L 
+L #define ANNOTATE_MEMORY_IS_UNINITIALIZED(address, size) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   __msan_allocated_memory(address, size)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 25 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 26 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.address.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.size.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+L 
+L #else  // ABSL_INTERNAL_MEMORY_ANNOTATIONS_ENABLED == 0
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+T 7 source.cpp comment.line.double-slash.cpp
+T 9 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 55 source.cpp comment.line.double-slash.cpp
+L 
+L #if DYNAMIC_ANNOTATIONS_ENABLED == 1
+T 1 source.cpp keyword.control.directive.conditional.if.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.if.cpp
+T 4 source.cpp meta.preprocessor.conditional
+T 31 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+T 32 source.cpp meta.preprocessor.conditional
+T 34 source.cpp meta.preprocessor.conditional keyword.operator.comparison.cpp
+T 35 source.cpp meta.preprocessor.conditional
+T 36 source.cpp meta.preprocessor.conditional constant.numeric.decimal.cpp
+L #define ANNOTATE_MEMORY_IS_INITIALIZED(address, size) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   do {                                                \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp keyword.control.do.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     (void)(address);                                  \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.address.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 20 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     (void)(size);                                     \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.size.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L   } while (0)
+T 2 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp keyword.control.while.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp constant.numeric.decimal.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L #define ANNOTATE_MEMORY_IS_UNINITIALIZED(address, size) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   do {                                                  \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp keyword.control.do.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     (void)(address);                                    \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 18 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.address.cpp
+T 19 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 20 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     (void)(size);                                       \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.size.cpp
+T 16 source.cpp meta.preprocessor.macro.cpp meta.block.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 17 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L   } while (0)
+T 2 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp keyword.control.while.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp constant.numeric.decimal.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L #else
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+L #define ANNOTATE_MEMORY_IS_INITIALIZED(address, size)    // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_MEMORY_IS_UNINITIALIZED(address, size)  // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L #endif  // ABSL_INTERNAL_MEMORY_ANNOTATIONS_ENABLED
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+T 8 source.cpp comment.line.double-slash.cpp
+T 10 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 51 source.cpp comment.line.double-slash.cpp
+L 
+L // -------------------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // Define IGNORE_READS_BEGIN/_END attributes.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 45 source.cpp comment.line.double-slash.cpp
+L 
+L #if defined(ABSL_INTERNAL_IGNORE_READS_ATTRIBUTE_ENABLED)
+T 1 source.cpp keyword.control.directive.conditional.if.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.if.cpp
+T 4 source.cpp meta.preprocessor.conditional
+T 11 source.cpp meta.preprocessor.conditional keyword.control.directive.conditional.defined.cpp
+T 12 source.cpp meta.preprocessor.conditional punctuation.section.parens.control.defined.cpp
+T 56 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+T 57 source.cpp meta.preprocessor.conditional punctuation.section.parens.control.defined.cpp
+L 
+L #define ABSL_INTERNAL_IGNORE_READS_BEGIN_ATTRIBUTE \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 51 source.cpp meta.preprocessor.macro.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   __attribute((exclusive_lock_function("*")))
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 14 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.function.call.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp string.quoted.double.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+L #define ABSL_INTERNAL_IGNORE_READS_END_ATTRIBUTE \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   __attribute((unlock_function("*")))
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 14 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 15 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.function.call.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp string.quoted.double.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+L 
+L #else  // !defined(ABSL_INTERNAL_IGNORE_READS_ATTRIBUTE_ENABLED)
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+T 7 source.cpp comment.line.double-slash.cpp
+T 9 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 64 source.cpp comment.line.double-slash.cpp
+L 
+L #define ABSL_INTERNAL_IGNORE_READS_BEGIN_ATTRIBUTE  // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ABSL_INTERNAL_IGNORE_READS_END_ATTRIBUTE    // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L 
+L #endif  // defined(ABSL_INTERNAL_IGNORE_READS_ATTRIBUTE_ENABLED)
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+T 8 source.cpp comment.line.double-slash.cpp
+T 10 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 64 source.cpp comment.line.double-slash.cpp
+L 
+L // -------------------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // Define IGNORE_READS_BEGIN/_END annotations.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 46 source.cpp comment.line.double-slash.cpp
+L 
+L #if ABSL_INTERNAL_READS_ANNOTATIONS_ENABLED == 1
+T 1 source.cpp keyword.control.directive.conditional.if.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.if.cpp
+T 4 source.cpp meta.preprocessor.conditional
+T 43 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+T 44 source.cpp meta.preprocessor.conditional
+T 46 source.cpp meta.preprocessor.conditional keyword.operator.comparison.cpp
+T 47 source.cpp meta.preprocessor.conditional
+T 48 source.cpp meta.preprocessor.conditional constant.numeric.decimal.cpp
+L 
+L // Request the analysis tool to ignore all reads in the current thread until
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // ANNOTATE_IGNORE_READS_END is called. Useful to ignore intentional racey
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 74 source.cpp comment.line.double-slash.cpp
+L // reads, while still checking other reads and all writes.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 58 source.cpp comment.line.double-slash.cpp
+L // See also ANNOTATE_UNPROTECTED_READ.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 38 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_IGNORE_READS_BEGIN() \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateIgnoreReadsBegin)(__FILE__, __LINE__)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AnnotateIgnoreReadsBegin.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 74 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 75 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L // Stop ignoring reads.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 23 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_IGNORE_READS_END() \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateIgnoreReadsEnd)(__FILE__, __LINE__)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AnnotateIgnoreReadsEnd.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 72 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 73 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L #elif defined(ABSL_INTERNAL_ANNOTALYSIS_ENABLED)
+T 1 source.cpp keyword.control.directive.elif.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.elif.cpp
+T 6 source.cpp
+T 13 source.cpp entity.name.function.call.cpp
+T 14 source.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 47 source.cpp variable.upper-case.cpp variable.other.unknown.ABSL_INTERNAL_ANNOTALYSIS_ENABLED.cpp
+T 48 source.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+L 
+L // When Annotalysis is enabled without Dynamic Annotations, the use of
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 70 source.cpp comment.line.double-slash.cpp
+L // static-inline functions allows the annotations to be read at compile-time,
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp comment.line.double-slash.cpp
+L // while still letting the compiler elide the functions from the final build.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 77 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L // TODO(delesley) -- The exclusive lock here ignores writes as well, but
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp comment.line.double-slash.cpp
+L // allows IGNORE_READS_AND_WRITES to work properly.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 51 source.cpp comment.line.double-slash.cpp
+L 
+L #define ANNOTATE_IGNORE_READS_BEGIN() \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AbslInternalAnnotateIgnoreReadsBegin)()
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AbslInternalAnnotateIgnoreReadsBegin.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 68 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 69 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L #define ANNOTATE_IGNORE_READS_END() \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AbslInternalAnnotateIgnoreReadsEnd)()
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AbslInternalAnnotateIgnoreReadsEnd.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L #else
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+L 
+L #define ANNOTATE_IGNORE_READS_BEGIN()  // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_IGNORE_READS_END()    // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L 
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L // -------------------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // Define IGNORE_WRITES_BEGIN/_END annotations.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 47 source.cpp comment.line.double-slash.cpp
+L 
+L #if ABSL_INTERNAL_WRITES_ANNOTATIONS_ENABLED == 1
+T 1 source.cpp keyword.control.directive.conditional.if.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.if.cpp
+T 4 source.cpp meta.preprocessor.conditional
+T 44 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+T 45 source.cpp meta.preprocessor.conditional
+T 47 source.cpp meta.preprocessor.conditional keyword.operator.comparison.cpp
+T 48 source.cpp meta.preprocessor.conditional
+T 49 source.cpp meta.preprocessor.conditional constant.numeric.decimal.cpp
+L 
+L // Similar to ANNOTATE_IGNORE_READS_BEGIN, but ignore writes instead.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 69 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_IGNORE_WRITES_BEGIN() \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateIgnoreWritesBegin)(__FILE__, __LINE__)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AnnotateIgnoreWritesBegin.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 75 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 76 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L // Stop ignoring writes.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 24 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_IGNORE_WRITES_END() \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   ABSL_INTERNAL_GLOBAL_SCOPED(AnnotateIgnoreWritesEnd)(__FILE__, __LINE__)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp variable.other.unknown.AnnotateIgnoreWritesEnd.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__FILE__.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.separator.delimiter.comma.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp
+T 73 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp entity.name.other.preprocessor.macro.predefined.__LINE__.cpp
+T 74 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L #else
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+L 
+L #define ANNOTATE_IGNORE_WRITES_BEGIN()  // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_IGNORE_WRITES_END()    // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L 
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L // -------------------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // Define the ANNOTATE_IGNORE_READS_AND_WRITES_* annotations using the more
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 75 source.cpp comment.line.double-slash.cpp
+L // primitive annotations defined above.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 39 source.cpp comment.line.double-slash.cpp
+L //
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+L //     Instead of doing
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 23 source.cpp comment.line.double-slash.cpp
+L //        ANNOTATE_IGNORE_READS_BEGIN();
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 40 source.cpp comment.line.double-slash.cpp
+L //        ... = x;
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 18 source.cpp comment.line.double-slash.cpp
+L //        ANNOTATE_IGNORE_READS_END();
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 38 source.cpp comment.line.double-slash.cpp
+L //     one can use
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 18 source.cpp comment.line.double-slash.cpp
+L //        ... = ANNOTATE_UNPROTECTED_READ(x);
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 45 source.cpp comment.line.double-slash.cpp
+L 
+L #if defined(ABSL_INTERNAL_READS_WRITES_ANNOTATIONS_ENABLED)
+T 1 source.cpp keyword.control.directive.conditional.if.cpp punctuation.definition.directive.cpp
+T 3 source.cpp keyword.control.directive.conditional.if.cpp
+T 4 source.cpp meta.preprocessor.conditional
+T 11 source.cpp meta.preprocessor.conditional keyword.control.directive.conditional.defined.cpp
+T 12 source.cpp meta.preprocessor.conditional punctuation.section.parens.control.defined.cpp
+T 58 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+T 59 source.cpp meta.preprocessor.conditional punctuation.section.parens.control.defined.cpp
+L 
+L // Start ignoring all memory accesses (both reads and writes).
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 62 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_IGNORE_READS_AND_WRITES_BEGIN() \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   do {                                           \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp keyword.control.do.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     ANNOTATE_IGNORE_READS_BEGIN();               \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     ANNOTATE_IGNORE_WRITES_BEGIN();              \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L   } while (0)
+T 2 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp keyword.control.while.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp constant.numeric.decimal.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L // Stop ignoring both reads and writes.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 39 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_IGNORE_READS_AND_WRITES_END() \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   do {                                         \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp keyword.control.do.cpp
+T 5 source.cpp meta.preprocessor.macro.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     ANNOTATE_IGNORE_WRITES_END();              \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L     ANNOTATE_IGNORE_READS_END();               \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 30 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 31 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 32 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.terminator.statement.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.block.cpp constant.character.escape.line-continuation.cpp
+L   } while (0)
+T 2 source.cpp meta.preprocessor.macro.cpp meta.block.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp keyword.control.while.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 12 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp constant.numeric.decimal.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L #ifdef __cplusplus
+T 1 source.cpp keyword.control.directive.conditional.ifdef.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.conditional.ifdef.cpp
+T 7 source.cpp meta.preprocessor.conditional
+T 18 source.cpp meta.preprocessor.conditional entity.name.other.preprocessor.macro.predefined.__cplusplus.cpp
+L // ANNOTATE_UNPROTECTED_READ is the preferred way to annotate racey reads.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 74 source.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_UNPROTECTED_READ(x) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   absl::base_internal::AnnotateUnprotectedRead(x)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 6 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 21 source.cpp meta.preprocessor.macro.cpp entity.name.scope-resolution.function.call.cpp
+T 23 source.cpp meta.preprocessor.macro.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.function.call.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.x.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+L 
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L #else
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+L 
+L #define ANNOTATE_IGNORE_READS_AND_WRITES_BEGIN()  // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_IGNORE_READS_AND_WRITES_END()    // empty
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 45 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 50 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp comment.line.double-slash.cpp
+L #define ANNOTATE_UNPROTECTED_READ(x) (x)
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 35 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp variable.lower-case.cpp variable.other.unknown.x.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+L 
+L #endif
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+L 
+L // -------------------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // Address sanitizer annotations
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 32 source.cpp comment.line.double-slash.cpp
+L 
+L #ifdef ABSL_HAVE_ADDRESS_SANITIZER
+T 1 source.cpp keyword.control.directive.conditional.ifdef.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.conditional.ifdef.cpp
+T 7 source.cpp meta.preprocessor.conditional
+T 34 source.cpp meta.preprocessor.conditional entity.name.function.preprocessor.cpp
+L // Describe the current state of a contiguous container such as e.g.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 68 source.cpp comment.line.double-slash.cpp
+L // std::vector or std::string. For more details see
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 51 source.cpp comment.line.double-slash.cpp
+L // sanitizer/common_interface_defs.h, which is provided by the compiler.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 72 source.cpp comment.line.double-slash.cpp
+L #include <sanitizer/common_interface_defs.h>
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.begin.cpp
+T 43 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp
+T 44 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.end.cpp
+L 
+L #define ANNOTATE_CONTIGUOUS_CONTAINER(beg, end, old_mid, new_mid) \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 66 source.cpp meta.preprocessor.macro.cpp
+T 67 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   __sanitizer_annotate_contiguous_container(beg, end, old_mid, new_mid)
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp entity.name.function.call.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.beg.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 49 source.cpp meta.preprocessor.macro.cpp
+T 52 source.cpp meta.preprocessor.macro.cpp variable.lower-case.cpp variable.other.unknown.end.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.old_mid.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp punctuation.separator.delimiter.comma.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp
+T 70 source.cpp meta.preprocessor.macro.cpp variable.snake-case.cpp variable.other.unknown.new_mid.cpp
+T 71 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+L #define ADDRESS_SANITIZER_REDZONE(name)    \
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp constant.character.escape.line-continuation.cpp
+L   struct {                                 \
+T 2 source.cpp meta.preprocessor.macro.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.head.struct.cpp storage.type.struct.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.head.struct.cpp punctuation.section.block.begin.bracket.curly.struct.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp constant.character.escape.line-continuation.cpp
+L     char x[8] __attribute__((aligned(8))); \
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 9 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp
+T 10 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp meta.declaration.cpp variable.lower-case.cpp variable.other.declare.cpp
+T 11 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp meta.bracket.square.access punctuation.definition.begin.bracket.square
+T 12 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp meta.bracket.square.access constant.numeric.decimal.cpp
+T 13 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp meta.bracket.square.access punctuation.definition.end.bracket.square
+T 14 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp
+T 27 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp entity.name.function.call.cpp
+T 28 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 29 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp meta.parens.cpp punctuation.section.parens.begin.bracket.round.cpp
+T 36 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp meta.parens.cpp entity.name.function.call.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp meta.parens.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp meta.parens.cpp constant.numeric.decimal.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp meta.parens.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp meta.parens.cpp punctuation.section.parens.end.bracket.round.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp meta.declaration.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp punctuation.terminator.statement.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 44 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp constant.character.escape.line-continuation.cpp
+L   } name
+T 2 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp
+T 3 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.body.struct.cpp punctuation.section.block.end.bracket.curly.struct.cpp
+T 4 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.tail.struct.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp meta.block.struct.cpp meta.tail.struct.cpp variable.lower-case.cpp variable.other.unknown.name.cpp
+L 
+L #else
+T 1 source.cpp keyword.control.directive.else.cpp punctuation.definition.directive.cpp
+T 5 source.cpp keyword.control.directive.else.cpp
+L 
+L #define ANNOTATE_CONTIGUOUS_CONTAINER(beg, end, old_mid, new_mid)
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 37 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 41 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 42 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 43 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 46 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 47 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 48 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 55 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 56 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp punctuation.separator.parameters.cpp
+T 57 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp
+T 64 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 65 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+L #define ADDRESS_SANITIZER_REDZONE(name) static_assert(true, "")
+T 1 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp punctuation.definition.directive.cpp
+T 7 source.cpp meta.preprocessor.macro.cpp keyword.control.directive.define.cpp
+T 8 source.cpp meta.preprocessor.macro.cpp
+T 33 source.cpp meta.preprocessor.macro.cpp entity.name.function.preprocessor.cpp
+T 34 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.begin.preprocessor.cpp
+T 38 source.cpp meta.preprocessor.macro.cpp meta.function.preprocessor.parameters.cpp variable.parameter.preprocessor.cpp
+T 39 source.cpp meta.preprocessor.macro.cpp punctuation.definition.parameters.end.preprocessor.cpp
+T 40 source.cpp meta.preprocessor.macro.cpp
+T 53 source.cpp meta.preprocessor.macro.cpp keyword.other.static-assert.cpp
+T 54 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.begin.bracket.round.static-assert.cpp
+T 58 source.cpp meta.preprocessor.macro.cpp constant.language.true.cpp
+T 59 source.cpp meta.preprocessor.macro.cpp meta.static-assert.message.cpp punctuation.separator.delimiter.comma.cpp
+T 60 source.cpp meta.preprocessor.macro.cpp meta.static-assert.message.cpp
+T 61 source.cpp meta.preprocessor.macro.cpp meta.static-assert.message.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 62 source.cpp meta.preprocessor.macro.cpp meta.static-assert.message.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 63 source.cpp meta.preprocessor.macro.cpp punctuation.section.arguments.end.bracket.round.static-assert.cpp
+L 
+L #endif  // ABSL_HAVE_ADDRESS_SANITIZER
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+T 8 source.cpp comment.line.double-slash.cpp
+T 10 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 38 source.cpp comment.line.double-slash.cpp
+L 
+L // -------------------------------------------------------------------------
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 76 source.cpp comment.line.double-slash.cpp
+L // Undefine the macros intended only for this file.
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 51 source.cpp comment.line.double-slash.cpp
+L 
+L #undef ABSL_INTERNAL_RACE_ANNOTATIONS_ENABLED
+T 1 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp punctuation.definition.directive.cpp
+T 6 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp
+T 7 source.cpp meta.preprocessor.undef.cpp
+T 45 source.cpp meta.preprocessor.undef.cpp entity.name.function.preprocessor.cpp
+L #undef ABSL_INTERNAL_MEMORY_ANNOTATIONS_ENABLED
+T 1 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp punctuation.definition.directive.cpp
+T 6 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp
+T 7 source.cpp meta.preprocessor.undef.cpp
+T 47 source.cpp meta.preprocessor.undef.cpp entity.name.function.preprocessor.cpp
+L #undef ABSL_INTERNAL_READS_ANNOTATIONS_ENABLED
+T 1 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp punctuation.definition.directive.cpp
+T 6 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp
+T 7 source.cpp meta.preprocessor.undef.cpp
+T 46 source.cpp meta.preprocessor.undef.cpp entity.name.function.preprocessor.cpp
+L #undef ABSL_INTERNAL_WRITES_ANNOTATIONS_ENABLED
+T 1 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp punctuation.definition.directive.cpp
+T 6 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp
+T 7 source.cpp meta.preprocessor.undef.cpp
+T 47 source.cpp meta.preprocessor.undef.cpp entity.name.function.preprocessor.cpp
+L #undef ABSL_INTERNAL_ANNOTALYSIS_ENABLED
+T 1 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp punctuation.definition.directive.cpp
+T 6 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp
+T 7 source.cpp meta.preprocessor.undef.cpp
+T 40 source.cpp meta.preprocessor.undef.cpp entity.name.function.preprocessor.cpp
+L #undef ABSL_INTERNAL_READS_WRITES_ANNOTATIONS_ENABLED
+T 1 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp punctuation.definition.directive.cpp
+T 6 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp
+T 7 source.cpp meta.preprocessor.undef.cpp
+T 53 source.cpp meta.preprocessor.undef.cpp entity.name.function.preprocessor.cpp
+L #undef ABSL_INTERNAL_BEGIN_EXTERN_C
+T 1 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp punctuation.definition.directive.cpp
+T 6 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp
+T 7 source.cpp meta.preprocessor.undef.cpp
+T 35 source.cpp meta.preprocessor.undef.cpp entity.name.function.preprocessor.cpp
+L #undef ABSL_INTERNAL_END_EXTERN_C
+T 1 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp punctuation.definition.directive.cpp
+T 6 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp
+T 7 source.cpp meta.preprocessor.undef.cpp
+T 33 source.cpp meta.preprocessor.undef.cpp entity.name.function.preprocessor.cpp
+L #undef ABSL_INTERNAL_STATIC_INLINE
+T 1 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp punctuation.definition.directive.cpp
+T 6 source.cpp meta.preprocessor.undef.cpp keyword.control.directive.undef.cpp
+T 7 source.cpp meta.preprocessor.undef.cpp
+T 34 source.cpp meta.preprocessor.undef.cpp entity.name.function.preprocessor.cpp
+L 
+L #endif  // ABSL_BASE_INTERNAL_DYNAMIC_ANNOTATIONS_H_
+T 1 source.cpp keyword.control.directive.endif.cpp punctuation.definition.directive.cpp
+T 6 source.cpp keyword.control.directive.endif.cpp
+T 8 source.cpp comment.line.double-slash.cpp
+T 10 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 52 source.cpp comment.line.double-slash.cpp
+L 
