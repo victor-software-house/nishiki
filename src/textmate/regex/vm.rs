@@ -139,6 +139,26 @@ fn decode_before(text: &[u8], pos: usize) -> Option<(u32, usize)> {
     decode(text, start).map(|(code, _)| (code, start))
 }
 
+/// Whether `text` holds `bytes` at `pos`.
+///
+/// The first byte is compared before the rest.
+/// Most literals fail on their first byte.
+/// Comparing the rest calls `memcmp`, which costs about ten instructions.
+fn lit_at(text: &[u8], pos: usize, bytes: &[u8]) -> bool {
+    let Some(head) = pos
+        .checked_add(bytes.len())
+        .and_then(|end| text.get(pos..end))
+    else {
+        return false;
+    };
+    match bytes.split_first() {
+        None => true,
+        Some((first, rest)) => {
+            head.first() == Some(first) && (rest.is_empty() || head.get(1..) == Some(rest))
+        }
+    }
+}
+
 fn as_u32(value: usize) -> u32 {
     u32::try_from(value).unwrap_or(UNSET)
 }
@@ -227,11 +247,7 @@ impl Machine<'_> {
         let step = |width: usize| Flow::Go(pc + 1, pos + width);
         match inst {
             Inst::Lit(bytes) => {
-                if self
-                    .text
-                    .get(pos..)
-                    .is_some_and(|rest| rest.starts_with(bytes))
-                {
+                if lit_at(self.text, pos, bytes) {
                     step(bytes.len())
                 } else {
                     Flow::Fail
