@@ -183,6 +183,10 @@ pub(crate) struct Lexer<'a> {
     /// Where this line's tokens start in `out`.
     first_token: usize,
     frames: Vec<Frame>,
+    /// The lowest index this line opened a container at.
+    /// Frames below it hold no saved anchor, so [`Lexer::finish`] clears
+    /// only the frames from here up.
+    anchored: usize,
     /// The cursor: the end of the last match.
     pos: usize,
     /// Where `\G` matches.
@@ -212,8 +216,8 @@ pub(crate) struct Lexer<'a> {
 /// allocates nothing and does not look up what the last line interned.
 #[derive(Debug, Default)]
 pub(crate) struct Scratch {
-    /// The open containers: after a line, those of `resume`, and otherwise
-    /// the buffer the next line builds them in.
+    /// The open containers: after a line, those of `resume`, with no saved
+    /// anchors, and otherwise the buffer the next line builds them in.
     frames: Vec<Frame>,
     /// The state `frames` holds the containers of.
     resume: Option<u32>,
@@ -243,11 +247,7 @@ impl<'a> Lexer<'a> {
         let first_token = out.len();
         scratch.markdown.runs.reset();
         let mut frames = std::mem::take(&mut scratch.markdown.frames);
-        if scratch.markdown.resume == Some(state) {
-            for frame in &mut frames {
-                frame.saved_anchor = None;
-            }
-        } else {
+        if scratch.markdown.resume != Some(state) {
             frames.clear();
             let mut at = state;
             while at != ROOT {
@@ -280,6 +280,7 @@ impl<'a> Lexer<'a> {
             line,
             out,
             first_token,
+            anchored: frames.len(),
             frames,
             pos: 0,
             anchor: None,
@@ -298,13 +299,20 @@ impl<'a> Lexer<'a> {
     /// After the first line the containers rest on the document's start
     /// state, so they move onto a root that is not the start, and the next
     /// line rebuilds them. The line's count goes back to the lender.
-    pub(crate) fn finish(self) -> Finished {
+    /// The frames this line opened lose their saved anchors, which belong
+    /// to this line.
+    pub(crate) fn finish(mut self) -> Finished {
         let state = self
             .frames
             .iter()
             .rev()
             .find_map(|frame| frame.state)
             .unwrap_or(ROOT);
+        if let Some(pushed) = self.frames.get_mut(self.anchored..) {
+            for frame in pushed {
+                frame.saved_anchor = None;
+            }
+        }
         self.scratch.markdown.frames = self.frames;
         let next = if self.first_line {
             self.scratch.markdown.resume = None;
@@ -895,6 +903,7 @@ impl<'a> Lexer<'a> {
             };
             (name, content, payload, state)
         };
+        self.anchored = self.anchored.min(self.frames.len());
         self.frames.push(Frame {
             rule: Rule::Open(kind),
             name,
