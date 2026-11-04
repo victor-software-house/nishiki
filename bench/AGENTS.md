@@ -2,7 +2,7 @@
 
 Rules for measuring nishiki, beside the root guide's invariants.
 [README.md](README.md) says what each figure answers and how to run it.
-`mise run bench` runs the bench workspace's Criterion benchmarks on `corpus/`; `mise run bench:latency` gives per-line latency; `examples/bench.rs` still gives a first-line time until the cold-start program replaces it.
+`mise run bench` runs the bench workspace's Criterion benchmarks on `corpus/`; `mise run bench:latency` gives per-line latency and `mise run bench:cold` cold start.
 `targets.toml` holds what results are judged against; `results/` holds recorded runs.
 
 1. A local run on a developer's machine is for comparing two commits of one change on that machine, and is never recorded.

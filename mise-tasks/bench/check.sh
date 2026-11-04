@@ -12,3 +12,7 @@ cargo bench --locked --manifest-path bench/Cargo.toml -- --test
 # The latency program runs once on the small tier with three passes; its
 # table shows in the log, and no figure in it can fail the job.
 cargo run --quiet --locked --release --manifest-path bench/Cargo.toml --bin latency -- --passes 3 --tier small
+# The cold-start program runs five processes for Python's small file, two
+# counted after the three dropped rounds; its table shows in the log, and no
+# figure in it can fail the job.
+cargo run --quiet --locked --release --manifest-path bench/Cargo.toml --bin cold -- --processes 5 python
