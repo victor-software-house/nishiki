@@ -351,6 +351,7 @@ languages! {
         names: ["typescript", "ts", "cts", "mts"],
         module: typescript,
         dialect: crate::typescript::Dialect::TypeScript,
+        halts: true,
     }
     /// `JavaScript`, with the scopes of Shiki's `javascript` grammar.
     ///
@@ -844,7 +845,7 @@ languages! {
     /// - The whole suffix after a parent selector, as `-b` in `&-b`, is `punctuation.definition.entity.css`.
     /// - In an attribute selector such as `[x="y"]`, the quotes of the value are a string and the text between them, `y`, is not.
     /// - A Markdown fence names the language `scss`.
-    Scss { feature: "lang-scss", names: ["scss"], module: scss }
+    Scss { feature: "lang-scss", names: ["scss"], module: scss, halts: true }
     /// Mermaid, with the scopes of Shiki's `mermaid` grammar, which nishiki's
     /// `TextMate` engine runs.
     Mermaid {
@@ -871,7 +872,7 @@ languages! {
     /// - `@viewport` reads as a variable: the grammar's at-rules include `#at-viewport`, which it never defines, and Shiki skips the include.
     /// - Outside a guard, `default()` is the guard function only when a word character follows its `)`; otherwise `default` is a value keyword.
     /// - A Markdown fence names the language `less`.
-    Less { feature: "lang-less", names: ["less"], module: less }
+    Less { feature: "lang-less", names: ["less"], module: less, halts: true }
     /// HAML, with the scopes of Shiki's `haml` grammar, which nishiki's
     /// `TextMate` engine runs. Its filters and Ruby lines go to the Ruby,
     /// JavaScript, CSS, Markdown, Sass and CoffeeScript lexers.

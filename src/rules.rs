@@ -509,6 +509,11 @@ fn lex_again<G: Embeds>(
 /// One count for the line starts from what `first` spent; each part is lent
 /// what it has left and adds what it spends, so the whole line spends one
 /// work budget. Out of line, since most lines embed nothing.
+///
+/// Where the language halts before it lexed anything, the grammar goes on
+/// with `\G` still holding there.
+/// No match has ended anywhere else since the one the embedding started
+/// after, so `\G` holds as it would in a `TextMate` engine.
 #[cfg(feature = "_embedding")]
 #[cold]
 fn hand_over<G: Embeds, const HALTING: bool>(
@@ -564,7 +569,7 @@ fn hand_over<G: Embeds, const HALTING: bool>(
         let text = Text {
             bytes: line.text.as_bytes(),
             start: at,
-            anchored: false,
+            anchored: at == embedding.at,
         };
         let lent = steps.lend(cx.limits);
         let parts = Parts {

@@ -19,9 +19,7 @@ pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
-#[cfg(feature = "lang-vue")]
-use crate::language::Halt;
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 use crate::limits::Finished;
 use crate::rules;
 
@@ -44,7 +42,6 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished 
 
 /// Lexes `line` like [`lex`], for Less that another language embeds, up to
 /// where `end` or `after` halts it (see [`rules::lex_until`]).
-#[cfg(feature = "lang-vue")]
 #[inline]
 pub(crate) fn lex_until(
     cx: &mut Context<'_>,
