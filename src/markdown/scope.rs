@@ -102,6 +102,8 @@ crate::scope::scope_table! {
     EmbeddedTypeScript "meta.embedded.block.typescript"
     #[cfg(feature = "lang-tsx")]
     EmbeddedTypescriptreact "meta.embedded.block.typescriptreact"
+    #[cfg(feature = "lang-vb")]
+    EmbeddedVsNet "meta.embedded.block.vs_net"
     #[cfg(feature = "lang-xml")]
     EmbeddedXml "meta.embedded.block.xml"
     #[cfg(feature = "lang-yaml")]

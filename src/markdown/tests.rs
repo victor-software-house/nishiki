@@ -659,6 +659,27 @@ fn elixir_fences_embed_elixir() {
     );
 }
 
+/// A `vb` fence embeds Visual Basic under the grammar's `vs_net` scope, as
+/// Shiki does.
+#[cfg(feature = "lang-vb")]
+#[test]
+fn vb_fences_embed_visual_basic() {
+    let text = indoc! {r"
+        ```vb
+        Dim x As Integer
+        ```
+    "};
+    assert_eq!(
+        stack_of(text, "Dim").last().map(String::as_str),
+        Some("storage.type.asp")
+    );
+    assert!(
+        stack_of(text, "Dim")
+            .iter()
+            .any(|scope| scope == "meta.embedded.block.vs_net")
+    );
+}
+
 /// A Batch fence's `for` line reads `%%` as an escape: Shiki applies the
 /// Batch grammar's injection, which reads loop parameters, only where Batch
 /// is the document's grammar.

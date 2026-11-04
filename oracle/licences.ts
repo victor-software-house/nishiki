@@ -224,6 +224,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.txt",
   },
+  vb: {
+    bundled: "microsoft/vscode@35d97bc7e439fce0f50f42074041ab2d8571b20a",
+    origin: "textmate/asp.vb.net.tmbundle",
+    licence: "TextMate bundle licence",
+    file: "README.mdown",
+  },
   yaml: {
     bundled: "textmate/yaml.tmbundle@e54ceae3b719506dba7e481a77cea4a8b576ae46",
     origin: "textmate/yaml.tmbundle",

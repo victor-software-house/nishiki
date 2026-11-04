@@ -240,6 +240,7 @@ pub(crate) enum Folding {
 static FOLDING: &[&str] = &[
     "markdown.mermaid.codeblock",
     "source.asm.x86_64",
+    "source.asp.vb.net",
     "source.batchfile",
     "source.cmake",
     "source.haskell",

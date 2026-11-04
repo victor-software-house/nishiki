@@ -61,6 +61,8 @@ mod sql;
 mod swift;
 mod toml;
 mod typescript;
+#[cfg(feature = "lang-vb")]
+mod vb;
 mod vue;
 mod xml;
 mod yaml;

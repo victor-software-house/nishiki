@@ -1,0 +1,2189 @@
+L ' Licensed to the .NET Foundation under one or more agreements.
+T 1 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 63 source.asp.vb.net comment.line.apostrophe.asp
+L ' The .NET Foundation licenses this file to you under the MIT license.
+T 1 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 70 source.asp.vb.net comment.line.apostrophe.asp
+L ' See the LICENSE file in the project root for more information.
+T 1 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 64 source.asp.vb.net comment.line.apostrophe.asp
+L 
+L Imports System.Collections.Immutable
+T 36 source.asp.vb.net
+L Imports Microsoft.CodeAnalysis.Collections
+T 42 source.asp.vb.net
+L 
+L Namespace Microsoft.CodeAnalysis.VisualBasic.Symbols
+T 52 source.asp.vb.net
+L 
+L     Friend NotInheritable Class ErrorMethodSymbol
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 25 source.asp.vb.net
+T 32 source.asp.vb.net storage.type.asp
+T 49 source.asp.vb.net
+L         Inherits MethodSymbol
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 29 source.asp.vb.net
+L 
+L         Public Shared ReadOnly UnknownMethod As ErrorMethodSymbol = New ErrorMethodSymbol(ErrorTypeSymbol.UnknownResultType, ErrorTypeSymbol.UnknownResultType, String.Empty)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 45 source.asp.vb.net
+T 47 source.asp.vb.net keyword.operator.asp
+T 48 source.asp.vb.net
+T 65 source.asp.vb.net support.type.vb.asp
+T 66 source.asp.vb.net
+T 67 source.asp.vb.net keyword.operator.js
+T 72 source.asp.vb.net storage.type.asp
+T 89 source.asp.vb.net support.function.asp entity.name.function.asp
+T 90 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 160 source.asp.vb.net meta.round-brackets
+T 166 source.asp.vb.net meta.round-brackets support.function.vb.asp
+T 167 source.asp.vb.net meta.round-brackets
+T 172 source.asp.vb.net meta.round-brackets constant.language.asp
+T 173 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L 
+L         Private ReadOnly _containingType As TypeSymbol
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.modifier.asp
+T 41 source.asp.vb.net
+T 43 source.asp.vb.net keyword.operator.asp
+T 44 source.asp.vb.net
+T 54 source.asp.vb.net support.type.vb.asp
+L         Private ReadOnly _returnType As TypeSymbol
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.modifier.asp
+T 37 source.asp.vb.net
+T 39 source.asp.vb.net keyword.operator.asp
+T 40 source.asp.vb.net
+T 50 source.asp.vb.net support.type.vb.asp
+L         Private ReadOnly _name As String
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.modifier.asp
+T 31 source.asp.vb.net
+T 33 source.asp.vb.net keyword.operator.asp
+T 34 source.asp.vb.net
+T 40 source.asp.vb.net support.type.vb.asp
+L 
+L         Public Sub New(containingType As TypeSymbol, returnType As TypeSymbol, name As String)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 19 source.asp.vb.net storage.type.asp
+T 22 source.asp.vb.net storage.type.asp
+T 23 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 37 source.asp.vb.net meta.round-brackets variable.other.asp
+T 38 source.asp.vb.net meta.round-brackets
+T 40 source.asp.vb.net meta.round-brackets keyword.operator.asp
+T 41 source.asp.vb.net meta.round-brackets
+T 51 source.asp.vb.net meta.round-brackets support.type.vb.asp
+T 52 source.asp.vb.net meta.round-brackets
+T 63 source.asp.vb.net meta.round-brackets variable.other.asp
+T 64 source.asp.vb.net meta.round-brackets
+T 66 source.asp.vb.net meta.round-brackets keyword.operator.asp
+T 67 source.asp.vb.net meta.round-brackets
+T 77 source.asp.vb.net meta.round-brackets support.type.vb.asp
+T 78 source.asp.vb.net meta.round-brackets
+T 83 source.asp.vb.net meta.round-brackets variable.other.asp
+T 84 source.asp.vb.net meta.round-brackets
+T 86 source.asp.vb.net meta.round-brackets keyword.operator.asp
+T 87 source.asp.vb.net meta.round-brackets
+T 93 source.asp.vb.net meta.round-brackets support.type.vb.asp
+T 94 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L             _containingType = containingType
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 27 source.asp.vb.net variable.other.asp
+T 28 source.asp.vb.net
+T 29 source.asp.vb.net keyword.operator.js
+T 44 source.asp.vb.net variable.other.asp
+L             _returnType = returnType
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 23 source.asp.vb.net variable.other.asp
+T 24 source.asp.vb.net
+T 25 source.asp.vb.net keyword.operator.js
+T 36 source.asp.vb.net variable.other.asp
+L             _name = name
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 17 source.asp.vb.net variable.other.asp
+T 18 source.asp.vb.net
+T 19 source.asp.vb.net keyword.operator.js
+T 24 source.asp.vb.net variable.other.asp
+L         End Sub
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property Arity As Integer
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 49 source.asp.vb.net
+T 51 source.asp.vb.net keyword.operator.asp
+T 52 source.asp.vb.net
+T 59 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return 0
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 23 source.asp.vb.net
+T 24 source.asp.vb.net constant.numeric.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property AssociatedSymbol As Symbol
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 60 source.asp.vb.net
+T 62 source.asp.vb.net keyword.operator.asp
+T 63 source.asp.vb.net
+T 69 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return Nothing
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 30 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Friend Overrides ReadOnly Property CallingConvention As Microsoft.Cci.CallingConvention
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 61 source.asp.vb.net
+T 63 source.asp.vb.net keyword.operator.asp
+T 64 source.asp.vb.net
+T 73 source.asp.vb.net support.type.vb.asp
+T 95 source.asp.vb.net
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return Microsoft.Cci.CallingConvention.Default
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 55 source.asp.vb.net
+T 62 source.asp.vb.net storage.modifier.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property ContainingSymbol As Symbol
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 60 source.asp.vb.net
+T 62 source.asp.vb.net keyword.operator.asp
+T 63 source.asp.vb.net
+T 69 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return _containingType
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 38 source.asp.vb.net
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property DeclaredAccessibility As Accessibility
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 65 source.asp.vb.net
+T 67 source.asp.vb.net keyword.operator.asp
+T 68 source.asp.vb.net
+T 81 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return Accessibility.Public
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 37 source.asp.vb.net
+T 43 source.asp.vb.net storage.modifier.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property DeclaringSyntaxReferences As ImmutableArray(Of SyntaxReference)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 69 source.asp.vb.net
+T 71 source.asp.vb.net keyword.operator.asp
+T 72 source.asp.vb.net
+T 86 source.asp.vb.net support.type.vb.asp
+T 87 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 89 source.asp.vb.net meta.round-brackets variable.other.asp
+T 90 source.asp.vb.net meta.round-brackets
+T 105 source.asp.vb.net meta.round-brackets variable.other.asp
+T 106 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return ImmutableArray(Of SyntaxReference).Empty
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 23 source.asp.vb.net
+T 37 source.asp.vb.net support.function.asp entity.name.function.asp
+T 38 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 40 source.asp.vb.net meta.round-brackets variable.other.asp
+T 41 source.asp.vb.net meta.round-brackets
+T 56 source.asp.vb.net meta.round-brackets variable.other.asp
+T 57 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 58 source.asp.vb.net
+T 63 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property ExplicitInterfaceImplementations As ImmutableArray(Of MethodSymbol)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 76 source.asp.vb.net
+T 78 source.asp.vb.net keyword.operator.asp
+T 79 source.asp.vb.net
+T 93 source.asp.vb.net support.type.vb.asp
+T 94 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 96 source.asp.vb.net meta.round-brackets variable.other.asp
+T 97 source.asp.vb.net meta.round-brackets
+T 109 source.asp.vb.net meta.round-brackets variable.other.asp
+T 110 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return ImmutableArray(Of MethodSymbol).Empty
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 23 source.asp.vb.net
+T 37 source.asp.vb.net support.function.asp entity.name.function.asp
+T 38 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 40 source.asp.vb.net meta.round-brackets variable.other.asp
+T 41 source.asp.vb.net meta.round-brackets
+T 53 source.asp.vb.net meta.round-brackets variable.other.asp
+T 54 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 55 source.asp.vb.net
+T 60 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Friend Overrides Function GetAppliedConditionalSymbols() As ImmutableArray(Of String)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 24 source.asp.vb.net
+T 34 source.asp.vb.net storage.type.asp
+T 62 source.asp.vb.net support.function.asp entity.name.function.asp
+T 63 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 64 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 65 source.asp.vb.net
+T 67 source.asp.vb.net keyword.operator.asp
+T 68 source.asp.vb.net
+T 82 source.asp.vb.net support.type.vb.asp
+T 83 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 85 source.asp.vb.net meta.round-brackets variable.other.asp
+T 86 source.asp.vb.net meta.round-brackets
+T 92 source.asp.vb.net meta.round-brackets support.function.vb.asp
+T 93 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L             Return ImmutableArray(Of String).Empty
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net keyword.control.asp
+T 19 source.asp.vb.net
+T 33 source.asp.vb.net support.function.asp entity.name.function.asp
+T 34 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 36 source.asp.vb.net meta.round-brackets variable.other.asp
+T 37 source.asp.vb.net meta.round-brackets
+T 43 source.asp.vb.net meta.round-brackets support.function.vb.asp
+T 44 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 45 source.asp.vb.net
+T 50 source.asp.vb.net constant.language.asp
+L         End Function
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides Function GetDllImportData() As DllImportData
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 24 source.asp.vb.net
+T 34 source.asp.vb.net storage.type.asp
+T 50 source.asp.vb.net support.function.asp entity.name.function.asp
+T 51 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 52 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 53 source.asp.vb.net
+T 55 source.asp.vb.net keyword.operator.asp
+T 56 source.asp.vb.net
+T 69 source.asp.vb.net support.type.vb.asp
+L             Return Nothing
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net keyword.control.asp
+T 26 source.asp.vb.net constant.language.asp
+L         End Function
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Friend Overrides Function GetSecurityInformation() As IEnumerable(Of Microsoft.Cci.SecurityAttribute)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 24 source.asp.vb.net
+T 34 source.asp.vb.net storage.type.asp
+T 56 source.asp.vb.net support.function.asp entity.name.function.asp
+T 57 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 58 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 59 source.asp.vb.net
+T 61 source.asp.vb.net keyword.operator.asp
+T 62 source.asp.vb.net
+T 73 source.asp.vb.net support.type.vb.asp
+T 74 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 76 source.asp.vb.net meta.round-brackets variable.other.asp
+T 91 source.asp.vb.net meta.round-brackets
+T 108 source.asp.vb.net meta.round-brackets variable.other.asp
+T 109 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L             Return SpecializedCollections.EmptyEnumerable(Of Microsoft.Cci.SecurityAttribute)()
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net keyword.control.asp
+T 42 source.asp.vb.net
+T 57 source.asp.vb.net support.function.asp entity.name.function.asp
+T 58 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 60 source.asp.vb.net meta.round-brackets variable.other.asp
+T 75 source.asp.vb.net meta.round-brackets
+T 92 source.asp.vb.net meta.round-brackets variable.other.asp
+T 93 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 94 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 95 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L         End Function
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Friend Overrides ReadOnly Property HasDeclarativeSecurity As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 66 source.asp.vb.net
+T 68 source.asp.vb.net keyword.operator.asp
+T 69 source.asp.vb.net
+T 76 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Friend Overrides ReadOnly Property HasSpecialName As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 58 source.asp.vb.net
+T 60 source.asp.vb.net keyword.operator.asp
+T 61 source.asp.vb.net
+T 68 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Friend Overrides ReadOnly Property ImplementationAttributes As Reflection.MethodImplAttributes
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 68 source.asp.vb.net
+T 70 source.asp.vb.net keyword.operator.asp
+T 71 source.asp.vb.net
+T 81 source.asp.vb.net support.type.vb.asp
+T 102 source.asp.vb.net
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return Nothing
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 30 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property IsAsync As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 51 source.asp.vb.net
+T 53 source.asp.vb.net keyword.operator.asp
+T 54 source.asp.vb.net
+T 61 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property IsExtensionMethod As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 61 source.asp.vb.net
+T 63 source.asp.vb.net keyword.operator.asp
+T 64 source.asp.vb.net
+T 71 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property IsExternalMethod As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 60 source.asp.vb.net
+T 62 source.asp.vb.net keyword.operator.asp
+T 63 source.asp.vb.net
+T 70 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property IsIterator As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 54 source.asp.vb.net
+T 56 source.asp.vb.net keyword.operator.asp
+T 57 source.asp.vb.net
+T 64 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property IsInitOnly As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 54 source.asp.vb.net
+T 56 source.asp.vb.net keyword.operator.asp
+T 57 source.asp.vb.net
+T 64 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Friend Overrides ReadOnly Property IsMethodKindBasedOnSyntax As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 69 source.asp.vb.net
+T 71 source.asp.vb.net keyword.operator.asp
+T 72 source.asp.vb.net
+T 79 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property IsMustOverride As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 58 source.asp.vb.net
+T 60 source.asp.vb.net keyword.operator.asp
+T 61 source.asp.vb.net
+T 68 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property IsNotOverridable As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 60 source.asp.vb.net
+T 62 source.asp.vb.net keyword.operator.asp
+T 63 source.asp.vb.net
+T 70 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property IsOverloads As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 55 source.asp.vb.net
+T 57 source.asp.vb.net keyword.operator.asp
+T 58 source.asp.vb.net
+T 65 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides Function GetOverloadResolutionPriority() As Integer
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 24 source.asp.vb.net
+T 34 source.asp.vb.net storage.type.asp
+T 63 source.asp.vb.net support.function.asp entity.name.function.asp
+T 64 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 65 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 66 source.asp.vb.net
+T 68 source.asp.vb.net keyword.operator.asp
+T 69 source.asp.vb.net
+T 76 source.asp.vb.net support.type.vb.asp
+L             Return 0
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net keyword.control.asp
+T 19 source.asp.vb.net
+T 20 source.asp.vb.net constant.numeric.asp
+L         End Function
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property IsOverridable As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 57 source.asp.vb.net
+T 59 source.asp.vb.net keyword.operator.asp
+T 60 source.asp.vb.net
+T 67 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property IsOverrides As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 55 source.asp.vb.net
+T 57 source.asp.vb.net keyword.operator.asp
+T 58 source.asp.vb.net
+T 65 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property IsShared As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 52 source.asp.vb.net
+T 54 source.asp.vb.net keyword.operator.asp
+T 55 source.asp.vb.net
+T 62 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property IsSub As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 49 source.asp.vb.net
+T 51 source.asp.vb.net keyword.operator.asp
+T 52 source.asp.vb.net
+T 59 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return _returnType.SpecialType = SpecialType.System_Void
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 35 source.asp.vb.net
+T 46 source.asp.vb.net variable.other.asp
+T 47 source.asp.vb.net
+T 48 source.asp.vb.net keyword.operator.js
+T 72 source.asp.vb.net
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property IsVararg As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 52 source.asp.vb.net
+T 54 source.asp.vb.net keyword.operator.asp
+T 55 source.asp.vb.net
+T 62 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property Locations As ImmutableArray(Of Location)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 53 source.asp.vb.net
+T 55 source.asp.vb.net keyword.operator.asp
+T 56 source.asp.vb.net
+T 70 source.asp.vb.net support.type.vb.asp
+T 71 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 73 source.asp.vb.net meta.round-brackets variable.other.asp
+T 74 source.asp.vb.net meta.round-brackets
+T 82 source.asp.vb.net meta.round-brackets variable.other.asp
+T 83 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return ImmutableArray(Of Location).Empty
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 23 source.asp.vb.net
+T 37 source.asp.vb.net support.function.asp entity.name.function.asp
+T 38 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 40 source.asp.vb.net meta.round-brackets variable.other.asp
+T 41 source.asp.vb.net meta.round-brackets
+T 49 source.asp.vb.net meta.round-brackets variable.other.asp
+T 50 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 51 source.asp.vb.net
+T 56 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property MethodKind As MethodKind
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 54 source.asp.vb.net
+T 56 source.asp.vb.net keyword.operator.asp
+T 57 source.asp.vb.net
+T 67 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return MethodKind.Ordinary
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 42 source.asp.vb.net
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Friend Overrides ReadOnly Property ObsoleteAttributeData As ObsoleteAttributeData
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 65 source.asp.vb.net
+T 67 source.asp.vb.net keyword.operator.asp
+T 68 source.asp.vb.net
+T 89 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return Nothing
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 30 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property Parameters As ImmutableArray(Of ParameterSymbol)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 54 source.asp.vb.net
+T 56 source.asp.vb.net keyword.operator.asp
+T 57 source.asp.vb.net
+T 71 source.asp.vb.net support.type.vb.asp
+T 72 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 74 source.asp.vb.net meta.round-brackets variable.other.asp
+T 75 source.asp.vb.net meta.round-brackets
+T 90 source.asp.vb.net meta.round-brackets variable.other.asp
+T 91 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return ImmutableArray(Of ParameterSymbol).Empty
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 23 source.asp.vb.net
+T 37 source.asp.vb.net support.function.asp entity.name.function.asp
+T 38 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 40 source.asp.vb.net meta.round-brackets variable.other.asp
+T 41 source.asp.vb.net meta.round-brackets
+T 56 source.asp.vb.net meta.round-brackets variable.other.asp
+T 57 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 58 source.asp.vb.net
+T 63 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property ReturnsByRef As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 56 source.asp.vb.net
+T 58 source.asp.vb.net keyword.operator.asp
+T 59 source.asp.vb.net
+T 66 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property ReturnType As TypeSymbol
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 54 source.asp.vb.net
+T 56 source.asp.vb.net keyword.operator.asp
+T 57 source.asp.vb.net
+T 67 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return _returnType
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 34 source.asp.vb.net
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property ReturnTypeCustomModifiers As ImmutableArray(Of CustomModifier)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 69 source.asp.vb.net
+T 71 source.asp.vb.net keyword.operator.asp
+T 72 source.asp.vb.net
+T 86 source.asp.vb.net support.type.vb.asp
+T 87 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 89 source.asp.vb.net meta.round-brackets variable.other.asp
+T 90 source.asp.vb.net meta.round-brackets
+T 104 source.asp.vb.net meta.round-brackets variable.other.asp
+T 105 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return ImmutableArray(Of CustomModifier).Empty
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 23 source.asp.vb.net
+T 37 source.asp.vb.net support.function.asp entity.name.function.asp
+T 38 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 40 source.asp.vb.net meta.round-brackets variable.other.asp
+T 41 source.asp.vb.net meta.round-brackets
+T 55 source.asp.vb.net meta.round-brackets variable.other.asp
+T 56 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 57 source.asp.vb.net
+T 62 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property RefCustomModifiers As ImmutableArray(Of CustomModifier)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 62 source.asp.vb.net
+T 64 source.asp.vb.net keyword.operator.asp
+T 65 source.asp.vb.net
+T 79 source.asp.vb.net support.type.vb.asp
+T 80 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 82 source.asp.vb.net meta.round-brackets variable.other.asp
+T 83 source.asp.vb.net meta.round-brackets
+T 97 source.asp.vb.net meta.round-brackets variable.other.asp
+T 98 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return ImmutableArray(Of CustomModifier).Empty
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 23 source.asp.vb.net
+T 37 source.asp.vb.net support.function.asp entity.name.function.asp
+T 38 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 40 source.asp.vb.net meta.round-brackets variable.other.asp
+T 41 source.asp.vb.net meta.round-brackets
+T 55 source.asp.vb.net meta.round-brackets variable.other.asp
+T 56 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 57 source.asp.vb.net
+T 62 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Friend Overrides ReadOnly Property ReturnTypeMarshallingInformation As MarshalPseudoCustomAttributeData
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 76 source.asp.vb.net
+T 78 source.asp.vb.net keyword.operator.asp
+T 79 source.asp.vb.net
+T 111 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return Nothing
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 30 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Friend Overrides ReadOnly Property Syntax As SyntaxNode
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 50 source.asp.vb.net
+T 52 source.asp.vb.net keyword.operator.asp
+T 53 source.asp.vb.net
+T 63 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return Nothing
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 30 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property TypeArguments As ImmutableArray(Of TypeSymbol)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 57 source.asp.vb.net
+T 59 source.asp.vb.net keyword.operator.asp
+T 60 source.asp.vb.net
+T 74 source.asp.vb.net support.type.vb.asp
+T 75 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 77 source.asp.vb.net meta.round-brackets variable.other.asp
+T 78 source.asp.vb.net meta.round-brackets
+T 88 source.asp.vb.net meta.round-brackets variable.other.asp
+T 89 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return ImmutableArray(Of TypeSymbol).Empty
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 23 source.asp.vb.net
+T 37 source.asp.vb.net support.function.asp entity.name.function.asp
+T 38 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 40 source.asp.vb.net meta.round-brackets variable.other.asp
+T 41 source.asp.vb.net meta.round-brackets
+T 51 source.asp.vb.net meta.round-brackets variable.other.asp
+T 52 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 53 source.asp.vb.net
+T 58 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Public Overrides ReadOnly Property TypeParameters As ImmutableArray(Of TypeParameterSymbol)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net storage.modifier.asp
+T 58 source.asp.vb.net
+T 60 source.asp.vb.net keyword.operator.asp
+T 61 source.asp.vb.net
+T 75 source.asp.vb.net support.type.vb.asp
+T 76 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 78 source.asp.vb.net meta.round-brackets variable.other.asp
+T 79 source.asp.vb.net meta.round-brackets
+T 98 source.asp.vb.net meta.round-brackets variable.other.asp
+T 99 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return ImmutableArray(Of TypeParameterSymbol).Empty
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 23 source.asp.vb.net
+T 37 source.asp.vb.net support.function.asp entity.name.function.asp
+T 38 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 40 source.asp.vb.net meta.round-brackets variable.other.asp
+T 41 source.asp.vb.net meta.round-brackets
+T 60 source.asp.vb.net meta.round-brackets variable.other.asp
+T 61 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 62 source.asp.vb.net
+T 67 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Friend Overrides Function IsMetadataNewSlot() As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 24 source.asp.vb.net
+T 34 source.asp.vb.net storage.type.asp
+T 51 source.asp.vb.net support.function.asp entity.name.function.asp
+T 52 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 53 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 54 source.asp.vb.net
+T 56 source.asp.vb.net keyword.operator.asp
+T 57 source.asp.vb.net
+T 64 source.asp.vb.net support.type.vb.asp
+L             Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net keyword.control.asp
+T 24 source.asp.vb.net constant.language.asp
+L         End Function
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Friend Overrides ReadOnly Property GenerateDebugInfoImpl As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 65 source.asp.vb.net
+T 67 source.asp.vb.net keyword.operator.asp
+T 68 source.asp.vb.net
+T 75 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Friend Overrides Function CalculateLocalSyntaxOffset(localPosition As Integer, localTree As SyntaxTree) As Integer
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 24 source.asp.vb.net
+T 34 source.asp.vb.net storage.type.asp
+T 60 source.asp.vb.net support.function.asp entity.name.function.asp
+T 61 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 74 source.asp.vb.net meta.round-brackets variable.other.asp
+T 75 source.asp.vb.net meta.round-brackets
+T 77 source.asp.vb.net meta.round-brackets keyword.operator.asp
+T 78 source.asp.vb.net meta.round-brackets
+T 85 source.asp.vb.net meta.round-brackets support.type.vb.asp
+T 86 source.asp.vb.net meta.round-brackets
+T 96 source.asp.vb.net meta.round-brackets variable.other.asp
+T 97 source.asp.vb.net meta.round-brackets
+T 99 source.asp.vb.net meta.round-brackets keyword.operator.asp
+T 100 source.asp.vb.net meta.round-brackets
+T 110 source.asp.vb.net meta.round-brackets support.type.vb.asp
+T 111 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 112 source.asp.vb.net
+T 114 source.asp.vb.net keyword.operator.asp
+T 115 source.asp.vb.net
+T 122 source.asp.vb.net support.type.vb.asp
+L             Throw ExceptionUtilities.Unreachable
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 48 source.asp.vb.net
+L         End Function
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         Friend Overrides ReadOnly Property HasSetsRequiredMembers As Boolean
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 66 source.asp.vb.net
+T 68 source.asp.vb.net keyword.operator.asp
+T 69 source.asp.vb.net
+T 76 source.asp.vb.net support.type.vb.asp
+L             Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.type.asp
+L                 Return False
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+T 28 source.asp.vb.net constant.language.asp
+L             End Get
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net support.function.asp
+T 19 source.asp.vb.net storage.type.asp
+L         End Property
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L     End Class
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 13 source.asp.vb.net storage.type.asp
+L End Namespace
+T 3 source.asp.vb.net support.function.asp
+T 13 source.asp.vb.net
+L 
+L 

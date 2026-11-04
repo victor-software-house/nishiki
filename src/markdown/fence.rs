@@ -337,6 +337,13 @@ const NAMES: &[Name] = &[
         brace: None,
         embed: Embed::Lang(Language::Bat),
     },
+    // The grammar's `vb`, matched without case.
+    #[cfg(feature = "lang-vb")]
+    Name {
+        words: &["vb"],
+        brace: None,
+        embed: Embed::Lang(Language::Vb),
+    },
     // The grammar's `elixir`, matched without case.
     #[cfg(feature = "lang-elixir")]
     Name {

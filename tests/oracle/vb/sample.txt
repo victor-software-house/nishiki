@@ -1,0 +1,252 @@
+L Imports System
+T 14 source.asp.vb.net
+L Imports System.Drawing
+T 22 source.asp.vb.net
+L Imports System.Windows.Forms
+T 28 source.asp.vb.net
+L 
+L Public Class HelloWindows
+T 6 source.asp.vb.net storage.modifier.asp
+T 13 source.asp.vb.net storage.type.asp
+T 25 source.asp.vb.net
+L 
+L    Inherits Form
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 3 source.asp.vb.net meta.leading-space
+T 12 source.asp.vb.net
+T 16 source.asp.vb.net support.class.collection.asp
+L 
+L    Private lblHelloWindows As Label
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 3 source.asp.vb.net meta.leading-space
+T 10 source.asp.vb.net storage.modifier.asp
+T 27 source.asp.vb.net
+T 29 source.asp.vb.net keyword.operator.asp
+T 30 source.asp.vb.net
+T 35 source.asp.vb.net support.type.vb.asp
+L 
+L    Public Shared Sub Main(  )
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 3 source.asp.vb.net meta.leading-space
+T 9 source.asp.vb.net storage.modifier.asp
+T 16 source.asp.vb.net
+T 21 source.asp.vb.net storage.type.asp
+T 25 source.asp.vb.net support.function.asp entity.name.function.asp
+T 26 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 28 source.asp.vb.net meta.round-brackets
+T 29 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L       Application.Run(New HelloWindows(  ))
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 17 source.asp.vb.net support.class.asp
+T 18 source.asp.vb.net
+T 21 source.asp.vb.net support.function.asp entity.name.function.asp
+T 22 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 26 source.asp.vb.net meta.round-brackets storage.type.asp
+T 38 source.asp.vb.net meta.round-brackets support.function.asp entity.name.function.asp
+T 39 source.asp.vb.net meta.round-brackets meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 41 source.asp.vb.net meta.round-brackets meta.round-brackets
+T 42 source.asp.vb.net meta.round-brackets meta.round-brackets punctuation.section.round-brackets.end.asp
+T 43 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L    End Sub
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 3 source.asp.vb.net meta.leading-space
+T 10 source.asp.vb.net storage.type.asp
+L 
+L    Public Sub New(  )
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 3 source.asp.vb.net meta.leading-space
+T 14 source.asp.vb.net storage.type.asp
+T 17 source.asp.vb.net storage.type.asp
+T 18 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 20 source.asp.vb.net meta.round-brackets
+T 21 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L 
+L       lblHelloWindows = New Label(  )
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 21 source.asp.vb.net variable.other.asp
+T 22 source.asp.vb.net
+T 23 source.asp.vb.net keyword.operator.js
+T 28 source.asp.vb.net storage.type.asp
+T 33 source.asp.vb.net support.function.asp entity.name.function.asp
+T 34 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 36 source.asp.vb.net meta.round-brackets
+T 37 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L       With lblHelloWindows
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 10 source.asp.vb.net keyword.control.asp
+T 26 source.asp.vb.net
+L          .Location = New Point(37, 31)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net meta.leading-space
+T 10 source.asp.vb.net
+T 18 source.asp.vb.net variable.other.asp
+T 19 source.asp.vb.net
+T 20 source.asp.vb.net keyword.operator.js
+T 25 source.asp.vb.net storage.type.asp
+T 30 source.asp.vb.net support.function.asp entity.name.function.asp
+T 31 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 33 source.asp.vb.net meta.round-brackets constant.numeric.asp
+T 35 source.asp.vb.net meta.round-brackets
+T 37 source.asp.vb.net meta.round-brackets constant.numeric.asp
+T 38 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L          .Size = New Size(392, 64)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net meta.leading-space
+T 10 source.asp.vb.net
+T 14 source.asp.vb.net variable.other.asp
+T 15 source.asp.vb.net
+T 16 source.asp.vb.net keyword.operator.js
+T 21 source.asp.vb.net storage.type.asp
+T 25 source.asp.vb.net support.function.asp entity.name.function.asp
+T 26 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 29 source.asp.vb.net meta.round-brackets constant.numeric.asp
+T 31 source.asp.vb.net meta.round-brackets
+T 33 source.asp.vb.net meta.round-brackets constant.numeric.asp
+T 34 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L          .Font = New Font("Arial", 36)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net meta.leading-space
+T 10 source.asp.vb.net
+T 14 source.asp.vb.net variable.other.asp
+T 15 source.asp.vb.net
+T 16 source.asp.vb.net keyword.operator.js
+T 21 source.asp.vb.net storage.type.asp
+T 25 source.asp.vb.net support.function.asp entity.name.function.asp
+T 26 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 27 source.asp.vb.net meta.round-brackets string.quoted.double.asp punctuation.definition.string.begin.asp
+T 32 source.asp.vb.net meta.round-brackets string.quoted.double.asp
+T 33 source.asp.vb.net meta.round-brackets string.quoted.double.asp punctuation.definition.string.end.asp
+T 35 source.asp.vb.net meta.round-brackets
+T 37 source.asp.vb.net meta.round-brackets constant.numeric.asp
+T 38 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L          .Text = "Hello, Windows!"
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net meta.leading-space
+T 10 source.asp.vb.net
+T 14 source.asp.vb.net variable.other.asp
+T 15 source.asp.vb.net
+T 16 source.asp.vb.net keyword.operator.js
+T 17 source.asp.vb.net
+T 18 source.asp.vb.net string.quoted.double.asp punctuation.definition.string.begin.asp
+T 33 source.asp.vb.net string.quoted.double.asp
+T 34 source.asp.vb.net string.quoted.double.asp punctuation.definition.string.end.asp
+L          .TabIndex = 0
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net meta.leading-space
+T 10 source.asp.vb.net
+T 18 source.asp.vb.net variable.other.asp
+T 19 source.asp.vb.net
+T 20 source.asp.vb.net keyword.operator.js
+T 21 source.asp.vb.net
+T 22 source.asp.vb.net constant.numeric.asp
+L          .TextAlign = ContentAlignment.TopCenter
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net meta.leading-space
+T 10 source.asp.vb.net
+T 19 source.asp.vb.net variable.other.asp
+T 20 source.asp.vb.net
+T 21 source.asp.vb.net keyword.operator.js
+T 48 source.asp.vb.net
+L       End With
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 9 source.asp.vb.net support.function.asp
+T 10 source.asp.vb.net
+T 14 source.asp.vb.net keyword.control.asp
+L 
+L       Me.Text = "Programming Visual Basic .NET"
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 9 source.asp.vb.net
+T 13 source.asp.vb.net variable.other.asp
+T 14 source.asp.vb.net
+T 15 source.asp.vb.net keyword.operator.js
+T 16 source.asp.vb.net
+T 17 source.asp.vb.net string.quoted.double.asp punctuation.definition.string.begin.asp
+T 46 source.asp.vb.net string.quoted.double.asp
+T 47 source.asp.vb.net string.quoted.double.asp punctuation.definition.string.end.asp
+L       AutoScaleBaseSize = New Size(5, 13)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 23 source.asp.vb.net variable.other.asp
+T 24 source.asp.vb.net
+T 25 source.asp.vb.net keyword.operator.js
+T 30 source.asp.vb.net storage.type.asp
+T 34 source.asp.vb.net support.function.asp entity.name.function.asp
+T 35 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 36 source.asp.vb.net meta.round-brackets constant.numeric.asp
+T 38 source.asp.vb.net meta.round-brackets
+T 40 source.asp.vb.net meta.round-brackets constant.numeric.asp
+T 41 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L       FormBorderStyle = FormBorderStyle.FixedSingle
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 21 source.asp.vb.net variable.other.asp
+T 22 source.asp.vb.net
+T 23 source.asp.vb.net keyword.operator.js
+T 51 source.asp.vb.net
+L       ClientSize = New Size(466, 127)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net variable.other.asp
+T 17 source.asp.vb.net
+T 18 source.asp.vb.net keyword.operator.js
+T 23 source.asp.vb.net storage.type.asp
+T 27 source.asp.vb.net support.function.asp entity.name.function.asp
+T 28 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 31 source.asp.vb.net meta.round-brackets constant.numeric.asp
+T 33 source.asp.vb.net meta.round-brackets
+T 36 source.asp.vb.net meta.round-brackets constant.numeric.asp
+T 37 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L 
+L       Controls.Add(lblHelloWindows)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 15 source.asp.vb.net
+T 18 source.asp.vb.net support.function.vb.asp
+T 19 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 34 source.asp.vb.net meta.round-brackets variable.other.asp
+T 35 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L 
+L    End Sub
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 3 source.asp.vb.net meta.leading-space
+T 10 source.asp.vb.net storage.type.asp
+L 
+L End Class
+T 9 source.asp.vb.net storage.type.asp
+L 
+L ' From https://www.oreilly.com/library/view/programming-visual-basic/0596000936/ch01s03.html
+T 1 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 92 source.asp.vb.net comment.line.apostrophe.asp
+L 

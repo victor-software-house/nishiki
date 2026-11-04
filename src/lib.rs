@@ -338,6 +338,8 @@ mod toml;
 mod typescript;
 #[cfg(feature = "_utf8")]
 mod utf8;
+#[cfg(feature = "lang-vb")]
+mod vb;
 #[cfg(feature = "lang-vue")]
 mod vue;
 #[cfg(feature = "lang-xml")]

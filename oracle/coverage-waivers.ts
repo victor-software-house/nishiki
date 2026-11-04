@@ -62,7 +62,6 @@ const unloadedFences = [
   ["regexp_python", "source.regexp.python"],
   ["restructuredtext", "source.rst"],
   ["twig", "source.twig"],
-  ["vs_net", "source.asp.vb.net"],
   ["xsl", "text.xml.xsl"],
   ["yang", "source.yang"],
 ] as const;

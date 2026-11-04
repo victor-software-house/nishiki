@@ -998,6 +998,15 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
+    /// Visual Basic .NET, with the scopes of Shiki's `vb` grammar, which
+    /// nishiki's `TextMate` engine runs.
+    Vb {
+        feature: "lang-vb",
+        names: ["vb"],
+        engine: crate::vb::grammar::GRAMMAR,
+        reads_line_feed: true,
+        halts: true,
+    }
 }
 
 impl Language {

@@ -633,6 +633,9 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `typescript/vue-api-create-app` | [`packages/runtime-core/src/apiCreateApp.ts`][vue-app] in vuejs/core | [MIT][vue-licence] |
 | `typescript/vue-effect` | [`packages/reactivity/src/effect.ts`][vue-effect] in vuejs/core | [MIT][vue-licence] |
 | `typescript/zod-classic-schemas` | [`packages/zod/src/v4/classic/schemas.ts`][zod-schemas] in colinhacks/zod | [MIT][zod-licence] |
+| `vb/roslyn-error-method-symbol` | [`src/Compilers/VisualBasic/Portable/Symbols/ErrorMethodSymbol.vb`][roslyn-error-method-symbol] in dotnet/roslyn | [MIT][roslyn-licence] |
+| `vb/roslyn-named-type-binder` | [`src/Compilers/VisualBasic/Portable/Binding/NamedTypeBinder.vb`][roslyn-named-type-binder] in dotnet/roslyn | [MIT][roslyn-licence] |
+| `vb/sample` | [`samples/vb.sample`][vb-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `vue/coverage` | `oracle/inputs/vue-coverage.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `vue/playground-app` | [`packages-private/sfc-playground/src/App.vue`][vue-playground-app] in vuejs/core | [MIT][vue-licence] |
 | `vue/playground-header` | [`packages-private/sfc-playground/src/Header.vue`][vue-playground-header] in vuejs/core | [MIT][vue-licence] |
@@ -1388,7 +1391,9 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [rome-licence]: https://github.com/rometools/rome/blob/6b4a7e89cbf67dab0be32e7517f3d8ae3c2b4d75/LICENSE
 [rome-slashdot]: https://github.com/rometools/rome/blob/6b4a7e89cbf67dab0be32e7517f3d8ae3c2b4d75/rome-modules/src/test/resources/xml/slashdot.xml
 [rome-yahoo-top-songs]: https://github.com/rometools/rome/blob/6b4a7e89cbf67dab0be32e7517f3d8ae3c2b4d75/rome-modules/src/test/resources/data/YahooTopSongs.xml
+[roslyn-error-method-symbol]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/src/Compilers/VisualBasic/Portable/Symbols/ErrorMethodSymbol.vb
 [roslyn-licence]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/License.txt
+[roslyn-named-type-binder]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/src/Compilers/VisualBasic/Portable/Binding/NamedTypeBinder.vb
 [roslyn-text-span]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/src/Compilers/Core/Portable/Text/TextSpan.cs
 [rspec-core-licence]: https://github.com/rspec/rspec-core/blob/aec5f49485d97908183dbe790a7fefb8baaa8091/LICENSE.md
 [rspec-example]: https://github.com/rspec/rspec-core/blob/aec5f49485d97908183dbe790a7fefb8baaa8091/lib/rspec/core/example.rb
@@ -1560,6 +1565,7 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [unity-assertions]: https://github.com/ThrowTheSwitch/Unity/blob/54f864cf6027a50f4cc5424616e9e01e1bb729da/docs/UnityAssertionsReference.md
 [unity-getting-started]: https://github.com/ThrowTheSwitch/Unity/blob/54f864cf6027a50f4cc5424616e9e01e1bb729da/docs/UnityGettingStartedGuide.md
 [unity-licence]: https://github.com/ThrowTheSwitch/Unity/blob/54f864cf6027a50f4cc5424616e9e01e1bb729da/LICENSE.txt
+[vb-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/vb.sample
 [views-activity-entrance]: https://github.com/android/views-widgets-samples/blob/2238cc873501f9cda63605051de11832bb736a8a/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/activity_entrance.xml
 [views-licence]: https://github.com/android/views-widgets-samples/blob/2238cc873501f9cda63605051de11832bb736a8a/LICENSE
 [views-lots-of-cards]: https://github.com/android/views-widgets-samples/blob/2238cc873501f9cda63605051de11832bb736a8a/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/lots_of_cards.xml

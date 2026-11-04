@@ -1342,6 +1342,10 @@ export const inputs: Input[] = [
     name: "zod-classic-schemas",
     url: `${zod}/packages/zod/src/v4/classic/schemas.ts`,
   },
+  // Visual Basic runs on the TextMate engine.
+  { lang: "vb", name: "roslyn-error-method-symbol", url: `${roslyn}/src/Compilers/VisualBasic/Portable/Symbols/ErrorMethodSymbol.vb` },
+  { lang: "vb", name: "roslyn-named-type-binder", url: `${roslyn}/src/Compilers/VisualBasic/Portable/Binding/NamedTypeBinder.vb` },
+  { lang: "vb", name: "sample", url: `${samples}/vb.sample` },
   { lang: "vue", name: "coverage", text: vueCoverage },
   { lang: "vue", name: "playground-app", url: `${vue}/packages-private/sfc-playground/src/App.vue` },
   { lang: "vue", name: "playground-header", url: `${vue}/packages-private/sfc-playground/src/Header.vue` },

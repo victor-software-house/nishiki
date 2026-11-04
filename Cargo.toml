@@ -124,6 +124,7 @@ textmate = [
   "lang-php",
   "lang-proto",
   "lang-sass",
+  "lang-vb",
 ]
 
 # One feature per lexer module. A language that embeds another needs it.
@@ -215,6 +216,7 @@ lang-swift = ["_scope-table", "_rule-tables", "_classes"]
 lang-toml = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
 lang-tsx = ["_classes", "_space"]
 lang-typescript = ["_classes", "_space"]
+lang-vb = ["_textmate"]
 lang-vue = [
   "lang-html-derivative",
   "lang-scss",

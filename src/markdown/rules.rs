@@ -559,6 +559,8 @@ const EMBEDDED: &[(Language, &[S])] = &[
     (Language::Tsx, &[S::EmbeddedTypescriptreact]),
     #[cfg(feature = "lang-typescript")]
     (Language::TypeScript, &[S::EmbeddedTypeScript]),
+    #[cfg(feature = "lang-vb")]
+    (Language::Vb, &[S::EmbeddedVsNet]),
     #[cfg(feature = "lang-xml")]
     (Language::Xml, &[S::EmbeddedXml]),
     #[cfg(feature = "lang-yaml")]
