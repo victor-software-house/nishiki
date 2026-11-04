@@ -214,6 +214,7 @@ fn scan<G: Tabled, const HALTING: bool>(
         }
         p = match s.get(p) {
             Some(b' ' | b'\t') => lexer.skip(p, |b| matches!(b, b' ' | b'\t')),
+            Some(_) if G::SKIPS_PLACES => G::next_place(lexer, p),
             Some(_) => lexer.char_end(p),
             None => p + 1,
         };

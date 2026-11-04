@@ -214,6 +214,16 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
         to: usize,
         base: u32,
     );
+    /// Whether the scan asks [`Grammar::next_place`] where to go on after a
+    /// place where no pattern matched.
+    /// Off, it goes on at the next character.
+    const SKIPS_PLACES: bool = false;
+    /// Where the scan goes on after no pattern matched at `p`, which holds a
+    /// byte of the text, when [`Grammar::SKIPS_PLACES`] is on.
+    /// The grammar skips only places where it knows no pattern matches.
+    fn next_place(lexer: &Lexer<'_, Self>, p: usize) -> usize {
+        lexer.char_end(p)
+    }
     /// Whether no pattern of `rule` can match in `text`, so that lexing a
     /// span again with it can be skipped.
     fn skip_retok(_rule: Self::Rule, _text: &[u8]) -> bool {
