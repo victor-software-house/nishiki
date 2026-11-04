@@ -974,6 +974,7 @@ export const waivers: Waiver[] = [
   ...[2, 3, 4].map(
     (group): Waiver => ({ grammar: "make", path: "#directives.patterns[2].end", group, reason: missing(1) }),
   ),
+  { grammar: "java", path: "#comments-inline.patterns[1].begin", group: 1, reason: blanks },
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -987,6 +988,7 @@ export const complete: string[] = [
   "diff",
   "docker",
   "ini",
+  "java",
   "javascript",
   "jsx",
   "less",

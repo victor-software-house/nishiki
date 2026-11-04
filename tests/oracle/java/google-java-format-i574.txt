@@ -1,0 +1,37 @@
+L public record Record(@NotNull Object o) {
+T 6 source.java meta.record.java storage.modifier.java
+T 7 source.java meta.record.java
+T 13 source.java meta.record.java meta.record.identifier.java storage.modifier.java
+T 14 source.java meta.record.java meta.record.identifier.java
+T 20 source.java meta.record.java meta.record.identifier.java entity.name.type.record.java
+T 21 source.java meta.record.java meta.record.identifier.java punctuation.definition.parameters.begin.bracket.round.java
+T 22 source.java meta.record.java meta.record.identifier.java meta.declaration.annotation.java punctuation.definition.annotation.java
+T 29 source.java meta.record.java meta.record.identifier.java meta.declaration.annotation.java storage.type.annotation.java
+T 30 source.java meta.record.java meta.record.identifier.java
+T 36 source.java meta.record.java meta.record.identifier.java storage.type.java
+T 38 source.java meta.record.java meta.record.identifier.java
+T 39 source.java meta.record.java meta.record.identifier.java punctuation.definition.parameters.end.bracket.round.java
+T 40 source.java meta.record.java
+T 41 source.java meta.record.java meta.record.body.java punctuation.section.class.begin.bracket.curly.java
+L 
+L   public Record {
+T 2 source.java meta.record.java meta.record.body.java
+T 8 source.java meta.record.java meta.record.body.java meta.method.java storage.modifier.java
+T 9 source.java meta.record.java meta.record.body.java meta.method.java
+T 15 source.java meta.record.java meta.record.body.java meta.method.java meta.method.identifier.java entity.name.function.java
+T 16 source.java meta.record.java meta.record.body.java meta.method.java
+T 17 source.java meta.record.java meta.record.body.java meta.method.java punctuation.section.method.begin.bracket.curly.java
+L     this.o = o;
+T 4 source.java meta.record.java meta.record.body.java meta.method.java meta.method.body.java
+T 8 source.java meta.record.java meta.record.body.java meta.method.java meta.method.body.java variable.language.this.java
+T 9 source.java meta.record.java meta.record.body.java meta.method.java meta.method.body.java punctuation.separator.period.java
+T 10 source.java meta.record.java meta.record.body.java meta.method.java meta.method.body.java variable.other.object.property.java
+T 11 source.java meta.record.java meta.record.body.java meta.method.java meta.method.body.java
+T 12 source.java meta.record.java meta.record.body.java meta.method.java meta.method.body.java keyword.operator.assignment.java
+T 14 source.java meta.record.java meta.record.body.java meta.method.java meta.method.body.java
+T 15 source.java meta.record.java meta.record.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L   }
+T 2 source.java meta.record.java meta.record.body.java meta.method.java meta.method.body.java
+T 3 source.java meta.record.java meta.record.body.java meta.method.java punctuation.section.method.end.bracket.curly.java
+L }
+T 1 source.java meta.record.java punctuation.section.class.end.bracket.curly.java

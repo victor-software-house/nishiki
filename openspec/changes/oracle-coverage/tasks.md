@@ -54,7 +54,8 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
   - 2026-11-04 UTC, [PR 306][pr306] and [PR 307][pr307]: toml-test and YAML test suite files and a written input per language added, and a YAML directive's name read without a copy; TOML and YAML complete with 14 and 6 waived units. On `bf5e8ec5` the [oracle test][run-307-ci] and the [coverage check][run-307-cov] passed.
 - [ ] 3.19 SQL: `sql`
 - [ ] 3.20 GraphQL: `graphql`
-- [ ] 3.21 diff, Dockerfile, INI and Make: `diff`, `docker`, `ini`, `make`
+- [x] 3.21 diff, Dockerfile, INI and Make: `diff`, `docker`, `ini`, `make`
+  - 2026-11-04 UTC, [PR 320][pr320]: a written input per language added; the four grammars complete with 1, 8, 2 and 4 waived units. On `3de20c2f` the [oracle test][run-320-ci] and the [coverage check][run-320-cov] passed.
 
 [pr238]: https://github.com/victor-software-house/nishiki-archive/pull/238
 [pr252]: https://github.com/victor-software-house/nishiki-archive/pull/252
@@ -94,3 +95,6 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr309]: https://github.com/victor-software-house/nishiki-archive/pull/309
 [run-309-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41793809745
 [run-309-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41793809258
+[pr320]: https://github.com/victor-software-house/nishiki-archive/pull/320
+[run-320-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41798651099
+[run-320-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41798650762

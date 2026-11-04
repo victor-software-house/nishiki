@@ -12,6 +12,7 @@ import cssCoverage from "./inputs/css-coverage.css" with { type: "text" };
 import diffCoverage from "./inputs/diff-coverage.diff" with { type: "text" };
 import dockerCoverage from "./inputs/docker-coverage.dockerfile" with { type: "text" };
 import iniCoverage from "./inputs/ini-coverage.ini" with { type: "text" };
+import javaCoverage from "./inputs/java-coverage.java" with { type: "text" };
 import lessCoverage from "./inputs/less-coverage.less" with { type: "text" };
 import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
 import makeCoverage from "./inputs/make-coverage.mk" with { type: "text" };
@@ -144,6 +145,8 @@ const golang =
   "https://raw.githubusercontent.com/golang/go/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6";
 const googleapis =
   "https://raw.githubusercontent.com/googleapis/googleapis/0d0982bd9844aacc37a4e87c1cd43bbdb601884d";
+const googleJavaFormat =
+  "https://raw.githubusercontent.com/google/google-java-format/056a0ac101cc5c297499f1ded7062a2a65b0cdcc/core/src/test/resources/com/google/googlejavaformat/java/testdata";
 const googletest =
   "https://raw.githubusercontent.com/google/googletest/a8380b01a25ebdb130097b607b3afed2a58d04ba";
 const gradle =
@@ -608,6 +611,11 @@ export const inputs: Input[] = [
     name: "commons-lang-validate",
     url: `${commonsLang}/src/main/java/org/apache/commons/lang3/Validate.java`,
   },
+  { lang: "java", name: "coverage", text: javaCoverage },
+  { lang: "java", name: "google-java-format-b380299722", url: `${googleJavaFormat}/B380299722.input` },
+  { lang: "java", name: "google-java-format-i574", url: `${googleJavaFormat}/I574.input` },
+  { lang: "java", name: "google-java-format-lambda-hug", url: `${googleJavaFormat}/LambdaHug.input` },
+  { lang: "java", name: "google-java-format-m1", url: `${googleJavaFormat}/M1.input` },
   {
     lang: "java",
     name: "gson-gson",

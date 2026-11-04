@@ -1,0 +1,102 @@
+L import a.A;
+T 6 source.java meta.import.java keyword.other.import.java
+T 7 source.java meta.import.java
+T 8 source.java meta.import.java storage.modifier.import.java
+T 9 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 10 source.java meta.import.java storage.modifier.import.java
+T 11 source.java meta.import.java punctuation.terminator.java
+L import a.B;
+T 6 source.java meta.import.java keyword.other.import.java
+T 7 source.java meta.import.java
+T 8 source.java meta.import.java storage.modifier.import.java
+T 9 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 10 source.java meta.import.java storage.modifier.import.java
+T 11 source.java meta.import.java punctuation.terminator.java
+L import com.google.Foo;
+T 6 source.java meta.import.java keyword.other.import.java
+T 7 source.java meta.import.java
+T 10 source.java meta.import.java storage.modifier.import.java
+T 11 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 17 source.java meta.import.java storage.modifier.import.java
+T 18 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 21 source.java meta.import.java storage.modifier.import.java
+T 22 source.java meta.import.java punctuation.terminator.java
+L 
+L @A @B
+T 1 source.java meta.declaration.annotation.java punctuation.definition.annotation.java
+T 2 source.java meta.declaration.annotation.java storage.type.annotation.java
+T 3 source.java
+T 4 source.java meta.declaration.annotation.java punctuation.definition.annotation.java
+T 5 source.java meta.declaration.annotation.java storage.type.annotation.java
+L module com.google.m {
+T 6 source.java meta.module.java storage.modifier.java
+T 7 source.java meta.module.java
+T 10 source.java meta.module.java entity.name.type.module.java
+T 20 source.java meta.module.java
+T 21 source.java meta.module.java punctuation.section.module.begin.bracket.curly.java
+L requires com.google.r1;
+T 8 source.java meta.module.java meta.module.body.java keyword.module.java
+T 23 source.java meta.module.java meta.module.body.java
+L requires transitive com.google.r2;
+T 8 source.java meta.module.java meta.module.body.java keyword.module.java
+T 9 source.java meta.module.java meta.module.body.java
+T 19 source.java meta.module.java meta.module.body.java keyword.module.java
+T 34 source.java meta.module.java meta.module.body.java
+L requires static com.google.r3;
+T 8 source.java meta.module.java meta.module.body.java keyword.module.java
+T 30 source.java meta.module.java meta.module.body.java
+L exports com.google.e1;
+T 7 source.java meta.module.java meta.module.body.java keyword.module.java
+T 22 source.java meta.module.java meta.module.body.java
+L exports com.google.e1 to com.google.e2;
+T 7 source.java meta.module.java meta.module.body.java keyword.module.java
+T 22 source.java meta.module.java meta.module.body.java
+T 24 source.java meta.module.java meta.module.body.java keyword.module.java
+T 39 source.java meta.module.java meta.module.body.java
+L exports com.google.e1 to com.google.e2, com.google.e3;
+T 7 source.java meta.module.java meta.module.body.java keyword.module.java
+T 22 source.java meta.module.java meta.module.body.java
+T 24 source.java meta.module.java meta.module.body.java keyword.module.java
+T 54 source.java meta.module.java meta.module.body.java
+L exports com.google.e1 to com.google.e2, com.google.e3, com.google.e4;
+T 7 source.java meta.module.java meta.module.body.java keyword.module.java
+T 22 source.java meta.module.java meta.module.body.java
+T 24 source.java meta.module.java meta.module.body.java keyword.module.java
+T 69 source.java meta.module.java meta.module.body.java
+L opens com.google.o1;
+T 5 source.java meta.module.java meta.module.body.java keyword.module.java
+T 20 source.java meta.module.java meta.module.body.java
+L opens com.google.o1 to com.google.o2;
+T 5 source.java meta.module.java meta.module.body.java keyword.module.java
+T 20 source.java meta.module.java meta.module.body.java
+T 22 source.java meta.module.java meta.module.body.java keyword.module.java
+T 37 source.java meta.module.java meta.module.body.java
+L opens com.google.o1 to com.google.o2, com.google.o3;
+T 5 source.java meta.module.java meta.module.body.java keyword.module.java
+T 20 source.java meta.module.java meta.module.body.java
+T 22 source.java meta.module.java meta.module.body.java keyword.module.java
+T 52 source.java meta.module.java meta.module.body.java
+L opens com.google.o1 to com.google.o2, com.google.o3, com.googleoe4;
+T 5 source.java meta.module.java meta.module.body.java keyword.module.java
+T 20 source.java meta.module.java meta.module.body.java
+T 22 source.java meta.module.java meta.module.body.java keyword.module.java
+T 67 source.java meta.module.java meta.module.body.java
+L uses Foo;
+T 4 source.java meta.module.java meta.module.body.java keyword.module.java
+T 9 source.java meta.module.java meta.module.body.java
+L uses com.google.Bar;
+T 4 source.java meta.module.java meta.module.body.java keyword.module.java
+T 20 source.java meta.module.java meta.module.body.java
+L provides com.google.Baz with Foo;
+T 8 source.java meta.module.java meta.module.body.java keyword.module.java
+T 24 source.java meta.module.java meta.module.body.java
+T 28 source.java meta.module.java meta.module.body.java keyword.module.java
+T 33 source.java meta.module.java meta.module.body.java
+L provides com.google.Baz with Foo, com.google.Bar;
+T 8 source.java meta.module.java meta.module.body.java keyword.module.java
+T 24 source.java meta.module.java meta.module.body.java
+T 28 source.java meta.module.java meta.module.body.java keyword.module.java
+T 49 source.java meta.module.java meta.module.body.java
+L }
+T 1 source.java meta.module.java punctuation.section.module.end.bracket.curly.java
+L 

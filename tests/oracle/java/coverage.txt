@@ -1,0 +1,455 @@
+L // Not valid Java throughout: the commented sections reach grammar units that
+T 2 source.java comment.line.double-slash.java punctuation.definition.comment.java
+T 77 source.java comment.line.double-slash.java
+L // only text being edited holds.
+T 2 source.java comment.line.double-slash.java punctuation.definition.comment.java
+T 32 source.java comment.line.double-slash.java
+L package com.Example..app._.9.class-;
+T 7 source.java meta.package.java keyword.other.package.java
+T 8 source.java meta.package.java
+T 11 source.java meta.package.java storage.modifier.package.java
+T 12 source.java meta.package.java storage.modifier.package.java punctuation.separator.java
+T 13 source.java meta.package.java storage.modifier.package.java invalid.deprecated.package_name_not_lowercase.java
+T 19 source.java meta.package.java storage.modifier.package.java
+T 20 source.java meta.package.java storage.modifier.package.java punctuation.separator.java
+T 21 source.java meta.package.java storage.modifier.package.java invalid.illegal.character_not_allowed_here.java
+T 24 source.java meta.package.java storage.modifier.package.java
+T 25 source.java meta.package.java storage.modifier.package.java punctuation.separator.java
+T 26 source.java meta.package.java storage.modifier.package.java invalid.illegal.character_not_allowed_here.java
+T 27 source.java meta.package.java storage.modifier.package.java punctuation.separator.java
+T 28 source.java meta.package.java storage.modifier.package.java invalid.illegal.character_not_allowed_here.java
+T 29 source.java meta.package.java storage.modifier.package.java punctuation.separator.java
+T 34 source.java meta.package.java storage.modifier.package.java invalid.illegal.character_not_allowed_here.java
+T 35 source.java meta.package.java storage.modifier.package.java invalid.illegal.character_not_allowed_here.java
+T 36 source.java meta.package.java punctuation.terminator.java
+L import com.example..util._.7.goto-;
+T 6 source.java meta.import.java keyword.other.import.java
+T 7 source.java meta.import.java
+T 10 source.java meta.import.java storage.modifier.import.java
+T 11 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 18 source.java meta.import.java storage.modifier.import.java
+T 19 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 20 source.java meta.import.java storage.modifier.import.java invalid.illegal.character_not_allowed_here.java
+T 24 source.java meta.import.java storage.modifier.import.java
+T 25 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 26 source.java meta.import.java storage.modifier.import.java invalid.illegal.character_not_allowed_here.java
+T 27 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 28 source.java meta.import.java storage.modifier.import.java invalid.illegal.character_not_allowed_here.java
+T 29 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 33 source.java meta.import.java storage.modifier.import.java invalid.illegal.character_not_allowed_here.java
+T 34 source.java meta.import.java storage.modifier.import.java invalid.illegal.character_not_allowed_here.java
+T 35 source.java meta.import.java punctuation.terminator.java
+L import com.example.*;
+T 6 source.java meta.import.java keyword.other.import.java
+T 7 source.java meta.import.java
+T 10 source.java meta.import.java storage.modifier.import.java
+T 11 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 18 source.java meta.import.java storage.modifier.import.java
+T 19 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 20 source.java meta.import.java storage.modifier.import.java variable.language.wildcard.java
+T 21 source.java meta.import.java punctuation.terminator.java
+L import com.example*;
+T 6 source.java meta.import.java keyword.other.import.java
+T 7 source.java meta.import.java
+T 10 source.java meta.import.java storage.modifier.import.java
+T 11 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 18 source.java meta.import.java storage.modifier.import.java
+T 19 source.java meta.import.java storage.modifier.import.java invalid.illegal.character_not_allowed_here.java
+T 20 source.java meta.import.java punctuation.terminator.java
+L import static com.example.Util .*;
+T 6 source.java meta.import.java keyword.other.import.java
+T 7 source.java meta.import.java
+T 13 source.java meta.import.java storage.modifier.java
+T 14 source.java meta.import.java
+T 17 source.java meta.import.java storage.modifier.import.java
+T 18 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 25 source.java meta.import.java storage.modifier.import.java
+T 26 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 31 source.java meta.import.java storage.modifier.import.java
+T 32 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 33 source.java meta.import.java storage.modifier.import.java variable.language.wildcard.java
+T 34 source.java meta.import.java punctuation.terminator.java
+L 
+L /**/
+T 4 source.java comment.block.empty.java punctuation.definition.comment.java
+L open module com.example {
+T 5 source.java meta.module.java storage.modifier.java
+T 11 source.java meta.module.java storage.modifier.java
+T 12 source.java meta.module.java
+T 15 source.java meta.module.java entity.name.type.module.java
+T 24 source.java meta.module.java
+T 25 source.java meta.module.java punctuation.section.module.begin.bracket.curly.java
+L   requires transitive base;
+T 2 source.java meta.module.java meta.module.body.java
+T 10 source.java meta.module.java meta.module.body.java keyword.module.java
+T 11 source.java meta.module.java meta.module.body.java
+T 21 source.java meta.module.java meta.module.body.java keyword.module.java
+T 27 source.java meta.module.java meta.module.body.java
+L }
+T 1 source.java meta.module.java punctuation.section.module.end.bracket.curly.java
+L 
+L sealed class Shape permits Circle, Square {}
+T 6 source.java meta.class.java storage.modifier.java
+T 7 source.java meta.class.java
+T 12 source.java meta.class.java meta.class.identifier.java storage.modifier.java
+T 13 source.java meta.class.java meta.class.identifier.java
+T 18 source.java meta.class.java meta.class.identifier.java entity.name.type.class.java
+T 19 source.java meta.class.java
+T 26 source.java meta.class.java meta.definition.class.permits.classes.java storage.modifier.permits.java
+T 27 source.java meta.class.java meta.definition.class.permits.classes.java
+T 33 source.java meta.class.java meta.definition.class.permits.classes.java entity.other.inherited-class.java
+T 34 source.java meta.class.java meta.definition.class.permits.classes.java punctuation.separator.delimiter.java
+T 35 source.java meta.class.java meta.definition.class.permits.classes.java
+T 41 source.java meta.class.java meta.definition.class.permits.classes.java entity.other.inherited-class.java
+T 42 source.java meta.class.java meta.definition.class.permits.classes.java
+T 43 source.java meta.class.java punctuation.section.class.begin.bracket.curly.java
+T 44 source.java meta.class.java punctuation.section.class.end.bracket.curly.java
+L 
+L record Pair<T>(T left, T right) implements Comparable {}
+T 6 source.java meta.record.java meta.record.identifier.java storage.modifier.java
+T 7 source.java meta.record.java meta.record.identifier.java
+T 11 source.java meta.record.java meta.record.identifier.java entity.name.type.record.java
+T 12 source.java meta.record.java meta.record.identifier.java punctuation.bracket.angle.java
+T 13 source.java meta.record.java meta.record.identifier.java storage.type.generic.java
+T 14 source.java meta.record.java meta.record.identifier.java punctuation.bracket.angle.java
+T 15 source.java meta.record.java meta.record.identifier.java punctuation.definition.parameters.begin.bracket.round.java
+T 16 source.java meta.record.java meta.record.identifier.java storage.type.java
+T 21 source.java meta.record.java meta.record.identifier.java
+T 22 source.java meta.record.java meta.record.identifier.java punctuation.separator.delimiter.java
+T 23 source.java meta.record.java meta.record.identifier.java
+T 24 source.java meta.record.java meta.record.identifier.java storage.type.java
+T 30 source.java meta.record.java meta.record.identifier.java
+T 31 source.java meta.record.java meta.record.identifier.java punctuation.definition.parameters.end.bracket.round.java
+T 32 source.java meta.record.java
+T 42 source.java meta.record.java meta.definition.class.implemented.interfaces.java storage.modifier.implements.java
+T 43 source.java meta.record.java meta.definition.class.implemented.interfaces.java
+T 53 source.java meta.record.java meta.definition.class.implemented.interfaces.java entity.other.inherited-class.java
+T 54 source.java meta.record.java
+T 55 source.java meta.record.java meta.record.body.java punctuation.section.class.begin.bracket.curly.java
+T 56 source.java meta.record.java punctuation.section.class.end.bracket.curly.java
+L 
+L class Coverage {
+T 5 source.java meta.class.java meta.class.identifier.java storage.modifier.java
+T 6 source.java meta.class.java meta.class.identifier.java
+T 14 source.java meta.class.java meta.class.identifier.java entity.name.type.class.java
+T 15 source.java meta.class.java
+T 16 source.java meta.class.java punctuation.section.class.begin.bracket.curly.java
+L   privateCount = 1;
+T 2 source.java meta.class.java meta.class.body.java
+T 15 source.java meta.class.java meta.class.body.java
+T 16 source.java meta.class.java meta.class.body.java keyword.operator.assignment.java
+T 17 source.java meta.class.java meta.class.body.java
+T 18 source.java meta.class.java meta.class.body.java constant.numeric.decimal.java
+T 19 source.java meta.class.java meta.class.body.java punctuation.terminator.java
+L   threadsafeFlag = 2;
+T 2 source.java meta.class.java meta.class.body.java
+T 17 source.java meta.class.java meta.class.body.java
+T 18 source.java meta.class.java meta.class.body.java keyword.operator.assignment.java
+T 19 source.java meta.class.java meta.class.body.java
+T 20 source.java meta.class.java meta.class.body.java constant.numeric.decimal.java
+T 21 source.java meta.class.java meta.class.body.java punctuation.terminator.java
+L   java.lang.String[] names;
+T 2 source.java meta.class.java meta.class.body.java
+T 6 source.java meta.class.java meta.class.body.java meta.definition.variable.java storage.type.java
+T 7 source.java meta.class.java meta.class.body.java meta.definition.variable.java punctuation.separator.period.java
+T 11 source.java meta.class.java meta.class.body.java meta.definition.variable.java storage.type.java
+T 12 source.java meta.class.java meta.class.body.java meta.definition.variable.java punctuation.separator.period.java
+T 18 source.java meta.class.java meta.class.body.java meta.definition.variable.java storage.type.object.array.java
+T 19 source.java meta.class.java meta.class.body.java meta.definition.variable.java punctuation.bracket.square.java
+T 20 source.java meta.class.java meta.class.body.java meta.definition.variable.java punctuation.bracket.square.java
+T 21 source.java meta.class.java meta.class.body.java meta.definition.variable.java
+T 26 source.java meta.class.java meta.class.body.java meta.definition.variable.java variable.other.definition.java
+T 27 source.java meta.class.java meta.class.body.java punctuation.terminator.java
+L   int[] values = {1, 2};
+T 2 source.java meta.class.java meta.class.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.definition.variable.java storage.type.primitive.array.java
+T 6 source.java meta.class.java meta.class.body.java meta.definition.variable.java punctuation.bracket.square.java
+T 7 source.java meta.class.java meta.class.body.java meta.definition.variable.java punctuation.bracket.square.java
+T 8 source.java meta.class.java meta.class.body.java meta.definition.variable.java
+T 14 source.java meta.class.java meta.class.body.java meta.definition.variable.java variable.other.definition.java
+T 15 source.java meta.class.java meta.class.body.java meta.definition.variable.java
+T 16 source.java meta.class.java meta.class.body.java keyword.operator.assignment.java
+T 17 source.java meta.class.java meta.class.body.java
+T 18 source.java meta.class.java meta.class.body.java punctuation.section.block.begin.bracket.curly.java
+T 19 source.java meta.class.java meta.class.body.java constant.numeric.decimal.java
+T 20 source.java meta.class.java meta.class.body.java punctuation.separator.delimiter.java
+T 21 source.java meta.class.java meta.class.body.java
+T 22 source.java meta.class.java meta.class.body.java constant.numeric.decimal.java
+T 23 source.java meta.class.java meta.class.body.java punctuation.section.block.end.bracket.curly.java
+T 24 source.java meta.class.java meta.class.body.java punctuation.terminator.java
+L 
+L   <T extends Number & Comparable<T>> void sort(T value) {}
+T 2 source.java meta.class.java meta.class.body.java
+T 3 source.java meta.class.java meta.class.body.java punctuation.bracket.angle.java
+T 4 source.java meta.class.java meta.class.body.java storage.type.generic.java
+T 5 source.java meta.class.java meta.class.body.java
+T 12 source.java meta.class.java meta.class.body.java storage.modifier.extends.java
+T 13 source.java meta.class.java meta.class.body.java
+T 19 source.java meta.class.java meta.class.body.java storage.type.generic.java
+T 20 source.java meta.class.java meta.class.body.java
+T 21 source.java meta.class.java meta.class.body.java punctuation.separator.types.java
+T 22 source.java meta.class.java meta.class.body.java
+T 32 source.java meta.class.java meta.class.body.java storage.type.java
+T 33 source.java meta.class.java meta.class.body.java punctuation.bracket.angle.java
+T 34 source.java meta.class.java meta.class.body.java storage.type.generic.java
+T 35 source.java meta.class.java meta.class.body.java punctuation.bracket.angle.java
+T 36 source.java meta.class.java meta.class.body.java punctuation.bracket.angle.java
+T 37 source.java meta.class.java meta.class.body.java
+T 41 source.java meta.class.java meta.class.body.java meta.method.java meta.method.return-type.java storage.type.primitive.java
+T 42 source.java meta.class.java meta.class.body.java meta.method.java
+T 46 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java entity.name.function.java
+T 47 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.begin.bracket.round.java
+T 48 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java storage.type.java
+T 49 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java
+T 54 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java variable.parameter.java
+T 55 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.end.bracket.round.java
+T 56 source.java meta.class.java meta.class.body.java meta.method.java
+T 57 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.begin.bracket.curly.java
+T 58 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.end.bracket.curly.java
+L 
+L   void take(int a, { b }) {}
+T 2 source.java meta.class.java meta.class.body.java
+T 6 source.java meta.class.java meta.class.body.java meta.method.java meta.method.return-type.java storage.type.primitive.java
+T 7 source.java meta.class.java meta.class.body.java meta.method.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java entity.name.function.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.begin.bracket.round.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java storage.type.primitive.java
+T 16 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java variable.parameter.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.separator.delimiter.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java
+T 20 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.bracket.curly.java
+T 23 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java
+T 24 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.bracket.curly.java
+T 25 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.end.bracket.round.java
+T 26 source.java meta.class.java meta.class.body.java meta.method.java
+T 27 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.begin.bracket.curly.java
+T 28 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.end.bracket.curly.java
+L 
+L   void run(boolean ok) {
+T 2 source.java meta.class.java meta.class.body.java
+T 6 source.java meta.class.java meta.class.body.java meta.method.java meta.method.return-type.java storage.type.primitive.java
+T 7 source.java meta.class.java meta.class.body.java meta.method.java
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java entity.name.function.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.begin.bracket.round.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java storage.type.primitive.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java
+T 21 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java variable.parameter.java
+T 22 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.end.bracket.round.java
+T 23 source.java meta.class.java meta.class.body.java meta.method.java
+T 24 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.begin.bracket.curly.java
+L     int bits = 0b1010;
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 7 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java storage.type.primitive.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java variable.other.definition.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java keyword.operator.assignment.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 21 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java constant.numeric.binary.java
+T 22 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     int mode = 0755;
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 7 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java storage.type.primitive.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java variable.other.definition.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java keyword.operator.assignment.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java constant.numeric.octal.java
+T 20 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     try {
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 7 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.try.java keyword.control.try.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.try.java
+T 9 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.try.java punctuation.section.try.begin.bracket.curly.java
+L       go();
+T 6 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.try.java meta.try.body.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.try.java meta.try.body.java meta.function-call.java entity.name.function.java
+T 9 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.try.java meta.try.body.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.try.java meta.try.body.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.try.java meta.try.body.java punctuation.terminator.java
+L     } catch (IOException | RuntimeException e) {
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.try.java meta.try.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.try.java punctuation.section.try.end.bracket.curly.java
+T 6 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java keyword.control.catch.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java punctuation.definition.parameters.begin.bracket.round.java
+T 24 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java meta.catch.parameters.java storage.type.java
+T 25 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java meta.catch.parameters.java
+T 26 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java meta.catch.parameters.java punctuation.catch.separator.java
+T 27 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java meta.catch.parameters.java
+T 43 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java meta.catch.parameters.java storage.type.java
+T 44 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java meta.catch.parameters.java
+T 45 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java meta.catch.parameters.java variable.parameter.java
+T 46 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java punctuation.definition.parameters.end.bracket.round.java
+T 47 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java
+T 48 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java punctuation.section.catch.begin.bracket.curly.java
+L       stop();
+T 6 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java meta.catch.body.java
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java meta.catch.body.java meta.function-call.java entity.name.function.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java meta.catch.body.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java meta.catch.body.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java meta.catch.body.java punctuation.terminator.java
+L     }
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java meta.catch.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.catch.java punctuation.section.catch.end.bracket.curly.java
+L     assert ok : "not ok";
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.declaration.assertion.java keyword.control.assert.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.declaration.assertion.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.declaration.assertion.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.declaration.assertion.java keyword.operator.assert.expression-separator.java
+T 16 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.declaration.assertion.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.declaration.assertion.java string.quoted.double.java punctuation.definition.string.begin.java
+T 23 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.declaration.assertion.java string.quoted.double.java
+T 24 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.declaration.assertion.java string.quoted.double.java punctuation.definition.string.end.java
+T 25 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.declaration.assertion.java punctuation.terminator.java
+L     const int a = 0;
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 9 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java keyword.reserved.java
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java storage.type.primitive.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java variable.other.definition.java
+T 16 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java keyword.operator.assignment.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java constant.numeric.decimal.java
+T 20 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     goto end;
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java keyword.reserved.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     var count = 1;
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 7 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.local.java storage.type.local.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.local.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.local.java variable.other.definition.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.local.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java keyword.operator.assignment.java
+T 16 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java constant.numeric.decimal.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     var list = new java.util.ArrayList<String>();
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 7 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.local.java storage.type.local.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.local.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.local.java variable.other.definition.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.local.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java keyword.operator.assignment.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java keyword.control.new.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 23 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java storage.type.java
+T 24 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.separator.period.java
+T 28 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java storage.type.java
+T 29 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.separator.period.java
+T 38 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java storage.type.java
+T 39 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.bracket.angle.java
+T 45 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java storage.type.generic.java
+T 46 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.bracket.angle.java
+T 47 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.bracket.round.java
+T 48 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.bracket.round.java
+T 49 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     int n = items.0x;
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 7 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java storage.type.primitive.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java
+T 9 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java variable.other.definition.java
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java keyword.operator.assignment.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java variable.other.object.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.separator.period.java
+T 20 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java invalid.illegal.identifier.java
+T 21 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     call({ go(); });
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java entity.name.function.java
+T 9 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.section.block.begin.bracket.curly.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java entity.name.function.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 16 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.terminator.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.section.block.end.bracket.curly.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 20 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     String block = """
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java storage.type.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java
+T 16 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java variable.other.definition.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java keyword.operator.assignment.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 22 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java string.quoted.triple.java punctuation.definition.string.begin.java
+L         a \""" b \n c
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java string.quoted.triple.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java string.quoted.triple.java constant.character.escape.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java string.quoted.triple.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java string.quoted.triple.java constant.character.escape.java
+T 21 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java string.quoted.triple.java
+L         """;
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java string.quoted.triple.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java string.quoted.triple.java punctuation.definition.string.end.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     Object o = new int[] {1, 2}.length;
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java storage.type.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java variable.other.definition.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.definition.variable.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java keyword.operator.assignment.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java keyword.control.new.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 22 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java storage.type.primitive.array.java
+T 23 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.bracket.square.java
+T 24 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.bracket.square.java
+T 25 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 26 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.array-initializer.java punctuation.section.array-initializer.begin.bracket.curly.java
+T 27 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.array-initializer.java constant.numeric.decimal.java
+T 28 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.array-initializer.java punctuation.separator.delimiter.java
+T 29 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.array-initializer.java
+T 30 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.array-initializer.java constant.numeric.decimal.java
+T 31 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.array-initializer.java punctuation.section.array-initializer.end.bracket.curly.java
+T 32 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.separator.period.java
+T 38 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java variable.other.object.property.java
+T 39 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L   }
+T 2 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 3 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.end.bracket.curly.java
+L 
+L   enum Kind extends Base implements Tag {
+T 2 source.java meta.class.java meta.class.body.java meta.enum.java
+T 6 source.java meta.class.java meta.class.body.java meta.enum.java storage.modifier.java
+T 7 source.java meta.class.java meta.class.body.java meta.enum.java
+T 11 source.java meta.class.java meta.class.body.java meta.enum.java entity.name.type.enum.java
+T 12 source.java meta.class.java meta.class.body.java meta.enum.java
+T 19 source.java meta.class.java meta.class.body.java meta.enum.java meta.definition.class.inherited.classes.java storage.modifier.extends.java
+T 20 source.java meta.class.java meta.class.body.java meta.enum.java meta.definition.class.inherited.classes.java
+T 24 source.java meta.class.java meta.class.body.java meta.enum.java meta.definition.class.inherited.classes.java entity.other.inherited-class.java
+T 25 source.java meta.class.java meta.class.body.java meta.enum.java meta.definition.class.inherited.classes.java
+T 35 source.java meta.class.java meta.class.body.java meta.enum.java meta.definition.class.implemented.interfaces.java storage.modifier.implements.java
+T 36 source.java meta.class.java meta.class.body.java meta.enum.java meta.definition.class.implemented.interfaces.java
+T 39 source.java meta.class.java meta.class.body.java meta.enum.java meta.definition.class.implemented.interfaces.java entity.other.inherited-class.java
+T 40 source.java meta.class.java meta.class.body.java meta.enum.java meta.definition.class.implemented.interfaces.java
+T 41 source.java meta.class.java meta.class.body.java meta.enum.java punctuation.section.enum.begin.bracket.curly.java
+L     ONE, TWO
+T 4 source.java meta.class.java meta.class.body.java meta.enum.java
+T 7 source.java meta.class.java meta.class.body.java meta.enum.java constant.other.enum.java
+T 8 source.java meta.class.java meta.class.body.java meta.enum.java punctuation.separator.delimiter.java
+T 9 source.java meta.class.java meta.class.body.java meta.enum.java
+T 12 source.java meta.class.java meta.class.body.java meta.enum.java constant.other.enum.java
+L   }
+T 2 source.java meta.class.java meta.class.body.java meta.enum.java
+T 3 source.java meta.class.java meta.class.body.java meta.enum.java punctuation.section.enum.end.bracket.curly.java
+L }
+T 1 source.java meta.class.java punctuation.section.class.end.bracket.curly.java
+L 

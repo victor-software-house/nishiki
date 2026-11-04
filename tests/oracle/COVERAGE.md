@@ -26,7 +26,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | HTML | `html` | 131 of 227 | 57.7% | 162 of 368 | 44.0% | 0 | 2 |  |
 | HTML | `html-derivative` | 2 of 3 | 66.7% | 3 of 3 | 100.0% | 0 | 1 |  |
 | INI | `ini` | 15 of 15 | 100.0% | 10 of 12 | 83.3% | 2 | 0 | yes |
-| Java | `java` | 157 of 214 | 73.4% | 102 of 134 | 76.1% | 0 | 19 |  |
+| Java | `java` | 214 of 214 | 100.0% | 133 of 134 | 99.3% | 1 | 0 | yes |
 | TypeScript | `javascript` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | JSON | `json` | 14 of 23 | 60.9% | 10 of 15 | 66.7% | 0 | 10 |  |
 | JSON | `jsonc` | 19 of 23 | 82.6% | 13 of 15 | 86.7% | 0 | 0 |  |
@@ -573,66 +573,7 @@ patterns[1].begin  groups 1 (waived: the group matches only blanks, and the orac
 ### `java`
 
 ```text
-patterns[0].patterns[1].match  (?<=\.)\s*\.|\.(?=\s*;)
-patterns[0].patterns[2].match  (?<!_)_(?=\s*([.;]))|\b\d+|-+
-patterns[0].patterns[3].match  [A-Z]+
-patterns[0].patterns[4].match  \b(?<!\$)(abstract|assert|boolean|break|byte|case|catch|cha…
-patterns[1].patterns[1].match  (?<=\.)\s*\.|\.(?=\s*;)
-patterns[1].patterns[2].match  (?<!\.)\s*\*
-patterns[1].patterns[3].match  (?<!_)_(?=\s*([.;]))|\b\d+|-+
-patterns[1].patterns[4].match  \b(?<!\$)(abstract|assert|boolean|break|byte|case|catch|cha…
-#anonymous-classes-and-new.patterns[4].begin  (?<=])
-#anonymous-classes-and-new.patterns[4].end  (?=[])-.:;?}]|/(?![*/])|[!%\&=^|])
-#anonymous-classes-and-new.patterns[4].patterns[1].begin  \{
-#anonymous-classes-and-new.patterns[4].patterns[1].end  }
-#assertions.patterns[0].begin  \b(assert)\s
-#assertions.patterns[0].end  $
-#assertions.patterns[0].patterns[0].match  :
-#class.patterns[6].begin  (permits)\s  fuzz
-#class.patterns[6].end  (?=\s*extends|implements|\{)  fuzz
-#comments.patterns[0].match  /\*\*/
-#comments-inline.patterns[1].begin  groups 1
-#enums.patterns[0].begin  \b(extends)\b
-#enums.patterns[0].end  (?=\{|\bimplements\b)
-#generics.patterns[5].match  &
-#keywords.patterns[13].match  \b(const|goto)\b
-#member-variables.begin  (?=private|protected|public|native|synchronized|abstract|th…
-#member-variables.end  (?=[;=])
-#module.begin  ((open)\s)?(module)\s+(\w+)
-#module.end  }
-#module.patterns[0].begin  \{
-#module.patterns[0].end  (?=})
-#module.patterns[0].patterns[2].match  \b(requires|transitive|exports|opens|to|uses|provides|with)…
-#numbers.patterns[1].match  \b(?<!\$)0([Bb])[01]([01_]*[01])?[Ll]?\b(?!\$)
-#numbers.patterns[2].match  \b(?<!\$)0[0-7]([0-7_]*[0-7])?[Ll]?\b(?!\$)  fuzz
-#object-types.patterns[1].begin  groups 1
-#object-types.patterns[1].beginCaptures[1].patterns[0].match  [A-Z_a-z]\w*
-#object-types.patterns[1].beginCaptures[1].patterns[1].match  \.
-#parens.patterns[2].begin  \{
-#parens.patterns[2].end  }
-#properties.patterns[3].match  (\.)\s*([0-9][$\w]*)
-#record.begin  (?=\w?[\w\s]*\brecord\s+[$\w]+)  fuzz
-#record.end  }  fuzz
-#record.patterns[3].begin  (record)\s+([$\w]+)(<[$\w]+>)?(\()  fuzz
-#record.patterns[3].end  \)  fuzz
-#record.patterns[4].begin  (implements)\s  fuzz
-#record.patterns[4].end  (?=\s*\{)  fuzz
-#record-body.begin  \{  fuzz
-#record-body.end  (?=})  fuzz
-#record-constructor.begin  (?!new)(?=[<\w].*\s+)(?=([^(/=]|/(?!/))+(?=\{))
-#record-constructor.end  (})|(?=;)
-#record-constructor.patterns[1].begin  (\w+)
-#record-constructor.patterns[1].end  (?=\s*\{)
-#record-constructor.patterns[3].begin  \{
-#record-constructor.patterns[3].end  (?=})
-#strings.patterns[0].patterns[0].match  (\\""")(?!")|(\\.)
-#try-catch-finally.patterns[0].patterns[0].begin  \(
-#try-catch-finally.patterns[0].patterns[0].end  \)
-#try-catch-finally.patterns[1].patterns[1].patterns[2].end  groups 1
-#variables-local.begin  (?=\b(var)\b\s+[$A-Z_a-z][$\w]*\s*([:;=]))
-#variables-local.end  (?=[:;=])
-#variables-local.patterns[0].match  \bvar\b
-#variables-local.patterns[1].match  ([$A-Z_a-z][$\w]*)(?=\s*(\[])*\s*([:;=]))
+#comments-inline.patterns[1].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
 ```
 
 ### `javascript`

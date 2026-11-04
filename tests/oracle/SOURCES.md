@@ -71,6 +71,11 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `diff/vscode-foundry-local-sdk` | [`build/npm/patches/foundry-local-sdk.patch`][vscode-foundry] in microsoft/vscode | [MIT][vscode-licence] |
 | `java/commons-lang-range` | [`Range.java`][commons-lang-range] in apache/commons-lang | [Apache-2.0][commons-lang-licence] |
 | `java/commons-lang-validate` | [`Validate.java`][commons-lang-validate] in apache/commons-lang | [Apache-2.0][commons-lang-licence] |
+| `java/coverage` | `oracle/inputs/java-coverage.java`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `java/google-java-format-b380299722` | [`B380299722.input`][google-java-format-b380299722] in google/google-java-format | [Apache-2.0][google-java-format-licence] |
+| `java/google-java-format-i574` | [`I574.input`][google-java-format-i574] in google/google-java-format | [Apache-2.0][google-java-format-licence] |
+| `java/google-java-format-lambda-hug` | [`LambdaHug.input`][google-java-format-lambda-hug] in google/google-java-format | [Apache-2.0][google-java-format-licence] |
+| `java/google-java-format-m1` | [`M1.input`][google-java-format-m1] in google/google-java-format | [Apache-2.0][google-java-format-licence] |
 | `java/gson-gson` | [`Gson.java`][gson-gson] in google/gson | [Apache-2.0][gson-licence] |
 | `java/gson-json-reader` | [`JsonReader.java`][gson-json-reader] in google/gson | [Apache-2.0][gson-licence] |
 | `java/guava-immutable-list` | [`ImmutableList.java`][guava-immutable-list] in google/guava | [Apache-2.0][guava-licence] |
@@ -665,6 +670,7 @@ The lexer matched every input on its first run, held-out ones included.
 
 `kotlin/sample`, `kotlin/coroutines-state-flow`, `kotlin/okhttp-cookie`, `kotlin/exposed-op` and `kotlin/serialization-json` are the development inputs for Kotlin.
 `kotlin/coroutines-produce`, `kotlin/okhttp-request`, `kotlin/moshi-util`, `kotlin/turbine-flow-test`, `kotlin/ktor-logging` and `kotlin/okhttp-build` (a Gradle script, which Shiki lexes as Kotlin) are held out.
+The `google-java-format-*` and `coverage` inputs of `java` are held out: they were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 Shiki's Markdown grammar has no rule that embeds Kotlin, so no Markdown input has a Kotlin fence.
 The lexer matched every input on its first run, held-out ones included.
 `swift/sample`, `swift/argument-parser-argument`, `swift/algorithms-chunked`, `swift/alamofire-af-error`, `swift/composable-store` and `swift/string-processing-algorithms-tests` are the development inputs for Swift.
@@ -946,6 +952,11 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [go-slices]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/slices/slices.go
 [go-sort]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/sort/sort.go
 [golang-licence]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/LICENSE
+[google-java-format-b380299722]: https://github.com/google/google-java-format/blob/056a0ac101cc5c297499f1ded7062a2a65b0cdcc/core/src/test/resources/com/google/googlejavaformat/java/testdata/B380299722.input
+[google-java-format-i574]: https://github.com/google/google-java-format/blob/056a0ac101cc5c297499f1ded7062a2a65b0cdcc/core/src/test/resources/com/google/googlejavaformat/java/testdata/I574.input
+[google-java-format-lambda-hug]: https://github.com/google/google-java-format/blob/056a0ac101cc5c297499f1ded7062a2a65b0cdcc/core/src/test/resources/com/google/googlejavaformat/java/testdata/LambdaHug.input
+[google-java-format-licence]: https://github.com/google/google-java-format/blob/056a0ac101cc5c297499f1ded7062a2a65b0cdcc/LICENSE
+[google-java-format-m1]: https://github.com/google/google-java-format/blob/056a0ac101cc5c297499f1ded7062a2a65b0cdcc/core/src/test/resources/com/google/googlejavaformat/java/testdata/M1.input
 [googleapis-http]: https://github.com/googleapis/googleapis/blob/0d0982bd9844aacc37a4e87c1cd43bbdb601884d/google/api/http.proto
 [googleapis-licence]: https://github.com/googleapis/googleapis/blob/0d0982bd9844aacc37a4e87c1cd43bbdb601884d/LICENSE
 [googleapis-operations]: https://github.com/googleapis/googleapis/blob/0d0982bd9844aacc37a4e87c1cd43bbdb601884d/google/longrunning/operations.proto
