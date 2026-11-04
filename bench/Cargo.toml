@@ -1,0 +1,49 @@
+[package]
+name = "nishiki-bench"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.99.1"
+description = "Wall-clock benchmarks of nishiki on its benchmark corpus"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/victor-software-house/nishiki"
+# Measurement only; never published (CODING_STANDARDS 5.3).
+publish = false
+
+# Its own workspace, outside the root's, so the root's lints, deny rules and
+# versions never read it (CODING_STANDARDS 5.3).
+[workspace]
+
+# The library is the corpus loader the benches share; it has no benchmarks of
+# its own, so `cargo bench -- <criterion options>` reaches only the benches.
+[lib]
+bench = false
+
+[dependencies]
+# Every language, the TextMate tier included, and themes from Shiki's JSON.
+nishiki = { path = "..", features = ["textmate", "json"] }
+
+[dev-dependencies]
+# Default features off: no rayon and no plotters (operator, 2026-11-03;
+# openspec bench-methodology, design decision 14).
+criterion = { version = "0.8.2", default-features = false, features = [
+  "cargo_bench_support",
+] }
+
+[[bench]]
+name = "throughput"
+harness = false
+
+[[bench]]
+name = "styling"
+harness = false
+
+[lints.rust]
+unsafe_code = "forbid"
+rust_2018_idioms = { level = "deny", priority = -1 }
+
+[lints.clippy]
+all = { level = "deny", priority = -1 }
+pedantic = { level = "deny", priority = -1 }
+unwrap_used = "deny"
+expect_used = "deny"
+as_conversions = "deny"

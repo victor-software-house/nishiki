@@ -156,15 +156,14 @@ The rules are in [oracle/AGENTS.md](oracle/AGENTS.md) and [tests/AGENTS.md](test
 
 ### Benchmarks
 
-1. `mise run bench` measures, in release mode on the oracle fixtures:
-   - throughput;
-   - streaming latency per line;
-   - cold start;
-   - theme styling.
+1. `mise run bench` runs the Criterion benchmarks of the bench workspace on `bench/corpus/`:
+   - lexing throughput per language and tier;
+   - creating a highlighter;
+   - theme styling, and the whole path from text to colours.
 
-   `mise run bench python java` measures only the languages it names.
+   `mise run bench lex/python` runs only the benchmarks whose name holds the filter.
 2. It is not part of `verify`, because timings depend on the machine.
-   `bench/AGENTS.md` says where a run counts and how it is recorded.
+   [bench/README.md](bench/README.md) says what each figure answers; `bench/AGENTS.md` says where a run counts and how it is recorded.
 
 ### Limits
 

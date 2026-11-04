@@ -5,15 +5,14 @@
 # (AGENTS.md, Documentation; openspec/changes/archive/2026-11-03-repo-layout).
 set -euo pipefail
 
-both=(openspec oracle tests)
+both=(bench openspec oracle tests)
 readme_only=(src mise-tasks)
-guide_only=(bench)
 
 missing=()
 for dir in "${both[@]}" "${readme_only[@]}"; do
   [ -f "$dir/README.md" ] || missing+=("$dir/README.md")
 done
-for dir in "${both[@]}" "${guide_only[@]}"; do
+for dir in "${both[@]}"; do
   [ -f "$dir/AGENTS.md" ] || missing+=("$dir/AGENTS.md")
 done
 if [ "${#missing[@]}" -gt 0 ]; then

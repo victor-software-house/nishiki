@@ -1,7 +1,8 @@
 # bench
 
 Rules for measuring nishiki, beside the root guide's invariants.
-`examples/bench.rs` is the harness; `mise run bench` runs it in release mode on every oracle fixture.
+[README.md](README.md) says what each figure answers and how to run it.
+`mise run bench` runs the bench workspace's Criterion benchmarks on `corpus/`; `examples/bench.rs` still gives per-line latency until the latency program replaces it.
 `targets.toml` holds what results are judged against; `results/` holds recorded runs.
 
 1. A local run on a developer's machine is for comparing two commits of one change on that machine, and is never recorded.
@@ -54,3 +55,6 @@ Rules for measuring nishiki, beside the root guide's invariants.
 18. The wall-clock benchmarks and the comparison read `bench/corpus/`, never the oracle fixtures; its README says what each tier stands for.
     A file enters only with its row in `bench/corpus.toml` and a permissive licence read at its source, and `mise run check:corpus` holds the two together.
     Changing the corpus raises its `version`, and a record names the version it ran on.
+19. The bench workspace (`Cargo.toml`, `src/`, `benches/`) is its own Cargo workspace, excluded from the root's, with its own `Cargo.lock`.
+    `verify` does not build it; the Callgrind workflow's Bench job runs `mise run bench:check` on a pull request labelled `bench`: formatting, clippy with warnings denied, and each benchmark once, untimed.
+    Label a pull request that changes the public API, so the benchmarks keep building.

@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
-#MISE description="Throughput, streaming latency and cold start on the oracle fixtures"
+#MISE description="Wall-clock benchmarks on the benchmark corpus, with Criterion"
 #MISE env={CARGO_TARGET_DIR = "target/bench"}
-# Not part of verify: timings depend on the machine. Compare runs on one
-# machine, and measure on a quiet one. The `textmate` tier is on, so every
-# oracle fixture is measured.
+# Not part of verify: timings depend on the machine (bench/AGENTS.md). The
+# bench workspace reads bench/corpus/, every language built in. Arguments go
+# to Criterion: `mise run bench lex/python` runs only the benchmarks whose
+# name holds the filter, and `--save-baseline` and `--baseline` compare two
+# runs on one machine.
 set -euo pipefail
-cargo run --release --locked --features textmate --example bench -- "$@"
+cargo bench --locked --manifest-path bench/Cargo.toml -- "$@"

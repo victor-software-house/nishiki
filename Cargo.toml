@@ -221,9 +221,11 @@ indoc = "2.0.8"
 nishiki-alloc-count = { path = "nishiki-alloc-count" }
 
 # The library and the test-support crate that holds the one unsafe
-# implementation the tests need (CODING_STANDARDS 3.3).
+# implementation the tests need (CODING_STANDARDS 3.3). The benchmarks keep
+# a workspace of their own (CODING_STANDARDS 5.3).
 [workspace]
 members = ["nishiki-alloc-count"]
+exclude = ["bench"]
 resolver = "3"
 
 # Line tables keep backtraces readable at a fraction of full debug info.

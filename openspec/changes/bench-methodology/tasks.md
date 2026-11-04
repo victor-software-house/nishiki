@@ -51,9 +51,9 @@ The probe uses the current `examples/bench.rs` throughput figure, so it does not
 
 ## 5. The `bench/` workspace
 
-- [ ] 5.1 The workspace, its corpus loader, and Criterion benches `throughput` and `styling`; `mise run bench` runs them; `examples/bench.rs` and the old `mise-tasks/bench.sh` go; `bench/README.md` says what each question measures and how to run it, and `mise-tasks/check/layout.sh` moves `bench` from `guide_only` to `both` → verify: a bench job, on pull requests labelled `bench` or touching `bench/`, builds the workspace with `--locked` and runs every bench once in test mode, and passes
+- [ ] 5.1 The workspace, its corpus loader (language and tier read from `corpus/<language>/<tier>/`), and Criterion benches `throughput` and `styling`; `mise run bench` runs them; `bench/README.md` says what each question measures and how to run it, and `mise-tasks/check/layout.sh` moves `bench` from `guide_only` to `both`, dropping the list now empty → verify: a Bench job, on pull requests labelled `bench`, runs `mise run bench:check` (rustfmt, clippy with warnings denied, and every bench once in Criterion's untimed test mode, all with `--locked`), and passes; it times nothing, so wall time cannot gate it
 - [ ] 5.2 `latency`: repeated passes, timer overhead subtracted, first contact apart, as design decision 6 → verify: the bench job runs it on the small tier with three passes, and its output names steady p50, p99 and maximum, the first-contact maximum, and the count of lines below resolution
-- [ ] 5.3 `cold`: one sample per process, a runner that interleaves languages and drops the first three samples, and theme loading → verify: the bench job runs it with five processes for one language, and its output gives the median and p90 of each of the three times
+- [ ] 5.3 `cold`: one sample per process, and `examples/bench.rs` goes once 5.2 and 5.3 give its figures; a runner that interleaves languages and drops the first three samples, and theme loading → verify: the bench job runs it with five processes for one language, and its output gives the median and p90 of each of the three times
 
 ## 6. Records
 

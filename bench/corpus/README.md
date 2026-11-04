@@ -3,6 +3,7 @@
 The files nishiki's wall-clock benchmarks and its comparison with other highlighters read.
 The callgrind gate reads the oracle fixtures instead, because they reach more code paths.
 
+Each file sits at `<language>/<tier>/<file>`, so the benchmarks read the language and tier from its path.
 [`../corpus.toml`](../corpus.toml) lists every file:
 
 - its language and tier;
