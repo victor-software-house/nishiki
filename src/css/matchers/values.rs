@@ -10,7 +10,8 @@ use crate::case_fold;
 use crate::rules::{Chars, DynName, Lexer};
 
 /// Which of the grammar's two lists of names that begin a selector is
-/// being matched, which decides what may follow a `:` after the name.
+/// being matched.
+/// The list decides what may follow a `:` after the name.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum SharedList {
     /// `:\s+`.
@@ -129,7 +130,8 @@ impl<G: CssLike> Lexer<'_, G> {
     }
 
     /// The end of the run of characters from `p` that `class` accepts and that
-    /// are not white space; `class` sees every byte of a character.
+    /// are not white space.
+    /// `class` sees every byte of a character.
     fn skip_chars(&self, p: usize, class: impl Fn(u8) -> bool) -> usize {
         let mut i = p;
         while i < self.lim() && class(self.s[i]) && self.space_at(i) == 0 {
@@ -445,8 +447,9 @@ impl<G: CssLike> Lexer<'_, G> {
         Some(end)
     }
 
-    /// Names the unit `number..end` from its text lowered. The unit holds a
-    /// character above ASCII. This is [`Lexer::numeric_unit`]'s rare case.
+    /// Names the unit `number..end` from its text lowered.
+    /// The unit holds a character above ASCII.
+    /// This is [`Lexer::numeric_unit`]'s rare case.
     /// It is out of line, so the unit patterns' common path stays small.
     #[cold]
     fn folded_unit(&mut self, number: usize, end: usize) {
@@ -540,9 +543,10 @@ impl<G: CssLike> Lexer<'_, G> {
         self.escape_before(p)
     }
 
-    /// The names that need a check on what follows them: begin the selector
-    /// rule when `words` has one at `p` that is not followed by what a
-    /// property would be; `list` says which lookahead follows a `:`.
+    /// The names that need a check on what follows them.
+    /// The selector rule begins when `words` has one at `p` that is not
+    /// followed by what a property would be.
+    /// `list` says which lookahead follows a `:`.
     fn shared_name(&mut self, p: usize, words: &[&str], list: SharedList) -> Option<usize> {
         if !self.shared_behind(p) {
             return None;
@@ -648,7 +652,8 @@ impl<G: CssLike> Lexer<'_, G> {
 }
 
 /// The pseudo-classes and pseudo-elements the second list's lookahead lets
-/// follow a colon, which it matches as prefixes.
+/// follow a colon.
+/// The lookahead matches them as prefixes.
 const PSEUDO_PREFIXES: &[&str] = &[
     "active",
     "any-link",
@@ -689,7 +694,8 @@ const PSEUDO_PREFIXES: &[&str] = &[
     "first-line",
 ];
 
-/// The functional pseudo-classes of the same lookahead, which need a `(`.
+/// The functional pseudo-classes of the same lookahead.
+/// They need a `(`.
 const PSEUDO_FUNCTIONS: &[&str] = &[
     "dir",
     "lang",

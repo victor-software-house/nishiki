@@ -1,6 +1,7 @@
-//! CSS on the shared rule engine ([`crate::rules`]): the grammar's types and
-//! the answers its lookaheads keep for a line, so that scanning a run of the
-//! line stays linear.
+//! CSS on the shared rule engine ([`crate::rules`]).
+//! The module holds the grammar's types and the answers its lookaheads keep
+//! for a line.
+//! Those answers keep the scan of a run of the line linear.
 
 use std::cell::Cell;
 
@@ -22,9 +23,10 @@ pub(crate) struct Css;
 /// which the grammar lowers ([`unit_name_case`]).
 pub(crate) const UNIT_PREFIX: &str = "keyword.other.unit.";
 
-/// How the grammar spells the text of a dynamic name with `prefix`: a unit's
-/// lowered, as `${2:/downcase}` does, and any other as written. CSS's and
-/// SCSS's [`Grammar::dyn_name_case`].
+/// How the grammar spells the text of a dynamic name with `prefix`.
+/// A unit's text is lowered, as `${2:/downcase}` does.
+/// Any other text is kept as written.
+/// This is CSS's and SCSS's [`Grammar::dyn_name_case`].
 pub(crate) fn unit_name_case(prefix: &'static str) -> NameCase {
     if prefix == UNIT_PREFIX {
         NameCase::Lowered
@@ -33,8 +35,9 @@ pub(crate) fn unit_name_case(prefix: &'static str) -> NameCase {
     }
 }
 
-/// A grammar that runs CSS's matchers on its lines: CSS, and SCSS, whose
-/// grammar includes CSS's rules. Its per-line memory holds CSS's.
+/// A grammar that runs CSS's matchers on its lines: CSS, and SCSS.
+/// SCSS's grammar includes CSS's rules.
+/// The grammar's per-line memory holds CSS's.
 pub(crate) trait CssLike: Grammar {
     /// The CSS matchers' memory within the grammar's.
     fn css_extra(extra: &Self::Extra) -> &Extra;
@@ -60,16 +63,18 @@ impl CssLike for Css {
 /// What the CSS matchers remember about a line.
 #[derive(Debug)]
 pub(crate) struct Extra {
-    /// The last run of `[-\w]` characters found: where it starts and ends. A
-    /// search from inside it ends where it does.
+    /// The last run of `[-\w]` characters found: where it starts and ends.
+    /// A search from inside the run ends where the run does.
     pub(crate) word_run: Cell<(usize, usize)>,
-    /// The last run of identifier characters found, kept the same way when
-    /// it has no escape, which would make a search from inside it differ.
+    /// The last run of identifier characters found.
+    /// It is kept the same way when it has no escape.
+    /// An escape would make a search from inside the run differ.
     pub(crate) ident_run: Cell<(usize, usize)>,
     /// The last run of white space found, kept the same way.
     pub(crate) space_run: Cell<(usize, usize)>,
     /// The last number found: where the search started, and where the number
-    /// ends, so the patterns of its units ask once.
+    /// ends.
+    /// The patterns of its units then ask once.
     pub(crate) number: Cell<(usize, Option<usize>)>,
     /// The last word looked up in the word table: where it starts and ends,
     /// and the bits of the lists that hold it.

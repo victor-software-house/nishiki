@@ -6,8 +6,9 @@ use super::scope::S;
 use crate::rules::Lexer;
 
 impl<G: CssLike> Lexer<'_, G> {
-    /// Emits the tokens of capture group text `from..to`, which sits under
-    /// the stack `base`, and leaves the cursor at `to`.
+    /// Emits the tokens of capture group text `from..to`, and leaves the
+    /// cursor at `to`.
+    /// The text sits under the stack `base`.
     pub(crate) fn css_capture(&mut self, kind: Nested, from: usize, to: usize, base: u32) {
         match kind {
             Nested::Escapes => self.escapes(from, to, base),
@@ -41,8 +42,8 @@ impl<G: CssLike> Lexer<'_, G> {
         }
     }
 
-    /// The block comments in `from..to`; one that does not close ends with
-    /// the text.
+    /// The block comments in `from..to`.
+    /// One that does not close ends with the text.
     fn comments(&mut self, from: usize, to: usize, base: u32) {
         let mut i = from;
         while i + 1 < to {

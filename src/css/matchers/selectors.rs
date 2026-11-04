@@ -20,8 +20,8 @@ fn selector_stop(b: u8) -> bool {
 pub(in crate::css) enum Tail {
     /// ASCII letters and `-`.
     Ascii,
-    /// Letters under `(?i)`, where the long s and the Kelvin sign count, and
-    /// `-`.
+    /// Letters under `(?i)`, and `-`.
+    /// The long s and the Kelvin sign count as letters.
     Folded,
 }
 
@@ -103,20 +103,22 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// The negative lookahead `(?![-\w]*:+\s|[^{]*;|[^{]*}|[^:]+(::):+)` at
     /// `p`: whether none of its alternatives matches.
+    ///
+    /// It checks, in order:
+    /// - `[-\w]*:+\s`;
+    /// - `[^{]*;` and `[^{]*}`, a `;` or `}` before any `{`;
+    /// - `[^:]+(::):+`.
     fn selector_not_property(&self, p: usize) -> bool {
-        // `[-\w]*:+\s`
         let word_end = self.wordish_run(p);
         let colons = self.skip(word_end, |b| b == b':');
         if colons > word_end && self.space_at(colons) > 0 {
             return false;
         }
-        // `[^{]*;` and `[^{]*}`: a `;` or `}` before any `{`.
         let brace = self.find(Find::Open, p).unwrap_or(self.lim());
         let terminator = |found: Option<usize>| found.is_some_and(|at| at < brace);
         if terminator(self.find(Find::Semicolon, p)) || terminator(self.find(Find::Close, p)) {
             return false;
         }
-        // `[^:]+(::):+`
         let plain = self.find(Find::Colon, p).unwrap_or(self.lim());
         if plain > p && self.starts(plain, b":::") {
             return false;
@@ -151,6 +153,9 @@ impl<G: CssLike> Lexer<'_, G> {
     /// `(?:^|(?<=[(,;}\s]))(?![-*\w]+\|(?![-#\&*.:A-\[_a-z[^\x00-\
     /// x7F]]))([-A-Z_a-z[^\x00-\x7F]](?:[-0-9A-Z_a-z[^\x00-\x7F]]|\\(?:\h{1,
     /// 6}|.))*|\*)?(\|)`.
+    ///
+    /// It checks the negative lookahead
+    /// `(?![-*\w]+\|(?![-#\&*.:A-\[_a-z[^\x00-\x7F]]))` first.
     pub(in crate::css) fn selector_innards_at4(&mut self, p: usize) -> Option<usize> {
         let behind = p == 0
             || matches!(self.s.get(p - 1), Some(b'(' | b',' | b';' | b'}'))
@@ -158,7 +163,6 @@ impl<G: CssLike> Lexer<'_, G> {
         if !behind {
             return None;
         }
-        // `(?![-*\w]+\|(?![-#\&*.:A-\[_a-z[^\x00-\x7F]]))`
         let mut run = p;
         while run < self.lim() && (self.s[run] == b'*' || self.wordish_at(run)) {
             run = self.char_end(run);
@@ -216,6 +220,9 @@ impl<G: CssLike> Lexer<'_, G> {
     /// run of identifier characters and escapes that holds one of
     /// `]!"%'(*;<?@^|}`, a backtick, `/` not before `*`, or `&` before an
     /// identifier character.
+    ///
+    /// After `#` or `.`, the arms match `-?[0-9]`, then
+    /// `(?:identchar|escape)*(?:bad)+`.
     pub(in crate::css) fn selector_innards_at8(&mut self, p: usize) -> Option<usize> {
         if self.wordish_before(p) || self.char_before(p) == Some('@') {
             return None;
@@ -225,14 +232,12 @@ impl<G: CssLike> Lexer<'_, G> {
         }
         let body = p + 1;
         let first = if self.at(body) == b'-' && self.at(body + 1).is_ascii_digit() {
-            // `-?[0-9]`
             Some(body + 2)
         } else if self.at(body).is_ascii_digit() && body < self.lim()
             || self.at(body) == b'-' && body < self.lim() && self.selector_stop_ahead(body + 1)
         {
             Some(body + 1)
         } else {
-            // `(?:identchar|escape)*(?:bad)+`
             let run = self.ident_run(body);
             let mut end = run;
             loop {
@@ -292,9 +297,10 @@ impl<G: CssLike> Lexer<'_, G> {
         Some(end)
     }
 
-    /// The end of `(?:identchar|escape)+(?=$|[#\&)+,.:>\[{|~\s]|/\*)` at `p`:
-    /// the run gives back characters until a stop follows, which only a
-    /// white space character that is also an identifier character can be.
+    /// The end of `(?:identchar|escape)+(?=$|[#\&)+,.:>\[{|~\s]|/\*)` at `p`.
+    /// The run gives back characters until a stop follows.
+    /// Only a white space character that is also an identifier character can
+    /// be that stop.
     fn ident_run_before_stop(&self, p: usize) -> Option<usize> {
         let mut i = p;
         let mut best = None;

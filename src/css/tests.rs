@@ -91,6 +91,8 @@ fn a_rule_list_stays_open_over_lines() {
     );
 }
 
+/// The rule keeps `\G` at the start of every line that follows.
+/// Its end `^(?<!\G)` therefore never matches again.
 #[test]
 fn a_backslash_at_the_end_of_a_line_holds_the_next_line() {
     let rows = lex_lines(&["a {", "  color: red \\", "x", "}"]);
@@ -98,8 +100,6 @@ fn a_backslash_at_the_end_of_a_line_holds_the_next_line() {
         leaf_in(&rows[2], "x"),
         "constant.character.escape.newline.css"
     );
-    // The rule keeps `\G` at the start of every line that follows, so its
-    // end `^(?<!\G)` never matches again.
     assert_eq!(
         leaf_in(&rows[3], "}"),
         "constant.character.escape.newline.css"
@@ -134,10 +134,11 @@ fn url_takes_a_bare_argument_or_a_string() {
     assert_eq!(leaf_in(&row, "y.png"), "string.quoted.double.css");
 }
 
+/// The class gives back the no-break space, which is also an identifier
+/// character.
+/// A stop can then follow the class.
 #[test]
 fn a_selector_can_be_a_class_followed_by_a_space_that_is_not_ascii() {
-    // The class gives back the no-break space, which is also an identifier
-    // character, so that a stop can follow it.
     let row = lex("e.t\u{a0}*");
     assert_eq!(leaf_in(&row, "t"), "entity.other.attribute-name.class.css");
     assert_eq!(leaf_in(&row, "*"), "entity.name.tag.wildcard.css");
@@ -149,9 +150,10 @@ fn the_long_s_is_an_s_where_the_grammar_ignores_case() {
     assert_eq!(leaf_in(&row, "\u{17f}"), "entity.name.tag.css");
 }
 
-/// `Onig` folds `ß` and `ẞ` to `ss`, and each Latin ligature to its letters,
-/// so under `(?i)` one character matches two or three letters of a word of
-/// the grammar's lists. Each case is Shiki's answer on the line.
+/// `Onig` folds `ß` and `ẞ` to `ss`, and each Latin ligature to its letters.
+/// Under `(?i)`, one character then matches two or three letters of a word of
+/// the grammar's lists.
+/// Each case is Shiki's answer on the line.
 #[test]
 fn a_multi_letter_case_fold_stands_for_its_letters() {
     for (line, token, scope) in [
@@ -267,9 +269,9 @@ fn charset_is_the_charset_rule_on_the_first_line_only() {
 }
 
 /// The grammar ignores case in the lookahead that starts a selector at a name
-/// that could be a property, such as `mark`, `font` or `mask`, so an
-/// upper-case `Mark` that nothing on its line ends as a declaration starts
-/// one too.
+/// that could be a property, such as `mark`, `font` or `mask`.
+/// An upper-case `Mark` that nothing on its line ends as a declaration
+/// therefore starts a selector too.
 #[test]
 fn a_shared_name_in_upper_case_starts_a_selector() {
     for name in ["mark", "Mark", "MARK", "Font", "Mask"] {
@@ -278,8 +280,9 @@ fn a_shared_name_in_upper_case_starts_a_selector() {
     }
 }
 
-/// The unit table is sorted for its binary search. `LONGEST_UNIT` is the
-/// length of its longest unit, and it bounds the lowering buffer.
+/// The unit table is sorted for its binary search.
+/// `LONGEST_UNIT` is the length of its longest unit, and it bounds the
+/// lowering buffer.
 ///
 /// Every unit is lower-case ASCII letters.
 /// So at most one unit ends at `\b` after a number.
@@ -299,8 +302,9 @@ fn the_unit_table_is_sorted_and_bounds_its_longest_unit() {
     );
 }
 
-/// Every unit of the table is one the grammar's patterns name, so a
-/// number followed by it is named `keyword.other.unit.<unit>.css`.
+/// Every unit of the table is one the grammar's patterns name.
+/// A number followed by it is therefore named
+/// `keyword.other.unit.<unit>.css`.
 #[test]
 fn every_unit_of_the_table_is_named() {
     for unit in UNITS {
@@ -314,8 +318,10 @@ fn every_unit_of_the_table_is_named() {
 }
 
 /// `numeric_unit` takes a unit's text for ASCII when it is as long as the
-/// unit. That holds while no unit has letters that a fold of the same length
-/// spells. Those folds are `ss` for `ß`, `ffi` for `ﬃ` and `ffl` for `ﬄ`.
+/// unit.
+/// That holds while no unit has letters that a fold of the same length
+/// spells.
+/// Those folds are `ss` for `ß`, `ffi` for `ﬃ` and `ffl` for `ﬄ`.
 #[test]
 fn no_unit_holds_letters_a_fold_of_their_length_spells() {
     for unit in UNITS {
@@ -326,8 +332,9 @@ fn no_unit_holds_letters_a_fold_of_their_length_spells() {
 }
 
 /// Two escapes of a class name keep their own scopes.
-/// Both put a one-scope slice built on the stack on the same base, so a cache
-/// keyed by the slice's address gave the second the first one's stack.
+/// Both put a one-scope slice built on the stack on the same base.
+/// A cache keyed by the slice's address gave the second the first one's
+/// stack.
 #[test]
 fn neighbouring_escapes_keep_their_own_scopes() {
     let row = lex(r".a\41\x { }");

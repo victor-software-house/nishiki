@@ -89,9 +89,17 @@ impl<G: CssLike> Lexer<'_, G> {
     }
 
     /// The seven ways a `@charset` goes wrong.
+    ///
+    /// They are tried in this order:
+    /// - `\G((?!@charset)@\w+)`;
+    /// - `\G(\s+)`;
+    /// - `(@charset\S[^;]*)`;
+    /// - `(?<=@charset)( {2,}|\t+)`;
+    /// - `(?<=@charset )([^";]+)`;
+    /// - `("[^"]+)$`;
+    /// - `(?<=")([^;]+)`.
     pub(in crate::css) fn at_rules_at0_at0(&mut self, p: usize) -> Option<usize> {
         let lim = self.lim();
-        // `\G((?!@charset)@\w+)`
         if self.at_anchor(p) && self.at(p) == b'@' && p < lim && !self.starts(p, b"@charset") {
             let end = self.word_run(p + 1);
             if end > p + 1 {
@@ -99,7 +107,6 @@ impl<G: CssLike> Lexer<'_, G> {
                 return Some(end);
             }
         }
-        // `\G(\s+)`
         if self.at_anchor(p) {
             let end = self.spaces(p);
             if end > p {
@@ -107,13 +114,11 @@ impl<G: CssLike> Lexer<'_, G> {
                 return Some(end);
             }
         }
-        // `(@charset\S[^;]*)`
         if self.starts(p, b"@charset") && p + 8 < lim && self.space_at(p + 8) == 0 {
             let end = self.skip_to(p + 9, b';');
             self.cap(3, p, end);
             return Some(end);
         }
-        // `(?<=@charset)( {2,}|\t+)`
         if p >= 8 && self.text(p - 8, p) == b"@charset" {
             let spaces = self.skip(p, |b| b == b' ');
             if spaces >= p + 2 {
@@ -126,7 +131,6 @@ impl<G: CssLike> Lexer<'_, G> {
                 return Some(tabs);
             }
         }
-        // `(?<=@charset )([^";]+)`
         if p >= 9 && self.text(p - 9, p) == b"@charset " {
             let end = self.skip_to_any(p, b"\";");
             if end > p {
@@ -134,12 +138,10 @@ impl<G: CssLike> Lexer<'_, G> {
                 return Some(end);
             }
         }
-        // `("[^"]+)$`
         if self.at(p) == b'"' && p < lim && self.find(Find::Quote, p + 1).is_none() {
             self.cap(6, p, lim + 1);
             return Some(lim + 1);
         }
-        // `(?<=")([^;]+)`
         if p > 0 && self.s.get(p - 1) == Some(&b'"') {
             let end = self.skip_to(p, b';');
             if end > p {
@@ -150,8 +152,8 @@ impl<G: CssLike> Lexer<'_, G> {
         None
     }
 
-    /// The end of the run of characters from `p` other than `stop`; the line
-    /// feed after the line is one of them.
+    /// The end of the run of characters from `p` other than `stop`.
+    /// The line feed after the line is one of them.
     fn skip_to(&self, p: usize, stop: u8) -> usize {
         self.skip_to_any(p, &[stop])
     }
@@ -297,14 +299,16 @@ impl<G: CssLike> Lexer<'_, G> {
     }
 
     /// `(?=\s*($|[:;{]))`
+    ///
+    /// Group 1 sits inside the lookahead, and the grammar's `captures` name it
+    /// all the same.
+    /// They name it only when it starts where the match ends.
+    /// vscode-textmate skips a capture that starts beyond the match.
     pub(in crate::css) fn at_rules_at3_end(&mut self, p: usize) -> Option<usize> {
         let after = self.spaces(p);
         if after > self.lim() {
             return Some(p);
         }
-        // Group 1 sits inside the lookahead, and the grammar's `captures`
-        // name it all the same, but only when it starts where the match
-        // ends: vscode-textmate skips a capture that starts beyond it.
         matches!(self.at(after), b':' | b';' | b'{').then(|| {
             if after == p {
                 self.cap(1, after, after + 1);

@@ -1,11 +1,13 @@
 //! The matchers: for each regular expression of the grammar, the function that
-//! decides whether it matches at a position and where. A matcher records the
-//! capture groups the grammar names with
-//! [`Lexer::cap`](crate::rules::Lexer::cap); the engine names them.
+//! decides whether it matches at a position and where.
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::cap`](crate::rules::Lexer::cap).
+//! The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
-//! would. Where a quantifier could give characters back, the doc comment says
-//! why it cannot matter.
+//! would.
+//! Where a quantifier could give characters back, the doc comment says why it
+//! cannot matter.
 
 mod atrules;
 mod chars;
@@ -19,8 +21,8 @@ use super::grammar::Pat;
 use crate::rules::Lexer;
 
 impl<G: CssLike> Lexer<'_, G> {
-    /// Whether CSS pattern `pat` matches at `p`, and where its match ends:
-    /// in CSS, or in SCSS, which includes CSS's rules.
+    /// Whether CSS pattern `pat` matches at `p`, and where its match ends.
+    /// It serves CSS, and SCSS, which includes CSS's rules.
     #[expect(
         clippy::too_many_lines,
         reason = "one arm for each expression of the grammar"

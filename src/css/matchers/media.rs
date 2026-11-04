@@ -35,9 +35,9 @@ const FEATURE_KEYWORDS: &[&str] = &[
 ];
 
 impl<G: CssLike> Lexer<'_, G> {
-    /// `/\*(?:[^*]|\*[^/])*\*/` at `p`: the end of the comment. As the
-    /// expression reads it, a `*` takes the character after it too, so a `*/`
-    /// that starts at such a second character is not seen.
+    /// `/\*(?:[^*]|\*[^/])*\*/` at `p`: the end of the comment.
+    /// As the expression reads it, a `*` takes the character after it too.
+    /// A `*/` that starts at such a second character is therefore not seen.
     pub(super) fn comment_like(&self, p: usize) -> Option<usize> {
         self.lit(p, b"/*")?;
         let lim = self.lim();
@@ -220,6 +220,12 @@ impl<G: CssLike> Lexer<'_, G> {
     }
 
     /// The group of a media feature at `p` and its end.
+    ///
+    /// The vendor-prefixed form:
+    ///
+    /// ```text
+    /// (?:[-_](?:webkit|...)|(?:mso|prince))-[-\w]+(?=\s*(?:/\*...\*/)?\s*[):])
+    /// ```
     fn media_feature(&self, p: usize) -> Option<(usize, usize)> {
         let run = self.wordish_run(p);
         let (min_max, rest) = if self
@@ -244,8 +250,6 @@ impl<G: CssLike> Lexer<'_, G> {
                 return Some((2, run));
             }
         }
-        // `(?:[-_](?:webkit|...)|(?:mso|prince))-[-\w]+(?=\s*(?:/\*...\*/)?\s*
-        // [):])`
         let dash = matches!(self.at(p), b'-' | b'_');
         let start = if dash { p + 1 } else { p };
         let letters = self.letters_ci(start, Letters::Plain);

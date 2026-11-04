@@ -1,6 +1,7 @@
-//! Where the characters that lookaheads search for are in a line, kept from
-//! one search to the next, so that `[^{]*;` and its kin, tried at each
-//! position of a run, scan the line once and allocate nothing.
+//! Where the characters that lookaheads search for are in a line.
+//! The answers are kept from one search to the next.
+//! `[^{]*;` and its kin, tried at each position of a run, then scan the line
+//! once and allocate nothing.
 
 use std::cell::Cell;
 
@@ -63,9 +64,10 @@ impl Find {
 
 impl Ahead {
     /// The first `what` in `s` at or after `from`, and how many bytes the
-    /// search read. A search that starts at or after the last one for the
-    /// same byte, and not past what it found, has its answer already and
-    /// reads nothing.
+    /// search read.
+    /// A search that starts at or after the last one for the same byte, and
+    /// not past what it found, has its answer already.
+    /// It reads nothing.
     pub(crate) fn next(&self, s: &[u8], what: Find, from: usize) -> (Option<usize>, usize) {
         let slot = &self.last[what.slot()];
         let (start, found) = slot.get();
