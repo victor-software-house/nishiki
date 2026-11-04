@@ -1554,6 +1554,114 @@ T 15 source.c meta.block.c constant.numeric.exponent.decimal.c
 T 16 source.c meta.block.c constant.numeric.exponent.decimal.c punctuation.separator.constant.numeric
 T 17 source.c meta.block.c constant.numeric.exponent.decimal.c
 T 18 source.c meta.block.c punctuation.terminator.statement.c
+L     double e = 1.5e+3f;
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c storage.type.built-in.primitive.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c keyword.operator.assignment.c
+T 15 source.c meta.block.c
+T 16 source.c meta.block.c constant.numeric.decimal.c
+T 17 source.c meta.block.c constant.numeric.decimal.point.c
+T 18 source.c meta.block.c constant.numeric.decimal.c
+T 19 source.c meta.block.c keyword.other.unit.exponent.decimal.c
+T 20 source.c meta.block.c keyword.operator.plus.exponent.decimal.c
+T 21 source.c meta.block.c constant.numeric.exponent.decimal.c
+T 22 source.c meta.block.c keyword.other.unit.suffix.floating-point.c
+T 23 source.c meta.block.c punctuation.terminator.statement.c
+L     double f = 0x1p+3;
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c storage.type.built-in.primitive.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c keyword.operator.assignment.c
+T 15 source.c meta.block.c
+T 17 source.c meta.block.c keyword.other.unit.hexadecimal.c
+T 18 source.c meta.block.c constant.numeric.hexadecimal.c
+T 19 source.c meta.block.c keyword.other.unit.exponent.hexadecimal.c
+T 20 source.c meta.block.c keyword.operator.plus.exponent.hexadecimal.c
+T 21 source.c meta.block.c constant.numeric.exponent.hexadecimal.c
+T 22 source.c meta.block.c punctuation.terminator.statement.c
+L     double g = 0x1p-3;
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c storage.type.built-in.primitive.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c keyword.operator.assignment.c
+T 15 source.c meta.block.c
+T 17 source.c meta.block.c keyword.other.unit.hexadecimal.c
+T 18 source.c meta.block.c constant.numeric.hexadecimal.c
+T 19 source.c meta.block.c keyword.other.unit.exponent.hexadecimal.c
+T 20 source.c meta.block.c keyword.operator.minus.exponent.hexadecimal.c
+T 21 source.c meta.block.c constant.numeric.exponent.hexadecimal.c
+T 22 source.c meta.block.c punctuation.terminator.statement.c
+L     double h = 1e-5;
+T 4 source.c meta.block.c
+T 10 source.c meta.block.c storage.type.built-in.primitive.c
+T 13 source.c meta.block.c
+T 14 source.c meta.block.c keyword.operator.assignment.c
+T 15 source.c meta.block.c
+T 16 source.c meta.block.c constant.numeric.decimal.c
+T 17 source.c meta.block.c keyword.other.unit.exponent.decimal.c
+T 18 source.c meta.block.c keyword.operator.minus.exponent.decimal.c
+T 19 source.c meta.block.c constant.numeric.exponent.decimal.c
+T 20 source.c meta.block.c punctuation.terminator.statement.c
+L }
+T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L 
+L void chains(node_t *n, int x) {
+T 4 source.c storage.type.built-in.primitive.c
+T 5 source.c
+T 11 source.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 12 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 18 source.c meta.function.c meta.function.definition.parameters.c support.type.posix-reserved.c
+T 19 source.c meta.function.c meta.function.definition.parameters.c
+T 20 source.c meta.function.c meta.function.definition.parameters.c keyword.operator.c
+T 21 source.c meta.function.c meta.function.definition.parameters.c variable.parameter.probably.c
+T 22 source.c meta.function.c meta.function.definition.parameters.c punctuation.separator.delimiter.c
+T 23 source.c meta.function.c meta.function.definition.parameters.c
+T 26 source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 27 source.c meta.function.c meta.function.definition.parameters.c
+T 28 source.c meta.function.c meta.function.definition.parameters.c variable.parameter.probably.c
+T 29 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 30 source.c
+T 31 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     x = n->next->size(x);
+T 6 source.c meta.block.c
+T 7 source.c meta.block.c keyword.operator.assignment.c
+T 8 source.c meta.block.c
+T 9 source.c meta.block.c variable.other.object.access.c
+T 11 source.c meta.block.c punctuation.separator.pointer-access.c
+T 15 source.c meta.block.c variable.other.object.access.c
+T 17 source.c meta.block.c punctuation.separator.pointer-access.c
+T 21 source.c meta.block.c entity.name.function.member.c
+T 22 source.c meta.block.c punctuation.section.arguments.begin.bracket.round.function.member.c
+T 23 source.c meta.block.c meta.function-call.member.c
+T 24 source.c meta.block.c punctuation.section.arguments.end.bracket.round.function.member.c
+T 25 source.c meta.block.c punctuation.terminator.statement.c
+L }
+T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L 
+L void stray_directive(int x) {
+T 4 source.c storage.type.built-in.primitive.c
+T 5 source.c
+T 20 source.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 21 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 24 source.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 25 source.c meta.function.c meta.function.definition.parameters.c
+T 26 source.c meta.function.c meta.function.definition.parameters.c variable.parameter.probably.c
+T 27 source.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 28 source.c
+T 29 source.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     x = (1
+T 6 source.c meta.block.c
+T 7 source.c meta.block.c keyword.operator.assignment.c
+T 8 source.c meta.block.c
+T 9 source.c meta.block.c meta.parens.block.c punctuation.section.parens.begin.bracket.round.c
+T 10 source.c meta.block.c meta.parens.block.c constant.numeric.decimal.c
+L #endif
+T 6 source.c meta.block.c meta.parens.block.c invalid.illegal.stray-endif.c
+L     );
+T 4 source.c meta.block.c meta.parens.block.c
+T 5 source.c meta.block.c meta.parens.block.c punctuation.section.parens.end.bracket.round.c
+T 6 source.c meta.block.c punctuation.terminator.statement.c
 L }
 T 1 source.c meta.block.c punctuation.section.block.end.bracket.curly.c
 L 
@@ -1661,6 +1769,57 @@ T 72 source.c meta.block.c meta.parens.block.c meta.parens.block.c
 T 73 source.c meta.block.c meta.parens.block.c meta.parens.block.c punctuation.section.parens.end.bracket.round.c
 T 74 source.c meta.block.c meta.parens.block.c punctuation.section.parens.end.bracket.round.c
 T 75 source.c meta.block.c punctuation.terminator.statement.c
+L     __asm__ volatile ("nop" : [ /* c **/ name /* c **/ ] "=r" (y));
+T 4 source.c meta.block.c
+T 11 source.c meta.block.c meta.asm.c storage.type.asm.c
+T 12 source.c meta.block.c meta.asm.c
+T 20 source.c meta.block.c meta.asm.c storage.modifier.c
+T 21 source.c meta.block.c meta.asm.c
+T 22 source.c meta.block.c meta.asm.c punctuation.section.parens.begin.bracket.round.assembly.c
+T 23 source.c meta.block.c meta.asm.c string.quoted.double.c punctuation.definition.string.begin.assembly.c
+T 26 source.c meta.block.c meta.asm.c string.quoted.double.c meta.embedded.assembly.c
+T 27 source.c meta.block.c meta.asm.c string.quoted.double.c punctuation.definition.string.end.assembly.c
+T 28 source.c meta.block.c meta.asm.c
+T 29 source.c meta.block.c meta.asm.c punctuation.separator.delimiter.colon.assembly.c
+T 30 source.c meta.block.c meta.asm.c
+T 31 source.c meta.block.c meta.asm.c
+T 32 source.c meta.block.c meta.asm.c
+T 34 source.c meta.block.c meta.asm.c comment.block.c punctuation.definition.comment.begin.c
+T 37 source.c meta.block.c meta.asm.c comment.block.c
+T 38 source.c meta.block.c meta.asm.c comment.block.c
+T 40 source.c meta.block.c meta.asm.c comment.block.c punctuation.definition.comment.end.c
+T 41 source.c meta.block.c meta.asm.c
+T 45 source.c meta.block.c meta.asm.c variable.other.asm.label.c
+T 46 source.c meta.block.c meta.asm.c
+T 48 source.c meta.block.c meta.asm.c comment.block.c punctuation.definition.comment.begin.c
+T 51 source.c meta.block.c meta.asm.c comment.block.c
+T 52 source.c meta.block.c meta.asm.c comment.block.c
+T 54 source.c meta.block.c meta.asm.c comment.block.c punctuation.definition.comment.end.c
+T 55 source.c meta.block.c meta.asm.c
+T 56 source.c meta.block.c meta.asm.c
+T 57 source.c meta.block.c meta.asm.c
+T 58 source.c meta.block.c meta.asm.c string.quoted.double.c punctuation.definition.string.begin.assembly.c
+T 60 source.c meta.block.c meta.asm.c string.quoted.double.c meta.embedded.assembly.c
+T 61 source.c meta.block.c meta.asm.c string.quoted.double.c punctuation.definition.string.end.assembly.c
+T 62 source.c meta.block.c meta.asm.c
+T 63 source.c meta.block.c meta.asm.c punctuation.section.parens.begin.bracket.round.assembly.inner.c
+T 64 source.c meta.block.c meta.asm.c
+T 65 source.c meta.block.c meta.asm.c punctuation.section.parens.end.bracket.round.assembly.inner.c
+T 66 source.c meta.block.c meta.asm.c punctuation.section.parens.end.bracket.round.assembly.c
+T 67 source.c meta.block.c punctuation.terminator.statement.c
+L     asm volatile (R"(nop)");
+T 4 source.c meta.block.c
+T 7 source.c meta.block.c meta.asm.c storage.type.asm.c
+T 8 source.c meta.block.c meta.asm.c
+T 16 source.c meta.block.c meta.asm.c storage.modifier.c
+T 17 source.c meta.block.c meta.asm.c
+T 18 source.c meta.block.c meta.asm.c punctuation.section.parens.begin.bracket.round.assembly.c
+T 19 source.c meta.block.c meta.asm.c string.quoted.double.c meta.encoding.c
+T 20 source.c meta.block.c meta.asm.c string.quoted.double.c punctuation.definition.string.begin.assembly.c
+T 25 source.c meta.block.c meta.asm.c string.quoted.double.c meta.embedded.assembly.c
+T 26 source.c meta.block.c meta.asm.c string.quoted.double.c punctuation.definition.string.end.assembly.c
+T 27 source.c meta.block.c meta.asm.c punctuation.section.parens.end.bracket.round.assembly.c
+T 28 source.c meta.block.c punctuation.terminator.statement.c
 L     asm
 T 4 source.c meta.block.c
 T 7 source.c meta.block.c meta.asm.c storage.type.asm.c

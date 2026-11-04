@@ -253,12 +253,28 @@ void numbers_more(void) {
     double b = 0x1'2.3'4p1'0;
     int c = 0x1p1'0;
     int d = 1e1'0;
+    double e = 1.5e+3f;
+    double f = 0x1p+3;
+    double g = 0x1p-3;
+    double h = 1e-5;
+}
+
+void chains(node_t *n, int x) {
+    x = n->next->size(x);
+}
+
+void stray_directive(int x) {
+    x = (1
+#endif
+    );
 }
 
 void assembly(int x) {
     int y;
     __asm__ volatile ("mov %[out], %[in]\n\t\x41\101" : [out] "=r" (y) : [in] "r" (x) : "memory");
     __asm__ volatile /* c **/("nop" : [ /* c **/ name /* c **/ ] "=r" (y));
+    __asm__ volatile ("nop" : [ /* c **/ name /* c **/ ] "=r" (y));
+    asm volatile (R"(nop)");
     asm
     /* c **/
     ("nop");

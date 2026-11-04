@@ -60,7 +60,7 @@ first line
 second line
 )md";
 
-void numbers() {
+void /* c */ numbers /* c */ () {
 double a = 0x1'2.3'4p1'0;
 double b = 1'0.2'5e1'0;
 int c = 0b1'0'1u;
@@ -76,7 +76,7 @@ int k = 1.2.3;
 
 // A number before `<` or `<<` inside template arguments, where the grammar
 // keeps the comparison or shift from opening a nested template.
-struct Shifts : Bits<0x1'2.3'4p1'0 << 1, 1'0.2'5e1'0 << 1, 0b1'0'1u << 1, 0'17 << 1, 0x1'2p1'0 << 1, 1'0e1'0 << 1, 1.2.3 << 1, 1 /* c */ << 1> {};
+struct Shifts /* c */ : Bits<0x1'2.3'4p1'0 << 1, 1'0.2'5e1'0 << 1, 0b1'0'1u << 1, 0'17 << 1, 0x1'2p1'0 << 1, 1'0e1'0 << 1, 1.2.3 << 1, 1 /* c */ << 1> {};
 struct Compares : Bits<0x1'2.3'4p1'0 < 1, 1'0.2'5e1'0 < 1, 0b1'0'1u < 1, 0'17 < 1, 0x1'2p1'0 < 1, 1'0e1'0 < 1, 1.2.3 < 1, 1 /* c */ < 1> {};
 
 void strings() {
@@ -110,42 +110,42 @@ class /* c */ Shape /* c */ * /* c */ & /* c */ s1 /* c */ ;
 class Shape && s2 = t;
 }
 
-typedef class /* c */ DLLEXPORT EXPORTED Widget final /* c */ {
-int x;
+typedef /* c */ class /* c */ DLLEXPORT EXPORTED Widget /* c */ final /* c */ {
+int /* c */ x /* c */ ;
 } *WidgetPtr, &WidgetRef, &&WidgetOdd, WidgetValue;
 
-typedef union /* c */ DLLEXPORT EXPORTED Bits final /* c */ {
+typedef /* c */ union /* c */ DLLEXPORT EXPORTED Bits /* c */ final /* c */ {
 int i;
 float f;
 } *BitsPtr, &BitsRef, &&BitsOdd, BitsValue;
 
-typedef struct /* c */ DLLEXPORT EXPORTED Pair final /* c */ {
+typedef /* c */ struct /* c */ DLLEXPORT EXPORTED Pair final /* c */ {
 int a;
 } *PairPtr, &PairRef, &&PairOdd, PairValue;
 
 typedef union {
 int i;
-} Plain;
+} /* c */ Plain;
 
 typedef class
 {
 int y;
-} PlainClass;
+} /* c */ PlainClass;
 
 union DLLEXPORT EXPORTED Cell final { int v; };
 struct DLLEXPORT EXPORTED Row final { int v; };
 class DLLEXPORT EXPORTED Grid final { int v; };
-class DLLEXPORT final final { int v; };
+class DLLEXPORT final /* c */ final { int v; };
 
-Widget::Widget() : x(1), y{2}, z<int>(3) {}
+Widget /* c */ ::Widget() : x(1), y{2}, z< /* c */ int>(3) {}
 Widget::Widget(int a) = default;
 Widget::Widget(const Widget&) = delete;
-__cdecl /* c */ ns::Widget /* c */ :: /* c */ Widget /* c */ (int a, int b) : x{a}, y(b) {} ;
-outer::inner<int>::Widget::Widget(char c) {}
+__cdecl /* c */ ns::Widget /* c */ :: /* c */ Widget /* c */ (int a /* c */ , int b) : x{a}, y(b) {} ;
+outer::inner< /* c */ int>::Widget::Widget(char c) {}
 Widget::~Widget() {}
 Widget::~Widget() = default;
 /* c */ __stdcall /* c */ ns::Widget /* c */ :: /* c */ ~Widget /* c */ () {} ;
-outer::inner<int>::Widget::~Widget() = delete;
+outer::inner< /* c */ int>::Widget::~Widget() = delete;
 
 void assignments() {
 static /* c */ const /* c */ ::ns::Type<int> /* c */ * /* c */ & /* c */ ref /* c */ = value;
@@ -176,11 +176,11 @@ auto q = /* c */ static_cast /* c */ <long>(x);
 auto r = /* c */ this /* c */ ->value;
 /* c */ break;
 /* c */ continue;
-switch (x) { case 1: break; } ;
-for (struct Item /* c */ * /* c */ && /* c */ item : items) {}
-for (const ns::Item<int>::inner && item : items) {}
-for (auto [a, b] : pairs) {}
-auto lam = [x]() mutable { return x; };
+switch (x) { /* c */ case 1: break; } ;
+for ( /* c */ struct /* c */ Item /* c */ * /* c */ && /* c */ item /* c */ : items) {}
+for ( /* c */ const /* c */ ns::Item<int>:: /* c */ inner && item : items) {}
+for ( /* c */ auto /* c */ [ /* c */ a /* c */ , /* c */ b /* c */ ] /* c */ : pairs) {}
+auto lam = [x /* c */ ]() mutable { return x; };
 auto lam2 = []() constexpr { return 1; };
 auto lam3 = []() consteval { return 1; };
 this->member.call();
@@ -197,14 +197,14 @@ struct Access {
 /* c */ extern /* c */ int ext;
 
 template</* c */ typename /* c */ T>
-void templ(T t) requires (sizeof(T) > 1) {}
+void templ(T t) requires /* c */ (sizeof /* c */ (T) > 1) {}
 
 struct Base {
-virtual ~Base();
+virtual /* c */ ~Base();
 };
 struct Derived : virtual public Base, private /* c */ ns::Other<int> /* c */ , protected /* c */ Third {};
-class /* c */ alignas(16) __declspec(dllexport) __declspec(align(8)) [[using gnu: packed, aligned(8)]] Vec {
-alignas(ns::Type) int a;
+class /* c */ alignas(16) /* c */ __declspec(dllexport) __declspec(align(8)) [[using gnu: packed, aligned(8)]] Vec {
+alignas /* c */ (ns::Type) int a;
 __attribute__((section("x"), hot, cold)) int b;
 __declspec(deprecated) int c;
 alignas(8) int d;
@@ -212,8 +212,8 @@ __declspec(property(get = getX)) int e;
 public:
 Vec() {} ;
 ~Vec() {} ;
-Vec& operator=(Vec&&) {} ;
-operator int&&() const;
+Vec /* c */ & /* c */ operator /* c */ = /* c */ (Vec&&) {} ;
+operator int /* c */ && /* c */ () const;
 operator Thing &() const;
 };
 namespace ns {} ;
@@ -223,11 +223,11 @@ union U { int a; } ;
 enum class E { a } ;
 void after() {} ;
 
-int (*fp)(ns::Type<int>, struct Point*, int) = nullptr;
+int /* c */ (*fp)(ns::Type<int>, struct Point*, int) /* c */ = nullptr;
 int (* /* c */ & /* c */ fref)(int) = f;
 int (* && fpo)(int) = nullptr;
-struct ns::Type<int>::inner (*fp2)(int);
-void takes(int (*cb)(int), struct ns::Thing (&& cb2)(int), ns::Type<int> (*cb3)(int));
+struct ns /* c */ ::Type< /* c */ int>::inner (*fp2)(int);
+void takes(int /* c */ (*cb)(int) /* c */ , struct ns::Thing (&& cb2)(int), ns:: /* c */ Type<int> (*cb3)(int));
 void params(register int a, const struct Thing b, int arr[3], int&& c, struct Q q);
 
 void operators() {
@@ -242,10 +242,10 @@ static /* c */ const /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* 
 x = 0; static /* c */ const /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* c */ * /* c */ & /* c */ other /* c */ = value;
 auto made = new struct ::ns::Holder<int>::Point {.x = 1, .y = 2};
 __attribute__((used)) /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* c */ * /* c */ * /* c */ items[] /* c */ = {};
-ns::Thing && dangling;
-[[maybe_unused]] struct ::ns::Holder<int>::Item * * & (*callback)(int);
+ns:: /* c */ Thing /* c */ && dangling;
+[[maybe_unused]] /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* c */ * /* c */ * /* c */ & (*callback)(int);
 x = y */ z;
-for (const auto & [first, second] : pairs) {}
+for ( /* c */ const /* c */ auto /* c */ & [first, second] : pairs) {}
 for (const ::ns::Pair<int>::Inner * && item : pairs) {}
 for (auto && [first, second] : pairs) {}
 if (true) {} else [[maybe_unused]] /* c */ struct /* c */ ns::Holder<int>:: /* c */ Name /* c */ obj (1);
@@ -260,49 +260,228 @@ asm
 /* c */
 ("mov %0, %1\n\t\x41\101\q" : "=r" (y));
 auto cb = [x, /* c */ this]() {};
-auto lam = [](int arr[3], const int, register long = 3) {};
+auto lam = [](int arr[3], const /* c */ int /* c */ , register long = 3) {};
 }
 
 using Alias [[deprecated]] = const /* c */ struct /* c */ ::ns::Type<int>:: /* c */ Inner /* c */ * /* c */ * /* c */ [3];
 
 error::error() : code(1) {}
-error::error(const error&) = delete;
+error::error(const error&) = /* c */ delete;
 error::~error() {}
-error::~error() = default;
+error::~error() = /* c */ default;
 line::line(int) = default;
 line::~line() = delete;
 
-::ns::Type<int> && make_thing() {}
-auto trailing() -> struct ::ns::Type<int> {}
-void takes_callback(struct ::ns::Holder<int>::Item * * & (*cb)(int));
-void unnamed(const int, register long = 3) {}
-void with_default(Point p = ::ns::Holder<int>::Point {.x = 1, .y = 2}) {}
-struct ::ns::Vec<int> && operator+(const Vec&, const Vec&);
-namespace outer::inner::deep {}
+::ns:: /* c */ Type<int> /* c */ && make_thing() {}
+auto trailing() -> /* c */ struct /* c */ ::ns:: /* c */ Type<int> {}
+void takes_callback(struct /* c */ ::ns::Holder<int>::Item /* c */ * /* c */ * /* c */ & (*cb)(int));
+void unnamed(const /* c */ int /* c */ , register long = 3) {}
+void with_default(Point p = :: /* c */ ns::Holder<int>::Point {.x = 1, .y = 2}) {}
+struct /* c */ ::ns:: /* c */ Vec<int> && operator+(const Vec&, const Vec&);
+namespace /* c */ outer::inner::deep {}
 namespace a::b::c {}
 template < /* c */ class T, /* c */ typename U>
 void two_params(T, U);
-int (*with_array)(int arr[3], const int, register long = 3);
+int ( /* c */ *with_array)(int arr[3], const int, register long = 3);
 
 struct Derived2 : [[deprecated]] /* c */ public /* c */ ns::Base<int>:: /* c */ Inner {};
-struct alignas(ns::Type) alignas(8) Aligned {};
+struct alignas(ns::Type) /* c */ alignas(8) Aligned {};
 struct alignas((8)) Aligned2 {};
 void attributes() {
-__declspec(property(get = getX, put = putX)) int a;
+__declspec(property(get = getX, put = putX)) /* c */ int a;
 [[using gnu: always_inline, hot]] int b;
 __attribute__((section("x"), hot)) int c;
 }
 
 
+// Rules and groups the constructs above leave out.
+struct Foo { __cdecl Foo(); };
+struct Foo { /* c */ Foo& __fastcall /* c */ operator+(int); };
+struct Foo { int operator""_km(unsigned long long); };
+void __cdecl /* c */ g() {}
+[[nodiscard]] /* c */ void k() {}
+enum E2 : ::ns::T< /* c */ int>::U { B };
+namespace d = ns::Foo< /* c */ int>::e;
+extern "C" { int z; };
+int (*gp[3])(int) const;
+void construct_objects() { Thing fooBar{1}; }
+void method_chains() { x = this->f(); x = fooBar.f(); x = FOO_BAR.f(); x = obj.fooBar.f(); x = obj.FOO_BAR.f(); x = obj.thing.f(); }
+void hex_exponents() { double n1 = 0x1p+3; double n2 = 0x1p-3; double n3 = 0x1.8p3f; int n4 = 0x1p3_km; }
+void suffixes() { double n5 = 1.5e+3; int n6 = 1.5_km; int n7 = 12_km; int n8 = 0b101_km; int n9 = 0x1F_km; }
+void float_exponents() { double n10 = 0x1.8p+3; double n11 = 0x1.8p-3; double n12 = 1e+5; }
+void range_attribute() { for ([[maybe_unused]] auto& v : vs) {} }
+/* === banner === */
+void template_numbers() { f<0x1.8p+3, 0x1.8p-3, 0x1.8p3f, 0x1.8p3_km, 1.5e+3, 1.5e-3, 1.5f, 1.5_km, 0b1_km, 0b1u, 07_km, 07u, 0x1Fu, 0x1F_km, 0x1p+3, 0x1p-3, 1e+3, 1e-3, 12u, 12_km>(x); }
+void literal_suffixes() { auto s1 = "abc"sv; auto s2 = 'a'sv; auto s3 = 'a'_x; }
+typedef struct [[deprecated]] /* c */ S : Base { int x; } S_t;
+typedef class [[deprecated]] /* c */ C : Base { int x; } C_t;
+typedef union [[deprecated]] /* c */ U { int x; } U_t;
+typedef struct S2 { int x; };
+union [[deprecated]] /* c */ U2 : Base { int x; };
+using namespace ns::inner< /* c */ int>::deep;
+using namespace ::ns::inner;
+extern template class TT<int>;
+[[nodiscard]] /* c */ Foo operator+(Foo a, Foo b);
+[[nodiscard]] Foo ns::Thing<int>::operator+(Foo a) {}
+class Less : public Base<0x1.8p+3 < 1, 0x1.8p-3 < 1, 0x1.8p3f < 1, 0x1.8p3_km < 1, 1.5e+3 < 1, 1.5e-3 < 1, 1.5f < 1, 1.5_km < 1, 0b1u < 1, 0b1_km < 1, 07u < 1, 07_km < 1, 0x1p+3 < 1, 0x1p-3 < 1, 0x1Fu < 1, 0x1F_km < 1, 1e+3 < 1, 1e-3 < 1, 12u < 1, 12_km < 1> {};
+class Shift : public Base<0x1.8p+3 << 1, 0x1.8p-3 << 1, 0x1.8p3f << 1, 0x1.8p3_km << 1, 1.5e+3 << 1, 1.5e-3 << 1, 1.5f << 1, 1.5_km << 1, 0b1u << 1, 0b1_km << 1, 07u << 1, 07_km << 1, 0x1p+3 << 1, 0x1p-3 << 1, 0x1Fu << 1, 0x1F_km << 1, 1e+3 << 1, 1e-3 << 1, 12u << 1, 12_km << 1> {};
+void fpp(int (*cb[3])(int));
+struct Foo { operator /* c */ const char*(); };
+int operator"" /* c */ _mi(unsigned long long);
+static_assert /* c */ (true, "m");
+void noexcept_gap() { bool b = noexcept /* c */ (f()); }
+void decltype_gap() { decltype /* c */ (x) y = x; }
+void upper_calls() { MAKE /* c */ <int>(x); ns::MAKE<int>(x); ::MAKE(x); }
+void attr_assign() {
+[[maybe_unused]] /* c */ int v = 1;
+}
+void static_decl() {
+static /* c */ int z1;
+}
+template /* c */ void tf(int);
+unsigned /* c */ int uf() {}
+struct Ctors {
+Ctors() = /* c */ default;
+__cdecl /* c */ Ctors(int);
+__cdecl /* c */ ~Ctors();
+constexpr /* c */ Ctors(char) {}
+};
+void gnu_param(__attribute__((unused)) /* c */ int (*cb)(int));
+void fp_specs() {
+int (*fpc)(int) const /* c */ noexcept;
+}
+void chains() {
+x = obj.fooBar.y;
+x = obj.FOO_BAR.y;
+x = obj.Mixed_ok.y;
+x = obj.fooBar.f();
+x = obj.FOO_BAR.f();
+}
+void name_chains() {
+x = obj.fooBar.y;
+x = obj.FOO.y;
+x = obj.Foo.y;
+x = obj.FOO.f();
+x = FOO.f();
+}
+namespace d2 = ::a::B<int>::C<int>::e;
+using namespace ::a::B<int>::C<int>::d;
+template <typename T> void a::B<T>::C<T>::g() {}
+void arrays_empty() {
+int ARR[] = {1};
+int Foo[] = {1};
+}
+typedef class C2 { int x; };
+typedef union U3 { int x; };
+typedef union U4 : Base { int x; } U4_t;
+struct Del {
+~Del() = delete;
+};
+void scoped_param_comments(a::B</* c */ int>::C<int>::T p);
+void call_comments() {
+f</* c */ int>(x);
+MAKE</* c */ int>(x);
+}
+enum class[[deprecated]] Attr1 : int { A1 };
+enum Attr3 {
+C1 [[maybe_unused]] = 1,
+C2 [[maybe_unused]],
+};
+enum E5 : a::B<int>::C<int>::D { X5 };
+static __attribute__((used)) int gnu_fn() {}
+auto trail2() -> a::B<int>::C<int>::D;
+a::B<int>::C<int> ret_scoped() {}
+void scoped_decl() {
+a::B<int>::C<int> x;
+}
+a::B<int>::C<int> operator%(a::B<int> l, int r);
+void ranged() {
+for (__attribute__((unused)) auto [a, b] : m) {}
+}
+void brace_upper() {
+Thing FOO{1};
+}
+void scoped_upper_call() {
+x = a::B<int>::MAKE(1);
+}
+template <typename T = a /* c */ ::B<int>::C<int>::D> struct TD;
+template <typename T = a::B</* c */ int>::C<int>::D> struct TD2;
+void tcall() {
+x = f<a::B /* c */ <int>::C<int>::D>(1);
+x = f<a::B</* c */ int>::C<int>::D>(1);
+}
+struct Lead {
+/* c */ ~Lead();
+/* c */ static_assert(true);
+/* c */ int m = 1;
+/* c */ int n;
+};
+void asm_raw() {
+asm(R"(nop)");
+}
+struct InitT {
+InitT() : x</* c */ int>(1) {}
+};
+void spec_loop() {
+static /* c */ const int q;
+}
+template <template <typename T> class TT> struct TT3;
+void macro_names() {
+int snake_case = 1;
+int camelCase = 2;
+int UPPER = 3;
+int Plain = 4;
+}
+void macro_decls() {
+int snake_d;
+int camelD;
+int UPPER_D;
+int Plain_d;
+}
+namespace  g::inline h {
+}
+void macro_literals() {
+auto s4 = "abc"_x;
+char cx = '\x4142';
+}
+struct DelOps {
+DelOps() = delete;
+DelOps& operator=(const DelOps&) = delete;
+};
+void asm_volatile() {
+asm volatile ("nop");
+}
+void decl_names() {
+int UPPERD;
+int Plaind;
+}
+void unknown_chain() {
+x = obj.Foo.f();
+}
+ns::B<int>::Widget /* c */ ::Widget(int a) : x{a} {}
+ns::B<int>::Widget /* c */ ::~Widget() {}
+struct Conv {
+operator ns::Other<int>::Inner();
+};
+void type_calls() {
+x = uint_least32_t (1) + pthread_mutex_t () + foo_t ();
+}
+void unnamed_types(const uint_least32_t, const pthread_mutex_t, const foo_t, const Widget);
+auto lam_types = [](const uint_least32_t, const pthread_mutex_t, const foo_t, const Widget) {};
+auto lam_defaults = [](int a = 1, int b = 2) {};
+struct PostSpecs {
+bool operator==(const PostSpecs&) const /* c */ noexcept;
+~PostSpecs() /* c */ noexcept /* c */ override;
+};
 void macro_basics(int x) {
-switch (x) { case 1: break; default: break; }
+switch (x) { case 1: break; /* c */ default: break; }
 switch /* c */ (x) {}
 char ch = '\x41';
 char cu = u8'\101';
 const char* esc = "\u00e9\U0001F600\101\x41\x4142\q";
-auto s1 = sizeof...(Args);
-auto t1 = typeid(x);
-auto a1 = alignof(int);
+auto s1 = sizeof... /* c */ (Args);
+auto t1 = typeid /* c */ (x);
+auto a1 = alignof /* c */ (int);
 alignas(8) char a2[8];
 x--;
 auto l1 = [x, &y, z = 1, this](int a = 1) -> int { return a; };
@@ -314,8 +493,8 @@ int m = (x ? n : 0);
 for (auto & item : items) {}
 for (auto & [key, value] : pairs) {}
 ::ns::Item * ptr;
-[[maybe_unused]] struct ns::Item & ref;
-asm ("mov %[out], %[in]" : [out] "=r" (y) : [in] "r" (x));
+[[maybe_unused]] struct /* c */ ns::Item & ref;
+asm ("mov %[out], %[in]" : [ /* c */ out /* c */ ] "=r" (y) : [in] "r" (x));
 }
 enum class Mode : int { a, b };
 enum Plain { c, d } plain_value;
@@ -333,8 +512,8 @@ using namespace std::chrono;
 extern "C" { int c_func(); }
 template <typename T> void constrained(T) requires (sizeof(T) > 1);
 struct Op {
-Op& operator=(const Op&) = default;
-~Op() = default;
+Op& operator=(const Op&) = /* c */ default;
+~Op() = /* c */ default;
 Op() : a{1}, b(2) {}
 int a, b;
 };
@@ -345,18 +524,18 @@ int a, b;
 // inside alignas, __declspec and __attribute__, `final` before a class name,
 // and specifiers or attributes where C++ allows none.
 /* c */ #include /* c */
-typedef class /* c */ DLLEXPORT final EXPORTED Widget final /* c */ {
+typedef class /* c */ DLLEXPORT final /* c */ EXPORTED Widget /* c */ final /* c */ {
 int x;
-} *WidgetPtr, &WidgetRef, &&&WidgetOdd, WidgetValue;
-typedef union /* c */ DLLEXPORT final EXPORTED Bits final /* c */ {
+} /* c */ *WidgetPtr, &WidgetRef, && /* c */ &WidgetOdd, WidgetValue;
+typedef union /* c */ DLLEXPORT final /* c */ EXPORTED Bits /* c */ final /* c */ {
 int i;
 float f;
-} *BitsPtr, &BitsRef, &&&BitsOdd, BitsValue;
-typedef struct /* c */ DLLEXPORT final EXPORTED Pair final /* c */ {
+} /* c */ *BitsPtr, &BitsRef, && /* c */ &BitsOdd, BitsValue;
+typedef struct /* c */ DLLEXPORT final /* c */ EXPORTED Pair /* c */ final /* c */ {
 int a;
-} *PairPtr, &PairRef, &&&PairOdd, PairValue;
-union DLLEXPORT final EXPORTED Cell final { int v; };
-struct DLLEXPORT final EXPORTED Row final { int v; };
+} /* c */ * /* c */ PairPtr, &PairRef, && /* c */ &PairOdd, PairValue;
+union DLLEXPORT final /* c */ EXPORTED Cell final { int v; };
+struct DLLEXPORT final /* c */ EXPORTED Row final { int v; };
 class /* c */ alignas(16) __declspec(dllexport, align(8)) [[gnu::packed, using ns: attr]] Vec {
 alignas(ns::Type, 8) int a;
 __attribute__((section("x"), using ns: hot, ns::cold)) int b;
@@ -366,16 +545,16 @@ __declspec(property(get = getX)) int e;
 public:
 Vec() {} ;
 ~Vec() {} ;
-Vec& operator=(Vec&&&) {} ;
-operator int&&&() const;
+Vec& operator=(Vec&& /* c */ &) {} ;
+operator int&& /* c */ &() const;
 operator Thing &() const;
 };
-void params(register int a, const struct Thing b, int arr[3], int&&& c, struct Q q);
-using Alias [[deprecated]] = typename /* c */ const [[maybe_unused]] /* c */ struct /* c */ ::ns::Type<int>:: /* c */ Inner /* c */ * /* c */ &&& /* c */ [3];
-::ns::Type<int> &&& make_thing() {}
-void takes_callback(struct ::ns::Holder<int>::Item & * &&& (*cb)(int));
-void with_default(Point p = struct ::ns::Holder<int>::Point {.x = 1, .y = 2}) {}
-struct ::ns::Vec<int> &&& operator+(const Vec&, const Vec&);
+void params(register int a, const struct Thing b, int arr[3], int&& /* c */ & c, struct Q q);
+using Alias [[deprecated]] = typename /* c */ const [[maybe_unused]] /* c */ struct /* c */ ::ns::Type<int>:: /* c */ Inner /* c */ * /* c */ && /* c */ & /* c */ [3];
+::ns::Type<int> && /* c */ & make_thing() {}
+void takes_callback(struct ::ns:: /* c */ Holder<int>::Item & * && /* c */ & (*cb)(int));
+void with_default(Point p = struct /* c */ ::ns::Holder<int>:: /* c */ Point /* c */ {.x = 1, .y = 2}) {}
+struct ::ns::Vec<int> && /* c */ & operator+(const Vec&, const Vec&);
 struct Derived2 : public [[deprecated]] /* c */ struct /* c */ ns::Base<int>:: /* c */ Inner {};
 struct alignas(using ns: x, ns::Type, name, (8)) Aligned {};
 void attributes() {
@@ -384,27 +563,49 @@ h([[using gnu: always_inline, hot]] 1);
 k(__attribute__((section("x"), ns::attr, using ns: hot)) 1);
 }
 void not_cpp() {
-if (struct /* c */ Point /* c */ & /* c */ * /* c */ &&& /* c */ p /* c */ [ /* c */ ] /* c */) {}
-if (union /* c */ Value /* c */ & /* c */ * /* c */ &&& /* c */ v /* c */ [ /* c */ ] /* c */) {}
-if (enum /* c */ Color /* c */ & /* c */ * /* c */ &&& /* c */ c /* c */ [ /* c */ ] /* c */) {}
-if (class /* c */ Shape /* c */ & /* c */ * /* c */ &&& /* c */ s /* c */ [ /* c */ ] /* c */) {}
-struct Point &&& p2 = q;
-union Value &&& v2 = w;
-enum Color &&& c2 = d;
-class Shape &&& s2 = t;
-thread_local struct Thing &&& odd = value;
-int first = 1, static /* c */ const /* c */ [[maybe_unused]] /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* c */ & /* c */ * /* c */ &&& /* c */ second /* c */ = value;
-__attribute__((used)) /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* c */ & /* c */ * /* c */ &&& /* c */ items[] /* c */ = {};
-ns::Thing &&& dangling;
-[[maybe_unused]] struct ::ns::Holder<int>::Item & * &&& (*callback)(int);
-for (const ::ns::Pair<int>::Inner * &&& [first, second] : pairs) {}
-for (const ::ns::Pair<int>::Inner * &&& item : pairs) {}
-for (struct ns::Pair [first, second] : pairs) {}
+if (struct /* c */ Point /* c */ & /* c */ * /* c */ && /* c */ & /* c */ p /* c */ [ /* c */ ] /* c */) {}
+if (union /* c */ Value /* c */ & /* c */ * /* c */ && /* c */ & /* c */ v /* c */ [ /* c */ ] /* c */) {}
+if (enum /* c */ Color /* c */ & /* c */ * /* c */ && /* c */ & /* c */ c /* c */ [ /* c */ ] /* c */) {}
+if (class /* c */ Shape /* c */ & /* c */ * /* c */ && /* c */ & /* c */ s /* c */ [ /* c */ ] /* c */) {}
+struct Point && /* c */ & p2 = q;
+union Value && /* c */ & v2 = w;
+enum Color && /* c */ & c2 = d;
+class Shape && /* c */ & s2 = t;
+thread_local struct Thing && /* c */ & odd = value;
+int first = 1, static /* c */ const /* c */ [[maybe_unused]] /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* c */ & /* c */ * /* c */ && /* c */ & /* c */ second /* c */ = value;
+__attribute__((used)) /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* c */ & /* c */ * /* c */ && /* c */ & /* c */ items[] /* c */ = {};
+ns::Thing && /* c */ & dangling;
+[[maybe_unused]] struct ::ns::Holder<int>::Item & * && /* c */ & (*callback)(int);
+for (const ::ns::Pair<int>:: /* c */ Inner * /* c */ && /* c */ & [first, second] : pairs) {}
+for (const ::ns::Pair<int>::Inner * && /* c */ & item : pairs) {}
+for (struct /* c */ ns::Pair [first, second] : pairs) {}
 x = 5; typename /* c */ [[nodiscard]] /* c */ struct /* c */ ::outer::inner<int>:: /* c */ Name value;
 auto box = Box<[[maybe_unused]] /* c */ struct /* c */ ns::Bar<int>:: /* c */ Baz>();
 auto a2 = alignas(8);
 }
 
+void this_chains() {
+x = obj.this.y;
+x = obj.this.f();
+}
+void typed_compound() {
+int y += 1;
+int z &= 1;
+}
+auto trail() -> [[x]] /* c */ int;
+namespace a::b< /* c */ int>::c<int>::d {}
+void typed_continuation() {
+int a = 1, int snake_case = 2, int camelCase = 3, int UPPER = 4, int Plain = 5;
+int b = 1, int c += 2, int d &= 3;
+}
+void notcpp_arrays() {
+int arr[] += {1};
+int arr2[] &= {1};
+}
+struct ConvArr {
+operator Foo[]();
+};
+void curly_param(__attribute__((x)) /* c */ Thing{1}) {}
 #define LONG_MACRO(x) \
 do { x; } while (0)
 
@@ -412,6 +613,15 @@ do { x; } while (0)
 /* c */ #endif
 
 
+#if 0x1p+3 > 0x1p-3 && 1.5e+3 > 1.5e-3f && 0x1.8p3f && 1u && 0x1Fu && 0b1u && 07u && 1e+3 && 1e-3 && 0x1p3 && 2ULL
+#endif
+#if 0x1.8p+3 && 0x1.8p-3
+#endif
+/* c */ #define LEADING 1
+/* c */ #pragma pack(1)
+/* c */ #warning leading
+/* c */ #if 0
+#endif
 // The same constructs again, as the body of a macro.
 #define COVERAGE_BODY(a, b, ...) \
 auto raw_plain = R"(a "quoted" (paren) string)"; \
@@ -427,7 +637,7 @@ auto raw_multi = R"md( \
 first line \
 second line \
 )md"; \
-void numbers() { \
+void /* c */ numbers /* c */ () { \
 double a = 0x1'2.3'4p1'0; \
 double b = 1'0.2'5e1'0; \
 int c = 0b1'0'1u; \
@@ -440,7 +650,7 @@ int i = 017ULL; \
 int j = 0b11u; \
 int k = 1.2.3; \
 } \
-struct Shifts : Bits<0x1'2.3'4p1'0 << 1, 1'0.2'5e1'0 << 1, 0b1'0'1u << 1, 0'17 << 1, 0x1'2p1'0 << 1, 1'0e1'0 << 1, 1.2.3 << 1, 1 /* c */ << 1> {}; \
+struct Shifts /* c */ : Bits<0x1'2.3'4p1'0 << 1, 1'0.2'5e1'0 << 1, 0b1'0'1u << 1, 0'17 << 1, 0x1'2p1'0 << 1, 1'0e1'0 << 1, 1.2.3 << 1, 1 /* c */ << 1> {}; \
 struct Compares : Bits<0x1'2.3'4p1'0 < 1, 1'0.2'5e1'0 < 1, 0b1'0'1u < 1, 0'17 < 1, 0x1'2p1'0 < 1, 1'0e1'0 < 1, 1.2.3 < 1, 1 /* c */ < 1> {}; \
 void strings() { \
 const char* s = "\?\a\b\e\f\n\p\r\t\v\\\'\"\0\101\4\x41\u00e9\U0001F600"; \
@@ -470,36 +680,36 @@ enum Color && c2 = d; \
 class /* c */ Shape /* c */ * /* c */ & /* c */ s1 /* c */ ; \
 class Shape && s2 = t; \
 } \
-typedef class /* c */ DLLEXPORT EXPORTED Widget final /* c */ { \
-int x; \
+typedef /* c */ class /* c */ DLLEXPORT EXPORTED Widget /* c */ final /* c */ { \
+int /* c */ x /* c */ ; \
 } *WidgetPtr, &WidgetRef, &&WidgetOdd, WidgetValue; \
-typedef union /* c */ DLLEXPORT EXPORTED Bits final /* c */ { \
+typedef /* c */ union /* c */ DLLEXPORT EXPORTED Bits /* c */ final /* c */ { \
 int i; \
 float f; \
 } *BitsPtr, &BitsRef, &&BitsOdd, BitsValue; \
-typedef struct /* c */ DLLEXPORT EXPORTED Pair final /* c */ { \
+typedef /* c */ struct /* c */ DLLEXPORT EXPORTED Pair final /* c */ { \
 int a; \
 } *PairPtr, &PairRef, &&PairOdd, PairValue; \
 typedef union { \
 int i; \
-} Plain; \
+} /* c */ Plain; \
 typedef class \
 { \
 int y; \
-} PlainClass; \
+} /* c */ PlainClass; \
 union DLLEXPORT EXPORTED Cell final { int v; }; \
 struct DLLEXPORT EXPORTED Row final { int v; }; \
 class DLLEXPORT EXPORTED Grid final { int v; }; \
-class DLLEXPORT final final { int v; }; \
-Widget::Widget() : x(1), y{2}, z<int>(3) {} \
+class DLLEXPORT final /* c */ final { int v; }; \
+Widget /* c */ ::Widget() : x(1), y{2}, z< /* c */ int>(3) {} \
 Widget::Widget(int a) = default; \
 Widget::Widget(const Widget&) = delete; \
-__cdecl /* c */ ns::Widget /* c */ :: /* c */ Widget /* c */ (int a, int b) : x{a}, y(b) {} ; \
-outer::inner<int>::Widget::Widget(char c) {} \
+__cdecl /* c */ ns::Widget /* c */ :: /* c */ Widget /* c */ (int a /* c */ , int b) : x{a}, y(b) {} ; \
+outer::inner< /* c */ int>::Widget::Widget(char c) {} \
 Widget::~Widget() {} \
 Widget::~Widget() = default; \
 /* c */ __stdcall /* c */ ns::Widget /* c */ :: /* c */ ~Widget /* c */ () {} ; \
-outer::inner<int>::Widget::~Widget() = delete; \
+outer::inner< /* c */ int>::Widget::~Widget() = delete; \
 void assignments() { \
 static /* c */ const /* c */ ::ns::Type<int> /* c */ * /* c */ & /* c */ ref /* c */ = value; \
 thread_local struct Thing && odd = value; \
@@ -527,11 +737,11 @@ auto q = /* c */ static_cast /* c */ <long>(x); \
 auto r = /* c */ this /* c */ ->value; \
 /* c */ break; \
 /* c */ continue; \
-switch (x) { case 1: break; } ; \
-for (struct Item /* c */ * /* c */ && /* c */ item : items) {} \
-for (const ns::Item<int>::inner && item : items) {} \
-for (auto [a, b] : pairs) {} \
-auto lam = [x]() mutable { return x; }; \
+switch (x) { /* c */ case 1: break; } ; \
+for ( /* c */ struct /* c */ Item /* c */ * /* c */ && /* c */ item /* c */ : items) {} \
+for ( /* c */ const /* c */ ns::Item<int>:: /* c */ inner && item : items) {} \
+for ( /* c */ auto /* c */ [ /* c */ a /* c */ , /* c */ b /* c */ ] /* c */ : pairs) {} \
+auto lam = [x /* c */ ]() mutable { return x; }; \
 auto lam2 = []() constexpr { return 1; }; \
 auto lam3 = []() consteval { return 1; }; \
 this->member.call(); \
@@ -546,13 +756,13 @@ struct Access { \
 /* c */ inline /* c */ void inl(); \
 /* c */ extern /* c */ int ext; \
 template</* c */ typename /* c */ T> \
-void templ(T t) requires (sizeof(T) > 1) {} \
+void templ(T t) requires /* c */ (sizeof /* c */ (T) > 1) {} \
 struct Base { \
-virtual ~Base(); \
+virtual /* c */ ~Base(); \
 }; \
 struct Derived : virtual public Base, private /* c */ ns::Other<int> /* c */ , protected /* c */ Third {}; \
-class /* c */ alignas(16) __declspec(dllexport) __declspec(align(8)) [[using gnu: packed, aligned(8)]] Vec { \
-alignas(ns::Type) int a; \
+class /* c */ alignas(16) /* c */ __declspec(dllexport) __declspec(align(8)) [[using gnu: packed, aligned(8)]] Vec { \
+alignas /* c */ (ns::Type) int a; \
 __attribute__((section("x"), hot, cold)) int b; \
 __declspec(deprecated) int c; \
 alignas(8) int d; \
@@ -560,8 +770,8 @@ __declspec(property(get = getX)) int e; \
 public: \
 Vec() {} ; \
 ~Vec() {} ; \
-Vec& operator=(Vec&&) {} ; \
-operator int&&() const; \
+Vec /* c */ & /* c */ operator /* c */ = /* c */ (Vec&&) {} ; \
+operator int /* c */ && /* c */ () const; \
 operator Thing &() const; \
 }; \
 namespace ns {} ; \
@@ -570,11 +780,11 @@ class Tail {} \
 union U { int a; } ; \
 enum class E { a } ; \
 void after() {} ; \
-int (*fp)(ns::Type<int>, struct Point*, int) = nullptr; \
+int /* c */ (*fp)(ns::Type<int>, struct Point*, int) /* c */ = nullptr; \
 int (* /* c */ & /* c */ fref)(int) = f; \
 int (* && fpo)(int) = nullptr; \
-struct ns::Type<int>::inner (*fp2)(int); \
-void takes(int (*cb)(int), struct ns::Thing (&& cb2)(int), ns::Type<int> (*cb3)(int)); \
+struct ns /* c */ ::Type< /* c */ int>::inner (*fp2)(int); \
+void takes(int /* c */ (*cb)(int) /* c */ , struct ns::Thing (&& cb2)(int), ns:: /* c */ Type<int> (*cb3)(int)); \
 void params(register int a, const struct Thing b, int arr[3], int&& c, struct Q q); \
 void operators() { \
 x = a::b; \
@@ -586,10 +796,10 @@ static /* c */ const /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* 
 x = 0; static /* c */ const /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* c */ * /* c */ & /* c */ other /* c */ = value; \
 auto made = new struct ::ns::Holder<int>::Point {.x = 1, .y = 2}; \
 __attribute__((used)) /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* c */ * /* c */ * /* c */ items[] /* c */ = {}; \
-ns::Thing && dangling; \
-[[maybe_unused]] struct ::ns::Holder<int>::Item * * & (*callback)(int); \
+ns:: /* c */ Thing /* c */ && dangling; \
+[[maybe_unused]] /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* c */ * /* c */ * /* c */ & (*callback)(int); \
 x = y */ z; \
-for (const auto & [first, second] : pairs) {} \
+for ( /* c */ const /* c */ auto /* c */ & [first, second] : pairs) {} \
 for (const ::ns::Pair<int>::Inner * && item : pairs) {} \
 for (auto && [first, second] : pairs) {} \
 if (true) {} else [[maybe_unused]] /* c */ struct /* c */ ns::Holder<int>:: /* c */ Name /* c */ obj (1); \
@@ -604,43 +814,220 @@ asm \
 /* c */ \
 ("mov %0, %1\n\t\x41\101\q" : "=r" (y)); \
 auto cb = [x, /* c */ this]() {}; \
-auto lam = [](int arr[3], const int, register long = 3) {}; \
+auto lam = [](int arr[3], const /* c */ int /* c */ , register long = 3) {}; \
 } \
 using Alias [[deprecated]] = const /* c */ struct /* c */ ::ns::Type<int>:: /* c */ Inner /* c */ * /* c */ * /* c */ [3]; \
 error::error() : code(1) {} \
-error::error(const error&) = delete; \
+error::error(const error&) = /* c */ delete; \
 error::~error() {} \
-error::~error() = default; \
+error::~error() = /* c */ default; \
 line::line(int) = default; \
 line::~line() = delete; \
-::ns::Type<int> && make_thing() {} \
-auto trailing() -> struct ::ns::Type<int> {} \
-void takes_callback(struct ::ns::Holder<int>::Item * * & (*cb)(int)); \
-void unnamed(const int, register long = 3) {} \
-void with_default(Point p = ::ns::Holder<int>::Point {.x = 1, .y = 2}) {} \
-struct ::ns::Vec<int> && operator+(const Vec&, const Vec&); \
-namespace outer::inner::deep {} \
+::ns:: /* c */ Type<int> /* c */ && make_thing() {} \
+auto trailing() -> /* c */ struct /* c */ ::ns:: /* c */ Type<int> {} \
+void takes_callback(struct /* c */ ::ns::Holder<int>::Item /* c */ * /* c */ * /* c */ & (*cb)(int)); \
+void unnamed(const /* c */ int /* c */ , register long = 3) {} \
+void with_default(Point p = :: /* c */ ns::Holder<int>::Point {.x = 1, .y = 2}) {} \
+struct /* c */ ::ns:: /* c */ Vec<int> && operator+(const Vec&, const Vec&); \
+namespace /* c */ outer::inner::deep {} \
 namespace a::b::c {} \
 template < /* c */ class T, /* c */ typename U> \
 void two_params(T, U); \
-int (*with_array)(int arr[3], const int, register long = 3); \
+int ( /* c */ *with_array)(int arr[3], const int, register long = 3); \
 struct Derived2 : [[deprecated]] /* c */ public /* c */ ns::Base<int>:: /* c */ Inner {}; \
-struct alignas(ns::Type) alignas(8) Aligned {}; \
+struct alignas(ns::Type) /* c */ alignas(8) Aligned {}; \
 struct alignas((8)) Aligned2 {}; \
 void attributes() { \
-__declspec(property(get = getX, put = putX)) int a; \
+__declspec(property(get = getX, put = putX)) /* c */ int a; \
 [[using gnu: always_inline, hot]] int b; \
 __attribute__((section("x"), hot)) int c; \
 } \
-void macro_basics(int x) { \
-switch (x) { case 1: break; default: break; } \
+struct Foo { __cdecl Foo(); }; \
+struct Foo { /* c */ Foo& __fastcall /* c */ operator+(int); }; \
+struct Foo { int operator""_km(unsigned long long); }; \
+void __cdecl /* c */ g() {} \
+[[nodiscard]] /* c */ void k() {} \
+enum E2 : ::ns::T< /* c */ int>::U { B }; \
+namespace d = ns::Foo< /* c */ int>::e; \
+extern "C" { int z; }; \
+int (*gp[3])(int) const; \
+void construct_objects() { Thing fooBar{1}; } \
+void method_chains() { x = this->f(); x = fooBar.f(); x = FOO_BAR.f(); x = obj.fooBar.f(); x = obj.FOO_BAR.f(); x = obj.thing.f(); } \
+void hex_exponents() { double n1 = 0x1p+3; double n2 = 0x1p-3; double n3 = 0x1.8p3f; int n4 = 0x1p3_km; } \
+void suffixes() { double n5 = 1.5e+3; int n6 = 1.5_km; int n7 = 12_km; int n8 = 0b101_km; int n9 = 0x1F_km; } \
+void float_exponents() { double n10 = 0x1.8p+3; double n11 = 0x1.8p-3; double n12 = 1e+5; } \
+void range_attribute() { for ([[maybe_unused]] auto& v : vs) {} } \
+/* === banner === */ \
+void template_numbers() { f<0x1.8p+3, 0x1.8p-3, 0x1.8p3f, 0x1.8p3_km, 1.5e+3, 1.5e-3, 1.5f, 1.5_km, 0b1_km, 0b1u, 07_km, 07u, 0x1Fu, 0x1F_km, 0x1p+3, 0x1p-3, 1e+3, 1e-3, 12u, 12_km>(x); } \
+void literal_suffixes() { auto s1 = "abc"sv; auto s2 = 'a'sv; auto s3 = 'a'_x; } \
+typedef struct [[deprecated]] /* c */ S : Base { int x; } S_t; \
+typedef class [[deprecated]] /* c */ C : Base { int x; } C_t; \
+typedef union [[deprecated]] /* c */ U { int x; } U_t; \
+typedef struct S2 { int x; }; \
+union [[deprecated]] /* c */ U2 : Base { int x; }; \
+using namespace ns::inner< /* c */ int>::deep; \
+using namespace ::ns::inner; \
+extern template class TT<int>; \
+[[nodiscard]] /* c */ Foo operator+(Foo a, Foo b); \
+[[nodiscard]] Foo ns::Thing<int>::operator+(Foo a) {} \
+class Less : public Base<0x1.8p+3 < 1, 0x1.8p-3 < 1, 0x1.8p3f < 1, 0x1.8p3_km < 1, 1.5e+3 < 1, 1.5e-3 < 1, 1.5f < 1, 1.5_km < 1, 0b1u < 1, 0b1_km < 1, 07u < 1, 07_km < 1, 0x1p+3 < 1, 0x1p-3 < 1, 0x1Fu < 1, 0x1F_km < 1, 1e+3 < 1, 1e-3 < 1, 12u < 1, 12_km < 1> {}; \
+class Shift : public Base<0x1.8p+3 << 1, 0x1.8p-3 << 1, 0x1.8p3f << 1, 0x1.8p3_km << 1, 1.5e+3 << 1, 1.5e-3 << 1, 1.5f << 1, 1.5_km << 1, 0b1u << 1, 0b1_km << 1, 07u << 1, 07_km << 1, 0x1p+3 << 1, 0x1p-3 << 1, 0x1Fu << 1, 0x1F_km << 1, 1e+3 << 1, 1e-3 << 1, 12u << 1, 12_km << 1> {}; \
+void fpp(int (*cb[3])(int)); \
+struct Foo { operator /* c */ const char*(); }; \
+int operator"" /* c */ _mi(unsigned long long); \
+static_assert /* c */ (true, "m"); \
+void noexcept_gap() { bool b = noexcept /* c */ (f()); } \
+void decltype_gap() { decltype /* c */ (x) y = x; } \
+void upper_calls() { MAKE /* c */ <int>(x); ns::MAKE<int>(x); ::MAKE(x); } \
+void attr_assign() { \
+[[maybe_unused]] /* c */ int v = 1; \
+} \
+void static_decl() { \
+static /* c */ int z1; \
+} \
+template /* c */ void tf(int); \
+unsigned /* c */ int uf() {} \
+struct Ctors { \
+Ctors() = /* c */ default; \
+__cdecl /* c */ Ctors(int); \
+__cdecl /* c */ ~Ctors(); \
+constexpr /* c */ Ctors(char) {} \
+}; \
+void gnu_param(__attribute__((unused)) /* c */ int (*cb)(int)); \
+void fp_specs() { \
+int (*fpc)(int) const /* c */ noexcept; \
+} \
+void chains() { \
+x = obj.fooBar.y; \
+x = obj.FOO_BAR.y; \
+x = obj.Mixed_ok.y; \
+x = obj.fooBar.f(); \
+x = obj.FOO_BAR.f(); \
+} \
+void name_chains() { \
+x = obj.fooBar.y; \
+x = obj.FOO.y; \
+x = obj.Foo.y; \
+x = obj.FOO.f(); \
+x = FOO.f(); \
+} \
+namespace d2 = ::a::B<int>::C<int>::e; \
+using namespace ::a::B<int>::C<int>::d; \
+template <typename T> void a::B<T>::C<T>::g() {} \
+void arrays_empty() { \
+int ARR[] = {1}; \
+int Foo[] = {1}; \
+} \
+typedef class C2 { int x; }; \
+typedef union U3 { int x; }; \
+typedef union U4 : Base { int x; } U4_t; \
+struct Del { \
+~Del() = delete; \
+}; \
+void scoped_param_comments(a::B</* c */ int>::C<int>::T p); \
+void call_comments() { \
+f</* c */ int>(x); \
+MAKE</* c */ int>(x); \
+} \
+enum class[[deprecated]] Attr1 : int { A1 }; \
+enum Attr3 { \
+C1 [[maybe_unused]] = 1, \
+C2 [[maybe_unused]], \
+}; \
+enum E5 : a::B<int>::C<int>::D { X5 }; \
+static __attribute__((used)) int gnu_fn() {} \
+auto trail2() -> a::B<int>::C<int>::D; \
+a::B<int>::C<int> ret_scoped() {} \
+void scoped_decl() { \
+a::B<int>::C<int> x; \
+} \
+a::B<int>::C<int> operator%(a::B<int> l, int r); \
+void ranged() { \
+for (__attribute__((unused)) auto [a, b] : m) {} \
+} \
+void brace_upper() { \
+Thing FOO{1}; \
+} \
+void scoped_upper_call() { \
+x = a::B<int>::MAKE(1); \
+} \
+template <typename T = a /* c */ ::B<int>::C<int>::D> struct TD; \
+template <typename T = a::B</* c */ int>::C<int>::D> struct TD2; \
+void tcall() { \
+x = f<a::B /* c */ <int>::C<int>::D>(1); \
+x = f<a::B</* c */ int>::C<int>::D>(1); \
+} \
+struct Lead { \
+/* c */ ~Lead(); \
+/* c */ static_assert(true); \
+/* c */ int m = 1; \
+/* c */ int n; \
+}; \
+void asm_raw() { \
+asm(R"(nop)"); \
+} \
+struct InitT { \
+InitT() : x</* c */ int>(1) {} \
+}; \
+void spec_loop() { \
+static /* c */ const int q; \
+} \
+template <template <typename T> class TT> struct TT3; \
+void macro_names() { \
+int snake_case = 1; \
+int camelCase = 2; \
+int UPPER = 3; \
+int Plain = 4; \
+} \
+void macro_decls() { \
+int snake_d; \
+int camelD; \
+int UPPER_D; \
+int Plain_d; \
+} \
+namespace  g::inline h { \
+} \
+void macro_literals() { \
+auto s4 = "abc"_x; \
+char cx = '\x4142'; \
+} \
+struct DelOps { \
+DelOps() = delete; \
+DelOps& operator=(const DelOps&) = delete; \
+}; \
+void asm_volatile() { \
+asm volatile ("nop"); \
+} \
+void decl_names() { \
+int UPPERD; \
+int Plaind; \
+} \
+void unknown_chain() { \
+x = obj.Foo.f(); \
+} \
+ns::B<int>::Widget /* c */ ::Widget(int a) : x{a} {} \
+ns::B<int>::Widget /* c */ ::~Widget() {} \
+struct Conv { \
+operator ns::Other<int>::Inner(); \
+}; \
+void type_calls() { \
+x = uint_least32_t (1) + pthread_mutex_t () + foo_t (); \
+} \
+void unnamed_types(const uint_least32_t, const pthread_mutex_t, const foo_t, const Widget); \
+auto lam_types = [](const uint_least32_t, const pthread_mutex_t, const foo_t, const Widget) {}; \
+auto lam_defaults = [](int a = 1, int b = 2) {}; \
+struct PostSpecs { \
+bool operator==(const PostSpecs&) const /* c */ noexcept; \
+~PostSpecs() /* c */ noexcept /* c */ override; \
+};void macro_basics(int x) { \
+switch (x) { case 1: break; /* c */ default: break; } \
 switch /* c */ (x) {} \
 char ch = '\x41'; \
 char cu = u8'\101'; \
 const char* esc = "\u00e9\U0001F600\101\x41\x4142\q"; \
-auto s1 = sizeof...(Args); \
-auto t1 = typeid(x); \
-auto a1 = alignof(int); \
+auto s1 = sizeof... /* c */ (Args); \
+auto t1 = typeid /* c */ (x); \
+auto a1 = alignof /* c */ (int); \
 alignas(8) char a2[8]; \
 x--; \
 auto l1 = [x, &y, z = 1, this](int a = 1) -> int { return a; }; \
@@ -652,8 +1039,8 @@ int m = (x ? n : 0); \
 for (auto & item : items) {} \
 for (auto & [key, value] : pairs) {} \
 ::ns::Item * ptr; \
-[[maybe_unused]] struct ns::Item & ref; \
-asm ("mov %[out], %[in]" : [out] "=r" (y) : [in] "r" (x)); \
+[[maybe_unused]] struct /* c */ ns::Item & ref; \
+asm ("mov %[out], %[in]" : [ /* c */ out /* c */ ] "=r" (y) : [in] "r" (x)); \
 } \
 enum class Mode : int { a, b }; \
 enum Plain { c, d } plain_value; \
@@ -671,23 +1058,23 @@ using namespace std::chrono; \
 extern "C" { int c_func(); } \
 template <typename T> void constrained(T) requires (sizeof(T) > 1); \
 struct Op { \
-Op& operator=(const Op&) = default; \
-~Op() = default; \
+Op& operator=(const Op&) = /* c */ default; \
+~Op() = /* c */ default; \
 Op() : a{1}, b(2) {} \
 int a, b; \
 }; \
-typedef class /* c */ DLLEXPORT final EXPORTED Widget final /* c */ { \
+typedef class /* c */ DLLEXPORT final /* c */ EXPORTED Widget /* c */ final /* c */ { \
 int x; \
-} *WidgetPtr, &WidgetRef, &&&WidgetOdd, WidgetValue; \
-typedef union /* c */ DLLEXPORT final EXPORTED Bits final /* c */ { \
+} /* c */ *WidgetPtr, &WidgetRef, && /* c */ &WidgetOdd, WidgetValue; \
+typedef union /* c */ DLLEXPORT final /* c */ EXPORTED Bits /* c */ final /* c */ { \
 int i; \
 float f; \
-} *BitsPtr, &BitsRef, &&&BitsOdd, BitsValue; \
-typedef struct /* c */ DLLEXPORT final EXPORTED Pair final /* c */ { \
+} /* c */ *BitsPtr, &BitsRef, && /* c */ &BitsOdd, BitsValue; \
+typedef struct /* c */ DLLEXPORT final /* c */ EXPORTED Pair /* c */ final /* c */ { \
 int a; \
-} *PairPtr, &PairRef, &&&PairOdd, PairValue; \
-union DLLEXPORT final EXPORTED Cell final { int v; }; \
-struct DLLEXPORT final EXPORTED Row final { int v; }; \
+} /* c */ * /* c */ PairPtr, &PairRef, && /* c */ &PairOdd, PairValue; \
+union DLLEXPORT final /* c */ EXPORTED Cell final { int v; }; \
+struct DLLEXPORT final /* c */ EXPORTED Row final { int v; }; \
 class /* c */ alignas(16) __declspec(dllexport, align(8)) [[gnu::packed, using ns: attr]] Vec { \
 alignas(ns::Type, 8) int a; \
 __attribute__((section("x"), using ns: hot, ns::cold)) int b; \
@@ -697,16 +1084,16 @@ __declspec(property(get = getX)) int e; \
 public: \
 Vec() {} ; \
 ~Vec() {} ; \
-Vec& operator=(Vec&&&) {} ; \
-operator int&&&() const; \
+Vec& operator=(Vec&& /* c */ &) {} ; \
+operator int&& /* c */ &() const; \
 operator Thing &() const; \
 }; \
-void params(register int a, const struct Thing b, int arr[3], int&&& c, struct Q q); \
-using Alias [[deprecated]] = typename /* c */ const [[maybe_unused]] /* c */ struct /* c */ ::ns::Type<int>:: /* c */ Inner /* c */ * /* c */ &&& /* c */ [3]; \
-::ns::Type<int> &&& make_thing() {} \
-void takes_callback(struct ::ns::Holder<int>::Item & * &&& (*cb)(int)); \
-void with_default(Point p = struct ::ns::Holder<int>::Point {.x = 1, .y = 2}) {} \
-struct ::ns::Vec<int> &&& operator+(const Vec&, const Vec&); \
+void params(register int a, const struct Thing b, int arr[3], int&& /* c */ & c, struct Q q); \
+using Alias [[deprecated]] = typename /* c */ const [[maybe_unused]] /* c */ struct /* c */ ::ns::Type<int>:: /* c */ Inner /* c */ * /* c */ && /* c */ & /* c */ [3]; \
+::ns::Type<int> && /* c */ & make_thing() {} \
+void takes_callback(struct ::ns:: /* c */ Holder<int>::Item & * && /* c */ & (*cb)(int)); \
+void with_default(Point p = struct /* c */ ::ns::Holder<int>:: /* c */ Point /* c */ {.x = 1, .y = 2}) {} \
+struct ::ns::Vec<int> && /* c */ & operator+(const Vec&, const Vec&); \
 struct Derived2 : public [[deprecated]] /* c */ struct /* c */ ns::Base<int>:: /* c */ Inner {}; \
 struct alignas(using ns: x, ns::Type, name, (8)) Aligned {}; \
 void attributes() { \
@@ -715,26 +1102,48 @@ h([[using gnu: always_inline, hot]] 1); \
 k(__attribute__((section("x"), ns::attr, using ns: hot)) 1); \
 } \
 void not_cpp() { \
-if (struct /* c */ Point /* c */ & /* c */ * /* c */ &&& /* c */ p /* c */ [ /* c */ ] /* c */) {} \
-if (union /* c */ Value /* c */ & /* c */ * /* c */ &&& /* c */ v /* c */ [ /* c */ ] /* c */) {} \
-if (enum /* c */ Color /* c */ & /* c */ * /* c */ &&& /* c */ c /* c */ [ /* c */ ] /* c */) {} \
-if (class /* c */ Shape /* c */ & /* c */ * /* c */ &&& /* c */ s /* c */ [ /* c */ ] /* c */) {} \
-struct Point &&& p2 = q; \
-union Value &&& v2 = w; \
-enum Color &&& c2 = d; \
-class Shape &&& s2 = t; \
-thread_local struct Thing &&& odd = value; \
-int first = 1, static /* c */ const /* c */ [[maybe_unused]] /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* c */ & /* c */ * /* c */ &&& /* c */ second /* c */ = value; \
-__attribute__((used)) /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* c */ & /* c */ * /* c */ &&& /* c */ items[] /* c */ = {}; \
-ns::Thing &&& dangling; \
-[[maybe_unused]] struct ::ns::Holder<int>::Item & * &&& (*callback)(int); \
-for (const ::ns::Pair<int>::Inner * &&& [first, second] : pairs) {} \
-for (const ::ns::Pair<int>::Inner * &&& item : pairs) {} \
-for (struct ns::Pair [first, second] : pairs) {} \
+if (struct /* c */ Point /* c */ & /* c */ * /* c */ && /* c */ & /* c */ p /* c */ [ /* c */ ] /* c */) {} \
+if (union /* c */ Value /* c */ & /* c */ * /* c */ && /* c */ & /* c */ v /* c */ [ /* c */ ] /* c */) {} \
+if (enum /* c */ Color /* c */ & /* c */ * /* c */ && /* c */ & /* c */ c /* c */ [ /* c */ ] /* c */) {} \
+if (class /* c */ Shape /* c */ & /* c */ * /* c */ && /* c */ & /* c */ s /* c */ [ /* c */ ] /* c */) {} \
+struct Point && /* c */ & p2 = q; \
+union Value && /* c */ & v2 = w; \
+enum Color && /* c */ & c2 = d; \
+class Shape && /* c */ & s2 = t; \
+thread_local struct Thing && /* c */ & odd = value; \
+int first = 1, static /* c */ const /* c */ [[maybe_unused]] /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* c */ & /* c */ * /* c */ && /* c */ & /* c */ second /* c */ = value; \
+__attribute__((used)) /* c */ struct /* c */ ::ns::Holder<int>:: /* c */ Item /* c */ & /* c */ * /* c */ && /* c */ & /* c */ items[] /* c */ = {}; \
+ns::Thing && /* c */ & dangling; \
+[[maybe_unused]] struct ::ns::Holder<int>::Item & * && /* c */ & (*callback)(int); \
+for (const ::ns::Pair<int>:: /* c */ Inner * /* c */ && /* c */ & [first, second] : pairs) {} \
+for (const ::ns::Pair<int>::Inner * && /* c */ & item : pairs) {} \
+for (struct /* c */ ns::Pair [first, second] : pairs) {} \
 x = 5; typename /* c */ [[nodiscard]] /* c */ struct /* c */ ::outer::inner<int>:: /* c */ Name value; \
 auto box = Box<[[maybe_unused]] /* c */ struct /* c */ ns::Bar<int>:: /* c */ Baz>(); \
 auto a2 = alignas(8); \
 } \
+void this_chains() { \
+x = obj.this.y; \
+x = obj.this.f(); \
+} \
+void typed_compound() { \
+int y += 1; \
+int z &= 1; \
+} \
+auto trail() -> [[x]] /* c */ int; \
+namespace a::b< /* c */ int>::c<int>::d {} \
+void typed_continuation() { \
+int a = 1, int snake_case = 2, int camelCase = 3, int UPPER = 4, int Plain = 5; \
+int b = 1, int c += 2, int d &= 3; \
+} \
+void notcpp_arrays() { \
+int arr[] += {1}; \
+int arr2[] &= {1}; \
+} \
+struct ConvArr { \
+operator Foo[](); \
+}; \
+void curly_param(__attribute__((x)) /* c */ Thing{1}) {} \
 /** One line with @callgraph, \a arg, \b bold, \c code, \p param, @ref other, @addtogroup g, @param[in,out] a, b the values, @brief short, @code, NOTE: and @fixme: */ \
 /** \
  * @brief A documented block inside a macro. \
@@ -763,3 +1172,23 @@ auto a2 = alignas(8); \
 #if defined(FOO) && BAR
 #define WITH_DEFINE \
 #define INNER(a, b, ...) a + b
+
+#define LEAD_LINE \
+/* c */ #line 43 "coverage.cpp"
+#define LEAD_PRAGMA \
+/* c */ #pragma once
+#define LEAD_WARNING \
+/* c */ #warning lead
+#define LEAD_IF \
+/* c */ #if 1
+#define LEAD_DEFINE \
+/* c */ #define INNER2 1
+#define LEAD_CTOR \
+struct S { \
+/* c */ S(); }
+#define FP_SPECS void fpp_specs(int (*cb)(int) const /* c */ noexcept
+// Constructs that leave Shiki inside a rule until the end of the file, so they come last.
+
+void fpp_specs(int (*cb)(int) const /* c */ noexcept
+);
+template <int N = (1) < /* c */ 2> struct RelT;
