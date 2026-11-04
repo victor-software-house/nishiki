@@ -1,0 +1,80 @@
+L complex1:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+L   ? - a
+T 2 source.yaml
+T 3 source.yaml meta.block-mapping.yaml
+T 4 source.yaml meta.block-mapping.yaml
+T 5 source.yaml meta.block-mapping.yaml punctuation.definition.block.sequence.item.yaml
+T 6 source.yaml meta.block-mapping.yaml
+T 7 source.yaml meta.block-mapping.yaml string.unquoted.plain.out.yaml
+L complex2:
+T 1 source.yaml meta.block-mapping.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml meta.block-mapping.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml meta.block-mapping.yaml invalid.illegal.expected-newline.yaml
+L   ? - a
+T 2 source.yaml
+T 3 source.yaml meta.block-mapping.yaml
+T 4 source.yaml meta.block-mapping.yaml
+T 5 source.yaml meta.block-mapping.yaml punctuation.definition.block.sequence.item.yaml
+T 6 source.yaml meta.block-mapping.yaml
+T 7 source.yaml meta.block-mapping.yaml string.unquoted.plain.out.yaml
+L   : b
+T 2 source.yaml meta.block-mapping.yaml
+T 3 source.yaml meta.block-mapping.yaml punctuation.separator.key-value.mapping.yaml
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml
+L complex3:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+L   ? - a
+T 2 source.yaml
+T 3 source.yaml meta.block-mapping.yaml
+T 4 source.yaml meta.block-mapping.yaml
+T 5 source.yaml meta.block-mapping.yaml punctuation.definition.block.sequence.item.yaml
+T 6 source.yaml meta.block-mapping.yaml
+T 7 source.yaml meta.block-mapping.yaml string.unquoted.plain.out.yaml
+L   : >
+T 2 source.yaml meta.block-mapping.yaml
+T 3 source.yaml meta.block-mapping.yaml punctuation.separator.key-value.mapping.yaml
+T 4 source.yaml
+T 5 source.yaml keyword.control.flow.block-scalar.folded.yaml
+L     b
+T 4 source.yaml string.unquoted.block.yaml
+T 5 source.yaml string.unquoted.block.yaml
+L complex4:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+L   ? >
+T 2 source.yaml
+T 3 source.yaml meta.block-mapping.yaml
+T 4 source.yaml meta.block-mapping.yaml
+T 5 source.yaml meta.block-mapping.yaml keyword.control.flow.block-scalar.folded.yaml
+L     a
+T 4 source.yaml meta.block-mapping.yaml string.unquoted.block.yaml
+T 5 source.yaml meta.block-mapping.yaml string.unquoted.block.yaml
+L   :
+T 2 source.yaml meta.block-mapping.yaml
+T 3 source.yaml meta.block-mapping.yaml punctuation.separator.key-value.mapping.yaml
+L complex5:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+L   ? - a
+T 2 source.yaml
+T 3 source.yaml meta.block-mapping.yaml
+T 4 source.yaml meta.block-mapping.yaml
+T 5 source.yaml meta.block-mapping.yaml punctuation.definition.block.sequence.item.yaml
+T 6 source.yaml meta.block-mapping.yaml
+T 7 source.yaml meta.block-mapping.yaml string.unquoted.plain.out.yaml
+L   : - b
+T 2 source.yaml meta.block-mapping.yaml
+T 3 source.yaml meta.block-mapping.yaml punctuation.separator.key-value.mapping.yaml
+T 4 source.yaml
+T 5 source.yaml punctuation.definition.block.sequence.item.yaml
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml
+L 

@@ -562,6 +562,37 @@ export const waivers: Waiver[] = [
     reason: "`#paragraph`, which `#block` includes before it in both list rules, begins at every position this does",
   },
   { grammar: "markdown", path: "#list_paragraph.while", reason: "its begin never matches" },
+  { grammar: "toml", path: "#comments.begin", group: 1, reason: blanks },
+  ...(
+    [
+      ["#key_pair.patterns[0].end", [1, 2]],
+      ["#key_pair.patterns[1].end", [1, 2, 3, 4, 5]],
+      ["#key_pair.patterns[2].end", [1, 2, 4, 5]],
+      ["#key_pair.patterns[3].end", [1, 3]],
+    ] as const
+  ).flatMap(([path, groups]) =>
+    groups.map((group): Waiver => ({
+      grammar: "toml",
+      path,
+      group,
+      reason: missing(0),
+    })),
+  ),
+  { grammar: "yaml", path: "#block-pair.patterns[0].begin", group: 1, reason: missing(0) },
+  { grammar: "yaml", path: "#comment.begin", group: 1, reason: blanks },
+  {
+    grammar: "yaml",
+    path: "#flow-pair.patterns[0].patterns[3].begin",
+    reason: "`#flow-pair`, earlier in the same list, includes `#flow-pair.patterns[3]`, whose begin is the same expression",
+  },
+  {
+    grammar: "yaml",
+    path: "#flow-pair.patterns[0].patterns[3].begin",
+    group: 0,
+    reason: "its begin never matches",
+  },
+  { grammar: "yaml", path: "#flow-pair.patterns[0].patterns[3].end", reason: "its begin never matches" },
+  { grammar: "yaml", path: "#flow-pair.patterns[3].end", group: 0, reason: lookahead },
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -576,6 +607,8 @@ export const complete: string[] = [
   "python",
   "rust",
   "scss",
+  "toml",
   "tsx",
   "typescript",
+  "yaml",
 ];

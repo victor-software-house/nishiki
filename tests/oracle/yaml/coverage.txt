@@ -1,0 +1,194 @@
+L %FOO bar baz
+T 1 source.yaml meta.directive.yaml punctuation.definition.directive.begin.yaml
+T 4 source.yaml meta.directive.yaml support.other.directive.reserved.yaml
+T 5 source.yaml meta.directive.yaml
+T 8 source.yaml meta.directive.yaml string.unquoted.directive-name.yaml
+T 9 source.yaml meta.directive.yaml
+T 12 source.yaml meta.directive.yaml string.unquoted.directive-parameter.yaml
+L %YAML 1.2
+T 1 source.yaml meta.directive.yaml punctuation.definition.directive.begin.yaml
+T 5 source.yaml meta.directive.yaml keyword.other.directive.yaml.yaml
+T 6 source.yaml meta.directive.yaml
+T 9 source.yaml meta.directive.yaml constant.numeric.yaml-version.yaml
+L ---
+T 3 source.yaml entity.other.document.begin.yaml
+L # Written for nishiki's oracle coverage: the rules of Shiki's YAML grammar
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 74 source.yaml comment.line.number-sign.yaml
+L # that the other inputs do not reach.
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 37 source.yaml comment.line.number-sign.yaml
+L scalars:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml punctuation.separator.key-value.mapping.yaml
+L   - null
+T 2 source.yaml
+T 3 source.yaml punctuation.definition.block.sequence.item.yaml
+T 4 source.yaml
+T 8 source.yaml constant.language.null.yaml
+L   - 2001-12-14
+T 2 source.yaml
+T 3 source.yaml punctuation.definition.block.sequence.item.yaml
+T 4 source.yaml
+T 14 source.yaml constant.other.timestamp.yaml
+L   - =
+T 2 source.yaml
+T 3 source.yaml punctuation.definition.block.sequence.item.yaml
+T 4 source.yaml
+T 5 source.yaml constant.language.value.yaml
+L   - 'it''s'
+T 2 source.yaml
+T 3 source.yaml punctuation.definition.block.sequence.item.yaml
+T 4 source.yaml
+T 5 source.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 7 source.yaml string.quoted.single.yaml
+T 9 source.yaml string.quoted.single.yaml constant.character.escape.single-quoted.yaml
+T 10 source.yaml string.quoted.single.yaml
+T 11 source.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+L   - "tab\there and \x41 and é"
+T 2 source.yaml
+T 3 source.yaml punctuation.definition.block.sequence.item.yaml
+T 4 source.yaml
+T 5 source.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 8 source.yaml string.quoted.double.yaml
+T 10 source.yaml string.quoted.double.yaml constant.character.escape.yaml
+T 19 source.yaml string.quoted.double.yaml
+T 23 source.yaml string.quoted.double.yaml constant.character.escape.yaml
+T 30 source.yaml string.quoted.double.yaml
+T 31 source.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L   - "folded \
+T 2 source.yaml
+T 3 source.yaml punctuation.definition.block.sequence.item.yaml
+T 4 source.yaml
+T 5 source.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 12 source.yaml string.quoted.double.yaml
+T 13 source.yaml string.quoted.double.yaml constant.character.escape.double-quoted.newline.yaml
+L     across lines"
+T 16 source.yaml string.quoted.double.yaml
+T 17 source.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L blocks:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.yaml punctuation.separator.key-value.mapping.yaml
+L   literal: |2  # kept comment
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+T 11 source.yaml
+T 12 source.yaml keyword.control.flow.block-scalar.literal.yaml
+T 13 source.yaml constant.numeric.indentation-indicator.yaml
+T 15 source.yaml
+T 16 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 29 source.yaml comment.line.number-sign.yaml
+L       two more spaces
+T 6 source.yaml string.unquoted.block.yaml
+T 21 source.yaml string.unquoted.block.yaml
+L   folded: >- junk after the indicator
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+T 10 source.yaml
+T 11 source.yaml keyword.control.flow.block-scalar.folded.yaml
+T 12 source.yaml storage.modifier.chomping-indicator.yaml
+T 37 source.yaml invalid.illegal.expected-comment-or-newline.yaml
+L     text
+T 4 source.yaml string.unquoted.block.yaml
+T 8 source.yaml string.unquoted.block.yaml
+L anchors:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml punctuation.separator.key-value.mapping.yaml
+L   odd: &anchor/suffix value
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.yaml punctuation.separator.key-value.mapping.yaml
+T 7 source.yaml
+T 8 source.yaml meta.property.yaml keyword.control.property.anchor.yaml punctuation.definition.anchor.yaml
+T 14 source.yaml meta.property.yaml entity.name.type.anchor.yaml
+T 21 source.yaml meta.property.yaml invalid.illegal.character.anchor.yaml
+T 22 source.yaml
+T 23 source.yaml string.unquoted.plain.out.yaml
+T 27 source.yaml string.unquoted.plain.out.yaml
+L   ref: *anchor/suffix
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.yaml punctuation.separator.key-value.mapping.yaml
+T 7 source.yaml
+T 8 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 14 source.yaml variable.other.alias.yaml
+T 21 source.yaml invalid.illegal.character.anchor.yaml
+L   bad-tag: !^bad value
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+T 11 source.yaml
+T 16 source.yaml meta.property.yaml invalid.illegal.tag-handle.yaml
+T 17 source.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml
+L flow:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 4 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.yaml punctuation.separator.key-value.mapping.yaml
+L   - [ null, 1.5, 2001-12-14, =, *anchor/suffix ]
+T 2 source.yaml
+T 3 source.yaml punctuation.definition.block.sequence.item.yaml
+T 4 source.yaml
+T 5 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.begin.yaml
+T 6 source.yaml meta.flow-sequence.yaml
+T 10 source.yaml meta.flow-sequence.yaml constant.language.null.yaml
+T 11 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 12 source.yaml meta.flow-sequence.yaml
+T 15 source.yaml meta.flow-sequence.yaml constant.numeric.float.yaml
+T 16 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 17 source.yaml meta.flow-sequence.yaml
+T 27 source.yaml meta.flow-sequence.yaml constant.other.timestamp.yaml
+T 28 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 29 source.yaml meta.flow-sequence.yaml
+T 30 source.yaml meta.flow-sequence.yaml constant.language.value.yaml
+T 31 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 32 source.yaml meta.flow-sequence.yaml
+T 33 source.yaml meta.flow-sequence.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 39 source.yaml meta.flow-sequence.yaml variable.other.alias.yaml
+T 46 source.yaml meta.flow-sequence.yaml invalid.illegal.character.anchor.yaml
+T 47 source.yaml meta.flow-sequence.yaml
+T 48 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.end.yaml
+L   - { ? explicit : value, <<: *anchor/suffix, ~: nothing }
+T 2 source.yaml
+T 3 source.yaml punctuation.definition.block.sequence.item.yaml
+T 4 source.yaml
+T 5 source.yaml meta.flow-mapping.yaml punctuation.definition.mapping.begin.yaml
+T 6 source.yaml meta.flow-mapping.yaml
+T 7 source.yaml meta.flow-mapping.yaml meta.flow-pair.explicit.yaml punctuation.definition.key-value.begin.yaml
+T 8 source.yaml meta.flow-mapping.yaml meta.flow-pair.explicit.yaml
+T 9 source.yaml meta.flow-mapping.yaml meta.flow-pair.explicit.yaml meta.flow-pair.key.yaml string.unquoted.plain.in.yaml entity.name.tag.yaml
+T 16 source.yaml meta.flow-mapping.yaml meta.flow-pair.explicit.yaml meta.flow-pair.key.yaml string.unquoted.plain.in.yaml entity.name.tag.yaml
+T 17 source.yaml meta.flow-mapping.yaml meta.flow-pair.explicit.yaml
+T 18 source.yaml meta.flow-mapping.yaml meta.flow-pair.explicit.yaml meta.flow-pair.yaml punctuation.separator.key-value.mapping.yaml
+T 19 source.yaml meta.flow-mapping.yaml meta.flow-pair.explicit.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml
+T 20 source.yaml meta.flow-mapping.yaml meta.flow-pair.explicit.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml string.unquoted.plain.in.yaml
+T 24 source.yaml meta.flow-mapping.yaml meta.flow-pair.explicit.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml string.unquoted.plain.in.yaml
+T 25 source.yaml meta.flow-mapping.yaml punctuation.separator.mapping.yaml
+T 26 source.yaml meta.flow-mapping.yaml
+T 28 source.yaml meta.flow-mapping.yaml meta.flow-pair.key.yaml constant.language.merge.yaml
+T 29 source.yaml meta.flow-mapping.yaml meta.flow-pair.yaml punctuation.separator.key-value.mapping.yaml
+T 30 source.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml
+T 31 source.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 37 source.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml variable.other.alias.yaml
+T 45 source.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml invalid.illegal.character.anchor.yaml
+T 46 source.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml
+T 47 source.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml constant.language.null.yaml
+T 49 source.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml
+T 50 source.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml string.unquoted.plain.in.yaml
+T 56 source.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml string.unquoted.plain.in.yaml
+T 57 source.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml
+T 58 source.yaml meta.flow-mapping.yaml punctuation.definition.mapping.end.yaml
+L ...
+T 3 source.yaml entity.other.document.end.yaml
+L 

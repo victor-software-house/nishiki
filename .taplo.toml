@@ -4,6 +4,8 @@ exclude = [
   "target/**",
   # Benchmark inputs keep their sources' bytes (bench/corpus/README.md).
   "bench/corpus/**",
+  # Oracle inputs are test data, some of them invalid on purpose.
+  "oracle/inputs/*.toml",
   ".miserc.toml",
   "committed.toml",
   "mise.dev.toml",

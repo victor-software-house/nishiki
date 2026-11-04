@@ -236,11 +236,14 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `toml/burntsushi-example` | [`_example/example.toml`][burntsushi-example] in BurntSushi/toml | [MIT][burntsushi-toml-licence] |
 | `toml/cargo-manifest` | [`Cargo.toml`][cargo-manifest] in rust-lang/cargo | [MIT or Apache-2.0][cargo-licence] |
 | `toml/clap-manifest` | [`Cargo.toml`][clap-manifest] in clap-rs/clap | [MIT or Apache-2.0][clap-licence] |
+| `toml/coverage` | `oracle/inputs/toml-coverage.toml`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `toml/poetry-pyproject` | [`pyproject.toml`][poetry-pyproject] in python-poetry/poetry | [MIT][poetry-licence] |
 | `toml/ripgrep-manifest` | [`Cargo.toml`][ripgrep-manifest] in BurntSushi/ripgrep | [Unlicense or MIT][ripgrep-licence] |
 | `toml/ruff-pyproject` | [`pyproject.toml`][ruff-pyproject] in astral-sh/ruff | [MIT][ruff-licence] |
 | `toml/sample` | [`samples/toml.sample`][toml-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `toml/tokio-manifest` | [`tokio/Cargo.toml`][tokio-manifest] in tokio-rs/tokio | [MIT][tokio-licence] |
+| `toml/toml-test-inline-table-key-dotted-01` | [`tests/valid/inline-table/key-dotted-01.toml`][toml-test-inline-table-key-dotted-01] in toml-lang/toml-test | [MIT][toml-test-licence] |
+| `toml/toml-test-key-quoted-unicode` | [`tests/valid/key/quoted-unicode.toml`][toml-test-key-quoted-unicode] in toml-lang/toml-test | [MIT][toml-test-licence] |
 | `tsx/coverage` | `oracle/inputs/typescript-coverage.ts`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `tsx/sample` | [`samples/tsx.sample`][tsx-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `tsx/shadcn-chart` | [`apps/v4/registry/new-york-v4/ui/chart.tsx`][shadcn-chart] in shadcn-ui/ui | [MIT][shadcn-licence] |
@@ -287,10 +290,14 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `typescript/zod-classic-schemas` | [`packages/zod/src/v4/classic/schemas.ts`][zod-schemas] in colinhacks/zod | [MIT][zod-licence] |
 | `yaml/airflow-compose` | [`airflow-core/docs/howto/docker-compose/docker-compose.yaml`][airflow-compose] in apache/airflow | [Apache-2.0][airflow-licence] |
 | `yaml/checkout-test` | [`.github/workflows/test.yml`][checkout-test] in actions/checkout | [MIT][checkout-licence] |
+| `yaml/coverage` | `oracle/inputs/yaml-coverage.yaml`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `yaml/petstore-openapi` | [`src/main/resources/openapi.yaml`][petstore-openapi] in swagger-api/swagger-petstore | [Apache-2.0][petstore-licence] |
 | `yaml/prometheus-config` | [`documentation/examples/prometheus.yml`][prometheus-config] in prometheus/prometheus | [Apache-2.0][prometheus-licence] |
 | `yaml/ripgrep-ci` | [`.github/workflows/ci.yml`][ripgrep-ci] in BurntSushi/ripgrep | [Unlicense or MIT][ripgrep-licence] |
 | `yaml/sample` | [`samples/yaml.sample`][yaml-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `yaml/yaml-test-suite-c4hz` | [`C4HZ/in.yaml`][yaml-test-suite-c4hz] in yaml/yaml-test-suite, data branch | [MIT][yaml-test-suite-licence] |
+| `yaml/yaml-test-suite-kk5p` | [`KK5P/in.yaml`][yaml-test-suite-kk5p] in yaml/yaml-test-suite, data branch | [MIT][yaml-test-suite-licence] |
+| `yaml/yaml-test-suite-w4tn` | [`W4TN/in.yaml`][yaml-test-suite-w4tn] in yaml/yaml-test-suite, data branch | [MIT][yaml-test-suite-licence] |
 `ruby/sample`, `ruby/rack-request`, `ruby/rubocop-cop-base`, `ruby/rails-callbacks`, `ruby/rails-inflector`, `ruby/heredocs`, `ruby/js-heredocs`, `ruby/cpp-lua-heredocs`, `ruby/html-heredocs`, `ruby/xml-heredocs`, `ruby/yaml-heredocs` and `ruby/end-html` are the development inputs for Ruby, and `markdown/rack-readme` is the development input for Ruby fences.
 `ruby/jekyll-site`, `ruby/devise`, `ruby/puma-server`, `ruby/rspec-example`, `ruby/thor`, `ruby/rake-task` and `markdown/devise-readme` are held out.
 | `kotlin/okhttp-request` | [`Request.kt`][okhttp-request] in square/okhttp | [Apache-2.0][okhttp-licence] |
@@ -558,6 +565,8 @@ No input has a `jsonc` or `jsonl` fence, so those two spellings are covered by u
 The YAML lexer was written from the YAML 1.2 specification and from Shiki's output alone, as invariant 2 allows for a grammar with no licence, and it was checked against a local set of YAML files and fuzzed against Shiki before these inputs were added.
 `yaml/sample`, `yaml/checkout-test` and `yaml/petstore-openapi` are its development inputs, and `markdown/jekyll-front-matter` is the development input for front matter and YAML fences.
 `yaml/airflow-compose`, `yaml/ripgrep-ci`, `yaml/prometheus-config` and `markdown/traefik-docker` are held out.
+The `yaml-test-suite-*` and `coverage` inputs of `yaml`, and the `toml-test-*` and `coverage` inputs of `toml`, are held out too: they were added to exercise the rest of each grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
+The YAML test suite keeps its test files on its `data` branch, generated from its `main` branch, whose licence covers them.
 Their first scores, before any fix, were 100% for the three YAML files and 64 of 3,517 bytes different for `traefik-docker`, all of them on the line after a `\` in a shell fence, which the fix for shell fences (nishiki-archive#54) makes match.
 `make/sample`, `make/nvm`, `make/cjson` and `make/prometheus-common` are the development inputs for Makefiles.
 `make/node`, `make/minikube`, `make/moby`, `make/zlib` and `make/helm` are held out.
@@ -1211,6 +1220,9 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [tomcat-licence]: https://github.com/apache/tomcat/blob/1b2785c63ca0e0f9a242745b16f26924b5488ddd/LICENSE
 [tomcat-setclasspath]: https://github.com/apache/tomcat/blob/1b2785c63ca0e0f9a242745b16f26924b5488ddd/bin/setclasspath.bat
 [toml-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/toml.sample
+[toml-test-inline-table-key-dotted-01]: https://github.com/toml-lang/toml-test/blob/96fd088448ec0f4d9f061c730ed7854399c46faf/tests/valid/inline-table/key-dotted-01.toml
+[toml-test-key-quoted-unicode]: https://github.com/toml-lang/toml-test/blob/96fd088448ec0f4d9f061c730ed7854399c46faf/tests/valid/key/quoted-unicode.toml
+[toml-test-licence]: https://github.com/toml-lang/toml-test/blob/96fd088448ec0f4d9f061c730ed7854399c46faf/LICENSE
 [traefik-docker]: https://github.com/traefik/traefik/blob/38d53dd06c53c7e9bd08e57b217e72686d823610/docs/content/getting-started/docker.md
 [traefik-licence]: https://github.com/traefik/traefik/blob/38d53dd06c53c7e9bd08e57b217e72686d823610/LICENSE.md
 [ts-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/typescript.sample
@@ -1282,6 +1294,10 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [xerces-xni-config]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/docs/xni-config.xml
 [xml-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/xml.sample
 [yaml-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/yaml.sample
+[yaml-test-suite-c4hz]: https://github.com/yaml/yaml-test-suite/blob/6ad3d2c62885d82fc349026c136ef560838fdf3d/C4HZ/in.yaml
+[yaml-test-suite-kk5p]: https://github.com/yaml/yaml-test-suite/blob/6ad3d2c62885d82fc349026c136ef560838fdf3d/KK5P/in.yaml
+[yaml-test-suite-licence]: https://github.com/yaml/yaml-test-suite/blob/da267a5c4782e7361e82889e76c0dc7df0e1e870/License
+[yaml-test-suite-w4tn]: https://github.com/yaml/yaml-test-suite/blob/6ad3d2c62885d82fc349026c136ef560838fdf3d/W4TN/in.yaml
 [zap-licence]: https://github.com/uber-go/zap/blob/4892335e05f14bce8a98a69a577fcf3844a42623/LICENSE
 [zap-logger]: https://github.com/uber-go/zap/blob/4892335e05f14bce8a98a69a577fcf3844a42623/logger.go
 [zig-licence]: https://github.com/ziglang/zig/blob/738d2be9d6b6ef3ff3559130c05159ef53336224/LICENSE

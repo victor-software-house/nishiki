@@ -1,0 +1,26 @@
+%FOO bar baz
+%YAML 1.2
+---
+# Written for nishiki's oracle coverage: the rules of Shiki's YAML grammar
+# that the other inputs do not reach.
+scalars:
+  - null
+  - 2001-12-14
+  - =
+  - 'it''s'
+  - "tab\there and \x41 and é"
+  - "folded \
+    across lines"
+blocks:
+  literal: |2  # kept comment
+      two more spaces
+  folded: >- junk after the indicator
+    text
+anchors:
+  odd: &anchor/suffix value
+  ref: *anchor/suffix
+  bad-tag: !^bad value
+flow:
+  - [ null, 1.5, 2001-12-14, =, *anchor/suffix ]
+  - { ? explicit : value, <<: *anchor/suffix, ~: nothing }
+...

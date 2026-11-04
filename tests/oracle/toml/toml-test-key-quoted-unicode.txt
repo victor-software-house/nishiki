@@ -1,0 +1,73 @@
+L 
+L "\u0000" = "null"
+T 1 source.toml variable.other.key.toml punctuation.definition.variable.begin.toml
+T 7 source.toml constant.character.escape.toml
+T 8 source.toml variable.other.key.toml punctuation.definition.variable.end.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 16 source.toml string.quoted.double.toml
+T 17 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L '\u0000' = "different key"
+T 1 source.toml variable.other.key.toml punctuation.definition.variable.begin.toml
+T 7 source.toml variable.other.key.toml
+T 8 source.toml variable.other.key.toml punctuation.definition.variable.end.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 25 source.toml string.quoted.double.toml
+T 26 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L "\u0008 \u000c \U00000041 \u007f \u0080 \u00ff \ud7ff \ue000 \uffff \U00010000 \U0010ffff" = "escaped key"
+T 1 source.toml variable.other.key.toml punctuation.definition.variable.begin.toml
+T 7 source.toml constant.character.escape.toml
+T 8 source.toml
+T 14 source.toml constant.character.escape.toml
+T 15 source.toml
+T 25 source.toml constant.character.escape.toml
+T 26 source.toml
+T 32 source.toml constant.character.escape.toml
+T 33 source.toml
+T 39 source.toml constant.character.escape.toml
+T 40 source.toml
+T 46 source.toml constant.character.escape.toml
+T 47 source.toml
+T 53 source.toml constant.character.escape.toml
+T 54 source.toml
+T 60 source.toml constant.character.escape.toml
+T 61 source.toml
+T 67 source.toml constant.character.escape.toml
+T 68 source.toml
+T 78 source.toml constant.character.escape.toml
+T 79 source.toml
+T 89 source.toml constant.character.escape.toml
+T 90 source.toml variable.other.key.toml punctuation.definition.variable.end.toml
+T 91 source.toml
+T 92 source.toml punctuation.separator.key-value.toml
+T 93 source.toml
+T 94 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 105 source.toml string.quoted.double.toml
+T 106 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 
+L "~  ÿ ퟿  ￿ 𐀀 􏿿" = "basic key"
+T 1 source.toml variable.other.key.toml punctuation.definition.variable.begin.toml
+T 30 source.toml
+T 31 source.toml variable.other.key.toml punctuation.definition.variable.end.toml
+T 32 source.toml
+T 33 source.toml punctuation.separator.key-value.toml
+T 34 source.toml
+T 35 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 44 source.toml string.quoted.double.toml
+T 45 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 'l ~  ÿ ퟿  ￿ 𐀀 􏿿' = "literal key"
+T 1 source.toml variable.other.key.toml punctuation.definition.variable.begin.toml
+T 32 source.toml variable.other.key.toml
+T 33 source.toml variable.other.key.toml punctuation.definition.variable.end.toml
+T 34 source.toml
+T 35 source.toml punctuation.separator.key-value.toml
+T 36 source.toml
+T 37 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 48 source.toml string.quoted.double.toml
+T 49 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 

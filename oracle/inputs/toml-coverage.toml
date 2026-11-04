@@ -1,0 +1,29 @@
+# Written for nishiki's oracle coverage: the rules of Shiki's TOML grammar
+# that the other inputs do not reach.
+
+[strings]
+basic = "tab\there, bad \q escape"
+multi = """
+tab\tand unicode é and \U0001F600
+bad \q escape
+"""
+literal-multi = '''
+no \t escape here
+'''
+
+[numbers]
+positive-inf = inf
+negative-inf = -inf
+not-a-number = nan
+signed-nan = +nan
+in-array = [ inf, -nan, 1 ]
+
+[keys]
+"bad\q key" = 1
+"tab\tkey" = 2
+dotted."tab\tpart".end = 3
+dotted."bad\qpart".end = 4
+dotted.'literal part'.end = 5
+
+[invalid]
+words = [ 1, yes, "ok" ]

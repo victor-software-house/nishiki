@@ -310,6 +310,8 @@ const tokio =
   "https://raw.githubusercontent.com/tokio-rs/tokio/b499257ef62bd631b83a988d371f4330f545670c";
 const tomcat =
   "https://raw.githubusercontent.com/apache/tomcat/1b2785c63ca0e0f9a242745b16f26924b5488ddd";
+const tomlTest =
+  "https://raw.githubusercontent.com/toml-lang/toml-test/96fd088448ec0f4d9f061c730ed7854399c46faf";
 const traefik =
   "https://raw.githubusercontent.com/traefik/traefik/38d53dd06c53c7e9bd08e57b217e72686d823610";
 const turbine =
@@ -334,6 +336,8 @@ const vue =
   "https://raw.githubusercontent.com/vuejs/core/68f25a4a1957710de71731702bd42e05535f494b";
 const xerces =
   "https://raw.githubusercontent.com/apache/xerces2-j/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2";
+const yamlTestSuite =
+  "https://raw.githubusercontent.com/yaml/yaml-test-suite/6ad3d2c62885d82fc349026c136ef560838fdf3d";
 const zap =
   "https://raw.githubusercontent.com/uber-go/zap/4892335e05f14bce8a98a69a577fcf3844a42623";
 const zig =
@@ -1104,11 +1108,18 @@ export const inputs: Input[] = [
   { lang: "toml", name: "burntsushi-example", url: `${burntsushiToml}/_example/example.toml` },
   { lang: "toml", name: "cargo-manifest", url: `${cargo}/Cargo.toml` },
   { lang: "toml", name: "clap-manifest", url: `${clap}/Cargo.toml` },
+  {
+    lang: "toml",
+    name: "coverage",
+    url: new URL("inputs/toml-coverage.toml", import.meta.url).href,
+  },
   { lang: "toml", name: "poetry-pyproject", url: `${poetry}/pyproject.toml` },
   { lang: "toml", name: "ripgrep-manifest", url: `${ripgrep}/Cargo.toml` },
   { lang: "toml", name: "ruff-pyproject", url: `${ruff}/pyproject.toml` },
   { lang: "toml", name: "sample", url: `${samples}/toml.sample` },
   { lang: "toml", name: "tokio-manifest", url: `${tokio}/tokio/Cargo.toml` },
+  { lang: "toml", name: "toml-test-inline-table-key-dotted-01", url: `${tomlTest}/tests/valid/inline-table/key-dotted-01.toml` },
+  { lang: "toml", name: "toml-test-key-quoted-unicode", url: `${tomlTest}/tests/valid/key/quoted-unicode.toml` },
   {
     lang: "tsx",
     name: "coverage",
@@ -1201,6 +1212,11 @@ export const inputs: Input[] = [
   },
   {
     lang: "yaml",
+    name: "coverage",
+    url: new URL("inputs/yaml-coverage.yaml", import.meta.url).href,
+  },
+  {
+    lang: "yaml",
     name: "petstore-openapi",
     url: `${petstore}/src/main/resources/openapi.yaml`,
   },
@@ -1215,6 +1231,9 @@ export const inputs: Input[] = [
     url: `${ripgrep}/.github/workflows/ci.yml`,
   },
   { lang: "yaml", name: "sample", url: `${samples}/yaml.sample` },
+  { lang: "yaml", name: "yaml-test-suite-c4hz", url: `${yamlTestSuite}/C4HZ/in.yaml` },
+  { lang: "yaml", name: "yaml-test-suite-kk5p", url: `${yamlTestSuite}/KK5P/in.yaml` },
+  { lang: "yaml", name: "yaml-test-suite-w4tn", url: `${yamlTestSuite}/W4TN/in.yaml` },
   // Zig runs on the TextMate engine. Shiki's Markdown grammar has no Zig
   // fence, so no Markdown input embeds it.
   { lang: "zig", name: "sample", url: `${samples}/zig.sample` },

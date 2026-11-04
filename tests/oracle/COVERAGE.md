@@ -44,11 +44,11 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | shell | `shellscript` | 119 of 174 | 68.4% | 106 of 199 | 53.3% | 0 | 10 |  |
 | SQL | `sql` | 47 of 75 | 62.7% | 42 of 79 | 53.2% | 0 | 9 |  |
 | Swift | `swift` | 267 of 448 | 59.6% | 183 of 448 | 40.8% | 0 | 11 |  |
-| TOML | `toml` | 40 of 54 | 74.1% | 30 of 53 | 56.6% | 0 | 2 |  |
+| TOML | `toml` | 54 of 54 | 100.0% | 39 of 53 | 73.6% | 14 | 0 | yes |
 | TypeScript | `tsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | TypeScript | `typescript` | 513 of 515 | 99.6% | 571 of 576 | 99.1% | 7 | 0 | yes |
 | XML | `xml` | 23 of 32 | 71.9% | 46 of 66 | 69.7% | 0 | 1 |  |
-| YAML | `yaml` | 33 of 62 | 53.2% | 22 of 55 | 40.0% | 0 | 14 |  |
+| YAML | `yaml` | 60 of 62 | 96.8% | 51 of 55 | 92.7% | 6 | 0 | yes |
 
 ## Units no fixture exercises
 
@@ -2924,24 +2924,11 @@ patterns[44].match  (?i)\b(vector_(?:distance|norm|normalize))\b\s*\(
 ### `toml`
 
 ```text
-#comments.begin  groups 1
-#invalid.match  \S+(\s*(?=\S))?  fuzz
-#key_pair.patterns[0].end  groups 1, 2
-#key_pair.patterns[1].end  groups 1, 2, 3, 4, 5
-#key_pair.patterns[1].captures[3].patterns[0].match  \\(["\\bfnrt]|u\h{4}|U\h{8})
-#key_pair.patterns[1].captures[3].patterns[1].match  \\[^"\\bfnrt]
-#key_pair.patterns[1].captures[3].patterns[2].match  "
-#key_pair.patterns[2].begin  ((')([^']*)('))\s*(=)\s*
-#key_pair.patterns[2].end  (?<=\S)(?<!=)|$
-#key_pair.patterns[3].end  groups 1, 3
-#key_pair.patterns[3].captures[1].patterns[1].match  (")((?:[^"\\]|\\.)*)(")
-#key_pair.patterns[3].captures[1].patterns[1].captures[2].patterns[0].match  \\(["\\bfnrt]|u\h{4}|U\h{8})
-#key_pair.patterns[3].captures[1].patterns[1].captures[2].patterns[1].match  \\[^"\\bfnrt]
-#key_pair.patterns[3].captures[1].patterns[2].match  (')[^']*(')
-#primatives.patterns[0].patterns[0].match  \\(["\\bfnrt]|u\h{4}|U\h{8})
-#primatives.patterns[0].patterns[1].match  \\[^\n"\\bfnrt]
-#primatives.patterns[1].patterns[1].match  \\[^"\\bfnrt]  fuzz
-#primatives.patterns[10].match  \G[-+]?(inf|nan)
+#comments.begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#key_pair.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#key_pair.patterns[1].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups), 3 (waived: the grammar names the group, but the expression has no groups), 4 (waived: the grammar names the group, but the expression has no groups), 5 (waived: the grammar names the group, but the expression has no groups)
+#key_pair.patterns[2].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups), 4 (waived: the grammar names the group, but the expression has no groups), 5 (waived: the grammar names the group, but the expression has no groups)
+#key_pair.patterns[3].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 3 (waived: the grammar names the group, but the expression has no groups)
 ```
 
 ### `tsx`
@@ -2990,40 +2977,11 @@ patterns[8].end  (?!--)%>
 ### `yaml`
 
 ```text
-patterns[4].match  ^\.{3}
-#block-pair.patterns[0].begin  \?
-#block-pair.patterns[0].end  (?=\?)|^ *(:)|(:)
-#block-scalar.begin  groups 2 (fuzz), 3, 5 (fuzz)
-#block-scalar.beginCaptures[5].patterns[1].match  .+  fuzz
-#comment.begin  groups 1
-#directive.begin  ^%
-#directive.end  (?=$|[\t ]+($|#))
-#directive.patterns[0].match  \G(YAML)[\t ]+(\d+\.\d+)
-#directive.patterns[1].match  \G(TAG)(?:[\t ]+(!(?:[-0-9A-Za-z]*!)?)(?:[\t ]+(!(?:%\h{2}|…
-#directive.patterns[2].match  \G(\w+)(?:[\t ]+(\w+)(?:[\t ]+(\w+))?)?
-#directive.patterns[3].match  \S+
-#flow-alias.match  groups 4
-#flow-mapping.patterns[1].match  ,
-#flow-pair.patterns[0].begin  \?
-#flow-pair.patterns[0].end  (?=[],}])
-#flow-pair.patterns[0].patterns[3].begin  :(?=\s|$|[],\[{}])
-#flow-pair.patterns[0].patterns[3].end  (?=[],}])
-#flow-pair.patterns[1].begin  (?=(?:[^-\]!"#%\&'*,:>?@\[`{|}\s]|[-:?][^],\[{}\s])([^],:\[…  fuzz
-#flow-pair.patterns[1].end  (?=\s*$|\s+#|\s*:(\s|$)|\s*:[],\[{}]|\s*[],\[{}])  fuzz
-#flow-pair.patterns[1].patterns[1].begin  [^-\]!"#%\&'*,:>?@\[`{|}\s]|[-:?][^],\[{}\s]  fuzz
-#flow-pair.patterns[1].patterns[1].end  (?=\s*$|\s+#|\s*:(\s|$)|\s*:[],\[{}]|\s*[],\[{}])  fuzz
-#flow-pair.patterns[3].begin  :(?=\s|$|[],\[{}])  fuzz
-#flow-pair.patterns[3].end  (?=[],}])
-#flow-scalar-double-quoted.patterns[0].match  \\([ "/0LN\\_abefnprtv]|x\d\d|u\d{4}|U\d{8})
-#flow-scalar-double-quoted.patterns[1].match  \\\n  fuzz
-#flow-scalar-plain-in-implicit-type.patterns[0].match  (?:(null|Null|NULL|~)|([Yy]|yes|Yes|YES|[Nn]|no|No|NO|true|…  fuzz
-#flow-scalar-plain-out-implicit-type.patterns[0].match  groups 1, 5, 6
-#flow-scalar-single-quoted.patterns[0].match  ''
-#flow-value.patterns[0].begin  \G(?![],}])  fuzz
-#flow-value.patterns[0].end  (?=[],}])
-#property.patterns[0].match  groups 4
-#property.patterns[1].match  \G!(?:<(?:%\h{2}|[]!#$\&-;=?-\[_a-z~])+>|(?:[-0-9A-Za-z]*!)…
-#property.patterns[2].match  \S+
+#block-pair.patterns[0].begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#comment.begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#flow-pair.patterns[0].patterns[3].begin  :(?=\s|$|[],\[{}])  waived: `#flow-pair`, earlier in the same list, includes `#flow-pair.patterns[3]`, whose begin is the same expression
+#flow-pair.patterns[0].patterns[3].end  (?=[],}])  waived: its begin never matches
+#flow-pair.patterns[3].end  groups 0 (waived: the group is a lookahead, so it never holds text)
 ```
 
 ## Units no root reaches

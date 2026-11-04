@@ -1,0 +1,27 @@
+L %YAML 1.2
+T 1 source.yaml meta.directive.yaml punctuation.definition.directive.begin.yaml
+T 5 source.yaml meta.directive.yaml keyword.other.directive.yaml.yaml
+T 6 source.yaml meta.directive.yaml
+T 9 source.yaml meta.directive.yaml constant.numeric.yaml-version.yaml
+L --- |
+T 3 source.yaml entity.other.document.begin.yaml
+T 4 source.yaml
+T 5 source.yaml keyword.control.flow.block-scalar.literal.yaml
+L %!PS-Adobe-2.0
+T 1 source.yaml meta.directive.yaml punctuation.definition.directive.begin.yaml
+T 14 source.yaml meta.directive.yaml invalid.illegal.unrecognized.yaml
+L ...
+T 3 source.yaml entity.other.document.end.yaml
+L %YAML 1.2
+T 1 source.yaml meta.directive.yaml punctuation.definition.directive.begin.yaml
+T 5 source.yaml meta.directive.yaml keyword.other.directive.yaml.yaml
+T 6 source.yaml meta.directive.yaml
+T 9 source.yaml meta.directive.yaml constant.numeric.yaml-version.yaml
+L ---
+T 3 source.yaml entity.other.document.begin.yaml
+L # Empty
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 7 source.yaml comment.line.number-sign.yaml
+L ...
+T 3 source.yaml entity.other.document.end.yaml
+L 

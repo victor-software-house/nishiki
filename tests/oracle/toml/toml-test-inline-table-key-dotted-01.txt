@@ -1,0 +1,87 @@
+L a = {   a.b  =  1   }
+T 1 source.toml variable.other.key.toml
+T 2 source.toml
+T 3 source.toml punctuation.separator.key-value.toml
+T 4 source.toml
+T 5 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 8 source.toml meta.inline-table.toml
+T 9 source.toml meta.inline-table.toml variable.other.key.toml
+T 10 source.toml meta.inline-table.toml variable.other.key.toml punctuation.separator.variable.toml
+T 11 source.toml meta.inline-table.toml variable.other.key.toml
+T 13 source.toml meta.inline-table.toml
+T 14 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 16 source.toml meta.inline-table.toml
+T 17 source.toml meta.inline-table.toml constant.numeric.integer.toml
+T 20 source.toml meta.inline-table.toml
+T 21 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L b = {   "a"."b"  =  1   }
+T 1 source.toml variable.other.key.toml
+T 2 source.toml
+T 3 source.toml punctuation.separator.key-value.toml
+T 4 source.toml
+T 5 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 8 source.toml meta.inline-table.toml
+T 9 source.toml meta.inline-table.toml variable.other.key.toml punctuation.definition.variable.begin.toml
+T 10 source.toml meta.inline-table.toml
+T 11 source.toml meta.inline-table.toml invalid.illegal.not-allowed-here.toml
+T 12 source.toml meta.inline-table.toml
+T 13 source.toml meta.inline-table.toml invalid.illegal.not-allowed-here.toml
+T 14 source.toml meta.inline-table.toml
+T 15 source.toml meta.inline-table.toml variable.other.key.toml punctuation.definition.variable.end.toml
+T 17 source.toml meta.inline-table.toml
+T 18 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 20 source.toml meta.inline-table.toml
+T 21 source.toml meta.inline-table.toml constant.numeric.integer.toml
+T 24 source.toml meta.inline-table.toml
+T 25 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L c = {   a   .   b  =  1   }
+T 1 source.toml variable.other.key.toml
+T 2 source.toml
+T 3 source.toml punctuation.separator.key-value.toml
+T 4 source.toml
+T 5 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 8 source.toml meta.inline-table.toml
+T 12 source.toml meta.inline-table.toml variable.other.key.toml
+T 13 source.toml meta.inline-table.toml variable.other.key.toml punctuation.separator.variable.toml
+T 17 source.toml meta.inline-table.toml variable.other.key.toml
+T 19 source.toml meta.inline-table.toml
+T 20 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 22 source.toml meta.inline-table.toml
+T 23 source.toml meta.inline-table.toml constant.numeric.integer.toml
+T 26 source.toml meta.inline-table.toml
+T 27 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L d = {   'a'   .   "b"  =  1   }
+T 1 source.toml variable.other.key.toml
+T 2 source.toml
+T 3 source.toml punctuation.separator.key-value.toml
+T 4 source.toml
+T 5 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 8 source.toml meta.inline-table.toml
+T 9 source.toml meta.inline-table.toml variable.other.key.toml punctuation.definition.variable.begin.toml
+T 10 source.toml meta.inline-table.toml variable.other.key.toml
+T 11 source.toml meta.inline-table.toml variable.other.key.toml punctuation.definition.variable.end.toml
+T 14 source.toml meta.inline-table.toml variable.other.key.toml
+T 15 source.toml meta.inline-table.toml variable.other.key.toml punctuation.separator.variable.toml
+T 18 source.toml meta.inline-table.toml variable.other.key.toml
+T 19 source.toml meta.inline-table.toml variable.other.key.toml punctuation.definition.variable.begin.toml
+T 20 source.toml meta.inline-table.toml variable.other.key.toml
+T 21 source.toml meta.inline-table.toml variable.other.key.toml punctuation.definition.variable.end.toml
+T 23 source.toml meta.inline-table.toml
+T 24 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 26 source.toml meta.inline-table.toml
+T 27 source.toml meta.inline-table.toml constant.numeric.integer.toml
+T 30 source.toml meta.inline-table.toml
+T 31 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L e = {a.b=1}
+T 1 source.toml variable.other.key.toml
+T 2 source.toml
+T 3 source.toml punctuation.separator.key-value.toml
+T 4 source.toml
+T 5 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 6 source.toml meta.inline-table.toml variable.other.key.toml
+T 7 source.toml meta.inline-table.toml variable.other.key.toml punctuation.separator.variable.toml
+T 8 source.toml meta.inline-table.toml variable.other.key.toml
+T 9 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 10 source.toml meta.inline-table.toml constant.numeric.integer.toml
+T 11 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L 

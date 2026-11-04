@@ -1,0 +1,182 @@
+L # Written for nishiki's oracle coverage: the rules of Shiki's TOML grammar
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 74 source.toml comment.line.number-sign.toml
+L # that the other inputs do not reach.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 37 source.toml comment.line.number-sign.toml
+L 
+L [strings]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 8 source.toml meta.group.toml entity.name.section.toml
+T 9 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L basic = "tab\there, bad \q escape"
+T 5 source.toml variable.other.key.toml
+T 6 source.toml
+T 7 source.toml punctuation.separator.key-value.toml
+T 8 source.toml
+T 9 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 12 source.toml string.quoted.double.toml
+T 14 source.toml string.quoted.double.toml constant.character.escape.toml
+T 24 source.toml string.quoted.double.toml
+T 26 source.toml string.quoted.double.toml invalid.illegal.escape.toml
+T 33 source.toml string.quoted.double.toml
+T 34 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L multi = """
+T 5 source.toml variable.other.key.toml
+T 6 source.toml
+T 7 source.toml punctuation.separator.key-value.toml
+T 8 source.toml
+T 11 source.toml string.quoted.triple.double.toml punctuation.definition.string.begin.toml
+L tab\tand unicode é and \U0001F600
+T 3 source.toml string.quoted.triple.double.toml
+T 5 source.toml string.quoted.triple.double.toml constant.character.escape.toml
+T 24 source.toml string.quoted.triple.double.toml
+T 34 source.toml string.quoted.triple.double.toml constant.character.escape.toml
+L bad \q escape
+T 4 source.toml string.quoted.triple.double.toml
+T 6 source.toml string.quoted.triple.double.toml invalid.illegal.escape.toml
+T 13 source.toml string.quoted.triple.double.toml
+L """
+T 3 source.toml string.quoted.triple.double.toml punctuation.definition.string.end.toml
+L literal-multi = '''
+T 13 source.toml variable.other.key.toml
+T 14 source.toml
+T 15 source.toml punctuation.separator.key-value.toml
+T 16 source.toml
+T 19 source.toml string.quoted.triple.single.toml punctuation.definition.string.begin.toml
+L no \t escape here
+T 17 source.toml string.quoted.triple.single.toml
+L '''
+T 3 source.toml string.quoted.triple.single.toml punctuation.definition.string.end.toml
+L 
+L [numbers]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 8 source.toml meta.group.toml entity.name.section.toml
+T 9 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L positive-inf = inf
+T 12 source.toml variable.other.key.toml
+T 13 source.toml
+T 14 source.toml punctuation.separator.key-value.toml
+T 15 source.toml
+T 18 source.toml constant.numeric.toml
+L negative-inf = -inf
+T 12 source.toml variable.other.key.toml
+T 13 source.toml
+T 14 source.toml punctuation.separator.key-value.toml
+T 15 source.toml
+T 19 source.toml constant.numeric.toml
+L not-a-number = nan
+T 12 source.toml variable.other.key.toml
+T 13 source.toml
+T 14 source.toml punctuation.separator.key-value.toml
+T 15 source.toml
+T 18 source.toml constant.numeric.toml
+L signed-nan = +nan
+T 10 source.toml variable.other.key.toml
+T 11 source.toml
+T 12 source.toml punctuation.separator.key-value.toml
+T 13 source.toml
+T 17 source.toml constant.numeric.toml
+L in-array = [ inf, -nan, 1 ]
+T 8 source.toml variable.other.key.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 13 source.toml meta.array.toml
+T 16 source.toml meta.array.toml constant.numeric.toml
+T 17 source.toml meta.array.toml punctuation.separator.array.toml
+T 18 source.toml meta.array.toml
+T 22 source.toml meta.array.toml constant.numeric.toml
+T 23 source.toml meta.array.toml punctuation.separator.array.toml
+T 24 source.toml meta.array.toml
+T 25 source.toml meta.array.toml constant.numeric.integer.toml
+T 26 source.toml meta.array.toml
+T 27 source.toml meta.array.toml punctuation.definition.array.end.toml
+L 
+L [keys]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 5 source.toml meta.group.toml entity.name.section.toml
+T 6 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L "bad\q key" = 1
+T 1 source.toml variable.other.key.toml punctuation.definition.variable.begin.toml
+T 4 source.toml
+T 6 source.toml invalid.illegal.escape.toml
+T 10 source.toml
+T 11 source.toml variable.other.key.toml punctuation.definition.variable.end.toml
+T 12 source.toml
+T 13 source.toml punctuation.separator.key-value.toml
+T 14 source.toml
+T 15 source.toml constant.numeric.integer.toml
+L "tab\tkey" = 2
+T 1 source.toml variable.other.key.toml punctuation.definition.variable.begin.toml
+T 4 source.toml
+T 6 source.toml constant.character.escape.toml
+T 9 source.toml
+T 10 source.toml variable.other.key.toml punctuation.definition.variable.end.toml
+T 11 source.toml
+T 12 source.toml punctuation.separator.key-value.toml
+T 13 source.toml
+T 14 source.toml constant.numeric.integer.toml
+L dotted."tab\tpart".end = 3
+T 6 source.toml variable.other.key.toml
+T 7 source.toml variable.other.key.toml punctuation.separator.variable.toml
+T 8 source.toml variable.other.key.toml punctuation.definition.variable.begin.toml
+T 11 source.toml variable.other.key.toml
+T 13 source.toml variable.other.key.toml constant.character.escape.toml
+T 17 source.toml variable.other.key.toml
+T 18 source.toml variable.other.key.toml punctuation.definition.variable.end.toml
+T 19 source.toml variable.other.key.toml punctuation.separator.variable.toml
+T 22 source.toml variable.other.key.toml
+T 23 source.toml
+T 24 source.toml punctuation.separator.key-value.toml
+T 25 source.toml
+T 26 source.toml constant.numeric.integer.toml
+L dotted."bad\qpart".end = 4
+T 6 source.toml variable.other.key.toml
+T 7 source.toml variable.other.key.toml punctuation.separator.variable.toml
+T 8 source.toml variable.other.key.toml punctuation.definition.variable.begin.toml
+T 11 source.toml variable.other.key.toml
+T 13 source.toml variable.other.key.toml invalid.illegal.escape.toml
+T 17 source.toml variable.other.key.toml
+T 18 source.toml variable.other.key.toml punctuation.definition.variable.end.toml
+T 19 source.toml variable.other.key.toml punctuation.separator.variable.toml
+T 22 source.toml variable.other.key.toml
+T 23 source.toml
+T 24 source.toml punctuation.separator.key-value.toml
+T 25 source.toml
+T 26 source.toml constant.numeric.integer.toml
+L dotted.'literal part'.end = 5
+T 6 source.toml variable.other.key.toml
+T 7 source.toml variable.other.key.toml punctuation.separator.variable.toml
+T 8 source.toml variable.other.key.toml punctuation.definition.variable.begin.toml
+T 20 source.toml variable.other.key.toml
+T 21 source.toml variable.other.key.toml punctuation.definition.variable.end.toml
+T 22 source.toml variable.other.key.toml punctuation.separator.variable.toml
+T 25 source.toml variable.other.key.toml
+T 26 source.toml
+T 27 source.toml punctuation.separator.key-value.toml
+T 28 source.toml
+T 29 source.toml constant.numeric.integer.toml
+L 
+L [invalid]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 8 source.toml meta.group.toml entity.name.section.toml
+T 9 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L words = [ 1, yes, "ok" ]
+T 5 source.toml variable.other.key.toml
+T 6 source.toml
+T 7 source.toml punctuation.separator.key-value.toml
+T 8 source.toml
+T 9 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 10 source.toml meta.array.toml
+T 11 source.toml meta.array.toml constant.numeric.integer.toml
+T 12 source.toml meta.array.toml punctuation.separator.array.toml
+T 13 source.toml meta.array.toml
+T 18 source.toml meta.array.toml invalid.illegal.not-allowed-here.toml
+T 19 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 21 source.toml meta.array.toml string.quoted.double.toml
+T 22 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 23 source.toml meta.array.toml
+T 24 source.toml meta.array.toml punctuation.definition.array.end.toml
+L 
