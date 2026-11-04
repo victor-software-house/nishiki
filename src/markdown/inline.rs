@@ -12,6 +12,7 @@ use super::limits::{MAX_BRACKET_DEPTH, MAX_PAREN_DEPTH};
 use super::runs::{Closer, Delim, Open, Runs, Span};
 use super::stops::{Kind, PLAIN_STEPS, Step};
 use super::text::Cx;
+use super::titles::Shut;
 
 /// `&(?!([0-9A-Za-z]+|#[0-9]+|#x\h+);)`: an `&` that starts no entity.
 pub(crate) fn ampersand(cx: &Cx<'_>, p: usize) -> Option<usize> {
@@ -521,7 +522,13 @@ enum Destination {
 
 /// `(\()[\t ]*((<)((?:\\[<>]|[^\n<>])*)(>)|((?<url>…)*))[\t ]*(title)?\s*(\))`
 /// from the opening parenthesis at `open`, filling groups 5 to 21.
-fn destination(cx: &Cx<'_>, open: usize, kind: Destination, caps: &mut Caps) -> Option<usize> {
+fn destination(
+    cx: &Cx<'_>,
+    runs: &mut Runs,
+    open: usize,
+    kind: Destination,
+    caps: &mut Caps,
+) -> Option<usize> {
     caps.set(5, open, open + 1);
     let start = cx.skip(open + 1, |b| matches!(b, b' ' | b'\t'));
     if cx.get(start) == Some(b'<') {
@@ -540,7 +547,7 @@ fn destination(cx: &Cx<'_>, open: usize, kind: Destination, caps: &mut Caps) -> 
                 angle.set(8, start + 1, i);
             }
             angle.set(9, i, i + 1);
-            if let Some(end) = destination_tail(cx, i + 1, kind, &mut angle) {
+            if let Some(end) = destination_tail(cx, runs, i + 1, kind, &mut angle) {
                 *caps = angle;
                 return Some(end);
             }
@@ -551,7 +558,7 @@ fn destination(cx: &Cx<'_>, open: usize, kind: Destination, caps: &mut Caps) -> 
     if url_end > start {
         caps.set(10, start, url_end);
     }
-    destination_tail(cx, url_end, kind, caps)
+    destination_tail(cx, runs, url_end, kind, caps)
 }
 
 /// `[\t ]*(title)?\s*(\))` after the destination, ending at the parenthesis.
@@ -559,28 +566,37 @@ fn destination(cx: &Cx<'_>, open: usize, kind: Destination, caps: &mut Caps) -> 
 /// The link's title takes `[^()]*`, `[^"]*` or `[^']*`.
 /// The image's title takes `.+?` up to the first closing byte that the final
 /// parenthesis follows.
-fn destination_tail(cx: &Cx<'_>, p: usize, kind: Destination, caps: &mut Caps) -> Option<usize> {
+/// Its scan goes through the line's memo of title scans.
+fn destination_tail(
+    cx: &Cx<'_>,
+    runs: &mut Runs,
+    p: usize,
+    kind: Destination,
+    caps: &mut Caps,
+) -> Option<usize> {
     let at = cx.skip(p, |b| matches!(b, b' ' | b'\t'));
     let mut close = cx.skip_space(at);
     if let Some(open @ (b'(' | b'"' | b'\'')) = cx.get(at) {
-        let first = match open {
-            b'(' => 12,
-            b'"' => 15,
-            _ => 18,
+        let (first, title) = match open {
+            b'(' => (12, Shut::Paren),
+            b'"' => (15, Shut::Double),
+            _ => (18, Shut::Single),
         };
         let shut = title_close(open);
-        let mut i = at + 1;
-        while let Some(b) = cx.get(i) {
-            let stop = match kind {
-                Destination::Link => b == shut || (open == b'(' && b == b'('),
-                Destination::Image => b == b'\n' || (b == shut && i > at + 1 && fits(cx, i + 1)),
-            };
-            if stop {
-                break;
+        let i = match kind {
+            Destination::Link => {
+                let mut i = at + 1;
+                while let Some(b) = cx.get(i) {
+                    if b == shut || (open == b'(' && b == b'(') {
+                        break;
+                    }
+                    i += 1;
+                }
+                cx.spend(i - at);
+                i
             }
-            i += 1;
-        }
-        cx.spend(i - at);
+            Destination::Image => image_title_end(cx, runs, at, title, shut),
+        };
         if cx.over() {
             return None;
         }
@@ -603,6 +619,30 @@ fn destination_tail(cx: &Cx<'_>, p: usize, kind: Destination, caps: &mut Caps) -
     }
 }
 
+/// Where the scan of the image title that opens at `at` stops.
+///
+/// A newline or the end of the text right after the opening byte stops it
+/// there.
+/// Otherwise the scan starts one byte later, since a title holds at least one
+/// byte.
+/// It stops at a newline, at the end of the text, or at a `shut` byte that
+/// `\s*\)` follows.
+/// It spends two steps plus the positions the memo did not skip.
+/// Without a skip, that is the distance from `at` to the stop.
+fn image_title_end(cx: &Cx<'_>, runs: &mut Runs, at: usize, title: Shut, shut: u8) -> usize {
+    if matches!(cx.get(at + 1), None | Some(b'\n')) {
+        cx.spend(1);
+        return at + 1;
+    }
+    let text = (cx.line.as_ptr().addr(), cx.line.len(), cx.end);
+    let (stop, passed) = runs.title_stop(text, title, at + 2, |i| match cx.get(i) {
+        None | Some(b'\n') => true,
+        Some(b) => b == shut && fits(cx, i + 1),
+    });
+    cx.spend(passed + 2);
+    stop
+}
+
 /// `\s*\)` at `p`.
 fn fits(cx: &Cx<'_>, p: usize) -> bool {
     cx.get(cx.skip_space(p)) == Some(b')')
@@ -611,6 +651,7 @@ fn fits(cx: &Cx<'_>, p: usize) -> bool {
 /// `(!?\[)(label)(])` and then the `(` of a destination.
 fn inline_link(
     cx: &Cx<'_>,
+    runs: &mut Runs,
     p: usize,
     bang: bool,
     kind: Destination,
@@ -632,17 +673,27 @@ fn inline_link(
     if cx.get(close + 1) != Some(b'(') {
         return None;
     }
-    destination(cx, close + 1, kind, caps)
+    destination(cx, runs, close + 1, kind, caps)
 }
 
 /// `(!\[)(label)(])(\()…(\))`
-pub(crate) fn image_inline(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
-    inline_link(cx, p, true, Destination::Image, caps)
+pub(crate) fn image_inline(
+    cx: &Cx<'_>,
+    runs: &mut Runs,
+    p: usize,
+    caps: &mut Caps,
+) -> Option<usize> {
+    inline_link(cx, runs, p, true, Destination::Image, caps)
 }
 
 /// `(\[)(label)(])(\()…(\))`
-pub(crate) fn link_inline(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
-    inline_link(cx, p, false, Destination::Link, caps)
+pub(crate) fn link_inline(
+    cx: &Cx<'_>,
+    runs: &mut Runs,
+    p: usize,
+    caps: &mut Caps,
+) -> Option<usize> {
+    inline_link(cx, runs, p, false, Destination::Link, caps)
 }
 
 /// `(!\[)(label)(]) ?(\[)(.*?)(])`

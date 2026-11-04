@@ -677,11 +677,13 @@ impl<'a> Lexer<'a> {
             P::Raw => inline::raw(&cx, &mut self.scratch.markdown.runs, start, caps),
             P::Strike => inline::strikethrough(&cx, &mut self.scratch.markdown.runs, start, caps),
             P::Escape => inline::escape(&cx, start),
-            P::ImageInline => inline::image_inline(&cx, start, caps),
+            P::ImageInline => {
+                inline::image_inline(&cx, &mut self.scratch.markdown.runs, start, caps)
+            }
             P::ImageRef => inline::image_reference(&cx, start, caps),
             P::LinkEmail => inline::link_email(&cx, start, caps),
             P::LinkInet => inline::link_inet(&cx, start, caps),
-            P::LinkInline => inline::link_inline(&cx, start, caps),
+            P::LinkInline => inline::link_inline(&cx, &mut self.scratch.markdown.runs, start, caps),
             P::LinkRef => inline::link_reference(&cx, start, caps),
             P::LinkRefLiteral => inline::link_reference_literal(&cx, start, caps),
             P::LinkRefShortcut => inline::link_reference_shortcut(&cx, start, caps),

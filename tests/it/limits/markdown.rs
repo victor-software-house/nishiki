@@ -25,10 +25,6 @@ const HOSTILE: [(&str, &str, &str); 15] = [
     ("```{.rustx", "} ", "`"),
 ];
 
-/// Units the grammar matches in time quadratic in their count, which the
-/// work limit cuts short.
-const QUADRATIC: [&str; 1] = ["![a]("];
-
 /// Units whose emphasis look-aheads pass the plain steps.
 /// The line's last look-aheads fall short of them, by a fixed term per line.
 const LONG_LOOK_AHEADS: [&str; 1] = ["*a "];
@@ -45,16 +41,9 @@ fn hostile_markdown_lines_finish_within_the_default_limits() {
         let (rows, _) = lex(&mut highlighter, &[&line]);
         let report = rows[0].1;
         assert!(
-            report
-                .limits()
-                .all(|limit| matches!(limit, Limit::Work | Limit::Depth)),
+            report.limits().all(|limit| matches!(limit, Limit::Depth)),
             "{unit:?} reached {:?}",
             report.limits().collect::<Vec<_>>()
-        );
-        assert_eq!(
-            report.reached(Limit::Work),
-            QUADRATIC.contains(&unit),
-            "{unit:?}"
         );
     }
 }
@@ -65,13 +54,10 @@ fn hostile_markdown_lines_finish_within_the_default_limits() {
 #[test]
 fn hostile_markdown_lines_spend_work_linear_in_their_length() {
     for (head, unit, tail) in HOSTILE {
-        if QUADRATIC.contains(&unit) {
-            continue;
-        }
         let slack = if LONG_LOOK_AHEADS.contains(&unit) {
             NEAR_END_SHORTFALL
         } else {
-            16
+            LINE_END_SLACK
         };
         let short = steps_spent(Language::Markdown, &hostile(head, unit, tail, 1_000));
         let long = steps_spent(Language::Markdown, &hostile(head, unit, tail, 2_000));
@@ -159,6 +145,11 @@ fn a_line_of_strikethroughs_spends_work_linear_in_its_length() {
 /// The steps an emphasis look-ahead takes before it uses its memo.
 /// It is `PLAIN_STEPS` in `src/markdown/stops.rs`.
 const LOOK_AHEAD_PLAIN_STEPS: u32 = 128;
+
+/// The steps a line's last units may miss, since no unit follows them.
+/// It is a fixed term per line.
+/// A line of `![a](` misses 28: its last links and images read less.
+const LINE_END_SLACK: u32 = 32;
 
 /// The steps a line's last look-aheads miss.
 /// Look-aheads near the line's end take fewer plain steps than the rest.

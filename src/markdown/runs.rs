@@ -13,6 +13,7 @@
 //! length closes.
 
 use super::stops::{Kind, Step, Stops};
+use super::titles::{Shut, Titles};
 
 /// A delimiter whose runs open and close a span.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -92,7 +93,8 @@ impl Run {
 /// A span first scans ahead for a counting run as long as its widest opening.
 /// That scan is exact, and it costs only the bytes up to the closing run.
 /// A delimiter's table is built the first time such a scan misses on a line.
-/// The box also holds emphasis's memo of stops.
+/// The box also holds emphasis's memo of stops and the image rule's memo of
+/// title scans.
 ///
 /// The tables are boxed and allocated on the first miss.
 /// A highlighter that never needs them keeps an 8-byte field and allocates
@@ -103,13 +105,14 @@ pub(crate) struct Runs {
     held: Option<Box<Held>>,
 }
 
-/// Each delimiter's table and the line it describes, and emphasis's memo of
-/// stops.
+/// Each delimiter's table and the line it describes, emphasis's memo of
+/// stops, and the image rule's memo of title scans.
 #[derive(Debug, Default)]
 struct Held {
     backtick: Built,
     tilde: Built,
     stops: Stops,
+    titles: Titles,
 }
 
 /// One delimiter's table and the line it describes.
@@ -132,13 +135,34 @@ impl Held {
 }
 
 impl Runs {
-    /// Forgets the runs and the stops of the last line.
+    /// Forgets the runs, the stops and the title scans of the last line.
     pub(crate) fn reset(&mut self) {
         if let Some(held) = &mut self.held {
             held.backtick.line = None;
             held.tilde.line = None;
             held.stops.forget();
+            held.titles.forget();
         }
+    }
+
+    /// Where an image title's scan from `from` stops, through the line's memo
+    /// of title scans.
+    /// It also returns how many positions the scan stepped past, for the
+    /// caller to spend.
+    /// `text` is the line's address and length, and the end of its text.
+    #[cold]
+    #[inline(never)]
+    pub(crate) fn title_stop(
+        &mut self,
+        text: (usize, usize, usize),
+        shut: Shut,
+        from: usize,
+        is_stop: impl FnMut(usize) -> bool,
+    ) -> (usize, usize) {
+        self.held
+            .get_or_insert_with(Box::default)
+            .titles
+            .stop(text, shut, from, is_stop)
     }
 
     /// Where a long emphasis look-ahead that `step` takes stops, from `start`.

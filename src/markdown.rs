@@ -51,13 +51,17 @@
 //!    Shiki does not load.
 //! 4. The `>` of an email autolink has no scope of its own.
 //!
-//! The highlighter's [`Limits`](crate::Limits) bound it. Contexts nested deeper
-//! than `Limits::depth` (containers, emphasis, link text) are not opened. Each
-//! step of the lexer's loop, and each byte a look-ahead reads, counts against
-//! `Limits::work`, so a line of `**` or `[` repeated ends at the limit instead
-//! of costing time quadratic in its length; the rest of that line is one
-//! token. A label or link destination nested deeper than 32 brackets or
-//! parentheses ends there, which only bounds the matcher's recursion.
+//! The highlighter's [`Limits`](crate::Limits) bound it.
+//! Contexts nested deeper than `Limits::depth` are not opened: containers,
+//! emphasis and link text.
+//! Each step of the lexer's loop, and each byte a look-ahead reads, counts
+//! against `Limits::work`.
+//! A line that runs out of work ends in one token from that point.
+//! Lines such as `**`, `[` or `![a](` repeated cost work linear in their
+//! length, so they stay within the default limit.
+//! A label or link destination nested deeper than 32 brackets or parentheses
+//! ends there.
+//! That bound only limits the matcher's recursion.
 //!
 //! Where it differs from the grammar's regular expressions otherwise:
 //!
@@ -83,6 +87,7 @@ mod scope;
 mod state;
 mod stops;
 mod text;
+mod titles;
 
 pub(crate) use lexer::Scratch;
 pub(crate) use scope::NAMES;
