@@ -2,7 +2,7 @@
 #MISE description="Each browsable directory has its README, and its guide where it has rules"
 # A reader browsing the repository on GitHub learns what a directory holds
 # from its README, and the rules for working there from its AGENTS.md
-# (AGENTS.md, Documentation; openspec/changes/repo-layout).
+# (AGENTS.md, Documentation; openspec/changes/archive/2026-11-03-repo-layout).
 set -euo pipefail
 
 both=(openspec oracle tests)
