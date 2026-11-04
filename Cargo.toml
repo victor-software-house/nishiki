@@ -134,6 +134,8 @@ lang-erb = ["lang-html", "lang-ruby"]
 lang-go = ["_scope-table", "_rule-tables", "_classes"]
 lang-graphql = [
   "_scope-table",
+  "_rule-engine",
+  "_embedding",
   "lang-javascript",
   "_classes",
   "_utf8",
@@ -194,7 +196,7 @@ lang-zig = ["_textmate"]
 # The classes read characters through the UTF-8 helpers.
 _classes = ["_utf8"]
 # The rule engine's hand-over to a language a rule embeds, for Ruby's here
-# documents and Lua's `ffi.cdef`.
+# documents, Lua's `ffi.cdef` and GraphQL's interpolations.
 _embedding = ["_rule-engine"]
 _scope-table = []
 # tag::frame_kinds!, for the lexers that declare their frame kinds with it.

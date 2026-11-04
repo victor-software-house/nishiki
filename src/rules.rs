@@ -42,9 +42,9 @@ pub(crate) use tables::Tables;
 pub(crate) use tables::table_scan;
 
 use crate::arena::{Arena, ROOT};
-#[cfg(feature = "_embedding")]
-use crate::language::Parts;
 use crate::language::{Context, Halt, Line};
+#[cfg(feature = "_embedding")]
+use crate::language::{Halts, Parts};
 use crate::limits::Finished;
 #[cfg(feature = "_embedding")]
 use crate::limits::{Limit, Steps};
@@ -280,7 +280,7 @@ pub(crate) fn lex_until<G: Grammar>(
 /// `embedded!(Variant, "lang-…")` is `Some(Language::Variant)` when the
 /// language's feature is on. It is `None` otherwise.
 /// The generated table of a rule that embeds a language uses it.
-#[cfg(feature = "_embedding")]
+#[cfg(any(feature = "lang-ruby", feature = "lang-lua"))]
 macro_rules! embedded {
     ($variant:ident, $feature:literal) => {{
         #[cfg(feature = $feature)]
@@ -290,7 +290,7 @@ macro_rules! embedded {
         language
     }};
 }
-#[cfg(feature = "_embedding")]
+#[cfg(any(feature = "lang-ruby", feature = "lang-lua"))]
 pub(crate) use embedded;
 
 /// A halt without context.
@@ -339,8 +339,44 @@ pub(crate) fn lex_embedding<G: Embeds>(
     let (parts, buffers) = cx.parts();
     let (first, embedding) = Lexer::new(parts, text, state, scratch(buffers)).run_embedding();
     match embedding {
-        Some(embedding) => hand_over(cx, line, scratch, first, embedding),
+        Some(embedding) => hand_over::<G, false>(cx, line, scratch, None, first, embedding).0,
         None => first,
+    }
+}
+
+/// Lexes `line` like [`lex_embedding`], for grammar `G` that another grammar
+/// embeds in turn.
+/// The line also halts where `outer` holds while only `G`'s root rule is
+/// open, as in [`lex_until`], and the second value is where.
+/// A line with no text from its start leaves the state as it is.
+#[cfg(feature = "lang-graphql")]
+pub(crate) fn lex_embedding_until<G: Embeds>(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+    outer: Option<Halts<'_>>,
+) -> (Finished, Option<usize>) {
+    if line.text.len() <= line.start {
+        return (Finished::unspent(state), None);
+    }
+    let text = Text {
+        bytes: line.text.as_bytes(),
+        start: line.start,
+        anchored: line.embedded,
+    };
+    let (parts, buffers) = cx.parts();
+    let lexer = Lexer::new(parts, text, state, scratch(buffers));
+    let (first, stop) = match &outer {
+        Some(halts) => lexer.halting(halts).run_embedding_halting(),
+        None => lexer.run_embedding_halting(),
+    };
+    match stop {
+        Stop::Line => (first, None),
+        Stop::Halted(at) => (first, Some(at)),
+        Stop::Embedding(embedding) => {
+            hand_over::<G, true>(cx, line, scratch, outer.as_ref(), first, embedding)
+        }
     }
 }
 
@@ -421,16 +457,17 @@ fn lex_again<G: Embeds>(
 /// work budget. Out of line, since most lines embed nothing.
 #[cfg(feature = "_embedding")]
 #[cold]
-fn hand_over<G: Embeds>(
+fn hand_over<G: Embeds, const HALTING: bool>(
     cx: &mut Context<'_>,
     line: Line<'_>,
     scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+    outer: Option<&Halts<'_>>,
     first: Finished,
     mut embedding: Embedding,
-) -> Finished {
+) -> (Finished, Option<usize>) {
     let steps = Steps::new(cx.limits, line.text.len());
     let mut next = steps.take_back(first);
-    let state = loop {
+    let (state, halted) = loop {
         let language = embedding.language;
         let inner = match embedding.state {
             0 => language.start_embedded(cx.arena, embedding.base),
@@ -464,7 +501,7 @@ fn hand_over<G: Embeds>(
             next
         });
         let Some(at) = stop else {
-            break state;
+            break (state, None);
         };
         let text = Text {
             bytes: line.text.as_bytes(),
@@ -478,15 +515,41 @@ fn hand_over<G: Embeds>(
             out: &mut *cx.out,
             report: &mut *cx.report,
         };
-        let (finished, found) =
-            Lexer::new(parts, text, state, scratch(&mut *cx.scratch)).resume_embedding();
-        let resumed = steps.take_back(finished);
-        let Some(found) = found else {
-            break resumed;
+        let lexer = Lexer::new(parts, text, state, scratch(&mut *cx.scratch));
+        let (finished, found) = if HALTING {
+            resume_halting(lexer, outer)
+        } else {
+            let (finished, found) = lexer.resume_embedding();
+            (finished, found.map_or(Stop::Line, Stop::Embedding))
         };
-        (next, embedding) = (resumed, found);
+        let resumed = steps.take_back(finished);
+        match found {
+            Stop::Line => break (resumed, None),
+            Stop::Halted(at) => break (resumed, Some(at)),
+            Stop::Embedding(found) => (next, embedding) = (resumed, found),
+        }
     };
-    steps.finish(state)
+    (steps.finish(state), halted)
+}
+
+/// Goes on with a halting line where an embedded language halted, halting
+/// at `outer` when the grammar is itself embedded.
+#[cfg(feature = "lang-graphql")]
+fn resume_halting<'a, G: Grammar>(
+    lexer: Lexer<'a, G>,
+    outer: Option<&'a Halts<'a>>,
+) -> (Finished, Stop) {
+    match outer {
+        Some(halts) => lexer.halting(halts).resume_embedding_halting(),
+        None => lexer.resume_embedding_halting(),
+    }
+}
+
+/// A grammar that nothing embeds never resumes a halting line.
+#[cfg(all(feature = "_embedding", not(feature = "lang-graphql")))]
+fn resume_halting<G: Grammar>(lexer: Lexer<'_, G>, _: Option<&Halts<'_>>) -> (Finished, Stop) {
+    let (finished, found) = lexer.resume_embedding();
+    (finished, found.map_or(Stop::Line, Stop::Embedding))
 }
 
 /// The scopes of a pattern's capture groups by group number, and the groups
@@ -516,6 +579,18 @@ pub(crate) enum Payload {
     /// rule that embeds another language keeps that language's state, and
     /// the lexer hands the text to it (see [`Lexer::run_embedding`]).
     Embed(crate::Language),
+}
+
+/// How a line whose grammar embeds other languages stopped.
+#[cfg(feature = "_embedding")]
+#[derive(Clone, Copy, Debug)]
+pub(crate) enum Stop {
+    /// At the end of the line.
+    Line,
+    /// Where the line halted for the grammar that embeds it.
+    Halted(usize),
+    /// Where the innermost rule hands the text to the language it embeds.
+    Embedding(Embedding),
 }
 
 /// Where a line stopped for an embedded language.

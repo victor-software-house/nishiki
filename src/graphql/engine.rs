@@ -1,29 +1,52 @@
-//! The per-line engine: it runs the grammar's rules the way a `TextMate`
-//! engine does, with hand-written matchers instead of regular expressions.
+//! GraphQL on the shared rule engine ([`crate::rules`]).
+//! The matchers answer with a [`Hit`].
+//! The code here turns a hit into the spans the engine emits.
 //!
-//! At each position the engine tries the end pattern of the innermost rule and
-//! then the rule's patterns in order, and takes the first that matches at the
-//! earliest position; a rule marked `applyEndPatternLast` tries its end
-//! pattern after its patterns. A begin match opens a rule and an end match
-//! closes it. The corner cases of `TextMate` engines are kept because Shiki's
-//! output depends on them: the search goes on past the line feed to the end of
-//! the text, a rule that opens and closes without advancing stays open for the
-//! rest of the line, and a match rule that does not advance closes the rule it
-//! sits in.
+//! At each position the search tries the end pattern of the innermost rule.
+//! Then it tries the rule's patterns in order.
+//! It takes the first that matches at the earliest position.
+//! A rule marked `applyEndPatternLast` tries its end pattern after its
+//! patterns.
+//! An interpolation hands its text to the JavaScript lexer.
+//! The engine runs it up to the `}` that no JavaScript context waits for.
 
 use std::cell::Cell;
 
 use super::rules::{Pat, patterns};
 use super::scope::S;
 use super::state::Rule;
-use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Halts, Line};
-use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
-use crate::utf8::char_len;
-use crate::{Stack, Token, typescript};
+use crate::Language;
+use crate::arena::Arena;
+use crate::language::{Halts, NO_HALTS};
+use crate::rules::{self, Act, Captures, Embedding, Embeds, FnHalt, Grammar, Payload, ScopeName};
+use crate::utf8::{char_len, is_continuation};
 
-/// A capture group that carries a scope; `inner` is a second group over the
-/// same bytes, nested in it.
+/// The GraphQL lexer for one line.
+pub(super) type Lexer<'a> = rules::Lexer<'a, GraphQl>;
+/// What a highlighter keeps from line to line.
+pub(crate) type Scratch = rules::Scratch<GraphQl>;
+
+/// The `graphql` grammar that Shiki bundles.
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct GraphQl;
+
+/// The capture groups the grammar tokenizes with patterns of their own: none.
+#[derive(Clone, Copy, Debug)]
+pub(crate) enum Nested {}
+
+/// What the GraphQL matchers remember about a line.
+#[derive(Debug, Default)]
+pub(crate) struct Extra {
+    /// The last run of white space found: where the scan started and where
+    /// the run ends.
+    /// A scan from any byte inside it is then one lookup.
+    pub(super) space_run: Cell<(usize, usize)>,
+    /// The last run of name characters found, in the same way.
+    pub(super) word_run: Cell<(usize, usize)>,
+}
+
+/// A capture group that carries a scope.
+/// `inner` is a second group over the same bytes, nested in it.
 #[derive(Clone, Copy, Debug)]
 pub(super) struct Cap {
     pub(super) from: usize,
@@ -60,8 +83,8 @@ impl Hit {
         self
     }
 
-    /// The match with a group `from..to` that adds `scope` and, over the same
-    /// bytes, a nested group that adds `inner`.
+    /// The match with a group `from..to` that adds `scope`.
+    /// A nested group over the same bytes adds `inner`.
     pub(super) fn nested(mut self, slot: usize, from: usize, to: usize, scope: S, inner: S) -> Hit {
         self.caps[slot] = Some(Cap {
             from,
@@ -73,487 +96,191 @@ impl Hit {
     }
 }
 
-/// The open rules of the last line, kept so the next line reuses their
-/// buffer.
-#[derive(Debug, Default)]
-pub(crate) struct Scratch {
-    frames: Vec<Frame>,
-}
-
-/// An open rule.
-#[derive(Clone, Copy, Debug)]
-struct Frame {
-    rule: Rule,
-    /// Where the rule opened in this line; `None` for a rule that an earlier
-    /// line opened.
-    enter: Option<usize>,
-    /// Interned scope stack of the rule's begin and end.
-    name: u32,
-    /// Interned scope stack of the rule's content.
-    content: u32,
-    /// The interned state with this rule on top. A rule that a limit kept
-    /// out of the arena has its parent's.
-    state: u32,
-}
-
-/// What the search found.
-enum Found {
-    End(Hit),
-    Pat(Pat, Hit),
-}
-
-/// Lexes one line.
-pub(super) struct Lexer<'a> {
-    pub(super) s: &'a [u8],
-    /// The same text, for the JavaScript lexer.
-    text: &'a str,
-    scratch: &'a mut crate::scratch::Scratch,
-    /// The text ends here; the line feed after it is one more character.
-    pub(super) lim: usize,
-    out: &'a mut Vec<Token>,
-    arena: &'a mut Arena,
-    limits: &'a Limits,
-    report: &'a mut LineReport,
-    /// Steps spent on this line, counted in scans too, and lent to the
-    /// languages this one embeds.
-    steps: Steps,
-    /// End of the last token.
-    last: usize,
-    /// Where the current search starts.
-    pos: usize,
-    /// The open rules, the root first.
-    frames: Vec<Frame>,
-    /// The last run of white space found: where it was found from, and where
-    /// it ends, so a scan from any byte inside it is one lookup.
-    pub(super) space_run: Cell<(usize, usize)>,
-    /// The last run of name characters found, in the same way.
-    pub(super) word_run: Cell<(usize, usize)>,
-    /// Where the language that embeds GraphQL takes the text back, while
-    /// only the root is open: before GraphQL's patterns at a place, and
-    /// after they fail there (see [`Halt`]).
-    halts: Option<&'a Halts<'a>>,
-    /// Where the line halted.
-    halted: Cell<Option<usize>>,
-}
-
-impl<'a> Lexer<'a> {
-    /// The lexer for `line` from `state`, with the open rules of `state` in
-    /// the frame buffer the scratch keeps: they are collected from the top
-    /// up to the root and turned so the root comes first, and then each
-    /// rule's begin and end scopes are interned from the root down, on its
-    /// parent's content scopes.
-    pub(super) fn new(cx: &'a mut Context<'_>, line: Line<'a>, state: u32) -> Self {
-        let (s, start) = (line.text.as_bytes(), line.start);
-        let steps = Steps::new(cx.limits, s.len());
-        let mut frames = std::mem::take(&mut cx.scratch.graphql.frames);
-        frames.clear();
-        let mut lexer = Lexer {
-            s,
-            text: line.text,
-            scratch: &mut *cx.scratch,
-            lim: s.len(),
-            out: &mut *cx.out,
-            arena: &mut *cx.arena,
-            limits: cx.limits,
-            report: &mut *cx.report,
-            steps,
-            last: start,
-            pos: start,
-            frames,
-            space_run: Cell::new((0, 0)),
-            word_run: Cell::new((0, 0)),
-            halts: None,
-            halted: Cell::new(None),
-        };
-        let mut id = state;
-        loop {
-            let frame = lexer.arena.frame(id);
-            let rule = Rule::from_code(frame.kind);
-            let root = rule == Rule::Root || frame.parent == ROOT;
-            lexer.frames.push(Frame {
-                rule: if root { Rule::Root } else { rule },
-                enter: None,
-                name: frame.stack,
-                content: frame.stack,
-                state: id,
-            });
-            if root {
-                break;
-            }
-            id = frame.parent;
-        }
-        lexer.frames.reverse();
-        for index in 1..lexer.frames.len() {
-            let parent = lexer.frames[index - 1].content;
-            let rule = lexer.frames[index].rule;
-            let name = lexer.path(parent, rule.name());
-            lexer.frames[index].name = name;
-        }
-        lexer
-    }
-
-    /// Lexes the line and returns the state after it.
-    pub(super) fn run(self) -> Finished {
-        self.run_halting().0
-    }
-
-    /// Ends the line at the first place where `end` holds before GraphQL's
-    /// patterns, or `after` holds once they fail, while only the root is
-    /// open.
-    pub(super) fn halting(mut self, halts: &'a Halts<'a>) -> Self {
-        self.halts = Some(halts);
-        self
-    }
-
-    /// Lexes the line like [`Lexer::run`], and returns where it halted too.
-    pub(super) fn run_halting(mut self) -> (Finished, Option<usize>) {
-        self.tokenize();
-        let state = self.top().state;
-        self.scratch.graphql.frames = std::mem::take(&mut self.frames);
-        let halted = self.halted.get();
-        (self.steps.finish(state), halted)
-    }
-
-    /// The halts a scan tests at each place: the line's, while only the root
-    /// is open, and `None` otherwise. A scan does not open or close rules,
-    /// so it asks once.
-    fn root_halts(&self) -> Option<&'a Halts<'a>> {
-        self.halts.filter(|_| self.frames.len() == 1)
-    }
-
-    // Bytes.
-
-    /// The byte at `i`, with the line feed after the text, or 0 where no
-    /// character stands.
-    pub(super) fn at(&self, i: usize) -> u8 {
-        match i.cmp(&self.lim) {
-            std::cmp::Ordering::Less => self.s[i],
-            std::cmp::Ordering::Equal => b'\n',
-            std::cmp::Ordering::Greater => 0,
-        }
-    }
-
-    /// Counts `steps` of work against the line's budget.
-    pub(super) fn spend(&self, steps: usize) {
-        self.steps.spend(steps);
-    }
-
-    fn over_budget(&self) -> bool {
-        self.steps.exhausted()
-    }
-
-    // Scopes and tokens.
-
-    fn top(&self) -> Frame {
-        self.frames[self.frames.len() - 1]
-    }
-
-    /// The stack `base` with `scopes` on top; a node limit keeps the part
-    /// that does not fit off.
-    fn path(&mut self, base: u32, scopes: &[S]) -> u32 {
-        let mut stack = base;
-        for scope in scopes {
-            let Some(child) = self.arena.child(stack, scope.scope()) else {
-                self.report.record(Limit::Nodes);
-                break;
-            };
-            stack = child;
-        }
-        stack
-    }
-
-    /// Ends a token at `to` with `stack`.
-    fn tok(&mut self, stack: u32, to: usize) {
-        let to = to.min(self.lim);
-        if to > self.last {
-            self.out.push(Token {
-                end: to,
-                stack: Stack(stack),
-            });
-            self.last = to;
-        }
-    }
-
-    // The loop.
-
-    /// Takes matches until nothing matches at or after the position, as
-    /// `TextMate` does, or a guard against a loop that does not advance stops
-    /// the line.
-    ///
-    /// A step that does not advance opens a rule that is not yet open at the
-    /// byte or closes one, because a rule that opens again where it opened, or
-    /// closes where it opened, ends the line. A run of such steps is then at
-    /// most one open and one close per rule of the grammar, plus one close per
-    /// rule that was open when the run began; the debug assertion holds the
-    /// loop to that bound.
-    fn tokenize(&mut self) {
-        let mut from = self.pos;
-        let mut open = self.frames.len();
-        let mut stalled = 0;
-        loop {
-            self.spend(1);
-            if self.over_budget() {
-                self.report.record(Limit::Work);
-                self.finish();
-                return;
-            }
-            let found = if self.top().rule == Rule::Interpolation {
-                self.interpolation()
-            } else {
-                self.search()
-            };
-            let Some(found) = found else {
-                if let Some(at) = self.halted.get() {
-                    let stack = self.top().content;
-                    self.tok(stack, at);
-                    return;
+impl Lexer<'_> {
+    /// Records the capture groups of `hit` as spans.
+    /// `hit` is the match the search takes.
+    /// Returns where it starts and ends.
+    #[inline]
+    fn record(&mut self, hit: &Hit) -> (usize, usize) {
+        self.clear_spans();
+        for cap in hit.caps.iter().flatten() {
+            if cap.from < cap.to {
+                self.span_one(cap.from, cap.to, Some(cap.scope), None);
+                if cap.inner.is_some() {
+                    self.span_one(cap.from, cap.to, cap.inner, None);
                 }
-                if self.over_budget() {
-                    self.report.record(Limit::Work);
-                }
-                self.finish();
-                return;
-            };
-            let stopped = match found {
-                Found::End(hit) => self.close(&hit),
-                Found::Pat(pat, hit) => self.apply(pat, &hit),
-            };
-            if stopped {
-                return;
-            }
-            if self.pos > from {
-                from = self.pos;
-                open = self.frames.len();
-                stalled = 0;
-            } else {
-                stalled += 1;
-                debug_assert!(
-                    stalled <= open + 2 * Rule::ALL.len(),
-                    "the GraphQL lexer made no progress at byte {from}"
-                );
             }
         }
+        (hit.start, hit.end)
     }
 
-    /// Gives the rest of the text to the innermost rule's content.
-    fn finish(&mut self) {
-        let stack = self.top().content;
-        self.tok(stack, self.lim);
+    /// The first pattern of `rule` that matches at `p`, with where its match
+    /// starts and ends.
+    /// The end pattern comes before the patterns `pats`.
+    /// With `end_last`, it comes after them.
+    #[inline]
+    fn first_at(
+        &mut self,
+        rule: Rule,
+        end_last: bool,
+        pats: &'static [Pat],
+        p: usize,
+    ) -> Option<(Pat, usize, usize)> {
+        if !end_last && let Some(hit) = &self.end_at(rule, p) {
+            let (start, end) = self.record(hit);
+            return Some((Pat::End, start, end));
+        }
+        for &pat in pats {
+            if let Some(hit) = &self.pat_at(pat, p) {
+                let (start, end) = self.record(hit);
+                return Some((pat, start, end));
+            }
+        }
+        if end_last && let Some(hit) = &self.end_at(rule, p) {
+            let (start, end) = self.record(hit);
+            return Some((Pat::End, start, end));
+        }
+        None
     }
+}
 
-    /// The first match from the position: at each position the innermost
-    /// rule's end pattern and then its patterns in order, or its patterns and
-    /// then its end pattern for a rule that applies the end pattern last.
-    fn search(&self) -> Option<Found> {
-        let rule = self.top().rule;
-        let end = self.lim + 1;
-        let end_last = Self::end_last(rule);
-        let halts = self.root_halts();
+impl Lexer<'_> {
+    /// The first match from the position.
+    /// The halts apply only while the root rule alone is open.
+    /// Where the line's first halt holds, the line ends before the patterns.
+    /// Where its second holds and nothing matched, the line ends after them.
+    /// A rule the depth limit keeps closed leaves its text plain.
+    /// An empty match would match again at the same place, so the search
+    /// then goes on one character later.
+    /// A scan for GraphQL that nothing embeds compiles without the halts.
+    fn search<const HALTING: bool>(&mut self, halts: &Halts<'_>) -> Option<(usize, Pat, usize)> {
+        let rule = self.top_rule();
+        let end_last = Lexer::end_last(rule);
+        let pats = patterns(rule);
+        let end = self.lim() + usize::from(self.nl);
         let mut p = self.pos;
-        while p <= end {
+        'search: while p <= end {
             self.spend(1);
             if self.over_budget() {
                 return None;
             }
-            if p >= self.lim || self.s[p] & 0xc0 != 0x80 {
-                if let Some(&(halt, _)) = halts
-                    && halt.holds(self.s, p)
-                {
-                    self.halted.set(Some(p));
-                    return None;
+            let boundary = p >= self.lim() || !is_continuation(self.s[p]);
+            if HALTING && boundary && halts.0.holds(self.s, p) {
+                self.halt_here(p);
+                return None;
+            }
+            if boundary && let Some((pat, start, hit_end)) = self.first_at(rule, end_last, pats, p)
+            {
+                if pat.opens().is_some() && self.at_depth_limit() {
+                    self.record_depth();
+                    let next = if hit_end > start {
+                        hit_end
+                    } else {
+                        start + self.s.get(start).map_or(1, |&lead| char_len(lead))
+                    };
+                    self.skip_plain(start, next);
+                    p = self.pos;
+                    continue 'search;
                 }
-                if !end_last && let Some(hit) = self.end_at(rule, p) {
-                    return Some(Found::End(hit));
-                }
-                for &pat in patterns(rule) {
-                    if let Some(hit) = self.pat_at(pat, p) {
-                        return Some(Found::Pat(pat, hit));
-                    }
-                }
-                if end_last && let Some(hit) = self.end_at(rule, p) {
-                    return Some(Found::End(hit));
-                }
-                if let Some(&(_, Some(after))) = halts
-                    && after.holds(self.s, p)
-                {
-                    self.halted.set(Some(p));
-                    return None;
-                }
+                return Some((start, pat, hit_end));
+            }
+            if HALTING && boundary && halts.1.is_some_and(|after| after.holds(self.s, p)) {
+                self.halt_here(p);
+                return None;
             }
             p += 1;
         }
         None
     }
+}
 
-    /// The rest of an interpolation on this line: the JavaScript up to the `}`
-    /// that no context of the code is waiting for, and then the end. The
-    /// JavaScript lexer reads the code, and its state is the payload of the
-    /// rule's frame, so an interpolation that goes on across lines resumes
-    /// where it stopped.
-    fn interpolation(&mut self) -> Option<Found> {
-        let top = self.top();
-        let mut js = self.arena.frame(top.state).payload;
-        if js == 0 {
-            js = typescript::start_embedded(self.arena, top.content);
-        }
-        self.spend(self.lim.saturating_sub(self.pos) + 1);
-        let lent = self.steps.lend(self.limits);
-        let mut cx = Context {
-            scratch: &mut *self.scratch,
-            arena: &mut *self.arena,
-            limits: &lent,
-            out: &mut *self.out,
-            report: &mut *self.report,
-        };
-        let line = Line {
-            text: self.text,
-            start: self.pos,
-            embedded: false,
-        };
-        let (next, close) = typescript::lex_until(
-            &mut cx,
-            typescript::Dialect::JavaScript,
-            line,
-            js,
-            &closing_brace,
-            None,
-        );
-        let next = self.steps.take_back(next);
-        let to = close.unwrap_or(self.lim);
-        if to > self.pos {
-            self.last = to;
-            self.pos = to;
-        }
-        let Some(at) = close else {
-            let parent = self.frames[self.frames.len() - 2].state;
-            let state = self
-                .arena
-                .push(parent, Rule::Interpolation.code(), next, top.content)
-                .unwrap_or_else(|| {
-                    self.report.record(Limit::Nodes);
-                    top.state
-                });
-            let last = self.frames.len() - 1;
-            self.frames[last].state = state;
-            return None;
-        };
-        Some(Found::End(Hit::new(at, at + 1).cap(
-            0,
-            at,
-            at + 1,
-            S::SubstitutionEnd,
-        )))
+impl Grammar for GraphQl {
+    type Scope = S;
+    type Rule = Rule;
+    type Pat = Pat;
+    type Nested = Nested;
+    type Extra = Extra;
+    type Kept = ();
+
+    const NAME: &'static str = "GraphQL";
+    const ROOT: Rule = Rule::Root;
+    const SOURCE: crate::scope::Scope = S::Source.scope();
+    /// A string's quote carries the string's scope.
+    /// Inside it, the quote carries its own.
+    const NESTED_SPANS: bool = true;
+    const EMBEDS: bool = true;
+
+    fn scope(scope: S) -> ScopeName {
+        ScopeName::Fixed(scope.scope())
     }
 
-    /// Applies an end match; true when the line stops.
-    fn close(&mut self, hit: &Hit) -> bool {
-        let top = self.top();
-        self.tok(top.content, hit.start);
-        self.captures(top.name, hit);
-        self.tok(top.name, hit.end);
-        let advanced = hit.end > self.pos;
-        if !advanced && top.enter == Some(self.pos) {
-            // The rule opened and closed without advancing: the grammar is
-            // taken to mean that it stays open, for the rest of the line.
-            self.tok(top.content, self.lim);
-            return true;
-        }
-        self.frames.pop();
-        self.pos = self.pos.max(hit.end);
-        false
+    fn rule_code(rule: Rule) -> u16 {
+        rule.code()
     }
 
-    /// Applies a pattern's match; true when the line stops.
-    fn apply(&mut self, pat: Pat, hit: &Hit) -> bool {
-        let top = self.top();
-        self.tok(top.content, hit.start);
-        let Some(rule) = pat.opens() else {
-            let name = self.path(top.content, pat.name());
-            self.captures(name, hit);
-            self.tok(name, hit.end);
-            if hit.end <= self.pos {
-                // A match rule that does not advance: the rule it sits in is
-                // closed and the rest of the line belongs to the rule below.
-                if self.frames.len() > 1 {
-                    self.frames.pop();
-                }
-                self.finish();
-                return true;
-            }
-            self.pos = self.pos.max(hit.end);
-            return false;
-        };
-        let depth = self.frames.len();
-        if self.limits.depth.is_some_and(|max| depth >= max) {
-            self.report.record(Limit::Depth);
-            // The text stays plain; a rule that matched nothing would match
-            // again where it did, so the search goes on after one character.
-            let next = if hit.end > hit.start {
-                hit.end
-            } else {
-                hit.start + self.s.get(hit.start).map_or(1, |&lead| char_len(lead))
-            };
-            let next = next.min(self.lim);
-            self.tok(top.content, next);
-            self.pos = self.pos.max(next);
-            return false;
-        }
-        if hit.end <= self.pos && self.same_rule_here(rule) {
-            // The rule opened again where it had opened without advancing.
-            self.finish();
-            return true;
-        }
-        let name = self.path(top.content, rule.name());
-        let content = self.path(name, rule.content());
-        let state = self
-            .arena
-            .push(top.state, rule.code(), 0, content)
-            .unwrap_or_else(|| {
-                self.report.record(Limit::Nodes);
-                top.state
-            });
-        self.frames.push(Frame {
-            rule,
-            enter: Some(self.pos),
-            name,
-            content,
-            state,
-        });
-        self.captures(name, hit);
-        self.tok(name, hit.end);
-        self.pos = self.pos.max(hit.end);
-        false
+    fn rule_from_code(code: u16) -> Rule {
+        Rule::from_code(code)
     }
 
-    /// Whether an open rule entered at the position is `rule`, looking down
-    /// the rules that entered there.
-    fn same_rule_here(&self, rule: Rule) -> bool {
-        self.frames
-            .iter()
-            .rev()
-            .take_while(|frame| frame.enter == Some(self.pos))
-            .any(|frame| frame.rule == rule)
+    fn rule_name(rule: Rule) -> &'static [S] {
+        rule.name()
     }
 
-    /// Emits a match's capture groups over `base`, the stack of the text of
-    /// the match outside them.
-    fn captures(&mut self, base: u32, hit: &Hit) {
-        for cap in hit.caps.iter().flatten() {
-            if cap.from >= cap.to {
-                continue;
-            }
-            self.tok(base, cap.from);
-            let mut stack = self.path(base, &[cap.scope]);
-            if let Some(inner) = cap.inner {
-                stack = self.path(stack, &[inner]);
-            }
-            self.tok(stack, cap.to);
+    fn rule_content(rule: Rule) -> &'static [S] {
+        rule.content()
+    }
+
+    fn rule_payload(rule: Rule) -> Payload {
+        if rule == Rule::Interpolation {
+            Payload::Embed(Language::JavaScript)
+        } else {
+            Payload::None
         }
+    }
+
+    fn pat_act(pat: Pat) -> Act<Self> {
+        match (pat, pat.opens()) {
+            (Pat::End, _) => Act::End,
+            (_, Some(rule)) => Act::Begin(rule),
+            (_, None) => Act::Match(pat.name()),
+        }
+    }
+
+    fn pat_captures(_: Pat) -> Captures<Self> {
+        (&[], &[])
+    }
+
+    /// The first match from the position: see `search`.
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
+        match lexer.root_halts() {
+            Some(halts) => lexer.search::<true>(halts),
+            None => lexer.search::<false>(&NO_HALTS),
+        }
+    }
+
+    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
+        let hit = lexer.pat_at(pat, p)?;
+        Some(lexer.record(&hit).1)
+    }
+
+    fn tokenize_nested(_: &mut Lexer<'_>, kind: Nested, _: usize, _: usize, _: u32) {
+        match kind {}
     }
 }
 
-/// The end of an interpolation: a `}`, which the JavaScript lexer tests only
-/// while none of its own contexts waits for one.
+impl Embeds for GraphQl {
+    type End = FnHalt;
+
+    /// An interpolation ends at its `}`, and nothing comes after the
+    /// embedded grammar.
+    fn embed_halts(_: &Embedding, _: &Arena) -> (FnHalt, Option<FnHalt>) {
+        (closing_brace, None)
+    }
+}
+
+/// The end of an interpolation: a `}`.
+/// The JavaScript lexer tests it only while none of its own contexts waits
+/// for one.
 fn closing_brace(bytes: &[u8], p: usize) -> bool {
     bytes.get(p) == Some(&b'}')
 }

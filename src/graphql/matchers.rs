@@ -11,7 +11,6 @@ use super::scope::S;
 use super::state::Rule;
 use crate::classes;
 use crate::classes::is_ascii_space;
-use crate::utf8::char_at;
 
 /// A byte of `[0-9A-Z_a-z]`.
 fn is_name_byte(b: u8) -> bool {
@@ -25,26 +24,13 @@ fn is_name_byte(b: u8) -> bool {
 impl Lexer<'_> {
     // Character classes.
 
-    /// The character at `i` and its width.
-    ///
-    /// It is out of line.
-    /// `space_at` and `word_at` call it only for a byte above ASCII.
-    /// Their ASCII paths stay small.
-    #[inline(never)]
-    fn char_at(&self, i: usize) -> Option<(char, usize)> {
-        if i == self.lim {
-            return Some(('\n', 1));
-        }
-        char_at(self.s, i)
-    }
-
     /// The width of the white space character at `i`, 0 when there is none.
     fn space_at(&self, i: usize) -> usize {
         match self.at(i) {
             0 => 0,
             b if b < 0x80 => usize::from(is_ascii_space(b)),
             _ => match self.char_at(i) {
-                Some((c, width)) if classes::is_space(c) => width,
+                Some((c, end)) if classes::is_space(c) => end - i,
                 _ => 0,
             },
         }
@@ -52,7 +38,7 @@ impl Lexer<'_> {
 
     /// The end of the run of white space from `i`: the regex `\s*`.
     pub(super) fn ws(&self, i: usize) -> usize {
-        let (from, to) = self.space_run.get();
+        let (from, to) = self.x.space_run.get();
         if from <= i && i < to {
             self.spend(1);
             return to;
@@ -62,7 +48,7 @@ impl Lexer<'_> {
             j += width;
         }
         self.spend(j - i + 1);
-        self.space_run.set((i, j));
+        self.x.space_run.set((i, j));
         j
     }
 
@@ -97,24 +83,24 @@ impl Lexer<'_> {
         if !(first.is_ascii_alphabetic() || first == b'_') {
             return None;
         }
-        let (from, to) = self.word_run.get();
+        let (from, to) = self.x.word_run.get();
         if from <= i && i < to {
             self.spend(1);
             return Some(to);
         }
         let mut j = i + 1;
-        while j < self.lim && is_name_byte(self.s[j]) {
+        while j < self.lim() && is_name_byte(self.s[j]) {
             j += 1;
         }
         self.spend(j - i);
-        self.word_run.set((i, j));
+        self.x.word_run.set((i, j));
         Some(j)
     }
 
     /// The end of the run of ASCII letters and `_` from `i`: `[A-Z_a-z]*`.
     fn letters_end(&self, mut i: usize) -> usize {
         let from = i;
-        while i < self.lim && (self.s[i].is_ascii_alphabetic() || self.s[i] == b'_') {
+        while i < self.lim() && (self.s[i].is_ascii_alphabetic() || self.s[i] == b'_') {
             i += 1;
         }
         self.spend(i - from + 1);
@@ -177,8 +163,8 @@ impl Lexer<'_> {
         match pat {
             Pat::Hash => {
                 let i = self.ws(p);
-                (self.at(i) == b'#' && i < self.lim)
-                    .then(|| Hit::new(p, self.lim).cap(0, p, i, S::LeadingSpace))
+                (self.at(i) == b'#' && i < self.lim())
+                    .then(|| Hit::new(p, self.lim()).cap(0, p, i, S::LeadingSpace))
             }
             Pat::Ampersand => self.single(p, b'&', S::Ampersand),
             Pat::Colon => self.single(p, b':', S::Colon),
@@ -256,7 +242,7 @@ impl Lexer<'_> {
             }
             Pat::TypeName => self.typed(p, S::SupportType),
             Pat::SkipNewlines => {
-                (p <= self.lim && self.ws(p) > self.lim).then(|| Hit::new(p, self.lim + 1))
+                (p <= self.lim() && self.ws(p) > self.lim()).then(|| Hit::new(p, self.lim() + 1))
             }
             Pat::VariableName => {
                 let i = self.ws(p);
@@ -304,6 +290,7 @@ impl Lexer<'_> {
             }
             Pat::Spaces => Some(Hit::new(p, self.ws(p))),
             Pat::Open(rule) => self.begin_at(rule, p),
+            Pat::End => self.end_at(self.top_rule(), p),
         }
     }
 
@@ -349,7 +336,7 @@ impl Lexer<'_> {
             Rule::CommentTriple => self
                 .lit(p, b"\"\"\"")
                 .then(|| Hit::new(p, p + 3).cap(0, p, p + 3, S::LeadingSpace)),
-            Rule::CommentSingle => (self.at(p) == b'"' && p < self.lim)
+            Rule::CommentSingle => (self.at(p) == b'"' && p < self.lim())
                 .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, S::LeadingSpace)),
             Rule::Fragment => self.begin_fragment(p),
             Rule::DirectiveDefinition => {
@@ -460,7 +447,7 @@ impl Lexer<'_> {
             }
             Rule::String => {
                 let i = self.ws(p);
-                (self.at(i) == b'"' && i < self.lim).then(|| {
+                (self.at(i) == b'"' && i < self.lim()).then(|| {
                     Hit::new(p, i + 1).nested(0, i, i + 1, S::StringDouble, S::StringBegin)
                 })
             }
@@ -632,7 +619,9 @@ impl Lexer<'_> {
         match rule {
             Rule::Root => None,
             Rule::CommentTriple => self.lit(p, b"\"\"\"").then(|| Hit::new(p, p + 3)),
-            Rule::CommentSingle => (self.at(p) == b'"' && p < self.lim).then(|| Hit::new(p, p + 1)),
+            Rule::CommentSingle => {
+                (self.at(p) == b'"' && p < self.lim()).then(|| Hit::new(p, p + 1))
+            }
             Rule::Fragment | Rule::Enum | Rule::Schema => {
                 (p > 0 && self.at(p - 1) == b'}').then(|| Hit::new(p, p))
             }
@@ -643,7 +632,7 @@ impl Lexer<'_> {
             | Rule::UnionMembers
             | Rule::Directive
             | Rule::Spread
-            | Rule::InlineFragment => (p < self.lim).then(|| Hit::new(p, p)),
+            | Rule::InlineFragment => (p < self.lim()).then(|| Hit::new(p, p)),
             Rule::Implements => {
                 let i = self.ws(p);
                 (self.at(i) == b'{').then(|| Hit::new(p, i))
@@ -662,7 +651,7 @@ impl Lexer<'_> {
             Rule::Argument => self.argument_end(p),
             Rule::String => {
                 let i = self.ws(p);
-                (self.at(i) == b'"' && i < self.lim)
+                (self.at(i) == b'"' && i < self.lim())
                     .then(|| Hit::new(p, i + 1).nested(0, i, i + 1, S::StringDouble, S::StringEnd))
             }
             Rule::TypeList => {
@@ -679,7 +668,7 @@ impl Lexer<'_> {
                 }
             }
             Rule::Default => matches!(self.at(p), b'\n' | b')' | b',').then(|| Hit::new(p, p)),
-            Rule::Interpolation => (self.at(p) == b'}' && p < self.lim)
+            Rule::Interpolation => (self.at(p) == b'}' && p < self.lim())
                 .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, S::SubstitutionEnd)),
         }
     }

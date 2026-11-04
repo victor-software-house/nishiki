@@ -15,6 +15,8 @@ use std::borrow::Cow;
 
 #[cfg(feature = "_embedding")]
 use super::Embedding;
+#[cfg(feature = "lang-graphql")]
+use super::Stop;
 use super::{Act, Captures, DynName, Grammar, NameCase, Payload, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
 use crate::language::{Halts, Parts};
@@ -570,8 +572,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// [`Lexer::resume_embedding`], and every part of the line spends one
     /// budget.
     #[cfg(feature = "_embedding")]
-    pub(crate) fn run_embedding(self) -> (Finished, Option<Embedding>) {
-        self.embed(Entry::Start)
+    pub(crate) fn run_embedding(mut self) -> (Finished, Option<Embedding>) {
+        let embedding = self.embed(Entry::Start);
+        (self.finish(), embedding)
     }
 
     /// Goes on with the line where an embedded language halted, like
@@ -579,13 +582,52 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// cursor first, and the `while` rules, which only the start of a line
     /// tries, are not.
     #[cfg(feature = "_embedding")]
-    pub(crate) fn resume_embedding(self) -> (Finished, Option<Embedding>) {
-        self.embed(Entry::Resume)
+    pub(crate) fn resume_embedding(mut self) -> (Finished, Option<Embedding>) {
+        let embedding = self.embed(Entry::Resume);
+        (self.finish(), embedding)
     }
 
-    /// The loop of [`Lexer::run_embedding`] and [`Lexer::resume_embedding`].
+    /// Lexes the line like [`Lexer::run_embedding`], for a grammar that
+    /// another language embeds in turn.
+    /// A line that halts ([`Lexer::halting`]) says where.
+    #[cfg(feature = "lang-graphql")]
+    pub(crate) fn run_embedding_halting(mut self) -> (Finished, Stop) {
+        let embedding = self.embed(Entry::Start);
+        let stop = self.stop(embedding);
+        (self.finish(), stop)
+    }
+
+    /// Goes on with the line like [`Lexer::resume_embedding`], for a grammar
+    /// that another language embeds in turn.
+    /// A line that halts says where.
+    #[cfg(feature = "lang-graphql")]
+    pub(crate) fn resume_embedding_halting(mut self) -> (Finished, Stop) {
+        let embedding = self.embed(Entry::Resume);
+        let stop = self.stop(embedding);
+        (self.finish(), stop)
+    }
+
+    /// How a halting line stopped: for `embedding`, where it halted, or at
+    /// its end.
+    #[cfg(feature = "lang-graphql")]
+    fn stop(&self, embedding: Option<Embedding>) -> Stop {
+        match (embedding, self.halted) {
+            (Some(embedding), _) => Stop::Embedding(embedding),
+            (None, Some(at)) => Stop::Halted(at),
+            (None, None) => Stop::Line,
+        }
+    }
+
+    /// The loop of the embedding entry points.
+    /// It returns where the innermost rule hands the text to the language it
+    /// embeds.
     #[cfg(feature = "_embedding")]
-    fn embed(mut self, entry: Entry) -> (Finished, Option<Embedding>) {
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: the halting entry points are a second call site, and Ruby's lines kept their count only with it inlined"
+    )]
+    #[inline(always)]
+    fn embed(&mut self, entry: Entry) -> Option<Embedding> {
         self.embedding = true;
         self.open();
         match entry {
@@ -601,7 +643,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         } else {
             self.tokenize();
         }
-        let embedding = self.yielded.map(|(at, language)| {
+        self.yielded.map(|(at, language)| {
             let top = self.top();
             Embedding {
                 at,
@@ -610,8 +652,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 base: top.content,
                 parent: self.frames[self.frames.len() - 2].payload,
             }
-        });
-        (self.finish(), embedding)
+        })
     }
 
     /// The state after the line, with the buffers given back to the scratch

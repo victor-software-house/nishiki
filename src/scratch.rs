@@ -25,9 +25,13 @@ pub(crate) struct Scratch {
     /// The Go lexer's, for Go documents.
     #[cfg(feature = "lang-go")]
     pub(crate) go: crate::go::Scratch,
-    /// The GraphQL lexer's, for GraphQL documents.
+    /// The GraphQL lexer's, for GraphQL documents and Ruby's GraphQL
+    /// heredocs.
+    /// It is boxed and allocated by the first GraphQL line.
+    /// A highlighter for another language keeps an 8-byte field, which
+    /// `Highlighter::new` moves with the rest.
     #[cfg(feature = "lang-graphql")]
-    pub(crate) graphql: crate::graphql::Scratch,
+    pub(crate) graphql: Option<Box<crate::graphql::Scratch>>,
     /// The HTML lexer's, for HTML documents and Markdown HTML fences.
     #[cfg(feature = "lang-html")]
     pub(crate) html: crate::html::Scratch,

@@ -10,7 +10,7 @@ use super::state::Rule;
 
 /// A pattern of a rule: a match rule, or the begin of a rule it opens.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum Pat {
+pub(crate) enum Pat {
     Open(Rule),
     /// `(\s*)(#).*`
     Hash,
@@ -62,6 +62,8 @@ pub(super) enum Pat {
     EscapeUnicode,
     /// `\s*`
     Spaces,
+    /// The end pattern of the innermost rule.
+    End,
 }
 
 impl Pat {
@@ -101,7 +103,8 @@ impl Pat {
             | Pat::UnionMember
             | Pat::Location
             | Pat::SchemaType
-            | Pat::Spaces => &[],
+            | Pat::Spaces
+            | Pat::End => &[],
         }
     }
 }

@@ -229,3 +229,26 @@ fn the_while_flag_matches_the_rules() {
     assert_eq!(Rule::HAS_WHILE, any);
     assert_eq!(Ruby::WHILES, any);
 }
+
+/// GraphQL in a heredoc hands an interpolation to JavaScript, takes the
+/// line back after it, and halts at the heredoc's name.
+#[cfg(feature = "lang-graphql")]
+#[test]
+fn a_graphql_heredoc_resumes_after_an_interpolation() {
+    let rows = lex_lines(indoc! {"
+        q = <<~GRAPHQL
+          { a ${c} d }
+        GRAPHQL
+        x
+    "});
+    assert_eq!(
+        scope_of(&rows[0], "<<~GRAPHQL"),
+        "string.definition.begin.ruby"
+    );
+    assert_eq!(scope_of(&rows[1], "${"), "keyword.other.substitution.begin");
+    assert_eq!(scope_of(&rows[1], "c"), "variable.other.readwrite.js");
+    assert_eq!(scope_of(&rows[1], "}"), "keyword.other.substitution.end");
+    assert_eq!(scope_of(&rows[1], "d"), "variable.graphql");
+    assert_eq!(scope_of(&rows[2], "GRAPHQL"), "string.definition.end.ruby");
+    assert_eq!(scope_of(&rows[3], "x"), "source.ruby");
+}
