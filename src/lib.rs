@@ -205,6 +205,8 @@
 static ALLOCATOR: nishiki_alloc_count::CountingAllocator = nishiki_alloc_count::CountingAllocator;
 
 mod arena;
+#[cfg(feature = "lang-asm")]
+mod asm;
 #[cfg(feature = "lang-bat")]
 mod bat;
 #[cfg(feature = "lang-c")]

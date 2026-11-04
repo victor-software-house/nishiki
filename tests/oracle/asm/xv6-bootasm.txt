@@ -1,0 +1,362 @@
+L #include "asm.h"
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.begin.c
+T 15 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c
+T 16 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.end.c
+L #include "memlayout.h"
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.begin.c
+T 21 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c
+T 22 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.end.c
+L #include "mmu.h"
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.begin.c
+T 15 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c
+T 16 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.end.c
+L 
+L # Start the first CPU: switch to 32-bit protected mode, jump into C.
+T 68 source.asm.x86_64 comment.line
+L # The BIOS loads this code from the first sector of the hard disk into
+T 70 source.asm.x86_64 comment.line
+L # memory at physical address 0x7c00 and starts executing in real mode
+T 69 source.asm.x86_64 comment.line
+L # with %cs=0 %ip=7c00.
+T 22 source.asm.x86_64 comment.line
+L 
+L .code16                       # Assemble for 16-bit mode
+T 29 source.asm.x86_64
+T 56 source.asm.x86_64 comment.line
+L .globl start
+T 6 source.asm.x86_64 entity.directive
+T 12 source.asm.x86_64
+L start:
+T 5 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 6 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L   cli                         # BIOS enabled interrupts; disable
+T 2 source.asm.x86_64
+T 5 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.flag-control
+T 29 source.asm.x86_64
+T 64 source.asm.x86_64 comment.line
+L 
+L   # Zero data segment registers DS, ES, and SS.
+T 1 source.asm.x86_64
+T 47 source.asm.x86_64 comment.line
+L   xorw    %ax,%ax             # Set %ax to zero
+T 11 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 15 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 29 source.asm.x86_64
+T 47 source.asm.x86_64 comment.line
+L   movw    %ax,%ds             # -> Data Segment
+T 11 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 15 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+T 29 source.asm.x86_64
+T 47 source.asm.x86_64 comment.line
+L   movw    %ax,%es             # -> Extra Segment
+T 11 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 15 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+T 29 source.asm.x86_64
+T 48 source.asm.x86_64 comment.line
+L   movw    %ax,%ss             # -> Stack Segment
+T 11 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 15 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+T 29 source.asm.x86_64
+T 48 source.asm.x86_64 comment.line
+L 
+L   # Physical address line A20 is tied to zero so that the first PCs 
+T 1 source.asm.x86_64
+T 68 source.asm.x86_64 comment.line
+L   # with 2 MB would run software that assumed 1 MB.  Undo that.
+T 1 source.asm.x86_64
+T 63 source.asm.x86_64 comment.line
+L seta20.1:
+T 8 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 9 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L   inb     $0x64,%al               # Wait for not busy
+T 10 source.asm.x86_64
+T 15 source.asm.x86_64 text.variable
+T 17 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 33 source.asm.x86_64
+T 53 source.asm.x86_64 comment.line
+L   testb   $0x2,%al
+T 10 source.asm.x86_64
+T 14 source.asm.x86_64 text.variable
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   jnz     seta20.1
+T 2 source.asm.x86_64
+T 5 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.jmp
+T 16 source.asm.x86_64
+T 17 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64 storage.modifier.asm.x86_64
+T 18 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+L 
+L   movb    $0xd1,%al               # 0xd1 -> port 0x64
+T 10 source.asm.x86_64
+T 15 source.asm.x86_64 text.variable
+T 17 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 33 source.asm.x86_64
+T 53 source.asm.x86_64 comment.line
+L   outb    %al,$0x64
+T 11 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 14 source.asm.x86_64
+T 19 source.asm.x86_64 text.variable
+L 
+L seta20.2:
+T 8 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 9 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L   inb     $0x64,%al               # Wait for not busy
+T 10 source.asm.x86_64
+T 15 source.asm.x86_64 text.variable
+T 17 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 33 source.asm.x86_64
+T 53 source.asm.x86_64 comment.line
+L   testb   $0x2,%al
+T 10 source.asm.x86_64
+T 14 source.asm.x86_64 text.variable
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   jnz     seta20.2
+T 2 source.asm.x86_64
+T 5 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.jmp
+T 16 source.asm.x86_64
+T 17 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64 storage.modifier.asm.x86_64
+T 18 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+L 
+L   movb    $0xdf,%al               # 0xdf -> port 0x60
+T 10 source.asm.x86_64
+T 15 source.asm.x86_64 text.variable
+T 17 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 33 source.asm.x86_64
+T 53 source.asm.x86_64 comment.line
+L   outb    %al,$0x60
+T 11 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 14 source.asm.x86_64
+T 19 source.asm.x86_64 text.variable
+L 
+L   # Switch from real to protected mode.  Use a bootstrap GDT that makes
+T 1 source.asm.x86_64
+T 71 source.asm.x86_64 comment.line
+L   # virtual addresses map directly to physical addresses so that the
+T 1 source.asm.x86_64
+T 68 source.asm.x86_64 comment.line
+L   # effective memory map doesn't change during the transition.
+T 1 source.asm.x86_64
+T 62 source.asm.x86_64 comment.line
+L   lgdt    gdtdesc
+T 2 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.system
+T 17 source.asm.x86_64
+L   movl    %cr0, %eax
+T 11 source.asm.x86_64
+T 14 source.asm.x86_64 constant.language.register.control.asm.x86_64
+T 17 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   orl     $CR0_PE, %eax
+T 10 source.asm.x86_64
+T 17 source.asm.x86_64 text.variable
+T 20 source.asm.x86_64
+T 23 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   movl    %eax, %cr0
+T 11 source.asm.x86_64
+T 14 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 17 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.control.asm.x86_64
+L 
+L //PAGEBREAK!
+T 12 source.asm.x86_64
+L   # Complete the transition to 32-bit protected mode by using a long jmp
+T 1 source.asm.x86_64
+T 72 source.asm.x86_64 comment.line
+L   # to reload %cs and %eip.  The segment descriptors are set up with no
+T 1 source.asm.x86_64
+T 71 source.asm.x86_64 comment.line
+L   # translation, so that the mapping is still the identity mapping.
+T 1 source.asm.x86_64
+T 67 source.asm.x86_64 comment.line
+L   ljmp    $(SEG_KCODE<<3), $start32
+T 23 source.asm.x86_64
+T 24 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 27 source.asm.x86_64
+T 35 source.asm.x86_64 text.variable
+L 
+L .code32  # Tell assembler to generate 32-bit code now.
+T 8 source.asm.x86_64
+T 54 source.asm.x86_64 comment.line
+L start32:
+T 7 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 8 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L   # Set up the protected-mode data segment registers
+T 1 source.asm.x86_64
+T 52 source.asm.x86_64 comment.line
+L   movw    $(SEG_KDATA<<3), %ax    # Our data segment selector
+T 23 source.asm.x86_64
+T 24 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 28 source.asm.x86_64
+T 30 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 33 source.asm.x86_64
+T 61 source.asm.x86_64 comment.line
+L   movw    %ax, %ds                # -> DS: Data Segment
+T 11 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+T 33 source.asm.x86_64
+T 55 source.asm.x86_64 comment.line
+L   movw    %ax, %es                # -> ES: Extra Segment
+T 11 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+T 33 source.asm.x86_64
+T 56 source.asm.x86_64 comment.line
+L   movw    %ax, %ss                # -> SS: Stack Segment
+T 11 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+T 33 source.asm.x86_64
+T 56 source.asm.x86_64 comment.line
+L   movw    $0, %ax                 # Zero segments not ready for use
+T 10 source.asm.x86_64
+T 12 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+T 15 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 33 source.asm.x86_64
+T 67 source.asm.x86_64 comment.line
+L   movw    %ax, %fs                # -> FS
+T 11 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+T 33 source.asm.x86_64
+T 41 source.asm.x86_64 comment.line
+L   movw    %ax, %gs                # -> GS
+T 11 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+T 33 source.asm.x86_64
+T 41 source.asm.x86_64 comment.line
+L 
+L   # Set up the stack pointer and call into C.
+T 1 source.asm.x86_64
+T 45 source.asm.x86_64 comment.line
+L   movl    $start, %esp
+T 10 source.asm.x86_64
+T 16 source.asm.x86_64 text.variable
+T 19 source.asm.x86_64
+T 22 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   call    bootmain
+T 2 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.other
+T 18 source.asm.x86_64
+L 
+L   # If bootmain returns (it shouldn't), trigger a Bochs
+T 1 source.asm.x86_64
+T 55 source.asm.x86_64 comment.line
+L   # breakpoint if running under Bochs, then loop.
+T 1 source.asm.x86_64
+T 49 source.asm.x86_64 comment.line
+L   movw    $0x8a00, %ax            # 0x8a00 -> port 0x8a00
+T 10 source.asm.x86_64
+T 17 source.asm.x86_64 text.variable
+T 20 source.asm.x86_64
+T 22 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 33 source.asm.x86_64
+T 57 source.asm.x86_64 comment.line
+L   movw    %ax, %dx
+T 11 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   outw    %ax, %dx
+T 11 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   movw    $0x8ae0, %ax            # 0x8ae0 -> port 0x8a00
+T 10 source.asm.x86_64
+T 17 source.asm.x86_64 text.variable
+T 20 source.asm.x86_64
+T 22 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 33 source.asm.x86_64
+T 57 source.asm.x86_64 comment.line
+L   outw    %ax, %dx
+T 11 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L spin:
+T 4 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 5 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L   jmp     spin
+T 2 source.asm.x86_64
+T 5 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.jmp
+T 14 source.asm.x86_64
+L 
+L # Bootstrap GDT
+T 15 source.asm.x86_64 comment.line
+L .p2align 2                                # force 4 byte alignment
+T 9 source.asm.x86_64
+T 10 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 41 source.asm.x86_64
+T 66 source.asm.x86_64 comment.line
+L gdt:
+T 3 source.asm.x86_64 constant.language.register.system-table-pointer.asm.x86_64
+T 4 source.asm.x86_64
+L   SEG_NULLASM                             # null seg
+T 41 source.asm.x86_64
+T 52 source.asm.x86_64 comment.line
+L   SEG_ASM(STA_X|STA_R, 0x0, 0xffffffff)   # code seg
+T 23 source.asm.x86_64
+T 26 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+T 28 source.asm.x86_64
+T 38 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+T 41 source.asm.x86_64
+T 52 source.asm.x86_64 comment.line
+L   SEG_ASM(STA_W, 0x0, 0xffffffff)         # data seg
+T 17 source.asm.x86_64
+T 20 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+T 22 source.asm.x86_64
+T 32 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+T 41 source.asm.x86_64
+T 52 source.asm.x86_64 comment.line
+L 
+L gdtdesc:
+T 7 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 8 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L   .word   (gdtdesc - gdt - 1)             # sizeof(gdt) - 1
+T 3 source.asm.x86_64
+T 7 source.asm.x86_64 storage.type.asm.x86_64
+T 21 source.asm.x86_64
+T 24 source.asm.x86_64 constant.language.register.system-table-pointer.asm.x86_64
+T 27 source.asm.x86_64
+T 28 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 41 source.asm.x86_64
+T 59 source.asm.x86_64 comment.line
+L   .long   gdt                             # address gdt
+T 10 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.system-table-pointer.asm.x86_64
+T 41 source.asm.x86_64
+T 55 source.asm.x86_64 comment.line
+L 
+L 

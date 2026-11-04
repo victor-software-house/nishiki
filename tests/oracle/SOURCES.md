@@ -7,6 +7,10 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 
 | Fixture | Source | Licence |
 |:--|:--|:--|
+| `asm/blake3-sse41-msvc` | [`c/blake3_sse41_x86-64_windows_msvc.asm`][blake3-sse41-msvc] in BLAKE3-team/BLAKE3 | [Apache-2.0][blake3-licence] |
+| `asm/sample` | [`samples/asm.sample`][asm-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `asm/xv6-bootasm` | [`bootasm.S`][xv6-bootasm] in mit-pdos/xv6-public | [MIT][xv6-licence] |
+| `asm/xv6-swtch` | [`swtch.S`][xv6-swtch] in mit-pdos/xv6-public | [MIT][xv6-licence] |
 | `bat/coverage` | `oracle/inputs/bat-coverage.bat`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `bat/gradlew` | [`gradlew.bat`][gradlew-bat] in gradle/gradle | [Apache-2.0][gradle-licence] |
 | `bat/sample` | [`samples/bat.sample`][bat-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
@@ -885,6 +889,7 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [argument-parser-declaring-arguments]: https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/Sources/ArgumentParser/Documentation.docc/Articles/DeclaringArguments.md
 [argument-parser-getting-started]: https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/Sources/ArgumentParser/Documentation.docc/Articles/GettingStarted.md
 [argument-parser-licence]: https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/LICENSE.txt
+[asm-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/asm.sample
 [axios-licence]: https://github.com/axios/axios/blob/7324e94d8a7b5156a4baf3c86c8b5daa242daee3/LICENSE
 [axios-xhr]: https://github.com/axios/axios/blob/7324e94d8a7b5156a4baf3c86c8b5daa242daee3/lib/adapters/xhr.js
 [bat-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/bat.sample
@@ -899,6 +904,8 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [black-other-tools]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/docs/guides/using_black_with_other_tools.md
 [black-strings]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/src/black/strings.py
 [black-tox]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/tox.ini
+[blake3-licence]: https://github.com/BLAKE3-team/BLAKE3/blob/f55849f89cd85083c1c9daa2c5de20766f309c00/LICENSE_A2
+[blake3-sse41-msvc]: https://github.com/BLAKE3-team/BLAKE3/blob/f55849f89cd85083c1c9daa2c5de20766f309c00/c/blake3_sse41_x86-64_windows_msvc.asm
 [book-licence]: https://github.com/rust-lang/book/blob/2771df165f092a4fbb9f46b5b2e7450f19010adb/LICENSE-MIT
 [book-ownership]: https://github.com/rust-lang/book/blob/2771df165f092a4fbb9f46b5b2e7450f19010adb/src/ch04-01-what-is-ownership.md
 [book-strings]: https://github.com/rust-lang/book/blob/2771df165f092a4fbb9f46b5b2e7450f19010adb/src/ch08-02-strings.md
@@ -1594,6 +1601,9 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [xerces-schedule]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/design/xml/schedule.xml
 [xerces-xni-config]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/docs/xni-config.xml
 [xml-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/xml.sample
+[xv6-bootasm]: https://github.com/mit-pdos/xv6-public/blob/eeb7b415dbcb12cc362d0783e41c3d1f44066b17/bootasm.S
+[xv6-licence]: https://github.com/mit-pdos/xv6-public/blob/eeb7b415dbcb12cc362d0783e41c3d1f44066b17/LICENSE
+[xv6-swtch]: https://github.com/mit-pdos/xv6-public/blob/eeb7b415dbcb12cc362d0783e41c3d1f44066b17/swtch.S
 [yaml-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/yaml.sample
 [yaml-test-suite-c4hz]: https://github.com/yaml/yaml-test-suite/blob/6ad3d2c62885d82fc349026c136ef560838fdf3d/C4HZ/in.yaml
 [yaml-test-suite-kk5p]: https://github.com/yaml/yaml-test-suite/blob/6ad3d2c62885d82fc349026c136ef560838fdf3d/KK5P/in.yaml

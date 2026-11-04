@@ -239,6 +239,7 @@ pub(crate) enum Folding {
 /// `the_folding_table_matches_the_patterns`.
 static FOLDING: &[&str] = &[
     "markdown.mermaid.codeblock",
+    "source.asm.x86_64",
     "source.batchfile",
     "source.cmake",
     "source.haskell",

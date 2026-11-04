@@ -1,0 +1,90 @@
+L segment .text	   ;code segment
+T 13 source.asm.x86_64 entity.name.section
+T 17 source.asm.x86_64
+T 30 source.asm.x86_64 comment.line
+L    global_start    ;must be declared for linker 
+T 19 source.asm.x86_64
+T 48 source.asm.x86_64 comment.line
+L 	
+T 1 source.asm.x86_64
+L _start:	           ;tell linker entry point
+T 6 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 7 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+T 19 source.asm.x86_64
+T 43 source.asm.x86_64 comment.line
+L    mov edx,len	   ;message length
+T 3 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 7 source.asm.x86_64
+T 10 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 18 source.asm.x86_64
+T 33 source.asm.x86_64 comment.line
+L    mov ecx,msg     ;message to write
+T 3 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 7 source.asm.x86_64
+T 10 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 19 source.asm.x86_64
+T 36 source.asm.x86_64 comment.line
+L    mov ebx,1	   ;file descriptor (stdout)
+T 3 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 7 source.asm.x86_64
+T 10 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 11 source.asm.x86_64
+T 12 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 16 source.asm.x86_64
+T 41 source.asm.x86_64 comment.line
+L    mov eax,4	   ;system call number (sys_write)
+T 3 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 7 source.asm.x86_64
+T 10 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 11 source.asm.x86_64
+T 12 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 16 source.asm.x86_64
+T 47 source.asm.x86_64 comment.line
+L    int 0x80	   ;call kernel
+T 3 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.other
+T 7 source.asm.x86_64
+T 11 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+T 15 source.asm.x86_64
+T 27 source.asm.x86_64 comment.line
+L 
+L    mov eax,1       ;system call number (sys_exit)
+T 3 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 7 source.asm.x86_64
+T 10 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 11 source.asm.x86_64
+T 12 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 19 source.asm.x86_64
+T 49 source.asm.x86_64 comment.line
+L    int 0x80	   ;call kernel
+T 3 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.other
+T 7 source.asm.x86_64
+T 11 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+T 15 source.asm.x86_64
+T 27 source.asm.x86_64 comment.line
+L 
+L segment .data      ;data segment
+T 13 source.asm.x86_64 entity.name.section
+T 19 source.asm.x86_64
+T 32 source.asm.x86_64 comment.line
+L msg	db 'Hello, world!',0xa   ;our dear string
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 23 source.asm.x86_64
+T 26 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+T 29 source.asm.x86_64
+T 45 source.asm.x86_64 comment.line
+L len	equ	$ - msg          ;length of our dear string
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 support.function.asm.x86_64
+T 25 source.asm.x86_64
+T 51 source.asm.x86_64 comment.line
+L 
+L ;From https://www.tutorialspoint.com/assembly_programming/assembly_memory_segments.htm
+T 86 source.asm.x86_64 comment.line

@@ -7,6 +7,7 @@
 # language's grammar and keeps the grammar's own words.
 extend-exclude = [
   "*.lock",
+  "src/asm/grammar.rs",
   "src/bat/grammar.rs",
   "src/coffee/grammar.rs",
   "src/haml/grammar.rs",

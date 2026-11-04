@@ -413,6 +413,8 @@ fn kept_frames_lex_as_rebuilt_ones() {
 /// The engine grammars the crate ships, with the oracle fixtures of each,
 /// for the features that are on.
 static SHIPPED: &[(&Grammar, &str)] = &[
+    #[cfg(feature = "lang-asm")]
+    (&crate::asm::grammar::GRAMMAR, "asm"),
     #[cfg(feature = "lang-coffee")]
     (&crate::coffee::grammar::GRAMMAR, "coffee"),
     #[cfg(feature = "lang-elixir")]

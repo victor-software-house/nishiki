@@ -4,6 +4,37 @@ nishiki is written from scratch and copies no third-party code.
 The grammars its TextMate engine runs are third-party data, compiled into tables.
 Each section below covers one language, sorted by name, with its grammar's source and licence.
 
+## Assembly
+
+Its TextMate engine runs the x86 and x86-64 assembly TextMate grammar in [13xforever/x86_64-assembly-vscode](https://github.com/13xforever/x86_64-assembly-vscode), which Shiki bundles as `asm`, with its rules compiled into tables (`src/asm/grammar.rs`).
+Shiki takes it from that repository at commit `5c1958f4283d260f5dc88fa4f5f31c620e061a5a`.
+The repository exports it from [13xforever/x86-assembly-textmate-bundle](https://github.com/13xforever/x86-assembly-textmate-bundle), by the same author, under the same licence.
+That grammar is licensed under the MIT License:
+
+```text
+The MIT License (MIT)
+
+Copyright (c) 2012-2015 Ilya Veselov (13xforever)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
 ## Batch
 
 Its Batch lexer emits the scope names of the Batch TextMate grammar in [mmims/language-batchfile](https://github.com/mmims/language-batchfile), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode) as `bat`, and tries that grammar's rules in its order, from tables generated from it (`src/bat/grammar.rs`).

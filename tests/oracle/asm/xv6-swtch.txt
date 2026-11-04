@@ -1,0 +1,86 @@
+L # Context switch
+T 16 source.asm.x86_64 comment.line
+L #
+T 1 source.asm.x86_64 comment.line
+L #   void swtch(struct context **old, struct context *new);
+T 58 source.asm.x86_64 comment.line
+L # 
+T 2 source.asm.x86_64 comment.line
+L # Save the current registers on the stack, creating
+T 51 source.asm.x86_64 comment.line
+L # a struct context, and save its address in *old.
+T 49 source.asm.x86_64 comment.line
+L # Switch stacks to new and pop previously-saved registers.
+T 58 source.asm.x86_64 comment.line
+L 
+L .globl swtch
+T 6 source.asm.x86_64 entity.directive
+T 12 source.asm.x86_64
+L swtch:
+T 5 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 6 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L   movl 4(%esp), %eax
+T 7 source.asm.x86_64
+T 8 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 10 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 17 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   movl 8(%esp), %edx
+T 7 source.asm.x86_64
+T 8 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 10 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 17 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L 
+L   # Save old callee-saved registers
+T 1 source.asm.x86_64
+T 35 source.asm.x86_64 comment.line
+L   pushl %ebp
+T 9 source.asm.x86_64
+T 12 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   pushl %ebx
+T 9 source.asm.x86_64
+T 12 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   pushl %esi
+T 9 source.asm.x86_64
+T 12 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   pushl %edi
+T 9 source.asm.x86_64
+T 12 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L 
+L   # Switch stacks
+T 1 source.asm.x86_64
+T 17 source.asm.x86_64 comment.line
+L   movl %esp, (%eax)
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 15 source.asm.x86_64
+T 18 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 19 source.asm.x86_64
+L   movl %edx, %esp
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 14 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L 
+L   # Load new callee-saved registers
+T 1 source.asm.x86_64
+T 35 source.asm.x86_64 comment.line
+L   popl %edi
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   popl %esi
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   popl %ebx
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   popl %ebp
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   ret
+T 2 source.asm.x86_64
+T 5 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.other
+L 

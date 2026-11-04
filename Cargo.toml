@@ -112,6 +112,7 @@ systems = [
 ]
 docs = ["config", "lang-markdown"]
 textmate = [
+  "lang-asm",
   "lang-coffee",
   "lang-elixir",
   "lang-haml",
@@ -126,6 +127,7 @@ textmate = [
 ]
 
 # One feature per lexer module. A language that embeds another needs it.
+lang-asm = ["_textmate"]
 lang-bat = ["_scope-table", "_rule-tables", "_classes"]
 lang-c = ["_scope-table", "_rule-engine", "_classes", "_utf8"]
 lang-cmake = ["_scope-table", "_rule-tables", "_classes"]

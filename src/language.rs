@@ -989,6 +989,15 @@ languages! {
     /// - A `vue` fence opens only at the start of a line, or after a quote's or list's prefix.
     ///   Shiki's injection also opens one where an inner rule's match ended, at its `\G`, such as after a JSX tag's `>`.
     Vue { feature: "lang-vue", names: ["vue"], module: vue }
+    /// x86 and x86-64 assembly, with the scopes of Shiki's `asm` grammar,
+    /// which nishiki's `TextMate` engine runs.
+    Asm {
+        feature: "lang-asm",
+        names: ["asm"],
+        engine: crate::asm::grammar::GRAMMAR,
+        reads_line_feed: true,
+        halts: true,
+    }
 }
 
 impl Language {

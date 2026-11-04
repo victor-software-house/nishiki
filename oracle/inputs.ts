@@ -96,6 +96,8 @@ const benchmark =
   "https://raw.githubusercontent.com/google/benchmark/1813ad9c3a828cee126f399739443c329e75bc79";
 const black =
   "https://raw.githubusercontent.com/psf/black/945d902bef347d2e7e1d26897aa89a9c177fb535";
+const blake3 =
+  "https://raw.githubusercontent.com/BLAKE3-team/BLAKE3/f55849f89cd85083c1c9daa2c5de20766f309c00";
 const book =
   "https://raw.githubusercontent.com/rust-lang/book/2771df165f092a4fbb9f46b5b2e7450f19010adb";
 const bootstrap =
@@ -427,6 +429,8 @@ const vue =
   "https://raw.githubusercontent.com/vuejs/core/68f25a4a1957710de71731702bd42e05535f494b";
 const xerces =
   "https://raw.githubusercontent.com/apache/xerces2-j/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2";
+const xv6 =
+  "https://raw.githubusercontent.com/mit-pdos/xv6-public/eeb7b415dbcb12cc362d0783e41c3d1f44066b17";
 const yamlTestSuite =
   "https://raw.githubusercontent.com/yaml/yaml-test-suite/6ad3d2c62885d82fc349026c136ef560838fdf3d";
 const zap =
@@ -441,6 +445,11 @@ const zod =
   "https://raw.githubusercontent.com/colinhacks/zod/2554b70c3d4a80273381e61d527d820720626440";
 
 export const inputs: Input[] = [
+  // Assembly runs on the TextMate engine.
+  { lang: "asm", name: "blake3-sse41-msvc", url: `${blake3}/c/blake3_sse41_x86-64_windows_msvc.asm` },
+  { lang: "asm", name: "sample", url: `${samples}/asm.sample` },
+  { lang: "asm", name: "xv6-bootasm", url: `${xv6}/bootasm.S` },
+  { lang: "asm", name: "xv6-swtch", url: `${xv6}/swtch.S` },
   { lang: "bat", name: "coverage", text: batCoverage },
   { lang: "bat", name: "gradlew", url: `${gradle}/gradlew.bat` },
   { lang: "bat", name: "sample", url: `${samples}/bat.sample` },
