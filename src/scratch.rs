@@ -8,6 +8,8 @@
 /// Buffers and caches of every lexer that keeps any.
 #[derive(Debug, Default)]
 pub(crate) struct Scratch {
+    /// The number of the current line (see [`Scratch::line`]).
+    line: u64,
     /// The C lexer's, for C documents and Markdown C fences.
     #[cfg(feature = "lang-c")]
     pub(crate) c: crate::c::Scratch,
@@ -76,8 +78,23 @@ pub(crate) struct Scratch {
         feature = "lang-jsx",
         feature = "lang-tsx"
     ))]
-    pub(crate) typescript: Vec<crate::typescript::Opened>,
+    pub(crate) typescript: crate::typescript::Scratch,
     /// The XML lexer's, for XML documents and Markdown XML fences.
     #[cfg(feature = "lang-xml")]
     pub(crate) xml: crate::xml::Scratch,
+}
+
+impl Scratch {
+    /// The number of the current line, which [`Scratch::start_line`]
+    /// advances. A lexer that keeps an answer for every text of one line,
+    /// which an embedding language may lex many of, keys it by this number.
+    pub(crate) fn line(&self) -> u64 {
+        self.line
+    }
+
+    /// Starts the next line, so the lexers forget what they kept for every
+    /// text of the line before.
+    pub(crate) fn start_line(&mut self) {
+        self.line = self.line.wrapping_add(1);
+    }
 }

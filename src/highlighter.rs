@@ -76,6 +76,7 @@ impl Highlighter {
             });
             return report;
         }
+        self.scratch.start_line();
         let mut cx = Context {
             scratch: &mut self.scratch,
             arena: &mut self.arena,

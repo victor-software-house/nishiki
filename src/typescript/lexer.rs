@@ -61,9 +61,9 @@ pub(crate) struct Lexer<'a, const D: u8> {
     pub(crate) blanks: Cell<(usize, usize)>,
     /// The last name [`Lexer::ident`] scanned, as its start and its end.
     pub(crate) last_ident: Cell<(usize, Option<usize>)>,
-    /// The position of the last backtick on the line, if any.
+    /// The position of the last backtick in the text, if any.
     last_tick: Option<usize>,
-    /// The position of the last `(` or `<` on the line, if any.
+    /// The position of the last `(` or `<` in the text, if any.
     last_open: Option<usize>,
     /// Where the `=>` that ends the line, before trailing blanks, begins.
     arrow_at_end: Option<usize>,
@@ -127,8 +127,10 @@ impl<'a, const D: u8> Lexer<'a, D> {
         let limits = cx.limits;
         let text = src.len().saturating_sub(from);
         let budget = limits.work.map_or(u64::MAX, |work| work.steps(text));
-        let opened = &mut cx.scratch.typescript;
-        opened.clear();
+        let line = cx.scratch.line();
+        let scratch = &mut cx.scratch.typescript;
+        scratch.opened.clear();
+        let (last_tick, last_open, read) = scratch.searches.last(line, src.as_bytes(), from);
         let mut lexer = Lexer {
             src,
             bytes: src.as_bytes(),
@@ -142,7 +144,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
             frame,
             steps: Cell::new(0),
             budget,
-            opened,
+            opened: &mut scratch.opened,
             line_pos: from,
             anchor: usize::MAX,
             first_line: frame.kind == Kind::Top.code() && frame.depth == 1,
@@ -152,15 +154,15 @@ impl<'a, const D: u8> Lexer<'a, D> {
             depth_hit: Cell::new(false),
             blanks: Cell::new((0, 0)),
             last_ident: Cell::new((usize::MAX, None)),
-            last_tick: memchr::memrchr(b'`', src.as_bytes()),
-            last_open: memchr::memrchr2(b'(', b'<', src.as_bytes()),
+            last_tick,
+            last_open,
             next_bracket: Cell::new((usize::MAX, None)),
             arrow_at_end: {
                 let text = src.trim_end_matches(classes::is_space);
                 text.ends_with("=>").then(|| text.len() - 2)
             },
         };
-        lexer.spend(text);
+        lexer.spend(read);
         if lexer.first_line {
             lexer.push(Kind::Started);
         }

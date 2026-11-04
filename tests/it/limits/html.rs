@@ -2,7 +2,7 @@
 
 use nishiki::{Highlighter, Language, Limit};
 
-use super::lex;
+use super::{lex, steps_spent};
 
 #[test]
 fn hostile_html_lines_finish_within_the_default_limits() {
@@ -99,4 +99,17 @@ fn hostile_html_lines_finish_within_the_default_limits() {
             report.limits().collect::<Vec<_>>()
         );
     }
+}
+
+/// The steps a line of event handlers spends grow with its length and no
+/// faster. Each handler is a JavaScript text of its own that ends where the
+/// handler does, so a search per handler would read the line up to each one.
+#[test]
+fn a_line_of_event_handlers_spends_work_linear_in_its_length() {
+    let short = steps_spent(Language::Html, &"<a onclick=\"".repeat(1_000));
+    let long = steps_spent(Language::Html, &"<a onclick=\"".repeat(2_000));
+    assert!(
+        long <= 2 * short + 16,
+        "spent {short} steps at 1,000 handlers and {long} at 2,000"
+    );
 }

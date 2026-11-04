@@ -61,3 +61,21 @@ fn second_pass_failures(language: Language) -> Vec<String> {
 fn lexing_a_line_again_allocates_nothing() {
     every_language(second_pass_failures);
 }
+
+/// Lines of several JavaScript texts each, which no fixture has: the texts
+/// after the first on a line share a list of the line's matches, which the
+/// scratch keeps from one line to the next.
+#[test]
+fn lexing_event_handlers_again_allocates_nothing() {
+    let lines = [
+        r#"<a onclick="f(a)" onmouseover="g`x`" onblur="h(b)">x</a>"#,
+        r#"<b onclick="(1)" onfocus="`${a}`"><i onload="k()">"#,
+        r#"<p onclick="a < b" onkeyup="c(d, `e`)" onchange="f">"#,
+    ]
+    .map(str::to_owned);
+    let mut highlighter = Highlighter::new(Language::Html);
+    let mut tokens = Vec::new();
+    lex(&mut highlighter, &lines, &mut tokens);
+    let allocations = count(|| lex(&mut highlighter, &lines, &mut tokens));
+    assert_eq!(allocations, 0, "allocations lexing the lines a second time");
+}

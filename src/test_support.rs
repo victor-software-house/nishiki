@@ -165,6 +165,7 @@ pub(crate) fn lex_embedded(
     for text in lines {
         let mut out: Vec<Token> = Vec::new();
         let mut report = LineReport::default();
+        scratch.start_line();
         let mut cx = Context {
             scratch: &mut scratch,
             arena: &mut arena,

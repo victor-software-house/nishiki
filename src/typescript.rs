@@ -50,15 +50,16 @@ mod num;
 mod regex;
 mod rules;
 mod scope;
+mod searches;
 mod text;
 mod typ;
 mod type_aliases;
 
 use kind::Kind;
 use lexer::Halts;
-pub(crate) use lexer::Opened;
 pub(crate) use scope::NAMES;
 use scope::S;
+pub(crate) use searches::Scratch;
 
 use crate::arena::{Arena, ROOT};
 use crate::language::Halt;

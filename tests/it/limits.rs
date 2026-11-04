@@ -76,6 +76,30 @@ fn lex(highlighter: &mut Highlighter, lines: &[&str]) -> (Vec<(Vec<Token>, LineR
     (rows, state)
 }
 
+/// The steps lexing `line` in `language` spends: the smallest work budget it
+/// finishes in.
+fn steps_spent(language: Language, line: &str) -> u32 {
+    let (mut low, mut high) = (0_u32, u32::MAX);
+    while low < high {
+        let mid = low + (high - low) / 2;
+        let limits = Limits {
+            work: Some(Work {
+                per_byte: 0,
+                base: mid,
+            }),
+            ..Limits::default()
+        };
+        let mut highlighter = Highlighter::new_with_limits(language, limits);
+        let (rows, _) = lex(&mut highlighter, &[line]);
+        if rows[0].1.reached(Limit::Work) {
+            low = mid + 1;
+        } else {
+            high = mid;
+        }
+    }
+    low
+}
+
 fn innermost(highlighter: &Highlighter, token: Token) -> &str {
     highlighter.scopes(token.stack()).next().unwrap_or_default()
 }
