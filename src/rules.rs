@@ -140,6 +140,14 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// Without the flag, a line visits every frame.
     /// The flag only saves work: the tokens are the same either way.
     const WHILES: bool = false;
+    /// Whether the scan may skip the rest of a run of spaces and tabs where
+    /// no pattern matched at its first byte.
+    /// The skip is sound only when no pattern takes exactly one blank and then
+    /// tests the next character.
+    /// Such a pattern, as Sass's `\s-\s`, can match at the last blank of a
+    /// run and nowhere before it.
+    /// A grammar with one turns the skip off.
+    const SKIPS_BLANK_RUNS: bool = true;
     /// Whether the loop tests at each step whether the innermost rule embeds
     /// another language ([`Payload::Embed`]). A rule that embeds hands its line
     /// over when it opens, without this test. The test is for a grammar whose
