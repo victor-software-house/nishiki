@@ -1,7 +1,7 @@
 //! The scope names the lexer emits, in Shiki's naming.
 
 crate::scope::scope_table! {
-    SQL;
+    keyed SQL;
     Source "source.sql"
     Variable "text.variable"
     Bracketed "text.bracketed"

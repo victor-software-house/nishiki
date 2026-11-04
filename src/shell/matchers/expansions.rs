@@ -1,27 +1,28 @@
 //! Comments, operators, variables, strings, numbers and redirections.
 
 use super::{is_blank, is_unquoted};
+use crate::scope::{Scopes, scopes};
 use crate::shell::engine::{DynName, Lexer};
 use crate::shell::scope::S;
 use crate::shell::state::Rule;
 
-const NUMERIC_HEX: &[S] = &[S::ConstantNumeric, S::ConstantNumericHex];
-const NUMERIC_OCTAL: &[S] = &[S::ConstantNumeric, S::ConstantNumericOctal];
-const NUMERIC_OTHER: &[S] = &[S::ConstantNumeric, S::ConstantNumericOther];
-const NUMERIC_DECIMAL: &[S] = &[S::ConstantNumeric, S::ConstantNumericDecimal];
-const NUMERIC_VERSION: &[S] = &[S::ConstantNumeric, S::ConstantNumericVersion];
-const NUMERIC_INTEGER: &[S] = &[S::ConstantNumeric, S::ConstantNumericInteger];
+const NUMERIC_HEX: Scopes<S> = scopes![S::ConstantNumeric, S::ConstantNumericHex];
+const NUMERIC_OCTAL: Scopes<S> = scopes![S::ConstantNumeric, S::ConstantNumericOctal];
+const NUMERIC_OTHER: Scopes<S> = scopes![S::ConstantNumeric, S::ConstantNumericOther];
+const NUMERIC_DECIMAL: Scopes<S> = scopes![S::ConstantNumeric, S::ConstantNumericDecimal];
+const NUMERIC_VERSION: Scopes<S> = scopes![S::ConstantNumeric, S::ConstantNumericVersion];
+const NUMERIC_INTEGER: Scopes<S> = scopes![S::ConstantNumeric, S::ConstantNumericInteger];
 
 /// The words `floating_keyword` names, in the grammar's order.
-const FLOATING_KEYWORDS: [(&[u8], &[S]); 8] = [
-    (b"then", &[S::KeywordControlThen]),
-    (b"elif", &[S::KeywordControlElif]),
-    (b"else", &[S::KeywordControlElse]),
-    (b"done", &[S::KeywordControlDone]),
-    (b"end", &[S::KeywordControlEnd]),
-    (b"do", &[S::KeywordControlDo]),
-    (b"if", &[S::KeywordControlIf]),
-    (b"fi", &[S::KeywordControlFi]),
+const FLOATING_KEYWORDS: [(&[u8], Scopes<S>); 8] = [
+    (b"then", scopes![S::KeywordControlThen]),
+    (b"elif", scopes![S::KeywordControlElif]),
+    (b"else", scopes![S::KeywordControlElse]),
+    (b"done", scopes![S::KeywordControlDone]),
+    (b"end", scopes![S::KeywordControlEnd]),
+    (b"do", scopes![S::KeywordControlDo]),
+    (b"if", scopes![S::KeywordControlIf]),
+    (b"fi", scopes![S::KeywordControlFi]),
 ];
 
 impl Lexer<'_> {
@@ -40,7 +41,7 @@ impl Lexer<'_> {
             self.span(
                 hash,
                 hash + 2,
-                &[
+                scopes![
                     S::CommentLineNumberSign,
                     S::MetaShebang,
                     S::PunctuationDefinitionCommentShebang,
@@ -49,15 +50,15 @@ impl Lexer<'_> {
             self.span(
                 hash + 2,
                 self.lim,
-                &[S::CommentLineNumberSign, S::MetaShebang],
+                scopes![S::CommentLineNumberSign, S::MetaShebang],
             );
         } else {
             self.span(
                 hash,
                 hash + 1,
-                &[S::CommentLineNumberSign, S::PunctuationDefinitionComment],
+                scopes![S::CommentLineNumberSign, S::PunctuationDefinitionComment],
             );
-            self.span(hash + 1, self.lim, &[S::CommentLineNumberSign]);
+            self.span(hash + 1, self.lim, scopes![S::CommentLineNumberSign]);
         }
         Some(self.lim)
     }
@@ -65,7 +66,7 @@ impl Lexer<'_> {
     /// `[!|]`
     pub(in crate::shell) fn m_pipe(&mut self, p: usize) -> Option<usize> {
         if self.avail(p) && matches!(self.at(p), b'!' | b'|') {
-            self.span(p, p + 1, &[S::KeywordOperatorPipe]);
+            self.span(p, p + 1, scopes![S::KeywordOperatorPipe]);
             return Some(p + 1);
         }
         None
@@ -73,11 +74,11 @@ impl Lexer<'_> {
 
     /// `(?:(?:(;)|(&&))|(\|\|))|(&)`
     pub(in crate::shell) fn m_separator(&mut self, p: usize) -> Option<usize> {
-        let (len, scope): (usize, &'static [S]) = match (self.at(p), self.at(p + 1)) {
-            (b';', _) if self.avail(p) => (1, &[S::PunctuationTerminatorStatementSemicolon]),
-            (b'&', b'&') => (2, &[S::PunctuationSeparatorStatementAnd]),
-            (b'|', b'|') => (2, &[S::PunctuationSeparatorStatementOr]),
-            (b'&', _) if self.avail(p) => (1, &[S::PunctuationSeparatorStatementBackground]),
+        let (len, scope): (usize, Scopes<S>) = match (self.at(p), self.at(p + 1)) {
+            (b';', _) if self.avail(p) => (1, scopes![S::PunctuationTerminatorStatementSemicolon]),
+            (b'&', b'&') => (2, scopes![S::PunctuationSeparatorStatementAnd]),
+            (b'|', b'|') => (2, scopes![S::PunctuationSeparatorStatementOr]),
+            (b'&', _) if self.avail(p) => (1, scopes![S::PunctuationSeparatorStatementBackground]),
             _ => return None,
         };
         self.span(p, p + len, scope);
@@ -87,7 +88,11 @@ impl Lexer<'_> {
     /// `\\(?=\n)`
     pub(in crate::shell) fn m_line_continuation(&mut self, p: usize) -> Option<usize> {
         if self.at(p) == b'\\' && p + 1 == self.lim && self.nl {
-            self.span(p, p + 1, &[S::ConstantCharacterEscapeLineContinuation]);
+            self.span(
+                p,
+                p + 1,
+                scopes![S::ConstantCharacterEscapeLineContinuation],
+            );
             return Some(p + 1);
         }
         None
@@ -103,11 +108,11 @@ impl Lexer<'_> {
         self.dollar_and(
             p,
             p + 2,
-            &[
+            scopes![
                 S::PunctuationDefinitionVariable,
                 S::VariableParameterPositionalAll,
             ],
-            &[S::VariableParameterPositionalAll],
+            scopes![S::VariableParameterPositionalAll],
         );
         Some(p + 2)
     }
@@ -120,11 +125,11 @@ impl Lexer<'_> {
         self.dollar_and(
             p,
             p + 2,
-            &[
+            scopes![
                 S::PunctuationDefinitionVariable,
                 S::VariableParameterPositional,
             ],
-            &[S::VariableParameterPositional],
+            scopes![S::VariableParameterPositional],
         );
         Some(p + 2)
     }
@@ -144,8 +149,8 @@ impl Lexer<'_> {
         self.dollar_and(
             p,
             p + 2,
-            &[S::PunctuationDefinitionVariable, S::VariableLanguageSpecial],
-            &[S::VariableLanguageSpecial],
+            scopes![S::PunctuationDefinitionVariable, S::VariableLanguageSpecial],
+            scopes![S::VariableLanguageSpecial],
         );
         Some(p + 2)
     }
@@ -162,14 +167,14 @@ impl Lexer<'_> {
         self.dollar_and(
             p,
             e,
-            &[S::PunctuationDefinitionVariable, S::VariableOtherNormal],
-            &[S::VariableOtherNormal],
+            scopes![S::PunctuationDefinitionVariable, S::VariableOtherNormal],
+            scopes![S::VariableOtherNormal],
         );
         Some(e)
     }
 
     /// Names the `$` at `p` with `dollar` and `p + 1..end` with `rest`.
-    fn dollar_and(&mut self, p: usize, end: usize, dollar: &'static [S], rest: &'static [S]) {
+    fn dollar_and(&mut self, p: usize, end: usize, dollar: Scopes<S>, rest: Scopes<S>) {
         self.span(p, p + 1, dollar);
         self.span(p + 1, end, rest);
     }
@@ -186,7 +191,7 @@ impl Lexer<'_> {
         self.span(
             p,
             p + 1,
-            &[
+            scopes![
                 S::PunctuationDefinitionVariable,
                 S::VariableParameterPositional,
             ],
@@ -194,7 +199,7 @@ impl Lexer<'_> {
         self.span(
             p + 1,
             p + 2,
-            &[
+            scopes![
                 S::PunctuationSectionBracketCurlyVariableBegin,
                 S::PunctuationDefinitionVariable,
                 S::VariableParameterPositional,
@@ -208,11 +213,11 @@ impl Lexer<'_> {
         if self.at(p) != b'$' || self.at(p + 1) != b'{' {
             return None;
         }
-        self.span(p, p + 1, &[S::PunctuationDefinitionVariable]);
+        self.span(p, p + 1, scopes![S::PunctuationDefinitionVariable]);
         self.span(
             p + 1,
             p + 2,
-            &[
+            scopes![
                 S::PunctuationSectionBracketCurlyVariableBegin,
                 S::PunctuationDefinitionVariable,
             ],
@@ -226,14 +231,14 @@ impl Lexer<'_> {
         if e == p {
             return None;
         }
-        self.span(p, e, &[S::VariableParameterPositional]);
+        self.span(p, e, scopes![S::VariableParameterPositional]);
         Some(e)
     }
 
     /// `(?<!\w)[-0-9A-Z_a-z]+(?!\w)`
     pub(in crate::shell) fn m_param_name(&mut self, p: usize) -> Option<usize> {
         let e = self.name_run(p)?;
-        self.span(p, e, &[S::VariableOtherNormal]);
+        self.span(p, e, scopes![S::VariableOtherNormal]);
         Some(e)
     }
 
@@ -251,7 +256,7 @@ impl Lexer<'_> {
             b'%' => 1 + usize::from(self.at(p + 1) == b'%'),
             _ => return None,
         };
-        self.span(p, p + len, &[S::KeywordOperatorExpansion]);
+        self.span(p, p + len, scopes![S::KeywordOperatorExpansion]);
         Some(p + len)
     }
 
@@ -268,9 +273,9 @@ impl Lexer<'_> {
         if e == p + 1 || self.at(e) != b']' || !self.avail(e) {
             return None;
         }
-        self.span(p, p + 1, &[S::PunctuationSectionArray]);
-        self.span_retok(p + 1, e, &[], Rule::RetokArrayAccess);
-        self.span(e, e + 1, &[S::PunctuationSectionArray]);
+        self.span(p, p + 1, scopes![S::PunctuationSectionArray]);
+        self.span_retok(p + 1, e, S::NO_SCOPES, Rule::RetokArrayAccess);
+        self.span(e, e + 1, scopes![S::PunctuationSectionArray]);
         Some(e + 1)
     }
 
@@ -282,7 +287,7 @@ impl Lexer<'_> {
             return None;
         }
         let e = self.char_end(p + 1);
-        self.span(p, e, &[S::ConstantCharacterEscape]);
+        self.span(p, e, scopes![S::ConstantCharacterEscape]);
         Some(e)
     }
 
@@ -292,7 +297,7 @@ impl Lexer<'_> {
         if self.at(p) != b'\\' || !self.avail(p + 1) || !set.contains(&self.at(p + 1)) {
             return None;
         }
-        self.span(p, p + 2, &[S::ConstantCharacterEscape]);
+        self.span(p, p + 2, scopes![S::ConstantCharacterEscape]);
         Some(p + 2)
     }
 
@@ -302,7 +307,7 @@ impl Lexer<'_> {
         if self.at(q) != b'"' || !self.avail(q) {
             return None;
         }
-        self.span(p, q + 1, &[S::PunctuationDefinitionStringBegin]);
+        self.span(p, q + 1, scopes![S::PunctuationDefinitionStringBegin]);
         Some(q + 1)
     }
 
@@ -317,7 +322,7 @@ impl Lexer<'_> {
         {
             return None;
         }
-        self.span(p, p + 2, &[S::ConstantCharacterEscapeAnsiC]);
+        self.span(p, p + 2, scopes![S::ConstantCharacterEscapeAnsiC]);
         Some(p + 2)
     }
 
@@ -331,7 +336,7 @@ impl Lexer<'_> {
         {
             return None;
         }
-        self.span(p, p + 5, &[S::ConstantCharacterEscapeOctal]);
+        self.span(p, p + 5, scopes![S::ConstantCharacterEscapeOctal]);
         Some(p + 5)
     }
 
@@ -345,7 +350,7 @@ impl Lexer<'_> {
         {
             return None;
         }
-        self.span(p, p + 5, &[S::ConstantCharacterEscapeHex]);
+        self.span(p, p + 5, scopes![S::ConstantCharacterEscapeHex]);
         Some(p + 5)
     }
 
@@ -358,7 +363,7 @@ impl Lexer<'_> {
         if self.at(q) != b'"' || !self.avail(q) {
             return None;
         }
-        self.span(p, q + 1, &[S::ConstantCharacterEscapeControlChar]);
+        self.span(p, q + 1, scopes![S::ConstantCharacterEscapeControlChar]);
         Some(q + 1)
     }
 
@@ -368,7 +373,7 @@ impl Lexer<'_> {
             return None;
         }
         let e = self.char_end(p);
-        self.span(p, e, &[S::StringUnquoted]);
+        self.span(p, e, scopes![S::StringUnquoted]);
         Some(e)
     }
 
@@ -379,10 +384,10 @@ impl Lexer<'_> {
         if !self.not_after_word(p) {
             return None;
         }
-        let (len, scope): (usize, &'static [S]) = if self.starts(p, b"true") {
-            (4, &[S::ConstantLanguageTrue])
+        let (len, scope): (usize, Scopes<S>) = if self.starts(p, b"true") {
+            (4, scopes![S::ConstantLanguageTrue])
         } else if self.starts(p, b"false") {
-            (5, &[S::ConstantLanguageFalse])
+            (5, scopes![S::ConstantLanguageFalse])
         } else {
             return None;
         };
@@ -405,7 +410,7 @@ impl Lexer<'_> {
     }
 
     /// The numeric literal rule: its scope and end, without naming it.
-    pub(in crate::shell) fn number_at(&self, p: usize) -> Option<(usize, &'static [S])> {
+    pub(in crate::shell) fn number_at(&self, p: usize) -> Option<(usize, Scopes<S>)> {
         let digits = |i: usize| self.skip(i, |b| b.is_ascii_digit());
         let ok = |e: usize| self.before_number_end(e);
         if self.at(p) == b'0' && matches!(self.at(p + 1), b'x' | b'X') {
@@ -486,12 +491,12 @@ impl Lexer<'_> {
         if e == p + 2 {
             return None;
         }
-        self.span(p, e, &[S::ConstantNumericHex]);
+        self.span(p, e, scopes![S::ConstantNumericHex]);
         Some(e)
     }
 
     /// `0\d+`
-    pub(in crate::shell) fn m_octal(&mut self, p: usize, scopes: &'static [S]) -> Option<usize> {
+    pub(in crate::shell) fn m_octal(&mut self, p: usize, scopes: Scopes<S>) -> Option<usize> {
         if self.at(p) != b'0' {
             return None;
         }
@@ -504,11 +509,7 @@ impl Lexer<'_> {
     }
 
     /// `\d{1,2}#[0-9@-Z_a-z]+`
-    pub(in crate::shell) fn m_other_base(
-        &mut self,
-        p: usize,
-        scopes: &'static [S],
-    ) -> Option<usize> {
+    pub(in crate::shell) fn m_other_base(&mut self, p: usize, scopes: Scopes<S>) -> Option<usize> {
         let e = self.other_base_end(p)?;
         self.span(p, e, scopes);
         Some(e)
@@ -520,7 +521,7 @@ impl Lexer<'_> {
         if e == p {
             return None;
         }
-        self.span(p, e, &[S::ConstantNumericInteger]);
+        self.span(p, e, scopes![S::ConstantNumericInteger]);
         Some(e)
     }
 
@@ -533,7 +534,7 @@ impl Lexer<'_> {
         if e == p || self.word_at(e) {
             return None;
         }
-        self.span(p, e, &[S::VariableOtherNormal]);
+        self.span(p, e, scopes![S::VariableOtherNormal]);
         Some(e)
     }
 
@@ -562,7 +563,7 @@ impl Lexer<'_> {
             _ if p == 0 => 0,
             _ => return None,
         };
-        self.span(p, p + len, &[S::KeywordOperatorArithmetic]);
+        self.span(p, p + len, scopes![S::KeywordOperatorArithmetic]);
         Some(p + len)
     }
 
@@ -589,7 +590,7 @@ impl Lexer<'_> {
         {
             return None;
         }
-        self.span(p, p + 1, &[S::SupportFunctionBuiltin]);
+        self.span(p, p + 1, scopes![S::SupportFunctionBuiltin]);
         Some(p + 1)
     }
 
@@ -602,11 +603,11 @@ impl Lexer<'_> {
         }
         if self.at(p + 1) == b'>' && self.avail(p + 1) {
             if self.at(p) == b'1' {
-                self.span(p, p + 1, &[S::KeywordOperatorRedirectStdout]);
+                self.span(p, p + 1, scopes![S::KeywordOperatorRedirectStdout]);
                 return Some(p + 1);
             }
             if self.at(p) == b'2' {
-                self.span(p, p + 1, &[S::KeywordOperatorRedirectStderr]);
+                self.span(p, p + 1, scopes![S::KeywordOperatorRedirectStderr]);
                 return Some(p + 1);
             }
         }
@@ -617,7 +618,7 @@ impl Lexer<'_> {
         self.span_dyn(
             p,
             e,
-            &[],
+            S::NO_SCOPES,
             DynName {
                 prefix: "keyword.operator.redirect.",
                 start: p,
@@ -666,7 +667,7 @@ impl Lexer<'_> {
     /// `[<>]\(`
     pub(in crate::shell) fn m_process_substitution(&mut self, p: usize) -> Option<usize> {
         if self.avail(p) && matches!(self.at(p), b'<' | b'>') && self.at(p + 1) == b'(' {
-            self.span(p, p + 2, &[S::PunctuationDefinitionStringBegin]);
+            self.span(p, p + 2, scopes![S::PunctuationDefinitionStringBegin]);
             return Some(p + 2);
         }
         None
@@ -678,14 +679,14 @@ impl Lexer<'_> {
         if self.at(p) != b'~' || !self.avail(p) || !after {
             return None;
         }
-        self.span(p, p + 1, &[S::KeywordOperatorTilde]);
+        self.span(p, p + 1, scopes![S::KeywordOperatorTilde]);
         Some(p + 1)
     }
 
     /// `[*?]`
     pub(in crate::shell) fn m_glob(&mut self, p: usize) -> Option<usize> {
         if self.avail(p) && matches!(self.at(p), b'*' | b'?') {
-            self.span(p, p + 1, &[S::KeywordOperatorGlob]);
+            self.span(p, p + 1, scopes![S::KeywordOperatorGlob]);
             return Some(p + 1);
         }
         None
@@ -697,8 +698,8 @@ impl Lexer<'_> {
             && matches!(self.at(p), b'!' | b'*' | b'+' | b'?' | b'@')
             && self.at(p + 1) == b'('
         {
-            self.span(p, p + 1, &[S::KeywordOperatorExtglob]);
-            self.span(p + 1, p + 2, &[S::PunctuationDefinitionExtglob]);
+            self.span(p, p + 1, scopes![S::KeywordOperatorExtglob]);
+            self.span(p + 1, p + 2, scopes![S::PunctuationDefinitionExtglob]);
             return Some(p + 2);
         }
         None
@@ -709,7 +710,7 @@ impl Lexer<'_> {
         &mut self,
         p: usize,
         quote: u8,
-        scopes: &'static [S],
+        scopes: Scopes<S>,
     ) -> Option<usize> {
         if !self.starts(p, b"<<<") {
             return None;
@@ -718,7 +719,7 @@ impl Lexer<'_> {
         if q >= self.lim || self.at(q) != quote {
             return None;
         }
-        self.span(p, p + 3, &[S::KeywordOperatorHerestring]);
+        self.span(p, p + 3, scopes![S::KeywordOperatorHerestring]);
         self.span(q, q + 1, scopes);
         Some(q + 1)
     }
@@ -747,8 +748,13 @@ impl Lexer<'_> {
         if e == w {
             return None;
         }
-        self.span(p, p + 3, &[S::KeywordOperatorHerestring]);
-        self.span_retok(w, e, &[S::StringUnquotedHerestring], Rule::RetokInitial);
+        self.span(p, p + 3, scopes![S::KeywordOperatorHerestring]);
+        self.span_retok(
+            w,
+            e,
+            scopes![S::StringUnquotedHerestring],
+            Rule::RetokInitial,
+        );
         Some(e)
     }
 
@@ -764,8 +770,8 @@ impl Lexer<'_> {
             let w = self.blanks(p + op);
             let e = self.skip(w, is_unquoted);
             if e > w {
-                self.span(p, p + op, &[S::KeywordOperatorRedirect]);
-                self.span(w, e, &[S::StringUnquotedArgument]);
+                self.span(p, p + op, scopes![S::KeywordOperatorRedirect]);
+                self.span(w, e, scopes![S::StringUnquotedArgument]);
                 return Some(e);
             }
         }

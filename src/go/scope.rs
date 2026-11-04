@@ -2,7 +2,7 @@
 //! `oracle/go-grammar.ts`; do not edit.
 
 crate::scope::scope_table! {
-    GO;
+    keyed GO;
     CmtBlock "comment.block.go"
     CmtLineDoubleSlash "comment.line.double-slash.go"
     ConstCharacterEscape "constant.character.escape.go"

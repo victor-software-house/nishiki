@@ -1,6 +1,7 @@
 //! Loops, `case`, functions, groups, tests, here-documents and literal ends.
 
 use super::is_blank;
+use crate::scope::{Scopes, scopes};
 use crate::shell::engine::{DynName, Lazy, Lexer, NameRun};
 use crate::shell::scope::S;
 use crate::shell::state::Rule;
@@ -35,7 +36,7 @@ impl Lexer<'_> {
         &mut self,
         p: usize,
         word: &[u8],
-        scopes: &'static [S],
+        scopes: Scopes<S>,
         follow: Follow,
     ) -> Option<usize> {
         if !self.after_separator(p) || !self.starts(p, word) {
@@ -55,7 +56,7 @@ impl Lexer<'_> {
         &mut self,
         p: usize,
         word: &[u8],
-        scopes: &'static [S],
+        scopes: Scopes<S>,
     ) -> Option<usize> {
         if !self.not_after_word(p) || !self.starts(p, word) || self.word_at(p + word.len()) {
             return None;
@@ -66,14 +67,19 @@ impl Lexer<'_> {
 
     /// `done` ending a loop.
     pub(in crate::shell) fn m_end_done(&mut self, p: usize) -> Option<usize> {
-        self.m_keyword_between(p, b"done", &[S::KeywordControl], Follow::SeparatorOrParen)
+        self.m_keyword_between(
+            p,
+            b"done",
+            scopes![S::KeywordControl],
+            Follow::SeparatorOrParen,
+        )
     }
 
     /// `(?<=^|[\&;\s])(while|until)(?=[\&;\s]|$)`
     pub(in crate::shell) fn m_loop_while(&mut self, p: usize) -> Option<usize> {
-        self.m_keyword_between(p, b"while", &[S::KeywordControl], Follow::Separator)
+        self.m_keyword_between(p, b"while", scopes![S::KeywordControl], Follow::Separator)
             .or_else(|| {
-                self.m_keyword_between(p, b"until", &[S::KeywordControl], Follow::Separator)
+                self.m_keyword_between(p, b"until", scopes![S::KeywordControl], Follow::Separator)
             })
     }
 
@@ -93,9 +99,9 @@ impl Lexer<'_> {
             q > e && lexer.starts(q, b"in") && lexer.before_separator(q + 2)
         })?;
         let q = self.skip_space(e);
-        self.span(p, p + 3, &[S::KeywordControl]);
-        self.span_retok(w, e, &[S::VariableOtherLoop], Rule::RetokString);
-        self.span(q, q + 2, &[S::KeywordControl]);
+        self.span(p, p + 3, scopes![S::KeywordControl]);
+        self.span_retok(w, e, scopes![S::VariableOtherLoop], Rule::RetokString);
+        self.span(q, q + 2, scopes![S::KeywordControl]);
         Some(q + 2)
     }
 
@@ -132,8 +138,8 @@ impl Lexer<'_> {
         });
         self.ends = ends;
         let e = found?;
-        self.span(p, p + 6, &[S::KeywordControl]);
-        self.span(w, e, &[S::VariableOtherLoop]);
+        self.span(p, p + 6, scopes![S::KeywordControl]);
+        self.span(w, e, scopes![S::VariableOtherLoop]);
         Some(e)
     }
 
@@ -148,9 +154,9 @@ impl Lexer<'_> {
         if !self.starts(i, b"in") || !self.boundary(i) || self.word_at(i + 2) {
             return None;
         }
-        self.span(p, p + 3, &[S::KeywordControlFor]);
-        self.span(n, ne, &[S::VariableOtherFor]);
-        self.span(i, i + 2, &[S::KeywordControlIn]);
+        self.span(p, p + 3, scopes![S::KeywordControlFor]);
+        self.span(n, ne, scopes![S::VariableOtherFor]);
+        self.span(i, i + 2, scopes![S::KeywordControlIn]);
         Some(i + 2)
     }
 
@@ -159,7 +165,7 @@ impl Lexer<'_> {
         if !self.not_after_word(p) || !self.starts(p, b"for") || self.word_at(p + 3) {
             return None;
         }
-        self.span(p, p + 3, &[S::KeywordControlFor]);
+        self.span(p, p + 3, scopes![S::KeywordControlFor]);
         Some(p + 3)
     }
 
@@ -181,9 +187,9 @@ impl Lexer<'_> {
             lexer.starts(i, b"in") && lexer.boundary(i) && !lexer.word_at(i + 2)
         })?;
         let i = self.blanks(e);
-        self.span(p, p + 4, &[S::KeywordControlCase]);
-        self.span_retok(w, e, &[], Rule::RetokInitial);
-        self.span(i, i + 2, &[S::KeywordControlIn]);
+        self.span(p, p + 4, scopes![S::KeywordControlCase]);
+        self.span_retok(w, e, S::NO_SCOPES, Rule::RetokInitial);
+        self.span(i, i + 2, scopes![S::KeywordControlIn]);
         Some(i + 2)
     }
 
@@ -197,7 +203,7 @@ impl Lexer<'_> {
         if self.at(k) != b')' || !self.avail(k) {
             return None;
         }
-        self.span(j, k + 1, &[S::KeywordOperatorPatternCaseDefault]);
+        self.span(j, k + 1, scopes![S::KeywordOperatorPatternCaseDefault]);
         Some(k + 1)
     }
 
@@ -226,7 +232,7 @@ impl Lexer<'_> {
         self.span(
             p,
             p + 1,
-            &[
+            scopes![
                 S::PunctuationDefinitionGroup,
                 S::PunctuationDefinitionRegexGroup,
             ],
@@ -244,7 +250,7 @@ impl Lexer<'_> {
         if !(self.prev(p).is_some_and(is_blank) || after_in || after_pair) {
             return None;
         }
-        self.span(p, p + 1, &[S::KeywordOperatorPatternCase]);
+        self.span(p, p + 1, scopes![S::KeywordOperatorPatternCase]);
         Some(p + 1)
     }
 
@@ -259,7 +265,11 @@ impl Lexer<'_> {
             return None;
         }
         let e = self.char_end(p);
-        self.span(p, e, &[S::StringUnquotedPattern, S::StringRegexpUnquoted]);
+        self.span(
+            p,
+            e,
+            scopes![S::StringUnquotedPattern, S::StringRegexpUnquoted],
+        );
         Some(e)
     }
 
@@ -268,7 +278,7 @@ impl Lexer<'_> {
         if !self.esac_ahead(p) {
             return None;
         }
-        self.span(p, p + 4, &[S::KeywordControlEsac]);
+        self.span(p, p + 4, scopes![S::KeywordControlEsac]);
         Some(p + 4)
     }
 
@@ -277,13 +287,13 @@ impl Lexer<'_> {
         if self.esac_ahead(p) {
             return Some(p);
         }
-        self.m_single(p, b')', &[S::KeywordOperatorPatternCase])
+        self.m_single(p, b')', scopes![S::KeywordOperatorPatternCase])
     }
 
     /// `(;;)|(?=\besac\b)`
     pub(in crate::shell) fn m_end_case_body(&mut self, p: usize) -> Option<usize> {
         if self.starts(p, b";;") {
-            self.span(p, p + 2, &[S::PunctuationTerminatorStatementCase]);
+            self.span(p, p + 2, scopes![S::PunctuationTerminatorStatementCase]);
             return Some(p + 2);
         }
         self.esac_ahead(p).then_some(p)
@@ -324,13 +334,13 @@ impl Lexer<'_> {
             let n0 = self.blanks(j + 8);
             let n1 = self.function_name_end(n0);
             if n1 > n0 {
-                self.span(j, j + 8, &[S::StorageTypeFunction]);
-                self.span(n0, n1, &[S::EntityNameFunction]);
+                self.span(j, j + 8, scopes![S::StorageTypeFunction]);
+                self.span(n0, n1, scopes![S::EntityNameFunction]);
                 if self.at(n1) == b'(' && self.avail(n1) {
                     let c = self.blanks(n1 + 1);
                     if self.at(c) == b')' && self.avail(c) {
-                        self.span(n1, n1 + 1, &[S::PunctuationDefinitionArguments]);
-                        self.span(c, c + 1, &[S::PunctuationDefinitionArguments]);
+                        self.span(n1, n1 + 1, scopes![S::PunctuationDefinitionArguments]);
+                        self.span(c, c + 1, scopes![S::PunctuationDefinitionArguments]);
                         return Some(c + 1);
                     }
                 }
@@ -350,9 +360,9 @@ impl Lexer<'_> {
         if self.at(c) != b')' || !self.avail(c) {
             return None;
         }
-        self.span(j, n1, &[S::EntityNameFunction]);
-        self.span(o, o + 1, &[S::PunctuationDefinitionArguments]);
-        self.span(c, c + 1, &[S::PunctuationDefinitionArguments]);
+        self.span(j, n1, scopes![S::EntityNameFunction]);
+        self.span(o, o + 1, scopes![S::PunctuationDefinitionArguments]);
+        self.span(c, c + 1, scopes![S::PunctuationDefinitionArguments]);
         Some(c + 1)
     }
 
@@ -370,7 +380,7 @@ impl Lexer<'_> {
         if self.avail(p + 1) && (self.at(p + 1) == b'$' || self.word_at(p + 1)) {
             return None;
         }
-        self.span(p, p + 1, &[S::PunctuationDefinitionGroup]);
+        self.span(p, p + 1, scopes![S::PunctuationDefinitionGroup]);
         Some(p + 1)
     }
 
@@ -391,7 +401,7 @@ impl Lexer<'_> {
             b'|' if live && next == b'|' => 2,
             _ => return None,
         };
-        self.span(p, p + len, &[S::KeywordOperatorLogical]);
+        self.span(p, p + len, scopes![S::KeywordOperatorLogical]);
         Some(p + len)
     }
 
@@ -403,7 +413,7 @@ impl Lexer<'_> {
         }
         for pair in TEST_PAIRS {
             if self.starts(p + 1, pair) && !self.word_at(p + 3) {
-                self.span(p, p + 3, &[S::KeywordOperatorLogical]);
+                self.span(p, p + 3, scopes![S::KeywordOperatorLogical]);
                 return Some(p + 3);
             }
         }
@@ -416,7 +426,7 @@ impl Lexer<'_> {
                 || (b'r'..=b'u').contains(&c))
             && !self.word_at(p + 2)
         {
-            self.span(p, p + 2, &[S::KeywordOperatorLogical]);
+            self.span(p, p + 2, scopes![S::KeywordOperatorLogical]);
             return Some(p + 2);
         }
         None
@@ -459,11 +469,23 @@ impl Lexer<'_> {
             return None;
         }
         self.set_delimiter(d0, e)?;
-        self.span(p, a, &[S::KeywordOperatorHeredoc]);
-        self.span(b, b + 1, &[S::PunctuationDefinitionStringHeredocQuote]);
-        self.span(d0, e, &[S::PunctuationDefinitionStringHeredocDelimiter]);
-        self.span(e, e + 1, &[S::PunctuationDefinitionStringHeredocQuote]);
-        self.span_retok(e + 1, self.lim, &[], Rule::RetokHeredocRest);
+        self.span(p, a, scopes![S::KeywordOperatorHeredoc]);
+        self.span(
+            b,
+            b + 1,
+            scopes![S::PunctuationDefinitionStringHeredocQuote],
+        );
+        self.span(
+            d0,
+            e,
+            scopes![S::PunctuationDefinitionStringHeredocDelimiter],
+        );
+        self.span(
+            e,
+            e + 1,
+            scopes![S::PunctuationDefinitionStringHeredocQuote],
+        );
+        self.span_retok(e + 1, self.lim, S::NO_SCOPES, Rule::RetokHeredocRest);
         Some(self.lim)
     }
 
@@ -489,9 +511,13 @@ impl Lexer<'_> {
                 .find(|&k| matches!(self.s[k], b'&' | b';' | b'<'))?;
         }
         self.set_delimiter(d0, e)?;
-        self.span(p, a, &[S::KeywordOperatorHeredoc]);
-        self.span(d0, e, &[S::PunctuationDefinitionStringHeredocDelimiter]);
-        self.span_retok(e, self.lim, &[], Rule::RetokHeredocRest);
+        self.span(p, a, scopes![S::KeywordOperatorHeredoc]);
+        self.span(
+            d0,
+            e,
+            scopes![S::PunctuationDefinitionStringHeredocDelimiter],
+        );
+        self.span_retok(e, self.lim, S::NO_SCOPES, Rule::RetokHeredocRest);
         Some(self.lim)
     }
 
@@ -515,7 +541,7 @@ impl Lexer<'_> {
             self.span_dyn(
                 0,
                 e,
-                &[],
+                S::NO_SCOPES,
                 DynName {
                     prefix: "punctuation.definition.string.heredoc.",
                     start: 0,
@@ -524,7 +550,11 @@ impl Lexer<'_> {
                 },
             );
         } else {
-            self.span(0, e, &[S::PunctuationDefinitionStringHeredocDelimiter]);
+            self.span(
+                0,
+                e,
+                scopes![S::PunctuationDefinitionStringHeredocDelimiter],
+            );
         }
         Some(e)
     }
@@ -548,7 +578,7 @@ impl Lexer<'_> {
         if self.at(j) != b')' || !self.avail(j) {
             return None;
         }
-        self.span(p, j + 1, &[S::PunctuationSectionArithmeticDouble]);
+        self.span(p, j + 1, scopes![S::PunctuationSectionArithmeticDouble]);
         Some(j + 1)
     }
 

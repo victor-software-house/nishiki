@@ -4,6 +4,7 @@ use super::engine::{Lexer, Run};
 use super::scope::S;
 use super::state::R;
 use super::wordset;
+use crate::scope::scopes;
 
 /// The punctuation a call-like begin gives its `(`.
 #[derive(Clone, Copy, Debug)]
@@ -120,14 +121,14 @@ impl Lexer<'_> {
 
     fn push_chain(&mut self, p: usize, chain: &Chain) {
         let (op_start, op_end, arrow) = chain.op;
-        self.span(p, chain.object_end, &[S::VariableObjectAccess]);
+        self.span(p, chain.object_end, scopes![S::VariableObjectAccess]);
         let scope = if arrow {
-            &[S::PunctPointerAccess]
+            scopes![S::PunctPointerAccess]
         } else {
-            &[S::PunctDotAccess]
+            scopes![S::PunctDotAccess]
         };
         self.span(op_start, op_end, scope);
-        self.span_retok(chain.middle.0, chain.middle.1, &[], R::Access);
+        self.span_retok(chain.middle.0, chain.middle.1, S::NO_SCOPES, R::Access);
     }
 
     /// The begin of a method call, `object.method(`.
@@ -137,8 +138,8 @@ impl Lexer<'_> {
         };
         self.push_chain(p, &chain);
         let (a, b) = chain.name;
-        self.span(a, b, &[S::EntityFunctionMember]);
-        self.span(b, b + 1, &[S::PunctArgsBeginMember]);
+        self.span(a, b, scopes![S::EntityFunctionMember]);
+        self.span(b, b + 1, scopes![S::PunctArgsBeginMember]);
         self.begin(p, b + 1)
     }
 
@@ -149,7 +150,7 @@ impl Lexer<'_> {
         };
         self.push_chain(p, &chain);
         let (a, b) = chain.name;
-        self.span(a, b, &[S::VariableMember]);
+        self.span(a, b, scopes![S::VariableMember]);
         self.plain(p, b)
     }
 
@@ -161,11 +162,11 @@ impl Lexer<'_> {
         let Some((op_end, arrow)) = self.access_op(object_end) else {
             return false;
         };
-        self.span(p, object_end, &[S::VariableObjectAccess]);
+        self.span(p, object_end, scopes![S::VariableObjectAccess]);
         let scope = if arrow {
-            &[S::PunctPointerAccess]
+            scopes![S::PunctPointerAccess]
         } else {
-            &[S::PunctDotAccess]
+            scopes![S::PunctDotAccess]
         };
         self.span(object_end, op_end, scope);
         self.plain(p, op_end)
@@ -282,10 +283,10 @@ impl Lexer<'_> {
             return false;
         };
         let scope = match kind {
-            CallKind::Args => &[S::PunctArgsBegin],
-            CallKind::Params => &[S::PunctParamBegin],
+            CallKind::Args => scopes![S::PunctArgsBegin],
+            CallKind::Params => scopes![S::PunctParamBegin],
         };
-        self.span(p, name_end, &[S::EntityFunction]);
+        self.span(p, name_end, scopes![S::EntityFunction]);
         self.span(paren, paren + 1, scope);
         self.begin(p, paren + 1)
     }
@@ -338,7 +339,7 @@ impl Lexer<'_> {
         if !(matches!(self.b(look), b')' | b',') && look < self.len_all()) {
             return false;
         }
-        self.span(q, end, &[S::VariableParamProbably]);
+        self.span(q, end, scopes![S::VariableParamProbably]);
         self.plain(p, r)
     }
 
@@ -350,12 +351,12 @@ impl Lexer<'_> {
             && end < self.len_all()
             && self.b(end + 1) != b']'
         {
-            self.span(p, end, &[S::VariableObject]);
-            self.span(end, end + 1, &[S::PunctBeginSquare]);
+            self.span(p, end, scopes![S::VariableObject]);
+            self.span(end, end + 1, scopes![S::PunctBeginSquare]);
             return self.begin(p, end + 1);
         }
         if self.b(p) == b'[' && p < self.len_all() && self.b(p + 1) != b']' {
-            self.span(p, p + 1, &[S::PunctBeginSquare]);
+            self.span(p, p + 1, scopes![S::PunctBeginSquare]);
             return self.begin(p, p + 1);
         }
         false
@@ -399,8 +400,8 @@ impl Lexer<'_> {
             if self.b(paren) != b'(' || paren >= self.len_all() {
                 continue;
             }
-            self.span(q, g1_end, &[S::VariableOther]);
-            self.span(g1_end, g2_end, &[S::PunctParensBeginInit]);
+            self.span(q, g1_end, scopes![S::VariableOther]);
+            self.span(g1_end, g2_end, scopes![S::PunctParensBeginInit]);
             return self.begin(p, paren + 1);
         }
         false

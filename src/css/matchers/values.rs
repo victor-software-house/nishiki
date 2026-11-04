@@ -456,7 +456,6 @@ impl<G: CssLike> Lexer<'_, G> {
         self.span_dyn(
             number,
             end,
-            &[],
             DynName {
                 prefix: UNIT_PREFIX,
                 start: number,

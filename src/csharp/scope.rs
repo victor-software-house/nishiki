@@ -2,7 +2,7 @@
 //! `oracle/csharp-grammar.ts`; do not edit.
 
 crate::scope::scope_table! {
-    CSHARP;
+    keyed CSHARP;
     CmtBlock "comment.block.cs"
     CmtBlockDocumentation "comment.block.documentation.cs"
     CmtLineDoubleSlash "comment.line.double-slash.cs"

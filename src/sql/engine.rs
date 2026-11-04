@@ -14,6 +14,7 @@ use super::scope::S;
 use super::state::Rule;
 use crate::language::{Halts, NO_HALTS};
 use crate::rules::{self, Act, Captures, Grammar, ScopeName};
+use crate::scope::Scopes;
 use crate::utf8::{char_len, is_continuation};
 
 /// The SQL lexer for one line.
@@ -164,6 +165,7 @@ impl Lexer<'_> {
 
 impl Grammar for Sql {
     type Scope = S;
+    const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
     type Pat = Pat;
     type Nested = Nested;
@@ -186,12 +188,12 @@ impl Grammar for Sql {
         Rule::from_code(code)
     }
 
-    fn rule_name(rule: Rule) -> &'static [S] {
+    fn rule_name(rule: Rule) -> Scopes<S> {
         rule.name()
     }
 
-    fn rule_content(_: Rule) -> &'static [S] {
-        &[]
+    fn rule_content(_: Rule) -> Scopes<S> {
+        S::NO_SCOPES
     }
 
     fn pat_act(pat: Pat) -> Act<Self> {

@@ -21,6 +21,7 @@ use super::state::Rule;
 use crate::arena::{Arena, ROOT};
 use crate::language::{Halt, Halts, Parts};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
+use crate::scope::{PATH_SLOTS, Scopes, path_slot};
 use crate::utf8::char_len;
 use crate::{Stack, Token};
 
@@ -38,7 +39,7 @@ pub(crate) struct DynName {
 pub(crate) struct Span {
     pub(crate) start: usize,
     pub(crate) end: usize,
-    pub(crate) scopes: &'static [S],
+    pub(crate) scopes: Scopes<S>,
     pub(crate) dynamic: Option<DynName>,
     pub(crate) retok: Option<Rule>,
 }
@@ -172,14 +173,17 @@ fn is_plain_word(word: &[u8]) -> bool {
         && !word.windows(5).any(|w| w == b"false")
 }
 
-/// A cached `path`: the stack `base` with the scopes at `ptr` on top.
+/// A cached `path`: the stack `node` that a list makes on `base`.
+/// The entry holds the address of the list's key.
+/// Every list is a static with its own key, so that address names one list.
 #[derive(Clone, Copy, Debug)]
 struct PathEntry {
     base: u32,
-    ptr: usize,
-    len: usize,
     node: u32,
+    key: &'static u16,
 }
+
+const _: () = assert!(size_of::<Option<PathEntry>>() == 16);
 
 /// A cached `push_frame`: what opening `code` with `payload` on `parent`
 /// made, where the text has the stack `scopes`.
@@ -197,7 +201,6 @@ struct PushEntry {
     state: u32,
 }
 
-const PATH_ENTRIES: usize = 512;
 const PUSH_ENTRIES: usize = 256;
 
 /// Odd multipliers that spread the parts of a cache key over the slots
@@ -226,6 +229,8 @@ pub(crate) struct Scratch {
     /// rules.
     /// The next line starts from those rules when it continues that state.
     resume: Option<u32>,
+    /// The path cache, filled when the first line is lexed.
+    /// A highlighter for another language never pays for it.
     paths: Vec<Option<PathEntry>>,
     pushes: Vec<Option<PushEntry>>,
 }
@@ -239,7 +244,7 @@ impl Default for Scratch {
             ends: Vec::new(),
             name: String::new(),
             resume: None,
-            paths: vec![None; PATH_ENTRIES],
+            paths: Vec::new(),
             pushes: vec![None; PUSH_ENTRIES],
         }
     }
@@ -343,6 +348,9 @@ impl<'a> Lexer<'a> {
         let mut spans = std::mem::take(&mut scratch.spans);
         spans.clear();
         let mut chain = std::mem::take(&mut scratch.chain);
+        if scratch.paths.is_empty() {
+            scratch.paths.resize(PATH_SLOTS, None);
+        }
         let mut lexer = Lexer {
             s,
             lim: s.len(),
@@ -608,7 +616,7 @@ impl<'a> Lexer<'a> {
     // Spans.
 
     /// Names `start..end` with `scopes`.
-    pub(crate) fn span(&mut self, start: usize, end: usize, scopes: &'static [S]) {
+    pub(crate) fn span(&mut self, start: usize, end: usize, scopes: Scopes<S>) {
         self.push_span(Span {
             start,
             end,
@@ -624,7 +632,7 @@ impl<'a> Lexer<'a> {
         &mut self,
         start: usize,
         end: usize,
-        scopes: &'static [S],
+        scopes: Scopes<S>,
         dynamic: DynName,
     ) {
         self.push_span(Span {
@@ -637,13 +645,7 @@ impl<'a> Lexer<'a> {
     }
 
     /// Names `start..end` with `scopes`, and lexes it again with `rule`.
-    pub(crate) fn span_retok(
-        &mut self,
-        start: usize,
-        end: usize,
-        scopes: &'static [S],
-        rule: Rule,
-    ) {
+    pub(crate) fn span_retok(&mut self, start: usize, end: usize, scopes: Scopes<S>, rule: Rule) {
         self.push_span(Span {
             start,
             end,
@@ -681,26 +683,22 @@ impl<'a> Lexer<'a> {
     /// The stack `base` with `scopes` on top.
     /// A scope the node limit keeps from being made is left out.
     ///
-    /// The cache keys a list by its address.
-    /// The address names one list only, because every list is a static of the
-    /// grammar's tables.
-    fn path(&mut self, base: u32, scopes: &'static [S]) -> u32 {
-        if scopes.is_empty() {
+    /// The cache finds a slot by the list's key ([`PathEntry`]).
+    /// A hit compares the address of the key.
+    fn path(&mut self, base: u32, scopes: Scopes<S>) -> u32 {
+        if scopes.list.is_empty() {
             return base;
         }
-        let ptr = scopes.as_ptr().addr();
-        let slot = (usize::try_from(base).unwrap_or(0).wrapping_mul(MIX_STATE) ^ (ptr >> 3))
-            % PATH_ENTRIES;
+        let slot = path_slot(base, scopes.key);
         if let Some(entry) = self.paths[slot]
             && entry.base == base
-            && entry.ptr == ptr
-            && entry.len == scopes.len()
+            && std::ptr::eq(entry.key, &raw const scopes.key)
         {
             return entry.node;
         }
         let mut stack = base;
         let mut whole = true;
-        for scope in scopes {
+        for scope in &scopes.list {
             let Some(child) = self.arena.child(stack, scope.scope()) else {
                 self.report.record(Limit::Nodes);
                 self.flags.failed = true;
@@ -712,9 +710,8 @@ impl<'a> Lexer<'a> {
         if whole {
             self.paths[slot] = Some(PathEntry {
                 base,
-                ptr,
-                len: scopes.len(),
                 node: stack,
+                key: &scopes.key,
             });
         }
         stack
@@ -1064,7 +1061,7 @@ impl<'a> Lexer<'a> {
     /// The enclosing rule is therefore dropped, and the line stops.
     fn match_rule(
         &mut self,
-        name: &'static [S],
+        name: Scopes<S>,
         start: usize,
         end: usize,
         advanced: bool,
@@ -1175,7 +1172,7 @@ impl<'a> Lexer<'a> {
     }
 
     /// The text that ends the innermost rule when it is a literal.
-    pub(crate) fn top_end_lit(&self) -> (&'static [u8], &'static [S]) {
+    pub(crate) fn top_end_lit(&self) -> (&'static [u8], Scopes<S>) {
         let info = rule_info(self.top().rule);
         (info.end_lit, info.end_scopes)
     }

@@ -7,6 +7,7 @@ use super::grammar::{Pat, Rule};
 use super::matchers::{Class, Escape};
 use super::scope::S;
 use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::scope::Scopes;
 
 /// The Less lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Less>;
@@ -61,6 +62,7 @@ pub(crate) struct Less;
 
 impl Grammar for Less {
     type Scope = S;
+    const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
     type Pat = Pat;
     type Nested = Rule;
@@ -85,11 +87,11 @@ impl Grammar for Less {
         Rule::from_code(code)
     }
 
-    fn rule_name(rule: Rule) -> &'static [S] {
+    fn rule_name(rule: Rule) -> Scopes<S> {
         rule.data().name
     }
 
-    fn rule_content(rule: Rule) -> &'static [S] {
+    fn rule_content(rule: Rule) -> Scopes<S> {
         rule.data().content
     }
 

@@ -9,6 +9,7 @@
 use super::engine::Css;
 use super::scope::S;
 use crate::rules;
+use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Css>;
 pub(crate) type PatData = rules::PatData<Css>;
@@ -213,22 +214,22 @@ impl Rule {
     pub(crate) fn data(self) -> RuleData {
         match self {
             Rule::CommentBlock => RuleData {
-                name: &[S::CmtBlock],
-                content: &[],
+                name: scopes![S::CmtBlock],
+                content: S::NO_SCOPES,
                 end: Some(Pat::CommentBlockEnd),
                 backref: None,
                 patterns: &[],
             },
             Rule::EscapesAt1 => RuleData {
-                name: &[S::ConstCharacterEscapeNewline],
-                content: &[],
+                name: scopes![S::ConstCharacterEscapeNewline],
+                content: S::NO_SCOPES,
                 end: Some(Pat::EscapesAt1End),
                 backref: None,
                 patterns: &[],
             },
             Rule::Selector => RuleData {
-                name: &[S::MetaSelector],
-                content: &[],
+                name: scopes![S::MetaSelector],
+                content: S::NO_SCOPES,
                 end: Some(Pat::SelectorEnd),
                 backref: None,
                 patterns: &[
@@ -257,8 +258,8 @@ impl Rule {
                 ],
             },
             Rule::SelectorInnardsAt11 => RuleData {
-                name: &[S::MetaAttributeSelector],
-                content: &[],
+                name: scopes![S::MetaAttributeSelector],
+                content: S::NO_SCOPES,
                 end: Some(Pat::SelectorInnardsAt11End),
                 backref: None,
                 patterns: &[
@@ -277,8 +278,8 @@ impl Rule {
                 ],
             },
             Rule::StringAt0 => RuleData {
-                name: &[S::StrQuotedDouble],
-                content: &[],
+                name: scopes![S::StrQuotedDouble],
+                content: S::NO_SCOPES,
                 end: Some(Pat::StringAt0End),
                 backref: None,
                 patterns: &[
@@ -289,15 +290,15 @@ impl Rule {
                 ],
             },
             Rule::StringAt0At0 => RuleData {
-                name: &[S::InvIllegalUnclosedString],
-                content: &[],
+                name: scopes![S::InvIllegalUnclosedString],
+                content: S::NO_SCOPES,
                 end: Some(Pat::StringAt0At0End),
                 backref: None,
                 patterns: &[Pat::EscapesAt0, Pat::EscapesAt1, Pat::EscapesAt2],
             },
             Rule::StringAt1 => RuleData {
-                name: &[S::StrQuotedSingle],
-                content: &[],
+                name: scopes![S::StrQuotedSingle],
+                content: S::NO_SCOPES,
                 end: Some(Pat::StringAt1End),
                 backref: None,
                 patterns: &[
@@ -308,15 +309,15 @@ impl Rule {
                 ],
             },
             Rule::StringAt1At0 => RuleData {
-                name: &[S::InvIllegalUnclosedString],
-                content: &[],
+                name: scopes![S::InvIllegalUnclosedString],
+                content: S::NO_SCOPES,
                 end: Some(Pat::StringAt1At0End),
                 backref: None,
                 patterns: &[Pat::EscapesAt0, Pat::EscapesAt1, Pat::EscapesAt2],
             },
             Rule::FunctionalPseudoClassesAt0 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionalPseudoClassesAt0End),
                 backref: None,
                 patterns: &[
@@ -361,8 +362,8 @@ impl Rule {
                 ],
             },
             Rule::PropertyValuesAt0 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::PropertyValuesAt0End),
                 backref: None,
                 patterns: &[
@@ -402,8 +403,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionsAt0 => RuleData {
-                name: &[S::MetaFunctionCalc],
-                content: &[],
+                name: scopes![S::MetaFunctionCalc],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionsAt0End),
                 backref: None,
                 patterns: &[
@@ -445,8 +446,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionsAt1 => RuleData {
-                name: &[S::MetaFunctionColor],
-                content: &[],
+                name: scopes![S::MetaFunctionColor],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionsAt1End),
                 backref: None,
                 patterns: &[
@@ -486,8 +487,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionsAt2 => RuleData {
-                name: &[S::MetaFunctionGradient],
-                content: &[],
+                name: scopes![S::MetaFunctionGradient],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionsAt2End),
                 backref: None,
                 patterns: &[
@@ -528,8 +529,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionsAt3 => RuleData {
-                name: &[S::MetaFunctionGradientInvalidDeprecatedGradient],
-                content: &[],
+                name: scopes![S::MetaFunctionGradientInvalidDeprecatedGradient],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionsAt3End),
                 backref: None,
                 patterns: &[
@@ -570,8 +571,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionsAt3At0 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionsAt3At0End),
                 backref: None,
                 patterns: &[
@@ -611,8 +612,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionsAt4 => RuleData {
-                name: &[S::MetaFunctionMisc],
-                content: &[],
+                name: scopes![S::MetaFunctionMisc],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionsAt4End),
                 backref: None,
                 patterns: &[
@@ -655,8 +656,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionsAt5 => RuleData {
-                name: &[S::MetaFunctionShape],
-                content: &[],
+                name: scopes![S::MetaFunctionShape],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionsAt5End),
                 backref: None,
                 patterns: &[
@@ -697,8 +698,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionsAt6 => RuleData {
-                name: &[S::MetaFunctionTimingFunction],
-                content: &[],
+                name: scopes![S::MetaFunctionTimingFunction],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionsAt6End),
                 backref: None,
                 patterns: &[
@@ -739,8 +740,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionsAt7 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionsAt7End),
                 backref: None,
                 patterns: &[
@@ -780,8 +781,8 @@ impl Rule {
                 ],
             },
             Rule::Url => RuleData {
-                name: &[S::MetaFunctionUrl],
-                content: &[],
+                name: scopes![S::MetaFunctionUrl],
+                content: S::NO_SCOPES,
                 end: Some(Pat::UrlEnd),
                 backref: None,
                 patterns: &[
@@ -795,8 +796,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionsAt9 => RuleData {
-                name: &[S::MetaFunctionCustom],
-                content: &[],
+                name: scopes![S::MetaFunctionCustom],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionsAt9End),
                 backref: None,
                 patterns: &[
@@ -836,8 +837,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionsAt10 => RuleData {
-                name: &[S::MetaFunctionVariable],
-                content: &[],
+                name: scopes![S::MetaFunctionVariable],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionsAt10End),
                 backref: None,
                 patterns: &[
@@ -878,8 +879,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionNesting => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionNestingEnd),
                 backref: None,
                 patterns: &[
@@ -921,8 +922,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionalPseudoClassesAt1 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionalPseudoClassesAt1End),
                 backref: None,
                 patterns: &[
@@ -933,8 +934,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionalPseudoClassesAt1At1 => RuleData {
-                name: &[S::StrQuotedDouble],
-                content: &[],
+                name: scopes![S::StrQuotedDouble],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionalPseudoClassesAt1At1End),
                 backref: None,
                 patterns: &[
@@ -945,8 +946,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionalPseudoClassesAt1At2 => RuleData {
-                name: &[S::StrQuotedSingle],
-                content: &[],
+                name: scopes![S::StrQuotedSingle],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionalPseudoClassesAt1At2End),
                 backref: None,
                 patterns: &[
@@ -957,8 +958,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionalPseudoClassesAt2 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionalPseudoClassesAt2End),
                 backref: None,
                 patterns: &[
@@ -987,8 +988,8 @@ impl Rule {
                 ],
             },
             Rule::FunctionalPseudoClassesAt3 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::FunctionalPseudoClassesAt3End),
                 backref: None,
                 patterns: &[
@@ -997,29 +998,29 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt0 => RuleData {
-                name: &[S::MetaAtRuleCharset],
-                content: &[],
+                name: scopes![S::MetaAtRuleCharset],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt0End),
                 backref: None,
                 patterns: &[Pat::AtRulesAt0At0, Pat::AtRulesAt0At1, Pat::AtRulesAt0At2],
             },
             Rule::AtRulesAt0At2 => RuleData {
-                name: &[S::StrQuotedDouble],
-                content: &[],
+                name: scopes![S::StrQuotedDouble],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt0At2End),
                 backref: None,
                 patterns: &[Pat::AtRulesAt0At2At0],
             },
             Rule::AtRulesAt0At2At0 => RuleData {
-                name: &[S::InvIllegalUnclosedString],
-                content: &[],
+                name: scopes![S::InvIllegalUnclosedString],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt0At2At0End),
                 backref: None,
                 patterns: &[],
             },
             Rule::AtRulesAt1 => RuleData {
-                name: &[S::MetaAtRuleImport],
-                content: &[],
+                name: scopes![S::MetaAtRuleImport],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt1End),
                 backref: None,
                 patterns: &[
@@ -1034,15 +1035,15 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt1At0 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt1At0End),
                 backref: None,
                 patterns: &[Pat::CommentBlock],
             },
             Rule::LayerImportAt0 => RuleData {
-                name: &[S::MetaFunctionLayer],
-                content: &[],
+                name: scopes![S::MetaFunctionLayer],
+                content: S::NO_SCOPES,
                 end: Some(Pat::LayerImportAt0End),
                 backref: None,
                 patterns: &[
@@ -1057,15 +1058,15 @@ impl Rule {
                 ],
             },
             Rule::MediaQueryList => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::MediaQueryListEnd),
                 backref: None,
                 patterns: &[Pat::MediaQuery],
             },
             Rule::MediaQuery => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::MediaQueryEnd),
                 backref: None,
                 patterns: &[
@@ -1083,8 +1084,8 @@ impl Rule {
                 ],
             },
             Rule::MediaQueryAt8 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::MediaQueryAt8End),
                 backref: None,
                 patterns: &[
@@ -1112,8 +1113,8 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt2 => RuleData {
-                name: &[S::MetaAtRuleFontFace],
-                content: &[],
+                name: scopes![S::MetaAtRuleFontFace],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt2End),
                 backref: None,
                 patterns: &[
@@ -1125,8 +1126,8 @@ impl Rule {
                 ],
             },
             Rule::RuleList => RuleData {
-                name: &[S::MetaPropertyList],
-                content: &[],
+                name: scopes![S::MetaPropertyList],
+                content: S::NO_SCOPES,
                 end: Some(Pat::RuleListEnd),
                 backref: None,
                 patterns: &[
@@ -1180,15 +1181,15 @@ impl Rule {
                 ],
             },
             Rule::FontFeaturesAt0 => RuleData {
-                name: &[S::MetaAtRuleAnnotation],
-                content: &[],
+                name: scopes![S::MetaAtRuleAnnotation],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FontFeaturesAt0End),
                 backref: None,
                 patterns: &[Pat::FontFeaturesAt0At0],
             },
             Rule::FontFeaturesAt0At0 => RuleData {
-                name: &[S::MetaPropertyListFontFeature],
-                content: &[],
+                name: scopes![S::MetaPropertyListFontFeature],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FontFeaturesAt0At0End),
                 backref: None,
                 patterns: &[
@@ -1215,15 +1216,15 @@ impl Rule {
                 ],
             },
             Rule::FontFeaturesAt1 => RuleData {
-                name: &[S::MetaAtRuleCharacterVariant],
-                content: &[],
+                name: scopes![S::MetaAtRuleCharacterVariant],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FontFeaturesAt1End),
                 backref: None,
                 patterns: &[Pat::FontFeaturesAt1At0],
             },
             Rule::FontFeaturesAt1At0 => RuleData {
-                name: &[S::MetaPropertyListFontFeature],
-                content: &[],
+                name: scopes![S::MetaPropertyListFontFeature],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FontFeaturesAt1At0End),
                 backref: None,
                 patterns: &[
@@ -1250,15 +1251,15 @@ impl Rule {
                 ],
             },
             Rule::FontFeaturesAt2 => RuleData {
-                name: &[S::MetaAtRuleOrnaments],
-                content: &[],
+                name: scopes![S::MetaAtRuleOrnaments],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FontFeaturesAt2End),
                 backref: None,
                 patterns: &[Pat::FontFeaturesAt2At0],
             },
             Rule::FontFeaturesAt2At0 => RuleData {
-                name: &[S::MetaPropertyListFontFeature],
-                content: &[],
+                name: scopes![S::MetaPropertyListFontFeature],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FontFeaturesAt2At0End),
                 backref: None,
                 patterns: &[
@@ -1285,15 +1286,15 @@ impl Rule {
                 ],
             },
             Rule::FontFeaturesAt3 => RuleData {
-                name: &[S::MetaAtRuleStyleset],
-                content: &[],
+                name: scopes![S::MetaAtRuleStyleset],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FontFeaturesAt3End),
                 backref: None,
                 patterns: &[Pat::FontFeaturesAt3At0],
             },
             Rule::FontFeaturesAt3At0 => RuleData {
-                name: &[S::MetaPropertyListFontFeature],
-                content: &[],
+                name: scopes![S::MetaPropertyListFontFeature],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FontFeaturesAt3At0End),
                 backref: None,
                 patterns: &[
@@ -1320,15 +1321,15 @@ impl Rule {
                 ],
             },
             Rule::FontFeaturesAt4 => RuleData {
-                name: &[S::MetaAtRuleStylistic],
-                content: &[],
+                name: scopes![S::MetaAtRuleStylistic],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FontFeaturesAt4End),
                 backref: None,
                 patterns: &[Pat::FontFeaturesAt4At0],
             },
             Rule::FontFeaturesAt4At0 => RuleData {
-                name: &[S::MetaPropertyListFontFeature],
-                content: &[],
+                name: scopes![S::MetaPropertyListFontFeature],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FontFeaturesAt4At0End),
                 backref: None,
                 patterns: &[
@@ -1355,15 +1356,15 @@ impl Rule {
                 ],
             },
             Rule::FontFeaturesAt5 => RuleData {
-                name: &[S::MetaAtRuleSwash],
-                content: &[],
+                name: scopes![S::MetaAtRuleSwash],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FontFeaturesAt5End),
                 backref: None,
                 patterns: &[Pat::FontFeaturesAt5At0],
             },
             Rule::FontFeaturesAt5At0 => RuleData {
-                name: &[S::MetaPropertyListFontFeature],
-                content: &[],
+                name: scopes![S::MetaPropertyListFontFeature],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FontFeaturesAt5At0End),
                 backref: None,
                 patterns: &[
@@ -1390,29 +1391,29 @@ impl Rule {
                 ],
             },
             Rule::SharedNamesAt0 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::SharedNamesAt0End),
                 backref: None,
                 patterns: &[Pat::Selector],
             },
             Rule::SharedNamesAt1 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::SharedNamesAt1End),
                 backref: None,
                 patterns: &[Pat::Selector],
             },
             Rule::RuleListInnardsAt7 => RuleData {
-                name: &[S::MetaPropertyName],
-                content: &[],
+                name: scopes![S::MetaPropertyName],
+                content: S::NO_SCOPES,
                 end: Some(Pat::RuleListInnardsAt7End),
                 backref: None,
                 patterns: &[],
             },
             Rule::RuleListInnardsAt8 => RuleData {
-                name: &[],
-                content: &[S::MetaPropertyValue],
+                name: S::NO_SCOPES,
+                content: scopes![S::MetaPropertyValue],
                 end: Some(Pat::RuleListInnardsAt8End),
                 backref: None,
                 patterns: &[
@@ -1453,29 +1454,29 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt3 => RuleData {
-                name: &[S::MetaAtRulePage],
-                content: &[],
+                name: scopes![S::MetaAtRulePage],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt3End),
                 backref: None,
                 patterns: &[Pat::RuleList],
             },
             Rule::AtRulesAt4 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt4End),
                 backref: None,
                 patterns: &[Pat::AtRulesAt4At0, Pat::AtRulesAt4At1],
             },
             Rule::AtRulesAt4At0 => RuleData {
-                name: &[S::MetaAtRuleMediaHeader],
-                content: &[],
+                name: scopes![S::MetaAtRuleMediaHeader],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt4At0End),
                 backref: None,
                 patterns: &[Pat::MediaQueryList],
             },
             Rule::AtRulesAt4At1 => RuleData {
-                name: &[S::MetaAtRuleMediaBody],
-                content: &[],
+                name: scopes![S::MetaAtRuleMediaBody],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt4At1End),
                 backref: None,
                 patterns: &[
@@ -1529,15 +1530,15 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt5 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt5End),
                 backref: None,
                 patterns: &[Pat::AtRulesAt5At0, Pat::AtRulesAt5At1],
             },
             Rule::AtRulesAt5At0 => RuleData {
-                name: &[S::MetaAtRuleCounterStyleHeader],
-                content: &[],
+                name: scopes![S::MetaAtRuleCounterStyleHeader],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt5At0End),
                 backref: None,
                 patterns: &[
@@ -1549,8 +1550,8 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt5At1 => RuleData {
-                name: &[S::MetaAtRuleCounterStyleBody],
-                content: &[],
+                name: scopes![S::MetaAtRuleCounterStyleBody],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt5At1End),
                 backref: None,
                 patterns: &[
@@ -1580,15 +1581,15 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt6 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt6End),
                 backref: None,
                 patterns: &[Pat::AtRulesAt6At0, Pat::AtRulesAt6At1],
             },
             Rule::AtRulesAt6At0 => RuleData {
-                name: &[S::MetaAtRuleDocumentHeader],
-                content: &[],
+                name: scopes![S::MetaAtRuleDocumentHeader],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt6At0End),
                 backref: None,
                 patterns: &[
@@ -1602,8 +1603,8 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt6At0At0 => RuleData {
-                name: &[S::MetaFunctionDocumentRule],
-                content: &[],
+                name: scopes![S::MetaFunctionDocumentRule],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt6At0At0End),
                 backref: None,
                 patterns: &[
@@ -1617,8 +1618,8 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt6At1 => RuleData {
-                name: &[S::MetaAtRuleDocumentBody],
-                content: &[],
+                name: scopes![S::MetaAtRuleDocumentBody],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt6At1End),
                 backref: None,
                 patterns: &[
@@ -1653,15 +1654,15 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt7 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt7End),
                 backref: None,
                 patterns: &[Pat::AtRulesAt7At0, Pat::AtRulesAt7At1],
             },
             Rule::AtRulesAt7At0 => RuleData {
-                name: &[S::MetaAtRuleKeyframesHeader],
-                content: &[],
+                name: scopes![S::MetaAtRuleKeyframesHeader],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt7At0End),
                 backref: None,
                 patterns: &[
@@ -1673,8 +1674,8 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt7At1 => RuleData {
-                name: &[S::MetaAtRuleKeyframesBody],
-                content: &[],
+                name: scopes![S::MetaAtRuleKeyframesBody],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt7At1End),
                 backref: None,
                 patterns: &[
@@ -1687,15 +1688,15 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt8 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt8End),
                 backref: None,
                 patterns: &[Pat::AtRulesAt8At0, Pat::AtRulesAt8At1],
             },
             Rule::AtRulesAt8At0 => RuleData {
-                name: &[S::MetaAtRuleSupportsHeader],
-                content: &[],
+                name: scopes![S::MetaAtRuleSupportsHeader],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt8At0End),
                 backref: None,
                 patterns: &[
@@ -1729,8 +1730,8 @@ impl Rule {
                 ],
             },
             Rule::FeatureQuery => RuleData {
-                name: &[S::MetaFeatureQuery],
-                content: &[],
+                name: scopes![S::MetaFeatureQuery],
+                content: S::NO_SCOPES,
                 end: Some(Pat::FeatureQueryEnd),
                 backref: None,
                 patterns: &[
@@ -1760,8 +1761,8 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt8At1 => RuleData {
-                name: &[S::MetaAtRuleSupportsBody],
-                content: &[],
+                name: scopes![S::MetaAtRuleSupportsBody],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt8At1End),
                 backref: None,
                 patterns: &[
@@ -1796,15 +1797,15 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt9 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt9End),
                 backref: None,
                 patterns: &[Pat::AtRulesAt9At0, Pat::AtRulesAt9At1],
             },
             Rule::AtRulesAt9At0 => RuleData {
-                name: &[S::MetaAtRuleLayerHeader],
-                content: &[],
+                name: scopes![S::MetaAtRuleLayerHeader],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt9At0End),
                 backref: None,
                 patterns: &[
@@ -1819,8 +1820,8 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt9At1 => RuleData {
-                name: &[S::MetaAtRuleLayerBody],
-                content: &[],
+                name: scopes![S::MetaAtRuleLayerBody],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt9At1End),
                 backref: None,
                 patterns: &[
@@ -1855,8 +1856,8 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt10 => RuleData {
-                name: &[S::MetaAtRuleViewport],
-                content: &[],
+                name: scopes![S::MetaAtRuleViewport],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt10End),
                 backref: None,
                 patterns: &[
@@ -1867,8 +1868,8 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt11 => RuleData {
-                name: &[S::MetaAtRuleFontFeatures],
-                content: &[S::VarParameterFontName],
+                name: scopes![S::MetaAtRuleFontFeatures],
+                content: scopes![S::VarParameterFontName],
                 end: Some(Pat::AtRulesAt11End),
                 backref: None,
                 patterns: &[
@@ -1879,8 +1880,8 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt13 => RuleData {
-                name: &[S::MetaAtRuleNamespace],
-                content: &[],
+                name: scopes![S::MetaAtRuleNamespace],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt13End),
                 backref: None,
                 patterns: &[
@@ -1895,36 +1896,36 @@ impl Rule {
                 ],
             },
             Rule::AtRulesAt14 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt14End),
                 backref: None,
                 patterns: &[Pat::AtRulesAt14At0],
             },
             Rule::AtRulesAt14At0 => RuleData {
-                name: &[S::MetaAtRuleHeader],
-                content: &[],
+                name: scopes![S::MetaAtRuleHeader],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt14At0End),
                 backref: None,
                 patterns: &[],
             },
             Rule::AtRulesAt15 => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt15End),
                 backref: None,
                 patterns: &[Pat::AtRulesAt15At0, Pat::AtRulesAt15At1],
             },
             Rule::AtRulesAt15At0 => RuleData {
-                name: &[S::MetaAtRuleHeader],
-                content: &[],
+                name: scopes![S::MetaAtRuleHeader],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt15At0End),
                 backref: None,
                 patterns: &[],
             },
             Rule::AtRulesAt15At1 => RuleData {
-                name: &[S::MetaAtRuleBody],
-                content: &[],
+                name: scopes![S::MetaAtRuleBody],
+                content: S::NO_SCOPES,
                 end: Some(Pat::AtRulesAt15At1End),
                 backref: None,
                 patterns: &[
@@ -1978,8 +1979,8 @@ impl Rule {
                 ],
             },
             Rule::Root => RuleData {
-                name: &[],
-                content: &[],
+                name: S::NO_SCOPES,
+                content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[
@@ -2533,16 +2534,16 @@ impl Pat {
         match self {
             Pat::CommentBlock => PatData {
                 act: Act::Begin(Rule::CommentBlock),
-                captures: &[(0, &[S::PDefinitionCommentBegin])],
+                captures: &[(0, scopes![S::PDefinitionCommentBegin])],
                 nested: &[],
             },
             Pat::CommentBlockEnd => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PDefinitionCommentEnd])],
+                captures: &[(0, scopes![S::PDefinitionCommentEnd])],
                 nested: &[],
             },
             Pat::EscapesAt0 => PatData {
-                act: Act::Match(&[S::ConstCharacterEscapeCodepoint]),
+                act: Act::Match(scopes![S::ConstCharacterEscapeCodepoint]),
                 captures: &[],
                 nested: &[],
             },
@@ -2590,12 +2591,12 @@ impl Pat {
                 nested: &[],
             },
             Pat::EscapesAt2 => PatData {
-                act: Act::Match(&[S::ConstCharacterEscape]),
+                act: Act::Match(scopes![S::ConstCharacterEscape]),
                 captures: &[],
                 nested: &[],
             },
             Pat::CombinatorInvalid => PatData {
-                act: Act::Match(&[S::InvDeprecatedCombinator]),
+                act: Act::Match(scopes![S::InvDeprecatedCombinator]),
                 captures: &[],
                 nested: &[],
             },
@@ -2605,63 +2606,66 @@ impl Pat {
                 nested: &[],
             },
             Pat::Commas | Pat::LayerNameListAt1 => PatData {
-                act: Act::Match(&[S::PSeparatorListComma]),
+                act: Act::Match(scopes![S::PSeparatorListComma]),
                 captures: &[],
                 nested: &[],
             },
             Pat::CombinatorsAt1 => PatData {
-                act: Act::Match(&[S::KwOperatorCombinator]),
+                act: Act::Match(scopes![S::KwOperatorCombinator]),
                 captures: &[],
                 nested: &[],
             },
             Pat::SelectorInnardsAt4 => PatData {
-                act: Act::Match(&[]),
-                captures: &[(1, &[S::EntOtherNamespacePrefix]), (2, &[S::PSeparator])],
+                act: Act::Match(S::NO_SCOPES),
+                captures: &[
+                    (1, scopes![S::EntOtherNamespacePrefix]),
+                    (2, scopes![S::PSeparator]),
+                ],
                 nested: &[],
             },
             Pat::TagNames => PatData {
-                act: Act::Match(&[S::EntNameTag]),
+                act: Act::Match(scopes![S::EntNameTag]),
                 captures: &[],
                 nested: &[],
             },
             Pat::SelectorInnardsAt6 => PatData {
-                act: Act::Match(&[S::EntNameTagNesting]),
+                act: Act::Match(scopes![S::EntNameTagNesting]),
                 captures: &[],
                 nested: &[],
             },
             Pat::SelectorInnardsAt7 => PatData {
-                act: Act::Match(&[S::EntNameTagWildcard]),
+                act: Act::Match(scopes![S::EntNameTagWildcard]),
                 captures: &[],
                 nested: &[],
             },
             Pat::SelectorInnardsAt8 => PatData {
-                act: Act::Match(&[S::InvIllegalBadIdentifier]),
-                captures: &[(1, &[S::PDefinitionEntity])],
+                act: Act::Match(scopes![S::InvIllegalBadIdentifier]),
+                captures: &[(1, scopes![S::PDefinitionEntity])],
                 nested: &[(2, Nested::Escapes)],
             },
             Pat::SelectorInnardsAt9 => PatData {
-                act: Act::Match(&[S::EntOtherAttributeNameClass]),
-                captures: &[(1, &[S::PDefinitionEntity])],
+                act: Act::Match(scopes![S::EntOtherAttributeNameClass]),
+                captures: &[(1, scopes![S::PDefinitionEntity])],
                 nested: &[(2, Nested::Escapes)],
             },
             Pat::SelectorInnardsAt10 => PatData {
-                act: Act::Match(&[S::EntOtherAttributeNameId]),
-                captures: &[(1, &[S::PDefinitionEntity])],
+                act: Act::Match(scopes![S::EntOtherAttributeNameId]),
+                captures: &[(1, scopes![S::PDefinitionEntity])],
                 nested: &[(2, Nested::Escapes)],
             },
             Pat::SelectorInnardsAt11 => PatData {
                 act: Act::Begin(Rule::SelectorInnardsAt11),
-                captures: &[(0, &[S::PDefinitionEntityBeginBracketSquare])],
+                captures: &[(0, scopes![S::PDefinitionEntityBeginBracketSquare])],
                 nested: &[],
             },
             Pat::SelectorInnardsAt11End => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PDefinitionEntityEndBracketSquare])],
+                captures: &[(0, scopes![S::PDefinitionEntityEndBracketSquare])],
                 nested: &[],
             },
             Pat::StringAt0 => PatData {
                 act: Act::Begin(Rule::StringAt0),
-                captures: &[(0, &[S::PDefinitionStringBegin])],
+                captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
             Pat::StringAt0End
@@ -2670,7 +2674,7 @@ impl Pat {
             | Pat::FunctionalPseudoClassesAt1At2End
             | Pat::AtRulesAt0At2End => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PDefinitionStringEnd])],
+                captures: &[(0, scopes![S::PDefinitionStringEnd])],
                 nested: &[],
             },
             Pat::StringAt0At0 => PatData {
@@ -2680,7 +2684,7 @@ impl Pat {
             },
             Pat::StringAt1 => PatData {
                 act: Act::Begin(Rule::StringAt1),
-                captures: &[(0, &[S::PDefinitionStringBegin])],
+                captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
             Pat::StringAt1At0 => PatData {
@@ -2689,51 +2693,57 @@ impl Pat {
                 nested: &[],
             },
             Pat::SelectorInnardsAt11At2 => PatData {
-                act: Act::Match(&[]),
-                captures: &[(1, &[S::StorModifierIgnoreCase])],
+                act: Act::Match(S::NO_SCOPES),
+                captures: &[(1, scopes![S::StorModifierIgnoreCase])],
                 nested: &[],
             },
             Pat::SelectorInnardsAt11At3 => PatData {
-                act: Act::Match(&[]),
-                captures: &[(1, &[S::StrUnquotedAttributeValue])],
+                act: Act::Match(S::NO_SCOPES),
+                captures: &[(1, scopes![S::StrUnquotedAttributeValue])],
                 nested: &[(1, Nested::Escapes)],
             },
             Pat::SelectorInnardsAt11At5 => PatData {
-                act: Act::Match(&[S::KwOperatorPattern]),
+                act: Act::Match(scopes![S::KwOperatorPattern]),
                 captures: &[],
                 nested: &[],
             },
             Pat::SelectorInnardsAt11At6 => PatData {
-                act: Act::Match(&[S::PSeparator]),
+                act: Act::Match(scopes![S::PSeparator]),
                 captures: &[],
                 nested: &[],
             },
             Pat::SelectorInnardsAt11At7 => PatData {
-                act: Act::Match(&[]),
-                captures: &[(1, &[S::EntOtherNamespacePrefix])],
+                act: Act::Match(S::NO_SCOPES),
+                captures: &[(1, scopes![S::EntOtherNamespacePrefix])],
                 nested: &[(1, Nested::Escapes)],
             },
             Pat::SelectorInnardsAt11At8 => PatData {
-                act: Act::Match(&[]),
-                captures: &[(1, &[S::EntOtherAttributeName])],
+                act: Act::Match(S::NO_SCOPES),
+                captures: &[(1, scopes![S::EntOtherAttributeName])],
                 nested: &[(1, Nested::Escapes)],
             },
             Pat::PseudoClasses => PatData {
-                act: Act::Match(&[S::EntOtherAttributeNamePseudoClass]),
-                captures: &[(1, &[S::PDefinitionEntity]), (2, &[S::InvIllegalColon])],
+                act: Act::Match(scopes![S::EntOtherAttributeNamePseudoClass]),
+                captures: &[
+                    (1, scopes![S::PDefinitionEntity]),
+                    (2, scopes![S::InvIllegalColon]),
+                ],
                 nested: &[],
             },
             Pat::PseudoElements => PatData {
-                act: Act::Match(&[S::EntOtherAttributeNamePseudoElement]),
-                captures: &[(1, &[S::PDefinitionEntity]), (2, &[S::PDefinitionEntity])],
+                act: Act::Match(scopes![S::EntOtherAttributeNamePseudoElement]),
+                captures: &[
+                    (1, scopes![S::PDefinitionEntity]),
+                    (2, scopes![S::PDefinitionEntity]),
+                ],
                 nested: &[],
             },
             Pat::FunctionalPseudoClassesAt0 => PatData {
                 act: Act::Begin(Rule::FunctionalPseudoClassesAt0),
                 captures: &[
-                    (1, &[S::EntOtherAttributeNamePseudoClass]),
-                    (2, &[S::PDefinitionEntity]),
-                    (3, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::EntOtherAttributeNamePseudoClass]),
+                    (2, scopes![S::PDefinitionEntity]),
+                    (3, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
@@ -2756,291 +2766,291 @@ impl Pat {
             | Pat::LayerImportAt0End
             | Pat::AtRulesAt6At0At0End => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PSectionFunctionEndBracketRound])],
+                captures: &[(0, scopes![S::PSectionFunctionEndBracketRound])],
                 nested: &[],
             },
             Pat::FunctionalPseudoClassesAt0At2 => PatData {
-                act: Act::Match(&[S::SuppConstantTextDirection]),
+                act: Act::Match(scopes![S::SuppConstantTextDirection]),
                 captures: &[],
                 nested: &[],
             },
             Pat::PropertyValuesAt0 => PatData {
                 act: Act::Begin(Rule::PropertyValuesAt0),
-                captures: &[(0, &[S::PSectionGroupBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionGroupBeginBracketCurly])],
                 nested: &[],
             },
             Pat::PropertyValuesAt0End => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PSectionGroupEndBracketCurly])],
+                captures: &[(0, scopes![S::PSectionGroupEndBracketCurly])],
                 nested: &[],
             },
             Pat::FunctionsAt0 => PatData {
                 act: Act::Begin(Rule::FunctionsAt0),
                 captures: &[
-                    (1, &[S::SuppFunctionCalc]),
-                    (2, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::SuppFunctionCalc]),
+                    (2, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::ArithmeticOperators => PatData {
-                act: Act::Match(&[S::KwOperatorArithmetic]),
+                act: Act::Match(scopes![S::KwOperatorArithmetic]),
                 captures: &[],
                 nested: &[],
             },
             Pat::FunctionsAt1 => PatData {
                 act: Act::Begin(Rule::FunctionsAt1),
                 captures: &[
-                    (1, &[S::SuppFunctionMisc]),
-                    (2, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::SuppFunctionMisc]),
+                    (2, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::FunctionsAt2 => PatData {
                 act: Act::Begin(Rule::FunctionsAt2),
                 captures: &[
-                    (1, &[S::SuppFunctionGradient]),
-                    (2, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::SuppFunctionGradient]),
+                    (2, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::FunctionsAt2At0 => PatData {
-                act: Act::Match(&[S::KwOperatorGradient]),
+                act: Act::Match(scopes![S::KwOperatorGradient]),
                 captures: &[],
                 nested: &[],
             },
             Pat::FunctionsAt3 => PatData {
                 act: Act::Begin(Rule::FunctionsAt3),
                 captures: &[
-                    (1, &[S::InvDeprecatedGradientFunction]),
-                    (2, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::InvDeprecatedGradientFunction]),
+                    (2, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::FunctionsAt3At0 => PatData {
                 act: Act::Begin(Rule::FunctionsAt3At0),
                 captures: &[
-                    (1, &[S::InvDeprecatedFunction]),
-                    (2, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::InvDeprecatedFunction]),
+                    (2, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::FunctionsAt4 => PatData {
                 act: Act::Begin(Rule::FunctionsAt4),
                 captures: &[
-                    (1, &[S::SuppFunctionMisc]),
-                    (2, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::SuppFunctionMisc]),
+                    (2, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::FunctionsAt4At0 => PatData {
-                act: Act::Match(&[S::ConstNumericOtherDensity]),
+                act: Act::Match(scopes![S::ConstNumericOtherDensity]),
                 captures: &[],
                 nested: &[],
             },
             Pat::FunctionsAt5 => PatData {
                 act: Act::Begin(Rule::FunctionsAt5),
                 captures: &[
-                    (1, &[S::SuppFunctionShape]),
-                    (2, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::SuppFunctionShape]),
+                    (2, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::FunctionsAt5At0 => PatData {
-                act: Act::Match(&[S::KwOperatorShape]),
+                act: Act::Match(scopes![S::KwOperatorShape]),
                 captures: &[],
                 nested: &[],
             },
             Pat::FunctionsAt6 => PatData {
                 act: Act::Begin(Rule::FunctionsAt6),
                 captures: &[
-                    (1, &[S::SuppFunctionTimingFunction]),
-                    (2, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::SuppFunctionTimingFunction]),
+                    (2, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::FunctionsAt6At0 => PatData {
-                act: Act::Match(&[S::SuppConstantStepDirection]),
+                act: Act::Match(scopes![S::SuppConstantStepDirection]),
                 captures: &[],
                 nested: &[],
             },
             Pat::FunctionsAt7 => PatData {
                 act: Act::Begin(Rule::FunctionsAt7),
                 captures: &[
-                    (1, &[S::SuppFunctionTransform]),
-                    (2, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::SuppFunctionTransform]),
+                    (2, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::Url => PatData {
                 act: Act::Begin(Rule::Url),
                 captures: &[
-                    (1, &[S::SuppFunctionUrl]),
-                    (2, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::SuppFunctionUrl]),
+                    (2, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::UrlAt0 => PatData {
-                act: Act::Match(&[S::VarParameterUrl]),
+                act: Act::Match(scopes![S::VarParameterUrl]),
                 captures: &[],
                 nested: &[],
             },
             Pat::FunctionsAt9 => PatData {
                 act: Act::Begin(Rule::FunctionsAt9),
                 captures: &[
-                    (1, &[S::SuppFunctionCustom]),
-                    (2, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::SuppFunctionCustom]),
+                    (2, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::FunctionsAt10 => PatData {
                 act: Act::Begin(Rule::FunctionsAt10),
                 captures: &[
-                    (1, &[S::SuppFunctionMisc]),
-                    (2, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::SuppFunctionMisc]),
+                    (2, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::FunctionsAt10At0 => PatData {
-                act: Act::Match(&[S::VarArgument]),
+                act: Act::Match(scopes![S::VarArgument]),
                 captures: &[],
                 nested: &[],
             },
             Pat::PropertyKeywordsAt0 | Pat::MediaFeatureKeywords => PatData {
-                act: Act::Match(&[S::SuppConstantPropertyValue]),
+                act: Act::Match(scopes![S::SuppConstantPropertyValue]),
                 captures: &[],
                 nested: &[],
             },
             Pat::PropertyKeywordsAt1 => PatData {
-                act: Act::Match(&[S::SuppConstantPropertyValueListStyleType]),
+                act: Act::Match(scopes![S::SuppConstantPropertyValueListStyleType]),
                 captures: &[],
                 nested: &[],
             },
             Pat::PropertyKeywordsAt2 => PatData {
-                act: Act::Match(&[S::SuppConstantVendoredPropertyValue]),
+                act: Act::Match(scopes![S::SuppConstantVendoredPropertyValue]),
                 captures: &[],
                 nested: &[],
             },
             Pat::PropertyKeywordsAt3 => PatData {
-                act: Act::Match(&[S::SuppConstantFontName]),
+                act: Act::Match(scopes![S::SuppConstantFontName]),
                 captures: &[],
                 nested: &[],
             },
             Pat::UnicodeRange => PatData {
-                act: Act::Match(&[]),
+                act: Act::Match(S::NO_SCOPES),
                 captures: &[
-                    (0, &[S::ConstOtherUnicodeRange]),
-                    (1, &[S::PSeparatorDashUnicodeRange]),
+                    (0, scopes![S::ConstOtherUnicodeRange]),
+                    (1, scopes![S::PSeparatorDashUnicodeRange]),
                 ],
                 nested: &[],
             },
             Pat::NumericValuesAt0 => PatData {
-                act: Act::Match(&[S::ConstOtherColorRgbValueHex]),
-                captures: &[(1, &[S::PDefinitionConstant])],
+                act: Act::Match(scopes![S::ConstOtherColorRgbValueHex]),
+                captures: &[(1, scopes![S::PDefinitionConstant])],
                 nested: &[],
             },
             Pat::NumericValuesAt1 => PatData {
-                act: Act::Match(&[S::ConstNumeric]),
-                captures: &[(1, &[S::KwOtherUnitPercentage])],
+                act: Act::Match(scopes![S::ConstNumeric]),
+                captures: &[(1, scopes![S::KwOtherUnitPercentage])],
                 nested: &[],
             },
             Pat::NumericValuesAt2 | Pat::NumericValuesAt3 | Pat::FunctionalPseudoClassesAt3At0 => {
                 PatData {
-                    act: Act::Match(&[S::ConstNumeric]),
+                    act: Act::Match(scopes![S::ConstNumeric]),
                     captures: &[],
                     nested: &[],
                 }
             }
             Pat::ColorKeywordsAt0 => PatData {
-                act: Act::Match(&[S::SuppConstantColorW3cStandardColorName]),
+                act: Act::Match(scopes![S::SuppConstantColorW3cStandardColorName]),
                 captures: &[],
                 nested: &[],
             },
             Pat::ColorKeywordsAt1 => PatData {
-                act: Act::Match(&[S::SuppConstantColorW3cExtendedColorName]),
+                act: Act::Match(scopes![S::SuppConstantColorW3cExtendedColorName]),
                 captures: &[],
                 nested: &[],
             },
             Pat::ColorKeywordsAt2 => PatData {
-                act: Act::Match(&[S::SuppConstantColorCurrent]),
+                act: Act::Match(scopes![S::SuppConstantColorCurrent]),
                 captures: &[],
                 nested: &[],
             },
             Pat::ColorKeywordsAt3 => PatData {
-                act: Act::Match(&[S::InvDeprecatedColorSystem]),
+                act: Act::Match(scopes![S::InvDeprecatedColorSystem]),
                 captures: &[],
                 nested: &[],
             },
             Pat::PropertyValuesAt10 => PatData {
-                act: Act::Match(&[S::KwOtherImportant]),
+                act: Act::Match(scopes![S::KwOtherImportant]),
                 captures: &[],
                 nested: &[],
             },
             Pat::FunctionsAt4At3 => PatData {
-                act: Act::Match(&[S::VarParameterMisc]),
+                act: Act::Match(scopes![S::VarParameterMisc]),
                 captures: &[],
                 nested: &[],
             },
             Pat::FunctionNesting => PatData {
                 act: Act::Begin(Rule::FunctionNesting),
-                captures: &[(0, &[S::PDefinitionFunctionBeginBracketRound])],
+                captures: &[(0, scopes![S::PDefinitionFunctionBeginBracketRound])],
                 nested: &[],
             },
             Pat::FunctionNestingEnd => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PDefinitionFunctionEndBracketRound])],
+                captures: &[(0, scopes![S::PDefinitionFunctionEndBracketRound])],
                 nested: &[],
             },
             Pat::FunctionalPseudoClassesAt1 => PatData {
                 act: Act::Begin(Rule::FunctionalPseudoClassesAt1),
                 captures: &[
-                    (1, &[S::EntOtherAttributeNamePseudoClass]),
-                    (2, &[S::PDefinitionEntity]),
-                    (3, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::EntOtherAttributeNamePseudoClass]),
+                    (2, scopes![S::PDefinitionEntity]),
+                    (3, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::FunctionalPseudoClassesAt1At0
             | Pat::FunctionalPseudoClassesAt1At1At1
             | Pat::FunctionalPseudoClassesAt1At2At1 => PatData {
-                act: Act::Match(&[S::SuppConstantLanguageRange]),
+                act: Act::Match(scopes![S::SuppConstantLanguageRange]),
                 captures: &[],
                 nested: &[],
             },
             Pat::FunctionalPseudoClassesAt1At1 => PatData {
                 act: Act::Begin(Rule::FunctionalPseudoClassesAt1At1),
-                captures: &[(0, &[S::PDefinitionStringBegin])],
+                captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
             Pat::FunctionalPseudoClassesAt1At2 => PatData {
                 act: Act::Begin(Rule::FunctionalPseudoClassesAt1At2),
-                captures: &[(0, &[S::PDefinitionStringBegin])],
+                captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
             Pat::FunctionalPseudoClassesAt2 => PatData {
                 act: Act::Begin(Rule::FunctionalPseudoClassesAt2),
                 captures: &[
-                    (1, &[S::EntOtherAttributeNamePseudoClass]),
-                    (2, &[S::PDefinitionEntity]),
-                    (3, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::EntOtherAttributeNamePseudoClass]),
+                    (2, scopes![S::PDefinitionEntity]),
+                    (3, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::FunctionalPseudoClassesAt3 => PatData {
                 act: Act::Begin(Rule::FunctionalPseudoClassesAt3),
                 captures: &[
-                    (1, &[S::EntOtherAttributeNamePseudoClass]),
-                    (2, &[S::PDefinitionEntity]),
-                    (3, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::EntOtherAttributeNamePseudoClass]),
+                    (2, scopes![S::PDefinitionEntity]),
+                    (3, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::FunctionalPseudoClassesAt3At1 => PatData {
-                act: Act::Match(&[S::SuppConstantParity]),
+                act: Act::Match(scopes![S::SuppConstantParity]),
                 captures: &[],
                 nested: &[],
             },
             Pat::SelectorInnardsAt15 => PatData {
-                act: Act::Match(&[S::EntNameTagCustom]),
+                act: Act::Match(scopes![S::EntNameTagCustom]),
                 captures: &[],
                 nested: &[],
             },
@@ -3055,33 +3065,33 @@ impl Pat {
             | Pat::AtRulesAt13End
             | Pat::AtRulesAt14At0End => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PTerminatorRule])],
+                captures: &[(0, scopes![S::PTerminatorRule])],
                 nested: &[],
             },
             Pat::AtRulesAt0At0 => PatData {
-                act: Act::Match(&[]),
+                act: Act::Match(S::NO_SCOPES),
                 captures: &[
-                    (1, &[S::InvIllegalNotLowercaseCharset]),
-                    (2, &[S::InvIllegalLeadingWhitespaceCharset]),
-                    (3, &[S::InvIllegalNoWhitespaceCharset]),
-                    (4, &[S::InvIllegalWhitespaceCharset]),
-                    (5, &[S::InvIllegalNotDoubleQuotedCharset]),
-                    (6, &[S::InvIllegalUnclosedStringCharset]),
-                    (7, &[S::InvIllegalUnexpectedCharactersCharset]),
+                    (1, scopes![S::InvIllegalNotLowercaseCharset]),
+                    (2, scopes![S::InvIllegalLeadingWhitespaceCharset]),
+                    (3, scopes![S::InvIllegalNoWhitespaceCharset]),
+                    (4, scopes![S::InvIllegalWhitespaceCharset]),
+                    (5, scopes![S::InvIllegalNotDoubleQuotedCharset]),
+                    (6, scopes![S::InvIllegalUnclosedStringCharset]),
+                    (7, scopes![S::InvIllegalUnexpectedCharactersCharset]),
                 ],
                 nested: &[],
             },
             Pat::AtRulesAt0At1 => PatData {
-                act: Act::Match(&[]),
+                act: Act::Match(S::NO_SCOPES),
                 captures: &[
-                    (1, &[S::KwControlAtRuleCharset]),
-                    (2, &[S::PDefinitionKeyword]),
+                    (1, scopes![S::KwControlAtRuleCharset]),
+                    (2, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::AtRulesAt0At2 => PatData {
                 act: Act::Begin(Rule::AtRulesAt0At2),
-                captures: &[(0, &[S::PDefinitionStringBegin])],
+                captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
             Pat::AtRulesAt0At2At0 => PatData {
@@ -3092,8 +3102,8 @@ impl Pat {
             Pat::AtRulesAt1 => PatData {
                 act: Act::Begin(Rule::AtRulesAt1),
                 captures: &[
-                    (1, &[S::KwControlAtRuleImport]),
-                    (2, &[S::PDefinitionKeyword]),
+                    (1, scopes![S::KwControlAtRuleImport]),
+                    (2, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
@@ -3103,31 +3113,31 @@ impl Pat {
                 nested: &[],
             },
             Pat::AtRulesAt1At3 => PatData {
-                act: Act::Match(&[]),
+                act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[],
             },
             Pat::LayerImportAt0 => PatData {
                 act: Act::Begin(Rule::LayerImportAt0),
                 captures: &[
-                    (1, &[S::SuppFunctionLayer]),
-                    (2, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::SuppFunctionLayer]),
+                    (2, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::LayerNameListAt2 => PatData {
-                act: Act::Match(&[S::PAccessorLayer]),
+                act: Act::Match(scopes![S::PAccessorLayer]),
                 captures: &[],
                 nested: &[],
             },
             Pat::LayerNameListAt3 => PatData {
-                act: Act::Match(&[S::VarParameterLayerName]),
+                act: Act::Match(scopes![S::VarParameterLayerName]),
                 captures: &[],
                 nested: &[(0, Nested::Escapes)],
             },
             Pat::LayerImportAt1 => PatData {
-                act: Act::Match(&[]),
-                captures: &[(1, &[S::KwOtherLayer])],
+                act: Act::Match(S::NO_SCOPES),
+                captures: &[(1, scopes![S::KwOtherLayer])],
                 nested: &[],
             },
             Pat::MediaQueryList => PatData {
@@ -3141,82 +3151,82 @@ impl Pat {
                 nested: &[],
             },
             Pat::MediaTypes => PatData {
-                act: Act::Match(&[]),
+                act: Act::Match(S::NO_SCOPES),
                 captures: &[
-                    (1, &[S::SuppConstantMedia]),
-                    (2, &[S::InvDeprecatedConstantMedia]),
+                    (1, scopes![S::SuppConstantMedia]),
+                    (2, scopes![S::InvDeprecatedConstantMedia]),
                 ],
                 nested: &[],
             },
             Pat::MediaQueryAt3 => PatData {
-                act: Act::Match(&[S::KwOperatorLogicalOnlyMedia]),
+                act: Act::Match(scopes![S::KwOperatorLogicalOnlyMedia]),
                 captures: &[],
                 nested: &[],
             },
             Pat::MediaQueryAt4 => PatData {
-                act: Act::Match(&[S::KwOperatorLogicalNotMedia]),
+                act: Act::Match(scopes![S::KwOperatorLogicalNotMedia]),
                 captures: &[],
                 nested: &[],
             },
             Pat::MediaQueryAt5 => PatData {
-                act: Act::Match(&[S::KwOperatorLogicalAndMedia]),
+                act: Act::Match(scopes![S::KwOperatorLogicalAndMedia]),
                 captures: &[],
                 nested: &[],
             },
             Pat::MediaQueryAt6 => PatData {
-                act: Act::Match(&[S::InvIllegalComma]),
+                act: Act::Match(scopes![S::InvIllegalComma]),
                 captures: &[],
                 nested: &[],
             },
             Pat::MediaQueryAt8 => PatData {
                 act: Act::Begin(Rule::MediaQueryAt8),
-                captures: &[(0, &[S::PDefinitionParametersBeginBracketRound])],
+                captures: &[(0, scopes![S::PDefinitionParametersBeginBracketRound])],
                 nested: &[],
             },
             Pat::MediaQueryAt8End => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PDefinitionParametersEndBracketRound])],
+                captures: &[(0, scopes![S::PDefinitionParametersEndBracketRound])],
                 nested: &[],
             },
             Pat::MediaFeatures => PatData {
-                act: Act::Match(&[]),
+                act: Act::Match(S::NO_SCOPES),
                 captures: &[
-                    (1, &[S::SuppTypePropertyNameMedia]),
-                    (2, &[S::SuppTypePropertyNameMedia]),
-                    (3, &[S::SuppTypeVendoredPropertyNameMedia]),
+                    (1, scopes![S::SuppTypePropertyNameMedia]),
+                    (2, scopes![S::SuppTypePropertyNameMedia]),
+                    (3, scopes![S::SuppTypeVendoredPropertyNameMedia]),
                 ],
                 nested: &[],
             },
             Pat::MediaQueryAt8At2 => PatData {
-                act: Act::Match(&[S::PSeparatorKeyValue]),
+                act: Act::Match(scopes![S::PSeparatorKeyValue]),
                 captures: &[],
                 nested: &[],
             },
             Pat::MediaQueryAt8At3 => PatData {
-                act: Act::Match(&[S::KwOperatorComparison]),
+                act: Act::Match(scopes![S::KwOperatorComparison]),
                 captures: &[],
                 nested: &[],
             },
             Pat::MediaQueryAt8At4 => PatData {
-                act: Act::Match(&[S::MetaRatio]),
+                act: Act::Match(scopes![S::MetaRatio]),
                 captures: &[
-                    (1, &[S::ConstNumeric]),
-                    (2, &[S::KwOperatorArithmetic]),
-                    (3, &[S::ConstNumeric]),
+                    (1, scopes![S::ConstNumeric]),
+                    (2, scopes![S::KwOperatorArithmetic]),
+                    (3, scopes![S::ConstNumeric]),
                 ],
                 nested: &[],
             },
             Pat::AtRulesAt2 => PatData {
                 act: Act::Begin(Rule::AtRulesAt2),
                 captures: &[
-                    (1, &[S::KwControlAtRuleFontFace]),
-                    (2, &[S::PDefinitionKeyword]),
+                    (1, scopes![S::KwControlAtRuleFontFace]),
+                    (2, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::RuleList => PatData {
                 act: Act::Begin(Rule::RuleList),
-                captures: &[(0, &[S::PSectionPropertyListBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionPropertyListBeginBracketCurly])],
                 nested: &[],
             },
             Pat::RuleListEnd
@@ -3228,20 +3238,20 @@ impl Pat {
             | Pat::FontFeaturesAt5At0End
             | Pat::AtRulesAt5At1End => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PSectionPropertyListEndBracketCurly])],
+                captures: &[(0, scopes![S::PSectionPropertyListEndBracketCurly])],
                 nested: &[],
             },
             Pat::FontFeaturesAt0 => PatData {
                 act: Act::Begin(Rule::FontFeaturesAt0),
                 captures: &[
-                    (1, &[S::KwControlAtRuleAnnotation]),
-                    (2, &[S::PDefinitionKeyword]),
+                    (1, scopes![S::KwControlAtRuleAnnotation]),
+                    (2, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::FontFeaturesAt0At0 => PatData {
                 act: Act::Begin(Rule::FontFeaturesAt0At0),
-                captures: &[(0, &[S::PSectionPropertyListBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionPropertyListBeginBracketCurly])],
                 nested: &[],
             },
             Pat::FontFeaturesAt0At0At0
@@ -3250,77 +3260,77 @@ impl Pat {
             | Pat::FontFeaturesAt3At0At0
             | Pat::FontFeaturesAt4At0At0
             | Pat::FontFeaturesAt5At0At0 => PatData {
-                act: Act::Match(&[S::VarFontFeature]),
+                act: Act::Match(scopes![S::VarFontFeature]),
                 captures: &[],
                 nested: &[(0, Nested::Escapes)],
             },
             Pat::FontFeaturesAt1 => PatData {
                 act: Act::Begin(Rule::FontFeaturesAt1),
                 captures: &[
-                    (1, &[S::KwControlAtRuleCharacterVariant]),
-                    (2, &[S::PDefinitionKeyword]),
+                    (1, scopes![S::KwControlAtRuleCharacterVariant]),
+                    (2, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::FontFeaturesAt1At0 => PatData {
                 act: Act::Begin(Rule::FontFeaturesAt1At0),
-                captures: &[(0, &[S::PSectionPropertyListBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionPropertyListBeginBracketCurly])],
                 nested: &[],
             },
             Pat::FontFeaturesAt2 => PatData {
                 act: Act::Begin(Rule::FontFeaturesAt2),
                 captures: &[
-                    (1, &[S::KwControlAtRuleOrnaments]),
-                    (2, &[S::PDefinitionKeyword]),
+                    (1, scopes![S::KwControlAtRuleOrnaments]),
+                    (2, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::FontFeaturesAt2At0 => PatData {
                 act: Act::Begin(Rule::FontFeaturesAt2At0),
-                captures: &[(0, &[S::PSectionPropertyListBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionPropertyListBeginBracketCurly])],
                 nested: &[],
             },
             Pat::FontFeaturesAt3 => PatData {
                 act: Act::Begin(Rule::FontFeaturesAt3),
                 captures: &[
-                    (1, &[S::KwControlAtRuleStyleset]),
-                    (2, &[S::PDefinitionKeyword]),
+                    (1, scopes![S::KwControlAtRuleStyleset]),
+                    (2, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::FontFeaturesAt3At0 => PatData {
                 act: Act::Begin(Rule::FontFeaturesAt3At0),
-                captures: &[(0, &[S::PSectionPropertyListBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionPropertyListBeginBracketCurly])],
                 nested: &[],
             },
             Pat::FontFeaturesAt4 => PatData {
                 act: Act::Begin(Rule::FontFeaturesAt4),
                 captures: &[
-                    (1, &[S::KwControlAtRuleStylistic]),
-                    (2, &[S::PDefinitionKeyword]),
+                    (1, scopes![S::KwControlAtRuleStylistic]),
+                    (2, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::FontFeaturesAt4At0 => PatData {
                 act: Act::Begin(Rule::FontFeaturesAt4At0),
-                captures: &[(0, &[S::PSectionPropertyListBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionPropertyListBeginBracketCurly])],
                 nested: &[],
             },
             Pat::FontFeaturesAt5 => PatData {
                 act: Act::Begin(Rule::FontFeaturesAt5),
                 captures: &[
-                    (1, &[S::KwControlAtRuleSwash]),
-                    (2, &[S::PDefinitionKeyword]),
+                    (1, scopes![S::KwControlAtRuleSwash]),
+                    (2, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::FontFeaturesAt5At0 => PatData {
                 act: Act::Begin(Rule::FontFeaturesAt5At0),
-                captures: &[(0, &[S::PSectionPropertyListBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionPropertyListBeginBracketCurly])],
                 nested: &[],
             },
             Pat::RuleListInnardsAt3 => PatData {
-                act: Act::Match(&[S::Var]),
+                act: Act::Match(scopes![S::Var]),
                 captures: &[],
                 nested: &[],
             },
@@ -3335,12 +3345,15 @@ impl Pat {
                 nested: &[],
             },
             Pat::PropertyNamesAt0 => PatData {
-                act: Act::Match(&[S::MetaPropertyName, S::SuppTypePropertyName]),
+                act: Act::Match(scopes![S::MetaPropertyName, S::SuppTypePropertyName]),
                 captures: &[],
                 nested: &[],
             },
             Pat::PropertyNamesAt1 => PatData {
-                act: Act::Match(&[S::MetaPropertyName, S::SuppTypeVendoredPropertyName]),
+                act: Act::Match(scopes![
+                    S::MetaPropertyName,
+                    S::SuppTypeVendoredPropertyName
+                ]),
                 captures: &[],
                 nested: &[],
             },
@@ -3351,32 +3364,32 @@ impl Pat {
             },
             Pat::RuleListInnardsAt8 => PatData {
                 act: Act::Begin(Rule::RuleListInnardsAt8),
-                captures: &[(1, &[S::PSeparatorKeyValue])],
+                captures: &[(1, scopes![S::PSeparatorKeyValue])],
                 nested: &[],
             },
             Pat::RuleListInnardsAt8End => PatData {
                 act: Act::End,
-                captures: &[(1, &[S::PTerminatorRule])],
+                captures: &[(1, scopes![S::PTerminatorRule])],
                 nested: &[],
             },
             Pat::RuleListInnardsAt9 => PatData {
-                act: Act::Match(&[S::PTerminatorRule]),
+                act: Act::Match(scopes![S::PTerminatorRule]),
                 captures: &[],
                 nested: &[],
             },
             Pat::AtRulesAt3 => PatData {
                 act: Act::Begin(Rule::AtRulesAt3),
                 captures: &[
-                    (0, &[S::KwControlAtRulePage]),
-                    (1, &[S::PDefinitionKeyword]),
+                    (0, scopes![S::KwControlAtRulePage]),
+                    (1, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::AtRulesAt3End => PatData {
                 act: Act::End,
                 captures: &[
-                    (0, &[S::KwControlAtRulePage]),
-                    (1, &[S::PDefinitionKeyword]),
+                    (0, scopes![S::KwControlAtRulePage]),
+                    (1, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
@@ -3388,19 +3401,19 @@ impl Pat {
             Pat::AtRulesAt4At0 => PatData {
                 act: Act::Begin(Rule::AtRulesAt4At0),
                 captures: &[
-                    (0, &[S::KwControlAtRuleMedia]),
-                    (1, &[S::PDefinitionKeyword]),
+                    (0, scopes![S::KwControlAtRuleMedia]),
+                    (1, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::AtRulesAt4At1 => PatData {
                 act: Act::Begin(Rule::AtRulesAt4At1),
-                captures: &[(0, &[S::PSectionMediaBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionMediaBeginBracketCurly])],
                 nested: &[],
             },
             Pat::AtRulesAt4At1End => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PSectionMediaEndBracketCurly])],
+                captures: &[(0, scopes![S::PSectionMediaEndBracketCurly])],
                 nested: &[],
             },
             Pat::AtRulesAt5 => PatData {
@@ -3411,19 +3424,19 @@ impl Pat {
             Pat::AtRulesAt5At0 => PatData {
                 act: Act::Begin(Rule::AtRulesAt5At0),
                 captures: &[
-                    (0, &[S::KwControlAtRuleCounterStyle]),
-                    (1, &[S::PDefinitionKeyword]),
+                    (0, scopes![S::KwControlAtRuleCounterStyle]),
+                    (1, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::AtRulesAt5At0At2 => PatData {
-                act: Act::Match(&[S::VarParameterStyleName]),
+                act: Act::Match(scopes![S::VarParameterStyleName]),
                 captures: &[],
                 nested: &[(0, Nested::Escapes)],
             },
             Pat::AtRulesAt5At1 => PatData {
                 act: Act::Begin(Rule::AtRulesAt5At1),
-                captures: &[(0, &[S::PSectionPropertyListBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionPropertyListBeginBracketCurly])],
                 nested: &[],
             },
             Pat::AtRulesAt6 => PatData {
@@ -3434,32 +3447,32 @@ impl Pat {
             Pat::AtRulesAt6At0 => PatData {
                 act: Act::Begin(Rule::AtRulesAt6At0),
                 captures: &[
-                    (0, &[S::KwControlAtRuleDocument]),
-                    (1, &[S::PDefinitionKeyword]),
+                    (0, scopes![S::KwControlAtRuleDocument]),
+                    (1, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::AtRulesAt6At0At0 => PatData {
                 act: Act::Begin(Rule::AtRulesAt6At0At0),
                 captures: &[
-                    (1, &[S::SuppFunctionDocumentRule]),
-                    (2, &[S::PSectionFunctionBeginBracketRound]),
+                    (1, scopes![S::SuppFunctionDocumentRule]),
+                    (2, scopes![S::PSectionFunctionBeginBracketRound]),
                 ],
                 nested: &[],
             },
             Pat::AtRulesAt6At0At0At3 => PatData {
-                act: Act::Match(&[S::VarParameterDocumentRule]),
+                act: Act::Match(scopes![S::VarParameterDocumentRule]),
                 captures: &[],
                 nested: &[],
             },
             Pat::AtRulesAt6At1 => PatData {
                 act: Act::Begin(Rule::AtRulesAt6At1),
-                captures: &[(0, &[S::PSectionDocumentBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionDocumentBeginBracketCurly])],
                 nested: &[],
             },
             Pat::AtRulesAt6At1End => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PSectionDocumentEndBracketCurly])],
+                captures: &[(0, scopes![S::PSectionDocumentEndBracketCurly])],
                 nested: &[],
             },
             Pat::AtRulesAt7 => PatData {
@@ -3470,31 +3483,31 @@ impl Pat {
             Pat::AtRulesAt7At0 => PatData {
                 act: Act::Begin(Rule::AtRulesAt7At0),
                 captures: &[
-                    (0, &[S::KwControlAtRuleKeyframes]),
-                    (1, &[S::PDefinitionKeyword]),
+                    (0, scopes![S::KwControlAtRuleKeyframes]),
+                    (1, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::AtRulesAt7At0At2 => PatData {
-                act: Act::Match(&[S::VarParameterKeyframeList]),
+                act: Act::Match(scopes![S::VarParameterKeyframeList]),
                 captures: &[],
                 nested: &[(0, Nested::Escapes)],
             },
             Pat::AtRulesAt7At1 => PatData {
                 act: Act::Begin(Rule::AtRulesAt7At1),
-                captures: &[(0, &[S::PSectionKeyframesBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionKeyframesBeginBracketCurly])],
                 nested: &[],
             },
             Pat::AtRulesAt7At1End => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PSectionKeyframesEndBracketCurly])],
+                captures: &[(0, scopes![S::PSectionKeyframesEndBracketCurly])],
                 nested: &[],
             },
             Pat::AtRulesAt7At1At2 => PatData {
-                act: Act::Match(&[]),
+                act: Act::Match(S::NO_SCOPES),
                 captures: &[
-                    (1, &[S::EntOtherKeyframeOffset]),
-                    (2, &[S::EntOtherKeyframeOffsetPercentage]),
+                    (1, scopes![S::EntOtherKeyframeOffset]),
+                    (2, scopes![S::EntOtherKeyframeOffsetPercentage]),
                 ],
                 nested: &[],
             },
@@ -3506,44 +3519,44 @@ impl Pat {
             Pat::AtRulesAt8At0 => PatData {
                 act: Act::Begin(Rule::AtRulesAt8At0),
                 captures: &[
-                    (0, &[S::KwControlAtRuleSupports]),
-                    (1, &[S::PDefinitionKeyword]),
+                    (0, scopes![S::KwControlAtRuleSupports]),
+                    (1, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::FeatureQueryOperatorsAt0 => PatData {
-                act: Act::Match(&[S::KwOperatorLogicalFeatureAnd]),
+                act: Act::Match(scopes![S::KwOperatorLogicalFeatureAnd]),
                 captures: &[],
                 nested: &[],
             },
             Pat::FeatureQueryOperatorsAt1 => PatData {
-                act: Act::Match(&[S::KwOperatorLogicalFeatureNot]),
+                act: Act::Match(scopes![S::KwOperatorLogicalFeatureNot]),
                 captures: &[],
                 nested: &[],
             },
             Pat::FeatureQueryOperatorsAt2 => PatData {
-                act: Act::Match(&[S::KwOperatorLogicalFeatureOr]),
+                act: Act::Match(scopes![S::KwOperatorLogicalFeatureOr]),
                 captures: &[],
                 nested: &[],
             },
             Pat::FeatureQuery => PatData {
                 act: Act::Begin(Rule::FeatureQuery),
-                captures: &[(0, &[S::PDefinitionConditionBeginBracketRound])],
+                captures: &[(0, scopes![S::PDefinitionConditionBeginBracketRound])],
                 nested: &[],
             },
             Pat::FeatureQueryEnd => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PDefinitionConditionEndBracketRound])],
+                captures: &[(0, scopes![S::PDefinitionConditionEndBracketRound])],
                 nested: &[],
             },
             Pat::AtRulesAt8At1 => PatData {
                 act: Act::Begin(Rule::AtRulesAt8At1),
-                captures: &[(0, &[S::PSectionSupportsBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionSupportsBeginBracketCurly])],
                 nested: &[],
             },
             Pat::AtRulesAt8At1End => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PSectionSupportsEndBracketCurly])],
+                captures: &[(0, scopes![S::PSectionSupportsEndBracketCurly])],
                 nested: &[],
             },
             Pat::AtRulesAt9 => PatData {
@@ -3554,48 +3567,48 @@ impl Pat {
             Pat::AtRulesAt9At0 => PatData {
                 act: Act::Begin(Rule::AtRulesAt9At0),
                 captures: &[
-                    (0, &[S::KwControlAtRuleLayer]),
-                    (1, &[S::PDefinitionKeyword]),
+                    (0, scopes![S::KwControlAtRuleLayer]),
+                    (1, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::AtRulesAt9At1 => PatData {
                 act: Act::Begin(Rule::AtRulesAt9At1),
-                captures: &[(0, &[S::PSectionLayerBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionLayerBeginBracketCurly])],
                 nested: &[],
             },
             Pat::AtRulesAt9At1End => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PSectionLayerEndBracketCurly])],
+                captures: &[(0, scopes![S::PSectionLayerEndBracketCurly])],
                 nested: &[],
             },
             Pat::AtRulesAt10 => PatData {
                 act: Act::Begin(Rule::AtRulesAt10),
                 captures: &[
-                    (1, &[S::KwControlAtRuleViewport]),
-                    (2, &[S::PDefinitionKeyword]),
+                    (1, scopes![S::KwControlAtRuleViewport]),
+                    (2, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::AtRulesAt11 => PatData {
                 act: Act::Begin(Rule::AtRulesAt11),
                 captures: &[
-                    (1, &[S::KwControlAtRuleFontFeatureValues]),
-                    (2, &[S::PDefinitionKeyword]),
+                    (1, scopes![S::KwControlAtRuleFontFeatureValues]),
+                    (2, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::AtRulesAt13 => PatData {
                 act: Act::Begin(Rule::AtRulesAt13),
                 captures: &[
-                    (1, &[S::KwControlAtRuleNamespace]),
-                    (2, &[S::PDefinitionKeyword]),
+                    (1, scopes![S::KwControlAtRuleNamespace]),
+                    (2, scopes![S::PDefinitionKeyword]),
                 ],
                 nested: &[],
             },
             Pat::AtRulesAt13At1 => PatData {
-                act: Act::Match(&[]),
-                captures: &[(2, &[S::EntNameFunctionNamespacePrefix])],
+                act: Act::Match(S::NO_SCOPES),
+                captures: &[(2, scopes![S::EntNameFunctionNamespacePrefix])],
                 nested: &[(1, Nested::CommentBlock), (2, Nested::Escapes)],
             },
             Pat::AtRulesAt14 => PatData {
@@ -3605,7 +3618,10 @@ impl Pat {
             },
             Pat::AtRulesAt14At0 => PatData {
                 act: Act::Begin(Rule::AtRulesAt14At0),
-                captures: &[(0, &[S::KwControlAtRule]), (1, &[S::PDefinitionKeyword])],
+                captures: &[
+                    (0, scopes![S::KwControlAtRule]),
+                    (1, scopes![S::PDefinitionKeyword]),
+                ],
                 nested: &[],
             },
             Pat::AtRulesAt15 => PatData {
@@ -3615,17 +3631,20 @@ impl Pat {
             },
             Pat::AtRulesAt15At0 => PatData {
                 act: Act::Begin(Rule::AtRulesAt15At0),
-                captures: &[(0, &[S::KwControlAtRule]), (1, &[S::PDefinitionKeyword])],
+                captures: &[
+                    (0, scopes![S::KwControlAtRule]),
+                    (1, scopes![S::PDefinitionKeyword]),
+                ],
                 nested: &[],
             },
             Pat::AtRulesAt15At1 => PatData {
                 act: Act::Begin(Rule::AtRulesAt15At1),
-                captures: &[(0, &[S::PSectionBeginBracketCurly])],
+                captures: &[(0, scopes![S::PSectionBeginBracketCurly])],
                 nested: &[],
             },
             Pat::AtRulesAt15At1End => PatData {
                 act: Act::End,
-                captures: &[(0, &[S::PSectionEndBracketCurly])],
+                captures: &[(0, scopes![S::PSectionEndBracketCurly])],
                 nested: &[],
             },
         }

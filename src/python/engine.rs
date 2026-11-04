@@ -6,6 +6,7 @@ use std::cell::Cell;
 use super::grammar::{Pat, Rule};
 use super::scope::S;
 use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::scope::Scopes;
 
 /// The Python lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Python>;
@@ -160,6 +161,7 @@ impl Lexer<'_> {
 
 impl Grammar for Python {
     type Scope = S;
+    const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
     type Pat = Pat;
     type Nested = Nested;
@@ -183,11 +185,11 @@ impl Grammar for Python {
         Rule::from_code(code)
     }
 
-    fn rule_name(rule: Rule) -> &'static [S] {
+    fn rule_name(rule: Rule) -> Scopes<S> {
         rule.data().name
     }
 
-    fn rule_content(rule: Rule) -> &'static [S] {
+    fn rule_content(rule: Rule) -> Scopes<S> {
         rule.data().content
     }
 
@@ -199,7 +201,7 @@ impl Grammar for Python {
         pat.data().act
     }
 
-    fn pat_captures(pat: Pat) -> (&'static [(u8, &'static [S])], &'static [(u8, Nested)]) {
+    fn pat_captures(pat: Pat) -> Captures<Self> {
         let data = pat.data();
         (data.captures, data.nested)
     }

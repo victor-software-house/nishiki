@@ -2,6 +2,7 @@
 //! Each is a frame of the interned state.
 
 use super::scope::S;
+use crate::scope::{Scopes, scopes};
 
 /// The high byte that marks a frame as one of the SQL lexer's.
 const TAG: u16 = crate::tag::SQL;
@@ -39,17 +40,17 @@ crate::tag::frame_kinds! {
 
 impl Rule {
     /// The scopes the rule adds to its begin, its content and its end.
-    pub(crate) fn name(self) -> &'static [S] {
+    pub(crate) fn name(self) -> Scopes<S> {
         match self {
-            Rule::Bracket => &[S::Bracketed],
-            Rule::LineComment => &[S::CommentDash],
-            Rule::BlockComment => &[S::CommentBlock],
-            Rule::StrSingle => &[S::StrSingle],
-            Rule::StrBacktick => &[S::StrBacktick],
-            Rule::StrDouble => &[S::StrDouble],
-            Rule::StrBrace => &[S::StrBraces],
-            Rule::StrModr => &[S::StrModr],
-            Rule::Root | Rule::CommentDash | Rule::CommentHash => &[],
+            Rule::Bracket => scopes![S::Bracketed],
+            Rule::LineComment => scopes![S::CommentDash],
+            Rule::BlockComment => scopes![S::CommentBlock],
+            Rule::StrSingle => scopes![S::StrSingle],
+            Rule::StrBacktick => scopes![S::StrBacktick],
+            Rule::StrDouble => scopes![S::StrDouble],
+            Rule::StrBrace => scopes![S::StrBraces],
+            Rule::StrModr => scopes![S::StrModr],
+            Rule::Root | Rule::CommentDash | Rule::CommentHash => S::NO_SCOPES,
         }
     }
 }

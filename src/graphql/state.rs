@@ -2,6 +2,7 @@
 //! Each is a frame of the interned state.
 
 use super::scope::S;
+use crate::scope::{Scopes, scopes};
 
 /// The high byte that marks a frame as one of the GraphQL lexer's.
 const TAG: u16 = crate::tag::GRAPHQL;
@@ -77,20 +78,20 @@ crate::tag::frame_kinds! {
 
 impl Rule {
     /// The scopes the rule adds to its begin, its content and its end.
-    pub(crate) fn name(self) -> &'static [S] {
+    pub(crate) fn name(self) -> Scopes<S> {
         match self {
-            Rule::CommentTriple | Rule::CommentSingle => &[S::CommentLine],
-            Rule::Fragment => &[S::MetaFragment],
-            Rule::TypeInterface => &[S::MetaTypeInterface],
-            Rule::Enum => &[S::MetaEnum],
-            Rule::EnumBody | Rule::TypeObject => &[S::MetaTypeObject],
-            Rule::Arguments => &[S::MetaArguments],
-            Rule::List => &[S::MetaList],
-            Rule::Object => &[S::MetaObject],
-            Rule::Variable => &[S::MetaVariables],
-            Rule::TypeList => &[S::MetaTypeList],
-            Rule::Selection => &[S::MetaSelection],
-            Rule::Interpolation => &[S::Interpolation],
+            Rule::CommentTriple | Rule::CommentSingle => scopes![S::CommentLine],
+            Rule::Fragment => scopes![S::MetaFragment],
+            Rule::TypeInterface => scopes![S::MetaTypeInterface],
+            Rule::Enum => scopes![S::MetaEnum],
+            Rule::EnumBody | Rule::TypeObject => scopes![S::MetaTypeObject],
+            Rule::Arguments => scopes![S::MetaArguments],
+            Rule::List => scopes![S::MetaList],
+            Rule::Object => scopes![S::MetaObject],
+            Rule::Variable => scopes![S::MetaVariables],
+            Rule::TypeList => scopes![S::MetaTypeList],
+            Rule::Selection => scopes![S::MetaSelection],
+            Rule::Interpolation => scopes![S::Interpolation],
             Rule::Root
             | Rule::DirectiveDefinition
             | Rule::DirectiveLocations
@@ -107,16 +108,16 @@ impl Rule {
             | Rule::Default
             | Rule::Spread
             | Rule::InlineFragment
-            | Rule::TypeField => &[],
+            | Rule::TypeField => S::NO_SCOPES,
         }
     }
 
     /// The scopes the rule adds to its content only, after its begin.
-    pub(crate) fn content(self) -> &'static [S] {
+    pub(crate) fn content(self) -> Scopes<S> {
         if self == Rule::String {
-            &[S::StringDouble]
+            scopes![S::StringDouble]
         } else {
-            &[]
+            S::NO_SCOPES
         }
     }
 }

@@ -2,7 +2,7 @@
 //! `oracle/java-grammar.ts`; do not edit.
 
 crate::scope::scope_table! {
-    JAVA;
+    keyed JAVA;
     CmtBlockEmpty "comment.block.empty.java"
     CmtBlock "comment.block.java"
     CmtBlockJavadoc "comment.block.javadoc.java"

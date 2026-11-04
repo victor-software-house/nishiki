@@ -14,6 +14,7 @@ use super::engine::{Lexer, NameAnswer};
 use super::rules::Pat;
 use super::scope::S;
 use crate::classes;
+use crate::scope::{Scopes, scopes};
 
 pub(super) fn is_blank(b: u8) -> bool {
     matches!(b, b' ' | b'\t')
@@ -94,7 +95,7 @@ impl Lexer<'_> {
         match pat {
             Pat::Comment => self.m_comment(p),
             Pat::PipeTime => {
-                self.m_keyword_between(p, b"time", &[S::KeywordOther], Follow::Separator)
+                self.m_keyword_between(p, b"time", scopes![S::KeywordOther], Follow::Separator)
             }
             Pat::PipeOp => self.m_pipe(p),
             Pat::Sep => self.m_separator(p),
@@ -130,9 +131,9 @@ impl Lexer<'_> {
             Pat::AnsiControl => self.m_ansi_control(p),
             Pat::MathOp => self.m_math_op(p),
             Pat::MathHex => self.m_hex(p),
-            Pat::MathSemi => self.m_single(p, b';', &[S::PunctuationSeparatorSemicolon]),
-            Pat::MathOctal => self.m_octal(p, &[S::ConstantNumericOctal]),
-            Pat::MathOther => self.m_other_base(p, &[S::ConstantNumericOther]),
+            Pat::MathSemi => self.m_single(p, b';', scopes![S::PunctuationSeparatorSemicolon]),
+            Pat::MathOctal => self.m_octal(p, scopes![S::ConstantNumericOctal]),
+            Pat::MathOther => self.m_other_base(p, scopes![S::ConstantNumericOther]),
             Pat::MathInt => self.m_integer(p),
             Pat::MathName => self.m_math_name(p),
             Pat::SpecialExpansion => self.m_special_expansion(p),
@@ -140,7 +141,9 @@ impl Lexer<'_> {
             Pat::ParamDigits => self.m_param_digits(p),
             Pat::ParamName => self.m_param_name(p),
             Pat::ArgMatch => self.m_argument_word(p),
-            Pat::WildcardStar => self.m_single(p, b'*', &[S::VariableLanguageSpecialWildcard]),
+            Pat::WildcardStar => {
+                self.m_single(p, b'*', scopes![S::VariableLanguageSpecialWildcard])
+            }
             Pat::CmdKeyword => self.m_command_keyword(p),
             Pat::CmdBuiltin => self.m_command_builtin(p),
             Pat::CmdName => self.m_command_name(p),
@@ -150,19 +153,25 @@ impl Lexer<'_> {
             Pat::ModMatch => self.m_modified_match(p),
             Pat::LogicalOp => self.m_logical_op(p),
             Pat::LogicalTest => self.m_logical_test(p),
-            Pat::RegexCompare => self.m_text(p, b"=~", &[S::KeywordOperatorLogicalRegex]),
+            Pat::RegexCompare => self.m_text(p, b"=~", scopes![S::KeywordOperatorLogicalRegex]),
             Pat::FuncBlank => self.m_function_blank(p),
             Pat::RedirectFix => self.m_redirect_fix(p),
             Pat::AliasB => self.m_alias(p),
             Pat::ArgB => self.m_argument_begin(p),
-            Pat::ArithDoubleB => self.m_text(p, b"((", &[S::PunctuationSectionArithmeticDouble]),
-            Pat::ArithSingleB => self.m_single(p, b'(', &[S::PunctuationSectionArithmeticSingle]),
+            Pat::ArithDoubleB => {
+                self.m_text(p, b"((", scopes![S::PunctuationSectionArithmeticDouble])
+            }
+            Pat::ArithSingleB => {
+                self.m_single(p, b'(', scopes![S::PunctuationSectionArithmeticSingle])
+            }
             Pat::ArrayValueB => self.m_array_value(p),
             Pat::CaseB => self.m_case(p),
             Pat::CasePatternB => self.m_case_pattern_begin(p),
             Pat::CaseBodyB => self.m_after(p, b')'),
             Pat::CaseGroupB => self.m_case_group(p),
-            Pat::CaseClassB => self.m_single(p, b'[', &[S::PunctuationDefinitionCharacterClass]),
+            Pat::CaseClassB => {
+                self.m_single(p, b'[', scopes![S::PunctuationDefinitionCharacterClass])
+            }
             Pat::CmdStatementB => self.m_command_statement(p),
             Pat::CmdNameB => self.at_g(p).then_some(p),
             Pat::CmdQuotedB => self.m_command_quoted(p),
@@ -174,7 +183,7 @@ impl Lexer<'_> {
             Pat::FuncBraceB => self.m_single(
                 p,
                 b'{',
-                &[
+                scopes![
                     S::PunctuationDefinitionGroup,
                     S::PunctuationSectionFunctionDefinition,
                 ],
@@ -182,7 +191,7 @@ impl Lexer<'_> {
             Pat::FuncParenB => self.m_single(
                 p,
                 b'(',
-                &[
+                scopes![
                     S::PunctuationDefinitionGroup,
                     S::PunctuationSectionFunctionDefinition,
                 ],
@@ -194,29 +203,33 @@ impl Lexer<'_> {
             Pat::HerestringSingleB => self.m_herestring_quote(
                 p,
                 b'\'',
-                &[S::StringQuotedSingle, S::PunctuationDefinitionStringBegin],
+                scopes![S::StringQuotedSingle, S::PunctuationDefinitionStringBegin],
             ),
             Pat::HerestringDoubleB => self.m_herestring_quote(
                 p,
                 b'"',
-                &[S::StringQuotedDouble, S::PunctuationDefinitionStringBegin],
+                scopes![S::StringQuotedDouble, S::PunctuationDefinitionStringBegin],
             ),
-            Pat::BacktickB => {
-                self.m_single(p, b'`', &[S::PunctuationDefinitionEvaluationBackticks])
-            }
+            Pat::BacktickB => self.m_single(
+                p,
+                b'`',
+                scopes![S::PunctuationDefinitionEvaluationBackticks],
+            ),
             Pat::BacktickCommentB => self.m_backtick_comment(p),
-            Pat::BacktickCommentLineB => self.m_single(p, b'#', &[S::PunctuationDefinitionComment]),
+            Pat::BacktickCommentLineB => {
+                self.m_single(p, b'#', scopes![S::PunctuationDefinitionComment])
+            }
             Pat::LogicalDoubleB => {
-                self.m_text(p, b"[[", &[S::PunctuationDefinitionLogicalExpression])
+                self.m_text(p, b"[[", scopes![S::PunctuationDefinitionLogicalExpression])
             }
             Pat::LogicalSingleB => {
-                self.m_single(p, b'[', &[S::PunctuationDefinitionLogicalExpression])
+                self.m_single(p, b'[', scopes![S::PunctuationDefinitionLogicalExpression])
             }
             Pat::LoopForB => self.m_loop_for(p),
             Pat::LoopWhileB => self.m_loop_while(p),
             Pat::LoopSelectB => self.m_loop_select(p),
             Pat::LoopIfB => {
-                self.m_keyword_between(p, b"if", &[S::KeywordControlIf], Follow::Separator)
+                self.m_keyword_between(p, b"if", scopes![S::KeywordControlIf], Follow::Separator)
             }
             Pat::GroupB => self.m_group(p),
             Pat::ModifiedB => self.m_modified(p),
@@ -224,16 +237,20 @@ impl Lexer<'_> {
             Pat::EnvCommandB => self.m_env_command(p),
             Pat::NormalStatementB => self.m_normal_statement(p),
             Pat::OptionB => self.m_option_begin(p),
-            Pat::ParenB => self.m_single(p, b'(', &[S::PunctuationSectionParen]),
+            Pat::ParenB => self.m_single(p, b'(', scopes![S::PunctuationSectionParen]),
             Pat::ExtglobB => self.m_extglob(p),
             Pat::ProcessSubstitutionB => self.m_process_substitution(p),
-            Pat::StringSingleB => self.m_single(p, b'\'', &[S::PunctuationDefinitionStringBegin]),
+            Pat::StringSingleB => {
+                self.m_single(p, b'\'', scopes![S::PunctuationDefinitionStringBegin])
+            }
             Pat::StringDoubleB => self.m_string_double(p),
-            Pat::StringAnsiB => self.m_text(p, b"$'", &[S::PunctuationDefinitionStringBegin]),
-            Pat::SubshellB => self.m_text(p, b"$(", &[S::PunctuationDefinitionSubshellSingle]),
+            Pat::StringAnsiB => self.m_text(p, b"$'", scopes![S::PunctuationDefinitionStringBegin]),
+            Pat::SubshellB => {
+                self.m_text(p, b"$(", scopes![S::PunctuationDefinitionSubshellSingle])
+            }
             Pat::VarPositionalB => self.m_var_positional_begin(p),
             Pat::VarBraceB => self.m_var_brace_begin(p),
-            Pat::WhileB => self.m_keyword_word(p, b"while", &[S::KeywordControlWhile]),
+            Pat::WhileB => self.m_keyword_word(p, b"while", scopes![S::KeywordControlWhile]),
             Pat::EndStatement => self.m_end_statement(p),
             Pat::EndOption => self.m_end_option(p),
             Pat::EndArg => self.m_end_argument(p),
@@ -249,7 +266,7 @@ impl Lexer<'_> {
             Pat::EndHeredoc => self.m_end_heredoc(p),
             Pat::EndDone => self.m_end_done(p),
             Pat::EndFi => {
-                self.m_keyword_between(p, b"fi", &[S::KeywordControlFi], Follow::Separator)
+                self.m_keyword_between(p, b"fi", scopes![S::KeywordControlFi], Follow::Separator)
             }
             Pat::EndBacktickComment => (!self.at_g(p)).then_some(p),
             Pat::EndBacktickCommentLine => (self.at(p) == b'`').then_some(p),
@@ -416,7 +433,7 @@ impl Lexer<'_> {
     }
 
     /// Matches the literal `text`, naming it `scopes`.
-    pub(super) fn m_text(&mut self, p: usize, text: &[u8], scopes: &'static [S]) -> Option<usize> {
+    pub(super) fn m_text(&mut self, p: usize, text: &[u8], scopes: Scopes<S>) -> Option<usize> {
         if !self.starts(p, text) {
             return None;
         }
@@ -425,7 +442,7 @@ impl Lexer<'_> {
     }
 
     /// Matches the byte `b`, naming it `scopes`.
-    pub(super) fn m_single(&mut self, p: usize, b: u8, scopes: &'static [S]) -> Option<usize> {
+    pub(super) fn m_single(&mut self, p: usize, b: u8, scopes: Scopes<S>) -> Option<usize> {
         if self.at(p) != b || !self.avail(p) {
             return None;
         }
@@ -439,30 +456,30 @@ impl Lexer<'_> {
     }
 }
 
-pub(super) const CASE_STAR: &[S] = &[
+pub(super) const CASE_STAR: Scopes<S> = scopes![
     S::VariableLanguageSpecialQuantifierStar,
     S::KeywordOperatorQuantifierStar,
     S::PunctuationDefinitionArbitraryRepetition,
     S::PunctuationDefinitionRegexArbitraryRepetition,
 ];
-pub(super) const CASE_PLUS: &[S] = &[
+pub(super) const CASE_PLUS: Scopes<S> = scopes![
     S::VariableLanguageSpecialQuantifierPlus,
     S::KeywordOperatorQuantifierPlus,
     S::PunctuationDefinitionArbitraryRepetition,
     S::PunctuationDefinitionRegexArbitraryRepetition,
 ];
-pub(super) const CASE_QUESTION: &[S] = &[
+pub(super) const CASE_QUESTION: Scopes<S> = scopes![
     S::VariableLanguageSpecialQuantifierQuestion,
     S::KeywordOperatorQuantifierQuestion,
     S::PunctuationDefinitionArbitraryRepetition,
     S::PunctuationDefinitionRegexArbitraryRepetition,
 ];
-pub(super) const CASE_AT: &[S] = &[
+pub(super) const CASE_AT: Scopes<S> = scopes![
     S::VariableLanguageSpecialAt,
     S::KeywordOperatorAt,
     S::PunctuationDefinitionRegexAt,
 ];
-pub(super) const CASE_PIPE: &[S] = &[
+pub(super) const CASE_PIPE: Scopes<S> = scopes![
     S::KeywordOperatorOrvariableLanguageSpecialOr,
     S::KeywordOperatorAlternationRuby,
     S::PunctuationDefinitionRegexAlternation,

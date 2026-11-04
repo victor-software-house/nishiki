@@ -9,6 +9,7 @@ use super::ahead::Ahead;
 use super::grammar::{Nested, Pat, Rule};
 use super::scope::S;
 use crate::rules::{self, Act, Captures, Grammar, NameCase, Payload, ScopeName, table_scan};
+use crate::scope::Scopes;
 
 /// The CSS lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Css>;
@@ -41,8 +42,8 @@ pub(crate) fn unit_name_case(prefix: &'static str) -> NameCase {
 pub(crate) trait CssLike: Grammar {
     /// The CSS matchers' memory within the grammar's.
     fn css_extra(extra: &Self::Extra) -> &Extra;
-    /// The stack `base` with CSS's scope `scope` on top.
-    fn css_path(lexer: &mut rules::Lexer<'_, Self>, base: u32, scope: S) -> u32;
+    /// The stack `base` with CSS's scopes `scopes` on top.
+    fn css_path(lexer: &mut rules::Lexer<'_, Self>, base: u32, scopes: Scopes<S>) -> u32;
     /// The scope that names each of CSS's units, in the order of `UNITS`.
     const UNIT_SCOPES: &'static [Self::Scope];
 }
@@ -55,8 +56,8 @@ impl CssLike for Css {
         extra
     }
 
-    fn css_path(lexer: &mut Lexer<'_>, base: u32, scope: S) -> u32 {
-        lexer.path(base, &[scope])
+    fn css_path(lexer: &mut Lexer<'_>, base: u32, scopes: Scopes<S>) -> u32 {
+        lexer.path(base, scopes)
     }
 }
 
@@ -102,6 +103,7 @@ impl Default for Extra {
 
 impl Grammar for Css {
     type Scope = S;
+    const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
     type Pat = Pat;
     type Nested = Nested;
@@ -131,11 +133,11 @@ impl Grammar for Css {
         Rule::from_code(code)
     }
 
-    fn rule_name(rule: Rule) -> &'static [S] {
+    fn rule_name(rule: Rule) -> Scopes<S> {
         rule.data().name
     }
 
-    fn rule_content(rule: Rule) -> &'static [S] {
+    fn rule_content(rule: Rule) -> Scopes<S> {
         rule.data().content
     }
 

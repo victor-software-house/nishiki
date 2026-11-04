@@ -3,6 +3,7 @@
 use super::engine::Lexer;
 use super::scope::S;
 use super::state::R;
+use crate::scope::{Scopes, scopes};
 
 /// The words a Doxygen command may be, in the order the grammar lists them.
 /// Each entry of a list stands for one alternative.
@@ -219,7 +220,7 @@ impl Lexer<'_> {
         if e == q + 2 {
             return false;
         }
-        self.span(q, e, &[S::PunctCommentDoc]);
+        self.span(q, e, scopes![S::PunctCommentDoc]);
         self.begin(p, e)
     }
 
@@ -244,9 +245,9 @@ impl Lexer<'_> {
             return false;
         };
         let m = k + 1 + at;
-        self.span(p, k, &[S::PunctCommentBeginDoc]);
-        self.span_retok(k, m, &[], R::Doxy);
-        self.span(m, m + 2, &[S::PunctCommentEndDoc]);
+        self.span(p, k, scopes![S::PunctCommentBeginDoc]);
+        self.span_retok(k, m, S::NO_SCOPES, R::Doxy);
+        self.span(m, m + 2, scopes![S::PunctCommentEndDoc]);
         self.plain(p, m + 2)
     }
 
@@ -265,7 +266,7 @@ impl Lexer<'_> {
             return false;
         }
         let end = if e == self.lim() && self.nl { e + 1 } else { e };
-        self.span(p, end, &[S::PunctCommentBeginDoc]);
+        self.span(p, end, scopes![S::PunctCommentBeginDoc]);
         self.begin(p, end)
     }
 
@@ -293,7 +294,7 @@ impl Lexer<'_> {
         let suffix = n - 4;
         let lead = self.skip_space(4).min(suffix);
         let end = lead.max(self.space_run_start(suffix, 4));
-        self.span(4, end, &[S::MetaTocBlock]);
+        self.span(4, end, scopes![S::MetaTocBlock]);
         self.plain(0, n + 1)
     }
 
@@ -309,7 +310,7 @@ impl Lexer<'_> {
         let suffix = n - 1;
         let lead = self.skip_space(4).min(suffix);
         let end = lead.max(self.space_run_start(suffix, 4));
-        self.span(4, end, &[S::MetaTocLine]);
+        self.span(4, end, scopes![S::MetaTocLine]);
         self.plain(0, n + 1)
     }
 
@@ -319,7 +320,7 @@ impl Lexer<'_> {
         if !self.starts(q, b"/*") {
             return false;
         }
-        self.span(q, q + 2, &[S::PunctCommentBegin]);
+        self.span(q, q + 2, scopes![S::PunctCommentBegin]);
         self.begin(p, q + 2)
     }
 
@@ -339,7 +340,7 @@ impl Lexer<'_> {
         if !self.starts(k, b"//") {
             return false;
         }
-        self.span(0, k, &[S::PunctWhitespaceLeading]);
+        self.span(0, k, scopes![S::PunctWhitespaceLeading]);
         self.begin(0, k)
     }
 
@@ -348,7 +349,7 @@ impl Lexer<'_> {
         if !self.starts(p, b"//") {
             return false;
         }
-        self.span(p, p + 2, &[S::PunctComment]);
+        self.span(p, p + 2, scopes![S::PunctComment]);
         self.begin(p, p + 2)
     }
 
@@ -358,7 +359,7 @@ impl Lexer<'_> {
         if !self.starts(q, b"//") {
             return false;
         }
-        self.span(q, q + 2, &[S::PunctComment]);
+        self.span(q, q + 2, scopes![S::PunctComment]);
         self.begin(p, q + 2)
     }
 
@@ -401,9 +402,9 @@ impl Lexer<'_> {
         let Some((close, end)) = self.inline_comment_at(p) else {
             return false;
         };
-        self.span(p, p + 2, &[S::CommentBlock, S::PunctCommentBegin]);
-        self.span(p + 2, end, &[S::CommentBlock]);
-        self.span_retok(close, end, &[], R::InlineClose);
+        self.span(p, p + 2, scopes![S::CommentBlock, S::PunctCommentBegin]);
+        self.span(p + 2, end, scopes![S::CommentBlock]);
+        self.span_retok(close, end, S::NO_SCOPES, R::InlineClose);
         self.plain(p, end)
     }
 
@@ -457,7 +458,7 @@ impl Lexer<'_> {
     }
 
     /// A command of `words`, whitespace and the argument that follows.
-    pub(super) fn doxy_arg(&mut self, p: usize, words: &[&str], scope: &'static [S]) -> bool {
+    pub(super) fn doxy_arg(&mut self, p: usize, words: &[&str], scope: Scopes<S>) -> bool {
         let Some(cmd) = self.doxy_lead(p) else {
             return false;
         };
@@ -478,7 +479,7 @@ impl Lexer<'_> {
             if arg_end == arg_start {
                 continue;
             }
-            self.span(p, word_end, &[S::StorageDoxygen]);
+            self.span(p, word_end, scopes![S::StorageDoxygen]);
             self.span(arg_start, arg_end, scope);
             return self.plain(p, arg_end);
         }
@@ -498,16 +499,16 @@ impl Lexer<'_> {
         if let Some((open, close, after)) = self.param_directions(e)
             && let Some((ws_end, word_end)) = self.param_name(after)
         {
-            self.span(p, e, &[S::StorageDoxygen]);
-            self.span_retok(open, close, &[], R::ParamDir);
-            self.span(ws_end, word_end, &[S::VariableParameter]);
+            self.span(p, e, scopes![S::StorageDoxygen]);
+            self.span_retok(open, close, S::NO_SCOPES, R::ParamDir);
+            self.span(ws_end, word_end, scopes![S::VariableParameter]);
             return self.plain(p, word_end);
         }
         let Some((ws_end, word_end)) = self.param_name(e) else {
             return false;
         };
-        self.span(p, e, &[S::StorageDoxygen]);
-        self.span(ws_end, word_end, &[S::VariableParameter]);
+        self.span(p, e, scopes![S::StorageDoxygen]);
+        self.span(ws_end, word_end, scopes![S::VariableParameter]);
         self.plain(p, word_end)
     }
 

@@ -3,6 +3,7 @@
 use super::grammar::{Nested, Pat, Rule};
 use super::scope::S;
 use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::scope::Scopes;
 
 /// The Dart lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Dart>;
@@ -15,6 +16,7 @@ pub(crate) struct Dart;
 
 impl Grammar for Dart {
     type Scope = S;
+    const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
     type Pat = Pat;
     type Nested = Nested;
@@ -38,11 +40,11 @@ impl Grammar for Dart {
         Rule::from_code(code)
     }
 
-    fn rule_name(rule: Rule) -> &'static [S] {
+    fn rule_name(rule: Rule) -> Scopes<S> {
         rule.data().name
     }
 
-    fn rule_content(rule: Rule) -> &'static [S] {
+    fn rule_content(rule: Rule) -> Scopes<S> {
         rule.data().content
     }
 

@@ -8,6 +8,7 @@
 
 use super::scope::S;
 use super::state::Rule;
+use crate::scope::{Scopes, scopes};
 
 /// A pattern of a rule: a match rule, or the begin of a rule it opens.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -78,11 +79,11 @@ impl Pat {
     }
 
     /// The scopes a match rule adds to its whole match.
-    pub(super) fn name(self) -> &'static [S] {
+    pub(super) fn name(self) -> Scopes<S> {
         match self {
-            Pat::Hash => &[S::CommentLine],
-            Pat::EnumValue => &[S::EnumValue],
-            Pat::EscapeSimple | Pat::EscapeUnicode => &[S::Escape],
+            Pat::Hash => scopes![S::CommentLine],
+            Pat::EnumValue => scopes![S::EnumValue],
+            Pat::EscapeSimple | Pat::EscapeUnicode => scopes![S::Escape],
             Pat::Open(_)
             | Pat::Ampersand
             | Pat::Boolean
@@ -105,7 +106,7 @@ impl Pat {
             | Pat::Location
             | Pat::SchemaType
             | Pat::Spaces
-            | Pat::End => &[],
+            | Pat::End => S::NO_SCOPES,
         }
     }
 }

@@ -191,7 +191,6 @@ impl Lexer<'_> {
         self.span_dyn(
             start,
             end,
-            &[],
             DynName {
                 prefix,
                 start: text.0,

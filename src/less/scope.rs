@@ -2,7 +2,7 @@
 //! `oracle/less-grammar.ts`; do not edit.
 
 crate::scope::scope_table! {
-    LESS;
+    keyed LESS;
     CmtBlock "comment.block.less"
     CmtLineDoubleSlash "comment.line.double-slash.less"
     ConstCharacterEscape "constant.character.escape.less"

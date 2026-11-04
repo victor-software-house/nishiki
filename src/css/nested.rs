@@ -4,6 +4,7 @@ use super::engine::CssLike;
 use super::grammar::Nested;
 use super::scope::S;
 use crate::rules::Lexer;
+use crate::scope::scopes;
 
 impl<G: CssLike> Lexer<'_, G> {
     /// Emits the tokens of capture group text `from..to`, and leaves the
@@ -28,15 +29,18 @@ impl<G: CssLike> Lexer<'_, G> {
                 continue;
             }
             let digits = self.hex_escape_end(i).map_or(i + 1, |end| end.min(to));
-            let (end, scope) = if digits > i + 1 {
-                (digits, S::ConstCharacterEscapeCodepoint)
+            let (end, scopes) = if digits > i + 1 {
+                (digits, scopes![S::ConstCharacterEscapeCodepoint])
             } else if i + 1 >= to {
-                (to, S::ConstCharacterEscapeNewline)
+                (to, scopes![S::ConstCharacterEscapeNewline])
             } else {
-                (self.char_end(i + 1).min(to), S::ConstCharacterEscape)
+                (
+                    self.char_end(i + 1).min(to),
+                    scopes![S::ConstCharacterEscape],
+                )
             };
             self.emit(i, base);
-            let node = G::css_path(self, base, scope);
+            let node = G::css_path(self, base, scopes);
             self.emit(end, node);
             i = end;
         }
@@ -51,8 +55,8 @@ impl<G: CssLike> Lexer<'_, G> {
                 i += 1;
                 continue;
             }
-            let comment = G::css_path(self, base, S::CmtBlock);
-            let begin = G::css_path(self, comment, S::PDefinitionCommentBegin);
+            let comment = G::css_path(self, base, scopes![S::CmtBlock]);
+            let begin = G::css_path(self, comment, scopes![S::PDefinitionCommentBegin]);
             self.emit(i, base);
             self.emit(i + 2, begin);
             let mut j = i + 2;
@@ -61,7 +65,7 @@ impl<G: CssLike> Lexer<'_, G> {
             }
             if j + 1 < to {
                 self.emit(j, comment);
-                let end = G::css_path(self, comment, S::PDefinitionCommentEnd);
+                let end = G::css_path(self, comment, scopes![S::PDefinitionCommentEnd]);
                 self.emit(j + 2, end);
                 i = j + 2;
             } else {

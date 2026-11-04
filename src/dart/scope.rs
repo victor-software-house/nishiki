@@ -2,7 +2,7 @@
 //! `oracle/dart-grammar.ts`; do not edit.
 
 crate::scope::scope_table! {
-    DART;
+    keyed DART;
     CmtBlock "comment.block.dart"
     CmtBlockDocumentation "comment.block.documentation.dart"
     CmtBlockEmpty "comment.block.empty.dart"

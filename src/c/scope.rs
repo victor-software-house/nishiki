@@ -1,7 +1,7 @@
 //! The scope names the lexer emits, in Shiki's naming.
 
 crate::scope::scope_table! {
-    C;
+    keyed C;
     Source "source.c"
     CommentBlockBanner "comment.block.banner.c"
     CommentBlock "comment.block.c"

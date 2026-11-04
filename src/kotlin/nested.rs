@@ -4,6 +4,7 @@ use super::engine::Lexer;
 use super::grammar::Nested;
 use super::scope::S;
 use crate::rules::Chars;
+use crate::scope::scopes;
 
 impl Lexer<'_> {
     /// Emits the tokens of capture group text `from..to`, and leaves the
@@ -32,7 +33,7 @@ impl Lexer<'_> {
             let end = self.word_end(i).min(to);
             if i != from || !self.word_before(i) {
                 self.emit(i, base);
-                let node = self.path(base, &[S::EntNameType]);
+                let node = self.path(base, scopes![S::EntNameType]);
                 self.emit(end, node);
             }
             i = end;

@@ -2,7 +2,7 @@
 //! `oracle/python-grammar.ts`; do not edit.
 
 crate::scope::scope_table! {
-    PYTHON;
+    keyed PYTHON;
     CmtLineNumberSign "comment.line.number-sign.python"
     CmtRe "comment.regexp"
     CmtTypehintDirectiveNotation "comment.typehint.directive.notation.python"

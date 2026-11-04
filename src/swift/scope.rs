@@ -2,7 +2,7 @@
 //! `oracle/swift-grammar.ts`; do not edit.
 
 crate::scope::scope_table! {
-    SWIFT;
+    keyed SWIFT;
     CmtBlockDocumentationPlayground "comment.block.documentation.playground.swift"
     CmtBlockDocumentation "comment.block.documentation.swift"
     CmtBlockPreprocessor "comment.block.preprocessor.swift"

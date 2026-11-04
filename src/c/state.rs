@@ -3,11 +3,18 @@
 //! Each is a frame of the interned state.
 
 use super::scope::S;
+use crate::scope::Scopes;
 
 /// The high byte that marks a frame as one of C's.
 const TAG: u16 = crate::tag::C;
 
 macro_rules! rules {
+    (@scopes []) => {
+        S::NO_SCOPES
+    };
+    (@scopes [$($scope:expr),+ $(,)?]) => {
+        crate::scope::scopes![$($scope),+]
+    };
     ($($id:ident $name:tt $content:tt;)*) => {
         /// A begin/end rule of the grammar, or a list of patterns that lexes
         /// a capture group again.
@@ -21,13 +28,13 @@ macro_rules! rules {
 
             /// The scopes of the rule's `name`: on its begin, its text and
             /// its end.
-            pub(super) const fn name(self) -> &'static [S] {
-                match self { $(R::$id => &$name),* }
+            pub(super) const fn name(self) -> Scopes<S> {
+                match self { $(R::$id => rules!(@scopes $name)),* }
             }
 
             /// The scopes of the rule's `contentName`: on its text only.
-            pub(super) const fn content(self) -> &'static [S] {
-                match self { $(R::$id => &$content),* }
+            pub(super) const fn content(self) -> Scopes<S> {
+                match self { $(R::$id => rules!(@scopes $content)),* }
             }
         }
     };

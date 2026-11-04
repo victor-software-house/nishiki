@@ -2,7 +2,7 @@
 //! `oracle/lua-grammar.ts`; do not edit.
 
 crate::scope::scope_table! {
-    LUA;
+    keyed LUA;
     CmtBlock "comment.block.lua"
     CmtLineDoubleDashDocumentation "comment.line.double-dash.documentation.lua"
     CmtLineDoubleDash "comment.line.double-dash.lua"

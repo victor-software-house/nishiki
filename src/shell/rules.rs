@@ -13,6 +13,7 @@ use std::sync::OnceLock;
 use super::matchers::{is_command_name, is_name, is_unquoted};
 use super::scope::S;
 use super::state::Rule;
+use crate::scope::{Scopes, scopes};
 
 /// One pattern of the grammar.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -157,7 +158,7 @@ pub(crate) enum Pat {
 pub(crate) enum Act {
     /// A match rule.
     /// `name` goes on all of its text.
-    Match(&'static [S]),
+    Match(Scopes<S>),
     /// A begin rule.
     /// It opens the rule.
     Begin(Rule),
@@ -172,8 +173,8 @@ impl Pat {
     pub(crate) fn act(self) -> Act {
         use Act::{Begin, BeginChosen, End, Match};
         match self {
-            Pat::HerestringWord => Match(&[S::MetaHerestring]),
-            Pat::RedirectOp => Match(&[S::KeywordOperatorRedirect]),
+            Pat::HerestringWord => Match(scopes![S::MetaHerestring]),
+            Pat::RedirectOp => Match(scopes![S::KeywordOperatorRedirect]),
             Pat::AliasB => Begin(Rule::Alias),
             Pat::ArgB => Begin(Rule::Argument),
             Pat::ArithDoubleB => Begin(Rule::ArithDouble),
@@ -300,7 +301,7 @@ impl Pat {
             | Pat::LogicalTest
             | Pat::RegexCompare
             | Pat::FuncBlank
-            | Pat::RedirectFix => Match(&[]),
+            | Pat::RedirectFix => Match(S::NO_SCOPES),
         }
     }
 }
@@ -528,9 +529,9 @@ impl Pat {
 #[derive(Debug)]
 pub(crate) struct RuleInfo {
     /// Scopes of everything in the rule, begin and end included.
-    pub(crate) name: &'static [S],
+    pub(crate) name: Scopes<S>,
     /// Scopes of what lies between begin and end.
-    pub(crate) content: &'static [S],
+    pub(crate) content: Scopes<S>,
     /// Prefix of a content scope that ends in the here-document delimiter.
     pub(crate) content_delimiter: Option<&'static str>,
     pub(crate) end: Option<Pat>,
@@ -539,7 +540,7 @@ pub(crate) struct RuleInfo {
     /// For [`Pat::EndLit`]: the text that ends the rule.
     pub(crate) end_lit: &'static [u8],
     /// For [`Pat::EndLit`]: the scopes of that text.
-    pub(crate) end_scopes: &'static [S],
+    pub(crate) end_scopes: Scopes<S>,
     /// The end pattern and the patterns, in the order they are tried.
     /// A rule's builder leaves the patterns alone here.
     /// [`with_tables`] places the end among them.
@@ -786,12 +787,7 @@ fn flatten(groups: &[&[&[Pat]]]) -> Box<[Pat]> {
         .collect()
 }
 
-fn info(
-    name: &'static [S],
-    content: &'static [S],
-    end: Option<Pat>,
-    groups: &[&[&[Pat]]],
-) -> RuleInfo {
+fn info(name: Scopes<S>, content: Scopes<S>, end: Option<Pat>, groups: &[&[&[Pat]]]) -> RuleInfo {
     RuleInfo {
         name,
         content,
@@ -799,7 +795,7 @@ fn info(
         end,
         end_last: false,
         end_lit: b"",
-        end_scopes: &[],
+        end_scopes: S::NO_SCOPES,
         order: flatten(groups),
         after: [0; 256],
         index: Vec::new(),
@@ -810,10 +806,10 @@ fn info(
 
 /// A rule that ends at the literal `lit`, whose scopes are `scopes`.
 fn lit(
-    name: &'static [S],
-    content: &'static [S],
+    name: Scopes<S>,
+    content: Scopes<S>,
     lit: &'static [u8],
-    scopes: &'static [S],
+    scopes: Scopes<S>,
     groups: &[&[&[Pat]]],
 ) -> RuleInfo {
     RuleInfo {
@@ -826,7 +822,7 @@ fn lit(
 fn heredoc(prefix: &'static str, groups: &[&[&[Pat]]]) -> RuleInfo {
     RuleInfo {
         content_delimiter: Some(prefix),
-        ..info(&[], &[], Some(Pat::EndHeredoc), groups)
+        ..info(S::NO_SCOPES, S::NO_SCOPES, Some(Pat::EndHeredoc), groups)
     }
 }
 
@@ -838,37 +834,37 @@ fn build(rule: Rule) -> RuleInfo {
     const LOGICAL: &[&[Pat]] = LOGICAL_CONTEXT;
     const OPTION: &[&[Pat]] = OPTION_CONTEXT;
     match rule {
-        Rule::Root | Rule::RetokInitial => info(&[], &[], None, &[INITIAL]),
+        Rule::Root | Rule::RetokInitial => info(S::NO_SCOPES, S::NO_SCOPES, None, &[INITIAL]),
         Rule::Alias => info(
-            &[S::MetaExpressionAssignmentAlias],
-            &[],
+            scopes![S::MetaExpressionAssignmentAlias],
+            S::NO_SCOPES,
             Some(Pat::EndAlias),
             &[NORMAL],
         ),
         Rule::Argument => info(
-            &[S::MetaArgument],
-            &[],
+            scopes![S::MetaArgument],
+            S::NO_SCOPES,
             Some(Pat::EndArg),
             &[&[ARGUMENT_MATCH], NORMAL, &[LINE_CONTINUATION]],
         ),
         Rule::ArithDouble => info(
-            &[S::MetaArithmetic],
-            &[],
+            scopes![S::MetaArithmetic],
+            S::NO_SCOPES,
             Some(Pat::EndArithDouble),
             &[&[VARIABLE, MATH, STRING]],
         ),
         Rule::ArithSingle => lit(
-            &[S::MetaArithmetic],
-            &[],
+            scopes![S::MetaArithmetic],
+            S::NO_SCOPES,
             b")",
-            &[S::PunctuationSectionArithmeticSingle],
+            scopes![S::PunctuationSectionArithmeticSingle],
             &[&[VARIABLE, MATH, STRING]],
         ),
         Rule::ArrayValue => lit(
-            &[],
-            &[],
+            S::NO_SCOPES,
+            S::NO_SCOPES,
             b")",
-            &[S::PunctuationDefinitionArray],
+            scopes![S::PunctuationDefinitionArray],
             &[
                 &[COMMENT, &[Pat::ArrayNameEq, Pat::ArrayBracketEq]],
                 NORMAL,
@@ -876,8 +872,8 @@ fn build(rule: Rule) -> RuleInfo {
             ],
         ),
         Rule::Case => info(
-            &[S::MetaCase],
-            &[],
+            scopes![S::MetaCase],
+            S::NO_SCOPES,
             Some(Pat::EndCase),
             &[&[
                 COMMENT,
@@ -885,37 +881,37 @@ fn build(rule: Rule) -> RuleInfo {
             ]],
         ),
         Rule::CasePattern => info(
-            &[S::MetaCaseEntryPattern],
-            &[],
+            scopes![S::MetaCaseEntryPattern],
+            S::NO_SCOPES,
             Some(Pat::EndCasePattern),
             &[&[CASE_CONTEXT, STRING, &[Pat::CaseChar]]],
         ),
         Rule::CaseBody => info(
-            &[S::MetaCaseEntryBody],
-            &[],
+            scopes![S::MetaCaseEntryBody],
+            S::NO_SCOPES,
             Some(Pat::EndCaseBody),
             &[TYPICAL, INITIAL],
         ),
         Rule::CaseGroup => lit(
-            &[S::MetaParen],
-            &[],
+            scopes![S::MetaParen],
+            S::NO_SCOPES,
             b")",
-            &[
+            scopes![
                 S::PunctuationDefinitionGroup,
                 S::PunctuationDefinitionRegexGroup,
             ],
             &[&[CASE_CONTEXT, STRING, &[Pat::CaseChar]]],
         ),
         Rule::CaseClass => lit(
-            &[S::StringRegexpCharacterClass],
-            &[],
+            scopes![S::StringRegexpCharacterClass],
+            S::NO_SCOPES,
             b"]",
-            &[S::PunctuationDefinitionCharacterClass],
+            scopes![S::PunctuationDefinitionCharacterClass],
             &[&[&[Pat::Escape]]],
         ),
         Rule::CommandStatement => info(
-            &[S::MetaStatementCommand],
-            &[],
+            scopes![S::MetaStatementCommand],
+            S::NO_SCOPES,
             Some(Pat::EndStatement),
             &[&[
                 &[Pat::CmdNameB],
@@ -927,8 +923,8 @@ fn build(rule: Rule) -> RuleInfo {
             ]],
         ),
         Rule::CommandName => info(
-            &[S::MetaStatementCommandName],
-            &[],
+            scopes![S::MetaStatementCommandName],
+            S::NO_SCOPES,
             Some(Pat::EndCmdName),
             &[&[
                 &[Pat::CmdKeyword, Pat::CmdBuiltin],
@@ -939,27 +935,27 @@ fn build(rule: Rule) -> RuleInfo {
             ]],
         ),
         Rule::CommandQuotedDouble => info(
-            &[],
-            &[],
+            S::NO_SCOPES,
+            S::NO_SCOPES,
             Some(Pat::EndCmdQuotedDouble),
             &[&[&[Pat::ContinuationSingleB, Pat::ContinuationDoubleB]]],
         ),
         Rule::CommandQuotedSingle => info(
-            &[],
-            &[],
+            S::NO_SCOPES,
+            S::NO_SCOPES,
             Some(Pat::EndCmdQuotedSingle),
             &[&[&[Pat::ContinuationSingleB, Pat::ContinuationDoubleB]]],
         ),
         Rule::ContinuationDouble => lit(
-            &[],
-            &[
+            S::NO_SCOPES,
+            scopes![
                 S::MetaStatementCommandNameContinuation,
                 S::StringQuotedDoubleBare,
                 S::EntityNameFunctionCallBare,
                 S::EntityNameCommandBare,
             ],
             b"\"",
-            &[
+            scopes![
                 S::StringQuotedDouble,
                 S::PunctuationDefinitionStringEnd,
                 S::EntityNameFunctionCall,
@@ -968,15 +964,15 @@ fn build(rule: Rule) -> RuleInfo {
             &[&[DQ_ESCAPE, VARIABLE, INTERPOLATION]],
         ),
         Rule::ContinuationSingle => lit(
-            &[],
-            &[
+            S::NO_SCOPES,
+            scopes![
                 S::MetaStatementCommandNameContinuation,
                 S::StringQuotedSingleBare,
                 S::EntityNameFunctionCallBare,
                 S::EntityNameCommandBare,
             ],
             b"'",
-            &[
+            scopes![
                 S::StringQuotedSingle,
                 S::PunctuationDefinitionStringEnd,
                 S::EntityNameFunctionCall,
@@ -985,22 +981,22 @@ fn build(rule: Rule) -> RuleInfo {
             &[],
         ),
         Rule::ForIn => info(
-            &[S::MetaForIn],
-            &[],
+            scopes![S::MetaForIn],
+            S::NO_SCOPES,
             Some(Pat::EndStatement),
             &[&[STRING, UNQUOTED], NORMAL],
         ),
         Rule::For => info(
-            &[S::MetaFor],
-            &[],
+            scopes![S::MetaFor],
+            S::NO_SCOPES,
             Some(Pat::EndStatement),
             &[&[ARITH_DOUBLE], NORMAL],
         ),
         Rule::Function => RuleInfo {
             end_last: true,
             ..info(
-                &[S::MetaFunction],
-                &[],
+                scopes![S::MetaFunction],
+                S::NO_SCOPES,
                 Some(Pat::EndFunction),
                 &[
                     &[&[Pat::FuncBlank, Pat::FuncBraceB, Pat::FuncParenB]],
@@ -1009,20 +1005,20 @@ fn build(rule: Rule) -> RuleInfo {
             )
         },
         Rule::FunctionBrace => lit(
-            &[S::MetaFunctionBody],
-            &[],
+            scopes![S::MetaFunctionBody],
+            S::NO_SCOPES,
             b"}",
-            &[
+            scopes![
                 S::PunctuationDefinitionGroup,
                 S::PunctuationSectionFunctionDefinition,
             ],
             &[INITIAL],
         ),
         Rule::FunctionParen => lit(
-            &[S::MetaFunctionBody],
-            &[],
+            scopes![S::MetaFunctionBody],
+            S::NO_SCOPES,
             b")",
-            &[
+            scopes![
                 S::PunctuationDefinitionGroup,
                 S::PunctuationSectionFunctionDefinition,
             ],
@@ -1039,81 +1035,86 @@ fn build(rule: Rule) -> RuleInfo {
             &[&[DQ_ESCAPE, VARIABLE, INTERPOLATION]],
         ),
         Rule::HerestringSingle => lit(
-            &[S::MetaHerestring],
-            &[S::StringQuotedSingle],
+            scopes![S::MetaHerestring],
+            scopes![S::StringQuotedSingle],
             b"'",
-            &[S::StringQuotedSingle, S::PunctuationDefinitionStringEnd],
+            scopes![S::StringQuotedSingle, S::PunctuationDefinitionStringEnd],
             &[],
         ),
         Rule::HerestringDouble => lit(
-            &[S::MetaHerestring],
-            &[S::StringQuotedDouble],
+            scopes![S::MetaHerestring],
+            scopes![S::StringQuotedDouble],
             b"\"",
-            &[S::StringQuotedDouble, S::PunctuationDefinitionStringEnd],
+            scopes![S::StringQuotedDouble, S::PunctuationDefinitionStringEnd],
             &[&[DQ_ESCAPE, VARIABLE, INTERPOLATION]],
         ),
         Rule::Backtick => lit(
-            &[S::StringInterpolatedBacktick],
-            &[],
+            scopes![S::StringInterpolatedBacktick],
+            S::NO_SCOPES,
             b"`",
-            &[S::PunctuationDefinitionEvaluationBackticks],
+            scopes![S::PunctuationDefinitionEvaluationBackticks],
             &[&[&[Pat::BtEscape, Pat::BacktickCommentB]], INITIAL],
         ),
         Rule::BacktickComment => info(
-            &[],
-            &[],
+            S::NO_SCOPES,
+            S::NO_SCOPES,
             Some(Pat::EndBacktickComment),
             &[&[&[Pat::BacktickCommentLineB]]],
         ),
         Rule::BacktickCommentLine => info(
-            &[S::CommentLineNumberSign],
-            &[],
+            scopes![S::CommentLineNumberSign],
+            S::NO_SCOPES,
             Some(Pat::EndBacktickCommentLine),
             &[],
         ),
         Rule::LogicalDouble => lit(
-            &[S::MetaScopeLogicalExpression],
-            &[],
+            scopes![S::MetaScopeLogicalExpression],
+            S::NO_SCOPES,
             b"]]",
-            &[S::PunctuationDefinitionLogicalExpression],
+            scopes![S::PunctuationDefinitionLogicalExpression],
             &[LOGICAL],
         ),
         Rule::LogicalSingle => lit(
-            &[S::MetaScopeLogicalExpression],
-            &[],
+            scopes![S::MetaScopeLogicalExpression],
+            S::NO_SCOPES,
             b"]",
-            &[S::PunctuationDefinitionLogicalExpression],
+            scopes![S::PunctuationDefinitionLogicalExpression],
             &[LOGICAL],
         ),
         Rule::LoopFor => info(
-            &[S::MetaScopeForInLoop],
-            &[],
+            scopes![S::MetaScopeForInLoop],
+            S::NO_SCOPES,
             Some(Pat::EndDone),
             &[INITIAL],
         ),
         Rule::LoopWhile => info(
-            &[S::MetaScopeWhileLoop],
-            &[],
+            scopes![S::MetaScopeWhileLoop],
+            S::NO_SCOPES,
             Some(Pat::EndDone),
             &[INITIAL],
         ),
         Rule::LoopSelect => info(
-            &[S::MetaScopeSelectBlock],
-            &[],
+            scopes![S::MetaScopeSelectBlock],
+            S::NO_SCOPES,
             Some(Pat::EndDone),
             &[INITIAL],
         ),
-        Rule::LoopIf => info(&[S::MetaScopeIfBlock], &[], Some(Pat::EndFi), &[INITIAL]),
+        Rule::LoopIf => info(
+            scopes![S::MetaScopeIfBlock],
+            S::NO_SCOPES,
+            Some(Pat::EndFi),
+            &[INITIAL],
+        ),
         Rule::Group => lit(
-            &[S::MetaScopeGroup],
-            &[],
+            scopes![S::MetaScopeGroup],
+            S::NO_SCOPES,
             b"}",
-            &[S::PunctuationDefinitionGroup],
+            scopes![S::PunctuationDefinitionGroup],
             &[INITIAL],
         ),
         Rule::Modified => info(
-            &[S::MetaStatement, S::MetaExpressionAssignmentModified],
-            &[],
+            scopes![S::MetaStatement, S::MetaExpressionAssignmentModified],
+            S::NO_SCOPES,
             Some(Pat::EndStatement),
             &[
                 &[&[Pat::ModOption, Pat::ArrayValueB, Pat::ModMatch]],
@@ -1121,8 +1122,8 @@ fn build(rule: Rule) -> RuleInfo {
             ],
         ),
         Rule::NormalAssign => info(
-            &[S::MetaExpressionAssignment],
-            &[],
+            scopes![S::MetaExpressionAssignment],
+            S::NO_SCOPES,
             Some(Pat::EndStatement),
             &[
                 &[
@@ -1135,63 +1136,63 @@ fn build(rule: Rule) -> RuleInfo {
             ],
         ),
         Rule::EnvCommand => info(
-            &[S::MetaStatementCommandEnv],
-            &[],
+            scopes![S::MetaStatementCommandEnv],
+            S::NO_SCOPES,
             Some(Pat::EndStatement),
             &[&[&[Pat::CmdNameB], LINE_CONTINUATION, OPTION_B, ARG_B, STRING]],
         ),
         Rule::NormalStatement => info(
-            &[S::MetaStatement],
-            &[],
+            scopes![S::MetaStatement],
+            S::NO_SCOPES,
             Some(Pat::EndStatement),
             &[TYPICAL],
         ),
         Rule::Option => info(
-            &[],
-            &[S::StringUnquotedArgumentBare, S::ConstantOtherOptionBare],
+            S::NO_SCOPES,
+            scopes![S::StringUnquotedArgumentBare, S::ConstantOtherOptionBare],
             Some(Pat::EndOption),
             &[OPTION],
         ),
         Rule::Paren => lit(
-            &[S::MetaParenGroup],
-            &[],
+            scopes![S::MetaParenGroup],
+            S::NO_SCOPES,
             b")",
-            &[S::PunctuationSectionParen],
+            scopes![S::PunctuationSectionParen],
             &[INITIAL],
         ),
         Rule::Extglob => lit(
-            &[S::MetaStructureExtglob],
-            &[],
+            scopes![S::MetaStructureExtglob],
+            S::NO_SCOPES,
             b")",
-            &[S::PunctuationDefinitionExtglob],
+            scopes![S::PunctuationDefinitionExtglob],
             &[INITIAL],
         ),
         Rule::ProcessSubstitution => lit(
-            &[S::StringInterpolatedProcessSubstitution],
-            &[],
+            scopes![S::StringInterpolatedProcessSubstitution],
+            S::NO_SCOPES,
             b")",
-            &[S::PunctuationDefinitionStringEnd],
+            scopes![S::PunctuationDefinitionStringEnd],
             &[INITIAL],
         ),
         Rule::StringSingle => lit(
-            &[S::StringQuotedSingle],
-            &[],
+            scopes![S::StringQuotedSingle],
+            S::NO_SCOPES,
             b"'",
-            &[S::PunctuationDefinitionStringEnd],
+            scopes![S::PunctuationDefinitionStringEnd],
             &[],
         ),
         Rule::StringDouble => lit(
-            &[S::StringQuotedDouble],
-            &[],
+            scopes![S::StringQuotedDouble],
+            S::NO_SCOPES,
             b"\"",
-            &[S::PunctuationDefinitionStringEnd],
+            scopes![S::PunctuationDefinitionStringEnd],
             &[&[DQ_ESCAPE, VARIABLE, INTERPOLATION]],
         ),
         Rule::StringAnsi => lit(
-            &[S::StringQuotedSingleDollar],
-            &[],
+            scopes![S::StringQuotedSingleDollar],
+            S::NO_SCOPES,
             b"'",
-            &[S::PunctuationDefinitionStringEnd],
+            scopes![S::PunctuationDefinitionStringEnd],
             &[&[&[
                 Pat::AnsiEscape,
                 Pat::AnsiOctal,
@@ -1200,17 +1201,17 @@ fn build(rule: Rule) -> RuleInfo {
             ]]],
         ),
         Rule::Subshell => lit(
-            &[S::MetaScopeSubshell],
-            &[],
+            scopes![S::MetaScopeSubshell],
+            S::NO_SCOPES,
             b")",
-            &[S::PunctuationDefinitionSubshellSingle],
+            scopes![S::PunctuationDefinitionSubshellSingle],
             &[&[PAREN], INITIAL],
         ),
         Rule::VarPositional => lit(
-            &[],
-            &[S::MetaParameterExpansion],
+            S::NO_SCOPES,
+            scopes![S::MetaParameterExpansion],
             b"}",
-            &[
+            scopes![
                 S::PunctuationSectionBracketCurlyVariableEnd,
                 S::PunctuationDefinitionVariable,
                 S::VariableParameterPositional,
@@ -1227,10 +1228,10 @@ fn build(rule: Rule) -> RuleInfo {
             ]],
         ),
         Rule::VarBrace => lit(
-            &[],
-            &[S::MetaParameterExpansion],
+            S::NO_SCOPES,
+            scopes![S::MetaParameterExpansion],
             b"}",
-            &[
+            scopes![
                 S::PunctuationSectionBracketCurlyVariableEnd,
                 S::PunctuationDefinitionVariable,
             ],
@@ -1241,8 +1242,8 @@ fn build(rule: Rule) -> RuleInfo {
             ]],
         ),
         Rule::While => info(
-            &[S::MetaWhile],
-            &[],
+            scopes![S::MetaWhile],
+            S::NO_SCOPES,
             Some(Pat::EndStatement),
             &[
                 &[LINE_CONTINUATION, MATH_OPERATORS, OPTION_B, UNQUOTED],
@@ -1251,20 +1252,25 @@ fn build(rule: Rule) -> RuleInfo {
             ],
         ),
         Rule::RetokArgument => info(
-            &[],
-            &[],
+            S::NO_SCOPES,
+            S::NO_SCOPES,
             None,
             &[&[&[Pat::WildcardStar], VARIABLE, NUMERIC, &[Pat::BoolArg]]],
         ),
-        Rule::RetokOptions => info(&[], &[], None, &[&[&[Pat::ModOption]]]),
-        Rule::RetokString => info(&[], &[], None, &[&[STRING]]),
+        Rule::RetokOptions => info(S::NO_SCOPES, S::NO_SCOPES, None, &[&[&[Pat::ModOption]]]),
+        Rule::RetokString => info(S::NO_SCOPES, S::NO_SCOPES, None, &[&[STRING]]),
         Rule::RetokArrayAccess => info(
-            &[],
-            &[],
+            S::NO_SCOPES,
+            S::NO_SCOPES,
             None,
             &[&[&[Pat::SpecialExpansion], STRING, VARIABLE]],
         ),
-        Rule::RetokHeredocRest => info(&[], &[], None, &[&[&[Pat::RedirectFix]], TYPICAL]),
+        Rule::RetokHeredocRest => info(
+            S::NO_SCOPES,
+            S::NO_SCOPES,
+            None,
+            &[&[&[Pat::RedirectFix]], TYPICAL],
+        ),
     }
 }
 

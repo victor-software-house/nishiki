@@ -8,6 +8,7 @@
 use super::engine::Lexer;
 use super::scope::S;
 use super::state::R;
+use crate::scope::{Scopes, scopes};
 
 /// The suffixes an integer pattern takes: the grammar's alternation, spelled
 /// out.
@@ -34,36 +35,36 @@ enum Suffix {
 
 /// What a number's exponent is made of, for decimal and for hexadecimal.
 struct ExpScopes {
-    unit: &'static [S],
-    plus: &'static [S],
-    minus: &'static [S],
-    digits: &'static [S],
+    unit: Scopes<S>,
+    plus: Scopes<S>,
+    minus: Scopes<S>,
+    digits: Scopes<S>,
 }
 
 const DECIMAL_EXP: ExpScopes = ExpScopes {
-    unit: &[S::UnitExpDecimal],
-    plus: &[S::OpPlusExpDecimal],
-    minus: &[S::OpMinusExpDecimal],
-    digits: &[S::NumExpDecimal],
+    unit: scopes![S::UnitExpDecimal],
+    plus: scopes![S::OpPlusExpDecimal],
+    minus: scopes![S::OpMinusExpDecimal],
+    digits: scopes![S::NumExpDecimal],
 };
 
 const HEX_EXP: ExpScopes = ExpScopes {
-    unit: &[S::UnitExpHex],
-    plus: &[S::OpPlusExpHex],
-    minus: &[S::OpMinusExpHex],
-    digits: &[S::NumExpHex],
+    unit: scopes![S::UnitExpHex],
+    plus: scopes![S::OpPlusExpHex],
+    minus: scopes![S::OpMinusExpHex],
+    digits: scopes![S::NumExpHex],
 };
 
-const UNIT_HEX: &[S] = &[S::UnitHex];
-const UNIT_BINARY: &[S] = &[S::UnitBinary];
-const UNIT_OCTAL: &[S] = &[S::UnitOctal];
-const NUM_HEX: &[S] = &[S::NumHex];
-const NUM_DECIMAL: &[S] = &[S::NumDecimal];
-const NUM_BINARY: &[S] = &[S::NumBinary];
-const NUM_OCTAL: &[S] = &[S::NumOctal];
-const POINT: &[S] = &[S::NumDecimalPoint];
-const SUFFIX_FLOAT: &[S] = &[S::UnitSuffixFloat];
-const SUFFIX_INT: &[S] = &[S::UnitSuffixInt];
+const UNIT_HEX: Scopes<S> = scopes![S::UnitHex];
+const UNIT_BINARY: Scopes<S> = scopes![S::UnitBinary];
+const UNIT_OCTAL: Scopes<S> = scopes![S::UnitOctal];
+const NUM_HEX: Scopes<S> = scopes![S::NumHex];
+const NUM_DECIMAL: Scopes<S> = scopes![S::NumDecimal];
+const NUM_BINARY: Scopes<S> = scopes![S::NumBinary];
+const NUM_OCTAL: Scopes<S> = scopes![S::NumOctal];
+const POINT: Scopes<S> = scopes![S::NumDecimalPoint];
+const SUFFIX_FLOAT: Scopes<S> = scopes![S::UnitSuffixFloat];
+const SUFFIX_INT: Scopes<S> = scopes![S::UnitSuffixInt];
 
 impl Lexer<'_> {
     /// The outer match: `(?<!\w)\.?\d(?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])*`.
@@ -83,7 +84,7 @@ impl Lexer<'_> {
             i += 1;
         }
         self.spend(i - p);
-        self.span_retok(p, i, &[], R::Number);
+        self.span_retok(p, i, S::NO_SCOPES, R::Number);
         self.plain(p, i)
     }
 
@@ -147,7 +148,7 @@ impl Lexer<'_> {
     }
 
     /// Digits with their separators, lexed again for the separators.
-    fn cap_digits(&mut self, start: usize, end: usize, scopes: &'static [S]) {
+    fn cap_digits(&mut self, start: usize, end: usize, scopes: Scopes<S>) {
         self.span_retok(start, end, scopes, R::NumSep);
     }
 
@@ -194,7 +195,7 @@ impl Lexer<'_> {
     /// Whether what follows the digits from `i` to `b` is nothing, or a
     /// suffix the number takes.
     /// A suffix comes with its scopes.
-    fn suffix(&self, i: usize, b: usize, suffix: Suffix) -> Option<&'static [S]> {
+    fn suffix(&self, i: usize, b: usize, suffix: Suffix) -> Option<Scopes<S>> {
         let rest = self.text(i, b);
         let (ok, scopes) = match suffix {
             Suffix::Float => (matches!(rest, [b'F' | b'L' | b'f' | b'l']), SUFFIX_FLOAT),

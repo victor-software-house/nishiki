@@ -7,6 +7,7 @@ use super::scope::S;
 use super::state::Rule;
 use crate::language::{Halts, NO_HALTS};
 use crate::rules::{self, Act, Captures, DynName, Grammar, ScopeName};
+use crate::scope::Scopes;
 use crate::utf8::char_len;
 
 /// The Makefile lexer for one line.
@@ -124,7 +125,6 @@ impl Lexer<'_> {
                 self.span_dyn(
                     cap.from,
                     cap.to,
-                    &[],
                     DynName {
                         prefix: "keyword.control.",
                         start: cap.from,
@@ -146,6 +146,7 @@ impl Lexer<'_> {
 
 impl Grammar for Make {
     type Scope = S;
+    const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
     type Pat = Pat;
     type Nested = Nested;
@@ -168,11 +169,11 @@ impl Grammar for Make {
         Rule::from_code(code)
     }
 
-    fn rule_name(rule: Rule) -> &'static [S] {
+    fn rule_name(rule: Rule) -> Scopes<S> {
         rule.name()
     }
 
-    fn rule_content(rule: Rule) -> &'static [S] {
+    fn rule_content(rule: Rule) -> Scopes<S> {
         rule.content()
     }
 

@@ -8,7 +8,7 @@
 // The grammar spells the comma's scope with a misspelled word.
 // The escape in it keeps the spelling checker from reading it as a typo.
 crate::scope::scope_table! {
-    MAKE;
+    keyed MAKE;
     Source "source.makefile"
     Continuation "constant.character.escape.continuation.makefile"
     Comma "punctuation.separator.delim\x65ter.comma.makefile"

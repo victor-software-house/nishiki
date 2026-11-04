@@ -4,7 +4,7 @@
 // as the grammar does.
 // The escape in each keeps the spelling checker from reading it as a typo.
 crate::scope::scope_table! {
-    SHELL;
+    keyed SHELL;
     Source "source.shell"
     StorageTypeAlias "storage.type.alias.shell"
     StringUnquotedArgument "string.unquoted.argument.shell"

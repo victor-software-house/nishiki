@@ -19,6 +19,7 @@ use crate::Language;
 use crate::arena::Arena;
 use crate::language::{Halts, NO_HALTS};
 use crate::rules::{self, Act, Captures, Embedding, Embeds, FnHalt, Grammar, Payload, ScopeName};
+use crate::scope::Scopes;
 use crate::utf8::{char_len, is_continuation};
 
 /// The GraphQL lexer for one line.
@@ -196,6 +197,7 @@ impl Lexer<'_> {
 
 impl Grammar for GraphQl {
     type Scope = S;
+    const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
     type Pat = Pat;
     type Nested = Nested;
@@ -222,11 +224,11 @@ impl Grammar for GraphQl {
         Rule::from_code(code)
     }
 
-    fn rule_name(rule: Rule) -> &'static [S] {
+    fn rule_name(rule: Rule) -> Scopes<S> {
         rule.name()
     }
 
-    fn rule_content(rule: Rule) -> &'static [S] {
+    fn rule_content(rule: Rule) -> Scopes<S> {
         rule.content()
     }
 

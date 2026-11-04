@@ -5,6 +5,7 @@ use super::engine::{Head, Lexer};
 use super::scope::S;
 use super::state::R;
 use super::wordset;
+use crate::scope::{Scopes, scopes};
 
 /// A directive line, `^\s*(#)\s*keyword\b`.
 #[derive(Clone, Copy, Debug)]
@@ -112,10 +113,10 @@ impl Lexer<'_> {
     /// word and the `#`.
     fn directive_caps(&mut self, dir: Dir, meta: Meta) {
         if meta == Meta::Whole {
-            self.span(0, dir.kw.1, &[S::MetaPreprocessor]);
+            self.span(0, dir.kw.1, scopes![S::MetaPreprocessor]);
         }
-        self.span(dir.hash, dir.kw.1, &[S::DirectiveConditional]);
-        self.span(dir.hash, dir.hash + 1, &[S::PunctDirective]);
+        self.span(dir.hash, dir.kw.1, scopes![S::DirectiveConditional]);
+        self.span(dir.hash, dir.hash + 1, scopes![S::PunctDirective]);
     }
 
     /// The begin of a conditional rule.
@@ -298,12 +299,12 @@ impl Lexer<'_> {
 
     /// A one-word directive with `scope` on its word:
     /// `^\s*((#)\s*word)\b`.
-    pub(super) fn line_directive(&mut self, p: usize, word: &str, scope: &'static [S]) -> bool {
+    pub(super) fn line_directive(&mut self, p: usize, word: &str, scope: Scopes<S>) -> bool {
         let Some(dir) = self.directive(p, &[word]) else {
             return false;
         };
         self.span(dir.hash, dir.kw.1, scope);
-        self.span(dir.hash, dir.hash + 1, &[S::PunctDirective]);
+        self.span(dir.hash, dir.hash + 1, scopes![S::PunctDirective]);
         self.begin(0, dir.kw.1)
     }
 
@@ -314,7 +315,7 @@ impl Lexer<'_> {
             return false;
         };
         self.cap_dyn(dir.hash, dir.kw.1, prefix, dir.kw);
-        self.span(dir.hash, dir.hash + 1, &[S::PunctDirective]);
+        self.span(dir.hash, dir.hash + 1, scopes![S::PunctDirective]);
         let end = self.skip_space(dir.kw.1);
         self.begin(0, end)
     }
@@ -340,10 +341,10 @@ impl Lexer<'_> {
         }
         self.spend(end - t);
         let text_start = t.min(end);
-        self.span(dir.hash, end, &[S::MetaPreprocessorPragma]);
-        self.span(dir.hash, mark_end, &[S::DirectivePragmaMark]);
-        self.span(dir.hash, dir.hash + 1, &[S::PunctDirective]);
-        self.span(text_start, end, &[S::EntityTagPragmaMark]);
+        self.span(dir.hash, end, scopes![S::MetaPreprocessorPragma]);
+        self.span(dir.hash, mark_end, scopes![S::DirectivePragmaMark]);
+        self.span(dir.hash, dir.hash + 1, scopes![S::PunctDirective]);
+        self.span(text_start, end, scopes![S::EntityTagPragmaMark]);
         self.plain(0, end.max(t))
     }
 
@@ -398,14 +399,14 @@ impl Lexer<'_> {
                 end = close + 1;
             }
         }
-        self.span_retok(p, q, &[], R::Inline);
-        self.span(q, keyword_end, &[S::DirectiveDefine]);
-        self.span(q, q + 1, &[S::PunctDirective]);
-        self.span(ws, name_end, &[S::EntityFunctionPre]);
+        self.span_retok(p, q, S::NO_SCOPES, R::Inline);
+        self.span(q, keyword_end, scopes![S::DirectiveDefine]);
+        self.span(q, q + 1, scopes![S::PunctDirective]);
+        self.span(ws, name_end, scopes![S::EntityFunctionPre]);
         if let Some((open, close)) = params {
-            self.span(open - 1, open, &[S::PunctParamsBegin]);
-            self.span_retok(open, close, &[], R::DefineParams);
-            self.span(close, close + 1, &[S::PunctParamsEnd]);
+            self.span(open - 1, open, scopes![S::PunctParamsBegin]);
+            self.span_retok(open, close, S::NO_SCOPES, R::DefineParams);
+            self.span(close, close + 1, scopes![S::PunctParamsEnd]);
         }
         self.begin(p, end)
     }
@@ -420,7 +421,7 @@ impl Lexer<'_> {
             return false;
         };
         let r = self.skip_space(end);
-        self.span(q, end, &[S::VariableParamPre]);
+        self.span(q, end, scopes![S::VariableParamPre]);
         self.plain(p, r)
     }
 
@@ -435,7 +436,7 @@ impl Lexer<'_> {
         if self.b(p) != b'{' || p >= self.len_all() {
             return false;
         }
-        self.span(p, p + 1, &[S::PunctBlockBegin]);
+        self.span(p, p + 1, scopes![S::PunctBlockBegin]);
         self.begin(p, p + 1)
     }
 
@@ -444,7 +445,7 @@ impl Lexer<'_> {
         if self.b(p) != b'(' || p >= self.len_all() {
             return false;
         }
-        self.span(p, p + 1, &[S::PunctParensBegin]);
+        self.span(p, p + 1, scopes![S::PunctParensBegin]);
         self.begin(p, p + 1)
     }
 
@@ -453,7 +454,7 @@ impl Lexer<'_> {
         if self.b(p) != b'?' || p >= self.len_all() {
             return false;
         }
-        self.span(p, p + 1, &[S::OpTernary]);
+        self.span(p, p + 1, scopes![S::OpTernary]);
         self.begin(p, p + 1)
     }
 
@@ -470,7 +471,7 @@ impl Lexer<'_> {
         if self.b(p) != b'<' || p >= self.len_all() {
             return false;
         }
-        self.span(p, p + 1, &[S::PunctStringBegin]);
+        self.span(p, p + 1, scopes![S::PunctStringBegin]);
         self.begin(p, p + 1)
     }
 }

@@ -17,6 +17,7 @@ use super::scope::S;
 use super::state::R;
 use crate::language::{Halts, NO_HALTS};
 use crate::rules::{self, Act, Captures, Grammar, ScopeName};
+use crate::scope::Scopes;
 
 /// The C lexer for one line.
 pub(super) type Lexer<'a> = rules::Lexer<'a, C>;
@@ -150,6 +151,7 @@ pub(super) enum Head {
 
 impl Grammar for C {
     type Scope = S;
+    const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = R;
     type Pat = P;
     type Nested = Nested;
@@ -175,11 +177,11 @@ impl Grammar for C {
         R::from_code(code)
     }
 
-    fn rule_name(rule: R) -> &'static [S] {
+    fn rule_name(rule: R) -> Scopes<S> {
         rule.name()
     }
 
-    fn rule_content(rule: R) -> &'static [S] {
+    fn rule_content(rule: R) -> Scopes<S> {
         rule.content()
     }
 

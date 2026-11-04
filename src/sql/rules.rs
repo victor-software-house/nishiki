@@ -2,6 +2,7 @@
 
 use super::scope::S;
 use super::state::Rule;
+use crate::scope::{Scopes, scopes};
 
 /// A pattern of the grammar: a rule that matches text, or one that opens a
 /// [`Rule`].
@@ -136,35 +137,35 @@ impl Pat {
     }
 
     /// The scopes a pattern that matches text gives the whole match.
-    pub(crate) fn name(self) -> &'static [S] {
+    pub(crate) fn name(self) -> Scopes<S> {
         match self {
-            Pat::Variable => &[S::Variable],
-            Pat::BracketChar => &[S::BracketChar],
-            Pat::Create => &[S::MetaCreate],
-            Pat::Drop | Pat::DropTable => &[S::MetaDrop],
-            Pat::Alter => &[S::MetaAlter],
-            Pat::Modifier => &[S::StorageModifier],
-            Pat::Number => &[S::Numeric],
-            Pat::Dml => &[S::KwDml],
-            Pat::Ddl => &[S::KwDdl],
-            Pat::Values => &[S::KwDmlValues],
-            Pat::Luw => &[S::KwLuw],
-            Pat::Authorization => &[S::KwAuthorization],
-            Pat::In => &[S::KwIntegrity],
-            Pat::CommentOn => &[S::KwComments],
-            Pat::As => &[S::KwAlias],
-            Pat::Order => &[S::KwOrder],
-            Pat::Star => &[S::OpStar],
-            Pat::Comparison => &[S::OpComparison],
-            Pat::Math => &[S::OpMath],
-            Pat::Concat => &[S::OpConcat],
-            Pat::StrSingleFull => &[S::StrSingle],
-            Pat::StrBacktickFull => &[S::StrBacktick],
-            Pat::StrDoubleFull => &[S::StrDouble],
-            Pat::Keyword => &[S::KwOther],
-            Pat::Parens => &[S::MetaBlock],
-            Pat::Escape => &[S::Escape],
-            Pat::Interpolation => &[S::StrInterp],
+            Pat::Variable => scopes![S::Variable],
+            Pat::BracketChar => scopes![S::BracketChar],
+            Pat::Create => scopes![S::MetaCreate],
+            Pat::Drop | Pat::DropTable => scopes![S::MetaDrop],
+            Pat::Alter => scopes![S::MetaAlter],
+            Pat::Modifier => scopes![S::StorageModifier],
+            Pat::Number => scopes![S::Numeric],
+            Pat::Dml => scopes![S::KwDml],
+            Pat::Ddl => scopes![S::KwDdl],
+            Pat::Values => scopes![S::KwDmlValues],
+            Pat::Luw => scopes![S::KwLuw],
+            Pat::Authorization => scopes![S::KwAuthorization],
+            Pat::In => scopes![S::KwIntegrity],
+            Pat::CommentOn => scopes![S::KwComments],
+            Pat::As => scopes![S::KwAlias],
+            Pat::Order => scopes![S::KwOrder],
+            Pat::Star => scopes![S::OpStar],
+            Pat::Comparison => scopes![S::OpComparison],
+            Pat::Math => scopes![S::OpMath],
+            Pat::Concat => scopes![S::OpConcat],
+            Pat::StrSingleFull => scopes![S::StrSingle],
+            Pat::StrBacktickFull => scopes![S::StrBacktick],
+            Pat::StrDoubleFull => scopes![S::StrDouble],
+            Pat::Keyword => scopes![S::KwOther],
+            Pat::Parens => scopes![S::MetaBlock],
+            Pat::Escape => scopes![S::Escape],
+            Pat::Interpolation => scopes![S::StrInterp],
             Pat::Types
             | Pat::Function
             | Pat::DbTable
@@ -178,7 +179,7 @@ impl Pat {
             | Pat::StrDoubleBegin
             | Pat::StrBraceBegin
             | Pat::StrModrBegin
-            | Pat::End => &[],
+            | Pat::End => S::NO_SCOPES,
         }
     }
 }

@@ -9,6 +9,7 @@
 use super::engine::Lexer;
 use super::scope::S;
 use super::state::R;
+use crate::scope::{Scopes, scopes};
 
 impl Lexer<'_> {
     /// Whether the character before `q` is white space.
@@ -51,19 +52,14 @@ impl Lexer<'_> {
     }
 
     /// `(prefix)(word)`, with `scope` on the word.
-    pub(super) fn label_begin(
-        &mut self,
-        p: usize,
-        word: &'static str,
-        scope: &'static [S],
-    ) -> bool {
+    pub(super) fn label_begin(&mut self, p: usize, word: &'static str, scope: Scopes<S>) -> bool {
         let Some(q) = self.switch_prefix(p) else {
             return false;
         };
         if !self.keyword_at(q, word.as_bytes()) {
             return false;
         }
-        self.span_retok(p, q, &[], R::Inline);
+        self.span_retok(p, q, S::NO_SCOPES, R::Inline);
         self.span(q, q + word.len(), scope);
         self.begin(p, q + word.len())
     }
@@ -76,9 +72,9 @@ impl Lexer<'_> {
         if !self.keyword_at(q, b"switch") {
             return false;
         }
-        self.span(p, q + 6, &[S::MetaHeadSwitch]);
-        self.span_retok(p, q, &[], R::Inline);
-        self.span(q, q + 6, &[S::KeywordSwitch]);
+        self.span(p, q + 6, scopes![S::MetaHeadSwitch]);
+        self.span_retok(p, q, S::NO_SCOPES, R::Inline);
+        self.span(q, q + 6, scopes![S::KeywordSwitch]);
         self.begin(p, q + 6)
     }
 
@@ -127,8 +123,8 @@ impl Lexer<'_> {
         if self.b(q) != b'(' || q >= self.len_all() {
             return false;
         }
-        self.span_retok(p, q, &[], R::Inline);
-        self.span(q, q + 1, &[S::PunctParensBeginSwitch]);
+        self.span_retok(p, q, S::NO_SCOPES, R::Inline);
+        self.span(q, q + 1, scopes![S::PunctParensBeginSwitch]);
         self.begin(p, q + 1)
     }
 
@@ -159,10 +155,10 @@ impl Lexer<'_> {
             return false;
         };
         let ws = self.skip_space(end);
-        self.span(p, end, &[S::StorageAsm]);
+        self.span(p, end, scopes![S::StorageAsm]);
         let mut stop = ws;
         if self.starts(ws, b"volatile") {
-            self.span(ws, ws + 8, &[S::StorageModifier]);
+            self.span(ws, ws + 8, scopes![S::StorageModifier]);
             stop = ws + 8;
         }
         self.begin(p, stop)
@@ -176,7 +172,7 @@ impl Lexer<'_> {
         let Some(q) = self.lazy_prefix(0, |lexer, q| q >= lexer.lim()) else {
             return false;
         };
-        self.span_retok(0, q, &[], R::Inline);
+        self.span_retok(0, q, S::NO_SCOPES, R::Inline);
         let end = if q == self.lim() && self.nl { q + 1 } else { q };
         self.plain(0, end)
     }
@@ -187,8 +183,8 @@ impl Lexer<'_> {
         else {
             return false;
         };
-        self.span(p, q + 1, &[S::PunctParensBeginAsm]);
-        self.span_retok(p, q, &[], R::Inline);
+        self.span(p, q + 1, scopes![S::PunctParensBeginAsm]);
+        self.span_retok(p, q, S::NO_SCOPES, R::Inline);
         self.begin(p, q + 1)
     }
 
@@ -196,13 +192,13 @@ impl Lexer<'_> {
     pub(super) fn asm_string(&mut self, p: usize) -> bool {
         let mut q = p;
         if self.b(p) == b'R' && p < self.len_all() {
-            self.span(p, p + 1, &[S::MetaEncoding]);
+            self.span(p, p + 1, scopes![S::MetaEncoding]);
             q = p + 1;
         }
         if self.b(q) != b'"' || q >= self.len_all() {
             return false;
         }
-        self.span(q, q + 1, &[S::PunctStringBeginAsm]);
+        self.span(q, q + 1, scopes![S::PunctStringBeginAsm]);
         self.begin(p, q + 1)
     }
 
@@ -211,7 +207,7 @@ impl Lexer<'_> {
         if self.b(p) != b'(' || p >= self.len_all() {
             return false;
         }
-        self.span(p, p + 1, &[S::PunctParensBeginAsmInner]);
+        self.span(p, p + 1, scopes![S::PunctParensBeginAsmInner]);
         self.begin(p, p + 1)
     }
 
@@ -230,9 +226,9 @@ impl Lexer<'_> {
         else {
             return false;
         };
-        self.span_retok(p + 1, a, &[], R::Inline);
-        self.span(a, id, &[S::VariableAsmLabel]);
-        self.span_retok(id, b, &[], R::Inline);
+        self.span_retok(p + 1, a, S::NO_SCOPES, R::Inline);
+        self.span(a, id, scopes![S::VariableAsmLabel]);
+        self.span_retok(id, b, S::NO_SCOPES, R::Inline);
         self.plain(p, b + 1)
     }
 }

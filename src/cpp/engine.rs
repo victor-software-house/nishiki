@@ -9,6 +9,7 @@ use super::limits::{MAX_ENDS, MAX_NESTED};
 use super::matchers::{NEEDS, RAW_DELIMITER, RAW_DELIMITER_MAX};
 use super::scope::S;
 use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::scope::Scopes;
 
 /// The C++ lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Cpp>;
@@ -99,7 +100,7 @@ impl Cpp {
     /// The raw string is that rule.
     /// Its name ends in its delimiter.
     fn delimited_name(rule: Rule) -> Option<&'static str> {
-        match rule.data().name {
+        match rule.data().name.list {
             [Sc::Group(prefix, _, "")] => Some(prefix),
             _ => None,
         }
@@ -108,6 +109,7 @@ impl Cpp {
 
 impl Grammar for Cpp {
     type Scope = Sc;
+    const NO_SCOPES: Scopes<Sc> = Sc::NO_SCOPES;
     type Rule = Rule;
     type Pat = Pat;
     type Nested = Nested;
@@ -140,15 +142,15 @@ impl Grammar for Cpp {
         Rule::from_code(code)
     }
 
-    fn rule_name(rule: Rule) -> &'static [Sc] {
+    fn rule_name(rule: Rule) -> Scopes<Sc> {
         if Self::delimited_name(rule).is_some() {
-            &[]
+            Sc::NO_SCOPES
         } else {
             rule.data().name
         }
     }
 
-    fn rule_content(rule: Rule) -> &'static [Sc] {
+    fn rule_content(rule: Rule) -> Scopes<Sc> {
         rule.data().content
     }
 

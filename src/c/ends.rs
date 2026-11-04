@@ -3,10 +3,11 @@
 use super::engine::Lexer;
 use super::scope::S;
 use super::state::R;
+use crate::scope::{Scopes, scopes};
 
 impl Lexer<'_> {
     /// An end that matches `start..end`, with `cap` on it.
-    pub(super) fn end_at(&mut self, start: usize, end: usize, cap: Option<&'static [S]>) -> bool {
+    pub(super) fn end_at(&mut self, start: usize, end: usize, cap: Option<Scopes<S>>) -> bool {
         if let Some(scopes) = cap {
             self.span(start, end, scopes);
         }
@@ -19,7 +20,7 @@ impl Lexer<'_> {
         reason = "measured at one codegen unit: called from both instances of the scan, the halting one and the plain one, it stopped being inlined, at a call per place"
     )]
     #[inline(always)]
-    fn end_byte(&mut self, p: usize, c: u8, cap: &'static [S]) -> bool {
+    fn end_byte(&mut self, p: usize, c: u8, cap: Scopes<S>) -> bool {
         p < self.len_all() && self.b(p) == c && self.end_at(p, p + 1, Some(cap))
     }
 
@@ -69,15 +70,15 @@ impl Lexer<'_> {
         let Some(dir) = self.directive(p, &["endif"]) else {
             return false;
         };
-        self.span(0, dir.kw.1, &[S::MetaPreprocessor]);
-        self.span(dir.hash, dir.kw.1, &[S::DirectiveConditional]);
-        self.span(dir.hash, dir.hash + 1, &[S::PunctDirective]);
+        self.span(0, dir.kw.1, scopes![S::MetaPreprocessor]);
+        self.span(dir.hash, dir.kw.1, scopes![S::DirectiveConditional]);
+        self.span(dir.hash, dir.hash + 1, scopes![S::PunctDirective]);
         self.end_at(0, dir.kw.1, None)
     }
 
     /// `}|(?=\s*#\s*e(?:lif|lse|ndif)\b)` and the macro variants.
     fn end_brace(&mut self, p: usize, in_define: bool) -> bool {
-        if self.end_byte(p, b'}', &[S::PunctBlockEnd]) || self.end_else_ahead(p) {
+        if self.end_byte(p, b'}', scopes![S::PunctBlockEnd]) || self.end_else_ahead(p) {
             return true;
         }
         in_define && self.end_blank(p)
@@ -89,7 +90,7 @@ impl Lexer<'_> {
         reason = "measured at one codegen unit: called from both instances of the scan, the halting one and the plain one, it stopped being inlined, at a call per place"
     )]
     #[inline(always)]
-    fn end_paren(&mut self, p: usize, cap: &'static [S], in_define: bool) -> bool {
+    fn end_paren(&mut self, p: usize, cap: Scopes<S>, in_define: bool) -> bool {
         self.end_byte(p, b')', cap) || (in_define && self.end_blank(p))
     }
 
@@ -104,7 +105,7 @@ impl Lexer<'_> {
             && self.b(r) == b'/'
             && r < self.len_all()
             && self.b(r - 1) == b'*'
-            && self.end_at(p, r + 1, Some(&[S::PunctCommentEndDoc]))
+            && self.end_at(p, r + 1, Some(scopes![S::PunctCommentEndDoc]))
     }
 
     /// `(?<=\n)(?<!\\\n)`: after the line feed, unless a backslash ends the
@@ -144,39 +145,39 @@ impl Lexer<'_> {
             | R::Number => false,
             R::Block | R::BlockInner => self.end_brace(p, false),
             R::Parens | R::ParensBlock | R::FuncParens | R::CallParens => {
-                self.end_paren(p, &[S::PunctParensEnd], false)
+                self.end_paren(p, scopes![S::PunctParensEnd], false)
             }
-            R::FuncParams => self.end_paren(p, &[S::PunctParamEnd], false),
-            R::CallArgs => self.end_paren(p, &[S::PunctArgsEnd], false),
-            R::Method => self.end_paren(p, &[S::PunctArgsEndMember], false),
-            R::Init => self.end_paren(p, &[S::PunctParensEndInit], false),
-            R::Bracket => self.end_byte(p, b']', &[S::PunctEndSquare]),
-            R::Ternary | R::CondTernary => self.end_byte(p, b':', &[S::OpTernary]),
+            R::FuncParams => self.end_paren(p, scopes![S::PunctParamEnd], false),
+            R::CallArgs => self.end_paren(p, scopes![S::PunctArgsEnd], false),
+            R::Method => self.end_paren(p, scopes![S::PunctArgsEndMember], false),
+            R::Init => self.end_paren(p, scopes![S::PunctParensEndInit], false),
+            R::Bracket => self.end_byte(p, b']', scopes![S::PunctEndSquare]),
+            R::Ternary | R::CondTernary => self.end_byte(p, b':', scopes![S::OpTernary]),
             R::FuncDef => !self.at_g(p) && self.end_after_paren(p, false),
             R::FuncCall => self.end_after_paren(p, true),
             R::DocLine | R::LineComment => self.end_after_line(p),
             R::DocBlock => self.end_doc_block(p),
             R::BlockComment => {
-                self.starts(p, b"*/") && self.end_at(p, p + 2, Some(&[S::PunctCommentEnd]))
+                self.starts(p, b"*/") && self.end_at(p, p + 2, Some(scopes![S::PunctCommentEnd]))
             }
             R::LineLeading | R::Asm => !self.at_g(p) && self.end_at(p, p, None),
             R::LineSlash => self.nl && p == self.lim() && self.end_at(p, p, None),
-            R::DQuote | R::IncludeDQ => self.end_byte(p, b'"', &[S::PunctStringEnd]),
-            R::SQuote => self.end_byte(p, b'\'', &[S::PunctStringEnd]),
-            R::IncludeLt => self.end_byte(p, b'>', &[S::PunctStringEnd]),
+            R::DQuote | R::IncludeDQ => self.end_byte(p, b'"', scopes![S::PunctStringEnd]),
+            R::SQuote => self.end_byte(p, b'\'', scopes![S::PunctStringEnd]),
+            R::IncludeLt => self.end_byte(p, b'>', scopes![S::PunctStringEnd]),
             R::DefineDQuote | R::DiagDQuote => {
-                self.end_byte(p, b'"', &[S::PunctStringEnd]) || self.end_blank(p)
+                self.end_byte(p, b'"', scopes![S::PunctStringEnd]) || self.end_blank(p)
             }
             R::DefineSQuote | R::DiagSQuote => {
-                self.end_byte(p, b'\'', &[S::PunctStringEnd]) || self.end_blank(p)
+                self.end_byte(p, b'\'', scopes![S::PunctStringEnd]) || self.end_blank(p)
             }
             R::DiagText => self.end_blank(p),
-            R::AsmString => self.end_byte(p, b'"', &[S::PunctStringEndAsm]),
+            R::AsmString => self.end_byte(p, b'"', scopes![S::PunctStringEndAsm]),
             R::Define | R::Diag => self.end_line(p),
             R::DefineBlock | R::DefineBlockInner => self.end_brace(p, true),
             R::DefineFunc => self.end_after_paren(p, true) || self.end_blank(p),
-            R::DefineCall => self.end_paren(p, &[S::PunctArgsEnd], true),
-            R::DefineParens => self.end_paren(p, &[S::PunctParensEnd], true),
+            R::DefineCall => self.end_paren(p, scopes![S::PunctArgsEnd], true),
+            R::DefineParens => self.end_paren(p, scopes![S::PunctParensEnd], true),
             R::Include | R::LineDir | R::Undef | R::PragmaDir => {
                 self.end_comment_ahead(p) || self.end_line(p)
             }
@@ -188,7 +189,9 @@ impl Lexer<'_> {
             | R::DisabledIfB => self.end_endif(p),
             R::HeadCont | R::CondElif => self.head_end(p, true),
             R::HeadPlain => self.head_end(p, false),
-            R::CondParens => self.end_byte(p, b')', &[S::PunctParensEnd]) || self.head_end(p, true),
+            R::CondParens => {
+                self.end_byte(p, b')', scopes![S::PunctParensEnd]) || self.head_end(p, true)
+            }
             R::LiveElif
             | R::LiveElifB
             | R::ElifTail
@@ -221,20 +224,24 @@ impl Lexer<'_> {
             }
             R::SwitchHead => {
                 if self.b(p) == b'{' && p < self.len_all() {
-                    return self.end_at(p, p + 1, Some(&[S::PunctBlockBeginSwitch]));
+                    return self.end_at(p, p + 1, Some(scopes![S::PunctBlockBeginSwitch]));
                 }
                 if self.starts(p, b"<%") {
-                    return self.end_at(p, p + 2, Some(&[S::PunctBlockBeginSwitch]));
+                    return self.end_at(p, p + 2, Some(scopes![S::PunctBlockBeginSwitch]));
                 }
                 if self.starts(p, b"??<") {
-                    return self.end_at(p, p + 3, Some(&[S::PunctBlockBeginSwitch]));
+                    return self.end_at(p, p + 3, Some(scopes![S::PunctBlockBeginSwitch]));
                 }
                 self.b(p) == b';' && p < self.len_all() && self.end_at(p, p, None)
             }
             R::SwitchBody => {
                 for lit in [&b"}"[..], b"%>", b"??>"] {
                     if self.starts(p, lit) {
-                        return self.end_at(p, p + lit.len(), Some(&[S::PunctBlockEndSwitch]));
+                        return self.end_at(
+                            p,
+                            p + lit.len(),
+                            Some(scopes![S::PunctBlockEndSwitch]),
+                        );
                     }
                 }
                 false
@@ -243,11 +250,11 @@ impl Lexer<'_> {
                 let end = self.skip_space(p);
                 self.b(end) == b';' && end < self.len_all() && self.end_at(p, end, None)
             }
-            R::SwitchParens => self.end_byte(p, b')', &[S::PunctParensEndSwitch]),
-            R::Case => self.end_byte(p, b':', &[S::PunctColonCase]),
-            R::Default => self.end_byte(p, b':', &[S::PunctColonDefault]),
-            R::AsmParens => self.end_byte(p, b')', &[S::PunctParensEndAsm]),
-            R::AsmInner => self.end_byte(p, b')', &[S::PunctParensEndAsmInner]),
+            R::SwitchParens => self.end_byte(p, b')', scopes![S::PunctParensEndSwitch]),
+            R::Case => self.end_byte(p, b':', scopes![S::PunctColonCase]),
+            R::Default => self.end_byte(p, b':', scopes![S::PunctColonDefault]),
+            R::AsmParens => self.end_byte(p, b')', scopes![S::PunctParensEndAsm]),
+            R::AsmInner => self.end_byte(p, b')', scopes![S::PunctParensEndAsmInner]),
         }
     }
 }

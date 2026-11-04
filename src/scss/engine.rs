@@ -9,6 +9,7 @@ use super::grammar::{Nested, Pat, Rule};
 use super::scope::S;
 use crate::css::CssLike;
 use crate::rules::{self, Act, Captures, Grammar, NameCase, Payload, ScopeName, table_scan};
+use crate::scope::Scopes;
 
 /// The SCSS lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Scss>;
@@ -53,6 +54,7 @@ pub(crate) struct Scss;
 
 impl Grammar for Scss {
     type Scope = S;
+    const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
     type Pat = Pat;
     type Nested = Nested;
@@ -81,11 +83,11 @@ impl Grammar for Scss {
         Rule::from_code(code)
     }
 
-    fn rule_name(rule: Rule) -> &'static [S] {
+    fn rule_name(rule: Rule) -> Scopes<S> {
         rule.data().name
     }
 
-    fn rule_content(rule: Rule) -> &'static [S] {
+    fn rule_content(rule: Rule) -> Scopes<S> {
         rule.data().content
     }
 
@@ -137,7 +139,10 @@ impl CssLike for Scss {
         &extra.css
     }
 
-    fn css_path(lexer: &mut Lexer<'_>, base: u32, scope: crate::css::S) -> u32 {
-        lexer.path_fixed(base, scope.scope())
+    fn css_path(lexer: &mut Lexer<'_>, base: u32, scopes: Scopes<crate::css::S>) -> u32 {
+        scopes
+            .list
+            .iter()
+            .fold(base, |stack, scope| lexer.path_fixed(stack, scope.scope()))
     }
 }

@@ -3,6 +3,7 @@
 use super::engine::{Lexer, WordLists};
 use super::scope::S;
 use super::wordset;
+use crate::scope::scopes;
 
 impl Lexer<'_> {
     /// The end of the word at `p` when it is in the lists `bits`: `\b(…)\b`.
@@ -214,7 +215,7 @@ impl Lexer<'_> {
         if !self.nl {
             return false;
         }
-        self.span(p, p + 1, &[S::EscapeContinuation]);
+        self.span(p, p + 1, scopes![S::EscapeContinuation]);
         self.plain(p, p + 2)
     }
 }

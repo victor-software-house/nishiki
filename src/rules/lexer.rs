@@ -21,6 +21,7 @@ use super::{Act, Captures, DynName, Grammar, NameCase, Payload, ScopeName, Span,
 use crate::arena::{Arena, ROOT};
 use crate::language::{Halts, Parts};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
+use crate::scope::{PATH_SLOTS, Scopes, path_slot};
 use crate::{Language, Stack, Token};
 
 /// An open rule.
@@ -49,74 +50,19 @@ struct Frame<G: Grammar> {
     next_while: u32,
 }
 
-/// A cached `path`: the stack `node` that the scope with the id `first` and
-/// the scopes with the ids `rest[..rest_len]` make on `base`.
+/// A cached `path`: the stack `node` that a list makes on `base`.
 ///
-/// An entry is found by the scopes' own ids, not by the slice's address.
-/// An address moves when another language's tables change, and a slice built
-/// on the stack can hold other scopes at the same address on the next call.
+/// The slot comes from the list's key ([`Keyed`](crate::scope::Keyed)), not its
+/// address.
+/// A change to another language's tables then cannot move it.
+/// The entry holds the address of the list's key.
+/// Every list is a static with its own key, so that address names one list.
+/// A thin reference keeps the entry at 16 bytes.
 #[derive(Clone, Copy, Debug)]
 struct PathEntry {
     base: u32,
-    first: u32,
-    rest_len: u32,
-    rest: [u32; PATH_SCOPES - 1],
     node: u32,
-}
-
-impl PathEntry {
-    /// The entry of `first` and `rest` on `base`, which make `node`.
-    /// `None` when the path puts more than [`PATH_SCOPES`] scopes on its base,
-    /// or a scope of `rest` is named from a capture group.
-    fn new<G: Grammar>(base: u32, first: u32, rest: &[G::Scope], node: u32) -> Option<Self> {
-        let rest_len = u32::try_from(rest.len()).ok()?;
-        if rest.len() >= PATH_SCOPES {
-            return None;
-        }
-        let mut ids = [0; PATH_SCOPES - 1];
-        for (id, &scope) in ids.iter_mut().zip(rest) {
-            *id = fixed_id::<G>(scope)?;
-        }
-        Some(PathEntry {
-            base,
-            first,
-            rest_len,
-            rest: ids,
-            node,
-        })
-    }
-
-    /// Whether the entry is the path of `first` and `rest` on `base`.
-    /// The length is compared before the ids after the first.
-    /// No entry holds more than [`PATH_SCOPES`] scopes, so equal lengths
-    /// leave none of `rest` uncompared.
-    fn holds<G: Grammar>(&self, base: u32, first: u32, rest: &[G::Scope]) -> bool {
-        self.base == base
-            && self.first == first
-            && usize::try_from(self.rest_len).is_ok_and(|len| len == rest.len())
-            && (rest.is_empty()
-                || self
-                    .rest
-                    .iter()
-                    .zip(rest)
-                    .all(|(&id, &scope)| fixed_id::<G>(scope) == Some(id)))
-    }
-}
-
-/// The id of `scope`, or `None` when it is named from a capture group, which
-/// depends on the match.
-fn fixed_id<G: Grammar>(scope: G::Scope) -> Option<u32> {
-    match G::scope(scope) {
-        ScopeName::Fixed(fixed) => Some(fixed.id()),
-        ScopeName::Capture { .. } => None,
-    }
-}
-
-/// The slot of a path in the cache: the top bits of a multiplicative hash of
-/// its base and the id of its first scope.
-fn path_slot(base: u32, first: u32) -> usize {
-    let hash = (base ^ first.rotate_left(16)).wrapping_mul(PATH_HASH);
-    usize::try_from(hash >> PATH_SHIFT).unwrap_or(0)
+    key: &'static u16,
 }
 
 /// A cached `push_frame`: what opening `code` with `payload` on `parent`,
@@ -144,18 +90,7 @@ const NEST: usize = 12;
 /// line's end closes every rule whose end is `$`, so the bound adds it.
 const STALLED_OPENS: usize = 4096;
 
-const PATH_ENTRIES: usize = 512;
-/// The shift that leaves the top nine bits of a `u32`: a slot of the
-/// [`PATH_ENTRIES`] in the cache.
-const PATH_SHIFT: u32 = 23;
-/// The multiplier of the cache's hash, the 32-bit golden ratio.
-const PATH_HASH: u32 = 0x9e37_79b9;
-/// The most scopes a cached `path` puts on its base.
-/// Every slice the grammars pass holds at most three; four makes an entry
-/// 28 bytes, so a slot of the cache is 32 and is indexed with a shift.
-const PATH_SCOPES: usize = 4;
-const _: () = assert!(PATH_ENTRIES == 1 << (u32::BITS - PATH_SHIFT));
-const _: () = assert!(size_of::<Option<PathEntry>>() == 32);
+const _: () = assert!(size_of::<Option<PathEntry>>() == 16);
 const PUSH_ENTRIES: usize = 256;
 
 /// Two things that happen while a line is lexed.
@@ -384,7 +319,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             caps.resize(G::GROUPS, None);
         }
         if scratch.paths.is_empty() {
-            scratch.paths.resize(PATH_ENTRIES, None);
+            scratch.paths.resize(PATH_SLOTS, None);
         }
         if scratch.pushes.is_empty() {
             scratch.pushes.resize(PUSH_ENTRIES, None);
@@ -845,7 +780,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     // Spans.
 
     /// Names `start..end` with `scopes`.
-    pub(crate) fn span(&mut self, start: usize, end: usize, scopes: &'static [G::Scope]) {
+    pub(crate) fn span(&mut self, start: usize, end: usize, scopes: Scopes<G::Scope>) {
         self.spans.push(Span {
             start,
             end,
@@ -863,7 +798,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         &mut self,
         start: usize,
         end: usize,
-        scopes: &'static [G::Scope],
+        scopes: Scopes<G::Scope>,
         rule: G::Rule,
     ) {
         self.spans.push(Span {
@@ -877,19 +812,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.dirty = true;
     }
 
-    /// Names `start..end` with `scopes` and then one scope that ends in
-    /// `dynamic`.
-    pub(crate) fn span_dyn(
-        &mut self,
-        start: usize,
-        end: usize,
-        scopes: &'static [G::Scope],
-        dynamic: DynName,
-    ) {
+    /// Names `start..end` with one scope that ends in `dynamic`.
+    pub(crate) fn span_dyn(&mut self, start: usize, end: usize, dynamic: DynName) {
         self.spans.push(Span {
             start,
             end,
-            scopes,
+            scopes: G::NO_SCOPES,
             single: None,
             dynamic: Some(dynamic),
             retok: None,
@@ -909,7 +837,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.spans.push(Span {
             start,
             end,
-            scopes: &[],
+            scopes: G::NO_SCOPES,
             single: scope,
             dynamic: None,
             retok,
@@ -1010,33 +938,36 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// The stack `base` with `scopes` on top. A scope the node limit keeps
     /// from being made is left out. The path is cached by its base and the
-    /// ids of its scopes ([`PathEntry`]).
-    pub(crate) fn path(&mut self, base: u32, scopes: &[G::Scope]) -> u32 {
-        let Some((&first, rest)) = scopes.split_first() else {
+    /// list's key ([`PathEntry`]).
+    pub(crate) fn path(&mut self, base: u32, scopes: Scopes<G::Scope>) -> u32 {
+        if scopes.list.is_empty() {
             return base;
-        };
-        let first_id = fixed_id::<G>(first);
-        if let Some(first_id) = first_id
-            && let Some(entry) = &self.scratch.paths[path_slot(base, first_id)]
-            && entry.holds::<G>(base, first_id, rest)
+        }
+        let slot = path_slot(base, scopes.key);
+        if let Some(entry) = &self.scratch.paths[slot]
+            && entry.base == base
+            && std::ptr::eq(entry.key, &raw const scopes.key)
         {
             return entry.node;
         }
-        self.path_miss(base, scopes, first_id)
+        self.path_miss(base, scopes, slot)
     }
 
     /// A [`path`](Self::path) the cache does not hold: makes the stack, and
-    /// caches it when `first_id` names a fixed first scope.
+    /// caches it in `slot` unless a scope is named from a capture group, which
+    /// depends on the match.
     ///
     /// Out of line, so a hit saves no registers for the walk.
     #[inline(never)]
-    fn path_miss(&mut self, base: u32, scopes: &[G::Scope], first_id: Option<u32>) -> u32 {
+    fn path_miss(&mut self, base: u32, scopes: Scopes<G::Scope>, slot: usize) -> u32 {
         let mut stack = base;
         let mut whole = true;
-        for &scope in scopes {
+        let mut fixed = true;
+        for &scope in &scopes.list {
             let fixed_scope = match G::scope(scope) {
                 ScopeName::Fixed(fixed_scope) => fixed_scope,
                 ScopeName::Capture { .. } => {
+                    fixed = false;
                     stack = self.path_one(stack, scope);
                     continue;
                 }
@@ -1049,12 +980,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             };
             stack = child;
         }
-        let rest = scopes.get(1..).unwrap_or_default();
-        if whole
-            && let Some(first_id) = first_id
-            && let Some(entry) = PathEntry::new::<G>(base, first_id, rest, stack)
-        {
-            self.scratch.paths[path_slot(base, first_id)] = Some(entry);
+        if whole && fixed {
+            self.scratch.paths[slot] = Some(PathEntry {
+                base,
+                node: stack,
+                key: &scopes.key,
+            });
         }
         stack
     }
@@ -1071,7 +1002,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// The stack `base` with one scope on top, which is not cached: it is the
     /// scope of a run-time choice, with no slice of its own to key a cache.
-    fn path_one(&mut self, base: u32, scope: G::Scope) -> u32 {
+    pub(crate) fn path_one(&mut self, base: u32, scope: G::Scope) -> u32 {
         match G::scope(scope) {
             ScopeName::Fixed(fixed) => self.arena.child(base, fixed).unwrap_or_else(|| {
                 self.report.record(Limit::Nodes);
@@ -1279,7 +1210,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 }
                 (_, Some(&(group, kind))) => {
                     tokenized += 1;
-                    (group, &[][..], Some(kind))
+                    (group, G::NO_SCOPES, Some(kind))
                 }
             };
             let Some((from, to)) = self.caps[usize::from(group)] else {
@@ -1304,12 +1235,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 let named = table
                     .iter()
                     .find(|&&(number, _)| number == group)
-                    .map_or(&[][..], |&(_, scopes)| scopes);
+                    .map_or(G::NO_SCOPES, |&(_, scopes)| scopes);
                 let inner = self.path(base, named);
                 self.nested(kind, from, to, inner);
                 continue;
             }
-            if scopes.is_empty() {
+            if scopes.list.is_empty() {
                 continue;
             }
             if depth == NEST {
@@ -1367,7 +1298,8 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 open -= 1;
             }
             self.emit(span.start, outer);
-            let mut named = self.path(if span.retok.is_some() { base } else { outer }, span.scopes);
+            let under = if span.retok.is_some() { base } else { outer };
+            let mut named = self.path(under, span.scopes);
             if let Some(scope) = span.single {
                 named = self.path_one(named, scope);
             }
@@ -1752,7 +1684,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// Names the text of a match rule. True when the line stops.
     fn match_rule(
         &mut self,
-        name: &'static [G::Scope],
+        name: Scopes<G::Scope>,
         table: Captures<G>,
         start: usize,
         end: usize,
@@ -1794,7 +1726,7 @@ mod tests {
     use crate::language::Parts;
     use crate::limits::{Limits, LineReport};
     use crate::rules::{Act, Captures, Grammar, Payload, ScopeName, Text};
-    use crate::scope::Scope;
+    use crate::scope::{Scope, Scopes, scopes};
 
     #[derive(Clone, Copy, Debug, PartialEq)]
     struct Root;
@@ -1823,6 +1755,7 @@ mod tests {
 
     impl Grammar for Brackets {
         type Scope = Scope;
+        const NO_SCOPES: Scopes<Scope> = Scope::NO_SCOPES;
         type Rule = Root;
         type Pat = Pat;
         type Nested = Inside;
@@ -1846,22 +1779,25 @@ mod tests {
             Root
         }
 
-        fn rule_name(_: Root) -> &'static [Scope] {
-            &[]
+        fn rule_name(_: Root) -> Scopes<Scope> {
+            Scope::NO_SCOPES
         }
 
-        fn rule_content(_: Root) -> &'static [Scope] {
-            &[]
+        fn rule_content(_: Root) -> Scopes<Scope> {
+            Scope::NO_SCOPES
         }
 
         fn pat_act(_: Pat) -> Act<Self> {
-            Act::Match(&[])
+            Act::Match(Scope::NO_SCOPES)
         }
 
         fn pat_captures(pat: Pat) -> Captures<Self> {
             match pat {
-                Pat::Bracket => (&[(1, &[OPEN]), (3, &[CLOSE])], &[(2, Inside::Again)]),
-                Pat::Word => (&[(1, &[WORD])], &[]),
+                Pat::Bracket => (
+                    &[(1, scopes![OPEN]), (3, scopes![CLOSE])],
+                    &[(2, Inside::Again)],
+                ),
+                Pat::Word => (&[(1, scopes![WORD])], &[]),
             }
         }
 
@@ -2052,12 +1988,27 @@ mod tests {
         Group(&'static str, u8, &'static str),
     }
 
+    impl Name {
+        /// The code that keys a list of names: a fixed scope's, or none for a
+        /// name a capture group spells, which is never cached.
+        const fn code(self) -> u16 {
+            match self {
+                Name::Fixed(scope) => scope.code(),
+                Name::Group(..) => u16::MAX,
+            }
+        }
+
+        /// The empty list of names.
+        const NO_SCOPES: Scopes<Name> = &crate::scope::Keyed::new([], []);
+    }
+
     #[derive(Clone, Copy, Debug)]
     enum Never {}
 
     const AFTER: Scope = Scope::dynamic(1);
 
     impl Grammar for Named {
+        const NO_SCOPES: Scopes<Name> = Name::NO_SCOPES;
         type Scope = Name;
         type Rule = Rule;
         type Pat = Mark;
@@ -2092,12 +2043,12 @@ mod tests {
             if code == 1 { Rule::Quote } else { Rule::Root }
         }
 
-        fn rule_name(_: Rule) -> &'static [Name] {
-            &[]
+        fn rule_name(_: Rule) -> Scopes<Name> {
+            Name::NO_SCOPES
         }
 
-        fn rule_content(_: Rule) -> &'static [Name] {
-            &[]
+        fn rule_content(_: Rule) -> Scopes<Name> {
+            Name::NO_SCOPES
         }
 
         fn rule_payload(rule: Rule) -> Payload {
@@ -2116,8 +2067,8 @@ mod tests {
 
         fn pat_act(pat: Mark) -> Act<Self> {
             match pat {
-                Mark::Word => Act::Match(&[Name::Group("word.", 0, ".test")]),
-                Mark::Look => Act::Match(&[]),
+                Mark::Word => Act::Match(scopes![Name::Group("word.", 0, ".test")]),
+                Mark::Look => Act::Match(Name::NO_SCOPES),
                 Mark::Open => Act::Begin(Rule::Quote),
                 Mark::Close => Act::End,
             }
@@ -2127,9 +2078,9 @@ mod tests {
             match pat {
                 Mark::Look => (
                     &[
-                        (1, &[Name::Group("mark.", 1, "")]),
-                        (2, &[Name::Fixed(AFTER)]),
-                        (3, &[Name::Fixed(AFTER)]),
+                        (1, scopes![Name::Group("mark.", 1, "")]),
+                        (2, scopes![Name::Fixed(AFTER)]),
+                        (3, scopes![Name::Fixed(AFTER)]),
                     ],
                     &[],
                 ),

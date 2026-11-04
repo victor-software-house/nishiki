@@ -2,7 +2,7 @@
 //! `oracle/ruby-grammar.ts`; do not edit.
 
 crate::scope::scope_table! {
-    RUBY;
+    keyed RUBY;
     CmtBlockDocumentation "comment.block.documentation.ruby"
     CmtLineDefaultvalueYard "comment.line.defaultvalue.yard.ruby"
     CmtLineHashkeyYard "comment.line.hashkey.yard.ruby"

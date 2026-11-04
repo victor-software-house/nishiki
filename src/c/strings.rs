@@ -2,6 +2,7 @@
 
 use super::engine::Lexer;
 use super::scope::S;
+use crate::scope::scopes;
 
 impl Lexer<'_> {
     /// The quote `q`, with `punctuation.definition.string.begin` on it.
@@ -9,7 +10,7 @@ impl Lexer<'_> {
         if p >= self.len_all() || self.b(p) != q {
             return false;
         }
-        self.span(p, p + 1, &[S::PunctStringBegin]);
+        self.span(p, p + 1, scopes![S::PunctStringBegin]);
         self.begin(p, p + 1)
     }
 
@@ -276,7 +277,7 @@ impl Lexer<'_> {
                 return false;
             }
         }
-        self.span(p, p + 1, &[S::InvalidPlaceholder]);
+        self.span(p, p + 1, scopes![S::InvalidPlaceholder]);
         self.plain(p, p + 1)
     }
 }

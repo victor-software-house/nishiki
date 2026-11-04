@@ -3,6 +3,7 @@
 use super::engine::Lexer;
 use super::grammar::Nested;
 use super::scope::S;
+use crate::scope::scopes;
 
 /// The storage modifiers of the grammar's `storage-modifiers` pattern that a
 /// word of `[\w\s]*` can be.
@@ -45,12 +46,12 @@ impl Lexer<'_> {
             if b.is_ascii_alphabetic() || b == b'_' {
                 let end = self.word_run_end(i, to);
                 self.emit(i, base);
-                let node = self.path(base, &[S::StorType]);
+                let node = self.path(base, scopes![S::StorType]);
                 self.emit(end, node);
                 i = end;
             } else if b == b'.' {
                 self.emit(i, base);
-                let node = self.path(base, &[S::PSeparatorPeriod]);
+                let node = self.path(base, scopes![S::PSeparatorPeriod]);
                 self.emit(i + 1, node);
                 i += 1;
             } else {
@@ -70,7 +71,7 @@ impl Lexer<'_> {
             }
             if MODIFIERS.contains(&self.text(i, end)) {
                 self.emit(i, base);
-                let node = self.path(base, &[S::StorModifier]);
+                let node = self.path(base, scopes![S::StorModifier]);
                 self.emit(end, node);
             }
             i = end;
@@ -79,19 +80,19 @@ impl Lexer<'_> {
 
     /// `<` name `>`: the brackets, and the name's identifier.
     fn generic_names(&mut self, from: usize, to: usize, base: u32) {
-        let node = self.path(base, &[S::PBracketAngle]);
+        let node = self.path(base, scopes![S::PBracketAngle]);
         self.emit(from, base);
         self.emit(from + 1, node);
         let body = from + 1;
         let close = to.saturating_sub(1).max(body);
         let word = self.text(body, close);
-        let scope = match word {
-            b"extends" => Some(S::StorModifierExtends),
-            b"super" => Some(S::StorModifierSuper),
+        let scopes = match word {
+            b"extends" => Some(scopes![S::StorModifierExtends]),
+            b"super" => Some(scopes![S::StorModifierSuper]),
             _ => None,
         };
-        if let Some(scope) = scope {
-            let node = self.path(base, &[scope]);
+        if let Some(scopes) = scopes {
+            let node = self.path(base, scopes);
             self.emit(close, node);
         } else if let Some(offset) = word
             .iter()
@@ -102,11 +103,11 @@ impl Lexer<'_> {
                 b.is_ascii_alphanumeric() || matches!(b, b'$' | b'_')
             });
             self.emit(start, base);
-            let node = self.path(base, &[S::StorTypeGeneric]);
+            let node = self.path(base, scopes![S::StorTypeGeneric]);
             self.emit(end, node);
         }
         self.emit(close, base);
-        let node = self.path(base, &[S::PBracketAngle]);
+        let node = self.path(base, scopes![S::PBracketAngle]);
         self.emit(to, node);
     }
 

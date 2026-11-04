@@ -1,7 +1,7 @@
 //! The scope names the lexer emits, in Shiki's naming.
 
 crate::scope::scope_table! {
-    GRAPHQL;
+    keyed GRAPHQL;
     Source "source.graphql"
     CommentLine "comment.line.graphql.js"
     LeadingSpace "punctuation.whitespace.comment.leading.graphql"

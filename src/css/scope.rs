@@ -6,7 +6,7 @@ crate::scope::scope_table! {
         clippy::enum_variant_names,
         reason = "the names are the scope names, and the unit s ends in S"
     )]
-    CSS;
+    keyed CSS;
     CmtBlock "comment.block.css"
     ConstCharacterEscapeCodepoint "constant.character.escape.codepoint.css"
     ConstCharacterEscape "constant.character.escape.css"

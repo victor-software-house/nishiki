@@ -2,7 +2,7 @@
 //! `oracle/scss-grammar.ts`; do not edit.
 
 crate::scope::scope_table! {
-    SCSS;
+    keyed SCSS;
     CmtBlockCss "comment.block.css"
     CmtBlock "comment.block.scss"
     CmtLine "comment.line.scss"

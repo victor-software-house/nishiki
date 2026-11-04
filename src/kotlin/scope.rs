@@ -2,7 +2,7 @@
 //! `oracle/kotlin-grammar.ts`; do not edit.
 
 crate::scope::scope_table! {
-    KOTLIN;
+    keyed KOTLIN;
     CmtBlockJavadoc "comment.block.javadoc.kotlin"
     CmtBlock "comment.block.kotlin"
     CmtLineDoubleSlash "comment.line.double-slash.kotlin"

@@ -2,6 +2,7 @@
 //! Each is a frame of the interned state.
 
 use super::scope::S;
+use crate::scope::{Scopes, scopes};
 
 /// The high byte that marks a frame as one of the Makefile lexer's.
 const TAG: u16 = crate::tag::MAKE;
@@ -77,20 +78,20 @@ crate::tag::frame_kinds! {
 
 impl Rule {
     /// The scopes the rule adds to its begin, its content and its end.
-    pub(crate) fn name(self) -> &'static [S] {
+    pub(crate) fn name(self) -> Scopes<S> {
         match self {
-            Rule::CommentHash => &[S::CommentLine],
-            Rule::Define | Rule::Conditional => &[S::MetaConditional],
-            Rule::Condition => &[S::MetaCondition],
-            Rule::Target => &[S::MetaTarget],
-            Rule::Prereq => &[S::MetaPrereq],
-            Rule::TargetName => &[S::TargetName],
-            Rule::Recipe => &[S::MetaRecipe],
-            Rule::VarParen | Rule::VarBrace => &[S::StringInterp],
+            Rule::CommentHash => scopes![S::CommentLine],
+            Rule::Define | Rule::Conditional => scopes![S::MetaConditional],
+            Rule::Condition => scopes![S::MetaCondition],
+            Rule::Target => scopes![S::MetaTarget],
+            Rule::Prereq => scopes![S::MetaPrereq],
+            Rule::TargetName => scopes![S::TargetName],
+            Rule::Recipe => scopes![S::MetaRecipe],
+            Rule::VarParen | Rule::VarBrace => scopes![S::StringInterp],
             Rule::FuncParen | Rule::FuncBrace | Rule::FlavorParen | Rule::FlavorBrace => {
-                &[S::MetaFunc]
+                scopes![S::MetaFunc]
             }
-            Rule::AnotherParen | Rule::AnotherBrace => &[S::VarOther],
+            Rule::AnotherParen | Rule::AnotherBrace => scopes![S::VarOther],
             Rule::Root
             | Rule::Comment
             | Rule::Include
@@ -104,14 +105,14 @@ impl Rule {
             | Rule::InterpParen
             | Rule::InterpBrace
             | Rule::RetokTarget
-            | Rule::RetokVars => &[],
+            | Rule::RetokVars => S::NO_SCOPES,
         }
     }
 
     /// The scopes the rule adds to its content only, after its begin.
-    pub(crate) fn content(self) -> &'static [S] {
+    pub(crate) fn content(self) -> Scopes<S> {
         match self {
-            Rule::FlavorParen | Rule::FlavorBrace => &[S::VarOther],
+            Rule::FlavorParen | Rule::FlavorBrace => scopes![S::VarOther],
             Rule::Root
             | Rule::Comment
             | Rule::CommentHash
@@ -139,7 +140,7 @@ impl Rule {
             | Rule::InterpParen
             | Rule::InterpBrace
             | Rule::RetokTarget
-            | Rule::RetokVars => &[],
+            | Rule::RetokVars => S::NO_SCOPES,
         }
     }
 }

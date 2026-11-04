@@ -2,6 +2,7 @@
 
 use super::scope::S;
 use super::state::Rule;
+use crate::scope::{Scopes, scopes};
 
 /// A pattern of the grammar: a rule that matches text, or one that opens a
 /// [`Rule`].
@@ -105,13 +106,13 @@ impl Pat {
     }
 
     /// The scopes a pattern that matches text gives the whole match.
-    pub(crate) fn name(self) -> &'static [S] {
+    pub(crate) fn name(self) -> Scopes<S> {
         match self {
-            Pat::SimpleVar | Pat::BuiltinParen | Pat::BuiltinBrace => &[S::VarLanguage],
-            Pat::Comma => &[S::Comma],
-            Pat::Percent | Pat::PercentStar => &[S::Placeholder],
-            Pat::Continuation => &[S::Continuation],
-            Pat::AnyWord => &[S::VarOther],
+            Pat::SimpleVar | Pat::BuiltinParen | Pat::BuiltinBrace => scopes![S::VarLanguage],
+            Pat::Comma => scopes![S::Comma],
+            Pat::Percent | Pat::PercentStar => scopes![S::Placeholder],
+            Pat::Continuation => scopes![S::Continuation],
+            Pat::AnyWord => scopes![S::VarOther],
             Pat::End
             | Pat::SpecialTarget
             | Pat::Comment
@@ -140,7 +141,7 @@ impl Pat {
             | Pat::Prereq
             | Pat::TargetName
             | Pat::Recipe
-            | Pat::Assign => &[],
+            | Pat::Assign => S::NO_SCOPES,
         }
     }
 }

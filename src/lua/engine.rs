@@ -6,6 +6,7 @@ use super::grammar::{Pat, Rule};
 use super::scope::S;
 pub(crate) use crate::rules::embedded;
 use crate::rules::{self, Act, Captures, Grammar, HasRuns, Payload, Runs, ScopeName, table_scan};
+use crate::scope::Scopes;
 
 /// The Lua lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Lua>;
@@ -31,6 +32,7 @@ impl HasRuns for Extra {
 
 impl Grammar for Lua {
     type Scope = S;
+    const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
     type Pat = Pat;
     type Nested = Infallible;
@@ -56,11 +58,11 @@ impl Grammar for Lua {
         Rule::from_code(code)
     }
 
-    fn rule_name(rule: Rule) -> &'static [S] {
+    fn rule_name(rule: Rule) -> Scopes<S> {
         rule.data().name
     }
 
-    fn rule_content(rule: Rule) -> &'static [S] {
+    fn rule_content(rule: Rule) -> Scopes<S> {
         rule.data().content
     }
 

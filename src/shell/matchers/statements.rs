@@ -1,6 +1,7 @@
 //! Statements, commands, arguments, options and assignments.
 
 use super::{is_blank, is_command_name, is_unquoted};
+use crate::scope::{Scopes, scopes};
 use crate::shell::engine::{Lazy, Lexer};
 use crate::shell::scope::S;
 use crate::shell::state::Rule;
@@ -123,12 +124,12 @@ const BUILTINS: &[&[u8]] = &[
 ];
 
 /// The declaration words `modified_assignment_statement` begins with.
-const MODIFIERS: [(&[u8], &[S]); 5] = [
-    (b"readonly", &[S::StorageModifierReadonly]),
-    (b"declare", &[S::StorageModifierDeclare]),
-    (b"typeset", &[S::StorageModifierTypeset]),
-    (b"export", &[S::StorageModifierExport]),
-    (b"local", &[S::StorageModifierLocal]),
+const MODIFIERS: [(&[u8], Scopes<S>); 5] = [
+    (b"readonly", scopes![S::StorageModifierReadonly]),
+    (b"declare", scopes![S::StorageModifierDeclare]),
+    (b"typeset", scopes![S::StorageModifierTypeset]),
+    (b"export", scopes![S::StorageModifierExport]),
+    (b"local", scopes![S::StorageModifierLocal]),
 ];
 
 /// Whether an assignment needs its operator.
@@ -232,7 +233,12 @@ impl Lexer<'_> {
             }
             e = k;
         }
-        self.span_retok(w, e, &[S::StringUnquotedArgument], Rule::RetokArgument);
+        self.span_retok(
+            w,
+            e,
+            scopes![S::StringUnquotedArgument],
+            Rule::RetokArgument,
+        );
         Some(e)
     }
 
@@ -264,7 +270,7 @@ impl Lexer<'_> {
         self.span(
             j,
             j + 1,
-            &[S::StringUnquotedArgument, S::ConstantOtherOptionDash],
+            scopes![S::StringUnquotedArgument, S::ConstantOtherOptionDash],
         );
         Some(j + 1)
     }
@@ -278,7 +284,11 @@ impl Lexer<'_> {
         if e == p + 1 {
             return None;
         }
-        self.span(p, e, &[S::StringUnquotedArgument, S::ConstantOtherOption]);
+        self.span(
+            p,
+            e,
+            scopes![S::StringUnquotedArgument, S::ConstantOtherOption],
+        );
         Some(e)
     }
 
@@ -293,18 +303,18 @@ impl Lexer<'_> {
         if self.word_at(e) {
             return None;
         }
-        let scopes: &'static [S] = match &self.s[p..e] {
-            b"continue" => &[
+        let scopes: Scopes<S> = match &self.s[p..e] {
+            b"continue" => scopes![
                 S::EntityNameFunctionCall,
                 S::EntityNameCommand,
                 S::KeywordControlContinue,
             ],
-            b"return" => &[
+            b"return" => scopes![
                 S::EntityNameFunctionCall,
                 S::EntityNameCommand,
                 S::KeywordControlReturn,
             ],
-            b"break" => &[
+            b"break" => scopes![
                 S::EntityNameFunctionCall,
                 S::EntityNameCommand,
                 S::KeywordControlBreak,
@@ -335,7 +345,7 @@ impl Lexer<'_> {
         self.span(
             p,
             e,
-            &[
+            scopes![
                 S::EntityNameFunctionCall,
                 S::EntityNameCommand,
                 S::SupportFunctionBuiltin,
@@ -355,7 +365,11 @@ impl Lexer<'_> {
         if e == p {
             return None;
         }
-        self.span(p, e, &[S::EntityNameFunctionCall, S::EntityNameCommand]);
+        self.span(
+            p,
+            e,
+            scopes![S::EntityNameFunctionCall, S::EntityNameCommand],
+        );
         Some(e)
     }
 
@@ -373,10 +387,10 @@ impl Lexer<'_> {
         if !self.avail(q) {
             return None;
         }
-        let (rule, scopes): (Rule, &'static [S]) = match self.at(q) {
+        let (rule, scopes): (Rule, Scopes<S>) = match self.at(q) {
             b'"' => (
                 Rule::CommandQuotedDouble,
-                &[
+                scopes![
                     S::MetaStatementCommandNameQuoted,
                     S::StringQuotedDouble,
                     S::PunctuationDefinitionStringBegin,
@@ -386,7 +400,7 @@ impl Lexer<'_> {
             ),
             b'\'' => (
                 Rule::CommandQuotedSingle,
-                &[
+                scopes![
                     S::MetaStatementCommandNameQuoted,
                     S::StringQuotedSingle,
                     S::PunctuationDefinitionStringBegin,
@@ -400,7 +414,7 @@ impl Lexer<'_> {
             self.span(
                 p,
                 q,
-                &[
+                scopes![
                     S::MetaStatementCommandNameQuoted,
                     S::PunctuationDefinitionString,
                     S::EntityNameFunctionCall,
@@ -519,17 +533,19 @@ impl Lexer<'_> {
             index = Some((i, start, end));
             i = end + 1;
         }
-        let (len, scopes): (usize, &'static [S]) = match (self.at(i), self.at(i + 1)) {
-            (b'=', _) if self.avail(i) => (1, &[S::KeywordOperatorAssignment]),
-            (b'+' | b'-', b'=') if self.avail(i) => (2, &[S::KeywordOperatorAssignmentCompound]),
-            _ if operator == Operator::Optional => (0, &[]),
+        let (len, scopes): (usize, Scopes<S>) = match (self.at(i), self.at(i + 1)) {
+            (b'=', _) if self.avail(i) => (1, scopes![S::KeywordOperatorAssignment]),
+            (b'+' | b'-', b'=') if self.avail(i) => {
+                (2, scopes![S::KeywordOperatorAssignmentCompound])
+            }
+            _ if operator == Operator::Optional => (0, S::NO_SCOPES),
             _ => return None,
         };
-        self.span(p, name_end, &[S::VariableOtherAssignment]);
+        self.span(p, name_end, scopes![S::VariableOtherAssignment]);
         if let Some((open, start, end)) = index {
-            self.span(open, open + 1, &[S::PunctuationDefinitionArrayAccess]);
-            self.span(start, end, &[S::VariableOtherAssignment]);
-            self.span(end, end + 1, &[S::PunctuationDefinitionArrayAccess]);
+            self.span(open, open + 1, scopes![S::PunctuationDefinitionArrayAccess]);
+            self.span(start, end, scopes![S::VariableOtherAssignment]);
+            self.span(end, end + 1, scopes![S::PunctuationDefinitionArrayAccess]);
         }
         self.span(i, i + len, scopes);
         Some(i + len)
@@ -549,7 +565,7 @@ impl Lexer<'_> {
         if self.at(open) != b'(' || !self.avail(open) {
             return None;
         }
-        self.span(open, open + 1, &[S::PunctuationDefinitionArray]);
+        self.span(open, open + 1, scopes![S::PunctuationDefinitionArray]);
         Some(open + 1)
     }
 
@@ -579,9 +595,9 @@ impl Lexer<'_> {
         for (used, &name) in ends.iter().enumerate().rev() {
             self.spend(1);
             self.clear_spans();
-            self.span(a, a + 5, &[S::StorageTypeAlias]);
+            self.span(a, a + 5, scopes![S::StorageTypeAlias]);
             if used > 0 {
-                self.span_retok(options_start, name, &[], Rule::RetokOptions);
+                self.span_retok(options_start, name, S::NO_SCOPES, Rule::RetokOptions);
             }
             if let Some(e) = self.assignment_head(name, Operator::Required) {
                 found = Some(e);
@@ -644,12 +660,12 @@ impl Lexer<'_> {
         self.span(
             p,
             e,
-            &[S::VariableOtherAssignmentArray, S::EntityOtherAttributeName],
+            scopes![S::VariableOtherAssignmentArray, S::EntityOtherAttributeName],
         );
         self.span(
             e,
             e + 1,
-            &[
+            scopes![
                 S::KeywordOperatorAssignment,
                 S::PunctuationDefinitionAssignment,
             ],
@@ -670,14 +686,14 @@ impl Lexer<'_> {
         let e = self.find_from(Lazy::ArrayIndex, self.char_end(p + 1), |lexer, e| {
             e < lexer.lim && lexer.s[e] == b']' && lexer.at(e + 1) == b'=' && lexer.avail(e + 1)
         })?;
-        self.span(p, p + 1, &[S::PunctuationDefinitionBracketNamedArray]);
+        self.span(p, p + 1, scopes![S::PunctuationDefinitionBracketNamedArray]);
         self.span(
             p + 1,
             e,
-            &[S::StringUnquoted, S::EntityOtherAttributeNameBracket],
+            scopes![S::StringUnquoted, S::EntityOtherAttributeNameBracket],
         );
-        self.span(e, e + 1, &[S::PunctuationDefinitionBracketNamedArray]);
-        self.span(e + 1, e + 2, &[S::PunctuationDefinitionAssignment]);
+        self.span(e, e + 1, scopes![S::PunctuationDefinitionBracketNamedArray]);
+        self.span(e + 1, e + 2, scopes![S::PunctuationDefinitionAssignment]);
         Some(e + 2)
     }
 }

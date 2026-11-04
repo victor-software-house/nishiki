@@ -49,13 +49,15 @@ use crate::language::{Halts, Parts};
 use crate::limits::Finished;
 #[cfg(feature = "_embedding")]
 use crate::limits::{Limit, Steps};
-use crate::scope::Scope;
+use crate::scope::{Scope, Scopes};
 
 /// One language's grammar: its rules and patterns, by type, and the
 /// hand-written matchers that decide where each pattern matches.
 pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// A scope name of the grammar.
     type Scope: Copy + Debug + 'static;
+    /// The empty list of the grammar's scopes.
+    const NO_SCOPES: Scopes<Self::Scope>;
     /// A rule of the grammar that can be open at the end of a line.
     type Rule: Copy + Debug + PartialEq + 'static;
     /// One regular expression of the grammar.
@@ -115,9 +117,9 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// not the language's.
     fn rule_from_code(code: u16) -> Self::Rule;
     /// The scopes of a rule's begin and end text and everything between.
-    fn rule_name(rule: Self::Rule) -> &'static [Self::Scope];
+    fn rule_name(rule: Self::Rule) -> Scopes<Self::Scope>;
     /// The scopes of what lies between a rule's begin and end text.
-    fn rule_content(rule: Self::Rule) -> &'static [Self::Scope];
+    fn rule_content(rule: Self::Rule) -> Scopes<Self::Scope>;
     /// The `while` pattern of a rule that has one: the rule stays open on a
     /// later line only when the pattern matches at its start.
     fn rule_while(_rule: Self::Rule) -> Option<Self::Pat> {
@@ -554,7 +556,7 @@ fn resume_halting<G: Grammar>(lexer: Lexer<'_, G>, _: Option<&Halts<'_>>) -> (Fi
 /// The scopes of a pattern's capture groups by group number, and the groups
 /// that the grammar tokenizes with patterns of their own.
 pub(crate) type Captures<G> = (
-    &'static [(u8, &'static [<G as Grammar>::Scope])],
+    &'static [(u8, Scopes<<G as Grammar>::Scope>)],
     &'static [(u8, <G as Grammar>::Nested)],
 );
 
@@ -648,7 +650,7 @@ pub(crate) enum ScopeName {
 pub(crate) struct Span<G: Grammar> {
     pub(crate) start: usize,
     pub(crate) end: usize,
-    pub(crate) scopes: &'static [G::Scope],
+    pub(crate) scopes: Scopes<G::Scope>,
     /// One more scope, after `scopes`, chosen when the matcher ran.
     pub(crate) single: Option<G::Scope>,
     pub(crate) dynamic: Option<DynName>,
@@ -659,7 +661,7 @@ pub(crate) struct Span<G: Grammar> {
 #[derive(Clone, Copy, Debug)]
 pub(crate) enum Act<G: Grammar> {
     /// Names the text and opens nothing.
-    Match(&'static [G::Scope]),
+    Match(Scopes<G::Scope>),
     /// Opens a rule.
     Begin(G::Rule),
     /// Closes the innermost rule.
@@ -672,7 +674,7 @@ pub(crate) struct PatData<G: Grammar> {
     pub(crate) act: Act<G>,
     /// The scopes of the match's capture groups, by group number; group 0 is
     /// the whole match.
-    pub(crate) captures: &'static [(u8, &'static [G::Scope])],
+    pub(crate) captures: &'static [(u8, Scopes<G::Scope>)],
     /// The capture groups whose text the grammar tokenizes with patterns of
     /// their own, by group number.
     pub(crate) nested: &'static [(u8, G::Nested)],
@@ -682,9 +684,9 @@ pub(crate) struct PatData<G: Grammar> {
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct RuleData<G: Grammar> {
     /// The scopes of its begin and end text and everything between.
-    pub(crate) name: &'static [G::Scope],
+    pub(crate) name: Scopes<G::Scope>,
     /// The scopes of what lies between its begin and end text.
-    pub(crate) content: &'static [G::Scope],
+    pub(crate) content: Scopes<G::Scope>,
     /// The pattern that closes it.
     pub(crate) end: Option<G::Pat>,
     /// The begin capture group that the end pattern repeats, when it does.
