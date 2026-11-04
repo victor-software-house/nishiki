@@ -355,6 +355,18 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `ruby/rspec-example` | [`lib/rspec/core/example.rb`][rspec-example] in rspec/rspec-core | [MIT][rspec-core-licence] |
 | `ruby/thor` | [`lib/thor.rb`][thor] in rails/thor | [MIT][thor-licence] |
 | `ruby/rake-task` | [`lib/rake/task.rb`][rake-task] in ruby/rake | [MIT][rake-licence] |
+| `ruby/rack-response` | [`lib/rack/response.rb`][rack-response] in rack/rack | [MIT][rack-licence] |
+| `ruby/rack-spec-headers` | [`test/spec_headers.rb`][rack-spec-headers] in rack/rack | [MIT][rack-licence] |
+| `ruby/rack-spec-lint` | [`test/spec_lint.rb`][rack-spec-lint] in rack/rack | [MIT][rack-licence] |
+| `ruby/rake-reduce-compat-test` | [`test/test_rake_reduce_compat.rb`][rake-reduce-compat-test] in ruby/rake | [MIT][rake-licence] |
+| `ruby/rubocop-duplicated-gem` | [`lib/rubocop/cop/bundler/duplicated_gem.rb`][rubocop-duplicated-gem] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-line-length-spec` | [`spec/rubocop/cop/layout/line_length_spec.rb`][rubocop-line-length-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-percent-literal-delimiters-spec` | [`spec/rubocop/cop/style/percent_literal_delimiters_spec.rb`][rubocop-percent-literal-delimiters-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-quoted-symbols-spec` | [`spec/rubocop/cop/style/quoted_symbols_spec.rb`][rubocop-quoted-symbols-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-redundant-percent-q-spec` | [`spec/rubocop/cop/style/redundant_percent_q_spec.rb`][rubocop-redundant-percent-q-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-regexp-literal-spec` | [`spec/rubocop/cop/style/regexp_literal_spec.rb`][rubocop-regexp-literal-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-symbol-array-spec` | [`spec/rubocop/cop/style/symbol_array_spec.rb`][rubocop-symbol-array-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
+| `ruby/rubocop-useless-assignment-spec` | [`spec/rubocop/cop/lint/useless_assignment_spec.rb`][rubocop-useless-assignment-spec] in rubocop/rubocop | [MIT][rubocop-licence] |
 | `ruby/heredocs` | `oracle/inputs/ruby-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `ruby/js-heredocs` | `oracle/inputs/ruby-js-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `ruby/cpp-lua-heredocs` | `oracle/inputs/ruby-cpp-lua-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
@@ -1175,6 +1187,9 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [rack-licence]: https://github.com/rack/rack/blob/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f/MIT-LICENSE
 [rack-readme]: https://github.com/rack/rack/blob/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f/README.md
 [rack-request]: https://github.com/rack/rack/blob/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f/lib/rack/request.rb
+[rack-response]: https://github.com/rack/rack/blob/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f/lib/rack/response.rb
+[rack-spec-headers]: https://github.com/rack/rack/blob/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f/test/spec_headers.rb
+[rack-spec-lint]: https://github.com/rack/rack/blob/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f/test/spec_lint.rb
 [rag-licence]: https://github.com/jxnl/n-levels-of-rag/blob/2ce1106b0163d11fcf7959187b42f0d3a67fbe05/LICENSE
 [rag-output]: https://github.com/jxnl/n-levels-of-rag/blob/2ce1106b0163d11fcf7959187b42f0d3a67fbe05/output.jsonl
 [rag-output-50]: https://github.com/jxnl/n-levels-of-rag/blob/2ce1106b0163d11fcf7959187b42f0d3a67fbe05/output-50.jsonl
@@ -1192,6 +1207,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [rails-welcome]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/railties/lib/rails/templates/rails/welcome/index.html.erb
 [railties-licence]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/railties/MIT-LICENSE
 [rake-licence]: https://github.com/ruby/rake/blob/3f29d39daa688eb51cd975c06b1501320f10b911/MIT-LICENSE
+[rake-reduce-compat-test]: https://github.com/ruby/rake/blob/3f29d39daa688eb51cd975c06b1501320f10b911/test/test_rake_reduce_compat.rb
 [rake-task]: https://github.com/ruby/rake/blob/3f29d39daa688eb51cd975c06b1501320f10b911/lib/rake/task.rb
 [rapidjson-licence]: https://github.com/Tencent/rapidjson/blob/24b5e7a8b27f42fa16b96fc70aade9106cf7102f/license.txt
 [rapidjson-reader]: https://github.com/Tencent/rapidjson/blob/24b5e7a8b27f42fa16b96fc70aade9106cf7102f/include/rapidjson/reader.h
@@ -1215,7 +1231,15 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [rspec-core-licence]: https://github.com/rspec/rspec-core/blob/aec5f49485d97908183dbe790a7fefb8baaa8091/LICENSE.md
 [rspec-example]: https://github.com/rspec/rspec-core/blob/aec5f49485d97908183dbe790a7fefb8baaa8091/lib/rspec/core/example.rb
 [rubocop-cop-base]: https://github.com/rubocop/rubocop/blob/09c38e2526622e5c08a73ebff58fd2f4bed35ffe/lib/rubocop/cop/base.rb
+[rubocop-duplicated-gem]: https://github.com/rubocop/rubocop/blob/09c38e2526622e5c08a73ebff58fd2f4bed35ffe/lib/rubocop/cop/bundler/duplicated_gem.rb
 [rubocop-licence]: https://github.com/rubocop/rubocop/blob/09c38e2526622e5c08a73ebff58fd2f4bed35ffe/LICENSE.txt
+[rubocop-line-length-spec]: https://github.com/rubocop/rubocop/blob/09c38e2526622e5c08a73ebff58fd2f4bed35ffe/spec/rubocop/cop/layout/line_length_spec.rb
+[rubocop-percent-literal-delimiters-spec]: https://github.com/rubocop/rubocop/blob/09c38e2526622e5c08a73ebff58fd2f4bed35ffe/spec/rubocop/cop/style/percent_literal_delimiters_spec.rb
+[rubocop-quoted-symbols-spec]: https://github.com/rubocop/rubocop/blob/09c38e2526622e5c08a73ebff58fd2f4bed35ffe/spec/rubocop/cop/style/quoted_symbols_spec.rb
+[rubocop-redundant-percent-q-spec]: https://github.com/rubocop/rubocop/blob/09c38e2526622e5c08a73ebff58fd2f4bed35ffe/spec/rubocop/cop/style/redundant_percent_q_spec.rb
+[rubocop-regexp-literal-spec]: https://github.com/rubocop/rubocop/blob/09c38e2526622e5c08a73ebff58fd2f4bed35ffe/spec/rubocop/cop/style/regexp_literal_spec.rb
+[rubocop-symbol-array-spec]: https://github.com/rubocop/rubocop/blob/09c38e2526622e5c08a73ebff58fd2f4bed35ffe/spec/rubocop/cop/style/symbol_array_spec.rb
+[rubocop-useless-assignment-spec]: https://github.com/rubocop/rubocop/blob/09c38e2526622e5c08a73ebff58fd2f4bed35ffe/spec/rubocop/cop/lint/useless_assignment_spec.rb
 [ruby-build]: https://github.com/rbenv/ruby-build/blob/4ef3159f94dd66c8325efb42db2faeb7d5732db0/bin/ruby-build
 [ruby-build-licence]: https://github.com/rbenv/ruby-build/blob/4ef3159f94dd66c8325efb42db2faeb7d5732db0/LICENSE
 [ruby-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/ruby.sample

@@ -38,7 +38,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
 | Markdown | `markdown` | 205 of 311 | 65.9% | 266 of 373 | 71.3% | 213 | 0 | yes |
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
-| Ruby | `ruby` | 168 of 336 | 50.0% | 139 of 293 | 47.4% | 0 | 8 |  |
+| Ruby | `ruby` | 251 of 336 | 74.7% | 225 of 293 | 76.8% | 0 | 0 |  |
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
 | SCSS | `scss` | 161 of 168 | 95.8% | 136 of 179 | 76.0% | 50 | 0 | yes |
 | shell | `shellscript` | 119 of 174 | 68.4% | 106 of 199 | 53.3% | 0 | 10 |  |
@@ -947,51 +947,19 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 ### `ruby`
 
 ```text
-patterns[1].match  groups 5
 patterns[3].match  (?<!\.)\belse(\s)+if\b
 patterns[5].match  (?<!\.)\b(case|if|elsif|unless|until|while)\b\s*(\()*?\s*([…
-patterns[7].match  (?<!\.)\b(case|if|elsif|unless|until|while)\b\s*(\()*?\s*([…
 patterns[21].end  groups 1
-patterns[30].begin  (->)\(
-patterns[30].end  \)
-patterns[30].patterns[0].begin  (?=[\&*A-Z_a-z])
-patterns[30].patterns[0].end  (?=[),])
-patterns[32].begin  (?=def\b)(?<=^|\s)(def)\s+((?>[A-Z_a-z]\w*(?>\.|::))?(?>[A-…
-patterns[32].end  (?=;)|(?<=[]!"')?`}\w])(?=\s*#|\s*$)
-patterns[32].patterns[0].begin  (?=[\&*A-Z_a-z])
-patterns[32].patterns[0].end  (?=[,;]|\s*#|\s*$)
-patterns[35].begin  :'
-patterns[35].end  '
-patterns[35].patterns[0].match  \\['\\]
 patterns[37].match  (?<!\()/=
-patterns[38].patterns[0].match  \\['\\]
-patterns[40].begin  (?<!\.)`  fuzz
-patterns[40].end  `  fuzz
-patterns[42].begin  %r\{
-patterns[42].end  }[eimnosux]*
-patterns[43].begin  %r\[
-patterns[43].end  ][eimnosux]*
-patterns[44].begin  %r\(
-patterns[44].end  \)[eimnosux]*
 patterns[45].begin  %r<
 patterns[45].end  >[eimnosux]*
-patterns[46].begin  %r(\W)
-patterns[46].end  \1[eimnosux]*
-patterns[47].begin  %I\[
-patterns[47].end  ]
-patterns[48].begin  %I\(
-patterns[48].end  \)
 patterns[49].begin  %I<
 patterns[49].end  >
 patterns[50].begin  %I\{
 patterns[50].end  }
 patterns[51].begin  %I(\W)
 patterns[51].end  \1
-patterns[52].begin  %i\[
-patterns[52].end  ]
 patterns[52].patterns[0].match  \\[]\\]
-patterns[53].begin  %i\(
-patterns[53].end  \)
 patterns[53].patterns[0].match  \\[)\\]
 patterns[54].begin  %i<
 patterns[54].end  >
@@ -999,21 +967,11 @@ patterns[54].patterns[0].match  \\[>\\]
 patterns[55].begin  %i\{
 patterns[55].end  }
 patterns[55].patterns[0].match  \\[\\}]
-patterns[56].begin  %i(\W)
-patterns[56].end  \1
 patterns[56].patterns[0].match  \\.
-patterns[57].begin  %W\[
-patterns[57].end  ]
-patterns[58].begin  %W\(
-patterns[58].end  \)
-patterns[59].begin  %W<
-patterns[59].end  >
 patterns[60].begin  %W\{
 patterns[60].end  }
 patterns[61].begin  %W(\W)
 patterns[61].end  \1
-patterns[62].begin  %w\[
-patterns[62].end  ]
 patterns[62].patterns[0].match  \\[]\\]
 patterns[63].patterns[0].match  \\[)\\]
 patterns[64].begin  %w<
@@ -1022,40 +980,23 @@ patterns[64].patterns[0].match  \\[>\\]
 patterns[65].begin  %w\{
 patterns[65].end  }
 patterns[65].patterns[0].match  \\[\\}]
-patterns[66].begin  %w(\W)
-patterns[66].end  \1
 patterns[66].patterns[0].match  \\.
-patterns[67].begin  %[Qx]?\(
-patterns[67].end  \)
-patterns[69].begin  %[Qx]?\{
-patterns[69].end  }
 patterns[70].begin  %[Qx]?<
 patterns[70].end  >
 patterns[71].begin  %[Qx](\W)
 patterns[71].end  \1
-patterns[73].begin  %q\(
-patterns[73].end  \)
-patterns[73].patterns[0].match  \\[)\\]
 patterns[74].begin  %q<
 patterns[74].end  >
 patterns[74].patterns[0].match  \\[>\\]
-patterns[75].begin  %q\[
-patterns[75].end  ]
 patterns[75].patterns[0].match  \\[]\\]
-patterns[76].begin  %q\{
-patterns[76].end  }
 patterns[76].patterns[0].match  \\[\\}]
 patterns[77].begin  %q(\W)
 patterns[77].end  \1
 patterns[77].patterns[0].match  \\.
-patterns[78].begin  %s\(
-patterns[78].end  \)
 patterns[78].patterns[0].match  \\[)\\]
 patterns[79].begin  %s<
 patterns[79].end  >
 patterns[79].patterns[0].match  \\[>\\]
-patterns[80].begin  %s\[
-patterns[80].end  ]
 patterns[80].patterns[0].match  \\[]\\]
 patterns[81].begin  %s\{
 patterns[81].end  }
@@ -1074,50 +1015,27 @@ patterns[90].begin  (?=(?><<[-~]?(["'`]?)((?:[_\w]+_|)HAML)\b\1))
 patterns[90].end  ^\s*((?:[_\w]+_|)HAML)$\n?
 patterns[90].patterns[0].begin  (?><<[-~]?(["'`]?)((?:[_\w]+_|)HAML)\b\1)
 patterns[90].patterns[0].while  ^(?!\s*((?:[_\w]+_|)HAML)\s*$)
-patterns[104].begin  (?>=\s*<<(["'`]?)([A-Z_a-z]\w*)\1)
 patterns[104].end  ^\2$
 #heredoc.begin  ^<<[-~]?[A-Z_a-z]\w*
 #heredoc.end  $
-#interpolated_ruby.patterns[2].match  (#@@)[A-Z_a-z]\w*
-#interpolated_ruby.patterns[3].match  (#\$)[A-Z_a-z]\w*
-#method_parameters.repository.#brackets.begin  \[
-#method_parameters.repository.#brackets.end  ]
-#method_parameters.repository.#parens.begin  \(  fuzz
-#method_parameters.repository.#parens.end  \)  fuzz
-#nest_brackets.begin  \[
-#nest_brackets.end  ]
 #nest_brackets_i.begin  \[
 #nest_brackets_i.end  ]
 #nest_brackets_r.begin  \[
 #nest_brackets_r.end  ]
-#nest_curly.begin  \{
-#nest_curly.end  }
-#nest_curly_and_self.patterns[0].begin  \{
-#nest_curly_and_self.patterns[0].end  }
 #nest_curly_i.begin  \{
 #nest_curly_i.end  }
-#nest_curly_r.begin  \{
-#nest_curly_r.end  }
 #nest_ltgt.begin  <
 #nest_ltgt.end  >
-#nest_ltgt_i.begin  <
-#nest_ltgt_i.end  >
 #nest_ltgt_r.begin  <
 #nest_ltgt_r.end  >
-#nest_parens.begin  \(
-#nest_parens.end  \)
-#nest_parens_i.begin  \(
-#nest_parens_i.end  \)
 #nest_parens_r.begin  \(
 #nest_parens_r.end  \)
 #regex_sub.patterns[4].begin  \(\?#
 #regex_sub.patterns[4].end  \)
 #regex_sub.patterns[6].begin  (?<=^|\s)(#)\s(?=[-\t !,.0-9?A-Za-z[^\x00-\x7F]]*$)
 #regex_sub.patterns[6].end  $\n?
-#yard_directive.begin  ^(\s*)(#)(\s*)(@!)(endgroup|group|method|parse|scope|visibi…
-#yard_directive.end  ^(?!\s*#\3\s{2,}|\s*#\s*$)
-#yard_option.begin  ^(\s*)(#)(\s*)(@)(option)(?=\s)(?>\s+([_a-z]\w*:?))?(?>\s+(…
-#yard_option.end  ^(?!\s*#\3\s{2,}|\s*#\s*$)
+#yard_directive.begin  groups 7, 8, 9
+#yard_option.begin  groups 12, 13, 14
 ```
 
 ### `rust`

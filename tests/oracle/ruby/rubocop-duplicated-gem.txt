@@ -1,0 +1,531 @@
+L # frozen_string_literal: true
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 29 source.ruby comment.line.number-sign.ruby
+L 
+L module RuboCop
+T 6 source.ruby meta.module.ruby keyword.control.module.ruby
+T 7 source.ruby meta.module.ruby
+T 14 source.ruby meta.module.ruby entity.name.type.module.ruby
+L   module Cop
+T 2 source.ruby
+T 8 source.ruby meta.module.ruby keyword.control.module.ruby
+T 9 source.ruby meta.module.ruby
+T 12 source.ruby meta.module.ruby entity.name.type.module.ruby
+L     module Bundler
+T 4 source.ruby
+T 10 source.ruby meta.module.ruby keyword.control.module.ruby
+T 11 source.ruby meta.module.ruby
+T 18 source.ruby meta.module.ruby entity.name.type.module.ruby
+L       # A Gem's requirements should be listed only once in a Gemfile.
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 69 source.ruby comment.line.number-sign.ruby
+L       #
+T 6 source.ruby punctuation.whitespace.comment.leading.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+L       # @example
+T 6 source.ruby comment.line.number-sign.ruby
+T 7 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 8 source.ruby comment.line.number-sign.ruby
+T 9 source.ruby comment.line.number-sign.ruby comment.line.keyword.punctuation.yard.ruby
+T 16 source.ruby comment.line.number-sign.ruby comment.line.keyword.yard.ruby
+L       #   # bad
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 15 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #   gem 'rubocop'
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 23 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #   gem 'rubocop'
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 23 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+L       #   # bad
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 15 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #   group :development do
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 31 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #     gem 'rubocop'
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 25 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #   end
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 13 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+L       #   group :test do
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 24 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #     gem 'rubocop'
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 25 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #   end
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 13 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+L       #   # good
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 16 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #   group :development, :test do
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 38 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #     gem 'rubocop'
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 25 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #   end
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 13 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+L       #   # good
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 16 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #   gem 'rubocop', groups: [:development, :test]
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 54 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+L       #   # good - conditional declaration
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 42 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #   if Dir.exist?(local)
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 30 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #     gem 'rubocop', path: local
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 38 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #   elsif ENV['RUBOCOP_VERSION'] == 'master'
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 50 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #     gem 'rubocop', git: 'https://github.com/rubocop/rubocop.git'
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 72 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #   else
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 14 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #     gem 'rubocop', '~> 0.90.0'
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 38 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #   end
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+T 13 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L       #
+T 7 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby punctuation.definition.comment.ruby
+L       class DuplicatedGem < Base
+T 6 source.ruby
+T 11 source.ruby meta.class.ruby keyword.control.class.ruby
+T 12 source.ruby meta.class.ruby
+T 25 source.ruby meta.class.ruby entity.name.type.class.ruby
+T 26 source.ruby meta.class.ruby
+T 27 source.ruby meta.class.ruby punctuation.separator.inheritance.ruby
+T 28 source.ruby meta.class.ruby
+T 32 source.ruby meta.class.ruby entity.other.inherited-class.ruby
+L         include RangeHelp
+T 8 source.ruby
+T 15 source.ruby keyword.other.special-method.ruby
+T 16 source.ruby
+T 25 source.ruby variable.other.constant.ruby
+L 
+L         MSG = 'Gem `%<gem_name>s` requirements already given on line ' \
+T 8 source.ruby
+T 11 source.ruby variable.other.constant.ruby
+T 12 source.ruby
+T 13 source.ruby keyword.operator.assignment.ruby
+T 14 source.ruby
+T 15 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 69 source.ruby string.quoted.single.ruby
+T 70 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+T 72 source.ruby
+L               '%<line_of_first_occurrence>d of the Gemfile.'
+T 14 source.ruby
+T 15 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 59 source.ruby string.quoted.single.ruby
+T 60 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L 
+L         def on_new_investigation
+T 8 source.ruby
+T 11 source.ruby meta.function.method.without-arguments.ruby keyword.control.def.ruby
+T 12 source.ruby meta.function.method.without-arguments.ruby
+T 32 source.ruby meta.function.method.without-arguments.ruby entity.name.function.ruby
+L           return if processed_source.blank?
+T 10 source.ruby
+T 16 source.ruby keyword.control.pseudo-method.ruby
+T 17 source.ruby
+T 19 source.ruby keyword.control.ruby
+T 36 source.ruby
+T 37 source.ruby punctuation.separator.method.ruby
+T 43 source.ruby meta.function-call.ruby entity.name.function.ruby
+L 
+L           duplicated_gem_nodes.each do |nodes|
+T 30 source.ruby
+T 31 source.ruby punctuation.separator.method.ruby
+T 35 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 36 source.ruby
+T 38 source.ruby keyword.control.start-block.ruby
+T 39 source.ruby
+T 40 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 45 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 46 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+L             nodes[1..].each do |node|
+T 17 source.ruby
+T 18 source.ruby punctuation.section.array.begin.ruby
+T 19 source.ruby constant.numeric.ruby
+T 20 source.ruby punctuation.separator.method.ruby
+T 21 source.ruby punctuation.separator.method.ruby
+T 22 source.ruby punctuation.section.array.end.ruby
+T 23 source.ruby punctuation.separator.method.ruby
+T 27 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 28 source.ruby
+T 30 source.ruby keyword.control.start-block.ruby
+T 31 source.ruby
+T 32 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 36 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 37 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+L               register_offense(node, node.first_argument.to_a.first, nodes.first.first_line)
+T 14 source.ruby
+T 30 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 31 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 35 source.ruby meta.function-call.ruby
+T 36 source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 41 source.ruby meta.function-call.ruby
+T 42 source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 56 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 57 source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 61 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 62 source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 67 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 68 source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 74 source.ruby meta.function-call.ruby
+T 75 source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 80 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 81 source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 91 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 92 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+L             end
+T 12 source.ruby
+T 15 source.ruby keyword.control.ruby
+L           end
+T 10 source.ruby
+T 13 source.ruby keyword.control.ruby
+L         end
+T 8 source.ruby
+T 11 source.ruby keyword.control.ruby
+L 
+L         private
+T 8 source.ruby
+T 15 source.ruby keyword.other.special-method.ruby
+L 
+L         # @!method gem_declarations(node)
+T 8 source.ruby comment.line.number-sign.ruby
+T 9 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 10 source.ruby comment.line.number-sign.ruby
+T 12 source.ruby comment.line.number-sign.ruby comment.line.keyword.punctuation.yard.ruby
+T 18 source.ruby comment.line.number-sign.ruby comment.line.keyword.yard.ruby
+T 41 source.ruby comment.line.number-sign.ruby comment.line.string.yard.ruby
+L         def_node_search :gem_declarations, '(send nil? :gem str ...)'
+T 24 source.ruby
+T 25 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 41 source.ruby constant.language.symbol.ruby
+T 42 source.ruby punctuation.separator.object.ruby
+T 43 source.ruby
+T 44 source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 68 source.ruby string.quoted.single.ruby
+T 69 source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L 
+L         def duplicated_gem_nodes
+T 8 source.ruby
+T 11 source.ruby meta.function.method.without-arguments.ruby keyword.control.def.ruby
+T 12 source.ruby meta.function.method.without-arguments.ruby
+T 32 source.ruby meta.function.method.without-arguments.ruby entity.name.function.ruby
+L           gem_declarations(processed_source.ast)
+T 10 source.ruby
+T 26 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 27 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 43 source.ruby meta.function-call.ruby
+T 44 source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 47 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 48 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+L             .group_by(&:first_argument)
+T 12 source.ruby
+T 13 source.ruby punctuation.separator.method.ruby
+T 21 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 22 source.ruby punctuation.section.function.ruby
+T 23 source.ruby keyword.operator.arithmetic.ruby
+T 24 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 38 source.ruby constant.language.symbol.ruby
+T 39 source.ruby punctuation.section.function.ruby
+L             .values
+T 12 source.ruby
+T 13 source.ruby punctuation.separator.method.ruby
+T 19 source.ruby meta.function-call.ruby entity.name.function.ruby
+L             .select { |nodes| nodes.size > 1 && !conditional_declaration?(nodes) }
+T 12 source.ruby
+T 13 source.ruby punctuation.separator.method.ruby
+T 19 source.ruby support.function.kernel.ruby
+T 20 source.ruby
+T 21 source.ruby punctuation.section.scope.begin.ruby
+T 22 source.ruby meta.syntax.ruby.start-block
+T 23 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 28 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 29 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 35 source.ruby
+T 36 source.ruby punctuation.separator.method.ruby
+T 40 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 41 source.ruby
+T 42 source.ruby keyword.operator.comparison.ruby
+T 43 source.ruby
+T 44 source.ruby constant.numeric.ruby
+T 45 source.ruby
+T 47 source.ruby keyword.operator.logical.ruby
+T 48 source.ruby
+T 49 source.ruby keyword.operator.logical.ruby
+T 73 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 74 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 79 source.ruby meta.function-call.ruby
+T 80 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 81 source.ruby
+T 82 source.ruby punctuation.section.scope.end.ruby
+L         end
+T 8 source.ruby
+T 11 source.ruby keyword.control.ruby
+L 
+L         def conditional_declaration?(nodes)
+T 8 source.ruby
+T 11 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 12 source.ruby meta.function.method.with-arguments.ruby
+T 36 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 37 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 42 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 43 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L           parent = nodes[0].each_ancestor.find { |ancestor| !ancestor.begin_type? }
+T 10 source.ruby
+T 16 source.ruby variable.ruby
+T 17 source.ruby
+T 18 source.ruby keyword.operator.assignment.ruby
+T 24 source.ruby
+T 25 source.ruby punctuation.section.array.begin.ruby
+T 26 source.ruby constant.numeric.ruby
+T 27 source.ruby punctuation.section.array.end.ruby
+T 28 source.ruby punctuation.separator.method.ruby
+T 41 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 42 source.ruby punctuation.separator.method.ruby
+T 46 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 47 source.ruby
+T 48 source.ruby punctuation.section.scope.begin.ruby
+T 49 source.ruby meta.syntax.ruby.start-block
+T 50 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 58 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 59 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 60 source.ruby
+T 61 source.ruby keyword.operator.logical.ruby
+T 69 source.ruby
+T 70 source.ruby punctuation.separator.method.ruby
+T 81 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 82 source.ruby
+T 83 source.ruby punctuation.section.scope.end.ruby
+L           return false unless parent&.type?(:if, :when)
+T 10 source.ruby
+T 16 source.ruby keyword.control.pseudo-method.ruby
+T 17 source.ruby
+T 22 source.ruby constant.language.boolean.ruby
+T 23 source.ruby
+T 29 source.ruby keyword.control.ruby
+T 36 source.ruby
+T 38 source.ruby keyword.operator.logical.ruby
+T 43 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 44 source.ruby punctuation.section.function.ruby
+T 45 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 47 source.ruby constant.language.symbol.ruby
+T 48 source.ruby punctuation.separator.object.ruby
+T 49 source.ruby
+T 50 source.ruby constant.language.symbol.ruby punctuation.definition.constant.ruby
+T 54 source.ruby constant.language.symbol.ruby
+T 55 source.ruby punctuation.section.function.ruby
+L 
+L           root_conditional_node = parent.if_type? ? parent : parent.parent
+T 10 source.ruby
+T 31 source.ruby variable.ruby
+T 32 source.ruby
+T 33 source.ruby keyword.operator.assignment.ruby
+T 40 source.ruby
+T 41 source.ruby punctuation.separator.method.ruby
+T 49 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 50 source.ruby
+T 51 source.ruby keyword.operator.comparison.ruby
+T 59 source.ruby
+T 60 source.ruby punctuation.separator.other.ruby
+T 67 source.ruby
+T 68 source.ruby punctuation.separator.method.ruby
+T 74 source.ruby meta.function-call.ruby entity.name.function.ruby
+L           nodes.all? { |node| within_conditional?(node, root_conditional_node) }
+T 15 source.ruby
+T 16 source.ruby punctuation.separator.method.ruby
+T 20 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 21 source.ruby
+T 22 source.ruby punctuation.section.scope.begin.ruby
+T 23 source.ruby meta.syntax.ruby.start-block
+T 24 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 28 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 29 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 30 source.ruby
+T 49 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 50 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 54 source.ruby meta.function-call.ruby
+T 55 source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 77 source.ruby meta.function-call.ruby
+T 78 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 79 source.ruby
+T 80 source.ruby punctuation.section.scope.end.ruby
+L         end
+T 8 source.ruby
+T 11 source.ruby keyword.control.ruby
+L 
+L         def within_conditional?(node, conditional_node)
+T 8 source.ruby
+T 11 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 12 source.ruby meta.function.method.with-arguments.ruby
+T 31 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 32 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 36 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 37 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 38 source.ruby meta.function.method.with-arguments.ruby
+T 54 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 55 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L           conditional_node.branches.compact.any? do |branch|
+T 26 source.ruby
+T 27 source.ruby punctuation.separator.method.ruby
+T 35 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 36 source.ruby punctuation.separator.method.ruby
+T 43 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 44 source.ruby punctuation.separator.method.ruby
+T 48 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 49 source.ruby
+T 51 source.ruby keyword.control.start-block.ruby
+T 52 source.ruby
+T 53 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+T 59 source.ruby meta.block.parameters.ruby variable.other.block.ruby
+T 60 source.ruby meta.block.parameters.ruby punctuation.separator.variable.ruby
+L             branch == node || branch.child_nodes.include?(node)
+T 19 source.ruby
+T 21 source.ruby keyword.operator.comparison.ruby
+T 27 source.ruby
+T 29 source.ruby keyword.operator.logical.ruby
+T 36 source.ruby
+T 37 source.ruby punctuation.separator.method.ruby
+T 48 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 49 source.ruby punctuation.separator.method.ruby
+T 57 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 58 source.ruby punctuation.section.function.ruby
+T 62 source.ruby
+T 63 source.ruby punctuation.section.function.ruby
+L           end
+T 10 source.ruby
+T 13 source.ruby keyword.control.ruby
+L         end
+T 8 source.ruby
+T 11 source.ruby keyword.control.ruby
+L 
+L         def register_offense(node, gem_name, line_of_first_occurrence)
+T 8 source.ruby
+T 11 source.ruby meta.function.method.with-arguments.ruby keyword.control.def.ruby
+T 12 source.ruby meta.function.method.with-arguments.ruby
+T 28 source.ruby meta.function.method.with-arguments.ruby entity.name.function.ruby
+T 29 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+T 33 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 34 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 35 source.ruby meta.function.method.with-arguments.ruby
+T 43 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 44 source.ruby meta.function.method.with-arguments.ruby punctuation.separator.object.ruby
+T 45 source.ruby meta.function.method.with-arguments.ruby
+T 69 source.ruby meta.function.method.with-arguments.ruby variable.parameter.function.ruby
+T 70 source.ruby meta.function.method.with-arguments.ruby punctuation.definition.parameters.ruby
+L           line_range = node.loc.column...node.loc.last_column
+T 10 source.ruby
+T 20 source.ruby variable.ruby
+T 21 source.ruby
+T 22 source.ruby keyword.operator.assignment.ruby
+T 27 source.ruby
+T 28 source.ruby punctuation.separator.method.ruby
+T 31 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 32 source.ruby punctuation.separator.method.ruby
+T 38 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 39 source.ruby punctuation.separator.method.ruby
+T 40 source.ruby punctuation.separator.method.ruby
+T 41 source.ruby punctuation.separator.method.ruby
+T 45 source.ruby
+T 46 source.ruby punctuation.separator.method.ruby
+T 49 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 50 source.ruby punctuation.separator.method.ruby
+T 61 source.ruby meta.function-call.ruby entity.name.function.ruby
+L           offense_location = source_range(processed_source.buffer, node.first_line, line_range)
+T 10 source.ruby
+T 26 source.ruby variable.ruby
+T 27 source.ruby
+T 28 source.ruby keyword.operator.assignment.ruby
+T 29 source.ruby
+T 41 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 42 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 58 source.ruby meta.function-call.ruby
+T 59 source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 65 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 66 source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 71 source.ruby meta.function-call.ruby
+T 72 source.ruby meta.function-call.ruby punctuation.separator.method.ruby
+T 82 source.ruby meta.function-call.ruby meta.function-call.ruby entity.name.function.ruby
+T 83 source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 94 source.ruby meta.function-call.ruby
+T 95 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+L           message = format(
+T 10 source.ruby
+T 17 source.ruby variable.ruby
+T 18 source.ruby
+T 19 source.ruby keyword.operator.assignment.ruby
+T 20 source.ruby
+T 26 source.ruby support.function.kernel.ruby
+T 27 source.ruby punctuation.section.function.ruby
+L             MSG,
+T 12 source.ruby
+T 15 source.ruby variable.other.constant.ruby
+T 16 source.ruby punctuation.separator.object.ruby
+L             gem_name: gem_name,
+T 12 source.ruby
+T 20 source.ruby constant.language.symbol.hashkey.ruby
+T 21 source.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 30 source.ruby
+T 31 source.ruby punctuation.separator.object.ruby
+L             line_of_first_occurrence: line_of_first_occurrence
+T 12 source.ruby
+T 36 source.ruby constant.language.symbol.hashkey.ruby
+T 37 source.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 62 source.ruby
+L           )
+T 10 source.ruby
+T 11 source.ruby punctuation.section.function.ruby
+L           add_offense(offense_location, message: message)
+T 10 source.ruby
+T 21 source.ruby meta.function-call.ruby entity.name.function.ruby
+T 22 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+T 38 source.ruby meta.function-call.ruby
+T 39 source.ruby meta.function-call.ruby punctuation.separator.object.ruby
+T 40 source.ruby meta.function-call.ruby
+T 47 source.ruby meta.function-call.ruby constant.language.symbol.hashkey.ruby
+T 48 source.ruby meta.function-call.ruby constant.language.symbol.hashkey.ruby punctuation.definition.constant.hashkey.ruby
+T 56 source.ruby meta.function-call.ruby
+T 57 source.ruby meta.function-call.ruby punctuation.section.function.ruby
+L         end
+T 8 source.ruby
+T 11 source.ruby keyword.control.ruby
+L       end
+T 6 source.ruby
+T 9 source.ruby keyword.control.ruby
+L     end
+T 4 source.ruby
+T 7 source.ruby keyword.control.ruby
+L   end
+T 2 source.ruby
+T 5 source.ruby keyword.control.ruby
+L end
+T 3 source.ruby keyword.control.ruby
+L 

@@ -36,7 +36,7 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 - [x] 3.6 TypeScript: `typescript`, `javascript`, `jsx`, `tsx`
   - 2026-11-04 UTC, [PR 281][pr281], [PR 275][pr275] and [PR 282][pr282]: 67 TypeScript test cases and a written input added, and a Unicode-digit key fixed in the lexer; the four grammars complete with seven waivers each. On `869e82a4` the [oracle test][run-282-ci] and the [coverage check][run-282-cov] passed.
 - [x] 3.7 C and C++: `c`, `cpp`, `cpp-macro`
-  - 2026-11-04 UTC, [PR 297][pr297], [PR 312][pr312] and [PR 313][pr313]: 22 picked inputs and two written ones, whose comments sit in the gaps the grammars capture; `c`, `cpp` and `cpp-macro` complete with 44, 234 and 131 waived units.
+  - 2026-11-04 UTC, [PR 297][pr297], [PR 312][pr312] and [PR 313][pr313]: 22 picked inputs and two written ones, whose comments sit in the gaps the grammars capture; `c`, `cpp` and `cpp-macro` complete with 44, 234 and 131 waived units. On `1f2a1d5f` the [oracle test][run-313-ci] and the [coverage check][run-313-cov] passed.
 - [x] 3.8 Rust: `rust`
   - 2026-11-04 UTC, [PR 259][pr259]: `rust/core-macros` and `rust/coverage` added; Rust complete with one waiver. On `b672f999` the [oracle test][run-259-ci] and the [coverage check][run-259-cov] passed.
 - [ ] 3.9 Ruby: `ruby`
@@ -83,6 +83,8 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr303]: https://github.com/victor-software-house/nishiki-archive/pull/303
 [pr312]: https://github.com/victor-software-house/nishiki-archive/pull/312
 [pr313]: https://github.com/victor-software-house/nishiki-archive/pull/313
+[run-313-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41795993407
+[run-313-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41795992947
 [run-299-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41789909151
 [run-299-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41789908503
 [pr306]: https://github.com/victor-software-house/nishiki-archive/pull/306
