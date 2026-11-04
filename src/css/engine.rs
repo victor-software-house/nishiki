@@ -40,9 +40,13 @@ pub(crate) trait CssLike: Grammar {
     fn css_extra(extra: &Self::Extra) -> &Extra;
     /// The stack `base` with CSS's scope `scope` on top.
     fn css_path(lexer: &mut rules::Lexer<'_, Self>, base: u32, scope: S) -> u32;
+    /// The scope that names each of CSS's units, in the order of `UNITS`.
+    const UNIT_SCOPES: &'static [Self::Scope];
 }
 
 impl CssLike for Css {
+    const UNIT_SCOPES: &'static [S] = &super::grammar::UNIT_SCOPES;
+
     #[inline]
     fn css_extra(extra: &Extra) -> &Extra {
         extra
@@ -72,7 +76,7 @@ pub(crate) struct Extra {
     pub(crate) listed: Cell<(usize, usize, u32)>,
     /// The last word after a number looked up among the units: where it
     /// starts and ends, and the unit it spells.
-    pub(crate) unit: Cell<(usize, usize, Option<&'static str>)>,
+    pub(crate) unit: Cell<(usize, usize, Option<usize>)>,
     /// Where the bytes the lookaheads search for are.
     pub(crate) ahead: Ahead,
 }

@@ -127,3 +127,16 @@ fn a_unit_spelled_with_a_fold_is_named_from_its_text_lowered() {
         "keyword.other.unit.\u{17f}.css"
     );
 }
+
+/// Every CSS unit is named in SCSS through SCSS's own unit scopes.
+#[test]
+fn every_css_unit_is_named() {
+    for unit in crate::css::UNITS {
+        let line = format!("$a: 1{unit};");
+        assert_eq!(
+            leaf_in(&lex(&line), unit),
+            format!("keyword.other.unit.{unit}.css"),
+            "{line:?}"
+        );
+    }
+}

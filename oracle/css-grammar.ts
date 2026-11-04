@@ -31,12 +31,19 @@ export const repository = grammar.repository;
 const downcase = (name: string | undefined, group: number, word: string) =>
   name?.replace(`\${${group}:/downcase}`, word.toLowerCase());
 
+/** The units of the grammar's numeric values, sorted and lowered. */
+export let units: string[] = [];
+
 /**
  * The grammar names a scope after the text a group matched, as in
- * \`keyword.other.unit.${2:/downcase}.css\`; a scope is a fixed name here, so a
- * pattern that does so becomes one pattern for each alternative of the group,
- * each with its own name. The expansion keeps the grammar's order, and so what
- * wins where more than one alternative matches.
+ * \`keyword.other.unit.${2:/downcase}.css\`.
+ * The at-rule keywords of \`font-features\` become one pattern each, with its own name.
+ * The expansion keeps the grammar's order.
+ *
+ * The numeric units stay one pattern, with no fixed name for the unit.
+ * Its matcher names the unit from the table of units and their scopes.
+ * Every unit is letters only and ends at \`\\b\`.
+ * So at most one unit matches after a number, and their order does not matter.
  */
 function expandDynamic(): void {
   const fonts = repository["font-features"]!;
@@ -61,16 +68,15 @@ function expandDynamic(): void {
   const marker = "(?:(%)|(";
   const at = regex.indexOf(marker);
   const prefix = regex.slice(0, at);
-  const units = regex.slice(at + marker.length, regex.lastIndexOf(")\\b)?")).split("|");
-  const unitScope = (word: string) => `keyword.other.unit.${word.toLowerCase()}.css`;
+  const alternation = regex.slice(at + marker.length, regex.lastIndexOf(")\\b)?"));
+  units = alternation.split("|").map((word) => word.toLowerCase()).sort();
+  for (const word of units) {
+    if (!/^[a-z]+$/.test(word)) throw new Error(`unit ${word} is not letters only`);
+  }
   repository["numeric-values"]!.patterns = [
     repository["numeric-values"]!.patterns![0]!,
     { match: `${prefix}(?:(%))`, name: numeric.name, captures: { "1": { name: "keyword.other.unit.percentage.css" } } },
-    ...units.map((word) => ({
-      match: `${prefix}(?:(${word})\\b)`,
-      name: numeric.name,
-      captures: { "1": { name: unitScope(word) } },
-    })),
+    { match: `${prefix}(?:(${alternation})\\b)`, name: numeric.name },
     { match: prefix, name: numeric.name },
   ];
 }
@@ -151,6 +157,9 @@ function scope(name: string): string {
 function scopeList(name: string | undefined): string[] {
   return name === undefined ? [] : name.split(" ").map(scope);
 }
+
+/** The scope of each of \`units\`, in the same order. */
+export const unitScopes = units.map((word) => scope(`keyword.other.unit.${word}.css`));
 
 // Rules and patterns.
 
@@ -372,6 +381,18 @@ g += arms(
 g += `        }\n    }\n}\n`;
 
 
+g += `
+/// The units of the grammar's numeric values, sorted and lowered.
+/// The unit pattern's matcher looks up the word after a number here once.
+pub(crate) const UNITS: [&str; ${units.length}] = [${units.map((u) => `"${u}"`).join(", ")}];
+
+/// The length of the longest of [\`UNITS\`].
+/// A longer word is none of them.
+pub(crate) const LONGEST_UNIT: usize = ${Math.max(...units.map((u) => u.length))};
+
+/// The scope that names each of [\`UNITS\`], in the same order.
+pub(crate) const UNIT_SCOPES: [S; ${units.length}] = [${unitScopes.map((u) => `S::${u}`).join(", ")}];
+`;
 g += startTable(patList);
 g += ruleCodes("Css", "CSS");
 g += groupsCheck("Css", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));

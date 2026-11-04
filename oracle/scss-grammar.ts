@@ -367,6 +367,10 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
+g += `
+/// The scope that names each of CSS's units, in the order of CSS's \`UNITS\`.
+pub(crate) const UNIT_SCOPES: [S; ${css.unitScopes.length}] = [${css.unitScopes.map((u) => `S::${fromCss(u)}`).join(", ")}];
+`;
 g += startTable(patList);
 g += ruleCodes("Scss", "SCSS");
 g += groupsCheck("Scss", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));

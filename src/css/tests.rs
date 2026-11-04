@@ -1,4 +1,4 @@
-use super::matchers::{LONGEST_UNIT, UNITS};
+use super::grammar::{LONGEST_UNIT, UNITS};
 use crate::Language;
 use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf};
 
@@ -280,9 +280,19 @@ fn a_shared_name_in_upper_case_starts_a_selector() {
 
 /// The unit table is sorted for its binary search. `LONGEST_UNIT` is the
 /// length of its longest unit, and it bounds the lowering buffer.
+///
+/// Every unit is lower-case ASCII letters.
+/// So at most one unit ends at `\b` after a number.
+/// The one unit pattern then matches as the grammar's alternatives do.
 #[test]
 fn the_unit_table_is_sorted_and_bounds_its_longest_unit() {
     assert!(UNITS.is_sorted(), "{UNITS:?}");
+    assert!(
+        UNITS
+            .iter()
+            .all(|unit| !unit.is_empty() && unit.bytes().all(|b| b.is_ascii_lowercase())),
+        "{UNITS:?}"
+    );
     assert_eq!(
         UNITS.iter().map(|unit| unit.len()).max(),
         Some(LONGEST_UNIT)

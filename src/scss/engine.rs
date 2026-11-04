@@ -130,6 +130,8 @@ impl Grammar for Scss {
 }
 
 impl CssLike for Scss {
+    const UNIT_SCOPES: &'static [S] = &super::grammar::UNIT_SCOPES;
+
     #[inline]
     fn css_extra(extra: &Extra) -> &crate::css::Extra {
         &extra.css

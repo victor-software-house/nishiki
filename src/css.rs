@@ -20,6 +20,8 @@ use engine::Css;
 pub(crate) use engine::Scratch;
 #[cfg(feature = "lang-scss")]
 pub(crate) use engine::{CssLike, Extra, unit_name_case};
+#[cfg(all(test, feature = "lang-scss"))]
+pub(crate) use grammar::UNITS;
 #[cfg(feature = "lang-scss")]
 pub(crate) use grammar::{Nested, Pat};
 pub(crate) use scope::NAMES;

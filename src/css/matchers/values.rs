@@ -2,6 +2,7 @@
 
 use super::super::ahead::Find;
 use super::super::engine::{CssLike, UNIT_PREFIX};
+use super::super::grammar::{LONGEST_UNIT, UNITS};
 use super::super::words::List;
 use super::chars::Words;
 use super::selectors::Tail;
@@ -17,18 +18,6 @@ enum SharedList {
     /// A pseudo-class or pseudo-element, the longer lookahead.
     Second,
 }
-
-/// The units of the grammar's numeric values, sorted, so that the word
-/// after a number is looked up once ([`Lexer::unit_after`]).
-pub(in crate::css) const UNITS: &[&str] = &[
-    "ch", "cm", "cqb", "cqh", "cqi", "cqmax", "cqmin", "cqw", "deg", "dpcm", "dpi", "dppx", "dvb",
-    "dvh", "dvi", "dvw", "em", "ex", "fr", "grad", "hz", "ic", "in", "khz", "lvb", "lvh", "lvi",
-    "lvw", "mm", "mozmm", "ms", "pc", "pt", "px", "q", "rad", "rcap", "rch", "rem", "rex", "ric",
-    "rlh", "s", "svb", "svh", "svi", "svw", "turn", "vb", "vh", "vi", "vmax", "vmin", "vw",
-];
-
-/// The length of the longest of [`UNITS`]. A longer word is none of them.
-pub(in crate::css) const LONGEST_UNIT: usize = 5;
 
 impl<G: CssLike> Lexer<'_, G> {
     /// `(?<![-\w])(name)(\()` for the names in `list`: the name is group 1 and
@@ -401,12 +390,10 @@ impl<G: CssLike> Lexer<'_, G> {
     }
 
     /// The run of `[-\w]` characters after the number that ends at `number`,
-    /// and the unit of [`UNITS`] it spells in any case, a character above
-    /// ASCII standing for the letters it folds to.
-    ///
-    /// The grammar tries each unit's pattern in turn at the same number, so
-    /// the run is lowered and looked up once and kept in CSS's `Extra`.
-    fn unit_after(&self, number: usize) -> (usize, Option<&'static str>) {
+    /// and the index in [`UNITS`] of the unit it spells in any case.
+    /// A character above ASCII stands for the letters it folds to.
+    /// The run is lowered and looked up once and kept in CSS's `Extra`.
+    fn unit_after(&self, number: usize) -> (usize, Option<usize>) {
         let (at, end, unit) = G::css_extra(&self.x).unit.get();
         if at == number {
             return (end, unit);
@@ -422,35 +409,40 @@ impl<G: CssLike> Lexer<'_, G> {
                 UNITS
                     .binary_search_by(|known| known.as_bytes().cmp(word))
                     .ok()
-            })
-            .and_then(|i| UNITS.get(i).copied());
+            });
         G::css_extra(&self.x).unit.set((number, end, unit));
         (end, unit)
     }
 
-    /// The number followed by `unit`, one of [`UNITS`], in any case, with a
-    /// boundary after it.
+    /// The number followed by one of [`UNITS`], in any case, with a boundary
+    /// after it.
+    /// The grammar's unit alternatives are one pattern here.
+    /// Every unit is letters only, so at most one of them ends at `\b`.
     ///
     /// The grammar names the unit `keyword.other.unit.${2:/downcase}.css`.
-    /// A unit of ASCII takes its pattern's fixed name. A unit with a
-    /// character above ASCII is named from its text, lowered as that name
-    /// does. So `500mſ` is `keyword.other.unit.mſ.css`, as in Shiki.
+    /// A unit of ASCII takes its scope from `UNIT_SCOPES`.
+    /// A unit with a character above ASCII is named from its text, lowered
+    /// as that name does.
+    /// So `500mſ` is `keyword.other.unit.mſ.css`, as in Shiki.
     ///
-    /// The text is ASCII exactly when it is as long as `unit`. Every fold
-    /// that matches a unit's letters is longer than they are, as `ſ` for `s`
-    /// or `ﬆ` for `st`. Only `ß` for `ss`, `ﬃ` for `ffi` and `ﬄ` for `ffl`
-    /// keep the length. No unit holds those letters, and a test checks it.
-    pub(in crate::css) fn numeric_unit(&mut self, p: usize, unit: &str) -> Option<usize> {
+    /// The text is ASCII exactly when it is as long as the unit.
+    /// Every fold that matches a unit's letters is longer than they are, as
+    /// `ſ` for `s` or `ﬆ` for `st`.
+    /// Only `ß` for `ss`, `ﬃ` for `ffi` and `ﬄ` for `ffl` keep the length.
+    /// No unit holds those letters, and a test checks it.
+    pub(in crate::css) fn numeric_unit(&mut self, p: usize) -> Option<usize> {
         let number = self.number_end(p)?;
-        let (end, found) = self.unit_after(number);
-        (found == Some(unit)).then(|| {
-            if end - number == unit.len() {
-                self.cap(1, number, end);
-            } else {
-                self.folded_unit(number, end);
-            }
-            end
-        })
+        let (end, unit) = self.unit_after(number);
+        let unit = unit?;
+        if UNITS
+            .get(unit)
+            .is_some_and(|text| end - number == text.len())
+        {
+            self.span_one(number, end, G::UNIT_SCOPES.get(unit).copied(), None);
+        } else {
+            self.folded_unit(number, end);
+        }
+        Some(end)
     }
 
     /// Names the unit `number..end` from its text lowered. The unit holds a
