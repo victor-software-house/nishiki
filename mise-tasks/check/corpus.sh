@@ -20,9 +20,12 @@ else
 fi
 
 problems=()
-listed=()
+# Every row's path, each between line feeds, for a membership test without a
+# pipe: `printf | grep -q` lets grep exit early, printf then dies of SIGPIPE,
+# and pipefail reads that as no match (a merge-group run, 2026-11-04).
+listed=$'\n'
 while IFS=$'\t' read -r path tier bytes sha source licence; do
-  listed+=("$path")
+  listed+="$path"$'\n'
   file="$root/$path"
   if [ ! -f "$file" ]; then
     problems+=("$path: listed but missing")
@@ -50,7 +53,7 @@ while IFS= read -r file; do
   [ "$path" = README.md ] && continue
   [ "$path" = .ignore ] && continue
   [ "$path" = .gitattributes ] && continue
-  printf '%s\n' "${listed[@]}" | grep -qxF "$path" || problems+=("$path: no row in $manifest")
+  [[ $listed == *$'\n'"$path"$'\n'* ]] || problems+=("$path: no row in $manifest")
 done < <(find "$root" -type f | sort)
 
 if [ "${#problems[@]}" -gt 0 ]; then
