@@ -1048,6 +1048,12 @@ impl Tokenizer<'_> {
 
     /// `base` with the scopes `names` name on top, built from `caps` where a
     /// name asks for it.
+    ///
+    /// A filled name splits into scopes at spaces only, as vscode-textmate's
+    /// `split(/ /g)` does.
+    /// A tab that a capture brings in stays inside its scope.
+    /// The shell grammar's quoted `<<-` heredoc end names its tab-indented
+    /// delimiter.
     fn push_names(&mut self, base: u32, names: &[u16], caps: &Caps) -> u32 {
         let mut stack = base;
         for &reference in names {
@@ -1062,7 +1068,7 @@ impl Tokenizer<'_> {
             };
             let mut filled = std::mem::take(&mut self.s.name);
             fill_name(name, &self.s.text, caps, &mut filled);
-            for piece in filled.split_whitespace() {
+            for piece in filled.split(' ').filter(|piece| !piece.is_empty()) {
                 let scope = self.arena.named_scope(piece);
                 stack = self.push_scope(stack, scope);
             }

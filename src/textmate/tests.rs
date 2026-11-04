@@ -1353,6 +1353,29 @@ fn a_group_far_into_a_pattern_is_named() {
     assert_eq!(scopes[1], ["keyword.test", "source.test"]);
 }
 
+/// A tab that a capture brings into a filled scope name stays inside that
+/// scope, as vscode-textmate splits a name at spaces only.
+/// The shell grammar's quoted `<<-` heredoc end names its tab-indented
+/// delimiter.
+#[test]
+fn a_tab_in_a_filled_name_stays_in_its_scope() {
+    let lines: Vec<Line> = ["cat <<-\"EOF\"", "\ttext", "\tEOF"]
+        .into_iter()
+        .map(|text| Line {
+            text: text.to_owned(),
+            stacks: Vec::new(),
+        })
+        .collect();
+    let lexed = scoped_tokens(&shell_tables::GRAMMAR, &lines, Frames::Kept);
+    let end = lexed.last().expect("the delimiter's line");
+    assert!(
+        end.iter()
+            .any(|(_, scopes)| scopes
+                .ends_with(" punctuation.definition.string.heredoc.\tEOF.shell")),
+        "{end:?}"
+    );
+}
+
 /// The halts the tests below pass, as an embedding language's would be.
 mod halts {
     use super::super::tokenizer::{self, Embedded, Scratch, Text};
